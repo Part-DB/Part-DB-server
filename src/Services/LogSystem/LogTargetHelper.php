@@ -1,0 +1,141 @@
+<?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+namespace App\Services\LogSystem;
+
+use App\Entity\Attachments\Attachment;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\UserNotAllowedLogEntry;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parts\PartLot;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Exceptions\EntityNotSupportedException;
+use App\Repository\LogEntryRepository;
+use App\Services\ElementTypeNameGenerator;
+use App\Services\EntityURLGenerator;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+class LogTargetHelper
+{
+    protected EntityManagerInterface $em;
+    protected LogEntryRepository $entryRepository;
+    protected EntityURLGenerator $entityURLGenerator;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
+    protected TranslatorInterface $translator;
+
+    public function __construct(EntityManagerInterface $entityManager, EntityURLGenerator $entityURLGenerator,
+        ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator)
+    {
+        $this->em = $entityManager;
+        $this->entryRepository = $entityManager->getRepository(AbstractLogEntry::class);
+
+        $this->entityURLGenerator = $entityURLGenerator;
+        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
+        $this->translator = $translator;
+    }
+
+    private function configureOptions(OptionsResolver $resolver): self
+    {
+        $resolver->setDefault('show_associated', true);
+        $resolver->setDefault('showAccessDeniedPath', true);
+
+        return $this;
+    }
+
+    public function formatTarget(AbstractLogEntry $context, array $options = []): string
+    {
+        $optionsResolver = new OptionsResolver();
+        $this->configureOptions($optionsResolver);
+        $options = $optionsResolver->resolve($options);
+
+        if ($context instanceof UserNotAllowedLogEntry && $options['showAccessDeniedPath']) {
+            return htmlspecialchars($context->getPath());
+        }
+
+        /** @var AbstractLogEntry $context */
+        $target = $this->entryRepository->getTargetElement($context);
+
+        $tmp = '';
+
+        //The element is existing
+        if ($target instanceof NamedElementInterface && !empty($target->getName())) {
+            try {
+                $tmp = sprintf(
+                    '<a href="%s">%s</a>',
+                    $this->entityURLGenerator->infoURL($target),
+                    $this->elementTypeNameGenerator->getTypeNameCombination($target, true)
+                );
+            } catch (EntityNotSupportedException $exception) {
+                $tmp = $this->elementTypeNameGenerator->getTypeNameCombination($target, true);
+            }
+        } elseif ($target instanceof AbstractDBElement) { //Target does not have a name
+            $tmp = sprintf(
+                '<i>%s</i>: %s',
+                $this->elementTypeNameGenerator->getLocalizedTypeLabel($target),
+                $target->getID()
+            );
+        } elseif (null === $target && $context->hasTarget()) {  //Element was deleted
+            $tmp = sprintf(
+                '<i>%s</i>: %s [%s]',
+                $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getTargetClass()),
+                $context->getTargetID(),
+                $this->translator->trans('log.target_deleted')
+            );
+        }
+
+        //Add a hint to the associated element if possible
+        if (null !== $target && $options['show_associated']) {
+            if ($target instanceof Attachment && null !== $target->getElement()) {
+                $on = $target->getElement();
+            } elseif ($target instanceof AbstractParameter && null !== $target->getElement()) {
+                $on = $target->getElement();
+            } elseif ($target instanceof PartLot && null !== $target->getPart()) {
+                $on = $target->getPart();
+            } elseif ($target instanceof Orderdetail && null !== $target->getPart()) {
+                $on = $target->getPart();
+            } elseif ($target instanceof Pricedetail && null !== $target->getOrderdetail() && null !== $target->getOrderdetail()->getPart()) {
+                $on = $target->getOrderdetail()->getPart();
+            } elseif ($target instanceof ProjectBOMEntry && null !== $target->getProject()) {
+                $on = $target->getProject();
+            }
+
+            if (isset($on) && is_object($on)) {
+                try {
+                    $tmp .= sprintf(
+                        ' (<a href="%s">%s</a>)',
+                        $this->entityURLGenerator->infoURL($on),
+                        $this->elementTypeNameGenerator->getTypeNameCombination($on, true)
+                    );
+                } catch (EntityNotSupportedException $exception) {
+                    $tmp .= ' ('.$this->elementTypeNameGenerator->getTypeNameCombination($target, true).')';
+                }
+            }
+        }
+
+        //Log is not associated with an element
+        return $tmp;
+    }
+}

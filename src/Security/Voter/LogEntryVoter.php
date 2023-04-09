@@ -53,7 +53,7 @@ class LogEntryVoter extends ExtendedVoter
     protected function supports($attribute, $subject): bool
     {
         if ($subject instanceof AbstractLogEntry) {
-            return in_array($subject, static::ALLOWED_OPS, true);
+            return in_array($attribute, static::ALLOWED_OPS, true);
         }
 
         return false;

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Filters\LogFilter;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractDBElement;
@@ -33,6 +34,9 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Form\Filters\LogFilterType;
 use App\Repository\DBElementRepository;
 use App\Services\LogSystem\EventUndoHelper;
+use App\Services\LogSystem\LogEntryExtraFormatter;
+use App\Services\LogSystem\LogLevelHelper;
+use App\Services\LogSystem\LogTargetHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -90,6 +94,28 @@ class LogController extends AbstractController
         return $this->render('log_system/log_list.html.twig', [
             'datatable' => $table,
             'filterForm' => $filterForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/details", name="log_details")
+     * @param  Request  $request
+     * @param  AbstractLogEntry  $logEntry
+     * @return Response
+     */
+    public function logDetails(Request $request, AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
+        LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper): Response
+    {
+        $this->denyAccessUnlessGranted('read', $logEntry);
+
+        $extra_html = $logEntryExtraFormatter->format($logEntry);
+        $target_html = $logTargetHelper->formatTarget($logEntry);
+
+        return $this->render('log_system/details/log_details.html.twig', [
+            'log_entry' => $logEntry,
+            'extra_html' => $extra_html,
+            'target_html' => $target_html,
+            'log_level_helper' => $logLevelHelper,
         ]);
     }
 

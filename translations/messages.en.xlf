@@ -11289,5 +11289,11 @@ Element 3</target>
         <target>Show email on public profile page</target>
       </segment>
     </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment>
+        <source>log.details.title</source>
+        <target>Log details</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

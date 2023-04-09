@@ -1,0 +1,63 @@
+{% extends "main_card.html.twig" %}
+
+{% import "helper.twig" as helper %}
+
+{% block title %}
+    {% trans %}log.details.title{% endtrans %}:
+    {{ ('log.type.' ~ log_entry.type) | trans }} ({{ log_entry.timestamp | format_datetime('short') }})
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-binoculars"></i>
+    {% trans %}log.details.title{% endtrans %}:
+    <i>{{ ('log.type.' ~ log_entry.type) | trans }}</i> ({{ log_entry.timestamp | format_datetime('short') }})
+    <span class="float-end">ID: {{ log_entry.iD }}</span>
+{% endblock %}
+
+{% block card_body %}
+    <table class="table table-striped table-hover mb-0 {{ log_level_helper.logLevelToTableColorClass(log_entry.levelString) }}">
+        <tr>
+            <td>{% trans %}log.timestamp{% endtrans %}</td>
+            <td>{{ log_entry.timestamp | format_datetime('full') }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.type{% endtrans %}</td>
+            <td>
+                {{ ('log.type.' ~ log_entry.type) | trans }}
+                {% if log_entry.type == 'part_stock_changed' %}
+                    ({{ ('log.part_stock_changed.' ~ log_entry.instockChangeType)|trans }})
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.level{% endtrans %}</td>
+            <td>
+                <i class="fa-solid {{ log_level_helper.logLevelToIconClass(log_entry.levelString) }} fa-fw"></i>
+                {{ ('log.level.'~ log_entry.levelString)|trans }}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.user{% endtrans %}
+            <td>
+                {% if log_entry.cLIEntry %}
+                    <i class="fa-solid fa-terminal"></i>
+                    {{ log_entry.cLIUsername }} ({% trans %}log.cli_user{% endtrans %})
+                {% else %}
+                    {% if log_entry.user %}
+                        {{ helper.user_icon_link(log_entry.user) }} (@{{ log_entry.user.username }})
+                    {% else %}
+                        @{{ log_entry.username }} ({% trans %}log.target_deleted{% endtrans %}
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.target{% endtrans %}</td>
+            <td>{{ target_html|raw }}</td>
+        </tr>
+    </table>
+
+    <div class="card-body">
+        {{ extra_html | raw }}
+    </div>
+{% endblock %}

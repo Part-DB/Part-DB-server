@@ -44,6 +44,7 @@ use App\Exceptions\EntityNotSupportedException;
 use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\LogSystem\LogLevelHelper;
 use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -70,10 +71,11 @@ class LogDataTable implements DataTableTypeInterface
     protected LogEntryRepository $logRepo;
     protected Security $security;
     protected UserAvatarHelper $userAvatarHelper;
+    protected LogLevelHelper $logLevelHelper;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
-        Security $security, UserAvatarHelper $userAvatarHelper)
+        Security $security, UserAvatarHelper $userAvatarHelper, LogLevelHelper $logLevelHelper)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;
@@ -82,6 +84,7 @@ class LogDataTable implements DataTableTypeInterface
         $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
         $this->security = $security;
         $this->userAvatarHelper = $userAvatarHelper;
+        $this->logLevelHelper = $logLevelHelper;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -115,69 +118,18 @@ class LogDataTable implements DataTableTypeInterface
 
         //This special $$rowClass column is used to set the row class depending on the log level. The class gets set by the frontend controller
         $dataTable->add('dont_matter', RowClassColumn::class, [
-            'render' => static function ($value, AbstractLogEntry $context) {
-                switch ($context->getLevel()) {
-                    case AbstractLogEntry::LEVEL_EMERGENCY:
-                    case AbstractLogEntry::LEVEL_ALERT:
-                    case AbstractLogEntry::LEVEL_CRITICAL:
-                    case AbstractLogEntry::LEVEL_ERROR:
-                        return 'table-danger';
-                    case AbstractLogEntry::LEVEL_WARNING:
-                        return 'table-warning';
-                    case AbstractLogEntry::LEVEL_NOTICE:
-                        return 'table-info';
-                    default:
-                        return '';
-                }
+            'render' => function ($value, AbstractLogEntry $context) {
+                return $this->logLevelHelper->logLevelToTableColorClass($context->getLevelString());
             },
         ]);
 
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
-            'render' => static function ($value, AbstractLogEntry $context) {
-                switch ($context->getLevelString()) {
-                    case LogLevel::DEBUG:
-                        $symbol = 'fa-bug';
-
-                        break;
-                    case LogLevel::INFO:
-                        $symbol = 'fa-info';
-
-                        break;
-                    case LogLevel::NOTICE:
-                        $symbol = 'fa-flag';
-
-                        break;
-                    case LogLevel::WARNING:
-                        $symbol = 'fa-exclamation-circle';
-
-                        break;
-                    case LogLevel::ERROR:
-                        $symbol = 'fa-exclamation-triangle';
-
-                        break;
-                    case LogLevel::CRITICAL:
-                        $symbol = 'fa-bolt';
-
-                        break;
-                    case LogLevel::ALERT:
-                        $symbol = 'fa-radiation';
-
-                        break;
-                    case LogLevel::EMERGENCY:
-                        $symbol = 'fa-skull-crossbones';
-
-                        break;
-                    default:
-                        $symbol = 'fa-question-circle';
-
-                        break;
-                }
-
+            'render' => function ($value, AbstractLogEntry $context) {
                 return sprintf(
                     '<i class="fas fa-fw %s" title="%s"></i>',
-                    $symbol,
+                    $this->logLevelHelper->logLevelToIconClass($context->getLevelString()),
                     $context->getLevelString()
                 );
             },
@@ -191,6 +143,12 @@ class LogDataTable implements DataTableTypeInterface
         $dataTable->add('timestamp', LocaleDateTimeColumn::class, [
             'label' => 'log.timestamp',
             'timeFormat' => 'medium',
+            'render' => function (string $value, AbstractLogEntry $context) {
+                return sprintf('<a href="%s">%s</a>',
+                    $this->urlGenerator->generate('log_details', ['id' => $context->getId()]),
+                    $value
+                );
+            }
         ]);
 
         $dataTable->add('type', TextColumn::class, [
