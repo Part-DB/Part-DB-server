@@ -113,7 +113,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     {
         $key = $this->extra['e'];
 
-        return static::SECURITY_TYPE_MAPPING[$key] ?? 'unkown';
+        return static::SECURITY_TYPE_MAPPING[$key] ?? 'unknown';
     }
 
     /**

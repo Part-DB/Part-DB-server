@@ -58,6 +58,19 @@
     </table>
 
     <div class="card-body">
-        {{ extra_html | raw }}
+        {# This assignment is to improve autocomplete on the subpages, as PHPstorm ignores typehints for log_entry #}
+        {% set entry = log_entry %}
+        {% if log_entry is instanceof('App\\Entity\\LogSystem\\DatabaseUpdatedLogEntry') %}
+            {% include "log_system/details/_extra_database_updated.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\UserLoginLogEntry')
+            or log_entry is instanceof('App\\Entity\\LogSystem\\UserLogoutLogEntry')  %}
+            {% include "log_system/details/_extra_user_login.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\UserNotAllowedLogEntry') %}
+            {% include "log_system/details/_extra_user_not_allowed.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\SecurityEventLogEntry') %}
+            {% include "log_system/details/_extra_security_event.html.twig" %}
+        {% else %}
+            {{ extra_html | raw }}
+        {% endif %}
     </div>
 {% endblock %}

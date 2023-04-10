@@ -1,0 +1,4 @@
+{# @var entry \App\Entity\LogSystem\UserNotAllowedLogEntry #}
+
+{% trans %}log.user_not_allowed.unauthorized_access_attempt_to{% endtrans %}: &nbsp;<code>{{ entry.path }}</code>
+<p class="text-muted">{% trans %}log.user_not_allowed.hint{% endtrans %}</p>

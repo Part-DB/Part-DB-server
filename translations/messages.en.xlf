@@ -11295,5 +11295,29 @@ Element 3</target>
         <target>Log details</target>
       </segment>
     </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment>
+        <source>log.user_login.login_from_ip</source>
+        <target>Login from IP address</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment>
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>If the last digits of the IP address are missing, then the GPDR mode is enabled, in which IP addresses are anynomized.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment>
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Unauthorized access attempt to page</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment>
+        <source>log.user_not_allowed.hint</source>
+        <target>The request was blocked. No action should be required.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
