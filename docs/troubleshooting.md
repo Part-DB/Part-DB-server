@@ -22,6 +22,11 @@ php bin/console doctrine:migrations:migrate
 
 If this does not help, please [open an issue on GitHub](https://github.com/Part-DB/Part-DB-symfony).
 
+## Search for user and reset password:
+You can list all users with the following command: `php bin/console partdb:users:list`
+To reset the password of a user you can use the following command: `php bin/console partdb:users:set-password [username]`
+
+
 ## Error logs
 Detailed error logs can be found in the `var/log` directory.
 When Part-DB is installed directly, the errors are written to the `var/log/prod.log` file.
