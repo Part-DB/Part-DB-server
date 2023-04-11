@@ -311,5 +311,11 @@
         <target>Der Besitzer dieses Bauteilebestandes und des gewählten Lagerortes müssen übereinstimmen (%owner_name%)!</target>
       </segment>
     </unit>
+    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>Der Eigentümer darf nicht der anonymous Benutzer sein!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
