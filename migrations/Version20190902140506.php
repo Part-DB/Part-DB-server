@@ -216,10 +216,10 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_C68C4459398D64AA ON pricedetails (id_currency)');
         $this->addSql('CREATE INDEX IDX_C68C44594A01DDC7 ON pricedetails (orderdetails_id)');
         $this->addSql('DROP INDEX pricedetails_orderdetails_id_k ON pricedetails');
-        $this->addSql('DROP INDEX name ON groups');
-        $this->addSql('ALTER TABLE groups ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE perms_labels perms_labels INT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
-        $this->addSql('ALTER TABLE groups ADD CONSTRAINT FK_F06D3970727ACA70 FOREIGN KEY (parent_id) REFERENCES `groups` (id)');
-        $this->addSql('CREATE INDEX IDX_F06D3970727ACA70 ON groups (parent_id)');
+        $this->addSql('DROP INDEX name ON `groups`');
+        $this->addSql('ALTER TABLE `groups` ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE perms_labels perms_labels INT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
+        $this->addSql('ALTER TABLE `groups` ADD CONSTRAINT FK_F06D3970727ACA70 FOREIGN KEY (parent_id) REFERENCES `groups` (id)');
+        $this->addSql('CREATE INDEX IDX_F06D3970727ACA70 ON `groups` (parent_id)');
 
         //Fill empty timestamps with current date
         $tables = ['attachments', 'attachment_types', 'categories', 'devices', 'footprints', 'manufacturers',
