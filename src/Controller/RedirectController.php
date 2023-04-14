@@ -61,7 +61,6 @@ class RedirectController extends AbstractController
             $locale = $user->getLanguage();
         }
 
-        //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
         $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
@@ -70,6 +69,9 @@ class RedirectController extends AbstractController
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
         }
+
+        //Add the query string
+        $new_url .= $request->getQueryString() ? '?'.$request->getQueryString() : '';
 
         return $this->redirect($new_url);
     }

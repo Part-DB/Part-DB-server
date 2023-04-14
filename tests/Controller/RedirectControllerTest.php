@@ -91,6 +91,9 @@ class RedirectControllerTest extends WebTestCase
             //Without an explicit set value, the user should be redirect to english version
             [null, '/', '/en/'],
             ['en_US', '/part/3', '/en_US/part/3'],
+            //Test that query parameters work
+            ['de', '/dialog?target_id=133&target_type=part', '/de/dialog?target_id=133&target_type=part'],
+            ['en', '/dialog?storelocation=1', '/en/dialog?storelocation=1'],
         ];
     }
 
@@ -99,13 +102,13 @@ class RedirectControllerTest extends WebTestCase
      *
      * @dataProvider urlAddLocaleDataProvider
      * @group slow
-     * @depends testUrlMatch
+     * @depends      testUrlMatch
      *
-     * @param $user_locale
-     * @param $input_path
-     * @param $redirect_path
+     * @param string|null $user_locale
+     * @param string $input_path
+     * @param string $redirect_path
      */
-    public function testAddLocale($user_locale, $input_path, $redirect_path): void
+    public function testAddLocale(?string $user_locale, string $input_path, string $redirect_path): void
     {
         //Redirect path is absolute
         $redirect_path = 'http://localhost'.$redirect_path;
