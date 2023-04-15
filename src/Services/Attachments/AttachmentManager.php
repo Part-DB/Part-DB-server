@@ -140,7 +140,7 @@ class AttachmentManager
     }
 
     /**
-     * Returns a human readable version of the attachment file size.
+     * Returns a human-readable version of the attachment file size.
      * For external attachments, null is returned.
      *
      * @param  int  $decimals The number of decimals numbers that should be printed

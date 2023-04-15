@@ -35,7 +35,7 @@ class StructuralElementRecursionHelper
     }
 
     /**
-     * Executes an function (callable) recursivly for $element and every of its children.
+     * Executes a function (callable) recursivly for $element and every of its children.
      *
      * @param AbstractStructuralDBElement $element          The element on which the func should be executed
      * @param callable                    $func             The function which should be executed for each element.

@@ -166,7 +166,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 
     /**
      * Set the option of the form.
-     * This a bit hacky cause we access private properties....
+     * This a bit hacky because we access private properties....
      *
      */
     public function setOption(FormConfigInterface $builder, string $option, $value): void
@@ -175,7 +175,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
             throw new \RuntimeException('This method only works with FormConfigBuilder instances.');
         }
 
-        //We have to use FormConfigBuilder::class here, because options is private and not available in sub classes
+        //We have to use FormConfigBuilder::class here, because options is private and not available in subclasses
         $reflection = new ReflectionClass(FormConfigBuilder::class);
         $property = $reflection->getProperty('options');
         $property->setAccessible(true);

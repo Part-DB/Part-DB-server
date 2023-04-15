@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * A entity with this class has a master attachment, which is used as a preview image for this object.
+ * An entity with this class has a master attachment, which is used as a preview image for this object.
  */
 trait MasterAttachmentTrait
 {

@@ -57,7 +57,7 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Creates a new Permission Data Instance using the given data.
-     * By default, a empty array is used, meaning
+     * By default, an empty array is used, meaning
      */
     public function __construct(array $data = [])
     {

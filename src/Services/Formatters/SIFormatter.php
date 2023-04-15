@@ -45,7 +45,7 @@ class SIFormatter
      *
      * @param int $magnitude the magnitude for which the prefix should be determined
      *
-     * @return array A array, containing the divisor in first element, and the prefix symbol in second. For example, [1000, "k"].
+     * @return array An array, containing the divisor in first element, and the prefix symbol in second. For example, [1000, "k"].
      */
     public function getPrefixByMagnitude(int $magnitude): array
     {

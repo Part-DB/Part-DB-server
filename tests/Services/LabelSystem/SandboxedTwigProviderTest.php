@@ -139,5 +139,7 @@ class SandboxedTwigProviderTest extends WebTestCase
             'lot' => new PartLot(),
             'location' => new Storelocation(),
         ]);
+
+        $this->assertIsString($str);
     }
 }

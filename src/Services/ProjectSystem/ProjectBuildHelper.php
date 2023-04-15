@@ -79,7 +79,7 @@ class ProjectBuildHelper
     }
 
     /**
-     * Checks if the given project can be build with the current stock.
+     * Checks if the given project can be built with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
      * @param  Project  $project
      * @parm int $number_of_builds
@@ -91,7 +91,7 @@ class ProjectBuildHelper
     }
 
     /**
-     * Check if the given BOM entry can be build with the current stock.
+     * Check if the given BOM entry can be built with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
      * @param  ProjectBOMEntry  $bom_entry
      * @param  int  $number_of_builds
@@ -137,7 +137,7 @@ class ProjectBuildHelper
     /**
      * Withdraw the parts from the stock using the given ProjectBuildRequest and create the build parts entries, if needed.
      * The ProjectBuildRequest has to be validated before!!
-     * You have to flush changes to DB afterwards
+     * You have to flush changes to DB afterward
      * @param  ProjectBuildRequest  $buildRequest
      * @return void
      */

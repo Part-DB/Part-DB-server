@@ -93,7 +93,7 @@ class ParameterExtractor
             [, $name, $value] = $matches;
             $value = trim($value);
 
-            //Dont allow empty names or values (these are a sign of an invalid extracted string)
+            //Don't allow empty names or values (these are a sign of an invalid extracted string)
             if (empty($name) || empty($value)) {
                 return null;
             }

@@ -395,7 +395,7 @@ class PartController extends AbstractController
         }
 
         err:
-        //If an redirect was passed, then redirect there
+        //If a redirect was passed, then redirect there
         if($request->request->get('_redirect')) {
             return $this->redirect($request->request->get('_redirect'));
         }

@@ -74,7 +74,6 @@ class EntityExporter
         }
 
         //Ensure that all entities are of type AbstractNamedDBElement
-        $entity_type = null;
         foreach ($entities as $entity) {
             if (!$entity instanceof AbstractNamedDBElement) {
                 throw new InvalidArgumentException('All entities must be of type AbstractNamedDBElement!');

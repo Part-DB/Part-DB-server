@@ -43,7 +43,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
      */
     public function isSuccessful(): bool
     {
-        //We dont save unsuccessful updates now, so just assume it to save space.
+        //We don't save unsuccessful updates now, so just assume it to save space.
         return $this->extra['s'] ?? true;
     }
 

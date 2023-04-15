@@ -99,7 +99,7 @@ class AttachmentType extends AbstractStructuralDBElement
     }
 
     /**
-     * Gets an filter, which file types are allowed for attachment files.
+     * Gets a filter, which file types are allowed for attachment files.
      * Must be in the format of <input type=file> accept attribute
      * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
      */

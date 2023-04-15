@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity represents an user group.
+ * This entity represents a user group.
  *
  * @ORM\Entity()
  * @ORM\Table("`groups`", indexes={
@@ -64,7 +64,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected Collection $users;
 
     /**
-     * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
+     * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
      * @Groups({"extended", "full", "import"})
      */

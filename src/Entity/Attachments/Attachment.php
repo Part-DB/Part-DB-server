@@ -59,7 +59,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * A list of file extensions, that browsers can show directly as image.
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
-     * It will be used to determine if a attachment is a picture and therefore will be shown to user as preview.
+     * It will be used to determine if an attachment is a picture and therefore will be shown to user as preview.
      */
     public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
         'svg', 'webp', ];
@@ -70,7 +70,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public const MODEL_EXTS = ['x3d'];
 
     /**
-     * When the path begins with one of this placeholders.
+     * When the path begins with one of the placeholders.
      */
     public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
@@ -105,7 +105,7 @@ abstract class Attachment extends AbstractNamedDBElement
     protected string $name = '';
 
     /**
-     * ORM mapping is done in sub classes (like PartAttachment).
+     * ORM mapping is done in subclasses (like PartAttachment).
      */
     protected ?AttachmentContainingDBElement $element = null;
 
@@ -153,7 +153,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function isPicture(): bool
     {
-        //We can not check if a external link is a picture, so just assume this is false
+        //We can not check if an external link is a picture, so just assume this is false
         if ($this->isExternal()) {
             return true;
         }
@@ -215,7 +215,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * Checks if the attachment file is using a builtin file. (see BUILTIN_PLACEHOLDERS const for possible placeholders)
      * If a file is built in, the path is shown to user in url field (no sensitive infos are provided).
      *
-     * @return bool true if the attachment is using an builtin file
+     * @return bool true if the attachment is using a builtin file
      */
     public function isBuiltIn(): bool
     {
@@ -259,7 +259,7 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
-     * The URL to the external file, or the path to the built in file.
+     * The URL to the external file, or the path to the built-in file.
      * Returns null, if the file is not external (and not builtin).
      */
     public function getURL(): ?string
@@ -455,9 +455,9 @@ abstract class Attachment extends AbstractNamedDBElement
      * @param string $string        The string which should be checked
      * @param bool   $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
      * @param bool   $only_http     Set this to true, if only HTTPS or HTTP schemata should be allowed.
-     *                              *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
+     *                              *Caution: When this is set to false, an attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
      *
-     * @return bool True if the string is a valid URL. False, if the string is not an URL or invalid.
+     * @return bool True if the string is a valid URL. False, if the string is not a URL or invalid.
      */
     public static function isValidURL(string $string, bool $path_required = true, bool $only_http = true): bool
     {

@@ -26,7 +26,7 @@ use Exception;
 use RuntimeException;
 
 /**
- * This class generates random backup codes for two factor authentication.
+ * This class generates random backup codes for two-factor authentication.
  */
 class BackupCodeGenerator
 {

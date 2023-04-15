@@ -46,7 +46,7 @@ trait BasicPropertyTrait
     protected string $comment = '';
 
     /**
-     * @var bool Kept for compatibility (it is not used now, and I dont think it was used in old versions)
+     * @var bool Kept for compatibility (it is not used now, and I don't think it was used in old versions)
      * @ORM\Column(type="boolean")
      */
     protected bool $visible = true;
@@ -136,7 +136,7 @@ trait BasicPropertyTrait
     /**
      * Gets the Footprint of this part (e.g. DIP8).
      *
-     * @return Footprint|null The footprint of this part. Null if this part should no have a footprint.
+     * @return Footprint|null The footprint of this part. Null if this part should not have a footprint.
      */
     public function getFootprint(): ?Footprint
     {

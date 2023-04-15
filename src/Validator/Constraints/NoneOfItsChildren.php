@@ -25,7 +25,7 @@ namespace App\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Constraints the parent property on StructuralDBElement objects in the way, that neither the object self or any
+ * Constraints the parent property on StructuralDBElement objects in the way, that neither the object self nor any
  * of its children can be assigned.
  *
  * @Annotation
@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraint;
 class NoneOfItsChildren extends Constraint
 {
     /**
-     * @var string The message used if it is tried to assign a object as its own parent
+     * @var string The message used if it is tried to assign an object as its own parent
      */
     public string $self_message = 'validator.noneofitschild.self';
     /**

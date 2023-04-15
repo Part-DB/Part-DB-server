@@ -122,7 +122,7 @@ trait InstockTrait
 
     /**
      *  Get the count of parts which must be in stock at least.
-     * If a integer-based part unit is selected, the value will be rounded to integers.
+     * If an integer-based part unit is selected, the value will be rounded to integers.
      *
      * @return float count of parts which must be in stock at least
      */
@@ -171,7 +171,7 @@ trait InstockTrait
         //TODO: Find a method to do this natively in SQL, the current method could be a bit slow
         $sum = 0;
         foreach ($this->getPartLots() as $lot) {
-            //Dont use the instock value, if it is unkown
+            //Don't use the in stock value, if it is unknown
             if ($lot->isInstockUnknown() || $lot->isExpired() ?? false) {
                 continue;
             }

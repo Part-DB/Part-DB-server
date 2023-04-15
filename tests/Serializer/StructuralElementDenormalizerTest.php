@@ -33,7 +33,7 @@ class StructuralElementDenormalizerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementDenormalizer::class);
     }

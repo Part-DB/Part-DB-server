@@ -49,7 +49,7 @@ class RedirectController extends AbstractController
      */
     public function addLocalePart(Request $request): RedirectResponse
     {
-        //By default we use the global default locale
+        //By default, we use the global default locale
         $locale = $this->default_locale;
 
         //Check if a user has set a preferred language setting:

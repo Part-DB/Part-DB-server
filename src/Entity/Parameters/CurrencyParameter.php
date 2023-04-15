@@ -47,7 +47,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * A attachment attached to a category element.
+ * An attachment attached to a category element.
  *
  * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
  * @UniqueEntity(fields={"name", "group", "element"})

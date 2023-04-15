@@ -45,7 +45,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This Service generates the tree structure for the tools.
- * Whenever you change something here, you has to clear the cache, because the results are cached for performance reasons.
+ * Whenever you change something here, you have to clear the cache, because the results are cached for performance reasons.
  */
 class ToolsTreeBuilder
 {
@@ -70,7 +70,7 @@ class ToolsTreeBuilder
     }
 
     /**
-     * Generates the tree for the tools menu.
+     * Generates the tree for the tools' menu.
      * The result is cached.
      *
      * @return TreeViewNode[] the array containing all Nodes for the tools menu

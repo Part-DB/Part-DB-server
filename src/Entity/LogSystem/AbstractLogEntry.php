@@ -48,7 +48,7 @@ use InvalidArgumentException;
 use Psr\Log\LogLevel;
 
 /**
- * This entity describes a entry in the event log.
+ * This entity describes an entry in the event log.
  *
  * @ORM\Entity(repositoryClass="App\Repository\LogEntryRepository")
  * @ORM\Table("log", indexes={
@@ -340,7 +340,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /**
      * Returns the class name of the target element associated with this log entry.
-     * Returns null, if this log entry is not associated with an log entry.
+     * Returns null, if this log entry is not associated with a log entry.
      *
      * @return string|null the class name of the target class
      */
@@ -355,7 +355,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /**
      * Returns the ID of the target element associated with this log entry.
-     * Returns null, if this log entry is not associated with an log entry.
+     * Returns null, if this log entry is not associated with a log entry.
      *
      * @return int|null the ID of the associated element
      */
@@ -451,7 +451,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     }
 
     /**
-     * Converts an target type id to an full qualified class name.
+     * Converts a target type id to a full qualified class name.
      *
      * @param int $type_id The target type ID
      */

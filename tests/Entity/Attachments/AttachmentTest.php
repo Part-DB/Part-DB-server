@@ -105,7 +105,7 @@ class AttachmentTest extends TestCase
     }
 
     /**
-     * Test that all attachment subclasses like PartAttachment or similar returns an exception, when an not allowed
+     * Test that all attachment subclasses like PartAttachment or similar returns an exception, when a not allowed
      * element is passed.
      *
      * @dataProvider subClassesDataProvider

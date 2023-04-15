@@ -118,7 +118,7 @@ class StructuralEntityType extends AbstractType
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
 
-        //Set the constraints for the case that allow add is enabled (we then have to check that the new element is valid)
+        //Set the constraints for the case that allow to add is enabled (we then have to check that the new element is valid)
         $resolver->setNormalizer('constraints', function (Options $options, $value) {
             if ($options['allow_add']) {
                 $value[] = new Valid();
@@ -159,8 +159,8 @@ class StructuralEntityType extends AbstractType
     public function modelReverseTransform($value, array $options)
     {
         /* This step is important in combination with the caching!
-           The elements deserialized from cache, are not known to Doctrinte ORM any more, so doctrine thinks,
-           that the entity has changed (and so throws an exception about non-persited entities).
+           The elements deserialized from cache, are not known to Doctrine ORM anymore, so doctrine thinks,
+           that the entity has changed (and so throws an exception about non-persisted entities).
            This function just retrieves a fresh copy of the entity from database, so doctrine detect correctly that no
            change happened.
            The performance impact of this should be very small in comparison of the boost, caused by the caching.

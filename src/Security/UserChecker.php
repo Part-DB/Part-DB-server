@@ -59,7 +59,7 @@ final class UserChecker implements UserCheckerInterface
             return;
         }
 
-        //Check if user is disabled. Then dont allow login
+        //Check if user is disabled. Then don't allow login
         if ($user->isDisabled()) {
             //throw new DisabledException();
             throw new CustomUserMessageAccountStatusException($this->translator->trans('user.login_error.user_disabled', [], 'security'));

@@ -89,7 +89,7 @@ class RedirectControllerTest extends WebTestCase
             ['en', '/', '/en/'],
             ['en', '/category/new', '/en/category/new'],
             ['en_US', '/part/3', '/en_US/part/3'],
-            //Without an explicit set value, the user should be redirect to english version
+            //Without an explicit set value, the user should be redirected to english version
             [null, '/', '/en/'],
             ['en_US', '/part/3', '/en_US/part/3'],
             //Test that query parameters work

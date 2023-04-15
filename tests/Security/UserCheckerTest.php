@@ -42,10 +42,10 @@ class UserCheckerTest extends WebTestCase
         $user = new User();
         $user->setDisabled(false);
 
-        //An user that is not disabled should not throw an exception
+        //A user that is not disabled should not throw an exception
         $this->service->checkPostAuth($user);
 
-        //An disabled user must throw an exception
+        //A disabled user must throw an exception
         $user->setDisabled(true);
         $this->expectException(CustomUserMessageAccountStatusException::class);
         $this->service->checkPostAuth($user);

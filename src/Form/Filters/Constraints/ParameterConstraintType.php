@@ -68,7 +68,6 @@ class ParameterConstraintType extends AbstractType
          * Ensure that the data is never null, but use an empty ParameterConstraint instead
          */
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
             $data = $event->getData();
 
             if ($data === null) {

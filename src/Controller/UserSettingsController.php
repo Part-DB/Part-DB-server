@@ -261,7 +261,7 @@ class UserSettingsController extends AbstractController
                 $page_need_reload = true;
             }
 
-            /** @var Form $form We need an form implementation for the next calls */
+            /** @var Form $form We need a form implementation for the next calls */
             if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName()) {
                 //Remove the avatar attachment from the user if requested
                 if ($user->getMasterPictureAttachment() !== null) {
@@ -327,7 +327,7 @@ class UserSettingsController extends AbstractController
 
         $pw_form->handleRequest($request);
 
-        //Check if password if everything was correct, then save it to User and DB
+        //Check if everything was correct, then save it to User and DB
         if (!$this->demo_mode && $pw_form->isSubmitted() && $pw_form->isValid()) {
             $password = $passwordEncoder->hashPassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);

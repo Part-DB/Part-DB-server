@@ -37,7 +37,7 @@ use SplFileInfo;
 
 /**
  * This listener watches for changes on attachments and deletes the files associated with an attachment, that are not
- * used any more. This can happens after an attachment is delteted or the path is changed.
+ * used anymore. This can happen after an attachment is deleted or the path is changed.
  */
 class AttachmentDeleteListener
 {

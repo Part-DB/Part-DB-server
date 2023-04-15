@@ -35,7 +35,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //At initialization we have to fill the form element with our selected data, so the user can see it
+        //At initialization, we have to fill the form element with our selected data, so the user can see it
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
             $config = $form->getConfig()->getOptions();

@@ -266,9 +266,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @param BigDecimal $new_price the new price as a float number
      *
-     *      * This is the price for "price_related_quantity" parts!!
-     *              * Example: if "price_related_quantity" is '10',
-     *                  you have to set here the price for 10 parts!
+     * This is the price for "price_related_quantity" parts!!
+     * Example: if "price_related_quantity" is 10,
+     * you have to set here the price for 10 parts!
      *
      * @return $this
      */

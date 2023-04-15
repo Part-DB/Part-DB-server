@@ -48,7 +48,7 @@ class PermissionPresetsHelper
      */
     public function applyPreset(HasPermissionsInterface $perm_holder, string $preset_name): HasPermissionsInterface
     {
-        //We need to reset the permission data first (afterwards all values are inherit)
+        //We need to reset the permission data first (afterward all values are inherit)
         $perm_holder->getPermissions()->resetPermissions();
 
         switch($preset_name) {

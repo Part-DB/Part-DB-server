@@ -209,7 +209,7 @@ class TreeViewGenerator
         /** @var StructuralDBElementRepository $repo */
         $repo = $this->em->getRepository($class);
 
-        //If we just want a part of a tree, dont cache it
+        //If we just want a part of a tree, don't cache it
         if (null !== $parent) {
             return $repo->getGenericNodeTree($parent);
         }
@@ -218,7 +218,7 @@ class TreeViewGenerator
         $key = 'treeview_'.$this->keyGenerator->generateKey().'_'.$secure_class_name;
 
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $parent, $secure_class_name) {
-            // Invalidate when groups, a element with the class or the user changes
+            // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
 
             return $repo->getGenericNodeTree($parent);

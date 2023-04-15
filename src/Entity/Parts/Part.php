@@ -46,7 +46,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Part class.
  *
  * The class properties are split over various traits in directory PartTraits.
- * Otherwise this class would be too big, to be maintained.
+ * Otherwise, this class would be too big, to be maintained.
  *
  * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
  * @ORM\Table("`parts`", indexes={

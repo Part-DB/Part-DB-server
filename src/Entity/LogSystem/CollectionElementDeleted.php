@@ -86,7 +86,7 @@ use InvalidArgumentException;
 
 /**
  * @ORM\Entity()
- * This log entry is created when an element is deleted, that is used in a collection of an other entity.
+ * This log entry is created when an element is deleted, that is used in a collection of another entity.
  * This is needed to signal time travel, that it has to undelete the deleted entity.
  */
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface

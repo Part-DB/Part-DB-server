@@ -41,7 +41,7 @@ trait ProjectTrait
     }
 
     /**
-     * Returns the project that this part represents the builds of, or null if it doesnt
+     * Returns the project that this part represents the builds of, or null if it doesn't
      * @return Project|null
      */
     public function getBuiltProject(): ?Project

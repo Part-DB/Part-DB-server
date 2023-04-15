@@ -106,12 +106,12 @@ class UserTest extends TestCase
         //Ensure the code is valid
         $this->assertTrue($user->isBackupCode('aaaa'));
         $this->assertTrue($user->isBackupCode('bbbb'));
-        //Invalidate code, afterwards the code has to be invalid!
+        //Invalidate code, afterward the code has to be invalid!
         $user->invalidateBackupCode('bbbb');
         $this->assertFalse($user->isBackupCode('bbbb'));
         $this->assertTrue($user->isBackupCode('aaaa'));
 
-        //No exception must happen, when we try to invalidate an not existing backup key!
+        //No exception must happen, when we try to invalidate a not existing backup key!
         $user->invalidateBackupCode('zzzz');
     }
 

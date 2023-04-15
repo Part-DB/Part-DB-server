@@ -45,15 +45,15 @@ class PasswordChangeNeededSubscriberTest extends TestCase
         $user->setGroup($group);
         $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
-        //The user must be redirected if the group enforces 2FA and it does not have a method
+        //The user must be redirected if the group enforces 2FA, and it does not have a method
         $group->setEnforce2FA(true);
         $this->assertTrue(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
-        //User must not be redirect if google authenticator is setup
+        //User must not be redirect if google authenticator is set up
         $user->setGoogleAuthenticatorSecret('abcd');
         $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
-        //User must not be redirect if 2FA is setup
+        //User must not be redirect if 2FA is set up
         $user->setGoogleAuthenticatorSecret(null);
         $user->addWebauthnKey(new WebauthnKey(
             "Test",

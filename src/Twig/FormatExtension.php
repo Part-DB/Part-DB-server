@@ -63,7 +63,7 @@ final class FormatExtension extends AbstractExtension
             new TwigFilter('format_si', [$this, 'siFormat']),
             /** Format the given amount using the given MeasurementUnit */
             new TwigFilter('format_amount', [$this, 'amountFormat']),
-            /** Format the given number of bytes as human readable number */
+            /** Format the given number of bytes as human-readable number */
             new TwigFilter('format_bytes', [$this, 'formatBytes']),
         ];
     }

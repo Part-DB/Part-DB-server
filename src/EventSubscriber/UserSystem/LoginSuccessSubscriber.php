@@ -33,7 +33,7 @@ use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * This event listener shows an login successful flash to the user after login and write the login to event log.
+ * This event listener shows a login successful flash to the user after login and write the login to event log.
  */
 final class LoginSuccessSubscriber implements EventSubscriberInterface
 {

@@ -38,7 +38,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
 
     public static function setUpBeforeClass(): void
     {
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }

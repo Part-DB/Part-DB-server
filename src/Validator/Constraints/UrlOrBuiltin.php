@@ -26,7 +26,7 @@ use App\Entity\Attachments\Attachment;
 use Symfony\Component\Validator\Constraints\Url;
 
 /**
- * Constraints the field that way that the content is either a url or a path to a builtin ressource (like %FOOTPRINTS%).
+ * Constraints the field that way that the content is either an url or a path to a builtin ressource (like %FOOTPRINTS%).
  *
  * @Annotation
  */

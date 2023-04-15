@@ -44,7 +44,7 @@ class EntityImporterTest extends WebTestCase
     {
         parent::setUp();
 
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(EntityImporter::class);
     }
@@ -112,7 +112,7 @@ EOT;
         $parent = new AttachmentType();
         $results = $this->service->massCreation($input, AttachmentType::class, $parent, $errors);
 
-        //We have 7 elements, an now errros
+        //We have 7 elements, and 0 errors
         $this->assertCount(0, $errors);
         $this->assertCount(7, $results);
 

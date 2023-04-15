@@ -53,11 +53,11 @@ class PartTest extends TestCase
         $part = new Part();
         $measurement_unit = new MeasurementUnit();
 
-        //Without an set measurement unit the part must return an int
+        //Without a set measurement unit the part must return an int
         $part->setMinAmount(1.345);
         $this->assertSame(1.0, $part->getMinAmount());
 
-        //If an non int-based unit is assigned, an float is returned
+        //If a non-int-based unit is assigned, a float is returned
         $part->setPartUnit($measurement_unit);
         $this->assertSame(1.345, $part->getMinAmount());
 

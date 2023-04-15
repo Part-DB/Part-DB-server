@@ -106,7 +106,7 @@ final class LabelGenerator
     }
 
     /**
-     * Converts width and height given in mm to an size array, that can be used by DOMPDF for page size.
+     * Converts width and height given in mm to a size array, that can be used by DOMPDF for page size.
      *
      * @param float $width  The width of the paper
      * @param float $height The height of the paper

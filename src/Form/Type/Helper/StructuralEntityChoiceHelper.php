@@ -147,8 +147,8 @@ class StructuralEntityChoiceHelper
 
         /**
          * Do not change the structure below, even when inspection says it can be replaced with a null coalescing operator.
-         * It is important that the value returned here for a existing element is an int, and for a new element a string.
-         * I dont really understand why, but it seems to be important for the choice_loader to work correctly.
+         * It is important that the value returned here for an existing element is an int, and for a new element a string.
+         * I don't really understand why, but it seems to be important for the choice_loader to work correctly.
          * So please do not change this!
          */
         if ($element->getID() === null) {

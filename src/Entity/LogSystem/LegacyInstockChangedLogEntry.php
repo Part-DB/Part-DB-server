@@ -56,7 +56,7 @@ class LegacyInstockChangedLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Returns the price that has to be payed for the change (in the base currency).
+     * Returns the price that has to be paid for the change (in the base currency).
      *
      * @param bool $absolute Set this to true, if you want only get the absolute value of the price (without minus)
      */
@@ -92,9 +92,9 @@ class LegacyInstockChangedLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Checks if the Change was an withdrawal of parts.
+     * Checks if the Change was a withdrawal of parts.
      *
-     * @return bool true if the change was an withdrawal, false if not
+     * @return bool true if the change was a withdrawal, false if not
      */
     public function isWithdrawal(): bool
     {

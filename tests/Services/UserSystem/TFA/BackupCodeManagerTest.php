@@ -68,7 +68,7 @@ class BackupCodeManagerTest extends WebTestCase
     {
         $user = new User();
 
-        //By default nothing other 2FA is activated, so the backup codes should be disabled
+        //By default, nothing other 2FA is activated, so the backup codes should be disabled
         $codes = ['aaaa', 'bbbb'];
         $user->setBackupCodes($codes);
         $this->service->disableBackupCodesIfUnused($user);

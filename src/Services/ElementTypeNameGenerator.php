@@ -80,7 +80,7 @@ class ElementTypeNameGenerator
     }
 
     /**
-     * Gets an localized label for the type of the entity.
+     * Gets a localized label for the type of the entity.
      * A part element becomes "Part" ("Bauteil" in german) and a category object becomes "Category".
      * Useful when the type should be shown to user.
      * Throws an exception if the class is not supported.
@@ -95,7 +95,7 @@ class ElementTypeNameGenerator
     {
         $class = is_string($entity) ? $entity : get_class($entity);
 
-        //Check if we have an direct array entry for our entity class, then we can use it
+        //Check if we have a direct array entry for our entity class, then we can use it
         if (isset($this->mapping[$class])) {
             return $this->mapping[$class];
         }

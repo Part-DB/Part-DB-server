@@ -28,7 +28,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * This service formats an part amout using a Measurement Unit.
+ * This service formats a part amount using a Measurement Unit.
  */
 class AmountFormatter
 {
@@ -76,7 +76,7 @@ class AmountFormatter
         //Otherwise just output it
         if (!empty($options['unit'])) {
             $format_string = '%.'.$options['decimals'].'f '.$options['unit'];
-        } else { //Dont add space after number if no unit was specified
+        } else { //Don't add space after number if no unit was specified
             $format_string = '%.'.$options['decimals'].'f';
         }
 
@@ -126,7 +126,7 @@ class AmountFormatter
         $resolver->setAllowedTypes('decimals', 'int');
 
         $resolver->setNormalizer('decimals', static function (Options $options, $value) {
-            // If the unit is integer based, then dont show any decimals
+            // If the unit is integer based, then don't show any decimals
             if ($options['is_integer']) {
                 return 0;
             }

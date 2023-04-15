@@ -47,7 +47,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(PartLotWithdrawAddHelper::class);
 

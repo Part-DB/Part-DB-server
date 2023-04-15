@@ -33,7 +33,7 @@ class StructuralElementFromNameDenormalizerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementFromNameDenormalizer::class);
     }
@@ -108,7 +108,7 @@ class StructuralElementFromNameDenormalizerTest extends WebTestCase
         $this->assertNotNull($category->getID());
         $this->assertNotNull($category->getParent()->getID());
 
-        //Test with non existing category
+        //Test with non-existing category
         $category = $this->service->denormalize('New category', Category::class, null, $context);
         $this->assertNull($category);
 

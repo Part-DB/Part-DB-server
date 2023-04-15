@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * The purpose of this event subscriber is to check if the permission schema of the current user is up to date and upgrade it automatically if needed.
+ * The purpose of this event subscriber is to check if the permission schema of the current user is up-to-date and upgrade it automatically if needed.
  */
 class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 {

@@ -88,7 +88,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
         $recursiveIterator = new RecursiveIteratorIterator($elementIterator, RecursiveIteratorIterator::SELF_FIRST);
         //$result = iterator_to_array($recursiveIterator);
 
-        //We can not use iterator_to_array here or we get only the parent elements
+        //We can not use iterator_to_array here, or we get only the parent elements
         foreach ($recursiveIterator as $item) {
             $result[] = $item;
         }

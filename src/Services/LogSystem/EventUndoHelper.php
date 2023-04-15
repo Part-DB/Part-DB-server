@@ -91,7 +91,7 @@ class EventUndoHelper
     }
 
     /**
-     * Clear the currently the set undone event.
+     * Clear the currently set undone event.
      */
     public function clearUndoneEvent(): void
     {
@@ -99,7 +99,7 @@ class EventUndoHelper
     }
 
     /**
-     * Check if a event is undone.
+     * Check if an event is undone.
      */
     public function isUndo(): bool
     {

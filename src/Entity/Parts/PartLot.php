@@ -130,7 +130,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Check if the current part lot is expired.
-     * This is the case, if the expiration date is greater the the current date.
+     * This is the case, if the expiration date is greater the current date.
      *
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
      *
@@ -195,7 +195,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     }
 
     /**
-     * Sets the expiration date for the part lot. Set to null, if the part lot does not expires.
+     * Sets the expiration date for the part lot. Set to null, if the part lot does not expire.
      *
      * @param  DateTime|null  $expiration_date
      *

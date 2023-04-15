@@ -90,7 +90,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         $perm_data->setPermissionValue('parts', 'edit', PermissionData::ALLOW);
         $user = new TestPermissionHolder($perm_data);
 
-        //Do an upgrade and afterwards the move, add, and withdraw permissions should be set to ALLOW
+        //Do an upgrade and afterward the move, add, and withdraw permissions should be set to ALLOW
         self::assertTrue($this->service->upgradeSchema($user, 1));
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'move'));
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'add'));

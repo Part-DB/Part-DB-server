@@ -136,7 +136,7 @@ class TimeTravel
                 continue;
             }
 
-            //Revert many to one association (one element in property)
+            //Revert many-to-one association (one element in property)
             if (
                 ClassMetadataInfo::MANY_TO_ONE === $mapping['type']
                 || ClassMetadataInfo::ONE_TO_ONE === $mapping['type']
@@ -156,7 +156,7 @@ class TimeTravel
                 }
                 foreach ($target_elements as $target_element) {
                     if (null !== $target_element && $element->getLastModified() >= $timestamp) {
-                        //Remove the element from collection, if it did not existed at $timestamp
+                        //Remove the element from collection, if it did not exist at $timestamp
                         if (!$this->repo->getElementExistedAtTimestamp(
                                 $target_element,
                                 $timestamp

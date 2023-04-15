@@ -63,7 +63,7 @@ class CurrencyEntityType extends StructuralEntityType
         });
 
         $resolver->setDefault('empty_message', function (Options $options) {
-            //By default we use the global base currency:
+            //By default, we use the global base currency:
             $iso_code = $this->base_currency;
 
             if ($options['base_currency']) { //Allow to override it
@@ -75,7 +75,7 @@ class CurrencyEntityType extends StructuralEntityType
 
         $resolver->setDefault('used_to_select_parent', false);
 
-        //If short is set to true, then the name of the entity will only shown in the dropdown list not in the selected value.
+        //If short is set to true, then the name of the entity will only show in the dropdown list not in the selected value.
         $resolver->setDefault('short', false);
     }
 }

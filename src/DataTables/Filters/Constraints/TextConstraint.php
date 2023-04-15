@@ -101,7 +101,7 @@ class TextConstraint extends AbstractConstraint
             return;
         }
 
-        //The CONTAINS, LIKE, STARTS and ENDS operators use the LIKE operator but we have to build the value string differently
+        //The CONTAINS, LIKE, STARTS and ENDS operators use the LIKE operator, but we have to build the value string differently
         $like_value = null;
         if ($this->operator === 'LIKE') {
             $like_value = $this->value;

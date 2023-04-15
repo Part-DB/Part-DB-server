@@ -153,13 +153,13 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetail = $orderdetail->findPriceForQty($amount);
 
-            //When we dont have informations about this amount, ignore it
+            //When we don't have information about this amount, ignore it
             if (null === $pricedetail) {
                 continue;
             }
 
             $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
-            //Ignore price informations that can not be converted to base currency.
+            //Ignore price information that can not be converted to base currency.
             if (null !== $converted) {
                 $avg = $avg->plus($converted);
                 ++$count;

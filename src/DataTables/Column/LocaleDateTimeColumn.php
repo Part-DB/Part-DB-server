@@ -31,7 +31,7 @@ use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Similar to the built in DateTimeColumn, but the datetime is formatted using a IntlDateFormatter,
+ * Similar to the built-in DateTimeColumn, but the datetime is formatted using a IntlDateFormatter,
  * to get prettier locale based formatting.
  */
 class LocaleDateTimeColumn extends AbstractColumn

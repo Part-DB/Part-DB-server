@@ -69,7 +69,7 @@ class StructureVoter extends ExtendedVoter
     }
 
     /**
-     * Maps a instance type to the permission name.
+     * Maps an instance type to the permission name.
      *
      * @param object|string $subject The subject for which the permission name should be generated
      *

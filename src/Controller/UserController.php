@@ -61,11 +61,11 @@ class UserController extends AdminPages\BaseAdminController
 
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
-        //Check if we editing a user and if we need to change the password of it
+        //Check if we're editing a user and if we need to change the password of it
         if ($entity instanceof User && !empty($form['new_password']->getData())) {
             $password = $this->passwordEncoder->hashPassword($entity, $form['new_password']->getData());
             $entity->setPassword($password);
-            //By default the user must change the password afterwards
+            //By default, the user must change the password afterward
             $entity->setNeedPwChange(true);
 
             $event = new SecurityEvent($entity);
@@ -141,7 +141,7 @@ class UserController extends AdminPages\BaseAdminController
         if ($entity instanceof User && !empty($form['new_password']->getData())) {
             $password = $this->passwordEncoder->hashPassword($entity, $form['new_password']->getData());
             $entity->setPassword($password);
-            //By default the user must change the password afterwards
+            //By default, the user must change the password afterward
             $entity->setNeedPwChange(true);
         }
 

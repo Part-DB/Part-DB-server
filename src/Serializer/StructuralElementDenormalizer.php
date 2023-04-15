@@ -46,7 +46,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
     {
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
-            //Only denormalize if we are doing an file import operation
+            //Only denormalize if we are doing a file import operation
             && in_array('import', $context['groups'] ?? [], true);
     }
 
@@ -69,7 +69,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
 
         //Check if we have created the entity in this request before (so we don't create multiple entities for the same path)
         //Entities get saved in the cache by type and path
-        //We use a different cache for this then the objects created by a string value (saved in repo). However that should not be a problem
+        //We use a different cache for this then the objects created by a string value (saved in repo). However, that should not be a problem
         //unless the user data has mixed structure between json data and a string path
         if (isset($this->object_cache[$type][$path])) {
             return $this->object_cache[$type][$path];

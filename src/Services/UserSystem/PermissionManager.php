@@ -114,7 +114,7 @@ class PermissionManager
         /** @var Group $parent */
         $parent = $user->getGroup();
         while (null !== $parent) { //The top group, has parent == null
-            //Check if our current element gives a info about disallow/allow
+            //Check if our current element gives an info about disallow/allow
             $allowed = $this->dontInherit($parent, $permission, $operation);
             if (null !== $allowed) {
                 return $allowed;
@@ -123,7 +123,7 @@ class PermissionManager
             $parent = $parent->getParent();
         }
 
-        return null; //The inherited value is never resolved. Should be treat as false, in Voters.
+        return null; //The inherited value is never resolved. Should be treated as false, in Voters.
     }
 
     /**
@@ -150,7 +150,7 @@ class PermissionManager
     /**
      * Lists the names of all operations that is supported for the given permission.
      *
-     * If the Permission is not existing at all, a exception is thrown.
+     * If the Permission is not existing at all, an exception is thrown.
      *
      * This function is useful for the support() function of the voters.
      *
@@ -203,7 +203,6 @@ class PermissionManager
     {
         //If we have changed anything on the permission structure due to the alsoSet value, this becomes true, so we
         //redo the whole process, to ensure that all alsoSet values are set recursively.
-        $anything_changed = false;
 
         do {
             $anything_changed = false; //Reset the variable for the next iteration

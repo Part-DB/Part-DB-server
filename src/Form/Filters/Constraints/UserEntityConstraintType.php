@@ -36,7 +36,7 @@ class UserEntityConstraintType extends AbstractType
         $resolver->setDefaults([
             'compound' => true,
             'data_class' =>  EntityConstraint::class,
-            'text_suffix' => '', // An suffix which is attached as text-append to the input group. This can for example be used for units
+            'text_suffix' => '', //A suffix which is attached as text-append to the input group. This can for example be used for units
         ]);
     }
 

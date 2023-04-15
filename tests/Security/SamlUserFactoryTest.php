@@ -79,7 +79,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertSame(2, $this->service->mapSAMLRolesToLocalGroupID(['does_not_matter', 'admin', 'employee'], $mapping));
         $this->assertSame(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'does_not_matter', 'manager'], $mapping));
         $this->assertSame(3, $this->service->mapSAMLRolesToLocalGroupID(['administrator', 'does_not_matter', 'manager'], $mapping));
-        //Test if mapping is case sensitive
+        //Test if mapping is case-sensitive
         $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
 
         //Test that wildcard mapping works

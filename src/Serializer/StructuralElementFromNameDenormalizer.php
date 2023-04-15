@@ -69,7 +69,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
 
     public function hasCacheableSupportsMethod(): bool
     {
-        //Must be false, because we do a is_string check on data in supportsDenormalization
+        //Must be false, because we do an is_string check on data in supportsDenormalization
         return false;
     }
 }

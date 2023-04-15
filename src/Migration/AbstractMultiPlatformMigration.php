@@ -76,7 +76,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     }
 
     /**
-     * Gets the legacy Part-DB version number. Returns 0, if target database is not an legacy Part-DB database.
+     * Gets the legacy Part-DB version number. Returns 0, if target database is not a legacy Part-DB database.
      */
     public function getOldDBVersion(): int
     {
@@ -111,7 +111,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
             }
         }
 
-        //As we dont have access to container, just use the default PHP pw hash function
+        //As we don't have access to container, just use the default PHP pw hash function
         return password_hash($this->admin_pw, PASSWORD_DEFAULT);
     }
 

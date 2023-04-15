@@ -76,7 +76,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     /**
      * @dataProvider readDataProvider
      * @group slow
-     * Tests if it possible to access an specific entity. Checks if permissions are working.
+     * Tests if it is possible to access a specific entity. Checks if permissions are working.
      */
     public function testReadEntity(string $user, bool $read): void
     {

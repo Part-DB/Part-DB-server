@@ -70,7 +70,7 @@ final class LabelProfileDropdownHelper
         $repo = $this->entityManager->getRepository(LabelProfile::class);
 
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $type, $secure_class_name) {
-            // Invalidate when groups, a element with the class or the user changes
+            // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
 
             return $repo->getDropdownProfiles($type);
