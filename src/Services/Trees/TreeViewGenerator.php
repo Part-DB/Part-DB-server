@@ -49,14 +49,14 @@ use function count;
 
 class TreeViewGenerator
 {
-    protected $urlGenerator;
-    protected $em;
-    protected $cache;
-    protected $keyGenerator;
-    protected $translator;
+    protected EntityURLGenerator $urlGenerator;
+    protected EntityManagerInterface $em;
+    protected TagAwareCacheInterface $cache;
+    protected UserCacheKeyGenerator $keyGenerator;
+    protected TranslatorInterface $translator;
 
-    protected $rootNodeExpandedByDefault;
-    protected $rootNodeEnabled;
+    protected bool $rootNodeExpandedByDefault;
+    protected bool $rootNodeEnabled;
 
     public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
         TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault, bool $rootNodeEnabled)

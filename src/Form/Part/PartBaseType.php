@@ -36,7 +36,6 @@ use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
-use App\Form\WorkaroundCollectionType;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

@@ -35,5 +35,5 @@ class UrlOrBuiltin extends Url
     /**
      * @var array A list of the placeholders that are treated as builtin
      */
-    public $allowed_placeholders = Attachment::BUILTIN_PLACEHOLDER;
+    public array $allowed_placeholders = Attachment::BUILTIN_PLACEHOLDER;
 }

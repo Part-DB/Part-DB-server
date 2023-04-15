@@ -48,5 +48,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ValidRange extends Constraint
 {
-    public $message = 'validator.invalid_range';
+    public string $message = 'validator.invalid_range';
 }

@@ -48,7 +48,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
             //Only denormalize if we are doing an file import operation
-            && in_array('import', $context['groups'] ?? []);
+            && in_array('import', $context['groups'] ?? [], true);
     }
 
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement

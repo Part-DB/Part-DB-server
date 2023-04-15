@@ -27,24 +27,24 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     protected $service;
 
     /** @var Part */
-    private $part;
+    private Part $part;
 
     /** @var Storelocation */
-    private $storageLocation;
+    private Storelocation $storageLocation;
     /** @var Storelocation */
-    private $full_storageLocation;
+    private Storelocation $full_storageLocation;
 
     /** @var PartLot */
-    private $partLot1;
+    private PartLot $partLot1;
     /** @var PartLot */
-    private $partLot2;
+    private PartLot $partLot2;
     /** @var PartLot */
-    private $partLot3;
+    private PartLot $partLot3;
 
     /** @var PartLot */
-    private $fullLot;
+    private PartLot $fullLot;
     /** @var PartLot */
-    private $lotWithUnknownInstock;
+    private PartLot $lotWithUnknownInstock;
 
     protected function setUp(): void
     {

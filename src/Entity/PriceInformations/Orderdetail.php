@@ -57,7 +57,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
      * @Groups({"extended", "full", "import"})
      */
-    protected $pricedetails;
+    protected Collection $pricedetails;
 
     /**
      * @var string

@@ -44,7 +44,7 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")

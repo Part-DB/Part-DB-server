@@ -282,7 +282,7 @@ class AttachmentTest extends TestCase
      * @param string $property - property on instance being modified
      * @param mixed  $value    - new value of the property being modified
      */
-    public function setProtectedProperty($object, $property, $value): void
+    public function setProtectedProperty(object $object, string $property, $value): void
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);

@@ -51,7 +51,7 @@ class AttachmentType extends AbstractStructuralDBElement
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var string

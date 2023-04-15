@@ -35,24 +35,24 @@ class ProjectBuildRequestTest extends TestCase
     private MeasurementUnit $float_unit;
 
     /** @var Project */
-    private $project1;
+    private Project $project1;
     /** @var ProjectBOMEntry */
-    private $bom_entry1a;
+    private ProjectBOMEntry $bom_entry1a;
     /** @var ProjectBOMEntry */
-    private $bom_entry1b;
+    private ProjectBOMEntry $bom_entry1b;
     /** @var ProjectBOMEntry */
-    private $bom_entry1c;
+    private ProjectBOMEntry $bom_entry1c;
 
     /** @var PartLot $lot1a */
     private $lot1a;
     /** @var PartLot $lot1b */
     private $lot1b;
-    private $lot2;
+    private PartLot $lot2;
 
     /** @var Part */
-    private $part1;
+    private Part $part1;
     /** @var Part */
-    private $part2;
+    private Part $part2;
 
 
     public function setUp(): void

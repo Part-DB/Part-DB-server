@@ -56,7 +56,7 @@ class Supplier extends AbstractCompany
      * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="supplier")

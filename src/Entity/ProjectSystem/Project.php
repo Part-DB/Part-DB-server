@@ -53,14 +53,14 @@ class Project extends AbstractStructuralDBElement
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @Groups({"extended", "full"})
      */
-    protected $bom_entries;
+    protected Collection $bom_entries;
 
     /**
      * @ORM\Column(type="integer")

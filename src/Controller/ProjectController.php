@@ -114,9 +114,9 @@ class ProjectController extends AbstractController
                     $request->get('_redirect',
                         $this->generateUrl('project_info', ['id' => $project->getID()]
                         )));
-            } else {
-                $this->addFlash('error', 'project.build.flash.invalid_input');
             }
+
+            $this->addFlash('error', 'project.build.flash.invalid_input');
         }
 
         return $this->renderForm('projects/build/build.html.twig', [

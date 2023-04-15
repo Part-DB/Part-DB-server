@@ -35,9 +35,9 @@ class NoneOfItsChildren extends Constraint
     /**
      * @var string The message used if it is tried to assign a object as its own parent
      */
-    public $self_message = 'validator.noneofitschild.self';
+    public string $self_message = 'validator.noneofitschild.self';
     /**
      * @var string The message used if it is tried to use one of the children for as parent
      */
-    public $children_message = 'validator.noneofitschild.children';
+    public string $children_message = 'validator.noneofitschild.children';
 }

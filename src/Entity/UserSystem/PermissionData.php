@@ -216,7 +216,7 @@ final class PermissionData implements \JsonSerializable
                 continue;
             }
 
-            $ret[$permission] = array_filter($operations, function ($value) {
+            $ret[$permission] = array_filter($operations, static function ($value) {
                 return $value !== null;
             });
 

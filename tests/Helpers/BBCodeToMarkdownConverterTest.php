@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class BBCodeToMarkdownConverterTest extends TestCase
 {
-    protected $converter;
+    protected BBCodeToMarkdownConverter $converter;
 
     protected function setUp(): void
     {

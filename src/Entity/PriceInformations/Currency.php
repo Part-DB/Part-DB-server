@@ -75,7 +75,7 @@ class Currency extends AbstractStructuralDBElement
      * @ORM\ManyToOne(targetEntity="Currency", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, CurrencyAttachment>

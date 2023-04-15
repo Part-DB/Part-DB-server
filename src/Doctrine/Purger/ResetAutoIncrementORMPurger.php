@@ -53,21 +53,21 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     public const PURGE_MODE_TRUNCATE = 2;
 
     /** @var EntityManagerInterface|null */
-    private $em;
+    private ?EntityManagerInterface $em;
 
     /**
      * If the purge should be done through DELETE or TRUNCATE statements
      *
      * @var int
      */
-    private $purgeMode = self::PURGE_MODE_DELETE;
+    private int $purgeMode = self::PURGE_MODE_DELETE;
 
     /**
      * Table/view names to be excluded from purge
      *
      * @var string[]
      */
-    private $excluded;
+    private array $excluded;
 
     /**
      * Construct new purger instance.

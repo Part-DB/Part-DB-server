@@ -44,7 +44,7 @@ class Manufacturer extends AbstractCompany
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Manufacturer", mappedBy="parent")

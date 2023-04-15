@@ -36,11 +36,7 @@ class PermissionSchemaUpdater
     {
         $perm_data = $holder->getPermissions();
 
-        if ($perm_data->getSchemaVersion() < PermissionData::CURRENT_SCHEMA_VERSION) {
-            return true;
-        }
-
-        return false;
+        return $perm_data->getSchemaVersion() < PermissionData::CURRENT_SCHEMA_VERSION;
     }
 
     /**

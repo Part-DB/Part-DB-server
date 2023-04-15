@@ -91,12 +91,12 @@ final class UpgradePermissionsSchemaCommand extends Command
 
         //List all users and groups that need an update
         $io->section('Groups that need an update:');
-        $io->listing(array_map(function (Group $group) {
+        $io->listing(array_map(static function (Group $group) {
             return $group->getName() . ' (ID: '. $group->getID() .', Current version: ' . $group->getPermissions()->getSchemaVersion() . ')';
         }, $groups_to_upgrade));
 
         $io->section('Users that need an update:');
-        $io->listing(array_map(function (User $user) {
+        $io->listing(array_map(static function (User $user) {
             return $user->getUsername() . ' (ID: '. $user->getID() .', Current version: ' . $user->getPermissions()->getSchemaVersion() . ')';
         }, $users_to_upgrade));
 

@@ -27,7 +27,6 @@ use App\Entity\Attachments\AttachmentType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
-use App\Validator\Constraints\AllowedFileExtension;
 use App\Validator\Constraints\UrlOrBuiltin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

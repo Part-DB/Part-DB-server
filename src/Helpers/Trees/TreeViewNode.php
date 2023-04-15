@@ -30,17 +30,17 @@ use JsonSerializable;
  */
 final class TreeViewNode implements JsonSerializable
 {
-    private $text;
-    private $href;
-    private $nodes;
+    private string $text;
+    private ?string $href;
+    private ?array $nodes;
 
-    private $state = null;
+    private ?TreeViewNodeState $state = null;
 
-    private $tags;
+    private ?array $tags;
 
-    private $id;
+    private ?int $id;
 
-    private $icon;
+    private ?string $icon;
 
     /**
      * Creates a new TreeView node with the given parameters.

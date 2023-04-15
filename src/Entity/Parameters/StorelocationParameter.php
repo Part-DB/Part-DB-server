@@ -58,5 +58,5 @@ class StorelocationParameter extends AbstractParameter
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Storelocation", inversedBy="parameters")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
-    protected $element;
+    protected ?\App\Entity\Base\AbstractDBElement $element;
 }

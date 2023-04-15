@@ -255,10 +255,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @Selectable()
      * @Groups({"extended", "full", "import"})
      */
-    protected $currency;
+    protected ?Currency $currency;
 
     /**
-     * @var PermissionData
+     * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      * @Groups({"simple", "extended", "full", "import"})
@@ -266,10 +266,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var DateTime the time until the password reset token is valid
+     * @var DateTime|null the time until the password reset token is valid
      * @ORM\Column(type="datetime", nullable=true, options={"default": null})
      */
-    protected $pw_reset_expires;
+    protected ?DateTime $pw_reset_expires;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)

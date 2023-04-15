@@ -443,11 +443,13 @@ class AttachmentSubmitHandler
         ];
         if (ctype_digit((string) $maxSize)) {
             return (int) $maxSize;
-        } elseif (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
-            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
-        } else {
-            throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
         }
+
+        if (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
+            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
+        }
+
+        throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
     }
 
     /*

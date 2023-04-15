@@ -81,7 +81,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>

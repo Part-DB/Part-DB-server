@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\UserSystem\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -32,9 +33,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class RedirectControllerTest extends WebTestCase
 {
-    protected $em;
-    protected $userRepo;
-    protected $client;
+    protected EntityManagerInterface $em;
+    protected UserRepository $userRepo;
+    protected \Symfony\Bundle\FrameworkBundle\KernelBrowser $client;
 
     protected function setUp(): void
     {

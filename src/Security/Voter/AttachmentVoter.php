@@ -32,7 +32,7 @@ use function in_array;
 
 class AttachmentVoter extends ExtendedVoter
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
     {

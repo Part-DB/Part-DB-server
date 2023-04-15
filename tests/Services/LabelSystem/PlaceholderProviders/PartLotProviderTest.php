@@ -53,9 +53,9 @@ class PartLotProviderTest extends WebTestCase
     /**
      * @var PartLotProvider
      */
-    protected $service;
+    protected PartLotProvider $service;
 
-    protected $target;
+    protected PartLot $target;
 
     protected function setUp(): void
     {

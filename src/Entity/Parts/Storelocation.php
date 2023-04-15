@@ -53,7 +53,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="Storelocation", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here

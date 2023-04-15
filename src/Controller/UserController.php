@@ -129,9 +129,9 @@ class UserController extends AdminPages\BaseAdminController
 
                 //We need to stop the execution here, or our permissions changes will be overwritten by the form values
                 return $this->redirectToRoute('user_edit', ['id' => $entity->getID()]);
-            } else {
-                $this->addFlash('danger', 'csfr_invalid');
             }
+
+            $this->addFlash('danger', 'csfr_invalid');
         }
 
         return $this->_edit($entity, $request, $em, $timestamp);

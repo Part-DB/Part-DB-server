@@ -51,12 +51,12 @@ class LabelTextReplacerTest extends WebTestCase
     /**
      * @var LabelTextReplacer
      */
-    protected $service;
+    protected LabelTextReplacer $service;
 
     /**
      * @var Part
      */
-    protected $target;
+    protected Part $target;
 
     protected function setUp(): void
     {

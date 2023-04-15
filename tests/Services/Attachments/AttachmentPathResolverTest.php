@@ -29,8 +29,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
 {
-    protected $media_path;
-    protected $footprint_path;
+    protected string $media_path;
+    protected string $footprint_path;
     protected $projectDir_orig;
     protected $projectDir;
     /**

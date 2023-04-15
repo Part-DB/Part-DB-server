@@ -51,7 +51,7 @@ trait FilterTrait
     protected function generateParameterIdentifier(string $property): string
     {
         //Replace all special characters with underscores
-        $property = preg_replace('/[^a-zA-Z0-9_]/', '_', $property);
+        $property = preg_replace('/\W/', '_', $property);
         //Add a random number to the end of the property name for uniqueness
         return $property . '_' . uniqid("", false);
     }

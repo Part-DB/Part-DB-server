@@ -31,8 +31,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 abstract class AbstractAdminControllerTest extends WebTestCase
 {
-    protected static $base_path = 'not_valid';
-    protected static $entity_class = 'not valid';
+    protected static string $base_path = 'not_valid';
+    protected static string $entity_class = 'not valid';
 
     public function readDataProvider(): array
     {

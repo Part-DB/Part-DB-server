@@ -183,7 +183,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /** @var array The extra data in raw (short form) saved in the DB
      * @ORM\Column(name="extra", type="json")
      */
-    protected $extra = [];
+    protected array $extra = [];
 
     public function __construct()
     {

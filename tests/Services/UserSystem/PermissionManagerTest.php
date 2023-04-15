@@ -24,7 +24,6 @@ namespace App\Tests\Services\UserSystem;
 
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
-use App\Entity\UserSystem\PermissionsEmbed;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use InvalidArgumentException;

@@ -30,11 +30,11 @@ class TreeViewNodeTest extends TestCase
     /**
      * @var TreeViewNode
      */
-    protected $node1;
+    protected TreeViewNode $node1;
     /**
      * @var TreeViewNode
      */
-    protected $node2;
+    protected TreeViewNode $node2;
 
     protected function setUp(): void
     {

@@ -30,6 +30,6 @@ use App\Entity\Attachments\AttachmentType;
  */
 class AttachmentTypeControllerTest extends AbstractAdminControllerTest
 {
-    protected static $base_path = '/en'.'/attachment_type';
-    protected static $entity_class = AttachmentType::class;
+    protected static string $base_path = '/en'.'/attachment_type';
+    protected static string $entity_class = AttachmentType::class;
 }

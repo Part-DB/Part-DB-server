@@ -21,13 +21,8 @@
 namespace App\Migration;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\AbstractMySQLDriver;
-use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
-use Doctrine\DBAL\Platforms\MariaDBPlatform;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -43,7 +38,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     public function __construct(Connection $connection, LoggerInterface $logger)
     {
         $this->logger = $logger;
-        AbstractMigration::__construct($connection, $logger);
+        parent::__construct($connection, $logger);
     }
 
     public function up(Schema $schema): void

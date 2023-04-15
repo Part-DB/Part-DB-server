@@ -30,6 +30,6 @@ use App\Entity\Parts\Category;
  */
 class CategoryControllerTest extends AbstractAdminControllerTest
 {
-    protected static $base_path = '/en'.'/category';
-    protected static $entity_class = Category::class;
+    protected static string $base_path = '/en'.'/category';
+    protected static string $entity_class = Category::class;
 }

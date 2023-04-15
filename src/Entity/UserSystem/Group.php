@@ -55,7 +55,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
@@ -68,7 +68,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\Column(type="boolean", name="enforce_2fa")
      * @Groups({"extended", "full", "import"})
      */
-    protected $enforce2FA = false;
+    protected bool $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

@@ -52,7 +52,7 @@ class LogController extends AbstractController
 {
     protected EntityManagerInterface $entityManager;
     protected TimeTravel $timeTravel;
-    protected DBElementRepository $dbRepository;
+    protected EntityRepository $dbRepository;
 
     public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
     {

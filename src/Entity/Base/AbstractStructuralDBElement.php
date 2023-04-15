@@ -94,7 +94,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @NoneOfItsChildren()
      * @Groups({"include_parents", "import"})
      */
-    protected $parent = null;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself
@@ -155,10 +155,8 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             if ($this->getParent() === $another_element) {
                 return true;
             }
-        } else { //If the IDs are defined, we can compare the IDs
-            if ($this->getParent()->getID() === $another_element->getID()) {
-                return true;
-            }
+        } elseif ($this->getParent()->getID() === $another_element->getID()) {
+            return true;
         }
 
         //Otherwise, check recursively
