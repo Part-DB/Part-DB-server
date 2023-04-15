@@ -22,9 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\Options;

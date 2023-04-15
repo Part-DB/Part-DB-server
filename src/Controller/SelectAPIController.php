@@ -22,7 +22,6 @@ namespace App\Controller;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;

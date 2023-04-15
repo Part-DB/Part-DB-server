@@ -20,10 +20,8 @@
 
 namespace App\Serializer;
 
-use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface

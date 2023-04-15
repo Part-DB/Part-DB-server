@@ -22,7 +22,6 @@ namespace App\Tests\Security;
 
 use App\Entity\UserSystem\User;
 use App\Security\SamlUserFactory;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SamlUserFactoryTest extends WebTestCase

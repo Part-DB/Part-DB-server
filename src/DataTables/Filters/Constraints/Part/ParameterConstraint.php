@@ -24,7 +24,6 @@ use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Parameters\PartParameter;
 use Doctrine\ORM\QueryBuilder;
-use Svg\Tag\Text;
 
 class ParameterConstraint extends AbstractConstraint
 {

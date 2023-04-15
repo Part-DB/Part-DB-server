@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Services\Trees;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Attachments\PartAttachment;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;

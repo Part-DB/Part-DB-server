@@ -25,7 +25,6 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;

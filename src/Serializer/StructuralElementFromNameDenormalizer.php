@@ -21,11 +21,9 @@
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Form\Type\StructuralEntityType;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface

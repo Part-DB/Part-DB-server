@@ -5,9 +5,7 @@ namespace App\Tests\Services\Parts;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use App\Services\ElementTypeNameGenerator;
 use App\Services\Parts\PartLotWithdrawAddHelper;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestPartLot extends PartLot

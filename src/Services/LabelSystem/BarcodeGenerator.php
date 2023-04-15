@@ -47,9 +47,6 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
-use PhpParser\Node\Stmt\Label;
-use Symfony\Component\Mime\MimeTypes;
-use Twig\Extra\Html\HtmlExtension;
 
 final class BarcodeGenerator
 {

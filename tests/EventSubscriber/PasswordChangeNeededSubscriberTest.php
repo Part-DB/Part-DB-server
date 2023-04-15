@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Tests\EventSubscriber;
 
 use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber;

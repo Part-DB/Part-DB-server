@@ -21,7 +21,6 @@
 namespace App\Form\Filters\Constraints;
 
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
-use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

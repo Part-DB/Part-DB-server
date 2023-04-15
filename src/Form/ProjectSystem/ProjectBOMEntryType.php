@@ -2,18 +2,14 @@
 
 namespace App\Form\ProjectSystem;
 
-use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
-use Svg\Tag\Text;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;

@@ -25,7 +25,6 @@ use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Serializer\PartNormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PartNormalizerTest extends WebTestCase

@@ -24,10 +24,8 @@ namespace App\Tests\Security;
 
 use App\Entity\UserSystem\User;
 use App\Security\UserChecker;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
-use Symfony\Component\Security\Core\Exception\DisabledException;
 
 class UserCheckerTest extends WebTestCase
 {

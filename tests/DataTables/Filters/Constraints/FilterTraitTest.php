@@ -21,7 +21,6 @@
 namespace App\Tests\DataTables\Filters\Constraints;
 
 use App\DataTables\Filters\Constraints\FilterTrait;
-use App\Entity\Parts\MeasurementUnit;
 use PHPUnit\Framework\TestCase;
 
 class FilterTraitTest extends TestCase

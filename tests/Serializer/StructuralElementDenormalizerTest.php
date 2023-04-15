@@ -22,7 +22,6 @@ namespace App\Tests\Serializer;
 
 use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementDenormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StructuralElementDenormalizerTest extends WebTestCase

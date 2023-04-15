@@ -38,11 +38,9 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
-use App\Form\Filters\Constraints\UserEntityConstraintType;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Svg\Tag\Text;
 
 class PartFilter implements FilterInterface
 {

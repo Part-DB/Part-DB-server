@@ -20,7 +20,6 @@
 
 namespace App\DataTables\Adapters;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;

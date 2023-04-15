@@ -26,8 +26,6 @@ use InvalidArgumentException;
 use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BOMImporter
 {

@@ -81,7 +81,6 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Repository\Parts\ManufacturerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 

@@ -20,7 +20,6 @@
 
 namespace App\Twig;
 
-use App\Entity\Base\AbstractDBElement;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

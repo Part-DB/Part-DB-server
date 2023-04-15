@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\UserSystem;
 
-use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

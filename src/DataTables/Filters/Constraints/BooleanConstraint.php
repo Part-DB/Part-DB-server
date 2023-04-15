@@ -20,7 +20,6 @@
 
 namespace App\DataTables\Filters\Constraints;
 
-use App\DataTables\Filters\FilterInterface;
 use Doctrine\ORM\QueryBuilder;
 
 class BooleanConstraint extends AbstractConstraint

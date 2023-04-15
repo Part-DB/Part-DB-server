@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;

@@ -44,7 +44,6 @@ namespace App\Form;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ReflectionClass;
-use ReflectionException;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;

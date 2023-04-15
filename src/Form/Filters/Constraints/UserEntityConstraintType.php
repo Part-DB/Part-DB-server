@@ -21,16 +21,12 @@
 namespace App\Form\Filters\Constraints;
 
 use App\DataTables\Filters\Constraints\EntityConstraint;
-use App\Entity\UserSystem\User;
-use App\Form\Type\StructuralEntityType;
 use App\Form\Type\UserSelectType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserEntityConstraintType extends AbstractType

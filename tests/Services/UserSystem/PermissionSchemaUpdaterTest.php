@@ -23,7 +23,6 @@ namespace App\Tests\Services\UserSystem;
 use App\Entity\UserSystem\PermissionData;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\UserSystem\PermissionSchemaUpdater;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestPermissionHolder implements HasPermissionsInterface

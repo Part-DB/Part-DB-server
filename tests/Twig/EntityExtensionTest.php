@@ -20,7 +20,6 @@
 
 namespace App\Tests\Twig;
 
-use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;

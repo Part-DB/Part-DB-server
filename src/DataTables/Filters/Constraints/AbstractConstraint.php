@@ -21,7 +21,6 @@
 namespace App\DataTables\Filters\Constraints;
 
 use App\DataTables\Filters\FilterInterface;
-use Doctrine\ORM\QueryBuilder;
 
 abstract class AbstractConstraint implements FilterInterface
 {

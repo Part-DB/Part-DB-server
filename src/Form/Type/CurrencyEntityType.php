@@ -22,14 +22,10 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
-use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use RuntimeException;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;

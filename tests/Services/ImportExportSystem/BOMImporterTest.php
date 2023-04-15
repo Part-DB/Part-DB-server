@@ -23,7 +23,6 @@ namespace App\Tests\Services\ImportExportSystem;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ImportExportSystem\BOMImporter;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 

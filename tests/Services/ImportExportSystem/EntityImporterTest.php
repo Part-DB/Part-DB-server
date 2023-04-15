@@ -26,7 +26,6 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
-use App\Services\Formatters\AmountFormatter;
 use App\Services\ImportExportSystem\EntityImporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;

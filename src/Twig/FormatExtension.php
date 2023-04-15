@@ -22,38 +22,15 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Entity\Attachments\Attachment;
-use App\Entity\Base\AbstractDBElement;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
-use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
-use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\User;
 use App\Services\Formatters\AmountFormatter;
-use App\Services\Attachments\AttachmentURLGenerator;
-use App\Services\EntityURLGenerator;
-use App\Services\Misc\FAIconGenerator;
 use App\Services\Formatters\MarkdownParser;
 use App\Services\Formatters\MoneyFormatter;
 use App\Services\Formatters\SIFormatter;
-use App\Services\Trees\TreeViewGenerator;
 use Brick\Math\BigDecimal;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
-
-use function get_class;
 
 final class FormatExtension extends AbstractExtension
 {

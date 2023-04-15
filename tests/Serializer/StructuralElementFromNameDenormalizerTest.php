@@ -20,10 +20,8 @@
 
 namespace App\Tests\Serializer;
 
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementFromNameDenormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StructuralElementFromNameDenormalizerTest extends WebTestCase
