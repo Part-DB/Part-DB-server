@@ -28,20 +28,17 @@ use function in_array;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RedirectController extends AbstractController
 {
     protected string $default_locale;
     protected TranslatorInterface $translator;
-    protected SessionInterface $session;
     protected bool $enforce_index_php;
 
-    public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session, bool $enforce_index_php)
+    public function __construct(string $default_locale, TranslatorInterface $translator, bool $enforce_index_php)
     {
         $this->default_locale = $default_locale;
-        $this->session = $session;
         $this->translator = $translator;
         $this->enforce_index_php = $enforce_index_php;
     }

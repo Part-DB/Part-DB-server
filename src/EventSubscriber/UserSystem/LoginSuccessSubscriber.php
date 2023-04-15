@@ -26,6 +26,7 @@ use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -39,15 +40,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class LoginSuccessSubscriber implements EventSubscriberInterface
 {
     private TranslatorInterface $translator;
-    private FlashBagInterface $flashBag;
+    private RequestStack $requestStack;
     private EventLogger $eventLogger;
     private bool $gpdr_compliance;
 
-    public function __construct(TranslatorInterface $translator, SessionInterface $session, EventLogger $eventLogger, bool $gpdr_compliance)
+    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, EventLogger $eventLogger, bool $gpdr_compliance)
     {
         /** @var Session $session */
         $this->translator = $translator;
-        $this->flashBag = $session->getFlashBag();
+        $this->requestStack = $requestStack;
         $this->eventLogger = $eventLogger;
         $this->gpdr_compliance = $gpdr_compliance;
     }
@@ -62,8 +63,11 @@ final class LoginSuccessSubscriber implements EventSubscriberInterface
             $this->eventLogger->logAndFlush($log);
         }
 
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
+        $flashBag = $session->getFlashBag();
 
-        $this->flashBag->add('notice', $this->translator->trans('flash.login_successful'));
+        $flashBag->add('notice', $this->translator->trans('flash.login_successful'));
     }
 
     /**

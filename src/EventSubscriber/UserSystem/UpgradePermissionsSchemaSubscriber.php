@@ -40,16 +40,14 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
     private Security $security;
     private PermissionSchemaUpdater $permissionSchemaUpdater;
     private EntityManagerInterface $entityManager;
-    private FlashBagInterface $flashBag;
     private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, SessionInterface $session, EventCommentHelper $eventCommentHelper)
+    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
     {
         /** @var Session $session */
         $this->security = $security;
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;
         $this->entityManager = $entityManager;
-        $this->flashBag = $session->getFlashBag();
         $this->eventCommentHelper = $eventCommentHelper;
     }
 
@@ -65,11 +63,15 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
             $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
         }
 
+        /** @var Session $session */
+        $session = $event->getRequest()->getSession();
+        $flashBag = $session->getFlashBag();
+
         if ($this->permissionSchemaUpdater->isSchemaUpdateNeeded($user)) {
             $this->eventCommentHelper->setMessage('Automatic permission schema update');
             $this->permissionSchemaUpdater->userUpgradeSchemaRecursively($user);
             $this->entityManager->flush();
-            $this->flashBag->add('notice', 'user.permissions_schema_updated');
+            $flashBag->add('notice', 'user.permissions_schema_updated');
         }
     }
 
