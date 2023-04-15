@@ -41,7 +41,7 @@ class InstanceOfConstraintType extends AbstractType
         $resolver->setDefault('data_class', InstanceOfConstraint::class);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceConstraintType::class;
     }

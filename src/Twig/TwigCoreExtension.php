@@ -54,7 +54,7 @@ final class TwigCoreExtension extends AbstractExtension
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             /* Converts the given object to an array representation of the public/accessible properties  */

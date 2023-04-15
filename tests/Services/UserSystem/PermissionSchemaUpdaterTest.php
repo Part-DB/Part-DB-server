@@ -56,7 +56,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         $this->service = self::$container->get(PermissionSchemaUpdater::class);
     }
 
-    public function testIsSchemaUpdateNeeded()
+    public function testIsSchemaUpdateNeeded(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
@@ -70,7 +70,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertFalse($this->service->isSchemaUpdateNeeded($user));
     }
 
-    public function testUpgradeSchema()
+    public function testUpgradeSchema(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
@@ -84,7 +84,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertFalse($this->service->upgradeSchema($user));
     }
 
-    public function testUpgradeSchemaToVersion1()
+    public function testUpgradeSchemaToVersion1(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
@@ -98,7 +98,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'withdraw'));
     }
 
-    public function testUpgradeSchemaToVersion2()
+    public function testUpgradeSchemaToVersion2(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(1);

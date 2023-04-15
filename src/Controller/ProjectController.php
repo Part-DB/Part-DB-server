@@ -64,7 +64,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
      */
-    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper)
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
 

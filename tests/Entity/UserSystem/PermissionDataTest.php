@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 class PermissionDataTest extends TestCase
 {
 
-    public function testGetSetIs()
+    public function testGetSetIs(): void
     {
         $perm_data = new PermissionData();
 
@@ -60,7 +60,7 @@ class PermissionDataTest extends TestCase
         $this->assertFalse($perm_data->isPermissionSet('p1', 'op1'));
     }
 
-    public function testJSONSerialization()
+    public function testJSONSerialization(): void
     {
         $perm_data = new PermissionData();
 
@@ -99,7 +99,7 @@ class PermissionDataTest extends TestCase
 
     }
 
-    public function testFromJSON()
+    public function testFromJSON(): void
     {
         $json = json_encode([
             'perm1' => [
@@ -120,7 +120,7 @@ class PermissionDataTest extends TestCase
         $this->assertFalse($perm_data->getPermissionValue('perm2', 'op2'));
     }
 
-    public function testResetPermissions()
+    public function testResetPermissions(): void
     {
         $data = new PermissionData();
 
@@ -147,7 +147,7 @@ class PermissionDataTest extends TestCase
         $this->assertFalse($data->isPermissionSet('perm1', 'op3'));
     }
 
-    public function testGetSchemaVersion()
+    public function testGetSchemaVersion(): void
     {
         $data = new PermissionData();
 
@@ -159,7 +159,7 @@ class PermissionDataTest extends TestCase
         $this->assertEquals(12345, $data->getSchemaVersion());
     }
 
-    public function testIsAnyOperationOfPermissionSet()
+    public function testIsAnyOperationOfPermissionSet(): void
     {
         $data = new PermissionData();
 
@@ -170,7 +170,7 @@ class PermissionDataTest extends TestCase
         $this->assertTrue($data->isAnyOperationOfPermissionSet('perm1'));
     }
 
-    public function testGetAllDefinedOperationsOfPermission()
+    public function testGetAllDefinedOperationsOfPermission(): void
     {
         $data = new PermissionData();
 
@@ -185,7 +185,7 @@ class PermissionDataTest extends TestCase
             $data->getAllDefinedOperationsOfPermission('perm1'));
     }
 
-    public function testSetAllOperationsOfPermission()
+    public function testSetAllOperationsOfPermission(): void
     {
         $data = new PermissionData();
 
@@ -200,7 +200,7 @@ class PermissionDataTest extends TestCase
             $data->getAllDefinedOperationsOfPermission('perm1'));
     }
 
-    public function testRemovePermission()
+    public function testRemovePermission(): void
     {
         $data = new PermissionData();
 

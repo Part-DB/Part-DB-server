@@ -39,13 +39,13 @@ class BigNumberNormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(BigNumberNormalizer::class);
     }
 
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $bigDecimal = BigDecimal::of('1.23456789');
         $this->assertSame('1.23456789', $this->service->normalize($bigDecimal));
     }
 
-    public function testSupportsNormalization()
+    public function testSupportsNormalization(): void
     {
         //Normalizer must only support BigNumber objects (and child classes)
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));

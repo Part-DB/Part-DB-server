@@ -69,7 +69,7 @@ class ImportPartKeeprCommand extends Command
         $this->addOption('--import-users', null, InputOption::VALUE_NONE, 'Import users (passwords will not be imported).');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

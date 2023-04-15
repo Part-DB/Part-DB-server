@@ -32,7 +32,7 @@ final class MiscExtension extends AbstractExtension
         $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new \Twig\TwigFunction('event_comment_needed',

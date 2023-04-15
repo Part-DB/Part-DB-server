@@ -43,7 +43,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
         $this->entityManager = $entityManager;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)

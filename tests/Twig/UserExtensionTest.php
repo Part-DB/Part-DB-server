@@ -34,7 +34,7 @@ class UserExtensionTest extends WebTestCase
         $this->service = self::getContainer()->get(UserExtension::class);
     }
 
-    public function removeeLocaleFromPathDataSet()
+    public function removeeLocaleFromPathDataSet(): ?\Generator
     {
         yield ['/', '/de/'];
         yield ['/test', '/de/test'];

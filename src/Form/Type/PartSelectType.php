@@ -117,7 +117,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'part_select';
     }

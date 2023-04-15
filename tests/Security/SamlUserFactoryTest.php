@@ -37,7 +37,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->service = self::getContainer()->get(SamlUserFactory::class);
     }
 
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
         $user = $this->service->createUser('sso_user', [
             'email' => ['j.doe@invalid.invalid'],
@@ -63,7 +63,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertEquals('j.doe@invalid.invalid', $user->getEmail());
     }
 
-    public function testMapSAMLRolesToLocalGroupID()
+    public function testMapSAMLRolesToLocalGroupID(): void
     {
         $mapping = [
             'admin' => 2, //This comes first, as this should have higher priority

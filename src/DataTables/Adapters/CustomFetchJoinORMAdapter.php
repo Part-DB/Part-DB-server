@@ -38,7 +38,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
  */
 class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 {
-    public function getCount(QueryBuilder $queryBuilder, $identifier)
+    public function getCount(QueryBuilder $queryBuilder, $identifier): ?int
     {
         $qb_without_group_by = clone $queryBuilder;
 

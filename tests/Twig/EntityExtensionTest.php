@@ -51,7 +51,7 @@ class EntityExtensionTest extends WebTestCase
         $this->service = self::getContainer()->get(EntityExtension::class);
     }
 
-    public function testGetEntityType()
+    public function testGetEntityType(): void
     {
         $this->assertEquals('part', $this->service->getEntityType(new Part()));
         $this->assertEquals('footprint', $this->service->getEntityType(new Footprint()));

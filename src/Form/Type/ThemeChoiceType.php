@@ -34,7 +34,7 @@ class ThemeChoiceType extends AbstractType
         $this->available_themes = $available_themes;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

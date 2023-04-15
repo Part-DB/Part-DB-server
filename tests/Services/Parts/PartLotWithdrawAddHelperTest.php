@@ -89,7 +89,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->lotWithUnknownInstock->setStorageLocation($this->storageLocation);
     }
 
-    public function testCanWithdraw()
+    public function testCanWithdraw(): void
     {
         //Normal lots should be withdrawable
         $this->assertTrue($this->service->canWithdraw($this->partLot1));
@@ -103,7 +103,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->assertFalse($this->service->canWithdraw($this->lotWithUnknownInstock));
     }
 
-    public function testCanAdd()
+    public function testCanAdd(): void
     {
         //Normal lots should be addable
         $this->assertTrue($this->service->canAdd($this->partLot1));
@@ -116,7 +116,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->assertFalse($this->service->canAdd($this->lotWithUnknownInstock));
     }
 
-    public function testAdd()
+    public function testAdd(): void
     {
         //Add 5 to lot 1
         $this->service->add($this->partLot1, 5, "Test");
@@ -132,7 +132,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
 
     }
 
-    public function testWithdraw()
+    public function testWithdraw(): void
     {
         //Withdraw 5 from lot 1
         $this->service->withdraw($this->partLot1, 5, "Test");
@@ -143,7 +143,7 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->assertEquals(0, $this->partLot2->getAmount());
     }
 
-    public function testMove()
+    public function testMove(): void
     {
         //Move 5 from lot 1 to lot 2
         $this->service->move($this->partLot1, $this->partLot2, 5, "Test");

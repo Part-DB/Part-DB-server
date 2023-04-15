@@ -140,7 +140,7 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
     }
 
-    public function germanFootprintPathdDataProvider()
+    public function germanFootprintPathdDataProvider(): ?\Generator
     {
         self::bootKernel();
         $this->projectDir_orig = realpath(self::$kernel->getProjectDir());

@@ -93,7 +93,7 @@ class ProjectBOMEntryType extends AbstractType
     }
 
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'project_bom_entry';
     }

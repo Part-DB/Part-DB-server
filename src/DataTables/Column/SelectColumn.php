@@ -28,7 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SelectColumn extends AbstractColumn
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
 
@@ -48,7 +48,7 @@ class SelectColumn extends AbstractColumn
         return $value;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         //Return empty string, as it this column is filled by datatables on client side
         return '';

@@ -41,14 +41,14 @@ class PartNormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(PartNormalizer::class);
     }
 
-    public function testSupportsNormalization()
+    public function testSupportsNormalization(): void
     {
         //Normalizer must only support Part objects (and child classes)
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));
         $this->assertTrue($this->service->supportsNormalization(new Part()));
     }
 
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $part = new Part();
         $part->setName('Test Part');
@@ -70,7 +70,7 @@ class PartNormalizerTest extends WebTestCase
         $this->assertArrayNotHasKey('type', $data);
     }
 
-    public function testSupportsDenormalization()
+    public function testSupportsDenormalization(): void
     {
         //Normalizer must only support Part type with array as input
         $this->assertFalse($this->service->supportsDenormalization(new \stdClass(), Part::class));
@@ -79,7 +79,7 @@ class PartNormalizerTest extends WebTestCase
         $this->assertTrue($this->service->supportsDenormalization(['a' => 'b'], Part::class));
     }
 
-    public function testDenormalize()
+    public function testDenormalize(): void
     {
         $input = [
             'name' => 'Test Part',

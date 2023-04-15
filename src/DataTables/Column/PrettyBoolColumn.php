@@ -41,7 +41,7 @@ class PrettyBoolColumn extends AbstractColumn
         return (bool) $value;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         if ($value === true) {
             return '<span class="badge bg-success"><i class="fa-solid fa-circle-check fa-fw"></i> '

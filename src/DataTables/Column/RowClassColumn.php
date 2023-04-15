@@ -27,7 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RowClassColumn extends AbstractColumn
 {
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
 

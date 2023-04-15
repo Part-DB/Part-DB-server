@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class EventCommentNeededHelperTest extends TestCase
 {
-    public function testIsCommentNeeded()
+    public function testIsCommentNeeded(): void
     {
         $service = new EventCommentNeededHelper(['part_edit', 'part_create']);
         $this->assertTrue($service->isCommentNeeded('part_edit'));
@@ -34,7 +34,7 @@ class EventCommentNeededHelperTest extends TestCase
         $this->assertFalse($service->isCommentNeeded('part_stock_operation'));
     }
 
-    public function testIsCommentNeededInvalidTypeException()
+    public function testIsCommentNeededInvalidTypeException(): void
     {
         $service = new EventCommentNeededHelper(['part_edit', 'part_create']);
         $this->expectException(\InvalidArgumentException::class);
