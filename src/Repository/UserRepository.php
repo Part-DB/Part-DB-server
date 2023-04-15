@@ -35,7 +35,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class UserRepository extends NamedDBElementRepository implements PasswordUpgraderInterface
 {
-    protected ?User $anonymous_user;
+    protected ?User $anonymous_user = null;
 
     /**
      * Returns the anonymous user.

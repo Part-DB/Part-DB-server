@@ -75,7 +75,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Groups({"full"})
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * @ORM\Column(type="datetime", name="datetime_added", options={"default":"CURRENT_TIMESTAMP"})
@@ -100,7 +100,7 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Valid()
      * @Groups({"full"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
      * @var DateTime|null the date when this element was modified the last time

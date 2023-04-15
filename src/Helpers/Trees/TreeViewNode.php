@@ -36,11 +36,11 @@ final class TreeViewNode implements JsonSerializable
 
     private ?TreeViewNodeState $state = null;
 
-    private ?array $tags;
+    private ?array $tags = null;
 
-    private ?int $id;
+    private ?int $id = null;
 
-    private ?string $icon;
+    private ?string $icon = null;
 
     /**
      * Creates a new TreeView node with the given parameters.

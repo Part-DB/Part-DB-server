@@ -143,7 +143,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
      */
-    protected ?AbstractDBElement $element;
+    protected ?AbstractDBElement $element = null;
 
     public function __construct()
     {

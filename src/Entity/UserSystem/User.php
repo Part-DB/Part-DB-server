@@ -226,7 +226,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
@@ -237,13 +237,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /** @var Collection<int, LegacyU2FKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
-    protected $u2fKeys;
+    protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\WebauthnKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
-    protected $webauthn_keys;
+    protected Collection $webauthn_keys;
 
     /**
      * @var Currency|null The currency the user wants to see prices in.

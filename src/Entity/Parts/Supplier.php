@@ -24,6 +24,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\AbstractCompany;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositiveOrZero;
@@ -50,18 +51,18 @@ class Supplier extends AbstractCompany
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="supplier")
      */
-    protected $orderdetails;
+    protected Collection $orderdetails;
 
     /**
      * @var Currency|null The currency that should be used by default for order informations with this supplier.
@@ -86,14 +87,14 @@ class Supplier extends AbstractCompany
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, SupplierParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.

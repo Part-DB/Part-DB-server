@@ -47,7 +47,7 @@ class Project extends AbstractStructuralDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
@@ -98,13 +98,13 @@ class Project extends AbstractStructuralDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ProjectAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, ProjectParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ProjectParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /********************************************************************************
      *

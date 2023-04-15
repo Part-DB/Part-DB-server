@@ -49,7 +49,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="children")
@@ -61,7 +61,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
      * @var Collection<User>
      */
-    protected $users;
+    protected Collection $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
@@ -75,7 +75,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
      * @var PermissionData|null
@@ -90,7 +90,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     public function __construct()
     {

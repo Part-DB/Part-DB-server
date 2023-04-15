@@ -87,7 +87,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @var AbstractStructuralDBElement[]|Collection
      * @Groups({"include_children"})
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @var AbstractStructuralDBElement
@@ -106,6 +106,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         parent::__construct();
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->parent = null;
     }
 
     public function __clone()

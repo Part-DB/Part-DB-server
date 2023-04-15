@@ -24,6 +24,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,13 +47,13 @@ class Category extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var string
@@ -109,6 +110,7 @@ class Category extends AbstractPartsContainingDBElement
      * @Groups({"full", "import"})
      */
     protected string $default_comment = '';
+
     /**
      * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -116,7 +118,7 @@ class Category extends AbstractPartsContainingDBElement
      * @Assert\Valid()
      * @Groups({"full"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, CategoryParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -124,7 +126,7 @@ class Category extends AbstractPartsContainingDBElement
      * @Assert\Valid()
      * @Groups({"full"})
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     public function getPartnameHint(): string
     {
