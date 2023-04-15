@@ -116,6 +116,7 @@ class Project extends AbstractStructuralDBElement
     {
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function __clone()

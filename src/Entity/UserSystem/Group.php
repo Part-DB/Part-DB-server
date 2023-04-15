@@ -97,6 +97,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
