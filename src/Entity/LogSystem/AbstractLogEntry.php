@@ -142,7 +142,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
         self::TARGET_TYPE_LABEL_PROFILE => LabelProfile::class,
     ];
 
-    /** @var User The user which has caused this log entry
+    /** @var User|null The user which has caused this log entry
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", fetch="EAGER")
      * @ORM\JoinColumn(name="id_user", nullable=true, onDelete="SET NULL")
      */

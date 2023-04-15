@@ -35,8 +35,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class GroupAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Group::class;
+
     /**
-     * @var Group the element this attachment is associated with
+     * @var Group|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\Group", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

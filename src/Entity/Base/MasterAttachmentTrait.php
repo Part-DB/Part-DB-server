@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait MasterAttachmentTrait
 {
     /**
-     * @var Attachment
+     * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")

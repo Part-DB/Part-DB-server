@@ -59,7 +59,7 @@ trait BasicPropertyTrait
     protected bool $favorite = false;
 
     /**
-     * @var Category The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
+     * @var Category|null The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
      *               Every part must have a category.
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)

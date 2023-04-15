@@ -103,13 +103,13 @@ class Part extends AttachmentContainingDBElement
     protected $attachments;
 
     /**
-     * @var DateTime the date when this element was modified the last time
+     * @var DateTime|null the date when this element was modified the last time
      * @ORM\Column(type="datetime", name="last_modified", options={"default":"CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $lastModified = null;
 
     /**
-     * @var Attachment
+     * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")

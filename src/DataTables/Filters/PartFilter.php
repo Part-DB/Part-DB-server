@@ -148,9 +148,9 @@ class PartFilter implements FilterInterface
 
 
     /**
-     * @return BooleanConstraint|false
+     * @return BooleanConstraint
      */
-    public function getFavorite()
+    public function getFavorite(): BooleanConstraint
     {
         return $this->favorite;
     }

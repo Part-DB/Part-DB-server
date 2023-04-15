@@ -27,7 +27,6 @@ use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;

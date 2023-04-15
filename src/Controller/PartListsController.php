@@ -158,7 +158,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showCategory(Category $category, Request $request)
+    public function showCategory(Category $category, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
 
@@ -180,7 +180,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showFootprint(Footprint $footprint, Request $request)
+    public function showFootprint(Footprint $footprint, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@footprints.read');
 
@@ -202,7 +202,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showManufacturer(Manufacturer $manufacturer, Request $request)
+    public function showManufacturer(Manufacturer $manufacturer, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@manufacturers.read');
 
@@ -224,7 +224,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showStorelocation(Storelocation $storelocation, Request $request)
+    public function showStorelocation(Storelocation $storelocation, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@storelocations.read');
 
@@ -246,7 +246,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showSupplier(Supplier $supplier, Request $request)
+    public function showSupplier(Supplier $supplier, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@suppliers.read');
 
@@ -268,7 +268,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
+    public function showTag(string $tag, Request $request): Response
     {
         $tag = trim($tag);
 
@@ -310,7 +310,7 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showSearch(Request $request, DataTableFactory $dataTable)
+    public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
         $searchFilter = $this->searchRequestToFilter($request);
 
@@ -331,9 +331,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/parts", name="parts_show_all")
      *
-     * @return JsonResponse|Response
+     * @return Response
      */
-    public function showAll(Request $request, DataTableFactory $dataTable)
+    public function showAll(Request $request): Response
     {
         return $this->showListWithFilter($request,'parts/lists/all_list.html.twig');
     }

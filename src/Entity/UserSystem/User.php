@@ -216,7 +216,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected string $name = '';
 
     /**
-     * @var array
+     * @var array|null
      * @ORM\Column(type="json")
      */
     protected ?array $settings = [];

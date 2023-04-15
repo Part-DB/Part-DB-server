@@ -68,7 +68,7 @@ class Project extends AbstractStructuralDBElement
     protected int $order_quantity = 0;
 
     /**
-     * @var string The current status of the project
+     * @var string|null The current status of the project
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Choice({"draft","planning","in_production","finished","archived"})
      * @Groups({"extended", "full"})

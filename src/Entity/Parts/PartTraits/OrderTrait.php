@@ -57,7 +57,7 @@ trait OrderTrait
     protected bool $manual_order = false;
 
     /**
-     * @var Orderdetail
+     * @var Orderdetail|null
      * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      */

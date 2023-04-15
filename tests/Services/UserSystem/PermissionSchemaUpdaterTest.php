@@ -53,7 +53,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         parent::setUp();
         self::bootKernel();
 
-        $this->service = self::$container->get(PermissionSchemaUpdater::class);
+        $this->service = self::getContainer()->get(PermissionSchemaUpdater::class);
     }
 
     public function testIsSchemaUpdateNeeded(): void

@@ -64,9 +64,9 @@ class LogController extends AbstractController
     /**
      * @Route("/", name="log_view")
      *
-     * @return JsonResponse|Response
+     * @return Response
      */
-    public function showLogs(Request $request, DataTableFactory $dataTable)
+    public function showLogs(Request $request, DataTableFactory $dataTable): Response
     {
         $this->denyAccessUnlessGranted('@system.show_logs');
 

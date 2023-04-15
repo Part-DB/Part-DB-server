@@ -61,7 +61,7 @@ class PartLotProviderTest extends WebTestCase
     {
         self::bootKernel();
         \Locale::setDefault('en');
-        $this->service = self::$container->get(PartLotProvider::class);
+        $this->service = self::getContainer()->get(PartLotProvider::class);
         $this->target = new PartLot();
         $this->target->setDescription('Lot description');
         $this->target->setComment('Lot comment');

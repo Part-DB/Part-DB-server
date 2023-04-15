@@ -97,7 +97,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $eventArgs): void
     {
-        $em = $eventArgs->getEntityManager();
+        $em = $eventArgs->getObjectManager();
         $uow = $em->getUnitOfWork();
 
         /*
@@ -156,7 +156,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $em = $args->getEntityManager();
+        $em = $args->getObjectManager();
         $uow = $em->getUnitOfWork();
         // If the we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
         $uow->computeChangeSets();

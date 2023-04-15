@@ -43,7 +43,7 @@ final class PermissionData implements \JsonSerializable
     public const CURRENT_SCHEMA_VERSION = 2;
 
     /**
-     * @var array This array contains the permission values for each permission
+     * @var array|null This array contains the permission values for each permission
      * This array contains the permission values for each permission, in the form of:
      * permission => [
      *     operation => value,

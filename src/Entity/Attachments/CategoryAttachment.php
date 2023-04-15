@@ -36,7 +36,7 @@ class CategoryAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Category::class;
     /**
-     * @var Category the element this attachment is associated with
+     * @var AttachmentContainingDBElement|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Category", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

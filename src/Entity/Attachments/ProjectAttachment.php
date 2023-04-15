@@ -36,7 +36,7 @@ class ProjectAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Project::class;
     /**
-     * @var Project the element this attachment is associated with
+     * @var Project|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

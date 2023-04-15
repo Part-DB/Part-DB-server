@@ -116,7 +116,7 @@ abstract class Attachment extends AbstractNamedDBElement
     protected bool $show_in_table = false;
 
     /**
-     * @var AttachmentType
+     * @var AttachmentType|null
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      * @Selectable()

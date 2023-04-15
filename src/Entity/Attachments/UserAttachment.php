@@ -35,8 +35,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class UserAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = User::class;
+
     /**
-     * @var User the element this attachment is associated with
+     * @var User|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

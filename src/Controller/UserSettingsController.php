@@ -225,7 +225,7 @@ class UserSettingsController extends AbstractController
      */
     public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper)
     {
-        /** @var User */
+        /** @var User $user */
         $user = $this->getUser();
 
         $page_need_reload = false;
