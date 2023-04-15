@@ -26,6 +26,8 @@ use App\Services\UserSystem\PermissionSchemaUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
@@ -41,12 +43,13 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
     private FlashBagInterface $flashBag;
     private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, EventCommentHelper $eventCommentHelper)
+    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, SessionInterface $session, EventCommentHelper $eventCommentHelper)
     {
+        /** @var Session $session */
         $this->security = $security;
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;
         $this->entityManager = $entityManager;
-        $this->flashBag = $flashBag;
+        $this->flashBag = $session->getFlashBag();
         $this->eventCommentHelper = $eventCommentHelper;
     }
 
