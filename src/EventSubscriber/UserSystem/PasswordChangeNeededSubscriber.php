@@ -110,7 +110,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         }
 
         if (static::TFARedirectNeeded($user)) {
-            $this->flashBag->add('warning', 'user.2fa_needed.flash');
+            $flashBag->add('warning', 'user.2fa_needed.flash');
         }
 
         $event->setResponse($this->httpUtils->createRedirectResponse($request, static::REDIRECT_TARGET));

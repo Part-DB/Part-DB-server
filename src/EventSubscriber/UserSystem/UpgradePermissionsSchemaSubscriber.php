@@ -42,7 +42,6 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 
     public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
     {
-        /** @var Session $session */
         $this->security = $security;
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;
         $this->entityManager = $entityManager;
