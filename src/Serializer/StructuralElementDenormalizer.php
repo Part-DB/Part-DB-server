@@ -51,7 +51,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
             && in_array('import', $context['groups'] ?? []);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         /** @var AbstractStructuralDBElement $deserialized_entity */
         $deserialized_entity = $this->normalizer->denormalize($data, $type, $format, $context);

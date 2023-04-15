@@ -42,7 +42,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         //Retrieve the repository for the given type
         /** @var StructuralDBElementRepository $repo */

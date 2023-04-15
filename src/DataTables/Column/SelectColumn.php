@@ -43,6 +43,9 @@ class SelectColumn extends AbstractColumn
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function normalize($value)
     {
         return $value;

@@ -43,7 +43,7 @@ class SIUnitNumberColumn extends AbstractColumn
         return $this;
     }
 
-    public function normalize($value)
+    public function normalize($value): string
     {
         //Ignore null values
         if ($value === null) {

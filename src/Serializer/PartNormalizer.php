@@ -58,7 +58,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $data instanceof Part;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
@@ -94,7 +94,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $data;
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): ?Part
     {
         $this->normalizeKeys($data);
 

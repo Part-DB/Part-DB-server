@@ -203,9 +203,9 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Returns an JSON encodable representation of this object.
-     * @return array|mixed
+     * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $ret = [];
 

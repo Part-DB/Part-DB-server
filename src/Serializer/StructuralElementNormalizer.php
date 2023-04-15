@@ -41,7 +41,7 @@ class StructuralElementNormalizer implements NormalizerInterface, CacheableSuppo
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');
