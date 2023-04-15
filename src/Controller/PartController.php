@@ -350,8 +350,10 @@ class PartController extends AbstractController
             if($partLot->getPart() !== $part) {
                 throw new \RuntimeException("The origin partlot does not belong to the part!");
             }
-            //Try to determine the target lot (used for move actions)
-            $targetLot = $em->find(PartLot::class, $request->request->get('target_id'));
+
+            //Try to determine the target lot (used for move actions), if the parameter is existing
+            $targetId = $request->request->get('target_id', null);
+            $targetLot =  $targetId ? $em->find(PartLot::class, $targetId) : null;
             if ($targetLot && $targetLot->getPart() !== $part) {
                 throw new \RuntimeException("The target partlot does not belong to the part!");
             }
