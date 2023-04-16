@@ -244,6 +244,13 @@ services:
         tags:
           - {name: serializer.normalizer, priority: -9000}
 
+    # Disable igbinary serialization for cache even when igbinary is available, as it causes issues with the doctrine
+    # proxy objects (see https://github.com/igbinary/igbinary/issues/377 and https://github.com/igbinary/igbinary/issues/273)
+    cache.default_marshaller:
+        class: Symfony\Component\Cache\Marshaller\DefaultMarshaller
+        arguments:
+            $useIgbinarySerialize: false
+
 
     ####################################################################################################################
     # Miscellaneous
