@@ -47,7 +47,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection
+     * @var Collection<int, self>
      */
     protected Collection $children;
 
@@ -59,7 +59,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
-     * @var Collection<User>
+     * @var Collection<int, User>
      */
     protected Collection $users;
 
