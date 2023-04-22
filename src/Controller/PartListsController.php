@@ -291,6 +291,7 @@ class PartListsController extends AbstractController
         $filter->setName($request->query->getBoolean('name', true));
         $filter->setCategory($request->query->getBoolean('category', true));
         $filter->setDescription($request->query->getBoolean('description', true));
+        $filter->setMpn($request->query->getBoolean('mpn', true));
         $filter->setTags($request->query->getBoolean('tags', true));
         $filter->setStorelocation($request->query->getBoolean('storelocation', true));
         $filter->setComment($request->query->getBoolean('comment', true));
@@ -299,6 +300,7 @@ class PartListsController extends AbstractController
         $filter->setSupplier($request->query->getBoolean('supplier', false));
         $filter->setManufacturer($request->query->getBoolean('manufacturer', false));
         $filter->setFootprint($request->query->getBoolean('footprint', false));
+
 
         $filter->setRegex($request->query->getBoolean('regex', false));
 
