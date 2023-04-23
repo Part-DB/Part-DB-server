@@ -152,6 +152,7 @@ final class PartsDataTable implements DataTableTypeInterface
         if ($this->security->isGranted('@storelocations.read')) {
             $dataTable->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
+                'orderField' => 'storelocations.name',
                 'render' => function ($value, Part $context) {
                     $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
