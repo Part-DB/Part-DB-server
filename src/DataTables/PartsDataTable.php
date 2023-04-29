@@ -178,7 +178,22 @@ final class PartsDataTable implements DataTableTypeInterface
                 $amount = $context->getAmountSum();
                 $expiredAmount = $context->getExpiredAmountSum();
 
-                $ret = htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                $ret = '';
+
+                if ($context->isAmountUnknown()) {
+                    //When all amounts are unknown, we show a question mark
+                    if ($amount === 0.0) {
+                        $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                            $this->translator->trans('part_lots.instock_unknown'));
+                    } else { //Otherwise mark it with greater equal and the (known) amount
+                        $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                            $this->translator->trans('part_lots.instock_unknown')
+                        );
+                        $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                    }
+                } else {
+                    $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                }
 
                 //If we have expired lots, we show them in parentheses behind
                 if ($expiredAmount > 0) {
