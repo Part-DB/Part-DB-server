@@ -32,7 +32,7 @@ class CurrencyTest extends TestCase
     {
         $currency = new Currency();
 
-        //By default the inverse exchange rate is not set:
+        //By default, the inverse exchange rate is not set:
         $this->assertNull($currency->getInverseExchangeRate());
 
         $currency->setExchangeRate(BigDecimal::zero());

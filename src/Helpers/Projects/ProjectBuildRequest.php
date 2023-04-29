@@ -175,7 +175,7 @@ final class ProjectBuildRequest
 
     /**
      * Returns the amount of parts that should be withdrawn from the given lot for the corresponding BOM entry.
-     * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdraw amount should be get
+     * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
      * @return float
      */
     public function getLotWithdrawAmount($lot): float
@@ -197,7 +197,7 @@ final class ProjectBuildRequest
 
     /**
      * Sets the amount of parts that should be withdrawn from the given lot for the corresponding BOM entry.
-     * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdraw amount should be get
+     * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
      * @param  float  $amount
      * @return $this
      */
@@ -267,7 +267,7 @@ final class ProjectBuildRequest
     }
 
     /**
-     * Returns the list of all bom entries that have to be build.
+     * Returns the list of all bom entries that have to be built.
      * @return ProjectBOMEntry[]
      */
     public function getBomEntries(): array
@@ -276,7 +276,7 @@ final class ProjectBuildRequest
     }
 
     /**
-     * Returns the all part bom entries that have to be build.
+     * Returns the all part bom entries that have to be built.
      * @return ProjectBOMEntry[]
      */
     public function getPartBomEntries(): array

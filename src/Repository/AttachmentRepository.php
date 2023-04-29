@@ -61,7 +61,7 @@ class AttachmentRepository extends DBElementRepository
     }
 
     /**
-     * Gets the count of all external attachments (attachments only containing an URL).
+     * Gets the count of all external attachments (attachments only containing a URL).
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -80,7 +80,7 @@ class AttachmentRepository extends DBElementRepository
     }
 
     /**
-     * Gets the count of all attachments where an user uploaded an file.
+     * Gets the count of all attachments where a user uploaded a file.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException

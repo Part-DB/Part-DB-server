@@ -23,7 +23,6 @@ namespace App\Tests\Services\UserSystem;
 use App\Entity\UserSystem\PermissionData;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\UserSystem\PermissionSchemaUpdater;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestPermissionHolder implements HasPermissionsInterface
@@ -53,10 +52,10 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         parent::setUp();
         self::bootKernel();
 
-        $this->service = self::$container->get(PermissionSchemaUpdater::class);
+        $this->service = self::getContainer()->get(PermissionSchemaUpdater::class);
     }
 
-    public function testIsSchemaUpdateNeeded()
+    public function testIsSchemaUpdateNeeded(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
@@ -70,7 +69,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertFalse($this->service->isSchemaUpdateNeeded($user));
     }
 
-    public function testUpgradeSchema()
+    public function testUpgradeSchema(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
@@ -84,21 +83,21 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertFalse($this->service->upgradeSchema($user));
     }
 
-    public function testUpgradeSchemaToVersion1()
+    public function testUpgradeSchemaToVersion1(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(0);
         $perm_data->setPermissionValue('parts', 'edit', PermissionData::ALLOW);
         $user = new TestPermissionHolder($perm_data);
 
-        //Do an upgrade and afterwards the move, add, and withdraw permissions should be set to ALLOW
+        //Do an upgrade and afterward the move, add, and withdraw permissions should be set to ALLOW
         self::assertTrue($this->service->upgradeSchema($user, 1));
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'move'));
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'add'));
         self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'withdraw'));
     }
 
-    public function testUpgradeSchemaToVersion2()
+    public function testUpgradeSchemaToVersion2(): void
     {
         $perm_data = new PermissionData();
         $perm_data->setSchemaVersion(1);

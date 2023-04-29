@@ -81,7 +81,7 @@ final class PermissionExtractor implements ExtractorInterface
     }
 
     /**
-     * Sets the prefix that should be used for new found messages.
+     * Sets the prefix that should be used for new-found messages.
      *
      * @param  string  $prefix The prefix
      */

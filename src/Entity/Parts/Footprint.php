@@ -44,14 +44,14 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @var Collection<int, FootprintAttachment>
@@ -59,7 +59,7 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
      * @var FootprintAttachment|null
@@ -73,7 +73,7 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /****************************************
      * Getters

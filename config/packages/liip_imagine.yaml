@@ -3,6 +3,9 @@ liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
 
+    twig:
+        mode: lazy
+
     default_filter_set_settings:
         format: webp
 

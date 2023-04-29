@@ -81,22 +81,22 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     protected int $level = 0;
 
     /**
-     * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
+     * We can not define the mapping here, or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
      * @var AbstractStructuralDBElement[]|Collection
      * @Groups({"include_children"})
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @var AbstractStructuralDBElement
      * @NoneOfItsChildren()
      * @Groups({"include_parents", "import"})
      */
-    protected $parent = null;
+    protected ?AbstractStructuralDBElement $parent = null;
 
-    /** @var string[] all names of all parent elements as a array of strings,
+    /** @var string[] all names of all parent elements as an array of strings,
      *  the last array element is the name of the element itself
      */
     private array $full_path_strings = [];
@@ -106,6 +106,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         parent::__construct();
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->parent = null;
     }
 
     public function __clone()
@@ -155,10 +156,8 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             if ($this->getParent() === $another_element) {
                 return true;
             }
-        } else { //If the IDs are defined, we can compare the IDs
-            if ($this->getParent()->getID() === $another_element->getID()) {
-                return true;
-            }
+        } elseif ($this->getParent()->getID() === $another_element->getID()) {
+            return true;
         }
 
         //Otherwise, check recursively
@@ -168,7 +167,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Checks if this element is an root element (has no parent).
      *
-     * @return bool true if the this element is an root element
+     * @return bool true if this element is a root element
      */
     public function isRoot(): bool
     {

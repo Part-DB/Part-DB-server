@@ -27,6 +27,7 @@ use InvalidArgumentException;
 
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
+    /** @var int The maximum number of levels for which we can recurse before throwing an error */
     private const RECURSION_LIMIT = 50;
 
     /**
@@ -55,6 +56,24 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
      */
     public function getPartsCountRecursive(AbstractPartsContainingDBElement $element): int
     {
+        return $this->getPartsCountRecursiveWithDepthN($element, self::RECURSION_LIMIT);
+    }
+
+    /**
+     * The implementation of the recursive function to get the parts count.
+     * This function is used to limit the recursion depth (remaining_depth is decreased on each call).
+     * If the recursion limit is reached (remaining_depth <= 0), a RuntimeException is thrown.
+     * @internal This function is not intended to be called directly, use getPartsCountRecursive() instead.
+     * @param  AbstractPartsContainingDBElement  $element
+     * @param  int  $remaining_depth
+     * @return int
+     */
+    protected function getPartsCountRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): int
+    {
+        if ($remaining_depth <= 0) {
+            throw new \RuntimeException('Recursion limit reached!');
+        }
+
         $count = $this->getPartsCount($element);
 
         //If the element is its own parent, we have a loop in the tree, so we stop here.
@@ -62,12 +81,8 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
             return 0;
         }
 
-        $n = 0;
         foreach ($element->getChildren() as $child) {
-            $count += $this->getPartsCountRecursive($child);
-            if ($n++ > self::RECURSION_LIMIT) {
-                throw new \RuntimeException('Recursion limit reached!');
-            }
+            $count += $this->getPartsCountRecursiveWithDepthN($child, $remaining_depth - 1);
         }
 
         return $count;

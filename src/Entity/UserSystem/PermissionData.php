@@ -43,7 +43,7 @@ final class PermissionData implements \JsonSerializable
     public const CURRENT_SCHEMA_VERSION = 2;
 
     /**
-     * @var array This array contains the permission values for each permission
+     * @var array|null This array contains the permission values for each permission
      * This array contains the permission values for each permission, in the form of:
      * permission => [
      *     operation => value,
@@ -57,7 +57,7 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Creates a new Permission Data Instance using the given data.
-     * By default, a empty array is used, meaning
+     * By default, an empty array is used, meaning
      */
     public function __construct(array $data = [])
     {
@@ -203,9 +203,9 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Returns an JSON encodable representation of this object.
-     * @return array|mixed
+     * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $ret = [];
 
@@ -216,7 +216,7 @@ final class PermissionData implements \JsonSerializable
                 continue;
             }
 
-            $ret[$permission] = array_filter($operations, function ($value) {
+            $ret[$permission] = array_filter($operations, static function ($value) {
                 return $value !== null;
             });
 

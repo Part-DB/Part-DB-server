@@ -105,7 +105,7 @@ class AttachmentTest extends TestCase
     }
 
     /**
-     * Test that all attachment subclasses like PartAttachment or similar returns an exception, when an not allowed
+     * Test that all attachment subclasses like PartAttachment or similar returns an exception, when a not allowed
      * element is passed.
      *
      * @dataProvider subClassesDataProvider
@@ -282,7 +282,7 @@ class AttachmentTest extends TestCase
      * @param string $property - property on instance being modified
      * @param mixed  $value    - new value of the property being modified
      */
-    public function setProtectedProperty($object, $property, $value): void
+    public function setProtectedProperty(object $object, string $property, $value): void
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);

@@ -75,7 +75,7 @@ final class UserExtension extends AbstractExtension
     }
 
     /**
-     * This function/filter generates an path.
+     * This function/filter generates a path.
      */
     public function removeLocaleFromPath(string $path): string
     {

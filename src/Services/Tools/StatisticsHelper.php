@@ -93,7 +93,7 @@ class StatisticsHelper
     }
 
     /**
-     * Returns the number of all parts which have price informations.
+     * Returns the number of all parts which have price information.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -147,7 +147,7 @@ class StatisticsHelper
     }
 
     /**
-     * Gets the count of all external (only containing an URL) attachments.
+     * Gets the count of all external (only containing a URL) attachments.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -158,7 +158,7 @@ class StatisticsHelper
     }
 
     /**
-     * Gets the count of all attachments where the user uploaded an file.
+     * Gets the count of all attachments where the user uploaded a file.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException

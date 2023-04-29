@@ -52,7 +52,7 @@ trait ParametersTrait
      * @var Collection<int, AbstractParameter>
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      *  Return all associated specifications.

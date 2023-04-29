@@ -62,7 +62,7 @@ class NodesListBuilder
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;
 
         return $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
-            // Invalidate when groups, a element with the class or the user changes
+            // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
             /** @var StructuralDBElementRepository $repo */
             $repo = $this->em->getRepository($class_name);

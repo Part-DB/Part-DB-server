@@ -100,7 +100,7 @@ class LogEntryRepository extends DBElementRepository
      * Gets all log entries that are related to time travelling.
      *
      * @param AbstractDBElement $element The element for which the time travel data should be retrieved
-     * @param DateTime         $until   Back to which timestamp should the data be get (including the timestamp)
+     * @param DateTime         $until   Back to which timestamp should the data be got (including the timestamp)
      *
      * @return AbstractLogEntry[]
      */

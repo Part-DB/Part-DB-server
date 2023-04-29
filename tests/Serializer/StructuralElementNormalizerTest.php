@@ -42,7 +42,7 @@ class StructuralElementNormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(StructuralElementNormalizer::class);
     }
 
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $category1 = (new Category())->setName('Category 1');
         $category11 = (new Category())->setName('Category 1.1');
@@ -65,7 +65,7 @@ class StructuralElementNormalizerTest extends WebTestCase
         $this->assertArrayNotHasKey('type', $data11);
     }
 
-    public function testSupportsNormalization()
+    public function testSupportsNormalization(): void
     {
         //Normalizer must only support StructuralElement objects (and child classes)
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));

@@ -25,7 +25,6 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -62,11 +61,11 @@ class UserController extends AdminPages\BaseAdminController
 
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
-        //Check if we editing a user and if we need to change the password of it
+        //Check if we're editing a user and if we need to change the password of it
         if ($entity instanceof User && !empty($form['new_password']->getData())) {
             $password = $this->passwordEncoder->hashPassword($entity, $form['new_password']->getData());
             $entity->setPassword($password);
-            //By default the user must change the password afterwards
+            //By default, the user must change the password afterward
             $entity->setNeedPwChange(true);
 
             $event = new SecurityEvent($entity);
@@ -129,9 +128,9 @@ class UserController extends AdminPages\BaseAdminController
 
                 //We need to stop the execution here, or our permissions changes will be overwritten by the form values
                 return $this->redirectToRoute('user_edit', ['id' => $entity->getID()]);
-            } else {
-                $this->addFlash('danger', 'csfr_invalid');
             }
+
+            $this->addFlash('danger', 'csfr_invalid');
         }
 
         return $this->_edit($entity, $request, $em, $timestamp);
@@ -142,7 +141,7 @@ class UserController extends AdminPages\BaseAdminController
         if ($entity instanceof User && !empty($form['new_password']->getData())) {
             $password = $this->passwordEncoder->hashPassword($entity, $form['new_password']->getData());
             $entity->setPassword($password);
-            //By default the user must change the password afterwards
+            //By default, the user must change the password afterward
             $entity->setNeedPwChange(true);
         }
 

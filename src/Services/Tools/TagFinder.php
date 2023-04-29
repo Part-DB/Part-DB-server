@@ -59,7 +59,7 @@ class TagFinder
 
         $options = $resolver->resolve($options);
 
-        //If the keyword is too short we will get to much results, which takes too much time...
+        //If the keyword is too short we will get too much results, which takes too much time...
         if (mb_strlen($keyword) < $options['min_keyword_length']) {
             return [];
         }

@@ -3,7 +3,6 @@
 namespace App\Services\Parts;
 
 use App\Entity\LogSystem\PartStockChangedLogEntry;
-use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;

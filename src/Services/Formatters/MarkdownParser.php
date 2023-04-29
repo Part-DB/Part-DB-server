@@ -25,7 +25,7 @@ namespace App\Services\Formatters;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * This class allows you to convert markdown text to HTML.
+ * This class allows you to convert Markdown text to HTML.
  */
 class MarkdownParser
 {
@@ -40,7 +40,7 @@ class MarkdownParser
      * Mark the markdown for rendering.
      * The rendering of markdown is done on client side.
      *
-     * @param string $markdown    the markdown text that should be parsed to html
+     * @param string $markdown    the Markdown text that should be parsed to html
      * @param bool   $inline_mode When true, p blocks will have no margins behind them
      *
      * @return string the markdown in a version that can be parsed on client side

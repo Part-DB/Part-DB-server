@@ -24,7 +24,6 @@ namespace App\Helpers;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
-use SebastianBergmann\CodeCoverage\Report\Text;
 
 class BBCodeToMarkdownConverter
 {

@@ -61,7 +61,7 @@ class ProjectBOMEntry extends AbstractDBElement
     protected string $mountnames = '';
 
     /**
-     * @var string An optional name describing this BOM entry (useful for non-part entries)
+     * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Expression(
      *     "this.getPart() !== null or this.getName() !== null",
@@ -77,7 +77,7 @@ class ProjectBOMEntry extends AbstractDBElement
     protected string $comment;
 
     /**
-     * @var Project
+     * @var Project|null
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="bom_entries")
      * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
@@ -91,7 +91,7 @@ class ProjectBOMEntry extends AbstractDBElement
     protected ?Part $part = null;
 
     /**
-     * @var BigDecimal The price of this non-part BOM entry
+     * @var BigDecimal|null The price of this non-part BOM entry
      * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
      * @Assert\AtLeastOneOf({
      *     @BigDecimalPositive(),

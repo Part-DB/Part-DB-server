@@ -305,14 +305,16 @@
         <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>validator.isSelectable</source>
-        <target>The element must be selectable.</target>
+    <unit id="nwGaNBW" name="validator.part_lot.owner_must_match_storage_location_owner">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_match_storage_location_owner</source>
+        <target>Der Besitzer dieses Bauteilebestandes und des gewählten Lagerortes müssen übereinstimmen (%owner_name%)!</target>
+      </segment>
+    </unit>
+    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>Der Eigentümer darf nicht der anonymous Benutzer sein!</target>
       </segment>
     </unit>
   </file>

@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\UserSystem;
 
-use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -108,12 +106,12 @@ class UserTest extends TestCase
         //Ensure the code is valid
         $this->assertTrue($user->isBackupCode('aaaa'));
         $this->assertTrue($user->isBackupCode('bbbb'));
-        //Invalidate code, afterwards the code has to be invalid!
+        //Invalidate code, afterward the code has to be invalid!
         $user->invalidateBackupCode('bbbb');
         $this->assertFalse($user->isBackupCode('bbbb'));
         $this->assertTrue($user->isBackupCode('aaaa'));
 
-        //No exception must happen, when we try to invalidate an not existing backup key!
+        //No exception must happen, when we try to invalidate a not existing backup key!
         $user->invalidateBackupCode('zzzz');
     }
 

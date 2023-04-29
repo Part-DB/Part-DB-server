@@ -28,7 +28,6 @@ use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Column\RevertLogColumn;
 use App\DataTables\Column\RowClassColumn;
-use App\DataTables\Filters\AttachmentFilter;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\TimeTravelInterface;
@@ -59,8 +58,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-
-use function Symfony\Component\Translation\t;
 
 class LogDataTable implements DataTableTypeInterface
 {

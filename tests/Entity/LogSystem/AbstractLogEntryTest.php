@@ -166,7 +166,7 @@ class AbstractLogEntryTest extends TestCase
     {
         $log = new UserLoginLogEntry('1.1.1.1');
 
-        //By default no no CLI username is set
+        //By default, no CLI username is set
         $this->assertNull($log->getCLIUsername());
         $this->assertFalse($log->isCLIEntry());
 

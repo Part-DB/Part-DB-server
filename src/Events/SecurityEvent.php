@@ -46,7 +46,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This event is triggered when something security related to a user happens.
- * For example when the password is reset or the an two factor authentication method was disabled.
+ * For example when the password is reset or the two-factor authentication method was disabled.
  */
 class SecurityEvent extends Event
 {

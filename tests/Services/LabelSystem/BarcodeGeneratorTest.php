@@ -56,7 +56,7 @@ final class BarcodeGeneratorTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->services = self::$container->get(BarcodeGenerator::class);
+        $this->services = self::getContainer()->get(BarcodeGenerator::class);
     }
 
     public function testGetContent(): void

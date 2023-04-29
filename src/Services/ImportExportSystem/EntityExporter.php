@@ -24,7 +24,6 @@ namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use function in_array;
 use InvalidArgumentException;
 use function is_array;
 use ReflectionClass;
@@ -75,7 +74,6 @@ class EntityExporter
         }
 
         //Ensure that all entities are of type AbstractNamedDBElement
-        $entity_type = null;
         foreach ($entities as $entity) {
             if (!$entity instanceof AbstractNamedDBElement) {
                 throw new InvalidArgumentException('All entities must be of type AbstractNamedDBElement!');

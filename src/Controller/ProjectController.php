@@ -32,10 +32,8 @@ use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use League\Csv\Exception;
 use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -64,7 +62,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
      */
-    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper)
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
 
@@ -114,9 +112,9 @@ class ProjectController extends AbstractController
                     $request->get('_redirect',
                         $this->generateUrl('project_info', ['id' => $project->getID()]
                         )));
-            } else {
-                $this->addFlash('error', 'project.build.flash.invalid_input');
             }
+
+            $this->addFlash('error', 'project.build.flash.invalid_input');
         }
 
         return $this->renderForm('projects/build/build.html.twig', [

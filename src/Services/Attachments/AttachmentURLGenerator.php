@@ -25,12 +25,7 @@ namespace App\Services\Attachments;
 use App\Entity\Attachments\Attachment;
 use InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Liip\ImagineBundle\Service\FilterService;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\UrlHelper;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use function strlen;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -62,7 +57,7 @@ class AttachmentURLGenerator
     }
 
     /**
-     * Converts the absolute file path to a version relative to the public folder, that can be passed to asset
+     * Converts the absolute file path to a version relative to the public folder, that can be passed to the
      * Asset Component functions.
      *
      * @param string      $absolute_path the absolute path that should be converted
@@ -82,7 +77,7 @@ class AttachmentURLGenerator
             $public_path = $this->public_path;
         }
 
-        //Our absolute path must begin with public path or we can not use it for asset pathes.
+        //Our absolute path must begin with public path, or we can not use it for asset pathes.
         if (0 !== strpos($absolute_path, $public_path)) {
             return null;
         }
@@ -92,7 +87,7 @@ class AttachmentURLGenerator
     }
 
     /**
-     * Converts a placeholder path to a path to a image path.
+     * Converts a placeholder path to a path to an image path.
      *
      * @param string $placeholder_path the placeholder path that should be converted
      */
@@ -125,7 +120,7 @@ class AttachmentURLGenerator
     }
 
     /**
-     * Returns a URL to an thumbnail of the attachment file.
+     * Returns a URL to a thumbnail of the attachment file.
      * @return string|null The URL or null if the attachment file is not existing
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string
@@ -160,7 +155,7 @@ class AttachmentURLGenerator
             //So we remove the schema manually
             return preg_replace('/^https?:/', '', $tmp);
         } catch (\Imagine\Exception\RuntimeException $e) {
-            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
+            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log a warning
             $this->logger->warning('Could not open thumbnail for attachment with ID ' . $attachment->getID() . ': ' . $e->getMessage());
             return $this->assets->getUrl($asset_path);
         }

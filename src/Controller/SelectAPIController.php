@@ -22,7 +22,6 @@ namespace App\Controller;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -106,7 +105,7 @@ class SelectAPIController extends AbstractController
             3 => $this->translator->trans('export.level.full'),
         ];
 
-        return $this->json(array_map(function ($key, $value) {
+        return $this->json(array_map(static function ($key, $value) {
             return [
                 'text' => $value,
                 'value' => $key,
@@ -198,7 +197,7 @@ class SelectAPIController extends AbstractController
                 ]);
                 //Remove the data-* prefix for each key
                 $data = array_combine(
-                    array_map(function ($key) {
+                    array_map(static function ($key) {
                         if (strpos($key, 'data-') === 0) {
                             return substr($key, 5);
                         }

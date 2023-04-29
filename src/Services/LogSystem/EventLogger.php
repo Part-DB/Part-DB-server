@@ -101,12 +101,12 @@ class EventLogger
             return true;
         }
 
-        //If the normal log function does not added the log entry, we just do nothing
+        //If the normal log function does not get added to the log entry, we just do nothing
         return false;
     }
 
     /**
-     * Adds the given log entry to the Log, if the entry fullfills the global configured criterias and flush afterwards.
+     * Adds the given log entry to the Log, if the entry fulfills the global configured criteria and flush afterward.
      *
      * @return bool returns true, if the event was added to log
      */
@@ -129,12 +129,12 @@ class EventLogger
         $blacklist = $blacklist ?? $this->blacklist;
         $whitelist = $whitelist ?? $this->whitelist;
 
-        //Dont add the entry if it does not reach the minimum level
+        //Don't add the entry if it does not reach the minimum level
         if ($logEntry->getLevel() > $minimum_log_level) {
             return false;
         }
 
-        //Check if the event type is black listed
+        //Check if the event type is blacklisted
         if (!empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
             return false;
         }
@@ -144,7 +144,7 @@ class EventLogger
             return false;
         }
 
-        // By default all things should be added
+        // By default, all things should be added
         return true;
     }
 

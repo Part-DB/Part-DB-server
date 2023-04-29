@@ -122,7 +122,7 @@ trait InstockTrait
 
     /**
      *  Get the count of parts which must be in stock at least.
-     * If a integer-based part unit is selected, the value will be rounded to integers.
+     * If an integer-based part unit is selected, the value will be rounded to integers.
      *
      * @return float count of parts which must be in stock at least
      */
@@ -161,8 +161,24 @@ trait InstockTrait
     }
 
     /**
+     * Returns true, if at least one of the part lots has an unknown amount.
+     * It is possible that other part lots have a known amount, then getAmountSum() will return sum of all known amounts.
+     * @return bool True if at least one part lot has an unknown amount.
+     */
+    public function isAmountUnknown(): bool
+    {
+        foreach ($this->getPartLots() as $lot) {
+            if ($lot->isInstockUnknown()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the summed amount of this part (over all part lots)
-     * Part Lots that have unknown value or are expired, are not used for this value.
+     * Part Lots that have unknown value or are expired, are not used for this value (counted as 0).
      *
      * @return float The amount of parts given in partUnit
      */
@@ -171,7 +187,7 @@ trait InstockTrait
         //TODO: Find a method to do this natively in SQL, the current method could be a bit slow
         $sum = 0;
         foreach ($this->getPartLots() as $lot) {
-            //Dont use the instock value, if it is unkown
+            //Don't use the in stock value, if it is unknown
             if ($lot->isInstockUnknown() || $lot->isExpired() ?? false) {
                 continue;
             }

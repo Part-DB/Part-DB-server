@@ -29,8 +29,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
 {
-    protected $media_path;
-    protected $footprint_path;
+    protected string $media_path;
+    protected string $footprint_path;
     protected $projectDir_orig;
     protected $projectDir;
     /**
@@ -42,7 +42,7 @@ class AttachmentPathResolverTest extends WebTestCase
     {
         parent::setUp();
 
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
 
         $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
@@ -117,7 +117,7 @@ class AttachmentPathResolverTest extends WebTestCase
             //Every kind of absolute path, that is not based with our placeholder dirs must be invald
             ['/etc/passwd', null],
             ['C:\\not\\existing.txt', null],
-            //More then one placeholder is not allowed
+            //More than one placeholder is not allowed
             [$this->footprint_path.'/test/'.$this->footprint_path, null],
             //Path must begin with path
             ['/not/root'.$this->footprint_path, null],
@@ -140,7 +140,7 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
     }
 
-    public function germanFootprintPathdDataProvider()
+    public function germanFootprintPathdDataProvider(): ?\Generator
     {
         self::bootKernel();
         $this->projectDir_orig = realpath(self::$kernel->getProjectDir());

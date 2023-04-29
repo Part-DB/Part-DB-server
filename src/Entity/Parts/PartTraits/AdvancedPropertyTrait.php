@@ -55,7 +55,7 @@ trait AdvancedPropertyTrait
     protected ?float $mass = null;
 
     /**
-     * @var string The internal part number of the part
+     * @var string|null The internal part number of the part
      * @ORM\Column(type="string", length=100, nullable=true, unique=true)
      * @Assert\Length(max="100")
      * @Groups({"extended", "full", "import"})

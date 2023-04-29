@@ -36,22 +36,14 @@ use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\PartDataTableHelper;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
-use App\Entity\Parts\Supplier;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
-use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
-use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
@@ -63,27 +55,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class PartsDataTable implements DataTableTypeInterface
 {
     private TranslatorInterface $translator;
-    private NodesListBuilder $treeBuilder;
     private AmountFormatter $amountFormatter;
-    private AttachmentURLGenerator $attachmentURLGenerator;
     private Security $security;
 
     private PartDataTableHelper $partDataTableHelper;
 
-    /**
-     * @var EntityURLGenerator
-     */
-    private $urlGenerator;
+    private EntityURLGenerator $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-        NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper,
-        AttachmentURLGenerator $attachmentURLGenerator, Security $security)
+        AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
-        $this->treeBuilder = $treeBuilder;
         $this->amountFormatter = $amountFormatter;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->security = $security;
         $this->partDataTableHelper = $partDataTableHelper;
     }
@@ -168,6 +152,7 @@ final class PartsDataTable implements DataTableTypeInterface
         if ($this->security->isGranted('@storelocations.read')) {
             $dataTable->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
+                'orderField' => 'storelocations.name',
                 'render' => function ($value, Part $context) {
                     $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
@@ -193,7 +178,22 @@ final class PartsDataTable implements DataTableTypeInterface
                 $amount = $context->getAmountSum();
                 $expiredAmount = $context->getExpiredAmountSum();
 
-                $ret = htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                $ret = '';
+
+                if ($context->isAmountUnknown()) {
+                    //When all amounts are unknown, we show a question mark
+                    if ($amount === 0.0) {
+                        $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                            $this->translator->trans('part_lots.instock_unknown'));
+                    } else { //Otherwise mark it with greater equal and the (known) amount
+                        $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                            $this->translator->trans('part_lots.instock_unknown')
+                        );
+                        $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                    }
+                } else {
+                    $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                }
 
                 //If we have expired lots, we show them in parentheses behind
                 if ($expiredAmount > 0) {

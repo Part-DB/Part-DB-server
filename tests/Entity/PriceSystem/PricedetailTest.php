@@ -69,7 +69,7 @@ class PricedetailTest extends TestCase
         $pricedetail->setPriceRelatedQuantity(0.23);
         $this->assertSame(1.0, $pricedetail->getPriceRelatedQuantity());
 
-        //With an part that has an float amount unit, also values like 0.23 can be returned
+        //With a part that has a float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
         $this->assertSame(0.23, $pricedetail->getPriceRelatedQuantity());
     }
@@ -97,7 +97,7 @@ class PricedetailTest extends TestCase
         $pricedetail->setMinDiscountQuantity(0.23);
         $this->assertSame(1.0, $pricedetail->getMinDiscountQuantity());
 
-        //With an part that has an float amount unit, also values like 0.23 can be returned
+        //With a part that has a float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
         $this->assertSame(0.23, $pricedetail->getMinDiscountQuantity());
     }

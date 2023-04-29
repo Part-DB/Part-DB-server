@@ -87,7 +87,7 @@ class UserEnableCommand extends Command
             $io->note('The following users will be enabled:');
         }
         $io->table(['Username', 'Enabled/Disabled'],
-            array_map(function(User $user) {
+            array_map(static function(User $user) {
             return [$user->getFullName(true), $user->isDisabled() ? 'Disabled' : 'Enabled'];
         }, $users));
 

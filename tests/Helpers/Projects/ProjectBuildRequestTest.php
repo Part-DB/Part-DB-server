@@ -35,24 +35,24 @@ class ProjectBuildRequestTest extends TestCase
     private MeasurementUnit $float_unit;
 
     /** @var Project */
-    private $project1;
+    private Project $project1;
     /** @var ProjectBOMEntry */
-    private $bom_entry1a;
+    private ProjectBOMEntry $bom_entry1a;
     /** @var ProjectBOMEntry */
-    private $bom_entry1b;
+    private ProjectBOMEntry $bom_entry1b;
     /** @var ProjectBOMEntry */
-    private $bom_entry1c;
+    private ProjectBOMEntry $bom_entry1c;
 
     /** @var PartLot $lot1a */
     private $lot1a;
     /** @var PartLot $lot1b */
     private $lot1b;
-    private $lot2;
+    private PartLot $lot2;
 
     /** @var Part */
-    private $part1;
+    private Part $part1;
     /** @var Part */
-    private $part2;
+    private Part $part2;
 
 
     public function setUp(): void
@@ -115,7 +115,7 @@ class ProjectBuildRequestTest extends TestCase
         $this->project1->addBomEntry($this->bom_entry1c);
     }
 
-    public function testInitialization()
+    public function testInitialization(): void
     {
         //The values should be already prefilled correctly
         $request = new ProjectBuildRequest($this->project1, 10);
@@ -127,19 +127,19 @@ class ProjectBuildRequestTest extends TestCase
         $this->assertEquals(2.5, $request->getLotWithdrawAmount($this->lot2));
     }
 
-    public function testGetNumberOfBuilds()
+    public function testGetNumberOfBuilds(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
         $this->assertEquals(5, $build_request->getNumberOfBuilds());
     }
 
-    public function testGetProject()
+    public function testGetProject(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
         $this->assertEquals($this->project1, $build_request->getProject());
     }
 
-    public function testGetNeededAmountForBOMEntry()
+    public function testGetNeededAmountForBOMEntry(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
         $this->assertEquals(10, $build_request->getNeededAmountForBOMEntry($this->bom_entry1a));
@@ -147,7 +147,7 @@ class ProjectBuildRequestTest extends TestCase
         $this->assertEquals(20, $build_request->getNeededAmountForBOMEntry($this->bom_entry1c));
     }
 
-    public function testGetSetLotWithdrawAmount()
+    public function testGetSetLotWithdrawAmount(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
 
@@ -160,7 +160,7 @@ class ProjectBuildRequestTest extends TestCase
         $this->assertEquals(3, $build_request->getLotWithdrawAmount($this->lot1b));
     }
 
-    public function testGetWithdrawAmountSum()
+    public function testGetWithdrawAmountSum(): void
     {
         //The sum of all withdraw amounts for an BOM entry (over all lots of the associated part) should be correct
         $build_request = new ProjectBuildRequest($this->project1, 5);

@@ -49,7 +49,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * This subscriber writes entries to log if an security related event happens (e.g. the user changes its password).
+ * This subscriber writes entries to log if a security related event happens (e.g. the user changes its password).
  */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
@@ -133,7 +133,7 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
             $ip = $request->getClientIp() ?? 'unknown';
         } else {
             $ip = 'Console';
-            //Dont try to apply IP filter rules to non numeric string
+            //Don't try to apply IP filter rules to non-numeric string
             $anonymize = false;
         }
 

@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * A attachment attached to a footprint element.
+ * An attachment attached to a footprint element.
  *
  * @ORM\Entity()
  * @UniqueEntity({"name", "attachment_type", "element"})
@@ -36,7 +36,7 @@ class FootprintAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Footprint::class;
     /**
-     * @var Footprint the element this attachment is associated with
+     * @var Footprint|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Footprint", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

@@ -31,5 +31,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class NoLockout extends Constraint
 {
-    public $message = 'validator.noLockout';
+    public string $message = 'validator.noLockout';
 }

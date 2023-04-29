@@ -22,10 +22,8 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
-use App\Form\ProjectSystem\ProjectBOMEntryType;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProjectAdminForm extends BaseEntityAdminForm

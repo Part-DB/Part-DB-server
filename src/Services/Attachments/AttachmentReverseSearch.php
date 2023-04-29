@@ -30,7 +30,7 @@ use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * This service provides functions to find attachments via an reverse search based on a file.
+ * This service provides functions to find attachments via a reverse search based on a file.
  */
 class AttachmentReverseSearch
 {
@@ -53,7 +53,7 @@ class AttachmentReverseSearch
      *
      * @param SplFileInfo $file The file for which is searched
      *
-     * @return Attachment[] an list of attachments that use the given file
+     * @return Attachment[] a list of attachments that use the given file
      */
     public function findAttachmentsByFile(SplFileInfo $file): array
     {
@@ -75,11 +75,11 @@ class AttachmentReverseSearch
      * @param SplFileInfo $file      The file that should be removed
      * @param int         $threshold the threshold used, to determine if a file should be deleted or not
      *
-     * @return bool True, if the file was delete. False if not.
+     * @return bool True, if the file was deleted. False if not.
      */
     public function deleteIfNotUsed(SplFileInfo $file, int $threshold = 1): bool
     {
-        /* When the file is used more then $threshold times, don't delete it */
+        /* When the file is used more than $threshold times, don't delete it */
         if (count($this->findAttachmentsByFile($file)) > $threshold) {
             return false;
         }

@@ -27,9 +27,9 @@ use DateTime;
 interface TimeTravelInterface
 {
     /**
-     * Checks if this entry has informations which data has changed.
+     * Checks if this entry has information which data has changed.
      *
-     * @return bool true if this entry has informations about the changed data
+     * @return bool true if this entry has information about the changed data
      */
     public function hasOldDataInformations(): bool;
 
@@ -39,7 +39,7 @@ interface TimeTravelInterface
     public function getOldData(): array;
 
     /**
-     * Returns the the timestamp associated with this change.
+     * Returns the timestamp associated with this change.
      */
     public function getTimestamp(): DateTime;
 }

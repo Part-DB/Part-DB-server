@@ -75,13 +75,13 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>
@@ -89,14 +89,14 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, MeasurementUnitParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\MeasurementUnitParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * @return string

@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
@@ -34,7 +33,6 @@ use App\Form\Type\StructuralEntityType;
 use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

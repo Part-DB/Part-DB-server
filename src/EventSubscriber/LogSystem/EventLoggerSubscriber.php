@@ -47,12 +47,12 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * This event subscriber write to event log when entities are changed, removed, created.
+ * This event subscriber writes to the event log when entities are changed, removed, created.
  */
 class EventLoggerSubscriber implements EventSubscriber
 {
     /**
-     * @var array The given fields will not be saved, because they contain sensitive informations
+     * @var array The given fields will not be saved, because they contain sensitive information
      */
     protected const FIELD_BLACKLIST = [
         User::class => ['password', 'need_pw_change', 'googleAuthenticatorSecret', 'backupCodes', 'trustedDeviceCookieVersion', 'pw_reset_token', 'backupCodesGenerationDate'],
@@ -97,7 +97,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $eventArgs): void
     {
-        $em = $eventArgs->getEntityManager();
+        $em = $eventArgs->getObjectManager();
         $uow = $em->getUnitOfWork();
 
         /*
@@ -128,7 +128,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
     public function postPersist(LifecycleEventArgs $args): void
     {
-        //Create an log entry, we have to do this post persist, cause we have to know the ID
+        //Create a log entry, we have to do this post persist, because we have to know the ID
 
         /** @var AbstractDBElement $entity */
         $entity = $args->getObject();
@@ -156,9 +156,9 @@ class EventLoggerSubscriber implements EventSubscriber
 
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $em = $args->getEntityManager();
+        $em = $args->getObjectManager();
         $uow = $em->getUnitOfWork();
-        // If the we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
+        // If we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
         $uow->computeChangeSets();
         if ($uow->hasPendingInsertions() || !empty($uow->getScheduledEntityUpdates())) {
             $em->flush();
@@ -196,7 +196,7 @@ class EventLoggerSubscriber implements EventSubscriber
             }
         }
 
-        //By default allow every field.
+        //By default, allow every field.
         return true;
     }
 

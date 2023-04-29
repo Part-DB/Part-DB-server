@@ -33,10 +33,8 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
-use App\Helpers\Trees\TreeViewNodeState;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\EntityURLGenerator;
-use App\Services\Formatters\MarkdownParser;
 use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -49,14 +47,14 @@ use function count;
 
 class TreeViewGenerator
 {
-    protected $urlGenerator;
-    protected $em;
-    protected $cache;
-    protected $keyGenerator;
-    protected $translator;
+    protected EntityURLGenerator $urlGenerator;
+    protected EntityManagerInterface $em;
+    protected TagAwareCacheInterface $cache;
+    protected UserCacheKeyGenerator $keyGenerator;
+    protected TranslatorInterface $translator;
 
-    protected $rootNodeExpandedByDefault;
-    protected $rootNodeEnabled;
+    protected bool $rootNodeExpandedByDefault;
+    protected bool $rootNodeEnabled;
 
     public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
         TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault, bool $rootNodeEnabled)
@@ -211,7 +209,7 @@ class TreeViewGenerator
         /** @var StructuralDBElementRepository $repo */
         $repo = $this->em->getRepository($class);
 
-        //If we just want a part of a tree, dont cache it
+        //If we just want a part of a tree, don't cache it
         if (null !== $parent) {
             return $repo->getGenericNodeTree($parent);
         }
@@ -220,7 +218,7 @@ class TreeViewGenerator
         $key = 'treeview_'.$this->keyGenerator->generateKey().'_'.$secure_class_name;
 
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $parent, $secure_class_name) {
-            // Invalidate when groups, a element with the class or the user changes
+            // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
 
             return $repo->getGenericNodeTree($parent);

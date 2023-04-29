@@ -29,42 +29,16 @@ export default class extends Controller
         this._confirmed = false;
     }
 
-    click(event) {
-        //If a user has not already confirmed the deletion, just let turbo do its work
-        if(this._confirmed) {
-            this._confirmed = false;
-            return;
-        }
-
-        event.preventDefault();
-
-        const message = this.element.dataset.deleteMessage;
-        const title = this.element.dataset.deleteTitle;
-
-        const that = this;
-
-        const confirm = bootbox.confirm({
-            message: message, title: title, callback: function (result) {
-                //If the dialog was confirmed, then submit the form.
-                if (result) {
-                    that._confirmed = true;
-                    event.target.click();
-                } else {
-                    that._confirmed = false;
-                }
-            }
-        });
-    }
-
     submit(event) {
         //If a user has not already confirmed the deletion, just let turbo do its work
-        if(this._confirmed) {
+        if (this._confirmed) {
             this._confirmed = false;
             return;
         }
 
         //Prevent turbo from doing its work
         event.preventDefault();
+        event.stopPropagation();
 
         const message = this.element.dataset.deleteMessage;
         const title = this.element.dataset.deleteTitle;
@@ -72,19 +46,20 @@ export default class extends Controller
         const form = this.element;
         const that = this;
 
-        //Create a clone of the event with the same submitter, so we can redispatch it if needed
-        //We need to do this that way, as we need the submitter info, just calling form.submit() would not work
-        this._our_event = new SubmitEvent('submit', {
-            submitter: event.submitter,
-            bubbles: true, //This line is important, otherwise Turbo will not receive the event
-        });
-
         const confirm = bootbox.confirm({
             message: message, title: title, callback: function (result) {
                 //If the dialog was confirmed, then submit the form.
                 if (result) {
+                    //Set a flag to prevent the dialog from popping up again and allowing turbo to submit the form
                     that._confirmed = true;
-                    form.dispatchEvent(that._our_event);
+
+                    //Create a submit button in the form and click it to submit the form
+                    //Before a submit event was dispatched, but this caused weird issues on Firefox causing the delete request being posted twice (and the second time was returning 404). See https://github.com/Part-DB/Part-DB-server/issues/273
+                    const submit_btn = document.createElement('button');
+                    submit_btn.type = 'submit';
+                    submit_btn.style.display = 'none';
+                    form.appendChild(submit_btn);
+                    submit_btn.click();
                 } else {
                     that._confirmed = false;
                 }

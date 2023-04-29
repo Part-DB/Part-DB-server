@@ -35,7 +35,7 @@ class AttachmentTypeAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = AttachmentType::class;
     /**
-     * @var AttachmentType the element this attachment is associated with
+     * @var AttachmentContainingDBElement|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\AttachmentType", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

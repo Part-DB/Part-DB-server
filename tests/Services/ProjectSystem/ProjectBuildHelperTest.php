@@ -39,7 +39,7 @@ class ProjectBuildHelperTest extends WebTestCase
         $this->service = self::getContainer()->get(ProjectBuildHelper::class);
     }
 
-    public function testGetMaximumBuildableCountForBOMEntryNonPartBomEntry()
+    public function testGetMaximumBuildableCountForBOMEntryNonPartBomEntry(): void
     {
         $bom_entry = new ProjectBOMEntry();
         $bom_entry->setPart(null);
@@ -50,7 +50,7 @@ class ProjectBuildHelperTest extends WebTestCase
         $this->service->getMaximumBuildableCountForBOMEntry($bom_entry);
     }
 
-    public function testGetMaximumBuildableCountForBOMEntry()
+    public function testGetMaximumBuildableCountForBOMEntry(): void
     {
         $project_bom_entry = new ProjectBOMEntry();
         $project_bom_entry->setQuantity(10);
@@ -74,7 +74,7 @@ class ProjectBuildHelperTest extends WebTestCase
         $this->assertEquals(0, $this->service->getMaximumBuildableCountForBOMEntry($project_bom_entry));
     }
 
-    public function testGetMaximumBuildableCount()
+    public function testGetMaximumBuildableCount(): void
     {
         $project = new Project();
 

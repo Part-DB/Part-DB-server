@@ -53,7 +53,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 
 /**
  * This entity represents a user, which can log in and have permissions.
- * Also this entity is able to save some informations about the user, like the names, email-address and other info.
+ * Also, this entity is able to save some information about the user, like the names, email-address and other info.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("`users`", indexes={
@@ -130,7 +130,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var Group|null the group this user belongs to
-     * DO NOT PUT A fetch eager here! Otherwise you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
+     * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
@@ -139,7 +139,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?Group $group = null;
 
     /**
-     * @var string|null The secret used for google authenticator
+     * @var string|null The secret used for Google authenticator
      * @ORM\Column(name="google_authenticator_secret", type="string", nullable=true)
      */
     protected ?string $googleAuthenticatorSecret = null;
@@ -216,7 +216,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected string $name = '';
 
     /**
-     * @var array
+     * @var array|null
      * @ORM\Column(type="json")
      */
     protected ?array $settings = [];
@@ -226,7 +226,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
@@ -237,13 +237,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /** @var Collection<int, LegacyU2FKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
-    protected $u2fKeys;
+    protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\WebauthnKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
-    protected $webauthn_keys;
+    protected Collection $webauthn_keys;
 
     /**
      * @var Currency|null The currency the user wants to see prices in.
@@ -255,10 +255,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @Selectable()
      * @Groups({"extended", "full", "import"})
      */
-    protected $currency;
+    protected ?Currency $currency;
 
     /**
-     * @var PermissionData
+     * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      * @Groups({"simple", "extended", "full", "import"})
@@ -266,10 +266,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var DateTime the time until the password reset token is valid
+     * @var DateTime|null the time until the password reset token is valid
      * @ORM\Column(type="datetime", nullable=true, options={"default": null})
      */
-    protected $pw_reset_expires;
+    protected ?DateTime $pw_reset_expires;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
@@ -409,7 +409,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Checks if this user is disabled (user cannot login any more).
+     * Checks if this user is disabled (user cannot log in any more).
      *
      * @return bool true, if the user is disabled
      */
@@ -516,7 +516,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function getFullName(bool $including_username = false): string
     {
         $tmp = $this->getFirstName();
-        //Dont add a space, if the name has only one part (it would look strange)
+        //Don't add a space, if the name has only one part (it would look strange)
         if (!empty($this->getFirstName()) && !empty($this->getLastName())) {
             $tmp .= ' ';
         }
@@ -683,9 +683,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
 
     /**
-     * Gets the language the user prefers (as 2 letter ISO code).
+     * Gets the language the user prefers (as 2-letter ISO code).
      *
-     * @return string|null The 2 letter ISO code of the preferred language (e.g. 'en' or 'de').
+     * @return string|null The 2-letter ISO code of the preferred language (e.g. 'en' or 'de').
      *                     If null is returned, the user has not specified a language and the server wide language should be used.
      */
     public function getLanguage(): ?string
@@ -696,8 +696,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the language the user prefers.
      *
-     * @param string|null $language The new language as 2 letter ISO code (e.g. 'en' or 'de').
-     *                              Set to null, to use the system wide language.
+     * @param string|null $language The new language as 2-letter ISO code (e.g. 'en' or 'de').
+     *                              Set to null, to use the system-wide language.
      *
      * @return User
      */
@@ -744,8 +744,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the theme the user wants to see.
      *
-     * @param string|null $theme The name of the theme (See See self::AVAILABLE_THEMES for valid values). Set to null
-     *                           if the system wide theme should be used.
+     * @param string|null $theme The name of the theme (See self::AVAILABLE_THEMES for valid values). Set to null
+     *                           if the system-wide theme should be used.
      *
      * @return $this
      */
@@ -789,7 +789,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Return the user name that should be shown in Google Authenticator.
+     * Return the username that should be shown in Google Authenticator.
      */
     public function getGoogleAuthenticatorUsername(): string
     {
@@ -893,7 +893,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Invalidate all trusted device tokens at once, by incrementing the token version.
-     * You have to flush the changes to database afterwards.
+     * You have to flush the changes to database afterward.
      */
     public function invalidateTrustedDeviceTokens(): void
     {

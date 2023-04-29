@@ -26,7 +26,6 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\PartTraits\ProjectTrait;
-use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
@@ -34,7 +33,6 @@ use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
-use App\Entity\ProjectSystem\ProjectBOMEntry;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -48,7 +46,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Part class.
  *
  * The class properties are split over various traits in directory PartTraits.
- * Otherwise this class would be too big, to be maintained.
+ * Otherwise, this class would be too big, to be maintained.
  *
  * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
  * @ORM\Table("`parts`", indexes={
@@ -75,7 +73,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Groups({"full"})
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * @ORM\Column(type="datetime", name="datetime_added", options={"default":"CURRENT_TIMESTAMP"})
@@ -100,16 +98,16 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Valid()
      * @Groups({"full"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
-     * @var DateTime the date when this element was modified the last time
+     * @var DateTime|null the date when this element was modified the last time
      * @ORM\Column(type="datetime", name="last_modified", options={"default":"CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $lastModified = null;
 
     /**
-     * @var Attachment
+     * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")

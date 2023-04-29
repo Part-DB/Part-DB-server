@@ -56,9 +56,9 @@ class PartProviderTest extends WebTestCase
     /**
      * @var PartProvider
      */
-    protected $service;
+    protected PartProvider $service;
 
-    protected $target;
+    protected Part $target;
 
     /**
      * @var \Doctrine\ORM\EntityManager

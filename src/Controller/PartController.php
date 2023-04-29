@@ -53,7 +53,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -351,8 +350,10 @@ class PartController extends AbstractController
             if($partLot->getPart() !== $part) {
                 throw new \RuntimeException("The origin partlot does not belong to the part!");
             }
-            //Try to determine the target lot (used for move actions)
-            $targetLot = $em->find(PartLot::class, $request->request->get('target_id'));
+
+            //Try to determine the target lot (used for move actions), if the parameter is existing
+            $targetId = $request->request->get('target_id', null);
+            $targetLot =  $targetId ? $em->find(PartLot::class, $targetId) : null;
             if ($targetLot && $targetLot->getPart() !== $part) {
                 throw new \RuntimeException("The target partlot does not belong to the part!");
             }
@@ -396,7 +397,7 @@ class PartController extends AbstractController
         }
 
         err:
-        //If an redirect was passed, then redirect there
+        //If a redirect was passed, then redirect there
         if($request->request->get('_redirect')) {
             return $this->redirect($request->request->get('_redirect'));
         }

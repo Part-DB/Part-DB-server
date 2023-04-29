@@ -20,7 +20,6 @@
 
 namespace App\Twig;
 
-use App\Entity\Base\AbstractDBElement;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -54,7 +53,7 @@ final class TwigCoreExtension extends AbstractExtension
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             /* Converts the given object to an array representation of the public/accessible properties  */

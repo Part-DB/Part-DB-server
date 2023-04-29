@@ -21,11 +21,9 @@
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Form\Type\StructuralEntityType;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
@@ -37,12 +35,12 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
         $this->em = $em;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null)
+    public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         //Retrieve the repository for the given type
         /** @var StructuralDBElementRepository $repo */
@@ -71,7 +69,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
 
     public function hasCacheableSupportsMethod(): bool
     {
-        //Must be false, because we do a is_string check on data in supportsDenormalization
+        //Must be false, because we do an is_string check on data in supportsDenormalization
         return false;
     }
 }

@@ -25,7 +25,6 @@ namespace App\Security;
 use App\Entity\UserSystem\User;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
-use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -60,7 +59,7 @@ final class UserChecker implements UserCheckerInterface
             return;
         }
 
-        //Check if user is disabled. Then dont allow login
+        //Check if user is disabled. Then don't allow login
         if ($user->isDisabled()) {
             //throw new DisabledException();
             throw new CustomUserMessageAccountStatusException($this->translator->trans('user.login_error.user_disabled', [], 'security'));

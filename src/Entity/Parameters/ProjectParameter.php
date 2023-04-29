@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\ProjectSystem\Project;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -58,5 +59,5 @@ class ProjectParameter extends AbstractParameter
      * @ORM\ManyToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="parameters")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
-    protected $element;
+    protected ?AbstractDBElement $element = null;
 }

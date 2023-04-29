@@ -26,8 +26,6 @@ use InvalidArgumentException;
 use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BOMImporter
 {
@@ -114,7 +112,7 @@ class BOMImporter
 
         foreach ($csv->getRecords() as $offset => $entry) {
             //Translate the german field names to english
-            $entry = array_combine(array_map(function ($key) {
+            $entry = array_combine(array_map(static function ($key) {
                 return self::MAP_KICAD_PCB_FIELDS[$key] ?? $key;
             }, array_keys($entry)), $entry);
 

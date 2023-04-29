@@ -46,8 +46,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LabelProfileControllerTest extends AbstractAdminControllerTest
 {
-    protected static $base_path = '/en'.'/label_profile';
-    protected static $entity_class = LabelProfile::class;
+    protected static string $base_path = '/en'.'/label_profile';
+    protected static string $entity_class = LabelProfile::class;
 
     /**
      * Tests if deleting an entity is working.

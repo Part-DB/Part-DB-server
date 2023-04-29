@@ -31,8 +31,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 abstract class AbstractAdminControllerTest extends WebTestCase
 {
-    protected static $base_path = 'not_valid';
-    protected static $entity_class = 'not valid';
+    protected static string $base_path = 'not_valid';
+    protected static string $entity_class = 'not valid';
 
     public function readDataProvider(): array
     {
@@ -76,7 +76,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     /**
      * @dataProvider readDataProvider
      * @group slow
-     * Tests if it possible to access an specific entity. Checks if permissions are working.
+     * Tests if it is possible to access a specific entity. Checks if permissions are working.
      */
     public function testReadEntity(string $user, bool $read): void
     {

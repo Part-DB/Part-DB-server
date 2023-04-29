@@ -59,7 +59,7 @@ class SandboxedTwigProviderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(SandboxedTwigProvider::class);
+        $this->service = self::getContainer()->get(SandboxedTwigProvider::class);
     }
 
     public function twigDataProvider(): array
@@ -139,5 +139,7 @@ class SandboxedTwigProviderTest extends WebTestCase
             'lot' => new PartLot(),
             'location' => new Storelocation(),
         ]);
+
+        $this->assertIsString($str);
     }
 }

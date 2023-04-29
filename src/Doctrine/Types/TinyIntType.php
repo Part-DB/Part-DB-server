@@ -29,17 +29,17 @@ use Doctrine\DBAL\Types\Type;
 class TinyIntType extends Type
 {
 
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'TINYINT';
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'tinyint';
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         //We use the comment, so that doctrine migrations can properly detect, that nothing has changed and no migration is needed.
         return true;

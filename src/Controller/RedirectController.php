@@ -28,20 +28,17 @@ use function in_array;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RedirectController extends AbstractController
 {
     protected string $default_locale;
     protected TranslatorInterface $translator;
-    protected SessionInterface $session;
     protected bool $enforce_index_php;
 
-    public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session, bool $enforce_index_php)
+    public function __construct(string $default_locale, TranslatorInterface $translator, bool $enforce_index_php)
     {
         $this->default_locale = $default_locale;
-        $this->session = $session;
         $this->translator = $translator;
         $this->enforce_index_php = $enforce_index_php;
     }
@@ -52,7 +49,7 @@ class RedirectController extends AbstractController
      */
     public function addLocalePart(Request $request): RedirectResponse
     {
-        //By default we use the global default locale
+        //By default, we use the global default locale
         $locale = $this->default_locale;
 
         //Check if a user has set a preferred language setting:
@@ -61,7 +58,6 @@ class RedirectController extends AbstractController
             $locale = $user->getLanguage();
         }
 
-        //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
         $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
@@ -70,6 +66,9 @@ class RedirectController extends AbstractController
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
         }
+
+        //Add the query string
+        $new_url .= $request->getQueryString() ? '?'.$request->getQueryString() : '';
 
         return $this->redirect($new_url);
     }

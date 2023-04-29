@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * A attachment attached to a measurement unit element.
+ * An attachment attached to a measurement unit element.
  *
  * @ORM\Entity()
  * @UniqueEntity({"name", "attachment_type", "element"})
@@ -37,7 +37,7 @@ class MeasurementUnitAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = MeasurementUnit::class;
     /**
-     * @var Manufacturer the element this attachment is associated with
+     * @var Manufacturer|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\MeasurementUnit", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

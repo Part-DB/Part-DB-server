@@ -59,7 +59,7 @@ trait ManufacturerTrait
     protected string $manufacturer_product_number = '';
 
     /**
-     * @var string The production status of this part. Can be one of the specified ones.
+     * @var string|null The production status of this part. Can be one of the specified ones.
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
      * @Groups({"extended", "full", "import"})

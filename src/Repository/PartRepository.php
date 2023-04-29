@@ -30,7 +30,7 @@ use Doctrine\ORM\QueryBuilder;
 class PartRepository extends NamedDBElementRepository
 {
     /**
-     * Gets the summed up instock of all parts (only parts without an measurent unit).
+     * Gets the summed up instock of all parts (only parts without a measurement unit).
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -49,7 +49,7 @@ class PartRepository extends NamedDBElementRepository
     }
 
     /**
-     * Gets the number of parts that has price informations.
+     * Gets the number of parts that has price information.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException

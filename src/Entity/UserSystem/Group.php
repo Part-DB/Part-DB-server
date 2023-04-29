@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity represents an user group.
+ * This entity represents a user group.
  *
  * @ORM\Entity()
  * @ORM\Table("`groups`", indexes={
@@ -47,35 +47,35 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection
+     * @var Collection<int, self>
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
-     * @var Collection<User>
+     * @var Collection<int, User>
      */
-    protected $users;
+    protected Collection $users;
 
     /**
-     * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
+     * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
      * @Groups({"extended", "full", "import"})
      */
-    protected $enforce2FA = false;
+    protected bool $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
      * @var PermissionData|null
@@ -90,13 +90,14 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     public function __construct()
     {
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**

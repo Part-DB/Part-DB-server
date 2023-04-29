@@ -20,7 +20,6 @@
 
 namespace App\DataTables\Filters\Constraints;
 
-use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\QueryBuilder;
 use RuntimeException;
 
@@ -42,7 +41,7 @@ class NumberConstraint extends AbstractConstraint
     protected $value2;
 
     /**
-     * @var string The operator to use
+     * @var string|null The operator to use
      */
     protected ?string $operator;
 

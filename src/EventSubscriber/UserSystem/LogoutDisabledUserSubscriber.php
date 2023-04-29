@@ -31,8 +31,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * This subscriber is used to log out a disabled user, as soon as he to do an request.
- * It is not possible for him to login again, afterwards.
+ * This subscriber is used to log out a disabled user, as soon as he to do a request.
+ * It is not possible for him to login again, afterward.
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
@@ -50,7 +50,7 @@ final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
     {
         $user = $this->security->getUser();
         if ($user instanceof User && $user->isDisabled()) {
-            //Redirect to login
+            //Redirect to log in
             $response = new RedirectResponse($this->urlGenerator->generate('logout'));
             $event->setResponse($response);
         }

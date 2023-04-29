@@ -23,7 +23,6 @@ namespace App\Tests\Services\ImportExportSystem;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ImportExportSystem\BOMImporter;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -39,14 +38,14 @@ class BOMImporterTest extends WebTestCase
     {
         parent::setUp();
 
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(BOMImporter::class);
     }
 
     public function testImportFileIntoProject(): void
     {
-        $inpute = $input = <<<CSV
+        $input = <<<CSV
         "ID";"Bezeichner";"Footprint";"Stückzahl";"Bezeichnung";"Anbieter und Referenz";
         1;"R19,R17";"R_0805_2012Metric_Pad1.20x1.40mm_HandSolder";2;"4.7k";Test;;
         2;"D1";"D_DO-41_SOD81_P10.16mm_Horizontal";1;"1N5059";;;

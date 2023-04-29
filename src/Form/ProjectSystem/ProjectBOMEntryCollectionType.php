@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectBOMEntryCollectionType extends AbstractType
 {
-    public function getParent()
+    public function getParent(): string
     {
         return CollectionType::class;
     }
@@ -28,7 +28,7 @@ class ProjectBOMEntryCollectionType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'project_bom_entry_collection';
     }

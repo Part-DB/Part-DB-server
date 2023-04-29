@@ -22,7 +22,6 @@ namespace App\Tests\Security;
 
 use App\Entity\UserSystem\User;
 use App\Security\SamlUserFactory;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SamlUserFactoryTest extends WebTestCase
@@ -37,7 +36,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->service = self::getContainer()->get(SamlUserFactory::class);
     }
 
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
         $user = $this->service->createUser('sso_user', [
             'email' => ['j.doe@invalid.invalid'],
@@ -63,7 +62,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertEquals('j.doe@invalid.invalid', $user->getEmail());
     }
 
-    public function testMapSAMLRolesToLocalGroupID()
+    public function testMapSAMLRolesToLocalGroupID(): void
     {
         $mapping = [
             'admin' => 2, //This comes first, as this should have higher priority
@@ -80,7 +79,7 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertSame(2, $this->service->mapSAMLRolesToLocalGroupID(['does_not_matter', 'admin', 'employee'], $mapping));
         $this->assertSame(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'does_not_matter', 'manager'], $mapping));
         $this->assertSame(3, $this->service->mapSAMLRolesToLocalGroupID(['administrator', 'does_not_matter', 'manager'], $mapping));
-        //Test if mapping is case sensitive
+        //Test if mapping is case-sensitive
         $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
 
         //Test that wildcard mapping works

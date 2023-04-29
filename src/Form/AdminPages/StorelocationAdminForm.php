@@ -24,7 +24,6 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\UserSystem\User;
 use App\Form\Type\StructuralEntityType;
 use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

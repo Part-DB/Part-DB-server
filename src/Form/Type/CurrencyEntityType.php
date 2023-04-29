@@ -22,14 +22,10 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
-use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use RuntimeException;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -67,7 +63,7 @@ class CurrencyEntityType extends StructuralEntityType
         });
 
         $resolver->setDefault('empty_message', function (Options $options) {
-            //By default we use the global base currency:
+            //By default, we use the global base currency:
             $iso_code = $this->base_currency;
 
             if ($options['base_currency']) { //Allow to override it
@@ -79,7 +75,7 @@ class CurrencyEntityType extends StructuralEntityType
 
         $resolver->setDefault('used_to_select_parent', false);
 
-        //If short is set to true, then the name of the entity will only shown in the dropdown list not in the selected value.
+        //If short is set to true, then the name of the entity will only show in the dropdown list not in the selected value.
         $resolver->setDefault('short', false);
     }
 }

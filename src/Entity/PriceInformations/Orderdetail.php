@@ -57,7 +57,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
      * @Groups({"extended", "full", "import"})
      */
-    protected $pricedetails;
+    protected Collection $pricedetails;
 
     /**
      * @var string
@@ -82,7 +82,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected string $supplier_product_url = '';
 
     /**
-     * @var Part
+     * @var Part|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
@@ -90,7 +90,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected ?Part $part = null;
 
     /**
-     * @var Supplier
+     * @var Supplier|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
      * @Assert\NotNull(message="validator.orderdetail.supplier_must_not_be_null")

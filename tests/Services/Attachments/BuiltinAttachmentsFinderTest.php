@@ -27,7 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BuiltinAttachmentsFinderTest extends WebTestCase
 {
-    protected static $mock_list = [
+    protected static array $mock_list = [
         '%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS%/123.jpg', '%FOOTPRINTS%/123.jpeg',
         '%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt',
     ];
@@ -38,7 +38,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
 
     public static function setUpBeforeClass(): void
     {
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }

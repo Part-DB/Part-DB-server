@@ -96,7 +96,7 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'orderdetails.supplierpartnr';
         }
         if($this->mpn) {
-            $fields_to_search[] = 'part.manufacturer_product_url';
+            $fields_to_search[] = 'part.manufacturer_product_number';
         }
         if($this->supplier) {
             $fields_to_search[] = 'suppliers.name';

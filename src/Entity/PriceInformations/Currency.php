@@ -69,13 +69,13 @@ class Currency extends AbstractStructuralDBElement
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Currency", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, CurrencyAttachment>
@@ -83,19 +83,19 @@ class Currency extends AbstractStructuralDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, CurrencyParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Pricedetail", mappedBy="currency")
      */
-    protected $pricedetails;
+    protected Collection $pricedetails;
 
     public function __construct()
     {

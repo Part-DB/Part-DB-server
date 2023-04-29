@@ -22,29 +22,19 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Form\Type\Helper\StructuralEntityChoiceLoader;
-use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
-use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\AtLeastOneOf;
-use Symfony\Component\Validator\Constraints\IsNull;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -128,7 +118,7 @@ class StructuralEntityType extends AbstractType
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
 
-        //Set the constraints for the case that allow add is enabled (we then have to check that the new element is valid)
+        //Set the constraints for the case that allow to add is enabled (we then have to check that the new element is valid)
         $resolver->setNormalizer('constraints', function (Options $options, $value) {
             if ($options['allow_add']) {
                 $value[] = new Valid();
@@ -169,8 +159,8 @@ class StructuralEntityType extends AbstractType
     public function modelReverseTransform($value, array $options)
     {
         /* This step is important in combination with the caching!
-           The elements deserialized from cache, are not known to Doctrinte ORM any more, so doctrine thinks,
-           that the entity has changed (and so throws an exception about non-persited entities).
+           The elements deserialized from cache, are not known to Doctrine ORM anymore, so doctrine thinks,
+           that the entity has changed (and so throws an exception about non-persisted entities).
            This function just retrieves a fresh copy of the entity from database, so doctrine detect correctly that no
            change happened.
            The performance impact of this should be very small in comparison of the boost, caused by the caching.

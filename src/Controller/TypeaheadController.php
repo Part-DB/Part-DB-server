@@ -95,7 +95,7 @@ class TypeaheadController extends AbstractController
     }
 
     /**
-     * This functions map the parameter type to the class, so we can access its repository
+     * This function map the parameter type to the class, so we can access its repository
      * @param  string  $type
      * @return class-string
      */

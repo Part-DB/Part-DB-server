@@ -20,8 +20,6 @@
 
 namespace App\Form\Type\Helper;
 
-use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;

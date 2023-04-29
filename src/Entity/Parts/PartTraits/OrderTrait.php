@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;
@@ -57,7 +56,7 @@ trait OrderTrait
     protected bool $manual_order = false;
 
     /**
-     * @var Orderdetail
+     * @var Orderdetail|null
      * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      */

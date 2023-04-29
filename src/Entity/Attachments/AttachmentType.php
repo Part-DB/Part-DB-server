@@ -45,13 +45,13 @@ class AttachmentType extends AbstractStructuralDBElement
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var string
@@ -65,14 +65,14 @@ class AttachmentType extends AbstractStructuralDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, AttachmentTypeParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * @var Collection<int, Attachment>
@@ -99,7 +99,7 @@ class AttachmentType extends AbstractStructuralDBElement
     }
 
     /**
-     * Gets an filter, which file types are allowed for attachment files.
+     * Gets a filter, which file types are allowed for attachment files.
      * Must be in the format of <input type=file> accept attribute
      * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
      */

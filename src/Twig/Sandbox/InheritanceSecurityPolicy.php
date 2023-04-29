@@ -112,7 +112,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             if ($obj instanceof $class) {
                 $allowed = in_array($method, $methods, true);
 
-                //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
+                //CHANGED: Only break if the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
                     break;
                 }
@@ -133,7 +133,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             if ($obj instanceof $class) {
                 $allowed = in_array($property, is_array($properties) ? $properties : [$properties], true);
 
-                //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
+                //CHANGED: Only break if the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
                     break;
                 }

@@ -27,12 +27,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * A entity with this class has a master attachment, which is used as a preview image for this object.
+ * An entity with this class has a master attachment, which is used as a preview image for this object.
  */
 trait MasterAttachmentTrait
 {
     /**
-     * @var Attachment
+     * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")

@@ -108,7 +108,7 @@ class AttachmentSubmitHandler
      */
     public function isValidFileExtension(AttachmentType $attachment_type, UploadedFile $uploadedFile): bool
     {
-        //Only validate if the attachment type has specified an filetype filter:
+        //Only validate if the attachment type has specified a filetype filter:
         if (empty($attachment_type->getFiletypeFilter())) {
             return true;
         }
@@ -121,10 +121,10 @@ class AttachmentSubmitHandler
 
     /**
      * Generates a filename for the given attachment and extension.
-     * The filename contains a random id, so every time this function is called you get an unique name.
+     * The filename contains a random id, so every time this function is called you get a unique name.
      *
      * @param Attachment $attachment The attachment that should be used for generating an attachment
-     * @param string     $extension  The extension that the new file should have (must only contain chars allowed in pathes)
+     * @param string     $extension  The extension that the new file should have (must only contain chars allowed in paths)
      *
      * @return string the new filename
      */
@@ -136,7 +136,7 @@ class AttachmentSubmitHandler
             $extension
         );
 
-        //Use the (sanatized) attachment name as an filename part
+        //Use the (sanatized) attachment name as a filename part
         $safeName = transliterator_transliterate(
             'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
             $attachment->getName()
@@ -177,12 +177,12 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Handle the submit of an attachment form.
+     * Handle submission of an attachment form.
      * This function will move the uploaded file or download the URL file to server, if needed.
      *
      * @param Attachment        $attachment the attachment that should be used for handling
      * @param UploadedFile|null $file       If given, that file will be moved to the right location
-     * @param array             $options    The options to use with the upload. Here you can specify that an URL should be downloaded,
+     * @param array             $options    The options to use with the upload. Here you can specify that a URL should be downloaded,
      *                                      or an file should be moved to a secure location.
      *
      * @return Attachment The attachment with the new filename (same instance as passed $attachment)
@@ -219,7 +219,7 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Rename attachments with an unsafe extension (meaning files which would be runned by a  to a safe one.
+     * Rename attachments with an unsafe extension (meaning files which would be run by a  to a safe one).
      * @param Attachment $attachment
      * @return Attachment
      */
@@ -261,7 +261,7 @@ class AttachmentSubmitHandler
         $resolver->setDefaults([
             //If no preview image was set yet, the new uploaded file will become the preview image
             'become_preview_if_empty' => true,
-            //When an URL is given download the URL
+            //When a URL is given download the URL
             'download_url' => false,
             'secure_attachment' => false,
         ]);
@@ -357,17 +357,17 @@ class AttachmentSubmitHandler
 
             //File download should be finished here, so determine the new filename and extension
             $headers = $response->getHeaders();
-            //Try to determine an filename
+            //Try to determine a filename
             $filename = '';
 
-            //If an content disposition header was set try to extract the filename out of it
+            //If a content disposition header was set try to extract the filename out of it
             if (isset($headers['content-disposition'])) {
                 $tmp = [];
                 preg_match('/[^;\\n=]*=([\'\"])*(.*)(?(1)\1|)/', $headers['content-disposition'][0], $tmp);
                 $filename = $tmp[2];
             }
 
-            //If we dont know filename yet, try to determine it out of url
+            //If we don't know filename yet, try to determine it out of url
             if ('' === $filename) {
                 $filename = basename(parse_url($url, PHP_URL_PATH));
             }
@@ -375,7 +375,7 @@ class AttachmentSubmitHandler
             //Set original file
             $attachment->setFilename($filename);
 
-            //Check if we have a extension given
+            //Check if we have an extension given
             $pathinfo = pathinfo($filename);
             if (!empty($pathinfo['extension'])) {
                 $new_ext = $pathinfo['extension'];
@@ -443,11 +443,13 @@ class AttachmentSubmitHandler
         ];
         if (ctype_digit((string) $maxSize)) {
             return (int) $maxSize;
-        } elseif (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
-            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
-        } else {
-            throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
         }
+
+        if (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
+            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
+        }
+
+        throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
     }
 
     /*

@@ -25,7 +25,7 @@ namespace App\Services\UserSystem\TFA;
 use App\Entity\UserSystem\User;
 
 /**
- * This services offers methods to manage backup codes for two factor authentication.
+ * This services offers methods to manage backup codes for two-factor authentication.
  */
 class BackupCodeManager
 {
@@ -38,7 +38,7 @@ class BackupCodeManager
 
     /**
      * Enable backup codes for the given user, by generating a set of backup codes.
-     * If the backup codes were already enabled before, they a.
+     * If the backup codes were already enabled before, nothing happens.
      */
     public function enableBackupCodes(User $user): void
     {
@@ -48,7 +48,7 @@ class BackupCodeManager
     }
 
     /**
-     * Disable (remove) the backup codes when no other 2 factor authentication methods are enabled.
+     * Disable (remove) the backup codes when no other two-factor authentication methods are enabled.
      */
     public function disableBackupCodesIfUnused(User $user): void
     {

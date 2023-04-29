@@ -24,12 +24,8 @@ namespace App\Controller;
 
 use App\DataTables\AttachmentDataTable;
 use App\DataTables\Filters\AttachmentFilter;
-use App\DataTables\Filters\PartFilter;
-use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\PartAttachment;
 use App\Form\Filters\AttachmentFilterType;
-use App\Form\Filters\PartFilterType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Trees\NodesListBuilder;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -106,10 +102,8 @@ class AttachmentFileController extends AbstractController
 
     /**
      * @Route("/attachment/list", name="attachment_list")
-     *
-     * @return JsonResponse|Response
      */
-    public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder)
+    public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder): Response
     {
         $this->denyAccessUnlessGranted('@attachments.list_attachments');
 

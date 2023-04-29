@@ -26,7 +26,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface, CacheableSupportsMethodInterface
@@ -43,15 +42,15 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
         $this->entityManager = $entityManager;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
-            //Only denormalize if we are doing an file import operation
-            && in_array('import', $context['groups'] ?? []);
+            //Only denormalize if we are doing a file import operation
+            && in_array('import', $context['groups'] ?? [], true);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         /** @var AbstractStructuralDBElement $deserialized_entity */
         $deserialized_entity = $this->normalizer->denormalize($data, $type, $format, $context);
@@ -70,7 +69,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
 
         //Check if we have created the entity in this request before (so we don't create multiple entities for the same path)
         //Entities get saved in the cache by type and path
-        //We use a different cache for this then the objects created by a string value (saved in repo). However that should not be a problem
+        //We use a different cache for this then the objects created by a string value (saved in repo). However, that should not be a problem
         //unless the user data has mixed structure between json data and a string path
         if (isset($this->object_cache[$type][$path])) {
             return $this->object_cache[$type][$path];

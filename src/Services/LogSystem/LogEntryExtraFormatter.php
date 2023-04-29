@@ -58,7 +58,7 @@ class LogEntryExtraFormatter
     }
 
     /**
-     * Return an user viewable representation of the extra data in a log entry, styled for console output.
+     * Return a user viewable representation of the extra data in a log entry, styled for console output.
      */
     public function formatConsole(AbstractLogEntry $logEntry): string
     {
@@ -81,7 +81,7 @@ class LogEntryExtraFormatter
     }
 
     /**
-     * Return a HTML formatted string containing a user viewable form of the Extra data.
+     * Return an HTML formatted string containing a user viewable form of the Extra data.
      */
     public function format(AbstractLogEntry $context): string
     {

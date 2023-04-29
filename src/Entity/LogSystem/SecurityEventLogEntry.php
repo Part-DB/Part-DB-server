@@ -117,7 +117,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Return the (anonymized) IP address used to login the user.
+     * Return the (anonymized) IP address used to log in the user.
      */
     public function getIPAddress(): string
     {
@@ -125,9 +125,9 @@ class SecurityEventLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Sets the IP address used to login the user.
+     * Sets the IP address used to log in the user.
      *
-     * @param string $ip        the IP address used to login the user
+     * @param string $ip        the IP address used to log in the user
      * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
      *
      * @return $this

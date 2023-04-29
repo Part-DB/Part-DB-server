@@ -51,18 +51,18 @@ class LabelTextReplacerTest extends WebTestCase
     /**
      * @var LabelTextReplacer
      */
-    protected $service;
+    protected LabelTextReplacer $service;
 
     /**
      * @var Part
      */
-    protected $target;
+    protected Part $target;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(LabelTextReplacer::class);
 

@@ -56,7 +56,6 @@ use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
-use App\Form\Filters\Constraints\StructuralEntityConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;

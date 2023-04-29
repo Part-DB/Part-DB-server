@@ -47,20 +47,20 @@ class Project extends AbstractStructuralDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @Groups({"extended", "full"})
      */
-    protected $bom_entries;
+    protected Collection $bom_entries;
 
     /**
      * @ORM\Column(type="integer")
@@ -68,7 +68,7 @@ class Project extends AbstractStructuralDBElement
     protected int $order_quantity = 0;
 
     /**
-     * @var string The current status of the project
+     * @var string|null The current status of the project
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Choice({"draft","planning","in_production","finished","archived"})
      * @Groups({"extended", "full"})
@@ -98,13 +98,13 @@ class Project extends AbstractStructuralDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ProjectAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /** @var Collection<int, ProjectParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ProjectParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /********************************************************************************
      *
@@ -116,6 +116,7 @@ class Project extends AbstractStructuralDBElement
     {
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function __clone()

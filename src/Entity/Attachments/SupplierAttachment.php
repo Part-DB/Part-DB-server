@@ -35,8 +35,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class SupplierAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Supplier::class;
+
     /**
-     * @var Supplier the element this attachment is associated with
+     * @var Supplier|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

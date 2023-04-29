@@ -118,7 +118,7 @@ class ParameterVoter extends ExtendedVoter
         return $this->resolver->inherit($user, $param, $attribute) ?? false;
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, AbstractParameter::class, true)) {
             //These are the allowed attributes

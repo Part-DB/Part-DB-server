@@ -27,7 +27,6 @@ use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\Common\DataFixtures\Sorter\TopologicalSorter;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -35,7 +34,6 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 use function array_reverse;
-use function array_search;
 use function assert;
 use function count;
 use function is_callable;
@@ -53,21 +51,21 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     public const PURGE_MODE_TRUNCATE = 2;
 
     /** @var EntityManagerInterface|null */
-    private $em;
+    private ?EntityManagerInterface $em;
 
     /**
      * If the purge should be done through DELETE or TRUNCATE statements
      *
      * @var int
      */
-    private $purgeMode = self::PURGE_MODE_DELETE;
+    private int $purgeMode = self::PURGE_MODE_DELETE;
 
     /**
      * Table/view names to be excluded from purge
      *
      * @var string[]
      */
-    private $excluded;
+    private array $excluded;
 
     /**
      * Construct new purger instance.

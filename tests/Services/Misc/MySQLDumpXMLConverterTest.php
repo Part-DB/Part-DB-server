@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 class MySQLDumpXMLConverterTest extends TestCase
 {
 
-    public function testConvertMySQLDumpXMLDataToArrayStructure()
+    public function testConvertMySQLDumpXMLDataToArrayStructure(): void
     {
         $service = new MySQLDumpXMLConverter();
 

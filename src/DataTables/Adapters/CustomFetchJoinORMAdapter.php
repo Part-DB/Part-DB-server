@@ -20,7 +20,6 @@
 
 namespace App\DataTables\Adapters;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
@@ -38,7 +37,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
  */
 class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 {
-    public function getCount(QueryBuilder $queryBuilder, $identifier)
+    public function getCount(QueryBuilder $queryBuilder, $identifier): ?int
     {
         $qb_without_group_by = clone $queryBuilder;
 

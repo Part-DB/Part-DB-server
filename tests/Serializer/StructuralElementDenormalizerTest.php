@@ -22,7 +22,6 @@ namespace App\Tests\Serializer;
 
 use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementDenormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StructuralElementDenormalizerTest extends WebTestCase
@@ -34,7 +33,7 @@ class StructuralElementDenormalizerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementDenormalizer::class);
     }

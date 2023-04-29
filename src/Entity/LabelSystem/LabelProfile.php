@@ -61,7 +61,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\LabelAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /**
      * @var LabelOptions

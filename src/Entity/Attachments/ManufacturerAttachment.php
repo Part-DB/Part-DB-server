@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * A attachment attached to a manufacturer element.
+ * An attachment attached to a manufacturer element.
  *
  * @ORM\Entity()
  * @UniqueEntity({"name", "attachment_type", "element"})
@@ -35,8 +35,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class ManufacturerAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Manufacturer::class;
+
     /**
-     * @var Manufacturer the element this attachment is associated with
+     * @var Manufacturer|null the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Manufacturer", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

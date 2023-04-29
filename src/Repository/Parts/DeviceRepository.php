@@ -21,11 +21,7 @@
 namespace App\Repository\Parts;
 
 
-use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\ProjectSystem\Project;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Part;
-use App\Repository\AbstractPartsContainingRepository;
 use App\Repository\StructuralDBElementRepository;
 use InvalidArgumentException;
 

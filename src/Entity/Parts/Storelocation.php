@@ -24,6 +24,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\StorelocationParameter;
 use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
@@ -47,13 +48,13 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
-    protected $children;
+    protected Collection $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="Storelocation", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $parent;
+    protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
@@ -67,7 +68,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
-    protected $parameters;
+    protected Collection $parameters;
 
     /**
      * @var bool
@@ -109,7 +110,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     /********************************************************************************
      *

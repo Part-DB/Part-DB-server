@@ -30,7 +30,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
- * This service is used to other non mandatory data from a PartKeepr export.
+ * This service is used to other non-mandatory data from a PartKeepr export.
  * You have to import the datastructures and parts first to use project import!
  */
 class PKOptionalImporter

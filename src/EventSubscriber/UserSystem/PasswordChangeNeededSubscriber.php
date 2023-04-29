@@ -56,14 +56,11 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      */
     public const REDIRECT_TARGET = 'user_settings';
     private Security $security;
-    private FlashBagInterface $flashBag;
     private HttpUtils $httpUtils;
 
-    public function __construct(Security $security, SessionInterface $session, HttpUtils $httpUtils)
+    public function __construct(Security $security, HttpUtils $httpUtils)
     {
-        /** @var Session $session */
         $this->security = $security;
-        $this->flashBag = $session->getFlashBag();
         $this->httpUtils = $httpUtils;
     }
 
@@ -103,13 +100,17 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
             return;
         }
 
+        /** @var Session $session */
+        $session = $request->getSession();
+        $flashBag = $session->getFlashBag();
+
         //Show appropriate message to user about the reason he was redirected
         if ($user->isNeedPwChange()) {
-            $this->flashBag->add('warning', 'user.pw_change_needed.flash');
+            $flashBag->add('warning', 'user.pw_change_needed.flash');
         }
 
         if (static::TFARedirectNeeded($user)) {
-            $this->flashBag->add('warning', 'user.2fa_needed.flash');
+            $flashBag->add('warning', 'user.2fa_needed.flash');
         }
 
         $event->setResponse($this->httpUtils->createRedirectResponse($request, static::REDIRECT_TARGET));

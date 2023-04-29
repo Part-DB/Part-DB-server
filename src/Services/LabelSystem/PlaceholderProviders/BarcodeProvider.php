@@ -21,7 +21,6 @@
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\LabelSystem\LabelOptions;
-use App\Entity\LabelSystem\LabelProfile;
 use App\Services\LabelSystem\BarcodeGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 

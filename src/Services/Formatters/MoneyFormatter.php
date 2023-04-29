@@ -38,7 +38,7 @@ class MoneyFormatter
     }
 
     /**
-     * Format the the given value in the given currency.
+     * Format the given value in the given currency.
      *
      * @param string|float  $value           the value that should be formatted
      * @param Currency|null $currency        The currency that should be used for formatting. If null the global one is used

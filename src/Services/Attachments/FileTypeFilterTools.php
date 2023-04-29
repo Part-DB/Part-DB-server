@@ -29,7 +29,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
 /**
- * An servive that helps working with filetype filters (based on the format <input type=file> accept uses.
+ * A service that helps to work with filetype filters (based on the format <input type=file> accept uses).
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers for
  * more details.
  */

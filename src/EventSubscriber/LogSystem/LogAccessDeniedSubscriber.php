@@ -49,7 +49,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Write to event log when a user tries to access an forbidden page and recevies an 403 Access Denied message.
+ * Write to event log when a user tries to access a forbidden page and receives an 403 Access Denied message.
  */
 class LogAccessDeniedSubscriber implements EventSubscriberInterface
 {

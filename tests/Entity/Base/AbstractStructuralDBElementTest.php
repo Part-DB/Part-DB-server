@@ -33,12 +33,12 @@ use PHPUnit\Framework\TestCase;
  */
 class AbstractStructuralDBElementTest extends TestCase
 {
-    protected $root;
-    protected $child1;
-    protected $child2;
-    protected $child3;
-    protected $child1_1;
-    protected $child1_2;
+    protected AttachmentType $root;
+    protected AttachmentType $child1;
+    protected AttachmentType $child2;
+    protected AttachmentType $child3;
+    protected AttachmentType $child1_1;
+    protected AttachmentType $child1_2;
 
     protected function setUp(): void
     {
@@ -151,7 +151,7 @@ class AbstractStructuralDBElementTest extends TestCase
         $this->assertSame([$this->child1_1, $this->child1_2], $this->child1->getSubelements()->toArray());
         $this->assertSame([], $this->child1_1->getSubelements()->toArray());
 
-        //If a element is set as its own parent, it should not be returned as a subelement
+        //If an element is set as its own parent, it should not be returned as a subelement
         $this->child1->setParent($this->child1);
         $this->assertSame([], $this->child1->getSubelements()->toArray());
     }

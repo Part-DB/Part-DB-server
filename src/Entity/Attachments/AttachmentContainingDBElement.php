@@ -46,7 +46,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
      * Mapping is done in sub classes like part
      * @Groups({"full"})
      */
-    protected $attachments;
+    protected Collection $attachments;
 
     public function __construct()
     {

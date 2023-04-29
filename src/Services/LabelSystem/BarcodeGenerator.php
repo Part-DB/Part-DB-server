@@ -41,13 +41,12 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
-use PhpParser\Node\Stmt\Label;
-use Symfony\Component\Mime\MimeTypes;
-use Twig\Extra\Html\HtmlExtension;
 
 final class BarcodeGenerator
 {
@@ -125,7 +124,7 @@ final class BarcodeGenerator
         return $bobj->getSvgCode();
     }
 
-    public function getContent(LabelOptions $options, object $target): ?string
+    public function getContent(LabelOptions $options, AbstractDBElement $target): ?string
     {
         switch ($options->getBarcodeType()) {
             case 'qr':

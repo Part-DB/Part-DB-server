@@ -26,8 +26,6 @@ use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\Parts\PartsTableActionHandler;
-use Doctrine\ORM\EntityManagerInterface;
-use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;

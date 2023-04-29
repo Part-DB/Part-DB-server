@@ -50,7 +50,7 @@ trait PKImportHelperTrait
      */
     protected function convertAttachmentDataToEntity(array $attachment_row, string $target_class, string $type): Attachment
     {
-        //By default we use the cached version
+        //By default, we use the cached version
         if (!$this->import_attachment_type) {
             //Get the import attachment type
             $this->import_attachment_type =  $this->em->getRepository(AttachmentType::class)->findOneBy([
@@ -103,7 +103,7 @@ trait PKImportHelperTrait
     /**
      * Imports the attachments from the given data
      * @param  array  $data The PartKeepr database
-     * @param  string  $table_name The table name for the attachments (if it contain "image", it will be treated as an image)
+     * @param  string  $table_name The table name for the attachments (if it contains "image", it will be treated as an image)
      * @param  string  $target_class The target class (e.g. Part)
      * @param  string  $target_id_field The field name where the target ID is stored
      * @param  string  $attachment_class The attachment class (e.g. PartAttachment)

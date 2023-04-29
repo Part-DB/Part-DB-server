@@ -55,7 +55,7 @@ class TwigCoreExtensionTest extends WebTestCase
             private $test3 = 5;
             private $test4 = 7;
 
-            public function getTest4()
+            public function getTest4(): int
             {
                 return $this->test4;
             }

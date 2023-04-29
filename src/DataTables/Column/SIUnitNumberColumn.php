@@ -33,7 +33,7 @@ class SIUnitNumberColumn extends AbstractColumn
         $this->formatter = $formatter;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
 
@@ -43,7 +43,7 @@ class SIUnitNumberColumn extends AbstractColumn
         return $this;
     }
 
-    public function normalize($value)
+    public function normalize($value): string
     {
         //Ignore null values
         if ($value === null) {

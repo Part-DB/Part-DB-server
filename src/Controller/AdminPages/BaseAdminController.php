@@ -269,7 +269,6 @@ abstract class BaseAdminController extends AbstractController
 
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
     {
-        $master_picture_backup = null;
         if (null === $entity) {
             /** @var AbstractStructuralDBElement|User $new_entity */
             $new_entity = new $this->entity_class();
@@ -390,7 +389,7 @@ abstract class BaseAdminController extends AbstractController
             foreach ($errors as $error) {
                 if ($error['entity'] instanceof AbstractStructuralDBElement) {
                     $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
-                } else { //When we dont have a structural element, we can only show the name
+                } else { //When we don't have a structural element, we can only show the name
                     $this->addFlash('error', $error['entity']->getName().':'.$error['violations']);
                 }
             }
@@ -413,11 +412,11 @@ abstract class BaseAdminController extends AbstractController
     }
 
     /**
-     * Performs checks if the element can be deleted safely. Otherwise an flash message is added.
+     * Performs checks if the element can be deleted safely. Otherwise, a flash message is added.
      *
      * @param AbstractNamedDBElement $entity the element that should be checked
      *
-     * @return bool True if the the element can be deleted, false if not
+     * @return bool True if the element can be deleted, false if not
      */
     protected function deleteCheck(AbstractNamedDBElement $entity): bool
     {

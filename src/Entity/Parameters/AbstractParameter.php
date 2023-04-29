@@ -139,11 +139,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected string $group = '';
 
     /**
-     * Mapping is done in sub classes.
+     * Mapping is done in subclasses.
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
      */
-    protected $element;
+    protected ?AbstractDBElement $element = null;
 
     public function __construct()
     {

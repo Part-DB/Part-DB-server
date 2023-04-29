@@ -47,7 +47,7 @@ class NamedDBElementRepository extends DBElementRepository
 
             if ($entity instanceof User) {
                 if ($entity->isDisabled()) {
-                    //If this is an user, then add a badge when it is disabled
+                    //If this is a user, then add a badge when it is disabled
                     $node->setIcon('fa-fw fa-treeview fa-solid fa-user-lock text-muted');
                 }
                 if ($entity->isSamlUser()) {

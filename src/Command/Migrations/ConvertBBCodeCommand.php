@@ -45,12 +45,12 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use function count;
 
 /**
- * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used markdown format.
+ * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used Markdown format.
  */
 class ConvertBBCodeCommand extends Command
 {
     /**
-     * @var string The LIKE criteria used to detect on SQL server if a entry contains BBCode
+     * @var string The LIKE criteria used to detect on SQL server if an entry contains BBCode
      */
     protected const BBCODE_CRITERIA = '%[%]%[/%]%';
     /**

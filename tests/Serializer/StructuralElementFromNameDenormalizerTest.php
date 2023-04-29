@@ -20,10 +20,8 @@
 
 namespace App\Tests\Serializer;
 
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementFromNameDenormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StructuralElementFromNameDenormalizerTest extends WebTestCase
@@ -35,7 +33,7 @@ class StructuralElementFromNameDenormalizerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //Get an service instance.
+        //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementFromNameDenormalizer::class);
     }
@@ -110,7 +108,7 @@ class StructuralElementFromNameDenormalizerTest extends WebTestCase
         $this->assertNotNull($category->getID());
         $this->assertNotNull($category->getParent()->getID());
 
-        //Test with non existing category
+        //Test with non-existing category
         $category = $this->service->denormalize('New category', Category::class, null, $context);
         $this->assertNull($category);
 
