@@ -78,64 +78,17 @@ class LogTargetHelper
         /** @var AbstractLogEntry $context */
         $target = $this->entryRepository->getTargetElement($context);
 
-        $tmp = '';
-
-        //The element is existing
-        if ($target instanceof NamedElementInterface && !empty($target->getName())) {
-            try {
-                $tmp = sprintf(
-                    '<a href="%s">%s</a>',
-                    $this->entityURLGenerator->infoURL($target),
-                    $this->elementTypeNameGenerator->getTypeNameCombination($target, true)
-                );
-            } catch (EntityNotSupportedException $exception) {
-                $tmp = $this->elementTypeNameGenerator->getTypeNameCombination($target, true);
+        //If the target is null and the context has a target, that means that the target was deleted. Show it that way.
+        if ($target === null) {
+            if ($context->hasTarget()) {
+                return $this->elementTypeNameGenerator->formatElementDeletedHTML($context->getTargetClass(),
+                    $context->getTargetId());
             }
-        } elseif ($target instanceof AbstractDBElement) { //Target does not have a name
-            $tmp = sprintf(
-                '<i>%s</i>: %s',
-                $this->elementTypeNameGenerator->getLocalizedTypeLabel($target),
-                $target->getID()
-            );
-        } elseif (null === $target && $context->hasTarget()) {  //Element was deleted
-            $tmp = sprintf(
-                '<i>%s</i>: %s [%s]',
-                $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getTargetClass()),
-                $context->getTargetID(),
-                $this->translator->trans('log.target_deleted')
-            );
+            //If no target is set, we can't do anything
+            return '';
         }
 
-        //Add a hint to the associated element if possible
-        if (null !== $target && $options['show_associated']) {
-            if ($target instanceof Attachment && null !== $target->getElement()) {
-                $on = $target->getElement();
-            } elseif ($target instanceof AbstractParameter && null !== $target->getElement()) {
-                $on = $target->getElement();
-            } elseif ($target instanceof PartLot && null !== $target->getPart()) {
-                $on = $target->getPart();
-            } elseif ($target instanceof Orderdetail && null !== $target->getPart()) {
-                $on = $target->getPart();
-            } elseif ($target instanceof Pricedetail && null !== $target->getOrderdetail() && null !== $target->getOrderdetail()->getPart()) {
-                $on = $target->getOrderdetail()->getPart();
-            } elseif ($target instanceof ProjectBOMEntry && null !== $target->getProject()) {
-                $on = $target->getProject();
-            }
-
-            if (isset($on) && is_object($on)) {
-                try {
-                    $tmp .= sprintf(
-                        ' (<a href="%s">%s</a>)',
-                        $this->entityURLGenerator->infoURL($on),
-                        $this->elementTypeNameGenerator->getTypeNameCombination($on, true)
-                    );
-                } catch (EntityNotSupportedException $exception) {
-                    $tmp .= ' ('.$this->elementTypeNameGenerator->getTypeNameCombination($target, true).')';
-                }
-            }
-        }
-
-        //Log is not associated with an element
-        return $tmp;
+        //Otherwise we can return a label for the target
+        return $this->elementTypeNameGenerator->formatLabelHTMLForEntity($target, $options['show_associated']);
     }
 }

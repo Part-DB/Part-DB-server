@@ -62,6 +62,12 @@
         {% set entry = log_entry %}
         {% if log_entry is instanceof('App\\Entity\\LogSystem\\DatabaseUpdatedLogEntry') %}
             {% include "log_system/details/_extra_database_updated.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry') %}
+            {% include "log_system/details/_extra_element_created.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry') %}
+            {% include "log_system/details/_extra_element_edited.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry') %}
+            {% include "log_system/details/_extra_element_deleted.html.twig" %}
         {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\UserLoginLogEntry')
             or log_entry is instanceof('App\\Entity\\LogSystem\\UserLogoutLogEntry')  %}
             {% include "log_system/details/_extra_user_login.html.twig" %}

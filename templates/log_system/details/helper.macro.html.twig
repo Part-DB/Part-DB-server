@@ -1,0 +1,77 @@
+
+{% macro comment_field(entry) %}
+    {# @var entry \App\Entity\Contracts\LogWithComment #}
+    <p class="mb-0">
+        <b>{% trans %}edit.log_comment{% endtrans %}:</b>
+        {% if entry.comment %}
+            {{ entry.comment }}
+        {% else %}
+            <span class="text-muted">{% trans %}log.no_comment{% endtrans %}</span>
+        {% endif %}
+    </p>
+{% endmacro %}
+
+{% macro data_change_table(entry) %}
+    {# @var entry \App\Entity\LogSystem\ElementEditedLogEntry|\App\Entity\LogSystem\ElementDeletedLogEntry entry #}
+
+    {% set fields, old_data, new_data = {}, {}, {} %}
+
+    {# For log entries where only the changed fields are saved, this is the last executed assignment #}
+    {% if attribute(entry, 'changedFieldInfo') is defined and entry.changedFieldsInfo %}
+        {% set fields = entry.changedFields %}
+    {% endif %}
+
+    {# For log entries, where we know the old data, this is the last exectuted assignment #}
+    {% if attribute(entry, 'oldDataInformations') is defined and entry.oldDataInformations %}
+        {# We have to use the keys of oldData here, as changedFields might not be available #}
+        {% set fields = entry.oldData | keys %}
+        {% set old_data = entry.oldData %}
+    {% endif %}
+
+    {% if fields is not empty %}
+        <table class="table table-hover table-striped table-sm table-bordered mt-2">
+            <thead>
+            <tr>
+                <th>{% trans %}log.element_changed.field{% endtrans %}</th>
+                {% if old_data is not empty %}
+                    <th>{% trans %}log.element_changed.data_before{% endtrans %}</th>
+                {% endif %}
+                {% if new_data is not empty %}
+                    <th>{% trans %}log.element_changed.data_after{% endtrans %}</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for field in fields %}
+                <tr>
+                    <td title="{{ field }}">
+                        {% set trans_key = 'log.element_edited.changed_fields.'~field %}
+                        {# If the translation key is not found, the translation key is returned, and we dont show the translation #}
+                        {% if trans_key|trans != trans_key %}
+                            {{ ('log.element_edited.changed_fields.'~field) | trans }}
+                            <span class="text-muted">({{ field }})</span>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+
+                    </td>
+                    {% if old_data is not empty %}
+                        <td>
+                            {% if old_data[field] is defined %}
+                                {{ format_log_data(old_data[field], entry, field) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                    {% if new_data is not empty %}
+                        <td>
+                            {% if new_data[field] is defined %}
+                                {{ format_log_data(new_data[field], entry, field) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endmacro %}

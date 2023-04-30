@@ -1,0 +1,11 @@
+{# @var entry \App\Entity\LogSystem\ElementCreatedLogEntry #}
+
+{% import "log_system/details/helper.macro.html.twig" as log_helper %}
+
+{{ log_helper.comment_field(entry) }}
+{% if entry.creationInstockValue %}
+    <p>
+        <b>{% trans %}log.element_created.original_instock{% endtrans %}:</b>
+        {{ entry.creationInstockValue }}
+    </p>
+{% endif %}
