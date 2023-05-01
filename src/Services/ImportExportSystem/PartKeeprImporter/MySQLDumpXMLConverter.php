@@ -69,7 +69,10 @@ class MySQLDumpXMLConverter
 
         //Iterate over all <table> nodes and convert them to arrays
         foreach ($tables as $table) {
-            $table_data[$table->getAttribute('name')] = $this->convertTableToArray($table);
+            //Normalize the table name to lowercase. On Linux filesystems the tables sometimes contain uppercase letters
+            //However we expect the table names to be lowercase in the further steps
+            $table_name = strtolower($table->getAttribute('name'));
+            $table_data[$table_name] = $this->convertTableToArray($table);
         }
 
         return $table_data;
