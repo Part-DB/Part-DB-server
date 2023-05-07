@@ -71,7 +71,10 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE INDEX attachment_types_idx_name ON attachment_types (name)');
         $this->addSql('CREATE INDEX attachment_types_idx_parent_name ON attachment_types (parent_id, name)');
+        //We have to disable foreign key checks here, or we get a error on MySQL for legacy database migration. On MariaDB this works fine (with enabled foreign key checks), so I guess this is not so bad...
+        $this->addSql('SET foreign_key_checks = 0');
         $this->addSql('ALTER TABLE attachments CHANGE type_id type_id INT NOT NULL');
+        $this->addSql('SET foreign_key_checks = 1');
         $this->addSql('CREATE INDEX attachments_idx_id_element_id_class_name ON attachments (id, element_id, class_name)');
         $this->addSql('CREATE INDEX attachments_idx_class_name_id ON attachments (class_name, id)');
         $this->addSql('CREATE INDEX attachment_name_idx ON attachments (name)');
