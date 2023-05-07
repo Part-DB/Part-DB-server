@@ -23,7 +23,7 @@
 
 SQL_FILES_TO_TEST=("db_minimal.sql" "db_jbtronics.sql")
 
-DB_NAME="test"
+DB_NAME="legacy_db_test"
 DB_USER="root"
 DB_PASSWORD="root"
 
