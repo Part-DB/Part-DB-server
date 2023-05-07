@@ -125,7 +125,8 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_6940A7FE1ECB93AE ON parts (id_manufacturer)');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT parts_id_footprint_fk FOREIGN KEY (id_footprint) REFERENCES footprints (id)');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT parts_id_manufacturer_fk FOREIGN KEY (id_manufacturer) REFERENCES manufacturers (id)');
-        if ($this->doesFKExists('attachment_types', 'attachement_types_parent_id_fk')) {
+        //We have to use the old table name here, because the if is executed before any sql command added by addSQL is executed (and thus the table name is not changed yet)
+        if ($this->doesFKExists('attachement_types', 'attachement_types_parent_id_fk')) {
             $this->addSql('ALTER TABLE attachment_types DROP FOREIGN KEY attachement_types_parent_id_fk');
         }
         $this->addSql('ALTER TABLE attachment_types ADD filetype_filter LONGTEXT NOT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
@@ -179,7 +180,8 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_AC28B95C727ACA70 ON suppliers (parent_id)');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT suppliers_parent_id_fk FOREIGN KEY (parent_id) REFERENCES suppliers (id)');
         $this->addSql('DROP INDEX attachements_class_name_k ON attachments');
-        if ($this->doesFKExists('attachments', 'attachements_type_id_fk')) {
+        //We have to use the old table name here, because the if is executed before any sql command added by addSQL is executed (and thus the table name is not changed yet)
+        if ($this->doesFKExists('attachements', 'attachements_type_id_fk')) {
             $this->addSql('ALTER TABLE attachments DROP FOREIGN KEY attachements_type_id_fk');
         }
         $this->addSql('ALTER TABLE attachments ADD datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE type_id type_id INT DEFAULT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE filename filename VARCHAR(255) NOT NULL, CHANGE show_in_table show_in_table TINYINT(1) NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
