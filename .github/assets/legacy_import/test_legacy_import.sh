@@ -38,7 +38,7 @@ do
         exit 1
     fi
     # Import the SQL file into the database. The file pathes are relative to the current script location
-    mysql -u DB_USER --password=$DB_PASSWORD $DB_NAME < .github/assets/legacy_import/$SQL_FILE
+    mysql -u $DB_USER --password=$DB_PASSWORD $DB_NAME < .github/assets/legacy_import/$SQL_FILE
     # If the last command failed, exit the script
     if [ $? -ne 0 ]; then
         echo "Failed to import $SQL_FILE into database $DB_NAME"
