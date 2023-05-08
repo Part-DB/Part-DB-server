@@ -308,21 +308,22 @@ class PartListsController extends AbstractController
     {
         $filter = new PartSearchFilter($request->query->get('keyword', ''));
 
-        $filter->setName($request->query->getBoolean('name', true));
-        $filter->setCategory($request->query->getBoolean('category', true));
-        $filter->setDescription($request->query->getBoolean('description', true));
-        $filter->setMpn($request->query->getBoolean('mpn', true));
-        $filter->setTags($request->query->getBoolean('tags', true));
-        $filter->setStorelocation($request->query->getBoolean('storelocation', true));
-        $filter->setComment($request->query->getBoolean('comment', true));
-        $filter->setIPN($request->query->getBoolean('ipn', true));
-        $filter->setOrdernr($request->query->getBoolean('ordernr', true));
-        $filter->setSupplier($request->query->getBoolean('supplier', false));
-        $filter->setManufacturer($request->query->getBoolean('manufacturer', false));
-        $filter->setFootprint($request->query->getBoolean('footprint', false));
+        //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
+        $filter->setName($request->query->getBoolean('name'));
+        $filter->setCategory($request->query->getBoolean('category'));
+        $filter->setDescription($request->query->getBoolean('description'));
+        $filter->setMpn($request->query->getBoolean('mpn'));
+        $filter->setTags($request->query->getBoolean('tags'));
+        $filter->setStorelocation($request->query->getBoolean('storelocation'));
+        $filter->setComment($request->query->getBoolean('comment'));
+        $filter->setIPN($request->query->getBoolean('ipn'));
+        $filter->setOrdernr($request->query->getBoolean('ordernr'));
+        $filter->setSupplier($request->query->getBoolean('supplier'));
+        $filter->setManufacturer($request->query->getBoolean('manufacturer'));
+        $filter->setFootprint($request->query->getBoolean('footprint'));
 
 
-        $filter->setRegex($request->query->getBoolean('regex', false));
+        $filter->setRegex($request->query->getBoolean('regex'));
 
         return $filter;
     }
