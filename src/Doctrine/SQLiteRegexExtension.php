@@ -20,6 +20,7 @@
 
 namespace App\Doctrine;
 
+use App\Exceptions\InvalidRegexException;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
@@ -43,7 +44,11 @@ class SQLiteRegexExtension implements EventSubscriberInterface
             //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
                 $native_connection->sqliteCreateFunction('REGEXP', function ($pattern, $value) {
-                    return (false !== mb_ereg($pattern, $value)) ? 1 : 0;
+                    try {
+                        return (false !== mb_ereg($pattern, $value)) ? 1 : 0;
+                    } catch (\ErrorException $e) {
+                        throw InvalidRegexException::fromMBRegexError($e);
+                    }
                 });
             }
         }

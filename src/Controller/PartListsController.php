@@ -31,6 +31,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
@@ -151,19 +152,19 @@ class PartListsController extends AbstractController
 
         if ($table->isCallback()) {
             try {
-                return $table->getResponse();
-            } catch (DriverException $driverException) {
-                if ($driverException->getCode() === 1139) {
-
-                    //Show only the part after "1139"
-                    $regex_message = preg_replace('/^.*1139 /', '', $driverException->getMessage());
-
-                    $errors = $this->translator->trans('part.table.invalid_regex') . ': ' . $regex_message;
-
-                   return ErrorDataTable::errorTable($this->dataTableFactory, $request, $errors);
-                } else {
-                    throw $driverException;
+                try {
+                    return $table->getResponse();
+                } catch (DriverException $driverException) {
+                    if ($driverException->getCode() === 1139) {
+                        //Convert the driver exception to InvalidRegexException so it has the same hanlder as for SQLite
+                        throw InvalidRegexException::fromDriverException($driverException);
+                    } else {
+                        throw $driverException;
+                    }
                 }
+            } catch (InvalidRegexException $exception) {
+                $errors = $this->translator->trans('part.table.invalid_regex').': '.$exception->getReason();
+                return ErrorDataTable::errorTable($this->dataTableFactory, $request, $errors);
             }
         }
 
