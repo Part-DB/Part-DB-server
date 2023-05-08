@@ -11289,5 +11289,17 @@ Element 3</target>
         <target>Show email on public profile page</target>
       </segment>
     </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment state="translated">
+        <source>error_table.error</source>
+        <target>An error occured during your request.</target>
+      </segment>
+    </unit>
+    <unit id="tLXzED2" name="part.table.invalid_regex">
+      <segment state="translated">
+        <source>part.table.invalid_regex</source>
+        <target>Invalid Regex expression</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
