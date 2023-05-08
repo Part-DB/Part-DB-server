@@ -300,19 +300,19 @@
       </segment>
     </unit>
     <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
-      <segment state="translated">
+      <segment>
         <source>validator.attachment.name_not_blank</source>
         <target>Set a value here, or upload a file to automatically use its filename as name for the attachment.</target>
       </segment>
     </unit>
     <unit id="nwGaNBW" name="validator.part_lot.owner_must_match_storage_location_owner">
-      <segment state="translated">
+      <segment>
         <source>validator.part_lot.owner_must_match_storage_location_owner</source>
         <target>The owner of this lot must match the owner of the selected storage location (%owner_name%)!</target>
       </segment>
     </unit>
     <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
-      <segment state="translated">
+      <segment>
         <source>validator.part_lot.owner_must_not_be_anonymous</source>
         <target>A lot owner must not be the anonymous user!</target>
       </segment>

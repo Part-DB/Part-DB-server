@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\ErrorDataTable;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\PartsDataTable;
@@ -33,6 +34,7 @@ use App\Entity\Parts\Supplier;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,6 +43,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartListsController extends AbstractController
 {
@@ -48,11 +51,14 @@ class PartListsController extends AbstractController
     private NodesListBuilder $nodesListBuilder;
     private DataTableFactory $dataTableFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory)
+    private TranslatorInterface $translator;
+
+    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
         $this->nodesListBuilder = $nodesListBuilder;
         $this->dataTableFactory = $dataTableFactory;
+        $this->translator = $translator;
     }
 
     /**
@@ -144,7 +150,21 @@ class PartListsController extends AbstractController
             ->handleRequest($request);
 
         if ($table->isCallback()) {
-            return $table->getResponse();
+            try {
+                return $table->getResponse();
+            } catch (DriverException $driverException) {
+                if ($driverException->getCode() === 1139) {
+
+                    //Show only the part after "1139"
+                    $regex_message = preg_replace('/^.*1139 /', '', $driverException->getMessage());
+
+                    $errors = $this->translator->trans('part.table.invalid_regex') . ': ' . $regex_message;
+
+                   return ErrorDataTable::errorTable($this->dataTableFactory, $request, $errors);
+                } else {
+                    throw $driverException;
+                }
+            }
         }
 
         return $this->render($template, array_merge([
