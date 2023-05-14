@@ -104,15 +104,19 @@ class LogController extends AbstractController
      * @return Response
      */
     public function logDetails(Request $request, AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
-        LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper): Response
+        LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('read', $logEntry);
 
         $extra_html = $logEntryExtraFormatter->format($logEntry);
         $target_html = $logTargetHelper->formatTarget($logEntry);
 
+        $repo = $entityManager->getRepository(AbstractLogEntry::class);
+        $target_element = $repo->getTargetElement($logEntry);
+
         return $this->render('log_system/details/log_details.html.twig', [
             'log_entry' => $logEntry,
+            'target_element' => $target_element,
             'extra_html' => $extra_html,
             'target_html' => $target_html,
             'log_level_helper' => $logLevelHelper,

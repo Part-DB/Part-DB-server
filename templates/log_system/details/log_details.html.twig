@@ -1,6 +1,7 @@
 {% extends "main_card.html.twig" %}
 
 {% import "helper.twig" as helper %}
+{% import "log_system/details/helper.macro.html.twig" as log_helper %}
 
 {% block title %}
     {% trans %}log.details.title{% endtrans %}:
@@ -58,6 +59,22 @@
     </table>
 
     <div class="card-body">
+
+        <div class="row mb-2">
+            <div class="col-6">
+                {% if log_entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry')
+                %}
+                    {{ log_helper.undo_buttons(log_entry, target_element) }}
+                {% endif %}
+            </div>
+            <div class="col-6 text-end">
+                <button type="button" class="btn btn-sm btn-outline-danger">Delete Log entry</button>
+            </div>
+        </div>
+
         {# This assignment is to improve autocomplete on the subpages, as PHPstorm ignores typehints for log_entry #}
         {% set entry = log_entry %}
         {% if log_entry is instanceof('App\\Entity\\LogSystem\\DatabaseUpdatedLogEntry') %}

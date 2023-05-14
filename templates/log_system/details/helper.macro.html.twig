@@ -1,3 +1,48 @@
+{% macro undo_buttons(entry, target_element) %}
+    {# @var entry \App\Entity\LogSystem\ElementEditedLogEntry|\App\Entity\LogSystem\ElementDeletedLogEntry entry #}
+    {% set disabled = not is_granted('revert_element', entry.targetClass) %}
+
+    {% if entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')
+        or (entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry') and entry.hasOldDataInformation) %}
+
+        {% set icon = 'fa-trash-restore' %}
+        {% set title = 'log.undo.undelete'|trans %}
+        {% set title_short = 'log.undo.undelete.short'|trans %}
+
+    {% elseif entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry')
+        or (entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry') and entry.hasOldDataInformation) %}
+
+        {% set icon = 'fa-undo' %}
+        {% set title = 'log.undo.undo'|trans %}
+        {% set title_short = 'log.undo.undo.short'|trans %}
+    {% endif %}
+
+    <form method="post" action="{{ path("log_undo") }}"
+            {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+          data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
+          data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
+
+        <input type="hidden" name="redirect_back" value="{{ app.request.requestUri }}">
+
+        <div class="btn-group btn-group-sm" role="group">
+            <button type="submit" class="btn btn-outline-secondary" name="undo" value="{{ entry.id }}" {% if disabled %}disabled{% endif %}>
+                <i class="fas fa-fw {{ icon }}" title="{{ title }}"></i> {{ title_short }}
+            </button>
+            <button type="submit" class="btn btn-outline-secondary" name="revert" value="{{ entry.id }}" {% if disabled %}disabled{% endif %}>
+                <i class="fas fa-fw fa-backward" title="{% trans %}log.undo.revert{% endtrans %}"></i> {{ 'log.undo.revert.short' | trans }}
+            </button>
+
+            {# View button #}
+            {% if target_element and ((attribute(entry, 'oldDataInformation') is defined and entry.oldDataInformation)
+                or entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')) %}
+                <a class="btn btn-outline-secondary" href="{{ timetravel_url(target_element, entry.timestamp)}}"><i class="fas fa-fw fa-eye"></i>
+                    {% trans %}log.view_version{% endtrans %}
+                </a>
+            {% endif %}
+        </div>
+    </form>
+{% endmacro %}
+
 
 {% macro comment_field(entry) %}
     {# @var entry \App\Entity\Contracts\LogWithComment #}

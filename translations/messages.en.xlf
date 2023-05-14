@@ -11361,5 +11361,47 @@ Element 3</target>
         <target>Diff</target>
       </segment>
     </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment>
+        <source>log.undo.undo.short</source>
+        <target>Undo</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment>
+        <source>log.undo.revert.short</source>
+        <target>Revert to this timestamp</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment>
+        <source>log.view_version</source>
+        <target>View version</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment>
+        <source>log.undo.undelete.short</source>
+        <target>Undelete</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment>
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment>
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment>
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Parent</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
