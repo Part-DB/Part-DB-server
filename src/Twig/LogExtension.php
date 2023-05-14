@@ -21,20 +21,27 @@
 namespace App\Twig;
 
 use App\Services\LogSystem\LogDataFormatter;
+use App\Services\LogSystem\LogDiffFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class LogExtension extends AbstractExtension
+final class LogExtension extends AbstractExtension
 {
-    public function __construct(LogDataFormatter $logDataFormatter)
+
+    private LogDataFormatter $logDataFormatter;
+    private LogDiffFormatter $logDiffFormatter;
+
+    public function __construct(LogDataFormatter $logDataFormatter, LogDiffFormatter $logDiffFormatter)
     {
         $this->logDataFormatter = $logDataFormatter;
+        $this->logDiffFormatter = $logDiffFormatter;
     }
 
     public function getFunctions()
     {
         return [
-            new TwigFunction('format_log_data', [$this->logDataFormatter, 'formatData'], ['is_safe' => ['html']])
+            new TwigFunction('format_log_data', [$this->logDataFormatter, 'formatData'], ['is_safe' => ['html']]),
+            new TwigFunction('format_log_diff', [$this->logDiffFormatter, 'formatDiff'], ['is_safe' => ['html']]),
         ];
     }
 }

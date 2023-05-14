@@ -46,6 +46,9 @@
                 {% if new_data is not empty %}
                     <th>{% trans %}log.element_changed.data_after{% endtrans %}</th>
                 {% endif %}
+                {% if new_data is not empty and old_data is not empty %} {# Diff column #}
+                    <th>{% trans %}log.element_changed.diff{% endtrans %}</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -73,6 +76,14 @@
                         <td>
                             {% if new_data[field] is defined %}
                                 {{ format_log_data(new_data[field], entry, field) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+
+                    {% if new_data is not empty and old_data is not empty %}
+                        <td>
+                            {% if new_data[field] is defined and old_data[field] is defined %}
+                                {{ format_log_diff(old_data[field], new_data[field]) }}
                             {% endif %}
                         </td>
                     {% endif %}

@@ -50,7 +50,14 @@ class LogDataFormatter
     public function formatData($data, AbstractLogEntry $logEntry, string $fieldName): string
     {
         if (is_string($data)) {
-            return '"' . mb_strimwidth(htmlspecialchars($data), 0, self::STRING_MAX_LENGTH, ) . '"';
+            $tmp = '<span class="text-muted user-select-none">"</span>' . mb_strimwidth(htmlspecialchars($data), 0, self::STRING_MAX_LENGTH, ) . '<span class="text-muted user-select-none">"</span>';
+
+            //Show special characters and line breaks
+            $tmp = preg_replace('/\n/', '<span class="text-muted user-select-none">\\n</span><br>', $tmp);
+            $tmp = preg_replace('/\r/', '<span class="text-muted user-select-none">\\r</span>', $tmp);
+            $tmp = preg_replace('/\t/', '<span class="text-muted user-select-none">\\t</span>', $tmp);
+
+            return $tmp;
         }
 
         if (is_bool($data)) {

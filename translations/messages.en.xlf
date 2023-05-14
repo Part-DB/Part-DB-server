@@ -11355,5 +11355,11 @@ Element 3</target>
         <target>Data after change</target>
       </segment>
     </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment>
+        <source>log.element_changed.diff</source>
+        <target>Diff</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
