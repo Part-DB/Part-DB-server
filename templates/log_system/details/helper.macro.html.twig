@@ -19,8 +19,8 @@
 
     <form method="post" action="{{ path("log_undo") }}"
             {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
-          data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
-          data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
+            data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
+            data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
 
         <input type="hidden" name="redirect_back" value="{{ app.request.requestUri }}">
 

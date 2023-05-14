@@ -44,6 +44,7 @@ export default class extends Controller
         const title = this.element.dataset.deleteTitle;
 
         const form = this.element;
+        const submitter = event.submitter;
         const that = this;
 
         const confirm = bootbox.confirm({
@@ -58,6 +59,14 @@ export default class extends Controller
                     const submit_btn = document.createElement('button');
                     submit_btn.type = 'submit';
                     submit_btn.style.display = 'none';
+
+                    //If the clicked button has a value, set it on the submit button
+                    if (submitter.value) {
+                        submit_btn.value = submitter.value;
+                    }
+                    if (submitter.name) {
+                        submit_btn.name = submitter.name;
+                    }
                     form.appendChild(submit_btn);
                     submit_btn.click();
                 } else {
