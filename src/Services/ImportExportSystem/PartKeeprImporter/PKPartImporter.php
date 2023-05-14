@@ -168,11 +168,21 @@ class PKPartImporter
             $entity->setName($name);
 
             $entity->setValueText($partparameter['stringValue'] ?? '');
-            $entity->setUnit($this->getUnitSymbol($data, (int) $partparameter['unit_id']));
+            if ($partparameter['unit_id'] === null) {
+                $entity->setUnit($this->getUnitSymbol($data, (int)$partparameter['unit_id']));
+            } else {
+                $entity->setUnit("");
+            }
 
-            $entity->setValueMin($partparameter['normalizedMinValue'] ?? null);
-            $entity->setValueTypical($partparameter['normalizedValue'] ?? null);
-            $entity->setValueMax($partparameter['normalizedMaxValue'] ?? null);
+            if ($partparameter['normalizedMinValue'] !== null) {
+                $entity->setValueMin((float) $partparameter['normalizedMinValue']);
+            }
+            if ($partparameter['normalizedValue'] !== null) {
+                $entity->setValueTypical((float) $partparameter['normalizedValue']);
+            }
+            if ($partparameter['normalizedMaxValue'] !== null) {
+                $entity->setValueMax((float) $partparameter['normalizedMaxValue']);
+            }
 
             $part = $this->em->find(Part::class, (int) $partparameter['part_id']);
             if (!$part) {
@@ -226,6 +236,7 @@ class PKPartImporter
                 $orderdetail->setSupplier($supplier);
                 $orderdetail->setSupplierpartnr($spn);
                 $part->addOrderdetail($orderdetail);
+                $this->em->persist($orderdetail);
             }
 
             //Add the price information to the orderdetail
@@ -236,10 +247,13 @@ class PKPartImporter
                 $price_per_item = BigDecimal::of($partdistributor['price']);
                 $pricedetail->setPrice($price_per_item->multipliedBy($partdistributor['packagingUnit']));
                 $pricedetail->setPriceRelatedQuantity($partdistributor['packagingUnit'] ?? 1);
+
+                $this->em->persist($pricedetail);
             }
 
-            //We have to flush the changes in every loop, so the find function can find newly created entities
             $this->em->flush();
+            //Clear the entity manager to improve performance
+            $this->em->clear();
         }
     }
 

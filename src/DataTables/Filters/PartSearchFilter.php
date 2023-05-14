@@ -86,6 +86,9 @@ class PartSearchFilter implements FilterInterface
         if($this->description) {
             $fields_to_search[] = 'part.description';
         }
+        if ($this->comment) {
+            $fields_to_search[] = 'part.comment';
+        }
         if($this->tags) {
             $fields_to_search[] = 'part.tags';
         }

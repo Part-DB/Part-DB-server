@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\ErrorDataTable;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\PartsDataTable;
@@ -30,9 +31,11 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,6 +44,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartListsController extends AbstractController
 {
@@ -48,11 +52,14 @@ class PartListsController extends AbstractController
     private NodesListBuilder $nodesListBuilder;
     private DataTableFactory $dataTableFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory)
+    private TranslatorInterface $translator;
+
+    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
         $this->nodesListBuilder = $nodesListBuilder;
         $this->dataTableFactory = $dataTableFactory;
+        $this->translator = $translator;
     }
 
     /**
@@ -144,7 +151,21 @@ class PartListsController extends AbstractController
             ->handleRequest($request);
 
         if ($table->isCallback()) {
-            return $table->getResponse();
+            try {
+                try {
+                    return $table->getResponse();
+                } catch (DriverException $driverException) {
+                    if ($driverException->getCode() === 1139) {
+                        //Convert the driver exception to InvalidRegexException so it has the same hanlder as for SQLite
+                        throw InvalidRegexException::fromDriverException($driverException);
+                    } else {
+                        throw $driverException;
+                    }
+                }
+            } catch (InvalidRegexException $exception) {
+                $errors = $this->translator->trans('part.table.invalid_regex').': '.$exception->getReason();
+                return ErrorDataTable::errorTable($this->dataTableFactory, $request, $errors);
+            }
         }
 
         return $this->render($template, array_merge([
@@ -288,21 +309,22 @@ class PartListsController extends AbstractController
     {
         $filter = new PartSearchFilter($request->query->get('keyword', ''));
 
-        $filter->setName($request->query->getBoolean('name', true));
-        $filter->setCategory($request->query->getBoolean('category', true));
-        $filter->setDescription($request->query->getBoolean('description', true));
-        $filter->setMpn($request->query->getBoolean('mpn', true));
-        $filter->setTags($request->query->getBoolean('tags', true));
-        $filter->setStorelocation($request->query->getBoolean('storelocation', true));
-        $filter->setComment($request->query->getBoolean('comment', true));
-        $filter->setIPN($request->query->getBoolean('ipn', true));
-        $filter->setOrdernr($request->query->getBoolean('ordernr', true));
-        $filter->setSupplier($request->query->getBoolean('supplier', false));
-        $filter->setManufacturer($request->query->getBoolean('manufacturer', false));
-        $filter->setFootprint($request->query->getBoolean('footprint', false));
+        //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
+        $filter->setName($request->query->getBoolean('name'));
+        $filter->setCategory($request->query->getBoolean('category'));
+        $filter->setDescription($request->query->getBoolean('description'));
+        $filter->setMpn($request->query->getBoolean('mpn'));
+        $filter->setTags($request->query->getBoolean('tags'));
+        $filter->setStorelocation($request->query->getBoolean('storelocation'));
+        $filter->setComment($request->query->getBoolean('comment'));
+        $filter->setIPN($request->query->getBoolean('ipn'));
+        $filter->setOrdernr($request->query->getBoolean('ordernr'));
+        $filter->setSupplier($request->query->getBoolean('supplier'));
+        $filter->setManufacturer($request->query->getBoolean('manufacturer'));
+        $filter->setFootprint($request->query->getBoolean('footprint'));
 
 
-        $filter->setRegex($request->query->getBoolean('regex', false));
+        $filter->setRegex($request->query->getBoolean('regex'));
 
         return $filter;
     }

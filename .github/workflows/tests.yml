@@ -130,4 +130,12 @@ jobs:
 
       - name: Test check-requirements command
         run: php bin/console partdb:check-requirements -n
+
+      - name: Test legacy Part-DB import
+        run: bash .github/assets/legacy_import/test_legacy_import.sh
+        if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
+        env:
+          DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
+
+
       
