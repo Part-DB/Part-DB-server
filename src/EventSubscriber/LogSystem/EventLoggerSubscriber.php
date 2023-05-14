@@ -78,11 +78,12 @@ class EventLoggerSubscriber implements EventSubscriber
     protected bool $save_changed_fields;
     protected bool $save_changed_data;
     protected bool $save_removed_data;
+    protected bool $save_new_data;
     protected PropertyAccessorInterface $propertyAccessor;
 
     public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper,
-        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, PropertyAccessorInterface $propertyAccessor,
-        EventUndoHelper $eventUndoHelper)
+        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, bool $save_new_data,
+        PropertyAccessorInterface $propertyAccessor, EventUndoHelper $eventUndoHelper)
     {
         $this->logger = $logger;
         $this->serializer = $serializer;
@@ -93,6 +94,8 @@ class EventLoggerSubscriber implements EventSubscriber
         $this->save_changed_fields = $save_changed_fields;
         $this->save_changed_data = $save_changed_data;
         $this->save_removed_data = $save_removed_data;
+        //This option only makes sense if save_changed_data is true
+        $this->save_new_data = $save_new_data && $save_changed_data;
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs): void
@@ -150,6 +153,7 @@ class EventLoggerSubscriber implements EventSubscriber
                     $log->setTargetElementID($undoEvent->getDeletedElementID());
                 }
             }
+
             $this->logger->log($log);
         }
     }
@@ -301,6 +305,24 @@ class EventLoggerSubscriber implements EventSubscriber
         }, ARRAY_FILTER_USE_BOTH);
     }
 
+    /**
+     * Restrict the length of every string in the given array to MAX_STRING_LENGTH, to save memory in the case of very
+     * long strings (e.g. images in notes)
+     * @param  array  $fields
+     * @return array
+     */
+    protected function fieldLengthRestrict(array $fields): array
+    {
+        return array_map(
+            static function ($value) {
+                if (is_string($value)) {
+                    return mb_strimwidth($value, 0, self::MAX_STRING_LENGTH, '...');
+                }
+
+                return $value;
+            }, $fields);
+    }
+
     protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, bool $element_deleted = false): void
     {
         $uow = $em->getUnitOfWork();
@@ -314,20 +336,24 @@ class EventLoggerSubscriber implements EventSubscriber
         } else { //Otherwise we have to get it from entity changeset
             $changeSet = $uow->getEntityChangeSet($entity);
             $old_data = array_combine(array_keys($changeSet), array_column($changeSet, 0));
+            //If save_new_data is enabled, we extract it from the change set
+            if ($this->save_new_data) {
+                $new_data = array_combine(array_keys($changeSet), array_column($changeSet, 1));
+            }
         }
         $old_data = $this->filterFieldRestrictions($entity, $old_data);
 
         //Restrict length of string fields, to save memory...
-        $old_data = array_map(
-            static function ($value) {
-                if (is_string($value)) {
-                    return mb_strimwidth($value, 0, self::MAX_STRING_LENGTH, '...');
-                }
-
-                return $value;
-            }, $old_data);
+        $old_data = $this->fieldLengthRestrict($old_data);
 
         $logEntry->setOldData($old_data);
+
+        if (!empty($new_data)) {
+            $new_data = $this->filterFieldRestrictions($entity, $new_data);
+            $new_data = $this->fieldLengthRestrict($new_data);
+
+            $logEntry->setNewData($new_data);
+        }
     }
 
     /**

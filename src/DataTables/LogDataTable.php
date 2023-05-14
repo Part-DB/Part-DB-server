@@ -236,7 +236,7 @@ class LogDataTable implements DataTableTypeInterface
             'href' => function ($value, AbstractLogEntry $context) {
                 if (
                     ($context instanceof TimeTravelInterface
-                        && $context->hasOldDataInformations())
+                        && $context->hasOldDataInformation())
                     || $context instanceof CollectionElementDeleted
                 ) {
                     try {

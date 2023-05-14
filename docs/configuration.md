@@ -46,8 +46,9 @@ The following configuration options can only be changed by the server administra
 ### History/Eventlog related settings
 The following options are used to configure, which (and how much) data is written to the system log:
 * `HISTORY_SAVE_CHANGED_FIELDS`: When this option is set to true, the name of the fields which are changed, are saved to the DB (so for example it is logged that a user has changed, that the user has changed the name and description of the field, but not the data/content of these changes)
-* `HISTORY_SAVE_CHANGED_DATA`: When this option is set to true, the changed data is saved to log (so it is logged, that a user has changed the name of a part and what the name was before). This can increase database size, when you have a lot of changes to enties.
+* `HISTORY_SAVE_CHANGED_DATA`: When this option is set to true, the changed data is saved to log (so it is logged, that a user has changed the name of a part and what the name was before). This can increase database size, when you have a lot of changes to entities.
 * `HISTORY_SAVE_REMOVED_DATA`: When this option is set to true, removed data is saved to log, meaning that you can easily undelete an entity, when it was removed accidentally.
+* `HISTORY_SAVE_NEW_DATA`: When this option is set to true, the new data (the data after a change) is saved to element changed log entries. This allows you to easily see the changes between two revisions of an entity. This can increase database size, when you have a lot of changes to entities.
 
 If you wanna use want to revert changes or view older revisions of entities, then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAVE_REMOVED_DATA` all have to be true.
 

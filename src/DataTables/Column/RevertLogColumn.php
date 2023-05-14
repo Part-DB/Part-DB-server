@@ -73,13 +73,13 @@ class RevertLogColumn extends AbstractColumn
     {
         if (
             $context instanceof CollectionElementDeleted
-            || ($context instanceof ElementDeletedLogEntry && $context->hasOldDataInformations())
+            || ($context instanceof ElementDeletedLogEntry && $context->hasOldDataInformation())
         ) {
             $icon = 'fa-trash-restore';
             $title = $this->translator->trans('log.undo.undelete');
         } elseif (
             $context instanceof ElementCreatedLogEntry
-            || ($context instanceof ElementEditedLogEntry && $context->hasOldDataInformations())
+            || ($context instanceof ElementEditedLogEntry && $context->hasOldDataInformation())
         ) {
             $icon = 'fa-undo';
             $title = $this->translator->trans('log.undo.undo');

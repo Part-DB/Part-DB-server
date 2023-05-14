@@ -125,3 +125,9 @@ parameters:
   env(DEFAULT_URI): 'https://partdb.changeme.invalid/'
 
   env(SAML_ROLE_MAPPING): '{}'
+
+  env(HISTORY_SAVE_CHANGED_DATA): 1
+  env(HISTORY_SAVE_CHANGED_FIELDS): 1
+  env(HISTORY_SAVE_REMOVED_DATA): 1
+  env(HISTORY_SAVE_NEW_DATA): 1
+

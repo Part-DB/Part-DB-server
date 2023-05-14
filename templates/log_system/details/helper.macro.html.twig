@@ -22,10 +22,17 @@
     {% endif %}
 
     {# For log entries, where we know the old data, this is the last exectuted assignment #}
-    {% if attribute(entry, 'oldDataInformations') is defined and entry.oldDataInformations %}
+    {% if attribute(entry, 'oldDataInformation') is defined and entry.oldDataInformation %}
         {# We have to use the keys of oldData here, as changedFields might not be available #}
         {% set fields = entry.oldData | keys %}
         {% set old_data = entry.oldData %}
+    {% endif %}
+
+    {# For log entries, where we have new data, we define it #}
+    {% if attribute(entry, 'newDataInformation') is defined and entry.newDataInformation %}
+        {# We have to use the keys of oldData here, as changedFields might not be available #}
+        {% set fields = entry.newData | keys %}
+        {% set new_data = entry.newData %}
     {% endif %}
 
     {% if fields is not empty %}

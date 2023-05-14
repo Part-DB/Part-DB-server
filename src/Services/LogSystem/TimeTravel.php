@@ -194,7 +194,7 @@ class TimeTravel
     public function applyEntry(AbstractDBElement $element, TimeTravelInterface $logEntry): void
     {
         //Skip if this does not provide any info...
-        if (!$logEntry->hasOldDataInformations()) {
+        if (!$logEntry->hasOldDataInformation()) {
             return;
         }
         if (!$element instanceof TimeStampableInterface) {
