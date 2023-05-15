@@ -1,0 +1,8 @@
+{# @var entry \App\Entity\LogSystem\ElementDeletedLogEntry #}
+
+{% import "log_system/details/helper.macro.html.twig" as log_helper %}
+
+<span class="badge badge-notice"></span>
+
+{{ log_helper.comment_field(entry) }}
+{{ log_helper.data_change_table(entry) }}

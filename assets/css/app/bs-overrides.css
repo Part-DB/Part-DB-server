@@ -106,3 +106,18 @@ form .col-form-label.required:after, form label.required:after {
     right: -2px;
     z-index: 700;
 }
+
+/****************************************
+ * HTML diff styling
+ ****************************************/
+
+/* Insertations are marked with green background and bold */
+ins {
+    background-color: #95f095;
+    font-weight: bold;
+}
+
+del {
+    background-color: #f09595;
+    font-weight: bold;
+}

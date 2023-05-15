@@ -71,6 +71,8 @@ final class EntityExtension extends AbstractExtension
             new TwigFunction('entity_type', [$this, 'getEntityType']),
             /* Returns the URL to the given entity */
             new TwigFunction('entity_url', [$this, 'generateEntityURL']),
+            /* Returns the URL to the given entity in timetravel mode */
+            new TwigFunction('timetravel_url', [$this->entityURLGenerator, 'timetravelURL']),
             /* Generates a JSON array of the given tree */
             new TwigFunction('tree_data', [$this, 'treeData']),
 

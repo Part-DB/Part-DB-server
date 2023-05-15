@@ -4,16 +4,17 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-ctype": "*",
+        "ext-dom": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-dom": "*",
         "beberlei/doctrineextensions": "^1.2",
         "brick/math": "^0.8.15",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.6",
+        "doctrine/data-fixtures": "^1.6.6",
         "doctrine/dbal": "^3.4.6",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
@@ -25,6 +26,7 @@
         "gregwar/captcha-bundle": "^2.1.0",
         "hslavich/oneloginsaml-bundle": "^2.10",
         "jbtronics/2fa-webauthn": "^1.0.0",
+        "jfcherng/php-diff": "^6.14",
         "league/csv": "^9.8.0",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
@@ -78,9 +80,7 @@
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
         "web-auth/webauthn-symfony-bundle": "^3.3",
-        "webmozart/assert": "^1.4",
-        "doctrine/data-fixtures": "^1.6.6"
-
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",

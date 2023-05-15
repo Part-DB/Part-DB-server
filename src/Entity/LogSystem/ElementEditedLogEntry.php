@@ -25,6 +25,7 @@ namespace App\Entity\LogSystem;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
+use App\Entity\Contracts\LogWithNewDataInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -32,7 +33,7 @@ use InvalidArgumentException;
 /**
  * @ORM\Entity()
  */
-class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
+class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface, LogWithNewDataInterface
 {
     protected string $typeString = 'element_edited';
 
@@ -49,7 +50,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
      */
     public function hasChangedFieldsInfo(): bool
     {
-        return isset($this->extra['f']) || $this->hasOldDataInformations();
+        return isset($this->extra['f']) || $this->hasOldDataInformation();
     }
 
     /**
@@ -59,7 +60,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
      */
     public function getChangedFields(): array
     {
-        if ($this->hasOldDataInformations()) {
+        if ($this->hasOldDataInformation()) {
             return array_keys($this->getOldData());
         }
 
@@ -92,7 +93,29 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
         return $this;
     }
 
-    public function hasOldDataInformations(): bool
+    public function hasNewDataInformation(): bool
+    {
+        return !empty($this->extra['n']);
+    }
+
+    public function getNewData(): array
+    {
+        return $this->extra['n'] ?? [];
+    }
+
+    /**
+     * Sets the old data for this entry.
+     *
+     * @return $this
+     */
+    public function setNewData(array $new_data): self
+    {
+        $this->extra['n'] = $new_data;
+
+        return $this;
+    }
+
+    public function hasOldDataInformation(): bool
     {
         return !empty($this->extra['d']);
     }

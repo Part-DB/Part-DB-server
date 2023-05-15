@@ -1,0 +1,140 @@
+{% macro undo_buttons(entry, target_element) %}
+    {# @var entry \App\Entity\LogSystem\ElementEditedLogEntry|\App\Entity\LogSystem\ElementDeletedLogEntry entry #}
+    {% set disabled = not is_granted('revert_element', entry.targetClass) %}
+
+    {% if entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')
+        or (entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry') and entry.hasOldDataInformation) %}
+
+        {% set icon = 'fa-trash-restore' %}
+        {% set title = 'log.undo.undelete'|trans %}
+        {% set title_short = 'log.undo.undelete.short'|trans %}
+
+    {% elseif entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry')
+        or (entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry') and entry.hasOldDataInformation) %}
+
+        {% set icon = 'fa-undo' %}
+        {% set title = 'log.undo.undo'|trans %}
+        {% set title_short = 'log.undo.undo.short'|trans %}
+    {% endif %}
+
+    <form method="post" action="{{ path("log_undo") }}"
+            {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+            data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
+            data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
+
+        <input type="hidden" name="redirect_back" value="{{ app.request.requestUri }}">
+
+        <div class="btn-group btn-group-sm" role="group">
+            <button type="submit" class="btn btn-outline-secondary" name="undo" value="{{ entry.id }}" {% if disabled %}disabled{% endif %}>
+                <i class="fas fa-fw {{ icon }}" title="{{ title }}"></i> {{ title_short }}
+            </button>
+            <button type="submit" class="btn btn-outline-secondary" name="revert" value="{{ entry.id }}" {% if disabled %}disabled{% endif %}>
+                <i class="fas fa-fw fa-backward" title="{% trans %}log.undo.revert{% endtrans %}"></i> {{ 'log.undo.revert.short' | trans }}
+            </button>
+
+            {# View button #}
+            {% if target_element and ((attribute(entry, 'oldDataInformation') is defined and entry.oldDataInformation)
+                or entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')) %}
+                <a class="btn btn-outline-secondary" href="{{ timetravel_url(target_element, entry.timestamp)}}"><i class="fas fa-fw fa-eye"></i>
+                    {% trans %}log.view_version{% endtrans %}
+                </a>
+            {% endif %}
+        </div>
+    </form>
+{% endmacro %}
+
+
+{% macro comment_field(entry) %}
+    {# @var entry \App\Entity\Contracts\LogWithComment #}
+    <p class="mb-0">
+        <b>{% trans %}edit.log_comment{% endtrans %}:</b>
+        {% if entry.comment %}
+            {{ entry.comment }}
+        {% else %}
+            <span class="text-muted">{% trans %}log.no_comment{% endtrans %}</span>
+        {% endif %}
+    </p>
+{% endmacro %}
+
+{% macro data_change_table(entry) %}
+    {# @var entry \App\Entity\LogSystem\ElementEditedLogEntry|\App\Entity\LogSystem\ElementDeletedLogEntry entry #}
+
+    {% set fields, old_data, new_data = {}, {}, {} %}
+
+    {# For log entries where only the changed fields are saved, this is the last executed assignment #}
+    {% if attribute(entry, 'changedFieldInfo') is defined and entry.changedFieldsInfo %}
+        {% set fields = entry.changedFields %}
+    {% endif %}
+
+    {# For log entries, where we know the old data, this is the last exectuted assignment #}
+    {% if attribute(entry, 'oldDataInformation') is defined and entry.oldDataInformation %}
+        {# We have to use the keys of oldData here, as changedFields might not be available #}
+        {% set fields = entry.oldData | keys %}
+        {% set old_data = entry.oldData %}
+    {% endif %}
+
+    {# For log entries, where we have new data, we define it #}
+    {% if attribute(entry, 'newDataInformation') is defined and entry.newDataInformation %}
+        {# We have to use the keys of oldData here, as changedFields might not be available #}
+        {% set fields = entry.newData | keys %}
+        {% set new_data = entry.newData %}
+    {% endif %}
+
+    {% if fields is not empty %}
+        <table class="table table-hover table-striped table-sm table-bordered mt-2">
+            <thead>
+            <tr>
+                <th>{% trans %}log.element_changed.field{% endtrans %}</th>
+                {% if old_data is not empty %}
+                    <th>{% trans %}log.element_changed.data_before{% endtrans %}</th>
+                {% endif %}
+                {% if new_data is not empty %}
+                    <th>{% trans %}log.element_changed.data_after{% endtrans %}</th>
+                {% endif %}
+                {% if new_data is not empty and old_data is not empty %} {# Diff column #}
+                    <th>{% trans %}log.element_changed.diff{% endtrans %}</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for field in fields %}
+                <tr>
+                    <td title="{{ field }}">
+                        {% set trans_key = 'log.element_edited.changed_fields.'~field %}
+                        {# If the translation key is not found, the translation key is returned, and we dont show the translation #}
+                        {% if trans_key|trans != trans_key %}
+                            {{ ('log.element_edited.changed_fields.'~field) | trans }}
+                            <span class="text-muted">({{ field }})</span>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+
+                    </td>
+                    {% if old_data is not empty %}
+                        <td>
+                            {% if old_data[field] is defined %}
+                                {{ format_log_data(old_data[field], entry, field) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                    {% if new_data is not empty %}
+                        <td>
+                            {% if new_data[field] is defined %}
+                                {{ format_log_data(new_data[field], entry, field) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+
+                    {% if new_data is not empty and old_data is not empty %}
+                        <td>
+                            {% if new_data[field] is defined and old_data[field] is defined %}
+                                {{ format_log_diff(old_data[field], new_data[field]) }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endmacro %}

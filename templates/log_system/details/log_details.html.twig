@@ -1,0 +1,115 @@
+{% extends "main_card.html.twig" %}
+
+{% import "helper.twig" as helper %}
+{% import "log_system/details/helper.macro.html.twig" as log_helper %}
+
+{% block title %}
+    {% trans %}log.details.title{% endtrans %}:
+    {{ ('log.type.' ~ log_entry.type) | trans }} ({{ log_entry.timestamp | format_datetime('short') }})
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-binoculars"></i>
+    {% trans %}log.details.title{% endtrans %}:
+    <i>{{ ('log.type.' ~ log_entry.type) | trans }}</i> ({{ log_entry.timestamp | format_datetime('short') }})
+    <span class="float-end">ID: {{ log_entry.iD }}</span>
+{% endblock %}
+
+{% block card_body %}
+    <table class="table table-striped table-hover mb-0 {{ log_level_helper.logLevelToTableColorClass(log_entry.levelString) }}">
+        <tr>
+            <td>{% trans %}log.timestamp{% endtrans %}</td>
+            <td>{{ log_entry.timestamp | format_datetime('full') }}</td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.type{% endtrans %}</td>
+            <td>
+                {{ ('log.type.' ~ log_entry.type) | trans }}
+                {% if log_entry.type == 'part_stock_changed' %}
+                    ({{ ('log.part_stock_changed.' ~ log_entry.instockChangeType)|trans }})
+                {% endif %}
+
+                {% if log_entry is instanceof('App\\Entity\\Contracts\\LogWithEventUndoInterface') and log_entry.undoEvent %}
+                    <b>({{ ('log.undo_mode.' ~ log_entry.undoMode)|trans }}: <a href="{{ path('log_details', {"id": log_entry.UndoEventID}) }}">#{{ log_entry.UndoEventID }}</a>)</b>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.level{% endtrans %}</td>
+            <td>
+                <i class="fa-solid {{ log_level_helper.logLevelToIconClass(log_entry.levelString) }} fa-fw"></i>
+                {{ ('log.level.'~ log_entry.levelString)|trans }}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.user{% endtrans %}
+            <td>
+                {% if log_entry.cLIEntry %}
+                    <i class="fa-solid fa-terminal"></i>
+                    {{ log_entry.cLIUsername }} ({% trans %}log.cli_user{% endtrans %})
+                {% else %}
+                    {% if log_entry.user %}
+                        {{ helper.user_icon_link(log_entry.user) }} (@{{ log_entry.user.username }})
+                    {% else %}
+                        @{{ log_entry.username }} ({% trans %}log.target_deleted{% endtrans %}
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans %}log.target{% endtrans %}</td>
+            <td>{{ target_html|raw }}</td>
+        </tr>
+    </table>
+
+    <div class="card-body">
+
+        <div class="row mb-2">
+            <div class="col-6">
+                {% if log_entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry')
+                    or log_entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry')
+                %}
+                    {{ log_helper.undo_buttons(log_entry, target_element) }}
+                {% endif %}
+            </div>
+
+            <div class="col-6 text-end">
+                <form method="post" class="" action="{{ path('log_delete', {'id': log_entry.iD}) }}" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                      data-delete-title="{% trans %}log.delete.message.title{% endtrans %}"
+                      data-delete-message="{% trans %}log.delete.message{% endtrans %}">
+
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ log_entry.id) }}">
+
+                    <button type="submit" class="btn btn-sm btn-outline-danger" {% if not is_granted('delete', log_entry) %}disabled{% endif %}>
+                        <i class="fa-solid fa-trash"></i>
+                        {% trans %}log.details.delete_entry{% endtrans %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {# This assignment is to improve autocomplete on the subpages, as PHPstorm ignores typehints for log_entry #}
+        {% set entry = log_entry %}
+        {% if log_entry is instanceof('App\\Entity\\LogSystem\\DatabaseUpdatedLogEntry') %}
+            {% include "log_system/details/_extra_database_updated.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementCreatedLogEntry') %}
+            {% include "log_system/details/_extra_element_created.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementEditedLogEntry') %}
+            {% include "log_system/details/_extra_element_edited.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\ElementDeletedLogEntry') %}
+            {% include "log_system/details/_extra_element_deleted.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\UserLoginLogEntry')
+            or log_entry is instanceof('App\\Entity\\LogSystem\\UserLogoutLogEntry')  %}
+            {% include "log_system/details/_extra_user_login.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\UserNotAllowedLogEntry') %}
+            {% include "log_system/details/_extra_user_not_allowed.html.twig" %}
+        {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\SecurityEventLogEntry') %}
+            {% include "log_system/details/_extra_security_event.html.twig" %}
+        {% else %}
+            {{ extra_html | raw }}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -11289,6 +11289,54 @@ Element 3</target>
         <target>Show email on public profile page</target>
       </segment>
     </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment>
+        <source>log.details.title</source>
+        <target>Log details</target>
+      </segment>
+    </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment>
+        <source>log.user_login.login_from_ip</source>
+        <target>Login from IP address</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment>
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>If the last digits of the IP address are missing, then the GPDR mode is enabled, in which IP addresses are anynomized.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment>
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Unauthorized access attempt to page</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment>
+        <source>log.user_not_allowed.hint</source>
+        <target>The request was blocked. No action should be required.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment>
+        <source>log.no_comment</source>
+        <target>No comment</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment>
+        <source>log.element_changed.field</source>
+        <target>Field</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment>
+        <source>log.element_changed.data_before</source>
+        <target>Data before change</target>
+      </segment>
+    </unit>
     <unit id="qk2u9Qg" name="error_table.error">
       <segment>
         <source>error_table.error</source>
@@ -11299,6 +11347,78 @@ Element 3</target>
       <segment>
         <source>part.table.invalid_regex</source>
         <target>Invalid Regex expression</target>
+      </segment>
+    </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment>
+        <source>log.element_changed.data_after</source>
+        <target>Data after change</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment>
+        <source>log.element_changed.diff</source>
+        <target>Diff</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment>
+        <source>log.undo.undo.short</source>
+        <target>Undo</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment>
+        <source>log.undo.revert.short</source>
+        <target>Revert to this timestamp</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment>
+        <source>log.view_version</source>
+        <target>View version</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment>
+        <source>log.undo.undelete.short</source>
+        <target>Undelete</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment>
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment>
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment>
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Parent</target>
+      </segment>
+    </unit>
+    <unit id="GUthgcU" name="log.details.delete_entry">
+      <segment>
+        <source>log.details.delete_entry</source>
+        <target>Delete log entry</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment>
+        <source>log.delete.message.title</source>
+        <target>Do you really want to delete the log entry?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment>
+        <source>log.delete.message</source>
+        <target>If this is an element history entry, this breaks the element history! This can lead to unexpected results when using the time travel function.</target>
       </segment>
     </unit>
   </file>

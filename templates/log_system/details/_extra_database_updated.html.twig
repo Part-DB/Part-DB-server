@@ -1,0 +1,23 @@
+{# @var entry \App\Entity\LogSystem\DatabaseUpdatedLogEntry #}
+
+{% if entry.successful %}
+    <h5><span class="badge bg-success badge-success">
+            <i class="fa-solid fa-check"></i>
+            {% trans %}log.database_updated.success{% endtrans %}
+        </span></h5>
+{% else %}
+    <h5><span class="badge bg-danger badge-danger">
+            <i class="fa-solid fa-xmark"></i>
+            {% trans %}log.database_updated.failed{% endtrans %}</span>
+    </h5>
+{% endif %}
+
+<span class="badge bg-secondary badge-secondary badge-pill" title="{% trans %}log.database_updated.old_version{% endtrans %}">
+    <i class="fa-solid fa-database"></i>
+    {{ entry.oldVersion }}
+</span>
+<i class="fa-solid fa-arrow-right-long"></i>
+<span class="badge bg-primary badge-primary badge-pill" title="{% trans %}log.database_updated.new_version{% endtrans %}">
+    <i class="fa-solid fa-database"></i>
+    {{ entry.newVersion }}
+</span>

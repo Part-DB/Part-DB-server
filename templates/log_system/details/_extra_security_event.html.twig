@@ -1,0 +1,9 @@
+{# @var entry \App\Entity\LogSystem\UserLoginLogEntry #}
+
+IP: &nbsp;
+<span class="badge bg-primary badge-primary">
+    <i class="fa-solid fa-network-wired"></i>
+    {{ entry.iPAddress }}
+</span>
+
+<p class="text-muted">{% trans %}log.user_login.ip_anonymize_hint{% endtrans %}</p>

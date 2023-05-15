@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -18,28 +18,24 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
-
 namespace App\Entity\Contracts;
 
-use DateTime;
-
-interface TimeTravelInterface
+interface LogWithNewDataInterface
 {
     /**
-     * Checks if this entry has information which data has changed.
-     *
-     * @return bool true if this entry has information about the changed data
+     * Checks if this entry has information about the new data.
+     * @return bool
      */
-    public function hasOldDataInformation(): bool;
+    public function hasNewDataInformation(): bool;
 
     /**
-     * Returns the data the entity had before this log entry.
+     * Returns the new data for this entry.
      */
-    public function getOldData(): array;
+    public function getNewData(): array;
 
     /**
-     * Returns the timestamp associated with this change.
+     * Sets the new data for this entry.
+     * @return $this
      */
-    public function getTimestamp(): DateTime;
+    public function setNewData(array $new_data): self;
 }

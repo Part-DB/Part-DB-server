@@ -24,6 +24,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -43,17 +44,20 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use Doctrine\ORM\Mapping\Entity;
 use function get_class;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ElementTypeNameGenerator
 {
     protected TranslatorInterface $translator;
+    private EntityURLGenerator $entityURLGenerator;
     protected array $mapping;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator)
     {
         $this->translator = $translator;
+        $this->entityURLGenerator = $entityURLGenerator;
 
         //Child classes has to become before parent classes
         $this->mapping = [
@@ -131,5 +135,82 @@ class ElementTypeNameGenerator
         }
 
         return $type.': '.$entity->getName();
+    }
+
+
+    /**
+     * Returns a HTML formatted label for the given enitity in the format "Type: Name" (on elements with a name) and
+     * "Type: ID" (on elements without a name). If possible the value is given as a link to the element.
+     * @param  AbstractDBElement  $entity The entity for which the label should be generated
+     * @param  bool  $include_associated If set to true, the associated entity (like the part belonging to a part lot) is included in the label to give further information
+     * @return string
+     */
+    public function formatLabelHTMLForEntity(AbstractDBElement $entity, bool $include_associated = false): string
+    {
+        //The element is existing
+        if ($entity instanceof NamedElementInterface && !empty($entity->getName())) {
+            try {
+                $tmp = sprintf(
+                    '<a href="%s">%s</a>',
+                    $this->entityURLGenerator->infoURL($entity),
+                    $this->getTypeNameCombination($entity, true)
+                );
+            } catch (EntityNotSupportedException $exception) {
+                $tmp = $this->getTypeNameCombination($entity, true);
+            }
+        } else { //Target does not have a name
+            $tmp = sprintf(
+                '<i>%s</i>: %s',
+                $this->getLocalizedTypeLabel($entity),
+                $entity->getID()
+            );
+        }
+
+        //Add a hint to the associated element if possible
+        if ($include_associated) {
+            if ($entity instanceof Attachment && null !== $entity->getElement()) {
+                $on = $entity->getElement();
+            } elseif ($entity instanceof AbstractParameter && null !== $entity->getElement()) {
+                $on = $entity->getElement();
+            } elseif ($entity instanceof PartLot && null !== $entity->getPart()) {
+                $on = $entity->getPart();
+            } elseif ($entity instanceof Orderdetail && null !== $entity->getPart()) {
+                $on = $entity->getPart();
+            } elseif ($entity instanceof Pricedetail && null !== $entity->getOrderdetail() && null !== $entity->getOrderdetail()->getPart()) {
+                $on = $entity->getOrderdetail()->getPart();
+            } elseif ($entity instanceof ProjectBOMEntry && null !== $entity->getProject()) {
+                $on = $entity->getProject();
+            }
+
+            if (isset($on) && is_object($on)) {
+                try {
+                    $tmp .= sprintf(
+                        ' (<a href="%s">%s</a>)',
+                        $this->entityURLGenerator->infoURL($on),
+                        $this->getTypeNameCombination($on, true)
+                    );
+                } catch (EntityNotSupportedException $exception) {
+                }
+            }
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create a HTML formatted label for a deleted element of which we only know the class and the ID.
+     * Please note that it is not checked if the element really not exists anymore, so you have to do this yourself.
+     * @param  string  $class
+     * @param  int  $id
+     * @return string
+     */
+    public function formatElementDeletedHTML(string $class, int $id): string
+    {
+        return sprintf(
+            '<i>%s</i>: %s [%s]',
+            $this->getLocalizedTypeLabel($class),
+            $id,
+            $this->translator->trans('log.target_deleted')
+        );
     }
 }
