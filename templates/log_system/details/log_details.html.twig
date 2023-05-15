@@ -74,8 +74,20 @@
                     {{ log_helper.undo_buttons(log_entry, target_element) }}
                 {% endif %}
             </div>
+
             <div class="col-6 text-end">
-                <button type="button" class="btn btn-sm btn-outline-danger">Delete Log entry</button>
+                <form method="post" class="" action="{{ path('log_delete', {'id': log_entry.iD}) }}" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                      data-delete-title="{% trans %}log.delete.message.title{% endtrans %}"
+                      data-delete-message="{% trans %}log.delete.message{% endtrans %}">
+
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ log_entry.id) }}">
+
+                    <button type="submit" class="btn btn-sm btn-outline-danger" {% if not is_granted('delete', log_entry) %}disabled{% endif %}>
+                        <i class="fa-solid fa-trash"></i>
+                        {% trans %}log.details.delete_entry{% endtrans %}
+                    </button>
+                </form>
             </div>
         </div>
 

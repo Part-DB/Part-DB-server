@@ -11403,5 +11403,23 @@ Element 3</target>
         <target>Parent</target>
       </segment>
     </unit>
+    <unit id="GUthgcU" name="log.details.delete_entry">
+      <segment>
+        <source>log.details.delete_entry</source>
+        <target>Delete log entry</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment>
+        <source>log.delete.message.title</source>
+        <target>Do you really want to delete the log entry?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment>
+        <source>log.delete.message</source>
+        <target>If this is an element history entry, this breaks the element history! This can lead to unexpected results when using the time travel function.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

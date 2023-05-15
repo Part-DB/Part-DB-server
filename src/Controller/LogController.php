@@ -124,6 +124,25 @@ class LogController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/delete", name="log_delete", methods={"DELETE"})
+     */
+    public function deleteLogEntry(Request $request, AbstractLogEntry $logEntry, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $this->denyAccessUnlessGranted('delete', $logEntry);
+
+        if ($this->isCsrfTokenValid('delete'.$logEntry->getId(), $request->request->get('_token'))) {
+            //Remove part
+            $entityManager->remove($logEntry);
+            //Flush changes
+            $entityManager->flush();
+            $this->addFlash('success', 'log.delete.success');
+        }
+
+        return $this->redirectToRoute('homepage');
+    }
+
+
+    /**
      * @Route("/undo", name="log_undo", methods={"POST"})
      */
     public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): RedirectResponse
