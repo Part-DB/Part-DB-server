@@ -24,13 +24,28 @@ namespace App\Security\Voter;
 
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class LogEntryVoter extends ExtendedVoter
 {
-    public const ALLOWED_OPS = ['read', 'delete'];
+    public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
+
+    private Security $security;
+
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    {
+        parent::__construct($resolver, $entityManager);
+        $this->security = $security;
+    }
 
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
+        if (!$subject instanceof AbstractLogEntry) {
+            throw new \InvalidArgumentException('The subject must be an instance of '.AbstractLogEntry::class);
+        }
+
         if ('delete' === $attribute) {
             return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
         }
@@ -45,6 +60,17 @@ class LogEntryVoter extends ExtendedVoter
             }
 
             return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
+        }
+
+        if ('show_details' === $attribute) {
+            //To view details of a element related log entry, the user needs to be able to view the history of this entity type
+            $targetClass = $subject->getTargetClass();
+            if (null !== $targetClass) {
+                return $this->security->isGranted('show_history', $targetClass) ?? false;
+            }
+
+            //In other cases, this behaves like the read permission
+            return $this->voteOnUser('read', $subject, $user);
         }
 
         return false;

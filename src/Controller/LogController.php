@@ -106,7 +106,7 @@ class LogController extends AbstractController
     public function logDetails(Request $request, AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
         LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('read', $logEntry);
+        $this->denyAccessUnlessGranted('show_details', $logEntry);
 
         $extra_html = $logEntryExtraFormatter->format($logEntry);
         $target_html = $logTargetHelper->formatTarget($logEntry);
