@@ -28,6 +28,10 @@
                 {% if log_entry.type == 'part_stock_changed' %}
                     ({{ ('log.part_stock_changed.' ~ log_entry.instockChangeType)|trans }})
                 {% endif %}
+
+                {% if log_entry is instanceof('App\\Entity\\Contracts\\LogWithEventUndoInterface') and log_entry.undoEvent %}
+                    <b>({{ ('log.undo_mode.' ~ log_entry.undoMode)|trans }}: <a href="{{ path('log_details', {"id": log_entry.UndoEventID}) }}">#{{ log_entry.UndoEventID }}</a>)</b>
+                {% endif %}
             </td>
         </tr>
         <tr>
