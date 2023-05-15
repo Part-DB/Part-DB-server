@@ -88,11 +88,21 @@ class LogDataFormatter
             }
 
 
-            return htmlspecialchars(json_encode($data, JSON_PRETTY_PRINT));
+            return $this->formatJSON($data);
         }
 
 
         throw new \RuntimeException('Type of $data not supported (' . gettype($data) . ')');
+    }
+
+    private function formatJSON(array $data): string
+    {
+        $json = htmlspecialchars(json_encode($data, JSON_PRETTY_PRINT), ENT_QUOTES | ENT_SUBSTITUTE);
+
+        return sprintf(
+            '<div data-controller="elements--json-formatter" data-json="%s"></div>',
+            $json
+        );
     }
 
     private function formatForeignKey(array $data, AbstractLogEntry $logEntry, string $fieldName): string
