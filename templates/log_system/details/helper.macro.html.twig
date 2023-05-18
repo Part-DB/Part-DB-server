@@ -56,6 +56,17 @@
     </p>
 {% endmacro %}
 
+{% macro translate_field(field) %}
+    {% set trans_key = 'log.element_edited.changed_fields.'~field %}
+    {# If the translation key is not found, the translation key is returned, and we dont show the translation #}
+    {% if trans_key|trans != trans_key %}
+        {{ ('log.element_edited.changed_fields.'~field) | trans }}
+        <span class="text-muted">({{ field }})</span>
+    {% else %}
+        {{ field }}
+    {% endif %}
+{% endmacro %}
+
 {% macro data_change_table(entry) %}
     {# @var entry \App\Entity\LogSystem\ElementEditedLogEntry|\App\Entity\LogSystem\ElementDeletedLogEntry entry #}
 
@@ -100,15 +111,7 @@
             {% for field in fields %}
                 <tr>
                     <td title="{{ field }}">
-                        {% set trans_key = 'log.element_edited.changed_fields.'~field %}
-                        {# If the translation key is not found, the translation key is returned, and we dont show the translation #}
-                        {% if trans_key|trans != trans_key %}
-                            {{ ('log.element_edited.changed_fields.'~field) | trans }}
-                            <span class="text-muted">({{ field }})</span>
-                        {% else %}
-                            {{ field }}
-                        {% endif %}
-
+                        {{ _self.translate_field(field) }}
                     </td>
                     {% if old_data is not empty %}
                         <td>

@@ -108,6 +108,8 @@
             {% include "log_system/details/_extra_user_not_allowed.html.twig" %}
         {% elseif log_entry is instanceof('App\\Entity\\LogSystem\\SecurityEventLogEntry') %}
             {% include "log_system/details/_extra_security_event.html.twig" %}
+        {%  elseif log_entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted') %}
+                {% include "log_system/details/_extra_collection_element_deleted.html.twig" %}
         {% else %}
             {{ extra_html | raw }}
         {% endif %}

@@ -1,0 +1,15 @@
+{# @var entry \App\Entity\LogSystem\CollectionElementDeleted #}
+
+{% import "log_system/details/helper.macro.html.twig" as log_helper %}
+
+<p class="m-0">
+    <b>{% trans %}log.collection_deleted.deleted{% endtrans %}</b>:
+    {{ entity_type_label(entry.deletedElementClass) }} #{{ entry.deletedElementID }}
+    {% if entry.oldName is not empty %}
+        ({{ entry.oldName }})
+    {% endif %}
+</p>
+<p class="m-0">
+    <b>{% trans %}log.collection_deleted.on_collection{% endtrans %}</b>:
+    {{ log_helper.translate_field(entry.collectionName) }}
+</p>
