@@ -11421,5 +11421,17 @@ Element 3</target>
         <target>If this is an element history entry, this breaks the element history! This can lead to unexpected results when using the time travel function.</target>
       </segment>
     </unit>
+    <unit id="P.c4WmY" name="log.collection_deleted.on_collection">
+      <segment state="translated">
+        <source>log.collection_deleted.on_collection</source>
+        <target>on Collection</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Attachments</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
