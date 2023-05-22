@@ -84,7 +84,15 @@ trait PKImportHelperTrait
 
         //Determine file extension (if the extension is empty, we use the original extension)
         if (empty($attachment_row['extension'])) {
-            $attachment_row['extension'] = pathinfo($attachment_row['originalname'], PATHINFO_EXTENSION);
+            //Use mime type to determine the extension like PartKeepr does in legacy implementation (just use the second part of the mime type)
+            //See UploadedFile.php:291 in PartKeepr (https://github.com/partkeepr/PartKeepr/blob/f6176c3354b24fa39ac8bc4328ee0df91de3d5b6/src/PartKeepr/UploadedFileBundle/Entity/UploadedFile.php#L291)
+            if (empty ($attachment_row['mimetype'])) {
+                $attachment_row['extension'] = explode('/', $attachment_row['mimetype'])[1];
+            } else {
+                //If the mime type is empty, we use the original extension
+                $attachment_row['extension'] = pathinfo($attachment_row['originalname'], PATHINFO_EXTENSION);
+            }
+
         }
 
         //Determine file path
