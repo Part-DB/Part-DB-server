@@ -30,10 +30,12 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Intl\Currencies;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -43,10 +45,13 @@ class PKPartImporter
 {
     use PKImportHelperTrait;
 
-    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor)
+    private string $base_currency;
+
+    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor, string $default_currency)
     {
         $this->em = $em;
         $this->propertyAccessor = $propertyAccessor;
+        $this->base_currency = $default_currency;
     }
 
     public function importParts(array $data): int
@@ -195,6 +200,37 @@ class PKPartImporter
         $this->em->flush();
     }
 
+    /**
+     * Returns the currency for the given ISO code. If the currency does not exist, it is created.
+     * This function returns null if the ISO code is the base currency.
+     * @param  string  $currency_iso_code
+     * @return Currency|null
+     */
+    protected function getOrCreateCurrency(string $currency_iso_code): ?Currency
+    {
+        //Normalize ISO code
+        $currency_iso_code = strtoupper($currency_iso_code);
+
+        //We do not have a currency for the base currency to be consistent with prices without currencies
+        if ($currency_iso_code === $this->base_currency) {
+            return null;
+        }
+
+        $currency = $this->em->getRepository(Currency::class)->findOneBy([
+            'iso_code' => $currency_iso_code,
+        ]);
+
+        if (!$currency) {
+            $currency = new Currency();
+            $currency->setIsoCode($currency_iso_code);
+            $currency->setName(Currencies::getName($currency_iso_code));
+            $this->em->persist($currency);
+            $this->em->flush();
+        }
+
+        return $currency;
+    }
+
     protected function importOrderdetails(array $data): void
     {
         if (!isset($data['partdistributor'])) {
@@ -245,8 +281,18 @@ class PKPartImporter
                 $orderdetail->addPricedetail($pricedetail);
                 //Partkeepr stores the price per item, we need to convert it to the price per packaging unit
                 $price_per_item = BigDecimal::of($partdistributor['price']);
-                $pricedetail->setPrice($price_per_item->multipliedBy($partdistributor['packagingUnit']));
-                $pricedetail->setPriceRelatedQuantity($partdistributor['packagingUnit'] ?? 1);
+                $packaging_unit = $partdistributor['packagingUnit'] ?? 1;
+                $pricedetail->setPrice($price_per_item->multipliedBy($packaging_unit));
+                $pricedetail->setPriceRelatedQuantity($packaging_unit);
+                //We have to set the minimum discount quantity to the packaging unit (PartKeepr does not know this concept)
+                //But in Part-DB the minimum discount qty have to be unique across a orderdetail
+                $pricedetail->setMinDiscountQuantity($packaging_unit);
+
+                //Set the currency of the price
+                if (!empty($partdistributor['currency'])) {
+                    $currency = $this->getOrCreateCurrency($partdistributor['currency']);
+                    $pricedetail->setCurrency($currency);
+                }
 
                 $this->em->persist($pricedetail);
             }
