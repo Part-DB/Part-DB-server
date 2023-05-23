@@ -11346,7 +11346,7 @@ Element 3</target>
     <unit id="tLXzED2" name="part.table.invalid_regex">
       <segment state="translated">
         <source>part.table.invalid_regex</source>
-        <target>Invalid Regex expression</target>
+        <target>Invalid regular expression (regex)</target>
       </segment>
     </unit>
     <unit id="VKPOkNO" name="log.element_changed.data_after">
@@ -11358,7 +11358,7 @@ Element 3</target>
     <unit id="DiNGTl8" name="log.element_changed.diff">
       <segment state="translated">
         <source>log.element_changed.diff</source>
-        <target>Diff</target>
+        <target>Difference</target>
       </segment>
     </unit>
     <unit id="OB_fVDI" name="log.undo.undo.short">
