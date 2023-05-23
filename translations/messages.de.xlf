@@ -11255,5 +11255,47 @@ Element 3</target>
         <target>Weniger als erwünscht</target>
       </segment>
     </unit>
+    <unit id="cdnsW4q" name="log.cli_user">
+      <segment state="translated">
+        <source>log.cli_user</source>
+        <target>CLI Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="4GTAJ9E" name="log.element_edited.changed_fields.part_owner_must_match">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.part_owner_must_match</source>
+        <target>Der Bauteilebesitzer muss dem Lagerortbesitzer entsprechen!</target>
+      </segment>
+    </unit>
+    <unit id="lHTN.a1" name="part.filter.lotOwner">
+      <segment state="translated">
+        <source>part.filter.lotOwner</source>
+        <target>Besitzer des Bestands</target>
+      </segment>
+    </unit>
+    <unit id="47OCK_W" name="user.show_email_on_profile.label">
+      <segment state="translated">
+        <source>user.show_email_on_profile.label</source>
+        <target>E-Mail-Adresse auf öffentlicher Profilseite anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment state="translated">
+        <source>log.details.title</source>
+        <target>Logdetails</target>
+      </segment>
+    </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment state="translated">
+        <source>log.user_login.login_from_ip</source>
+        <target>Login von IP-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment state="translated">
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGV Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
