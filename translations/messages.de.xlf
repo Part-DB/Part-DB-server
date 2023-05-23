@@ -4654,7 +4654,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>log.undo.undelete</source>
-        <target>Bauteil wiederherstellen</target>
+        <target>Element wiederherstellen</target>
       </segment>
     </unit>
     <unit id="PI8faHR" name="log.undo.undo">
@@ -11267,6 +11267,12 @@ Element 3</target>
         <target>Der Bauteilebesitzer muss dem Lagerortbesitzer entsprechen!</target>
       </segment>
     </unit>
+    <unit id="u6qFa_j" name="part.filter.lessThanDesired">
+      <segment state="translated">
+        <source>part.filter.lessThanDesired</source>
+        <target>Weniger vorhanden als gewünscht (Gesamtmenge &lt; Mindestmenge)</target>
+      </segment>
+    </unit>
     <unit id="lHTN.a1" name="part.filter.lotOwner">
       <segment state="translated">
         <source>part.filter.lotOwner</source>
@@ -11295,6 +11301,132 @@ Element 3</target>
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
         <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGV Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment state="translated">
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Unerlaubter Zugriffsversuch auf Seite</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment state="translated">
+        <source>log.user_not_allowed.hint</source>
+        <target>Die Anfrage wurde blockiert. Es sollte keine weitere Aktion nötig sein.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment state="translated">
+        <source>log.no_comment</source>
+        <target>Kein Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment state="translated">
+        <source>log.element_changed.field</source>
+        <target>Feld</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment state="translated">
+        <source>log.element_changed.data_before</source>
+        <target>Daten vor Änderung</target>
+      </segment>
+    </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment state="translated">
+        <source>error_table.error</source>
+        <target>Während der Anfrage trat ein Fehler auf.</target>
+      </segment>
+    </unit>
+    <unit id="tLXzED2" name="part.table.invalid_regex">
+      <segment state="translated">
+        <source>part.table.invalid_regex</source>
+        <target>Ungültiger regulärer Ausdruck (regex)</target>
+      </segment>
+    </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment state="translated">
+        <source>log.element_changed.data_after</source>
+        <target>Daten nach Änderung</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment state="translated">
+        <source>log.element_changed.diff</source>
+        <target>Unterschied</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment state="translated">
+        <source>log.undo.undo.short</source>
+        <target>Rückgängig machen</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment state="translated">
+        <source>log.undo.revert.short</source>
+        <target>Auf Version zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment state="translated">
+        <source>log.view_version</source>
+        <target>Version anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment state="translated">
+        <source>log.undo.undelete.short</source>
+        <target>Wiederherstellen</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Besitzer</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Übergeordnetes Element</target>
+      </segment>
+    </unit>
+    <unit id="GUthgcU" name="log.details.delete_entry">
+      <segment state="translated">
+        <source>log.details.delete_entry</source>
+        <target>Logeintrag löschen</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment state="translated">
+        <source>log.delete.message.title</source>
+        <target>Wollen Sie diesen Logeintrag wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment state="translated">
+        <source>log.delete.message</source>
+        <target>Wenn dies ein Historieeintrag für ein Element ist, dann wird das Löschen zu Datenverlust der Historie führen! Dies kann unerwartete Ergebnisse liefern, wenn die Zeitreisefunktion verwendet wird.</target>
+      </segment>
+    </unit>
+    <unit id="P.c4WmY" name="log.collection_deleted.on_collection">
+      <segment state="translated">
+        <source>log.collection_deleted.on_collection</source>
+        <target>in Kollektion</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Dateianhänge</target>
       </segment>
     </unit>
   </file>
