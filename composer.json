@@ -29,6 +29,7 @@
         "league/csv": "^9.8.0",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
+        "nbgrp/onelogin-saml-bundle": "^1.3",
         "nelexa/zip": "^4.0",
         "nelmio/security-bundle": "^3.0",
         "nyholm/psr7": "^1.1",

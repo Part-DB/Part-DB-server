@@ -204,6 +204,9 @@
     "monolog/monolog": {
         "version": "1.24.0"
     },
+    "nbgrp/onelogin-saml-bundle": {
+        "version": "v1.3.2"
+    },
     "nelmio/security-bundle": {
         "version": "2.4",
         "recipe": {

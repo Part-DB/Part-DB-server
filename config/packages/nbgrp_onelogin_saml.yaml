@@ -1,0 +1,62 @@
+# See https://github.com/SAML-Toolkits/php-saml for more information about the SAML settings
+
+nbgrp_onelogin_saml:
+  onelogin_settings:
+    default:
+      # Basic settings
+      idp:
+        entityId: '%env(string:SAML_IDP_ENTITY_ID)%'
+        singleSignOnService:
+          url: '%env(string:SAML_IDP_SINGLE_SIGN_ON_SERVICE)%'
+          binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        singleLogoutService:
+          url: '%env(string:SAML_IDP_SINGLE_LOGOUT_SERVICE)%'
+          binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        x509cert: '%env(string:SAML_IDP_X509_CERT)%'
+      sp:
+        entityId: '%env(string:SAML_SP_ENTITY_ID)%'
+        assertionConsumerService:
+          url: '%partdb.default_uri%saml/acs'
+          binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
+        singleLogoutService:
+          url: '%partdb.default_uri%logout'
+          binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        x509cert: '%env(string:SAML_SP_X509_CERT)%'
+        privateKey: '%env(string:SAMLP_SP_PRIVATE_KEY)%'
+
+      # Optional settings
+      #baseurl: 'http://myapp.com'
+      strict: true
+      debug: false
+      security:
+         allowRepeatAttributeName: true
+      #  nameIdEncrypted: false
+         authnRequestsSigned: true
+         logoutRequestSigned: true
+         logoutResponseSigned: true
+      #  wantMessagesSigned: false
+      #   wantAssertionsSigned: true
+      #  wantNameIdEncrypted: false
+      #  requestedAuthnContext: true
+      #  signMetadata: false
+      #  wantXMLValidation: true
+      #  relaxDestinationValidation: false
+      #  destinationStrictlyMatches: true
+      #  rejectUnsolicitedResponsesWithInResponseTo: false
+      #  signatureAlgorithm: 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'
+      #  digestAlgorithm: 'http://www.w3.org/2001/04/xmlenc#sha256'
+      #contactPerson:
+      #  technical:
+      #    givenName: 'Tech User'
+      #    emailAddress: 'techuser@example.com'
+      #  support:
+      #    givenName: 'Support User'
+      #    emailAddress: 'supportuser@example.com'
+      #  administrative:
+      #    givenName: 'Administrative User'
+      #    emailAddress: 'administrativeuser@example.com'
+      #organization:
+      #  en:
+      #    name: 'Part-DB-name'
+      #    displayname: 'Displayname'
+      #    url: 'http://example.com'
