@@ -173,9 +173,6 @@
     "gregwar/captcha-bundle": {
         "version": "v2.0.6"
     },
-    "hslavich/oneloginsaml-bundle": {
-        "version": "v2.10.0"
-    },
     "imagine/imagine": {
         "version": "1.2.2"
     },
@@ -533,18 +530,6 @@
     "symfony/intl": {
         "version": "v4.2.3"
     },
-    "symfony/lock": {
-        "version": "5.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "5.2",
-            "ref": "8e937ff2b4735d110af1770f242c1107fdab4c8e"
-        },
-        "files": [
-            "./config/packages/lock.yaml"
-        ]
-    },
     "symfony/mailer": {
         "version": "5.4",
         "recipe": {
@@ -626,14 +611,8 @@
     "symfony/polyfill-php72": {
         "version": "v1.10.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.11.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.17.0"
-    },
-    "symfony/polyfill-php81": {
-        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v4.2.3"
@@ -681,9 +660,6 @@
     "symfony/security-csrf": {
         "version": "v4.2.3"
     },
-    "symfony/security-guard": {
-        "version": "v4.2.3"
-    },
     "symfony/security-http": {
         "version": "v4.2.3"
     },
@@ -729,6 +705,18 @@
         "files": [
             "config/packages/twig.yaml",
             "templates/base.html.twig"
+        ]
+    },
+    "symfony/uid": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.2",
+            "ref": "d294ad4add3e15d7eb1bae0221588ca89b38e558"
+        },
+        "files": [
+            "./config/packages/uid.yaml"
         ]
     },
     "symfony/ux-turbo": {
