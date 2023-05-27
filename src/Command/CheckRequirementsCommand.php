@@ -30,8 +30,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:check-requirements', 'Checks if the requirements Part-DB needs or recommends are fulfilled.')]
 class CheckRequirementsCommand extends Command
 {
-    protected static $defaultDescription = 'Checks if the requirements Part-DB needs or recommends are fulfilled.';
-
     protected ContainerBagInterface $params;
 
     public function __construct(ContainerBagInterface $params)

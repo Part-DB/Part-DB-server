@@ -32,8 +32,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:enable|partdb:user:enable', 'Enables/Disable the login of one or more users')]
 class UserEnableCommand extends Command
 {
-    protected static $defaultDescription = 'Enables/Disable the login of one or more users';
-
     protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager, string $name = null)

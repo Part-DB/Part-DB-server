@@ -39,7 +39,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
 class ShowEventLogCommand extends Command
 {
-    protected static $defaultDescription = 'List the last event log entries.';
     protected EntityManagerInterface $entityManager;
     protected TranslatorInterface $translator;
     protected ElementTypeNameGenerator $elementTypeNameGenerator;

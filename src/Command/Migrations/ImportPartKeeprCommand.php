@@ -37,8 +37,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportPartKeeprCommand extends Command
 {
 
-    protected static $defaultDescription = 'Import a PartKeepr database XML dump into Part-DB';
-
     protected EntityManagerInterface $em;
     protected MySQLDumpXMLConverter $xml_converter;
     protected PKDatastructureImporter $datastructureImporter;

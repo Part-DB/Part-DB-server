@@ -43,8 +43,6 @@ use const DIRECTORY_SEPARATOR;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:attachments:clean-unused|app:clean-attachments', 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')]
 class CleanAttachmentsCommand extends Command
 {
-    protected static $defaultDescription = 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).';
-
     protected AttachmentManager $attachment_helper;
     protected AttachmentReverseSearch $reverseSearch;
     protected MimeTypes $mimeTypeGuesser;

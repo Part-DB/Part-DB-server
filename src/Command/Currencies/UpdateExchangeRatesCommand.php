@@ -38,8 +38,6 @@ use function strlen;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
 class UpdateExchangeRatesCommand extends Command
 {
-    protected static $defaultDescription = 'Updates the currency exchange rates.';
-
     protected string $base_current;
     protected EntityManagerInterface $em;
     protected ExchangeRateUpdater $exchangeRateUpdater;

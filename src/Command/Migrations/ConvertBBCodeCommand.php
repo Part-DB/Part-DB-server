@@ -59,8 +59,6 @@ class ConvertBBCodeCommand extends Command
      */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
 
-    protected static $defaultDescription = 'Converts BBCode used in old Part-DB versions to newly used Markdown';
-
     protected EntityManagerInterface $em;
     protected PropertyAccessorInterface $propertyAccessor;
     protected BBCodeToMarkdownConverter $converter;

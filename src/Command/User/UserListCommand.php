@@ -31,8 +31,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:list|users:list', 'Lists all users')]
 class UserListCommand extends Command
 {
-    protected static $defaultDescription = 'Lists all users';
-
     protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)

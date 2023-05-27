@@ -37,8 +37,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password', 'Sets the password of a user')]
 class SetPasswordCommand extends Command
 {
-    protected static $defaultDescription = 'Sets the password of a user';
-
     protected EntityManagerInterface $entityManager;
     protected UserPasswordHasherInterface $encoder;
     protected EventDispatcherInterface $eventDispatcher;
