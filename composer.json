@@ -111,7 +111,7 @@
             "*": "dist"
         },
         "platform": {
-            "php": "7.4.0"
+            "php": "8.1.0"
         },
         "sort-packages": true,
         "allow-plugins": {
