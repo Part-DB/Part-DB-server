@@ -11,7 +11,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "beberlei/doctrineextensions": "^1.2",
-        "brick/math": "^0.8.15",
+        "brick/math": "^0.11.0",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.6",
         "doctrine/data-fixtures": "^1.6.6",
@@ -25,7 +25,7 @@
         "florianv/swap-bundle": "dev-master",
         "gregwar/captcha-bundle": "^2.1.0",
         "hslavich/oneloginsaml-bundle": "^2.10",
-        "jbtronics/2fa-webauthn": "^1.0.0",
+        "jbtronics/2fa-webauthn": "dev-master",
         "jfcherng/php-diff": "^6.14",
         "league/csv": "^9.8.0",
         "league/html-to-markdown": "^5.0.1",
@@ -34,7 +34,7 @@
         "nelmio/security-bundle": "^3.0",
         "nyholm/psr7": "^1.1",
         "ocramius/proxy-manager": "2.2.*",
-        "omines/datatables-bundle": "^0.5.0",
+        "omines/datatables-bundle": "^0.7.2",
         "php-translation/symfony-bundle": "^0.13.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "s9e/text-formatter": "^2.1",
@@ -44,7 +44,7 @@
         "scheb/2fa-trusted-device": "^5.13",
         "sensio/framework-extra-bundle": "^6.1.1",
         "shivas/versioning-bundle": "^4.0",
-        "spatie/db-dumper": "^2.21",
+        "spatie/db-dumper": "^3.3.1",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
@@ -79,7 +79,7 @@
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
-        "web-auth/webauthn-symfony-bundle": "^3.3",
+        "web-auth/webauthn-symfony-bundle": "^4.0.0",
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
@@ -155,5 +155,9 @@
         }
     },
     "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/jbtronics/2fa-webauthn.git"
+        }
     ]
 }
