@@ -23,9 +23,22 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\MeasurementUnitAttachment;
+use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 use Symfony\Component\Security\Core\Security;
 
 use function in_array;
@@ -50,26 +63,76 @@ class AttachmentVoter extends ExtendedVoter
     {
         //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
-        //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
-        $target_element = $subject->getElement();
-        if (! $subject instanceof Attachment || null === $target_element) {
+        //This voter only works for attachments
+        if (!is_a($subject, Attachment::class, true)) {
             return false;
         }
 
-        //Depending on the operation delegate either to the attachments element or to the attachment permission
+        if ($attribute === 'show_private') {
+            return $this->resolver->inherit($user, 'attachments', 'show_private') ?? false;
+        }
+
+
+        if (is_object($subject)) {
+            //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
+            $target_element = $subject->getElement();
+            if ($target_element) {
+                return $this->security->isGranted($this->mapOperation($attribute), $target_element);
+            }
+        }
+
+        if (is_string($subject)) {
+            //If we do not have a concrete element (or we just got a string as value), we delegate to the different categories
+            if (is_a($subject, AttachmentTypeAttachment::class, true)) {
+                $param = 'attachment_types';
+            } elseif (is_a($subject, CategoryAttachment::class, true)) {
+                $param = 'categories';
+            } elseif (is_a($subject, CurrencyAttachment::class, true)) {
+                $param = 'currencies';
+            } elseif (is_a($subject, ProjectAttachment::class, true)) {
+                $param = 'projects';
+            } elseif (is_a($subject, FootprintAttachment::class, true)) {
+                $param = 'footprints';
+            } elseif (is_a($subject, GroupAttachment::class, true)) {
+                $param = 'groups';
+            } elseif (is_a($subject, ManufacturerAttachment::class, true)) {
+                $param = 'manufacturers';
+            } elseif (is_a($subject, MeasurementUnitAttachment::class, true)) {
+                $param = 'measurement_units';
+            } elseif (is_a($subject, PartAttachment::class, true)) {
+                $param = 'parts';
+            } elseif (is_a($subject, StorelocationAttachment::class, true)) {
+                $param = 'storelocations';
+            } elseif (is_a($subject, SupplierAttachment::class, true)) {
+                $param = 'suppliers';
+            } elseif (is_a($subject, UserAttachment::class, true)) {
+                $param = 'users';
+            } elseif ($subject === Attachment::class) {
+                //If the subject was deleted, we can not determine the type properly, so we just use the parts permission
+                $param = 'parts';
+            }
+            else {
+                throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? get_class($subject) : $subject));
+            }
+
+            return $this->resolver->inherit($user, $param, $this->mapOperation($attribute)) ?? false;
+        }
+    }
+
+    private function mapOperation(string $attribute): string
+    {
         switch ($attribute) {
             //We can view the attachment if we can view the element
             case 'read':
             case 'view':
-                return $this->security->isGranted('read', $target_element);
+                return 'read';
             //We can edit/create/delete the attachment if we can edit the element
             case 'edit':
             case 'create':
             case 'delete':
-                return $this->security->isGranted('edit', $target_element);
-
-            case 'show_private':
-                return $this->resolver->inherit($user, 'attachments', 'show_private') ?? false;
+                return 'edit';
+            case 'show_history':
+                return 'show_history';
         }
 
         throw new \RuntimeException('Encountered unknown attribute "'.$attribute.'" in AttachmentVoter!');
@@ -87,7 +150,7 @@ class AttachmentVoter extends ExtendedVoter
     {
         if (is_a($subject, Attachment::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['read', 'view', 'edit', 'delete', 'create', 'show_private'], true);
+            return in_array($attribute, ['read', 'view', 'edit', 'delete', 'create', 'show_private', 'show_history'], true);
         }
 
         //Allow class name as subject
