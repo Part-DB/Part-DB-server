@@ -117,6 +117,8 @@ class AttachmentVoter extends ExtendedVoter
 
             return $this->resolver->inherit($user, $param, $this->mapOperation($attribute)) ?? false;
         }
+
+        return false;
     }
 
     private function mapOperation(string $attribute): string
