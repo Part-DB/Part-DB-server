@@ -40,84 +40,83 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * This entity describes a lot where parts can be stored.
  * It is the connection between a part and its store locations.
  *
- * @ORM\Entity()
- * @ORM\Table(name="part_lots", indexes={
- *    @ORM\Index(name="part_lots_idx_instock_un_expiration_id_part", columns={"instock_unknown", "expiration_date", "id_part"}),
- *    @ORM\Index(name="part_lots_idx_needs_refill", columns={"needs_refill"}),
- * })
- * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'part_lots')]
+#[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
+#[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
 class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
     /**
      * @var string A short description about this lot, shown in table
-     * @ORM\Column(type="text")
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $comment = '';
 
     /**
-     * @var ?DateTime Set a time until when the lot must be used.
+     * @var \DateTimeInterface|null Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
-     * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
     #[Groups(['extended', 'full', 'import'])]
-    protected ?DateTime $expiration_date = null;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
+    protected ?\DateTimeInterface $expiration_date = null;
 
     /**
      * @var Storelocation|null The storelocation of this lot
-     * @ORM\ManyToOne(targetEntity="Storelocation")
-     * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'Storelocation')]
+    #[ORM\JoinColumn(name: 'id_store_location')]
     protected ?Storelocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $instock_unknown = false;
 
     /**
      * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
-     * @ORM\Column(type="float")
      */
     #[Assert\PositiveOrZero]
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $needs_refill = false;
 
     /**
      * @var Part The part that is stored in this lot
-     * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: 'Part', inversedBy: 'partLots')]
+    #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
     protected Part $part;
 
     /**
      * @var User|null The owner of this part lot
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User')]
+    #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 
     public function __clone()
@@ -189,7 +188,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
      */
-    public function getExpirationDate(): ?DateTime
+    public function getExpirationDate(): ?\DateTimeInterface
     {
         return $this->expiration_date;
     }
@@ -197,11 +196,11 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expire.
      *
-     * @param  DateTime|null  $expiration_date
+     * @param  \DateTimeInterface|null  $expiration_date
      *
      * @return PartLot
      */
-    public function setExpirationDate(?DateTime $expiration_date): self
+    public function setExpirationDate(?\DateTimeInterface $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
 

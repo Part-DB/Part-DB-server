@@ -4,6 +4,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,7 +14,7 @@ trait ProjectTrait
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\ProjectSystem\ProjectBOMEntry> $project_bom_entries
      */
     #[ORM\OneToMany(targetEntity: 'App\Entity\ProjectSystem\ProjectBOMEntry', mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
-    protected \Doctrine\Common\Collections\Collection $project_bom_entries = [];
+    protected \Doctrine\Common\Collections\Collection $project_bom_entries;
 
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.

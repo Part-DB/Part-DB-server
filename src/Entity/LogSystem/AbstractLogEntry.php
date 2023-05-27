@@ -49,31 +49,15 @@ use Psr\Log\LogLevel;
 
 /**
  * This entity describes an entry in the event log.
- *
- * @ORM\Entity(repositoryClass="App\Repository\LogEntryRepository")
- * @ORM\Table("log", indexes={
- *    @ORM\Index(name="log_idx_type", columns={"type"}),
- *    @ORM\Index(name="log_idx_type_target", columns={"type", "target_type", "target_id"}),
- *    @ORM\Index(name="log_idx_datetime", columns={"datetime"}),
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="smallint")
- * @ORM\DiscriminatorMap({
- *  1 = "UserLoginLogEntry",
- *  2 = "UserLogoutLogEntry",
- *  3 = "UserNotAllowedLogEntry",
- *  4 = "ExceptionLogEntry",
- *  5 = "ElementDeletedLogEntry",
- *  6 = "ElementCreatedLogEntry",
- *  7 = "ElementEditedLogEntry",
- *  8 = "ConfigChangedLogEntry",
- *  9 = "LegacyInstockChangedLogEntry",
- *  10 = "DatabaseUpdatedLogEntry",
- *  11 = "CollectionElementDeleted",
- *  12 = "SecurityEventLogEntry",
- *  13 = "PartStockChangedLogEntry",
- * })
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\LogEntryRepository')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
+#[ORM\DiscriminatorMap([1 => 'UserLoginLogEntry', 2 => 'UserLogoutLogEntry', 3 => 'UserNotAllowedLogEntry', 4 => 'ExceptionLogEntry', 5 => 'ElementDeletedLogEntry', 6 => 'ElementCreatedLogEntry', 7 => 'ElementEditedLogEntry', 8 => 'ConfigChangedLogEntry', 9 => 'LegacyInstockChangedLogEntry', 10 => 'DatabaseUpdatedLogEntry', 11 => 'CollectionElementDeleted', 12 => 'SecurityEventLogEntry', 13 => 'PartStockChangedLogEntry'])]
+#[ORM\Table('log')]
+#[ORM\Index(name: 'log_idx_type', columns: ['type'])]
+#[ORM\Index(name: 'log_idx_type_target', columns: ['type', 'target_type', 'target_id'])]
+#[ORM\Index(name: 'log_idx_datetime', columns: ['datetime'])]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
     public const LEVEL_EMERGENCY = 0;
@@ -143,35 +127,35 @@ abstract class AbstractLogEntry extends AbstractDBElement
     ];
 
     /** @var User|null The user which has caused this log entry
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", fetch="EAGER")
-     * @ORM\JoinColumn(name="id_user", nullable=true, onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User', fetch: 'EAGER')]
+    #[ORM\JoinColumn(name: 'id_user', onDelete: 'SET NULL')]
     protected ?User $user = null;
 
     /**
      * @var string The username of the user which has caused this log entry (shown if the user is deleted)
-     * @ORM\Column(type="string", nullable=false)
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $username = '';
 
-    /** @var DateTime The datetime the event associated with this log entry has occured
-     * @ORM\Column(type="datetime", name="datetime")
+    /** @var \DateTimeInterface|null The datetime the event associated with this log entry has occured
      */
-    protected ?DateTime $timestamp = null;
+    #[ORM\Column(name: 'datetime', type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    protected ?\DateTimeInterface $timestamp = null;
 
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
-     * @ORM\Column(type="tinyint", name="level", nullable=false)
      */
+    #[ORM\Column(type: 'tinyint', name: 'level')]
     protected int $level;
 
     /** @var int The ID of the element targeted by this event
-     * @ORM\Column(name="target_id", type="integer", nullable=false)
      */
+    #[ORM\Column(name: 'target_id', type: \Doctrine\DBAL\Types\Types::INTEGER)]
     protected int $target_id = 0;
 
     /** @var int The Type of the targeted element
-     * @ORM\Column(name="target_type", type="smallint", nullable=false)
      */
+    #[ORM\Column(name: 'target_type', type: \Doctrine\DBAL\Types\Types::SMALLINT)]
     protected int $target_type = 0;
 
     /** @var string The type of this log entry, aka the description what has happened.
@@ -181,8 +165,8 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected string $typeString = 'unknown';
 
     /** @var array The extra data in raw (short form) saved in the DB
-     * @ORM\Column(name="extra", type="json")
      */
+    #[ORM\Column(name: 'extra', type: \Doctrine\DBAL\Types\Types::JSON)]
     protected array $extra = [];
 
     public function __construct()
@@ -264,7 +248,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Returns the timestamp when the event that caused this log entry happened.
      */
-    public function getTimestamp(): DateTime
+    public function getTimestamp(): \DateTimeInterface
     {
         return $this->timestamp;
     }
@@ -274,7 +258,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      *
      * @return $this
      */
-    public function setTimestamp(DateTime $timestamp): self
+    public function setTimestamp(\DateTimeInterface $timestamp): self
     {
         $this->timestamp = $timestamp;
 

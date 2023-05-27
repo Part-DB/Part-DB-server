@@ -54,14 +54,12 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 /**
  * This entity represents a user, which can log in and have permissions.
  * Also, this entity is able to save some information about the user, like the names, email-address and other info.
- *
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table("`users`", indexes={
- *    @ORM\Index(name="user_idx_username", columns={"name"})
- * })
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  */
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
+#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
+#[ORM\EntityListeners(['App\EntityListeners\TreeCacheInvalidationListener'])]
+#[ORM\Table('`users`')]
+#[ORM\Index(name: 'user_idx_username', columns: ['name'])]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
@@ -74,175 +72,167 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $disabled = false;
 
     /**
      * @var string|null The theme
-     * @ORM\Column(type="string", name="config_theme", nullable=true)
      * @ValidTheme()
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_theme', nullable: true)]
     protected ?string $theme = null;
 
     /**
      * @var string|null the hash of a token the user must provide when he wants to reset his password
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     protected ?string $pw_reset_token = null;
 
-    /**
-     * @ORM\Column(type="text", name="config_instock_comment_a")
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'config_instock_comment_a')]
     protected string $instock_comment_a = '';
 
-    /**
-     * @ORM\Column(type="text", name="config_instock_comment_w")
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'config_instock_comment_w')]
     protected string $instock_comment_w = '';
 
     /**
      * @var string A self-description of the user
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $aboutMe = '';
 
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
-     *  @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     protected int $trustedDeviceCookieVersion = 0;
 
     /**
      * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
-     * @ORM\Column(type="json")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
     protected ?array $backupCodes = [];
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     protected ?int $id = null;
 
     /**
      * @var Group|null the group this user belongs to
      * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'Group', inversedBy: 'users')]
+    #[ORM\JoinColumn(name: 'group_id')]
     protected ?Group $group = null;
 
     /**
      * @var string|null The secret used for Google authenticator
-     * @ORM\Column(name="google_authenticator_secret", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'google_authenticator_secret', type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     protected ?string $googleAuthenticatorSecret = null;
 
     /**
      * @var string|null The timezone the user prefers
-     * @ORM\Column(type="string", name="config_timezone", nullable=true)
      */
     #[Assert\Timezone]
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_timezone', nullable: true)]
     protected ?string $timezone = '';
 
     /**
      * @var string|null The language/locale the user prefers
-     * @ORM\Column(type="string", name="config_language", nullable=true)
      */
     #[Assert\Language]
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_language', nullable: true)]
     protected ?string $language = '';
 
     /**
      * @var string|null The email address of the user
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     #[Assert\Email]
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
     protected ?string $email = '';
 
     /**
      * @var bool True if the user wants to show his email address on his (public) profile
-     * @ORM\Column(type="boolean", options={"default": false})
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => false])]
     protected bool $show_email_on_profile = false;
 
     /**
      * @var string|null The department the user is working
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
-     * @ORM\Column(type="string", length=255,  nullable=true)
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $need_pw_change = true;
 
     /**
      * @var string|null The hashed password
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     protected ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
     #[Assert\NotBlank]
     #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 180, unique: true)]
     protected string $name = '';
 
     /**
      * @var array|null
-     * @ORM\Column(type="json")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
     protected ?array $settings = [];
 
     /**
      * @var Collection<int, UserAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\UserAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    /** @var DateTime|null The time when the backup codes were generated
-     * @ORM\Column(type="datetime", nullable=true)
+    /** @var \DateTimeInterface|null The time when the backup codes were generated
      */
     #[Groups(['full'])]
-    protected ?DateTime $backupCodesGenerationDate = null;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
+    protected ?\DateTimeInterface $backupCodesGenerationDate;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\UserSystem\U2FKey', mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\WebauthnKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\UserSystem\WebauthnKey', mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
@@ -250,36 +240,37 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *                    Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
      *                    TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
      *                    TODO: Find a way to use fetch EAGER (this improves performance a bit)
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\JoinColumn(name: 'currency_id')]
     protected ?Currency $currency;
 
     /**
      * @var PermissionData|null
      * @ValidPermission()
-     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var DateTime|null the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true, options={"default": null})
+     * @var \DateTimeInterface|null the time until the password reset token is valid
      */
-    protected ?DateTime $pw_reset_expires;
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
+    protected ?\DateTimeInterface $pw_reset_expires;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $saml_user = false;
 
     public function __construct()
     {
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
@@ -484,7 +475,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Gets the datetime when the password reset token expires.
      */
-    public function getPwResetExpires(): DateTime
+    public function getPwResetExpires(): \DateTimeInterface
     {
         return $this->pw_reset_expires;
     }
@@ -494,7 +485,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setPwResetExpires(DateTime $pw_reset_expires): self
+    public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
@@ -876,7 +867,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the date when the backup codes were generated.
      */
-    public function getBackupCodesGenerationDate(): ?DateTime
+    public function getBackupCodesGenerationDate(): ?\DateTimeInterface
     {
         return $this->backupCodesGenerationDate;
     }
