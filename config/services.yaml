@@ -97,12 +97,6 @@ services:
             $mimeTypes: '@mime_types'
             $max_upload_size: '%partdb.attachments.max_file_size%'
 
-    App\EventSubscriber\LogSystem\LogoutLoggerListener:
-        tags:
-            - name: 'kernel.event_listener'
-              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
-              dispatcher: security.event_dispatcher.main
-
     App\Services\LogSystem\EventCommentNeededHelper:
         arguments:
             $enforce_change_comments_for: '%partdb.enforce_change_comments_for%'
