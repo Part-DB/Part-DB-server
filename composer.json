@@ -84,12 +84,14 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.2",
         "ekino/phpstan-banned-code": "^v1.0.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^1.4.7",
         "phpstan/phpstan-doctrine": "^1.2.11",
         "phpstan/phpstan-symfony": "^1.1.7",
         "psalm/plugin-symfony": "^v5.0.1",
+        "rector/rector": "^0.16.0",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
@@ -99,8 +101,7 @@
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
         "symplify/easy-coding-standard": "^11.0",
-        "vimeo/psalm": "^5.6.0",
-        "doctrine/doctrine-fixtures-bundle": "^3.2"
+        "vimeo/psalm": "^5.6.0"
     },
     "suggest": {
         "ext-bcmath": "Used to improve price calculation performance",
