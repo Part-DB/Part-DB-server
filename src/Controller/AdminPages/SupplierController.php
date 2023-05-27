@@ -35,9 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/supplier")
- */
+#[Route(path: '/supplier')]
 class SupplierController extends BaseAdminController
 {
     protected string $entity_class = Supplier::class;
@@ -47,44 +45,34 @@ class SupplierController extends BaseAdminController
     protected string $attachment_class = SupplierAttachment::class;
     protected ?string $parameter_class = SupplierParameter::class;
 
-    /**
-     * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'supplier_delete', methods: ['DELETE'])]
     public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="supplier_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'supplier_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="supplier_new")
-     * @Route("/{id}/clone", name="supplier_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'supplier_new')]
+    #[Route(path: '/{id}/clone', name: 'supplier_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Supplier $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="supplier_export_all")
-     */
+    #[Route(path: '/export', name: 'supplier_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="supplier_export")
-     */
+    #[Route(path: '/{id}/export', name: 'supplier_export')]
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

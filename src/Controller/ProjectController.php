@@ -47,9 +47,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use function Symfony\Component\Translation\t;
 
-/**
- * @Route("/project")
- */
+#[Route(path: '/project')]
 class ProjectController extends AbstractController
 {
     private DataTableFactory $dataTableFactory;
@@ -59,9 +57,7 @@ class ProjectController extends AbstractController
         $this->dataTableFactory = $dataTableFactory;
     }
 
-    /**
-     * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
     public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
@@ -80,9 +76,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/build", name="project_build", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/build', name: 'project_build', requirements: ['id' => '\d+'])]
     public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
@@ -117,7 +111,7 @@ class ProjectController extends AbstractController
             $this->addFlash('error', 'project.build.flash.invalid_input');
         }
 
-        return $this->renderForm('projects/build/build.html.twig', [
+        return $this->render('projects/build/build.html.twig', [
             'buildHelper' => $buildHelper,
             'project' => $project,
             'build_request' => $projectBuildRequest,
@@ -126,9 +120,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/import_bom", name="project_import_bom", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/import_bom', name: 'project_import_bom', requirements: ['id' => '\d+'])]
     public function importBOM(Request $request, EntityManagerInterface $entityManager, Project $project,
         BOMImporter $BOMImporter, ValidatorInterface $validator): Response
     {
@@ -195,7 +187,7 @@ class ProjectController extends AbstractController
             }
         }
 
-        return $this->renderForm('projects/import_bom.html.twig', [
+        return $this->render('projects/import_bom.html.twig', [
             'project' => $project,
             'form' => $form,
             'errors' => $errors ?? null,
@@ -203,11 +195,11 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/add_parts", name="project_add_parts_no_id")
-     * @Route("/{id}/add_parts", name="project_add_parts", requirements={"id"="\d+"})
      * @param  Request  $request
      * @param  Project|null  $project
      */
+    #[Route(path: '/add_parts', name: 'project_add_parts_no_id')]
+    #[Route(path: '/{id}/add_parts', name: 'project_add_parts', requirements: ['id' => '\d+'])]
     public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
         if($project) {
@@ -274,7 +266,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_info', ['id' => $target_project->getID()]);
         }
 
-        return $this->renderForm('projects/add_parts.html.twig', [
+        return $this->render('projects/add_parts.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);

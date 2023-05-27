@@ -76,24 +76,24 @@ class Supplier extends AbstractCompany
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
      * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
-     * @Groups({"extended", "full", "import"})
      * @BigDecimalPositiveOrZero()
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?BigDecimal $shipping_costs = null;
 
     /**
      * @var Collection<int, SupplierAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $attachments;
 
     /** @var Collection<int, SupplierParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /**

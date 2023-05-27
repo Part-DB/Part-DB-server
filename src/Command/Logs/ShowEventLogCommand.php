@@ -36,9 +36,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
 class ShowEventLogCommand extends Command
 {
-    protected static $defaultName = 'partdb:logs:show|app:show-logs';
+    protected static $defaultDescription = 'List the last event log entries.';
     protected EntityManagerInterface $entityManager;
     protected TranslatorInterface $translator;
     protected ElementTypeNameGenerator $elementTypeNameGenerator;
@@ -74,7 +75,7 @@ class ShowEventLogCommand extends Command
         if ($page > $max_page && $max_page > 0) {
             $io->error("There is no page ${page}! The maximum page is ${max_page}.");
 
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $io->note("There are a total of ${total_count} log entries in the DB.");
@@ -84,21 +85,19 @@ class ShowEventLogCommand extends Command
             $this->showPage($output, $desc, $limit, $page, $max_page, $showExtra);
 
             if ($onePage) {
-                return 0;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
 
             $continue = $io->confirm('Do you want to show the next page?');
             ++$page;
         }
 
-        return 0;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('List the last event log entries.')
-            ->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50)
+        $this->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50)
             ->addOption('oldest_first', null, InputOption::VALUE_NONE, 'Show older entries first.')
             ->addOption('page', 'p', InputOption::VALUE_REQUIRED, 'Which page should be shown?', 1)
             ->addOption('onePage', null, InputOption::VALUE_NONE, 'Show only one page (dont ask to go to next).')

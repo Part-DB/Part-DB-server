@@ -56,14 +56,14 @@ final class PartsDataTable implements DataTableTypeInterface
 {
     private TranslatorInterface $translator;
     private AmountFormatter $amountFormatter;
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
 
     private PartDataTableHelper $partDataTableHelper;
 
     private EntityURLGenerator $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-        AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper, Security $security)
+        AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper, \Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;

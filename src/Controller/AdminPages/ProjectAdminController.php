@@ -35,9 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/project")
- */
+#[Route(path: '/project')]
 class ProjectAdminController extends BaseAdminController
 {
     protected string $entity_class = Project::class;
@@ -47,44 +45,34 @@ class ProjectAdminController extends BaseAdminController
     protected string $attachment_class = ProjectAttachment::class;
     protected ?string $parameter_class = ProjectParameter::class;
 
-    /**
-     * @Route("/{id}", name="project_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'project_delete', methods: ['DELETE'])]
     public function delete(Request $request, Project $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="project_edit")
-     * @Route("/{id}/edit", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'project_edit')]
+    #[Route(path: '/{id}/edit', requirements: ['id' => '\d+'])]
     public function edit(Project $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="project_new")
-     * @Route("/{id}/clone", name="device_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'project_new')]
+    #[Route(path: '/{id}/clone', name: 'device_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Project $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="project_export_all")
-     */
+    #[Route(path: '/export', name: 'project_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="project_export")
-     */
+    #[Route(path: '/{id}/export', name: 'project_export')]
     public function exportEntity(Project $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

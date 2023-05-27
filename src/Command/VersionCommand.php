@@ -27,9 +27,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
 class VersionCommand extends Command
 {
-    protected static $defaultName = 'partdb:version|app:version';
+    protected static $defaultDescription = 'Shows the currently installed version of Part-DB.';
 
     protected VersionManagerInterface $versionManager;
     protected GitVersionInfo $gitVersionInfo;
@@ -43,9 +44,6 @@ class VersionCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Shows the currently installed version of Part-DB.')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -66,6 +64,6 @@ class VersionCommand extends Command
         $io->info('OS: '. php_uname());
         $io->info('PHP extension: '. implode(', ', get_loaded_extensions()));
 
-        return 0;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

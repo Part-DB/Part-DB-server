@@ -49,10 +49,10 @@ class PartImportExportController extends AbstractController
     }
 
     /**
-     * @Route("/parts/import", name="parts_import")
      * @param  Request  $request
      * @return Response
      */
+    #[Route(path: '/parts/import', name: 'parts_import')]
     public function importParts(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@parts.import');
@@ -109,7 +109,7 @@ class PartImportExportController extends AbstractController
 
 
         ret:
-        return $this->renderForm('parts/import/parts_import.html.twig', [
+        return $this->render('parts/import/parts_import.html.twig', [
             'import_form' => $import_form,
             'imported_entities' => $entities ?? [],
             'import_errors' => $errors ?? [],
@@ -117,9 +117,9 @@ class PartImportExportController extends AbstractController
     }
 
     /**
-     * @Route("/parts/export", name="parts_export", methods={"GET"})
      * @return Response
      */
+    #[Route(path: '/parts/export', name: 'parts_export', methods: ['GET'])]
     public function exportParts(Request $request, EntityExporter $entityExporter): Response
     {
         $ids = $request->query->get('ids', '');

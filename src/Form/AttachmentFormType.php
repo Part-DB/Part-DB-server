@@ -52,12 +52,12 @@ class AttachmentFormType extends AbstractType
     protected UrlGeneratorInterface $urlGenerator;
     protected bool $allow_attachments_download;
     protected string $max_file_size;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected AttachmentSubmitHandler $submitHandler;
     protected TranslatorInterface $translator;
 
     public function __construct(AttachmentManager $attachmentHelper, UrlGeneratorInterface $urlGenerator,
-        Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
+        \Symfony\Bundle\SecurityBundle\Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
         bool $allow_attachments_downloads, string $max_file_size)
     {
         $this->attachment_helper = $attachmentHelper;

@@ -28,9 +28,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:list|users:list', 'Lists all users')]
 class UserListCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:list|users:list';
+    protected static $defaultDescription = 'Lists all users';
 
     protected EntityManagerInterface $entityManager;
 
@@ -43,9 +44,7 @@ class UserListCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Lists all users')
-            ->setHelp('This command lists all users in the database.')
+        $this->setHelp('This command lists all users in the database.')
             ->addOption('local', 'l', null, 'Only list local users')
             ->addOption('saml', 's', null, 'Only list SAML users')
         ;

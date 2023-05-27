@@ -36,9 +36,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * This controller has the purpose to provide the data for all treeviews.
- *
- * @Route("/tree")
  */
+#[Route(path: '/tree')]
 class TreeController extends AbstractController
 {
     protected TreeViewGenerator $treeGenerator;
@@ -48,9 +47,7 @@ class TreeController extends AbstractController
         $this->treeGenerator = $treeGenerator;
     }
 
-    /**
-     * @Route("/tools", name="tree_tools")
-     */
+    #[Route(path: '/tools', name: 'tree_tools')]
     public function tools(ToolsTreeBuilder $builder): JsonResponse
     {
         $tree = $builder->getTree();
@@ -58,90 +55,78 @@ class TreeController extends AbstractController
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/category/{id}", name="tree_category")
-     * @Route("/categories", name="tree_category_root")
-     */
+    #[Route(path: '/category/{id}', name: 'tree_category')]
+    #[Route(path: '/categories', name: 'tree_category_root')]
     public function categoryTree(?Category $category = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@categories.read')) {
             $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/footprint/{id}", name="tree_footprint")
-     * @Route("/footprints", name="tree_footprint_root")
-     */
+    #[Route(path: '/footprint/{id}', name: 'tree_footprint')]
+    #[Route(path: '/footprints', name: 'tree_footprint_root')]
     public function footprintTree(?Footprint $footprint = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@footprints.read')) {
             $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/location/{id}", name="tree_location")
-     * @Route("/locations", name="tree_location_root")
-     */
+    #[Route(path: '/location/{id}', name: 'tree_location')]
+    #[Route(path: '/locations', name: 'tree_location_root')]
     public function locationTree(?Storelocation $location = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@storelocations.read')) {
             $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/manufacturer/{id}", name="tree_manufacturer")
-     * @Route("/manufacturers", name="tree_manufacturer_root")
-     */
+    #[Route(path: '/manufacturer/{id}', name: 'tree_manufacturer')]
+    #[Route(path: '/manufacturers', name: 'tree_manufacturer_root')]
     public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@manufacturers.read')) {
             $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/supplier/{id}", name="tree_supplier")
-     * @Route("/suppliers", name="tree_supplier_root")
-     */
+    #[Route(path: '/supplier/{id}', name: 'tree_supplier')]
+    #[Route(path: '/suppliers', name: 'tree_supplier_root')]
     public function supplierTree(?Supplier $supplier = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
             $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
     }
 
-    /**
-     * @Route("/device/{id}", name="tree_device")
-     * @Route("/devices", name="tree_device_root")
-     */
+    #[Route(path: '/device/{id}', name: 'tree_device')]
+    #[Route(path: '/devices', name: 'tree_device_root')]
     public function deviceTree(?Project $device = null): JsonResponse
     {
         if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
         } else {
-            return new JsonResponse("Access denied", 403);
+            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);

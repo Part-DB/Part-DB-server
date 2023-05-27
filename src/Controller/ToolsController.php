@@ -32,14 +32,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
-/**
- * @Route("/tools")
- */
+#[Route(path: '/tools')]
 class ToolsController extends AbstractController
 {
-    /**
-     * @Route("/reel_calc", name="tools_reel_calculator")
-     */
+    #[Route(path: '/reel_calc', name: 'tools_reel_calculator')]
     public function reelCalculator(): Response
     {
         $this->denyAccessUnlessGranted('@tools.reel_calculator');
@@ -47,9 +43,7 @@ class ToolsController extends AbstractController
         return $this->render('tools/reel_calculator/reel_calculator.html.twig');
     }
 
-    /**
-     * @Route("/server_infos", name="tools_server_infos")
-     */
+    #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
         AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
@@ -98,9 +92,9 @@ class ToolsController extends AbstractController
     }
 
     /**
-     * @Route("/builtin_footprints", name="tools_builtin_footprints_viewer")
      * @return Response
      */
+    #[Route(path: '/builtin_footprints', name: 'tools_builtin_footprints_viewer')]
     public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator): Response
     {
         $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
@@ -121,9 +115,9 @@ class ToolsController extends AbstractController
     }
 
     /**
-     * @Route("/ic_logos", name="tools_ic_logos")
      * @return Response
      */
+    #[Route(path: '/ic_logos', name: 'tools_ic_logos')]
     public function icLogos(): Response
     {
         $this->denyAccessUnlessGranted('@tools.ic_logos');

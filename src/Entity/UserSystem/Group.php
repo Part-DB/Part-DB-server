@@ -66,30 +66,30 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $attachments;
 
     /**
      * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected ?PermissionData $permissions = null;
 
     /** @var Collection<int, GroupParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     public function __construct()

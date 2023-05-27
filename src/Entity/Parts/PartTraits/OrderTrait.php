@@ -37,10 +37,10 @@ trait OrderTrait
     /**
      * @var Orderdetail[]|Collection the details about how and where you can order this part
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      * @ORM\OrderBy({"supplierpartnr" = "ASC"})
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Valid]
+    #[Groups(['extended', 'full', 'import'])]
     protected $orderdetails;
 
     /**

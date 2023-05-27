@@ -34,11 +34,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:permissions|partdb:user:permissions', 'View and edit the permissions of a given user')]
 class UsersPermissionsCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:permissions|partdb:user:permissions';
-    protected static $defaultDescription = 'View and edit the permissions of a given user';
-
     protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
     protected PermissionManager $permissionResolver;

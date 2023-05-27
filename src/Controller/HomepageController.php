@@ -61,9 +61,7 @@ class HomepageController extends AbstractController
         return $banner;
     }
 
-    /**
-     * @Route("/", name="homepage")
-     */
+    #[Route(path: '/', name: 'homepage')]
     public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager): Response
     {
         if ($this->isGranted('@tools.lastActivity')) {

@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface, CacheableSupportsMethodInterface
+class StructuralElementDenormalizer implements \Symfony\Component\Serializer\Normalizer\DenormalizerInterface, CacheableSupportsMethodInterface
 {
 
     private DenormalizerInterface $normalizer;

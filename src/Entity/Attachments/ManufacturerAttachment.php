@@ -30,8 +30,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * An attachment attached to a manufacturer element.
  *
  * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
 class ManufacturerAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Manufacturer::class;

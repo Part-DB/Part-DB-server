@@ -60,8 +60,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  *    @ORM\Index(name="user_idx_username", columns={"name"})
  * })
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- * @UniqueEntity("name", message="validator.user.username_already_used")
  */
+#[UniqueEntity('name', message: 'validator.user.username_already_used')]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
@@ -75,16 +75,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var bool Determines if the user is disabled (user can not log in)
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $disabled = false;
 
     /**
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
      * @ValidTheme()
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected ?string $theme = null;
 
     /**
@@ -106,8 +106,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string A self-description of the user
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $aboutMe = '';
 
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
@@ -134,8 +134,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?Group $group = null;
 
     /**
@@ -147,25 +147,25 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone", nullable=true)
-     * @Assert\Timezone()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Timezone]
+    #[Groups(['full', 'import'])]
     protected ?string $timezone = '';
 
     /**
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
-     * @Assert\Language()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Language]
+    #[Groups(['full', 'import'])]
     protected ?string $language = '';
 
     /**
      * @var string|null The email address of the user
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\Email]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?string $email = '';
 
     /**
@@ -177,29 +177,29 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The department the user is working
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      * @ORM\Column(type="string", length=255,  nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $need_pw_change = true;
 
     /**
@@ -210,9 +210,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Regex("/^[\w\.\+\-\$]+$/", message="user.invalid_username")
      */
+    #[Assert\NotBlank]
+    #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
     protected string $name = '';
 
     /**
@@ -230,8 +230,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected ?DateTime $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
@@ -253,16 +253,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?Currency $currency;
 
     /**
      * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?PermissionData $permissions = null;
 
     /**
@@ -274,8 +274,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full"})
      */
+    #[Groups(['extended', 'full'])]
     protected bool $saml_user = false;
 
     public function __construct()

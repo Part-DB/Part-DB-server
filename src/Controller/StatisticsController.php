@@ -48,9 +48,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StatisticsController extends AbstractController
 {
-    /**
-     * @Route("/statistics", name="statistics_view")
-     */
+    #[Route(path: '/statistics', name: 'statistics_view')]
     public function showStatistics(StatisticsHelper $helper): Response
     {
         $this->denyAccessUnlessGranted('@tools.statistics');

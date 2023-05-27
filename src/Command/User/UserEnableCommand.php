@@ -29,9 +29,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:enable|partdb:user:enable', 'Enables/Disable the login of one or more users')]
 class UserEnableCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:enable|partdb:user:enable';
+    protected static $defaultDescription = 'Enables/Disable the login of one or more users';
 
     protected EntityManagerInterface $entityManager;
 
@@ -44,9 +45,7 @@ class UserEnableCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Enables/Disable the login of one or more users')
-            ->setHelp('This allows you to allow or prevent the login of certain user. Use the --disable option to disable the login for the given users')
+        $this->setHelp('This allows you to allow or prevent the login of certain user. Use the --disable option to disable the login for the given users')
             ->addArgument('users', InputArgument::IS_ARRAY, 'The usernames of the users to use')
             ->addOption('all', 'a', InputOption::VALUE_NONE, 'Enable/Disable all users')
             ->addOption('disable', 'd', InputOption::VALUE_NONE, 'Disable the login of the given users')

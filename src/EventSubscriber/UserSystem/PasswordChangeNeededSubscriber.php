@@ -55,10 +55,10 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * @var string The route the user will redirected to, if he needs to change this password
      */
     public const REDIRECT_TARGET = 'user_settings';
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
     private HttpUtils $httpUtils;
 
-    public function __construct(Security $security, HttpUtils $httpUtils)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, HttpUtils $httpUtils)
     {
         $this->security = $security;
         $this->httpUtils = $httpUtils;

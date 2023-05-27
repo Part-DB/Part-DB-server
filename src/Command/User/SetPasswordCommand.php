@@ -34,9 +34,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password', 'Sets the password of a user')]
 class SetPasswordCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password';
+    protected static $defaultDescription = 'Sets the password of a user';
 
     protected EntityManagerInterface $entityManager;
     protected UserPasswordHasherInterface $encoder;
@@ -53,9 +54,7 @@ class SetPasswordCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Sets the password of a user')
-            ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
+        $this->setHelp('This password allows you to set the password of a user, without knowing the old password.')
             ->addArgument('user', InputArgument::REQUIRED, 'The username or email of the user')
         ;
     }
@@ -70,14 +69,14 @@ class SetPasswordCommand extends Command
         if (!$user) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $io->note('User found!');
 
         if ($user->isSamlUser()) {
             $io->error('This user is a SAML user, so you can not change the password!');
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $proceed = $io->confirm(
@@ -85,7 +84,7 @@ class SetPasswordCommand extends Command
                 $user->getFullName(true), $user->getID()));
 
         if (!$proceed) {
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $success = false;
@@ -116,6 +115,6 @@ class SetPasswordCommand extends Command
         $security_event = new SecurityEvent($user);
         $this->eventDispatcher->dispatch($security_event, SecurityEvents::PASSWORD_CHANGED);
 
-        return 0;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

@@ -57,9 +57,9 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
-     * @Groups({"extended", "full"})
      */
+    #[Assert\Valid]
+    #[Groups(['extended', 'full'])]
     protected Collection $bom_entries;
 
     /**
@@ -70,9 +70,9 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var string|null The current status of the project
      * @ORM\Column(type="string", length=64, nullable=true)
-     * @Assert\Choice({"draft","planning","in_production","finished","archived"})
-     * @Groups({"extended", "full"})
      */
+    #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
+    #[Groups(['extended', 'full'])]
     protected ?string $status = null;
 
 
@@ -89,8 +89,8 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * @ORM\Column(type="text", nullable=false)
-     * @Groups({"simple", "extended", "full"})
      */
+    #[Groups(['simple', 'extended', 'full'])]
     protected string $description = '';
 
     /**
@@ -286,9 +286,7 @@ class Project extends AbstractStructuralDBElement
         }
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload)
     {
         //If this project has subprojects, and these have builds part, they must be included in the BOM

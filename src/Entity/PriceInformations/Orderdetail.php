@@ -45,57 +45,57 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity({"supplierpartnr", "supplier", "part"})
  */
+#[UniqueEntity(['supplierpartnr', 'supplier', 'part'])]
 class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
     /**
      * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Valid]
+    #[Groups(['extended', 'full', 'import'])]
     protected Collection $pricedetails;
 
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected string $supplierpartnr = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $obsolete = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @Assert\Url()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Url]
+    #[Groups(['full', 'import'])]
     protected string $supplier_product_url = '';
 
     /**
      * @var Part|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
     protected ?Part $part = null;
 
     /**
      * @var Supplier|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
-     * @Assert\NotNull(message="validator.orderdetail.supplier_must_not_be_null")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
+    #[Groups(['extended', 'full', 'import'])]
     protected ?Supplier $supplier = null;
 
     public function __construct()

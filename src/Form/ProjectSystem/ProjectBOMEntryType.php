@@ -87,10 +87,4 @@ class ProjectBOMEntryType extends AbstractType
             'data_class' => ProjectBOMEntry::class,
         ]);
     }
-
-
-    public function getBlockPrefix(): string
-    {
-        return 'project_bom_entry';
-    }
 }

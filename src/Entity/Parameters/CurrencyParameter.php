@@ -50,8 +50,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * An attachment attached to a category element.
  *
  * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @UniqueEntity(fields={"name", "group", "element"})
  */
+#[UniqueEntity(fields: ['name', 'group', 'element'])]
 class CurrencyParameter extends AbstractParameter
 {
     public const ALLOWED_ELEMENT_CLASS = Currency::class;

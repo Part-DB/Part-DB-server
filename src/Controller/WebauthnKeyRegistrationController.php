@@ -40,9 +40,7 @@ class WebauthnKeyRegistrationController extends AbstractController
         $this->demo_mode = $demo_mode;
     }
 
-    /**
-     * @Route("/webauthn/register", name="webauthn_register")
-     */
+    #[Route(path: '/webauthn/register', name: 'webauthn_register')]
     public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em)
     {
         //When user change its settings, he should be logged  in fully.

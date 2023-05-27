@@ -37,38 +37,38 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The address of the company
      * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
      * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected string $fax_number = '';
 
     /**
      * @var string The email address of the company
      * @ORM\Column(type="string")
-     * @Assert\Email()
-     * @Groups({"full"})
      */
+    #[Assert\Email]
+    #[Groups(['full'])]
     protected string $email_address = '';
 
     /**
      * @var string The website of the company
      * @ORM\Column(type="string")
-     * @Assert\Url()
-     * @Groups({"full"})
      */
+    #[Assert\Url]
+    #[Groups(['full'])]
     protected string $website = '';
 
     /**

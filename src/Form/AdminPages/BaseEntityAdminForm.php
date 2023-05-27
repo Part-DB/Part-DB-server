@@ -44,10 +44,10 @@ use Symfony\Component\Security\Core\Security;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected EventCommentNeededHelper $eventCommentNeededHelper;
 
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper)
     {
         $this->security = $security;
         $this->eventCommentNeededHelper = $eventCommentNeededHelper;

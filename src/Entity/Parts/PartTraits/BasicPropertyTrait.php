@@ -34,15 +34,15 @@ trait BasicPropertyTrait
     /**
      * @var string A text describing what this part does
      * @ORM\Column(type="text")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      * @ORM\Column(type="text")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected string $comment = '';
 
     /**
@@ -54,8 +54,8 @@ trait BasicPropertyTrait
     /**
      * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $favorite = false;
 
     /**
@@ -64,9 +64,9 @@ trait BasicPropertyTrait
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @Selectable()
-     * @Assert\NotNull(message="validator.select_valid_category")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\NotNull(message: 'validator.select_valid_category')]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?Category $category = null;
 
     /**
@@ -74,8 +74,8 @@ trait BasicPropertyTrait
      * @ORM\ManyToOne(targetEntity="Footprint")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?Footprint $footprint = null;
 
     /**

@@ -52,10 +52,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("/currency")
- *
  * Class CurrencyController
  */
+#[Route(path: '/currency')]
 class CurrencyController extends BaseAdminController
 {
     protected string $entity_class = Currency::class;
@@ -98,9 +97,7 @@ class CurrencyController extends BaseAdminController
         );
     }
 
-    /**
-     * @Route("/{id}", name="currency_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'currency_delete', methods: ['DELETE'])]
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
@@ -131,36 +128,28 @@ class CurrencyController extends BaseAdminController
         return true;
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="currency_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'currency_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="currency_new")
-     * @Route("/{id}/clone", name="currency_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'currency_new')]
+    #[Route(path: '/{id}/clone', name: 'currency_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Currency $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="currency_export_all")
-     */
+    #[Route(path: '/export', name: 'currency_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="currency_export")
-     */
+    #[Route(path: '/{id}/export', name: 'currency_export')]
     public function exportEntity(Currency $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

@@ -117,18 +117,13 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         ]);
     }
 
-    public function getBlockPrefix(): string
-    {
-        return 'part_select';
-    }
-
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, \Traversable $forms)
     {
         $form = current(iterator_to_array($forms, false));
         $form->setData($data);
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData(\Traversable $forms, &$data)
     {
         $form = current(iterator_to_array($forms, false));
         $data = $form->getData();

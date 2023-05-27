@@ -37,27 +37,27 @@ trait InstockTrait
     /**
      * @var Collection|PartLot[] A list of part lots where this part is stored
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      * @ORM\OrderBy({"amount" = "DESC"})
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Valid]
+    #[Groups(['extended', 'full', 'import'])]
     protected $partLots;
 
     /**
      * @var float The minimum amount of the part that has to be instock, otherwise more is ordered.
      *            Given in the partUnit.
      * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\PositiveOrZero]
+    #[Groups(['extended', 'full', 'import'])]
     protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?MeasurementUnit $partUnit = null;
 
     /**

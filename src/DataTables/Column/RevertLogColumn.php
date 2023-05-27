@@ -52,9 +52,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RevertLogColumn extends AbstractColumn
 {
     protected TranslatorInterface $translator;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(TranslatorInterface $translator, Security $security)
+    public function __construct(TranslatorInterface $translator, \Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->translator = $translator;
         $this->security = $security;

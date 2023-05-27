@@ -51,9 +51,8 @@ use Symfony\Component\Serializer\Serializer;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
- *
- * @Route("/typeahead")
  */
+#[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
 {
     protected AttachmentURLGenerator $urlGenerator;
@@ -65,9 +64,7 @@ class TypeaheadController extends AbstractController
         $this->assets = $assets;
     }
 
-    /**
-     * @Route("/builtInResources/search", name="typeahead_builtInRessources")
-     */
+    #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
     public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
         $query = $request->get('query');
@@ -91,7 +88,7 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($result, 'json');
 
-        return new JsonResponse($data, 200, [], true);
+        return new JsonResponse($data, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
     }
 
     /**
@@ -131,11 +128,11 @@ class TypeaheadController extends AbstractController
     }
 
     /**
-     * @Route("/parts/search/{query}", name="typeahead_parts")
      * @param  string  $query
      * @param  EntityManagerInterface  $entityManager
      * @return JsonResponse
      */
+    #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
     public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
     AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
     {
@@ -170,10 +167,10 @@ class TypeaheadController extends AbstractController
     }
 
     /**
-     * @Route("/parameters/{type}/search/{query}", name="typeahead_parameters", requirements={"type" = ".+"})
      * @param  string  $query
      * @return JsonResponse
      */
+    #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]
     public function parameters(string $type, EntityManagerInterface $entityManager, string $query = ""): JsonResponse
     {
         $class = $this->typeToParameterClass($type);
@@ -190,9 +187,7 @@ class TypeaheadController extends AbstractController
         return new JsonResponse($data);
     }
 
-    /**
-     * @Route("/tags/search/{query}", name="typeahead_tags", requirements={"query"= ".+"})
-     */
+    #[Route(path: '/tags/search/{query}', name: 'typeahead_tags', requirements: ['query' => '.+'])]
     public function tags(string $query, TagFinder $finder): JsonResponse
     {
         $this->denyAccessUnlessGranted('@parts.read');
@@ -209,6 +204,6 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($array, 'json');
 
-        return new JsonResponse($data, 200, [], true);
+        return new JsonResponse($data, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
     }
 }

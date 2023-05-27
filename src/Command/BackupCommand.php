@@ -16,11 +16,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
-    protected static $defaultName = 'partdb:backup';
-    protected static $defaultDescription = 'Backup the files and the database of Part-DB';
-
     private string $project_dir;
     private EntityManagerInterface $entityManager;
 

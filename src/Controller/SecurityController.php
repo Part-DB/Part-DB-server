@@ -57,9 +57,7 @@ class SecurityController extends AbstractController
         $this->allow_email_pw_reset = $allow_email_pw_reset;
     }
 
-    /**
-     * @Route("/login", name="login", methods={"GET", "POST"})
-     */
+    #[Route(path: '/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
@@ -75,10 +73,9 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/pw_reset/request", name="pw_reset_request")
-     *
      * @return RedirectResponse|Response
      */
+    #[Route(path: '/pw_reset/request', name: 'pw_reset_request')]
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
         if (!$this->allow_email_pw_reset) {
@@ -113,16 +110,15 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->renderForm('security/pw_reset_request.html.twig', [
+        return $this->render('security/pw_reset_request.html.twig', [
             'form' => $form,
         ]);
     }
 
     /**
-     * @Route("/pw_reset/new_pw/{user}/{token}", name="pw_reset_new_pw")
-     *
      * @return RedirectResponse|Response
      */
+    #[Route(path: '/pw_reset/new_pw/{user}/{token}', name: 'pw_reset_new_pw')]
     public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null)
     {
         if (!$this->allow_email_pw_reset) {
@@ -187,14 +183,12 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->renderForm('security/pw_reset_new_pw.html.twig', [
+        return $this->render('security/pw_reset_new_pw.html.twig', [
             'form' => $form,
         ]);
     }
 
-    /**
-     * @Route("/logout", name="logout")
-     */
+    #[Route(path: '/logout', name: 'logout')]
     public function logout(): void
     {
         throw new RuntimeException('Will be intercepted before getting here');

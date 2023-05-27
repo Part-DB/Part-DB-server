@@ -40,34 +40,34 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     @ORM\Index(name="unit_idx_name", columns={"name"}),
  *     @ORM\Index(name="unit_idx_parent_name", columns={"parent_id", "name"}),
  * })
- * @UniqueEntity("unit")
  */
+#[UniqueEntity('unit')]
 class MeasurementUnit extends AbstractPartsContainingDBElement
 {
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)
      *             or m (for meters).
      * @ORM\Column(type="string", name="unit", nullable=true)
-     * @Assert\Length(max=10)
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Length(max: 10)]
+    #[Groups(['extended', 'full', 'import'])]
     protected ?string $unit = null;
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
      * @ORM\Column(type="boolean", name="is_integer")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $is_integer = false;
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
      *           Useful for sizes like meters. For this the unit must be set
      * @ORM\Column(type="boolean", name="use_si_prefix")
-     * @Assert\Expression("this.isUseSIPrefix() == false or this.getUnit() != null", message="validator.measurement_unit.use_si_prefix_needs_unit")
-     * @Groups({"full", "import"})
      */
+    #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
+    #[Groups(['full', 'import'])]
     protected bool $use_si_prefix = false;
 
     /**
@@ -87,15 +87,15 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var Collection<int, MeasurementUnitAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $attachments;
 
     /** @var Collection<int, MeasurementUnitParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\MeasurementUnitParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /**

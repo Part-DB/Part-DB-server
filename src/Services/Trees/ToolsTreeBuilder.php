@@ -53,11 +53,11 @@ class ToolsTreeBuilder
     protected UrlGeneratorInterface $urlGenerator;
     protected UserCacheKeyGenerator $keyGenerator;
     protected TagAwareCacheInterface $cache;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
         TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
-        Security $security)
+        \Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;

@@ -46,9 +46,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
  *
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- *
- * @UniqueEntity(fields={"name", "parent"}, ignoreNull=false, message="structural.entity.unique_name")
  */
+#[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     use ParametersTrait;
@@ -63,16 +62,16 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * @var string The comment info for this element
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $comment = '';
 
     /**
      * @var bool If this property is set, this element can not be selected for part properties.
      *           Useful if this element should be used only for grouping, sorting.
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $not_selectable = false;
 
     /**
@@ -85,15 +84,15 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * subclasses.
      *
      * @var AbstractStructuralDBElement[]|Collection
-     * @Groups({"include_children"})
      */
+    #[Groups(['include_children'])]
     protected Collection $children;
 
     /**
      * @var AbstractStructuralDBElement
      * @NoneOfItsChildren()
-     * @Groups({"include_parents", "import"})
      */
+    #[Groups(['include_parents', 'import'])]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /** @var string[] all names of all parent elements as an array of strings,

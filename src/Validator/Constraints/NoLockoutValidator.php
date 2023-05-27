@@ -35,10 +35,10 @@ class NoLockoutValidator extends ConstraintValidator
 {
     protected PermissionManager $resolver;
     protected array $perm_structure;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected EntityManagerInterface $entityManager;
 
-    public function __construct(PermissionManager $resolver, Security $security, EntityManagerInterface $entityManager)
+    public function __construct(PermissionManager $resolver, \Symfony\Bundle\SecurityBundle\Security $security, EntityManagerInterface $entityManager)
     {
         $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();

@@ -30,9 +30,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user', 'Converts a local user to a SAML user (and vice versa)')]
 class ConvertToSAMLUserCommand extends Command
 {
-    protected static $defaultName = 'partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user';
+    protected static $defaultDescription = 'Converts a local user to a SAML user (and vice versa)';
 
     protected EntityManagerInterface $entityManager;
     protected bool $saml_enabled;
@@ -46,9 +47,7 @@ class ConvertToSAMLUserCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Converts a local user to a SAML user (and vice versa)')
-            ->setHelp('This converts a local user, which can login via the login form, to a SAML user, which can only login via SAML. This is useful if you want to migrate from a local user system to a SAML user system.')
+        $this->setHelp('This converts a local user, which can login via the login form, to a SAML user, which can only login via SAML. This is useful if you want to migrate from a local user system to a SAML user system.')
             ->addArgument('user', InputArgument::REQUIRED, 'The username (or email) of the user')
             ->addOption('to-local', null, InputOption::VALUE_NONE, 'Converts a SAML user to a local user')
         ;
@@ -70,7 +69,7 @@ class ConvertToSAMLUserCommand extends Command
         if (!$user) {
             $io->error('User not found!');
 
-            return 1;
+            return \Symfony\Component\Console\Command\Command::FAILURE;
         }
 
         $io->info('User found: '.$user->getFullName(true) . ': '.$user->getEmail().' [ID: ' . $user->getID() . ']');

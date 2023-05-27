@@ -34,7 +34,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
     protected FileTypeFilterTools $filterTools;
 
-    public function __construct(Security $security, FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
     {
         $this->filterTools = $filterTools;
         parent::__construct($security, $eventCommentNeededHelper);

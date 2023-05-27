@@ -58,10 +58,10 @@ final class LabelHTMLGenerator
     private BarcodeGenerator $barcodeGenerator;
     private SandboxedTwigProvider $sandboxedTwigProvider;
     private string $partdb_title;
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
-        BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, Security $security, string $partdb_title)
+        BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, \Symfony\Bundle\SecurityBundle\Security $security, string $partdb_title)
     {
         $this->twig = $twig;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;

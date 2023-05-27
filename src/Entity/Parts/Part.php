@@ -54,8 +54,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *    @ORM\Index(name="parts_idx_name", columns={"name"}),
  *    @ORM\Index(name="parts_idx_ipn", columns={"ipn"}),
  * })
- * @UniqueEntity(fields={"ipn"}, message="part.ipn.must_be_unique")
  */
+#[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
@@ -68,11 +68,11 @@ class Part extends AttachmentContainingDBElement
     use ProjectTrait;
 
     /** @var Collection<int, PartParameter>
-     * @Assert\Valid()
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
     protected Collection $parameters;
 
     /**
@@ -95,9 +95,9 @@ class Part extends AttachmentContainingDBElement
      * @var Collection<int, PartAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
     protected Collection $attachments;
 
     /**
@@ -110,8 +110,8 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      */
+    #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
     protected ?Attachment $master_picture_attachment = null;
 
     public function __construct()
@@ -150,9 +150,7 @@ class Part extends AttachmentContainingDBElement
         parent::__clone();
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload)
     {
         //Ensure that the part name fullfills the regex of the category

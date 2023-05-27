@@ -59,9 +59,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route("/label")
- */
+#[Route(path: '/label')]
 class LabelController extends AbstractController
 {
     protected LabelGenerator $labelGenerator;
@@ -80,10 +78,8 @@ class LabelController extends AbstractController
         $this->translator = $translator;
     }
 
-    /**
-     * @Route("/dialog", name="label_dialog")
-     * @Route("/{profile}/dialog", name="label_dialog_profile")
-     */
+    #[Route(path: '/dialog', name: 'label_dialog')]
+    #[Route(path: '/{profile}/dialog', name: 'label_dialog_profile')]
     public function generator(Request $request, ?LabelProfile $profile = null): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
@@ -146,7 +142,7 @@ class LabelController extends AbstractController
             }
         }
 
-        return $this->renderForm('label_system/dialog.html.twig', [
+        return $this->render('label_system/dialog.html.twig', [
             'form' => $form,
             'pdf_data' => $pdf_data,
             'filename' => $filename,

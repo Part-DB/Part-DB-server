@@ -35,12 +35,12 @@ use Symfony\Component\Security\Core\Security;
  */
 class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
     private PermissionSchemaUpdater $permissionSchemaUpdater;
     private EntityManagerInterface $entityManager;
     private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
     {
         $this->security = $security;
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;

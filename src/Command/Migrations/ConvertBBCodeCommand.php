@@ -47,6 +47,7 @@ use function count;
 /**
  * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used Markdown format.
  */
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:migrations:convert-bbcode|app:convert-bbcode', 'Converts BBCode used in old Part-DB versions to newly used Markdown')]
 class ConvertBBCodeCommand extends Command
 {
     /**
@@ -58,7 +59,7 @@ class ConvertBBCodeCommand extends Command
      */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
 
-    protected static $defaultName = 'partdb:migrations:convert-bbcode|app:convert-bbcode';
+    protected static $defaultDescription = 'Converts BBCode used in old Part-DB versions to newly used Markdown';
 
     protected EntityManagerInterface $em;
     protected PropertyAccessorInterface $propertyAccessor;
@@ -76,9 +77,7 @@ class ConvertBBCodeCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Converts BBCode used in old Part-DB versions to newly used Markdown')
-            ->setHelp('Older versions of Part-DB (<1.0) used BBCode for rich text formatting.
+        $this->setHelp('Older versions of Part-DB (<1.0) used BBCode for rich text formatting.
                 Part-DB now uses Markdown which offers more features but is incompatible with BBCode.
                 When you upgrade from an pre 1.0 version you have to run this command to convert your comment fields');
 
@@ -168,6 +167,6 @@ class ConvertBBCodeCommand extends Command
             $io->success('Changes saved to DB successfully!');
         }
 
-        return 0;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }

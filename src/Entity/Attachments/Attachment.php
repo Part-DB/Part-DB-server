@@ -99,9 +99,9 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * @var string the name of this element
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="validator.attachment.name_not_blank")
-     * @Groups({"simple", "extended", "full"})
      */
+    #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
+    #[Groups(['simple', 'extended', 'full'])]
     protected string $name = '';
 
     /**
@@ -120,8 +120,8 @@ abstract class Attachment extends AbstractNamedDBElement
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      * @Selectable()
-     * @Assert\NotNull(message="validator.attachment.must_not_be_null")
      */
+    #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
     protected ?AttachmentType $attachment_type = null;
 
     public function __construct()

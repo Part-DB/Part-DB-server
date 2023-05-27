@@ -51,9 +51,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 
-/**
- * @Route("/user")
- */
+#[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
     protected bool $demo_mode;
@@ -69,9 +67,7 @@ class UserSettingsController extends AbstractController
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @Route("/2fa_backup_codes", name="show_backup_codes")
-     */
+    #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
     public function showBackupCodes()
     {
         $user = $this->getUser();
@@ -98,9 +94,7 @@ class UserSettingsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/u2f_delete", name="u2f_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/u2f_delete', name: 'u2f_delete', methods: ['DELETE'])]
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager): RedirectResponse
     {
         if ($this->demo_mode) {
@@ -181,10 +175,9 @@ class UserSettingsController extends AbstractController
     }
 
     /**
-     * @Route("/invalidate_trustedDevices", name="tfa_trustedDevices_invalidate", methods={"DELETE"})
-     *
      * @return RuntimeException|RedirectResponse
      */
+    #[Route(path: '/invalidate_trustedDevices', name: 'tfa_trustedDevices_invalidate', methods: ['DELETE'])]
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
     {
         if ($this->demo_mode) {
@@ -219,10 +212,9 @@ class UserSettingsController extends AbstractController
     }
 
     /**
-     * @Route("/settings", name="user_settings")
-     *
      * @return RedirectResponse|Response
      */
+    #[Route(path: '/settings', name: 'user_settings')]
     public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper)
     {
         /** @var User $user */
@@ -397,7 +389,7 @@ class UserSettingsController extends AbstractController
          * Output both forms
          *****************************/
 
-        return $this->renderForm('users/user_settings.html.twig', [
+        return $this->render('users/user_settings.html.twig', [
             'user' => $user,
             'settings_form' => $form,
             'pw_form' => $pw_form,

@@ -30,7 +30,7 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 /**
  * This handler logs to event log, if a user logs out.
  */
-class LogoutLoggerListener
+class LogoutLoggerEventSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     protected EventLogger $logger;
     protected bool $gpdr_compliance;
@@ -57,5 +57,12 @@ class LogoutLoggerListener
         }
 
         $this->logger->logAndFlush($log);
+    }
+    /**
+     * @return array<string, mixed>
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [\Symfony\Component\Security\Http\Event\LogoutEvent::class => ''];
     }
 }

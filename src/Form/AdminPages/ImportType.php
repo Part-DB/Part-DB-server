@@ -37,9 +37,9 @@ use Symfony\Component\Security\Core\Security;
 
 class ImportType extends AbstractType
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(Security $security)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->security = $security;
     }

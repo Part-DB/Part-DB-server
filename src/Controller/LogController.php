@@ -49,9 +49,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/log")
- */
+#[Route(path: '/log')]
 class LogController extends AbstractController
 {
     protected EntityManagerInterface $entityManager;
@@ -66,10 +64,9 @@ class LogController extends AbstractController
     }
 
     /**
-     * @Route("/", name="log_view")
-     *
      * @return Response
      */
+    #[Route(path: '/', name: 'log_view')]
     public function showLogs(Request $request, DataTableFactory $dataTable): Response
     {
         $this->denyAccessUnlessGranted('@system.show_logs');
@@ -93,17 +90,17 @@ class LogController extends AbstractController
 
         return $this->render('log_system/log_list.html.twig', [
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm,
         ]);
     }
 
     /**
-     * @Route("/{id}/details", name="log_details")
      * @param  Request  $request
      * @param  AbstractLogEntry  $logEntry
      * @return Response
      */
-    public function logDetails(Request $request, AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
+    #[Route(path: '/{id}/details', name: 'log_details')]
+    public function logDetails(AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
         LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('show_details', $logEntry);
@@ -123,9 +120,7 @@ class LogController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="log_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}/delete', name: 'log_delete', methods: ['DELETE'])]
     public function deleteLogEntry(Request $request, AbstractLogEntry $logEntry, EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $logEntry);
@@ -142,9 +137,7 @@ class LogController extends AbstractController
     }
 
 
-    /**
-     * @Route("/undo", name="log_undo", methods={"POST"})
-     */
+    #[Route(path: '/undo', name: 'log_undo', methods: ['POST'])]
     public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): RedirectResponse
     {
         $mode = EventUndoHelper::MODE_UNDO;

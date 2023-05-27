@@ -62,9 +62,7 @@ class PartListsController extends AbstractController
         $this->translator = $translator;
     }
 
-    /**
-     * @Route("/table/action", name="table_action", methods={"POST"})
-     */
+    #[Route(path: '/table/action', name: 'table_action', methods: ['POST'])]
     public function tableAction(Request $request, PartsTableActionHandler $actionHandler): Response
     {
         $this->denyAccessUnlessGranted('@parts.edit');
@@ -175,10 +173,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}/parts", name="part_list_category")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/category/{id}/parts', name: 'part_list_category')]
     public function showCategory(Category $category, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
@@ -197,10 +194,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/footprint/{id}/parts", name="part_list_footprint")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/footprint/{id}/parts', name: 'part_list_footprint')]
     public function showFootprint(Footprint $footprint, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@footprints.read');
@@ -219,10 +215,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/manufacturer/{id}/parts", name="part_list_manufacturer")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/manufacturer/{id}/parts', name: 'part_list_manufacturer')]
     public function showManufacturer(Manufacturer $manufacturer, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@manufacturers.read');
@@ -241,10 +236,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/store_location/{id}/parts", name="part_list_store_location")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/store_location/{id}/parts', name: 'part_list_store_location')]
     public function showStorelocation(Storelocation $storelocation, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@storelocations.read');
@@ -263,10 +257,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/supplier/{id}/parts", name="part_list_supplier")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/supplier/{id}/parts', name: 'part_list_supplier')]
     public function showSupplier(Supplier $supplier, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@suppliers.read');
@@ -285,10 +278,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts/by_tag/{tag}", name="part_list_tags", requirements={"tag": ".*"})
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/parts/by_tag/{tag}', name: 'part_list_tags', requirements: ['tag' => '.*'])]
     public function showTag(string $tag, Request $request): Response
     {
         $tag = trim($tag);
@@ -330,10 +322,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts/search", name="parts_search")
-     *
      * @return JsonResponse|Response
      */
+    #[Route(path: '/parts/search', name: 'parts_search')]
     public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
         $searchFilter = $this->searchRequestToFilter($request);
@@ -353,10 +344,9 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts", name="parts_show_all")
-     *
      * @return Response
      */
+    #[Route(path: '/parts', name: 'parts_show_all')]
     public function showAll(Request $request): Response
     {
         return $this->showListWithFilter($request,'parts/lists/all_list.html.twig');

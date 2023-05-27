@@ -83,59 +83,59 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
-     * @Assert\Length(max=20)
      * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Assert\Length(max: 20)]
+    #[Groups(['full'])]
     protected string $symbol = '';
 
     /**
      * @var float|null the guaranteed minimum value of this property
-     * @Assert\Type({"float","null"})
-     * @Assert\LessThanOrEqual(propertyPath="value_typical", message="parameters.validator.min_lesser_typical")
-     * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type(['float', null])]
+    #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
+    #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
+    #[Groups(['full'])]
     protected ?float $value_min = null;
 
     /**
      * @var float|null the typical value of this property
-     * @Assert\Type({"null", "float"})
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type([null, 'float'])]
+    #[Groups(['full'])]
     protected ?float $value_typical = null;
 
     /**
      * @var float|null the maximum value of this property
-     * @Assert\Type({"float", "null"})
-     * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type(['float', null])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
+    #[Groups(['full'])]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
      * @ORM\Column(type="string", nullable=false, name="param_group")
-     * @Groups({"full"})
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[Groups(['full'])]
     protected string $group = '';
 
     /**

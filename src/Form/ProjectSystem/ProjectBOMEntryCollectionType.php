@@ -27,9 +27,4 @@ class ProjectBOMEntryCollectionType extends AbstractType
             'label' => false,
         ]);
     }
-
-    public function getBlockPrefix(): string
-    {
-        return 'project_bom_entry_collection';
-    }
 }

@@ -34,7 +34,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
 {
     private string $default_currency;
 
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
         $this->default_currency = $default_currency;

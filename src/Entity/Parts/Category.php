@@ -58,74 +58,74 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $partname_hint = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $partname_regex = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $disable_properties = false;
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $default_description = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $default_comment = '';
 
     /**
      * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
     protected Collection $attachments;
 
     /** @var Collection<int, CategoryParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
     protected Collection $parameters;
 
     public function getPartnameHint(): string

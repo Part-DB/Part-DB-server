@@ -50,8 +50,8 @@ trait ParametersTrait
      * Mapping done in subclasses.
      *
      * @var Collection<int, AbstractParameter>
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /**

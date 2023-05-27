@@ -53,9 +53,9 @@ use Symfony\Component\Security\Core\Security;
 
 class LabelOptionsType extends AbstractType
 {
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(Security $security)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->security = $security;
     }

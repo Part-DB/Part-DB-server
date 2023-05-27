@@ -39,31 +39,31 @@ trait ManufacturerTrait
      * @ORM\ManyToOne(targetEntity="Manufacturer")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"simple","extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?Manufacturer $manufacturer = null;
 
     /**
      * @var string the url to the part on the manufacturer's homepage
      * @ORM\Column(type="string")
-     * @Assert\Url()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Url]
+    #[Groups(['full', 'import'])]
     protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      * @ORM\Column(type="string")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected string $manufacturer_product_number = '';
 
     /**
      * @var string|null The production status of this part. Can be one of the specified ones.
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Choice(['announced', 'active', 'nrfnd', 'eol', 'discontinued', ''])]
+    #[Groups(['extended', 'full', 'import'])]
     protected ?string $manufacturing_status = '';
 
     /**

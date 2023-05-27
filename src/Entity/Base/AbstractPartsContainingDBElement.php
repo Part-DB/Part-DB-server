@@ -33,6 +33,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
-    /** @Groups({"full"}) */
+    #[Groups(['full'])]
     protected Collection $parameters;
 }

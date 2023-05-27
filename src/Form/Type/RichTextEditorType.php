@@ -39,11 +39,6 @@ class RichTextEditorType extends AbstractType
 
     }
 
-    public function getBlockPrefix(): string
-    {
-        return 'rich_text_editor';
-    }
-
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['attr'] = array_merge($view->vars['attr'], $this->optionsToAttrArray($options));

@@ -52,11 +52,11 @@ use Symfony\Component\Security\Core\Security;
 
 class PartBaseType extends AbstractType
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected UrlGeneratorInterface $urlGenerator;
     protected EventCommentNeededHelper $event_comment_needed_helper;
 
-    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator, EventCommentNeededHelper $event_comment_needed_helper)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator, EventCommentNeededHelper $event_comment_needed_helper)
     {
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;

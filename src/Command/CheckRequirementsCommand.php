@@ -27,9 +27,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:check-requirements', 'Checks if the requirements Part-DB needs or recommends are fulfilled.')]
 class CheckRequirementsCommand extends Command
 {
-    protected static $defaultName = 'partdb:check-requirements';
+    protected static $defaultDescription = 'Checks if the requirements Part-DB needs or recommends are fulfilled.';
 
     protected ContainerBagInterface $params;
 
@@ -41,9 +42,7 @@ class CheckRequirementsCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Checks if the requirements Part-DB needs or recommends are fulfilled.')
-            ->addOption('only_issues', 'i', InputOption::VALUE_NONE, 'Only show issues, not success messages.')
+        $this->addOption('only_issues', 'i', InputOption::VALUE_NONE, 'Only show issues, not success messages.')
         ;
     }
 

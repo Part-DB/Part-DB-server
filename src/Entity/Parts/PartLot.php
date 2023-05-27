@@ -55,23 +55,23 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var string A short description about this lot, shown in table
      * @ORM\Column(type="text")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
      * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected string $comment = '';
 
     /**
      * @var ?DateTime Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
      * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?DateTime $expiration_date = null;
 
     /**
@@ -79,38 +79,38 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @ORM\ManyToOne(targetEntity="Storelocation")
      * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id", nullable=true)
      * @Selectable()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected ?Storelocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
      * @ORM\Column(type="boolean")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected bool $instock_unknown = false;
 
     /**
      * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
      * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\PositiveOrZero]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
     protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected bool $needs_refill = false;
 
     /**
      * @var Part The part that is stored in this lot
      * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
     protected Part $part;
 
     /**
@@ -338,9 +338,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this->description;
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload)
     {
         //Ensure that the owner is not the anonymous user

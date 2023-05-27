@@ -54,10 +54,10 @@ use Symfony\Component\Security\Core\Security;
 final class GlobalProviders implements PlaceholderProviderInterface
 {
     private string $partdb_title;
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
     private UrlGeneratorInterface $url_generator;
 
-    public function __construct(string $partdb_title, Security $security, UrlGeneratorInterface $url_generator)
+    public function __construct(string $partdb_title, \Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $url_generator)
     {
         $this->partdb_title = $partdb_title;
         $this->security = $security;

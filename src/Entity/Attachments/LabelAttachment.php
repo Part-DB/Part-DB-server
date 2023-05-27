@@ -49,8 +49,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * A attachment attached to a user element.
  *
  * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
 class LabelAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = LabelProfile::class;

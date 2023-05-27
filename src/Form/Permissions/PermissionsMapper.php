@@ -52,7 +52,7 @@ final class PermissionsMapper implements DataMapperInterface
      * @param mixed                       $viewData View data of the compound form being initialized
      * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
      */
-    public function mapDataToForms($viewData, $forms): void
+    public function mapDataToForms($viewData, \Traversable $forms): void
     {
         foreach ($forms as $form) {
             if ($this->inherit) {
@@ -99,7 +99,7 @@ final class PermissionsMapper implements DataMapperInterface
      * @param mixed                       $viewData The compound form's view data that get mapped
      *                                              its children model data
      */
-    public function mapFormsToData($forms, &$viewData): void
+    public function mapFormsToData(\Traversable $forms, &$viewData): void
     {
         if ($this->inherit) {
             throw new RuntimeException('The permission type is readonly when it is showing read only data!');

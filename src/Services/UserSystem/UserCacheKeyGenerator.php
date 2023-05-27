@@ -32,10 +32,10 @@ use Symfony\Component\Security\Core\Security;
  */
 class UserCacheKeyGenerator
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected RequestStack $requestStack;
 
-    public function __construct(Security $security, RequestStack $requestStack)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, RequestStack $requestStack)
     {
         $this->security = $security;
         $this->requestStack = $requestStack;

@@ -52,8 +52,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\LabelProfileRepository")
  * @ORM\Table(name="label_profiles")
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- * @UniqueEntity({"name", "options.supported_element"})
  */
+#[UniqueEntity(['name', 'options.supported_element'])]
 class LabelProfile extends AttachmentContainingDBElement
 {
     /**
@@ -66,8 +66,8 @@ class LabelProfile extends AttachmentContainingDBElement
     /**
      * @var LabelOptions
      * @ORM\Embedded(class="LabelOptions")
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected LabelOptions $options;
 
     /**

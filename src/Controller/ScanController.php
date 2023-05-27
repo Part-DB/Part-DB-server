@@ -51,9 +51,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/scan")
- */
+#[Route(path: '/scan')]
 class ScanController extends AbstractController
 {
     protected BarcodeRedirector $barcodeParser;
@@ -65,9 +63,7 @@ class ScanController extends AbstractController
         $this->barcodeNormalizer = $barcodeNormalizer;
     }
 
-    /**
-     * @Route("", name="scan_dialog")
-     */
+    #[Route(path: '', name: 'scan_dialog')]
     public function dialog(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@tools.label_scanner');
@@ -91,7 +87,7 @@ class ScanController extends AbstractController
             }
         }
 
-        return $this->renderForm('label_system/scanner/scanner.html.twig', [
+        return $this->render('label_system/scanner/scanner.html.twig', [
             'form' => $form,
         ]);
     }

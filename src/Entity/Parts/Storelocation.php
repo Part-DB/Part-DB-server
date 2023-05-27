@@ -66,37 +66,37 @@ class Storelocation extends AbstractPartsContainingDBElement
     /** @var Collection<int, StorelocationParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $is_full = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $only_single_part = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
     protected bool $limit_to_existing_parts = false;
 
     /**
      * @var User|null The owner of this storage location
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @Assert\Expression("this.getOwner() == null or this.getOwner().isAnonymousUser() === false", message="validator.part_lot.owner_must_not_be_anonymous")
      */
+    #[Assert\Expression('this.getOwner() == null or this.getOwner().isAnonymousUser() === false', message: 'validator.part_lot.owner_must_not_be_anonymous')]
     protected ?User $owner = null;
 
     /**
@@ -108,8 +108,8 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * @var Collection<int, StorelocationAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $attachments;
 
     /********************************************************************************

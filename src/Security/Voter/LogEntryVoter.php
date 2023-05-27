@@ -32,9 +32,9 @@ class LogEntryVoter extends ExtendedVoter
 {
     public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
 
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security)
     {
         parent::__construct($resolver, $entityManager);
         $this->security = $security;

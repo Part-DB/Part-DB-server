@@ -36,10 +36,10 @@ use Symfony\Component\Security\Core\Security;
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator)
     {
         $this->security = $security;
 

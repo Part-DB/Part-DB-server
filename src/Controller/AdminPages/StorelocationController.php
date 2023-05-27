@@ -35,9 +35,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/store_location")
- */
+#[Route(path: '/store_location')]
 class StorelocationController extends BaseAdminController
 {
     protected string $entity_class = Storelocation::class;
@@ -47,44 +45,34 @@ class StorelocationController extends BaseAdminController
     protected string $attachment_class = StorelocationAttachment::class;
     protected ?string $parameter_class = StorelocationParameter::class;
 
-    /**
-     * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'store_location_delete', methods: ['DELETE'])]
     public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="store_location_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'store_location_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="store_location_new")
-     * @Route("/{id}/clone", name="store_location_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'store_location_new')]
+    #[Route(path: '/{id}/clone', name: 'store_location_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Storelocation $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="store_location_export_all")
-     */
+    #[Route(path: '/export', name: 'store_location_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="store_location_export")
-     */
+    #[Route(path: '/{id}/export', name: 'store_location_export')]
     public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

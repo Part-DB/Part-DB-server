@@ -38,13 +38,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a currency that can be used for price information.
  *
- * @UniqueEntity("iso_code")
  * @ORM\Entity()
  * @ORM\Table(name="currencies", indexes={
  *     @ORM\Index(name="currency_idx_name", columns={"name"}),
  *     @ORM\Index(name="currency_idx_parent_name", columns={"parent_id", "name"}),
  * })
  */
+#[UniqueEntity('iso_code')]
 class Currency extends AbstractStructuralDBElement
 {
     public const PRICE_SCALE = 5;
@@ -60,9 +60,9 @@ class Currency extends AbstractStructuralDBElement
     /**
      * @var string the 3-letter ISO code of the currency
      * @ORM\Column(type="string")
-     * @Assert\Currency()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Currency]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $iso_code = "";
 
     /**
@@ -81,15 +81,15 @@ class Currency extends AbstractStructuralDBElement
      * @var Collection<int, CurrencyAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $attachments;
 
     /** @var Collection<int, CurrencyParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>

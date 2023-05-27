@@ -38,10 +38,10 @@ use Symfony\Component\Security\Core\Security;
 final class PartsTableActionHandler
 {
     private EntityManagerInterface $entityManager;
-    private Security $security;
+    private \Symfony\Bundle\SecurityBundle\Security $security;
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator)
     {
         $this->entityManager = $entityManager;
         $this->security = $security;

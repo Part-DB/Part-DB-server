@@ -59,9 +59,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
 
-/**
- * @Route("/part")
- */
+#[Route(path: '/part')]
 class PartController extends AbstractController
 {
     protected PricedetailHelper $pricedetailHelper;
@@ -77,11 +75,11 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/info/{timestamp}", name="part_info")
-     * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @throws Exception
      */
+    #[Route(path: '/{id}/info/{timestamp}', name: 'part_info')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
         DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, PartLotWithdrawAddHelper $withdrawAddHelper, ?string $timestamp = null): Response
     {
@@ -129,9 +127,7 @@ class PartController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="part_edit")
-     */
+    #[Route(path: '/{id}/edit', name: 'part_edit')]
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
@@ -182,16 +178,14 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
-        return $this->renderForm('parts/edit/edit_part_info.html.twig',
+        return $this->render('parts/edit/edit_part_info.html.twig',
             [
                 'part' => $part,
                 'form' => $form,
             ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
     public function delete(Request $request, Part $part, EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $part);
@@ -213,12 +207,12 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="part_new")
-     * @Route("/{id}/clone", name="part_clone")
-     * @Route("/new_build_part/{project_id}", name="part_new_build_part")
      * @ParamConverter("part", options={"id" = "id"})
      * @ParamConverter("project", options={"id" = "project_id"})
      */
+    #[Route(path: '/new', name: 'part_new')]
+    #[Route(path: '/{id}/clone', name: 'part_clone')]
+    #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
         ?Part $part = null, ?Project $project = null): Response
@@ -328,16 +322,14 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 
-        return $this->renderForm('parts/edit/new_part.html.twig',
+        return $this->render('parts/edit/new_part.html.twig',
             [
                 'part' => $new_part,
                 'form' => $form,
             ]);
     }
 
-    /**
-     * @Route("/{id}/add_withdraw", name="part_add_withdraw", methods={"POST"})
-     */
+    #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response
     {
         if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {

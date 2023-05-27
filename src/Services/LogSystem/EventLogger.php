@@ -34,11 +34,11 @@ class EventLogger
     protected array $blacklist;
     protected array $whitelist;
     protected EntityManagerInterface $em;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected ConsoleInfoHelper $console_info_helper;
 
     public function __construct(int $minimum_log_level, array $blacklist, array $whitelist, EntityManagerInterface $em,
-        Security $security, ConsoleInfoHelper $console_info_helper)
+        \Symfony\Bundle\SecurityBundle\Security $security, ConsoleInfoHelper $console_info_helper)
     {
         $this->minimum_log_level = $minimum_log_level;
         $this->blacklist = $blacklist;

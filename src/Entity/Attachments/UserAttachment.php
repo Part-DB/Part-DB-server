@@ -30,8 +30,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * An attachment attached to a user element.
  *
  * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
 class UserAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = User::class;

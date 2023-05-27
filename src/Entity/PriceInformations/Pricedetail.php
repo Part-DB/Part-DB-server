@@ -44,8 +44,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     @ORM\Index(name="pricedetails_idx_min_discount_price_qty", columns={"min_discount_quantity", "price_related_quantity"}),
  * })
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"min_discount_quantity", "orderdetail"})
  */
+#[UniqueEntity(fields: ['min_discount_quantity', 'orderdetail'])]
 class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
@@ -56,8 +56,8 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
      * @ORM\Column(type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositive()
-     * @Groups({"extended", "full"})
      */
+    #[Groups(['extended', 'full'])]
     protected BigDecimal $price;
 
     /**
@@ -66,24 +66,24 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
     protected ?Currency $currency = null;
 
     /**
      * @var float
      * @ORM\Column(type="float")
-     * @Assert\Positive()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Positive]
+    #[Groups(['extended', 'full', 'import'])]
     protected float $price_related_quantity = 1.0;
 
     /**
      * @var float
      * @ORM\Column(type="float")
-     * @Assert\Positive()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Positive]
+    #[Groups(['extended', 'full', 'import'])]
     protected float $min_discount_quantity = 1.0;
 
     /**
@@ -96,8 +96,8 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var Orderdetail|null
      * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
     protected ?Orderdetail $orderdetail = null;
 
     public function __construct()

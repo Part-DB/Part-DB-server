@@ -35,8 +35,8 @@ trait MasterAttachmentTrait
      * @var Attachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      */
+    #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
     protected ?Attachment $master_picture_attachment = null;
 
     /**

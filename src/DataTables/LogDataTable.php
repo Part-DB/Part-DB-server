@@ -66,13 +66,13 @@ class LogDataTable implements DataTableTypeInterface
     protected UrlGeneratorInterface $urlGenerator;
     protected EntityURLGenerator $entityURLGenerator;
     protected LogEntryRepository $logRepo;
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected UserAvatarHelper $userAvatarHelper;
     protected LogLevelHelper $logLevelHelper;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
-        Security $security, UserAvatarHelper $userAvatarHelper, LogLevelHelper $logLevelHelper)
+        \Symfony\Bundle\SecurityBundle\Security $security, UserAvatarHelper $userAvatarHelper, LogLevelHelper $logLevelHelper)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;

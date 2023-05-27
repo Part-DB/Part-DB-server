@@ -31,8 +31,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * An attachment attached to a measurement unit element.
  *
  * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
 class MeasurementUnitAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = MeasurementUnit::class;

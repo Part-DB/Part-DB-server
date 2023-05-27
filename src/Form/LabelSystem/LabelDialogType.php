@@ -52,9 +52,9 @@ use Symfony\Component\Security\Core\Security;
 
 class LabelDialogType extends AbstractType
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(Security $security)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->security = $security;
     }

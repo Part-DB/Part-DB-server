@@ -30,8 +30,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * A attachment attached to a part element.
  *
  * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
 class PartAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Part::class;

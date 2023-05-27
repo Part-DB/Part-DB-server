@@ -40,9 +40,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table("project_bom_entries")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity()
- * @UniqueEntity(fields={"part", "project"}, message="project.bom_entry.part_already_in_bom")
- * @UniqueEntity(fields={"name", "project"}, message="project.bom_entry.name_already_in_bom", ignoreNull=true)
  */
+#[UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom')]
+#[UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom', ignoreNull: true)]
 class ProjectBOMEntry extends AbstractDBElement
 {
     use TimestampTrait;
@@ -50,8 +50,8 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var float
      * @ORM\Column(type="float", name="quantity")
-     * @Assert\Positive()
      */
+    #[Assert\Positive]
     protected float $quantity;
 
     /**
@@ -63,11 +63,8 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\Expression(
-     *     "this.getPart() !== null or this.getName() !== null",
-     *     message="validator.project.bom_entry.name_or_part_needed"
-     * )
      */
+    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
     protected ?string $name = null;
 
     /**
@@ -93,11 +90,8 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
      * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
-     * @Assert\AtLeastOneOf({
-     *     @BigDecimalPositive(),
-     *     @Assert\IsNull()
-     * })
      */
+    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
     protected ?BigDecimal $price;
 
     /**
@@ -269,9 +263,7 @@ class ProjectBOMEntry extends AbstractDBElement
         return $this->part !== null;
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part

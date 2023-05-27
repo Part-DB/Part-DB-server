@@ -40,9 +40,10 @@ use function count;
 
 use const DIRECTORY_SEPARATOR;
 
+#[\Symfony\Component\Console\Attribute\AsCommand('partdb:attachments:clean-unused|app:clean-attachments', 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')]
 class CleanAttachmentsCommand extends Command
 {
-    protected static $defaultName = 'partdb:attachments:clean-unused|app:clean-attachments';
+    protected static $defaultDescription = 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).';
 
     protected AttachmentManager $attachment_helper;
     protected AttachmentReverseSearch $reverseSearch;
@@ -60,10 +61,8 @@ class CleanAttachmentsCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')
-            ->setHelp('This command allows to find all files in the media folder which are not associated with an attachment anymore.'.
-                ' These files are not needed and can eventually deleted.');
+        $this->setHelp('This command allows to find all files in the media folder which are not associated with an attachment anymore.'.
+            ' These files are not needed and can eventually deleted.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -108,7 +107,7 @@ class CleanAttachmentsCommand extends Command
 
             if (!$continue) {
                 //We are finished here, when no files should be deleted
-                return 0;
+                return \Symfony\Component\Console\Command\Command::SUCCESS;
             }
 
             //Delete the files
@@ -121,7 +120,7 @@ class CleanAttachmentsCommand extends Command
             $io->success('No abandoned files found.');
         }
 
-        return 0;
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 
     /**

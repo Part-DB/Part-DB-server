@@ -41,9 +41,9 @@ use Symfony\Component\Security\Core\Security;
 class ParameterVoter extends ExtendedVoter
 {
 
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security)
     {
         $this->security = $security;
         parent::__construct($resolver, $entityManager);

@@ -44,10 +44,10 @@ use Symfony\Component\Validator\Constraints\File;
 
 class UserSettingsType extends AbstractType
 {
-    protected Security $security;
+    protected \Symfony\Bundle\SecurityBundle\Security $security;
     protected bool $demo_mode;
 
-    public function __construct(Security $security, bool $demo_mode)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, bool $demo_mode)
     {
         $this->security = $security;
         $this->demo_mode = $demo_mode;

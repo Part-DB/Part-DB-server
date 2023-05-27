@@ -46,10 +46,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/user")
- * Class UserController
- */
+#[Route(path: '/user')]
 class UserController extends AdminPages\BaseAdminController
 {
     protected string $entity_class = User::class;
@@ -76,11 +73,11 @@ class UserController extends AdminPages\BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
      *
      * @throws Exception
      */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'user_edit')]
+    #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
     public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {
         //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
@@ -148,19 +145,15 @@ class UserController extends AdminPages\BaseAdminController
         return true;
     }
 
-    /**
-     * @Route("/new", name="user_new")
-     * @Route("/{id}/clone", name="user_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'user_new')]
+    #[Route(path: '/{id}/clone', name: 'user_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?User $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}', name: 'user_delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         if (User::ID_ANONYMOUS === $entity->getID()) {
@@ -170,26 +163,20 @@ class UserController extends AdminPages\BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/export", name="user_export_all")
-     */
+    #[Route(path: '/export', name: 'user_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="user_export")
-     */
+    #[Route(path: '/{id}/export', name: 'user_export')]
     public function exportEntity(User $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
 
-    /**
-     * @Route("/info", name="user_info_self")
-     * @Route("/{id}/info", name="user_info")
-     */
+    #[Route(path: '/info', name: 'user_info_self')]
+    #[Route(path: '/{id}/info', name: 'user_info')]
     public function userInfo(?User $user, Packages $packages, Request $request, DataTableFactory $dataTableFactory): Response
     {
         //If no user id was passed, then we show info about the current user
@@ -229,7 +216,7 @@ class UserController extends AdminPages\BaseAdminController
             'data' => $user,
         ]);
 
-        return $this->renderForm('users/user_info.html.twig', [
+        return $this->render('users/user_info.html.twig', [
             'user' => $user,
             'form' => $builder->getForm(),
             'datatable' => $table ?? null,

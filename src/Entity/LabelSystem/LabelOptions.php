@@ -57,37 +57,37 @@ class LabelOptions
 
     /**
      * @var float The page size of the label in mm
-     * @Assert\Positive()
      * @ORM\Column(type="float")
      */
+    #[Assert\Positive]
     protected float $width = 50.0;
 
     /**
      * @var float The page size of the label in mm
-     * @Assert\Positive()
      * @ORM\Column(type="float")
      */
+    #[Assert\Positive]
     protected float $height = 30.0;
 
     /**
      * @var string The type of the barcode that should be used in the label (e.g. 'qr')
-     * @Assert\Choice(choices=LabelOptions::BARCODE_TYPES)
      * @ORM\Column(type="string")
      */
+    #[Assert\Choice(choices: LabelOptions::BARCODE_TYPES)]
     protected string $barcode_type = 'none';
 
     /**
      * @var string What image should be shown along the
-     * @Assert\Choice(choices=LabelOptions::PICTURE_TYPES)
      * @ORM\Column(type="string")
      */
+    #[Assert\Choice(choices: LabelOptions::PICTURE_TYPES)]
     protected string $picture_type = 'none';
 
     /**
      * @var string
-     * @Assert\Choice(choices=LabelOptions::SUPPORTED_ELEMENTS)
      * @ORM\Column(type="string")
      */
+    #[Assert\Choice(choices: LabelOptions::SUPPORTED_ELEMENTS)]
     protected string $supported_element = 'part';
 
     /**
@@ -97,9 +97,9 @@ class LabelOptions
     protected string $additional_css = '';
 
     /** @var string The mode that will be used to interpret the lines
-     * @Assert\Choice(choices=LabelOptions::LINES_MODES)
      * @ORM\Column(type="string")
      */
+    #[Assert\Choice(choices: LabelOptions::LINES_MODES)]
     protected string $lines_mode = 'html';
 
     /**

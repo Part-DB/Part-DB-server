@@ -42,9 +42,8 @@ class AttachmentFileController extends AbstractController
 {
     /**
      * Download the selected attachment.
-     *
-     * @Route("/attachment/{id}/download", name="attachment_download")
      */
+    #[Route(path: '/attachment/{id}/download', name: 'attachment_download')]
     public function download(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
         $this->denyAccessUnlessGranted('read', $attachment);
@@ -72,9 +71,8 @@ class AttachmentFileController extends AbstractController
 
     /**
      * View the attachment.
-     *
-     * @Route("/attachment/{id}/view", name="attachment_view")
      */
+    #[Route(path: '/attachment/{id}/view', name: 'attachment_view')]
     public function view(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
         $this->denyAccessUnlessGranted('read', $attachment);
@@ -100,9 +98,7 @@ class AttachmentFileController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/attachment/list", name="attachment_list")
-     */
+    #[Route(path: '/attachment/list', name: 'attachment_list')]
     public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder): Response
     {
         $this->denyAccessUnlessGranted('@attachments.list_attachments');
@@ -124,7 +120,7 @@ class AttachmentFileController extends AbstractController
 
         return $this->render('attachment_list.html.twig', [
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm,
         ]);
     }
 }
