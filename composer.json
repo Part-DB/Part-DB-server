@@ -2,7 +2,7 @@
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-gd": "*",
