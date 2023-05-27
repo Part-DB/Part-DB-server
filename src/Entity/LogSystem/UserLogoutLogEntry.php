@@ -25,9 +25,7 @@ namespace App\Entity\LogSystem;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\IpUtils;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class UserLogoutLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'user_logout';

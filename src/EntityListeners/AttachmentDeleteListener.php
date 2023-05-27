@@ -54,9 +54,8 @@ class AttachmentDeleteListener
 
     /**
      * Removes the file associated with the attachment, if the file associated with the attachment changes.
-     *
-     * @PreUpdate
      */
+    #[PreUpdate]
     public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event): void
     {
         if ($event->hasChangedField('path')) {
@@ -81,9 +80,8 @@ class AttachmentDeleteListener
 
     /**
      * Ensure that attachments are not used in preview, so that they can be deleted (without integrity violation).
-     *
-     * @ORM\PreRemove()
      */
+    #[ORM\PreRemove]
     public function preRemoveHandler(Attachment $attachment, PreRemoveEventArgs $event): void
     {
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
@@ -109,9 +107,8 @@ class AttachmentDeleteListener
 
     /**
      * Removes the file associated with the attachment, after the attachment was deleted.
-     *
-     * @PostRemove
      */
+    #[PostRemove]
     public function postRemoveHandler(Attachment $attachment, PostRemoveEventArgs $event): void
     {
         //Dont delete file if the attachment uses a builtin ressource:

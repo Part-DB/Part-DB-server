@@ -10,16 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
 trait ProjectTrait
 {
     /**
-     * @var Collection<int, ProjectBOMEntry> $project_bom_entries
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectSystem\ProjectBOMEntry", mappedBy="part", cascade={"remove"}, orphanRemoval=true)
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\ProjectSystem\ProjectBOMEntry> $project_bom_entries
      */
-    protected $project_bom_entries = [];
+    #[ORM\OneToMany(targetEntity: 'App\Entity\ProjectSystem\ProjectBOMEntry', mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
+    protected \Doctrine\Common\Collections\Collection $project_bom_entries = [];
 
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
-     * @ORM\OneToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="build_part")
-     * @ORM\JoinColumn(nullable=true)
      */
+    #[ORM\OneToOne(targetEntity: 'App\Entity\ProjectSystem\Project', inversedBy: 'build_part')]
+    #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 
     /**

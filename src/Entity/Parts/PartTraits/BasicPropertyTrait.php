@@ -33,49 +33,49 @@ trait BasicPropertyTrait
 {
     /**
      * @var string A text describing what this part does
-     * @ORM\Column(type="text")
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
-     * @ORM\Column(type="text")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool Kept for compatibility (it is not used now, and I don't think it was used in old versions)
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $visible = true;
 
     /**
      * @var bool true, if the part is marked as favorite
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $favorite = false;
 
     /**
      * @var Category|null The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
      *               Every part must have a category.
-     * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @Selectable()
      */
     #[Assert\NotNull(message: 'validator.select_valid_category')]
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'Category')]
+    #[ORM\JoinColumn(name: 'id_category', nullable: false)]
     protected ?Category $category = null;
 
     /**
      * @var Footprint|null The footprint of this part (e.g. DIP8)
-     * @ORM\ManyToOne(targetEntity="Footprint")
-     * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      * @Selectable()
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'Footprint')]
+    #[ORM\JoinColumn(name: 'id_footprint')]
     protected ?Footprint $footprint = null;
 
     /**

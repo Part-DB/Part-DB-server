@@ -37,63 +37,60 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Supplier.
- *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\SupplierRepository")
- * @ORM\Table("`suppliers`", indexes={
- *     @ORM\Index(name="supplier_idx_name", columns={"name"}),
- *     @ORM\Index(name="supplier_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\Parts\SupplierRepository')]
+#[ORM\Table('`suppliers`')]
+#[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
 class Supplier extends AbstractCompany
 {
     /**
-     * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'Supplier', mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Supplier', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="supplier")
+     * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\PriceInformations\Orderdetail>|\App\Entity\PriceInformations\Orderdetail[]
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Orderdetail', mappedBy: 'supplier')]
     protected Collection $orderdetails;
 
     /**
      * @var Currency|null The currency that should be used by default for order informations with this supplier.
      *                    Set to null, to use global base currency.
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(name="default_currency_id", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\JoinColumn(name: 'default_currency_id')]
     protected ?Currency $default_currency = null;
 
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
-     * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositiveOrZero()
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(name: 'shipping_costs', nullable: true, type: 'big_decimal', precision: 11, scale: 5)]
     protected ?BigDecimal $shipping_costs = null;
 
     /**
      * @var Collection<int, SupplierAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\SupplierAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, SupplierParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\SupplierParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
@@ -145,5 +142,13 @@ class Supplier extends AbstractCompany
         }
 
         return $this;
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderdetails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

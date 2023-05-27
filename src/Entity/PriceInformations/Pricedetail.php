@@ -37,15 +37,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Pricedetail.
- *
- * @ORM\Entity()
- * @ORM\Table("`pricedetails`", indexes={
- *     @ORM\Index(name="pricedetails_idx_min_discount", columns={"min_discount_quantity"}),
- *     @ORM\Index(name="pricedetails_idx_min_discount_price_qty", columns={"min_discount_quantity", "price_related_quantity"}),
- * })
- * @ORM\HasLifecycleCallbacks()
  */
 #[UniqueEntity(fields: ['min_discount_quantity', 'orderdetail'])]
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table('`pricedetails`')]
+#[ORM\Index(name: 'pricedetails_idx_min_discount', columns: ['min_discount_quantity'])]
+#[ORM\Index(name: 'pricedetails_idx_min_discount_price_qty', columns: ['min_discount_quantity', 'price_related_quantity'])]
 class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
@@ -54,50 +52,50 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
-     * @ORM\Column(type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositive()
      */
     #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5)]
     protected BigDecimal $price;
 
     /**
      * @var ?Currency The currency used for the current price information.
      *                If this is null, the global base unit is assumed.
-     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
-     * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'pricedetails')]
+    #[ORM\JoinColumn(name: 'id_currency')]
     protected ?Currency $currency = null;
 
     /**
      * @var float
-     * @ORM\Column(type="float")
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $price_related_quantity = 1.0;
 
     /**
      * @var float
-     * @ORM\Column(type="float")
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $min_discount_quantity = 1.0;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $manual_input = true;
 
     /**
      * @var Orderdetail|null
-     * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
-     * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: 'Orderdetail', inversedBy: 'pricedetails')]
+    #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Orderdetail $orderdetail = null;
 
     public function __construct()
@@ -115,10 +113,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');

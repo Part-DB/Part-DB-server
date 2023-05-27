@@ -30,9 +30,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected string $typeString = 'element_created';

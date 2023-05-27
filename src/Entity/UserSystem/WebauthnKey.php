@@ -24,30 +24,22 @@ use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
 
-/**
- * @ORM\Table(name="webauthn_keys")
- * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'webauthn_keys')]
 class WebauthnKey extends BasePublicKeyCredentialSource
 {
     use TimestampTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\GeneratedValue]
     protected int $id;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="webauthn_keys")
-     **/
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User', inversedBy: 'webauthn_keys')]
     protected ?User $user = null;
 
     /**

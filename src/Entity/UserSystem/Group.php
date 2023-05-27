@@ -35,65 +35,63 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a user group.
- *
- * @ORM\Entity()
- * @ORM\Table("`groups`", indexes={
- *     @ORM\Index(name="group_idx_name", columns={"name"}),
- *     @ORM\Index(name="group_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
+#[ORM\Entity]
+#[ORM\Table('`groups`')]
+#[ORM\Index(name: 'group_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection<int, self>
      */
+    #[ORM\OneToMany(targetEntity: 'Group', mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Group', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="group")
      * @var Collection<int, User>
      */
+    #[ORM\OneToMany(targetEntity: 'User', mappedBy: 'group')]
     protected Collection $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
-     * @ORM\Column(type="boolean", name="enforce_2fa")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'enforce_2fa')]
     protected bool $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\GroupAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
      * @var PermissionData|null
      * @ValidPermission()
-     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
     #[Groups(['full'])]
+    #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
     protected ?PermissionData $permissions = null;
 
     /** @var Collection<int, GroupParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\GroupParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()
     {
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();

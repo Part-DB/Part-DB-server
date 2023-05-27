@@ -24,9 +24,7 @@ namespace App\Entity\LogSystem;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class DatabaseUpdatedLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'database_updated';

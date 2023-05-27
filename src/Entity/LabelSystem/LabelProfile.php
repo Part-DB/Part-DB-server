@@ -48,42 +48,41 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LabelProfileRepository")
- * @ORM\Table(name="label_profiles")
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- */
 #[UniqueEntity(['name', 'options.supported_element'])]
+#[ORM\Entity(repositoryClass: 'App\Repository\LabelProfileRepository')]
+#[ORM\EntityListeners(['App\EntityListeners\TreeCacheInvalidationListener'])]
+#[ORM\Table(name: 'label_profiles')]
 class LabelProfile extends AttachmentContainingDBElement
 {
     /**
      * @var Collection<int, LabelAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\LabelAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\LabelAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
      * @var LabelOptions
-     * @ORM\Embedded(class="LabelOptions")
      */
     #[Assert\Valid]
+    #[ORM\Embedded(class: 'LabelOptions')]
     protected LabelOptions $options;
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $show_in_dropdown = true;
 
     public function __construct()
     {
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
         $this->options = new LabelOptions();
     }

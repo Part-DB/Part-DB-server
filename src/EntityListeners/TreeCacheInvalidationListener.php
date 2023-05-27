@@ -44,11 +44,9 @@ class TreeCacheInvalidationListener
         $this->keyGenerator = $keyGenerator;
     }
 
-    /**
-     * @ORM\PostUpdate()
-     * @ORM\PostPersist()
-     * @ORM\PostRemove()
-     */
+    #[ORM\PostUpdate]
+    #[ORM\PostPersist]
+    #[ORM\PostRemove]
     public function invalidate(AbstractDBElement $element, LifecycleEventArgs $event): void
     {
         //If an element was changed, then invalidate all cached trees with this element class

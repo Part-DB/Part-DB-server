@@ -51,29 +51,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @ORM\Table("parameters", indexes={
- *    @ORM\Index(name="parameter_name_idx", columns={"name"}),
- *    @ORM\Index(name="parameter_group_idx", columns={"param_group"}),
- *    @ORM\Index(name="parameter_type_element_idx", columns={"type", "element_id"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="smallint")
- * @ORM\DiscriminatorMap({
- *      0 = "CategoryParameter",
- *      1 = "CurrencyParameter",
- *      2 = "ProjectParameter",
- *      3 = "FootprintParameter",
- *      4 = "GroupParameter",
- *      5 = "ManufacturerParameter",
- *      6 = "MeasurementUnitParameter",
- *      7 = "PartParameter",
- *      8 = "StorelocationParameter",
- *      9 = "SupplierParameter",
- *      10 = "AttachmentTypeParameter"
- * })
- */
+#[ORM\Entity(repositoryClass: 'App\Repository\ParameterRepository')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
+#[ORM\DiscriminatorMap([0 => 'CategoryParameter', 1 => 'CurrencyParameter', 2 => 'ProjectParameter', 3 => 'FootprintParameter', 4 => 'GroupParameter', 5 => 'ManufacturerParameter', 6 => 'MeasurementUnitParameter', 7 => 'PartParameter', 8 => 'StorelocationParameter', 9 => 'SupplierParameter', 10 => 'AttachmentTypeParameter'])]
+#[ORM\Table('parameters')]
+#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
+#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
 abstract class AbstractParameter extends AbstractNamedDBElement
 {
     /**
@@ -83,59 +68,59 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
-     * @ORM\Column(type="string", nullable=false)
      */
     #[Assert\Length(max: 20)]
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $symbol = '';
 
     /**
      * @var float|null the guaranteed minimum value of this property
-     * @ORM\Column(type="float", nullable=true)
      */
     #[Assert\Type(['float', null])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
     /**
      * @var float|null the typical value of this property
-     * @ORM\Column(type="float", nullable=true)
      */
     #[Assert\Type([null, 'float'])]
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
     /**
      * @var float|null the maximum value of this property
-     * @ORM\Column(type="float", nullable=true)
      */
     #[Assert\Type(['float', null])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
-     * @ORM\Column(type="string", nullable=false)
      */
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
-     * @ORM\Column(type="string", nullable=false)
      */
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
-     * @ORM\Column(type="string", nullable=false, name="param_group")
      */
     #[Groups(['full'])]
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'param_group')]
     protected string $group = '';
 
     /**

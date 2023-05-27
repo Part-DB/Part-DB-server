@@ -34,68 +34,64 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, grams, meters, etc...
- *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\MeasurementUnitRepository")
- * @ORM\Table(name="`measurement_units`", indexes={
- *     @ORM\Index(name="unit_idx_name", columns={"name"}),
- *     @ORM\Index(name="unit_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
 #[UniqueEntity('unit')]
+#[ORM\Entity(repositoryClass: 'App\Repository\Parts\MeasurementUnitRepository')]
+#[ORM\Table(name: '`measurement_units`')]
+#[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
 class MeasurementUnit extends AbstractPartsContainingDBElement
 {
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)
      *             or m (for meters).
-     * @ORM\Column(type="string", name="unit", nullable=true)
      */
     #[Assert\Length(max: 10)]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'unit', nullable: true)]
     protected ?string $unit = null;
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
-     * @ORM\Column(type="boolean", name="is_integer")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'is_integer')]
     protected bool $is_integer = false;
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
      *           Useful for sizes like meters. For this the unit must be set
-     * @ORM\Column(type="boolean", name="use_si_prefix")
      */
     #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'use_si_prefix')]
     protected bool $use_si_prefix = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="MeasurementUnit", mappedBy="parent", cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'MeasurementUnit', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'MeasurementUnit', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\MeasurementUnitAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, MeasurementUnitParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\MeasurementUnitParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\MeasurementUnitParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
@@ -146,5 +142,12 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
         $this->use_si_prefix = $usesSIPrefixes;
 
         return $this;
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

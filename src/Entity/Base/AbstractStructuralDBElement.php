@@ -43,11 +43,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * It's allowed to have instances of root elements, but if you try to change
  * an attribute of a root element, you will get an exception!
  *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
  *
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  */
 #[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
+#[ORM\MappedSuperclass(repositoryClass: 'App\Repository\StructuralDBElementRepository')]
+#[ORM\EntityListeners(['App\EntityListeners\TreeCacheInvalidationListener'])]
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     use ParametersTrait;
@@ -61,17 +61,17 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool If this property is set, this element can not be selected for part properties.
      *           Useful if this element should be used only for grouping, sorting.
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $not_selectable = false;
 
     /**

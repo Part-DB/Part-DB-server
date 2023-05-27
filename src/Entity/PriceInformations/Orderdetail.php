@@ -39,63 +39,59 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Orderdetail.
- *
- * @ORM\Table("`orderdetails`", indexes={
- *    @ORM\Index(name="orderdetails_supplier_part_nr", columns={"supplierpartnr"}),
- * })
- * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks()
  */
 #[UniqueEntity(['supplierpartnr', 'supplier', 'part'])]
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table('`orderdetails`')]
+#[ORM\Index(name: 'orderdetails_supplier_part_nr', columns: ['supplierpartnr'])]
 class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
-     */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\OneToMany(targetEntity: 'Pricedetail', mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $supplierpartnr = '';
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $obsolete = false;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
     #[Assert\Url]
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $supplier_product_url = '';
 
     /**
      * @var Part|null
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
-     * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Part', inversedBy: 'orderdetails')]
+    #[ORM\JoinColumn(name: 'part_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Part $part = null;
 
     /**
      * @var Supplier|null
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
-     * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
      */
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Supplier', inversedBy: 'orderdetails')]
+    #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;
 
     public function __construct()
@@ -119,10 +115,9 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 
     /**
      * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');

@@ -36,28 +36,28 @@ trait InstockTrait
 {
     /**
      * @var Collection|PartLot[] A list of part lots where this part is stored
-     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"amount" = "DESC"})
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    protected $partLots;
+    #[ORM\OneToMany(targetEntity: 'PartLot', mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['amount' => 'DESC'])]
+    protected \Doctrine\Common\Collections\Collection $partLots;
 
     /**
      * @var float The minimum amount of the part that has to be instock, otherwise more is ordered.
      *            Given in the partUnit.
-     * @ORM\Column(type="float")
      */
     #[Assert\PositiveOrZero]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
-     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
-     * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: 'MeasurementUnit')]
+    #[ORM\JoinColumn(name: 'id_part_unit')]
     protected ?MeasurementUnit $partUnit = null;
 
     /**

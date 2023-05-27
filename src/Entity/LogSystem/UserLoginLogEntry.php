@@ -27,9 +27,8 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when a user logs in.
- *
- * @ORM\Entity()
  */
+#[ORM\Entity]
 class UserLoginLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'user_login';

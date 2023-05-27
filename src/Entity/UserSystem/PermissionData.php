@@ -25,9 +25,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * This class is used to store the permissions of a user.
  * This has to be an embeddable or otherwise doctrine could not track the changes of the underlying data array (which is serialized to JSON in the database)
- *
- * @ORM\Embeddable()
  */
+#[ORM\Embeddable]
 final class PermissionData implements \JsonSerializable
 {
     /**
@@ -48,8 +47,8 @@ final class PermissionData implements \JsonSerializable
      * permission => [
      *     operation => value,
      * ]
-     * @ORM\Column(type="json", name="data")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON, name: 'data')]
     protected ?array $data = [
         //$ prefixed entries are used for metadata
         '$ver' => self::CURRENT_SCHEMA_VERSION, //The schema version of the permission data

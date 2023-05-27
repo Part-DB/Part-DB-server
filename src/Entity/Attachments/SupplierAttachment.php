@@ -28,18 +28,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to a supplier element.
- *
- * @ORM\Entity()
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
+#[ORM\Entity]
 class SupplierAttachment extends Attachment
 {
     public const ALLOWED_ELEMENT_CLASS = Supplier::class;
 
     /**
      * @var Supplier|null the element this attachment is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="attachments")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Supplier', inversedBy: 'attachments')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

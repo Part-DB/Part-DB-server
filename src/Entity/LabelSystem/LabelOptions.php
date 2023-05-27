@@ -44,9 +44,7 @@ namespace App\Entity\LabelSystem;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Embeddable()
- */
+#[ORM\Embeddable]
 class LabelOptions
 {
     public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93', 'code128'];
@@ -57,55 +55,55 @@ class LabelOptions
 
     /**
      * @var float The page size of the label in mm
-     * @ORM\Column(type="float")
      */
     #[Assert\Positive]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $width = 50.0;
 
     /**
      * @var float The page size of the label in mm
-     * @ORM\Column(type="float")
      */
     #[Assert\Positive]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
     protected float $height = 30.0;
 
     /**
      * @var string The type of the barcode that should be used in the label (e.g. 'qr')
-     * @ORM\Column(type="string")
      */
     #[Assert\Choice(choices: LabelOptions::BARCODE_TYPES)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $barcode_type = 'none';
 
     /**
      * @var string What image should be shown along the
-     * @ORM\Column(type="string")
      */
     #[Assert\Choice(choices: LabelOptions::PICTURE_TYPES)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $picture_type = 'none';
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
     #[Assert\Choice(choices: LabelOptions::SUPPORTED_ELEMENTS)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $supported_element = 'part';
 
     /**
      * @var string any additional CSS for the label
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $additional_css = '';
 
     /** @var string The mode that will be used to interpret the lines
-     * @ORM\Column(type="string")
      */
     #[Assert\Choice(choices: LabelOptions::LINES_MODES)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $lines_mode = 'html';
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $lines = '';
 
     public function getWidth(): float

@@ -50,9 +50,8 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when something security related to a user happens.
- *
- * @ORM\Entity()
  */
+#[ORM\Entity]
 class SecurityEventLogEntry extends AbstractLogEntry
 {
     public const SECURITY_TYPE_MAPPING = [

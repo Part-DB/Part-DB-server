@@ -48,18 +48,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a category element.
- *
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
  */
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
+#[ORM\Entity(repositoryClass: 'App\Repository\ParameterRepository')]
 class CurrencyParameter extends AbstractParameter
 {
     public const ALLOWED_ELEMENT_CLASS = Currency::class;
 
     /**
      * @var Currency the element this para is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", inversedBy="parameters")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency', inversedBy: 'parameters')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AbstractDBElement $element = null;
 }

@@ -30,9 +30,7 @@ use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface, LogWithNewDataInterface
 {
     protected string $typeString = 'element_edited';

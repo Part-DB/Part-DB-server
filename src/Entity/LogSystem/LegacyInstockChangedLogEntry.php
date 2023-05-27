@@ -24,9 +24,7 @@ namespace App\Entity\LogSystem;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class LegacyInstockChangedLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'instock_changed';

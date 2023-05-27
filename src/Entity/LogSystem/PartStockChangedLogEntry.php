@@ -23,9 +23,7 @@ namespace App\Entity\LogSystem;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class PartStockChangedLogEntry extends AbstractLogEntry
 {
     public const TYPE_ADD = "add";

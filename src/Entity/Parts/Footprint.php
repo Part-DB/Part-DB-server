@@ -31,48 +31,44 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Footprint.
- *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\FootprintRepository")
- * @ORM\Table("`footprints`", indexes={
- *     @ORM\Index(name="footprint_idx_name", columns={"name"}),
- *     @ORM\Index(name="footprint_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\Parts\FootprintRepository')]
+#[ORM\Table('`footprints`')]
+#[ORM\Index(name: 'footprint_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'footprint_idx_parent_name', columns: ['parent_id', 'name'])]
 class Footprint extends AbstractPartsContainingDBElement
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Footprint', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'Footprint', mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     /**
      * @var Collection<int, FootprintAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\FootprintAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
      * @var FootprintAttachment|null
-     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\FootprintAttachment")
-     * @ORM\JoinColumn(name="id_footprint_3d", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Attachments\FootprintAttachment')]
+    #[ORM\JoinColumn(name: 'id_footprint_3d')]
     protected ?FootprintAttachment $footprint_3d = null;
 
     /** @var Collection<int, FootprintParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\FootprintParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\FootprintParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /****************************************
@@ -105,5 +101,12 @@ class Footprint extends AbstractPartsContainingDBElement
         $this->footprint_3d = $new_attachment;
 
         return $this;
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

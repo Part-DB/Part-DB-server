@@ -36,30 +36,30 @@ trait OrderTrait
 {
     /**
      * @var Orderdetail[]|Collection the details about how and where you can order this part
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"supplierpartnr" = "ASC"})
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    protected $orderdetails;
+    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Orderdetail', mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
+    protected \Doctrine\Common\Collections\Collection $orderdetails;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $manual_order = false;
 
     /**
      * @var Orderdetail|null
-     * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
-     * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      */
+    #[ORM\OneToOne(targetEntity: 'App\Entity\PriceInformations\Orderdetail')]
+    #[ORM\JoinColumn(name: 'order_orderdetails_id')]
     protected ?Orderdetail $order_orderdetail = null;
 
     /**

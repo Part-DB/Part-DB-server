@@ -37,14 +37,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity describes a currency that can be used for price information.
- *
- * @ORM\Entity()
- * @ORM\Table(name="currencies", indexes={
- *     @ORM\Index(name="currency_idx_name", columns={"name"}),
- *     @ORM\Index(name="currency_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
 #[UniqueEntity('iso_code')]
+#[ORM\Entity]
+#[ORM\Table(name: 'currencies')]
+#[ORM\Index(name: 'currency_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'currency_idx_parent_name', columns: ['parent_id', 'name'])]
 class Currency extends AbstractStructuralDBElement
 {
     public const PRICE_SCALE = 5;
@@ -52,53 +50,52 @@ class Currency extends AbstractStructuralDBElement
     /**
      * @var BigDecimal|null The exchange rate between this currency and the base currency
      *                      (how many base units the current currency is worth)
-     * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
      * @BigDecimalPositive()
      */
+    #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
     protected ?BigDecimal $exchange_rate = null;
 
     /**
      * @var string the 3-letter ISO code of the currency
-     * @ORM\Column(type="string")
      */
     #[Assert\Currency]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $iso_code = "";
 
-    /**
-     * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: 'Currency', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var Collection<int, CurrencyAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\CurrencyAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, CurrencyParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\CurrencyParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Pricedetail", mappedBy="currency")
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Pricedetail', mappedBy: 'currency')]
     protected Collection $pricedetails;
 
     public function __construct()
     {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pricedetails = new ArrayCollection();
         parent::__construct();
     }

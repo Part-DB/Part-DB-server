@@ -34,19 +34,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          (except special tables like "internal"...)
  * Every database table which are managed with this class (or a subclass of it)
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
- *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\DBElementRepository")
  */
 #[DiscriminatorMap(typeProperty: 'type', mapping: ['attachment_type' => 'App\Entity\Attachments\AttachmentType', 'attachment' => 'App\Entity\Attachments\Attachment', 'attachment_type_attachment' => 'App\Entity\Attachments\AttachmentTypeAttachment', 'category_attachment' => 'App\Entity\Attachments\CategoryAttachment', 'currency_attachment' => 'App\Entity\Attachments\CurrencyAttachment', 'footprint_attachment' => 'App\Entity\Attachments\FootprintAttachment', 'group_attachment' => 'App\Entity\Attachments\GroupAttachment', 'label_attachment' => 'App\Entity\Attachments\LabelAttachment', 'manufacturer_attachment' => 'App\Entity\Attachments\ManufacturerAttachment', 'measurement_unit_attachment' => 'App\Entity\Attachments\MeasurementUnitAttachment', 'part_attachment' => 'App\Entity\Attachments\PartAttachment', 'project_attachment' => 'App\Entity\Attachments\ProjectAttachment', 'storelocation_attachment' => 'App\Entity\Attachments\StorelocationAttachment', 'supplier_attachment' => 'App\Entity\Attachments\SupplierAttachment', 'user_attachment' => 'App\Entity\Attachments\UserAttachment', 'category' => 'App\Entity\Parts\Category', 'project' => 'App\Entity\ProjectSystem\Project', 'project_bom_entry' => 'App\Entity\ProjectSystem\ProjectBOMEntry', 'footprint' => 'App\Entity\Parts\Footprint', 'group' => 'App\Entity\UserSystem\Group', 'manufacturer' => 'App\Entity\Parts\Manufacturer', 'orderdetail' => 'App\Entity\PriceInformations\Orderdetail', 'part' => 'App\Entity\Parts\Part', 'pricedetail' => 'App\Entity\PriceInformation\Pricedetail', 'storelocation' => 'App\Entity\Parts\Storelocation', 'part_lot' => 'App\Entity\Parts\PartLot', 'currency' => 'App\Entity\PriceInformations\Currency', 'measurement_unit' => 'App\Entity\Parts\MeasurementUnit', 'parameter' => 'App\Entity\Parts\AbstractParameter', 'supplier' => 'App\Entity\Parts\Supplier', 'user' => 'App\Entity\UserSystem\User'])]
+#[ORM\MappedSuperclass(repositoryClass: 'App\Repository\DBElementRepository')]
 abstract class AbstractDBElement implements JsonSerializable
 {
     /** @var int|null The Identification number for this part. This value is unique for the element in this table.
      * Null if the element is not saved to DB yet.
-     * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
      */
     #[Groups(['full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     protected ?int $id = null;
 
     public function __clone()

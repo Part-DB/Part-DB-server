@@ -25,9 +25,7 @@ namespace App\Entity\LogSystem;
 use App\Exceptions\LogEntryObsoleteException;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ExceptionLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'exception';

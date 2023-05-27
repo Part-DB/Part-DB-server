@@ -36,74 +36,63 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class AttachmentType.
- *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\DeviceRepository")
- * @ORM\Table(name="projects")
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\Parts\DeviceRepository')]
+#[ORM\Table(name: 'projects')]
 class Project extends AbstractStructuralDBElement
 {
     /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'Project', mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Project', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
     #[Assert\Valid]
     #[Groups(['extended', 'full'])]
+    #[ORM\OneToMany(targetEntity: 'ProjectBOMEntry', mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $bom_entries;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
      * @var string|null The current status of the project
-     * @ORM\Column(type="string", length=64, nullable=true)
      */
     #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
     #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 
 
     /**
      * @var Part|null The (optional) part that represents the builds of this project in the stock
-     * @ORM\OneToOne(targetEntity="App\Entity\Parts\Part", mappedBy="built_project", cascade={"persist"}, orphanRemoval=true)
      */
+    #[ORM\OneToOne(targetEntity: 'App\Entity\Parts\Part', mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
     protected ?Part $build_part = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $order_only_missing_parts = false;
 
-    /**
-     * @ORM\Column(type="text", nullable=false)
-     */
     #[Groups(['simple', 'extended', 'full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var Collection<int, ProjectAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ProjectAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\ProjectAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ProjectParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ProjectParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\ProjectParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /********************************************************************************
@@ -114,6 +103,8 @@ class Project extends AbstractStructuralDBElement
 
     public function __construct()
     {
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
         $this->children = new ArrayCollection();

@@ -32,56 +32,52 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
- *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table(name="`attachment_types`", indexes={
- *     @ORM\Index(name="attachment_types_idx_name", columns={"name"}),
- *     @ORM\Index(name="attachment_types_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\StructuralDBElementRepository')]
+#[ORM\Table(name: '`attachment_types`')]
+#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    /**
-     * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: 'AttachmentType', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'AttachmentType', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent;
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      * @ValidFileFilter
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $filetype_filter = '';
     /**
      * @var Collection<int, AttachmentTypeAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\AttachmentTypeAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, AttachmentTypeParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\AttachmentTypeParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
-     * @var Collection<int, Attachment>
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\Attachments\Attachment>
      */
-    protected $attachments_with_type;
+    #[ORM\OneToMany(targetEntity: 'Attachment', mappedBy: 'attachment_type')]
+    protected \Doctrine\Common\Collections\Collection $attachments_with_type;
 
     public function __construct()
     {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
         $this->attachments = new ArrayCollection();
         $this->attachments_with_type = new ArrayCollection();

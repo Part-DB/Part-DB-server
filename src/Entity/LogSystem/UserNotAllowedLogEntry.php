@@ -24,9 +24,7 @@ namespace App\Entity\LogSystem;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class UserNotAllowedLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'user_not_allowed';

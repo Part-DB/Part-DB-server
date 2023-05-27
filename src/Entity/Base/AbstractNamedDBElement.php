@@ -30,20 +30,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * All subclasses of this class have an attribute "name".
- *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\NamedDBElement")
- * @ORM\HasLifecycleCallbacks()
  */
+#[ORM\MappedSuperclass(repositoryClass: 'App\Repository\NamedDBElement')]
+#[ORM\HasLifecycleCallbacks]
 abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface
 {
     use TimestampTrait;
 
     /**
      * @var string the name of this element
-     * @ORM\Column(type="string")
      */
     #[Assert\NotBlank]
     #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $name = '';
 
     /******************************************************************************

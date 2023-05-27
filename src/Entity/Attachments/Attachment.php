@@ -33,27 +33,17 @@ use LogicException;
 
 /**
  * Class Attachment.
- *
- * @ORM\Entity(repositoryClass="App\Repository\AttachmentRepository")
- * @ORM\Table(name="`attachments`", indexes={
- *    @ORM\Index(name="attachments_idx_id_element_id_class_name", columns={"id", "element_id", "class_name"}),
- *    @ORM\Index(name="attachments_idx_class_name_id", columns={"class_name", "id"}),
- *    @ORM\Index(name="attachment_name_idx", columns={"name"}),
- *    @ORM\Index(name="attachment_element_idx", columns={"class_name", "element_id"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="class_name", type="string")
- * @ORM\DiscriminatorMap({
- *     "PartDB\Part" = "PartAttachment", "Part" = "PartAttachment",
- *     "PartDB\Device" = "ProjectAttachment", "Device" = "ProjectAttachment",
- *     "AttachmentType" = "AttachmentTypeAttachment", "Category" = "CategoryAttachment",
- *     "Footprint" = "FootprintAttachment", "Manufacturer" = "ManufacturerAttachment",
- *     "Currency" = "CurrencyAttachment", "Group" = "GroupAttachment",
- *     "MeasurementUnit" = "MeasurementUnitAttachment", "Storelocation" = "StorelocationAttachment",
- *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment", "LabelProfile" = "LabelAttachment",
- * })
- * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\AttachmentRepository')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
+#[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
+#[ORM\EntityListeners(['App\EntityListeners\AttachmentDeleteListener'])]
+#[ORM\Table(name: '`attachments`')]
+#[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
+#[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
+#[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
@@ -86,22 +76,22 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * @var string|null the original filename the file had, when the user uploaded it
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     protected ?string $original_filename = null;
 
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
-     * @ORM\Column(type="string", name="path")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'path')]
     protected string $path = '';
 
     /**
      * @var string the name of this element
-     * @ORM\Column(type="string")
      */
     #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
     #[Groups(['simple', 'extended', 'full'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $name = '';
 
     /**
@@ -111,17 +101,17 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $show_in_table = false;
 
     /**
      * @var AttachmentType|null
-     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      * @Selectable()
      */
     #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
+    #[ORM\ManyToOne(targetEntity: 'AttachmentType', inversedBy: 'attachments_with_type')]
+    #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     protected ?AttachmentType $attachment_type = null;
 
     public function __construct()

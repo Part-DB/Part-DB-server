@@ -34,32 +34,32 @@ trait AdvancedPropertyTrait
 {
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
-     * @ORM\Column(type="text")
      */
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $tags = '';
 
     /**
      * @var float|null how much a single part unit weighs in grams
-     * @ORM\Column(type="float", nullable=true)
      */
     #[Assert\PositiveOrZero]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
     protected ?float $mass = null;
 
     /**
      * @var string|null The internal part number of the part
-     * @ORM\Column(type="string", length=100, nullable=true, unique=true)
      */
     #[Assert\Length(max: 100)]
     #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 100, nullable: true, unique: true)]
     protected ?string $ipn = null;
 
     /**

@@ -36,70 +36,69 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * The ProjectBOMEntry class represents an entry in a project's BOM.
- *
- * @ORM\Table("project_bom_entries")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity()
  */
 #[UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom')]
 #[UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom', ignoreNull: true)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Entity]
+#[ORM\Table('project_bom_entries')]
 class ProjectBOMEntry extends AbstractDBElement
 {
     use TimestampTrait;
 
     /**
      * @var float
-     * @ORM\Column(type="float", name="quantity")
      */
     #[Assert\Positive]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, name: 'quantity')]
     protected float $quantity;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
-     * @ORM\Column(type="text", name="mountnames")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'mountnames')]
     protected string $mountnames = '';
 
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
-     * @ORM\Column(type="string", nullable=true)
      */
     #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $comment;
 
     /**
      * @var Project|null
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="bom_entries")
-     * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: 'Project', inversedBy: 'bom_entries')]
+    #[ORM\JoinColumn(name: 'id_device')]
     protected ?Project $project = null;
 
     /**
      * @var Part|null The part associated with this
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="project_bom_entries")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Part', inversedBy: 'project_bom_entries')]
+    #[ORM\JoinColumn(name: 'id_part')]
     protected ?Part $part = null;
 
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
-     * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
+    #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
     protected ?BigDecimal $price;
 
     /**
      * @var ?Currency The currency for the price of this non-part BOM entry
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(nullable=true)
      * @Selectable()
      */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\JoinColumn]
     protected ?Currency $price_currency = null;
 
     public function __construct()

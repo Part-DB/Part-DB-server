@@ -32,9 +32,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected string $typeString = 'element_deleted';

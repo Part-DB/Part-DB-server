@@ -33,99 +33,95 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
- *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\CategoryRepository")
- * @ORM\Table(name="`categories`", indexes={
- *     @ORM\Index(name="category_idx_name", columns={"name"}),
- *     @ORM\Index(name="category_idx_parent_name", columns={"parent_id", "name"}),
- * })
  */
+#[ORM\Entity(repositoryClass: 'App\Repository\Parts\CategoryRepository')]
+#[ORM\Table(name: '`categories`')]
+#[ORM\Index(name: 'category_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
 class Category extends AbstractPartsContainingDBElement
 {
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'Category', mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $partname_hint = '';
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $partname_regex = '';
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
     protected bool $disable_properties = false;
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $default_description = '';
 
     /**
      * @var string
-     * @ORM\Column(type="text")
      */
     #[Groups(['full', 'import'])]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     protected string $default_comment = '';
 
     /**
      * @var Collection<int, CategoryAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     #[Assert\Valid]
     #[Groups(['full'])]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\CategoryAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, CategoryParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     #[Assert\Valid]
     #[Groups(['full'])]
+    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\CategoryParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function getPartnameHint(): string
@@ -246,5 +242,12 @@ class Category extends AbstractPartsContainingDBElement
         $this->default_comment = $default_comment;
 
         return $this;
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }
