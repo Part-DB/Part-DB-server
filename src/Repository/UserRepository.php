@@ -24,6 +24,7 @@ namespace App\Repository;
 
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -82,7 +83,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
         }
     }
 
-    public function upgradePassword(UserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(UserInterface|PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if ($user instanceof User) {
             $user->setPassword($newHashedPassword);

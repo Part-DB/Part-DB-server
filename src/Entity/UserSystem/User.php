@@ -30,8 +30,8 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use App\Validator\Constraints\ValidTheme;
-use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
+use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Webauthn\PublicKeyCredentialUserEntity;
@@ -967,7 +967,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
 
 
-    public function setSamlAttributes(array $attributes)
+    public function setSamlAttributes(array $attributes): void
     {
         //When mail attribute exists, set it
         if (isset($attributes['email'])) {

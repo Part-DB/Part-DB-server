@@ -54,7 +54,7 @@ class LabelResponse extends Response
         parent::__construct($content, $status, $headers);
     }
 
-    public function setContent($content): self
+    public function setContent($content): static
     {
         parent::setContent($content);
 
@@ -64,7 +64,7 @@ class LabelResponse extends Response
         return $this;
     }
 
-    public function prepare(Request $request): self
+    public function prepare(Request $request): static
     {
         parent::prepare($request);
 
