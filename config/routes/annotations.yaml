@@ -1,6 +1,8 @@
 controllers:
-    resource: ../../src/Controller/
-    type: annotation
+    resource:
+        path: ../../src/Controller/
+        namespace: App\Controller
+    type: attribute
     prefix: '{_locale}'
 
     defaults:
@@ -11,4 +13,4 @@ controllers:
 
 kernel:
     resource: ../../src/Kernel.php
-    type: annotation
+    type: attribute

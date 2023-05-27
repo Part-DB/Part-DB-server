@@ -1,9 +1,3 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
-
 # Redirect every url without an locale to the locale of the user/the global base locale
 
 scan_qr:
