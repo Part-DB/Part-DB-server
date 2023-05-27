@@ -46,18 +46,19 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Psr\Log\LogLevel;
+use App\Repository\LogEntryRepository;
 
 /**
  * This entity describes an entry in the event log.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\LogEntryRepository')]
+#[ORM\Entity(repositoryClass: LogEntryRepository::class)]
+#[ORM\Table('log')]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
 #[ORM\DiscriminatorMap([1 => 'UserLoginLogEntry', 2 => 'UserLogoutLogEntry', 3 => 'UserNotAllowedLogEntry', 4 => 'ExceptionLogEntry', 5 => 'ElementDeletedLogEntry', 6 => 'ElementCreatedLogEntry', 7 => 'ElementEditedLogEntry', 8 => 'ConfigChangedLogEntry', 9 => 'LegacyInstockChangedLogEntry', 10 => 'DatabaseUpdatedLogEntry', 11 => 'CollectionElementDeleted', 12 => 'SecurityEventLogEntry', 13 => 'PartStockChangedLogEntry'])]
-#[ORM\Table('log')]
-#[ORM\Index(name: 'log_idx_type', columns: ['type'])]
-#[ORM\Index(name: 'log_idx_type_target', columns: ['type', 'target_type', 'target_id'])]
-#[ORM\Index(name: 'log_idx_datetime', columns: ['datetime'])]
+#[ORM\Index(columns: ['type'], name: 'log_idx_type')]
+#[ORM\Index(columns: ['type', 'target_type', 'target_id'], name: 'log_idx_type_target')]
+#[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
     public const LEVEL_EMERGENCY = 0;
