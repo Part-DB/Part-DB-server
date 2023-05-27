@@ -70,7 +70,8 @@ class CheckRequirementsCommand extends Command
     {
         //Check PHP versions
         $io->isVerbose() && $io->comment('Checking PHP version...');
-        if (PHP_VERSION_ID < 80100) {
+        //We recommend PHP 8.2, but 8.1 is the minimum
+        if (PHP_VERSION_ID < 80200) {
             $io->warning('You are using PHP '. PHP_VERSION .'. This will work, but a newer version is recommended.');
         } else {
             !$only_issues && $io->success('PHP version is sufficient.');
