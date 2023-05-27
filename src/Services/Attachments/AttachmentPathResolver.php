@@ -134,7 +134,7 @@ class AttachmentPathResolver
         $count = 0;
 
         //When path is a footprint we have to first run the string through our lecagy german mapping functions
-        if (strpos($placeholder_path, '%FOOTPRINTS%') !== false) {
+        if (str_contains($placeholder_path, '%FOOTPRINTS%')) {
             $placeholder_path = $this->convertOldFootprintPath($placeholder_path);
         }
 
@@ -151,7 +151,7 @@ class AttachmentPathResolver
         }
 
         //Path is invalid if path is directory traversal
-        if (false !== strpos($placeholder_path, '..')) {
+        if (str_contains($placeholder_path, '..')) {
             return null;
         }
 

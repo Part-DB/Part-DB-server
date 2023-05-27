@@ -96,7 +96,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
 
         /* Dont redirect tree endpoints, as this would cause trouble and creates multiple flash
         warnigs for one page reload */
-        if (false !== strpos($request->getUri(), '/tree/')) {
+        if (str_contains($request->getUri(), '/tree/')) {
             return;
         }
 

@@ -79,7 +79,7 @@ final class BarcodeGenerator
         $repr = 'data:';
 
         $repr .= $mime;
-        if (0 === strpos($mime, 'text/')) {
+        if (str_starts_with($mime, 'text/')) {
             $repr .= ','.rawurlencode($data);
         } else {
             $repr .= ';base64,'.base64_encode($data);

@@ -128,7 +128,7 @@ final class PermissionData implements \JsonSerializable
     public function isPermissionSet(string $permission, string $operation): bool
     {
         //We cannot access metadata via normal permission data
-        if (strpos($permission, '$') !== false) {
+        if (str_contains($permission, '$')) {
             return false;
         }
 

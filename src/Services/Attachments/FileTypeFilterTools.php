@@ -108,7 +108,7 @@ class FileTypeFilterTools
             }
 
             //Convert *.jpg to .jpg
-            if (0 === strpos($element, '*.')) {
+            if (str_starts_with($element, '*.')) {
                 $element = str_replace('*.', '.', $element);
             }
 
@@ -119,7 +119,7 @@ class FileTypeFilterTools
                 $element = 'video/*';
             } elseif ('audio' === $element || 'audio/' === $element) {
                 $element = 'audio/*';
-            } elseif (!preg_match('#^[-\w.]+/[-\w.*]+#', $element) && 0 !== strpos($element, '.')) {
+            } elseif (!preg_match('#^[-\w.]+/[-\w.*]+#', $element) && !str_starts_with($element, '.')) {
                 //Convert jpg to .jpg
                 $element = '.'.$element;
             }
@@ -147,7 +147,7 @@ class FileTypeFilterTools
 
             foreach ($elements as $element) {
                 $element = trim($element);
-                if (0 === strpos($element, '.')) {
+                if (str_starts_with($element, '.')) {
                     //We found an explicit specified file extension -> add it to list
                     $extensions[] = substr($element, 1);
                 } elseif ('image/*' === $element) {

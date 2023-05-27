@@ -215,7 +215,7 @@ class PermissionManager
                         //Set every op listed in also Set
                         foreach ($op['alsoSet'] as $set_also) {
                             //If the alsoSet value contains a dot then we set the operation of another permission
-                            if (false !== strpos($set_also, '.')) {
+                            if (str_contains($set_also, '.')) {
                                 [$set_perm, $set_op] = explode('.', $set_also);
                             } else {
                                 //Else we set the operation of the same permission

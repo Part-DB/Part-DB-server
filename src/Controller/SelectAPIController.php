@@ -198,7 +198,7 @@ class SelectAPIController extends AbstractController
                 //Remove the data-* prefix for each key
                 $data = array_combine(
                     array_map(static function ($key) {
-                        if (strpos($key, 'data-') === 0) {
+                        if (str_starts_with($key, 'data-')) {
                             return substr($key, 5);
                         }
                         return $key;

@@ -78,7 +78,7 @@ class AttachmentURLGenerator
         }
 
         //Our absolute path must begin with public path, or we can not use it for asset pathes.
-        if (0 !== strpos($absolute_path, $public_path)) {
+        if (!str_starts_with($absolute_path, $public_path)) {
             return null;
         }
 

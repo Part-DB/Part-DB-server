@@ -138,7 +138,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
 
         //Check if we need to make this thing small
         if (isset($options['attr']['class'])) {
-            $view->vars['sm'] = false !== strpos($options['attr']['class'], 'form-control-sm');
+            $view->vars['sm'] = str_contains($options['attr']['class'], 'form-control-sm');
         }
 
         $view->vars['unit'] = $options['unit'];

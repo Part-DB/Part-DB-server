@@ -222,7 +222,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function isCLIEntry(): bool
     {
-        return strpos($this->username, '!!!CLI ') === 0;
+        return str_starts_with($this->username, '!!!CLI ');
     }
 
     /**
