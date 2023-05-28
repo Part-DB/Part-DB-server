@@ -22,7 +22,7 @@ namespace App\Tests\Security;
 
 use App\Entity\UserSystem\User;
 use App\Security\EnsureSAMLUserForSAMLLoginChecker;
-use Hslavich\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
+use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;

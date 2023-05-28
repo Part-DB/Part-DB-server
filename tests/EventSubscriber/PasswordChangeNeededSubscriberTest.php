@@ -27,7 +27,7 @@ use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 
 class PasswordChangeNeededSubscriberTest extends TestCase
@@ -61,7 +61,7 @@ class PasswordChangeNeededSubscriberTest extends TestCase
             [],
             "Test",
             new EmptyTrustPath(),
-            Uuid::fromDateTime(new \DateTime()),
+           Uuid::v4(),
             "",
             "",
             0
