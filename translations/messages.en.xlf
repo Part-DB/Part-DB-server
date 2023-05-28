@@ -242,7 +242,7 @@
       </notes>
       <segment state="final">
         <source>part.info.timetravel_hint</source>
-        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the infos are maybe not correct.&lt;/i&gt;</target>
+        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the info may not be correct.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
@@ -264,7 +264,7 @@
       </notes>
       <segment state="translated">
         <source>infos.label</source>
-        <target>Infos</target>
+        <target>Info</target>
       </segment>
     </unit>
     <unit id="PNqzf_X" name="history.label">
@@ -560,7 +560,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.labelp</source>
-        <target>Store locations</target>
+        <target>Storage locations</target>
       </segment>
     </unit>
     <unit id="eSA7p5N" name="storelocation.edit">
@@ -570,7 +570,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit</source>
-        <target>Edit store location</target>
+        <target>Edit storage location</target>
       </segment>
     </unit>
     <unit id="eIvG1.A" name="storelocation.new">
@@ -580,7 +580,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>New store location</target>
+        <target>New storage location</target>
       </segment>
     </unit>
     <unit id="ykqfBBp" name="supplier.caption">
@@ -1899,7 +1899,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.tab.orderdetails</source>
-        <target>Purchase informations</target>
+        <target>Purchase information</target>
       </segment>
     </unit>
     <unit id="fLuFk_2" name="part.edit.tab.specifications">
@@ -2049,7 +2049,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>vendor.partinfo.shopping_infos</source>
-        <target>Shopping informations</target>
+        <target>Shopping information</target>
       </segment>
     </unit>
     <unit id="1Soir6U" name="vendor.partinfo.history">
@@ -2089,7 +2089,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>extended_info.label</source>
-        <target>Extended infos</target>
+        <target>Extended info</target>
       </segment>
     </unit>
     <unit id="vMya34Z" name="attachment.name">
@@ -2623,7 +2623,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>part.delete.message</source>
-        <target>This part and any associated information (like attachments, price informations, etc.) will be deleted. This can not be undone!</target>
+        <target>This part and any associated information (like attachments, price information, etc.) will be deleted. This can not be undone!</target>
       </segment>
     </unit>
     <unit id="CJHxw_e" name="part.delete">
@@ -2693,7 +2693,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
-        <target>Parts with store locations</target>
+        <target>Parts with storage locations</target>
       </segment>
     </unit>
     <unit id="K3Nj1UQ" name="parts_list.supplier.title">
@@ -3395,7 +3395,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>user.info.label</source>
-        <target>User informations</target>
+        <target>User information</target>
       </segment>
     </unit>
     <unit id="PwI64fM" name="user.firstName.label">
@@ -4003,7 +4003,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>storelocation.label</source>
-        <target>Store location</target>
+        <target>Storage location</target>
       </segment>
     </unit>
     <unit id="z1DQ7QF" name="ordernumber.label.short">
@@ -4828,7 +4828,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>part.table.storeLocations</source>
-        <target>Store locations</target>
+        <target>Storage locations</target>
       </segment>
     </unit>
     <unit id="rD.1skI" name="part.table.amount">
@@ -7368,7 +7368,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.help</source>
-        <target>If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
+        <target>If this option is activated, only a single part (with every amount) can be assigned to this storage location. Useful for small SMD boxes or feeders.</target>
       </segment>
     </unit>
     <unit id="AE1UiRe" name="storelocation.storage_type.label">
@@ -7819,7 +7819,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.no_price_parts</source>
-        <target>List parts without price infos</target>
+        <target>List parts without price info</target>
       </segment>
     </unit>
     <unit id="ym76SPS" name="perm.part.obsolete_parts">
@@ -7969,7 +7969,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.orderdetails</source>
-        <target>Order informations</target>
+        <target>Order information</target>
       </segment>
     </unit>
     <unit id="4CedmDv" name="perm.part.prices">
@@ -8189,7 +8189,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.users.edit_infos</source>
-        <target>Edit infos</target>
+        <target>Edit info</target>
       </segment>
     </unit>
     <unit id="Q1NDQfs" name="perm.users.edit_permissions">
@@ -8329,7 +8329,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.self.edit_infos</source>
-        <target>Edit infos</target>
+        <target>Edit info</target>
       </segment>
     </unit>
     <unit id="tn675bY" name="perm.self.edit_username">
