@@ -26,6 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -155,6 +156,12 @@ class EntityURLGenerator
             if ($entity instanceof Pricedetail) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getOrderdetail()->getPart()->getID(),
+                    'timestamp' => $dateTime->getTimestamp(),
+                ]);
+            }
+            if ($entity instanceof PartParameter) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getElement()->getID(),
                     'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
