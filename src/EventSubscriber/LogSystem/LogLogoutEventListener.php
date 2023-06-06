@@ -25,12 +25,14 @@ namespace App\EventSubscriber\LogSystem;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**
  * This handler logs to event log, if a user logs out.
  */
-class LogoutLoggerEventSubscriber implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
+#[AsEventListener]
+final class LogLogoutEventListener
 {
     protected EventLogger $logger;
     protected bool $gpdr_compliance;
@@ -41,7 +43,7 @@ class LogoutLoggerEventSubscriber implements \Symfony\Component\EventDispatcher\
         $this->gpdr_compliance = $gpdr_compliance;
     }
 
-    public function __invoke(LogoutEvent $event)
+    public function __invoke(LogoutEvent $event): void
     {
         $request = $event->getRequest();
         $token = $event->getToken();
@@ -57,12 +59,5 @@ class LogoutLoggerEventSubscriber implements \Symfony\Component\EventDispatcher\
         }
 
         $this->logger->logAndFlush($log);
-    }
-    /**
-     * @return array<string, mixed>
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [\Symfony\Component\Security\Http\Event\LogoutEvent::class => ''];
     }
 }
