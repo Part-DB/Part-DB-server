@@ -106,7 +106,7 @@ class EntityURLGenerator
     /**
      * Gets the URL to view the given element at a given timestamp.
      */
-    public function timeTravelURL(AbstractDBElement $entity, DateTime $dateTime): string
+    public function timeTravelURL(AbstractDBElement $entity, \DateTimeInterface $dateTime): string
     {
         $map = [
             Part::class => 'part_info',
@@ -161,7 +161,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException('The given entity is not supported yet!');
+        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.get_class($entity));
     }
 
     public function viewURL(Attachment $entity): string
