@@ -34,6 +34,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\TreeViewGenerator;
@@ -72,13 +73,22 @@ final class EntityExtension extends AbstractExtension
             /* Returns the URL to the given entity */
             new TwigFunction('entity_url', [$this, 'generateEntityURL']),
             /* Returns the URL to the given entity in timetravel mode */
-            new TwigFunction('timetravel_url', [$this->entityURLGenerator, 'timetravelURL']),
+            new TwigFunction('timetravel_url', [$this, 'timeTravelURL']),
             /* Generates a JSON array of the given tree */
             new TwigFunction('tree_data', [$this, 'treeData']),
 
             /* Gets a human readable label for the type of the given entity */
             new TwigFunction('entity_type_label', [$this->nameGenerator, 'getLocalizedTypeLabel']),
         ];
+    }
+
+    public function timeTravelURL(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string
+    {
+        try {
+            return $this->entityURLGenerator->timeTravelURL($element, $dateTime);
+        } catch (EntityNotSupportedException $e) {
+            return null;
+        }
     }
 
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string

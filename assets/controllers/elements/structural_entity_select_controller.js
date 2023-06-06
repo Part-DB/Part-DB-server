@@ -57,10 +57,29 @@ export default class extends Controller {
                         '<small class="text-muted float-end">(' + addHint +')</small>' +
                         '</div>';
                 },
-            }
+            },
+
+            //Add callbacks to update validity
+            onInitialize: this.updateValidity.bind(this),
+            onChange: this.updateValidity.bind(this),
         };
 
         this._tomSelect = new TomSelect(this.element, settings);
+        this._tomSelect.sync();
+    }
+
+
+    updateValidity() {
+        //Mark this input as invalid, if the selected option is disabled
+
+        const input = this.element;
+        const selectedOption = input.options[input.selectedIndex];
+
+        if (selectedOption && selectedOption.disabled) {
+            input.setCustomValidity("This option was disabled. Please select another option.");
+        } else {
+            input.setCustomValidity("");
+        }
     }
 
     getTomSelect() {

@@ -26,6 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -106,7 +107,7 @@ class EntityURLGenerator
     /**
      * Gets the URL to view the given element at a given timestamp.
      */
-    public function timeTravelURL(AbstractDBElement $entity, DateTime $dateTime): string
+    public function timeTravelURL(AbstractDBElement $entity, \DateTimeInterface $dateTime): string
     {
         $map = [
             Part::class => 'part_info',
@@ -158,10 +159,16 @@ class EntityURLGenerator
                     'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
+            if ($entity instanceof PartParameter) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getElement()->getID(),
+                    'timestamp' => $dateTime->getTimestamp(),
+                ]);
+            }
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException('The given entity is not supported yet!');
+        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.get_class($entity));
     }
 
     public function viewURL(Attachment $entity): string
