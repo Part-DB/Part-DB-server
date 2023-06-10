@@ -19,12 +19,22 @@
             <li>Run <kbd>yarn install</kbd> and <kbd>yarn build</kbd> in Part-DB folder.</li>
             <li>Run <kbd>php bin/console cache:clear</kbd></li>
         </ul>
-    {% elseif exception.class == "Doctrine\\DBAL\\Exception\\InvalidFieldNameException" or exception.class == "Doctrine\\DBAL\\Exception\\TableNotFoundException" %}
+    {% elseif exception.class == "Doctrine\\DBAL\\Exception\\InvalidFieldNameException"
+        or exception.class == "Doctrine\\DBAL\\Exception\\TableNotFoundException"
+    %}
         <b><i>Invalid or not existing database schema.</i></b><br><p>Try following things:</p>
         <ul>
             <li>Check if the <code>DATABASE_URL</code> in <code>.env.local</code> (or docker configure) is correct</li>
             <li>Run <kbd>php bin/console doctrine:migrations:migrate</kbd> to upgrade database schema</li>
             <li>Run <kbd>php bin/console cache:clear</kbd></li>
+        </ul>
+    {% elseif exception.class == "Doctrine\\DBAL\\Exception\\DriverException" %}
+        <b><i>Error while executing database query.</i></b><br>This is maybe caused by an old database schema.<br><p>Try following things:</p>
+        <ul>
+            <li>Check if the <code>DATABASE_URL</code> in <code>.env.local</code> (or docker configure) is correct</li>
+            <li>Run <kbd>php bin/console doctrine:migrations:migrate</kbd> to upgrade database schema (if upgrade is available)</li>
+            <li>Run <kbd>php bin/console cache:clear</kbd></li>
+            <li>If this issue persist, create a ticket at <a href="https://github.com/Part-DB/Part-DB-symfony/issues" rel="noopener">GitHub</a>.</li>
         </ul>
     {% else %}
         You could try following things, if this error is unexpected:
