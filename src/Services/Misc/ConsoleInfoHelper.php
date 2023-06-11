@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\Misc;
 
 class ConsoleInfoHelper
@@ -47,17 +49,7 @@ class ConsoleInfoHelper
             return $user['name'];
         }
 
-        //Try to retrieve the name via the environment variable Username (Windows)
-        if (isset($_SERVER['USERNAME'])) {
-            return $_SERVER['USERNAME'];
-        }
-
-        //Try to retrieve the name via the environment variable USER (Linux)
-        if (isset($_SERVER['USER'])) {
-            return $_SERVER['USER'];
-        }
-
         //Otherwise we can't determine the username
-        return null;
+        return $_SERVER['USERNAME'] ?? $_SERVER['USER'] ?? null;
     }
 }

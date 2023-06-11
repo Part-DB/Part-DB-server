@@ -147,7 +147,7 @@ class Part extends AttachmentContainingDBElement
         //Ensure that the part name fullfills the regex of the category
         if ($this->category instanceof Category) {
             $regex = $this->category->getPartnameRegex();
-            if (!empty($regex) && !preg_match($regex, $this->name)) {
+            if ($regex !== '' && !preg_match($regex, $this->name)) {
                 $context->buildViolation('part.name.must_match_category_regex')
                     ->atPath('name')
                     ->setParameter('%regex%', $regex)

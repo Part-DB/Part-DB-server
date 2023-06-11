@@ -146,7 +146,7 @@ class ElementTypeNameGenerator
     public function formatLabelHTMLForEntity(AbstractDBElement $entity, bool $include_associated = false): string
     {
         //The element is existing
-        if ($entity instanceof NamedElementInterface && !empty($entity->getName())) {
+        if ($entity instanceof NamedElementInterface && $entity->getName() !== '') {
             try {
                 $tmp = sprintf(
                     '<a href="%s">%s</a>',

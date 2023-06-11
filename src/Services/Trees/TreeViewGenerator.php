@@ -105,11 +105,11 @@ class TreeViewGenerator
                 $item->setSelected(true);
             }
 
-            if (!empty($item->getNodes())) {
+            if ($item->getNodes() !== null && $item->getNodes() !== []) {
                 $item->addTag((string) count($item->getNodes()));
             }
 
-            if (!empty($href_type) && null !== $item->getId()) {
+            if ($href_type !== '' && null !== $item->getId()) {
                 $entity = $this->em->getPartialReference($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }

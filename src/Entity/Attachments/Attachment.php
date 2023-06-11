@@ -182,7 +182,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function isExternal(): bool
     {
         //When path is empty, this attachment can not be external
-        if (empty($this->path)) {
+        if ($this->path === '') {
             return false;
         }
 
@@ -236,7 +236,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return null;
         }
 
-        if (!empty($this->original_filename)) {
+        if ($this->original_filename !== null && $this->original_filename !== '') {
             return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
         }
 
@@ -302,7 +302,7 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         //If we have a stored original filename, then use it
-        if (!empty($this->original_filename)) {
+        if ($this->original_filename !== null && $this->original_filename !== '') {
             return $this->original_filename;
         }
 
@@ -411,7 +411,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function setURL(?string $url): self
     {
         //Only set if the URL is not empty
-        if (!empty($url)) {
+        if ($url !== null && $url !== '') {
             if (str_contains($url, '%BASE%') || str_contains($url, '%MEDIA%')) {
                 throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }

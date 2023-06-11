@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters;
 
 use Doctrine\ORM\Query\Expr;
@@ -121,7 +123,7 @@ class PartSearchFilter implements FilterInterface
         $fields_to_search = $this->getFieldsToSearch();
 
         //If we have nothing to search for, do nothing
-        if ($fields_to_search === [] || empty($this->keyword)) {
+        if ($fields_to_search === [] || $this->keyword === '') {
             return;
         }
 

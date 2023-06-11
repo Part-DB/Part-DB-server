@@ -71,7 +71,7 @@ class RangeParser
                 $ranges[] = $this->generateMinMaxRange($matches[1], $matches[2]);
             } elseif (is_numeric($number)) {
                 $ranges[] = [(int) $number];
-            } elseif (empty($number)) { //Allow empty tokens
+            } elseif ($number === '') { //Allow empty tokens
                 continue;
             } else {
                 throw new InvalidArgumentException('Invalid range encoutered: '.$number);

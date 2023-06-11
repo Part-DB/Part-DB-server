@@ -68,7 +68,7 @@ class LogEntryExtraFormatter
                 $str .= '<error>'.$this->translator->trans($key).'</error>: ';
             }
             $str .= $value;
-            if (!empty($str)) {
+            if ($str !== '') {
                 $tmp[] = $str;
             }
         }
@@ -91,7 +91,7 @@ class LogEntryExtraFormatter
                 $str .= '<b>'.$this->translator->trans($key).'</b>: ';
             }
             $str .= $value;
-            if (!empty($str)) {
+            if ($str !== '') {
                 $tmp[] = $str;
             }
         }
@@ -184,7 +184,7 @@ class LogEntryExtraFormatter
                 $context->getNewStock(),
                 ($context->getNewStock() > $context->getOldStock() ? '+' : '-'). $context->getChangeAmount(),
             );
-            if (!empty($context->getComment())) {
+            if ($context->getComment() !== '') {
                 $array['log.part_stock_changed.comment'] = htmlspecialchars($context->getComment());
             }
             if ($context->getInstockChangeType() === PartStockChangedLogEntry::TYPE_MOVE) {

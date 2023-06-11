@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Type\Helper;
 
 use App\Entity\Attachments\Attachment;
@@ -82,7 +84,7 @@ class StructuralEntityChoiceHelper
             ;
         }
 
-        if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
+        if ($choice instanceof AttachmentType && $choice->getFiletypeFilter() !== '') {
             $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
         }
 
@@ -96,7 +98,7 @@ class StructuralEntityChoiceHelper
     public function generateChoiceAttrCurrency(Currency $choice, Options|array $options): array
     {
         $tmp = $this->generateChoiceAttr($choice, $options);
-        $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
+        $symbol = $choice->getIsoCode() === null || $choice->getIsoCode() === '' ? null : Currencies::getSymbol($choice->getIsoCode());
         $tmp['data-short'] = $options['short'] ? $symbol : $choice->getName();
 
         return $tmp + [

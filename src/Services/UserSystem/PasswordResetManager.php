@@ -63,7 +63,7 @@ class PasswordResetManager
         $expiration_date->add(date_interval_create_from_date_string('1 day'));
         $user->setPwResetExpires($expiration_date);
 
-        if (!empty($user->getEmail())) {
+        if ($user->getEmail() !== null && $user->getEmail() !== '') {
             $address = new Address($user->getEmail(), $user->getFullName());
             $mail = new TemplatedEmail();
             $mail->to($address);

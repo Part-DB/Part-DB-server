@@ -119,7 +119,7 @@ class AttachmentURLGenerator
             throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
-        if ($attachment->isExternal() && !empty($attachment->getURL())) {
+        if ($attachment->isExternal() && ($attachment->getURL() !== null && $attachment->getURL() !== '')) {
             return $attachment->getURL();
         }
 

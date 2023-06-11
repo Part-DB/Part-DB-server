@@ -50,7 +50,7 @@ class RedirectController extends AbstractController
 
         //Check if a user has set a preferred language setting:
         $user = $this->getUser();
-        if (($user instanceof User) && !empty($user->getLanguage())) {
+        if (($user instanceof User) && ($user->getLanguage() !== null && $user->getLanguage() !== '')) {
             $locale = $user->getLanguage();
         }
 

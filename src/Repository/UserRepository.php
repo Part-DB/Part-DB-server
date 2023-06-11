@@ -62,7 +62,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
      */
     public function findByEmailOrName(string $name_or_password): ?User
     {
-        if (empty($name_or_password)) {
+        if ($name_or_password === '') {
             return null;
         }
 

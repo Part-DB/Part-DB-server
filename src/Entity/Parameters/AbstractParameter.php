@@ -394,7 +394,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected function formatWithUnit(float $value, string $format = '%g'): string
     {
         $str = sprintf($format, $value);
-        if (!empty($this->unit)) {
+        if ($this->unit !== '') {
             return $str.' '.$this->unit;
         }
 

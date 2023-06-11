@@ -81,7 +81,7 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if (empty($user->getBackupCodes())) {
+        if ($user->getBackupCodes() === []) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
 
             throw new RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
@@ -361,7 +361,7 @@ class UserSettingsController extends AbstractController
             'attr' => [
                 'class' => 'btn-danger',
             ],
-            'disabled' => empty($user->getBackupCodes()),
+            'disabled' => $user->getBackupCodes() === [],
         ])->getForm();
 
         $backup_form->handleRequest($request);

@@ -68,20 +68,20 @@ class ToolsTreeBuilder
             $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
             $tree = [];
-            if (!empty($this->getToolsNode())) {
+            if ($this->getToolsNode() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-toolbox');
             }
 
-            if (!empty($this->getEditNodes())) {
+            if ($this->getEditNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-pen-to-square');
             }
-            if (!empty($this->getShowNodes())) {
+            if ($this->getShowNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-eye');
             }
-            if (!empty($this->getSystemNodes())) {
+            if ($this->getSystemNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes()))
                 ->setIcon('fa-fw fa-treeview fa-solid fa-server');
             }

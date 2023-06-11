@@ -142,10 +142,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
     private function getNewEntityFromCache(string $name, ?AbstractStructuralDBElement $parent): ?AbstractStructuralDBElement
     {
         $key = $parent instanceof AbstractStructuralDBElement ? $parent->getFullPath('%->%').'%->%'.$name : $name;
-        if (isset($this->new_entity_cache[$key])) {
-            return $this->new_entity_cache[$key];
-        }
-        return null;
+        return $this->new_entity_cache[$key] ?? null;
     }
 
     private function setNewEntityToCache(AbstractStructuralDBElement $entity): void

@@ -64,7 +64,7 @@ class AttachmentManager
      */
     public function toAbsoluteFilePath(Attachment $attachment): ?string
     {
-        if (empty($attachment->getPath())) {
+        if ($attachment->getPath() === '') {
             return null;
         }
 
@@ -98,7 +98,7 @@ class AttachmentManager
      */
     public function isFileExisting(Attachment $attachment): bool
     {
-        if (empty($attachment->getPath())) {
+        if ($attachment->getPath() === '') {
             return false;
         }
 

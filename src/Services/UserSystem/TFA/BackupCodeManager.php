@@ -40,7 +40,7 @@ class BackupCodeManager
      */
     public function enableBackupCodes(User $user): void
     {
-        if (empty($user->getBackupCodes())) {
+        if ($user->getBackupCodes() === []) {
             $this->regenerateBackupCodes($user);
         }
     }

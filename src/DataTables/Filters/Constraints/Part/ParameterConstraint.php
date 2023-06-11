@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints\Part;
 
 use App\DataTables\Filters\Constraints\AbstractConstraint;
@@ -72,19 +74,19 @@ class ParameterConstraint extends AbstractConstraint
             ->from(PartParameter::class, $this->alias)
             ->where($this->alias . '.element = part');
 
-        if (!empty($this->name)) {
+        if ($this->name !== '') {
             $paramName = $this->generateParameterIdentifier('params.name');
             $subqb->andWhere($this->alias . '.name = :' . $paramName);
             $queryBuilder->setParameter($paramName,  $this->name);
         }
 
-        if (!empty($this->symbol)) {
+        if ($this->symbol !== '') {
             $paramName = $this->generateParameterIdentifier('params.symbol');
             $subqb->andWhere($this->alias . '.symbol = :' . $paramName);
             $queryBuilder->setParameter($paramName,  $this->symbol);
         }
 
-        if (!empty($this->unit)) {
+        if ($this->unit !== '') {
             $paramName = $this->generateParameterIdentifier('params.unit');
             $subqb->andWhere($this->alias . '.unit = :' . $paramName);
             $queryBuilder->setParameter($paramName,  $this->unit);

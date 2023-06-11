@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Parts;
 
 use App\Entity\Parts\Storelocation;
@@ -85,7 +87,7 @@ final class PartLotWithdrawAddHelper
         $this->eventLogger->log($event);
 
         //Apply the comment also to global events, so it gets associated with the elementChanged log entry
-        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+        if (!$this->eventCommentHelper->isMessageSet() && ($comment !== null && $comment !== '')) {
             $this->eventCommentHelper->setMessage($comment);
         }
 
@@ -125,7 +127,7 @@ final class PartLotWithdrawAddHelper
         $this->eventLogger->log($event);
 
         //Apply the comment also to global events, so it gets associated with the elementChanged log entry
-        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+        if (!$this->eventCommentHelper->isMessageSet() && ($comment !== null && $comment !== '')) {
             $this->eventCommentHelper->setMessage($comment);
         }
 
@@ -179,7 +181,7 @@ final class PartLotWithdrawAddHelper
         $this->eventLogger->log($event);
 
         //Apply the comment also to global events, so it gets associated with the elementChanged log entry
-        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+        if (!$this->eventCommentHelper->isMessageSet() && ($comment !== null && $comment !== '')) {
             $this->eventCommentHelper->setMessage($comment);
         }
     }

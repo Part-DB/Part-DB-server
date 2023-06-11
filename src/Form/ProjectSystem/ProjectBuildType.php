@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\ProjectSystem;
 
 use Symfony\Bundle\SecurityBundle\Security;
@@ -153,7 +155,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             if (!$lot) { //When the user selected "Create new lot", create a new lot
                 $lot = new PartLot();
                 $description = 'Build ' . date('Y-m-d H:i:s');
-                if (!empty($data->getComment())) {
+                if ($data->getComment() !== '') {
                     $description .= ' (' . $data->getComment() . ')';
                 }
                 $lot->setDescription($description);

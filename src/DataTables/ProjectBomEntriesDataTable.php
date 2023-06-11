@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
@@ -88,7 +90,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     }
                     if($context->getPart() instanceof Part) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
-                        if(!empty($context->getName())) {
+                        if($context->getName() !== null && $context->getName() !== '') {
                             $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
                         }
                         return $tmp;

@@ -120,7 +120,7 @@ class BuiltinAttachmentsFinder
      */
     public function find(string $keyword, array $options = [], ?array $base_list = []): array
     {
-        if (empty($base_list)) {
+        if ($base_list === null || $base_list === []) {
             $base_list = $this->getListOfRessources();
         }
 

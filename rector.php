@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
+use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
+use Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonyLevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->symfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml');
@@ -31,6 +33,10 @@ return static function (RectorConfig $rectorConfig): void {
     // register a single rule
     //$rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
 
+    $rectorConfig->rules([
+        DeclareStrictTypesRector::class,
+    ]);
+
     // define sets of rules
     $rectorConfig->sets([
         //PHP rules
@@ -48,5 +54,10 @@ return static function (RectorConfig $rectorConfig): void {
         //PHPUnit rules
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+    ]);
+
+    $rectorConfig->skip([
+        AddDoesNotPerformAssertionToNonAssertingTestRector::class,
+        CountArrayToEmptyArrayComparisonRector::class,
     ]);
 };

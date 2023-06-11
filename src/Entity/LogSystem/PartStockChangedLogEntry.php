@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Entity\LogSystem;
 
 use App\Entity\Parts\PartLot;
@@ -64,7 +66,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
             'n' => $new_stock,
             'p' => $new_total_part_instock,
         ]);
-        if (!empty($comment)) {
+        if ($comment !== '') {
             $this->extra['c'] = mb_strimwidth($comment, 0, self::COMMENT_MAX_LENGTH, '...');
         }
 

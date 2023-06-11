@@ -95,7 +95,7 @@ class AttachmentSubmitHandler
     public function isValidFileExtension(AttachmentType $attachment_type, UploadedFile $uploadedFile): bool
     {
         //Only validate if the attachment type has specified a filetype filter:
-        if (empty($attachment_type->getFiletypeFilter())) {
+        if ($attachment_type->getFiletypeFilter() === '') {
             return true;
         }
 
@@ -212,7 +212,7 @@ class AttachmentSubmitHandler
 
         //Determine the old filepath
         $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
-        if (empty($old_path) || !file_exists($old_path)) {
+        if ($old_path === null || $old_path === '' || !file_exists($old_path)) {
             return $attachment;
         }
         $filename = basename($old_path);
@@ -357,7 +357,7 @@ class AttachmentSubmitHandler
 
             //Check if we have an extension given
             $pathinfo = pathinfo($filename);
-            if (!empty($pathinfo['extension'])) {
+            if ($pathinfo['extension'] !== '') {
                 $new_ext = $pathinfo['extension'];
             } else { //Otherwise we have to guess the extension for the new file, based on its content
                 $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';

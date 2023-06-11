@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -34,8 +36,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class StructuralElementNormalizer implements NormalizerInterface
 {
     public function __construct(
-        #[Autowire(service: ObjectNormalizer::class)]
-        private NormalizerInterface $normalizer
+        #[Autowire(service: ObjectNormalizer::class)]private readonly NormalizerInterface $normalizer
     )
     {
     }

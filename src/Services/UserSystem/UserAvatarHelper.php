@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\UserSystem;
 
 use Imagine\Exception\RuntimeException;
@@ -115,7 +117,7 @@ class UserAvatarHelper
     private function getGravatar(User $user, int $s = 80, string $d = 'identicon', string $r = 'g'): string
     {
         $email = $user->getEmail();
-        if (empty($email)) {
+        if ($email === null || $email === '') {
             $email = 'Part-DB';
         }
 

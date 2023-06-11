@@ -146,7 +146,7 @@ class EventLoggerSubscriber implements EventSubscriber
         $uow = $em->getUnitOfWork();
         // If we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
         $uow->computeChangeSets();
-        if ($uow->hasPendingInsertions() || !empty($uow->getScheduledEntityUpdates())) {
+        if ($uow->hasPendingInsertions() || $uow->getScheduledEntityUpdates() !== []) {
             $em->flush();
         }
 

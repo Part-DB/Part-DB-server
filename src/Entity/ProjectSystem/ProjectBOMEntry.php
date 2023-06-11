@@ -242,7 +242,7 @@ class ProjectBOMEntry extends AbstractDBElement
         }
 
         //Check that the number of mountnames is the same as the (rounded) quantity
-        if (!empty($this->mountnames) && count($uniq_mountnames) !== (int) round ($this->quantity)) {
+        if ($this->mountnames !== '' && count($uniq_mountnames) !== (int) round ($this->quantity)) {
             $context->buildViolation('project.bom_entry.mountnames_quantity_mismatch')
                 ->atPath('mountnames')
                 ->addViolation();

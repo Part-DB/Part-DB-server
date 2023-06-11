@@ -173,6 +173,6 @@ class FileTypeFilterTools
     {
         $extension = strtolower($extension);
 
-        return empty($filter) || in_array($extension, $this->resolveFileExtensions($filter), false);
+        return $filter === '' || in_array($extension, $this->resolveFileExtensions($filter), false);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use Doctrine\ORM\QueryBuilder;
@@ -72,7 +74,7 @@ class TextConstraint extends AbstractConstraint
     public function isEnabled(): bool
     {
         return $this->value !== null
-            && !empty($this->operator);
+            && ($this->operator !== null && $this->operator !== '');
     }
 
     public function apply(QueryBuilder $queryBuilder): void

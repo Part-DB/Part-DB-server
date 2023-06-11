@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -88,7 +90,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getInitalAdminPW(): string
     {
-        if (empty($this->admin_pw)) {
+        if ($this->admin_pw === '') {
             if (!empty($_ENV['INITIAL_ADMIN_PW'])) {
                 $this->admin_pw = $_ENV['INITIAL_ADMIN_PW'];
             } else {
@@ -104,7 +106,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     {
         parent::postUp($schema);
 
-        if (!empty($this->admin_pw)) {
+        if ($this->admin_pw !== '') {
             $this->logger->warning('');
             $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: '.$this->admin_pw.'</>');
             $this->logger->warning('');

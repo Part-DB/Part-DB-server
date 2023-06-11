@@ -144,7 +144,7 @@ class AttachmentFormType extends AbstractType
             }
 
             //If the name is empty, use the original file name as attachment name
-            if (empty($attachment->getName())) {
+            if ($attachment->getName() === '') {
                 $attachment->setName($file->getClientOriginalName());
             }
         }, 100000);

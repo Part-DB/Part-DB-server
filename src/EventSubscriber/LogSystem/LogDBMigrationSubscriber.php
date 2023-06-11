@@ -55,8 +55,8 @@ class LogDBMigrationSubscriber implements EventSubscriber
         $this->new_version = (string) $aliasResolver->resolveVersionAlias('current');
 
         //After everything is done, write the results to DB log
-        $this->old_version = empty($this->old_version) ? 'legacy/empty' : $this->old_version;
-        $this->new_version = empty($this->new_version) ? 'unknown' : $this->new_version;
+        $this->old_version = $this->old_version === null || $this->old_version === '' ? 'legacy/empty' : $this->old_version;
+        $this->new_version = $this->new_version === '' ? 'unknown' : $this->new_version;
 
         try {
             $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
