@@ -26,8 +26,12 @@ use Doctrine\ORM\QueryBuilder;
 
 class BooleanConstraint extends AbstractConstraint
 {
-    public function __construct(string $property, string $identifier = null, /** @var bool|null The value of our constraint */
-    protected ?bool $value = null)
+    public function __construct(
+        string $property,
+        string $identifier = null,
+        /** @var bool|null The value of our constraint */
+        protected ?bool $value = null
+    )
     {
         parent::__construct($property, $identifier);
     }

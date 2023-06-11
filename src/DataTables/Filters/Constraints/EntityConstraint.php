@@ -43,7 +43,12 @@ class EntityConstraint extends AbstractConstraint
      * @param  null  $value
      * @param  string  $operator
      */
-    public function __construct(protected ?NodesListBuilder $nodesListBuilder, protected string $class, string $property, string $identifier = null, protected $value = null, protected ?string $operator = '')
+    public function __construct(protected ?NodesListBuilder $nodesListBuilder,
+        protected string $class,
+        string $property,
+        string $identifier = null,
+        protected $value = null,
+        protected ?string $operator = null)
     {
         if (!$nodesListBuilder instanceof NodesListBuilder && $this->isStructural()) {
             throw new \InvalidArgumentException('NodesListBuilder must be provided for structural entities');

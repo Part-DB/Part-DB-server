@@ -63,20 +63,18 @@ class NumberConstraint extends AbstractConstraint
     }
 
 
-    /**
-     * @param float|null|int|\DateTimeInterface $value1
-     * @param float|null|int|\DateTimeInterface $value2
-     */
-    public function __construct(string $property, string $identifier = null, /**
-     * The value1 used for comparison (this is the main one used for all mono-value comparisons)
-     */
-    protected float|int|\DateTimeInterface|null $value1 = null, /**
-     * @var string|null The operator to use
-     */
-    protected ?string $operator = null, /**
-     * The second value used when operator is RANGE; this is the upper bound of the range
-     */
-    protected float|int|\DateTimeInterface|null $value2 = null)
+    public function __construct(
+        string $property,
+        string $identifier = null,
+        /**
+         * The value1 used for comparison (this is the main one used for all mono-value comparisons)
+         */
+        protected float|int|\DateTimeInterface|null $value1 = null,
+        protected ?string $operator = null,
+        /**
+         * The second value used when operator is RANGE; this is the upper bound of the range
+         */
+        protected float|int|\DateTimeInterface|null $value2 = null)
     {
         parent::__construct($property, $identifier);
     }
