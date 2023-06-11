@@ -54,16 +54,8 @@ class CompoundFilterTraitTest extends TestCase
         $filter = new class($f1, $f2, $f3, null) {
             use CompoundFilterTrait;
 
-            protected $filter1;
-            private $filter2;
-            public $filter3;
-            protected $filter4;
-
-            public function __construct($f1, $f2, $f3, $f4) {
-                $this->filter1 = $f1;
-                $this->filter2 = $f2;
-                $this->filter3 = $f3;
-                $this->filter4 = $f4;
+            public function __construct(protected $filter1, private $filter2, public $filter3, protected $filter4)
+            {
             }
 
             public function _findAllChildFilters()
@@ -104,16 +96,8 @@ class CompoundFilterTraitTest extends TestCase
         $filter = new class($f1, $f2, $f3, null) {
             use CompoundFilterTrait;
 
-            protected $filter1;
-            private $filter2;
-            public $filter3;
-            protected $filter4;
-
-            public function __construct($f1, $f2, $f3, $f4) {
-                $this->filter1 = $f1;
-                $this->filter2 = $f2;
-                $this->filter3 = $f3;
-                $this->filter4 = $f4;
+            public function __construct(protected $filter1, private $filter2, public $filter3, protected $filter4)
+            {
             }
 
             public function _applyAllChildFilters(QueryBuilder $queryBuilder): void

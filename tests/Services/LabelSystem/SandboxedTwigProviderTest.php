@@ -51,10 +51,7 @@ use Twig\Sandbox\SecurityError;
 
 class SandboxedTwigProviderTest extends WebTestCase
 {
-    /**
-     * @var SandboxedTwigProvider
-     */
-    private $service;
+    private ?object $service = null;
 
     protected function setUp(): void
     {

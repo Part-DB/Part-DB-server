@@ -44,9 +44,6 @@ class UserExtensionTest extends WebTestCase
 
     /**
      * @dataProvider removeeLocaleFromPathDataSet
-     * @param  string  $expected
-     * @param  string  $input
-     * @return void
      */
     public function testRemoveLocaleFromPath(string $expected, string $input): void
     {

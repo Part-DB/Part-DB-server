@@ -43,10 +43,8 @@ class ProjectBuildRequestTest extends TestCase
     /** @var ProjectBOMEntry */
     private ProjectBOMEntry $bom_entry1c;
 
-    /** @var PartLot $lot1a */
-    private $lot1a;
-    /** @var PartLot $lot1b */
-    private $lot1b;
+    private \App\Entity\Parts\PartLot $lot1a;
+    private \App\Entity\Parts\PartLot $lot1b;
     private PartLot $lot2;
 
     /** @var Part */

@@ -30,6 +30,6 @@ use App\Entity\Parts\MeasurementUnit;
  */
 class MeasurementUnitControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/measurement_unit';
+    protected static string $base_path = '/en/measurement_unit';
     protected static string $entity_class = MeasurementUnit::class;
 }

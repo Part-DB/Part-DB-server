@@ -30,6 +30,6 @@ use App\Entity\Parts\Manufacturer;
  */
 class ManufacturerControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/manufacturer';
+    protected static string $base_path = '/en/manufacturer';
     protected static string $entity_class = Manufacturer::class;
 }

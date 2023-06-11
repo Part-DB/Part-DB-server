@@ -47,7 +47,7 @@ class SamlUserFactoryTest extends WebTestCase
 
         $this->assertInstanceOf(User::class, $user);
 
-        $this->assertEquals('sso_user', $user->getUsername());
+        $this->assertEquals('sso_user', $user->getUserIdentifier());
         //User must not change his password
         $this->assertFalse($user->isNeedPwChange());
         //And must not be disabled

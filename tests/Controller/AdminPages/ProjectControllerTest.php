@@ -31,6 +31,6 @@ use App\Entity\ProjectSystem\Project;
  */
 class ProjectControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/project';
+    protected static string $base_path = '/en/project';
     protected static string $entity_class = Project::class;
 }

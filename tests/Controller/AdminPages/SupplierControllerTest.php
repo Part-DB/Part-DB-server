@@ -30,6 +30,6 @@ use App\Entity\Parts\Supplier;
  */
 class SupplierControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/supplier';
+    protected static string $base_path = '/en/supplier';
     protected static string $entity_class = Supplier::class;
 }

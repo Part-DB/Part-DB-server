@@ -75,14 +75,14 @@ class BarcodeNormalizerTest extends WebTestCase
             [['lot', 10], 'Lß000010'],
             [['part', 123], 'P-000123'],
             [['location', 123], 'S-000123'],
-            [['lot', 12345678], 'L-12345678'],
+            [['lot', 12_345_678], 'L-12345678'],
             //Legacy storelocation format
             [['location', 336], '$L00336'],
-            [['location', 12345678], '$L12345678'],
+            [['location', 12_345_678], '$L12345678'],
             //Legacy Part format
             [['part', 123], '0000123'],
             [['part', 123], '00001236'],
-            [['part', 1234567], '12345678'],
+            [['part', 1_234_567], '12345678'],
         ];
     }
 

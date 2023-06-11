@@ -27,11 +27,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestPermissionHolder implements HasPermissionsInterface
 {
-    private PermissionData $perm_data;
-
-    public function __construct(PermissionData $perm_data)
+    public function __construct(private readonly PermissionData $perm_data)
     {
-        $this->perm_data = $perm_data;
     }
 
     public function getPermissions(): PermissionData
@@ -49,7 +46,6 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
     public function setUp(): void
     {
-        parent::setUp();
         self::bootKernel();
 
         $this->service = self::getContainer()->get(PermissionSchemaUpdater::class);

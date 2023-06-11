@@ -30,6 +30,6 @@ use App\Entity\Parts\Footprint;
  */
 class FootprintControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/footprint';
+    protected static string $base_path = '/en/footprint';
     protected static string $entity_class = Footprint::class;
 }

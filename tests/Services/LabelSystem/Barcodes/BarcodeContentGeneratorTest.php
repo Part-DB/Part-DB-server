@@ -49,10 +49,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BarcodeContentGeneratorTest extends KernelTestCase
 {
-    /**
-     * @var BarcodeContentGenerator
-     */
-    private $service;
+    private ?object $service = null;
 
     protected function setUp(): void
     {

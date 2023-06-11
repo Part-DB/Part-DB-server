@@ -36,7 +36,6 @@ class StructuralElementNormalizerTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         //Get an service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementNormalizer::class);

@@ -51,7 +51,6 @@ class ParameterExtractorTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(ParameterExtractor::class);

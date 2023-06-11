@@ -34,7 +34,6 @@ class EntityExporterTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         self::bootKernel();
         $this->service = self::getContainer()->get(EntityExporter::class);
     }

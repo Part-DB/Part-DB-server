@@ -30,6 +30,6 @@ use App\Entity\Parts\Storelocation;
  */
 class StorelocationControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/store_location';
+    protected static string $base_path = '/en/store_location';
     protected static string $entity_class = Storelocation::class;
 }
