@@ -43,20 +43,15 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            //No value should return empty array
-            ['', [], []],
-            ['', ['empty_returns_all' => true], static::$mock_list],
-            //Basic search for keyword
-            ['test', [], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS_3D%/test.jpg']],
-            ['%FOOTPRINTS_3D%', [], ['%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt']],
-            ['.txt', [], ['%FOOTPRINTS_3D%/hallo.txt']],
-            //Filter extensions
-            //['test', ['allowed_extensions' => ['jpeg', 'jpg']], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/123.jpeg', '%FOOTPRINTS_3D%/test.jpg']],
-            //['test.jpg', ['allowed_extensions' => ['jpeg', 'jpg']], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS_3D%/test.jpg']]
-        ];
+        //No value should return empty array
+        yield ['', [], []];
+        yield ['', ['empty_returns_all' => true], static::$mock_list];
+        //Basic search for keyword
+        yield ['test', [], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS_3D%/test.jpg']];
+        yield ['%FOOTPRINTS_3D%', [], ['%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt']];
+        yield ['.txt', [], ['%FOOTPRINTS_3D%/hallo.txt']];
     }
 
     /**

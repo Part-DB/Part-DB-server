@@ -75,6 +75,9 @@ class CompoundFilterTraitTest extends TestCase
         ], $result);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testApplyAllChildFilters(): void
     {
         $f1 = $this->createMock(FilterInterface::class);

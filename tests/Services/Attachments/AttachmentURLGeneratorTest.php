@@ -38,15 +38,13 @@ class AttachmentURLGeneratorTest extends WebTestCase
         self::$service = self::getContainer()->get(AttachmentURLGenerator::class);
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['/public/test.jpg', 'test.jpg'],
-            ['/public/folder/test.jpg', 'folder/test.jpg'],
-            ['/not/public/test.jpg', null],
-            ['/public/', ''],
-            ['not/absolute/test.jpg', null],
-        ];
+        yield ['/public/test.jpg', 'test.jpg'];
+        yield ['/public/folder/test.jpg', 'folder/test.jpg'];
+        yield ['/not/public/test.jpg', null];
+        yield ['/public/', ''];
+        yield ['not/absolute/test.jpg', null];
     }
 
     /**

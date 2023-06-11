@@ -34,17 +34,15 @@ class BBCodeToMarkdownConverterTest extends TestCase
         $this->converter = new BBCodeToMarkdownConverter();
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['[b]Bold[/b]', '**Bold**'],
-            ['[i]Italic[/i]', '*Italic*'],
-            ['[s]Strike[/s]', '<s>Strike</s>'],
-            ['[url]https://foo.bar[/url]', '<https://foo.bar>'],
-            ['[url=https://foo.bar]test[/url]', '[test](https://foo.bar)'],
-            ['[center]Centered[/center]', '<div style="text-align:center">Centered</div>'],
-            ['test no change', 'test no change'],
-        ];
+        yield ['[b]Bold[/b]', '**Bold**'];
+        yield ['[i]Italic[/i]', '*Italic*'];
+        yield ['[s]Strike[/s]', '<s>Strike</s>'];
+        yield ['[url]https://foo.bar[/url]', '<https://foo.bar>'];
+        yield ['[url=https://foo.bar]test[/url]', '[test](https://foo.bar)'];
+        yield ['[center]Centered[/center]', '<div style="text-align:center">Centered</div>'];
+        yield ['test no change', 'test no change'];
     }
 
     /**

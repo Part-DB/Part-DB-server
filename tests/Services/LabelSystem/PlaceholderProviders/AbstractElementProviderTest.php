@@ -63,11 +63,9 @@ class AbstractElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['123', '[[ID]]'],
-        ];
+        yield ['123', '[[ID]]'];
     }
 
     /**

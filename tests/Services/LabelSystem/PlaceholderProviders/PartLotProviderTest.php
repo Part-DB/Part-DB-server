@@ -85,22 +85,20 @@ class PartLotProviderTest extends WebTestCase
         $this->target->setOwner($user);
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['unknown', '[[LOT_ID]]'],
-            ['Lot description', '[[LOT_NAME]]'],
-            ['Lot comment', '[[LOT_COMMENT]]'],
-            ['4/13/99', '[[EXPIRATION_DATE]]'],
-            ['?', '[[AMOUNT]]'],
-            ['Location', '[[LOCATION]]'],
-            ['Parent → Location', '[[LOCATION_FULL]]'],
-            //Test part inheritance
-            ['Part', '[[NAME]]'],
-            ['Part description', '[[DESCRIPTION]]'],
-            ['John Doe', '[[OWNER]]'],
-            ['user', '[[OWNER_USERNAME]]'],
-        ];
+        yield ['unknown', '[[LOT_ID]]'];
+        yield ['Lot description', '[[LOT_NAME]]'];
+        yield ['Lot comment', '[[LOT_COMMENT]]'];
+        yield ['4/13/99', '[[EXPIRATION_DATE]]'];
+        yield ['?', '[[AMOUNT]]'];
+        yield ['Location', '[[LOCATION]]'];
+        yield ['Parent → Location', '[[LOCATION_FULL]]'];
+        //Test part inheritance
+        yield ['Part', '[[NAME]]'];
+        yield ['Part description', '[[DESCRIPTION]]'];
+        yield ['John Doe', '[[OWNER]]'];
+        yield ['user', '[[OWNER_USERNAME]]'];
     }
 
     /**

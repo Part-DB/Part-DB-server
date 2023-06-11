@@ -47,7 +47,7 @@ class UserExtensionTest extends WebTestCase
      */
     public function testRemoveLocaleFromPath(string $expected, string $input): void
     {
-        $this->assertEquals($expected, $this->service->removeLocaleFromPath($input));
+        $this->assertSame($expected, $this->service->removeLocaleFromPath($input));
     }
 
     public function testRemoveLocaleFromPathException(): void

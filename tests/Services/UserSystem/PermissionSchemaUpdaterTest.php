@@ -73,7 +73,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
         //With schema version 0, an update should be done and the schema version should be updated
         self::assertTrue($this->service->upgradeSchema($user));
-        self::assertEquals(PermissionData::CURRENT_SCHEMA_VERSION, $user->getPermissions()->getSchemaVersion());
+        self::assertSame(PermissionData::CURRENT_SCHEMA_VERSION, $user->getPermissions()->getSchemaVersion());
 
         //If we redo it with the same schema version, no update should be done
         self::assertFalse($this->service->upgradeSchema($user));

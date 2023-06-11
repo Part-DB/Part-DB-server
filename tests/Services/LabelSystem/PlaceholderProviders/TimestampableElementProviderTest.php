@@ -74,14 +74,11 @@ class TimestampableElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
         \Locale::setDefault('en');
-
-        return [
-            ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'],
-            ['1/1/00, 12:00 AM', '[[CREATION_DATE]]'],
-        ];
+        yield ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'];
+        yield ['1/1/00, 12:00 AM', '[[CREATION_DATE]]'];
     }
 
     /**

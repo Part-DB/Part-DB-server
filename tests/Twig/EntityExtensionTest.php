@@ -52,19 +52,19 @@ class EntityExtensionTest extends WebTestCase
 
     public function testGetEntityType(): void
     {
-        $this->assertEquals('part', $this->service->getEntityType(new Part()));
-        $this->assertEquals('footprint', $this->service->getEntityType(new Footprint()));
-        $this->assertEquals('storelocation', $this->service->getEntityType(new Storelocation()));
-        $this->assertEquals('manufacturer', $this->service->getEntityType(new Manufacturer()));
-        $this->assertEquals('category', $this->service->getEntityType(new Category()));
-        $this->assertEquals('device', $this->service->getEntityType(new Project()));
-        $this->assertEquals('attachment', $this->service->getEntityType(new PartAttachment()));
-        $this->assertEquals('supplier', $this->service->getEntityType(new Supplier()));
-        $this->assertEquals('user', $this->service->getEntityType(new User()));
-        $this->assertEquals('group', $this->service->getEntityType(new Group()));
-        $this->assertEquals('currency', $this->service->getEntityType(new Currency()));
-        $this->assertEquals('measurement_unit', $this->service->getEntityType(new MeasurementUnit()));
-        $this->assertEquals('label_profile', $this->service->getEntityType(new LabelProfile()));
+        $this->assertSame('part', $this->service->getEntityType(new Part()));
+        $this->assertSame('footprint', $this->service->getEntityType(new Footprint()));
+        $this->assertSame('storelocation', $this->service->getEntityType(new Storelocation()));
+        $this->assertSame('manufacturer', $this->service->getEntityType(new Manufacturer()));
+        $this->assertSame('category', $this->service->getEntityType(new Category()));
+        $this->assertSame('device', $this->service->getEntityType(new Project()));
+        $this->assertSame('attachment', $this->service->getEntityType(new PartAttachment()));
+        $this->assertSame('supplier', $this->service->getEntityType(new Supplier()));
+        $this->assertSame('user', $this->service->getEntityType(new User()));
+        $this->assertSame('group', $this->service->getEntityType(new Group()));
+        $this->assertSame('currency', $this->service->getEntityType(new Currency()));
+        $this->assertSame('measurement_unit', $this->service->getEntityType(new MeasurementUnit()));
+        $this->assertSame('label_profile', $this->service->getEntityType(new LabelProfile()));
     }
 
 }

@@ -57,33 +57,31 @@ class BarcodeNormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(BarcodeNormalizer::class);
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            //QR URL content:
-            [['lot', 1], 'https://localhost:8000/scan/lot/1'],
-            [['part', 123], 'https://localhost:8000/scan/part/123'],
-            [['location', 4], 'http://foo.bar/part-db/scan/location/4'],
-            [['under_score', 10], 'http://test/part-db/sub/scan/under_score/10/'],
-            //Current Code39 format:
-            [['lot', 10], 'L0010'],
-            [['lot', 123], 'L0123'],
-            [['lot', 123456], 'L123456'],
-            [['part', 2], 'P0002'],
-            //Development phase Code39 barcodes:
-            [['lot', 10], 'L-000010'],
-            [['lot', 10], 'Lß000010'],
-            [['part', 123], 'P-000123'],
-            [['location', 123], 'S-000123'],
-            [['lot', 12_345_678], 'L-12345678'],
-            //Legacy storelocation format
-            [['location', 336], '$L00336'],
-            [['location', 12_345_678], '$L12345678'],
-            //Legacy Part format
-            [['part', 123], '0000123'],
-            [['part', 123], '00001236'],
-            [['part', 1_234_567], '12345678'],
-        ];
+        //QR URL content:
+        yield [['lot', 1], 'https://localhost:8000/scan/lot/1'];
+        yield [['part', 123], 'https://localhost:8000/scan/part/123'];
+        yield [['location', 4], 'http://foo.bar/part-db/scan/location/4'];
+        yield [['under_score', 10], 'http://test/part-db/sub/scan/under_score/10/'];
+        //Current Code39 format:
+        yield [['lot', 10], 'L0010'];
+        yield [['lot', 123], 'L0123'];
+        yield [['lot', 123456], 'L123456'];
+        yield [['part', 2], 'P0002'];
+        //Development phase Code39 barcodes:
+        yield [['lot', 10], 'L-000010'];
+        yield [['lot', 10], 'Lß000010'];
+        yield [['part', 123], 'P-000123'];
+        yield [['location', 123], 'S-000123'];
+        yield [['lot', 12_345_678], 'L-12345678'];
+        //Legacy storelocation format
+        yield [['location', 336], '$L00336'];
+        yield [['location', 12_345_678], '$L12345678'];
+        //Legacy Part format
+        yield [['part', 123], '0000123'];
+        yield [['part', 123], '00001236'];
+        yield [['part', 1_234_567], '12345678'];
     }
 
     public function invalidDataProvider(): array

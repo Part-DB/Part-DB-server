@@ -47,7 +47,6 @@ return static function (RectorConfig $rectorConfig): void {
 
         //PHPUnit rules
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
-        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ]);
 };
