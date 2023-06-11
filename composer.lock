@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a1f7b07108d0b82633975721493cc8a",
+    "content-hash": "3fced602006b9f4356f00e003f404d84",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -5909,84 +5909,6 @@
                 "source": "https://github.com/scheb/2fa-trusted-device/tree/v6.8.0"
             },
             "time": "2023-04-01T11:20:00+00:00"
-        },
-        {
-            "name": "sensio/framework-extra-bundle",
-            "version": "v6.2.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/2f886f4b31f23c76496901acaedfedb6936ba61f",
-                "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/annotations": "^1.0|^2.0",
-                "php": ">=7.2.5",
-                "symfony/config": "^4.4|^5.0|^6.0",
-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
-                "symfony/http-kernel": "^4.4|^5.0|^6.0"
-            },
-            "conflict": {
-                "doctrine/doctrine-cache-bundle": "<1.3.1",
-                "doctrine/persistence": "<1.3"
-            },
-            "require-dev": {
-                "doctrine/dbal": "^2.10|^3.0",
-                "doctrine/doctrine-bundle": "^1.11|^2.0",
-                "doctrine/orm": "^2.5",
-                "symfony/browser-kit": "^4.4|^5.0|^6.0",
-                "symfony/doctrine-bridge": "^4.4|^5.0|^6.0",
-                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
-                "symfony/expression-language": "^4.4|^5.0|^6.0",
-                "symfony/finder": "^4.4|^5.0|^6.0",
-                "symfony/monolog-bridge": "^4.0|^5.0|^6.0",
-                "symfony/monolog-bundle": "^3.2",
-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
-                "symfony/security-bundle": "^4.4|^5.0|^6.0",
-                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
-                "symfony/yaml": "^4.4|^5.0|^6.0",
-                "twig/twig": "^1.34|^2.4|^3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sensio\\Bundle\\FrameworkExtraBundle\\": "src/"
-                },
-                "exclude-from-classmap": [
-                    "/tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "This bundle provides a way to configure your controllers with annotations",
-            "keywords": [
-                "annotations",
-                "controllers"
-            ],
-            "support": {
-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.10"
-            },
-            "abandoned": "Symfony",
-            "time": "2023-02-24T14:57:12+00:00"
         },
         {
             "name": "shivas/versioning-bundle",
@@ -13015,16 +12937,16 @@
         },
         {
             "name": "web-auth/metadata-service",
-            "version": "4.5.2",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-metadata-service.git",
-                "reference": "82b3a517894987db1f8959a9320b9891515af9e7"
+                "reference": "b58fbb0df46450acc426329bd87b60d794859da0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-metadata-service/zipball/82b3a517894987db1f8959a9320b9891515af9e7",
-                "reference": "82b3a517894987db1f8959a9320b9891515af9e7",
+                "url": "https://api.github.com/repos/web-auth/webauthn-metadata-service/zipball/b58fbb0df46450acc426329bd87b60d794859da0",
+                "reference": "b58fbb0df46450acc426329bd87b60d794859da0",
                 "shasum": ""
             },
             "require": {
@@ -13047,6 +12969,12 @@
                 "web-token/jwt-signature-algorithm-ecdsa": "Mandatory for fetching Metadata Statement from distant sources"
             },
             "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "web-auth/webauthn-framework",
+                    "url": "https://github.com/web-auth/webauthn-framework"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Webauthn\\MetadataService\\": "src/"
@@ -13074,7 +13002,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.5.2"
+                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.6.0"
             },
             "funding": [
                 {
@@ -13086,20 +13014,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-01-22T17:02:25+00:00"
+            "time": "2023-06-01T19:06:30+00:00"
         },
         {
             "name": "web-auth/webauthn-lib",
-            "version": "4.5.2",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-lib.git",
-                "reference": "30c5e891c6418abef6d87a4351132b01b1828a98"
+                "reference": "e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/30c5e891c6418abef6d87a4351132b01b1828a98",
-                "reference": "30c5e891c6418abef6d87a4351132b01b1828a98",
+                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e",
+                "reference": "e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e",
                 "shasum": ""
             },
             "require": {
@@ -13129,6 +13057,12 @@
                 "web-token/jwt-signature-algorithm-rsa": "Mandatory for the AndroidSafetyNet Attestation Statement support"
             },
             "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "web-auth/webauthn-framework",
+                    "url": "https://github.com/web-auth/webauthn-framework"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Webauthn\\": "src/"
@@ -13156,7 +13090,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-lib/tree/4.5.2"
+                "source": "https://github.com/web-auth/webauthn-lib/tree/4.6.0"
             },
             "funding": [
                 {
@@ -13168,20 +13102,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-05-12T18:26:01+00:00"
+            "time": "2023-06-01T19:06:30+00:00"
         },
         {
             "name": "web-auth/webauthn-symfony-bundle",
-            "version": "4.5.2",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-symfony-bundle.git",
-                "reference": "753854e2b3c4b5a61febe63b802739bd9f6e7143"
+                "reference": "4771712b59efef2051594c3ffd547a5a1b6b52fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/753854e2b3c4b5a61febe63b802739bd9f6e7143",
-                "reference": "753854e2b3c4b5a61febe63b802739bd9f6e7143",
+                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/4771712b59efef2051594c3ffd547a5a1b6b52fd",
+                "reference": "4771712b59efef2051594c3ffd547a5a1b6b52fd",
                 "shasum": ""
             },
             "require": {
@@ -13203,6 +13137,12 @@
                 "web-token/jwt-signature": "^3.1"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "web-auth/webauthn-framework",
+                    "url": "https://github.com/web-auth/webauthn-framework"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Webauthn\\Bundle\\": "src/"
@@ -13230,7 +13170,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.5.2"
+                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.6.0"
             },
             "funding": [
                 {
@@ -13242,7 +13182,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-01-24T19:32:30+00:00"
+            "time": "2023-06-01T19:06:30+00:00"
         },
         {
             "name": "web-token/jwt-core",
