@@ -23,19 +23,25 @@ namespace App\Serializer;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
  */
-class StructuralElementDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
+class StructuralElementDenormalizer implements DenormalizerInterface
 {
 
     private array $object_cache = [];
 
-    public function __construct(private readonly ObjectNormalizer $normalizer, private readonly EntityManagerInterface $entityManager)
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly DenormalizerInterface $denormalizer)
     {
     }
 
@@ -50,7 +56,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, CacheableS
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         /** @var AbstractStructuralDBElement $deserialized_entity */
-        $deserialized_entity = $this->normalizer->denormalize($data, $type, $format, $context);
+        $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         //Check if we already have the entity in the database (via path)
         /** @var StructuralDBElementRepository $repo */
@@ -81,8 +87,11 @@ class StructuralElementDenormalizer implements DenormalizerInterface, CacheableS
         return $deserialized_entity;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(): array
     {
-        return false;
+        //Must be false, because we use in_array in supportsDenormalization
+        return [
+            AbstractStructuralDBElement::class => false,
+        ];
     }
 }

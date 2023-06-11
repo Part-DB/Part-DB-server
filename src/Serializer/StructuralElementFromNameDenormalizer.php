@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * @see \App\Tests\Serializer\StructuralElementFromNameDenormalizerTest
  */
-class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
+class StructuralElementFromNameDenormalizer implements DenormalizerInterface
 {
     public function __construct(private readonly EntityManagerInterface $em)
     {
@@ -67,9 +67,11 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
         return end($elements);
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format)
     {
-        //Must be false, because we do an is_string check on data in supportsDenormalization
-        return false;
+        //Cachable value Must be false, because we do an is_string check on data in supportsDenormalization
+        return [
+            AbstractStructuralDBElement::class => false
+        ];
     }
 }

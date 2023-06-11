@@ -27,16 +27,20 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\PartNormalizerTest
  */
-class PartNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
+class PartNormalizer implements NormalizerInterface, DenormalizerInterface
 {
+
     private const DENORMALIZE_KEY_MAPPING = [
         'notes' => 'comment',
         'quantity' => 'instock',
@@ -47,7 +51,10 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         'storage_location' => 'storelocation',
     ];
 
-    public function __construct(private readonly ObjectNormalizer $normalizer, private readonly StructuralElementFromNameDenormalizer $locationDenormalizer)
+    public function __construct(
+        private readonly StructuralElementFromNameDenormalizer $locationDenormalizer,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly NormalizerInterface $normalizer)
     {
     }
 
@@ -166,9 +173,11 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $object;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format)
     {
         //Must be false, because we rely on is_array($data) in supportsDenormalization()
-        return false;
+        return [
+            Part::class => false,
+        ];
     }
 }

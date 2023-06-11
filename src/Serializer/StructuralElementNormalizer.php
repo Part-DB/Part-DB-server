@@ -21,16 +21,22 @@
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementNormalizerTest
  */
-class StructuralElementNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+class StructuralElementNormalizer implements NormalizerInterface
 {
-    public function __construct(private readonly ObjectNormalizer $normalizer)
+    public function __construct(
+        #[Autowire(service: ObjectNormalizer::class)]
+        private NormalizerInterface $normalizer
+    )
     {
     }
 
@@ -57,8 +63,10 @@ class StructuralElementNormalizer implements NormalizerInterface, CacheableSuppo
         return $data;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format)
     {
-        return true;
+        return [
+            AbstractStructuralDBElement::class => true,
+        ];
     }
 }

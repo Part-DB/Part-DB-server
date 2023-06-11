@@ -21,13 +21,12 @@
 namespace App\Serializer;
 
 use Brick\Math\BigNumber;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @see \App\Tests\Serializer\BigNumberNormalizerTest
  */
-class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+class BigNumberNormalizer implements NormalizerInterface
 {
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -44,8 +43,10 @@ class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMetho
         return (string) $object;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format)
     {
-        return true;
+        return [
+            BigNumber::class => true,
+        ];
     }
 }

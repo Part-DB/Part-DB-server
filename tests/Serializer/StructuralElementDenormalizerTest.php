@@ -37,11 +37,6 @@ class StructuralElementDenormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(StructuralElementDenormalizer::class);
     }
 
-    public function testHasCacheableSupportsMethod(): void
-    {
-        $this->assertFalse($this->service->hasCacheableSupportsMethod());
-    }
-
     public function testSupportsDenormalization(): void
     {
         $this->assertFalse($this->service->supportsDenormalization('doesnt_matter', Category::class, 'json', ['groups' => ['import']]));
