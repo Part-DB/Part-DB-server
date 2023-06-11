@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0d4bf26f478ca8451e65e618de7bde7",
+    "content-hash": "fa0dafb8fc42546d15378323ee9b6fb0",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2454,31 +2454,39 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "dev-master",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "ef886b0654766a6adb1e027ed1b3b57a3cbb9c5a"
+                "reference": "807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad",
+                "reference": "807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad",
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "nyholm/psr7": "^1.5",
-                "php": "^7.4.0|^8.0",
-                "scheb/2fa-bundle": "^5.0.0|^6.0.0",
-                "symfony/framework-bundle": "^5.0|^6.0",
+                "php": "^8.1",
+                "scheb/2fa-bundle": "^6.0.0",
+                "symfony/framework-bundle": "^6.0",
                 "symfony/psr-http-message-bridge": "^2.1",
-                "web-auth/webauthn-lib": "^3.3|^4.0"
+                "symfony/uid": "^6.0",
+                "web-auth/webauthn-lib": "^4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
                     "Jbtronics\\TFAWebauthn\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2497,7 +2505,11 @@
                 "two-factor-authentication",
                 "webauthn"
             ],
-            "time": "2023-05-27T18:21:46+00:00"
+            "support": {
+                "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v2.0.0"
+            },
+            "time": "2023-06-11T11:09:45+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -5555,23 +5567,23 @@
         },
         {
             "name": "s9e/text-formatter",
-            "version": "2.13.1",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "bbd9e34e9c30d5daeb780f115fe69cd81dd9c352"
+                "reference": "48a2f3a3fb18af8d78330204732a3369441c4060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/bbd9e34e9c30d5daeb780f115fe69cd81dd9c352",
-                "reference": "bbd9e34e9c30d5daeb780f115fe69cd81dd9c352",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/48a2f3a3fb18af8d78330204732a3369441c4060",
+                "reference": "48a2f3a3fb18af8d78330204732a3369441c4060",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-filter": "*",
                 "lib-pcre": ">=8.13",
-                "php": ">=7.4",
+                "php": "^8.0",
                 "s9e/regexp-builder": "^1.4",
                 "s9e/sweetdom": "^2.0"
             },
@@ -5591,7 +5603,7 @@
             },
             "type": "library",
             "extra": {
-                "version": "2.13.1"
+                "version": "2.14.0"
             },
             "autoload": {
                 "psr-4": {
@@ -5623,9 +5635,9 @@
             ],
             "support": {
                 "issues": "https://github.com/s9e/TextFormatter/issues",
-                "source": "https://github.com/s9e/TextFormatter/tree/2.13.1"
+                "source": "https://github.com/s9e/TextFormatter/tree/2.14.0"
             },
-            "time": "2023-02-11T00:18:05+00:00"
+            "time": "2023-06-08T07:19:50+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -15582,16 +15594,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.48.0",
+            "version": "v1.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "2e428e8432e9879187672fe08f1cc335e2a31dd6"
+                "reference": "ce1d424f76bbb377f1956cc7641e8e2eafe81cde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/2e428e8432e9879187672fe08f1cc335e2a31dd6",
-                "reference": "2e428e8432e9879187672fe08f1cc335e2a31dd6",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/ce1d424f76bbb377f1956cc7641e8e2eafe81cde",
+                "reference": "ce1d424f76bbb377f1956cc7641e8e2eafe81cde",
                 "shasum": ""
             },
             "require": {
@@ -15605,7 +15617,8 @@
                 "symfony/filesystem": "^5.4.7|^6.0",
                 "symfony/finder": "^5.4.3|^6.0",
                 "symfony/framework-bundle": "^5.4.7|^6.0",
-                "symfony/http-kernel": "^5.4.7|^6.0"
+                "symfony/http-kernel": "^5.4.7|^6.0",
+                "symfony/process": "^5.4.7|^6.0"
             },
             "conflict": {
                 "doctrine/doctrine-bundle": "<2.4",
@@ -15617,9 +15630,8 @@
                 "doctrine/doctrine-bundle": "^2.4",
                 "doctrine/orm": "^2.10.0",
                 "symfony/http-client": "^5.4.7|^6.0",
-                "symfony/phpunit-bridge": "^5.4.7|^6.0",
+                "symfony/phpunit-bridge": "^5.4.17|^6.0",
                 "symfony/polyfill-php80": "^1.16.0",
-                "symfony/process": "^5.4.7|^6.0",
                 "symfony/security-core": "^5.4.7|^6.0",
                 "symfony/yaml": "^5.4.3|^6.0",
                 "twig/twig": "^2.0|^3.0"
@@ -15655,7 +15667,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.48.0"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.49.0"
             },
             "funding": [
                 {
@@ -15671,7 +15683,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-14T10:48:46+00:00"
+            "time": "2023-06-07T13:10:14+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -16005,7 +16017,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "florianv/swap-bundle": 20,
-        "jbtronics/2fa-webauthn": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
