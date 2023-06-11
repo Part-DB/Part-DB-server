@@ -43,8 +43,8 @@ class PKImportHelper
      */
     public function purgeDatabaseForImport(): void
     {
-        //Versions with "" are needed !!
-        $purger = new ResetAutoIncrementORMPurger($this->em, ['users', '"users"', 'groups', '"groups"', 'u2f_keys', 'internal', 'migration_versions']);
+        //We use the ResetAutoIncrementORMPurger to reset the auto increment values of the tables. Also it normalizes table names before checking for exclusion.
+        $purger = new ResetAutoIncrementORMPurger($this->em, ['users', 'groups', 'u2f_keys', 'internal', 'migration_versions']);
         $purger->purge();
     }
 

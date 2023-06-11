@@ -33,7 +33,7 @@
             {% block admin_info %}
                 You could try to do following things, if this error is unexpected:
                 <ul>
-                    <li>Check <code>var/log/prod.log</code> for additional informations</li>
+                    <li>Check <code>var/log/prod.log</code> (or <code>docker logs</code> when Part-DB is running inside a docker container) for additional informations</li>
                     <li>Run <kbd>php bin/console cache:clear</kbd> to clear cache</li>
                 </ul>
             {% endblock %}

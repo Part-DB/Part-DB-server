@@ -2392,16 +2392,16 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "1.3.4",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-imagine/Imagine.git",
-                "reference": "c9ba67d2f1dc0785187261a656cb55ff01f594be"
+                "reference": "7151d553edec4dc2bbac60419f7a74ff34700e7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-imagine/Imagine/zipball/c9ba67d2f1dc0785187261a656cb55ff01f594be",
-                "reference": "c9ba67d2f1dc0785187261a656cb55ff01f594be",
+                "url": "https://api.github.com/repos/php-imagine/Imagine/zipball/7151d553edec4dc2bbac60419f7a74ff34700e7f",
+                "reference": "7151d553edec4dc2bbac60419f7a74ff34700e7f",
                 "shasum": ""
             },
             "require": {
@@ -2448,9 +2448,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-imagine/Imagine/issues",
-                "source": "https://github.com/php-imagine/Imagine/tree/1.3.4"
+                "source": "https://github.com/php-imagine/Imagine/tree/1.3.5"
             },
-            "time": "2023-04-17T15:21:07+00:00"
+            "time": "2023-06-07T14:49:52+00:00"
         },
         {
             "name": "jbtronics/2fa-webauthn",
@@ -12404,16 +12404,16 @@
         },
         {
             "name": "twig/extra-bundle",
-            "version": "v3.6.0",
+            "version": "v3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "4a9674e775f49a9df5e26da66546e8f3364afe67"
+                "reference": "802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/4a9674e775f49a9df5e26da66546e8f3364afe67",
-                "reference": "4a9674e775f49a9df5e26da66546e8f3364afe67",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49",
+                "reference": "802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49",
                 "shasum": ""
             },
             "require": {
@@ -12462,7 +12462,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.6.0"
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.6.1"
             },
             "funding": [
                 {
@@ -12474,7 +12474,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-14T11:03:02+00:00"
+            "time": "2023-05-06T11:11:46+00:00"
         },
         {
             "name": "twig/html-extra",
@@ -12740,16 +12740,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.6.0",
+            "version": "v3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "106c170d08e8415d78be2d16c3d057d0d108262b"
+                "reference": "7e7d5839d4bec168dfeef0ac66d5c5a2edbabffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/106c170d08e8415d78be2d16c3d057d0d108262b",
-                "reference": "106c170d08e8415d78be2d16c3d057d0d108262b",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7e7d5839d4bec168dfeef0ac66d5c5a2edbabffd",
+                "reference": "7e7d5839d4bec168dfeef0ac66d5c5a2edbabffd",
                 "shasum": ""
             },
             "require": {
@@ -12795,7 +12795,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.6.0"
+                "source": "https://github.com/twigphp/Twig/tree/v3.6.1"
             },
             "funding": [
                 {
@@ -12807,7 +12807,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-03T19:06:57+00:00"
+            "time": "2023-06-08T12:52:13+00:00"
         },
         {
             "name": "ua-parser/uap-php",
@@ -14293,16 +14293,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.16",
+            "version": "1.10.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "352bdbb960bb523e3d71b834862589f910921c23"
+                "reference": "52b6416c579663eebdd2f1d97df21971daf3b43f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/352bdbb960bb523e3d71b834862589f910921c23",
-                "reference": "352bdbb960bb523e3d71b834862589f910921c23",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/52b6416c579663eebdd2f1d97df21971daf3b43f",
+                "reference": "52b6416c579663eebdd2f1d97df21971daf3b43f",
                 "shasum": ""
             },
             "require": {
@@ -14351,7 +14351,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-05T08:21:46+00:00"
+            "time": "2023-06-07T22:00:43+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -14626,12 +14626,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9c9ca2f0d98a07cd23c775deba37639036cfd00a"
+                "reference": "22b763b5abdc69572b66c462cd85c2b2135f56aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9c9ca2f0d98a07cd23c775deba37639036cfd00a",
-                "reference": "9c9ca2f0d98a07cd23c775deba37639036cfd00a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/22b763b5abdc69572b66c462cd85c2b2135f56aa",
+                "reference": "22b763b5abdc69572b66c462cd85c2b2135f56aa",
                 "shasum": ""
             },
             "conflict": {
@@ -14787,7 +14787,7 @@
                 "friendsofsymfony/user-bundle": ">=1.2,<1.3.5",
                 "friendsoftypo3/mediace": ">=7.6.2,<7.6.5",
                 "froala/wysiwyg-editor": "<3.2.7",
-                "froxlor/froxlor": "<2.0.16",
+                "froxlor/froxlor": "<2.0.20",
                 "fuel/core": "<1.8.1",
                 "funadmin/funadmin": "<=3.2",
                 "gaoming13/wechat-php-sdk": "<=1.10.2",
@@ -14889,7 +14889,7 @@
                 "melisplatform/melis-front": "<5.0.1",
                 "mezzio/mezzio-swoole": "<3.7|>=4,<4.3",
                 "mgallegos/laravel-jqgrid": "<=1.3",
-                "microweber/microweber": "<1.3.4",
+                "microweber/microweber": "<=1.3.4",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
                 "mobiledetect/mobiledetectlib": "<2.8.32",
@@ -15227,7 +15227,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-06T21:04:56+00:00"
+            "time": "2023-06-09T23:04:09+00:00"
         },
         {
             "name": "sebastian/diff",

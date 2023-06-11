@@ -176,6 +176,11 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
                 continue;
             }
 
+            // The table name might be quoted, we have to trim it
+            // See https://github.com/Part-DB/Part-DB-server/issues/299
+            $tbl = trim($tbl, '"');
+            $tbl = trim($tbl, '`');
+
             // If the table is excluded, skip it as well
             if (in_array($tbl, $this->excluded, true)) {
                 continue;

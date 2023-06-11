@@ -34,11 +34,24 @@ RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"
     	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
-        ln -sfT /dev/stderr /var/log/php8.1-fpm.log; \
         chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
 
 # Enable php-fpm
 RUN a2enmod proxy_fcgi setenvif && a2enconf php8.1-fpm
+
+# Configure php-fpm to log to stdout of the container (stdout of PID 1)
+# We have to use /proc/1/fd/1 because /dev/stdout or /proc/self/fd/1 does not point to the container stdout (because we use apache as entrypoint)
+# We also disable the clear_env option to allow the use of environment variables in php-fpm
+RUN { \
+    echo '[global]'; \
+    echo 'error_log = /proc/1/fd/1'; \
+    echo; \
+    echo '[www]'; \
+    echo 'access.log = /proc/1/fd/1'; \
+    echo 'catch_workers_output = yes'; \
+    echo 'decorate_workers_output = no'; \
+    echo 'clear_env = no'; \
+   } | tee "/etc/php/8.1/fpm/pool.d/zz-docker.conf"
 
 # PHP files should be handled by PHP, and should be preferred over any other file type
 RUN { \
