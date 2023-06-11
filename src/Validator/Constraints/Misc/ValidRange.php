@@ -43,9 +43,7 @@ namespace App\Validator\Constraints\Misc;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class ValidRange extends Constraint
 {
     public string $message = 'validator.invalid_range';

@@ -26,9 +26,8 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * This constraint restricts a user in that way that it can not lock itself out of the user system.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class NoLockout extends Constraint
 {
     public string $message = 'validator.noLockout';

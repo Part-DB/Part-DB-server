@@ -70,18 +70,18 @@ class Supplier extends AbstractCompany
     /**
      * @var Currency|null The currency that should be used by default for order informations with this supplier.
      *                    Set to null, to use global base currency.
-     * @Selectable()
      */
     #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn(name: 'default_currency_id')]
+    #[Selectable()]
     protected ?Currency $default_currency = null;
 
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
-     * @BigDecimalPositiveOrZero()
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(name: 'shipping_costs', nullable: true, type: 'big_decimal', precision: 11, scale: 5)]
+    #[BigDecimalPositiveOrZero()]
     protected ?BigDecimal $shipping_costs = null;
 
     /**

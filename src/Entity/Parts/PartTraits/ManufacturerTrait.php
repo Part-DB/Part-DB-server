@@ -37,11 +37,11 @@ trait ManufacturerTrait
 {
     /**
      * @var Manufacturer|null The manufacturer of this part
-     * @Selectable()
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Manufacturer')]
     #[ORM\JoinColumn(name: 'id_manufacturer')]
+    #[Selectable()]
     protected ?Manufacturer $manufacturer = null;
 
     /**

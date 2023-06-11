@@ -96,10 +96,10 @@ class ProjectBOMEntry extends AbstractDBElement
 
     /**
      * @var ?Currency The currency for the price of this non-part BOM entry
-     * @Selectable()
      */
     #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn]
+    #[Selectable]
     protected ?Currency $price_currency = null;
 
     public function __construct()

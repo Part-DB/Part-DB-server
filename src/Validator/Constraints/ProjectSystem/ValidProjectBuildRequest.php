@@ -26,9 +26,8 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * This constraint checks that the given ProjectBuildRequest is valid.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class ValidProjectBuildRequest extends Constraint
 {
     public function getTargets(): string

@@ -28,8 +28,8 @@ use Symfony\Component\Validator\Constraint;
  * A PermissionEmbed object with this annotation will be checked with ValidPermissionValidator.
  * That means the alsoSet values of the permission operations are set.
  *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class ValidPermission extends Constraint
 {
 }

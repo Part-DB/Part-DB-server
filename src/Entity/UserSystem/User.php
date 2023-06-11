@@ -24,6 +24,7 @@ namespace App\Entity\UserSystem;
 
 use App\Repository\UserRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
@@ -64,6 +65,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
 #[ORM\Index(name: 'user_idx_username', columns: ['name'])]
+#[NoLockout()]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
@@ -83,10 +85,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var string|null The theme
-     * @ValidTheme()
      */
     #[Groups(['full', 'import'])]
     #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
+    #[ValidTheme()]
     protected ?string $theme = null;
 
     /**
@@ -127,11 +129,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var Group|null the group this user belongs to
      * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
-     * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Group', inversedBy: 'users')]
     #[ORM\JoinColumn(name: 'group_id')]
+    #[Selectable]
     protected ?Group $group = null;
 
     /**
@@ -244,19 +246,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *                    Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
      *                    TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
      *                    TODO: Find a way to use fetch EAGER (this improves performance a bit)
-     * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn(name: 'currency_id')]
+    #[Selectable]
     protected ?Currency $currency = null;
 
-    /**
-     * @var PermissionData|null
-     * @ValidPermission()
-     */
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
+    #[ValidPermission()]
     protected ?PermissionData $permissions = null;
 
     /**
@@ -287,7 +286,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
 

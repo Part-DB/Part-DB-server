@@ -53,20 +53,20 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
-     * @BigDecimalPositive()
      */
     #[Groups(['extended', 'full'])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5)]
+    #[BigDecimalPositive()]
     protected BigDecimal $price;
 
     /**
      * @var ?Currency The currency used for the current price information.
-     *                If this is null, the global base unit is assumed.
-     * @Selectable()
+     *                If this is null, the global base unit is assumed
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'id_currency')]
+    #[Selectable()]
     protected ?Currency $currency = null;
 
     /**

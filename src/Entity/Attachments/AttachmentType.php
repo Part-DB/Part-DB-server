@@ -50,12 +50,10 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @var string
-     * @ValidFileFilter
-     */
     #[ORM\Column(type: Types::TEXT)]
+    #[ValidFileFilter]
     protected string $filetype_filter = '';
+
     /**
      * @var Collection<int, AttachmentTypeAttachment>
      */

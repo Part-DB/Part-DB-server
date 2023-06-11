@@ -22,25 +22,11 @@ declare(strict_types=1);
  */
 namespace App\Validator\Constraints\BigDecimal;
 
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
-/**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
- * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
- */
-class BigDecimalPositiveOrZero extends GreaterThanOrEqual
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+class BigDecimalPositiveOrZero extends PositiveOrZero
 {
-    use BigNumberConstraintTrait;
-
-    public $message = 'This value should be either positive or zero.';
-
-    public function __construct($options = null)
-    {
-        parent::__construct($this->configureNumberConstraintOptions($options));
-    }
-
     public function validatedBy(): string
     {
         return BigDecimalGreaterThenOrEqualValidator::class;

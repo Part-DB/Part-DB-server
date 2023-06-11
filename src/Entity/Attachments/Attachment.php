@@ -104,19 +104,13 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     protected ?AttachmentContainingDBElement $element = null;
 
-    /**
-     * @var bool
-     */
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $show_in_table = false;
 
-    /**
-     * @var AttachmentType|null
-     * @Selectable()
-     */
     #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
     #[ORM\ManyToOne(targetEntity: 'AttachmentType', inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
+    #[Selectable()]
     protected ?AttachmentType $attachment_type = null;
 
     public function __construct()

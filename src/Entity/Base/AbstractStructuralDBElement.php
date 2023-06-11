@@ -87,16 +87,13 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * We can not define the mapping here, or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
-     * @var AbstractStructuralDBElement[]|Collection
+     * @var Collection<AbstractStructuralDBElement>
      */
     #[Groups(['include_children'])]
     protected Collection $children;
 
-    /**
-     * @var AbstractStructuralDBElement
-     * @NoneOfItsChildren()
-     */
     #[Groups(['include_parents', 'import'])]
+    #[NoneOfItsChildren]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /** @var string[] all names of all parent elements as an array of strings,

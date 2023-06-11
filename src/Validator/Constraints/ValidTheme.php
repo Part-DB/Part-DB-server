@@ -26,8 +26,8 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * A constraint to validate the theme setting of the user.
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class ValidTheme extends Constraint
 {
     public string $message = 'validator.selected_theme_is_invalid';

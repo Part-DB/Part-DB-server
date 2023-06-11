@@ -62,9 +62,9 @@ trait BasicPropertyTrait
     /**
      * @var Category|null The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
      *               Every part must have a category.
-     * @Selectable()
      */
     #[Assert\NotNull(message: 'validator.select_valid_category')]
+    #[Selectable()]
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Category')]
     #[ORM\JoinColumn(name: 'id_category', nullable: false)]
@@ -72,11 +72,11 @@ trait BasicPropertyTrait
 
     /**
      * @var Footprint|null The footprint of this part (e.g. DIP8)
-     * @Selectable()
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Footprint')]
     #[ORM\JoinColumn(name: 'id_footprint')]
+    #[Selectable()]
     protected ?Footprint $footprint = null;
 
     /**

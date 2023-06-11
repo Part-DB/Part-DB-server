@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -41,6 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`groups`')]
 #[ORM\Index(name: 'group_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
+#[NoLockout()]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
     /**
@@ -66,6 +68,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(type: Types::BOOLEAN, name: 'enforce_2fa')]
     protected bool $enforce2FA = false;
+
     /**
      * @var Collection<int, GroupAttachment>
      */
@@ -74,15 +77,13 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    /**
-     * @var PermissionData|null
-     * @ValidPermission()
-     */
     #[Groups(['full'])]
     #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
+    #[ValidPermission()]
     protected ?PermissionData $permissions = null;
 
-    /** @var Collection<int, GroupParameter>
+    /**
+     * @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]

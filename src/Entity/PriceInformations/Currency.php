@@ -51,9 +51,9 @@ class Currency extends AbstractStructuralDBElement
     /**
      * @var BigDecimal|null The exchange rate between this currency and the base currency
      *                      (how many base units the current currency is worth)
-     * @BigDecimalPositive()
      */
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
+    #[BigDecimalPositive()]
     protected ?BigDecimal $exchange_rate = null;
 
     /**

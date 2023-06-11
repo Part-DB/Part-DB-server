@@ -27,9 +27,8 @@ use Symfony\Component\Validator\Constraint;
 /**
  * A constraint "dummy" to validate the PartLot.
  * We need to access services in our Validator, so we can not use a simple callback on PartLot.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class ValidPartLot extends Constraint
 {
     public function getTargets(): string

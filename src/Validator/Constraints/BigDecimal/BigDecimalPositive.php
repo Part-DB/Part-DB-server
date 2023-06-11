@@ -22,25 +22,11 @@ declare(strict_types=1);
  */
 namespace App\Validator\Constraints\BigDecimal;
 
-use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Positive;
 
-/**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
- * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
- */
-class BigDecimalPositive extends GreaterThan
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+class BigDecimalPositive extends Positive
 {
-    use BigNumberConstraintTrait;
-
-    public $message = 'This value should be positive.';
-
-    public function __construct($options = null)
-    {
-        parent::__construct($this->configureNumberConstraintOptions($options));
-    }
-
     public function validatedBy(): string
     {
         return BigDecimalGreaterThanValidator::class;

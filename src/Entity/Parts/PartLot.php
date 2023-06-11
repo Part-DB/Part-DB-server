@@ -41,7 +41,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * This entity describes a lot where parts can be stored.
  * It is the connection between a part and its store locations.
  *
- * @ValidPartLot()
  * @see \App\Tests\Entity\Parts\PartLotTest
  */
 #[ORM\Entity]
@@ -49,6 +48,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Table(name: 'part_lots')]
 #[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
 #[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
+#[ValidPartLot]
 class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
@@ -77,11 +77,11 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * @var Storelocation|null The storelocation of this lot
-     * @Selectable()
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\ManyToOne(targetEntity: 'Storelocation')]
     #[ORM\JoinColumn(name: 'id_store_location')]
+    #[Selectable()]
     protected ?Storelocation $storage_location = null;
 
     /**
@@ -334,7 +334,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         //When the storage location sets the owner must match, the part lot owner must match the storage location owner
         if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
             && $this->getStorageLocation()->getOwner() && $this->getOwner() && ($this->getOwner() !== $this->getStorageLocation()->getOwner()
-            && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID())) {
+                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID())) {
             $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
                 ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
                 ->atPath('owner')

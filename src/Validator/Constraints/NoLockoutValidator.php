@@ -34,11 +34,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class NoLockoutValidator extends ConstraintValidator
 {
-    protected array $perm_structure;
-
     public function __construct(protected PermissionManager $resolver, protected Security $security, protected EntityManagerInterface $entityManager)
     {
-        $this->perm_structure = $resolver->getPermissionStructure();
     }
 
     /**
@@ -71,6 +68,8 @@ class NoLockoutValidator extends ConstraintValidator
                     ) ?? false)) {
                 $this->context->addViolation($constraint->message);
             }
+        } else {
+            throw new \LogicException('The NoLockout constraint can only be used on User or Group objects.');
         }
     }
 }

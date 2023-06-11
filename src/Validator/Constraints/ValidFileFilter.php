@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class ValidFileFilter extends Constraint
 {
 }
