@@ -20,6 +20,7 @@
 
 namespace App\Services\UserSystem;
 
+use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
@@ -44,7 +45,7 @@ class UserAvatarHelper
     public function getAvatarURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md');
         }
 
@@ -60,7 +61,7 @@ class UserAvatarHelper
     public function getAvatarSmURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs');
         }
 
@@ -72,7 +73,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException) {
+        } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -81,7 +82,7 @@ class UserAvatarHelper
     public function getAvatarMdURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm');
         }
 
@@ -93,7 +94,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException) {
+        } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -131,7 +132,7 @@ class UserAvatarHelper
     {
         //Determine which attachment to user
         //If the user already has a master attachment, we use this one
-        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
             $attachment = $user->getMasterPictureAttachment();
         } else { //Otherwise we have to create one
             $attachment = new UserAttachment();

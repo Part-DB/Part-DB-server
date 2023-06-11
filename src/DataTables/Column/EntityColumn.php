@@ -64,7 +64,7 @@ class EntityColumn extends AbstractColumn
 
             /** @var AbstractNamedDBElement|null $entity */
 
-            if ($entity instanceof \App\Entity\Base\AbstractNamedDBElement) {
+            if ($entity instanceof AbstractNamedDBElement) {
                 if (null !== $entity->getID()) {
                     return sprintf(
                         '<a href="%s">%s</a>',

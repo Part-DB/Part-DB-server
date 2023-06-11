@@ -22,17 +22,17 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Services\Attachments\FileTypeFilterTools;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }

@@ -20,6 +20,8 @@
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -28,7 +30,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:list|users:list', 'Lists all users')]
+#[AsCommand('partdb:users:list|users:list', 'Lists all users')]
 class UserListCommand extends Command
 {
     public function __construct(protected EntityManagerInterface $entityManager)
@@ -79,7 +81,7 @@ class UserListCommand extends Command
                 $user->getUsername(),
                 $user->getFullName(),
                 $user->getEmail(),
-                $user->getGroup() instanceof \App\Entity\UserSystem\Group ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
+                $user->getGroup() instanceof Group ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
                 $user->isDisabled() ? 'Yes' : 'No',
                 $user->isSAMLUser() ? 'SAML' : 'Local',
             ]);

@@ -41,17 +41,17 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use Omines\DataTablesBundle\Column\AbstractColumn;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RevertLogColumn extends AbstractColumn
 {
-    public function __construct(protected TranslatorInterface $translator, protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected Security $security)
     {
     }
 

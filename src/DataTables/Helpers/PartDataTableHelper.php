@@ -20,6 +20,8 @@
 
 namespace App\DataTables\Helpers;
 
+use App\Entity\ProjectSystem\Project;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
@@ -46,7 +48,7 @@ class PartDataTableHelper
         if ($context->isNeedsReview()) {
             $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
         }
-        if ($context->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
+        if ($context->getBuiltProject() instanceof Project) {
             $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
                 $this->translator->trans('part.info.projectBuildPart.hint') . ': ' . $context->getBuiltProject()->getName());
         }
@@ -63,7 +65,7 @@ class PartDataTableHelper
     public function renderPicture(Part $context): string
     {
         $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
-        if (!$preview_attachment instanceof \App\Entity\Attachments\Attachment) {
+        if (!$preview_attachment instanceof Attachment) {
             return '';
         }
 

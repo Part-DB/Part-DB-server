@@ -20,6 +20,7 @@
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,7 +53,7 @@ final class PermissionData implements \JsonSerializable
      *     operation => value,
      * ]
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON, name: 'data')]
+    #[ORM\Column(type: Types::JSON, name: 'data')]
     protected array $data = [])
     {
         //If the passed data did not contain a schema version, we set it to the current version

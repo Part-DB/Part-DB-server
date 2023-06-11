@@ -64,7 +64,7 @@ class EntityExporter
      * @param  array  $options The options to use for exporting
      * @return string The serialized data
      */
-    public function exportEntities(\App\Entity\Base\AbstractNamedDBElement|array $entities, array $options): string
+    public function exportEntities(AbstractNamedDBElement|array $entities, array $options): string
     {
         if (!is_array($entities)) {
             $entities = [$entities];
@@ -108,7 +108,7 @@ class EntityExporter
      *
      * @throws ReflectionException
      */
-    public function exportEntityFromRequest(\App\Entity\Base\AbstractNamedDBElement|array $entities, Request $request): Response
+    public function exportEntityFromRequest(AbstractNamedDBElement|array $entities, Request $request): Response
     {
         $options = [
             'format' => $request->get('format') ?? 'json',

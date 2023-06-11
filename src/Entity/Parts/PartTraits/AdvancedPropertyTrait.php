@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -36,14 +37,14 @@ trait AdvancedPropertyTrait
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $tags = '';
 
     /**
@@ -51,7 +52,7 @@ trait AdvancedPropertyTrait
      */
     #[Assert\PositiveOrZero]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $mass = null;
 
     /**
@@ -59,7 +60,7 @@ trait AdvancedPropertyTrait
      */
     #[Assert\Length(max: 100)]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 100, nullable: true, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 100, nullable: true, unique: true)]
     protected ?string $ipn = null;
 
     /**

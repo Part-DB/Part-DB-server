@@ -41,19 +41,19 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
 use DateTime;
 use IntlDateFormatter;
 use Locale;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * Provides Placeholders for infos about global infos like Installation name or datetimes.
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly string $partdb_title, private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly UrlGeneratorInterface $url_generator)
+    public function __construct(private readonly string $partdb_title, private readonly Security $security, private readonly UrlGeneratorInterface $url_generator)
     {
     }
 

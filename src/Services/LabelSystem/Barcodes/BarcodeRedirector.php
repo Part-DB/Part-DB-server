@@ -71,7 +71,7 @@ final class BarcodeRedirector
             case 'lot':
                 //Try to determine the part to the given lot
                 $lot = $this->em->find(PartLot::class, $id);
-                if (!$lot instanceof \App\Entity\Parts\PartLot) {
+                if (!$lot instanceof PartLot) {
                     throw new EntityNotFoundException();
                 }
 

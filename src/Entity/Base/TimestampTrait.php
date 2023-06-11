@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use Doctrine\DBAL\Types\Types;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -35,14 +36,14 @@ trait TimestampTrait
      * @var \DateTimeInterface|null the date when this element was modified the last time
      */
     #[Groups(['extended', 'full'])]
-    #[ORM\Column(name: 'last_modified', type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected ?\DateTimeInterface $lastModified = null;
 
     /**
      * @var \DateTimeInterface|null the date when this element was created
      */
     #[Groups(['extended', 'full'])]
-    #[ORM\Column(name: 'datetime_added', type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected ?\DateTimeInterface $addedDate = null;
 
     /**

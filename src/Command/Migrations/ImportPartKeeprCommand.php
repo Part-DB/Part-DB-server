@@ -20,6 +20,7 @@
 
 namespace App\Command\Migrations;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKDatastructureImporter;
 use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
@@ -33,7 +34,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:migrations:import-partkeepr', 'Import a PartKeepr database XML dump into Part-DB')]
+#[AsCommand('partdb:migrations:import-partkeepr', 'Import a PartKeepr database XML dump into Part-DB')]
 class ImportPartKeeprCommand extends Command
 {
 
@@ -85,7 +86,7 @@ class ImportPartKeeprCommand extends Command
         if (!$this->importHelper->checkVersion($data)) {
             $db_version = $this->importHelper->getDatabaseSchemaVersion($data);
             $io->error('The version of the imported database is not supported! (Version: '.$db_version.')');
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         //Import the mandatory data
@@ -103,7 +104,7 @@ class ImportPartKeeprCommand extends Command
             $io->success('Imported '.$count.' users.');
         }
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     private function doImport(SymfonyStyle $io, array $data): void

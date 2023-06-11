@@ -150,13 +150,13 @@ class PricedetailHelper
             $pricedetail = $orderdetail->findPriceForQty($amount);
 
             //When we don't have information about this amount, ignore it
-            if (!$pricedetail instanceof \App\Entity\PriceInformations\Pricedetail) {
+            if (!$pricedetail instanceof Pricedetail) {
                 continue;
             }
 
             $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
             //Ignore price information that can not be converted to base currency.
-            if ($converted instanceof \Brick\Math\BigDecimal) {
+            if ($converted instanceof BigDecimal) {
                 $avg = $avg->plus($converted);
                 ++$count;
             }
@@ -189,9 +189,9 @@ class PricedetailHelper
 
         $val_base = $value;
         //Convert value to base currency
-        if ($originCurrency instanceof \App\Entity\PriceInformations\Currency) {
+        if ($originCurrency instanceof Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (!$originCurrency->getExchangeRate() instanceof \Brick\Math\BigDecimal || $originCurrency->getExchangeRate()->isZero()) {
+            if (!$originCurrency->getExchangeRate() instanceof BigDecimal || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 
@@ -200,9 +200,9 @@ class PricedetailHelper
 
         $val_target = $val_base;
         //Convert value in base currency to target currency
-        if ($targetCurrency instanceof \App\Entity\PriceInformations\Currency) {
+        if ($targetCurrency instanceof Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (!$targetCurrency->getExchangeRate() instanceof \Brick\Math\BigDecimal) {
+            if (!$targetCurrency->getExchangeRate() instanceof BigDecimal) {
                 return null;
             }
 

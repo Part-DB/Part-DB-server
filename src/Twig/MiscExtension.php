@@ -20,6 +20,7 @@
 
 namespace App\Twig;
 
+use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
 
@@ -32,7 +33,7 @@ final class MiscExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new \Twig\TwigFunction('event_comment_needed',
+            new TwigFunction('event_comment_needed',
                 fn(string $operation_type) => $this->eventCommentNeededHelper->isCommentNeeded($operation_type)
             ),
         ];

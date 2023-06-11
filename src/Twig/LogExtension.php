@@ -20,6 +20,7 @@
 
 namespace App\Twig;
 
+use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\LogSystem\LogDataFormatter;
 use App\Services\LogSystem\LogDiffFormatter;
 use Twig\Extension\AbstractExtension;
@@ -35,7 +36,7 @@ final class LogExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('format_log_data', fn($data, \App\Entity\LogSystem\AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),
+            new TwigFunction('format_log_data', fn($data, AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),
             new TwigFunction('format_log_diff', fn($old_data, $new_data): string => $this->logDiffFormatter->formatDiff($old_data, $new_data), ['is_safe' => ['html']]),
         ];
     }

@@ -68,7 +68,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
             $this->extra['c'] = mb_strimwidth($comment, 0, self::COMMENT_MAX_LENGTH, '...');
         }
 
-        if ($move_to_target instanceof \App\Entity\Parts\PartLot) {
+        if ($move_to_target instanceof PartLot) {
             if ($type !== self::TYPE_MOVE) {
                 throw new \InvalidArgumentException('The move_to_target parameter can only be set if the type is "move"!');
             }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -34,11 +35,10 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class PartLotType extends AbstractType
 {
-    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected Security $security)
     {
     }
 

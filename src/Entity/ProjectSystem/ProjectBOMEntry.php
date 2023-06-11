@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
@@ -50,26 +51,26 @@ class ProjectBOMEntry extends AbstractDBElement
      * @var float
      */
     #[Assert\Positive]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, name: 'quantity')]
+    #[ORM\Column(type: Types::FLOAT, name: 'quantity')]
     protected float $quantity;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'mountnames')]
+    #[ORM\Column(type: Types::TEXT, name: 'mountnames')]
     protected string $mountnames = '';
 
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      */
     #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment;
 
     /**
@@ -82,7 +83,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var Part|null The part associated with this
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'project_bom_entries')]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'project_bom_entries')]
     #[ORM\JoinColumn(name: 'id_part')]
     protected ?Part $part = null;
 
@@ -97,7 +98,7 @@ class ProjectBOMEntry extends AbstractDBElement
      * @var ?Currency The currency for the price of this non-part BOM entry
      * @Selectable()
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class)]
+    #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn]
     protected ?Currency $price_currency = null;
 
@@ -213,18 +214,18 @@ class ProjectBOMEntry extends AbstractDBElement
      */
     public function isPartBomEntry(): bool
     {
-        return $this->part instanceof \App\Entity\Parts\Part;
+        return $this->part instanceof Part;
     }
 
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part
-        if ($this->part instanceof \App\Entity\Parts\Part && (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger())) {
+        if ($this->part instanceof Part && (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger())) {
             $this->quantity = round($this->quantity);
         }
         //Non-Part BOM entries are rounded
-        if (!$this->part instanceof \App\Entity\Parts\Part) {
+        if (!$this->part instanceof Part) {
             $this->quantity = round($this->quantity);
         }
 
@@ -248,14 +249,14 @@ class ProjectBOMEntry extends AbstractDBElement
         }
 
         //Prices are only allowed on non-part BOM entries
-        if ($this->part instanceof \App\Entity\Parts\Part && $this->price instanceof \Brick\Math\BigDecimal) {
+        if ($this->part instanceof Part && $this->price instanceof BigDecimal) {
             $context->buildViolation('project.bom_entry.price_not_allowed_on_parts')
                 ->atPath('price')
                 ->addViolation();
         }
 
         //Check that the part is not the build representation part of this device or one of its parents
-        if ($this->part && $this->part->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
+        if ($this->part && $this->part->getBuiltProject() instanceof Project) {
             //Get the associated project
             $associated_project = $this->part->getBuiltProject();
             //Check that it is not the same as the current project neither one of its parents

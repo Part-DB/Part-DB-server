@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
@@ -41,7 +42,7 @@ trait InstockTrait
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\OneToMany(targetEntity: 'PartLot', mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['amount' => 'DESC'])]
-    protected \Doctrine\Common\Collections\Collection $partLots;
+    protected Collection $partLots;
 
     /**
      * @var float The minimum amount of the part that has to be instock, otherwise more is ordered.
@@ -49,7 +50,7 @@ trait InstockTrait
      */
     #[Assert\PositiveOrZero]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $minamount = 0;
 
     /**

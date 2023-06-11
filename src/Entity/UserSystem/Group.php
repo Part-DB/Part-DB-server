@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
@@ -63,13 +64,13 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'enforce_2fa')]
+    #[ORM\Column(type: Types::BOOLEAN, name: 'enforce_2fa')]
     protected bool $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -84,14 +85,14 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /** @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()
     {
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
@@ -122,7 +123,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     public function getPermissions(): PermissionData
     {
-        if (!$this->permissions instanceof \App\Entity\UserSystem\PermissionData) {
+        if (!$this->permissions instanceof PermissionData) {
             $this->permissions = new PermissionData();
         }
 

@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\StorelocationRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -35,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Store location.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\Parts\StorelocationRepository::class)]
+#[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(name: 'location_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -62,7 +65,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /** @var Collection<int, StorelocationParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\StorelocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: StorelocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -70,42 +73,42 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $is_full = false;
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $only_single_part = false;
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $limit_to_existing_parts = false;
 
     /**
      * @var User|null The owner of this storage location
      */
     #[Assert\Expression('this.getOwner() == null or this.getOwner().isAnonymousUser() === false', message: 'validator.part_lot.owner_must_not_be_anonymous')]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 
     /**
      * @var bool If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => false])]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     protected bool $part_owner_must_match = false;
 
     /**
      * @var Collection<int, StorelocationAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $attachments;
 
     /********************************************************************************
@@ -229,8 +232,8 @@ class Storelocation extends AbstractPartsContainingDBElement
     public function __construct()
     {
         parent::__construct();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 }

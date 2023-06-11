@@ -53,7 +53,7 @@ class BigDecimalType extends Type
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (!$value instanceof \Brick\Math\BigDecimal) {
+        if (!$value instanceof BigDecimal) {
             return null;
         }
 

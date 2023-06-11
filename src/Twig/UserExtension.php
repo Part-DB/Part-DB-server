@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\UserSystem\User;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,9 +70,9 @@ final class UserExtension extends AbstractExtension
     {
         return [
             /* Returns the user which has edited the given entity the last time. */
-            new TwigFunction('last_editing_user', fn(\App\Entity\Base\AbstractDBElement $element): ?\App\Entity\UserSystem\User => $this->repo->getLastEditingUser($element)),
+            new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
             /* Returns the user which has created the given entity. */
-            new TwigFunction('creating_user', fn(\App\Entity\Base\AbstractDBElement $element): ?\App\Entity\UserSystem\User => $this->repo->getCreatingUser($element)),
+            new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
         ];
     }
 

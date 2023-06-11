@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/pw_reset/request', name: 'pw_reset_request')]
-    public function requestPwReset(PasswordResetManager $passwordReset, Request $request): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    public function requestPwReset(PasswordResetManager $passwordReset, Request $request): RedirectResponse|Response
     {
         if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
@@ -114,7 +114,7 @@ class SecurityController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/pw_reset/new_pw/{user}/{token}', name: 'pw_reset_new_pw')]
-    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null): RedirectResponse|Response
     {
         if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');

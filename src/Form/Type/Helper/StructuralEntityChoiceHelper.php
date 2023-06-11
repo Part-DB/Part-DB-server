@@ -20,6 +20,7 @@
 
 namespace App\Form\Type\Helper;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -42,7 +43,7 @@ class StructuralEntityChoiceHelper
      * Generates the choice attributes for the given AbstractStructuralDBElement.
      * @return array|string[]
      */
-    public function generateChoiceAttr(AbstractNamedDBElement $choice, \Symfony\Component\OptionsResolver\Options|array $options): array
+    public function generateChoiceAttr(AbstractNamedDBElement $choice, Options|array $options): array
     {
         $tmp = [
             'data-level' => 0,
@@ -62,19 +63,19 @@ class StructuralEntityChoiceHelper
             $level = $choice->getLevel();
             /** @var AbstractStructuralDBElement|null $parent */
             $parent = $options['subentities_of'] ?? null;
-            if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+            if ($parent instanceof AbstractStructuralDBElement) {
                 $level -= $parent->getLevel() - 1;
             }
 
             $tmp += [
                 'data-level' => $level,
-                'data-parent' => $choice->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement ? $choice->getParent()->getFullPath() : null,
+                'data-parent' => $choice->getParent() instanceof AbstractStructuralDBElement ? $choice->getParent()->getFullPath() : null,
                 'data-path' => $choice->getFullPath('->'),
             ];
         }
 
         if ($choice instanceof HasMasterAttachmentInterface) {
-            $tmp['data-image'] = $choice->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment ?
+            $tmp['data-image'] = $choice->getMasterPictureAttachment() instanceof Attachment ?
                 $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(),
                     'thumbnail_xs')
                 : null
@@ -92,7 +93,7 @@ class StructuralEntityChoiceHelper
      * Generates the choice attributes for the given AbstractStructuralDBElement.
      * @return array|string[]
      */
-    public function generateChoiceAttrCurrency(Currency $choice, \Symfony\Component\OptionsResolver\Options|array $options): array
+    public function generateChoiceAttrCurrency(Currency $choice, Options|array $options): array
     {
         $tmp = $this->generateChoiceAttr($choice, $options);
         $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
@@ -116,7 +117,7 @@ class StructuralEntityChoiceHelper
      */
     public function generateChoiceValue(?AbstractNamedDBElement $element): string|int|null
     {
-        if (!$element instanceof \App\Entity\Base\AbstractNamedDBElement) {
+        if (!$element instanceof AbstractNamedDBElement) {
             return null;
         }
 

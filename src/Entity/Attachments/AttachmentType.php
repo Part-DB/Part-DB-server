@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Repository\StructuralDBElementRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Validator\Constraints\ValidFileFilter;
@@ -33,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\StructuralDBElementRepository::class)]
+#[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
 #[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -51,33 +53,36 @@ class AttachmentType extends AbstractStructuralDBElement
      * @var string
      * @ValidFileFilter
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $filetype_filter = '';
     /**
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<\App\Entity\Attachments\Attachment>
+     * @var Collection<Attachment>
+     */
+    /**
+     * @var Collection<Attachment>
      */
     #[ORM\OneToMany(targetEntity: 'Attachment', mappedBy: 'attachment_type')]
-    protected \Doctrine\Common\Collections\Collection $attachments_with_type;
+    protected Collection $attachments_with_type;
 
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->attachments = new ArrayCollection();
         $this->attachments_with_type = new ArrayCollection();

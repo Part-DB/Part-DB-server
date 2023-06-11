@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\PartRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
@@ -49,7 +51,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Otherwise, this class would be too big, to be maintained.
  */
 #[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
-#[ORM\Entity(repositoryClass: \App\Repository\PartRepository::class)]
+#[ORM\Entity(repositoryClass: PartRepository::class)]
 #[ORM\Table('`parts`')]
 #[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
 #[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
@@ -69,7 +71,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -81,7 +83,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string The name of this part
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**
@@ -89,7 +91,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -97,13 +99,13 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment|null
      */
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Attachments\Attachment::class)]
+    #[ORM\ManyToOne(targetEntity: Attachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 
     public function __construct()
     {
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->partLots = new ArrayCollection();
         $this->orderdetails = new ArrayCollection();
@@ -142,7 +144,7 @@ class Part extends AttachmentContainingDBElement
     public function validate(ExecutionContextInterface $context, $payload)
     {
         //Ensure that the part name fullfills the regex of the category
-        if ($this->category instanceof \App\Entity\Parts\Category) {
+        if ($this->category instanceof Category) {
             $regex = $this->category->getPartnameRegex();
             if (!empty($regex) && !preg_match($regex, $this->name)) {
                 $context->buildViolation('part.name.must_match_category_regex')

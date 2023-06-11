@@ -37,7 +37,7 @@ class FootprintAttachment extends Attachment
     /**
      * @var Footprint|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Footprint::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Footprint::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

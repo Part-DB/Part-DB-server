@@ -20,6 +20,8 @@
 
 namespace App\Form\ProjectSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Form\Type\PartLotSelectType;
 use App\Form\Type\SIUnitType;
@@ -34,11 +36,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
-    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly Security $security)
     {
     }
 
@@ -76,10 +77,10 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => !$build_request->getProject()->getBuildPart() instanceof \App\Entity\Parts\Part,
+                'disabled' => !$build_request->getProject()->getBuildPart() instanceof Part,
             ]);
 
-            if ($build_request->getProject()->getBuildPart() instanceof \App\Entity\Parts\Part) {
+            if ($build_request->getProject()->getBuildPart() instanceof Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'project.build.builds_part_lot',
                     'required' => false,

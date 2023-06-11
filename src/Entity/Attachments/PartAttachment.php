@@ -37,7 +37,7 @@ class PartAttachment extends Attachment
     /**
      * @var Part the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

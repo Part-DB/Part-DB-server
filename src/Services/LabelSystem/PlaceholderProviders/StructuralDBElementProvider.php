@@ -58,10 +58,10 @@ final class StructuralDBElementProvider implements PlaceholderProviderInterface
                 return $label_target->getFullPath();
             }
             if ('[[PARENT]]' === $placeholder) {
-                return $label_target->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement ? $label_target->getParent()->getName() : '';
+                return $label_target->getParent() instanceof AbstractStructuralDBElement ? $label_target->getParent()->getName() : '';
             }
             if ('[[PARENT_FULL_PATH]]' === $placeholder) {
-                return $label_target->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement ? $label_target->getParent()->getFullPath() : '';
+                return $label_target->getParent() instanceof AbstractStructuralDBElement ? $label_target->getParent()->getFullPath() : '';
             }
         }
 

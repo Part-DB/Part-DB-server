@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Repository\StructuralDBElementRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
@@ -46,24 +49,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  */
 #[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
-#[ORM\MappedSuperclass(repositoryClass: \App\Repository\StructuralDBElementRepository::class)]
-#[ORM\EntityListeners([\App\EntityListeners\TreeCacheInvalidationListener::class])]
+#[ORM\MappedSuperclass(repositoryClass: StructuralDBElementRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     use ParametersTrait;
 
-    public const ID_ROOT_ELEMENT = 0;
+    final public const ID_ROOT_ELEMENT = 0;
 
     /**
      * This is a not standard character, so build a const, so a dev can easily use it.
      */
-    public const PATH_DELIMITER_ARROW = ' → ';
+    final public const PATH_DELIMITER_ARROW = ' → ';
 
     /**
      * @var string The comment info for this element
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
@@ -71,7 +74,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      *           Useful if this element should be used only for grouping, sorting.
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $not_selectable = false;
 
     /**

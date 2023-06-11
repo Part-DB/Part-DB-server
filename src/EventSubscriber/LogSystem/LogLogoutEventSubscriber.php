@@ -20,8 +20,10 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener\LogSystem;
+namespace App\EventSubscriber\LogSystem;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
@@ -31,19 +33,18 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 /**
  * This handler logs to event log, if a user logs out.
  */
-#[AsEventListener]
-final class LogLogoutEventListener
+final class LogLogoutEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EventLogger $logger, private readonly bool $gdpr_compliance)
+    public function __construct(private readonly EventLogger $logger, private readonly bool $gdpr_compliance)
     {
     }
 
-    public function __invoke(LogoutEvent $event): void
+    public function logLogout(LogoutEvent $event): void
     {
         $request = $event->getRequest();
         $token = $event->getToken();
 
-        if (!$token instanceof \Symfony\Component\Security\Core\Authentication\Token\TokenInterface) {
+        if (!$token instanceof TokenInterface) {
             return;
         }
 
@@ -54,6 +55,13 @@ final class LogLogoutEventListener
         }
 
         $this->logger->logAndFlush($log);
+    }
+    /**
+     * @return array<string, mixed>
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [LogoutEvent::class => 'logLogout'];
     }
 
 }

@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber\LogSystem;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -122,7 +123,7 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
         $anonymize = $this->gdpr_compliance;
 
         $request = $this->requestStack->getCurrentRequest();
-        if ($request instanceof \Symfony\Component\HttpFoundation\Request) {
+        if ($request instanceof Request) {
             $ip = $request->getClientIp() ?? 'unknown';
         } else {
             $ip = 'Console';

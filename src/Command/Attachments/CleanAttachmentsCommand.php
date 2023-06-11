@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Attachments;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
@@ -40,7 +41,7 @@ use function count;
 
 use const DIRECTORY_SEPARATOR;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:attachments:clean-unused|app:clean-attachments', 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')]
+#[AsCommand('partdb:attachments:clean-unused|app:clean-attachments', 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')]
 class CleanAttachmentsCommand extends Command
 {
     protected MimeTypes $mimeTypeGuesser;
@@ -99,7 +100,7 @@ class CleanAttachmentsCommand extends Command
 
             if (!$continue) {
                 //We are finished here, when no files should be deleted
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::SUCCESS;
             }
 
             //Delete the files
@@ -112,7 +113,7 @@ class CleanAttachmentsCommand extends Command
             $io->success('No abandoned files found.');
         }
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     /**

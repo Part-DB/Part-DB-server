@@ -73,11 +73,11 @@ class LabelController extends AbstractController
         $this->denyAccessUnlessGranted('@labels.create_labels');
 
         //If we inherit a LabelProfile, the user need to have access to it...
-        if ($profile instanceof \App\Entity\LabelSystem\LabelProfile) {
+        if ($profile instanceof LabelProfile) {
             $this->denyAccessUnlessGranted('read', $profile);
         }
 
-        $label_options = $profile instanceof \App\Entity\LabelSystem\LabelProfile ? $profile->getOptions() : new LabelOptions();
+        $label_options = $profile instanceof LabelProfile ? $profile->getOptions() : new LabelOptions();
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
         $disable_options = 'twig' === $label_options->getLinesMode() && !$this->isGranted('@labels.use_twig');
@@ -91,7 +91,7 @@ class LabelController extends AbstractController
         $target_id = $request->query->get('target_id', null);
         $generate = $request->query->getBoolean('generate', false);
 
-        if (!$profile instanceof \App\Entity\LabelSystem\LabelProfile && is_string($target_type)) {
+        if (!$profile instanceof LabelProfile && is_string($target_type)) {
             $label_options->setSupportedElement($target_type);
         }
         if (is_string($target_id)) {
@@ -108,7 +108,7 @@ class LabelController extends AbstractController
         $filename = 'invalid.pdf';
 
         //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
-        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile instanceof \App\Entity\LabelSystem\LabelProfile)) {
+        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile instanceof LabelProfile)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
             if ($targets !== []) {

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
@@ -40,11 +41,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(protected Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
     {
     }
 

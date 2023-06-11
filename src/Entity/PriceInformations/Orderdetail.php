@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
@@ -59,14 +60,14 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var string
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $supplierpartnr = '';
 
     /**
      * @var bool
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $obsolete = false;
 
     /**
@@ -74,14 +75,14 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\Url]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $supplier_product_url = '';
 
     /**
      * @var Part|null
      */
     #[Assert\NotNull]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'orderdetails')]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'part_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Part $part = null;
 
@@ -90,7 +91,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Supplier::class, inversedBy: 'orderdetails')]
+    #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;
 
@@ -194,7 +195,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
             return $this->supplier_product_url;
         }
 
-        if (!$this->getSupplier() instanceof \App\Entity\Parts\Supplier) {
+        if (!$this->getSupplier() instanceof Supplier) {
             return '';
         }
 

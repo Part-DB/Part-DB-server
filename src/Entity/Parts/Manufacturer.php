@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\ManufacturerRepository;
+use App\Entity\Base\AbstractStructuralDBElement;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -32,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Manufacturer.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\Parts\ManufacturerRepository::class)]
+#[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
 #[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -40,7 +43,7 @@ class Manufacturer extends AbstractCompany
 {
     #[ORM\ManyToOne(targetEntity: 'Manufacturer', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent = null;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection
@@ -53,21 +56,21 @@ class Manufacturer extends AbstractCompany
      * @var Collection<int, ManufacturerAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ManufacturerParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
     public function __construct()
     {
         parent::__construct();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 }

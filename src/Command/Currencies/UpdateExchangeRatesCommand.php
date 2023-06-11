@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Currencies;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Tools\ExchangeRateUpdater;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use function strlen;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
+#[AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
 class UpdateExchangeRatesCommand extends Command
 {
     public function __construct(protected string $base_current, protected EntityManagerInterface $em, protected ExchangeRateUpdater $exchangeRateUpdater)
@@ -56,7 +57,7 @@ class UpdateExchangeRatesCommand extends Command
         if (3 !== strlen($this->base_current)) {
             $io->error('Chosen Base current is not valid. Check your settings!');
 
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $io->note('Update currency exchange rates with base currency: '.$this->base_current);
@@ -89,6 +90,6 @@ class UpdateExchangeRatesCommand extends Command
 
         $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

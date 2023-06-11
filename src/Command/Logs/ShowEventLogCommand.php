@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Command\Logs;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use App\Entity\UserSystem\User;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
@@ -36,7 +38,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
+#[AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
 class ShowEventLogCommand extends Command
 {
     protected LogEntryRepository $repo;
@@ -65,7 +67,7 @@ class ShowEventLogCommand extends Command
         if ($page > $max_page && $max_page > 0) {
             $io->error("There is no page ${page}! The maximum page is ${max_page}.");
 
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $io->note("There are a total of ${total_count} log entries in the DB.");
@@ -75,14 +77,14 @@ class ShowEventLogCommand extends Command
             $this->showPage($output, $desc, $limit, $page, $max_page, $showExtra);
 
             if ($onePage) {
-                return \Symfony\Component\Console\Command\Command::SUCCESS;
+                return Command::SUCCESS;
             }
 
             $continue = $io->confirm('Do you want to show the next page?');
             ++$page;
         }
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     protected function configure(): void
@@ -136,7 +138,7 @@ class ShowEventLogCommand extends Command
             $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
         }
 
-        if ($entry->getUser() instanceof \App\Entity\UserSystem\User) {
+        if ($entry->getUser() instanceof User) {
             $user = $entry->getUser()->getFullName(true);
         } elseif ($entry->isCLIEntry()) {
             $user = $entry->getCLIUsername() . ' [CLI]';

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use App\Repository\Parts\DeviceRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\ProjectParameter;
@@ -37,7 +39,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * Class AttachmentType.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\Parts\DeviceRepository::class)]
+#[ORM\Entity(repositoryClass: DeviceRepository::class)]
 #[ORM\Table(name: 'projects')]
 class Project extends AbstractStructuralDBElement
 {
@@ -57,7 +59,7 @@ class Project extends AbstractStructuralDBElement
     #[ORM\OneToMany(targetEntity: 'ProjectBOMEntry', mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $bom_entries;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
@@ -65,33 +67,33 @@ class Project extends AbstractStructuralDBElement
      */
     #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
     #[Groups(['extended', 'full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 64, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 
 
     /**
      * @var Part|null The (optional) part that represents the builds of this project in the stock
      */
-    #[ORM\OneToOne(targetEntity: \App\Entity\Parts\Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToOne(targetEntity: Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
     protected ?Part $build_part = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $order_only_missing_parts = false;
 
     #[Groups(['simple', 'extended', 'full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var Collection<int, ProjectAttachment>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ProjectParameter>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -103,8 +105,8 @@ class Project extends AbstractStructuralDBElement
 
     public function __construct()
     {
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
         $this->children = new ArrayCollection();
@@ -241,7 +243,7 @@ class Project extends AbstractStructuralDBElement
      */
     public function hasBuildPart(): bool
     {
-        return $this->build_part instanceof \App\Entity\Parts\Part;
+        return $this->build_part instanceof Part;
     }
 
     /**
@@ -258,7 +260,7 @@ class Project extends AbstractStructuralDBElement
     public function setBuildPart(?Part $build_part): void
     {
         $this->build_part = $build_part;
-        if ($build_part instanceof \App\Entity\Parts\Part) {
+        if ($build_part instanceof Part) {
             $build_part->setBuiltProject($this);
         }
     }
@@ -269,7 +271,7 @@ class Project extends AbstractStructuralDBElement
         //If this project has subprojects, and these have builds part, they must be included in the BOM
         foreach ($this->getChildren() as $child) {
             /** @var $child Project */
-            if (!$child->getBuildPart() instanceof \App\Entity\Parts\Part) {
+            if (!$child->getBuildPart() instanceof Part) {
                 continue;
             }
             //We have to search all bom entries for the build part

@@ -98,7 +98,7 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
         //Check if we can find a group with the given ID
         if ($group_id !== null) {
             $group = $this->em->find(Group::class, $group_id);
-            if ($group instanceof \App\Entity\UserSystem\Group) {
+            if ($group instanceof Group) {
                 return $group;
             }
         }

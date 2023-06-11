@@ -22,6 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\MeasurementUnitRepository;
+use Doctrine\DBAL\Types\Types;
+use App\Entity\Base\AbstractStructuralDBElement;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\MeasurementUnitParameter;
@@ -36,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This could be something like N, grams, meters, etc...
  */
 #[UniqueEntity('unit')]
-#[ORM\Entity(repositoryClass: \App\Repository\Parts\MeasurementUnitRepository::class)]
+#[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
 #[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -48,7 +52,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Length(max: 10)]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'unit', nullable: true)]
+    #[ORM\Column(type: Types::STRING, name: 'unit', nullable: true)]
     protected ?string $unit = null;
 
     /**
@@ -56,7 +60,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *           Set to false, to measure continuous sizes likes masses or lengths.
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'is_integer')]
+    #[ORM\Column(type: Types::BOOLEAN, name: 'is_integer')]
     protected bool $is_integer = false;
 
     /**
@@ -65,7 +69,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, name: 'use_si_prefix')]
+    #[ORM\Column(type: Types::BOOLEAN, name: 'use_si_prefix')]
     protected bool $use_si_prefix = false;
 
     /**
@@ -77,20 +81,20 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: 'MeasurementUnit', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent = null;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -135,8 +139,8 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     public function __construct()
     {
         parent::__construct();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 }

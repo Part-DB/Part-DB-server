@@ -36,7 +36,7 @@ class AttachmentTypeAttachment extends Attachment
     /**
      * @var AttachmentContainingDBElement|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Attachments\AttachmentType::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

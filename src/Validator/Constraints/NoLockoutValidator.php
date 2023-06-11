@@ -22,12 +22,13 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -35,7 +36,7 @@ class NoLockoutValidator extends ConstraintValidator
 {
     protected array $perm_structure;
 
-    public function __construct(protected PermissionManager $resolver, protected \Symfony\Bundle\SecurityBundle\Security $security, protected EntityManagerInterface $entityManager)
+    public function __construct(protected PermissionManager $resolver, protected Security $security, protected EntityManagerInterface $entityManager)
     {
         $this->perm_structure = $resolver->getPermissionStructure();
     }
@@ -58,7 +59,7 @@ class NoLockoutValidator extends ConstraintValidator
         if ($perm_holder instanceof User || $perm_holder instanceof Group) {
             $user = $this->security->getUser();
 
-            if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+            if (!$user instanceof UserInterface) {
                 $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
             }
 

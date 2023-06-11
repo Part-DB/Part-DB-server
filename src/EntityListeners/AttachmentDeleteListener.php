@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\EntityListeners;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
@@ -80,7 +81,7 @@ class AttachmentDeleteListener
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
         $attachment_holder = $attachment->getElement();
 
-        if (!$attachment_holder instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
+        if (!$attachment_holder instanceof AttachmentContainingDBElement) {
             return;
         }
 

@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpZip\Constants\ZipCompressionMethod;
@@ -16,7 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
+#[AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
     public function __construct(private readonly string $project_dir, private readonly EntityManagerInterface $entityManager)
@@ -153,7 +155,7 @@ class BackupCommand extends Command
                 $io->error('Could not dump database: '.$e->getMessage());
                 $io->error('This can maybe be fixed by installing the mysqldump binary and adding it to the PATH variable!');
             }
-        } elseif ($connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\SqlitePlatform) {
+        } elseif ($connection->getDatabasePlatform() instanceof SqlitePlatform) {
             $io->note('SQLite database detected. Copy DB file to ZIP...');
             $params = $connection->getParams();
             $zip->addFile($params['path'], 'var/app.db');

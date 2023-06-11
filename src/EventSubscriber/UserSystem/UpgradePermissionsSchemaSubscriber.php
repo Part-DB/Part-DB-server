@@ -20,6 +20,8 @@
 
 namespace App\EventSubscriber\UserSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\UserSystem\PermissionSchemaUpdater;
@@ -28,14 +30,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * The purpose of this event subscriber is to check if the permission schema of the current user is up-to-date and upgrade it automatically if needed.
  */
 class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $entityManager, private readonly EventCommentHelper $eventCommentHelper)
+    public function __construct(private readonly Security $security, private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $entityManager, private readonly EventCommentHelper $eventCommentHelper)
     {
     }
 
@@ -46,7 +47,7 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         }
 
         $user = $this->security->getUser();
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             //Retrieve anonymous user
             $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
         }

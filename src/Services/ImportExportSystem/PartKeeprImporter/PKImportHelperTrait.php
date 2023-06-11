@@ -20,6 +20,7 @@
 
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
+use Doctrine\ORM\Id\AssignedGenerator;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
@@ -210,7 +211,7 @@ trait PKImportHelperTrait
 
         $metadata = $this->em->getClassMetadata($element::class);
         $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_NONE);
-        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+        $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdentifierValues($element, ['id' => $id]);
     }
 

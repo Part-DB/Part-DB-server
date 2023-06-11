@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\RichTextEditorType;
@@ -39,12 +40,11 @@ use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
 
 class UserSettingsType extends AbstractType
 {
-    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected bool $demo_mode)
+    public function __construct(protected Security $security, protected bool $demo_mode)
     {
     }
 

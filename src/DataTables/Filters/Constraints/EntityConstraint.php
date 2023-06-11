@@ -41,9 +41,9 @@ class EntityConstraint extends AbstractConstraint
      * @param  null  $value
      * @param  string  $operator
      */
-    public function __construct(protected ?\App\Services\Trees\NodesListBuilder $nodesListBuilder, protected string $class, string $property, string $identifier = null, protected $value = null, protected ?string $operator = '')
+    public function __construct(protected ?NodesListBuilder $nodesListBuilder, protected string $class, string $property, string $identifier = null, protected $value = null, protected ?string $operator = '')
     {
-        if (!$nodesListBuilder instanceof \App\Services\Trees\NodesListBuilder && $this->isStructural()) {
+        if (!$nodesListBuilder instanceof NodesListBuilder && $this->isStructural()) {
             throw new \InvalidArgumentException('NodesListBuilder must be provided for structural entities');
         }
 
@@ -128,7 +128,7 @@ class EntityConstraint extends AbstractConstraint
         }
 
         //We need to handle null values differently, as they can not be compared with == or !=
-        if (!$this->value instanceof \App\Entity\Base\AbstractDBElement) {
+        if (!$this->value instanceof AbstractDBElement) {
             if($this->operator === '=' || $this->operator === 'INCLUDING_CHILDREN') {
                 $queryBuilder->andWhere(sprintf("%s IS NULL", $this->property));
                 return;

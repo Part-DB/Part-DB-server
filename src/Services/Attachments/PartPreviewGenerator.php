@@ -22,6 +22,12 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use App\Entity\Parts\Footprint;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 
@@ -52,21 +58,21 @@ class PartPreviewGenerator
             $list[] = $attachment;
         }
 
-        if ($part->getFootprint() instanceof \App\Entity\Parts\Footprint) {
+        if ($part->getFootprint() instanceof Footprint) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if ($part->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
+        if ($part->getBuiltProject() instanceof Project) {
             $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if ($part->getCategory() instanceof \App\Entity\Parts\Category) {
+        if ($part->getCategory() instanceof Category) {
             $attachment = $part->getCategory()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
@@ -74,7 +80,7 @@ class PartPreviewGenerator
         }
 
         foreach ($part->getPartLots() as $lot) {
-            if ($lot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation) {
+            if ($lot->getStorageLocation() instanceof Storelocation) {
                 $attachment = $lot->getStorageLocation()->getMasterPictureAttachment();
                 if ($this->isAttachmentValidPicture($attachment)) {
                     $list[] = $attachment;
@@ -82,14 +88,14 @@ class PartPreviewGenerator
             }
         }
 
-        if ($part->getPartUnit() instanceof \App\Entity\Parts\MeasurementUnit) {
+        if ($part->getPartUnit() instanceof MeasurementUnit) {
             $attachment = $part->getPartUnit()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if ($part->getManufacturer() instanceof \App\Entity\Parts\Manufacturer) {
+        if ($part->getManufacturer() instanceof Manufacturer) {
             $attachment = $part->getManufacturer()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
@@ -114,7 +120,7 @@ class PartPreviewGenerator
         }
 
         //Otherwise check if the part has a footprint with a valid master attachment
-        if ($part->getFootprint() instanceof \App\Entity\Parts\Footprint) {
+        if ($part->getFootprint() instanceof Footprint) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
@@ -122,7 +128,7 @@ class PartPreviewGenerator
         }
 
         //With lowest priority use the master attachment of the project this part represents (when existing)
-        if ($part->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
+        if ($part->getBuiltProject() instanceof Project) {
             $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
@@ -142,7 +148,7 @@ class PartPreviewGenerator
      */
     protected function isAttachmentValidPicture(?Attachment $attachment): bool
     {
-        return $attachment instanceof \App\Entity\Attachments\Attachment
+        return $attachment instanceof Attachment
             && $attachment->isPicture()
             && $this->attachmentHelper->isFileExisting($attachment);
     }

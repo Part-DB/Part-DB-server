@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Repository\AttachmentRepository;
+use App\EntityListeners\AttachmentDeleteListener;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,11 +37,11 @@ use LogicException;
 /**
  * Class Attachment.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\AttachmentRepository::class)]
+#[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
 #[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
-#[ORM\EntityListeners([\App\EntityListeners\AttachmentDeleteListener::class])]
+#[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
 #[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
 #[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
@@ -78,13 +81,13 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * @var string|null the original filename the file had, when the user uploaded it
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $original_filename = null;
 
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'path')]
+    #[ORM\Column(type: Types::STRING, name: 'path')]
     protected string $path = '';
 
     /**
@@ -92,7 +95,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
     #[Groups(['simple', 'extended', 'full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**
@@ -103,7 +106,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * @var bool
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $show_in_table = false;
 
     /**

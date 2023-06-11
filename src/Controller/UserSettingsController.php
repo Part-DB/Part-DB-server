@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
@@ -118,7 +119,7 @@ class UserSettingsController extends AbstractController
                 $key_repo = $entityManager->getRepository(U2FKey::class);
                 /** @var U2FKey|null $u2f */
                 $u2f = $key_repo->find($key_id);
-                if (!$u2f instanceof \App\Entity\UserSystem\U2FKey) {
+                if (!$u2f instanceof U2FKey) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
@@ -140,7 +141,7 @@ class UserSettingsController extends AbstractController
                 $key_repo = $entityManager->getRepository(WebauthnKey::class);
                 /** @var WebauthnKey|null $key */
                 $key = $key_repo->find($key_id);
-                if (!$key instanceof \App\Entity\UserSystem\WebauthnKey) {
+                if (!$key instanceof WebauthnKey) {
                     $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
@@ -166,7 +167,7 @@ class UserSettingsController extends AbstractController
     }
 
     #[Route(path: '/invalidate_trustedDevices', name: 'tfa_trustedDevices_invalidate', methods: ['DELETE'])]
-    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager): \RuntimeException|\Symfony\Component\HttpFoundation\RedirectResponse
+    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager): \RuntimeException|RedirectResponse
     {
         if ($this->demo_mode) {
             throw new RuntimeException('You can not do 2FA things in demo mode');
@@ -203,7 +204,7 @@ class UserSettingsController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/settings', name: 'user_settings')]
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): RedirectResponse|Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -243,7 +244,7 @@ class UserSettingsController extends AbstractController
 
             /** @var Form $form We need a form implementation for the next calls */
             //Remove the avatar attachment from the user if requested
-            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof Attachment) {
                 $em->remove($user->getMasterPictureAttachment());
                 $user->setMasterPictureAttachment(null);
                 $page_need_reload = true;

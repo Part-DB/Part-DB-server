@@ -20,6 +20,8 @@
 
 namespace App\Security\Voter;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
@@ -36,12 +38,11 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
-use Symfony\Component\Security\Core\Security;
 
 class ParameterVoter extends ExtendedVoter
 {
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
     {
         parent::__construct($resolver, $entityManager);
     }
@@ -57,7 +58,7 @@ class ParameterVoter extends ExtendedVoter
         if (is_object($subject)) {
             //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
             $target_element = $subject->getElement();
-            if ($target_element instanceof \App\Entity\Base\AbstractDBElement) {
+            if ($target_element instanceof AbstractDBElement) {
                 $operation = match ($attribute) {
                     'read', 'view' => 'read',
                     'edit', 'create', 'delete' => 'edit',

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Form\Type\StructuralEntityType;
@@ -41,14 +42,13 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
-    public function __construct(protected AttachmentManager $attachment_helper, protected UrlGeneratorInterface $urlGenerator, protected \Symfony\Bundle\SecurityBundle\Security $security, protected AttachmentSubmitHandler $submitHandler, protected TranslatorInterface $translator, protected bool $allow_attachments_download, protected string $max_file_size)
+    public function __construct(protected AttachmentManager $attachment_helper, protected UrlGeneratorInterface $urlGenerator, protected Security $security, protected AttachmentSubmitHandler $submitHandler, protected TranslatorInterface $translator, protected bool $allow_attachments_download, protected string $max_file_size)
     {
     }
 

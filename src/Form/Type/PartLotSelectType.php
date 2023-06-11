@@ -20,6 +20,7 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityRepository;
@@ -43,7 +44,7 @@ class PartLotSelectType extends AbstractType
 
         $resolver->setDefaults([
             'class' => PartLot::class,
-            'choice_label' => ChoiceList::label($this, static fn(PartLot $part_lot): string => ($part_lot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $part_lot->getStorageLocation()->getFullPath() : '')
+            'choice_label' => ChoiceList::label($this, static fn(PartLot $part_lot): string => ($part_lot->getStorageLocation() instanceof Storelocation ? $part_lot->getStorageLocation()->getFullPath() : '')
                 . ' (' . $part_lot->getName() . '): ' . $part_lot->getAmount()),
             'query_builder' => fn(Options $options) => static fn(EntityRepository $er) => $er->createQueryBuilder('l')
                 ->where('l.part = :part')

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -38,7 +39,6 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\UserSystem\UserCacheKeyGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -49,7 +49,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected Security $security)
     {
     }
 

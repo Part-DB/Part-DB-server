@@ -22,17 +22,17 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $base_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }

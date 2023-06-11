@@ -44,7 +44,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
      */
     public function getAnonymousUser(): ?User
     {
-        if (!$this->anonymous_user instanceof \App\Entity\UserSystem\User) {
+        if (!$this->anonymous_user instanceof User) {
             $this->anonymous_user = $this->findOneBy([
                 'id' => User::ID_ANONYMOUS,
             ]);

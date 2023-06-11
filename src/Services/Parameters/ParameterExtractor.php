@@ -74,7 +74,7 @@ class ParameterExtractor
         $split = $this->splitString($input);
         foreach ($split as $param_string) {
             $tmp = $this->stringToParam($param_string, $class);
-            if ($tmp instanceof \App\Entity\Parameters\AbstractParameter) {
+            if ($tmp instanceof AbstractParameter) {
                 $parameters[] = $tmp;
             }
         }

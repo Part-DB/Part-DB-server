@@ -245,7 +245,7 @@ abstract class BaseAdminController extends AbstractController
 
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
     {
-        $new_entity = $entity instanceof \App\Entity\Base\AbstractNamedDBElement ? clone $entity : new $this->entity_class();
+        $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
 
         $this->denyAccessUnlessGranted('read', $new_entity);
 

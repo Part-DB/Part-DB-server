@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Migrations;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\ProjectSystem\Project;
@@ -47,7 +48,7 @@ use function count;
 /**
  * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used Markdown format.
  */
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:migrations:convert-bbcode|app:convert-bbcode', 'Converts BBCode used in old Part-DB versions to newly used Markdown')]
+#[AsCommand('partdb:migrations:convert-bbcode|app:convert-bbcode', 'Converts BBCode used in old Part-DB versions to newly used Markdown')]
 class ConvertBBCodeCommand extends Command
 {
     /**
@@ -159,6 +160,6 @@ class ConvertBBCodeCommand extends Command
             $io->success('Changes saved to DB successfully!');
         }
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

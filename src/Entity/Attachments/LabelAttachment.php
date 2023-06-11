@@ -57,7 +57,7 @@ class LabelAttachment extends Attachment
     /**
      * @var LabelProfile the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\LabelSystem\LabelProfile::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: LabelProfile::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

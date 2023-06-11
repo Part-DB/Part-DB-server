@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -29,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Class PartsContainingDBElement.
  */
-#[ORM\MappedSuperclass(repositoryClass: \App\Repository\AbstractPartsContainingRepository::class)]
+#[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
     #[Groups(['full'])]

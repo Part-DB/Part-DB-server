@@ -66,7 +66,7 @@ class LogFilter implements FilterInterface
     /**
      * @return IntConstraint|NumberConstraint
      */
-    public function getDbId(): \App\DataTables\Filters\Constraints\IntConstraint|\App\DataTables\Filters\Constraints\NumberConstraint
+    public function getDbId(): IntConstraint|NumberConstraint
     {
         return $this->dbId;
     }

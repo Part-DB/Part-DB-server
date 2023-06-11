@@ -24,11 +24,10 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class StructuralElementDenormalizer implements \Symfony\Component\Serializer\Normalizer\DenormalizerInterface, CacheableSupportsMethodInterface
+class StructuralElementDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
 
     private array $object_cache = [];

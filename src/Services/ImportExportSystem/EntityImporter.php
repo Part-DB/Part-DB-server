@@ -61,7 +61,7 @@ class EntityImporter
         if (!is_a($class_name, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement && !$parent instanceof $class_name) {
+        if ($parent instanceof AbstractStructuralDBElement && !$parent instanceof $class_name) {
             throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -85,11 +85,7 @@ class EntityImporter
             }
             while ($identSize < end($indentations)) {
                 //If the line is intendet less than the last line, we have to go up in the tree
-                if ($current_parent instanceof AbstractStructuralDBElement) {
-                    $current_parent = $current_parent->getParent();
-                } else {
-                    $current_parent = null;
-                }
+                $current_parent = $current_parent instanceof AbstractStructuralDBElement ? $current_parent->getParent() : null;
                 array_pop($indentations);
             }
 

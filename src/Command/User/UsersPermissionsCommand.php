@@ -20,6 +20,7 @@
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
 use App\Services\UserSystem\PermissionManager;
@@ -34,7 +35,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:permissions|partdb:user:permissions', 'View and edit the permissions of a given user')]
+#[AsCommand('partdb:users:permissions|partdb:user:permissions', 'View and edit the permissions of a given user')]
 class UsersPermissionsCommand extends Command
 {
     protected UserRepository $userRepository;
@@ -65,7 +66,7 @@ class UsersPermissionsCommand extends Command
         //Find user
         $io->note('Finding user with username: ' . $username);
         $user = $this->userRepository->findByEmailOrName($username);
-        if (!$user instanceof \App\Entity\UserSystem\User) {
+        if (!$user instanceof User) {
             $io->error('No user found with username: ' . $username);
             return Command::FAILURE;
         }

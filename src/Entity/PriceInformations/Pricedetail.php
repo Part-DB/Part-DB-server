@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -73,7 +74,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $price_related_quantity = 1.0;
 
     /**
@@ -81,13 +82,13 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $min_discount_quantity = 1.0;
 
     /**
      * @var bool
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $manual_input = true;
 
     /**
@@ -166,7 +167,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @return BigDecimal the price as a bcmath string
      */
-    public function getPricePerUnit(float|string|\Brick\Math\BigDecimal $multiplier = 1.0): BigDecimal
+    public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
         $tmp = BigDecimal::of($multiplier);
         $tmp = $tmp->multipliedBy($this->price);

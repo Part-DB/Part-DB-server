@@ -20,6 +20,7 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\UserSystem\User;
 use App\Entity\Parts\Storelocation;
 
 class StorelocationProvider implements PlaceholderProviderInterface
@@ -28,11 +29,11 @@ class StorelocationProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof Storelocation) {
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getUsername() : '';
             }
         }
 

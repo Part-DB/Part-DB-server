@@ -70,7 +70,7 @@ class LogTargetHelper
         $target = $this->entryRepository->getTargetElement($context);
 
         //If the target is null and the context has a target, that means that the target was deleted. Show it that way.
-        if (!$target instanceof \App\Entity\Base\AbstractDBElement) {
+        if (!$target instanceof AbstractDBElement) {
             if ($context->hasTarget()) {
                 return $this->elementTypeNameGenerator->formatElementDeletedHTML($context->getTargetClass(),
                     $context->getTargetId());

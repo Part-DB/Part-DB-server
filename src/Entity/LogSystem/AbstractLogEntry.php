@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
@@ -129,19 +130,19 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var User|null The user which has caused this log entry
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class, fetch: 'EAGER')]
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_user', onDelete: 'SET NULL')]
     protected ?User $user = null;
 
     /**
      * @var string The username of the user which has caused this log entry (shown if the user is deleted)
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
     /** @var \DateTimeInterface|null The datetime the event associated with this log entry has occured
      */
-    #[ORM\Column(name: 'datetime', type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
+    #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
     protected ?\DateTimeInterface $timestamp = null;
 
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
@@ -151,12 +152,12 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var int The ID of the element targeted by this event
      */
-    #[ORM\Column(name: 'target_id', type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(name: 'target_id', type: Types::INTEGER)]
     protected int $target_id = 0;
 
     /** @var int The Type of the targeted element
      */
-    #[ORM\Column(name: 'target_type', type: \Doctrine\DBAL\Types\Types::SMALLINT)]
+    #[ORM\Column(name: 'target_type', type: Types::SMALLINT)]
     protected int $target_type = 0;
 
     /** @var string The type of this log entry, aka the description what has happened.
@@ -167,7 +168,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var array The extra data in raw (short form) saved in the DB
      */
-    #[ORM\Column(name: 'extra', type: \Doctrine\DBAL\Types\Types::JSON)]
+    #[ORM\Column(name: 'extra', type: Types::JSON)]
     protected array $extra = [];
 
     public function __construct()
@@ -370,7 +371,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function setTargetElement(?AbstractDBElement $element): self
     {
-        if (!$element instanceof \App\Entity\Base\AbstractDBElement) {
+        if (!$element instanceof AbstractDBElement) {
             $this->target_id = 0;
             $this->target_type = self::TARGET_TYPE_NONE;
 

@@ -51,7 +51,7 @@ class PasswordResetManager
         //Try to find a user by the given string
         $user = $repo->findByEmailOrName($name_or_email);
         //Do nothing if no user was found
-        if (!$user instanceof \App\Entity\UserSystem\User) {
+        if (!$user instanceof User) {
             return;
         }
 
@@ -101,7 +101,7 @@ class PasswordResetManager
         $user = $repo->findOneBy(['name' => $username]);
 
         //If no user matching the name, show an error message
-        if (!$user instanceof \App\Entity\UserSystem\User) {
+        if (!$user instanceof User) {
             return false;
         }
 

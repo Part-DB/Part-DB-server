@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
@@ -55,14 +56,14 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var string A short description about this lot, shown in table
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
@@ -70,7 +71,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      *                Set to null, if the lot can be used indefinitely.
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
     protected ?\DateTimeInterface $expiration_date = null;
 
     /**
@@ -86,7 +87,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var bool If this is set to true, the instock amount is marked as not known
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $instock_unknown = false;
 
     /**
@@ -94,14 +95,14 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     #[Assert\PositiveOrZero]
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT)]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_refill = false;
 
     /**
@@ -115,7 +116,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var User|null The owner of this part lot
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 

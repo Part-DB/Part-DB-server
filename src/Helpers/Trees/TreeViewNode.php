@@ -151,7 +151,7 @@ final class TreeViewNode implements JsonSerializable
     public function setDisabled(?bool $disabled): self
     {
         //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
-        if (!$this->state instanceof \App\Helpers\Trees\TreeViewNodeState) {
+        if (!$this->state instanceof TreeViewNodeState) {
             $this->state = new TreeViewNodeState();
         }
 
@@ -163,7 +163,7 @@ final class TreeViewNode implements JsonSerializable
     public function setSelected(?bool $selected): self
     {
         //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
-        if (!$this->state instanceof \App\Helpers\Trees\TreeViewNodeState) {
+        if (!$this->state instanceof TreeViewNodeState) {
             $this->state = new TreeViewNodeState();
         }
 
@@ -175,7 +175,7 @@ final class TreeViewNode implements JsonSerializable
     public function setExpanded(?bool $selected = true): self
     {
         //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
-        if (!$this->state instanceof \App\Helpers\Trees\TreeViewNodeState) {
+        if (!$this->state instanceof TreeViewNodeState) {
             $this->state = new TreeViewNodeState();
         }
 
@@ -232,7 +232,7 @@ final class TreeViewNode implements JsonSerializable
             $ret['nodes'] = $this->nodes;
         }
 
-        if ($this->state instanceof \App\Helpers\Trees\TreeViewNodeState) {
+        if ($this->state instanceof TreeViewNodeState) {
             $ret['state'] = $this->state;
         }
 

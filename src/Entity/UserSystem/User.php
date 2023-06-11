@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Repository\UserRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -56,8 +59,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * Also, this entity is able to save some information about the user, like the names, email-address and other info.
  */
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
-#[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class)]
-#[ORM\EntityListeners([\App\EntityListeners\TreeCacheInvalidationListener::class])]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
 #[ORM\Index(name: 'user_idx_username', columns: ['name'])]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
@@ -74,7 +77,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var bool Determines if the user is disabled (user can not log in)
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disabled = false;
 
     /**
@@ -82,42 +85,42 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ValidTheme()
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_theme', nullable: true)]
+    #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
     protected ?string $theme = null;
 
     /**
      * @var string|null the hash of a token the user must provide when he wants to reset his password
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $pw_reset_token = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'config_instock_comment_a')]
+    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_a')]
     protected string $instock_comment_a = '';
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, name: 'config_instock_comment_w')]
+    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_w')]
     protected string $instock_comment_w = '';
 
     /**
      * @var string A self-description of the user
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $aboutMe = '';
 
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $trustedDeviceCookieVersion = 0;
 
     /**
      * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
+    #[ORM\Column(type: Types::JSON)]
     protected ?array $backupCodes = [];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     protected ?int $id = null;
 
     /**
@@ -133,7 +136,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The secret used for Google authenticator
      */
-    #[ORM\Column(name: 'google_authenticator_secret', type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(name: 'google_authenticator_secret', type: Types::STRING, nullable: true)]
     protected ?string $googleAuthenticatorSecret = null;
 
     /**
@@ -141,7 +144,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Assert\Timezone]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_timezone', nullable: true)]
+    #[ORM\Column(type: Types::STRING, name: 'config_timezone', nullable: true)]
     protected ?string $timezone = '';
 
     /**
@@ -149,7 +152,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Assert\Language]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'config_language', nullable: true)]
+    #[ORM\Column(type: Types::STRING, name: 'config_language', nullable: true)]
     protected ?string $language = '';
 
     /**
@@ -157,82 +160,82 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Assert\Email]
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $email = '';
 
     /**
      * @var bool True if the user wants to show his email address on his (public) profile
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => false])]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     protected bool $show_email_on_profile = false;
 
     /**
      * @var string|null The department the user is working
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $need_pw_change = true;
 
     /**
      * @var string|null The hashed password
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $password = null;
 
     #[Assert\NotBlank]
     #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     protected string $name = '';
 
     /**
      * @var array|null
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
+    #[ORM\Column(type: Types::JSON)]
     protected ?array $settings = [];
 
     /**
      * @var Collection<int, UserAttachment>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?\DateTimeInterface $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\UserSystem\U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\UserSystem\WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
@@ -243,7 +246,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class)]
+    #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn(name: 'currency_id')]
     protected ?Currency $currency = null;
 
@@ -258,19 +261,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var \DateTimeInterface|null the time until the password reset token is valid
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?\DateTimeInterface $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
      */
     #[Groups(['extended', 'full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $saml_user = false;
 
     public function __construct()
     {
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
@@ -419,7 +422,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getPermissions(): PermissionData
     {
-        if (!$this->permissions instanceof \App\Entity\UserSystem\PermissionData) {
+        if (!$this->permissions instanceof PermissionData) {
             $this->permissions = new PermissionData();
         }
 

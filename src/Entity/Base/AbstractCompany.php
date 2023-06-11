@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use function is_string;
@@ -37,21 +38,21 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The address of the company
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $fax_number = '';
 
     /**
@@ -59,7 +60,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Assert\Email]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $email_address = '';
 
     /**
@@ -67,13 +68,13 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Assert\Url]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $website = '';
 
     /**
      * @var string
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $auto_product_url = '';
 
     /********************************************************************************

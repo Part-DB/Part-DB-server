@@ -53,7 +53,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if(!$context->getPart() instanceof \App\Entity\Parts\Part) {
+                    if(!$context->getPart() instanceof Part) {
                         return '';
                     }
                     return $this->partDataTableHelper->renderPicture($context->getPart());
@@ -71,7 +71,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'orderField' => 'bom_entry.quantity',
                 'render' => function ($value, ProjectBOMEntry $context): float|string {
                     //If we have a non-part entry, only show the rounded quantity
-                    if (!$context->getPart() instanceof \App\Entity\Parts\Part) {
+                    if (!$context->getPart() instanceof Part) {
                         return round($context->getQuantity());
                     }
                     //Otherwise use the unit of the part to format the quantity
@@ -83,10 +83,10 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'part.name',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if(!$context->getPart() instanceof \App\Entity\Parts\Part) {
+                    if(!$context->getPart() instanceof Part) {
                         return htmlspecialchars($context->getName());
                     }
-                    if($context->getPart() instanceof \App\Entity\Parts\Part) {
+                    if($context->getPart() instanceof Part) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
                         if(!empty($context->getName())) {
                             $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
@@ -100,7 +100,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
                 'data' => function (ProjectBOMEntry $context) {
-                    if($context->getPart() instanceof \App\Entity\Parts\Part) {
+                    if($context->getPart() instanceof Part) {
                         return $context->getPart()->getDescription();
                     }
                     //For non-part BOM entries show the comment field

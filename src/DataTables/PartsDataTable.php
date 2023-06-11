@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Parts\Storelocation;
 use App\DataTables\Adapters\CustomFetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
@@ -49,12 +51,11 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly Security $security)
     {
     }
 
@@ -139,7 +140,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
                         //Ignore lots without storelocation
-                        if (!$lot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation) {
+                        if (!$lot->getStorageLocation() instanceof Storelocation) {
                             continue;
                         }
                         $tmp[] = sprintf(

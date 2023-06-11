@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
@@ -48,11 +49,10 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 
 class PartBaseType extends AbstractType
 {
-    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
+    public function __construct(protected Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
     {
     }
 

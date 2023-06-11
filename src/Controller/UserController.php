@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\AdminPages\BaseAdminController;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -47,7 +48,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/user')]
-class UserController extends AdminPages\BaseAdminController
+class UserController extends BaseAdminController
 {
     protected string $entity_class = User::class;
     protected string $twig_template = 'admin/user_admin.html.twig';
@@ -180,7 +181,7 @@ class UserController extends AdminPages\BaseAdminController
     public function userInfo(?User $user, Packages $packages, Request $request, DataTableFactory $dataTableFactory): Response
     {
         //If no user id was passed, then we show info about the current user
-        if (!$user instanceof \App\Entity\UserSystem\User) {
+        if (!$user instanceof User) {
             $tmp = $this->getUser();
             if (!$tmp instanceof User) {
                 throw new InvalidArgumentException('Userinfo only works for database users!');

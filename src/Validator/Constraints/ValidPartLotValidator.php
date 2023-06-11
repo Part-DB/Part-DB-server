@@ -53,7 +53,7 @@ class ValidPartLotValidator extends ConstraintValidator
         }
 
         //We can only validate the values if we know the storelocation
-        if ($value->getStorageLocation() instanceof \App\Entity\Parts\Storelocation) {
+        if ($value->getStorageLocation() instanceof Storelocation) {
             $repo = $this->em->getRepository(Storelocation::class);
             //We can only determine associated parts, if the part have an ID
             //When the storage location is new (no ID), we can just assume there are no other parts

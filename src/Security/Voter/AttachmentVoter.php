@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
@@ -39,13 +41,12 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
-use Symfony\Component\Security\Core\Security;
 
 use function in_array;
 
 class AttachmentVoter extends ExtendedVoter
 {
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
     {
         parent::__construct($resolver, $entityManager);
     }
@@ -73,7 +74,7 @@ class AttachmentVoter extends ExtendedVoter
         if (is_object($subject)) {
             //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
             $target_element = $subject->getElement();
-            if ($target_element instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
+            if ($target_element instanceof AttachmentContainingDBElement) {
                 return $this->security->isGranted($this->mapOperation($attribute), $target_element);
             }
         }

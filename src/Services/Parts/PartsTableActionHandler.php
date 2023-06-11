@@ -20,6 +20,7 @@
 
 namespace App\Services\Parts;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -33,11 +34,10 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 
 final class PartsTableActionHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 

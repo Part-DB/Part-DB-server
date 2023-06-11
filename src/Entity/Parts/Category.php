@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\CategoryRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -34,7 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  */
-#[ORM\Entity(repositoryClass: \App\Repository\Parts\CategoryRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: '`categories`')]
 #[ORM\Index(name: 'category_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -55,56 +58,56 @@ class Category extends AbstractPartsContainingDBElement
      * @var string
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $partname_hint = '';
 
     /**
      * @var string
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $partname_regex = '';
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_properties = false;
 
     /**
      * @var string
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $default_description = '';
 
     /**
      * @var string
      */
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $default_comment = '';
 
     /**
@@ -112,7 +115,7 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -120,7 +123,7 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -222,8 +225,8 @@ class Category extends AbstractPartsContainingDBElement
     public function __construct()
     {
         parent::__construct();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 }

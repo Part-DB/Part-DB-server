@@ -37,7 +37,7 @@ class CurrencyAttachment extends Attachment
     /**
      * @var Currency|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

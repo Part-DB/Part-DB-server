@@ -148,7 +148,7 @@ class AttachmentSubmitHandler
             throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.$attachment::class);
         }
         //Ensure the attachment has an assigned element
-        if (!$attachment->getElement() instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
+        if (!$attachment->getElement() instanceof AttachmentContainingDBElement) {
             throw new InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
         }
 
@@ -176,7 +176,7 @@ class AttachmentSubmitHandler
         $options = $resolver->resolve($options);
 
         //When a file is given then upload it, otherwise check if we need to download the URL
-        if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+        if ($file instanceof UploadedFile) {
             $this->upload($attachment, $file, $options);
         } elseif ($options['download_url'] && $attachment->isExternal()) {
             $this->downloadURL($attachment, $options);
@@ -192,7 +192,7 @@ class AttachmentSubmitHandler
         //this is only possible if the attachment is new (not yet persisted to DB)
         if ($options['become_preview_if_empty'] && null === $attachment->getID() && $attachment->isPicture()) {
             $element = $attachment->getElement();
-            if ($element instanceof AttachmentContainingDBElement && !$element->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+            if ($element instanceof AttachmentContainingDBElement && !$element->getMasterPictureAttachment() instanceof Attachment) {
                 $element->setMasterPictureAttachment($attachment);
             }
         }

@@ -20,6 +20,7 @@
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\User;
 use App\Security\SamlUserFactory;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +31,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user', 'Converts a local user to a SAML user (and vice versa)')]
+#[AsCommand('partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user', 'Converts a local user to a SAML user (and vice versa)')]
 class ConvertToSAMLUserCommand extends Command
 {
     public function __construct(protected EntityManagerInterface $entityManager, protected bool $saml_enabled)
@@ -62,7 +63,7 @@ class ConvertToSAMLUserCommand extends Command
         if (!$user) {
             $io->error('User not found!');
 
-            return \Symfony\Component\Console\Command\Command::FAILURE;
+            return Command::FAILURE;
         }
 
         $io->info('User found: '.$user->getFullName(true) . ': '.$user->getEmail().' [ID: ' . $user->getID() . ']');

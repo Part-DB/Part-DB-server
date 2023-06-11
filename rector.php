@@ -14,6 +14,11 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->symfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml');
     $rectorConfig->symfonyContainerPhp(__DIR__ . '/tests/symfony-container.php');
 
+    //Import class names instead of using fully qualified class names
+    $rectorConfig->importNames();
+    //But keep the fully qualified class names for classes in the global namespace
+    $rectorConfig->importShortClasses(false);
+
     $rectorConfig->paths([
         __DIR__ . '/config',
         __DIR__ . '/public',

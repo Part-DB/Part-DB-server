@@ -22,17 +22,17 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $base_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Validator\Constraints\Selectable;
@@ -35,27 +36,27 @@ trait BasicPropertyTrait
      * @var string A text describing what this part does
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool Kept for compatibility (it is not used now, and I don't think it was used in old versions)
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $visible = true;
 
     /**
      * @var bool true, if the part is marked as favorite
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $favorite = false;
 
     /**

@@ -193,7 +193,7 @@ class ProjectController extends AbstractController
     #[Route(path: '/{id}/add_parts', name: 'project_add_parts', requirements: ['id' => '\d+'])]
     public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
-        if($project instanceof \App\Entity\ProjectSystem\Project) {
+        if($project instanceof Project) {
             $this->denyAccessUnlessGranted('edit', $project);
         } else {
             $this->denyAccessUnlessGranted('@projects.edit');
@@ -203,7 +203,7 @@ class ProjectController extends AbstractController
         $builder->add('project', StructuralEntityType::class, [
             'class' => Project::class,
             'required' => true,
-            'disabled' => $project instanceof \App\Entity\ProjectSystem\Project, //If a project is given, disable the field
+            'disabled' => $project instanceof Project, //If a project is given, disable the field
             'data' => $project,
             'constraints' => [
                 new NotNull()

@@ -47,11 +47,11 @@ final class FormatExtension extends AbstractExtension
                 'is_safe' => ['html'],
             ]),
             /* Format the given amount as money, using a given currency */
-            new TwigFilter('format_money', fn($amount, ?\App\Entity\PriceInformations\Currency $currency = null, int $decimals = 5): string => $this->formatCurrency($amount, $currency, $decimals)),
+            new TwigFilter('format_money', fn($amount, ?Currency $currency = null, int $decimals = 5): string => $this->formatCurrency($amount, $currency, $decimals)),
             /* Format the given number using SI prefixes and the given unit (string) */
             new TwigFilter('format_si', fn($value, $unit, $decimals = 2, bool $show_all_digits = false): string => $this->siFormat($value, $unit, $decimals, $show_all_digits)),
             /** Format the given amount using the given MeasurementUnit */
-            new TwigFilter('format_amount', fn($value, ?\App\Entity\Parts\MeasurementUnit $unit, array $options = []): string => $this->amountFormat($value, $unit, $options)),
+            new TwigFilter('format_amount', fn($value, ?MeasurementUnit $unit, array $options = []): string => $this->amountFormat($value, $unit, $options)),
             /** Format the given number of bytes as human-readable number */
             new TwigFilter('format_bytes', fn(int $bytes, int $precision = 2): string => $this->formatBytes($bytes, $precision)),
         ];

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CurrencyParameter;
@@ -60,7 +61,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Currency]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
 
     #[ORM\OneToMany(targetEntity: 'Currency', mappedBy: 'parent', cascade: ['persist'])]
@@ -75,27 +76,27 @@ class Currency extends AbstractStructuralDBElement
      * @var Collection<int, CurrencyAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, CurrencyParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\PriceInformations\Pricedetail::class, mappedBy: 'currency')]
+    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'currency')]
     protected Collection $pricedetails;
 
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->parameters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         $this->pricedetails = new ArrayCollection();
         parent::__construct();
     }
@@ -129,7 +130,7 @@ class Currency extends AbstractStructuralDBElement
     {
         $tmp = $this->getExchangeRate();
 
-        if (!$tmp instanceof \Brick\Math\BigDecimal || $tmp->isZero()) {
+        if (!$tmp instanceof BigDecimal || $tmp->isZero()) {
             return null;
         }
 
@@ -153,7 +154,7 @@ class Currency extends AbstractStructuralDBElement
      */
     public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
-        if (!$exchange_rate instanceof \Brick\Math\BigDecimal) {
+        if (!$exchange_rate instanceof BigDecimal) {
             $this->exchange_rate = null;
         }
         $tmp = $exchange_rate->toScale(self::PRICE_SCALE, RoundingMode::HALF_UP);

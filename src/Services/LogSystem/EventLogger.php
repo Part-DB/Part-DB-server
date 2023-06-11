@@ -22,15 +22,16 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\Misc\ConsoleInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class EventLogger
 {
-    public function __construct(protected int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected \Symfony\Bundle\SecurityBundle\Security $security, protected ConsoleInfoHelper $console_info_helper)
+    public function __construct(protected int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)
     {
     }
 
@@ -44,14 +45,14 @@ class EventLogger
     {
         $user = $this->security->getUser();
         //If the user is not specified explicitly, set it to the current user
-        if ((!$user instanceof \Symfony\Component\Security\Core\User\UserInterface || $user instanceof User) && !$logEntry->getUser() instanceof \App\Entity\UserSystem\User) {
-            if (!$user instanceof \App\Entity\UserSystem\User) {
+        if ((!$user instanceof UserInterface || $user instanceof User) && !$logEntry->getUser() instanceof User) {
+            if (!$user instanceof User) {
                 $repo = $this->em->getRepository(User::class);
                 $user = $repo->getAnonymousUser();
             }
 
             //If no anonymous user is available skip the log (needed for data fixtures)
-            if (!$user instanceof \App\Entity\UserSystem\User) {
+            if (!$user instanceof User) {
                 return false;
             }
             $logEntry->setUser($user);

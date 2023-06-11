@@ -20,6 +20,7 @@
 
 namespace App\Helpers\Projects;
 
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -57,7 +58,7 @@ final class ProjectBuildRequest
         $this->initializeArray();
 
         //By default, use the first available lot of builds part if there is one.
-        if($project->getBuildPart() instanceof \App\Entity\Parts\Part) {
+        if($project->getBuildPart() instanceof Part) {
             $this->add_build_to_builds_part = true;
             foreach( $project->getBuildPart()->getPartLots() as $lot) {
                 if (!$lot->isInstockUnknown()) {
@@ -133,11 +134,11 @@ final class ProjectBuildRequest
     public function setBuildsPartLot(?PartLot $new_part_lot): self
     {
         //Ensure that this new_part_lot belongs to the project
-        if (($new_part_lot instanceof \App\Entity\Parts\PartLot && $new_part_lot->getPart() !== $this->project->getBuildPart()) || !$this->project->getBuildPart() instanceof \App\Entity\Parts\Part) {
+        if (($new_part_lot instanceof PartLot && $new_part_lot->getPart() !== $this->project->getBuildPart()) || !$this->project->getBuildPart() instanceof Part) {
             throw new \InvalidArgumentException('The given part lot does not belong to the projects build part!');
         }
 
-        if ($new_part_lot instanceof \App\Entity\Parts\PartLot) {
+        if ($new_part_lot instanceof PartLot) {
             $this->setAddBuildsToBuildsPart(true);
         }
 
@@ -166,7 +167,7 @@ final class ProjectBuildRequest
      * Returns the amount of parts that should be withdrawn from the given lot for the corresponding BOM entry.
      * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
      */
-    public function getLotWithdrawAmount(\App\Entity\Parts\PartLot|int $lot): float
+    public function getLotWithdrawAmount(PartLot|int $lot): float
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
@@ -188,7 +189,7 @@ final class ProjectBuildRequest
      * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
      * @return $this
      */
-    public function setLotWithdrawAmount(\App\Entity\Parts\PartLot|int $lot, float $amount): self
+    public function setLotWithdrawAmount(PartLot|int $lot, float $amount): self
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
@@ -230,7 +231,7 @@ final class ProjectBuildRequest
     {
         $this->ensureBOMEntryValid($projectBOMEntry);
 
-        if (!$projectBOMEntry->getPart() instanceof \App\Entity\Parts\Part) {
+        if (!$projectBOMEntry->getPart() instanceof Part) {
             return null;
         }
 

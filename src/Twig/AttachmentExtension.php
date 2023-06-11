@@ -20,6 +20,7 @@
 
 namespace App\Twig;
 
+use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Misc\FAIconGenerator;
 use Twig\Extension\AbstractExtension;
@@ -35,7 +36,7 @@ final class AttachmentExtension extends AbstractExtension
     {
         return [
             /* Returns the URL to a thumbnail of the given attachment */
-            new TwigFunction('attachment_thumbnail', fn(\App\Entity\Attachments\Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string => $this->attachmentURLGenerator->getThumbnailURL($attachment, $filter_name)),
+            new TwigFunction('attachment_thumbnail', fn(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string => $this->attachmentURLGenerator->getThumbnailURL($attachment, $filter_name)),
             /* Returns the font awesome icon class which is representing the given file extension  */
             new TwigFunction('ext_to_fa_icon', fn(string $extension): string => $this->FAIconGenerator->fileExtensionToFAType($extension)),
         ];

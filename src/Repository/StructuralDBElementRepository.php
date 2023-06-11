@@ -116,7 +116,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             $entity = $this->getNewEntityFromCache($name, $parent);
 
             //See if we already have an element with this name and parent in the database
-            if (!$entity instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+            if (!$entity instanceof AbstractStructuralDBElement) {
                 $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
             }
             if (null === $entity) {
@@ -138,7 +138,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
 
     private function getNewEntityFromCache(string $name, ?AbstractStructuralDBElement $parent): ?AbstractStructuralDBElement
     {
-        $key = $parent instanceof \App\Entity\Base\AbstractStructuralDBElement ? $parent->getFullPath('%->%').'%->%'.$name : $name;
+        $key = $parent instanceof AbstractStructuralDBElement ? $parent->getFullPath('%->%').'%->%'.$name : $name;
         if (isset($this->new_entity_cache[$key])) {
             return $this->new_entity_cache[$key];
         }

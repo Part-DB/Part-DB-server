@@ -20,6 +20,7 @@
 
 namespace App\Services\ProjectSystem;
 
+use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Helpers\Projects\ProjectBuildRequest;
@@ -39,7 +40,7 @@ class ProjectBuildHelper
     {
         $part = $projectBOMEntry->getPart();
 
-        if (!$part instanceof \App\Entity\Parts\Part) {
+        if (!$part instanceof Part) {
             throw new \InvalidArgumentException('This function cannot determine the maximum buildable count for a BOM entry without a part!');
         }
 
@@ -108,7 +109,7 @@ class ProjectBuildHelper
             $part = $bomEntry->getPart();
 
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$part instanceof \App\Entity\Parts\Part) {
+            if (!$part instanceof Part) {
                 continue;
             }
 

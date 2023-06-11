@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Validator\Constraints\Selectable;
@@ -48,14 +49,14 @@ trait ManufacturerTrait
      */
     #[Assert\Url]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $manufacturer_product_number = '';
 
     /**
@@ -63,7 +64,7 @@ trait ManufacturerTrait
      */
     #[Assert\Choice(['announced', 'active', 'nrfnd', 'eol', 'discontinued', ''])]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $manufacturing_status = '';
 
     /**

@@ -41,18 +41,18 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
 use InvalidArgumentException;
-use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\Error;
 
 final class LabelHTMLGenerator
 {
-    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator, private readonly LabelTextReplacer $replacer, private readonly Environment $twig, private readonly BarcodeGenerator $barcodeGenerator, private readonly SandboxedTwigProvider $sandboxedTwigProvider, private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly string $partdb_title)
+    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator, private readonly LabelTextReplacer $replacer, private readonly Environment $twig, private readonly BarcodeGenerator $barcodeGenerator, private readonly SandboxedTwigProvider $sandboxedTwigProvider, private readonly Security $security, private readonly string $partdb_title)
     {
     }
 

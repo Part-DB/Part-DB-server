@@ -20,6 +20,7 @@
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
@@ -32,14 +33,14 @@ class WebauthnKey extends BasePublicKeyCredentialSource
     use TimestampTrait;
 
     #[ORM\Id]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue]
     protected int $id;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name;
 
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class, inversedBy: 'webauthn_keys')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'webauthn_keys')]
     protected ?User $user = null;
 
     public function getName(): string

@@ -38,7 +38,7 @@ class SupplierAttachment extends Attachment
     /**
      * @var Supplier|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Supplier::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

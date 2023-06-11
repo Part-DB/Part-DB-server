@@ -210,13 +210,13 @@ class PartController extends AbstractController
         ?Part $part = null, ?Project $project = null): Response
     {
 
-        if ($part instanceof \App\Entity\Parts\Part) {
+        if ($part instanceof Part) {
             //Clone part
             $new_part = clone $part;
-        } elseif ($project instanceof \App\Entity\ProjectSystem\Project) {
+        } elseif ($project instanceof Project) {
             //Initialize a new part for a build part from the given project
             //Ensure that the project has not already a build part
-            if ($project->getBuildPart() instanceof \App\Entity\Parts\Part) {
+            if ($project->getBuildPart() instanceof Part) {
                 $this->addFlash('error', 'part.new_build_part.error.build_part_already_exists');
                 return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
             }
@@ -229,7 +229,7 @@ class PartController extends AbstractController
 
         $cid = $request->get('category', null);
         $category = $cid ? $em->find(Category::class, $cid) : null;
-        if ($category instanceof \App\Entity\Parts\Category && !$new_part->getCategory() instanceof \App\Entity\Parts\Category) {
+        if ($category instanceof Category && !$new_part->getCategory() instanceof Category) {
             $new_part->setCategory($category);
             $new_part->setDescription($category->getDefaultDescription());
             $new_part->setComment($category->getDefaultComment());
@@ -237,19 +237,19 @@ class PartController extends AbstractController
 
         $fid = $request->get('footprint', null);
         $footprint = $fid ? $em->find(Footprint::class, $fid) : null;
-        if ($footprint instanceof \App\Entity\Parts\Footprint && !$new_part->getFootprint() instanceof \App\Entity\Parts\Footprint) {
+        if ($footprint instanceof Footprint && !$new_part->getFootprint() instanceof Footprint) {
             $new_part->setFootprint($footprint);
         }
 
         $mid = $request->get('manufacturer', null);
         $manufacturer = $mid ? $em->find(Manufacturer::class, $mid) : null;
-        if ($manufacturer instanceof \App\Entity\Parts\Manufacturer && !$new_part->getManufacturer() instanceof \App\Entity\Parts\Manufacturer) {
+        if ($manufacturer instanceof Manufacturer && !$new_part->getManufacturer() instanceof Manufacturer) {
             $new_part->setManufacturer($manufacturer);
         }
 
         $store_id = $request->get('storelocation', null);
         $storelocation = $store_id ? $em->find(Storelocation::class, $store_id) : null;
-        if ($storelocation instanceof \App\Entity\Parts\Storelocation && $new_part->getPartLots()->isEmpty()) {
+        if ($storelocation instanceof Storelocation && $new_part->getPartLots()->isEmpty()) {
             $partLot = new PartLot();
             $partLot->setStorageLocation($storelocation);
             $partLot->setInstockUnknown(true);
@@ -258,7 +258,7 @@ class PartController extends AbstractController
 
         $supplier_id = $request->get('supplier', null);
         $supplier = $supplier_id ? $em->find(Supplier::class, $supplier_id) : null;
-        if ($supplier instanceof \App\Entity\Parts\Supplier && $new_part->getOrderdetails()->isEmpty()) {
+        if ($supplier instanceof Supplier && $new_part->getOrderdetails()->isEmpty()) {
             $orderdetail = new Orderdetail();
             $orderdetail->setSupplier($supplier);
             $new_part->addOrderdetail($orderdetail);
@@ -329,7 +329,7 @@ class PartController extends AbstractController
         if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {
             //Retrieve partlot from the request
             $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
-            if(!$partLot instanceof \App\Entity\Parts\PartLot) {
+            if(!$partLot instanceof PartLot) {
                 throw new \RuntimeException('Part lot not found!');
             }
             //Ensure that the partlot belongs to the part

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
@@ -41,39 +42,39 @@ class U2FKey implements LegacyU2FKeyInterface
      *
      * @var string
      **/
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 128)]
+    #[ORM\Column(type: Types::STRING, length: 128)]
     public string $keyHandle;
 
     /**
      * @var string
      **/
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     public string $publicKey;
 
     /**
      * @var string
      **/
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     public string $certificate;
 
     /**
      * @var int
      **/
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     public int $counter;
 
     #[ORM\Id]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue]
     protected int $id;
 
     /**
      * @var string
      **/
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name;
 
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class, inversedBy: 'u2fKeys')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'u2fKeys')]
     protected ?User $user = null;
 
     public function getKeyHandle(): string

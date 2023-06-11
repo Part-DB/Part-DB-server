@@ -41,6 +41,10 @@ declare(strict_types=1);
 
 namespace App\Entity\LabelSystem;
 
+use App\Repository\LabelProfileRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\LabelAttachment;
 use Doctrine\Common\Collections\Collection;
@@ -49,15 +53,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['name', 'options.supported_element'])]
-#[ORM\Entity(repositoryClass: \App\Repository\LabelProfileRepository::class)]
-#[ORM\EntityListeners([\App\EntityListeners\TreeCacheInvalidationListener::class])]
+#[ORM\Entity(repositoryClass: LabelProfileRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table(name: 'label_profiles')]
 class LabelProfile extends AttachmentContainingDBElement
 {
     /**
      * @var Collection<int, LabelAttachment>
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -71,18 +75,18 @@ class LabelProfile extends AttachmentContainingDBElement
     /**
      * @var string The comment info for this element
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $show_in_dropdown = true;
 
     public function __construct()
     {
-        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->options = new LabelOptions();
     }

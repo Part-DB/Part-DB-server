@@ -74,7 +74,7 @@ class TreeViewGenerator
             $href = $this->urlGenerator->createURL(new $class());
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
             //When the id of the selected element is null, then we have a new element, and we need to select "new" node
-            if (!$selectedElement instanceof \App\Entity\Base\AbstractDBElement || null === $selectedElement->getID()) {
+            if (!$selectedElement instanceof AbstractDBElement || null === $selectedElement->getID()) {
                 $new_node->setSelected(true);
             }
             $head[] = $new_node;
@@ -98,7 +98,7 @@ class TreeViewGenerator
         $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
             /** @var TreeViewNode $item */
-            if ($selectedElement instanceof \App\Entity\Base\AbstractDBElement && $item->getId() === $selectedElement->getID()) {
+            if ($selectedElement instanceof AbstractDBElement && $item->getId() === $selectedElement->getID()) {
                 $item->setSelected(true);
             }
 
@@ -184,7 +184,7 @@ class TreeViewGenerator
         if (!is_a($class, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
-        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement && !$parent instanceof $class) {
+        if ($parent instanceof AbstractStructuralDBElement && !$parent instanceof $class) {
             throw new InvalidArgumentException('$parent must be of the type $class!');
         }
 
@@ -192,7 +192,7 @@ class TreeViewGenerator
         $repo = $this->em->getRepository($class);
 
         //If we just want a part of a tree, don't cache it
-        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+        if ($parent instanceof AbstractStructuralDBElement) {
             return $repo->getGenericNodeTree($parent);
         }
 

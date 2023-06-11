@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
 use InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -140,7 +141,7 @@ class AttachmentURLGenerator
             $tmp = $this->thumbnailManager->getBrowserPath($asset_path, $filter_name, [], null, UrlGeneratorInterface::NETWORK_PATH);
             //So we remove the schema manually
             return preg_replace('/^https?:/', '', $tmp);
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log a warning
             $this->logger->warning('Could not open thumbnail for attachment with ID ' . $attachment->getID() . ': ' . $e->getMessage());
             return $this->assets->getUrl($asset_path);

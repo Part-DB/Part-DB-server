@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\Parts\Storelocation;
+use App\Entity\UserSystem\User;
 use App\Entity\Parts\PartLot;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
@@ -90,19 +92,19 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[LOCATION]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $label_target->getStorageLocation()->getName() : '';
+                return $label_target->getStorageLocation() instanceof Storelocation ? $label_target->getStorageLocation()->getName() : '';
             }
 
             if ('[[LOCATION_FULL]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $label_target->getStorageLocation()->getFullPath() : '';
+                return $label_target->getStorageLocation() instanceof Storelocation ? $label_target->getStorageLocation()->getFullPath() : '';
             }
 
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getUsername() : '';
             }
 
             return $this->labelTextReplacer->handlePlaceholder($placeholder, $label_target->getPart());

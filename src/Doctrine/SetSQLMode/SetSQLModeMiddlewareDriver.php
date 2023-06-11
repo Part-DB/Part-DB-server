@@ -20,6 +20,7 @@
 
 namespace App\Doctrine\SetSQLMode;
 
+use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
@@ -29,7 +30,7 @@ use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
  */
 class SetSQLModeMiddlewareDriver extends AbstractDriverMiddleware
 {
-    public function connect(array $params): \Doctrine\DBAL\Driver\Connection
+    public function connect(array $params): Connection
     {
         //Only set this on MySQL connections, as other databases don't support this parameter
         if($this->getDatabasePlatform() instanceof AbstractMySQLPlatform) {

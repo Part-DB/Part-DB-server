@@ -41,15 +41,16 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class PartLotVoter extends ExtendedVoter
 {
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
     {
         parent::__construct($resolver, $entityManager);
     }
@@ -84,7 +85,7 @@ class PartLotVoter extends ExtendedVoter
         };
 
         //If we have no part associated use the generic part permission
-        if (is_string($subject) || !$subject->getPart() instanceof \App\Entity\Parts\Part) {
+        if (is_string($subject) || !$subject->getPart() instanceof Part) {
             return $this->resolver->inherit($user, 'parts', $operation) ?? false;
         }
 

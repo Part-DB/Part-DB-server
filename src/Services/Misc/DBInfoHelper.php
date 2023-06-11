@@ -20,6 +20,7 @@
 
 namespace App\Services\Misc;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
@@ -56,7 +57,7 @@ class DBInfoHelper
 
     /**
      * Returns the database version of the used database.
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function getDatabaseVersion(): ?string
     {
@@ -74,14 +75,14 @@ class DBInfoHelper
     /**
      * Returns the database size in bytes.
      * @return int|null The database size in bytes or null if unknown
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function getDatabaseSize(): ?int
     {
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 return $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
-            } catch (\Doctrine\DBAL\Exception) {
+            } catch (Exception) {
                 return null;
             }
         }
@@ -89,7 +90,7 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             try {
                 return $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
-            } catch (\Doctrine\DBAL\Exception) {
+            } catch (Exception) {
                 return null;
             }
         }
@@ -113,7 +114,7 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 return $this->connection->fetchOne('SELECT USER()');
-            } catch (\Doctrine\DBAL\Exception) {
+            } catch (Exception) {
                 return null;
             }
         }

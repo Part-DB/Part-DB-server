@@ -22,6 +22,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\ProjectParameter;
@@ -83,7 +87,7 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($result, 'json');
 
-        return new JsonResponse($data, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 
     /**
@@ -122,7 +126,7 @@ class TypeaheadController extends AbstractController
         foreach ($parts as $part) {
             //Determine the picture to show:
             $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
-            if($preview_attachment instanceof \App\Entity\Attachments\Attachment) {
+            if($preview_attachment instanceof Attachment) {
                 $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
             } else {
                 $preview_url = '';
@@ -132,8 +136,8 @@ class TypeaheadController extends AbstractController
             $data[] = [
                 'id' => $part->getID(),
                 'name' => $part->getName(),
-                'category' => $part->getCategory() instanceof \App\Entity\Parts\Category ? $part->getCategory()->getName() : 'Unknown',
-                'footprint' => $part->getFootprint() instanceof \App\Entity\Parts\Footprint ? $part->getFootprint()->getName() : '',
+                'category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : 'Unknown',
+                'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
                 ];
@@ -176,6 +180,6 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($array, 'json');
 
-        return new JsonResponse($data, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [], true);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 }

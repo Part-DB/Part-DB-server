@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,26 +40,26 @@ trait OrderTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\PriceInformations\Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
-    protected \Doctrine\Common\Collections\Collection $orderdetails;
+    protected Collection $orderdetails;
 
     /**
      * @var int
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
      * @var bool
      */
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $manual_order = false;
 
     /**
      * @var Orderdetail|null
      */
-    #[ORM\OneToOne(targetEntity: \App\Entity\PriceInformations\Orderdetail::class)]
+    #[ORM\OneToOne(targetEntity: Orderdetail::class)]
     #[ORM\JoinColumn(name: 'order_orderdetails_id')]
     protected ?Orderdetail $order_orderdetail = null;
 

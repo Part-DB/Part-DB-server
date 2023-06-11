@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\AbstractType;
@@ -49,11 +50,10 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class LabelOptionsType extends AbstractType
 {
-    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly Security $security)
     {
     }
 

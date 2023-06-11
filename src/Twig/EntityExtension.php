@@ -62,11 +62,11 @@ final class EntityExtension extends AbstractExtension
             /* Returns a string representation of the given entity */
             new TwigFunction('entity_type', fn(object $entity): ?string => $this->getEntityType($entity)),
             /* Returns the URL to the given entity */
-            new TwigFunction('entity_url', fn(\App\Entity\Base\AbstractDBElement $entity, string $method = 'info'): string => $this->generateEntityURL($entity, $method)),
+            new TwigFunction('entity_url', fn(AbstractDBElement $entity, string $method = 'info'): string => $this->generateEntityURL($entity, $method)),
             /* Returns the URL to the given entity in timetravel mode */
-            new TwigFunction('timetravel_url', fn(\App\Entity\Base\AbstractDBElement $element, \DateTimeInterface $dateTime): ?string => $this->timeTravelURL($element, $dateTime)),
+            new TwigFunction('timetravel_url', fn(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string => $this->timeTravelURL($element, $dateTime)),
             /* Generates a JSON array of the given tree */
-            new TwigFunction('tree_data', fn(\App\Entity\Base\AbstractDBElement $element, string $type = 'newEdit'): string => $this->treeData($element, $type)),
+            new TwigFunction('tree_data', fn(AbstractDBElement $element, string $type = 'newEdit'): string => $this->treeData($element, $type)),
 
             /* Gets a human readable label for the type of the given entity */
             new TwigFunction('entity_type_label', fn(object|string $entity): string => $this->nameGenerator->getLocalizedTypeLabel($entity)),

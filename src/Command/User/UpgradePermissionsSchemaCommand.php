@@ -20,6 +20,7 @@
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
@@ -31,7 +32,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:upgrade-permissions-schema', '(Manually) upgrades the permissions schema of all users to the latest version.')]
+#[AsCommand('partdb:users:upgrade-permissions-schema', '(Manually) upgrades the permissions schema of all users to the latest version.')]
 final class UpgradePermissionsSchemaCommand extends Command
 {
     public function __construct(private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $em, private readonly EventCommentHelper $eventCommentHelper)
@@ -74,7 +75,7 @@ final class UpgradePermissionsSchemaCommand extends Command
         if ($groups_to_upgrade === [] && $users_to_upgrade === []) {
             $io->success('All users and group permissions schemas are up-to-date. No update needed.');
 
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         //List all users and groups that need an update
@@ -86,7 +87,7 @@ final class UpgradePermissionsSchemaCommand extends Command
 
         if(!$io->confirm('Continue with the update?', false)) {
             $io->warning('Update aborted.');
-            return \Symfony\Component\Console\Command\Command::SUCCESS;
+            return Command::SUCCESS;
         }
 
         //Update all users and groups

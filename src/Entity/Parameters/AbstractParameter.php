@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Repository\ParameterRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
@@ -51,7 +53,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
 
-#[ORM\Entity(repositoryClass: \App\Repository\ParameterRepository::class)]
+#[ORM\Entity(repositoryClass: ParameterRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
 #[ORM\DiscriminatorMap([0 => 'CategoryParameter', 1 => 'CurrencyParameter', 2 => 'ProjectParameter', 3 => 'FootprintParameter', 4 => 'GroupParameter', 5 => 'ManufacturerParameter', 6 => 'MeasurementUnitParameter', 7 => 'PartParameter', 8 => 'StorelocationParameter', 9 => 'SupplierParameter', 10 => 'AttachmentTypeParameter'])]
@@ -71,7 +73,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Assert\Length(max: 20)]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';
 
     /**
@@ -81,7 +83,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
     /**
@@ -89,7 +91,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Assert\Type([null, 'float'])]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
     /**
@@ -98,21 +100,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     #[Assert\Type(['float', null])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $value_text = '';
 
     /**
@@ -120,7 +122,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Groups(['full'])]
     #[Groups(['full'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, name: 'param_group')]
+    #[ORM\Column(type: Types::STRING, name: 'param_group')]
     protected string $group = '';
 
     /**

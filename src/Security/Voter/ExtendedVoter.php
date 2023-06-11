@@ -52,7 +52,7 @@ abstract class ExtendedVoter extends Voter
             /** @var UserRepository $repo */
             $repo = $this->entityManager->getRepository(User::class);
             $user = $repo->getAnonymousUser();
-            if (!$user instanceof \App\Entity\UserSystem\User) {
+            if (!$user instanceof User) {
                 return false;
             }
         }

@@ -41,20 +41,21 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Repository\ParameterRepository;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
-#[ORM\Entity(repositoryClass: \App\Repository\ParameterRepository::class)]
+#[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class AttachmentTypeParameter extends AbstractParameter
 {
     final public const ALLOWED_ELEMENT_CLASS = AttachmentType::class;
     /**
      * @var AttachmentType the element this para is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Attachments\AttachmentType::class, inversedBy: 'parameters')]
+    #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AbstractDBElement $element = null;
 }

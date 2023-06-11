@@ -41,6 +41,9 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Formatters\SIFormatter;
 use Parsedown;
@@ -59,27 +62,27 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[CATEGORY]]' === $placeholder) {
-            return $part->getCategory() instanceof \App\Entity\Parts\Category ? $part->getCategory()->getName() : '';
+            return $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '';
         }
 
         if ('[[CATEGORY_FULL]]' === $placeholder) {
-            return $part->getCategory() instanceof \App\Entity\Parts\Category ? $part->getCategory()->getFullPath() : '';
+            return $part->getCategory() instanceof Category ? $part->getCategory()->getFullPath() : '';
         }
 
         if ('[[MANUFACTURER]]' === $placeholder) {
-            return $part->getManufacturer() instanceof \App\Entity\Parts\Manufacturer ? $part->getManufacturer()->getName() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getName() : '';
         }
 
         if ('[[MANUFACTURER_FULL]]' === $placeholder) {
-            return $part->getManufacturer() instanceof \App\Entity\Parts\Manufacturer ? $part->getManufacturer()->getFullPath() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getFullPath() : '';
         }
 
         if ('[[FOOTPRINT]]' === $placeholder) {
-            return $part->getFootprint() instanceof \App\Entity\Parts\Footprint ? $part->getFootprint()->getName() : '';
+            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '';
         }
 
         if ('[[FOOTPRINT_FULL]]' === $placeholder) {
-            return $part->getFootprint() instanceof \App\Entity\Parts\Footprint ? $part->getFootprint()->getFullPath() : '';
+            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getFullPath() : '';
         }
 
         if ('[[MASS]]' === $placeholder) {

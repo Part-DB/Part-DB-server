@@ -2,6 +2,9 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
@@ -86,10 +89,10 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             //Prefill the selected choice with the needed data, so the user can see it without an additional Ajax request
             'choice_attr' => ChoiceList::attr($this, function (?Part $part) {
-                if($part instanceof \App\Entity\Parts\Part) {
+                if($part instanceof Part) {
                     //Determine the picture to show:
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($part);
-                    if ($preview_attachment instanceof \App\Entity\Attachments\Attachment) {
+                    if ($preview_attachment instanceof Attachment) {
                         $preview_url = $this->attachmentURLGenerator->getThumbnailURL($preview_attachment,
                             'thumbnail_sm');
                     } else {
@@ -97,10 +100,10 @@ class PartSelectType extends AbstractType implements DataMapperInterface
                     }
                 }
 
-                return $part instanceof \App\Entity\Parts\Part ? [
+                return $part instanceof Part ? [
                     'data-description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
-                    'data-category' => $part->getCategory() instanceof \App\Entity\Parts\Category ? $part->getCategory()->getName() : '',
-                    'data-footprint' => $part->getFootprint() instanceof \App\Entity\Parts\Footprint ? $part->getFootprint()->getName() : '',
+                    'data-category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '',
+                    'data-footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                     'data-image' => $preview_url,
                 ] : [];
             })

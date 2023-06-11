@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
@@ -56,7 +57,6 @@ use Psr\Log\LogLevel;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogDataTable implements DataTableTypeInterface
@@ -65,7 +65,7 @@ class LogDataTable implements DataTableTypeInterface
 
     public function __construct(protected ElementTypeNameGenerator $elementTypeNameGenerator, protected TranslatorInterface $translator,
         protected UrlGeneratorInterface $urlGenerator, protected EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
-        protected \Symfony\Bundle\SecurityBundle\Security $security, protected UserAvatarHelper $userAvatarHelper, protected LogLevelHelper $logLevelHelper)
+        protected Security $security, protected UserAvatarHelper $userAvatarHelper, protected LogLevelHelper $logLevelHelper)
     {
         $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
     }
@@ -158,7 +158,7 @@ class LogDataTable implements DataTableTypeInterface
                 $user = $context->getUser();
 
                 //If user was deleted, show the info from the username field
-                if (!$user instanceof \App\Entity\UserSystem\User) {
+                if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
                             htmlentities($context->getCLIUsername()),
@@ -219,7 +219,7 @@ class LogDataTable implements DataTableTypeInterface
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
-                        if ($target instanceof \App\Entity\Base\AbstractDBElement) {
+                        if ($target instanceof AbstractDBElement) {
                             return $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
                         }
                     } catch (EntityNotSupportedException) {

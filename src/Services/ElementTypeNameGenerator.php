@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
@@ -162,17 +163,17 @@ class ElementTypeNameGenerator
 
         //Add a hint to the associated element if possible
         if ($include_associated) {
-            if ($entity instanceof Attachment && $entity->getElement() instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
+            if ($entity instanceof Attachment && $entity->getElement() instanceof AttachmentContainingDBElement) {
                 $on = $entity->getElement();
-            } elseif ($entity instanceof AbstractParameter && $entity->getElement() instanceof \App\Entity\Base\AbstractDBElement) {
+            } elseif ($entity instanceof AbstractParameter && $entity->getElement() instanceof AbstractDBElement) {
                 $on = $entity->getElement();
-            } elseif ($entity instanceof PartLot && $entity->getPart() instanceof \App\Entity\Parts\Part) {
+            } elseif ($entity instanceof PartLot && $entity->getPart() instanceof Part) {
                 $on = $entity->getPart();
-            } elseif ($entity instanceof Orderdetail && $entity->getPart() instanceof \App\Entity\Parts\Part) {
+            } elseif ($entity instanceof Orderdetail && $entity->getPart() instanceof Part) {
                 $on = $entity->getPart();
-            } elseif ($entity instanceof Pricedetail && $entity->getOrderdetail() instanceof \App\Entity\PriceInformations\Orderdetail && $entity->getOrderdetail()->getPart() instanceof \App\Entity\Parts\Part) {
+            } elseif ($entity instanceof Pricedetail && $entity->getOrderdetail() instanceof Orderdetail && $entity->getOrderdetail()->getPart() instanceof Part) {
                 $on = $entity->getOrderdetail()->getPart();
-            } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof \App\Entity\ProjectSystem\Project) {
+            } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof Project) {
                 $on = $entity->getProject();
             }
 

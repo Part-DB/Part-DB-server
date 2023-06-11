@@ -20,6 +20,7 @@
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -29,7 +30,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:enable|partdb:user:enable', 'Enables/Disable the login of one or more users')]
+#[AsCommand('partdb:users:enable|partdb:user:enable', 'Enables/Disable the login of one or more users')]
 class UserEnableCommand extends Command
 {
     public function __construct(protected EntityManagerInterface $entityManager, string $name = null)
@@ -66,7 +67,7 @@ class UserEnableCommand extends Command
         } else { //Otherwise, fetch the users from DB
             foreach ($usernames as $username) {
                 $user = $repo->findByEmailOrName($username);
-                if (!$user instanceof \App\Entity\UserSystem\User) {
+                if (!$user instanceof User) {
                     $io->error('No user found with username: '.$username);
                     return self::FAILURE;
                 }

@@ -38,7 +38,7 @@ class StorelocationAttachment extends Attachment
     /**
      * @var Storelocation|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Storelocation::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Storelocation::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

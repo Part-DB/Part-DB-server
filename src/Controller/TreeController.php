@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -59,7 +60,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@parts.read') && $this->isGranted('@categories.read')) {
             $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
@@ -72,7 +73,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@parts.read') && $this->isGranted('@footprints.read')) {
             $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
         return new JsonResponse($tree);
     }
@@ -84,7 +85,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@parts.read') && $this->isGranted('@storelocations.read')) {
             $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
@@ -97,7 +98,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@parts.read') && $this->isGranted('@manufacturers.read')) {
             $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
@@ -110,7 +111,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
             $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);
@@ -123,7 +124,7 @@ class TreeController extends AbstractController
         if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
         } else {
-            return new JsonResponse("Access denied", \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }
 
         return new JsonResponse($tree);

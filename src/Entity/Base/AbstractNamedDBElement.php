@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,7 +43,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      */
     #[Assert\NotBlank]
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /******************************************************************************

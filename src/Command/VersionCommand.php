@@ -20,6 +20,7 @@
 
 namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\Misc\GitVersionInfo;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +28,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
+#[AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
 class VersionCommand extends Command
 {
     public function __construct(protected VersionManagerInterface $versionManager, protected GitVersionInfo $gitVersionInfo)
@@ -57,6 +58,6 @@ class VersionCommand extends Command
         $io->info('OS: '. php_uname());
         $io->info('PHP extension: '. implode(', ', get_loaded_extensions()));
 
-        return \Symfony\Component\Console\Command\Command::SUCCESS;
+        return Command::SUCCESS;
     }
 }

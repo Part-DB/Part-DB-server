@@ -49,7 +49,7 @@ class NodesListBuilder
      */
     public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
-        $parent_id = $parent instanceof \App\Entity\Base\AbstractStructuralDBElement ? $parent->getID() : '0';
+        $parent_id = $parent instanceof AbstractStructuralDBElement ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace('\\', '_', $class_name);
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;

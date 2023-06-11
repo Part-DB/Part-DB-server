@@ -143,7 +143,7 @@ class PKPartImporter
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partmanufacturer['part_id']));
             }
             $manufacturer = $this->em->find(Manufacturer::class, (int) $partmanufacturer['manufacturer_id']);
-            if (!$manufacturer instanceof \App\Entity\Parts\Manufacturer) {
+            if (!$manufacturer instanceof Manufacturer) {
                 throw new \RuntimeException(sprintf('Could not find manufacturer with ID %s', $partmanufacturer['manufacturer_id']));
             }
             $part->setManufacturer($manufacturer);
@@ -187,7 +187,7 @@ class PKPartImporter
             }
 
             $part = $this->em->find(Part::class, (int) $partparameter['part_id']);
-            if (!$part instanceof \App\Entity\Parts\Part) {
+            if (!$part instanceof Part) {
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partparameter['part_id']));
             }
 
@@ -235,12 +235,12 @@ class PKPartImporter
         foreach ($data['partdistributor'] as $partdistributor) {
             //Retrieve the part
             $part = $this->em->find(Part::class, (int) $partdistributor['part_id']);
-            if (!$part instanceof \App\Entity\Parts\Part) {
+            if (!$part instanceof Part) {
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partdistributor['part_id']));
             }
             //Retrieve the distributor
             $supplier = $this->em->find(Supplier::class, (int) $partdistributor['distributor_id']);
-            if (!$supplier instanceof \App\Entity\Parts\Supplier) {
+            if (!$supplier instanceof Supplier) {
                 throw new \RuntimeException(sprintf('Could not find supplier with ID %s', $partdistributor['distributor_id']));
             }
 

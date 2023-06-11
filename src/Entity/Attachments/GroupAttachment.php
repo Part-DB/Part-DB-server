@@ -38,7 +38,7 @@ class GroupAttachment extends Attachment
     /**
      * @var Group|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\Group::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

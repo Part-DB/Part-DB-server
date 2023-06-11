@@ -64,7 +64,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
      * @param  string[]  $excluded  array of table/view names to be excluded from purge
      */
     public function __construct(
-        private ?\Doctrine\ORM\EntityManagerInterface $em = null,
+        private ?EntityManagerInterface $em = null,
         /**
          * Table/view names to be excluded from purge
          */

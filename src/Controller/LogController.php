@@ -141,7 +141,7 @@ class LogController extends AbstractController
         }
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
-        if (!$log_element instanceof \App\Entity\LogSystem\AbstractLogEntry) {
+        if (!$log_element instanceof AbstractLogEntry) {
             throw new InvalidArgumentException('No log entry with the given ID is existing!');
         }
 

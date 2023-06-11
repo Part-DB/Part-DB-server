@@ -20,6 +20,7 @@
 
 namespace App\DataTables\Filters\Constraints\Part;
 
+use Doctrine\ORM\Query\Expr\Orx;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
@@ -88,7 +89,7 @@ class TagsConstraint extends AbstractConstraint
     /**
      * Builds an expression to query for a single tag
      */
-    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Expr\Orx
+    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Orx
     {
         $tag_identifier_prefix = uniqid($this->identifier . '_', false);
 

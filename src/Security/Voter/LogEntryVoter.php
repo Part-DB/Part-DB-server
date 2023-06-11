@@ -22,17 +22,17 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class LogEntryVoter extends ExtendedVoter
 {
     final public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, private readonly Security $security)
     {
         parent::__construct($resolver, $entityManager);
     }
