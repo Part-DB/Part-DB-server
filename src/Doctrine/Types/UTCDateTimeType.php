@@ -47,7 +47,7 @@ class UTCDateTimeType extends DateTimeType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (!self::$utc_timezone) {
+        if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
         }
 
@@ -60,7 +60,7 @@ class UTCDateTimeType extends DateTimeType
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
-        if (!self::$utc_timezone) {
+        if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
         }
 

@@ -26,9 +26,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class PartStockChangedLogEntry extends AbstractLogEntry
 {
-    public const TYPE_ADD = "add";
-    public const TYPE_WITHDRAW = "withdraw";
-    public const TYPE_MOVE = "move";
+    final public const TYPE_ADD = "add";
+    final public const TYPE_WITHDRAW = "withdraw";
+    final public const TYPE_MOVE = "move";
 
     protected string $typeString = 'part_stock_changed';
 
@@ -68,7 +68,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
             $this->extra['c'] = mb_strimwidth($comment, 0, self::COMMENT_MAX_LENGTH, '...');
         }
 
-        if ($move_to_target) {
+        if ($move_to_target instanceof \App\Entity\Parts\PartLot) {
             if ($type !== self::TYPE_MOVE) {
                 throw new \InvalidArgumentException('The move_to_target parameter can only be set if the type is "move"!');
             }
@@ -130,7 +130,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the old stock of the lot.
-     * @return float
      */
     public function getOldStock(): float
     {
@@ -139,7 +138,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the new stock of the lot.
-     * @return float
      */
     public function getNewStock(): float
     {
@@ -148,7 +146,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the new total instock of the part.
-     * @return float
      */
     public function getNewTotalPartInstock(): float
     {
@@ -157,7 +154,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the comment associated with the change.
-     * @return string
      */
     public function getComment(): string
     {
@@ -166,7 +162,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the difference between the old and the new stock value of the lot as a positive number.
-     * @return float
      */
     public function getChangeAmount(): float
     {
@@ -175,7 +170,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the target lot ID (where the instock was moved to) if the type is TYPE_MOVE.
-     * @return int|null
      */
     public function getMoveToTargetID(): ?int
     {
@@ -184,39 +178,27 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Converts the human-readable type (TYPE_* consts) to the version stored in DB
-     * @param  string  $type
-     * @return string
      */
     protected function typeToShortType(string $type): string
     {
-        switch ($type) {
-            case self::TYPE_ADD:
-                return 'a';
-            case self::TYPE_WITHDRAW:
-                return 'w';
-            case self::TYPE_MOVE:
-                return 'm';
-            default:
-                throw new \InvalidArgumentException('Invalid type: '.$type);
-        }
+        return match ($type) {
+            self::TYPE_ADD => 'a',
+            self::TYPE_WITHDRAW => 'w',
+            self::TYPE_MOVE => 'm',
+            default => throw new \InvalidArgumentException('Invalid type: '.$type),
+        };
     }
 
     /**
      * Converts the short type stored in DB to the human-readable type (TYPE_* consts).
-     * @param  string  $short_type
-     * @return string
      */
     protected function shortTypeToType(string $short_type): string
     {
-        switch ($short_type) {
-            case 'a':
-                return self::TYPE_ADD;
-            case 'w':
-                return self::TYPE_WITHDRAW;
-            case 'm':
-                return self::TYPE_MOVE;
-            default:
-                throw new \InvalidArgumentException('Invalid short type: '.$short_type);
-        }
+        return match ($short_type) {
+            'a' => self::TYPE_ADD,
+            'w' => self::TYPE_WITHDRAW,
+            'm' => self::TYPE_MOVE,
+            default => throw new \InvalidArgumentException('Invalid short type: '.$short_type),
+        };
     }
 }

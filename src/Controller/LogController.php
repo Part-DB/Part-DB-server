@@ -52,20 +52,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/log')]
 class LogController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected TimeTravel $timeTravel;
     protected DBElementRepository $dbRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
+    public function __construct(protected EntityManagerInterface $entityManager, protected TimeTravel $timeTravel)
     {
-        $this->entityManager = $entityManager;
-        $this->timeTravel = $timeTravel;
         $this->dbRepository = $entityManager->getRepository(AbstractDBElement::class);
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/', name: 'log_view')]
     public function showLogs(Request $request, DataTableFactory $dataTable): Response
     {
@@ -96,8 +89,6 @@ class LogController extends AbstractController
 
     /**
      * @param  Request  $request
-     * @param  AbstractLogEntry  $logEntry
-     * @return Response
      */
     #[Route(path: '/{id}/details', name: 'log_details')]
     public function logDetails(AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
@@ -150,7 +141,7 @@ class LogController extends AbstractController
         }
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
-        if (null === $log_element) {
+        if (!$log_element instanceof \App\Entity\LogSystem\AbstractLogEntry) {
             throw new InvalidArgumentException('No log entry with the given ID is existing!');
         }
 

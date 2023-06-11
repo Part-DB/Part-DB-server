@@ -42,32 +42,28 @@ class MasterPictureAttachmentType extends AbstractType
         $resolver->setDefaults([
             'filter' => 'picture',
             'choice_translation_domain' => false,
-            'choice_attr' => static function (Options $options) {
-                return  static function ($choice, $key, $value) use ($options) {
-                    /** @var Attachment $choice */
-                    $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
+            'choice_attr' => static fn(Options $options) => static function ($choice, $key, $value) use ($options) {
+                /** @var Attachment $choice */
+                $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
 
-                    if ('picture' === $options['filter'] && !$choice->isPicture()) {
-                        $tmp += ['disabled' => 'disabled'];
-                    } elseif ('3d_model' === $options['filter'] && !$choice->is3DModel()) {
-                        $tmp += ['disabled' => 'disabled'];
-                    }
+                if ('picture' === $options['filter'] && !$choice->isPicture()) {
+                    $tmp += ['disabled' => 'disabled'];
+                } elseif ('3d_model' === $options['filter'] && !$choice->is3DModel()) {
+                    $tmp += ['disabled' => 'disabled'];
+                }
 
-                    return $tmp;
-                };
+                return $tmp;
             },
             'choice_label' => 'name',
-            'choice_loader' => static function (Options $options) {
-                return new CallbackChoiceLoader(
-                    static function () use ($options) {
-                        $entity = $options['entity'];
-                        if (!$entity instanceof AttachmentContainingDBElement) {
-                            throw new RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
-                        }
+            'choice_loader' => static fn(Options $options) => new CallbackChoiceLoader(
+                static function () use ($options) {
+                    $entity = $options['entity'];
+                    if (!$entity instanceof AttachmentContainingDBElement) {
+                        throw new RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
+                    }
 
-                        return $entity->getAttachments()->toArray();
-                    });
-            },
+                    return $entity->getAttachments()->toArray();
+                }),
         ]);
 
         $resolver->setAllowedValues('filter', ['', 'picture', '3d_model']);

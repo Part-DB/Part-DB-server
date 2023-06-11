@@ -26,11 +26,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ValidThemeValidator extends ConstraintValidator
 {
-    private array $available_themes;
-
-    public function __construct(array $available_themes)
+    public function __construct(private readonly array $available_themes)
     {
-        $this->available_themes = $available_themes;
     }
 
     public function validate($value, Constraint $constraint)

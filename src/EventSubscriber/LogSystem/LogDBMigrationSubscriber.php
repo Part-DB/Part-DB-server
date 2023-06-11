@@ -37,13 +37,8 @@ class LogDBMigrationSubscriber implements EventSubscriber
     protected ?string $old_version = null;
     protected ?string $new_version = null;
 
-    protected EventLogger $eventLogger;
-    protected DependencyFactory $dependencyFactory;
-
-    public function __construct(EventLogger $eventLogger, DependencyFactory $dependencyFactory)
+    public function __construct(protected EventLogger $eventLogger, protected DependencyFactory $dependencyFactory)
     {
-        $this->eventLogger = $eventLogger;
-        $this->dependencyFactory = $dependencyFactory;
     }
 
     public function onMigrationsMigrated(MigrationsEventArgs $args): void
@@ -66,7 +61,7 @@ class LogDBMigrationSubscriber implements EventSubscriber
         try {
             $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
             $this->eventLogger->logAndFlush($log);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             //Ignore any exception occuring here...
         }
     }

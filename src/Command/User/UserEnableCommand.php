@@ -32,12 +32,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:enable|partdb:user:enable', 'Enables/Disable the login of one or more users')]
 class UserEnableCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager, string $name = null)
+    public function __construct(protected EntityManagerInterface $entityManager, string $name = null)
     {
-        $this->entityManager = $entityManager;
-
         parent::__construct($name);
     }
 
@@ -70,7 +66,7 @@ class UserEnableCommand extends Command
         } else { //Otherwise, fetch the users from DB
             foreach ($usernames as $username) {
                 $user = $repo->findByEmailOrName($username);
-                if ($user === null) {
+                if (!$user instanceof \App\Entity\UserSystem\User) {
                     $io->error('No user found with username: '.$username);
                     return self::FAILURE;
                 }
@@ -84,9 +80,7 @@ class UserEnableCommand extends Command
             $io->note('The following users will be enabled:');
         }
         $io->table(['Username', 'Enabled/Disabled'],
-            array_map(static function(User $user) {
-            return [$user->getFullName(true), $user->isDisabled() ? 'Disabled' : 'Enabled'];
-        }, $users));
+            array_map(static fn(User $user) => [$user->getFullName(true), $user->isDisabled() ? 'Disabled' : 'Enabled'], $users));
 
         if(!$io->confirm('Do you want to continue?')) {
             $io->warning('Aborting!');

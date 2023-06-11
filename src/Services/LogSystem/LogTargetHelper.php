@@ -40,21 +40,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogTargetHelper
 {
-    protected EntityManagerInterface $em;
     protected LogEntryRepository $entryRepository;
-    protected EntityURLGenerator $entityURLGenerator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
-    protected TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, EntityURLGenerator $entityURLGenerator,
-        ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator)
+    public function __construct(protected EntityManagerInterface $em, protected EntityURLGenerator $entityURLGenerator,
+        protected ElementTypeNameGenerator $elementTypeNameGenerator, protected TranslatorInterface $translator)
     {
-        $this->em = $entityManager;
-        $this->entryRepository = $entityManager->getRepository(AbstractLogEntry::class);
-
-        $this->entityURLGenerator = $entityURLGenerator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->translator = $translator;
+        $this->entryRepository = $em->getRepository(AbstractLogEntry::class);
     }
 
     private function configureOptions(OptionsResolver $resolver): self
@@ -79,7 +70,7 @@ class LogTargetHelper
         $target = $this->entryRepository->getTargetElement($context);
 
         //If the target is null and the context has a target, that means that the target was deleted. Show it that way.
-        if ($target === null) {
+        if (!$target instanceof \App\Entity\Base\AbstractDBElement) {
             if ($context->hasTarget()) {
                 return $this->elementTypeNameGenerator->formatElementDeletedHTML($context->getTargetClass(),
                     $context->getTargetId());

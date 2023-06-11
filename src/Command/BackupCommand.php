@@ -19,14 +19,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
-    private string $project_dir;
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(string $project_dir, EntityManagerInterface $entityManager)
+    public function __construct(private readonly string $project_dir, private readonly EntityManagerInterface $entityManager)
     {
-        $this->project_dir = $project_dir;
-        $this->entityManager = $entityManager;
-
         parent::__construct();
     }
 
@@ -69,13 +63,10 @@ class BackupCommand extends Command
         $io->info('Backup Part-DB to '.$output_filepath);
 
         //Check if the file already exists
-        if (file_exists($output_filepath)) {
-            //Then ask the user, if he wants to overwrite the file
-            if (!$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
-                $io->error('Backup aborted!');
-
-                return Command::FAILURE;
-            }
+        //Then ask the user, if he wants to overwrite the file
+        if (file_exists($output_filepath) && !$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
+            $io->error('Backup aborted!');
+            return Command::FAILURE;
         }
 
         $io->note('Starting backup...');
@@ -113,8 +104,6 @@ class BackupCommand extends Command
     /**
      * Constructs the MySQL PDO DSN.
      * Taken from https://github.com/doctrine/dbal/blob/3.5.x/src/Driver/PDO/MySQL/Driver.php
-     *
-     * @param array $params
      */
     private function configureDumper(array $params, DbDumper $dumper): void
     {

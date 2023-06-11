@@ -28,17 +28,10 @@ use Symfony\Component\OptionsResolver\Options;
 
 class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
-    private Options $options;
-    private NodesListBuilder $builder;
-    private EntityManagerInterface $entityManager;
-
     private ?string $additional_element = null;
 
-    public function __construct(Options $options, NodesListBuilder $builder, EntityManagerInterface $entityManager)
+    public function __construct(private readonly Options $options, private readonly NodesListBuilder $builder, private readonly EntityManagerInterface $entityManager)
     {
-        $this->options = $options;
-        $this->builder = $builder;
-        $this->entityManager = $entityManager;
     }
 
     protected function loadChoices(): iterable

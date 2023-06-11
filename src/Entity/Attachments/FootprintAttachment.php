@@ -33,11 +33,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity]
 class FootprintAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = Footprint::class;
+    final public const ALLOWED_ELEMENT_CLASS = Footprint::class;
     /**
      * @var Footprint|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Footprint', inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Footprint::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

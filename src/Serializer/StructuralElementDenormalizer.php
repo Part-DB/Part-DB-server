@@ -31,15 +31,10 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class StructuralElementDenormalizer implements \Symfony\Component\Serializer\Normalizer\DenormalizerInterface, CacheableSupportsMethodInterface
 {
 
-    private DenormalizerInterface $normalizer;
-    private EntityManagerInterface $entityManager;
-
     private array $object_cache = [];
 
-    public function __construct(ObjectNormalizer $normalizer, EntityManagerInterface $entityManager)
+    public function __construct(private readonly ObjectNormalizer $normalizer, private readonly EntityManagerInterface $entityManager)
     {
-        $this->normalizer = $normalizer;
-        $this->entityManager = $entityManager;
     }
 
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
@@ -61,7 +56,7 @@ class StructuralElementDenormalizer implements \Symfony\Component\Serializer\Nor
 
         $path = $deserialized_entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
         $db_elements = $repo->getEntityByPath($path, AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
-        if ($db_elements) {
+        if ($db_elements !== []) {
             //We already have the entity in the database, so we can return it
             return end($db_elements);
         }

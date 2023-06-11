@@ -32,11 +32,7 @@ class UserSelectType extends AbstractType
     {
         $resolver->setDefaults([
             'class' => User::class,
-            'choice_label' => function (Options $options) {
-                return function (User $choice, $key, $value) {
-                    return $choice->getFullName(true);
-                };
-            },
+            'choice_label' => fn(Options $options) => fn(User $choice, $key, $value) => $choice->getFullName(true),
         ]);
     }
 

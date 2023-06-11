@@ -33,15 +33,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartAttachmentsColumn extends AbstractColumn
 {
-    protected FAIconGenerator $FAIconGenerator;
-    protected EntityURLGenerator $urlGenerator;
-    protected AttachmentManager $attachmentManager;
-
-    public function __construct(FAIconGenerator $FAIconGenerator, EntityURLGenerator $urlGenerator, AttachmentManager $attachmentManager)
+    public function __construct(protected FAIconGenerator $FAIconGenerator, protected EntityURLGenerator $urlGenerator, protected AttachmentManager $attachmentManager)
     {
-        $this->FAIconGenerator = $FAIconGenerator;
-        $this->urlGenerator = $urlGenerator;
-        $this->attachmentManager = $attachmentManager;
     }
 
     /**
@@ -61,9 +54,7 @@ class PartAttachmentsColumn extends AbstractColumn
             throw new RuntimeException('$context must be a Part object!');
         }
         $tmp = '';
-        $attachments = $context->getAttachments()->filter(function (Attachment $attachment) {
-            return $attachment->getShowInTable() && $this->attachmentManager->isFileExisting($attachment);
-        });
+        $attachments = $context->getAttachments()->filter(fn(Attachment $attachment) => $attachment->getShowInTable() && $this->attachmentManager->isFileExisting($attachment));
 
         $count = 5;
         foreach ($attachments as $attachment) {

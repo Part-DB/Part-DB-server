@@ -45,9 +45,6 @@ class ManufacturerController extends BaseAdminController
     protected string $attachment_class = ManufacturerAttachment::class;
     protected ?string $parameter_class = ManufacturerParameter::class;
 
-    /**
-     * @return RedirectResponse
-     */
     #[Route(path: '/{id}', name: 'manufacturer_delete', methods: ['DELETE'])]
     public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {

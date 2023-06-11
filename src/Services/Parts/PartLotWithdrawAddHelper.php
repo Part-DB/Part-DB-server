@@ -9,20 +9,12 @@ use App\Services\LogSystem\EventLogger;
 
 final class PartLotWithdrawAddHelper
 {
-    private EventLogger $eventLogger;
-    private EventCommentHelper $eventCommentHelper;
-
-
-    public function __construct(EventLogger $eventLogger, EventCommentHelper $eventCommentHelper)
+    public function __construct(private readonly EventLogger $eventLogger, private readonly EventCommentHelper $eventCommentHelper)
     {
-        $this->eventLogger = $eventLogger;
-        $this->eventCommentHelper = $eventCommentHelper;
     }
 
     /**
      * Checks whether the given part can
-     * @param  PartLot  $partLot
-     * @return bool
      */
     public function canAdd(PartLot $partLot): bool
     {
@@ -32,16 +24,11 @@ final class PartLotWithdrawAddHelper
         }
 
         //So far all other restrictions are defined at the storelocation level
-        if($partLot->getStorageLocation() === null) {
+        if(!$partLot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation) {
             return true;
         }
-
         //We can not add parts if the storage location of the lot is marked as full
-        if($partLot->getStorageLocation()->isFull()) {
-            return false;
-        }
-
-        return true;
+        return !$partLot->getStorageLocation()->isFull();
     }
 
     public function canWithdraw(PartLot $partLot): bool
@@ -50,13 +37,8 @@ final class PartLotWithdrawAddHelper
         if ($partLot->isInstockUnknown()) {
             return false;
         }
-
         //Part must contain more than 0 parts
-        if ($partLot->getAmount() <= 0) {
-            return false;
-        }
-
-        return true;
+        return $partLot->getAmount() > 0;
     }
 
     /**
@@ -153,7 +135,6 @@ final class PartLotWithdrawAddHelper
      * @param  PartLot  $target The part lot to which the parts should be added
      * @param  float  $amount The amount of parts that should be moved
      * @param  string|null  $comment A comment describing the reason for the move
-     * @return void
      */
     public function move(PartLot $origin, PartLot $target, float $amount, ?string $comment = null): void
     {

@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Store location.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\Parts\StorelocationRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\Parts\StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(name: 'location_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -50,7 +50,7 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: 'Storelocation', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
@@ -62,7 +62,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /** @var Collection<int, StorelocationParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\StorelocationParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\StorelocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -91,7 +91,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @var User|null The owner of this storage location
      */
     #[Assert\Expression('this.getOwner() == null or this.getOwner().isAnonymousUser() === false', message: 'validator.part_lot.owner_must_not_be_anonymous')]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 
@@ -105,7 +105,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @var Collection<int, StorelocationAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\StorelocationAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $attachments;
 
     /********************************************************************************
@@ -135,9 +135,6 @@ class Storelocation extends AbstractPartsContainingDBElement
         return $this->only_single_part;
     }
 
-    /**
-     * @return Storelocation
-     */
     public function setOnlySinglePart(bool $only_single_part): self
     {
         $this->only_single_part = $only_single_part;
@@ -153,9 +150,6 @@ class Storelocation extends AbstractPartsContainingDBElement
         return $this->limit_to_existing_parts;
     }
 
-    /**
-     * @return Storelocation
-     */
     public function setLimitToExistingParts(bool $limit_to_existing_parts): self
     {
         $this->limit_to_existing_parts = $limit_to_existing_parts;
@@ -168,9 +162,6 @@ class Storelocation extends AbstractPartsContainingDBElement
         return $this->storage_type;
     }
 
-    /**
-     * @return Storelocation
-     */
     public function setStorageType(?MeasurementUnit $storage_type): self
     {
         $this->storage_type = $storage_type;
@@ -180,7 +171,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * Returns the owner of this storage location
-     * @return User|null
      */
     public function getOwner(): ?User
     {
@@ -189,8 +179,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * Sets the owner of this storage location
-     * @param  User|null  $owner
-     * @return Storelocation
      */
     public function setOwner(?User $owner): Storelocation
     {
@@ -200,7 +188,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
-     * @return bool
      */
     public function isPartOwnerMustMatch(): bool
     {
@@ -209,8 +196,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
-     * @param  bool  $part_owner_must_match
-     * @return Storelocation
      */
     public function setPartOwnerMustMatch(bool $part_owner_must_match): Storelocation
     {
@@ -226,7 +211,6 @@ class Storelocation extends AbstractPartsContainingDBElement
      *   Setters
      *
      *********************************************************************************/
-
     /**
      * Change the "is full" attribute of this store location.
      *
@@ -235,8 +219,6 @@ class Storelocation extends AbstractPartsContainingDBElement
      *
      * @param bool $new_is_full * true means that the storelocation is full
      *                          * false means that the storelocation isn't full
-     *
-     * @return Storelocation
      */
     public function setIsFull(bool $new_is_full): self
     {

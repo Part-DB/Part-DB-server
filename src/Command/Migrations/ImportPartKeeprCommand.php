@@ -37,24 +37,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportPartKeeprCommand extends Command
 {
 
-    protected EntityManagerInterface $em;
-    protected MySQLDumpXMLConverter $xml_converter;
-    protected PKDatastructureImporter $datastructureImporter;
-    protected PKImportHelper $importHelper;
-    protected PKPartImporter $partImporter;
-    protected PKOptionalImporter $optionalImporter;
-
-    public function __construct(EntityManagerInterface $em, MySQLDumpXMLConverter $xml_converter,
-        PKDatastructureImporter $datastructureImporter, PKPartImporter $partImporter, PKImportHelper $importHelper,
-        PKOptionalImporter $optionalImporter)
+    public function __construct(protected EntityManagerInterface $em, protected MySQLDumpXMLConverter $xml_converter,
+        protected PKDatastructureImporter $datastructureImporter, protected PKPartImporter $partImporter, protected PKImportHelper $importHelper,
+        protected PKOptionalImporter $optionalImporter)
     {
         parent::__construct(self::$defaultName);
-        $this->em = $em;
-        $this->datastructureImporter = $datastructureImporter;
-        $this->importHelper = $importHelper;
-        $this->partImporter = $partImporter;
-        $this->xml_converter = $xml_converter;
-        $this->optionalImporter = $optionalImporter;
     }
 
     protected function configure()

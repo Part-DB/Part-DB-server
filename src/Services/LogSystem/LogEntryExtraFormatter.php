@@ -48,13 +48,9 @@ class LogEntryExtraFormatter
 {
     protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>'];
     protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
-    protected TranslatorInterface $translator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
 
-    public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(protected TranslatorInterface $translator, protected ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->translator = $translator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     /**
@@ -163,7 +159,7 @@ class LogEntryExtraFormatter
                 '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',
                 $context->getOldInstock(),
                 $context->getNewInstock(),
-                (!$context->isWithdrawal() ? '+' : '-').$context->getDifference(true)
+                ($context->isWithdrawal() ? '-' : '+').$context->getDifference(true)
             );
             $array['log.instock_changed.comment'] = htmlspecialchars($context->getComment());
         }

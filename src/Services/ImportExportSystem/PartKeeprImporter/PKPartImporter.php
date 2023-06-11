@@ -45,13 +45,10 @@ class PKPartImporter
 {
     use PKImportHelperTrait;
 
-    private string $base_currency;
-
-    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor, string $default_currency)
+    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor, private readonly string $base_currency)
     {
         $this->em = $em;
         $this->propertyAccessor = $propertyAccessor;
-        $this->base_currency = $default_currency;
     }
 
     public function importParts(array $data): int
@@ -128,7 +125,7 @@ class PKPartImporter
         //Import attachments
         $this->importAttachments($data, 'partattachment', Part::class, 'part_id', PartAttachment::class);
 
-        return count($part_data);
+        return is_countable($part_data) ? count($part_data) : 0;
     }
 
     protected function importPartManufacturers(array $data): void
@@ -146,7 +143,7 @@ class PKPartImporter
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partmanufacturer['part_id']));
             }
             $manufacturer = $this->em->find(Manufacturer::class, (int) $partmanufacturer['manufacturer_id']);
-            if (!$manufacturer) {
+            if (!$manufacturer instanceof \App\Entity\Parts\Manufacturer) {
                 throw new \RuntimeException(sprintf('Could not find manufacturer with ID %s', $partmanufacturer['manufacturer_id']));
             }
             $part->setManufacturer($manufacturer);
@@ -190,7 +187,7 @@ class PKPartImporter
             }
 
             $part = $this->em->find(Part::class, (int) $partparameter['part_id']);
-            if (!$part) {
+            if (!$part instanceof \App\Entity\Parts\Part) {
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partparameter['part_id']));
             }
 
@@ -203,8 +200,6 @@ class PKPartImporter
     /**
      * Returns the currency for the given ISO code. If the currency does not exist, it is created.
      * This function returns null if the ISO code is the base currency.
-     * @param  string  $currency_iso_code
-     * @return Currency|null
      */
     protected function getOrCreateCurrency(string $currency_iso_code): ?Currency
     {
@@ -240,12 +235,12 @@ class PKPartImporter
         foreach ($data['partdistributor'] as $partdistributor) {
             //Retrieve the part
             $part = $this->em->find(Part::class, (int) $partdistributor['part_id']);
-            if (!$part) {
+            if (!$part instanceof \App\Entity\Parts\Part) {
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partdistributor['part_id']));
             }
             //Retrieve the distributor
             $supplier = $this->em->find(Supplier::class, (int) $partdistributor['distributor_id']);
-            if (!$supplier) {
+            if (!$supplier instanceof \App\Entity\Parts\Supplier) {
                 throw new \RuntimeException(sprintf('Could not find supplier with ID %s', $partdistributor['distributor_id']));
             }
 
@@ -305,9 +300,6 @@ class PKPartImporter
 
     /**
      * Returns the (parameter) unit symbol for the given ID.
-     * @param  array  $data
-     * @param  int  $id
-     * @return string
      */
     protected function getUnitSymbol(array $data, int $id): string
     {

@@ -42,15 +42,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route(path: '/select_api')]
 class SelectAPIController extends AbstractController
 {
-    private NodesListBuilder $nodesListBuilder;
-    private TranslatorInterface $translator;
-    private StructuralEntityChoiceHelper $choiceHelper;
-
-    public function __construct(NodesListBuilder $nodesListBuilder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper)
+    public function __construct(private readonly NodesListBuilder $nodesListBuilder, private readonly TranslatorInterface $translator, private readonly StructuralEntityChoiceHelper $choiceHelper)
     {
-        $this->nodesListBuilder = $nodesListBuilder;
-        $this->translator = $translator;
-        $this->choiceHelper = $choiceHelper;
     }
 
     #[Route(path: '/category', name: 'select_category')]
@@ -92,17 +85,12 @@ class SelectAPIController extends AbstractController
             3 => $this->translator->trans('export.level.full'),
         ];
 
-        return $this->json(array_map(static function ($key, $value) {
-            return [
-                'text' => $value,
-                'value' => $key,
-            ];
-        }, array_keys($entries), $entries));
+        return $this->json(array_map(static fn($key, $value) => [
+            'text' => $value,
+            'value' => $key,
+        ], array_keys($entries), $entries));
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/label_profiles', name: 'select_label_profiles')]
     public function labelProfiles(EntityManagerInterface $entityManager): Response
     {
@@ -121,9 +109,6 @@ class SelectAPIController extends AbstractController
         return $this->json($nodes);
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/label_profiles_lot', name: 'select_label_profiles_lot')]
     public function labelProfilesLot(EntityManagerInterface $entityManager): Response
     {

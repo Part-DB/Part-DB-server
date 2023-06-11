@@ -67,11 +67,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class CollectionTypeExtension extends AbstractTypeExtension
 {
-    protected PropertyAccessorInterface $propertyAccess;
-
-    public function __construct(PropertyAccessorInterface $propertyAccess)
+    public function __construct(protected PropertyAccessorInterface $propertyAccess)
     {
-        $this->propertyAccess = $propertyAccess;
     }
 
     public static function getExtendedTypes(): iterable
@@ -93,9 +90,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 
         //Set a unique prototype name, so that we can use nested collections
         $resolver->setDefaults([
-            'prototype_name' => function (Options $options) {
-                return '__name_'.uniqid("", false) . '__';
-            },
+            'prototype_name' => fn(Options $options): string => '__name_'.uniqid("", false) . '__',
         ]);
 
         $resolver->setAllowedTypes('reindex_enable', 'bool');
@@ -156,7 +151,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
            //The validator uses the number  of the element as index, so we have to map the errors to the correct index
            $error_mapping = [];
            $n = 0;
-           foreach ($data as $key => $item) {
+           foreach (array_keys($data) as $key) {
                $error_mapping['['.$n.']'] = $key;
                $n++;
            }

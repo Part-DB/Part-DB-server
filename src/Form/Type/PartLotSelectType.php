@@ -43,17 +43,11 @@ class PartLotSelectType extends AbstractType
 
         $resolver->setDefaults([
             'class' => PartLot::class,
-            'choice_label' => ChoiceList::label($this, static function (PartLot $part_lot) {
-                return ($part_lot->getStorageLocation() ? $part_lot->getStorageLocation()->getFullPath() : '')
-                    . ' (' . $part_lot->getName() . '): ' . $part_lot->getAmount();
-            }),
-            'query_builder' => function (Options $options) {
-                return static function (EntityRepository $er) use ($options) {
-                    return $er->createQueryBuilder('l')
-                        ->where('l.part = :part')
-                        ->setParameter('part', $options['part']);
-                };
-            }
+            'choice_label' => ChoiceList::label($this, static fn(PartLot $part_lot): string => ($part_lot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $part_lot->getStorageLocation()->getFullPath() : '')
+                . ' (' . $part_lot->getName() . '): ' . $part_lot->getAmount()),
+            'query_builder' => fn(Options $options) => static fn(EntityRepository $er) => $er->createQueryBuilder('l')
+                ->where('l.part = :part')
+                ->setParameter('part', $options['part'])
         ]);
     }
 }

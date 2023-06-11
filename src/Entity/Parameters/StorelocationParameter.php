@@ -47,15 +47,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
-#[ORM\Entity(repositoryClass: 'App\Repository\ParameterRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\ParameterRepository::class)]
 class StorelocationParameter extends AbstractParameter
 {
-    public const ALLOWED_ELEMENT_CLASS = Storelocation::class;
+    final public const ALLOWED_ELEMENT_CLASS = Storelocation::class;
 
     /**
      * @var Storelocation the element this para is associated with
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Storelocation', inversedBy: 'parameters')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Storelocation::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AbstractDBElement $element = null;
 }

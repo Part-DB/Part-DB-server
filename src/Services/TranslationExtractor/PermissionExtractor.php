@@ -32,7 +32,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  */
 final class PermissionExtractor implements ExtractorInterface
 {
-    private array $permission_structure;
+    private readonly array $permission_structure;
     private bool $finished = false;
 
     public function __construct(PermissionManager $resolver)

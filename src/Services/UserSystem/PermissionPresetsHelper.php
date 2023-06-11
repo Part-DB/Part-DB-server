@@ -25,18 +25,15 @@ use App\Security\Interfaces\HasPermissionsInterface;
 
 class PermissionPresetsHelper
 {
-    public const PRESET_ALL_INHERIT = 'all_inherit';
-    public const PRESET_ALL_FORBID = 'all_forbid';
-    public const PRESET_ALL_ALLOW = 'all_allow';
-    public const PRESET_READ_ONLY = 'read_only';
-    public const PRESET_EDITOR = 'editor';
-    public const PRESET_ADMIN = 'admin';
+    final public const PRESET_ALL_INHERIT = 'all_inherit';
+    final public const PRESET_ALL_FORBID = 'all_forbid';
+    final public const PRESET_ALL_ALLOW = 'all_allow';
+    final public const PRESET_READ_ONLY = 'read_only';
+    final public const PRESET_EDITOR = 'editor';
+    final public const PRESET_ADMIN = 'admin';
 
-    private PermissionManager $permissionResolver;
-
-    public function __construct(PermissionManager $permissionResolver)
+    public function __construct(private readonly PermissionManager $permissionResolver)
     {
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -44,7 +41,6 @@ class PermissionPresetsHelper
      * The permission data will be reset during the process and then the preset will be applied.
      *
      * @param  string  $preset_name The name of the preset to use
-     * @return HasPermissionsInterface
      */
     public function applyPreset(HasPermissionsInterface $perm_holder, string $preset_name): HasPermissionsInterface
     {

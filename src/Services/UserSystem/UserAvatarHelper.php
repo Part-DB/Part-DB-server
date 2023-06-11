@@ -33,34 +33,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserAvatarHelper
 {
-    private bool $use_gravatar;
-    private Packages $packages;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-    private FilterService $filterService;
-    private EntityManagerInterface $entityManager;
-    private AttachmentSubmitHandler $submitHandler;
-
-    public function __construct(bool $use_gravatar, Packages $packages, AttachmentURLGenerator $attachmentURLGenerator,
-        FilterService $filterService, EntityManagerInterface $entityManager, AttachmentSubmitHandler $attachmentSubmitHandler)
+    public function __construct(private readonly bool $use_gravatar, private readonly Packages $packages, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly FilterService $filterService, private readonly EntityManagerInterface $entityManager, private readonly AttachmentSubmitHandler $submitHandler)
     {
-        $this->use_gravatar = $use_gravatar;
-        $this->packages = $packages;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->filterService = $filterService;
-        $this->entityManager = $entityManager;
-        $this->submitHandler = $attachmentSubmitHandler;
     }
 
 
     /**
      * Returns the URL to the profile picture of the given user (in big size)
-     * @param  User  $user
-     * @return string
      */
     public function getAvatarURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
+        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md');
         }
 
@@ -76,7 +60,7 @@ class UserAvatarHelper
     public function getAvatarSmURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
+        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs');
         }
 
@@ -88,7 +72,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (\Imagine\Exception\RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -97,7 +81,7 @@ class UserAvatarHelper
     public function getAvatarMdURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
+        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm');
         }
 
@@ -109,7 +93,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (\Imagine\Exception\RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -136,22 +120,18 @@ class UserAvatarHelper
 
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
-        $url .= "?s=${s}&d=${d}&r=${r}";
 
-        return $url;
+        return $url . "?s=${s}&d=${d}&r=${r}";
     }
 
     /**
      * Handles the upload of the user avatar.
-     * @param  User  $user
-     * @param  UploadedFile  $file
-     * @return Attachment
      */
     public function handleAvatarUpload(User $user, UploadedFile $file): Attachment
     {
         //Determine which attachment to user
         //If the user already has a master attachment, we use this one
-        if ($user->getMasterPictureAttachment()) {
+        if ($user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
             $attachment = $user->getMasterPictureAttachment();
         } else { //Otherwise we have to create one
             $attachment = new UserAttachment();

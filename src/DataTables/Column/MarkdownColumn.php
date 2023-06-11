@@ -27,11 +27,8 @@ use Omines\DataTablesBundle\Column\AbstractColumn;
 
 class MarkdownColumn extends AbstractColumn
 {
-    protected MarkdownParser $markdown;
-
-    public function __construct(MarkdownParser $markdown)
+    public function __construct(protected MarkdownParser $markdown)
     {
-        $this->markdown = $markdown;
     }
 
     /**

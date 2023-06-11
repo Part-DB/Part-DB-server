@@ -26,13 +26,8 @@ use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 
 final class BarcodeProvider implements PlaceholderProviderInterface
 {
-    private BarcodeGenerator $barcodeGenerator;
-    private BarcodeContentGenerator $barcodeContentGenerator;
-
-    public function __construct(BarcodeGenerator $barcodeGenerator, BarcodeContentGenerator $barcodeContentGenerator)
+    public function __construct(private readonly BarcodeGenerator $barcodeGenerator, private readonly BarcodeContentGenerator $barcodeContentGenerator)
     {
-        $this->barcodeGenerator = $barcodeGenerator;
-        $this->barcodeContentGenerator = $barcodeContentGenerator;
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
@@ -40,7 +35,7 @@ final class BarcodeProvider implements PlaceholderProviderInterface
         if ('[[1D_CONTENT]]' === $placeholder) {
             try {
                 return $this->barcodeContentGenerator->get1DBarcodeContent($label_target);
-            } catch (\InvalidArgumentException $e) {
+            } catch (\InvalidArgumentException) {
                 return 'ERROR!';
             }
         }
@@ -48,7 +43,7 @@ final class BarcodeProvider implements PlaceholderProviderInterface
         if ('[[2D_CONTENT]]' === $placeholder) {
             try {
                 return $this->barcodeContentGenerator->getURLContent($label_target);
-            } catch (\InvalidArgumentException $e) {
+            } catch (\InvalidArgumentException) {
                 return 'ERROR!';
             }
         }

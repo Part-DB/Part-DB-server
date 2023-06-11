@@ -33,11 +33,8 @@ use function Symfony\Component\Translation\t;
 
 class WebauthnKeyRegistrationController extends AbstractController
 {
-    private bool $demo_mode;
-
-    public function __construct(bool $demo_mode)
+    public function __construct(private readonly bool $demo_mode)
     {
-        $this->demo_mode = $demo_mode;
     }
 
     #[Route(path: '/webauthn/register', name: 'webauthn_register')]
@@ -73,7 +70,7 @@ class WebauthnKeyRegistrationController extends AbstractController
             //Check the response
             try {
                 $new_key = $registrationHelper->checkRegistrationResponse($webauthnResponse);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 $this->addFlash('error', t('tfa_u2f.add_key.registration_error'));
                 return $this->redirectToRoute('webauthn_register');
             }

@@ -25,61 +25,28 @@ use RuntimeException;
 
 class NumberConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
+    final public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
 
-
-    /**
-     * The value1 used for comparison (this is the main one used for all mono-value comparisons)
-     * @var float|null|int|\DateTimeInterface
-     */
-    protected $value1;
-
-    /**
-     * The second value used when operator is RANGE; this is the upper bound of the range
-     * @var float|null|int|\DateTimeInterface
-     */
-    protected $value2;
-
-    /**
-     * @var string|null The operator to use
-     */
-    protected ?string $operator;
-
-    /**
-     * @return float|int|null|\DateTimeInterface
-     */
-    public function getValue1()
+    public function getValue1(): float|int|null|\DateTimeInterface
     {
         return $this->value1;
     }
 
-    /**
-     * @param  float|int|\DateTimeInterface|null  $value1
-     */
-    public function setValue1($value1): void
+    public function setValue1(float|int|\DateTimeInterface|null $value1): void
     {
         $this->value1 = $value1;
     }
 
-    /**
-     * @return float|int|null
-     */
-    public function getValue2()
+    public function getValue2(): float|int|null
     {
         return $this->value2;
     }
 
-    /**
-     * @param  float|int|null  $value2
-     */
-    public function setValue2($value2): void
+    public function setValue2(float|int|null $value2): void
     {
         $this->value2 = $value2;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
@@ -94,12 +61,22 @@ class NumberConstraint extends AbstractConstraint
     }
 
 
-    public function __construct(string $property, string $identifier = null, $value1 = null, string $operator = null, $value2 = null)
+    /**
+     * @param float|null|int|\DateTimeInterface $value1
+     * @param float|null|int|\DateTimeInterface $value2
+     */
+    public function __construct(string $property, string $identifier = null, /**
+     * The value1 used for comparison (this is the main one used for all mono-value comparisons)
+     */
+    protected float|int|\DateTimeInterface|null $value1 = null, /**
+     * @var string|null The operator to use
+     */
+    protected ?string $operator = null, /**
+     * The second value used when operator is RANGE; this is the upper bound of the range
+     */
+    protected float|int|\DateTimeInterface|null $value2 = null)
     {
         parent::__construct($property, $identifier);
-        $this->value1 = $value1;
-        $this->value2 = $value2;
-        $this->operator = $operator;
     }
 
     public function isEnabled(): bool

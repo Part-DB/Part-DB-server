@@ -77,7 +77,7 @@ class ToolsController extends AbstractController
             'php_version' => PHP_VERSION,
             'php_uname' => php_uname('a'),
             'php_sapi' => PHP_SAPI,
-            'php_extensions' => array_merge(get_loaded_extensions()),
+            'php_extensions' => [...get_loaded_extensions()],
             'php_opcache_enabled' => ini_get('opcache.enable'),
             'php_upload_max_filesize' => ini_get('upload_max_filesize'),
             'php_post_max_size' => ini_get('post_max_size'),
@@ -91,32 +91,22 @@ class ToolsController extends AbstractController
         ]);
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/builtin_footprints', name: 'tools_builtin_footprints_viewer')]
     public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator): Response
     {
         $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
 
         $grouped_footprints = $builtinAttachmentsFinder->getListOfFootprintsGroupedByFolder();
-        $grouped_footprints = array_map(function($group) use ($urlGenerator) {
-            return array_map(function($placeholder_filepath) use ($urlGenerator) {
-                return [
-                    'filename' => basename($placeholder_filepath),
-                    'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
-                ];
-            }, $group);
-        }, $grouped_footprints);
+        $grouped_footprints = array_map(fn($group) => array_map(fn($placeholder_filepath) => [
+            'filename' => basename((string) $placeholder_filepath),
+            'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
+        ], $group), $grouped_footprints);
 
         return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
         ]);
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/ic_logos', name: 'tools_ic_logos')]
     public function icLogos(): Response
     {

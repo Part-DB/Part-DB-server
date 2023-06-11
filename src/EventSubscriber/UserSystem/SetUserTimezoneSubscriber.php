@@ -33,13 +33,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class SetUserTimezoneSubscriber implements EventSubscriberInterface
 {
-    private string $default_timezone;
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(string $timezone, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly string $default_timezone, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->default_timezone = $timezone;
-        $this->security = $security;
     }
 
     public function setTimeZone(ControllerEvent $event): void

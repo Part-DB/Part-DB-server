@@ -48,18 +48,13 @@ class RichTextEditorType extends AbstractType
 
     protected function optionsToAttrArray(array $options): array
     {
-        $tmp = [];
-
-        //Set novalidate attribute, or we will get problems that form can not be submitted as textarea is not focusable
-        $tmp['novalidate'] = 'novalidate';
-
-        $tmp['data-mode'] = $options['mode'];
-
-        //Add our data-controller element to the textarea
-        $tmp['data-controller'] = 'elements--ckeditor';
-
-
-        return $tmp;
+        return [
+            //Set novalidate attribute, or we will get problems that form can not be submitted as textarea is not focusable
+            'novalidate' => 'novalidate',
+            'data-mode' => $options['mode'],
+            //Add our data-controller element to the textarea
+            'data-controller' => 'elements--ckeditor',
+        ];
     }
 
     public function getParent(): string

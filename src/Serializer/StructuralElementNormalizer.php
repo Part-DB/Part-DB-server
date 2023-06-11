@@ -27,11 +27,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class StructuralElementNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
-    private NormalizerInterface $normalizer;
-
-    public function __construct(ObjectNormalizer $normalizer)
+    public function __construct(private readonly ObjectNormalizer $normalizer)
     {
-        $this->normalizer = $normalizer;
     }
 
     public function supportsNormalization($data, string $format = null): bool

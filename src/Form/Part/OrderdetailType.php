@@ -40,11 +40,8 @@ use Symfony\Component\Security\Core\Security;
 
 class OrderdetailType extends AbstractType
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -82,7 +79,7 @@ class OrderdetailType extends AbstractType
             $orderdetail = $event->getData();
 
             $dummy_pricedetail = new Pricedetail();
-            if (null !== $orderdetail && null !== $orderdetail->getSupplier()) {
+            if ($orderdetail instanceof \App\Entity\PriceInformations\Orderdetail && $orderdetail->getSupplier() instanceof \App\Entity\Parts\Supplier) {
                 $dummy_pricedetail->setCurrency($orderdetail->getSupplier()->getDefaultCurrency());
             }
 

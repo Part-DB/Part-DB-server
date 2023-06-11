@@ -49,24 +49,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    protected TranslatorInterface $translator;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected UserCacheKeyGenerator $keyGenerator;
-    protected TagAwareCacheInterface $cache;
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
-        \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
-
-        $this->cache = $treeCache;
-
-        $this->keyGenerator = $keyGenerator;
-
-        $this->security = $security;
     }
 
     /**

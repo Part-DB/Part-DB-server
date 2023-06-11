@@ -30,7 +30,7 @@ final class BarcodeExtension extends AbstractExtension
     {
         return [
             /* Generates a barcode with the given Type and Data and returns it as an SVG represenation */
-            new TwigFunction('barcode_svg', [$this, 'barcodeSVG']),
+            new TwigFunction('barcode_svg', fn(string $content, string $type = 'QRCODE'): string => $this->barcodeSVG($content, $type)),
         ];
     }
 

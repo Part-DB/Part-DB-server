@@ -29,11 +29,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public static function getSubscribedEvents(): array
@@ -53,10 +50,9 @@ class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
             if ($user instanceof User && !$user->isSAMLUser()) {
                 throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_local_user_per_saml', [], 'security'));
             }
-        } else { //Ensure that you can not login locally with a SAML user (even if this should not happen, as the password is not set)
-            if ($user instanceof User && $user->isSamlUser()) {
-                throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_saml_user_locally', [], 'security'));
-            }
+        } elseif ($user instanceof User && $user->isSamlUser()) {
+            //Ensure that you can not login locally with a SAML user (even if this should not happen, as the password is not set)
+            throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_saml_user_locally', [], 'security'));
         }
     }
 }

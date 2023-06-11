@@ -51,7 +51,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     #[ORM\ManyToOne(targetEntity: 'Group', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection<int, User>
@@ -69,7 +69,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var Collection<int, GroupAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\GroupAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -84,7 +84,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /** @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\GroupParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -122,7 +122,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     public function getPermissions(): PermissionData
     {
-        if ($this->permissions === null) {
+        if (!$this->permissions instanceof \App\Entity\UserSystem\PermissionData) {
             $this->permissions = new PermissionData();
         }
 

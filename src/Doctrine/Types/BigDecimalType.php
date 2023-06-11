@@ -27,7 +27,7 @@ use Doctrine\DBAL\Types\Type;
 
 class BigDecimalType extends Type
 {
-    public const BIG_DECIMAL = 'big_decimal';
+    final public const BIG_DECIMAL = 'big_decimal';
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
@@ -53,7 +53,7 @@ class BigDecimalType extends Type
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (null === $value) {
+        if (!$value instanceof \Brick\Math\BigDecimal) {
             return null;
         }
 

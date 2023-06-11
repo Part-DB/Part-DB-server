@@ -32,7 +32,7 @@ use App\Entity\UserSystem\User;
  */
 class PartVoter extends ExtendedVoter
 {
-    public const READ = 'read';
+    final public const READ = 'read';
 
     protected function supports($attribute, $subject): bool
     {

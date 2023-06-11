@@ -33,13 +33,8 @@ use Symfony\Contracts\Cache\CacheInterface;
  */
 class BuiltinAttachmentsFinder
 {
-    protected AttachmentPathResolver $pathResolver;
-    protected CacheInterface $cache;
-
-    public function __construct(CacheInterface $cache, AttachmentPathResolver $pathResolver)
+    public function __construct(protected CacheInterface $cache, protected AttachmentPathResolver $pathResolver)
     {
-        $this->pathResolver = $pathResolver;
-        $this->cache = $cache;
     }
 
     /**
@@ -49,7 +44,6 @@ class BuiltinAttachmentsFinder
      *          '%FOOTPRINTS%/path/to/folder/file1.png',
      *          '%FOOTPRINTS%/path/to/folder/file2.png',
      * ]
-     * @return array
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
@@ -109,7 +103,7 @@ class BuiltinAttachmentsFinder
 
                 return $results;
             });
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return [];
         }
     }

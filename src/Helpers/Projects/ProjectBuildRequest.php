@@ -30,8 +30,7 @@ use App\Validator\Constraints\ProjectSystem\ValidProjectBuildRequest;
  */
 final class ProjectBuildRequest
 {
-    private Project $project;
-    private int $number_of_builds;
+    private readonly int $number_of_builds;
 
     /**
      * @var array<int, float>
@@ -48,19 +47,17 @@ final class ProjectBuildRequest
      * @param  Project  $project  The project that should be build
      * @param  int  $number_of_builds The number of builds that should be created
      */
-    public function __construct(Project $project, int $number_of_builds)
+    public function __construct(private readonly Project $project, int $number_of_builds)
     {
         if ($number_of_builds < 1) {
             throw new \InvalidArgumentException('Number of builds must be at least 1!');
         }
-
-        $this->project = $project;
         $this->number_of_builds = $number_of_builds;
 
         $this->initializeArray();
 
         //By default, use the first available lot of builds part if there is one.
-        if($project->getBuildPart() !== null) {
+        if($project->getBuildPart() instanceof \App\Entity\Parts\Part) {
             $this->add_build_to_builds_part = true;
             foreach( $project->getBuildPart()->getPartLots() as $lot) {
                 if (!$lot->isInstockUnknown()) {
@@ -89,8 +86,6 @@ final class ProjectBuildRequest
 
     /**
      * Ensure that the projectBOMEntry belongs to the project, otherwise throw an exception.
-     * @param  ProjectBOMEntry  $entry
-     * @return void
      */
     private function ensureBOMEntryValid(ProjectBOMEntry $entry): void
     {
@@ -101,7 +96,6 @@ final class ProjectBuildRequest
 
     /**
      * Returns the partlot where the builds should be added to, or null if it should not be added to any lot.
-     * @return PartLot|null
      */
     public function getBuildsPartLot(): ?PartLot
     {
@@ -110,7 +104,6 @@ final class ProjectBuildRequest
 
     /**
      * Return if the builds should be added to the builds part of this project as new stock
-     * @return bool
      */
     public function getAddBuildsToBuildsPart(): bool
     {
@@ -119,7 +112,6 @@ final class ProjectBuildRequest
 
     /**
      * Set if the builds should be added to the builds part of this project as new stock
-     * @param  bool  $new_value
      * @return $this
      */
     public function setAddBuildsToBuildsPart(bool $new_value): self
@@ -136,17 +128,16 @@ final class ProjectBuildRequest
     /**
      * Set the partlot where the builds should be added to, or null if it should not be added to any lot.
      * The part lot must belong to the project build part, or an exception is thrown!
-     * @param  PartLot|null  $new_part_lot
      * @return $this
      */
     public function setBuildsPartLot(?PartLot $new_part_lot): self
     {
         //Ensure that this new_part_lot belongs to the project
-        if (($new_part_lot !== null && $new_part_lot->getPart() !== $this->project->getBuildPart()) || $this->project->getBuildPart() === null) {
+        if (($new_part_lot instanceof \App\Entity\Parts\PartLot && $new_part_lot->getPart() !== $this->project->getBuildPart()) || !$this->project->getBuildPart() instanceof \App\Entity\Parts\Part) {
             throw new \InvalidArgumentException('The given part lot does not belong to the projects build part!');
         }
 
-        if ($new_part_lot !== null) {
+        if ($new_part_lot instanceof \App\Entity\Parts\PartLot) {
             $this->setAddBuildsToBuildsPart(true);
         }
 
@@ -157,7 +148,6 @@ final class ProjectBuildRequest
 
     /**
      * Returns the comment where the user can write additional information about the build.
-     * @return string
      */
     public function getComment(): string
     {
@@ -166,7 +156,6 @@ final class ProjectBuildRequest
 
     /**
      * Sets the comment where the user can write additional information about the build.
-     * @param  string  $comment
      */
     public function setComment(string $comment): void
     {
@@ -176,9 +165,8 @@ final class ProjectBuildRequest
     /**
      * Returns the amount of parts that should be withdrawn from the given lot for the corresponding BOM entry.
      * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
-     * @return float
      */
-    public function getLotWithdrawAmount($lot): float
+    public function getLotWithdrawAmount(\App\Entity\Parts\PartLot|int $lot): float
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
@@ -198,10 +186,9 @@ final class ProjectBuildRequest
     /**
      * Sets the amount of parts that should be withdrawn from the given lot for the corresponding BOM entry.
      * @param PartLot|int $lot The part lot (or the ID of the part lot) for which the withdrawal amount should be got
-     * @param  float  $amount
      * @return $this
      */
-    public function setLotWithdrawAmount($lot, float $amount): self
+    public function setLotWithdrawAmount(\App\Entity\Parts\PartLot|int $lot, float $amount): self
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
@@ -218,8 +205,6 @@ final class ProjectBuildRequest
 
     /**
      * Returns the sum of all withdraw amounts for the given BOM entry.
-     * @param  ProjectBOMEntry  $entry
-     * @return float
      */
     public function getWithdrawAmountSum(ProjectBOMEntry $entry): float
     {
@@ -239,14 +224,13 @@ final class ProjectBuildRequest
 
     /**
      * Returns the number of available lots to take stock from for the given BOM entry.
-     * @param ProjectBOMEntry $projectBOMEntry
      * @return PartLot[]|null Returns null if the entry is a non-part BOM entry
      */
     public function getPartLotsForBOMEntry(ProjectBOMEntry $projectBOMEntry): ?array
     {
         $this->ensureBOMEntryValid($projectBOMEntry);
 
-        if ($projectBOMEntry->getPart() === null) {
+        if (!$projectBOMEntry->getPart() instanceof \App\Entity\Parts\Part) {
             return null;
         }
 
@@ -256,8 +240,6 @@ final class ProjectBuildRequest
 
     /**
      * Returns the needed amount of parts for the given BOM entry.
-     * @param  ProjectBOMEntry  $entry
-     * @return float
      */
     public function getNeededAmountForBOMEntry(ProjectBOMEntry $entry): float
     {
@@ -281,14 +263,11 @@ final class ProjectBuildRequest
      */
     public function getPartBomEntries(): array
     {
-        return $this->project->getBomEntries()->filter(function (ProjectBOMEntry $entry) {
-            return $entry->isPartBomEntry();
-        })->toArray();
+        return $this->project->getBomEntries()->filter(fn(ProjectBOMEntry $entry) => $entry->isPartBomEntry())->toArray();
     }
 
     /**
      * Returns which project should be build
-     * @return Project
      */
     public function getProject(): Project
     {
@@ -297,7 +276,6 @@ final class ProjectBuildRequest
 
     /**
      * Returns the number of builds that should be created.
-     * @return int
      */
     public function getNumberOfBuilds(): int
     {

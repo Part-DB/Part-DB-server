@@ -142,7 +142,6 @@ trait AdvancedPropertyTrait
     /**
      * Sets the internal part number of the part
      * @param  string  $ipn The new IPN of the part
-     * @return Part
      */
     public function setIpn(?string $ipn): Part
     {

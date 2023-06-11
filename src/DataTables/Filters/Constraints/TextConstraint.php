@@ -25,23 +25,20 @@ use Doctrine\ORM\QueryBuilder;
 class TextConstraint extends AbstractConstraint
 {
 
-    public const ALLOWED_OPERATOR_VALUES = ['=', '!=', 'STARTS', 'ENDS', 'CONTAINS', 'LIKE', 'REGEX'];
+    final public const ALLOWED_OPERATOR_VALUES = ['=', '!=', 'STARTS', 'ENDS', 'CONTAINS', 'LIKE', 'REGEX'];
 
     /**
-     * @var string|null The operator to use
+     * @param string $value
      */
-    protected ?string $operator;
-
-    /**
+    public function __construct(string $property, string $identifier = null, /**
      * @var string The value to compare to
      */
-    protected $value;
-
-    public function __construct(string $property, string $identifier = null, $value = null, string $operator = '')
+    protected $value = null, /**
+     * @var string|null The operator to use
+     */
+    protected ?string $operator = '')
     {
         parent::__construct($property, $identifier);
-        $this->value = $value;
-        $this->operator = $operator;
     }
 
     /**
@@ -61,17 +58,11 @@ class TextConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param  string  $value
-     */
     public function setValue(string $value): self
     {
         $this->value = $value;
@@ -105,11 +96,11 @@ class TextConstraint extends AbstractConstraint
         $like_value = null;
         if ($this->operator === 'LIKE') {
             $like_value = $this->value;
-        } else if ($this->operator === 'STARTS') {
+        } elseif ($this->operator === 'STARTS') {
             $like_value = $this->value . '%';
-        } else if ($this->operator === 'ENDS') {
+        } elseif ($this->operator === 'ENDS') {
             $like_value = '%' . $this->value;
-        } else if ($this->operator === 'CONTAINS') {
+        } elseif ($this->operator === 'CONTAINS') {
             $like_value = '%' . $this->value . '%';
         }
 

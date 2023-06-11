@@ -48,7 +48,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
 
-    public const PRICE_PRECISION = 5;
+    final public const PRICE_PRECISION = 5;
 
     /**
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
@@ -119,7 +119,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');
-        if (null === $this->addedDate) {
+        if (!$this->addedDate instanceof \DateTimeInterface) {
             $this->addedDate = new DateTime('now');
         }
 
@@ -166,7 +166,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @return BigDecimal the price as a bcmath string
      */
-    public function getPricePerUnit($multiplier = 1.0): BigDecimal
+    public function getPricePerUnit(float|string|\Brick\Math\BigDecimal $multiplier = 1.0): BigDecimal
     {
         $tmp = BigDecimal::of($multiplier);
         $tmp = $tmp->multipliedBy($this->price);
@@ -248,8 +248,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the currency associated with the price information.
      * Set to null, to use the global base currency.
-     *
-     * @return Pricedetail
      */
     public function setCurrency(?Currency $currency): self
     {

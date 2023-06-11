@@ -153,7 +153,6 @@ trait InstockTrait
 
     /**
      * Returns true, if the total instock amount of this part is less than the minimum amount.
-     * @return bool
      */
     public function isNotEnoughInstock(): bool
     {
@@ -204,7 +203,6 @@ trait InstockTrait
 
     /**
      * Returns the summed amount of all part lots that are expired. If no part lots are expired 0 is returned.
-     * @return float
      */
     public function getExpiredAmountSum(): float
     {

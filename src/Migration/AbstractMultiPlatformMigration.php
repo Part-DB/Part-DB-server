@@ -30,14 +30,11 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
-    public const ADMIN_PW_LENGTH = 10;
+    final public const ADMIN_PW_LENGTH = 10;
     protected string $admin_pw = '';
 
-    protected LoggerInterface $logger;
-
-    public function __construct(Connection $connection, LoggerInterface $logger)
+    public function __construct(Connection $connection, protected LoggerInterface $logger)
     {
-        $this->logger = $logger;
         parent::__construct($connection, $logger);
     }
 
@@ -45,34 +42,22 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     {
         $db_type = $this->getDatabaseType();
 
-        switch ($db_type) {
-            case 'mysql':
-                $this->mySQLUp($schema);
-                break;
-            case 'sqlite':
-                $this->sqLiteUp($schema);
-                break;
-            default:
-                $this->abortIf(true, "Database type '$db_type' is not supported!");
-                break;
-        }
+        match ($db_type) {
+            'mysql' => $this->mySQLUp($schema),
+            'sqlite' => $this->sqLiteUp($schema),
+            default => $this->abortIf(true, "Database type '$db_type' is not supported!"),
+        };
     }
 
     public function down(Schema $schema): void
     {
         $db_type = $this->getDatabaseType();
 
-        switch ($db_type) {
-            case 'mysql':
-                $this->mySQLDown($schema);
-                break;
-            case 'sqlite':
-                $this->sqLiteDown($schema);
-                break;
-            default:
-                $this->abortIf(true, "Database type is not supported!");
-                break;
-        }
+        match ($db_type) {
+            'mysql' => $this->mySQLDown($schema),
+            'sqlite' => $this->sqLiteDown($schema),
+            default => $this->abortIf(true, "Database type is not supported!"),
+        };
     }
 
     /**
@@ -91,7 +76,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
                 return 0;
             }
             return (int) $version;
-        } catch (Exception $dBALException) {
+        } catch (Exception) {
             //when the table was not found, we can proceed, because we have an empty DB!
             return 0;
         }
@@ -112,7 +97,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         }
 
         //As we don't have access to container, just use the default PHP pw hash function
-        return password_hash($this->admin_pw, PASSWORD_DEFAULT);
+        return password_hash((string) $this->admin_pw, PASSWORD_DEFAULT);
     }
 
     public function postUp(Schema $schema): void
@@ -129,8 +114,6 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     /**
      * Checks if a foreign key on a table exists in the database.
      * This method is only supported for MySQL/MariaDB databases yet!
-     * @param  string  $table
-     * @param  string  $fk_name
      * @return bool Returns true, if the foreign key exists
      * @throws Exception
      */

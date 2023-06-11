@@ -30,11 +30,8 @@ use Twig\TwigTest;
  */
 final class TwigCoreExtension extends AbstractExtension
 {
-    protected ObjectNormalizer $objectNormalizer;
-
-    public function __construct(ObjectNormalizer $objectNormalizer)
+    public function __construct(protected ObjectNormalizer $objectNormalizer)
     {
-        $this->objectNormalizer = $objectNormalizer;
     }
 
     public function getTests(): array
@@ -43,13 +40,9 @@ final class TwigCoreExtension extends AbstractExtension
             /*
              * Checks if a given variable is an instance of a given class. E.g. ` x is instanceof('App\Entity\Parts\Part')`
              */
-            new TwigTest('instanceof', static function ($var, $instance) {
-                return $var instanceof $instance;
-            }),
+            new TwigTest('instanceof', static fn($var, $instance) => $var instanceof $instance),
             /* Checks if a given variable is an object. E.g. `x is object` */
-            new TwigTest('object', static function ($var) {
-                return is_object($var);
-            }),
+            new TwigTest('object', static fn($var): object => is_object($var)),
         ];
     }
 
@@ -57,7 +50,7 @@ final class TwigCoreExtension extends AbstractExtension
     {
         return [
             /* Converts the given object to an array representation of the public/accessible properties  */
-            new TwigFilter('to_array', [$this, 'toArray']),
+            new TwigFilter('to_array', fn($object) => $this->toArray($object)),
         ];
     }
 

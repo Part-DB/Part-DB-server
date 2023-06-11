@@ -53,11 +53,8 @@ use Symfony\Component\Security\Core\Security;
 
 class LabelOptionsType extends AbstractType
 {
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -101,7 +98,7 @@ class LabelOptionsType extends AbstractType
                 'label_options.barcode_type.code93' => 'code93',
                 'label_options.barcode_type.datamatrix' => 'datamatrix',
             ],
-            'group_by' => static function ($choice, $key, $value) {
+            'group_by' => static function ($choice, $key, $value): ?string {
                 if (in_array($choice, ['qr', 'datamatrix'], true)) {
                     return 'label_options.barcode_type.2D';
                 }

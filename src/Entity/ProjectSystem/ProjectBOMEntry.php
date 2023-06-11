@@ -82,7 +82,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var Part|null The part associated with this
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Part', inversedBy: 'project_bom_entries')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'project_bom_entries')]
     #[ORM\JoinColumn(name: 'id_part')]
     protected ?Part $part = null;
 
@@ -91,52 +91,36 @@ class ProjectBOMEntry extends AbstractDBElement
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
-    protected ?BigDecimal $price;
+    protected ?BigDecimal $price = null;
 
     /**
      * @var ?Currency The currency for the price of this non-part BOM entry
      * @Selectable()
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class)]
     #[ORM\JoinColumn]
     protected ?Currency $price_currency = null;
 
     public function __construct()
     {
-        //$this->price = BigDecimal::zero()->toScale(5);
-        $this->price = null;
     }
 
-    /**
-     * @return float
-     */
     public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    /**
-     * @param  float  $quantity
-     * @return ProjectBOMEntry
-     */
     public function setQuantity(float $quantity): ProjectBOMEntry
     {
         $this->quantity = $quantity;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getMountnames(): string
     {
         return $this->mountnames;
     }
 
-    /**
-     * @param  string  $mountnames
-     * @return ProjectBOMEntry
-     */
     public function setMountnames(string $mountnames): ProjectBOMEntry
     {
         $this->mountnames = $mountnames;
@@ -153,7 +137,6 @@ class ProjectBOMEntry extends AbstractDBElement
 
     /**
      * @param  string  $name
-     * @return ProjectBOMEntry
      */
     public function setName(?string $name): ProjectBOMEntry
     {
@@ -161,36 +144,22 @@ class ProjectBOMEntry extends AbstractDBElement
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getComment(): string
     {
         return $this->comment;
     }
 
-    /**
-     * @param  string  $comment
-     * @return ProjectBOMEntry
-     */
     public function setComment(string $comment): ProjectBOMEntry
     {
         $this->comment = $comment;
         return $this;
     }
 
-    /**
-     * @return Project|null
-     */
     public function getProject(): ?Project
     {
         return $this->project;
     }
 
-    /**
-     * @param  Project|null  $project
-     * @return ProjectBOMEntry
-     */
     public function setProject(?Project $project): ProjectBOMEntry
     {
         $this->project = $project;
@@ -199,18 +168,11 @@ class ProjectBOMEntry extends AbstractDBElement
 
 
 
-    /**
-     * @return Part|null
-     */
     public function getPart(): ?Part
     {
         return $this->part;
     }
 
-    /**
-     * @param  Part|null  $part
-     * @return ProjectBOMEntry
-     */
     public function setPart(?Part $part): ProjectBOMEntry
     {
         $this->part = $part;
@@ -220,7 +182,6 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * Returns the price of this BOM entry, if existing.
      * Prices are only valid on non-Part BOM entries.
-     * @return BigDecimal|null
      */
     public function getPrice(): ?BigDecimal
     {
@@ -230,24 +191,17 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * Sets the price of this BOM entry.
      * Prices are only valid on non-Part BOM entries.
-     * @param  BigDecimal|null  $price
      */
     public function setPrice(?BigDecimal $price): void
     {
         $this->price = $price;
     }
 
-    /**
-     * @return Currency|null
-     */
     public function getPriceCurrency(): ?Currency
     {
         return $this->price_currency;
     }
 
-    /**
-     * @param  Currency|null  $price_currency
-     */
     public function setPriceCurrency(?Currency $price_currency): void
     {
         $this->price_currency = $price_currency;
@@ -259,20 +213,18 @@ class ProjectBOMEntry extends AbstractDBElement
      */
     public function isPartBomEntry(): bool
     {
-        return $this->part !== null;
+        return $this->part instanceof \App\Entity\Parts\Part;
     }
 
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part
-        if ($this->part) {
-            if (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger()) {
-                $this->quantity = round($this->quantity);
-            }
+        if ($this->part instanceof \App\Entity\Parts\Part && (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger())) {
+            $this->quantity = round($this->quantity);
         }
         //Non-Part BOM entries are rounded
-        if ($this->part === null) {
+        if (!$this->part instanceof \App\Entity\Parts\Part) {
             $this->quantity = round($this->quantity);
         }
 
@@ -296,14 +248,14 @@ class ProjectBOMEntry extends AbstractDBElement
         }
 
         //Prices are only allowed on non-part BOM entries
-        if ($this->part !== null && $this->price !== null) {
+        if ($this->part instanceof \App\Entity\Parts\Part && $this->price instanceof \Brick\Math\BigDecimal) {
             $context->buildViolation('project.bom_entry.price_not_allowed_on_parts')
                 ->atPath('price')
                 ->addViolation();
         }
 
         //Check that the part is not the build representation part of this device or one of its parents
-        if ($this->part && $this->part->getBuiltProject() !== null) {
+        if ($this->part && $this->part->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
             //Get the associated project
             $associated_project = $this->part->getBuiltProject();
             //Check that it is not the same as the current project neither one of its parents

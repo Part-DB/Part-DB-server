@@ -25,18 +25,14 @@ use Doctrine\ORM\QueryBuilder;
 
 class ParameterValueConstraint extends NumberConstraint
 {
-    protected string $alias;
-
-    public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN',
+    final public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN',
         //Additional operators
         'IN_RANGE', 'NOT_IN_RANGE', 'GREATER_THAN_RANGE', 'GREATER_EQUAL_RANGE', 'LESS_THAN_RANGE', 'LESS_EQUAL_RANGE', 'RANGE_IN_RANGE', 'RANGE_INTERSECT_RANGE'];
 
     /**
      * @param  string  $alias The alias which is used in the sub query of ParameterConstraint
      */
-    public function __construct(string $alias) {
-        $this->alias = $alias;
-
+    public function __construct(protected string $alias) {
         parent::__construct($alias . '.value_typical');
     }
 

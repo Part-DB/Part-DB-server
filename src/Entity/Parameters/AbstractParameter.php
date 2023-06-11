@@ -51,7 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\ParameterRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\ParameterRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
 #[ORM\DiscriminatorMap([0 => 'CategoryParameter', 1 => 'CurrencyParameter', 2 => 'ProjectParameter', 3 => 'FootprintParameter', 4 => 'GroupParameter', 5 => 'ManufacturerParameter', 6 => 'MeasurementUnitParameter', 7 => 'PartParameter', 8 => 'StorelocationParameter', 9 => 'SupplierParameter', 10 => 'AttachmentTypeParameter'])]
@@ -187,7 +187,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
             $str .= ')';
         }
 
-        if ($this->value_text) {
+        if ($this->value_text !== '' && $this->value_text !== '0') {
             $str .= ' ['.$this->value_text.']';
         }
 
@@ -317,7 +317,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * Sets the typical value of this property.
      *
-     * @param  float|null  $value_typical
      *
      * @return $this
      */

@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Supplier.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\Parts\SupplierRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\Parts\SupplierRepository::class)]
 #[ORM\Table('`suppliers`')]
 #[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -53,12 +53,12 @@ class Supplier extends AbstractCompany
 
     #[ORM\ManyToOne(targetEntity: 'Supplier', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \App\Entity\PriceInformations\Orderdetail>|\App\Entity\PriceInformations\Orderdetail[]
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Orderdetail', mappedBy: 'supplier')]
+    #[ORM\OneToMany(targetEntity: \App\Entity\PriceInformations\Orderdetail::class, mappedBy: 'supplier')]
     protected Collection $orderdetails;
 
     /**
@@ -66,7 +66,7 @@ class Supplier extends AbstractCompany
      *                    Set to null, to use global base currency.
      * @Selectable()
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class)]
     #[ORM\JoinColumn(name: 'default_currency_id')]
     protected ?Currency $default_currency = null;
 
@@ -82,14 +82,14 @@ class Supplier extends AbstractCompany
      * @var Collection<int, SupplierAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\SupplierAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, SupplierParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\SupplierParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -103,8 +103,6 @@ class Supplier extends AbstractCompany
 
     /**
      * Sets the default currency.
-     *
-     * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self
     {
@@ -127,12 +125,10 @@ class Supplier extends AbstractCompany
      * Sets the shipping costs for an order with this supplier.
      *
      * @param BigDecimal|null $shipping_costs a BigDecimal with the shipping costs
-     *
-     * @return Supplier
      */
     public function setShippingCosts(?BigDecimal $shipping_costs): self
     {
-        if (null === $shipping_costs) {
+        if (!$shipping_costs instanceof \Brick\Math\BigDecimal) {
             $this->shipping_costs = null;
         }
 

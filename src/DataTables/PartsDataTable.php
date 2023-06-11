@@ -54,22 +54,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    private TranslatorInterface $translator;
-    private AmountFormatter $amountFormatter;
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-
-    private PartDataTableHelper $partDataTableHelper;
-
-    private EntityURLGenerator $urlGenerator;
-
-    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-        AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->translator = $translator;
-        $this->amountFormatter = $amountFormatter;
-        $this->security = $security;
-        $this->partDataTableHelper = $partDataTableHelper;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -92,7 +78,7 @@ final class PartsDataTable implements DataTableTypeInterface
         $dataTable
             //Color the table rows depending on the review and favorite status
             ->add('dont_matter', RowClassColumn::class, [
-                'render' => function ($value, Part $context) {
+                'render' => function ($value, Part $context): string {
                     if ($context->isNeedsReview()) {
                         return 'table-secondary';
                     }
@@ -108,15 +94,11 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
-                'render' => function ($value, Part $context) {
-                    return $this->partDataTableHelper->renderPicture($context);
-                },
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
             ])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
-                'render' => function ($value, Part $context) {
-                    return $this->partDataTableHelper->renderName($context);
-                },
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
@@ -153,11 +135,11 @@ final class PartsDataTable implements DataTableTypeInterface
             $dataTable->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 'orderField' => 'storelocations.name',
-                'render' => function ($value, Part $context) {
+                'render' => function ($value, Part $context): string {
                     $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
                         //Ignore lots without storelocation
-                        if (null === $lot->getStorageLocation()) {
+                        if (!$lot->getStorageLocation() instanceof \App\Entity\Parts\Storelocation) {
                             continue;
                         }
                         $tmp[] = sprintf(
@@ -216,9 +198,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'visible' => false,
-                'render' => function ($value, Part $context) {
-                    return htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit()));
-                },
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit())),
             ]);
 
         if ($this->security->isGranted('@footprints.read')) {
@@ -278,12 +258,8 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
                 'visible' => false,
-                'href' => function ($value, Part $context) {
-                    return $this->urlGenerator->editURL($context);
-                },
-                'disabled' => function ($value, Part $context) {
-                    return !$this->security->isGranted('edit', $context);
-                },
+                'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
+                'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
                 'title' => $this->translator->trans('part.table.edit.title'),
             ])
 

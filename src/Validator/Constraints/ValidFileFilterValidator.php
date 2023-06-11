@@ -32,11 +32,8 @@ use function is_string;
 
 class ValidFileFilterValidator extends ConstraintValidator
 {
-    protected FileTypeFilterTools $filterTools;
-
-    public function __construct(FileTypeFilterTools $filterTools)
+    public function __construct(protected FileTypeFilterTools $filterTools)
     {
-        $this->filterTools = $filterTools;
     }
 
     /**

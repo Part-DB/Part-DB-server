@@ -46,18 +46,16 @@ use InvalidArgumentException;
 
 class EventUndoHelper
 {
-    public const MODE_UNDO = 'undo';
-    public const MODE_REVERT = 'revert';
+    final public const MODE_UNDO = 'undo';
+    final public const MODE_REVERT = 'revert';
 
     protected const ALLOWED_MODES = [self::MODE_REVERT, self::MODE_UNDO];
 
-    protected ?AbstractLogEntry $undone_event;
-    protected string $mode;
+    protected ?AbstractLogEntry $undone_event = null;
+    protected string $mode = self::MODE_UNDO;
 
     public function __construct()
     {
-        $this->undone_event = null;
-        $this->mode = self::MODE_UNDO;
     }
 
     public function setMode(string $mode): void

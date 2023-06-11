@@ -10,8 +10,6 @@ class ProjectBuildPartHelper
     /**
      * Returns a part that represents the builds of a project. This part is not saved to the database, and can be used
      * as initial data for the new part form.
-     * @param  Project  $project
-     * @return Part
      */
     public function getPartInitialization(Project $project): Part
     {

@@ -32,13 +32,8 @@ use Symfony\Component\Mime\Email;
  */
 final class SetMailFromSubscriber implements EventSubscriberInterface
 {
-    private string $email;
-    private string $name;
-
-    public function __construct(string $email, string $name)
+    public function __construct(private readonly string $email, private readonly string $name)
     {
-        $this->email = $email;
-        $this->name = $name;
     }
 
     public function onMessage(MessageEvent $event): void

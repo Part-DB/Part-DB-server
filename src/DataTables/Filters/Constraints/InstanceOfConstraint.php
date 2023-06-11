@@ -27,7 +27,7 @@ use Doctrine\ORM\QueryBuilder;
  */
 class InstanceOfConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
+    final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
 
     /**
      * @var string[] The values to compare to (fully qualified class names)
@@ -57,16 +57,12 @@ class InstanceOfConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
     /**
-     * @param  string  $operator
      * @return $this
      */
     public function setOperator(string $operator): self

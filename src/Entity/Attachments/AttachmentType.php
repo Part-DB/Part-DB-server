@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\StructuralDBElementRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
 #[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -45,7 +45,7 @@ class AttachmentType extends AbstractStructuralDBElement
 
     #[ORM\ManyToOne(targetEntity: 'AttachmentType', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var string
@@ -57,14 +57,14 @@ class AttachmentType extends AbstractStructuralDBElement
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\AttachmentTypeAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\AttachmentTypeParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 

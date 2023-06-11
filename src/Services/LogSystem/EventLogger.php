@@ -30,22 +30,8 @@ use Symfony\Component\Security\Core\Security;
 
 class EventLogger
 {
-    protected int $minimum_log_level;
-    protected array $blacklist;
-    protected array $whitelist;
-    protected EntityManagerInterface $em;
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected ConsoleInfoHelper $console_info_helper;
-
-    public function __construct(int $minimum_log_level, array $blacklist, array $whitelist, EntityManagerInterface $em,
-        \Symfony\Bundle\SecurityBundle\Security $security, ConsoleInfoHelper $console_info_helper)
+    public function __construct(protected int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected \Symfony\Bundle\SecurityBundle\Security $security, protected ConsoleInfoHelper $console_info_helper)
     {
-        $this->minimum_log_level = $minimum_log_level;
-        $this->blacklist = $blacklist;
-        $this->whitelist = $whitelist;
-        $this->em = $em;
-        $this->security = $security;
-        $this->console_info_helper = $console_info_helper;
     }
 
     /**
@@ -58,14 +44,14 @@ class EventLogger
     {
         $user = $this->security->getUser();
         //If the user is not specified explicitly, set it to the current user
-        if ((null === $user || $user instanceof User) && null === $logEntry->getUser()) {
-            if (null === $user) {
+        if ((!$user instanceof \Symfony\Component\Security\Core\User\UserInterface || $user instanceof User) && !$logEntry->getUser() instanceof \App\Entity\UserSystem\User) {
+            if (!$user instanceof \App\Entity\UserSystem\User) {
                 $repo = $this->em->getRepository(User::class);
                 $user = $repo->getAnonymousUser();
             }
 
             //If no anonymous user is available skip the log (needed for data fixtures)
-            if (null === $user) {
+            if (!$user instanceof \App\Entity\UserSystem\User) {
                 return false;
             }
             $logEntry->setUser($user);
@@ -88,15 +74,13 @@ class EventLogger
     /**
      * Same as log(), but this function can be safely called from within the onFlush() doctrine event, as it
      * updated the changesets of the unit of work.
-     * @param  AbstractLogEntry  $logEntry
-     * @return bool
      */
     public function logFromOnFlush(AbstractLogEntry $logEntry): bool
     {
         if ($this->log($logEntry)) {
             $uow = $this->em->getUnitOfWork();
             //As we call it from onFlush, we have to recompute the changeset here, according to https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/events.html#reference-events-on-flush
-            $uow->computeChangeSet($this->em->getClassMetadata(get_class($logEntry)), $logEntry);
+            $uow->computeChangeSet($this->em->getClassMetadata($logEntry::class), $logEntry);
 
             return true;
         }
@@ -125,9 +109,9 @@ class EventLogger
         ?array $whitelist = null
     ): bool {
         //Apply the global settings, if nothing was specified
-        $minimum_log_level = $minimum_log_level ?? $this->minimum_log_level;
-        $blacklist = $blacklist ?? $this->blacklist;
-        $whitelist = $whitelist ?? $this->whitelist;
+        $minimum_log_level ??= $this->minimum_log_level;
+        $blacklist ??= $this->blacklist;
+        $whitelist ??= $this->whitelist;
 
         //Don't add the entry if it does not reach the minimum level
         if ($logEntry->getLevel() > $minimum_log_level) {
@@ -135,17 +119,12 @@ class EventLogger
         }
 
         //Check if the event type is blacklisted
-        if (!empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
+        if ($blacklist !== [] && $this->isObjectClassInArray($logEntry, $blacklist)) {
             return false;
         }
-
         //Check for whitelisting
-        if (!empty($whitelist) && !$this->isObjectClassInArray($logEntry, $whitelist)) {
-            return false;
-        }
-
         // By default, all things should be added
-        return true;
+        return !($whitelist !== [] && !$this->isObjectClassInArray($logEntry, $whitelist));
     }
 
     /**
@@ -157,13 +136,13 @@ class EventLogger
     protected function isObjectClassInArray(object $object, array $classes): bool
     {
         //Check if the class is directly in the classes array
-        if (in_array(get_class($object), $classes, true)) {
+        if (in_array($object::class, $classes, true)) {
             return true;
         }
 
         //Iterate over all classes and check for inheritance
         foreach ($classes as $class) {
-            if (is_a($object, $class)) {
+            if ($object instanceof $class) {
                 return true;
             }
         }

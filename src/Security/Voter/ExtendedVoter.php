@@ -34,13 +34,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 abstract class ExtendedVoter extends Voter
 {
-    protected EntityManagerInterface $entityManager;
-    protected PermissionManager $resolver;
-
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager)
+    public function __construct(protected PermissionManager $resolver, protected EntityManagerInterface $entityManager)
     {
-        $this->resolver = $resolver;
-        $this->entityManager = $entityManager;
     }
 
     final protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
@@ -57,7 +52,7 @@ abstract class ExtendedVoter extends Voter
             /** @var UserRepository $repo */
             $repo = $this->entityManager->getRepository(User::class);
             $user = $repo->getAnonymousUser();
-            if (null === $user) {
+            if (!$user instanceof \App\Entity\UserSystem\User) {
                 return false;
             }
         }
@@ -68,8 +63,6 @@ abstract class ExtendedVoter extends Voter
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
-     *
-     * @param  string  $attribute
      */
     abstract protected function voteOnUser(string $attribute, $subject, User $user): bool;
 }

@@ -33,12 +33,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionType extends AbstractType
 {
-    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionManager $resolver)
+    public function __construct(protected PermissionManager $resolver)
     {
-        $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
@@ -46,9 +44,7 @@ class PermissionType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('perm_name', static function (Options $options) {
-            return $options['name'];
-        });
+        $resolver->setDefault('perm_name', static fn(Options $options) => $options['name']);
 
         $resolver->setDefault('label', function (Options $options) {
             if (!empty($this->perm_structure['perms'][$options['perm_name']]['label'])) {
@@ -58,9 +54,7 @@ class PermissionType extends AbstractType
             return $options['name'];
         });
 
-        $resolver->setDefault('multi_checkbox', static function (Options $options) {
-            return !$options['disabled'];
-        });
+        $resolver->setDefault('multi_checkbox', static fn(Options $options) => !$options['disabled']);
 
         $resolver->setDefaults([
             'inherit' => false,

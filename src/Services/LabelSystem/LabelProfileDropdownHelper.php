@@ -50,15 +50,8 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class LabelProfileDropdownHelper
 {
-    private TagAwareCacheInterface $cache;
-    private EntityManagerInterface $entityManager;
-    private UserCacheKeyGenerator $keyGenerator;
-
-    public function __construct(TagAwareCacheInterface $treeCache, EntityManagerInterface $entityManager, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(private readonly TagAwareCacheInterface $cache, private readonly EntityManagerInterface $entityManager, private readonly UserCacheKeyGenerator $keyGenerator)
     {
-        $this->cache = $treeCache;
-        $this->entityManager = $entityManager;
-        $this->keyGenerator = $keyGenerator;
     }
 
     public function getDropdownProfiles(string $type): array

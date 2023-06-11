@@ -38,11 +38,8 @@ use Symfony\Component\Security\Core\Security;
 
 class PartLotType extends AbstractType
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

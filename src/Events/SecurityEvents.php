@@ -43,13 +43,13 @@ namespace App\Events;
 
 class SecurityEvents
 {
-    public const PASSWORD_CHANGED = 'security.password_changed';
-    public const PASSWORD_RESET = 'security.password_reset';
-    public const BACKUP_KEYS_RESET = 'security.backup_keys_reset';
-    public const U2F_ADDED = 'security.u2f_added';
-    public const U2F_REMOVED = 'security.u2f_removed';
-    public const GOOGLE_ENABLED = 'security.google_enabled';
-    public const GOOGLE_DISABLED = 'security.google_disabled';
-    public const TRUSTED_DEVICE_RESET = 'security.trusted_device_reset';
-    public const TFA_ADMIN_RESET = 'security.2fa_admin_reset';
+    final public const PASSWORD_CHANGED = 'security.password_changed';
+    final public const PASSWORD_RESET = 'security.password_reset';
+    final public const BACKUP_KEYS_RESET = 'security.backup_keys_reset';
+    final public const U2F_ADDED = 'security.u2f_added';
+    final public const U2F_REMOVED = 'security.u2f_removed';
+    final public const GOOGLE_ENABLED = 'security.google_enabled';
+    final public const GOOGLE_DISABLED = 'security.google_disabled';
+    final public const TRUSTED_DEVICE_RESET = 'security.trusted_device_reset';
+    final public const TFA_ADMIN_RESET = 'security.2fa_admin_reset';
 }

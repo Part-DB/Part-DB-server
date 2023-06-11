@@ -33,12 +33,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
 {
-    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionManager $resolver)
+    public function __construct(protected PermissionManager $resolver)
     {
-        $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 

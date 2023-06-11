@@ -31,12 +31,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:list|users:list', 'Lists all users')]
 class UserListCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
-
         parent::__construct();
     }
 
@@ -83,7 +79,7 @@ class UserListCommand extends Command
                 $user->getUsername(),
                 $user->getFullName(),
                 $user->getEmail(),
-                $user->getGroup() !== null ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
+                $user->getGroup() instanceof \App\Entity\UserSystem\Group ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
                 $user->isDisabled() ? 'Yes' : 'No',
                 $user->isSAMLUser() ? 'SAML' : 'Local',
             ]);

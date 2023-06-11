@@ -32,13 +32,8 @@ use Symfony\Component\Security\Core\Security;
  */
 class UserCacheKeyGenerator
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected RequestStack $requestStack;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, RequestStack $requestStack)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected RequestStack $requestStack)
     {
-        $this->security = $security;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -51,10 +46,10 @@ class UserCacheKeyGenerator
     {
         $request = $this->requestStack->getCurrentRequest();
         //Retrieve the locale from the request, if possible, otherwise use the default locale
-        $locale = $request ? $request->getLocale() : Locale::getDefault();
+        $locale = $request instanceof \Symfony\Component\HttpFoundation\Request ? $request->getLocale() : Locale::getDefault();
 
         //If no user was specified, use the currently used one.
-        if (null === $user) {
+        if (!$user instanceof \App\Entity\UserSystem\User) {
             $user = $this->security->getUser();
         }
 

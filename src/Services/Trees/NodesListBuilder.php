@@ -34,15 +34,8 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
  */
 class NodesListBuilder
 {
-    protected EntityManagerInterface $em;
-    protected TagAwareCacheInterface $cache;
-    protected UserCacheKeyGenerator $keyGenerator;
-
-    public function __construct(EntityManagerInterface $em, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator)
     {
-        $this->em = $em;
-        $this->keyGenerator = $keyGenerator;
-        $this->cache = $treeCache;
     }
 
     /**
@@ -56,7 +49,7 @@ class NodesListBuilder
      */
     public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
-        $parent_id = null !== $parent ? $parent->getID() : '0';
+        $parent_id = $parent instanceof \App\Entity\Base\AbstractStructuralDBElement ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace('\\', '_', $class_name);
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;
@@ -81,6 +74,6 @@ class NodesListBuilder
      */
     public function getChildrenFlatList(AbstractStructuralDBElement $element): array
     {
-        return $this->typeToNodesList(get_class($element), $element);
+        return $this->typeToNodesList($element::class, $element);
     }
 }

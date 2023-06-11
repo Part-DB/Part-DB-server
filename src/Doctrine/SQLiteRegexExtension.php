@@ -45,7 +45,7 @@ class SQLiteRegexExtension implements EventSubscriberInterface
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
                 $native_connection->sqliteCreateFunction('REGEXP', function ($pattern, $value) {
                     try {
-                        return (false !== mb_ereg($pattern, $value)) ? 1 : 0;
+                        return (mb_ereg($pattern, $value)) ? 1 : 0;
                     } catch (\ErrorException $e) {
                         throw InvalidRegexException::fromMBRegexError($e);
                     }

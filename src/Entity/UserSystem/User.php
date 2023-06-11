@@ -56,8 +56,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * Also, this entity is able to save some information about the user, like the names, email-address and other info.
  */
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
-#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
-#[ORM\EntityListeners(['App\EntityListeners\TreeCacheInvalidationListener'])]
+#[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class)]
+#[ORM\EntityListeners([\App\EntityListeners\TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
 #[ORM\Index(name: 'user_idx_username', columns: ['name'])]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
@@ -68,7 +68,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * The User id of the anonymous user.
      */
-    public const ID_ANONYMOUS = 1;
+    final public const ID_ANONYMOUS = 1;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
@@ -214,7 +214,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var Collection<int, UserAttachment>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\UserAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -226,13 +226,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\UserSystem\U2FKey', mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\UserSystem\U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\UserSystem\WebauthnKey', mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\UserSystem\WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
@@ -243,9 +243,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @Selectable()
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\PriceInformations\Currency')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\PriceInformations\Currency::class)]
     #[ORM\JoinColumn(name: 'currency_id')]
-    protected ?Currency $currency;
+    protected ?Currency $currency = null;
 
     /**
      * @var PermissionData|null
@@ -259,7 +259,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var \DateTimeInterface|null the time until the password reset token is valid
      */
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $pw_reset_expires;
+    protected ?\DateTimeInterface $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
@@ -350,8 +350,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the password hash for this user.
-     *
-     * @return User
      */
     public function setPassword(string $password): self
     {
@@ -389,8 +387,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the currency the users prefers to see prices in.
-     *
-     * @return User
      */
     public function setCurrency(?Currency $currency): self
     {
@@ -413,8 +409,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Sets the status if a user is disabled.
      *
      * @param bool $disabled true if the user should be disabled
-     *
-     * @return User
      */
     public function setDisabled(bool $disabled): self
     {
@@ -425,7 +419,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getPermissions(): PermissionData
     {
-        if ($this->permissions === null) {
+        if (!$this->permissions instanceof \App\Entity\UserSystem\PermissionData) {
             $this->permissions = new PermissionData();
         }
 
@@ -442,8 +436,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Set the status, if the user needs a password change.
-     *
-     * @return User
      */
     public function setNeedPwChange(bool $need_pw_change): self
     {
@@ -462,8 +454,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the encrypted password reset token.
-     *
-     * @return User
      */
     public function setPwResetToken(?string $pw_reset_token): self
     {
@@ -482,8 +472,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the datetime when the password reset token expires.
-     *
-     * @return User
      */
     public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
     {
@@ -595,8 +583,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Change the department of the user.
      *
      * @param  string|null  $department  The new department
-     *
-     * @return User
      */
     public function setDepartment(?string $department): self
     {
@@ -631,7 +617,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets whether the email address of the user is shown on the public profile page.
-     * @return bool
      */
     public function isShowEmailOnProfile(): bool
     {
@@ -640,8 +625,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets whether the email address of the user is shown on the public profile page.
-     * @param  bool  $show_email_on_profile
-     * @return User
      */
     public function setShowEmailOnProfile(bool $show_email_on_profile): User
     {
@@ -653,7 +636,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns the about me text of the user.
-     * @return string
      */
     public function getAboutMe(): string
     {
@@ -662,8 +644,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Change the about me text of the user.
-     * @param  string  $aboutMe
-     * @return User
      */
     public function setAboutMe(string $aboutMe): User
     {
@@ -689,8 +669,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @param string|null $language The new language as 2-letter ISO code (e.g. 'en' or 'de').
      *                              Set to null, to use the system-wide language.
-     *
-     * @return User
      */
     public function setLanguage(?string $language): self
     {
@@ -855,11 +833,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function setBackupCodes(array $codes): self
     {
         $this->backupCodes = $codes;
-        if (empty($codes)) {
-            $this->backupCodesGenerationDate = null;
-        } else {
-            $this->backupCodesGenerationDate = new DateTime();
-        }
+        $this->backupCodesGenerationDate = $codes === [] ? null : new DateTime();
 
         return $this;
     }
@@ -938,7 +912,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns true, if the user was created by the SAML authentication.
-     * @return bool
      */
     public function isSamlUser(): bool
     {
@@ -947,8 +920,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the saml_user flag.
-     * @param  bool  $saml_user
-     * @return User
      */
     public function setSamlUser(bool $saml_user): User
     {

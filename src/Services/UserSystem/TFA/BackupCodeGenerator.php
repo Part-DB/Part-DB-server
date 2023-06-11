@@ -31,7 +31,6 @@ use RuntimeException;
 class BackupCodeGenerator
 {
     protected int $code_length;
-    protected int $code_count;
 
     /**
      * BackupCodeGenerator constructor.
@@ -39,7 +38,7 @@ class BackupCodeGenerator
      * @param int $code_length how many characters a single code should have
      * @param int $code_count  how many codes are generated for a whole backup set
      */
-    public function __construct(int $code_length, int $code_count)
+    public function __construct(int $code_length, protected int $code_count)
     {
         if ($code_length > 32) {
             throw new RuntimeException('Backup code can have maximum 32 digits!');
@@ -47,8 +46,6 @@ class BackupCodeGenerator
         if ($code_length < 6) {
             throw new RuntimeException('Code must have at least 6 digits to ensure security!');
         }
-
-        $this->code_count = $code_count;
         $this->code_length = $code_length;
     }
 

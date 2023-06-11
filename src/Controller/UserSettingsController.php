@@ -54,16 +54,13 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    protected bool $demo_mode;
-
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
 
-    public function __construct(bool $demo_mode, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected bool $demo_mode, EventDispatcherInterface $eventDispatcher)
     {
-        $this->demo_mode = $demo_mode;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -121,49 +118,43 @@ class UserSettingsController extends AbstractController
                 $key_repo = $entityManager->getRepository(U2FKey::class);
                 /** @var U2FKey|null $u2f */
                 $u2f = $key_repo->find($key_id);
-                if (null === $u2f) {
+                if (!$u2f instanceof \App\Entity\UserSystem\U2FKey) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 //User can only delete its own U2F keys
                 if ($u2f->getUser() !== $user) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $entityManager->remove($u2f);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
-
                 $security_event = new SecurityEvent($user);
                 $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
-            } else if ($request->request->has('webauthn_key_id')) {
+            } elseif ($request->request->has('webauthn_key_id')) {
                 $key_id = $request->request->get('webauthn_key_id');
                 $key_repo = $entityManager->getRepository(WebauthnKey::class);
                 /** @var WebauthnKey|null $key */
                 $key = $key_repo->find($key_id);
-                if (null === $key) {
+                if (!$key instanceof \App\Entity\UserSystem\WebauthnKey) {
                     $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 //User can only delete its own U2F keys
                 if ($key->getUser() !== $user) {
                     $this->addFlash('error', 'tfa_u2f.u2f_delete.access_denied');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $entityManager->remove($key);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
-
                 $security_event = new SecurityEvent($user);
                 $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
             }
@@ -174,11 +165,8 @@ class UserSettingsController extends AbstractController
         return $this->redirectToRoute('user_settings');
     }
 
-    /**
-     * @return RuntimeException|RedirectResponse
-     */
     #[Route(path: '/invalidate_trustedDevices', name: 'tfa_trustedDevices_invalidate', methods: ['DELETE'])]
-    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
+    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager): \RuntimeException|\Symfony\Component\HttpFoundation\RedirectResponse
     {
         if ($this->demo_mode) {
             throw new RuntimeException('You can not do 2FA things in demo mode');
@@ -215,7 +203,7 @@ class UserSettingsController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/settings', name: 'user_settings')]
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -254,13 +242,11 @@ class UserSettingsController extends AbstractController
             }
 
             /** @var Form $form We need a form implementation for the next calls */
-            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName()) {
-                //Remove the avatar attachment from the user if requested
-                if ($user->getMasterPictureAttachment() !== null) {
-                    $em->remove($user->getMasterPictureAttachment());
-                    $user->setMasterPictureAttachment(null);
-                    $page_need_reload = true;
-                }
+            //Remove the avatar attachment from the user if requested
+            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment) {
+                $em->remove($user->getMasterPictureAttachment());
+                $user->setMasterPictureAttachment(null);
+                $page_need_reload = true;
             }
 
             $em->flush();

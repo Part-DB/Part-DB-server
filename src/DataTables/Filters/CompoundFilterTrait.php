@@ -60,8 +60,6 @@ trait CompoundFilterTrait
 
     /**
      * Applies all children filters that are declared as property of this filter using reflection.
-     * @param  QueryBuilder  $queryBuilder
-     * @return void
      */
     protected function applyAllChildFilters(QueryBuilder $queryBuilder): void
     {

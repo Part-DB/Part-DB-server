@@ -87,7 +87,7 @@ class PKDatastructureImporter
 
         $this->em->flush();
 
-        return count($distributor_data);
+        return is_countable($distributor_data) ? count($distributor_data) : 0;
     }
 
     public function importManufacturers(array $data): int
@@ -130,7 +130,7 @@ class PKDatastructureImporter
 
         $this->importAttachments($data, 'manufacturericlogo', Manufacturer::class, 'manufacturer_id', ManufacturerAttachment::class);
 
-        return count($manufacturer_data);
+        return is_countable($manufacturer_data) ? count($manufacturer_data) : 0;
     }
 
     public function importPartUnits(array $data): int
@@ -151,7 +151,7 @@ class PKDatastructureImporter
 
         $this->em->flush();
 
-        return count($partunit_data);
+        return is_countable($partunit_data) ? count($partunit_data) : 0;
     }
 
     public function importCategories(array $data): int
@@ -180,15 +180,11 @@ class PKDatastructureImporter
         }
         $this->em->flush();
 
-        return count($partcategory_data);
+        return is_countable($partcategory_data) ? count($partcategory_data) : 0;
     }
 
     /**
      * The common import functions for footprints and storeloactions
-     * @param  array  $data
-     * @param  string  $target_class
-     * @param  string  $data_prefix
-     * @return int
      */
     private function importElementsWithCategory(array $data, string $target_class, string $data_prefix): int
     {
@@ -249,7 +245,7 @@ class PKDatastructureImporter
 
         $this->em->flush();
 
-        return count($footprint_data) + count($footprintcategory_data);
+        return (is_countable($footprint_data) ? count($footprint_data) : 0) + (is_countable($footprintcategory_data) ? count($footprintcategory_data) : 0);
     }
 
     public function importFootprints(array $data): int

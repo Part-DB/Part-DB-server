@@ -34,22 +34,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class StructuralEntityChoiceHelper
 {
 
-    private AttachmentURLGenerator $attachmentURLGenerator;
-    private TranslatorInterface $translator;
-
-    public function __construct(AttachmentURLGenerator $attachmentURLGenerator, TranslatorInterface $translator)
+    public function __construct(private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly TranslatorInterface $translator)
     {
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->translator = $translator;
     }
 
     /**
      * Generates the choice attributes for the given AbstractStructuralDBElement.
-     * @param  AbstractNamedDBElement  $choice
-     * @param Options|array $options
      * @return array|string[]
      */
-    public function generateChoiceAttr(AbstractNamedDBElement $choice, $options): array
+    public function generateChoiceAttr(AbstractNamedDBElement $choice, \Symfony\Component\OptionsResolver\Options|array $options): array
     {
         $tmp = [
             'data-level' => 0,
@@ -69,19 +62,19 @@ class StructuralEntityChoiceHelper
             $level = $choice->getLevel();
             /** @var AbstractStructuralDBElement|null $parent */
             $parent = $options['subentities_of'] ?? null;
-            if (null !== $parent) {
+            if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
                 $level -= $parent->getLevel() - 1;
             }
 
             $tmp += [
                 'data-level' => $level,
-                'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
+                'data-parent' => $choice->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement ? $choice->getParent()->getFullPath() : null,
                 'data-path' => $choice->getFullPath('->'),
             ];
         }
 
         if ($choice instanceof HasMasterAttachmentInterface) {
-            $tmp['data-image'] = $choice->getMasterPictureAttachment() ?
+            $tmp['data-image'] = $choice->getMasterPictureAttachment() instanceof \App\Entity\Attachments\Attachment ?
                 $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(),
                     'thumbnail_xs')
                 : null
@@ -97,37 +90,21 @@ class StructuralEntityChoiceHelper
 
     /**
      * Generates the choice attributes for the given AbstractStructuralDBElement.
-     * @param  Currency $choice
-     * @param Options|array $options
      * @return array|string[]
      */
-    public function generateChoiceAttrCurrency(Currency $choice, $options): array
+    public function generateChoiceAttrCurrency(Currency $choice, \Symfony\Component\OptionsResolver\Options|array $options): array
     {
         $tmp = $this->generateChoiceAttr($choice, $options);
+        $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
+        $tmp['data-short'] = $options['short'] ? $symbol : $choice->getName();
 
-        if(!empty($choice->getIsoCode())) {
-            $symbol = Currencies::getSymbol($choice->getIsoCode());
-        } else {
-            $symbol = null;
-        }
-
-        if ($options['short']) {
-            $tmp['data-short'] = $symbol;
-        } else {
-            $tmp['data-short'] = $choice->getName();
-        }
-
-        $tmp += [
+        return $tmp + [
             'data-symbol' => $symbol,
         ];
-
-        return $tmp;
     }
 
     /**
      * Returns the choice label for the given AbstractStructuralDBElement.
-     * @param  AbstractNamedDBElement  $choice
-     * @return string
      */
     public function generateChoiceLabel(AbstractNamedDBElement $choice): string
     {
@@ -136,12 +113,10 @@ class StructuralEntityChoiceHelper
 
     /**
      * Returns the choice value for the given AbstractStructuralDBElement.
-     * @param  AbstractNamedDBElement|null  $element
-     * @return string|int|null
      */
-    public function generateChoiceValue(?AbstractNamedDBElement $element)
+    public function generateChoiceValue(?AbstractNamedDBElement $element): string|int|null
     {
-        if ($element === null) {
+        if (!$element instanceof \App\Entity\Base\AbstractNamedDBElement) {
             return null;
         }
 
@@ -162,10 +137,6 @@ class StructuralEntityChoiceHelper
         return $element->getID();
     }
 
-    /**
-     * @param  AbstractDBElement  $element
-     * @return string|null
-     */
     public function generateGroupBy(AbstractDBElement $element): ?string
     {
         //Show entities that are not added to DB yet separately from other entities

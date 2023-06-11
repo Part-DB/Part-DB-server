@@ -27,11 +27,6 @@ abstract class AbstractConstraint implements FilterInterface
     use FilterTrait;
 
     /**
-     * @var string The property where this BooleanConstraint should apply to
-     */
-    protected string $property;
-
-    /**
      * @var string
      */
     protected string $identifier;
@@ -43,9 +38,11 @@ abstract class AbstractConstraint implements FilterInterface
      */
     abstract public function isEnabled(): bool;
 
-    public function __construct(string $property, string $identifier = null)
+    public function __construct(/**
+     * @var string The property where this BooleanConstraint should apply to
+     */
+    protected string $property, string $identifier = null)
     {
-        $this->property = $property;
         $this->identifier = $identifier ?? $this->generateParameterIdentifier($property);
     }
 }

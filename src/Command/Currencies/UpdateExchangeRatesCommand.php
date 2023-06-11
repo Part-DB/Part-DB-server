@@ -38,18 +38,8 @@ use function strlen;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
 class UpdateExchangeRatesCommand extends Command
 {
-    protected string $base_current;
-    protected EntityManagerInterface $em;
-    protected ExchangeRateUpdater $exchangeRateUpdater;
-
-    public function __construct(string $base_current, EntityManagerInterface $entityManager, ExchangeRateUpdater $exchangeRateUpdater)
+    public function __construct(protected string $base_current, protected EntityManagerInterface $em, protected ExchangeRateUpdater $exchangeRateUpdater)
     {
-        //$this->swap = $swap;
-        $this->base_current = $base_current;
-
-        $this->em = $entityManager;
-        $this->exchangeRateUpdater = $exchangeRateUpdater;
-
         parent::__construct();
     }
 
@@ -75,11 +65,7 @@ class UpdateExchangeRatesCommand extends Command
         $iso_code = $input->getArgument('iso_code');
         $repo = $this->em->getRepository(Currency::class);
 
-        if (!empty($iso_code)) {
-            $candidates = $repo->findBy(['iso_code' => $iso_code]);
-        } else {
-            $candidates = $repo->findAll();
-        }
+        $candidates = empty($iso_code) ? $repo->findAll() : $repo->findBy(['iso_code' => $iso_code]);
 
         $success_counter = 0;
 

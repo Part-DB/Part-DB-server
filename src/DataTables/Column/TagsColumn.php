@@ -27,11 +27,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TagsColumn extends AbstractColumn
 {
-    protected UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(protected UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -46,7 +43,7 @@ class TagsColumn extends AbstractColumn
             return [];
         }
 
-        return explode(',', $value);
+        return explode(',', (string) $value);
     }
 
     public function render($tags, $context): string
@@ -61,7 +58,7 @@ class TagsColumn extends AbstractColumn
             $html .= sprintf(
                 '<a href="%s" class="badge bg-primary badge-table">%s</a>',
                 $this->urlGenerator->generate('part_list_tags', ['tag' => $tag]),
-                htmlspecialchars($tag)
+                htmlspecialchars((string) $tag)
             );
         }
 

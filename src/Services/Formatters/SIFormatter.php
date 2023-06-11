@@ -93,11 +93,7 @@ class SIFormatter
         [$divisor, $symbol] = $this->getPrefixByMagnitude($this->getMagnitude($value));
         $value /= $divisor;
         //Build the format string, e.g.: %.2d km
-        if ('' !== $unit || '' !== $symbol) {
-            $format_string = '%.'.$decimals.'f '.$symbol.$unit;
-        } else {
-            $format_string = '%.'.$decimals.'f';
-        }
+        $format_string = '' !== $unit || '' !== $symbol ? '%.'.$decimals.'f '.$symbol.$unit : '%.'.$decimals.'f';
 
         return sprintf($format_string, $value);
     }

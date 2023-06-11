@@ -37,16 +37,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password', 'Sets the password of a user')]
 class SetPasswordCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
-    protected UserPasswordHasherInterface $encoder;
-    protected EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected EntityManagerInterface $entityManager, protected UserPasswordHasherInterface $encoder, protected EventDispatcherInterface $eventDispatcher)
     {
-        $this->entityManager = $entityManager;
-        $this->encoder = $passwordEncoder;
-        $this->eventDispatcher = $eventDispatcher;
-
         parent::__construct();
     }
 
@@ -64,7 +56,7 @@ class SetPasswordCommand extends Command
 
         $user = $this->entityManager->getRepository(User::class)->findByEmailOrName($user_name);
 
-        if (!$user) {
+        if (!$user instanceof \App\Entity\UserSystem\User) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
             return \Symfony\Component\Console\Command\Command::FAILURE;

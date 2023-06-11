@@ -115,7 +115,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var User|null The owner of this part lot
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 
@@ -137,7 +137,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     public function isExpired(): ?bool
     {
-        if (null === $this->expiration_date) {
+        if (!$this->expiration_date instanceof \DateTimeInterface) {
             return null;
         }
 
@@ -155,8 +155,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the description of the part lot.
-     *
-     * @return PartLot
      */
     public function setDescription(string $description): self
     {
@@ -175,8 +173,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the comment for this part lot.
-     *
-     * @return PartLot
      */
     public function setComment(string $comment): self
     {
@@ -196,9 +192,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expire.
      *
-     * @param  \DateTimeInterface|null  $expiration_date
      *
-     * @return PartLot
      */
     public function setExpirationDate(?\DateTimeInterface $expiration_date): self
     {
@@ -219,8 +213,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the storage location, where this part lot is stored.
-     *
-     * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
     {
@@ -239,8 +231,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the part that is stored in this part lot.
-     *
-     * @return PartLot
      */
     public function setPart(Part $part): self
     {
@@ -259,8 +249,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Set the unknown instock status of this part lot.
-     *
-     * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
     {
@@ -302,9 +290,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this->needs_refill;
     }
 
-    /**
-     * @return PartLot
-     */
     public function setNeedsRefill(bool $needs_refill): self
     {
         $this->needs_refill = $needs_refill;
@@ -314,7 +299,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Returns the owner of this part lot.
-     * @return User|null
      */
     public function getOwner(): ?User
     {
@@ -323,8 +307,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the owner of this part lot.
-     * @param  User|null  $owner
-     * @return PartLot
      */
     public function setOwner(?User $owner): PartLot
     {
@@ -349,14 +331,12 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
         //When the storage location sets the owner must match, the part lot owner must match the storage location owner
         if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
-            && $this->getStorageLocation()->getOwner() && $this->getOwner()) {
-            if ($this->getOwner() !== $this->getStorageLocation()->getOwner()
-                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID()) {
-                $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
-                    ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
-                    ->atPath('owner')
-                    ->addViolation();
-            }
+            && $this->getStorageLocation()->getOwner() && $this->getOwner() && ($this->getOwner() !== $this->getStorageLocation()->getOwner()
+            && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID())) {
+            $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
+                ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
+                ->atPath('owner')
+                ->addViolation();
         }
     }
 }

@@ -45,11 +45,10 @@ class EventCommentHelper
 {
     protected const MAX_MESSAGE_LENGTH = 255;
 
-    protected ?string $message;
+    protected ?string $message = null;
 
     public function __construct()
     {
-        $this->message = null;
     }
 
     /**
@@ -60,11 +59,7 @@ class EventCommentHelper
     public function setMessage(?string $message): void
     {
         //Restrict the length of the string
-        if ($message) {
-            $this->message = mb_strimwidth($message, 0, self::MAX_MESSAGE_LENGTH, '...');
-        } else {
-            $this->message = null;
-        }
+        $this->message = $message ? mb_strimwidth($message, 0, self::MAX_MESSAGE_LENGTH, '...') : null;
     }
 
     /**

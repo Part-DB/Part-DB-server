@@ -38,11 +38,8 @@ use Traversable;
 
 final class SIUnitType extends AbstractType implements DataMapperInterface
 {
-    protected SIFormatter $si_formatter;
-
-    public function __construct(SIFormatter $SIFormatter)
+    public function __construct(protected SIFormatter $si_formatter)
     {
-        $this->si_formatter = $SIFormatter;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -91,7 +88,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             'min' => 0,
             'max' => '',
-            'step' => static function (Options $options) {
+            'step' => static function (Options $options): int|string {
                 if (true === $options['is_integer']) {
                     return 1;
                 }
@@ -138,7 +135,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
 
         //Check if we need to make this thing small
         if (isset($options['attr']['class'])) {
-            $view->vars['sm'] = str_contains($options['attr']['class'], 'form-control-sm');
+            $view->vars['sm'] = str_contains((string) $options['attr']['class'], 'form-control-sm');
         }
 
         $view->vars['unit'] = $options['unit'];

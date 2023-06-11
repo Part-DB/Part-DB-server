@@ -45,7 +45,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'currency_idx_parent_name', columns: ['parent_id', 'name'])]
 class Currency extends AbstractStructuralDBElement
 {
-    public const PRICE_SCALE = 5;
+    final public const PRICE_SCALE = 5;
 
     /**
      * @var BigDecimal|null The exchange rate between this currency and the base currency
@@ -69,26 +69,26 @@ class Currency extends AbstractStructuralDBElement
 
     #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?AbstractStructuralDBElement $parent;
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection<int, CurrencyAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\CurrencyAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, CurrencyParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\CurrencyParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Pricedetail', mappedBy: 'currency')]
+    #[ORM\OneToMany(targetEntity: \App\Entity\PriceInformations\Pricedetail::class, mappedBy: 'currency')]
     protected Collection $pricedetails;
 
     public function __construct()
@@ -115,11 +115,6 @@ class Currency extends AbstractStructuralDBElement
         return $this->iso_code;
     }
 
-    /**
-     * @param  string|null  $iso_code
-     *
-     * @return Currency
-     */
     public function setIsoCode(?string $iso_code): self
     {
         $this->iso_code = $iso_code;
@@ -134,7 +129,7 @@ class Currency extends AbstractStructuralDBElement
     {
         $tmp = $this->getExchangeRate();
 
-        if (null === $tmp || $tmp->isZero()) {
+        if (!$tmp instanceof \Brick\Math\BigDecimal || $tmp->isZero()) {
             return null;
         }
 
@@ -155,12 +150,10 @@ class Currency extends AbstractStructuralDBElement
      *
      * @param BigDecimal|null $exchange_rate The new exchange rate of the currency.
      *                                       Set to null, if the exchange rate is unknown.
-     *
-     * @return Currency
      */
     public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
-        if (null === $exchange_rate) {
+        if (!$exchange_rate instanceof \Brick\Math\BigDecimal) {
             $this->exchange_rate = null;
         }
         $tmp = $exchange_rate->toScale(self::PRICE_SCALE, RoundingMode::HALF_UP);

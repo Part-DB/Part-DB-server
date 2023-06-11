@@ -26,11 +26,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SIUnitNumberColumn extends AbstractColumn
 {
-    protected SIFormatter $formatter;
-
-    public function __construct(SIFormatter $formatter)
+    public function __construct(protected SIFormatter $formatter)
     {
-        $this->formatter = $formatter;
     }
 
     public function configureOptions(OptionsResolver $resolver): self

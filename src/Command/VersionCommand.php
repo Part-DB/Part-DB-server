@@ -30,13 +30,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
 class VersionCommand extends Command
 {
-    protected VersionManagerInterface $versionManager;
-    protected GitVersionInfo $gitVersionInfo;
-
-    public function __construct(VersionManagerInterface $versionManager, GitVersionInfo $gitVersionInfo)
+    public function __construct(protected VersionManagerInterface $versionManager, protected GitVersionInfo $gitVersionInfo)
     {
-        $this->versionManager = $versionManager;
-        $this->gitVersionInfo = $gitVersionInfo;
         parent::__construct();
     }
 

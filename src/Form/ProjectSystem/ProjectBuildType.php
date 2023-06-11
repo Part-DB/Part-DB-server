@@ -38,11 +38,8 @@ use Symfony\Component\Security\Core\Security;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->security = $security;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -79,10 +76,10 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => $build_request->getProject()->getBuildPart() === null,
+                'disabled' => !$build_request->getProject()->getBuildPart() instanceof \App\Entity\Parts\Part,
             ]);
 
-            if ($build_request->getProject()->getBuildPart()) {
+            if ($build_request->getProject()->getBuildPart() instanceof \App\Entity\Parts\Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'project.build.builds_part_lot',
                     'required' => false,

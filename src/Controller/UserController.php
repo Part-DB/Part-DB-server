@@ -180,7 +180,7 @@ class UserController extends AdminPages\BaseAdminController
     public function userInfo(?User $user, Packages $packages, Request $request, DataTableFactory $dataTableFactory): Response
     {
         //If no user id was passed, then we show info about the current user
-        if (null === $user) {
+        if (!$user instanceof \App\Entity\UserSystem\User) {
             $tmp = $this->getUser();
             if (!$tmp instanceof User) {
                 throw new InvalidArgumentException('Userinfo only works for database users!');

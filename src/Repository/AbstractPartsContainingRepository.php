@@ -51,7 +51,6 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     /**
      * Returns the count of the parts associated with this element and all its children.
      * Please be aware that this function is pretty slow on large trees!
-     * @param  AbstractPartsContainingDBElement  $element
      * @return int
      */
     public function getPartsCountRecursive(AbstractPartsContainingDBElement $element): int
@@ -64,8 +63,6 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
      * This function is used to limit the recursion depth (remaining_depth is decreased on each call).
      * If the recursion limit is reached (remaining_depth <= 0), a RuntimeException is thrown.
      * @internal This function is not intended to be called directly, use getPartsCountRecursive() instead.
-     * @param  AbstractPartsContainingDBElement  $element
-     * @param  int  $remaining_depth
      * @return int
      */
     protected function getPartsCountRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): int

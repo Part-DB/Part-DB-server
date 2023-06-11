@@ -44,13 +44,8 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         'storage_location' => 'storelocation',
     ];
 
-    private ObjectNormalizer $normalizer;
-    private StructuralElementFromNameDenormalizer $locationDenormalizer;
-
-    public function __construct(ObjectNormalizer $normalizer, StructuralElementFromNameDenormalizer $locationDenormalizer)
+    public function __construct(private readonly ObjectNormalizer $normalizer, private readonly StructuralElementFromNameDenormalizer $locationDenormalizer)
     {
-        $this->normalizer = $normalizer;
-        $this->locationDenormalizer = $locationDenormalizer;
     }
 
     public function supportsNormalization($data, string $format = null): bool
@@ -120,12 +115,12 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
         }
 
-        if ((isset($data['instock']) && trim($data['instock']) !== "") || (isset($data['storelocation']) && trim($data['storelocation']) !== "")) {
+        if ((isset($data['instock']) && trim((string) $data['instock']) !== "") || (isset($data['storelocation']) && trim((string) $data['storelocation']) !== "")) {
             $partLot = new PartLot();
 
             if (isset($data['instock']) && $data['instock'] !== "") {
                 //Replace comma with dot
-                $instock = (float) str_replace(',', '.', $data['instock']);
+                $instock = (float) str_replace(',', '.', (string) $data['instock']);
 
                 $partLot->setAmount($instock);
             } else {
@@ -157,7 +152,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
                     $pricedetail = new Pricedetail();
                     $pricedetail->setMinDiscountQuantity(1);
                     $pricedetail->setPriceRelatedQuantity(1);
-                    $price = BigDecimal::of(str_replace(',', '.', $data['price']));
+                    $price = BigDecimal::of(str_replace(',', '.', (string) $data['price']));
                     $pricedetail->setPrice($price);
 
                     $orderdetail->addPricedetail($pricedetail);

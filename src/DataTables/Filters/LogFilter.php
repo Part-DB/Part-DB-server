@@ -58,9 +58,6 @@ class LogFilter implements FilterInterface
         $this->applyAllChildFilters($queryBuilder);
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getTimestamp(): DateTimeConstraint
     {
         return $this->timestamp;
@@ -69,38 +66,26 @@ class LogFilter implements FilterInterface
     /**
      * @return IntConstraint|NumberConstraint
      */
-    public function getDbId()
+    public function getDbId(): \App\DataTables\Filters\Constraints\IntConstraint|\App\DataTables\Filters\Constraints\NumberConstraint
     {
         return $this->dbId;
     }
 
-    /**
-     * @return ChoiceConstraint
-     */
     public function getLevel(): ChoiceConstraint
     {
         return $this->level;
     }
 
-    /**
-     * @return InstanceOfConstraint
-     */
     public function getEventType(): InstanceOfConstraint
     {
         return $this->eventType;
     }
 
-    /**
-     * @return ChoiceConstraint
-     */
     public function getTargetType(): ChoiceConstraint
     {
         return $this->targetType;
     }
 
-    /**
-     * @return IntConstraint
-     */
     public function getTargetId(): IntConstraint
     {
         return $this->targetId;

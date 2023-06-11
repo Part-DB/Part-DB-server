@@ -51,13 +51,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RevertLogColumn extends AbstractColumn
 {
-    protected TranslatorInterface $translator;
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(TranslatorInterface $translator, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
-        $this->translator = $translator;
-        $this->security = $security;
     }
 
     /**
@@ -105,8 +100,6 @@ class RevertLogColumn extends AbstractColumn
             $this->translator->trans('log.undo.revert')
         );
 
-        $tmp .= '</div>';
-
-        return $tmp;
+        return $tmp . '</div>';
     }
 }

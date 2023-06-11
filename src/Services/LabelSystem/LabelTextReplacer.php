@@ -49,11 +49,8 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
  */
 final class LabelTextReplacer
 {
-    private iterable $providers;
-
-    public function __construct(iterable $providers)
+    public function __construct(private readonly iterable $providers)
     {
-        $this->providers = $providers;
     }
 
     /**
@@ -89,9 +86,7 @@ final class LabelTextReplacer
     public function replace(string $lines, object $target): string
     {
         $patterns = [
-            '/(\[\[[A-Z_0-9]+\]\])/' => function ($match) use ($target) {
-                return $this->handlePlaceholder($match[0], $target);
-            },
+            '/(\[\[[A-Z_0-9]+\]\])/' => fn($match) => $this->handlePlaceholder($match[0], $target),
         ];
 
         return preg_replace_callback_array($patterns, $lines);

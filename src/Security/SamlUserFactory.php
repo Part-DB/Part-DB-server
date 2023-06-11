@@ -31,22 +31,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterface
 {
-    private EntityManagerInterface $em;
-    private array $saml_role_mapping;
-    private bool $update_group_on_login;
+    private readonly array $saml_role_mapping;
 
-    public function __construct(EntityManagerInterface $entityManager, ?array $saml_role_mapping, bool $update_group_on_login)
+    public function __construct(private readonly EntityManagerInterface $em, ?array $saml_role_mapping, private readonly bool $update_group_on_login)
     {
-        $this->em = $entityManager;
-        if ($saml_role_mapping) {
-            $this->saml_role_mapping = $saml_role_mapping;
-        } else {
-            $this->saml_role_mapping = [];
-        }
-        $this->update_group_on_login = $update_group_on_login;
+        $this->saml_role_mapping = $saml_role_mapping ?: [];
     }
 
-    public const SAML_PASSWORD_PLACEHOLDER = '!!SAML!!';
+    final public const SAML_PASSWORD_PLACEHOLDER = '!!SAML!!';
 
     public function createUser($username, array $attributes = []): UserInterface
     {
@@ -70,8 +62,6 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
     /**
      * This method is called after a successful authentication. It is used to update the group of the user,
      * based on the new SAML attributes.
-     * @param  AuthenticationSuccessEvent  $event
-     * @return void
      */
     public function onAuthenticationSuccess(AuthenticationSuccessEvent $event): void
     {
@@ -98,7 +88,6 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
     /**
      * Maps the given SAML attributes to a local group.
      * @param  array  $attributes The SAML attributes
-     * @return Group|null
      */
     public function mapSAMLAttributesToLocalGroup(array $attributes): ?Group
     {
@@ -109,7 +98,7 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
         //Check if we can find a group with the given ID
         if ($group_id !== null) {
             $group = $this->em->find(Group::class, $group_id);
-            if ($group !== null) {
+            if ($group instanceof \App\Entity\UserSystem\Group) {
                 return $group;
             }
         }
@@ -127,7 +116,7 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
      */
     public function mapSAMLRolesToLocalGroupID(array $roles, array $map = null): ?int
     {
-        $map = $map ?? $this->saml_role_mapping;
+        $map ??= $this->saml_role_mapping;
 
         //Iterate over the mapping (from first to last) and check if we have a match
         foreach ($map as $saml_role => $group_id) {

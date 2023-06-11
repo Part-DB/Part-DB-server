@@ -26,9 +26,7 @@ namespace App\Services\LogSystem;
  */
 class EventCommentNeededHelper
 {
-    protected array $enforce_change_comments_for;
-
-    public const VALID_OPERATION_TYPES = [
+    final public const VALID_OPERATION_TYPES = [
         'part_edit',
         'part_create',
         'part_delete',
@@ -38,15 +36,12 @@ class EventCommentNeededHelper
         'datastructure_delete',
     ];
 
-    public function __construct(array $enforce_change_comments_for)
+    public function __construct(protected array $enforce_change_comments_for)
     {
-        $this->enforce_change_comments_for = $enforce_change_comments_for;
     }
 
     /**
      * Checks if a log change comment is needed for the given operation type
-     * @param  string  $comment_type
-     * @return bool
      */
     public function isCommentNeeded(string $comment_type): bool
     {

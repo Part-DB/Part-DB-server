@@ -32,25 +32,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AmountFormatter
 {
-    protected SIFormatter $siFormatter;
-
-    public function __construct(SIFormatter $siFormatter)
+    public function __construct(protected SIFormatter $siFormatter)
     {
-        $this->siFormatter = $siFormatter;
     }
 
     /**
      *  Formats the given value using the measurement unit and options.
      *
-     * @param float|string|int     $value
      * @param MeasurementUnit|null $unit  The measurement unit, whose unit symbol should be used for formatting.
      *                                    If set to null, it is assumed that the part amount is measured in pieces.
      *
      * @return string The formatted string
-     *
      * @throws InvalidArgumentException thrown if $value is not numeric
      */
-    public function format($value, ?MeasurementUnit $unit = null, array $options = []): string
+    public function format(float|string|int $value, ?MeasurementUnit $unit = null, array $options = []): string
     {
         if (!is_numeric($value)) {
             throw new InvalidArgumentException('$value must be an numeric value!');

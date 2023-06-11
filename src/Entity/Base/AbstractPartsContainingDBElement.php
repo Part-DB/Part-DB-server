@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Class PartsContainingDBElement.
  */
-#[ORM\MappedSuperclass(repositoryClass: 'App\Repository\AbstractPartsContainingRepository')]
+#[ORM\MappedSuperclass(repositoryClass: \App\Repository\AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
     #[Groups(['full'])]

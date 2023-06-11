@@ -49,7 +49,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Otherwise, this class would be too big, to be maintained.
  */
 #[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
-#[ORM\Entity(repositoryClass: 'App\Repository\PartRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\PartRepository::class)]
 #[ORM\Table('`parts`')]
 #[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
 #[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
@@ -69,7 +69,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\PartParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -89,7 +89,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\PartAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -97,7 +97,7 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment|null
      */
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Attachments\Attachment')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Attachments\Attachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 
@@ -142,15 +142,13 @@ class Part extends AttachmentContainingDBElement
     public function validate(ExecutionContextInterface $context, $payload)
     {
         //Ensure that the part name fullfills the regex of the category
-        if ($this->category) {
+        if ($this->category instanceof \App\Entity\Parts\Category) {
             $regex = $this->category->getPartnameRegex();
-            if (!empty($regex)) {
-                if (!preg_match($regex, $this->name)) {
-                    $context->buildViolation('part.name.must_match_category_regex')
-                        ->atPath('name')
-                        ->setParameter('%regex%', $regex)
-                        ->addViolation();
-                }
+            if (!empty($regex) && !preg_match($regex, $this->name)) {
+                $context->buildViolation('part.name.must_match_category_regex')
+                    ->atPath('name')
+                    ->setParameter('%regex%', $regex)
+                    ->addViolation();
             }
         }
     }

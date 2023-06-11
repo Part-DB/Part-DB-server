@@ -36,14 +36,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->security = $security;
-
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function onRequest(RequestEvent $event): void

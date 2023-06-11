@@ -40,11 +40,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/tree')]
 class TreeController extends AbstractController
 {
-    protected TreeViewGenerator $treeGenerator;
-
-    public function __construct(TreeViewGenerator $treeGenerator)
+    public function __construct(protected TreeViewGenerator $treeGenerator)
     {
-        $this->treeGenerator = $treeGenerator;
     }
 
     #[Route(path: '/tools', name: 'tree_tools')]

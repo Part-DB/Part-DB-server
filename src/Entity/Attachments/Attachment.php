@@ -34,11 +34,11 @@ use LogicException;
 /**
  * Class Attachment.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\AttachmentRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
 #[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
-#[ORM\EntityListeners(['App\EntityListeners\AttachmentDeleteListener'])]
+#[ORM\EntityListeners([\App\EntityListeners\AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
 #[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
 #[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
@@ -51,23 +51,23 @@ abstract class Attachment extends AbstractNamedDBElement
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
      * It will be used to determine if an attachment is a picture and therefore will be shown to user as preview.
      */
-    public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
+    final public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
         'svg', 'webp', ];
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
      */
-    public const MODEL_EXTS = ['x3d'];
+    final public const MODEL_EXTS = ['x3d'];
 
     /**
      * When the path begins with one of the placeholders.
      */
-    public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
+    final public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
     /**
      * @var array placeholders for attachments which using built in files
      */
-    public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
+    final public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.

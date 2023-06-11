@@ -57,13 +57,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class EntityURLGenerator
 {
-    protected UrlGeneratorInterface $urlGenerator;
-    protected AttachmentURLGenerator $attachmentURLGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(protected UrlGeneratorInterface $urlGenerator, protected AttachmentURLGenerator $attachmentURLGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     /**
@@ -79,29 +74,19 @@ class EntityURLGenerator
      * @throws EntityNotSupportedException thrown if the entity is not supported for the given type
      * @throws InvalidArgumentException    thrown if the givent type is not existing
      */
-    public function getURL($entity, string $type): string
+    public function getURL(mixed $entity, string $type): string
     {
-        switch ($type) {
-            case 'info':
-                return $this->infoURL($entity);
-            case 'edit':
-                return $this->editURL($entity);
-            case 'create':
-                return $this->createURL($entity);
-            case 'clone':
-                return $this->cloneURL($entity);
-            case 'list':
-            case 'list_parts':
-                return $this->listPartsURL($entity);
-            case 'delete':
-                return $this->deleteURL($entity);
-            case 'file_download':
-                return $this->downloadURL($entity);
-            case 'file_view':
-                return $this->viewURL($entity);
-        }
-
-        throw new InvalidArgumentException('Method is not supported!');
+        return match ($type) {
+            'info' => $this->infoURL($entity),
+            'edit' => $this->editURL($entity),
+            'create' => $this->createURL($entity),
+            'clone' => $this->cloneURL($entity),
+            'list', 'list_parts' => $this->listPartsURL($entity),
+            'delete' => $this->deleteURL($entity),
+            'file_download' => $this->downloadURL($entity),
+            'file_view' => $this->viewURL($entity),
+            default => throw new InvalidArgumentException('Method is not supported!'),
+        };
     }
 
     /**
@@ -134,7 +119,7 @@ class EntityURLGenerator
                     'timestamp' => $dateTime->getTimestamp(),
                 ]
             );
-        } catch (EntityNotSupportedException $exception) {
+        } catch (EntityNotSupportedException) {
             if ($entity instanceof PartLot) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getPart()->getID(),
@@ -168,7 +153,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.get_class($entity));
+        throw new EntityNotSupportedException('The given entity is not supported yet! Passed class type: '.$entity::class);
     }
 
     public function viewURL(Attachment $entity): string
@@ -191,7 +176,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', get_class($entity)));
+        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
     }
 
     /**
@@ -235,7 +220,7 @@ class EntityURLGenerator
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function editURL($entity): string
+    public function editURL(mixed $entity): string
     {
         $map = [
             Part::class => 'part_edit',
@@ -265,7 +250,7 @@ class EntityURLGenerator
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function createURL($entity): string
+    public function createURL(mixed $entity): string
     {
         $map = [
             Part::class => 'part_new',
@@ -373,9 +358,9 @@ class EntityURLGenerator
      *
      * @throws EntityNotSupportedException
      */
-    protected function mapToController(array $map, $entity): string
+    protected function mapToController(array $map, mixed $entity): string
     {
-        $class = get_class($entity);
+        $class = $entity::class;
 
         //Check if we have an direct mapping for the given class
         if (!array_key_exists($class, $map)) {
@@ -386,7 +371,7 @@ class EntityURLGenerator
                 }
             }
 
-            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', get_class($entity)));
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
         }
 
         return $map[$class];

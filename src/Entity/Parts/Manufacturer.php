@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Manufacturer.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\Parts\ManufacturerRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\Parts\ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
 #[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -40,7 +40,7 @@ class Manufacturer extends AbstractCompany
 {
     #[ORM\ManyToOne(targetEntity: 'Manufacturer', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection
@@ -53,14 +53,14 @@ class Manufacturer extends AbstractCompany
      * @var Collection<int, ManufacturerAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\ManufacturerAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ManufacturerParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\ManufacturerParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
     public function __construct()

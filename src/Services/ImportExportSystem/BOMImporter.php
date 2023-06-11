@@ -54,9 +54,6 @@ class BOMImporter
     /**
      * Converts the given file into an array of BOM entries using the given options and save them into the given project.
      * The changes are not saved into the database yet.
-     * @param  File  $file
-     * @param  array  $options
-     * @param  Project  $project
      * @return ProjectBOMEntry[]
      */
     public function importFileIntoProject(File $file, Project $project, array $options): array
@@ -73,8 +70,6 @@ class BOMImporter
 
     /**
      * Converts the given file into an array of BOM entries using the given options.
-     * @param  File  $file
-     * @param  array  $options
      * @return ProjectBOMEntry[]
      */
     public function fileToBOMEntries(File $file, array $options): array
@@ -94,12 +89,10 @@ class BOMImporter
         $resolver = $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
-        switch ($options['type']) {
-            case 'kicad_pcbnew':
-                return $this->parseKiCADPCB($data, $options);
-            default:
-                throw new InvalidArgumentException('Invalid import type!');
-        }
+        return match ($options['type']) {
+            'kicad_pcbnew' => $this->parseKiCADPCB($data, $options),
+            default => throw new InvalidArgumentException('Invalid import type!'),
+        };
     }
 
     private function parseKiCADPCB(string $data, array $options = []): array
@@ -112,9 +105,7 @@ class BOMImporter
 
         foreach ($csv->getRecords() as $offset => $entry) {
             //Translate the german field names to english
-            $entry = array_combine(array_map(static function ($key) {
-                return self::MAP_KICAD_PCB_FIELDS[$key] ?? $key;
-            }, array_keys($entry)), $entry);
+            $entry = array_combine(array_map(static fn($key) => self::MAP_KICAD_PCB_FIELDS[$key] ?? $key, array_keys($entry)), $entry);
 
             //Ensure that the entry has all required fields
             if (!isset ($entry['Designator'])) {

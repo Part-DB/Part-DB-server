@@ -31,11 +31,9 @@ use Doctrine\ORM\EntityManagerInterface;
 class DBInfoHelper
 {
     protected Connection $connection;
-    protected EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->connection = $entityManager->getConnection();
     }
 
@@ -58,7 +56,6 @@ class DBInfoHelper
 
     /**
      * Returns the database version of the used database.
-     * @return string|null
      * @throws \Doctrine\DBAL\Exception
      */
     public function getDatabaseVersion(): ?string
@@ -84,7 +81,7 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 return $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
-            } catch (\Doctrine\DBAL\Exception $e) {
+            } catch (\Doctrine\DBAL\Exception) {
                 return null;
             }
         }
@@ -92,7 +89,7 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             try {
                 return $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
-            } catch (\Doctrine\DBAL\Exception $e) {
+            } catch (\Doctrine\DBAL\Exception) {
                 return null;
             }
         }
@@ -102,7 +99,6 @@ class DBInfoHelper
 
     /**
      * Returns the name of the database.
-     * @return string|null
      */
     public function getDatabaseName(): ?string
     {
@@ -111,14 +107,13 @@ class DBInfoHelper
 
     /**
      * Returns the name of the database user.
-     * @return string|null
      */
     public function getDatabaseUsername(): ?string
     {
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 return $this->connection->fetchOne('SELECT USER()');
-            } catch (\Doctrine\DBAL\Exception $e) {
+            } catch (\Doctrine\DBAL\Exception) {
                 return null;
             }
         }

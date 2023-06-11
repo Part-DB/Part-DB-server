@@ -62,13 +62,11 @@ use InvalidArgumentException;
 
 class StatisticsHelper
 {
-    protected EntityManagerInterface $em;
     protected PartRepository $part_repo;
     protected AttachmentRepository $attachment_repo;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
         $this->part_repo = $this->em->getRepository(Part::class);
         $this->attachment_repo = $this->em->getRepository(Attachment::class);
     }

@@ -37,15 +37,8 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class HomepageController extends AbstractController
 {
-    protected CacheInterface $cache;
-    protected KernelInterface $kernel;
-    protected DataTableFactory $dataTable;
-
-    public function __construct(CacheInterface $cache, KernelInterface $kernel, DataTableFactory $dataTable)
+    public function __construct(protected CacheInterface $cache, protected KernelInterface $kernel, protected DataTableFactory $dataTable)
     {
-        $this->cache = $cache;
-        $this->kernel = $kernel;
-        $this->dataTable = $dataTable;
     }
 
     public function getBanner(): string

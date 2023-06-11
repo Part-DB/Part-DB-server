@@ -36,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This could be something like N, grams, meters, etc...
  */
 #[UniqueEntity('unit')]
-#[ORM\Entity(repositoryClass: 'App\Repository\Parts\MeasurementUnitRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\Parts\MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
 #[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -77,20 +77,20 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: 'MeasurementUnit', inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
+    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\MeasurementUnitAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\MeasurementUnitParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -102,11 +102,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
         return $this->unit;
     }
 
-    /**
-     * @param  string|null  $unit
-     *
-     * @return MeasurementUnit
-     */
     public function setUnit(?string $unit): self
     {
         $this->unit = $unit;
@@ -119,9 +114,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
         return $this->is_integer;
     }
 
-    /**
-     * @return MeasurementUnit
-     */
     public function setIsInteger(bool $isInteger): self
     {
         $this->is_integer = $isInteger;
@@ -134,9 +126,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
         return $this->use_si_prefix;
     }
 
-    /**
-     * @return MeasurementUnit
-     */
     public function setUseSIPrefix(bool $usesSIPrefixes): self
     {
         $this->use_si_prefix = $usesSIPrefixes;

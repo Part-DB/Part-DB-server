@@ -26,9 +26,6 @@ use Doctrine\ORM\QueryBuilder;
 class PartSearchFilter implements FilterInterface
 {
 
-    /** @var string The string to query for */
-    protected string $keyword;
-
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
 
@@ -68,9 +65,11 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use Internal Part number for searching */
     protected bool $ipn = true;
 
-    public function __construct(string $query)
+    public function __construct(
+        /** @var string The string to query for */
+        protected string $keyword
+    )
     {
-        $this->keyword = $query;
     }
 
     protected function getFieldsToSearch(): array
@@ -122,12 +121,12 @@ class PartSearchFilter implements FilterInterface
         $fields_to_search = $this->getFieldsToSearch();
 
         //If we have nothing to search for, do nothing
-        if (empty($fields_to_search) || empty($this->keyword)) {
+        if ($fields_to_search === [] || empty($this->keyword)) {
             return;
         }
 
         //Convert the fields to search to a list of expressions
-        $expressions = array_map(function (string $field) {
+        $expressions = array_map(function (string $field): string {
             if ($this->regex) {
                 return sprintf("REGEXP(%s, :search_query) = 1", $field);
             }
@@ -148,162 +147,99 @@ class PartSearchFilter implements FilterInterface
         }
     }
 
-    /**
-     * @return string
-     */
     public function getKeyword(): string
     {
         return $this->keyword;
     }
 
-    /**
-     * @param  string  $keyword
-     * @return PartSearchFilter
-     */
     public function setKeyword(string $keyword): PartSearchFilter
     {
         $this->keyword = $keyword;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isRegex(): bool
     {
         return $this->regex;
     }
 
-    /**
-     * @param  bool  $regex
-     * @return PartSearchFilter
-     */
     public function setRegex(bool $regex): PartSearchFilter
     {
         $this->regex = $regex;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isName(): bool
     {
         return $this->name;
     }
 
-    /**
-     * @param  bool  $name
-     * @return PartSearchFilter
-     */
     public function setName(bool $name): PartSearchFilter
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isCategory(): bool
     {
         return $this->category;
     }
 
-    /**
-     * @param  bool  $category
-     * @return PartSearchFilter
-     */
     public function setCategory(bool $category): PartSearchFilter
     {
         $this->category = $category;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isDescription(): bool
     {
         return $this->description;
     }
 
-    /**
-     * @param  bool  $description
-     * @return PartSearchFilter
-     */
     public function setDescription(bool $description): PartSearchFilter
     {
         $this->description = $description;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isTags(): bool
     {
         return $this->tags;
     }
 
-    /**
-     * @param  bool  $tags
-     * @return PartSearchFilter
-     */
     public function setTags(bool $tags): PartSearchFilter
     {
         $this->tags = $tags;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isStorelocation(): bool
     {
         return $this->storelocation;
     }
 
-    /**
-     * @param  bool  $storelocation
-     * @return PartSearchFilter
-     */
     public function setStorelocation(bool $storelocation): PartSearchFilter
     {
         $this->storelocation = $storelocation;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isOrdernr(): bool
     {
         return $this->ordernr;
     }
 
-    /**
-     * @param  bool  $ordernr
-     * @return PartSearchFilter
-     */
     public function setOrdernr(bool $ordernr): PartSearchFilter
     {
         $this->ordernr = $ordernr;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isMpn(): bool
     {
         return $this->mpn;
     }
 
-    /**
-     * @param  bool  $mpn
-     * @return PartSearchFilter
-     */
     public function setMpn(bool $mpn): PartSearchFilter
     {
         $this->mpn = $mpn;
@@ -321,72 +257,44 @@ class PartSearchFilter implements FilterInterface
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isSupplier(): bool
     {
         return $this->supplier;
     }
 
-    /**
-     * @param  bool  $supplier
-     * @return PartSearchFilter
-     */
     public function setSupplier(bool $supplier): PartSearchFilter
     {
         $this->supplier = $supplier;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isManufacturer(): bool
     {
         return $this->manufacturer;
     }
 
-    /**
-     * @param  bool  $manufacturer
-     * @return PartSearchFilter
-     */
     public function setManufacturer(bool $manufacturer): PartSearchFilter
     {
         $this->manufacturer = $manufacturer;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isFootprint(): bool
     {
         return $this->footprint;
     }
 
-    /**
-     * @param  bool  $footprint
-     * @return PartSearchFilter
-     */
     public function setFootprint(bool $footprint): PartSearchFilter
     {
         $this->footprint = $footprint;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isComment(): bool
     {
         return $this->comment;
     }
 
-    /**
-     * @param  bool  $comment
-     * @return PartSearchFilter
-     */
     public function setComment(bool $comment): PartSearchFilter
     {
         $this->comment = $comment;

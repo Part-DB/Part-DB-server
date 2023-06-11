@@ -48,25 +48,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
-    protected AttachmentManager $attachment_helper;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected bool $allow_attachments_download;
-    protected string $max_file_size;
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected AttachmentSubmitHandler $submitHandler;
-    protected TranslatorInterface $translator;
-
-    public function __construct(AttachmentManager $attachmentHelper, UrlGeneratorInterface $urlGenerator,
-        \Symfony\Bundle\SecurityBundle\Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
-        bool $allow_attachments_downloads, string $max_file_size)
+    public function __construct(protected AttachmentManager $attachment_helper, protected UrlGeneratorInterface $urlGenerator, protected \Symfony\Bundle\SecurityBundle\Security $security, protected AttachmentSubmitHandler $submitHandler, protected TranslatorInterface $translator, protected bool $allow_attachments_download, protected string $max_file_size)
     {
-        $this->attachment_helper = $attachmentHelper;
-        $this->urlGenerator = $urlGenerator;
-        $this->allow_attachments_download = $allow_attachments_downloads;
-        $this->security = $security;
-        $this->submitHandler = $submitHandler;
-        $this->translator = $translator;
-        $this->max_file_size = $max_file_size;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

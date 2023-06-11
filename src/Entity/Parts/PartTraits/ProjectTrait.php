@@ -13,13 +13,13 @@ trait ProjectTrait
     /**
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\ProjectSystem\ProjectBOMEntry> $project_bom_entries
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\ProjectSystem\ProjectBOMEntry', mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\ProjectSystem\ProjectBOMEntry::class, mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
     protected \Doctrine\Common\Collections\Collection $project_bom_entries;
 
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
      */
-    #[ORM\OneToOne(targetEntity: 'App\Entity\ProjectSystem\Project', inversedBy: 'build_part')]
+    #[ORM\OneToOne(targetEntity: \App\Entity\ProjectSystem\Project::class, inversedBy: 'build_part')]
     #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 
@@ -43,7 +43,6 @@ trait ProjectTrait
 
     /**
      * Returns the project that this part represents the builds of, or null if it doesn't
-     * @return Project|null
      */
     public function getBuiltProject(): ?Project
     {

@@ -54,7 +54,7 @@ use Symfony\Component\HttpFoundation\IpUtils;
 #[ORM\Entity]
 class SecurityEventLogEntry extends AbstractLogEntry
 {
-    public const SECURITY_TYPE_MAPPING = [
+    final public const SECURITY_TYPE_MAPPING = [
         0 => SecurityEvents::PASSWORD_CHANGED,
         1 => SecurityEvents::PASSWORD_RESET,
         2 => SecurityEvents::BACKUP_KEYS_RESET,

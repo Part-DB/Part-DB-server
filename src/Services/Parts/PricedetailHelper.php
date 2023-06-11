@@ -34,12 +34,10 @@ use function count;
 
 class PricedetailHelper
 {
-    protected string $base_currency;
     protected string $locale;
 
-    public function __construct(string $base_currency)
+    public function __construct(protected string $base_currency)
     {
-        $this->base_currency = $base_currency;
         $this->locale = Locale::getDefault();
     }
 
@@ -67,9 +65,7 @@ class PricedetailHelper
             } else {
                 // We have to sort the pricedetails manually
                 $array = $pricedetails->map(
-                    static function (Pricedetail $pricedetail) {
-                        return $pricedetail->getMinDiscountQuantity();
-                    }
+                    static fn(Pricedetail $pricedetail) => $pricedetail->getMinDiscountQuantity()
                 )->toArray();
                 sort($array);
                 $max_amount = end($array);
@@ -154,13 +150,13 @@ class PricedetailHelper
             $pricedetail = $orderdetail->findPriceForQty($amount);
 
             //When we don't have information about this amount, ignore it
-            if (null === $pricedetail) {
+            if (!$pricedetail instanceof \App\Entity\PriceInformations\Pricedetail) {
                 continue;
             }
 
             $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
             //Ignore price information that can not be converted to base currency.
-            if (null !== $converted) {
+            if ($converted instanceof \Brick\Math\BigDecimal) {
                 $avg = $avg->plus($converted);
                 ++$count;
             }
@@ -193,9 +189,9 @@ class PricedetailHelper
 
         $val_base = $value;
         //Convert value to base currency
-        if (null !== $originCurrency) {
+        if ($originCurrency instanceof \App\Entity\PriceInformations\Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (null === $originCurrency->getExchangeRate() || $originCurrency->getExchangeRate()->isZero()) {
+            if (!$originCurrency->getExchangeRate() instanceof \Brick\Math\BigDecimal || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 
@@ -204,9 +200,9 @@ class PricedetailHelper
 
         $val_target = $val_base;
         //Convert value in base currency to target currency
-        if (null !== $targetCurrency) {
+        if ($targetCurrency instanceof \App\Entity\PriceInformations\Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (null === $targetCurrency->getExchangeRate()) {
+            if (!$targetCurrency->getExchangeRate() instanceof \Brick\Math\BigDecimal) {
                 return null;
             }
 

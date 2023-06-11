@@ -32,12 +32,9 @@ use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
-    protected string $default_currency;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $default_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
-        $this->default_currency = $default_currency;
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void

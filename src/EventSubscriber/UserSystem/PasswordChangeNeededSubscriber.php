@@ -55,13 +55,9 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * @var string The route the user will redirected to, if he needs to change this password
      */
     public const REDIRECT_TARGET = 'user_settings';
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-    private HttpUtils $httpUtils;
 
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, HttpUtils $httpUtils)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly HttpUtils $httpUtils)
     {
-        $this->security = $security;
-        $this->httpUtils = $httpUtils;
     }
 
     /**
@@ -129,7 +125,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     {
         $tfa_enabled = $user->isWebAuthnAuthenticatorEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        return null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
+        return $user->getGroup() instanceof \App\Entity\UserSystem\Group && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
     }
 
     public static function getSubscribedEvents(): array

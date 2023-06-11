@@ -34,17 +34,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:upgrade-permissions-schema', '(Manually) upgrades the permissions schema of all users to the latest version.')]
 final class UpgradePermissionsSchemaCommand extends Command
 {
-    private PermissionSchemaUpdater $permissionSchemaUpdater;
-    private EntityManagerInterface $em;
-    private EventCommentHelper $eventCommentHelper;
-
-    public function __construct(PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
+    public function __construct(private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $em, private readonly EventCommentHelper $eventCommentHelper)
     {
         parent::__construct(self::$defaultName);
-
-        $this->permissionSchemaUpdater = $permissionSchemaUpdater;
-        $this->eventCommentHelper = $eventCommentHelper;
-        $this->em = $entityManager;
     }
 
     protected function configure(): void
@@ -79,7 +71,7 @@ final class UpgradePermissionsSchemaCommand extends Command
         }
 
         $io->info('Found '. count($groups_to_upgrade) .' groups and '. count($users_to_upgrade) .' users that need an update.');
-        if (empty($groups_to_upgrade) && empty($users_to_upgrade)) {
+        if ($groups_to_upgrade === [] && $users_to_upgrade === []) {
             $io->success('All users and group permissions schemas are up-to-date. No update needed.');
 
             return \Symfony\Component\Console\Command\Command::SUCCESS;
@@ -87,14 +79,10 @@ final class UpgradePermissionsSchemaCommand extends Command
 
         //List all users and groups that need an update
         $io->section('Groups that need an update:');
-        $io->listing(array_map(static function (Group $group) {
-            return $group->getName() . ' (ID: '. $group->getID() .', Current version: ' . $group->getPermissions()->getSchemaVersion() . ')';
-        }, $groups_to_upgrade));
+        $io->listing(array_map(static fn(Group $group): string => $group->getName() . ' (ID: '. $group->getID() .', Current version: ' . $group->getPermissions()->getSchemaVersion() . ')', $groups_to_upgrade));
 
         $io->section('Users that need an update:');
-        $io->listing(array_map(static function (User $user) {
-            return $user->getUsername() . ' (ID: '. $user->getID() .', Current version: ' . $user->getPermissions()->getSchemaVersion() . ')';
-        }, $users_to_upgrade));
+        $io->listing(array_map(static fn(User $user): string => $user->getUsername() . ' (ID: '. $user->getID() .', Current version: ' . $user->getPermissions()->getSchemaVersion() . ')', $users_to_upgrade));
 
         if(!$io->confirm('Continue with the update?', false)) {
             $io->warning('Update aborted.');

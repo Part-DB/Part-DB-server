@@ -29,11 +29,8 @@ use App\Entity\UserSystem\User;
  */
 class BackupCodeManager
 {
-    protected BackupCodeGenerator $backupCodeGenerator;
-
-    public function __construct(BackupCodeGenerator $backupCodeGenerator)
+    public function __construct(protected BackupCodeGenerator $backupCodeGenerator)
     {
-        $this->backupCodeGenerator = $backupCodeGenerator;
     }
 
     /**

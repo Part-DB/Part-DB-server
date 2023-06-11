@@ -145,17 +145,11 @@ class PartFilter implements FilterInterface
     }
 
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getFavorite(): BooleanConstraint
     {
         return $this->favorite;
     }
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getNeedsReview(): BooleanConstraint
     {
         return $this->needsReview;
@@ -176,17 +170,11 @@ class PartFilter implements FilterInterface
         return $this->description;
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getLastModified(): DateTimeConstraint
     {
         return $this->lastModified;
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getAddedDate(): DateTimeConstraint
     {
         return $this->addedDate;
@@ -197,49 +185,31 @@ class PartFilter implements FilterInterface
         return $this->category;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getFootprint(): EntityConstraint
     {
         return $this->footprint;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getManufacturer(): EntityConstraint
     {
         return $this->manufacturer;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getSupplier(): EntityConstraint
     {
         return $this->supplier;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getStorelocation(): EntityConstraint
     {
         return $this->storelocation;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getMeasurementUnit(): EntityConstraint
     {
         return $this->measurementUnit;
     }
 
-    /**
-     * @return NumberConstraint
-     */
     public function getDbId(): NumberConstraint
     {
         return $this->dbId;
@@ -250,33 +220,21 @@ class PartFilter implements FilterInterface
         return $this->ipn;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getComment(): TextConstraint
     {
         return $this->comment;
     }
 
-    /**
-     * @return NumberConstraint
-     */
     public function getMinAmount(): NumberConstraint
     {
         return $this->minAmount;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getManufacturerProductUrl(): TextConstraint
     {
         return $this->manufacturer_product_url;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getManufacturerProductNumber(): TextConstraint
     {
         return $this->manufacturer_product_number;
@@ -287,73 +245,46 @@ class PartFilter implements FilterInterface
         return $this->lotCount;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getLotOwner(): EntityConstraint
     {
         return $this->lotOwner;
     }
 
-    /**
-     * @return TagsConstraint
-     */
     public function getTags(): TagsConstraint
     {
         return $this->tags;
     }
 
-    /**
-     * @return IntConstraint
-     */
     public function getOrderdetailsCount(): IntConstraint
     {
         return $this->orderdetailsCount;
     }
 
-    /**
-     * @return IntConstraint
-     */
     public function getAttachmentsCount(): IntConstraint
     {
         return $this->attachmentsCount;
     }
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getLotNeedsRefill(): BooleanConstraint
     {
         return $this->lotNeedsRefill;
     }
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getLotUnknownAmount(): BooleanConstraint
     {
         return $this->lotUnknownAmount;
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getLotExpirationDate(): DateTimeConstraint
     {
         return $this->lotExpirationDate;
     }
 
-    /**
-     * @return EntityConstraint
-     */
     public function getAttachmentType(): EntityConstraint
     {
         return $this->attachmentType;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getAttachmentName(): TextConstraint
     {
         return $this->attachmentName;
@@ -369,9 +300,6 @@ class PartFilter implements FilterInterface
         return $this->amountSum;
     }
 
-    /**
-     * @return ArrayCollection
-     */
     public function getParameters(): ArrayCollection
     {
         return $this->parameters;
@@ -382,25 +310,16 @@ class PartFilter implements FilterInterface
         return $this->parametersCount;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getLotDescription(): TextConstraint
     {
         return $this->lotDescription;
     }
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getObsolete(): BooleanConstraint
     {
         return $this->obsolete;
     }
 
-    /**
-     * @return LessThanDesiredConstraint
-     */
     public function getLessThanDesired(): LessThanDesiredConstraint
     {
         return $this->lessThanDesired;

@@ -50,11 +50,8 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class SecurityEvent extends Event
 {
-    protected User $targetUser;
-
-    public function __construct(User $targetUser)
+    public function __construct(protected User $targetUser)
     {
-        $this->targetUser = $targetUser;
     }
 
     /**

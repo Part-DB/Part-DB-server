@@ -27,11 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InstanceOfConstraintType extends AbstractType
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     public function configureOptions(OptionsResolver $resolver)

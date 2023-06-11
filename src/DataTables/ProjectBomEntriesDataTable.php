@@ -40,18 +40,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
-    protected TranslatorInterface $translator;
-    protected PartDataTableHelper $partDataTableHelper;
-    protected EntityURLGenerator $entityURLGenerator;
-    protected AmountFormatter $amountFormatter;
-
-    public function __construct(TranslatorInterface $translator, PartDataTableHelper $partDataTableHelper,
-        EntityURLGenerator $entityURLGenerator, AmountFormatter $amountFormatter)
+    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper, protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
     {
-        $this->translator = $translator;
-        $this->partDataTableHelper = $partDataTableHelper;
-        $this->entityURLGenerator = $entityURLGenerator;
-        $this->amountFormatter = $amountFormatter;
     }
 
 
@@ -63,7 +53,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if($context->getPart() === null) {
+                    if(!$context->getPart() instanceof \App\Entity\Parts\Part) {
                         return '';
                     }
                     return $this->partDataTableHelper->renderPicture($context->getPart());
@@ -79,9 +69,9 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('project.bom.quantity'),
                 'className' => 'text-center',
                 'orderField' => 'bom_entry.quantity',
-                'render' => function ($value, ProjectBOMEntry $context) {
+                'render' => function ($value, ProjectBOMEntry $context): float|string {
                     //If we have a non-part entry, only show the rounded quantity
-                    if ($context->getPart() === null) {
+                    if (!$context->getPart() instanceof \App\Entity\Parts\Part) {
                         return round($context->getQuantity());
                     }
                     //Otherwise use the unit of the part to format the quantity
@@ -93,10 +83,10 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'part.name',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if($context->getPart() === null) {
+                    if(!$context->getPart() instanceof \App\Entity\Parts\Part) {
                         return htmlspecialchars($context->getName());
                     }
-                    if($context->getPart() !== null) {
+                    if($context->getPart() instanceof \App\Entity\Parts\Part) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
                         if(!empty($context->getName())) {
                             $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
@@ -110,7 +100,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
                 'data' => function (ProjectBOMEntry $context) {
-                    if($context->getPart() !== null) {
+                    if($context->getPart() instanceof \App\Entity\Parts\Part) {
                         return $context->getPart()->getDescription();
                     }
                     //For non-part BOM entries show the comment field

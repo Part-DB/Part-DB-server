@@ -100,8 +100,6 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Creates a structure of AbstractStructuralDBElements from a path separated by $separator, which splits the various levels.
      * This function will try to use existing elements, if they are already in the database. If not, they will be created.
      * An array of the created elements will be returned, with the last element being the deepest element.
-     * @param  string  $path
-     * @param  string  $separator
      * @return AbstractStructuralDBElement[]
      */
     public function getNewEntityFromPath(string $path, string $separator = '->'): array
@@ -118,7 +116,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             $entity = $this->getNewEntityFromCache($name, $parent);
 
             //See if we already have an element with this name and parent in the database
-            if (!$entity) {
+            if (!$entity instanceof \App\Entity\Base\AbstractStructuralDBElement) {
                 $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
             }
             if (null === $entity) {
@@ -140,7 +138,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
 
     private function getNewEntityFromCache(string $name, ?AbstractStructuralDBElement $parent): ?AbstractStructuralDBElement
     {
-        $key = $parent ? $parent->getFullPath('%->%').'%->%'.$name : $name;
+        $key = $parent instanceof \App\Entity\Base\AbstractStructuralDBElement ? $parent->getFullPath('%->%').'%->%'.$name : $name;
         if (isset($this->new_entity_cache[$key])) {
             return $this->new_entity_cache[$key];
         }
@@ -157,8 +155,6 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Returns an element of AbstractStructuralDBElements queried from a path separated by $separator, which splits the various levels.
      * An array of the created elements will be returned, with the last element being the deepest element.
      * If no element was found, an empty array will be returned.
-     * @param  string  $path
-     * @param  string  $separator
      * @return AbstractStructuralDBElement[]
      */
     public function getEntityByPath(string $path, string $separator = '->'): array

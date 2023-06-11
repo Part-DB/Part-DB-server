@@ -58,16 +58,10 @@ class ConvertBBCodeCommand extends Command
      * @var string The regex (performed in PHP) used to check if a property really contains BBCODE
      */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
-
-    protected EntityManagerInterface $em;
-    protected PropertyAccessorInterface $propertyAccessor;
     protected BBCodeToMarkdownConverter $converter;
 
-    public function __construct(EntityManagerInterface $entityManager, PropertyAccessorInterface $propertyAccessor)
+    public function __construct(protected EntityManagerInterface $em, protected PropertyAccessorInterface $propertyAccessor)
     {
-        $this->em = $entityManager;
-        $this->propertyAccessor = $propertyAccessor;
-
         $this->converter = new BBCodeToMarkdownConverter();
 
         parent::__construct();
@@ -126,25 +120,25 @@ class ConvertBBCodeCommand extends Command
 
             //Fetch resulting classes
             $results = $qb->getQuery()->getResult();
-            $io->note(sprintf('Found %d entities, that need to be converted!', count($results)));
+            $io->note(sprintf('Found %d entities, that need to be converted!', is_countable($results) ? count($results) : 0));
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {
                 /** @var AbstractNamedDBElement $result */
                 $io->writeln(
-                    'Convert entity: '.$result->getName().' ('.get_class($result).': '.$result->getID().')',
+                    'Convert entity: '.$result->getName().' ('.$result::class.': '.$result->getID().')',
                     OutputInterface::VERBOSITY_VERBOSE
                 );
                 foreach ($properties as $property) {
                     //Retrieve bbcode from entity
                     $bbcode = $this->propertyAccessor->getValue($result, $property);
                     //Check if the current property really contains BBCode
-                    if (!preg_match(static::BBCODE_REGEX, $bbcode)) {
+                    if (!preg_match(static::BBCODE_REGEX, (string) $bbcode)) {
                         continue;
                     }
                     $io->writeln(
                         'BBCode (old): '
-                        .str_replace('\n', ' ', substr($bbcode, 0, 255)),
+                        .str_replace('\n', ' ', substr((string) $bbcode, 0, 255)),
                         OutputInterface::VERBOSITY_VERY_VERBOSE
                     );
                     $markdown = $this->converter->convert($bbcode);

@@ -47,11 +47,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Embeddable]
 class LabelOptions
 {
-    public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93', 'code128'];
-    public const SUPPORTED_ELEMENTS = ['part', 'part_lot', 'storelocation'];
-    public const PICTURE_TYPES = ['none', 'element_picture', 'main_attachment'];
+    final public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93', 'code128'];
+    final public const SUPPORTED_ELEMENTS = ['part', 'part_lot', 'storelocation'];
+    final public const PICTURE_TYPES = ['none', 'element_picture', 'main_attachment'];
 
-    public const LINES_MODES = ['html', 'twig'];
+    final public const LINES_MODES = ['html', 'twig'];
 
     /**
      * @var float The page size of the label in mm
@@ -111,9 +111,6 @@ class LabelOptions
         return $this->width;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setWidth(float $width): self
     {
         $this->width = $width;
@@ -126,9 +123,6 @@ class LabelOptions
         return $this->height;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setHeight(float $height): self
     {
         $this->height = $height;
@@ -141,9 +135,6 @@ class LabelOptions
         return $this->barcode_type;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setBarcodeType(string $barcode_type): self
     {
         $this->barcode_type = $barcode_type;
@@ -156,9 +147,6 @@ class LabelOptions
         return $this->picture_type;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setPictureType(string $picture_type): self
     {
         $this->picture_type = $picture_type;
@@ -171,9 +159,6 @@ class LabelOptions
         return $this->supported_element;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setSupportedElement(string $supported_element): self
     {
         $this->supported_element = $supported_element;
@@ -186,9 +171,6 @@ class LabelOptions
         return $this->lines;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setLines(string $lines): self
     {
         $this->lines = $lines;
@@ -204,9 +186,6 @@ class LabelOptions
         return $this->additional_css;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setAdditionalCss(string $additional_css): self
     {
         $this->additional_css = $additional_css;
@@ -219,9 +198,6 @@ class LabelOptions
         return $this->lines_mode;
     }
 
-    /**
-     * @return LabelOptions
-     */
     public function setLinesMode(string $lines_mode): self
     {
         $this->lines_mode = $lines_mode;

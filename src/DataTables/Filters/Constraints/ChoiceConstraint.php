@@ -24,7 +24,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class ChoiceConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
+    final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
 
     /**
      * @var string[]|int[] The values to compare to
@@ -46,7 +46,6 @@ class ChoiceConstraint extends AbstractConstraint
 
     /**
      * @param  string[]|int[]  $value
-     * @return ChoiceConstraint
      */
     public function setValue(array $value): ChoiceConstraint
     {
@@ -54,18 +53,11 @@ class ChoiceConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @param  string  $operator
-     * @return ChoiceConstraint
-     */
     public function setOperator(string $operator): ChoiceConstraint
     {
         $this->operator = $operator;

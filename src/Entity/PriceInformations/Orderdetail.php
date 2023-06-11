@@ -81,7 +81,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var Part|null
      */
     #[Assert\NotNull]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Part', inversedBy: 'orderdetails')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'part_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Part $part = null;
 
@@ -90,7 +90,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Supplier', inversedBy: 'orderdetails')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Supplier::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;
 
@@ -121,7 +121,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');
-        if (null === $this->addedDate) {
+        if (!$this->addedDate instanceof \DateTimeInterface) {
             $this->addedDate = new DateTime('now');
         }
 
@@ -194,7 +194,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
             return $this->supplier_product_url;
         }
 
-        if (null === $this->getSupplier()) {
+        if (!$this->getSupplier() instanceof \App\Entity\Parts\Supplier) {
             return '';
         }
 
@@ -216,8 +216,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * Adds a price detail to this orderdetail.
      *
      * @param Pricedetail $pricedetail The pricedetail to add
-     *
-     * @return Orderdetail
      */
     public function addPricedetail(Pricedetail $pricedetail): self
     {
@@ -229,8 +227,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 
     /**
      * Removes a price detail from this orderdetail.
-     *
-     * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
     {
@@ -273,11 +269,8 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      *   Setters
      *
      *********************************************************************************/
-
     /**
      * Sets a new part with which this orderdetail is associated.
-     *
-     * @return Orderdetail
      */
     public function setPart(Part $part): self
     {
@@ -288,8 +281,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 
     /**
      * Sets the new supplier associated with this orderdetail.
-     *
-     * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self
     {
@@ -302,9 +293,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * Set the supplier part-nr.
      *
      * @param string $new_supplierpartnr the new supplier-part-nr
-     *
-     * @return Orderdetail
-     * @return Orderdetail
      */
     public function setSupplierpartnr(string $new_supplierpartnr): self
     {
@@ -317,9 +305,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * Set if the part is obsolete at the supplier of that orderdetails.
      *
      * @param bool $new_obsolete true means that this part is obsolete
-     *
-     * @return Orderdetail
-     * @return Orderdetail
      */
     public function setObsolete(bool $new_obsolete): self
     {
@@ -333,8 +318,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
      *
      * @param string $new_url The new URL for the supplier URL
-     *
-     * @return Orderdetail
      */
     public function setSupplierProductUrl(string $new_url): self
     {

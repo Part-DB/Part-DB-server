@@ -25,17 +25,13 @@ use ErrorException;
 
 class InvalidRegexException extends \RuntimeException
 {
-    private ?string $reason;
-
-    public function __construct(string $reason = null)
+    public function __construct(private readonly ?string $reason = null)
     {
-        $this->reason = $reason;
         parent::__construct('Invalid regular expression');
     }
 
     /**
      * Returns the reason for the exception (what the regex driver deemed invalid)
-     * @return string|null
      */
     public function getReason(): ?string
     {
@@ -44,8 +40,6 @@ class InvalidRegexException extends \RuntimeException
 
     /**
      * Creates a new exception from a driver exception happening, when MySQL encounters an invalid regex
-     * @param  DriverException  $exception
-     * @return self
      */
     public static function fromDriverException(DriverException $exception): self
     {
@@ -62,13 +56,11 @@ class InvalidRegexException extends \RuntimeException
 
     /**
      * Creates a new exception from the errorException thrown by mb_ereg
-     * @param  ErrorException  $ex
-     * @return self
      */
     public static function fromMBRegexError(ErrorException $ex): self
     {
         //Ensure that the error is really a mb_ereg error
-        if ($ex->getSeverity() !== E_WARNING || !strpos($ex->getMessage(), 'mb_ereg()') !== false) {
+        if ($ex->getSeverity() !== E_WARNING || !strpos($ex->getMessage(), 'mb_ereg()')) {
             throw new \InvalidArgumentException('The given exception is not a mb_ereg error', 0, $ex);
         }
 

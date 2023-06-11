@@ -84,7 +84,7 @@ class LabelProfileRepository extends NamedDBElementRepository
                 $type_children[] = $node;
             }
 
-            if (!empty($type_children)) {
+            if ($type_children !== []) {
                 //Use default label e.g. 'part_label'. $$ marks that it will be translated in TreeViewGenerator
                 $tmp = new TreeViewNode('$$'.$type.'.label', null, $type_children);
 
@@ -112,7 +112,6 @@ class LabelProfileRepository extends NamedDBElementRepository
 
     /**
      * Returns all LabelProfiles that can be used for parts
-     * @return array
      */
     public function getPartLabelProfiles(): array
     {
@@ -121,7 +120,6 @@ class LabelProfileRepository extends NamedDBElementRepository
 
     /**
      * Returns all LabelProfiles that can be used for part lots
-     * @return array
      */
     public function getPartLotsLabelProfiles(): array
     {
@@ -130,7 +128,6 @@ class LabelProfileRepository extends NamedDBElementRepository
 
     /**
      * Returns all LabelProfiles that can be used for storelocations
-     * @return array
      */
     public function getStorelocationsLabelProfiles(): array
     {

@@ -19,18 +19,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartSelectType extends AbstractType implements DataMapperInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private EntityManagerInterface $em;
-    private PartPreviewGenerator $previewGenerator;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, PartPreviewGenerator $previewGenerator,
-        AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em, private readonly PartPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->em = $em;
-        $this->previewGenerator = $previewGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -96,10 +86,10 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             //Prefill the selected choice with the needed data, so the user can see it without an additional Ajax request
             'choice_attr' => ChoiceList::attr($this, function (?Part $part) {
-                if($part) {
+                if($part instanceof \App\Entity\Parts\Part) {
                     //Determine the picture to show:
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($part);
-                    if ($preview_attachment !== null) {
+                    if ($preview_attachment instanceof \App\Entity\Attachments\Attachment) {
                         $preview_url = $this->attachmentURLGenerator->getThumbnailURL($preview_attachment,
                             'thumbnail_sm');
                     } else {
@@ -107,10 +97,10 @@ class PartSelectType extends AbstractType implements DataMapperInterface
                     }
                 }
 
-                return $part ? [
+                return $part instanceof \App\Entity\Parts\Part ? [
                     'data-description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
-                    'data-category' => $part->getCategory() ? $part->getCategory()->getName() : '',
-                    'data-footprint' => $part->getFootprint() ? $part->getFootprint()->getName() : '',
+                    'data-category' => $part->getCategory() instanceof \App\Entity\Parts\Category ? $part->getCategory()->getName() : '',
+                    'data-footprint' => $part->getFootprint() instanceof \App\Entity\Parts\Footprint ? $part->getFootprint()->getName() : '',
                     'data-image' => $preview_url,
                 ] : [];
             })

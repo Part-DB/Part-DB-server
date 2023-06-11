@@ -54,13 +54,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/scan')]
 class ScanController extends AbstractController
 {
-    protected BarcodeRedirector $barcodeParser;
-    protected BarcodeNormalizer $barcodeNormalizer;
-
-    public function __construct(BarcodeRedirector $barcodeParser, BarcodeNormalizer $barcodeNormalizer)
+    public function __construct(protected BarcodeRedirector $barcodeParser, protected BarcodeNormalizer $barcodeNormalizer)
     {
-        $this->barcodeParser = $barcodeParser;
-        $this->barcodeNormalizer = $barcodeNormalizer;
     }
 
     #[Route(path: '', name: 'scan_dialog')]
@@ -79,10 +74,10 @@ class ScanController extends AbstractController
 
                 try {
                     return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
-                } catch (EntityNotFoundException $exception) {
+                } catch (EntityNotFoundException) {
                     $this->addFlash('success', 'scan.qr_not_found');
                 }
-            } catch (InvalidArgumentException $exception) {
+            } catch (InvalidArgumentException) {
                 $this->addFlash('error', 'scan.format_unknown');
             }
         }
@@ -101,7 +96,7 @@ class ScanController extends AbstractController
             $this->addFlash('success', 'scan.qr_success');
 
             return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
-        } catch (EntityNotFoundException $exception) {
+        } catch (EntityNotFoundException) {
             $this->addFlash('success', 'scan.qr_not_found');
 
             return $this->redirectToRoute('homepage');

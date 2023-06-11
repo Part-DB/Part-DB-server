@@ -39,20 +39,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
 class ShowEventLogCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
-    protected TranslatorInterface $translator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
     protected LogEntryRepository $repo;
-    protected LogEntryExtraFormatter $formatter;
 
-    public function __construct(EntityManagerInterface $entityManager,
-        TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator, LogEntryExtraFormatter $formatter)
+    public function __construct(protected EntityManagerInterface $entityManager,
+        protected TranslatorInterface $translator, protected ElementTypeNameGenerator $elementTypeNameGenerator, protected LogEntryExtraFormatter $formatter)
     {
-        $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->formatter = $formatter;
-
         $this->repo = $this->entityManager->getRepository(AbstractLogEntry::class);
         parent::__construct();
     }
@@ -145,14 +136,12 @@ class ShowEventLogCommand extends Command
             $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
         }
 
-        if ($entry->getUser()) {
+        if ($entry->getUser() instanceof \App\Entity\UserSystem\User) {
             $user = $entry->getUser()->getFullName(true);
+        } elseif ($entry->isCLIEntry()) {
+            $user = $entry->getCLIUsername() . ' [CLI]';
         } else {
-            if ($entry->isCLIEntry()) {
-                $user = $entry->getCLIUsername() . ' [CLI]';
-            } else {
-                $user = $entry->getUsername() . ' [deleted]';
-            }
+            $user = $entry->getUsername() . ' [deleted]';
         }
 
         $row = [

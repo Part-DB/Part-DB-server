@@ -49,12 +49,9 @@ use Symfony\Component\Security\Core\Security;
 
 class OrderdetailVoter extends ExtendedVoter
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
         parent::__construct($resolver, $entityManager);
-        $this->security = $security;
     }
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
@@ -65,27 +62,16 @@ class OrderdetailVoter extends ExtendedVoter
             throw new \RuntimeException('This voter can only handle Orderdetail objects!');
         }
 
-        switch ($attribute) {
-            case 'read':
-                $operation = 'read';
-                break;
-            case 'edit': //As long as we can edit, we can also edit orderdetails
-            case 'create':
-            case 'delete':
-                $operation = 'edit';
-                break;
-            case 'show_history':
-                $operation = 'show_history';
-                break;
-            case 'revert_element':
-                $operation = 'revert_element';
-                break;
-            default:
-                throw new \RuntimeException('Encountered unknown operation "'.$attribute.'"!');
-        }
+        $operation = match ($attribute) {
+            'read' => 'read',
+            'edit', 'create', 'delete' => 'edit',
+            'show_history' => 'show_history',
+            'revert_element' => 'revert_element',
+            default => throw new \RuntimeException('Encountered unknown operation "'.$attribute.'"!'),
+        };
 
         //If we have no part associated use the generic part permission
-        if (is_string($subject) || $subject->getPart() === null) {
+        if (is_string($subject) || !$subject->getPart() instanceof \App\Entity\Parts\Part) {
             return $this->resolver->inherit($user, 'parts', $operation) ?? false;
         }
 

@@ -103,71 +103,44 @@ class ParameterConstraint extends AbstractConstraint
         $queryBuilder->andWhere('(' . $subqb->getDQL() . ') > 0');
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param  string  $name
-     * @return ParameterConstraint
-     */
     public function setName(string $name): ParameterConstraint
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getSymbol(): string
     {
         return $this->symbol;
     }
 
-    /**
-     * @param  string  $symbol
-     * @return ParameterConstraint
-     */
     public function setSymbol(string $symbol): ParameterConstraint
     {
         $this->symbol = $symbol;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUnit(): string
     {
         return $this->unit;
     }
 
-    /**
-     * @param  string  $unit
-     * @return ParameterConstraint
-     */
     public function setUnit(string $unit): ParameterConstraint
     {
         $this->unit = $unit;
         return $this;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getValueText(): TextConstraint
     {
         return $this->value_text;
     }
 
-    /**
-     * @return ParameterValueConstraint
-     */
     public function getValue(): ParameterValueConstraint
     {
         return $this->value;

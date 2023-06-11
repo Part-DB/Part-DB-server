@@ -47,26 +47,8 @@ use function count;
 
 class TreeViewGenerator
 {
-    protected EntityURLGenerator $urlGenerator;
-    protected EntityManagerInterface $em;
-    protected TagAwareCacheInterface $cache;
-    protected UserCacheKeyGenerator $keyGenerator;
-    protected TranslatorInterface $translator;
-
-    protected bool $rootNodeExpandedByDefault;
-    protected bool $rootNodeEnabled;
-
-    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault, bool $rootNodeEnabled)
+    public function __construct(protected EntityURLGenerator $urlGenerator, protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected TranslatorInterface $translator, protected bool $rootNodeExpandedByDefault, protected bool $rootNodeEnabled)
     {
-        $this->urlGenerator = $URLGenerator;
-        $this->em = $em;
-        $this->cache = $treeCache;
-        $this->keyGenerator = $keyGenerator;
-        $this->translator = $translator;
-
-        $this->rootNodeExpandedByDefault = $rootNodeExpandedByDefault;
-        $this->rootNodeEnabled = $rootNodeEnabled;
     }
 
     /**
@@ -92,7 +74,7 @@ class TreeViewGenerator
             $href = $this->urlGenerator->createURL(new $class());
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
             //When the id of the selected element is null, then we have a new element, and we need to select "new" node
-            if (null === $selectedElement || null === $selectedElement->getID()) {
+            if (!$selectedElement instanceof \App\Entity\Base\AbstractDBElement || null === $selectedElement->getID()) {
                 $new_node->setSelected(true);
             }
             $head[] = $new_node;
@@ -116,7 +98,7 @@ class TreeViewGenerator
         $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
             /** @var TreeViewNode $item */
-            if (null !== $selectedElement && $item->getId() === $selectedElement->getID()) {
+            if ($selectedElement instanceof \App\Entity\Base\AbstractDBElement && $item->getId() === $selectedElement->getID()) {
                 $item->setSelected(true);
             }
 
@@ -202,7 +184,7 @@ class TreeViewGenerator
         if (!is_a($class, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
-        if (null !== $parent && !is_a($parent, $class)) {
+        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement && !$parent instanceof $class) {
             throw new InvalidArgumentException('$parent must be of the type $class!');
         }
 
@@ -210,7 +192,7 @@ class TreeViewGenerator
         $repo = $this->em->getRepository($class);
 
         //If we just want a part of a tree, don't cache it
-        if (null !== $parent) {
+        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
             return $repo->getGenericNodeTree($parent);
         }
 

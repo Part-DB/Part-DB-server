@@ -47,11 +47,8 @@ use function preg_match;
  */
 class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 {
-    public const PURGE_MODE_DELETE   = 1;
-    public const PURGE_MODE_TRUNCATE = 2;
-
-    /** @var EntityManagerInterface|null */
-    private ?EntityManagerInterface $em;
+    final public const PURGE_MODE_DELETE   = 1;
+    final public const PURGE_MODE_TRUNCATE = 2;
 
     /**
      * If the purge should be done through DELETE or TRUNCATE statements
@@ -61,30 +58,25 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     private int $purgeMode = self::PURGE_MODE_DELETE;
 
     /**
-     * Table/view names to be excluded from purge
-     *
-     * @var string[]
-     */
-    private array $excluded;
-
-    /**
      * Construct new purger instance.
      *
      * @param  EntityManagerInterface|null  $em  EntityManagerInterface instance used for persistence.
      * @param  string[]  $excluded  array of table/view names to be excluded from purge
      */
-    public function __construct(?EntityManagerInterface $em = null, array $excluded = [])
+    public function __construct(
+        private ?\Doctrine\ORM\EntityManagerInterface $em = null,
+        /**
+         * Table/view names to be excluded from purge
+         */
+        private readonly array $excluded = []
+    )
     {
-        $this->em       = $em;
-        $this->excluded = $excluded;
     }
 
     /**
      * Set the purge mode
      *
-     * @param  int  $mode
      *
-     * @return void
      */
     public function setPurgeMode(int $mode): void
     {
@@ -93,8 +85,6 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 
     /**
      * Get the purge mode
-     *
-     * @return int
      */
     public function getPurgeMode(): int
     {
@@ -123,7 +113,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         $classes = [];
 
         foreach ($this->em->getMetadataFactory()->getAllMetadata() as $metadata) {
-            if ($metadata->isMappedSuperclass || (isset($metadata->isEmbeddedClass) && $metadata->isEmbeddedClass)) {
+            if ($metadata->isMappedSuperclass || ($metadata->isEmbeddedClass !== null && $metadata->isEmbeddedClass)) {
                 continue;
             }
 
@@ -143,7 +133,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             $class = $commitOrder[$i];
 
             if (
-                (isset($class->isEmbeddedClass) && $class->isEmbeddedClass) ||
+                ($class->isEmbeddedClass !== null && $class->isEmbeddedClass) ||
                 $class->isMappedSuperclass ||
                 ($class->isInheritanceTypeSingleTable() && $class->name !== $class->rootEntityName)
             ) {
@@ -172,13 +162,13 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 
         foreach ($orderedTables as $tbl) {
             // If we have a filter expression, check it and skip if necessary
-            if (! $emptyFilterExpression && ! preg_match($filterExpr, $tbl)) {
+            if (! $emptyFilterExpression && ! preg_match($filterExpr, (string) $tbl)) {
                 continue;
             }
 
             // The table name might be quoted, we have to trim it
             // See https://github.com/Part-DB/Part-DB-server/issues/299
-            $tbl = trim($tbl, '"');
+            $tbl = trim((string) $tbl, '"');
             $tbl = trim($tbl, '`');
 
             // If the table is excluded, skip it as well
@@ -276,11 +266,6 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         return array_reverse($sorter->sort());
     }
 
-    /**
-     * @param array $classes
-     *
-     * @return array
-     */
     private function getAssociationTables(array $classes, AbstractPlatform $platform): array
     {
         $associationTables = [];
@@ -310,9 +295,6 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         return $this->em->getConfiguration()->getQuoteStrategy()->getTableName($class, $platform);
     }
 
-    /**
-     * @param  array  $assoc
-     */
     private function getJoinTableName(
         array $assoc,
         ClassMetadata $class,

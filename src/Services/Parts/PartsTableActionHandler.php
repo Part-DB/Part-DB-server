@@ -37,15 +37,8 @@ use Symfony\Component\Security\Core\Security;
 
 final class PartsTableActionHandler
 {
-    private EntityManagerInterface $entityManager;
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->entityManager = $entityManager;
-        $this->security = $security;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -86,10 +79,8 @@ final class PartsTableActionHandler
             if ($action === 'generate_label') {
                 $targets = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             } else { //For lots we have to extract the part lots
-                $targets = implode(',', array_map(static function (Part $part) {
-                    //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
-                    return implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray()));
-                }, $selected_parts));
+                $targets = implode(',', array_map(static fn(Part $part): string => //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
+implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray())), $selected_parts));
             }
 
             return new RedirectResponse(
@@ -106,18 +97,11 @@ final class PartsTableActionHandler
         $matches = [];
         if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
-            switch ($target_id) {
-                case 1:
-                default:
-                    $level = 'simple';
-                    break;
-                case 2:
-                    $level = 'extended';
-                    break;
-                case 3:
-                    $level = 'full';
-                    break;
-            }
+            $level = match ($target_id) {
+                2 => 'extended',
+                3 => 'full',
+                default => 'simple',
+            };
 
 
             return new RedirectResponse(

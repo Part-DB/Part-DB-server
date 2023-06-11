@@ -64,8 +64,6 @@ class CurrencyController extends BaseAdminController
     protected string $attachment_class = CurrencyAttachment::class;
     protected ?string $parameter_class = CurrencyParameter::class;
 
-    protected ExchangeRateUpdater $exchangeRateUpdater;
-
     public function __construct(
         TranslatorInterface $translator,
         UserPasswordHasherInterface $passwordEncoder,
@@ -78,10 +76,8 @@ class CurrencyController extends BaseAdminController
         LabelExampleElementsGenerator $barcodeExampleGenerator,
         LabelGenerator $labelGenerator,
         EntityManagerInterface $entityManager,
-        ExchangeRateUpdater $exchangeRateUpdater
+        protected ExchangeRateUpdater $exchangeRateUpdater
     ) {
-        $this->exchangeRateUpdater = $exchangeRateUpdater;
-
         parent::__construct(
             $translator,
             $passwordEncoder,

@@ -44,13 +44,8 @@ use Symfony\Component\Security\Core\Security;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected EventCommentNeededHelper $eventCommentNeededHelper;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
     {
-        $this->security = $security;
-        $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -82,7 +77,7 @@ class BaseEntityAdminForm extends AbstractType
                 'parent',
                 StructuralEntityType::class,
                 [
-                    'class' => get_class($entity),
+                    'class' => $entity::class,
                     'required' => false,
                     'label' => 'parent.label',
                     'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),

@@ -31,19 +31,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartDataTableHelper
 {
-    private PartPreviewGenerator $previewGenerator;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-
-    private TranslatorInterface $translator;
-    private EntityURLGenerator $entityURLGenerator;
-
-    public function __construct(PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator,
-    EntityURLGenerator $entityURLGenerator, TranslatorInterface $translator)
+    public function __construct(private readonly PartPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly EntityURLGenerator $entityURLGenerator, private readonly TranslatorInterface $translator)
     {
-        $this->previewGenerator = $previewGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->translator = $translator;
-        $this->entityURLGenerator = $entityURLGenerator;
     }
 
     public function renderName(Part $context): string
@@ -57,7 +46,7 @@ class PartDataTableHelper
         if ($context->isNeedsReview()) {
             $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
         }
-        if ($context->getBuiltProject() !== null) {
+        if ($context->getBuiltProject() instanceof \App\Entity\ProjectSystem\Project) {
             $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
                 $this->translator->trans('part.info.projectBuildPart.hint') . ': ' . $context->getBuiltProject()->getName());
         }
@@ -74,7 +63,7 @@ class PartDataTableHelper
     public function renderPicture(Part $context): string
     {
         $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
-        if (null === $preview_attachment) {
+        if (!$preview_attachment instanceof \App\Entity\Attachments\Attachment) {
             return '';
         }
 

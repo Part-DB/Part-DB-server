@@ -41,15 +41,8 @@ use SplFileInfo;
  */
 class AttachmentDeleteListener
 {
-    protected AttachmentReverseSearch $attachmentReverseSearch;
-    protected AttachmentManager $attachmentHelper;
-    protected AttachmentPathResolver $pathResolver;
-
-    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentManager $attachmentHelper, AttachmentPathResolver $pathResolver)
+    public function __construct(protected AttachmentReverseSearch $attachmentReverseSearch, protected AttachmentManager $attachmentHelper, protected AttachmentPathResolver $pathResolver)
     {
-        $this->attachmentReverseSearch = $attachmentReverseSearch;
-        $this->attachmentHelper = $attachmentHelper;
-        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -87,7 +80,7 @@ class AttachmentDeleteListener
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
         $attachment_holder = $attachment->getElement();
 
-        if (null === $attachment_holder) {
+        if (!$attachment_holder instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
             return;
         }
 
@@ -100,7 +93,7 @@ class AttachmentDeleteListener
             if (!$em instanceof EntityManagerInterface) {
                 throw new \RuntimeException('Invalid EntityManagerInterface!');
             }
-            $classMetadata = $em->getClassMetadata(get_class($attachment_holder));
+            $classMetadata = $em->getClassMetadata($attachment_holder::class);
             $em->getUnitOfWork()->computeChangeSet($classMetadata, $attachment_holder);
         }
     }
@@ -118,7 +111,7 @@ class AttachmentDeleteListener
 
         $file = $this->attachmentHelper->attachmentToFile($attachment);
         //Only delete if the attachment has a valid file.
-        if (null !== $file) {
+        if ($file instanceof \SplFileInfo) {
             /* The original file has already been removed, so we have to decrease the threshold to zero,
             as any remaining attachment depends on this attachment, and we must not delete this file! */
             $this->attachmentReverseSearch->deleteIfNotUsed($file, 0);

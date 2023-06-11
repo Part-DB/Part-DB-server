@@ -38,15 +38,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class EntityImporter
 {
-    protected SerializerInterface $serializer;
-    protected EntityManagerInterface $em;
-    protected ValidatorInterface $validator;
-
-    public function __construct(SerializerInterface $serializer, EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator)
     {
-        $this->serializer = $serializer;
-        $this->em = $em;
-        $this->validator = $validator;
     }
 
     /**
@@ -68,7 +61,7 @@ class EntityImporter
         if (!is_a($class_name, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if (null !== $parent && !is_a($parent, $class_name)) {
+        if ($parent instanceof \App\Entity\Base\AbstractStructuralDBElement && !$parent instanceof $class_name) {
             throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -297,20 +290,13 @@ class EntityImporter
         //Convert the extension to lower case
         $extension = strtolower($extension);
 
-        switch ($extension) {
-            case 'json':
-                return 'json';
-            case 'xml':
-                return 'xml';
-            case 'csv':
-            case 'tsv':
-                return 'csv';
-            case 'yaml':
-            case 'yml':
-                return 'yaml';
-            default:
-                return null;
-        }
+        return match ($extension) {
+            'json' => 'json',
+            'xml' => 'xml',
+            'csv', 'tsv' => 'csv',
+            'yaml', 'yml' => 'yaml',
+            default => null,
+        };
     }
 
     /**

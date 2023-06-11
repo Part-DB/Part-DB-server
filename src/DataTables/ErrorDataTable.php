@@ -54,16 +54,12 @@ class ErrorDataTable implements DataTableTypeInterface
 
         $dataTable
             ->add('dont_matter_we_only_set_color', RowClassColumn::class, [
-                'render' => function ($value, $context) {
-                    return 'table-warning';
-                },
+                'render' => fn($value, $context): string => 'table-warning',
             ])
 
             ->add('error', TextColumn::class, [
                 'label' => 'error_table.error',
-                'render' => function ($value, $context) {
-                    return '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . $value;
-                },
+                'render' => fn($value, $context): string => '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . $value,
             ])
         ;
 

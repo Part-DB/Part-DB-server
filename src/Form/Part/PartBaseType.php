@@ -52,15 +52,8 @@ use Symfony\Component\Security\Core\Security;
 
 class PartBaseType extends AbstractType
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected EventCommentNeededHelper $event_comment_needed_helper;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $urlGenerator, EventCommentNeededHelper $event_comment_needed_helper)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
     {
-        $this->security = $security;
-        $this->urlGenerator = $urlGenerator;
-        $this->event_comment_needed_helper = $event_comment_needed_helper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

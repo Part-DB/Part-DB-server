@@ -93,11 +93,9 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {
         parent::__construct();
-
-        $this->level = self::LEVEL_INFO;
         $this->setTargetElement($changed_element);
         $this->extra['n'] = $collection_name;
-        $this->extra['c'] = self::targetTypeClassToID(get_class($deletedElement));
+        $this->extra['c'] = self::targetTypeClassToID($deletedElement::class);
         $this->extra['i'] = $deletedElement->getID();
         if ($deletedElement instanceof NamedElementInterface) {
             $this->extra['o'] = $deletedElement->getName();
@@ -141,8 +139,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     /**
      * This functions maps an abstract class name derived from the extra c element to an instantiable class name (based on the target element of this log entry).
      * For example if the target element is a part and the extra c element is "App\Entity\Attachments\Attachment", this function will return "App\Entity\Attachments\PartAttachment".
-     * @param  string  $abstract_class
-     * @return string
      */
     private function resolveAbstractClassToInstantiableClass(string $abstract_class): string
     {

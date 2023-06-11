@@ -35,17 +35,8 @@ use Symfony\Component\Security\Core\Security;
  */
 class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 {
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-    private PermissionSchemaUpdater $permissionSchemaUpdater;
-    private EntityManagerInterface $entityManager;
-    private EventCommentHelper $eventCommentHelper;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $entityManager, private readonly EventCommentHelper $eventCommentHelper)
     {
-        $this->security = $security;
-        $this->permissionSchemaUpdater = $permissionSchemaUpdater;
-        $this->entityManager = $entityManager;
-        $this->eventCommentHelper = $eventCommentHelper;
     }
 
     public function onRequest(RequestEvent $event): void
@@ -55,7 +46,7 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         }
 
         $user = $this->security->getUser();
-        if (null === $user) {
+        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             //Retrieve anonymous user
             $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
         }

@@ -32,11 +32,8 @@ use Symfony\Component\Security\Core\Security;
 
 class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
-    protected FileTypeFilterTools $filterTools;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
     {
-        $this->filterTools = $filterTools;
         parent::__construct($security, $eventCommentNeededHelper);
     }
 
@@ -58,12 +55,8 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 
         //Normalize data before writing it to database
         $builder->get('filetype_filter')->addViewTransformer(new CallbackTransformer(
-            static function ($value) {
-                return $value;
-            },
-            function ($value) {
-                return $this->filterTools->normalizeFilterString($value);
-            }
+            static fn($value) => $value,
+            fn($value) => $this->filterTools->normalizeFilterString($value)
         ));
     }
 }

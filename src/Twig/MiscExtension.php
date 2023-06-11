@@ -25,11 +25,8 @@ use Twig\Extension\AbstractExtension;
 
 final class MiscExtension extends AbstractExtension
 {
-    private EventCommentNeededHelper $eventCommentNeededHelper;
-
-    public function __construct(EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(private readonly EventCommentNeededHelper $eventCommentNeededHelper)
     {
-        $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
     public function getFunctions(): array

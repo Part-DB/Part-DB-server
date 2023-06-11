@@ -37,17 +37,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class LoginSuccessSubscriber implements EventSubscriberInterface
 {
-    private TranslatorInterface $translator;
-    private RequestStack $requestStack;
-    private EventLogger $eventLogger;
-    private bool $gpdr_compliance;
-
-    public function __construct(TranslatorInterface $translator, RequestStack $requestStack, EventLogger $eventLogger, bool $gpdr_compliance)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gpdr_compliance)
     {
-        $this->translator = $translator;
-        $this->requestStack = $requestStack;
-        $this->eventLogger = $eventLogger;
-        $this->gpdr_compliance = $gpdr_compliance;
     }
 
     public function onLogin(InteractiveLoginEvent $event): void

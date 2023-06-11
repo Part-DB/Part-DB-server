@@ -49,13 +49,8 @@ use Locale;
 
 final class PartLotProvider implements PlaceholderProviderInterface
 {
-    private LabelTextReplacer $labelTextReplacer;
-    private AmountFormatter $amountFormatter;
-
-    public function __construct(LabelTextReplacer $labelTextReplacer, AmountFormatter $amountFormatter)
+    public function __construct(private readonly LabelTextReplacer $labelTextReplacer, private readonly AmountFormatter $amountFormatter)
     {
-        $this->labelTextReplacer = $labelTextReplacer;
-        $this->amountFormatter = $amountFormatter;
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
@@ -74,7 +69,7 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[EXPIRATION_DATE]]' === $placeholder) {
-                if (null === $label_target->getExpirationDate()) {
+                if (!$label_target->getExpirationDate() instanceof \DateTimeInterface) {
                     return '';
                 }
                 $formatter = IntlDateFormatter::create(
@@ -95,19 +90,19 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[LOCATION]]' === $placeholder) {
-                return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getName() : '';
+                return $label_target->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $label_target->getStorageLocation()->getName() : '';
             }
 
             if ('[[LOCATION_FULL]]' === $placeholder) {
-                return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getFullPath() : '';
+                return $label_target->getStorageLocation() instanceof \App\Entity\Parts\Storelocation ? $label_target->getStorageLocation()->getFullPath() : '';
             }
 
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getFullName() : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof \App\Entity\UserSystem\User ? $label_target->getOwner()->getUsername() : '';
             }
 
             return $this->labelTextReplacer->handlePlaceholder($placeholder, $label_target->getPart());

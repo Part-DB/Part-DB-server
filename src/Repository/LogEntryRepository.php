@@ -41,7 +41,7 @@ class LogEntryRepository extends DBElementRepository
             /** @var AbstractDBElement $element */
             $element = $criteria['target'];
             $criteria['target_id'] = $element->getID();
-            $criteria['target_type'] = AbstractLogEntry::targetTypeClassToID(get_class($element));
+            $criteria['target_type'] = AbstractLogEntry::targetTypeClassToID($element::class);
             unset($criteria['target']);
         }
 
@@ -117,7 +117,7 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
             'target_id' => $element->getID(),
             'until' => $until,
         ]);
@@ -143,7 +143,7 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
             'target_id' => $element->getID(),
             'until' => $timestamp,
         ]);
@@ -151,13 +151,12 @@ class LogEntryRepository extends DBElementRepository
         $query = $qb->getQuery();
         $count = $query->getSingleScalarResult();
 
-        return !($count > 0);
+        return $count <= 0;
     }
 
     /**
      * Gets the last log entries ordered by timestamp.
      *
-     * @param  string  $order
      * @param null   $limit
      * @param null   $offset
      */
@@ -216,7 +215,7 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
             'target_id' => $element->getID(),
         ]);
 

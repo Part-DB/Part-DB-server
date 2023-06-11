@@ -45,12 +45,9 @@ use function in_array;
 
 class AttachmentVoter extends ExtendedVoter
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected \Symfony\Bundle\SecurityBundle\Security $security)
     {
         parent::__construct($resolver, $entityManager);
-        $this->security = $security;
     }
 
     /**
@@ -76,7 +73,7 @@ class AttachmentVoter extends ExtendedVoter
         if (is_object($subject)) {
             //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
             $target_element = $subject->getElement();
-            if ($target_element) {
+            if ($target_element instanceof \App\Entity\Attachments\AttachmentContainingDBElement) {
                 return $this->security->isGranted($this->mapOperation($attribute), $target_element);
             }
         }
@@ -112,7 +109,7 @@ class AttachmentVoter extends ExtendedVoter
                 $param = 'parts';
             }
             else {
-                throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? get_class($subject) : $subject));
+                throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
             }
 
             return $this->resolver->inherit($user, $param, $this->mapOperation($attribute)) ?? false;
@@ -123,21 +120,12 @@ class AttachmentVoter extends ExtendedVoter
 
     private function mapOperation(string $attribute): string
     {
-        switch ($attribute) {
-            //We can view the attachment if we can view the element
-            case 'read':
-            case 'view':
-                return 'read';
-            //We can edit/create/delete the attachment if we can edit the element
-            case 'edit':
-            case 'create':
-            case 'delete':
-                return 'edit';
-            case 'show_history':
-                return 'show_history';
-        }
-
-        throw new \RuntimeException('Encountered unknown attribute "'.$attribute.'" in AttachmentVoter!');
+        return match ($attribute) {
+            'read', 'view' => 'read',
+            'edit', 'create', 'delete' => 'edit',
+            'show_history' => 'show_history',
+            default => throw new \RuntimeException('Encountered unknown attribute "'.$attribute.'" in AttachmentVoter!'),
+        };
     }
 
     /**

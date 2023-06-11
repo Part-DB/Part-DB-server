@@ -57,16 +57,12 @@ final class LabelExampleElementsGenerator
 {
     public function getElement(string $type): object
     {
-        switch ($type) {
-            case 'part':
-                return $this->getExamplePart();
-            case 'part_lot':
-                return $this->getExamplePartLot();
-            case 'storelocation':
-                return $this->getStorelocation();
-            default:
-                throw new InvalidArgumentException('Unknown $type.');
-        }
+        return match ($type) {
+            'part' => $this->getExamplePart(),
+            'part_lot' => $this->getExamplePartLot(),
+            'storelocation' => $this->getStorelocation(),
+            default => throw new InvalidArgumentException('Unknown $type.'),
+        };
     }
 
     public function getExamplePart(): Part

@@ -74,7 +74,7 @@ class ParameterExtractor
         $split = $this->splitString($input);
         foreach ($split as $param_string) {
             $tmp = $this->stringToParam($param_string, $class);
-            if (null !== $tmp) {
+            if ($tmp instanceof \App\Entity\Parameters\AbstractParameter) {
                 $parameters[] = $tmp;
             }
         }
@@ -89,7 +89,7 @@ class ParameterExtractor
 
         $matches = [];
         preg_match($regex, $input, $matches);
-        if (!empty($matches)) {
+        if ($matches !== []) {
             [, $name, $value] = $matches;
             $value = trim($value);
 

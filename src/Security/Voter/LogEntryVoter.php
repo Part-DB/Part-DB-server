@@ -30,14 +30,11 @@ use Symfony\Component\Security\Core\Security;
 
 class LogEntryVoter extends ExtendedVoter
 {
-    public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
+    final public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
 
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
         parent::__construct($resolver, $entityManager);
-        $this->security = $security;
     }
 
     protected function voteOnUser(string $attribute, $subject, User $user): bool

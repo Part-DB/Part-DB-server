@@ -114,11 +114,8 @@ final class SandboxedTwigProvider
     ];
     private const ALLOWED_PROPERTIES = [];
 
-    private FormatExtension $appExtension;
-
-    public function __construct(FormatExtension $appExtension)
+    public function __construct(private readonly FormatExtension $appExtension)
     {
-        $this->appExtension = $appExtension;
     }
 
     public function getTwig(LabelOptions $options): Environment

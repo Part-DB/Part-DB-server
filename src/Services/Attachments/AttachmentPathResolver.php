@@ -32,14 +32,12 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class AttachmentPathResolver
 {
-    protected string $project_dir;
-
     protected ?string $media_path;
     protected ?string $footprints_path;
     protected ?string $models_path;
     protected ?string $secure_path;
 
-    protected array $placeholders;
+    protected array $placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
     protected array $pathes;
     protected array $placeholders_regex;
     protected array $pathes_regex;
@@ -53,18 +51,13 @@ class AttachmentPathResolver
      *                                     Set to null if this ressource should be disabled.
      * @param string|null $models_path     set to null if this ressource should be disabled
      */
-    public function __construct(string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
+    public function __construct(protected string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
     {
-        $this->project_dir = $project_dir;
-
         //Determine the path for our ressources
         $this->media_path = $this->parameterToAbsolutePath($media_path);
         $this->footprints_path = $this->parameterToAbsolutePath($footprints_path);
         $this->models_path = $this->parameterToAbsolutePath($models_path);
         $this->secure_path = $this->parameterToAbsolutePath($secure_path);
-
-        //Here we define the valid placeholders and their replacement values
-        $this->placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
         $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path, $this->secure_path];
 
         //Remove all disabled placeholders
@@ -248,7 +241,7 @@ class AttachmentPathResolver
         $ret = [];
 
         foreach ($array as $item) {
-            $item = str_replace(['\\'], ['/'], $item);
+            $item = str_replace(['\\'], ['/'], (string) $item);
             $ret[] = '/'.preg_quote($item, '/').'/';
         }
 

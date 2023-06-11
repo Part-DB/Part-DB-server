@@ -33,14 +33,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user', 'Converts a local user to a SAML user (and vice versa)')]
 class ConvertToSAMLUserCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
-    protected bool $saml_enabled;
-
-    public function __construct(EntityManagerInterface $entityManager, bool $saml_enabled)
+    public function __construct(protected EntityManagerInterface $entityManager, protected bool $saml_enabled)
     {
         parent::__construct();
-        $this->entityManager = $entityManager;
-        $this->saml_enabled = $saml_enabled;
     }
 
     protected function configure(): void

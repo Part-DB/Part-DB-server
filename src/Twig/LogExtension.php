@@ -28,20 +28,15 @@ use Twig\TwigFunction;
 final class LogExtension extends AbstractExtension
 {
 
-    private LogDataFormatter $logDataFormatter;
-    private LogDiffFormatter $logDiffFormatter;
-
-    public function __construct(LogDataFormatter $logDataFormatter, LogDiffFormatter $logDiffFormatter)
+    public function __construct(private readonly LogDataFormatter $logDataFormatter, private readonly LogDiffFormatter $logDiffFormatter)
     {
-        $this->logDataFormatter = $logDataFormatter;
-        $this->logDiffFormatter = $logDiffFormatter;
     }
 
     public function getFunctions()
     {
         return [
-            new TwigFunction('format_log_data', [$this->logDataFormatter, 'formatData'], ['is_safe' => ['html']]),
-            new TwigFunction('format_log_diff', [$this->logDiffFormatter, 'formatDiff'], ['is_safe' => ['html']]),
+            new TwigFunction('format_log_data', fn($data, \App\Entity\LogSystem\AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),
+            new TwigFunction('format_log_diff', fn($old_data, $new_data): string => $this->logDiffFormatter->formatDiff($old_data, $new_data), ['is_safe' => ['html']]),
         ];
     }
 }

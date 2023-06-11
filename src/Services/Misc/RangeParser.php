@@ -94,7 +94,7 @@ class RangeParser
             $this->parse($range_str);
 
             return true;
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             return false;
         }
     }

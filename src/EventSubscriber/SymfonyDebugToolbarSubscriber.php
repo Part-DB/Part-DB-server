@@ -30,11 +30,8 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-    private bool $kernel_debug;
-
-    public function __construct(bool $kernel_debug)
+    public function __construct(private readonly bool $kernel_debug)
     {
-        $this->kernel_debug = $kernel_debug;
     }
 
     /**

@@ -39,7 +39,7 @@ trait OrderTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\PriceInformations\Orderdetail', mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\PriceInformations\Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
     protected \Doctrine\Common\Collections\Collection $orderdetails;
 
@@ -58,7 +58,7 @@ trait OrderTrait
     /**
      * @var Orderdetail|null
      */
-    #[ORM\OneToOne(targetEntity: 'App\Entity\PriceInformations\Orderdetail')]
+    #[ORM\OneToOne(targetEntity: \App\Entity\PriceInformations\Orderdetail::class)]
     #[ORM\JoinColumn(name: 'order_orderdetails_id')]
     protected ?Orderdetail $order_orderdetail = null;
 
@@ -105,9 +105,7 @@ trait OrderTrait
     {
         //If needed hide the obsolete entries
         if ($hide_obsolete) {
-            return $this->orderdetails->filter(function (Orderdetail $orderdetail) {
-                return ! $orderdetail->getObsolete();
-            });
+            return $this->orderdetails->filter(fn(Orderdetail $orderdetail) => ! $orderdetail->getObsolete());
         }
 
         return $this->orderdetails;

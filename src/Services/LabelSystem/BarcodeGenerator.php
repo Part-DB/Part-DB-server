@@ -50,12 +50,8 @@ use InvalidArgumentException;
 
 final class BarcodeGenerator
 {
-    private BarcodeContentGenerator $barcodeContentGenerator;
-
-
-    public function __construct(BarcodeContentGenerator $barcodeContentGenerator)
+    public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator)
     {
-        $this->barcodeContentGenerator = $barcodeContentGenerator;
     }
 
     public function generateHTMLBarcode(LabelOptions $options, object $target): ?string
@@ -126,18 +122,11 @@ final class BarcodeGenerator
 
     public function getContent(LabelOptions $options, AbstractDBElement $target): ?string
     {
-        switch ($options->getBarcodeType()) {
-            case 'qr':
-            case 'datamatrix':
-                return $this->barcodeContentGenerator->getURLContent($target);
-            case 'code39':
-            case 'code93':
-            case 'code128':
-                return $this->barcodeContentGenerator->get1DBarcodeContent($target);
-            case 'none':
-                return null;
-            default:
-                throw new InvalidArgumentException('Unknown label type!');
-        }
+        return match ($options->getBarcodeType()) {
+            'qr', 'datamatrix' => $this->barcodeContentGenerator->getURLContent($target),
+            'code39', 'code93', 'code128' => $this->barcodeContentGenerator->get1DBarcodeContent($target),
+            'none' => null,
+            default => throw new InvalidArgumentException('Unknown label type!'),
+        };
     }
 }

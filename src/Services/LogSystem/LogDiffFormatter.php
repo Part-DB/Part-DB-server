@@ -29,7 +29,6 @@ class LogDiffFormatter
      * If the diff is not possible, an empty string is returned.
      * @param $old_data
      * @param $new_data
-     * @return string
      */
     public function formatDiff($old_data, $new_data): string
     {
@@ -67,7 +66,7 @@ class LogDiffFormatter
         //Positive difference
         if ($difference > 0) {
             return sprintf('<span class="text-success">+%s</span>', $difference);
-        } else if ($difference < 0) {
+        } elseif ($difference < 0) {
             return sprintf('<span class="text-danger">%s</span>', $difference);
         } else {
             return sprintf('<span class="text-muted">%s</span>', $difference);

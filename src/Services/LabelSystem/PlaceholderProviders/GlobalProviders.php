@@ -53,15 +53,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {
-    private string $partdb_title;
-    private \Symfony\Bundle\SecurityBundle\Security $security;
-    private UrlGeneratorInterface $url_generator;
-
-    public function __construct(string $partdb_title, \Symfony\Bundle\SecurityBundle\Security $security, UrlGeneratorInterface $url_generator)
+    public function __construct(private readonly string $partdb_title, private readonly \Symfony\Bundle\SecurityBundle\Security $security, private readonly UrlGeneratorInterface $url_generator)
     {
-        $this->partdb_title = $partdb_title;
-        $this->security = $security;
-        $this->url_generator = $url_generator;
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string

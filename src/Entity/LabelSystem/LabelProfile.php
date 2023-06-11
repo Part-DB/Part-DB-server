@@ -49,15 +49,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['name', 'options.supported_element'])]
-#[ORM\Entity(repositoryClass: 'App\Repository\LabelProfileRepository')]
-#[ORM\EntityListeners(['App\EntityListeners\TreeCacheInvalidationListener'])]
+#[ORM\Entity(repositoryClass: \App\Repository\LabelProfileRepository::class)]
+#[ORM\EntityListeners([\App\EntityListeners\TreeCacheInvalidationListener::class])]
 #[ORM\Table(name: 'label_profiles')]
 class LabelProfile extends AttachmentContainingDBElement
 {
     /**
      * @var Collection<int, LabelAttachment>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\LabelAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -126,8 +126,6 @@ class LabelProfile extends AttachmentContainingDBElement
 
     /**
      * Sets the show in dropdown menu.
-     *
-     * @return LabelProfile
      */
     public function setShowInDropdown(bool $show_in_dropdown): self
     {

@@ -37,17 +37,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand('partdb:users:permissions|partdb:user:permissions', 'View and edit the permissions of a given user')]
 class UsersPermissionsCommand extends Command
 {
-    protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
-    protected PermissionManager $permissionResolver;
-    protected TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, PermissionManager $permissionResolver, TranslatorInterface $translator)
+    public function __construct(protected EntityManagerInterface $entityManager, protected PermissionManager $permissionResolver, protected TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository(User::class);
-        $this->permissionResolver = $permissionResolver;
-        $this->translator = $translator;
 
         parent::__construct(self::$defaultName);
     }
@@ -71,7 +65,7 @@ class UsersPermissionsCommand extends Command
         //Find user
         $io->note('Finding user with username: ' . $username);
         $user = $this->userRepository->findByEmailOrName($username);
-        if ($user === null) {
+        if (!$user instanceof \App\Entity\UserSystem\User) {
             $io->error('No user found with username: ' . $username);
             return Command::FAILURE;
         }
@@ -100,7 +94,7 @@ class UsersPermissionsCommand extends Command
 
 
             $new_value_str = $io->ask('Enter the new value for the permission (A = allow, D = disallow, I = inherit)');
-            switch (strtolower($new_value_str)) {
+            switch (strtolower((string) $new_value_str)) {
                 case 'a':
                 case 'allow':
                     $new_value = true;
@@ -207,11 +201,11 @@ class UsersPermissionsCommand extends Command
 
         if ($permission_value === true) {
             return '<fg=green>Allow</>';
-        } else if ($permission_value === false) {
+        } elseif ($permission_value === false) {
             return '<fg=red>Disallow</>';
-        } else if ($permission_value === null && !$inherit) {
+        } elseif ($permission_value === null && !$inherit) {
             return '<fg=blue>Inherit</>';
-        } else if ($permission_value === null && $inherit) {
+        } elseif ($permission_value === null && $inherit) {
             return '<fg=red>Disallow (Inherited)</>';
         }
 

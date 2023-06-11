@@ -73,7 +73,7 @@ class U2FKey implements LegacyU2FKeyInterface
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     protected string $name;
 
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User', inversedBy: 'u2fKeys')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class, inversedBy: 'u2fKeys')]
     protected ?User $user = null;
 
     public function getKeyHandle(): string

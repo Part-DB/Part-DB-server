@@ -27,11 +27,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class StructuralElementRecursionHelper
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     /**

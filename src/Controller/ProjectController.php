@@ -50,11 +50,8 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/project')]
 class ProjectController extends AbstractController
 {
-    private DataTableFactory $dataTableFactory;
-
-    public function __construct(DataTableFactory $dataTableFactory)
+    public function __construct(private readonly DataTableFactory $dataTableFactory)
     {
-        $this->dataTableFactory = $dataTableFactory;
     }
 
     #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
@@ -180,9 +177,7 @@ class ProjectController extends AbstractController
                 if (count ($errors) > 0) {
                     $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
                 }
-            } catch (\UnexpectedValueException $e) {
-                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
-            } catch (SyntaxError $e) {
+            } catch (\UnexpectedValueException|SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }
         }
@@ -194,15 +189,11 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @param  Request  $request
-     * @param  Project|null  $project
-     */
     #[Route(path: '/add_parts', name: 'project_add_parts_no_id')]
     #[Route(path: '/{id}/add_parts', name: 'project_add_parts', requirements: ['id' => '\d+'])]
     public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
-        if($project) {
+        if($project instanceof \App\Entity\ProjectSystem\Project) {
             $this->denyAccessUnlessGranted('edit', $project);
         } else {
             $this->denyAccessUnlessGranted('@projects.edit');
@@ -212,7 +203,7 @@ class ProjectController extends AbstractController
         $builder->add('project', StructuralEntityType::class, [
             'class' => Project::class,
             'required' => true,
-            'disabled' => $project !== null, //If a project is given, disable the field
+            'disabled' => $project instanceof \App\Entity\ProjectSystem\Project, //If a project is given, disable the field
             'data' => $project,
             'constraints' => [
                 new NotNull()
@@ -224,7 +215,7 @@ class ProjectController extends AbstractController
 
         //Preset the BOM entries with the selected parts, when the form was not submitted yet
         $preset_data = new ArrayCollection();
-        foreach (explode(',', $request->get('parts', '')) as $part_id) {
+        foreach (explode(',', (string) $request->get('parts', '')) as $part_id) {
             $part = $entityManager->getRepository(Part::class)->find($part_id);
             if (null !== $part) {
                 //If there is already a BOM entry for this part, we use this one (we edit it then)

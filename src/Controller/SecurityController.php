@@ -48,13 +48,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected bool $allow_email_pw_reset;
-
-    public function __construct(TranslatorInterface $translator, bool $allow_email_pw_reset)
+    public function __construct(protected TranslatorInterface $translator, protected bool $allow_email_pw_reset)
     {
-        $this->translator = $translator;
-        $this->allow_email_pw_reset = $allow_email_pw_reset;
     }
 
     #[Route(path: '/login', name: 'login', methods: ['GET', 'POST'])]
@@ -76,7 +71,7 @@ class SecurityController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/pw_reset/request', name: 'pw_reset_request')]
-    public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
+    public function requestPwReset(PasswordResetManager $passwordReset, Request $request): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
     {
         if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
@@ -119,7 +114,7 @@ class SecurityController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/pw_reset/new_pw/{user}/{token}', name: 'pw_reset_new_pw')]
-    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null)
+    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null): \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
     {
         if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
@@ -189,7 +184,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'logout')]
-    public function logout(): void
+    public function logout(): never
     {
         throw new RuntimeException('Will be intercepted before getting here');
     }

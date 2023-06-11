@@ -33,11 +33,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity]
 class PartAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = Part::class;
+    final public const ALLOWED_ELEMENT_CLASS = Part::class;
     /**
      * @var Part the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Parts\Part', inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Parts\Part::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

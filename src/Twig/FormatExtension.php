@@ -34,37 +34,26 @@ use Twig\TwigFilter;
 
 final class FormatExtension extends AbstractExtension
 {
-    protected MarkdownParser $markdownParser;
-    protected MoneyFormatter $moneyFormatter;
-    protected SIFormatter $siformatter;
-    protected AmountFormatter $amountFormatter;
-
-
-    public function __construct(MarkdownParser $markdownParser, MoneyFormatter $moneyFormatter,
-        SIFormatter $SIFormatter, AmountFormatter $amountFormatter)
+    public function __construct(protected MarkdownParser $markdownParser, protected MoneyFormatter $moneyFormatter, protected SIFormatter $siformatter, protected AmountFormatter $amountFormatter)
     {
-        $this->markdownParser = $markdownParser;
-        $this->moneyFormatter = $moneyFormatter;
-        $this->siformatter = $SIFormatter;
-        $this->amountFormatter = $amountFormatter;
     }
 
     public function getFilters(): array
     {
         return [
             /* Mark the given text as markdown, which will be rendered in the browser */
-            new TwigFilter('format_markdown', [$this->markdownParser, 'markForRendering'], [
+            new TwigFilter('format_markdown', fn(string $markdown, bool $inline_mode = false): string => $this->markdownParser->markForRendering($markdown, $inline_mode), [
                 'pre_escape' => 'html',
                 'is_safe' => ['html'],
             ]),
             /* Format the given amount as money, using a given currency */
-            new TwigFilter('format_money', [$this, 'formatCurrency']),
+            new TwigFilter('format_money', fn($amount, ?\App\Entity\PriceInformations\Currency $currency = null, int $decimals = 5): string => $this->formatCurrency($amount, $currency, $decimals)),
             /* Format the given number using SI prefixes and the given unit (string) */
-            new TwigFilter('format_si', [$this, 'siFormat']),
+            new TwigFilter('format_si', fn($value, $unit, $decimals = 2, bool $show_all_digits = false): string => $this->siFormat($value, $unit, $decimals, $show_all_digits)),
             /** Format the given amount using the given MeasurementUnit */
-            new TwigFilter('format_amount', [$this, 'amountFormat']),
+            new TwigFilter('format_amount', fn($value, ?\App\Entity\Parts\MeasurementUnit $unit, array $options = []): string => $this->amountFormat($value, $unit, $options)),
             /** Format the given number of bytes as human-readable number */
-            new TwigFilter('format_bytes', [$this, 'formatBytes']),
+            new TwigFilter('format_bytes', fn(int $bytes, int $precision = 2): string => $this->formatBytes($bytes, $precision)),
         ];
     }
 
@@ -89,8 +78,6 @@ final class FormatExtension extends AbstractExtension
 
     /**
      * @param $bytes
-     * @param int $precision
-     * @return string
      */
     public function formatBytes(int $bytes, int $precision = 2): string
     {

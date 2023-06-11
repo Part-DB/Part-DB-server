@@ -26,11 +26,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ThemeChoiceType extends AbstractType
 {
-    private array $available_themes;
-
-    public function __construct(array $available_themes)
+    public function __construct(private readonly array $available_themes)
     {
-        $this->available_themes = $available_themes;
     }
 
     public function getParent(): string
@@ -42,9 +39,7 @@ class ThemeChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => $this->available_themes,
-            'choice_label' => static function ($entity, $key, $value) {
-                return $value;
-            },
+            'choice_label' => static fn($entity, $key, $value) => $value,
             'choice_translation_domain' => false,
             'placeholder' => 'user_settings.theme.placeholder'
         ]);

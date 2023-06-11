@@ -32,26 +32,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AttachmentURLGenerator
 {
-    protected Packages $assets;
     protected string $public_path;
-    protected AttachmentPathResolver $pathResolver;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected AttachmentManager $attachmentHelper;
-    protected CacheManager $thumbnailManager;
 
-    protected LoggerInterface $logger;
-
-    public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
-                                UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,
-        CacheManager $thumbnailManager, LoggerInterface $logger)
+    public function __construct(protected Packages $assets, protected AttachmentPathResolver $pathResolver,
+                                protected UrlGeneratorInterface $urlGenerator, protected AttachmentManager $attachmentHelper,
+        protected CacheManager $thumbnailManager, protected LoggerInterface $logger)
     {
-        $this->assets = $assets;
-        $this->pathResolver = $pathResolver;
-        $this->urlGenerator = $urlGenerator;
-        $this->attachmentHelper = $attachmentHelper;
-        $this->thumbnailManager = $thumbnailManager;
-        $this->logger = $logger;
-
         //Determine a normalized path to the public folder (assets are relative to this folder)
         $this->public_path = $this->pathResolver->parameterToAbsolutePath('public');
     }

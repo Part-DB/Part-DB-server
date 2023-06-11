@@ -44,13 +44,8 @@ use Symfony\Component\Validator\Constraints\File;
 
 class UserSettingsType extends AbstractType
 {
-    protected \Symfony\Bundle\SecurityBundle\Security $security;
-    protected bool $demo_mode;
-
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, bool $demo_mode)
+    public function __construct(protected \Symfony\Bundle\SecurityBundle\Security $security, protected bool $demo_mode)
     {
-        $this->security = $security;
-        $this->demo_mode = $demo_mode;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

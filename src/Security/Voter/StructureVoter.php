@@ -77,11 +77,7 @@ class StructureVoter extends ExtendedVoter
      */
     protected function instanceToPermissionName($subject): ?string
     {
-        if (!is_string($subject)) {
-            $class_name = get_class($subject);
-        } else {
-            $class_name = $subject;
-        }
+        $class_name = is_string($subject) ? $subject : $subject::class;
 
         //If it is existing in index, we can skip the loop
         if (isset(static::OBJ_PERM_MAP[$class_name])) {

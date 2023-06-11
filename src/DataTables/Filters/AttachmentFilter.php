@@ -60,59 +60,38 @@ class AttachmentFilter implements FilterInterface
         $this->applyAllChildFilters($queryBuilder);
     }
 
-    /**
-     * @return NumberConstraint
-     */
     public function getDbId(): NumberConstraint
     {
         return $this->dbId;
     }
 
-    /**
-     * @return TextConstraint
-     */
     public function getName(): TextConstraint
     {
         return $this->name;
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getLastModified(): DateTimeConstraint
     {
         return $this->lastModified;
     }
 
-    /**
-     * @return DateTimeConstraint
-     */
     public function getAddedDate(): DateTimeConstraint
     {
         return $this->addedDate;
     }
 
 
-    /**
-     * @return BooleanConstraint
-     */
     public function getShowInTable(): BooleanConstraint
     {
         return $this->showInTable;
     }
 
 
-    /**
-     * @return EntityConstraint
-     */
     public function getAttachmentType(): EntityConstraint
     {
         return $this->attachmentType;
     }
 
-    /**
-     * @return InstanceOfConstraint
-     */
     public function getTargetType(): InstanceOfConstraint
     {
         return $this->targetType;

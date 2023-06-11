@@ -28,11 +28,8 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     public function supportsDenormalization($data, string $type, string $format = null): bool
@@ -54,14 +51,14 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
             foreach ($elements as $element) {
                 $this->em->persist($element);
             }
-            if (empty($elements)) {
+            if ($elements === []) {
                 return null;
             }
             return end($elements);
         }
 
         $elements = $repo->getEntityByPath($data, $path_delimiter);
-        if (empty($elements)) {
+        if ($elements === []) {
             return null;
         }
         return end($elements);

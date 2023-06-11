@@ -27,13 +27,8 @@ use Swap\Swap;
 
 class ExchangeRateUpdater
 {
-    private string $base_currency;
-    private Swap $swap;
-
-    public function __construct(string $base_currency, Swap $swap)
+    public function __construct(private readonly string $base_currency, private readonly Swap $swap)
     {
-        $this->base_currency = $base_currency;
-        $this->swap = $swap;
     }
 
     /**

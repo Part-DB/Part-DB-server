@@ -25,11 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrettyBoolColumn extends AbstractColumn
 {
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function normalize($value): ?bool

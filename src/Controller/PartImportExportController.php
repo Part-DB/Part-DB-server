@@ -36,22 +36,10 @@ use UnexpectedValueException;
 
 class PartImportExportController extends AbstractController
 {
-    private PartsTableActionHandler $partsTableActionHandler;
-    private EntityImporter $entityImporter;
-    private EventCommentHelper $commentHelper;
-
-    public function __construct(PartsTableActionHandler $partsTableActionHandler,
-        EntityImporter $entityImporter, EventCommentHelper $commentHelper)
+    public function __construct(private readonly PartsTableActionHandler $partsTableActionHandler, private readonly EntityImporter $entityImporter, private readonly EventCommentHelper $commentHelper)
     {
-        $this->partsTableActionHandler = $partsTableActionHandler;
-        $this->entityImporter = $entityImporter;
-        $this->commentHelper = $commentHelper;
     }
 
-    /**
-     * @param  Request  $request
-     * @return Response
-     */
     #[Route(path: '/parts/import', name: 'parts_import')]
     public function importParts(Request $request): Response
     {
@@ -116,16 +104,13 @@ class PartImportExportController extends AbstractController
         ]);
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/parts/export', name: 'parts_export', methods: ['GET'])]
     public function exportParts(Request $request, EntityExporter $entityExporter): Response
     {
         $ids = $request->query->get('ids', '');
         $parts = $this->partsTableActionHandler->idStringToArray($ids);
 
-        if (empty($parts)) {
+        if ($parts === []) {
             throw new \RuntimeException('No parts found!');
         }
 

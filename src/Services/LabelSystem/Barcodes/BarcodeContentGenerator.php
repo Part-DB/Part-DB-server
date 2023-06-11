@@ -62,11 +62,8 @@ final class BarcodeContentGenerator
         Storelocation::class => 'location',
     ];
 
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -97,17 +94,17 @@ final class BarcodeContentGenerator
 
     private function classToString(array $map, object $target): string
     {
-        $class = get_class($target);
+        $class = $target::class;
         if (isset($map[$class])) {
             return $map[$class];
         }
 
         foreach ($map as $class => $string) {
-            if (is_a($target, $class)) {
+            if ($target instanceof $class) {
                 return $string;
             }
         }
 
-        throw new InvalidArgumentException('Unknown object class '.get_class($target));
+        throw new InvalidArgumentException('Unknown object class '.$target::class);
     }
 }

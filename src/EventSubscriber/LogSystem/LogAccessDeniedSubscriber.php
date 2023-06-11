@@ -53,11 +53,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class LogAccessDeniedSubscriber implements EventSubscriberInterface
 {
-    private EventLogger $logger;
-
-    public function __construct(EventLogger $logger)
+    public function __construct(private readonly EventLogger $logger)
     {
-        $this->logger = $logger;
     }
 
     public function onKernelException(ExceptionEvent $event): void

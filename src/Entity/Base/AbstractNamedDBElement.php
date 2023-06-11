@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\MappedSuperclass(repositoryClass: 'App\Repository\NamedDBElement')]
 #[ORM\HasLifecycleCallbacks]
-abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface
+abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface, \Stringable
 {
     use TimestampTrait;
 
@@ -51,7 +51,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      *
      ******************************************************************************/
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

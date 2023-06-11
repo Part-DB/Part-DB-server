@@ -48,18 +48,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartListsController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private NodesListBuilder $nodesListBuilder;
-    private DataTableFactory $dataTableFactory;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory, TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
-        $this->nodesListBuilder = $nodesListBuilder;
-        $this->dataTableFactory = $dataTableFactory;
-        $this->translator = $translator;
     }
 
     #[Route(path: '/table/action', name: 'table_action', methods: ['POST'])]
@@ -100,8 +90,6 @@ class PartListsController extends AbstractController
 
     /**
      * Disable the given form interface after creation of the form by removing and reattaching the form.
-     * @param  FormInterface  $form
-     * @return void
      */
     private function disableFormFieldAfterCreation(FormInterface $form, bool $disabled = true): void
     {
@@ -109,12 +97,12 @@ class PartListsController extends AbstractController
         $attrs['disabled'] = $disabled;
 
         $parent = $form->getParent();
-        if ($parent === null) {
+        if (!$parent instanceof \Symfony\Component\Form\FormInterface) {
             throw new \RuntimeException('This function can only be used on form fields that are children of another form!');
         }
 
         $parent->remove($form->getName());
-        $parent->add($form->getName(), get_class($form->getConfig()->getType()->getInnerType()), $attrs);
+        $parent->add($form->getName(), $form->getConfig()->getType()->getInnerType()::class, $attrs);
     }
 
     /**
@@ -125,7 +113,6 @@ class PartListsController extends AbstractController
      * @param  callable|null  $form_changer  A function that is called with the form object as parameter. This function can be used to customize the form
      * @param  array  $additonal_template_vars  Any additional template variables that should be passed to the template
      * @param  array  $additional_table_vars Any additional variables that should be passed to the table creation
-     * @return Response
      */
     protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = [], array $additional_table_vars = []): Response
     {
@@ -172,9 +159,6 @@ class PartListsController extends AbstractController
         ], $additonal_template_vars));
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/category/{id}/parts', name: 'part_list_category')]
     public function showCategory(Category $category, Request $request): Response
     {
@@ -193,9 +177,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/footprint/{id}/parts', name: 'part_list_footprint')]
     public function showFootprint(Footprint $footprint, Request $request): Response
     {
@@ -214,9 +195,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/manufacturer/{id}/parts', name: 'part_list_manufacturer')]
     public function showManufacturer(Manufacturer $manufacturer, Request $request): Response
     {
@@ -235,9 +213,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/store_location/{id}/parts', name: 'part_list_store_location')]
     public function showStorelocation(Storelocation $storelocation, Request $request): Response
     {
@@ -256,9 +231,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/supplier/{id}/parts', name: 'part_list_supplier')]
     public function showSupplier(Supplier $supplier, Request $request): Response
     {
@@ -277,9 +249,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/parts/by_tag/{tag}', name: 'part_list_tags', requirements: ['tag' => '.*'])]
     public function showTag(string $tag, Request $request): Response
     {
@@ -321,9 +290,6 @@ class PartListsController extends AbstractController
         return $filter;
     }
 
-    /**
-     * @return JsonResponse|Response
-     */
     #[Route(path: '/parts/search', name: 'parts_search')]
     public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
@@ -343,9 +309,6 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @return Response
-     */
     #[Route(path: '/parts', name: 'parts_show_all')]
     public function showAll(Request $request): Response
     {

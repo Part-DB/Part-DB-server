@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  */
-#[ORM\Entity(repositoryClass: 'App\Repository\Parts\CategoryRepository')]
+#[ORM\Entity(repositoryClass: \App\Repository\Parts\CategoryRepository::class)]
 #[ORM\Table(name: '`categories`')]
 #[ORM\Index(name: 'category_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
@@ -112,7 +112,7 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Attachments\CategoryAttachment', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Attachments\CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -120,7 +120,7 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full'])]
-    #[ORM\OneToMany(targetEntity: 'App\Entity\Parameters\CategoryParameter', mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Parameters\CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -129,9 +129,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->partname_hint;
     }
 
-    /**
-     * @return Category
-     */
     public function setPartnameHint(string $partname_hint): self
     {
         $this->partname_hint = $partname_hint;
@@ -144,9 +141,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->partname_regex;
     }
 
-    /**
-     * @return Category
-     */
     public function setPartnameRegex(string $partname_regex): self
     {
         $this->partname_regex = $partname_regex;
@@ -159,9 +153,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->disable_footprints;
     }
 
-    /**
-     * @return Category
-     */
     public function setDisableFootprints(bool $disable_footprints): self
     {
         $this->disable_footprints = $disable_footprints;
@@ -174,9 +165,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->disable_manufacturers;
     }
 
-    /**
-     * @return Category
-     */
     public function setDisableManufacturers(bool $disable_manufacturers): self
     {
         $this->disable_manufacturers = $disable_manufacturers;
@@ -189,9 +177,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->disable_autodatasheets;
     }
 
-    /**
-     * @return Category
-     */
     public function setDisableAutodatasheets(bool $disable_autodatasheets): self
     {
         $this->disable_autodatasheets = $disable_autodatasheets;
@@ -204,9 +189,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->disable_properties;
     }
 
-    /**
-     * @return Category
-     */
     public function setDisableProperties(bool $disable_properties): self
     {
         $this->disable_properties = $disable_properties;
@@ -219,9 +201,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->default_description;
     }
 
-    /**
-     * @return Category
-     */
     public function setDefaultDescription(string $default_description): self
     {
         $this->default_description = $default_description;
@@ -234,9 +213,6 @@ class Category extends AbstractPartsContainingDBElement
         return $this->default_comment;
     }
 
-    /**
-     * @return Category
-     */
     public function setDefaultComment(string $default_comment): self
     {
         $this->default_comment = $default_comment;

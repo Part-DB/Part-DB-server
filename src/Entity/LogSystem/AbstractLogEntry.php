@@ -61,14 +61,14 @@ use App\Repository\LogEntryRepository;
 #[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
-    public const LEVEL_EMERGENCY = 0;
-    public const LEVEL_ALERT = 1;
-    public const LEVEL_CRITICAL = 2;
-    public const LEVEL_ERROR = 3;
-    public const LEVEL_WARNING = 4;
-    public const LEVEL_NOTICE = 5;
-    public const LEVEL_INFO = 6;
-    public const LEVEL_DEBUG = 7;
+    final public const LEVEL_EMERGENCY = 0;
+    final public const LEVEL_ALERT = 1;
+    final public const LEVEL_CRITICAL = 2;
+    final public const LEVEL_ERROR = 3;
+    final public const LEVEL_WARNING = 4;
+    final public const LEVEL_NOTICE = 5;
+    final public const LEVEL_INFO = 6;
+    final public const LEVEL_DEBUG = 7;
 
     protected const TARGET_TYPE_NONE = 0;
     protected const TARGET_TYPE_USER = 1;
@@ -129,7 +129,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var User|null The user which has caused this log entry
      */
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\UserSystem\User', fetch: 'EAGER')]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\UserSystem\User::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_user', onDelete: 'SET NULL')]
     protected ?User $user = null;
 
@@ -147,7 +147,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
      */
     #[ORM\Column(type: 'tinyint', name: 'level')]
-    protected int $level;
+    protected int $level = self::LEVEL_WARNING;
 
     /** @var int The ID of the element targeted by this event
      */
@@ -173,7 +173,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     public function __construct()
     {
         $this->timestamp = new DateTime();
-        $this->level = self::LEVEL_WARNING;
     }
 
     /**
@@ -214,7 +213,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
      * Marks this log entry as a CLI entry, and set the username of the CLI user.
      * This removes the association to a user object in database, as CLI users are not really related to logged in
      * Part-DB users.
-     * @param  string  $cli_username
      * @return $this
      */
     public function setCLIUsername(string $cli_username): self
@@ -372,14 +370,14 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function setTargetElement(?AbstractDBElement $element): self
     {
-        if (null === $element) {
+        if (!$element instanceof \App\Entity\Base\AbstractDBElement) {
             $this->target_id = 0;
             $this->target_type = self::TARGET_TYPE_NONE;
 
             return $this;
         }
 
-        $this->target_type = static::targetTypeClassToID(get_class($element));
+        $this->target_type = static::targetTypeClassToID($element::class);
         $this->target_id = $element->getID();
 
         return $this;
