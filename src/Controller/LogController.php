@@ -87,9 +87,6 @@ class LogController extends AbstractController
         ]);
     }
 
-    /**
-     * @param  Request  $request
-     */
     #[Route(path: '/{id}/details', name: 'log_details')]
     public function logDetails(AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
         LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper, EntityManagerInterface $entityManager): Response

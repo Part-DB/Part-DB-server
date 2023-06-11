@@ -49,15 +49,17 @@ final class PermissionData implements \JsonSerializable
      * Creates a new Permission Data Instance using the given data.
      * By default, an empty array is used, meaning
      */
-    public function __construct(/**
-     * @var array|null This array contains the permission values for each permission
-     * This array contains the permission values for each permission, in the form of:
-     * permission => [
-     *     operation => value,
-     * ]
-     */
-    #[ORM\Column(type: Types::JSON, name: 'data')]
-    protected array $data = [])
+    public function __construct(
+        /**
+         * @var array This array contains the permission values for each permission
+         * This array contains the permission values for each permission, in the form of:
+         * permission => [
+         *     operation => value,
+         * ]
+         */
+        #[ORM\Column(type: Types::JSON, name: 'data')]
+        protected array $data = []
+    )
     {
         //If the passed data did not contain a schema version, we set it to the current version
         if (!isset($this->data['$ver'])) {

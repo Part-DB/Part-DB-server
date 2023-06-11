@@ -56,7 +56,10 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
     public function __construct(
         private readonly StructuralElementFromNameDenormalizer $locationDenormalizer,
         #[Autowire(service: ObjectNormalizer::class)]
-        private readonly NormalizerInterface $normalizer)
+        private readonly NormalizerInterface $normalizer,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly DenormalizerInterface $denormalizer,
+    )
     {
     }
 
@@ -121,7 +124,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
             $data['minamount'] = 0.0;
         }
 
-        $object = $this->normalizer->denormalize($data, $type, $format, $context);
+        $object = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
