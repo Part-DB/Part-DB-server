@@ -23,17 +23,17 @@ declare(strict_types=1);
 namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * The purpose of this event listener is to set the timezone to the one preferred by the user.
  */
 final class SetUserTimezoneSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly string $default_timezone, private readonly \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly string $default_timezone, private readonly Security $security)
     {
     }
 

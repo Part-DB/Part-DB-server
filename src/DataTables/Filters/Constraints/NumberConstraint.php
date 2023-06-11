@@ -25,7 +25,7 @@ use RuntimeException;
 
 class NumberConstraint extends AbstractConstraint
 {
-    final public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
+    protected const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
 
     public function getValue1(): float|int|null|\DateTimeInterface
     {

@@ -14,11 +14,11 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             bool $demo_mode: '%partdb.demo_mode%'
-            bool $gpdr_compliance : '%partdb.gpdr_compliance%'
-            bool $kernel_debug: '%kernel.debug%'
+            bool $gdpr_compliance: '%partdb.gdpr_compliance%'
+            bool $kernel_debug_enabled: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
             string $partdb_title: '%partdb.title%'
-            string $default_currency: '%partdb.default_currency%'
+            string $base_currency: '%partdb.default_currency%'
 
     _instanceof:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
@@ -88,7 +88,7 @@ services:
 
     App\Form\AttachmentFormType:
         arguments:
-            $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
+            $allow_attachments_download: '%partdb.attachments.allow_downloads%'
             $max_file_size: '%partdb.attachments.max_file_size%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
@@ -177,7 +177,7 @@ services:
 
     App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
         arguments:
-            $timezone: '%partdb.timezone%'
+            $default_timezone: '%partdb.timezone%'
 
     App\Controller\SecurityController:
         arguments:

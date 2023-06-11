@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Security;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $default_currency)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }
@@ -51,7 +51,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $builder->add('exchange_rate', BigDecimalMoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
-            'currency' => $this->default_currency,
+            'currency' => $this->base_currency,
             'scale' => 6,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);

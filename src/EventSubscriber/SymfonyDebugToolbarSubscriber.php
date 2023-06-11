@@ -30,7 +30,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly bool $kernel_debug)
+    public function __construct(private readonly bool $kernel_debug_enabled)
     {
     }
 
@@ -59,7 +59,7 @@ final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (!$this->kernel_debug) {
+        if (!$this->kernel_debug_enabled) {
             return;
         }
 

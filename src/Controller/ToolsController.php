@@ -59,7 +59,7 @@ class ToolsController extends AbstractController
             'default_theme' => $this->getParameter('partdb.global_theme'),
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
-            'gpdr_compliance' => $this->getParameter('partdb.gpdr_compliance'),
+            'gpdr_compliance' => $this->getParameter('partdb.gdpr_compliance'),
             'use_gravatar' => $this->getParameter('partdb.users.use_gravatar'),
             'email_password_reset' => $this->getParameter('partdb.users.email_pw_reset'),
             'enviroment' => $this->getParameter('kernel.environment'),

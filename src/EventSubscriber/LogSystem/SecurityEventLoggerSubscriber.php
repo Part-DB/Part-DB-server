@@ -53,7 +53,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gpdr_compliant)
+    public function __construct(private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gdpr_compliance)
     {
     }
 
@@ -119,7 +119,7 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 
     private function addLog(string $type, SecurityEvent $event): void
     {
-        $anonymize = $this->gpdr_compliant;
+        $anonymize = $this->gdpr_compliance;
 
         $request = $this->requestStack->getCurrentRequest();
         if ($request instanceof \Symfony\Component\HttpFoundation\Request) {

@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
-    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $default_currency)
+    public function __construct(\Symfony\Bundle\SecurityBundle\Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }
@@ -53,7 +53,7 @@ class SupplierForm extends CompanyForm
 
         $builder->add('shipping_costs', BigDecimalMoneyType::class, [
             'required' => false,
-            'currency' => $this->default_currency,
+            'currency' => $this->base_currency,
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),

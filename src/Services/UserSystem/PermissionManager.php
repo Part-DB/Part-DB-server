@@ -45,7 +45,7 @@ class PermissionManager
     /**
      * PermissionResolver constructor.
      */
-    public function __construct(protected bool $is_debug, string $kernel_cache_dir)
+    public function __construct(protected readonly bool $kernel_debug_enabled, string $kernel_cache_dir)
     {
         $cache_dir = $kernel_cache_dir;
         //Here the cached structure will be saved.
@@ -271,7 +271,7 @@ class PermissionManager
 
     protected function generatePermissionStructure()
     {
-        $cache = new ConfigCache($this->cache_file, $this->is_debug);
+        $cache = new ConfigCache($this->cache_file, $this->kernel_debug_enabled);
 
         //Check if the cache is fresh, else regenerate it.
         if (!$cache->isFresh()) {

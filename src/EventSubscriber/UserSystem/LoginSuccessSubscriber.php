@@ -37,14 +37,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class LoginSuccessSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator, private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gpdr_compliance)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gdpr_compliance)
     {
     }
 
     public function onLogin(InteractiveLoginEvent $event): void
     {
         $ip = $event->getRequest()->getClientIp();
-        $log = new UserLoginLogEntry($ip, $this->gpdr_compliance);
+        $log = new UserLoginLogEntry($ip, $this->gdpr_compliance);
         $user = $event->getAuthenticationToken()->getUser();
         if ($user instanceof User && $user->getID()) {
             $log->setTargetElement($user);
