@@ -64,7 +64,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      */
-    public const ALLOWED_ELEMENT_CLASS = '';
+    protected const ALLOWED_ELEMENT_CLASS = '';
 
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
@@ -399,5 +399,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         }
 
         return $str;
+    }
+
+    /**
+     * Returns the class of the element that is allowed to be associated with this attachment.
+     * @return string
+     */
+    public function getElementClass(): string
+    {
+        return static::ALLOWED_ELEMENT_CLASS;
     }
 }

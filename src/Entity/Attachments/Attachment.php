@@ -71,8 +71,9 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
+     *
      */
-    public const ALLOWED_ELEMENT_CLASS = '';
+    protected const ALLOWED_ELEMENT_CLASS = '';
 
     /**
      * @var string|null the original filename the file had, when the user uploaded it
@@ -462,5 +463,14 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         return (bool) filter_var($string, FILTER_VALIDATE_URL);
+    }
+
+    /**
+     * Returns the class of the element that is allowed to be associated with this attachment.
+     * @return string
+     */
+    public function getElementClass(): string
+    {
+        return static::ALLOWED_ELEMENT_CLASS;
     }
 }
