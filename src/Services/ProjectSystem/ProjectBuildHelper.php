@@ -80,7 +80,7 @@ class ProjectBuildHelper
     /**
      * Checks if the given project can be built with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
-     * @parm int $number_of_builds
+     * @param int $number_of_builds
      */
     public function isProjectBuildable(Project $project, int $number_of_builds = 1): bool
     {

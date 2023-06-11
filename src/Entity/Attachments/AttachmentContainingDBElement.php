@@ -38,10 +38,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
 
     /**
      * @var Attachment[]|Collection
-     *                              //TODO
-     *                              //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
-     *
-     * Mapping is done in sub classes like part
+     * ORM Mapping is done in subclasses (e.g. Part)
      */
     #[Groups(['full'])]
     protected Collection $attachments;

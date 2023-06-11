@@ -48,6 +48,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -198,16 +199,13 @@ class PartController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
 
-    /**
-     * @ParamConverter("part", options={"id" = "id"})
-     * @ParamConverter("project", options={"id" = "project_id"})
-     */
     #[Route(path: '/new', name: 'part_new')]
     #[Route(path: '/{id}/clone', name: 'part_clone')]
     #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
-        ?Part $part = null, ?Project $project = null): Response
+        #[MapEntity(mapping: ['id' => 'id'])] ?Part $part = null,
+        #[MapEntity(mapping: ['id' => 'project_id'])] ?Project $project = null): Response
     {
 
         if ($part instanceof Part) {
