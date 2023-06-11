@@ -26,6 +26,9 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 
+/**
+ * @see \App\Tests\Services\ProjectSystem\ProjectBuildHelperTest
+ */
 class ProjectBuildHelper
 {
     public function __construct(private readonly PartLotWithdrawAddHelper $withdraw_add_helper)

@@ -46,6 +46,7 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
 /**
  * This service replaces the Placeholders of the user provided lines with the proper informations.
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
+ * @see \App\Tests\Services\LabelSystem\LabelTextReplacerTest
  */
 final class LabelTextReplacer
 {

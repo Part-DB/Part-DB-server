@@ -45,6 +45,7 @@ use InvalidArgumentException;
 
 /**
  * This Parser allows to parse number ranges like 1-3, 4, 5.
+ * @see \App\Tests\Services\Misc\RangeParserTest
  */
 class RangeParser
 {

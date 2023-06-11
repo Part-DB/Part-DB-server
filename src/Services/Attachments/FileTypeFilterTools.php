@@ -32,6 +32,7 @@ use Symfony\Contracts\Cache\ItemInterface;
  * A service that helps to work with filetype filters (based on the format <input type=file> accept uses).
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers for
  * more details.
+ * @see \App\Tests\Services\Attachments\FileTypeFilterToolsTest
  */
 class FileTypeFilterTools
 {

@@ -30,6 +30,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Controller\RedirectControllerTest
+ */
 class RedirectController extends AbstractController
 {
     public function __construct(protected string $default_locale, protected TranslatorInterface $translator, protected bool $enforce_index_php)
@@ -55,7 +58,7 @@ class RedirectController extends AbstractController
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
         if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
-            && !str_contains($new_url, 'index.php')) {
+            && !str_contains((string) $new_url, 'index.php')) {
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
         }

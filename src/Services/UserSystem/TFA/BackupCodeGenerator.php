@@ -27,6 +27,7 @@ use RuntimeException;
 
 /**
  * This class generates random backup codes for two-factor authentication.
+ * @see \App\Tests\Services\UserSystem\TFA\BackupCodeGeneratorTest
  */
 class BackupCodeGenerator
 {

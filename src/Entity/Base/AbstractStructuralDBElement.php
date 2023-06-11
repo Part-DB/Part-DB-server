@@ -47,6 +47,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * an attribute of a root element, you will get an exception!
  *
  *
+ * @see \App\Tests\Entity\Base\AbstractStructuralDBElementTest
  */
 #[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
 #[ORM\MappedSuperclass(repositoryClass: StructuralDBElementRepository::class)]

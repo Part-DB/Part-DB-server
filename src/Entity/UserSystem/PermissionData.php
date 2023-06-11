@@ -26,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * This class is used to store the permissions of a user.
  * This has to be an embeddable or otherwise doctrine could not track the changes of the underlying data array (which is serialized to JSON in the database)
+ * @see \App\Tests\Entity\UserSystem\PermissionDataTest
  */
 #[ORM\Embeddable]
 final class PermissionData implements \JsonSerializable

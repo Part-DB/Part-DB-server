@@ -36,6 +36,7 @@ use LogicException;
 
 /**
  * Class Attachment.
+ * @see \App\Tests\Entity\Attachments\AttachmentTest
  */
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]

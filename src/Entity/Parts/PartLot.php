@@ -42,6 +42,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * It is the connection between a part and its store locations.
  *
  * @ValidPartLot()
+ * @see \App\Tests\Entity\Parts\PartLotTest
  */
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]

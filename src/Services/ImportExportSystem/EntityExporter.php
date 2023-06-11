@@ -36,6 +36,7 @@ use function Symfony\Component\String\u;
 
 /**
  * Use this class to export an entity to multiple file formats.
+ * @see \App\Tests\Services\ImportExportSystem\EntityExporterTest
  */
 class EntityExporter
 {

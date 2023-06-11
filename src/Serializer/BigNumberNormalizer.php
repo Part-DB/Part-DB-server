@@ -24,6 +24,9 @@ use Brick\Math\BigNumber;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @see \App\Tests\Serializer\BigNumberNormalizerTest
+ */
 class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
 

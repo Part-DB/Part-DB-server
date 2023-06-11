@@ -25,6 +25,9 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+/**
+ * @see \App\Tests\Serializer\StructuralElementNormalizerTest
+ */
 class StructuralElementNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
     public function __construct(private readonly ObjectNormalizer $normalizer)

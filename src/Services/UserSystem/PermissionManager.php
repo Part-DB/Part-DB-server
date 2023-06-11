@@ -37,6 +37,7 @@ use Symfony\Component\Yaml\Yaml;
  * This class manages the permissions of users and groups.
  * Permissions are defined in the config/permissions.yaml file, and are parsed and resolved by this class using the
  * user and hierachical group PermissionData information.
+ * @see \App\Tests\Services\UserSystem\PermissionManagerTest
  */
 class PermissionManager
 {

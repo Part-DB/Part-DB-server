@@ -29,6 +29,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @see \App\Tests\Security\SamlUserFactoryTest
+ */
 class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterface
 {
     private readonly array $saml_role_mapping;

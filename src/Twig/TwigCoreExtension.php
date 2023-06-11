@@ -27,6 +27,7 @@ use Twig\TwigTest;
 
 /**
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.
+ * @see \App\Tests\Twig\TwigCoreExtensionTest
  */
 final class TwigCoreExtension extends AbstractExtension
 {

@@ -28,6 +28,7 @@ use App\Validator\Constraints\ProjectSystem\ValidProjectBuildRequest;
 
 /**
  * @ValidProjectBuildRequest()
+ * @see \App\Tests\Helpers\Projects\ProjectBuildRequestTest
  */
 final class ProjectBuildRequest
 {

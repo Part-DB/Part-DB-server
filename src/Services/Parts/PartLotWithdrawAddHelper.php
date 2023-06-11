@@ -8,6 +8,9 @@ use App\Entity\Parts\PartLot;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 
+/**
+ * @see \App\Tests\Services\Parts\PartLotWithdrawAddHelperTest
+ */
 final class PartLotWithdrawAddHelper
 {
     public function __construct(private readonly EventLogger $eventLogger, private readonly EventCommentHelper $eventCommentHelper)

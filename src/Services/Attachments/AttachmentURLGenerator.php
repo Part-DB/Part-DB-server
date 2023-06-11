@@ -31,6 +31,9 @@ use function strlen;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @see \App\Tests\Services\Attachments\AttachmentURLGeneratorTest
+ */
 class AttachmentURLGenerator
 {
     protected string $public_path;

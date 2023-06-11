@@ -26,6 +26,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
+/**
+ * @see \App\Tests\Serializer\StructuralElementFromNameDenormalizerTest
+ */
 class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
     public function __construct(private readonly EntityManagerInterface $em)

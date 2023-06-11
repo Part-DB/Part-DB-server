@@ -42,6 +42,9 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
+/**
+ * @see \App\Tests\Twig\EntityExtensionTest
+ */
 final class EntityExtension extends AbstractExtension
 {
     public function __construct(protected EntityURLGenerator $entityURLGenerator, protected TreeViewGenerator $treeBuilder, private readonly ElementTypeNameGenerator $nameGenerator)

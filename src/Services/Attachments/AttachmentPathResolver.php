@@ -29,6 +29,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * This service converts the relative pathes for attachments saved in database (like %MEDIA%/img.jpg) to real pathes
  * an vice versa.
+ * @see \App\Tests\Services\Attachments\AttachmentPathResolverTest
  */
 class AttachmentPathResolver
 {

@@ -49,6 +49,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * The class properties are split over various traits in directory PartTraits.
  * Otherwise, this class would be too big, to be maintained.
+ * @see \App\Tests\Entity\Parts\PartTest
  */
 #[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
 #[ORM\Entity(repositoryClass: PartRepository::class)]

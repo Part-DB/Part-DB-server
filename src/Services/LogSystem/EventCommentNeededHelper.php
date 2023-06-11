@@ -23,6 +23,7 @@ namespace App\Services\LogSystem;
 /**
  * This service is used to check if a log change comment is needed for a given operation type.
  * It is configured using the "enforce_change_comments_for" config parameter.
+ * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
  */
 class EventCommentNeededHelper
 {

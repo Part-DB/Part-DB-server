@@ -47,6 +47,9 @@ use InvalidArgumentException;
 
 use function preg_match;
 
+/**
+ * @see \App\Tests\Services\Parameters\ParameterExtractorTest
+ */
 class ParameterExtractor
 {
     protected const ALLOWED_PARAM_SEPARATORS = [', ', "\n"];

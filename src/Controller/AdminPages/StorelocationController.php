@@ -35,6 +35,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @see \App\Tests\Controller\AdminPages\StorelocationControllerTest
+ */
 #[Route(path: '/store_location')]
 class StorelocationController extends BaseAdminController
 {

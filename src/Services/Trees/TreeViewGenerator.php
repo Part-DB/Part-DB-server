@@ -45,6 +45,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function count;
 
+/**
+ * @see \App\Tests\Services\Trees\TreeViewGeneratorTest
+ */
 class TreeViewGenerator
 {
     public function __construct(protected EntityURLGenerator $urlGenerator, protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected TranslatorInterface $translator, protected bool $rootNodeExpandedByDefault, protected bool $rootNodeEnabled)
@@ -130,43 +133,29 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
-        switch ($class) {
-            case Category::class:
-                return $this->translator->trans('category.labelp');
-            case Storelocation::class:
-                return $this->translator->trans('storelocation.labelp');
-            case Footprint::class:
-                return $this->translator->trans('footprint.labelp');
-            case Manufacturer::class:
-                return $this->translator->trans('manufacturer.labelp');
-            case Supplier::class:
-                return $this->translator->trans('supplier.labelp');
-            case Project::class:
-                return $this->translator->trans('project.labelp');
-            default:
-                return $this->translator->trans('tree.root_node.text');
-        }
+        return match ($class) {
+            Category::class => $this->translator->trans('category.labelp'),
+            Storelocation::class => $this->translator->trans('storelocation.labelp'),
+            Footprint::class => $this->translator->trans('footprint.labelp'),
+            Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
+            Supplier::class => $this->translator->trans('supplier.labelp'),
+            Project::class => $this->translator->trans('project.labelp'),
+            default => $this->translator->trans('tree.root_node.text'),
+        };
     }
 
     protected function entityClassToRootNodeIcon(string $class): ?string
     {
         $icon = "fa-fw fa-treeview fa-solid ";
-        switch ($class) {
-            case Category::class:
-                return $icon . 'fa-tags';
-            case Storelocation::class:
-                return $icon . 'fa-cube';
-            case Footprint::class:
-                return $icon . 'fa-microchip';
-            case Manufacturer::class:
-                return $icon . 'fa-industry';
-            case Supplier::class:
-                return $icon . 'fa-truck';
-            case Project::class:
-                return $icon . 'fa-archive';
-            default:
-                return null;
-        }
+        return match ($class) {
+            Category::class => $icon . 'fa-tags',
+            Storelocation::class => $icon . 'fa-cube',
+            Footprint::class => $icon . 'fa-microchip',
+            Manufacturer::class => $icon . 'fa-industry',
+            Supplier::class => $icon . 'fa-truck',
+            Project::class => $icon . 'fa-archive',
+            default => null,
+        };
     }
 
     /**

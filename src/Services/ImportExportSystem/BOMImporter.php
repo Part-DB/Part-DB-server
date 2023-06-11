@@ -27,6 +27,9 @@ use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @see \App\Tests\Services\ImportExportSystem\BOMImporterTest
+ */
 class BOMImporter
 {
 

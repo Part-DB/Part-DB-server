@@ -29,6 +29,9 @@ use App\Entity\UserSystem\User;
 use App\Services\Misc\ConsoleInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @see \App\Tests\Services\LogSystem\EventLoggerTest
+ */
 class EventLogger
 {
     public function __construct(protected int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)

@@ -5,6 +5,9 @@ namespace App\Services\ProjectSystem;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 
+/**
+ * @see \App\Tests\Services\ProjectSystem\ProjectBuildPartHelperTest
+ */
 class ProjectBuildPartHelper
 {
     /**

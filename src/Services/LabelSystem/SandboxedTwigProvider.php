@@ -68,6 +68,9 @@ use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\SandboxedTwigProviderTest
+ */
 final class SandboxedTwigProvider
 {
     private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];

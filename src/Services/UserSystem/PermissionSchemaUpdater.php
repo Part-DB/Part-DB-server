@@ -25,6 +25,9 @@ use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 
+/**
+ * @see \App\Tests\Services\UserSystem\PermissionSchemaUpdaterTest
+ */
 class PermissionSchemaUpdater
 {
     /**

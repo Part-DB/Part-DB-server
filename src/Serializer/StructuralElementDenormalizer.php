@@ -27,6 +27,9 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+/**
+ * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
+ */
 class StructuralElementDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
 

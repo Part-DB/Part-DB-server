@@ -49,6 +49,9 @@ use App\Services\LabelSystem\LabelTextReplacer;
 use IntlDateFormatter;
 use Locale;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartLotProviderTest
+ */
 final class PartLotProvider implements PlaceholderProviderInterface
 {
     public function __construct(private readonly LabelTextReplacer $labelTextReplacer, private readonly AmountFormatter $amountFormatter)

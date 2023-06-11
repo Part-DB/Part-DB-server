@@ -49,6 +49,9 @@ use Doctrine\ORM\Mapping\Entity;
 use function get_class;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Services\ElementTypeNameGeneratorTest
+ */
 class ElementTypeNameGenerator
 {
     protected array $mapping;
@@ -127,7 +130,7 @@ class ElementTypeNameGenerator
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>'.$type.':</i> '.htmlspecialchars($entity->getName());
+            return '<i>'.$type.':</i> '.htmlspecialchars((string) $entity->getName());
         }
 
         return $type.': '.$entity->getName();

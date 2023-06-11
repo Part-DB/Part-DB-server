@@ -48,6 +48,9 @@ use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\BarcodeGeneratorTest
+ */
 final class BarcodeGenerator
 {
     public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator)

@@ -30,6 +30,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * This service is used to find builtin attachment ressources.
+ * @see \App\Tests\Services\Attachments\BuiltinAttachmentsFinderTest
  */
 class BuiltinAttachmentsFinder
 {
@@ -57,7 +58,7 @@ class BuiltinAttachmentsFinder
         foreach($finder as $file) {
             $folder = $file->getRelativePath();
             //Normalize path (replace \ with /)
-            $folder = str_replace('\\', '/', $folder);
+            $folder = str_replace('\\', '/', (string) $folder);
 
             if(!isset($output[$folder])) {
                 $output[$folder] = [];

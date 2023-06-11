@@ -51,6 +51,7 @@ use App\Repository\LogEntryRepository;
 
 /**
  * This entity describes an entry in the event log.
+ * @see \App\Tests\Entity\LogSystem\AbstractLogEntryTest
  */
 #[ORM\Entity(repositoryClass: LogEntryRepository::class)]
 #[ORM\Table('log')]

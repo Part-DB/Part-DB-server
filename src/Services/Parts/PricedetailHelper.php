@@ -32,6 +32,9 @@ use Locale;
 
 use function count;
 
+/**
+ * @see \App\Tests\Services\Parts\PricedetailHelperTest
+ */
 class PricedetailHelper
 {
     protected string $locale;
@@ -54,7 +57,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === count($pricedetails)) {
+            if (0 === (is_countable($pricedetails) ? count($pricedetails) : 0)) {
                 continue;
             }
 
@@ -99,7 +102,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === count($pricedetails)) {
+            if (0 === (is_countable($pricedetails) ? count($pricedetails) : 0)) {
                 continue;
             }
 

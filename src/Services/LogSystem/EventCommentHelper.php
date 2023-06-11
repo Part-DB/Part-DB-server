@@ -41,6 +41,9 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+/**
+ * @see \App\Tests\Services\LogSystem\EventCommentHelperTest
+ */
 class EventCommentHelper
 {
     protected const MAX_MESSAGE_LENGTH = 255;

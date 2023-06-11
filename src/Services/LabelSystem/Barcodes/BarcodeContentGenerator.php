@@ -48,6 +48,9 @@ use App\Entity\Parts\Storelocation;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeContentGeneratorTest
+ */
 final class BarcodeContentGenerator
 {
     public const PREFIX_MAP = [

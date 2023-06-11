@@ -26,6 +26,9 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 
+/**
+ * @see \App\Tests\Repository\NamedDBElementRepositoryTest
+ */
 class NamedDBElementRepository extends DBElementRepository
 {
     /**

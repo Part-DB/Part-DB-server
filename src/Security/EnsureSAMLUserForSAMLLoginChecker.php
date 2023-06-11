@@ -27,6 +27,9 @@ use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Security\EnsureSAMLUserForSAMLLoginCheckerTest
+ */
 class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
 {
     public function __construct(private readonly TranslatorInterface $translator)

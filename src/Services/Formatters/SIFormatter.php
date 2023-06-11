@@ -24,6 +24,7 @@ namespace App\Services\Formatters;
 
 /**
  * A service that helps you to format values using the SI prefixes.
+ * @see \App\Tests\Services\Formatters\SIFormatterTest
  */
 class SIFormatter
 {

@@ -36,6 +36,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @see \App\Tests\Controller\AdminPages\FootprintControllerTest
+ */
 #[Route(path: '/footprint')]
 class FootprintController extends BaseAdminController
 {

@@ -97,7 +97,7 @@ class PartListsController extends AbstractController
         $attrs['disabled'] = $disabled;
 
         $parent = $form->getParent();
-        if (!$parent instanceof \Symfony\Component\Form\FormInterface) {
+        if (!$parent instanceof FormInterface) {
             throw new \RuntimeException('This function can only be used on form fields that are children of another form!');
         }
 

@@ -27,6 +27,9 @@ use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
 use RecursiveIteratorIterator;
 
+/**
+ * @see \App\Tests\Repository\StructuralDBElementRepositoryTest
+ */
 class StructuralDBElementRepository extends NamedDBElementRepository
 {
     /**

@@ -26,6 +26,7 @@ use App\Entity\UserSystem\User;
 
 /**
  * This services offers methods to manage backup codes for two-factor authentication.
+ * @see \App\Tests\Services\UserSystem\TFA\BackupCodeManagerTest
  */
 class BackupCodeManager
 {

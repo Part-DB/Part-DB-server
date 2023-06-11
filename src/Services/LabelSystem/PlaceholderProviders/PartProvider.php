@@ -49,6 +49,9 @@ use App\Services\Formatters\SIFormatter;
 use Parsedown;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartProviderTest
+ */
 final class PartProvider implements PlaceholderProviderInterface
 {
     public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)

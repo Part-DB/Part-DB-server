@@ -48,6 +48,9 @@ use App\Entity\Parts\Storelocation;
 use Dompdf\Dompdf;
 use InvalidArgumentException;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\LabelGeneratorTest
+ */
 final class LabelGenerator
 {
     public const CLASS_SUPPORT_MAPPING = [

@@ -50,6 +50,9 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
+/**
+ * @see \App\Tests\Twig\UserExtensionTest
+ */
 final class UserExtension extends AbstractExtension
 {
     private readonly LogEntryRepository $repo;

@@ -31,6 +31,7 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 /**
  *  This service gives you a flat list containing all structured entities in the order of the structure.
+ * @see \App\Tests\Services\Trees\NodesListBuilderTest
  */
 class NodesListBuilder
 {

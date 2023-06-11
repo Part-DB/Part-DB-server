@@ -29,6 +29,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This service formats a part amount using a Measurement Unit.
+ * @see \App\Tests\Services\Formatters\AmountFormatterTest
  */
 class AmountFormatter
 {

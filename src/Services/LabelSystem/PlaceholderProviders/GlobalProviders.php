@@ -50,6 +50,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Provides Placeholders for infos about global infos like Installation name or datetimes.
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\GlobalProvidersTest
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {

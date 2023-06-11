@@ -47,6 +47,9 @@ use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeRedirectorTest
+ */
 final class BarcodeRedirector
 {
     public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em)
