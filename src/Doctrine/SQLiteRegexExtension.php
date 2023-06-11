@@ -21,6 +21,7 @@
 namespace App\Doctrine;
 
 use App\Exceptions\InvalidRegexException;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
@@ -31,7 +32,8 @@ use Doctrine\DBAL\Platforms\SqlitePlatform;
  * As a PHP callback is called for every entry to compare it is most likely much slower than using regex on MySQL.
  * But as regex is not often used, this should be fine for most use cases, also it is almost impossible to implement a better solution.
  */
-class SQLiteRegexExtension implements EventSubscriberInterface
+#[AsDoctrineListener(Events::postConnect)]
+class SQLiteRegexExtension
 {
     public function postConnect(ConnectionEventArgs $eventArgs): void
     {
@@ -52,12 +54,5 @@ class SQLiteRegexExtension implements EventSubscriberInterface
                 });
             }
         }
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return[
-            Events::postConnect
-        ];
     }
 }

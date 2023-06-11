@@ -36,7 +36,7 @@ class ValidProjectBuildRequestValidator extends ConstraintValidator
             ->setParameter('{{ lot }}', $partLot->getName());
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ValidProjectBuildRequest) {
             throw new UnexpectedTypeException($constraint, ValidProjectBuildRequest::class);

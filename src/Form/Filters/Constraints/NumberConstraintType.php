@@ -91,10 +91,8 @@ class NumberConstraintType extends AbstractType
         ]);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        parent::buildView($view, $form, $options);
-
         $view->vars['text_suffix'] = $options['text_suffix'];
     }
 }

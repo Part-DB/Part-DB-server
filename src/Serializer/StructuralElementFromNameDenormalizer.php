@@ -35,7 +35,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
     {
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }

@@ -30,9 +30,6 @@ framework:
     php_errors:
         log: true
 
-    form:
-        legacy_error_messages: false    # Enable to use the new Form component validation messages
-
 when@test:
     framework:
         test: true

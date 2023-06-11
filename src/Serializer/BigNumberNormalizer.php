@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof BigNumber;
     }

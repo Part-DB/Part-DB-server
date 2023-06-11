@@ -43,7 +43,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
     {
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound' => true,
@@ -51,7 +51,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setDataMapper($this);
 
@@ -104,7 +104,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         });
     }
 
-    public function mapDataToForms($data, \Traversable $forms)
+    public function mapDataToForms($data, \Traversable $forms): void
     {
         if (!$data instanceof ProjectBuildRequest) {
             throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);
@@ -129,7 +129,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
 
     }
 
-    public function mapFormsToData(\Traversable $forms, &$data)
+    public function mapFormsToData(\Traversable $forms, &$data): void
     {
         if (!$data instanceof ProjectBuildRequest) {
             throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);

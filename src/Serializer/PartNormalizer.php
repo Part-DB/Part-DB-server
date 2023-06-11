@@ -51,7 +51,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     {
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Part;
     }
@@ -74,7 +74,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $data;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data) && is_a($type, Part::class, true);
     }

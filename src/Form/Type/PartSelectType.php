@@ -26,7 +26,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
     {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         //At initialization, we have to fill the form element with our selected data, so the user can see it
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
@@ -66,7 +66,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
        $builder->setDataMapper($this);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'class' => Part::class,
@@ -110,13 +110,13 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         ]);
     }
 
-    public function mapDataToForms($data, \Traversable $forms)
+    public function mapDataToForms($data, \Traversable $forms): void
     {
         $form = current(iterator_to_array($forms, false));
         $form->setData($data);
     }
 
-    public function mapFormsToData(\Traversable $forms, &$data)
+    public function mapFormsToData(\Traversable $forms, &$data): void
     {
         $form = current(iterator_to_array($forms, false));
         $data = $form->getData();

@@ -98,7 +98,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
         $resolver->setAllowedTypes('reindex_path', 'string');
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         parent::finishView($view, $form, $options);
         //Add prototype name to view, so that we can pass it to the stimulus controller

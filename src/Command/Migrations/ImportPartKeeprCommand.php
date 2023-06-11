@@ -45,7 +45,7 @@ class ImportPartKeeprCommand extends Command
         parent::__construct(self::$defaultName);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setHelp('This command allows you to import a PartKeepr database exported by mysqldump as XML file into Part-DB');
 

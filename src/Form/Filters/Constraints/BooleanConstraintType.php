@@ -46,7 +46,7 @@ class BooleanConstraintType extends AbstractType
         ]);
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         //Remove the label from the compound form, as the checkbox already has a label
         $view->vars['label'] = false;

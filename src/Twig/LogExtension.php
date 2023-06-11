@@ -33,7 +33,7 @@ final class LogExtension extends AbstractExtension
     {
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('format_log_data', fn($data, AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),

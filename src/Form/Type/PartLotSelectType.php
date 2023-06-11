@@ -37,7 +37,7 @@ class PartLotSelectType extends AbstractType
         return EntityType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('part');
         $resolver->setAllowedTypes('part', Part::class);

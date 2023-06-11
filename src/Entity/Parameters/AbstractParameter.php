@@ -121,7 +121,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var string the group this parameter belongs to
      */
     #[Groups(['full'])]
-    #[Groups(['full'])]
     #[ORM\Column(type: Types::STRING, name: 'param_group')]
     protected string $group = '';
 

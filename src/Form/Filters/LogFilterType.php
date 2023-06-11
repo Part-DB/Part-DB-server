@@ -101,7 +101,7 @@ class LogFilterType extends AbstractType
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('dbId', NumberConstraintType::class, [
             'label' => 'part.filter.dbId',
