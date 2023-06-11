@@ -21,10 +21,9 @@
 namespace App\Security;
 
 use App\Entity\UserSystem\User;
-use Hslavich\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
+use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

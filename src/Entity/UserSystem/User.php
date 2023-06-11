@@ -222,7 +222,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['full'])]
     #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $backupCodesGenerationDate;
+    protected ?\DateTimeInterface $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
