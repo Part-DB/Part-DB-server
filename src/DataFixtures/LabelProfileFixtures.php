@@ -100,7 +100,7 @@ class LabelProfileFixtures extends Fixture
         $option4->setLines('{{ element.name }}');
         $option4->setBarcodeType('code39');
         $option4->setSupportedElement('part');
-        $option4->setLinesMode('twig');
+        $option4->setProcessMode('twig');
         $profile4->setOptions($option4);
 
         $manager->persist($profile4);

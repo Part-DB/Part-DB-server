@@ -44,6 +44,7 @@ namespace App\Controller;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Exceptions\TwigModeException;
 use App\Form\LabelSystem\LabelDialogType;
 use App\Repository\DBElementRepository;
@@ -80,18 +81,18 @@ class LabelController extends AbstractController
         $label_options = $profile instanceof LabelProfile ? $profile->getOptions() : new LabelOptions();
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
-        $disable_options = 'twig' === $label_options->getLinesMode() && !$this->isGranted('@labels.use_twig');
+        $disable_options = 'twig' === $label_options->getProcessMode() && !$this->isGranted('@labels.use_twig');
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,
         ]);
 
         //Try to parse given target_type and target_id
-        $target_type = $request->query->get('target_type', null);
+        $target_type = $request->query->getEnum('target_type', LabelSupportedElement::class, null);
         $target_id = $request->query->get('target_id', null);
         $generate = $request->query->getBoolean('generate', false);
 
-        if (!$profile instanceof LabelProfile && is_string($target_type)) {
+        if (!$profile instanceof LabelProfile && $target_type instanceof LabelSupportedElement) {
             $label_options->setSupportedElement($target_type);
         }
         if (is_string($target_id)) {
@@ -142,16 +143,12 @@ class LabelController extends AbstractController
         return $ret.'.pdf';
     }
 
-    protected function findObjects(string $type, string $ids): array
+    protected function findObjects(LabelSupportedElement $type, string $ids): array
     {
-        if (!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
-            throw new InvalidArgumentException('The given type is not known and can not be mapped to a class!');
-        }
-
         $id_array = $this->rangeParser->parse($ids);
 
         /** @var DBElementRepository $repo */
-        $repo = $this->em->getRepository(LabelGenerator::CLASS_SUPPORT_MAPPING[$type]);
+        $repo = $this->em->getRepository($type->getEntityClass());
 
         return $repo->getElementsFromIDArray($id_array);
     }

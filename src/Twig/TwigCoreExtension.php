@@ -25,6 +25,7 @@ namespace App\Twig;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Twig\TwigTest;
 
 /**
@@ -37,6 +38,14 @@ final class TwigCoreExtension extends AbstractExtension
     {
     }
 
+    public function getFunctions()
+    {
+        return [
+            /* Returns the enum cases as values */
+            new TwigFunction('enum_cases', [$this, 'getEnumCases']),
+        ];
+    }
+
     public function getTests(): array
     {
         return [
@@ -47,6 +56,15 @@ final class TwigCoreExtension extends AbstractExtension
             /* Checks if a given variable is an object. E.g. `x is object` */
             new TwigTest('object', static fn($var): object => is_object($var)),
         ];
+    }
+
+    public function getEnumCases(string $enum_class): array
+    {
+        if (!enum_exists($enum_class)) {
+            throw new \InvalidArgumentException(sprintf('The given class "%s" is not an enum!', $enum_class));
+        }
+
+        return ($enum_class)::cases();
     }
 
     public function getFilters(): array

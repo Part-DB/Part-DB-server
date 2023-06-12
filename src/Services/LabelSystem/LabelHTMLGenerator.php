@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem;
 
+use App\Entity\LabelSystem\LabelProcessMode;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
@@ -64,14 +65,14 @@ final class LabelHTMLGenerator
 
         $twig_elements = [];
 
-        if ('twig' === $options->getLinesMode()) {
+        if (LabelProcessMode::TWIG === $options->getProcessMode()) {
             $sandboxed_twig = $this->sandboxedTwigProvider->getTwig($options);
             $current_user = $this->security->getUser();
         }
 
         $page = 1;
         foreach ($elements as $element) {
-            if (isset($sandboxed_twig, $current_user) && 'twig' === $options->getLinesMode()) {
+            if (isset($sandboxed_twig, $current_user) && LabelProcessMode::TWIG === $options->getProcessMode()) {
                 try {
                     $lines = $sandboxed_twig->render(
                         'lines',

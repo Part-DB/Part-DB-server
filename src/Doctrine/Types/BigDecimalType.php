@@ -38,10 +38,8 @@ class BigDecimalType extends Type
 
     /**
      * @param string|null $value
-     *
-     * @return BigDecimal|BigNumber|mixed
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?BigNumber
     {
         if (null === $value) {
             return null;

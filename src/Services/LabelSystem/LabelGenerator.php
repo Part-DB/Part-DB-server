@@ -53,12 +53,6 @@ use InvalidArgumentException;
  */
 final class LabelGenerator
 {
-    public const CLASS_SUPPORT_MAPPING = [
-        'part' => Part::class,
-        'part_lot' => PartLot::class,
-        'storelocation' => Storelocation::class,
-    ];
-
     public const MM_TO_POINTS_FACTOR = 2.83465;
 
     public function __construct(private readonly LabelHTMLGenerator $labelHTMLGenerator)
@@ -66,9 +60,9 @@ final class LabelGenerator
     }
 
     /**
-     * @param object|object[] $elements An element or an array of elements for which labels should be generated
+     * @param  object|object[]  $elements An element or an array of elements for which labels should be generated
      */
-    public function generateLabel(LabelOptions $options, $elements): string
+    public function generateLabel(LabelOptions $options, object|array $elements): string
     {
         if (!is_array($elements) && !is_object($elements)) {
             throw new InvalidArgumentException('$element must be an object or an array of objects!');
@@ -98,11 +92,8 @@ final class LabelGenerator
     public function supports(LabelOptions $options, object $element): bool
     {
         $supported_type = $options->getSupportedElement();
-        if (!isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
-            throw new InvalidArgumentException('Supported type name of the Label options not known!');
-        }
 
-        return is_a($element, static::CLASS_SUPPORT_MAPPING[$supported_type]);
+        return is_a($element, $supported_type->getEntityClass());
     }
 
     /**

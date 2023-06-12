@@ -48,12 +48,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Embeddable]
 class LabelOptions
 {
-    final public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93', 'code128'];
-    final public const SUPPORTED_ELEMENTS = ['part', 'part_lot', 'storelocation'];
-    final public const PICTURE_TYPES = ['none', 'element_picture', 'main_attachment'];
-
-    final public const LINES_MODES = ['html', 'twig'];
-
     /**
      * @var float The page size of the label in mm
      */
@@ -69,25 +63,19 @@ class LabelOptions
     protected float $height = 30.0;
 
     /**
-     * @var string The type of the barcode that should be used in the label (e.g. 'qr')
+     * @var BarcodeType The type of the barcode that should be used in the label (e.g. 'qr')
      */
-    #[Assert\Choice(choices: LabelOptions::BARCODE_TYPES)]
-    #[ORM\Column(type: Types::STRING)]
-    protected string $barcode_type = 'none';
+    #[ORM\Column(type: Types::STRING, enumType: BarcodeType::class)]
+    protected BarcodeType $barcode_type = BarcodeType::NONE;
 
     /**
-     * @var string What image should be shown along the
+     * @var LabelPictureType What image should be shown along the label
      */
-    #[Assert\Choice(choices: LabelOptions::PICTURE_TYPES)]
-    #[ORM\Column(type: Types::STRING)]
-    protected string $picture_type = 'none';
+    #[ORM\Column(type: Types::STRING, enumType: LabelPictureType::class)]
+    protected LabelPictureType $picture_type = LabelPictureType::NONE;
 
-    /**
-     * @var string
-     */
-    #[Assert\Choice(choices: LabelOptions::SUPPORTED_ELEMENTS)]
-    #[ORM\Column(type: Types::STRING)]
-    protected string $supported_element = 'part';
+    #[ORM\Column(type: Types::STRING, enumType: LabelSupportedElement::class)]
+    protected LabelSupportedElement $supported_element = LabelSupportedElement::PART;
 
     /**
      * @var string any additional CSS for the label
@@ -95,11 +83,10 @@ class LabelOptions
     #[ORM\Column(type: Types::TEXT)]
     protected string $additional_css = '';
 
-    /** @var string The mode that will be used to interpret the lines
+    /** @var LabelProcessMode The mode that will be used to interpret the lines
      */
-    #[Assert\Choice(choices: LabelOptions::LINES_MODES)]
-    #[ORM\Column(type: Types::STRING)]
-    protected string $lines_mode = 'html';
+    #[ORM\Column(type: Types::STRING, enumType: LabelProcessMode::class, name: 'lines_mode')]
+    protected LabelProcessMode $process_mode = LabelProcessMode::PLACEHOLDER;
 
     /**
      * @var string
@@ -131,36 +118,36 @@ class LabelOptions
         return $this;
     }
 
-    public function getBarcodeType(): string
+    public function getBarcodeType(): BarcodeType
     {
         return $this->barcode_type;
     }
 
-    public function setBarcodeType(string $barcode_type): self
+    public function setBarcodeType(BarcodeType $barcode_type): self
     {
         $this->barcode_type = $barcode_type;
 
         return $this;
     }
 
-    public function getPictureType(): string
+    public function getPictureType(): LabelPictureType
     {
         return $this->picture_type;
     }
 
-    public function setPictureType(string $picture_type): self
+    public function setPictureType(LabelPictureType $picture_type): self
     {
         $this->picture_type = $picture_type;
 
         return $this;
     }
 
-    public function getSupportedElement(): string
+    public function getSupportedElement(): LabelSupportedElement
     {
         return $this->supported_element;
     }
 
-    public function setSupportedElement(string $supported_element): self
+    public function setSupportedElement(LabelSupportedElement $supported_element): self
     {
         $this->supported_element = $supported_element;
 
@@ -194,14 +181,14 @@ class LabelOptions
         return $this;
     }
 
-    public function getLinesMode(): string
+    public function getProcessMode(): LabelProcessMode
     {
-        return $this->lines_mode;
+        return $this->process_mode;
     }
 
-    public function setLinesMode(string $lines_mode): self
+    public function setProcessMode(LabelProcessMode $process_mode): self
     {
-        $this->lines_mode = $lines_mode;
+        $this->process_mode = $process_mode;
 
         return $this;
     }

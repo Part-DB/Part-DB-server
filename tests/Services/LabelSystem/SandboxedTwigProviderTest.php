@@ -42,6 +42,8 @@ declare(strict_types=1);
 namespace App\Tests\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -104,9 +106,9 @@ class SandboxedTwigProviderTest extends WebTestCase
     public function testTwigFeatures(string $twig): void
     {
         $options = new LabelOptions();
-        $options->setSupportedElement('part');
+        $options->setSupportedElement(LabelSupportedElement::PART);
         $options->setLines($twig);
-        $options->setLinesMode('twig');
+        $options->setProcessMode(LabelProcessMode::TWIG);
 
         $twig = $this->service->getTwig($options);
         $str = $twig->render('lines', [
@@ -126,9 +128,9 @@ class SandboxedTwigProviderTest extends WebTestCase
         $this->expectException(SecurityError::class);
 
         $options = new LabelOptions();
-        $options->setSupportedElement('part');
+        $options->setSupportedElement(LabelSupportedElement::PART);
         $options->setLines($twig);
-        $options->setLinesMode('twig');
+        $options->setProcessMode(LabelProcessMode::TWIG);
 
         $twig = $this->service->getTwig($options);
         $str = $twig->render('lines', [

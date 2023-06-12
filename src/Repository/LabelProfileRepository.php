@@ -43,6 +43,7 @@ namespace App\Repository;
 
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Helpers\Trees\TreeViewNode;
 use InvalidArgumentException;
 
@@ -52,12 +53,8 @@ class LabelProfileRepository extends NamedDBElementRepository
      * Find the profiles that are shown in the dropdown for the given type.
      * You should maybe use the cached version of this in LabelProfileDropdownHelper.
      */
-    public function getDropdownProfiles(string $type): array
+    public function getDropdownProfiles(LabelSupportedElement $type): array
     {
-        if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
-            throw new InvalidArgumentException('Invalid supported_element type given.');
-        }
-
         return $this->findBy([
             'options.supported_element' => $type,
             'show_in_dropdown' => true,
@@ -74,7 +71,7 @@ class LabelProfileRepository extends NamedDBElementRepository
     {
         $result = [];
 
-        foreach (LabelOptions::SUPPORTED_ELEMENTS as $type) {
+        foreach (LabelSupportedElement::cases() as $type) {
             $type_children = [];
             $entities = $this->findForSupportedElement($type);
             foreach ($entities as $entity) {
@@ -86,7 +83,7 @@ class LabelProfileRepository extends NamedDBElementRepository
 
             if ($type_children !== []) {
                 //Use default label e.g. 'part_label'. $$ marks that it will be translated in TreeViewGenerator
-                $tmp = new TreeViewNode('$$'.$type.'.label', null, $type_children);
+                $tmp = new TreeViewNode('$$'.$type->value.'.label', null, $type_children);
 
                 $result[] = $tmp;
             }
@@ -98,15 +95,11 @@ class LabelProfileRepository extends NamedDBElementRepository
     /**
      * Find all LabelProfiles that can be used with the given type.
      *
-     * @param string $type     see LabelOptions::SUPPORTED_ELEMENTS for valid values
+     * @param LabelSupportedElement $type     see LabelOptions::SUPPORTED_ELEMENTS for valid values
      * @param array  $order_by The way the results should be sorted. By default ordered by
      */
-    public function findForSupportedElement(string $type, array $order_by = ['name' => 'ASC']): array
+    public function findForSupportedElement(LabelSupportedElement $type, array $order_by = ['name' => 'ASC']): array
     {
-        if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
-            throw new InvalidArgumentException('Invalid supported_element type given.');
-        }
-
         return $this->findBy(['options.supported_element' => $type], $order_by);
     }
 
@@ -115,7 +108,7 @@ class LabelProfileRepository extends NamedDBElementRepository
      */
     public function getPartLabelProfiles(): array
     {
-        return $this->getDropdownProfiles('part');
+        return $this->getDropdownProfiles(LabelSupportedElement::PART);
     }
 
     /**
@@ -123,7 +116,7 @@ class LabelProfileRepository extends NamedDBElementRepository
      */
     public function getPartLotsLabelProfiles(): array
     {
-        return $this->getDropdownProfiles('part_lot');
+        return $this->getDropdownProfiles(LabelSupportedElement::PART_LOT);
     }
 
     /**
@@ -131,6 +124,6 @@ class LabelProfileRepository extends NamedDBElementRepository
      */
     public function getStorelocationsLabelProfiles(): array
     {
-        return $this->getDropdownProfiles('storelocation');
+        return $this->getDropdownProfiles(LabelSupportedElement::STORELOCATION);
     }
 }

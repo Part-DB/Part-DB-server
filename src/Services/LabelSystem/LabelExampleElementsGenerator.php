@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -55,12 +56,12 @@ use ReflectionClass;
 
 final class LabelExampleElementsGenerator
 {
-    public function getElement(string $type): object
+    public function getElement(LabelSupportedElement $type): object
     {
         return match ($type) {
-            'part' => $this->getExamplePart(),
-            'part_lot' => $this->getExamplePartLot(),
-            'storelocation' => $this->getStorelocation(),
+            LabelSupportedElement::PART => $this->getExamplePart(),
+            LabelSupportedElement::PART_LOT => $this->getExamplePartLot(),
+            LabelSupportedElement::STORELOCATION => $this->getStorelocation(),
             default => throw new InvalidArgumentException('Unknown $type.'),
         };
     }

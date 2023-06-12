@@ -43,6 +43,7 @@ namespace App\Tests\Services\LabelSystem;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -62,19 +63,19 @@ class LabelGeneratorTest extends WebTestCase
         $this->service = self::getContainer()->get(LabelGenerator::class);
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
-            ['part', Part::class],
-            ['part_lot', PartLot::class],
-            ['storelocation', Storelocation::class],
+            [LabelSupportedElement::PART, Part::class],
+            [LabelSupportedElement::PART_LOT, PartLot::class],
+            [LabelSupportedElement::STORELOCATION, Storelocation::class],
         ];
     }
 
     /**
      * @dataProvider supportsDataProvider
      */
-    public function testSupports(string $type, string $class): void
+    public function testSupports(LabelSupportedElement $type, string $class): void
     {
         $options = new LabelOptions();
         $options->setSupportedElement($type);
@@ -102,7 +103,7 @@ class LabelGeneratorTest extends WebTestCase
         $part = new Part();
         $options = new LabelOptions();
         $options->setLines('Test');
-        $options->setSupportedElement('part');
+        $options->setSupportedElement(LabelSupportedElement::PART);
 
         //Test for a single passed element:
         $pdf = $this->service->generateLabel($options, $part);

@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem;
 
+use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\BarcodeGenerator;
@@ -65,13 +66,13 @@ final class BarcodeGeneratorTest extends WebTestCase
         $part->setName('Test');
 
         //Test that all barcodes types are supported
-        foreach (LabelOptions::BARCODE_TYPES as $type) {
+        foreach (BarcodeType::cases() as $type) {
             $options = new LabelOptions();
             $options->setBarcodeType($type);
             $content = $this->services->generateSVG($options, $part);
 
             //When type is none, service must return null.
-            if ('none' === $type) {
+            if (BarcodeType::NONE === $type) {
                 $this->assertNull($content);
             } else {
                 $this->assertIsString($content);
@@ -85,13 +86,13 @@ final class BarcodeGeneratorTest extends WebTestCase
         $part->setName('Test');
 
         //Test that all barcodes types are supported
-        foreach (LabelOptions::BARCODE_TYPES as $type) {
+        foreach (BarcodeType::cases() as $type) {
             $options = new LabelOptions();
             $options->setBarcodeType($type);
             $svg = $this->services->generateSVG($options, $part);
 
             //When type is none, service must return null.
-            if ('none' === $type) {
+            if (BarcodeType::NONE === $type) {
                 $this->assertNull($svg);
             } else {
                 $this->assertStringContainsStringIgnoringCase('SVG', $svg);

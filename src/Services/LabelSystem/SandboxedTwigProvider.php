@@ -49,6 +49,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
@@ -123,7 +124,7 @@ final class SandboxedTwigProvider
 
     public function getTwig(LabelOptions $options): Environment
     {
-        if ('twig' !== $options->getLinesMode()) {
+        if (LabelProcessMode::TWIG !== $options->getProcessMode()) {
             throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
         }
 
