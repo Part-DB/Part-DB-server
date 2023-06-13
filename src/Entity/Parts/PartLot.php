@@ -79,7 +79,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var Storelocation|null The storelocation of this lot
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'Storelocation')]
+    #[ORM\ManyToOne(targetEntity: Storelocation::class)]
     #[ORM\JoinColumn(name: 'id_store_location')]
     #[Selectable()]
     protected ?Storelocation $storage_location = null;
@@ -110,7 +110,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var Part The part that is stored in this lot
      */
     #[Assert\NotNull]
-    #[ORM\ManyToOne(targetEntity: 'Part', inversedBy: 'partLots')]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
     #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
     protected Part $part;
 

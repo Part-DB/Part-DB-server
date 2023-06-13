@@ -77,9 +77,14 @@ class WebauthnKeyRegistrationController extends AbstractController
                 return $this->redirectToRoute('webauthn_register');
             }
 
+            $user = $this->getUser();
+            if (!$user instanceof User) {
+                throw new RuntimeException('This controller only works only for Part-DB User objects!');
+            }
+
             $keyEntity = WebauthnKey::fromRegistration($new_key);
             $keyEntity->setName($keyName);
-            $keyEntity->setUser($this->getUser());
+            $keyEntity->setUser($user);
 
             $em->persist($keyEntity);
             $em->flush();

@@ -45,17 +45,17 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Table(name: 'projects')]
 class Project extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(targetEntity: 'Project', mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'Project', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
     #[Assert\Valid]
     #[Groups(['extended', 'full'])]
-    #[ORM\OneToMany(targetEntity: 'ProjectBOMEntry', mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]

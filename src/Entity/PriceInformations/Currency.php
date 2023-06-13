@@ -66,11 +66,11 @@ class Currency extends AbstractStructuralDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
 
-    #[ORM\OneToMany(targetEntity: 'Currency', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 

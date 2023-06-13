@@ -26,6 +26,7 @@ use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -180,7 +181,7 @@ class ElementTypeNameGenerator
                 $on = $entity->getProject();
             }
 
-            if (isset($on) && is_object($on)) {
+            if (isset($on) && $on instanceof NamedElementInterface) {
                 try {
                     $tmp .= sprintf(
                         ' (<a href="%s">%s</a>)',

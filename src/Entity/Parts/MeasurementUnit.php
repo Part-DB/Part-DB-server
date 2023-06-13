@@ -74,11 +74,11 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\Column(type: Types::BOOLEAN, name: 'use_si_prefix')]
     protected bool $use_si_prefix = false;
 
-    #[ORM\OneToMany(targetEntity: 'MeasurementUnit', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'MeasurementUnit', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 

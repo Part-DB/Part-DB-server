@@ -52,7 +52,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\OneToMany(targetEntity: 'Pricedetail', mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 

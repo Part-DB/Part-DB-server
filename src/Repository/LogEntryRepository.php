@@ -52,13 +52,13 @@ class LogEntryRepository extends DBElementRepository
      * Find log entries associated with the given element (the history of the element).
      *
      * @param AbstractDBElement $element The element for which the history should be generated
-     * @param  string  $order   By default, the newest entries are shown first. Change this to ASC to show the oldest entries first.
-     * @param null              $limit
-     * @param null              $offset
+     * @param string  $order   By default, the newest entries are shown first. Change this to ASC to show the oldest entries first.
+     * @param int|null              $limit
+     * @param int|null              $offset
      *
      * @return AbstractLogEntry[]
      */
-    public function getElementHistory(AbstractDBElement $element, string $order = 'DESC', $limit = null, $offset = null): array
+    public function getElementHistory(AbstractDBElement $element, string $order = 'DESC', ?int $limit = null, ?int $offset = null): array
     {
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
     }
@@ -100,11 +100,11 @@ class LogEntryRepository extends DBElementRepository
      * Gets all log entries that are related to time travelling.
      *
      * @param AbstractDBElement $element The element for which the time travel data should be retrieved
-     * @param DateTime         $until   Back to which timestamp should the data be got (including the timestamp)
+     * @param \DateTimeInterface $until   Back to which timestamp should the data be got (including the timestamp)
      *
      * @return AbstractLogEntry[]
      */
-    public function getTimetravelDataForElement(AbstractDBElement $element, DateTime $until): array
+    public function getTimetravelDataForElement(AbstractDBElement $element, \DateTimeInterface $until): array
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
@@ -132,7 +132,7 @@ class LogEntryRepository extends DBElementRepository
      *
      * @return bool True if the element existed at the given timestamp
      */
-    public function getElementExistedAtTimestamp(AbstractDBElement $element, DateTime $timestamp): bool
+    public function getElementExistedAtTimestamp(AbstractDBElement $element, \DateTimeInterface $timestamp): bool
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('count(log)')
@@ -157,8 +157,8 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Gets the last log entries ordered by timestamp.
      *
-     * @param null   $limit
-     * @param null   $offset
+     * @param int|null   $limit
+     * @param int|null   $offset
      */
     public function getLogsOrderedByTimestamp(string $order = 'DESC', $limit = null, $offset = null): array
     {

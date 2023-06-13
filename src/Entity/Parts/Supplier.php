@@ -49,11 +49,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
 class Supplier extends AbstractCompany
 {
-    #[ORM\OneToMany(targetEntity: 'Supplier', mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'Supplier', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 

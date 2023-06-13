@@ -40,7 +40,7 @@ trait InstockTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\OneToMany(targetEntity: 'PartLot', mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['amount' => 'DESC'])]
     protected Collection $partLots;
 
@@ -57,7 +57,7 @@ trait InstockTrait
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'MeasurementUnit')]
+    #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
     #[ORM\JoinColumn(name: 'id_part_unit')]
     protected ?MeasurementUnit $partUnit = null;
 

@@ -43,11 +43,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(targetEntity: 'AttachmentType', mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'AttachmentType', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
@@ -76,7 +76,7 @@ class AttachmentType extends AbstractStructuralDBElement
     /**
      * @var Collection<Attachment>
      */
-    #[ORM\OneToMany(targetEntity: 'Attachment', mappedBy: 'attachment_type')]
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
     protected Collection $attachments_with_type;
 
     public function __construct()

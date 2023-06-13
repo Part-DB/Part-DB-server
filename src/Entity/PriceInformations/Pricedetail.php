@@ -64,7 +64,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *                If this is null, the global base unit is assumed
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'Currency', inversedBy: 'pricedetails')]
+    #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'id_currency')]
     #[Selectable()]
     protected ?Currency $currency = null;
@@ -95,7 +95,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var Orderdetail|null
      */
     #[Assert\NotNull]
-    #[ORM\ManyToOne(targetEntity: 'Orderdetail', inversedBy: 'pricedetails')]
+    #[ORM\ManyToOne(targetEntity: Orderdetail::class, inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Orderdetail $orderdetail = null;
 

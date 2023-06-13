@@ -172,12 +172,18 @@ class PermissionPresetsHelper
         return $perm_holder;
     }
 
+    /**
+     * @phpstan-api
+     */
     private function AllForbid(HasPermissionsInterface $perm_holder): HasPermissionsInterface
     {
         $this->permissionResolver->setAllPermissions($perm_holder, PermissionData::DISALLOW);
         return $perm_holder;
     }
 
+    /**
+     * @phpstan-api
+     */
     private function AllAllow(HasPermissionsInterface $perm_holder): HasPermissionsInterface
     {
         $this->permissionResolver->setAllPermissions($perm_holder, PermissionData::ALLOW);

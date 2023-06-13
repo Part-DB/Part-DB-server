@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Repository\NamedDBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -32,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * All subclasses of this class have an attribute "name".
  */
-#[ORM\MappedSuperclass(repositoryClass: 'App\Repository\NamedDBElement')]
+#[ORM\MappedSuperclass(repositoryClass: NamedDBElementRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface, \Stringable
 {

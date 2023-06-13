@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\BarcodeGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
@@ -52,19 +53,19 @@ final class BarcodeProvider implements PlaceholderProviderInterface
 
         if ('[[BARCODE_QR]]' === $placeholder) {
             $label_options = new LabelOptions();
-            $label_options->setBarcodeType('qr');
+            $label_options->setBarcodeType(BarcodeType::QR);
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 
         if ('[[BARCODE_C39]]' === $placeholder) {
             $label_options = new LabelOptions();
-            $label_options->setBarcodeType('code39');
+            $label_options->setBarcodeType(BarcodeType::CODE39);
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 
         if ('[[BARCODE_C128]]' === $placeholder) {
             $label_options = new LabelOptions();
-            $label_options->setBarcodeType('code128');
+            $label_options->setBarcodeType(BarcodeType::CODE128);
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 

@@ -96,6 +96,7 @@ class EntityConstraint extends AbstractConstraint
 
     /**
      * Checks whether the constraints apply to a structural type or not
+     * @phpstan-assert-if-true AbstractStructuralDBElement $this->value
      */
     public function isStructural(): bool
     {

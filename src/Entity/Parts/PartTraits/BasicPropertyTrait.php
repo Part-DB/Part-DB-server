@@ -66,7 +66,7 @@ trait BasicPropertyTrait
     #[Assert\NotNull(message: 'validator.select_valid_category')]
     #[Selectable()]
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'Category')]
+    #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'id_category', nullable: false)]
     protected ?Category $category = null;
 
@@ -74,7 +74,7 @@ trait BasicPropertyTrait
      * @var Footprint|null The footprint of this part (e.g. DIP8)
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: 'Footprint')]
+    #[ORM\ManyToOne(targetEntity: Footprint::class)]
     #[ORM\JoinColumn(name: 'id_footprint')]
     #[Selectable()]
     protected ?Footprint $footprint = null;

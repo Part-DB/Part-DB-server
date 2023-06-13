@@ -43,6 +43,7 @@ namespace App\Controller;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Exceptions\TwigModeException;
@@ -81,7 +82,7 @@ class LabelController extends AbstractController
         $label_options = $profile instanceof LabelProfile ? $profile->getOptions() : new LabelOptions();
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
-        $disable_options = 'twig' === $label_options->getProcessMode() && !$this->isGranted('@labels.use_twig');
+        $disable_options = (LabelProcessMode::TWIG === $label_options->getProcessMode()) && !$this->isGranted('@labels.use_twig');
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,

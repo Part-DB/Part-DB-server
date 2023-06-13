@@ -95,6 +95,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                         }
                         return $tmp;
                     }
+
+                    //@phpstan-ignore-next-line
                     throw new \Exception('This should never happen!');
                 },
             ])

@@ -76,7 +76,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var Project|null
      */
-    #[ORM\ManyToOne(targetEntity: 'Project', inversedBy: 'bom_entries')]
+    #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
     #[ORM\JoinColumn(name: 'id_device')]
     protected ?Project $project = null;
 

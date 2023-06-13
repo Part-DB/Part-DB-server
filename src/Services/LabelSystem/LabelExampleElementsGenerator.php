@@ -132,6 +132,14 @@ final class LabelExampleElementsGenerator
         return $user;
     }
 
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param  string  $class
+     * @phpstan-param class-string<T> $class
+     * @return AbstractStructuralDBElement
+     * @phpstan-return T
+     * @throws \ReflectionException
+     */
     private function getStructuralData(string $class): AbstractStructuralDBElement
     {
         if (!is_a($class, AbstractStructuralDBElement::class, true)) {

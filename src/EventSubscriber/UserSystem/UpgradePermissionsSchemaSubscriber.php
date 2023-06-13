@@ -58,6 +58,11 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         $session = $event->getRequest()->getSession();
         $flashBag = $session->getFlashBag();
 
+        //Check if the user is an instance of User, otherwise we can't upgrade the schema
+        if (!$user instanceof User) {
+            return;
+        }
+
         if ($this->permissionSchemaUpdater->isSchemaUpdateNeeded($user)) {
             $this->eventCommentHelper->setMessage('Automatic permission schema update');
             $this->permissionSchemaUpdater->userUpgradeSchemaRecursively($user);

@@ -176,9 +176,9 @@ class ProjectController extends AbstractController
                     return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
                 }
 
-                if (count ($errors) > 0) {
-                    $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
-                }
+                //When we get here, there were validation errors
+                $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
+
             } catch (\UnexpectedValueException|SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }

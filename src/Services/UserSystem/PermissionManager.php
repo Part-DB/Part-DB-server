@@ -112,7 +112,7 @@ class PermissionManager
 
         /** @var Group $parent */
         $parent = $user->getGroup();
-        while ($parent instanceof AbstractStructuralDBElement) { //The top group, has parent == null
+        while ($parent instanceof Group) { //The top group, has parent == null
             //Check if our current element gives an info about disallow/allow
             $allowed = $this->dontInherit($parent, $permission, $operation);
             if (null !== $allowed) {

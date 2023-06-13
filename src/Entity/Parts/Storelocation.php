@@ -45,18 +45,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
 class Storelocation extends AbstractPartsContainingDBElement
 {
-    #[ORM\OneToMany(targetEntity: 'Storelocation', mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'Storelocation', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
      */
-    #[ORM\ManyToOne(targetEntity: 'MeasurementUnit')]
+    #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
     #[ORM\JoinColumn(name: 'storage_type_id')]
     protected ?MeasurementUnit $storage_type = null;
 

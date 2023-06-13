@@ -79,7 +79,7 @@ class TimeTravel
      *
      * @throws Exception
      */
-    public function revertEntityToTimestamp(AbstractDBElement $element, DateTime $timestamp, array $reverted_elements = []): void
+    public function revertEntityToTimestamp(AbstractDBElement $element, \DateTimeInterface $timestamp, array $reverted_elements = []): void
     {
         if (!$element instanceof TimeStampableInterface) {
             throw new InvalidArgumentException('$element must have a Timestamp!');
@@ -228,7 +228,7 @@ class TimeTravel
         $this->setField($element, 'lastModified', $logEntry->getTimestamp());
     }
 
-    protected function getField(AbstractDBElement $element, string $field)
+    protected function getField(AbstractDBElement $element, string $field): mixed
     {
         $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
@@ -237,7 +237,7 @@ class TimeTravel
         return $property->getValue($element);
     }
 
-    protected function setField(AbstractDBElement $element, string $field, \DateTime|int|null $new_value): void
+    protected function setField(AbstractDBElement $element, string $field, mixed $new_value): void
     {
         $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);

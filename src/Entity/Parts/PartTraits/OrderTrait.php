@@ -98,7 +98,7 @@ trait OrderTrait
      *
      * @param bool $hide_obsolete If true, obsolete orderdetails will NOT be returned
      *
-     * @return Collection|Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
+     * @return Collection<int, Orderdetail> * all orderdetails as a one-dimensional array of Orderdetails objects
      *                                  (empty array if there are no ones)
      *                                  * the array is sorted by the suppliers names / minimum order quantity
      */

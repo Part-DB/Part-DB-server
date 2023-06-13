@@ -47,18 +47,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[NoLockout()]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    #[ORM\OneToMany(targetEntity: 'Group', mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: 'Group', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: 'User', mappedBy: 'group')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     protected Collection $users;
 
     /**
@@ -77,7 +77,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected Collection $attachments;
 
     #[Groups(['full'])]
-    #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
+    #[ORM\Embedded(class: PermissionData::class, columnPrefix: 'permissions_')]
     #[ValidPermission()]
     protected ?PermissionData $permissions = null;
 

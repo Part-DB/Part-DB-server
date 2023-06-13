@@ -29,6 +29,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
@@ -159,7 +160,7 @@ abstract class BaseAdminController extends AbstractController
         //Disable editing of options, if user is not allowed to use twig...
         if (
             $entity instanceof LabelProfile
-            && 'twig' === $entity->getOptions()->getProcessMode()
+            && LabelProcessMode::TWIG === $entity->getOptions()->getProcessMode()
             && !$this->isGranted('@labels.use_twig')
         ) {
             $form_options['disable_options'] = true;

@@ -43,11 +43,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'footprint_idx_parent_name', columns: ['parent_id', 'name'])]
 class Footprint extends AbstractPartsContainingDBElement
 {
-    #[ORM\ManyToOne(targetEntity: 'Footprint', inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    #[ORM\OneToMany(targetEntity: 'Footprint', mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
