@@ -26,6 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Repository\StructuralDBElementRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\Common\Proxy\Proxy;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
@@ -347,11 +348,6 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         if ($new_parent->isChildOf($this)) {
             throw new \InvalidArgumentException('You can not use one of the element childs as parent!');
         } */
-
-        //Ensure that the parent is of the same type as this element
-        if (!$new_parent instanceof static) {
-            throw new \InvalidArgumentException('The parent must be of the same type as this element!');
-        }
 
         $this->parent = $new_parent;
 
