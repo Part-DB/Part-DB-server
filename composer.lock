@@ -12937,7 +12937,7 @@
         },
         {
             "name": "web-auth/metadata-service",
-            "version": "4.6.0",
+            "version": "4.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-metadata-service.git",
@@ -13002,7 +13002,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.6.0"
+                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.6.2"
             },
             "funding": [
                 {
@@ -13018,16 +13018,16 @@
         },
         {
             "name": "web-auth/webauthn-lib",
-            "version": "4.6.0",
+            "version": "4.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-lib.git",
-                "reference": "e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e"
+                "reference": "e0f85f09b4e1a48169352290e7ccfd29ade93e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e",
-                "reference": "e5c39be15d9e9ee1d0ad8d88c018c85d881ccf0e",
+                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/e0f85f09b4e1a48169352290e7ccfd29ade93e34",
+                "reference": "e0f85f09b4e1a48169352290e7ccfd29ade93e34",
                 "shasum": ""
             },
             "require": {
@@ -13090,7 +13090,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-lib/tree/4.6.0"
+                "source": "https://github.com/web-auth/webauthn-lib/tree/4.6.2"
             },
             "funding": [
                 {
@@ -13102,20 +13102,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-06-01T19:06:30+00:00"
+            "time": "2023-06-12T14:32:32+00:00"
         },
         {
             "name": "web-auth/webauthn-symfony-bundle",
-            "version": "4.6.0",
+            "version": "4.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-symfony-bundle.git",
-                "reference": "4771712b59efef2051594c3ffd547a5a1b6b52fd"
+                "reference": "04bd26182e26c8bf218bdca3d8b0f569ff983ff8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/4771712b59efef2051594c3ffd547a5a1b6b52fd",
-                "reference": "4771712b59efef2051594c3ffd547a5a1b6b52fd",
+                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/04bd26182e26c8bf218bdca3d8b0f569ff983ff8",
+                "reference": "04bd26182e26c8bf218bdca3d8b0f569ff983ff8",
                 "shasum": ""
             },
             "require": {
@@ -13170,7 +13170,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.6.0"
+                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.6.2"
             },
             "funding": [
                 {
@@ -13182,7 +13182,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-06-01T19:06:30+00:00"
+            "time": "2023-06-12T14:32:32+00:00"
         },
         {
             "name": "web-token/jwt-core",
@@ -14625,12 +14625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "22b763b5abdc69572b66c462cd85c2b2135f56aa"
+                "reference": "7d728f50cf52ce838ac1c1504190823b4dc06b4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/22b763b5abdc69572b66c462cd85c2b2135f56aa",
-                "reference": "22b763b5abdc69572b66c462cd85c2b2135f56aa",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7d728f50cf52ce838ac1c1504190823b4dc06b4d",
+                "reference": "7d728f50cf52ce838ac1c1504190823b4dc06b4d",
                 "shasum": ""
             },
             "conflict": {
@@ -14786,7 +14786,7 @@
                 "friendsofsymfony/user-bundle": ">=1.2,<1.3.5",
                 "friendsoftypo3/mediace": ">=7.6.2,<7.6.5",
                 "froala/wysiwyg-editor": "<3.2.7",
-                "froxlor/froxlor": "<2.0.20",
+                "froxlor/froxlor": "<2.1",
                 "fuel/core": "<1.8.1",
                 "funadmin/funadmin": "<=3.2",
                 "gaoming13/wechat-php-sdk": "<=1.10.2",
@@ -15226,7 +15226,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-09T23:04:09+00:00"
+            "time": "2023-06-12T19:03:43+00:00"
         },
         {
             "name": "sebastian/diff",

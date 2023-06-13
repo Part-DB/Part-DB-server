@@ -4,9 +4,9 @@ parameters:
 
     paths:
         - src
-        - tests
+    #    - tests
 
-    excludes_analyse:
+    excludePaths:
             - src/DataTables/Adapter/*
             - src/Configuration/*
             - src/Doctrine/Purger/*
