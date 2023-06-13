@@ -38,6 +38,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, grams, meters, etc...
+ *
+ * @extends AbstractPartsContainingDBElement<MeasurementUnitAttachment,MeasurementUnitParameter>
  */
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
@@ -72,9 +74,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\Column(type: Types::BOOLEAN, name: 'use_si_prefix')]
     protected bool $use_si_prefix = false;
 
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'MeasurementUnit', mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

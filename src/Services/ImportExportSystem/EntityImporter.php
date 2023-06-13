@@ -26,6 +26,8 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use Composer\Semver\Constraint\Constraint;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -238,7 +240,7 @@ class EntityImporter
      * @param array  $options    options for the import process
      * @param AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
      *
-     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
+     * @return array<string, ConstraintViolationList> An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfully, the array should be empty.
      */
     public function importFileAndPersistToDB(File $file, array $options = [], array &$entities = []): array

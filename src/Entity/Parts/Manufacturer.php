@@ -33,7 +33,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Manufacturer.
+ * This entity represents a manufacturer of a part (The company that produces the part).
+ *
+ * @extends AbstractCompany<ManufacturerAttachment, ManufacturerParameter>
  */
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
@@ -45,9 +47,6 @@ class Manufacturer extends AbstractCompany
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Manufacturer', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

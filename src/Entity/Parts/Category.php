@@ -35,7 +35,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class AttachmentType.
+ * This entity describes a category, a part can belong to, which is used to group parts by their function.
+ *
+ * @extends AbstractPartsContainingDBElement<CategoryAttachment, CategoryParameter>
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: '`categories`')]
@@ -43,9 +45,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
 class Category extends AbstractPartsContainingDBElement
 {
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Category', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

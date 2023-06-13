@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parameters\AbstractParameter;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -30,6 +32,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This abstract class is used for companies like suppliers or manufacturers.
+ *
+ * @template-covariant AT of Attachment
+ * @template-covariant PT of AbstractParameter
+ * @extends AbstractPartsContainingDBElement<AT, PT>
  */
 #[ORM\MappedSuperclass]
 abstract class AbstractCompany extends AbstractPartsContainingDBElement

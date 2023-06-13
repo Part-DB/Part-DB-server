@@ -22,13 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\ParametersTrait;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Class PartsContainingDBElement.
+ * @template-covariant AT of Attachment
+ * @template-covariant PT of AbstractParameter
+ * @extends AbstractStructuralDBElement<AT, PT>
  */
 #[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement

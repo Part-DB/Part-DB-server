@@ -37,15 +37,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Class AttachmentType.
+ * This class represents a project in the database.
+ *
+ * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter>
  */
 #[ORM\Entity(repositoryClass: DeviceRepository::class)]
 #[ORM\Table(name: 'projects')]
 class Project extends AbstractStructuralDBElement
 {
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Project', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

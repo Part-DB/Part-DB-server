@@ -44,20 +44,25 @@ namespace App\Entity\Parameters;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @template-covariant T of AbstractParameter
+ */
 trait ParametersTrait
 {
     /**
      * Mapping done in subclasses.
      *
      * @var Collection<int, AbstractParameter>
+     * @phpstan-var Collection<int, T>
      */
     #[Assert\Valid]
     protected Collection $parameters;
 
     /**
      *  Return all associated specifications.
+     * @return Collection<int, AbstractParameter>
+     * @phpstan-return Collection<int, T>
      *
-     * @psalm-return Collection<int, AbstractParameter>
      */
     public function getParameters(): Collection
     {
@@ -66,7 +71,7 @@ trait ParametersTrait
 
     /**
      * Add a new parameter information.
-     *
+     * @phpstan-param T $parameter
      * @return $this
      */
     public function addParameter(AbstractParameter $parameter): self
@@ -77,6 +82,9 @@ trait ParametersTrait
         return $this;
     }
 
+    /**
+     * @phpstan-param T $parameter
+     */
     public function removeParameter(AbstractParameter $parameter): self
     {
         $this->parameters->removeElement($parameter);
@@ -84,6 +92,10 @@ trait ParametersTrait
         return $this;
     }
 
+    /**
+     * @return array<string, array<int, AbstractParameter>>
+     * @phpstan-return array<string, array<int, T>>
+     */
     public function getGroupedParameters(): array
     {
         $tmp = [];

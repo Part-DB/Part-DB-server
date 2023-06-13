@@ -22,12 +22,16 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parameters\AbstractParameter;
 use App\Repository\StructuralDBElementRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Valid;
 use function count;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -48,6 +52,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  *
  * @see \App\Tests\Entity\Base\AbstractStructuralDBElementTest
+ *
+ * @template-covariant AT of Attachment
+ * @template-covariant PT of AbstractParameter
+ * @template-use ParametersTrait<PT>
+ * @extends AttachmentContainingDBElement<AT>
+ * @uses ParametersTrait<PT>
  */
 #[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
 #[ORM\MappedSuperclass(repositoryClass: StructuralDBElementRepository::class)]
@@ -87,14 +97,28 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * We can not define the mapping here, or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
-     * @var Collection<AbstractStructuralDBElement>
+     * @var Collection<int, AbstractStructuralDBElement>
+     * @phpstan-var Collection<int, static>
      */
     #[Groups(['include_children'])]
     protected Collection $children;
 
+    /**
+     * @var AbstractStructuralDBElement|null
+     * @phpstan-var static|null
+     */
     #[Groups(['include_parents', 'import'])]
     #[NoneOfItsChildren]
     protected ?AbstractStructuralDBElement $parent = null;
+
+    /**
+     * Mapping done in subclasses.
+     *
+     * @var Collection<int, AbstractParameter>
+     * @phpstan-var Collection<int, PT>
+     */
+    #[Assert\Valid()]
+    protected Collection $parameters;
 
     /** @var string[] all names of all parent elements as an array of strings,
      *  the last array element is the name of the element itself
@@ -314,9 +338,8 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Sets the new parent object.
      *
-     * @param  AbstractStructuralDBElement|null  $new_parent  The new parent object
-     *
-     * @return AbstractStructuralDBElement
+     * @param  static|null  $new_parent  The new parent object
+     * @return $this
      */
     public function setParent(?self $new_parent): self
     {
@@ -324,6 +347,11 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         if ($new_parent->isChildOf($this)) {
             throw new \InvalidArgumentException('You can not use one of the element childs as parent!');
         } */
+
+        //Ensure that the parent is of the same type as this element
+        if (!$new_parent instanceof static) {
+            throw new \InvalidArgumentException('The parent must be of the same type as this element!');
+        }
 
         $this->parent = $new_parent;
 
@@ -340,7 +368,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      *
      * @param  string  $new_comment  the new comment
      *
-     * @return AbstractStructuralDBElement
+     * @return $this
      */
     public function setComment(string $new_comment): self
     {

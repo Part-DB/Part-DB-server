@@ -37,6 +37,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a user group.
+ *
+ * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter>
  */
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
@@ -45,9 +47,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[NoLockout()]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    /**
-     * @var Collection<int, self>
-     */
     #[ORM\OneToMany(targetEntity: 'Group', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

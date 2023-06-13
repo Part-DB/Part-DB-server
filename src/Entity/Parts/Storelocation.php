@@ -36,7 +36,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Store location.
+ * This entity represents a storage location, where parts can be stored.
+ * @extends AbstractPartsContainingDBElement<StorelocationAttachment, StorelocationParameter>
  */
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
@@ -44,9 +45,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
 class Storelocation extends AbstractPartsContainingDBElement
 {
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Storelocation', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

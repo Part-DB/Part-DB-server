@@ -37,6 +37,7 @@ use LogicException;
 /**
  * Class Attachment.
  * @see \App\Tests\Entity\Attachments\AttachmentTest
+ * @template-covariant  T of AttachmentContainingDBElement
  */
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -75,9 +76,9 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
-     *
+     * @phpstan-var class-string<T>
      */
-    protected const ALLOWED_ELEMENT_CLASS = '';
+    protected const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
 
     /**
      * @var string|null the original filename the file had, when the user uploaded it
@@ -101,6 +102,7 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * ORM mapping is done in subclasses (like PartAttachment).
+     * @phpstan-param T|null $element
      */
     protected ?AttachmentContainingDBElement $element = null;
 
@@ -116,7 +118,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function __construct()
     {
         //parent::__construct();
-        if ('' === static::ALLOWED_ELEMENT_CLASS) {
+        if (AttachmentContainingDBElement::class === static::ALLOWED_ELEMENT_CLASS) {
             throw new LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
         }
     }

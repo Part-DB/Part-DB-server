@@ -27,6 +27,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to an attachmentType element.
+ * @extends Attachment<AttachmentType>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]

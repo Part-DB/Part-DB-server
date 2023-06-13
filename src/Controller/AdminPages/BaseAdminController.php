@@ -327,9 +327,8 @@ abstract class BaseAdminController extends AbstractController
             try {
                 $errors = $importer->importFileAndPersistToDB($file, $options);
 
-                /** @var ConstraintViolationList $error */
                 foreach ($errors as $name => $error) {
-                    foreach ($error['violations'] as $violation) {
+                    foreach ($error as $violation) {
                         $this->addFlash('error', $name.': '.$violation->getMessage());
                     }
                 }

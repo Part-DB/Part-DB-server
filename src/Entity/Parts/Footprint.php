@@ -33,7 +33,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Footprint.
+ * This entity represents a footprint of a part (its physical dimensions and shape).
+ *
+ * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter>
  */
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
@@ -45,9 +47,6 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ORM\JoinColumn(name: 'parent_id')]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Footprint', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

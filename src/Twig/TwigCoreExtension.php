@@ -54,7 +54,7 @@ final class TwigCoreExtension extends AbstractExtension
              */
             new TwigTest('instanceof', static fn($var, $instance) => $var instanceof $instance),
             /* Checks if a given variable is an object. E.g. `x is object` */
-            new TwigTest('object', static fn($var): object => is_object($var)),
+            new TwigTest('object', static fn($var): bool => is_object($var)),
         ];
     }
 

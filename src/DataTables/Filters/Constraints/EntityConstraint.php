@@ -40,8 +40,8 @@ class EntityConstraint extends AbstractConstraint
      * @param  class-string<T>  $class
      * @param  string  $property
      * @param  string|null  $identifier
-     * @param  null  $value
-     * @param  string  $operator
+     * @param  null|T  $value
+     * @param  string|null  $operator
      */
     public function __construct(protected ?NodesListBuilder $nodesListBuilder,
         protected string $class,
@@ -82,9 +82,10 @@ class EntityConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  T|null $value
+     * @param  AbstractDBElement|null $value
+     * @phpstan-param T|null $value
      */
-    public function setValue(?AbstractDBElement $value): void
+    public function setValue(AbstractDBElement|null $value): void
     {
         if (!$value instanceof $this->class) {
             throw new \InvalidArgumentException('The value must be an instance of ' . $this->class);

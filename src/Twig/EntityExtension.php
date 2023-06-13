@@ -123,6 +123,6 @@ final class EntityExtension extends AbstractExtension
             }
         }
 
-        return false;
+        return null;
     }
 }

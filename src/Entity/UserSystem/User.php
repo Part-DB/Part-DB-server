@@ -59,6 +59,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * This entity represents a user, which can log in and have permissions.
  * Also, this entity is able to save some information about the user, like the names, email-address and other info.
  * @see \App\Tests\Entity\UserSystem\UserTest
+ *
+ * @extends AttachmentContainingDBElement<UserAttachment>
  */
 #[UniqueEntity('name', message: 'validator.user.username_already_used')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]

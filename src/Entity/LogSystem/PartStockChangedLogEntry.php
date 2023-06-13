@@ -86,7 +86,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      * @param  float  $new_stock The new stock of the lot.
      * @param  float  $new_total_part_instock The new total instock of the part.
      * @param  string  $comment The comment associated with the change.
-     * @return static
+     * @return self
      */
     public static function add(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment): self
     {
@@ -100,7 +100,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      * @param  float  $new_stock The new stock of the lot.
      * @param  float  $new_total_part_instock The new total instock of the part.
      * @param  string  $comment The comment associated with the change.
-     * @return static
+     * @return self
      */
     public static function withdraw(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment): self
     {

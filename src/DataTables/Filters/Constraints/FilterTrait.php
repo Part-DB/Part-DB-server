@@ -29,7 +29,7 @@ trait FilterTrait
 
     protected bool $useHaving = false;
 
-    public function useHaving($value = true): self
+    public function useHaving($value = true): static
     {
         $this->useHaving = $value;
         return $this;

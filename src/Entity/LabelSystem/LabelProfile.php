@@ -52,6 +52,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @extends AttachmentContainingDBElement<LabelAttachment>
+ */
 #[UniqueEntity(['name', 'options.supported_element'])]
 #[ORM\Entity(repositoryClass: LabelProfileRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]

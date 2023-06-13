@@ -28,6 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a category element.
+ * @extends Attachment<Category>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]

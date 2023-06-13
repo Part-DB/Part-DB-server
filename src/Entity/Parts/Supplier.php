@@ -39,7 +39,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Supplier.
+ * This entity represents a supplier of parts (the company that sells the parts).
+ *
+ * @extends AbstractCompany<SupplierAttachment, SupplierParameter>
  */
 #[ORM\Entity(repositoryClass: SupplierRepository::class)]
 #[ORM\Table('`suppliers`')]
@@ -47,9 +49,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
 class Supplier extends AbstractCompany
 {
-    /**
-     * @var Collection
-     */
     #[ORM\OneToMany(targetEntity: 'Supplier', mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;

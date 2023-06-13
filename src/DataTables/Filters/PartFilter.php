@@ -85,6 +85,7 @@ class PartFilter implements FilterInterface
     protected IntConstraint $attachmentsCount;
     protected EntityConstraint $attachmentType;
     protected TextConstraint $attachmentName;
+
     /** @var ArrayCollection<int, ParameterConstraint> */
     protected ArrayCollection $parameters;
     protected IntConstraint $parametersCount;

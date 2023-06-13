@@ -38,6 +38,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity describes a currency that can be used for price information.
+ *
+ * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter>
  */
 #[UniqueEntity('iso_code')]
 #[ORM\Entity]

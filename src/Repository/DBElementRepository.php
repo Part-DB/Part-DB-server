@@ -52,6 +52,7 @@ class DBElementRepository extends EntityRepository
      * You should only use it to undelete former existing elements, everything else is most likely a bad idea!
      *
      * @param AbstractDBElement $element The element whose ID should be changed
+     * @phpstan-param TEntityClass $element
      * @param int               $new_id  The new ID
      */
     public function changeID(AbstractDBElement $element, int $new_id): void
@@ -73,6 +74,7 @@ class DBElementRepository extends EntityRepository
      * Find all elements that match a list of IDs.
      *
      * @return AbstractDBElement[]
+     * @phpstan-return list<TEntityClass>
      */
     public function getElementsFromIDArray(array $ids): array
     {
