@@ -94,6 +94,7 @@ class InstanceOfConstraint extends AbstractConstraint
 
         $expressions = [];
 
+        /** @phpstan-ignore-next-line */
         if ($this->operator === 'ANY' || $this->operator === 'NONE') {
             foreach($this->value as $value) {
                 //We can not use a parameter here, as this is the only way to pass the FCQN to the query (via binded params, we would need to use ClassMetaData). See: https://github.com/doctrine/orm/issues/4462
