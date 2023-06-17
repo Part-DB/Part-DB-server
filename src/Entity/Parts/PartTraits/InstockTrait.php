@@ -188,7 +188,7 @@ trait InstockTrait
         $sum = 0;
         foreach ($this->getPartLots() as $lot) {
             //Don't use the in stock value, if it is unknown
-            if ($lot->isInstockUnknown() || $lot->isExpired() ?? false) {
+            if ($lot->isInstockUnknown() || ($lot->isExpired() ?? false)) {
                 continue;
             }
 

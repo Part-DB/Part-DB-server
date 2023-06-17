@@ -73,7 +73,7 @@ class UsersPermissionsCommand extends Command
             return Command::FAILURE;
         }
 
-        $io->note(sprintf('Found user %s with ID %d', $user->getFullName(true), $user->getId()));
+        $io->note(sprintf('Found user %s with ID %d', $user->getFullName(true), $user->getID()));
 
         $edit_mapping = $this->renderPermissionTable($output, $user, $inherit);
 

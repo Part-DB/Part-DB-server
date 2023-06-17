@@ -99,7 +99,6 @@ final class BarcodeGenerator
             BarcodeType::CODE39 => 'C39',
             BarcodeType::CODE93 => 'C93',
             BarcodeType::CODE128 => 'C128A',
-            default => throw new InvalidArgumentException('Unknown label type!'),
         };
 
         if ($type === null) {

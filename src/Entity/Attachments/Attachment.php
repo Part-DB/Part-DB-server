@@ -242,7 +242,8 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * Get the element, associated with this Attachment (for example a "Part" object).
      *
-     * @return AttachmentContainingDBElement the associated Element
+     * @return AttachmentContainingDBElement|null the associated Element
+     * @phpstan-return T|null
      */
     public function getElement(): ?AttachmentContainingDBElement
     {
@@ -360,7 +361,6 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * Sets the element that is associated with this attachment.
-     *
      * @return $this
      */
     public function setElement(AttachmentContainingDBElement $element): self
@@ -437,7 +437,7 @@ abstract class Attachment extends AbstractNamedDBElement
         $tmp = explode('/', $path);
         //Builtins must have a %PLACEHOLDER% construction
 
-        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
+        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, true);
     }
 
     /**

@@ -402,7 +402,7 @@ abstract class BaseAdminController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
-        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entity->getID(), $request->request->get('_token'))) {
 
             $entityManager = $this->entityManager;
 

@@ -32,6 +32,9 @@ class SIUnitNumberColumn extends AbstractColumn
     {
     }
 
+    /**
+     * @return $this
+     */
     public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

@@ -39,7 +39,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
  */
 class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 {
-    public function getCount(QueryBuilder $queryBuilder, $identifier): ?int
+    public function getCount(QueryBuilder $queryBuilder, $identifier): int
     {
         $qb_without_group_by = clone $queryBuilder;
 
@@ -50,6 +50,6 @@ class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 
         $paginator = new Paginator($qb_without_group_by);
 
-        return $paginator->count();
+        return $paginator->count() ?? 0;
     }
 }

@@ -83,6 +83,6 @@ class RedirectController extends AbstractController
         }
 
         //Check if the mod_rewrite module is loaded
-        return in_array('mod_rewrite', apache_get_modules(), false);
+        return in_array('mod_rewrite', apache_get_modules(), true);
     }
 }

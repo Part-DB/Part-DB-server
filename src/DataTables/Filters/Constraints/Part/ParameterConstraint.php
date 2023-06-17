@@ -29,19 +29,13 @@ use Doctrine\ORM\QueryBuilder;
 
 class ParameterConstraint extends AbstractConstraint
 {
-    /** @var string */
-    protected string $name;
+    protected string $name = '';
 
-    /** @var string */
-    protected string $symbol;
+    protected string $symbol = '';
 
-    /** @var string */
-    protected string $unit;
+    protected string $unit = '';
 
-    /** @var TextConstraint */
     protected TextConstraint $value_text;
-
-    /** @var ParameterValueConstraint */
     protected ParameterValueConstraint $value;
 
     /** @var string The alias to use for the subquery */

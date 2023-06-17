@@ -900,7 +900,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         return new PublicKeyCredentialUserEntity(
             $this->getUsername(),
-            (string) $this->getId(),
+            (string) $this->getID(),
             $this->getFullName(),
         );
     }

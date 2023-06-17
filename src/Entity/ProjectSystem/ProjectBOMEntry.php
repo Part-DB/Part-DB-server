@@ -47,12 +47,9 @@ class ProjectBOMEntry extends AbstractDBElement
 {
     use TimestampTrait;
 
-    /**
-     * @var float
-     */
     #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT, name: 'quantity')]
-    protected float $quantity;
+    protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
@@ -71,7 +68,7 @@ class ProjectBOMEntry extends AbstractDBElement
      * @var string An optional comment for this BOM entry
      */
     #[ORM\Column(type: Types::TEXT)]
-    protected string $comment;
+    protected string $comment = '';
 
     /**
      * @var Project|null

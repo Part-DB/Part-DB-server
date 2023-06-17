@@ -59,7 +59,7 @@ class RevertLogColumn extends AbstractColumn
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }

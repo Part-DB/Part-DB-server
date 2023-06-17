@@ -82,7 +82,7 @@ class ConvertToSAMLUserCommand extends Command
         $io->confirm('You are going to convert a SAML user to a local user. This means, that the user can only login via the login form. '
             . 'The permissions and groups settings of the user will remain unchanged. Do you really want to continue?');
 
-        $user->setSAMLUser(false);
+        $user->setSamlUser(false);
         $user->setPassword(SamlUserFactory::SAML_PASSWORD_PLACEHOLDER);
 
         $this->entityManager->flush();
@@ -97,7 +97,7 @@ class ConvertToSAMLUserCommand extends Command
         $io->confirm('You are going to convert a local user to a SAML user. This means, that the user can only login via SAML afterwards. The password in the DB will be removed. '
             . 'The permissions and groups settings of the user will remain unchanged. Do you really want to continue?');
 
-        $user->setSAMLUser(true);
+        $user->setSamlUser(true);
         $user->setPassword(SamlUserFactory::SAML_PASSWORD_PLACEHOLDER);
 
         $this->entityManager->flush();

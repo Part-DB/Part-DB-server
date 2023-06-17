@@ -22,11 +22,15 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @extends NamedDBElementRepository<Part>
+ */
 class PartRepository extends NamedDBElementRepository
 {
     /**
@@ -67,6 +71,9 @@ class PartRepository extends NamedDBElementRepository
         return (int) ($query->getSingleScalarResult() ?? 0);
     }
 
+    /**
+     * @return Part[]
+     */
     public function autocompleteSearch(string $query, int $max_limits = 50): array
     {
         $qb = $this->createQueryBuilder('part');

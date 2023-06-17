@@ -30,8 +30,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPermissionValidator extends ConstraintValidator
 {
-    protected array $perm_structure;
-
     public function __construct(protected PermissionManager $resolver)
     {
     }

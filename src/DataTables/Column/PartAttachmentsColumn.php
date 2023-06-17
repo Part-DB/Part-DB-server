@@ -43,7 +43,7 @@ class PartAttachmentsColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }
@@ -79,6 +79,9 @@ class PartAttachmentsColumn extends AbstractColumn
         return $tmp;
     }
 
+    /**
+     * @return $this
+     */
     public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

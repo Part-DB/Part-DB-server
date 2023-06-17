@@ -59,7 +59,7 @@ class GroupController extends BaseAdminController
         //Handle permissions presets
         if ($request->request->has('permission_preset')) {
             $this->denyAccessUnlessGranted('edit_permissions', $entity);
-            if ($this->isCsrfTokenValid('group'.$entity->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('group'.$entity->getID(), $request->request->get('_token'))) {
                 $preset = $request->request->get('permission_preset');
 
                 $permissionPresetsHelper->applyPreset($entity, $preset);

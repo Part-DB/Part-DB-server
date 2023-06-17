@@ -112,7 +112,7 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getID(), $request->request->get('_token'))) {
             //Handle U2F key removal
             if ($request->request->has('key_id')) {
                 $key_id = $request->request->get('key_id');
@@ -186,7 +186,7 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('devices_reset'.$user->getID(), $request->request->get('_token'))) {
             $user->invalidateTrustedDeviceTokens();
             $entityManager->flush();
             $this->addFlash('success', 'tfa_trustedDevice.invalidate.success');

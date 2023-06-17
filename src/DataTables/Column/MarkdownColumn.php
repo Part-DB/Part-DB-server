@@ -37,7 +37,7 @@ class MarkdownColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $this->markdown->markForRendering($value, true);
     }

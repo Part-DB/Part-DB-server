@@ -110,7 +110,7 @@ class AttachmentVoter extends ExtendedVoter
                 $param = 'parts';
             }
             else {
-                throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
+                throw new RuntimeException('Encountered unknown Parameter type: ' . $subject);
             }
 
             return $this->resolver->inherit($user, $param, $this->mapOperation($attribute)) ?? false;

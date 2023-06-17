@@ -63,7 +63,7 @@ class PartLotVoter extends ExtendedVoter
             throw new \RuntimeException('This voter can only handle PartLot objects!');
         }
 
-        if (in_array($attribute, ['withdraw', 'add', 'move']))
+        if (in_array($attribute, ['withdraw', 'add', 'move'], true))
         {
             $base_permission = $this->resolver->inherit($user, 'parts_stock', $attribute) ?? false;
 

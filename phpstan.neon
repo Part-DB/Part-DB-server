@@ -21,13 +21,23 @@ parameters:
 
     checkUninitializedProperties: true
 
+    checkFunctionNameCase: true
+
+    checkAlwaysTrueInstanceof: false
+    checkAlwaysTrueCheckTypeFunctionCall: false
+    checkAlwaysTrueStrictComparison: false
+    reportAlwaysTrueInLastCondition: false
+
+    reportMaybesInPropertyPhpDocTypes: false
+    reportMaybesInMethodSignatures: false
+
     strictRules:
     	disallowedLooseComparison: false
     	booleansInConditions: false
     	uselessCast: false
     	requireParentConstructorCall: true
     	disallowedConstructs: false
-    	overwriteVariablesWithLoop: true
+    	overwriteVariablesWithLoop: false
     	closureUsesThis: false
     	matchingInheritedMethodNames: true
     	numericOperandsInArithmeticOperators: true

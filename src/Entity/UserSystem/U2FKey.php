@@ -43,25 +43,25 @@ class U2FKey implements LegacyU2FKeyInterface
      * @var string
      **/
     #[ORM\Column(type: Types::STRING, length: 128)]
-    public string $keyHandle;
+    public string $keyHandle = '';
 
     /**
      * @var string
      **/
     #[ORM\Column(type: Types::STRING)]
-    public string $publicKey;
+    public string $publicKey = '';
 
     /**
      * @var string
      **/
     #[ORM\Column(type: Types::TEXT)]
-    public string $certificate;
+    public string $certificate = '';
 
     /**
-     * @var int
+     * @var string
      **/
     #[ORM\Column(type: Types::STRING)]
-    public int $counter;
+    public string $counter = '0';
 
     #[ORM\Id]
     #[ORM\Column(type: Types::INTEGER)]
@@ -72,7 +72,7 @@ class U2FKey implements LegacyU2FKeyInterface
      * @var string
      **/
     #[ORM\Column(type: Types::STRING)]
-    protected string $name;
+    protected string $name = '';
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'u2fKeys')]
     protected ?User $user = null;
@@ -114,7 +114,7 @@ class U2FKey implements LegacyU2FKeyInterface
         return $this;
     }
 
-    public function getCounter(): int
+    public function getCounter(): string
     {
         return $this->counter;
     }

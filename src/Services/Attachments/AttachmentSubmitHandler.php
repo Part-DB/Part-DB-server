@@ -220,7 +220,7 @@ class AttachmentSubmitHandler
 
 
         //Check if the extension is blacklisted and replace the file extension with txt if needed
-        if(in_array($ext, self::BLACKLISTED_EXTENSIONS)) {
+        if(in_array($ext, self::BLACKLISTED_EXTENSIONS, true)) {
             $new_path = $this->generateAttachmentPath($attachment, $attachment->isSecure())
             .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
 

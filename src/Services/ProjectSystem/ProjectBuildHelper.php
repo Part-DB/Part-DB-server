@@ -64,7 +64,7 @@ class ProjectBuildHelper
     public function getMaximumBuildableCount(Project $project): int
     {
         $maximum_buildable_count = PHP_INT_MAX;
-        foreach ($project->getBOMEntries() as $bom_entry) {
+        foreach ($project->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
             if (!$bom_entry->isPartBomEntry()) {
                 continue;

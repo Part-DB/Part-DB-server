@@ -37,7 +37,7 @@ class TagsColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         if (empty($value)) {
             return [];
@@ -48,6 +48,10 @@ class TagsColumn extends AbstractColumn
 
     public function render($tags, $context): string
     {
+        if (!is_iterable($tags)) {
+            throw new \LogicException('TagsColumn::render() expects an iterable');
+        }
+
         $html = '';
         $count = 10;
         foreach ($tags as $tag) {

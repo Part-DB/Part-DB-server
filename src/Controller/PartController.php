@@ -183,7 +183,7 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
-        if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$part->getID(), $request->request->get('_token'))) {
 
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 

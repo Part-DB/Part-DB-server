@@ -36,14 +36,13 @@ class BigDecimalType extends Type
         return $platform->getDecimalTypeDeclarationSQL($fieldDeclaration);
     }
 
-    /**
-     * @param string|null $value
-     */
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?BigNumber
     {
         if (null === $value) {
             return null;
         }
+
+
 
         return BigDecimal::of($value);
     }

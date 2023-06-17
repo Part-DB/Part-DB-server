@@ -52,7 +52,7 @@ class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
 
         //If we are using SAML, we need to check that the user is a SAML user.
         if ($token instanceof SamlToken) {
-            if ($user instanceof User && !$user->isSAMLUser()) {
+            if ($user instanceof User && !$user->isSamlUser()) {
                 throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_local_user_per_saml', [], 'security'));
             }
         } elseif ($user instanceof User && $user->isSamlUser()) {

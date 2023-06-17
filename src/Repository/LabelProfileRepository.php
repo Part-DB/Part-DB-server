@@ -47,6 +47,10 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Helpers\Trees\TreeViewNode;
 use InvalidArgumentException;
 
+/**
+ * @template TEntityClass of LabelProfile
+ * @extends NamedDBElementRepository<TEntityClass>
+ */
 class LabelProfileRepository extends NamedDBElementRepository
 {
     /**

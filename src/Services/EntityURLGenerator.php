@@ -172,7 +172,7 @@ class EntityURLGenerator
                 return $entity->getURL();
             }
 
-            return $this->attachmentURLGenerator->getDownloadURL($entity) ?? '';
+            return $this->attachmentURLGenerator->getDownloadURL($entity);
         }
 
         //Otherwise throw an error

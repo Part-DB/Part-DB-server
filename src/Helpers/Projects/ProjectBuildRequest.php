@@ -174,10 +174,8 @@ final class ProjectBuildRequest
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
-        } elseif (is_int($lot)) {
+        } else  { // Then it must be an int
             $lot_id = $lot;
-        } else {
-            throw new \InvalidArgumentException('The given lot must be an instance of PartLot or an ID of a PartLot!');
         }
 
         if (! array_key_exists($lot_id, $this->withdraw_amounts)) {

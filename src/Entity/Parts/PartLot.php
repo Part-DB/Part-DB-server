@@ -107,12 +107,12 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected bool $needs_refill = false;
 
     /**
-     * @var Part The part that is stored in this lot
+     * @var Part|null The part that is stored in this lot
      */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
     #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
-    protected Part $part;
+    protected ?Part $part = null;
 
     /**
      * @var User|null The owner of this part lot
@@ -226,7 +226,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Return the part that is stored in this part lot.
      */
-    public function getPart(): Part
+    public function getPart(): ?Part
     {
         return $this->part;
     }

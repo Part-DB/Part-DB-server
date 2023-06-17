@@ -29,6 +29,8 @@ use RecursiveIteratorIterator;
 
 /**
  * @see \App\Tests\Repository\StructuralDBElementRepositoryTest
+ * @template TEntityClass of AbstractStructuralDBElement
+ * @extends NamedDBElementRepository<TEntityClass>
  */
 class StructuralDBElementRepository extends NamedDBElementRepository
 {
@@ -52,7 +54,8 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
      *
-     * @param AbstractStructuralDBElement|null $parent the parent the root elements should have
+     * @param  AbstractStructuralDBElement|null  $parent  the parent the root elements should have
+     * @phpstan-param TEntityClass|null $parent
      *
      * @return TreeViewNode[]
      */
@@ -78,8 +81,9 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a flattened hierarchical tree. Useful for generating option lists.
      *
      * @param AbstractStructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
-     *
+     * @phpstan-param TEntityClass|null $parent
      * @return AbstractStructuralDBElement[] a flattened list containing the tree elements
+     * @phpstan-return array<int, TEntityClass>
      */
     public function toNodesList(?AbstractStructuralDBElement $parent = null): array
     {
@@ -104,6 +108,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * This function will try to use existing elements, if they are already in the database. If not, they will be created.
      * An array of the created elements will be returned, with the last element being the deepest element.
      * @return AbstractStructuralDBElement[]
+     * @phpstan-return array<int, TEntityClass>
      */
     public function getNewEntityFromPath(string $path, string $separator = '->'): array
     {
@@ -156,6 +161,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * An array of the created elements will be returned, with the last element being the deepest element.
      * If no element was found, an empty array will be returned.
      * @return AbstractStructuralDBElement[]
+     * @phpstan-return array<int, TEntityClass>
      */
     public function getEntityByPath(string $path, string $separator = '->'): array
     {

@@ -22,12 +22,19 @@ declare(strict_types=1);
  */
 namespace App\Repository;
 
+use App\Entity\Parameters\AbstractParameter;
+
+/**
+ * @template TEntityClass of AbstractParameter
+ * @extends DBElementRepository<TEntityClass>
+ */
 class ParameterRepository extends DBElementRepository
 {
     /**
      * Find parameters using a parameter name
      * @param  string  $name The name to search for
      * @param  bool  $exact True, if only exact names should match. False, if the name just needs to be contained in the parameter name
+     * @phpstan-return array<array{name: string, symbol: string, unit: string}>
      */
     public function autocompleteParamName(string $name, bool $exact = false, int $max_results = 50): array
     {

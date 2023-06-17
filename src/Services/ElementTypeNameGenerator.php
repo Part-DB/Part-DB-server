@@ -95,7 +95,7 @@ class ElementTypeNameGenerator
      *
      * @throws EntityNotSupportedException when the passed entity is not supported
      */
-    public function getLocalizedTypeLabel($entity): string
+    public function getLocalizedTypeLabel(object|string $entity): string
     {
         $class = is_string($entity) ? $entity : $entity::class;
 
@@ -105,8 +105,8 @@ class ElementTypeNameGenerator
         }
 
         //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
-        foreach ($this->mapping as $class => $translation) {
-            if (is_a($entity, $class, true)) {
+        foreach ($this->mapping as $class_to_check => $translation) {
+            if (is_a($entity, $class_to_check, true)) {
                 return $translation;
             }
         }

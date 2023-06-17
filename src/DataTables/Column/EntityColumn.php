@@ -41,13 +41,16 @@ class EntityColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         /** @var AbstractNamedDBElement $value */
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver): self
+    /**
+     * @return $this
+     */
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
 

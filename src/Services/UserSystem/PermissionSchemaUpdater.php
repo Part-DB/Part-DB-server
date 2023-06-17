@@ -65,8 +65,6 @@ class PermissionSchemaUpdater
             $reflectionClass = new \ReflectionClass(self::class);
             try {
                 $method = $reflectionClass->getMethod('upgradeSchemaToVersion'.($n + 1));
-                //Set the method accessible, so we can call it (needed for PHP < 8.1)
-                $method->setAccessible(true);
                 $method->invoke($this, $holder);
             } catch (\ReflectionException $e) {
                 throw new \RuntimeException('Could not find update method for schema version '.($n + 1), $e->getCode(), $e);
@@ -114,7 +112,7 @@ class PermissionSchemaUpdater
         return $updated;
     }
 
-    private function upgradeSchemaToVersion1(HasPermissionsInterface $holder): void
+    private function upgradeSchemaToVersion1(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
     {
         //Use the part edit permission to set the preset value for the new part stock permission
         if (
@@ -131,7 +129,7 @@ class PermissionSchemaUpdater
         }
     }
 
-    private function upgradeSchemaToVersion2(HasPermissionsInterface $holder): void
+    private function upgradeSchemaToVersion2(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
     {
         //If the projects permissions are not defined yet, rename devices permission to projects (just copy its data over)
         if (!$holder->getPermissions()->isAnyOperationOfPermissionSet('projects')) {

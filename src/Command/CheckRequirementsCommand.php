@@ -121,7 +121,7 @@ class CheckRequirementsCommand extends Command
         }
 
         $db_drivers_count = 0;
-        if(!in_array('pdo_mysql', $extensions)) {
+        if(!in_array('pdo_mysql', $extensions, true)) {
             $io->error('pdo_mysql is not installed. You will not be able to use MySQL databases.');
         } else {
             if (!$only_issues) {
@@ -130,7 +130,7 @@ class CheckRequirementsCommand extends Command
             $db_drivers_count++;
         }
 
-        if(!in_array('pdo_sqlite', $extensions)) {
+        if(!in_array('pdo_sqlite', $extensions, true)) {
             $io->error('pdo_sqlite is not installed. You will not be able to use SQLite. databases');
         } else {
             if (!$only_issues) {
@@ -146,13 +146,13 @@ class CheckRequirementsCommand extends Command
             $io->error('You have no database drivers installed. You have to install at least one database driver!');
         }
 
-        if (!in_array('curl', $extensions)) {
+        if (!in_array('curl', $extensions, true)) {
             $io->warning('curl extension is not installed. Install curl extension for better performance');
         } elseif (!$only_issues) {
             $io->success('PHP extension curl is installed.');
         }
 
-        $gd_installed = in_array('gd', $extensions);
+        $gd_installed = in_array('gd', $extensions, true);
         if (!$gd_installed) {
             $io->error('GD is not installed. GD is required for image processing.');
         } elseif (!$only_issues) {

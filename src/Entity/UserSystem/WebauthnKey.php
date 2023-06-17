@@ -25,6 +25,7 @@ namespace App\Entity\UserSystem;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
 
 #[ORM\Entity]
@@ -40,7 +41,8 @@ class WebauthnKey extends BasePublicKeyCredentialSource
     protected int $id;
 
     #[ORM\Column(type: Types::STRING)]
-    protected string $name;
+    #[NotBlank]
+    protected string $name = '';
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'webauthn_keys')]
     protected ?User $user = null;

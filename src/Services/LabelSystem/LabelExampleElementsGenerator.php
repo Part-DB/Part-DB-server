@@ -62,7 +62,6 @@ final class LabelExampleElementsGenerator
             LabelSupportedElement::PART => $this->getExamplePart(),
             LabelSupportedElement::PART_LOT => $this->getExamplePartLot(),
             LabelSupportedElement::STORELOCATION => $this->getStorelocation(),
-            default => throw new InvalidArgumentException('Unknown $type.'),
         };
     }
 

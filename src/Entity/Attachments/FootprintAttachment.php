@@ -28,12 +28,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a footprint element.
+ * @extends Attachment<Footprint>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class FootprintAttachment extends Attachment
 {
     final public const ALLOWED_ELEMENT_CLASS = Footprint::class;
+
     /**
      * @var Footprint|null the element this attachment is associated with
      */

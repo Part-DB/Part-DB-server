@@ -113,7 +113,7 @@ class LogController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $logEntry);
 
-        if ($this->isCsrfTokenValid('delete'.$logEntry->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$logEntry->getID(), $request->request->get('_token'))) {
             //Remove part
             $entityManager->remove($logEntry);
             //Flush changes

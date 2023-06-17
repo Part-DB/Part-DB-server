@@ -50,12 +50,15 @@ class IconLinkColumn extends AbstractColumn
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver): self
+    /**
+     * @return $this
+     */
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([

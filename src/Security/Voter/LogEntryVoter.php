@@ -63,7 +63,7 @@ class LogEntryVoter extends ExtendedVoter
             //To view details of a element related log entry, the user needs to be able to view the history of this entity type
             $targetClass = $subject->getTargetClass();
             if (null !== $targetClass) {
-                return $this->security->isGranted('show_history', $targetClass) ?? false;
+                return $this->security->isGranted('show_history', $targetClass);
             }
 
             //In other cases, this behaves like the read permission

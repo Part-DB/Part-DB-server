@@ -32,6 +32,10 @@ use App\Entity\UserSystem\User;
 use DateTime;
 use RuntimeException;
 
+/**
+ * @template TEntityClass of AbstractLogEntry
+ * @extends DBElementRepository<TEntityClass>
+ */
 class LogEntryRepository extends DBElementRepository
 {
     public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
@@ -60,7 +64,8 @@ class LogEntryRepository extends DBElementRepository
      */
     public function getElementHistory(AbstractDBElement $element, string $order = 'DESC', ?int $limit = null, ?int $offset = null): array
     {
-        return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
+        //@phpstan-ignore-next-line Target is parsed dynamically in findBy
+        return $this->findBy(['target' => $element], ['timestamp' => $order], $limit, $offset);
     }
 
     /**

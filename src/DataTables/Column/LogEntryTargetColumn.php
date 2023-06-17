@@ -52,11 +52,14 @@ class LogEntryTargetColumn extends AbstractColumn
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }
 
+    /**
+     * @return $this
+     */
     public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

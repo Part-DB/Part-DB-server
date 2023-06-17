@@ -88,7 +88,7 @@ class UserController extends BaseAdminController
         if ($request->request->has('reset_2fa')) {
             //Check if the admin has the needed permissions
             $this->denyAccessUnlessGranted('set_password', $entity);
-            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getID(), $request->request->get('_token'))) {
                 //Disable Google authenticator
                 $entity->setGoogleAuthenticatorSecret(null);
                 $entity->setBackupCodes([]);
@@ -96,7 +96,7 @@ class UserController extends BaseAdminController
                 foreach ($entity->getLegacyU2FKeys() as $key) {
                     $em->remove($key);
                 }
-                foreach ($entity->getWebAuthnKeys() as $key) {
+                foreach ($entity->getWebauthnKeys() as $key) {
                     $em->remove($key);
                 }
                 //Invalidate trusted devices
@@ -115,7 +115,7 @@ class UserController extends BaseAdminController
         //Handle permissions presets
         if ($request->request->has('permission_preset')) {
             $this->denyAccessUnlessGranted('edit_permissions', $entity);
-            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getID(), $request->request->get('_token'))) {
                 $preset = $request->request->get('permission_preset');
 
                 $permissionPresetsHelper->applyPreset($entity, $preset);

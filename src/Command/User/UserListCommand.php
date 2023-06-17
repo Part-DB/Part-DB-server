@@ -79,13 +79,13 @@ class UserListCommand extends Command
 
         foreach ($users as $user) {
             $table->addRow([
-                $user->getId(),
+                $user->getID(),
                 $user->getUsername(),
                 $user->getFullName(),
                 $user->getEmail(),
                 $user->getGroup() instanceof Group ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
                 $user->isDisabled() ? 'Yes' : 'No',
-                $user->isSAMLUser() ? 'SAML' : 'Local',
+                $user->isSamlUser() ? 'SAML' : 'Local',
             ]);
         }
 

@@ -123,7 +123,7 @@ class LogDataTable implements DataTableTypeInterface
             'label' => 'log.timestamp',
             'timeFormat' => 'medium',
             'render' => fn(string $value, AbstractLogEntry $context): string => sprintf('<a href="%s">%s</a>',
-                $this->urlGenerator->generate('log_details', ['id' => $context->getId()]),
+                $this->urlGenerator->generate('log_details', ['id' => $context->getID()]),
                 $value
             )
         ]);

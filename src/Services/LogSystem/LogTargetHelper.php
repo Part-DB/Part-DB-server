@@ -75,7 +75,7 @@ class LogTargetHelper
         if (!$target instanceof AbstractDBElement) {
             if ($context->hasTarget()) {
                 return $this->elementTypeNameGenerator->formatElementDeletedHTML($context->getTargetClass(),
-                    $context->getTargetId());
+                    $context->getTargetID());
             }
             //If no target is set, we can't do anything
             return '';

@@ -27,6 +27,10 @@ use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\Parts\Part;
 use InvalidArgumentException;
 
+/**
+ * @template TEntityClass of AbstractPartsContainingDBElement
+ * @extends StructuralDBElementRepository<TEntityClass>
+ */
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
     /** @var int The maximum number of levels for which we can recurse before throwing an error */

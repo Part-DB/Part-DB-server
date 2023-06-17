@@ -41,9 +41,14 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Attachments\Attachment;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
+/**
+ * @template TEntityClass of Attachment
+ * @extends DBElementRepository<TEntityClass>
+ */
 class AttachmentRepository extends DBElementRepository
 {
     /**

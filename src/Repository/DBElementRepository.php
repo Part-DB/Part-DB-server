@@ -45,6 +45,10 @@ use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 
+/**
+ * @template TEntityClass of AbstractDBElement
+ * @extends EntityRepository<TEntityClass>
+ */
 class DBElementRepository extends EntityRepository
 {
     /**
@@ -53,7 +57,7 @@ class DBElementRepository extends EntityRepository
      *
      * @param AbstractDBElement $element The element whose ID should be changed
      * @phpstan-param TEntityClass $element
-     * @param int               $new_id  The new ID
+     * @param int     $new_id  The new ID
      */
     public function changeID(AbstractDBElement $element, int $new_id): void
     {

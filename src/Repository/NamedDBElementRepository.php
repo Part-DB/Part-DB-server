@@ -27,7 +27,8 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 
 /**
- * @see \App\Tests\Repository\NamedDBElementRepositoryTest
+ * @template TEntityClass of AbstractNamedDBElement
+ * @extends DBElementRepository<TEntityClass>
  */
 class NamedDBElementRepository extends DBElementRepository
 {
@@ -66,6 +67,7 @@ class NamedDBElementRepository extends DBElementRepository
     /**
      * Returns the list of all nodes to use in a select box.
      * @return AbstractNamedDBElement[]
+     * @phpstan-return array<int, AbstractNamedDBElement>
      */
     public function toNodesList(): array
     {

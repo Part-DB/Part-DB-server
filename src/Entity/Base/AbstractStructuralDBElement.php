@@ -195,7 +195,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function isRoot(): bool
     {
-        return !$this->parent instanceof \App\Entity\Base\AbstractStructuralDBElement;
+        return $this->parent === null;
     }
 
     /******************************************************************************
@@ -207,7 +207,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the parent of this element.
      *
-     * @return AbstractStructuralDBElement|null The parent element. Null if this element, does not have a parent.
+     * @return static|null The parent element. Null if this element, does not have a parent.
      */
     public function getParent(): ?self
     {

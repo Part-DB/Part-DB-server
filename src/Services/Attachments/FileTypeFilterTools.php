@@ -69,7 +69,7 @@ class FileTypeFilterTools
             $element = trim($element);
             if (!preg_match('#^\.\w+$#', $element) // .ext is allowed
                 && !preg_match('#^[-\w.]+/[-\w.]+#', $element) //Explicit MIME type is allowed
-                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
+                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, true)) { //image/* is allowed
                 return false;
             }
         }
@@ -173,6 +173,6 @@ class FileTypeFilterTools
     {
         $extension = strtolower($extension);
 
-        return $filter === '' || in_array($extension, $this->resolveFileExtensions($filter), false);
+        return $filter === '' || in_array($extension, $this->resolveFileExtensions($filter), true);
     }
 }

@@ -79,6 +79,9 @@ class LocaleDateTimeColumn extends AbstractColumn
         );
     }
 
+    /**
+     * @return $this
+     */
     protected function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

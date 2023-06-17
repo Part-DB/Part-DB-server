@@ -30,6 +30,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SelectColumn extends AbstractColumn
 {
+    /**
+     * @return $this
+     */
     public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
@@ -48,7 +51,7 @@ class SelectColumn extends AbstractColumn
     /**
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }

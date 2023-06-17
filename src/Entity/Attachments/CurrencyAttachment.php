@@ -28,12 +28,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a currency element.
+ * @extends Attachment<Currency>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class CurrencyAttachment extends Attachment
 {
     final public const ALLOWED_ELEMENT_CLASS = Currency::class;
+
     /**
      * @var Currency|null the element this attachment is associated with
      */
