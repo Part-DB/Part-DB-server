@@ -44,3 +44,12 @@ parameters:
     	strictCalls: true
     	switchConditionsMatchingType: false
     	noVariableVariables: false
+
+    ignoreErrors:
+        # Ignore errors caused by complex mapping with AbstractStructuralDBElement
+        - '#AbstractStructuralDBElement does not have a field named \$parent#'
+        - '#AbstractStructuralDBElement does not have a field named \$name#'
+
+        # Ignore errors related to the use of the ParametersTrait in Part entity
+        - '#expects .*PartParameter, .*AbstractParameter given.#'
+        - '#Part::getParameters\(\) should return .*AbstractParameter#'
