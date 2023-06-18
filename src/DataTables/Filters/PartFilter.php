@@ -49,46 +49,46 @@ class PartFilter implements FilterInterface
 
     use CompoundFilterTrait;
 
-    protected IntConstraint $dbId;
-    protected TextConstraint $ipn;
-    protected TextConstraint $name;
-    protected TextConstraint $description;
-    protected TextConstraint $comment;
-    protected TagsConstraint $tags;
-    protected NumberConstraint $minAmount;
-    protected BooleanConstraint $favorite;
-    protected BooleanConstraint $needsReview;
-    protected NumberConstraint $mass;
-    protected DateTimeConstraint $lastModified;
-    protected DateTimeConstraint $addedDate;
-    protected EntityConstraint $category;
-    protected EntityConstraint $footprint;
-    protected EntityConstraint $manufacturer;
-    protected ChoiceConstraint $manufacturing_status;
-    protected EntityConstraint $supplier;
-    protected IntConstraint $orderdetailsCount;
-    protected BooleanConstraint $obsolete;
-    protected EntityConstraint $storelocation;
-    protected IntConstraint $lotCount;
-    protected IntConstraint $amountSum;
-    protected LessThanDesiredConstraint $lessThanDesired;
+    public readonly IntConstraint $dbId;
+    public readonly TextConstraint $ipn;
+    public readonly TextConstraint $name;
+    public readonly TextConstraint $description;
+    public readonly TextConstraint $comment;
+    public readonly TagsConstraint $tags;
+    public readonly NumberConstraint $minAmount;
+    public readonly BooleanConstraint $favorite;
+    public readonly BooleanConstraint $needsReview;
+    public readonly NumberConstraint $mass;
+    public readonly DateTimeConstraint $lastModified;
+    public readonly DateTimeConstraint $addedDate;
+    public readonly EntityConstraint $category;
+    public readonly EntityConstraint $footprint;
+    public readonly EntityConstraint $manufacturer;
+    public readonly ChoiceConstraint $manufacturing_status;
+    public readonly EntityConstraint $supplier;
+    public readonly IntConstraint $orderdetailsCount;
+    public readonly BooleanConstraint $obsolete;
+    public readonly EntityConstraint $storelocation;
+    public readonly IntConstraint $lotCount;
+    public readonly IntConstraint $amountSum;
+    public readonly LessThanDesiredConstraint $lessThanDesired;
 
-    protected BooleanConstraint $lotNeedsRefill;
-    protected TextConstraint $lotDescription;
-    protected BooleanConstraint $lotUnknownAmount;
-    protected DateTimeConstraint $lotExpirationDate;
-    protected EntityConstraint $lotOwner;
+    public readonly BooleanConstraint $lotNeedsRefill;
+    public readonly TextConstraint $lotDescription;
+    public readonly BooleanConstraint $lotUnknownAmount;
+    public readonly DateTimeConstraint $lotExpirationDate;
+    public readonly EntityConstraint $lotOwner;
 
-    protected EntityConstraint $measurementUnit;
-    protected TextConstraint $manufacturer_product_url;
-    protected TextConstraint $manufacturer_product_number;
-    protected IntConstraint $attachmentsCount;
-    protected EntityConstraint $attachmentType;
-    protected TextConstraint $attachmentName;
+    public readonly EntityConstraint $measurementUnit;
+    public readonly TextConstraint $manufacturer_product_url;
+    public readonly TextConstraint $manufacturer_product_number;
+    public readonly IntConstraint $attachmentsCount;
+    public readonly EntityConstraint $attachmentType;
+    public readonly TextConstraint $attachmentName;
 
     /** @var ArrayCollection<int, ParameterConstraint> */
-    protected ArrayCollection $parameters;
-    protected IntConstraint $parametersCount;
+    public readonly ArrayCollection $parameters;
+    public readonly IntConstraint $parametersCount;
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
@@ -146,187 +146,4 @@ class PartFilter implements FilterInterface
     {
         $this->applyAllChildFilters($queryBuilder);
     }
-
-
-    public function getFavorite(): BooleanConstraint
-    {
-        return $this->favorite;
-    }
-
-    public function getNeedsReview(): BooleanConstraint
-    {
-        return $this->needsReview;
-    }
-
-    public function getMass(): NumberConstraint
-    {
-        return $this->mass;
-    }
-
-    public function getName(): TextConstraint
-    {
-        return $this->name;
-    }
-
-    public function getDescription(): TextConstraint
-    {
-        return $this->description;
-    }
-
-    public function getLastModified(): DateTimeConstraint
-    {
-        return $this->lastModified;
-    }
-
-    public function getAddedDate(): DateTimeConstraint
-    {
-        return $this->addedDate;
-    }
-
-    public function getCategory(): EntityConstraint
-    {
-        return $this->category;
-    }
-
-    public function getFootprint(): EntityConstraint
-    {
-        return $this->footprint;
-    }
-
-    public function getManufacturer(): EntityConstraint
-    {
-        return $this->manufacturer;
-    }
-
-    public function getSupplier(): EntityConstraint
-    {
-        return $this->supplier;
-    }
-
-    public function getStorelocation(): EntityConstraint
-    {
-        return $this->storelocation;
-    }
-
-    public function getMeasurementUnit(): EntityConstraint
-    {
-        return $this->measurementUnit;
-    }
-
-    public function getDbId(): NumberConstraint
-    {
-        return $this->dbId;
-    }
-
-    public function getIpn(): TextConstraint
-    {
-        return $this->ipn;
-    }
-
-    public function getComment(): TextConstraint
-    {
-        return $this->comment;
-    }
-
-    public function getMinAmount(): NumberConstraint
-    {
-        return $this->minAmount;
-    }
-
-    public function getManufacturerProductUrl(): TextConstraint
-    {
-        return $this->manufacturer_product_url;
-    }
-
-    public function getManufacturerProductNumber(): TextConstraint
-    {
-        return $this->manufacturer_product_number;
-    }
-
-    public function getLotCount(): NumberConstraint
-    {
-        return $this->lotCount;
-    }
-
-    public function getLotOwner(): EntityConstraint
-    {
-        return $this->lotOwner;
-    }
-
-    public function getTags(): TagsConstraint
-    {
-        return $this->tags;
-    }
-
-    public function getOrderdetailsCount(): IntConstraint
-    {
-        return $this->orderdetailsCount;
-    }
-
-    public function getAttachmentsCount(): IntConstraint
-    {
-        return $this->attachmentsCount;
-    }
-
-    public function getLotNeedsRefill(): BooleanConstraint
-    {
-        return $this->lotNeedsRefill;
-    }
-
-    public function getLotUnknownAmount(): BooleanConstraint
-    {
-        return $this->lotUnknownAmount;
-    }
-
-    public function getLotExpirationDate(): DateTimeConstraint
-    {
-        return $this->lotExpirationDate;
-    }
-
-    public function getAttachmentType(): EntityConstraint
-    {
-        return $this->attachmentType;
-    }
-
-    public function getAttachmentName(): TextConstraint
-    {
-        return $this->attachmentName;
-    }
-
-    public function getManufacturingStatus(): ChoiceConstraint
-    {
-        return $this->manufacturing_status;
-    }
-
-    public function getAmountSum(): NumberConstraint
-    {
-        return $this->amountSum;
-    }
-
-    public function getParameters(): ArrayCollection
-    {
-        return $this->parameters;
-    }
-
-    public function getParametersCount(): IntConstraint
-    {
-        return $this->parametersCount;
-    }
-
-    public function getLotDescription(): TextConstraint
-    {
-        return $this->lotDescription;
-    }
-
-    public function getObsolete(): BooleanConstraint
-    {
-        return $this->obsolete;
-    }
-
-    public function getLessThanDesired(): LessThanDesiredConstraint
-    {
-        return $this->lessThanDesired;
-    }
-
-
 }

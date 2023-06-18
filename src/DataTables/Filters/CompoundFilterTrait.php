@@ -39,9 +39,6 @@ trait CompoundFilterTrait
         $reflection = new \ReflectionClass($this);
 
         foreach ($reflection->getProperties() as $property) {
-            //Set property to accessible (otherwise we run into problems on PHP < 8.1)
-            $property->setAccessible(true);
-
             $value = $property->getValue($this);
             //We only want filters (objects implementing FilterInterface)
             if($value instanceof FilterInterface) {

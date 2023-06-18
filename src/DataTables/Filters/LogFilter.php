@@ -35,13 +35,13 @@ class LogFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    protected DateTimeConstraint $timestamp;
-    protected IntConstraint $dbId;
-    protected ChoiceConstraint $level;
-    protected InstanceOfConstraint $eventType;
-    protected ChoiceConstraint $targetType;
-    protected IntConstraint $targetId;
-    protected EntityConstraint $user;
+    public readonly DateTimeConstraint $timestamp;
+    public readonly IntConstraint $dbId;
+    public readonly ChoiceConstraint $level;
+    public readonly InstanceOfConstraint $eventType;
+    public readonly ChoiceConstraint $targetType;
+    public readonly IntConstraint $targetId;
+    public readonly EntityConstraint $user;
 
     public function __construct()
     {
@@ -59,44 +59,4 @@ class LogFilter implements FilterInterface
     {
         $this->applyAllChildFilters($queryBuilder);
     }
-
-    public function getTimestamp(): DateTimeConstraint
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @return IntConstraint|NumberConstraint
-     */
-    public function getDbId(): IntConstraint|NumberConstraint
-    {
-        return $this->dbId;
-    }
-
-    public function getLevel(): ChoiceConstraint
-    {
-        return $this->level;
-    }
-
-    public function getEventType(): InstanceOfConstraint
-    {
-        return $this->eventType;
-    }
-
-    public function getTargetType(): ChoiceConstraint
-    {
-        return $this->targetType;
-    }
-
-    public function getTargetId(): IntConstraint
-    {
-        return $this->targetId;
-    }
-
-    public function getUser(): EntityConstraint
-    {
-        return $this->user;
-    }
-
-
 }

@@ -37,13 +37,13 @@ class AttachmentFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    protected NumberConstraint $dbId;
-    protected InstanceOfConstraint $targetType;
-    protected TextConstraint $name;
-    protected EntityConstraint $attachmentType;
-    protected BooleanConstraint $showInTable;
-    protected DateTimeConstraint $lastModified;
-    protected DateTimeConstraint $addedDate;
+    public readonly NumberConstraint $dbId;
+    public readonly InstanceOfConstraint $targetType;
+    public readonly TextConstraint $name;
+    public readonly EntityConstraint $attachmentType;
+    public readonly BooleanConstraint $showInTable;
+    public readonly DateTimeConstraint $lastModified;
+    public readonly DateTimeConstraint $addedDate;
 
 
     public function __construct(NodesListBuilder $nodesListBuilder)
@@ -61,47 +61,4 @@ class AttachmentFilter implements FilterInterface
     {
         $this->applyAllChildFilters($queryBuilder);
     }
-
-    public function getDbId(): NumberConstraint
-    {
-        return $this->dbId;
-    }
-
-    public function getName(): TextConstraint
-    {
-        return $this->name;
-    }
-
-    public function getLastModified(): DateTimeConstraint
-    {
-        return $this->lastModified;
-    }
-
-    public function getAddedDate(): DateTimeConstraint
-    {
-        return $this->addedDate;
-    }
-
-
-    public function getShowInTable(): BooleanConstraint
-    {
-        return $this->showInTable;
-    }
-
-
-    public function getAttachmentType(): EntityConstraint
-    {
-        return $this->attachmentType;
-    }
-
-    public function getTargetType(): InstanceOfConstraint
-    {
-        return $this->targetType;
-    }
-
-
-
-
-
-
 }
