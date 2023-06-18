@@ -27,6 +27,7 @@ use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\Common\DataFixtures\Sorter\TopologicalSorter;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -188,7 +189,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             }
 
             //Reseting autoincrement is only supported on MySQL platforms
-            if ($platform instanceof AbstractMySQLPlatform) {
+            if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SqlitePlatform) {
                 $connection->beginTransaction();
                 $connection->executeQuery($this->getResetAutoIncrementSQL($tbl, $platform));
             }
@@ -204,7 +205,13 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     {
         $tableIdentifier = new Identifier($tableName);
 
-        return 'ALTER TABLE '. $tableIdentifier->getQuotedName($platform) .' AUTO_INCREMENT = 1;';
+        if ($platform instanceof AbstractMySQLPlatform) {
+            return 'ALTER TABLE '.$tableIdentifier->getQuotedName($platform).' AUTO_INCREMENT = 1;';
+        }
+
+        if ($platform instanceof SqlitePlatform) {
+            return 'DELETE FROM `sqlite_sequence` WHERE name = \''.$tableIdentifier->getQuotedName($platform).'\';';
+        }
     }
 
     /**
