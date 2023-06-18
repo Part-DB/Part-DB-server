@@ -43,7 +43,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @template T
+     * @template T of AbstractStructuralDBElement
      * @phpstan-param class-string<T> $type
      * @phpstan-return T|null
      */

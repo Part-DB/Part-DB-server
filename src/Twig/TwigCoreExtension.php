@@ -38,7 +38,7 @@ final class TwigCoreExtension extends AbstractExtension
     {
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             /* Returns the enum cases as values */

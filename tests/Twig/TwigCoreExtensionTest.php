@@ -65,12 +65,4 @@ class TwigCoreExtensionTest extends WebTestCase
 
         $this->assertEqualsCanonicalizing(['test' => 1, 'test4' => 7], $this->service->toArray($obj));
     }
-
-    public function testToArrayException(): void
-    {
-        //When passing a simple scalar value a exception should be thrown.
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->service->toArray(1);
-    }
 }

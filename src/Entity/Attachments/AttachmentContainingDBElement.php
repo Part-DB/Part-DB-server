@@ -79,8 +79,6 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
 
     /**
      *  Gets all attachments associated with this element.
-     *
-     * @phpstan-return Collection<int, AT>
      */
     public function getAttachments(): Collection
     {

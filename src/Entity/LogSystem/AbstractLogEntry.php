@@ -141,10 +141,10 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
-    /** @var \DateTimeInterface|null The datetime the event associated with this log entry has occured
+    /** @var \DateTimeInterface The datetime the event associated with this log entry has occured
      */
     #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
-    protected ?\DateTimeInterface $timestamp = null;
+    protected \DateTimeInterface $timestamp;
 
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
      */
@@ -249,7 +249,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      *  Returns the timestamp when the event that caused this log entry happened.
      */
-    public function getTimestamp(): \DateTimeInterface|null
+    public function getTimestamp(): \DateTimeInterface
     {
         return $this->timestamp;
     }
