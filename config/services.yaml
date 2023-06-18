@@ -259,15 +259,6 @@ services:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
 
-    # Decorate the doctrine fixtures load command to use our custom purger by default
-    doctrine.fixtures_load_command.custom:
-        decorates: doctrine.fixtures_load_command
-        class: Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand
-        arguments:
-            - '@doctrine.fixtures.loader'
-            - '@doctrine'
-            - { default: '@App\Doctrine\Purger\ResetAutoIncrementPurgerFactory' }
-
     # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
         public: true
@@ -292,3 +283,14 @@ services:
         autowire: true
         tags:
             - { name: monolog.processor }
+
+when@test:
+    services:
+        # Decorate the doctrine fixtures load command to use our custom purger by default
+        doctrine.fixtures_load_command.custom:
+            decorates: doctrine.fixtures_load_command
+            class: Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand
+            arguments:
+                - '@doctrine.fixtures.loader'
+                - '@doctrine'
+                - { default: '@App\Doctrine\Purger\ResetAutoIncrementPurgerFactory' }
