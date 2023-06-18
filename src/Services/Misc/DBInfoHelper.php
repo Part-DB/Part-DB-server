@@ -83,7 +83,7 @@ class DBInfoHelper
     {
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
-                return $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
+                return (int) $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
             } catch (Exception) {
                 return null;
             }
@@ -91,7 +91,7 @@ class DBInfoHelper
 
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             try {
-                return $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
+                return (int) $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
             } catch (Exception) {
                 return null;
             }
