@@ -110,4 +110,11 @@ class LabelProfileFixtures extends Fixture
 
         $manager->flush();
     }
+
+    public function getDependencies(): array
+    {
+        return [
+            PartFixtures::class,
+        ];
+    }
 }

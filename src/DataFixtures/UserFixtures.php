@@ -24,11 +24,12 @@ namespace App\DataFixtures;
 
 use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(protected UserPasswordHasherInterface $encoder, protected EntityManagerInterface $em)
     {
@@ -65,5 +66,12 @@ class UserFixtures extends Fixture
         $manager->persist($noread);
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            GroupFixtures::class,
+        ];
     }
 }
