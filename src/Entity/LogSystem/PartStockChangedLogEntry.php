@@ -55,7 +55,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
         }
 
         //Same as every other element change log entry
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
 
         $this->setTargetElement($lot);
 

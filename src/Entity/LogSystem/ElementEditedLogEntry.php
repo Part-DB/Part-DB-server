@@ -38,7 +38,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
     public function __construct(AbstractDBElement $changed_element)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
 
         $this->setTargetElement($changed_element);
     }

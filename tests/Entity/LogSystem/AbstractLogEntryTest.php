@@ -60,22 +60,6 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractLogEntryTest extends TestCase
 {
-    public function levelDataProvider(): array
-    {
-        return [
-            [0, 'emergency'],
-            [1, 'alert'],
-            [2, 'critical'],
-            [3, 'error'],
-            [4, 'warning'],
-            [5, 'notice'],
-            [6, 'info'],
-            [7, 'debug'],
-            [8, 'blabla', true],
-            [-1, 'test', true],
-        ];
-    }
-
     public function targetTypeDataProvider(): array
     {
         return [
@@ -93,28 +77,6 @@ class AbstractLogEntryTest extends TestCase
             [12, Supplier::class],
             [-1, 'blablub', true],
         ];
-    }
-
-    /**
-     * @dataProvider levelDataProvider
-     */
-    public function testLevelIntToString(int $int, string $expected_string, bool $expect_exception = false): void
-    {
-        if ($expect_exception) {
-            $this->expectException(\InvalidArgumentException::class);
-        }
-        $this->assertSame($expected_string, AbstractLogEntry::levelIntToString($int));
-    }
-
-    /**
-     * @dataProvider levelDataProvider
-     */
-    public function testLevelStringToInt(int $expected_int, string $string, bool $expect_exception = false): void
-    {
-        if ($expect_exception) {
-            $this->expectException(\InvalidArgumentException::class);
-        }
-        $this->assertSame($expected_int, AbstractLogEntry::levelStringToInt($string));
     }
 
     /**

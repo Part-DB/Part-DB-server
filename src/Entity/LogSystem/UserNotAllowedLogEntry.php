@@ -32,7 +32,7 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
     public function __construct(string $path)
     {
         parent::__construct();
-        $this->level = static::LEVEL_WARNING;
+        $this->level = LogLevel::WARNING;
 
         $this->extra['a'] = $path;
     }

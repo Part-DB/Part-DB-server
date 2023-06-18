@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use App\Entity\LogSystem\LogLevel;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -34,8 +35,11 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class EventLogger
 {
-    public function __construct(protected int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)
+    protected LogLevel $minimum_log_level;
+
+    public function __construct(int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)
     {
+        $this->minimum_log_level = LogLevel::tryFrom($minimum_log_level);
     }
 
     /**
@@ -108,7 +112,7 @@ class EventLogger
 
     public function shouldBeAdded(
         AbstractLogEntry $logEntry,
-        ?int $minimum_log_level = null,
+        ?LogLevel $minimum_log_level = null,
         ?array $blacklist = null,
         ?array $whitelist = null
     ): bool {
@@ -118,7 +122,7 @@ class EventLogger
         $whitelist ??= $this->whitelist;
 
         //Don't add the entry if it does not reach the minimum level
-        if ($logEntry->getLevel() > $minimum_log_level) {
+        if ($logEntry->getLevel()->lessImportThan($minimum_log_level)) {
             return false;
         }
 

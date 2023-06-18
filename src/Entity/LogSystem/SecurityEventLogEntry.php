@@ -69,10 +69,9 @@ class SecurityEventLogEntry extends AbstractLogEntry
     public function __construct(string $type, string $ip_address, bool $anonymize = true)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
         $this->setIPAddress($ip_address, $anonymize);
         $this->setEventType($type);
-        $this->level = self::LEVEL_NOTICE;
+        $this->level = LogLevel::NOTICE;
     }
 
     public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry

@@ -88,11 +88,13 @@ use InvalidArgumentException;
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
 {
     protected string $typeString = 'collection_element_deleted';
-    protected int $level = self::LEVEL_INFO;
 
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {
         parent::__construct();
+
+        $this->level = LogLevel::INFO;
+
         $this->setTargetElement($changed_element);
         $this->extra['n'] = $collection_name;
         $this->extra['c'] = self::targetTypeClassToID($deletedElement::class);

@@ -38,12 +38,12 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
     public function __construct(AbstractDBElement $new_element)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
         $this->setTargetElement($new_element);
 
         //Creation of new users is maybe more interesting...
         if ($new_element instanceof User || $new_element instanceof Group) {
-            $this->level = self::LEVEL_NOTICE;
+            $this->level = LogLevel::NOTICE;
         }
     }
 

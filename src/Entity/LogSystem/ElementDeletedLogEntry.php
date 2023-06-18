@@ -40,12 +40,12 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
     public function __construct(AbstractDBElement $deleted_element)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
         $this->setTargetElement($deleted_element);
 
         //Deletion of a user is maybe more interesting...
         if ($deleted_element instanceof User || $deleted_element instanceof Group) {
-            $this->level = self::LEVEL_NOTICE;
+            $this->level = LogLevel::NOTICE;
         }
     }
 

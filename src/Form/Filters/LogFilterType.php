@@ -25,6 +25,7 @@ namespace App\Form\Filters;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\LogSystem\LogLevel;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -56,6 +57,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
+use App\Form\Filters\Constraints\EnumConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
@@ -67,17 +69,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LogFilterType extends AbstractType
 {
-    protected const LEVEL_CHOICES = [
-        'log.level.debug' => AbstractLogEntry::LEVEL_DEBUG,
-        'log.level.info' => AbstractLogEntry::LEVEL_INFO,
-        'log.level.notice' => AbstractLogEntry::LEVEL_NOTICE,
-        'log.level.warning' => AbstractLogEntry::LEVEL_WARNING,
-        'log.level.error' => AbstractLogEntry::LEVEL_ERROR,
-        'log.level.critical' => AbstractLogEntry::LEVEL_CRITICAL,
-        'log.level.alert' => AbstractLogEntry::LEVEL_ALERT,
-        'log.level.emergency' => AbstractLogEntry::LEVEL_EMERGENCY,
-    ];
-
     protected const TARGET_TYPE_CHOICES = [
         'log.type.collection_element_deleted' => CollectionElementDeleted::class,
         'log.type.database_updated' => DatabaseUpdatedLogEntry::class,
@@ -117,9 +108,10 @@ class LogFilterType extends AbstractType
 
 
 
-        $builder->add('level', ChoiceConstraintType::class, [
+        $builder->add('level', EnumConstraintType::class, [
             'label' => 'log.level',
-            'choices' => self::LEVEL_CHOICES,
+            'enum_class' => LogLevel::class,
+            'choice_label' => fn(LogLevel $level): string => 'log.level.' . $level->toPSR3LevelString(),
         ]);
 
         $builder->add('eventType', InstanceOfConstraintType::class, [

@@ -46,7 +46,7 @@ use App\Entity\UserSystem\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
-use Psr\Log\LogLevel;
+use Psr\Log\LogLevel as PsrLogLevel;
 use App\Repository\LogEntryRepository;
 
 /**
@@ -63,15 +63,6 @@ use App\Repository\LogEntryRepository;
 #[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
-    final public const LEVEL_EMERGENCY = 0;
-    final public const LEVEL_ALERT = 1;
-    final public const LEVEL_CRITICAL = 2;
-    final public const LEVEL_ERROR = 3;
-    final public const LEVEL_WARNING = 4;
-    final public const LEVEL_NOTICE = 5;
-    final public const LEVEL_INFO = 6;
-    final public const LEVEL_DEBUG = 7;
-
     protected const TARGET_TYPE_NONE = 0;
     protected const TARGET_TYPE_USER = 1;
     protected const TARGET_TYPE_ATTACHEMENT = 2;
@@ -93,19 +84,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected const TARGET_TYPE_PARAMETER = 18;
     protected const TARGET_TYPE_LABEL_PROFILE = 19;
 
-    /**
-     * @var array This const is used to convert the numeric level to a PSR-3 compatible log level
-     */
-    protected const LEVEL_ID_TO_STRING = [
-        self::LEVEL_EMERGENCY => LogLevel::EMERGENCY,
-        self::LEVEL_ALERT => LogLevel::ALERT,
-        self::LEVEL_CRITICAL => LogLevel::CRITICAL,
-        self::LEVEL_ERROR => LogLevel::ERROR,
-        self::LEVEL_WARNING => LogLevel::WARNING,
-        self::LEVEL_NOTICE => LogLevel::NOTICE,
-        self::LEVEL_INFO => LogLevel::INFO,
-        self::LEVEL_DEBUG => LogLevel::DEBUG,
-    ];
 
     protected const TARGET_CLASS_MAPPING = [
         self::TARGET_TYPE_USER => User::class,
@@ -146,10 +124,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
     protected \DateTimeInterface $timestamp;
 
-    /** @var int The priority level of the associated level. 0 is highest, 7 lowest
+    /**
+     * @var LogLevel The priority level of the associated level. 0 is highest, 7 lowest
      */
-    #[ORM\Column(type: 'tinyint', name: 'level')]
-    protected int $level = self::LEVEL_WARNING;
+    #[ORM\Column(name: 'level', type: 'tinyint', enumType: LogLevel::class)]
+    protected LogLevel $level = LogLevel::WARNING;
 
     /** @var int The ID of the element targeted by this event
      */
@@ -267,16 +246,10 @@ abstract class AbstractLogEntry extends AbstractDBElement
     }
 
     /**
-     * Get the priority level of this log entry. 0 is highest and 7 lowest level.
-     * See LEVEL_* consts in this class for more info.
+     * Get the priority level of this log entry.
      */
-    public function getLevel(): int
+    public function getLevel(): LogLevel
     {
-        //It is always alerting when a wrong int is saved in DB...
-        if ($this->level < 0 || $this->level > 7) {
-            return self::LEVEL_ALERT;
-        }
-
         return $this->level;
     }
 
@@ -285,13 +258,9 @@ abstract class AbstractLogEntry extends AbstractDBElement
      *
      * @return $this
      */
-    public function setLevel(int $level): self
+    public function setLevel(LogLevel $level): self
     {
-        if ($level < 0 || $this->level > 7) {
-            throw new InvalidArgumentException(sprintf('$level must be between 0 and 7! %d given!', $level));
-        }
         $this->level = $level;
-
         return $this;
     }
 
@@ -300,7 +269,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function getLevelString(): string
     {
-        return self::levelIntToString($this->getLevel());
+        return $this->level->toPSR3LevelString();
     }
 
     /**
@@ -310,8 +279,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function setLevelString(string $level): self
     {
-        $this->setLevel(self::levelStringToInt($level));
-
+        LogLevel::fromPSR3LevelString($level);
         return $this;
     }
 
@@ -400,39 +368,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     public function getExtraData(): array
     {
         return $this->extra;
-    }
-
-    /**
-     * This function converts the internal numeric log level into an PSR3 compatible level string.
-     *
-     * @param int $level The numerical log level
-     *
-     * @return string The PSR3 compatible level string
-     */
-    final public static function levelIntToString(int $level): string
-    {
-        if (!isset(self::LEVEL_ID_TO_STRING[$level])) {
-            throw new InvalidArgumentException('No level with this int is existing!');
-        }
-
-        return self::LEVEL_ID_TO_STRING[$level];
-    }
-
-    /**
-     * This function converts a PSR3 compatible string to the internal numeric level string.
-     *
-     * @param string $level the PSR3 compatible string that should be converted
-     *
-     * @return int the internal int representation
-     */
-    final public static function levelStringToInt(string $level): int
-    {
-        $tmp = array_flip(self::LEVEL_ID_TO_STRING);
-        if (!isset($tmp[$level])) {
-            throw new InvalidArgumentException('No level with this string is existing!');
-        }
-
-        return $tmp[$level];
     }
 
     /**
