@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Column\EnumColumn;
+use App\Entity\LogSystem\LogTargetType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -186,11 +188,12 @@ class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
-        $dataTable->add('target_type', TextColumn::class, [
+        $dataTable->add('target_type', EnumColumn::class, [
             'label' => 'log.target_type',
             'visible' => false,
-            'render' => function ($value, AbstractLogEntry $context) {
-                $class = $context->getTargetClass();
+            'class' => LogTargetType::class,
+            'render' => function (LogTargetType $value, AbstractLogEntry $context) {
+                $class = $value->toClass();
                 if (null !== $class) {
                     return $this->elementTypeNameGenerator->getLocalizedTypeLabel($class);
                 }
@@ -277,8 +280,8 @@ class LogDataTable implements DataTableTypeInterface
                 ->andWhere('log.target_type NOT IN (:disallowed)');
 
             $builder->setParameter('disallowed', [
-                AbstractLogEntry::targetTypeClassToID(User::class),
-                AbstractLogEntry::targetTypeClassToID(Group::class),
+                LogTargetType::USER,
+                LogTargetType::GROUP,
             ]);
         }
 
@@ -286,9 +289,12 @@ class LogDataTable implements DataTableTypeInterface
             foreach ($options['filter_elements'] as $element) {
                 /** @var AbstractDBElement $element */
 
-                $target_type = AbstractLogEntry::targetTypeClassToID($element::class);
+                $target_type = LogTargetType::fromElementClass($element);
                 $target_id = $element->getID();
-                $builder->orWhere("log.target_type = ${target_type} AND log.target_id = ${target_id}");
+
+                $builder->orWhere('log.target_type = :filter_target_type AND log.target_id = :filter_target_id');
+                $builder->setParameter('filter_target_type', $target_type);
+                $builder->setParameter('filter_target_id', $target_id);
             }
         }
     }

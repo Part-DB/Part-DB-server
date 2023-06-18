@@ -89,6 +89,8 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 {
     protected string $typeString = 'collection_element_deleted';
 
+
+
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {
         parent::__construct();
@@ -97,7 +99,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
         $this->setTargetElement($changed_element);
         $this->extra['n'] = $collection_name;
-        $this->extra['c'] = self::targetTypeClassToID($deletedElement::class);
+        $this->extra['c'] = LogTargetType::fromElementClass($deletedElement)->value;
         $this->extra['i'] = $deletedElement->getID();
         if ($deletedElement instanceof NamedElementInterface) {
             $this->extra['o'] = $deletedElement->getName();
@@ -127,7 +129,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     public function getDeletedElementClass(): string
     {
         //The class name of our target element
-        $tmp = self::targetTypeIdToClass($this->extra['c']);
+        $tmp = LogTargetType::from($this->extra['c'])->toClass();
 
         $reflection_class = new \ReflectionClass($tmp);
         //If the class is abstract, we have to map it to an instantiable class

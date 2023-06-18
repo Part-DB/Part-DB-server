@@ -63,50 +63,6 @@ use App\Repository\LogEntryRepository;
 #[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
-    protected const TARGET_TYPE_NONE = 0;
-    protected const TARGET_TYPE_USER = 1;
-    protected const TARGET_TYPE_ATTACHEMENT = 2;
-    protected const TARGET_TYPE_ATTACHEMENTTYPE = 3;
-    protected const TARGET_TYPE_CATEGORY = 4;
-    protected const TARGET_TYPE_DEVICE = 5;
-    protected const TARGET_TYPE_DEVICEPART = 6;
-    protected const TARGET_TYPE_FOOTPRINT = 7;
-    protected const TARGET_TYPE_GROUP = 8;
-    protected const TARGET_TYPE_MANUFACTURER = 9;
-    protected const TARGET_TYPE_PART = 10;
-    protected const TARGET_TYPE_STORELOCATION = 11;
-    protected const TARGET_TYPE_SUPPLIER = 12;
-    protected const TARGET_TYPE_PARTLOT = 13;
-    protected const TARGET_TYPE_CURRENCY = 14;
-    protected const TARGET_TYPE_ORDERDETAIL = 15;
-    protected const TARGET_TYPE_PRICEDETAIL = 16;
-    protected const TARGET_TYPE_MEASUREMENTUNIT = 17;
-    protected const TARGET_TYPE_PARAMETER = 18;
-    protected const TARGET_TYPE_LABEL_PROFILE = 19;
-
-
-    protected const TARGET_CLASS_MAPPING = [
-        self::TARGET_TYPE_USER => User::class,
-        self::TARGET_TYPE_ATTACHEMENT => Attachment::class,
-        self::TARGET_TYPE_ATTACHEMENTTYPE => AttachmentType::class,
-        self::TARGET_TYPE_CATEGORY => Category::class,
-        self::TARGET_TYPE_DEVICE => Project::class,
-        self::TARGET_TYPE_DEVICEPART => ProjectBOMEntry::class,
-        self::TARGET_TYPE_FOOTPRINT => Footprint::class,
-        self::TARGET_TYPE_GROUP => Group::class,
-        self::TARGET_TYPE_MANUFACTURER => Manufacturer::class,
-        self::TARGET_TYPE_PART => Part::class,
-        self::TARGET_TYPE_STORELOCATION => Storelocation::class,
-        self::TARGET_TYPE_SUPPLIER => Supplier::class,
-        self::TARGET_TYPE_PARTLOT => PartLot::class,
-        self::TARGET_TYPE_CURRENCY => Currency::class,
-        self::TARGET_TYPE_ORDERDETAIL => Orderdetail::class,
-        self::TARGET_TYPE_PRICEDETAIL => Pricedetail::class,
-        self::TARGET_TYPE_MEASUREMENTUNIT => MeasurementUnit::class,
-        self::TARGET_TYPE_PARAMETER => AbstractParameter::class,
-        self::TARGET_TYPE_LABEL_PROFILE => LabelProfile::class,
-    ];
-
     /** @var User|null The user which has caused this log entry
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
@@ -135,10 +91,10 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(name: 'target_id', type: Types::INTEGER)]
     protected int $target_id = 0;
 
-    /** @var int The Type of the targeted element
+    /** @var LogTargetType The Type of the targeted element
      */
-    #[ORM\Column(name: 'target_type', type: Types::SMALLINT)]
-    protected int $target_type = 0;
+    #[ORM\Column(name: 'target_type', type: Types::SMALLINT, enumType: LogTargetType::class)]
+    protected LogTargetType $target_type = LogTargetType::NONE;
 
     /** @var string The type of this log entry, aka the description what has happened.
      * The mapping between the log entry class and the discriminator column is done by doctrine.
@@ -299,11 +255,16 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function getTargetClass(): ?string
     {
-        if (self::TARGET_TYPE_NONE === $this->target_type) {
-            return null;
-        }
+        return $this->target_type->toClass();
+    }
 
-        return self::targetTypeIdToClass($this->target_type);
+    /**
+     * Returns the type of the target element associated with this log entry.
+     * @return LogTargetType
+     */
+    public function getTargetType(): LogTargetType
+    {
+        return $this->target_type;
     }
 
     /**
@@ -340,14 +301,14 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function setTargetElement(?AbstractDBElement $element): self
     {
-        if (!$element instanceof AbstractDBElement) {
+        if ($element === null) {
             $this->target_id = 0;
-            $this->target_type = self::TARGET_TYPE_NONE;
+            $this->target_type = LogTargetType::NONE;
 
             return $this;
         }
 
-        $this->target_type = static::targetTypeClassToID($element::class);
+        $this->target_type = LogTargetType::fromElementClass($element);
         $this->target_id = $element->getID();
 
         return $this;
@@ -370,42 +331,4 @@ abstract class AbstractLogEntry extends AbstractDBElement
         return $this->extra;
     }
 
-    /**
-     * Converts a target type id to a full qualified class name.
-     *
-     * @param int $type_id The target type ID
-     */
-    final public static function targetTypeIdToClass(int $type_id): string
-    {
-        if (!isset(self::TARGET_CLASS_MAPPING[$type_id])) {
-            throw new InvalidArgumentException('No target type with this ID is existing!');
-        }
-
-        return self::TARGET_CLASS_MAPPING[$type_id];
-    }
-
-    /**
-     * Convert a class name to a target type ID.
-     *
-     * @param string $class The name of the class (FQN) that should be converted to id
-     *
-     * @return int the ID of the associated target type ID
-     */
-    final public static function targetTypeClassToID(string $class): int
-    {
-        $tmp = array_flip(self::TARGET_CLASS_MAPPING);
-        //Check if we can use a key directly
-        if (isset($tmp[$class])) {
-            return $tmp[$class];
-        }
-
-        //Otherwise we have to iterate over everything and check for inheritance
-        foreach ($tmp as $compare_class => $class_id) {
-            if (is_a($class, $compare_class, true)) {
-                return $class_id;
-            }
-        }
-
-        throw new InvalidArgumentException('No target ID for this class is existing! (Class: '.$class.')');
-    }
 }

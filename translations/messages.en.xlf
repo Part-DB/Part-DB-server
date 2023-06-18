@@ -11439,5 +11439,11 @@ Element 3</target>
         <target>An error occurred during the registration of the security key. Try again or use another security key!</target>
       </segment>
     </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment>
+        <source>log.target_type.none</source>
+        <target>None</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

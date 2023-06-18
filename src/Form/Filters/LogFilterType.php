@@ -26,6 +26,7 @@ use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LogSystem\LogLevel;
+use App\Entity\LogSystem\LogTargetType;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -123,29 +124,31 @@ class LogFilterType extends AbstractType
            'label'  => 'log.user',
         ]);
 
-        $builder->add('targetType', ChoiceConstraintType::class, [
+        $builder->add('targetType', EnumConstraintType::class, [
             'label' => 'log.target_type',
-            'choices' => [
-                'user.label' => AbstractLogEntry::targetTypeClassToID(User::class),
-                'attachment.label' => AbstractLogEntry::targetTypeClassToID(Attachment::class),
-                'attachment_type.label' => AbstractLogEntry::targetTypeClassToID(AttachmentType::class),
-                'category.label' => AbstractLogEntry::targetTypeClassToID(Category::class),
-                'project.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
-                'project_bom_entry.label' => AbstractLogEntry::targetTypeClassToID(ProjectBOMEntry::class),
-                'footprint.label' => AbstractLogEntry::targetTypeClassToID(Footprint::class),
-                'group.label' => AbstractLogEntry::targetTypeClassToID(Group::class),
-                'manufacturer.label' => AbstractLogEntry::targetTypeClassToID(Manufacturer::class),
-                'part.label' => AbstractLogEntry::targetTypeClassToID(Part::class),
-                'storelocation.label' => AbstractLogEntry::targetTypeClassToID(Storelocation::class),
-                'supplier.label' => AbstractLogEntry::targetTypeClassToID(Supplier::class),
-                'part_lot.label' => AbstractLogEntry::targetTypeClassToID(PartLot::class),
-                'currency.label' => AbstractLogEntry::targetTypeClassToID(Currency::class),
-                'orderdetail.label' => AbstractLogEntry::targetTypeClassToID(Orderdetail::class),
-                'pricedetail.label' => AbstractLogEntry::targetTypeClassToID(Pricedetail::class),
-                'measurement_unit.label' => AbstractLogEntry::targetTypeClassToID(MeasurementUnit::class),
-                'parameter.label' => AbstractLogEntry::targetTypeClassToID(AbstractParameter::class),
-                'label_profile.label' => AbstractLogEntry::targetTypeClassToID(LabelProfile::class),
-            ]
+            'enum_class' => LogTargetType::class,
+            'choice_label' => fn(LogTargetType $type): string => match ($type) {
+                LogTargetType::NONE => 'log.target_type.none',
+                LogTargetType::USER => 'user.label',
+                LogTargetType::ATTACHMENT => 'attachment.label',
+                LogTargetType::ATTACHMENT_TYPE => 'attachment_type.label',
+                LogTargetType::CATEGORY => 'category.label',
+                LogTargetType::PROJECT => 'project.label',
+                LogTargetType::BOM_ENTRY => 'project_bom_entry.label',
+                LogTargetType::FOOTPRINT => 'footprint.label',
+                LogTargetType::GROUP => 'group.label',
+                LogTargetType::MANUFACTURER => 'manufacturer.label',
+                LogTargetType::PART => 'part.label',
+                LogTargetType::STORELOCATION => 'storelocation.label',
+                LogTargetType::SUPPLIER => 'supplier.label',
+                LogTargetType::PART_LOT => 'part_lot.label',
+                LogTargetType::CURRENCY => 'currency.label',
+                LogTargetType::ORDERDETAIL => 'orderdetail.label',
+                LogTargetType::PRICEDETAIL => 'pricedetail.label',
+                LogTargetType::MEASUREMENT_UNIT => 'measurement_unit.label',
+                LogTargetType::PARAMETER => 'parameter.label',
+                LogTargetType::LABEL_PROFILE => 'label_profile.label',
+            },
         ]);
 
         $builder->add('targetId', NumberConstraintType::class, [

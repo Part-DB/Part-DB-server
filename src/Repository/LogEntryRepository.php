@@ -28,6 +28,7 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\LogSystem\LogTargetType;
 use App\Entity\UserSystem\User;
 use DateTime;
 use RuntimeException;
@@ -45,7 +46,7 @@ class LogEntryRepository extends DBElementRepository
             /** @var AbstractDBElement $element */
             $element = $criteria['target'];
             $criteria['target_id'] = $element->getID();
-            $criteria['target_type'] = AbstractLogEntry::targetTypeClassToID($element::class);
+            $criteria['target_type'] = LogTargetType::fromElementClass($element);
             unset($criteria['target']);
         }
 
@@ -86,7 +87,7 @@ class LogEntryRepository extends DBElementRepository
             ->setMaxResults(1);
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID($class),
+            'target_type' => LogTargetType::fromElementClass($class),
             'target_id' => $id,
         ]);
 
@@ -122,7 +123,7 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
+            'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
             'until' => $until,
         ]);
@@ -148,7 +149,7 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
+            'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
             'until' => $timestamp,
         ]);
@@ -209,18 +210,24 @@ class LogEntryRepository extends DBElementRepository
         return $this->getLastUser($element, ElementCreatedLogEntry::class);
     }
 
-    protected function getLastUser(AbstractDBElement $element, string $class): ?User
+    /**
+     * Returns the last user that has created a log entry with the given class on the given element.
+     * @param  AbstractDBElement  $element
+     * @param  string  $log_class
+     * @return User|null
+     */
+    protected function getLastUser(AbstractDBElement $element, string $log_class): ?User
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
             //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
-            ->where('log INSTANCE OF '.$class)
+            ->where('log INSTANCE OF '.$log_class)
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([
-            'target_type' => AbstractLogEntry::targetTypeClassToID($element::class),
+            'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
         ]);
 
