@@ -70,7 +70,7 @@ class ChoiceConstraint extends AbstractConstraint
 
     public function isEnabled(): bool
     {
-        return $this->operator !== '';
+        return $this->operator !== '' && count($this->value) > 0;
     }
 
     public function apply(QueryBuilder $queryBuilder): void
