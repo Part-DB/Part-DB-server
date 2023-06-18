@@ -28,10 +28,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class PartStockChangedLogEntry extends AbstractLogEntry
 {
-    final public const TYPE_ADD = "add";
-    final public const TYPE_WITHDRAW = "withdraw";
-    final public const TYPE_MOVE = "move";
-
     protected string $typeString = 'part_stock_changed';
 
     protected const COMMENT_MAX_LENGTH = 300;

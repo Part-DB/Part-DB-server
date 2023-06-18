@@ -67,8 +67,6 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     use ParametersTrait;
 
-    final public const ID_ROOT_ELEMENT = 0;
-
     /**
      * This is a not standard character, so build a const, so a dev can easily use it.
      */

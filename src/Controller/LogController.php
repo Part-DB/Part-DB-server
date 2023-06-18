@@ -34,6 +34,7 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Form\Filters\LogFilterType;
 use App\Repository\DBElementRepository;
 use App\Services\LogSystem\EventUndoHelper;
+use App\Services\LogSystem\EventUndoMode;
 use App\Services\LogSystem\LogEntryExtraFormatter;
 use App\Services\LogSystem\LogLevelHelper;
 use App\Services\LogSystem\LogTargetHelper;
@@ -128,13 +129,17 @@ class LogController extends AbstractController
     #[Route(path: '/undo', name: 'log_undo', methods: ['POST'])]
     public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): RedirectResponse
     {
-        $mode = EventUndoHelper::MODE_UNDO;
-        $id = $request->request->get('undo');
+        $mode = EventUndoMode::UNDO;
+        $id = $request->request->getInt('undo');
 
         //If no undo value was set check if a revert was set
-        if (null === $id) {
-            $id = $request->get('revert');
-            $mode = EventUndoHelper::MODE_REVERT;
+        if (0 === $id) {
+            $id = $request->request->getInt('revert');
+            $mode = EventUndoMode::REVERT;
+        }
+
+        if (0 === $id) {
+            throw new InvalidArgumentException('No log entry ID was given!');
         }
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
@@ -147,9 +152,9 @@ class LogController extends AbstractController
         $eventUndoHelper->setMode($mode);
         $eventUndoHelper->setUndoneEvent($log_element);
 
-        if (EventUndoHelper::MODE_UNDO === $mode) {
+        if (EventUndoMode::UNDO === $mode) {
             $this->undoLog($log_element);
-        } elseif (EventUndoHelper::MODE_REVERT === $mode) {
+        } elseif (EventUndoMode::REVERT === $mode) {
             $this->revertLog($log_element);
         }
 

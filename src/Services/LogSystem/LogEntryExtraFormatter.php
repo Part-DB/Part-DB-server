@@ -127,9 +127,9 @@ class LogEntryExtraFormatter
         }
 
         if (($context instanceof LogWithEventUndoInterface) && $context->isUndoEvent()) {
-            if ('undo' === $context->getUndoMode()) {
+            if (EventUndoMode::UNDO === $context->getUndoMode()) {
                 $array['log.undo_mode.undo'] = '#' . $context->getUndoEventID();
-            } elseif ('revert' === $context->getUndoMode()) {
+            } elseif (EventUndoMode::REVERT === $context->getUndoMode()) {
                 $array['log.undo_mode.revert'] = '#' . $context->getUndoEventID();
             }
         }

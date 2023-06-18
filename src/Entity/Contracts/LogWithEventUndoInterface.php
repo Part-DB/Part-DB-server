@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Entity\Contracts;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Services\LogSystem\EventUndoMode;
 
 interface LogWithEventUndoInterface
 {
@@ -60,12 +61,12 @@ interface LogWithEventUndoInterface
      *
      * @return $this
      */
-    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): self;
+    public function setUndoneEvent(AbstractLogEntry $event, EventUndoMode $mode = EventUndoMode::UNDO): self;
 
     /**
      * Returns the mode how the event was undone:
      * "undo" = Only a single event was applied to element
      * "revert" = Element was reverted to the state it was to the timestamp of the log.
      */
-    public function getUndoMode(): string;
+    public function getUndoMode(): EventUndoMode;
 }

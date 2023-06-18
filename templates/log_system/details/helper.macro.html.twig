@@ -19,8 +19,8 @@
 
     <form method="post" action="{{ path("log_undo") }}"
             {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
-            data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
-            data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
+          data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
+          data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
 
         <input type="hidden" name="redirect_back" value="{{ app.request.requestUri }}">
 
@@ -32,15 +32,18 @@
                 <i class="fas fa-fw fa-backward" title="{% trans %}log.undo.revert{% endtrans %}"></i> {{ 'log.undo.revert.short' | trans }}
             </button>
 
-            {% set url = timetravel_url(target_element, entry.timestamp) %}
-
             {# View button #}
             {% if target_element and ((attribute(entry, 'oldDataInformation') is defined and entry.oldDataInformation)
                 or entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted'))
-                and url is not null %}
-                <a class="btn btn-outline-secondary" href="{{ url }}"><i class="fas fa-fw fa-eye"></i>
-                    {% trans %}log.view_version{% endtrans %}
-                </a>
+            %}
+
+                {% set url = timetravel_url(target_element, entry.timestamp) %}
+
+                {% if url %}
+                    <a class="btn btn-outline-secondary" href="{{ url }}"><i class="fas fa-fw fa-eye"></i>
+                        {% trans %}log.view_version{% endtrans %}
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
     </form>

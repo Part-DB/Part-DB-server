@@ -87,9 +87,9 @@ use InvalidArgumentException;
 #[ORM\Entity]
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
 {
+    use LogWithEventUndoTrait;
+
     protected string $typeString = 'collection_element_deleted';
-
-
 
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {
@@ -217,40 +217,5 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     public function getDeletedElementID(): int
     {
         return $this->extra['i'];
-    }
-
-    public function isUndoEvent(): bool
-    {
-        return isset($this->extra['u']);
-    }
-
-    public function getUndoEventID(): ?int
-    {
-        return $this->extra['u'] ?? null;
-    }
-
-    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
-    {
-        $this->extra['u'] = $event->getID();
-
-        if ('undo' === $mode) {
-            $this->extra['um'] = 1;
-        } elseif ('revert' === $mode) {
-            $this->extra['um'] = 2;
-        } else {
-            throw new InvalidArgumentException('Passed invalid $mode!');
-        }
-
-        return $this;
-    }
-
-    public function getUndoMode(): string
-    {
-        $mode_int = $this->extra['um'] ?? 1;
-        if (1 === $mode_int) {
-            return 'undo';
-        }
-
-        return 'revert';
     }
 }
