@@ -63,8 +63,7 @@ trait InstockTrait
 
     /**
      * Get all part lots where this part is stored.
-     *
-     * @return PartLot[]|Collection
+     * @phpstan-return Collection<int, PartLot>
      */
     public function getPartLots(): Collection
     {

@@ -178,7 +178,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
      *
      * @throws AccessDeniedException
      */
-    private function denyAccessUnlessGranted($attributes, $subject = null, string $message = 'Access Denied.'): void
+    private function denyAccessUnlessGranted(mixed $attributes, mixed $subject = null, string $message = 'Access Denied.'): void
     {
         if (!$this->security->isGranted($attributes, $subject)) {
             $exception = new AccessDeniedException($message);

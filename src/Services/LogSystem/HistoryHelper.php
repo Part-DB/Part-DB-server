@@ -55,10 +55,10 @@ class HistoryHelper
     }
 
     /**
-     *  Returns an array containing all elements that are associated with the argument.
-     *  The returned array contains the given element.
+     * Returns an array containing all elements that are associated with the argument.
+     * The returned array contains the given element.
      *
-     * @psalm-return array<AbstractParameter|array-key, mixed>
+     * @return AbstractDBElement[]
      */
     public function getAssociatedElements(AbstractDBElement $element): array
     {

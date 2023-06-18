@@ -322,7 +322,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Ensure that the owner is not the anonymous user
         if ($this->getOwner() && $this->getOwner()->isAnonymousUser()) {

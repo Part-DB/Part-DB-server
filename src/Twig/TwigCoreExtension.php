@@ -58,6 +58,10 @@ final class TwigCoreExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param  string  $enum_class
+     * @phpstan-param class-string $enum_class
+     */
     public function getEnumCases(string $enum_class): array
     {
         if (!enum_exists($enum_class)) {
@@ -75,12 +79,8 @@ final class TwigCoreExtension extends AbstractExtension
         ];
     }
 
-    public function toArray($object)
+    public function toArray(object|array $object): array
     {
-        if(! is_object($object) && ! is_array($object)) {
-            throw new \InvalidArgumentException('The given variable is not an object or array!');
-        }
-
         //If it is already an array, we can just return it
         if(is_array($object)) {
             return $object;

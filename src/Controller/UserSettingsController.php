@@ -66,7 +66,7 @@ class UserSettingsController extends AbstractController
     }
 
     #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
-    public function showBackupCodes()
+    public function showBackupCodes(): Response
     {
         $user = $this->getUser();
 
@@ -74,7 +74,7 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (!$user instanceof User) {
-            return new RuntimeException('This controller only works only for Part-DB User objects!');
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if ($user->isSamlUser()) {

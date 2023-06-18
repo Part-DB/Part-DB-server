@@ -68,7 +68,12 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
         return $data instanceof Part;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    /**
+     * @return (float|mixed)[]|\ArrayObject|null|scalar
+     *
+     * @psalm-return \ArrayObject|array{total_instock: float|mixed,...}|null|scalar
+     */
+    public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
@@ -178,7 +183,10 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
         return $object;
     }
 
-    public function getSupportedTypes(?string $format)
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
         //Must be false, because we rely on is_array($data) in supportsDenormalization()
         return [

@@ -45,7 +45,10 @@ class BigNumberNormalizer implements NormalizerInterface
         return (string) $object;
     }
 
-    public function getSupportedTypes(?string $format)
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
         return [
             BigNumber::class => true,

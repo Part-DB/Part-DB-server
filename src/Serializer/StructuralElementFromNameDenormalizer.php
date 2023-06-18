@@ -42,7 +42,12 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
+    /**
+     * @template T
+     * @phpstan-param class-string<T> $type
+     * @phpstan-return T|null
+     */
+    public function denormalize($data, string $type, string $format = null, array $context = []): AbstractStructuralDBElement|null
     {
         //Retrieve the repository for the given type
         /** @var StructuralDBElementRepository $repo */
@@ -69,7 +74,10 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
         return end($elements);
     }
 
-    public function getSupportedTypes(?string $format)
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
         //Cachable value Must be false, because we do an is_string check on data in supportsDenormalization
         return [

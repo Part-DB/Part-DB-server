@@ -47,7 +47,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
     }
 
 
-    public function configure(DataTable $dataTable, array $options)
+    public function configure(DataTable $dataTable, array $options): void
     {
         $dataTable
             //->add('select', SelectColumn::class)

@@ -60,7 +60,9 @@ final class LabelGenerator
     }
 
     /**
-     * @param  object|object[]  $elements An element or an array of elements for which labels should be generated
+     * @param object|object[]  $elements An element or an array of elements for which labels should be generated
+     *
+     * @return null|string
      */
     public function generateLabel(LabelOptions $options, object|array $elements): string
     {
@@ -83,7 +85,7 @@ final class LabelGenerator
         $dompdf->loadHtml($this->labelHTMLGenerator->getLabelHTML($options, $elements));
         $dompdf->render();
 
-        return $dompdf->output();
+        return $dompdf->output() ?? throw new \RuntimeException('Could not generate label!');
     }
 
     /**

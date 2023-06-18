@@ -49,7 +49,7 @@ class NumberConstraint extends AbstractConstraint
         $this->value2 = $value2;
     }
 
-    public function getOperator(): string
+    public function getOperator(): string|null
     {
         return $this->operator;
     }

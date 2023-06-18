@@ -57,7 +57,11 @@ class LogDiffFormatter
             ]);
     }
 
-    private function diffNumeric($old_data, $new_data): string
+    /**
+     * @param numeric $old_data
+     * @param numeric $new_data
+     */
+    private function diffNumeric(int|float|string $old_data, int|float|string $new_data): string
     {
         if ((!is_numeric($old_data)) || (!is_numeric($new_data))) {
             throw new \InvalidArgumentException('The given data is not numeric.');

@@ -44,11 +44,18 @@ class HomepageController extends AbstractController
     public function getBanner(): string
     {
         $banner = $this->getParameter('partdb.banner');
+        if (!is_string($banner)) {
+            throw new \RuntimeException('The parameter "partdb.banner" must be a string.');
+        }
         if (empty($banner)) {
             $banner_path = $this->kernel->getProjectDir()
                 .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';
 
-            return file_get_contents($banner_path);
+            $tmp = file_get_contents($banner_path);
+            if (false === $tmp) {
+                throw new \RuntimeException('The banner file could not be read.');
+            }
+            $banner = $tmp;
         }
 
         return $banner;

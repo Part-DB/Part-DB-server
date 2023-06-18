@@ -183,9 +183,6 @@ class Project extends AbstractStructuralDBElement
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
-     */
     public function getBomEntries(): Collection
     {
         return $this->bom_entries;
@@ -265,7 +262,7 @@ class Project extends AbstractStructuralDBElement
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //If this project has subprojects, and these have builds part, they must be included in the BOM
         foreach ($this->getChildren() as $child) {

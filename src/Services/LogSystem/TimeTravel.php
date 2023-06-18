@@ -232,16 +232,17 @@ class TimeTravel
     {
         $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
-        $property->setAccessible(true);
 
         return $property->getValue($element);
     }
 
+    /**
+     * @param int|null|object $new_value
+     */
     protected function setField(AbstractDBElement $element, string $field, mixed $new_value): void
     {
         $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
-        $property->setAccessible(true);
 
         $property->setValue($element, $new_value);
     }

@@ -468,9 +468,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Gets the datetime when the password reset token expires.
+     *  Gets the datetime when the password reset token expires.
      */
-    public function getPwResetExpires(): \DateTimeInterface
+    public function getPwResetExpires(): \DateTimeInterface|null
     {
         return $this->pw_reset_expires;
     }

@@ -42,13 +42,16 @@ class UserAvatarHelper
 
 
     /**
-     * Returns the URL to the profile picture of the given user (in big size)
+     *  Returns the URL to the profile picture of the given user (in big size)
+     *
+     * @return string
      */
     public function getAvatarURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md');
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -64,7 +67,8 @@ class UserAvatarHelper
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs');
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');;
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -85,7 +89,8 @@ class UserAvatarHelper
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm');
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)

@@ -63,7 +63,7 @@ class CheckRequirementsCommand extends Command
 
     }
 
-    protected function checkPHP(SymfonyStyle $io, $only_issues = false): void
+    protected function checkPHP(SymfonyStyle $io, bool $only_issues = false): void
     {
         //Check PHP versions
         if ($io->isVerbose()) {
@@ -98,7 +98,7 @@ class CheckRequirementsCommand extends Command
         }
     }
 
-    protected function checkPartDBConfig(SymfonyStyle $io, $only_issues = false): void
+    protected function checkPartDBConfig(SymfonyStyle $io, bool $only_issues = false): void
     {
         //Check if APP_ENV is set to prod
         if ($io->isVerbose()) {
@@ -112,7 +112,7 @@ class CheckRequirementsCommand extends Command
 
     }
 
-    protected function checkPHPExtensions(SymfonyStyle $io, $only_issues = false): void
+    protected function checkPHPExtensions(SymfonyStyle $io, bool $only_issues = false): void
     {
         //Get all installed PHP extensions
         $extensions = get_loaded_extensions();

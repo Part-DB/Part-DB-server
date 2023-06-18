@@ -91,8 +91,9 @@ class AttachmentType extends AbstractStructuralDBElement
     /**
      * Get all attachments ("Attachment" objects) with this type.
      *
-     * @return Collection|Attachment[] all attachments with this type, as a one-dimensional array of Attachments
+     * @return Collection all attachments with this type, as a one-dimensional array of Attachments
      *                                 (sorted by their names)
+     * @phpstan-return Collection<int, Attachment>
      */
     public function getAttachmentsForType(): Collection
     {

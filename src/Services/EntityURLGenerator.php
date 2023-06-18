@@ -159,7 +159,7 @@ class EntityURLGenerator
     public function viewURL(Attachment $entity): string
     {
         if ($entity->isExternal()) { //For external attachments, return the link to external path
-            return $entity->getURL();
+            return $entity->getURL() ?? throw new \RuntimeException('External attachment has no URL!');
         }
         //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
         return $this->attachmentURLGenerator->getViewURL($entity) ?? '';
@@ -169,7 +169,7 @@ class EntityURLGenerator
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
-                return $entity->getURL();
+                return $entity->getURL() ?? throw new \RuntimeException('External attachment has no URL!');
             }
 
             return $this->attachmentURLGenerator->getDownloadURL($entity);

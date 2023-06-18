@@ -139,9 +139,9 @@ class U2FKey implements LegacyU2FKeyInterface
     }
 
     /**
-     * Gets the user, this U2F key belongs to.
+     *  Gets the user, this U2F key belongs to.
      */
-    public function getUser(): User
+    public function getUser(): User|null
     {
         return $this->user;
     }

@@ -144,7 +144,7 @@ class Part extends AttachmentContainingDBElement
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Ensure that the part name fullfills the regex of the category
         if ($this->category instanceof Category) {

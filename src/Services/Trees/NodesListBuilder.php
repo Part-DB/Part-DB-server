@@ -66,12 +66,16 @@ class NodesListBuilder
     }
 
     /**
-     * Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
-     * The value is cached for performance reasons.
+     *  Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
+     *  The value is cached for performance reasons.
      *
      * @template T of AbstractStructuralDBElement
-     * @param  T $element
-     * @return T[]
+     *
+     * @param T $element
+     *
+     * @return AbstractStructuralDBElement[]
+     *
+     * @phpstan-return list<T>
      */
     public function getChildrenFlatList(AbstractStructuralDBElement $element): array
     {

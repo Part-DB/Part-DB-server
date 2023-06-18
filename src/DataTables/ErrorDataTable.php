@@ -48,7 +48,7 @@ class ErrorDataTable implements DataTableTypeInterface
         });
     }
 
-    public function configure(DataTable $dataTable, array $options)
+    public function configure(DataTable $dataTable, array $options): void
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -74,7 +74,10 @@ class ErrorDataTable implements DataTableTypeInterface
         $dataTable->createAdapter(ArrayAdapter::class, $data);
     }
 
-    public static function errorTable(DataTableFactory $dataTableFactory, Request $request, $errors): Response
+    /**
+     * @param  string[]|string  $errors
+     */
+    public static function errorTable(DataTableFactory $dataTableFactory, Request $request, array|string $errors): Response
     {
         $error_table = $dataTableFactory->createFromType(self::class, ['errors' => $errors]);
         $error_table->handleRequest($request);

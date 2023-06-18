@@ -29,6 +29,7 @@ use Jbtronics\TFAWebauthn\Services\TFAWebauthnRegistrationHelper;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use function Symfony\Component\Translation\t;
@@ -40,7 +41,7 @@ class WebauthnKeyRegistrationController extends AbstractController
     }
 
     #[Route(path: '/webauthn/register', name: 'webauthn_register')]
-    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em)
+    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em): Response
     {
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

@@ -29,8 +29,9 @@ trait ProjectTrait
     protected ?Project $built_project = null;
 
     /**
-     * Returns all ProjectBOMEntries that use this part.
-     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
+     *  Returns all ProjectBOMEntries that use this part.
+     *
+     * @phpstan-return Collection<int, ProjectBOMEntry>
      */
     public function getProjectBomEntries(): Collection
     {

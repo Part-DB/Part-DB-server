@@ -244,7 +244,7 @@ abstract class BaseAdminController extends AbstractController
         return true;
     }
 
-    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
+    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null): Response
     {
         $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
 

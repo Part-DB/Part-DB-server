@@ -77,19 +77,20 @@ final class LabelTextReplacer
     }
 
     /**
-     * Replaces all placeholders in the input lines.
+     *  Replaces all placeholders in the input lines.
      *
      * @param string $lines  The input lines that should be replaced
-     * @param object $target the object that should be used as source for the informations
+     * @param object $target the object that should be used as source for the information
      *
-     * @return string the Lines with replaced informations
+     * @return string the Lines with replaced information
      */
     public function replace(string $lines, object $target): string
     {
         $patterns = [
-            '/(\[\[[A-Z_0-9]+\]\])/' => fn($match) => $this->handlePlaceholder($match[0], $target),
+            '/(\[\[[A-Z_0-9]+\]\])/' => fn($match): string => $this->handlePlaceholder($match[0], $target),
         ];
 
-        return preg_replace_callback_array($patterns, $lines);
+        return preg_replace_callback_array($patterns, $lines) ?? throw new \RuntimeException('Could not replace placeholders!');
+
     }
 }

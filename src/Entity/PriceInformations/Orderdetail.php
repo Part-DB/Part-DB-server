@@ -205,8 +205,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     /**
      * Get all pricedetails.
      *
-     * @return Pricedetail[]|Collection all pricedetails as a one-dimensional array of Pricedetails objects,
-     *                                  sorted by minimum discount quantity
+     * @return Collection<int, Pricedetail>
      */
     public function getPricedetails(): Collection
     {

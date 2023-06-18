@@ -247,9 +247,9 @@ abstract class AbstractLogEntry extends AbstractDBElement
     }
 
     /**
-     * Returns the timestamp when the event that caused this log entry happened.
+     *  Returns the timestamp when the event that caused this log entry happened.
      */
-    public function getTimestamp(): \DateTimeInterface
+    public function getTimestamp(): \DateTimeInterface|null
     {
         return $this->timestamp;
     }
