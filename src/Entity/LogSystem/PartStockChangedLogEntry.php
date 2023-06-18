@@ -38,7 +38,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Creates a new part stock changed log entry.
-     * @param  string  $type The type of the log entry. One of the TYPE_* constants.
+     * @param  PartStockChangeType $type The type of the log entry.
      * @param  PartLot  $lot The part lot which has been changed.
      * @param  float  $old_stock The old stock of the lot.
      * @param  float  $new_stock The new stock of the lot.
@@ -46,13 +46,9 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      * @param  string  $comment The comment associated with the change.
      * @param  PartLot|null  $move_to_target The target lot if the type is TYPE_MOVE.
      */
-    protected function __construct(string $type, PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment, ?PartLot $move_to_target = null)
+    protected function __construct(PartStockChangeType $type, PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment, ?PartLot $move_to_target = null)
     {
         parent::__construct();
-
-        if (!in_array($type, [self::TYPE_ADD, self::TYPE_WITHDRAW, self::TYPE_MOVE], true)) {
-            throw new \InvalidArgumentException('Invalid type for PartStockChangedLogEntry!');
-        }
 
         //Same as every other element change log entry
         $this->level = LogLevel::INFO;
@@ -61,7 +57,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
 
         $this->typeString = 'part_stock_changed';
         $this->extra = array_merge($this->extra, [
-            't' => $this->typeToShortType($type),
+            't' => $type->toExtraShortType(),
             'o' => $old_stock,
             'n' => $new_stock,
             'p' => $new_total_part_instock,
@@ -71,7 +67,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
         }
 
         if ($move_to_target instanceof PartLot) {
-            if ($type !== self::TYPE_MOVE) {
+            if ($type !== PartStockChangeType::MOVE) {
                 throw new \InvalidArgumentException('The move_to_target parameter can only be set if the type is "move"!');
             }
 
@@ -90,7 +86,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      */
     public static function add(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment): self
     {
-        return new self(self::TYPE_ADD, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment);
+        return new self(PartStockChangeType::ADD, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment);
     }
 
     /**
@@ -104,7 +100,7 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      */
     public static function withdraw(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment): self
     {
-        return new self(self::TYPE_WITHDRAW, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment);
+        return new self(PartStockChangeType::WITHDRAW, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment);
     }
 
     /**
@@ -118,16 +114,16 @@ class PartStockChangedLogEntry extends AbstractLogEntry
      */
     public static function move(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment, PartLot $move_to_target): self
     {
-        return new self(self::TYPE_MOVE, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment, $move_to_target);
+        return new self(PartStockChangeType::MOVE, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment, $move_to_target);
     }
 
     /**
      * Returns the instock change type of this entry
-     * @return string One of the TYPE_* constants.
+     * @return PartStockChangeType
      */
-    public function getInstockChangeType(): string
+    public function getInstockChangeType(): PartStockChangeType
     {
-        return $this->shortTypeToType($this->extra['t']);
+        return PartStockChangeType::fromExtraShortType($this->extra['t']);
     }
 
     /**
@@ -176,31 +172,5 @@ class PartStockChangedLogEntry extends AbstractLogEntry
     public function getMoveToTargetID(): ?int
     {
         return $this->extra['m'] ?? null;
-    }
-
-    /**
-     * Converts the human-readable type (TYPE_* consts) to the version stored in DB
-     */
-    protected function typeToShortType(string $type): string
-    {
-        return match ($type) {
-            self::TYPE_ADD => 'a',
-            self::TYPE_WITHDRAW => 'w',
-            self::TYPE_MOVE => 'm',
-            default => throw new \InvalidArgumentException('Invalid type: '.$type),
-        };
-    }
-
-    /**
-     * Converts the short type stored in DB to the human-readable type (TYPE_* consts).
-     */
-    protected function shortTypeToType(string $short_type): string
-    {
-        return match ($short_type) {
-            'a' => self::TYPE_ADD,
-            'w' => self::TYPE_WITHDRAW,
-            'm' => self::TYPE_MOVE,
-            default => throw new \InvalidArgumentException('Invalid short type: '.$short_type),
-        };
     }
 }

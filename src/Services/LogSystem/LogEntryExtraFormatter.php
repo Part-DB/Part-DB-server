@@ -33,6 +33,7 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\ExceptionLogEntry;
 use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
+use App\Entity\LogSystem\PartStockChangeType;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
@@ -187,7 +188,7 @@ class LogEntryExtraFormatter
             if ($context->getComment() !== '') {
                 $array['log.part_stock_changed.comment'] = htmlspecialchars($context->getComment());
             }
-            if ($context->getInstockChangeType() === PartStockChangedLogEntry::TYPE_MOVE) {
+            if ($context->getInstockChangeType() === PartStockChangeType::MOVE) {
                 $array['log.part_stock_changed.move_target'] =
                     htmlspecialchars($this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class))
                     .' ' . $context->getMoveToTargetID();

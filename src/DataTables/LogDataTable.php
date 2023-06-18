@@ -139,7 +139,7 @@ class LogDataTable implements DataTableTypeInterface
                 if ($context instanceof PartStockChangedLogEntry) {
                     $text .= sprintf(
                         ' (<i>%s</i>)',
-                        $this->translator->trans('log.part_stock_changed.' . $context->getInstockChangeType())
+                        $this->translator->trans('log.part_stock_changed.' . $context->getInstockChangeType()->toExtraShortType())
                     );
                 }
 

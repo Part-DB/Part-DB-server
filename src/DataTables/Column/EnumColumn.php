@@ -43,7 +43,7 @@ class EnumColumn extends AbstractColumn
         return ($this->getEnumClass())::from($value);
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
 
