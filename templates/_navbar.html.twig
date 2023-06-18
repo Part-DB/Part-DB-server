@@ -1,6 +1,6 @@
 {% import "helper.twig" as helper %}
 
-<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm fixed-top py-0" id="navbar">
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
             <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
@@ -61,11 +61,15 @@
                                                   aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                         {% endif %}
                         <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator"></li>
-                        <div class="px-4 px-3" id="toggleDarkmodeContainer hidden" {{ stimulus_controller('common/darkmode') }}>
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="toggleDarkmode" {{ stimulus_action('common/darkmode', 'toggleDarkmode', 'change') }}>
-                                <label class="form-check-label"
-                                       for="toggleDarkmode">{% trans %}ui.toggle_darkmode{% endtrans %}</label>
+                        <div class="px-4 py-0 d-flex justify-content-between align-items-baseline">
+                            <span>{% trans %}ui.toggle_darkmode{% endtrans %}</span>
+                            <div class="btn-group" role="group" {{ stimulus_controller('common/darkmode') }}>
+                                <input type="radio" class="btn-check" name="darkmode" id="darkmode-light" autocomplete="off" value="light">
+                                <label class="btn btn-outline-secondary" for="darkmode-light" title="{% trans %}ui.darkmode.light{% endtrans %}"><i class="fa-solid fa-sun"></i></label>
+                                <input type="radio" class="btn-check" name="darkmode" id="darkmode-dark" autocomplete="off" value="dark">
+                                <label class="btn btn-outline-secondary" for="darkmode-dark" title="{% trans %}ui.darkmode.dark{% endtrans %}"><i class="fa-solid fa-moon"></i></label>
+                                <input type="radio" class="btn-check" name="darkmode" id="darkmode-auto" autocomplete="off" value="auto" checked>
+                                <label class="btn btn-outline-secondary" for="darkmode-auto" title="{% trans %}ui.darkmode.auto{% endtrans %}"><i class="fa-solid fa-circle-half-stroke"></i></label>
                             </div>
                         </div>
                         <li role="separator" class="dropdown-divider"></li>

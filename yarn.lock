@@ -3029,11 +3029,6 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
-darkmode-js@^1.5.0:
-  version "1.5.7"
-  resolved "https://registry.yarnpkg.com/darkmode-js/-/darkmode-js-1.5.7.tgz#b260ff671d67e021446ac8bade458e08338f6410"
-  integrity sha512-gM1KhV/yy/84ZUpES9/oeOn0CVtuOi2HBd+Kccr4CJz+rFccQo2gUuPbjfyPXUx7t800Zf408G6kZb5rkTgjFA==
-
 dash-ast@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/dash-ast/-/dash-ast-2.0.1.tgz#8d0fd2e601c59bf874cc22877ee7dd889f54dee8"

@@ -34,7 +34,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownCat">
                 {{ _self.sidebar_dropdown('tree-categories') }}
             </ul>
-            <input type="search" class="form-control bg-light border-0" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/sidebar_tree', 'searchInput') }}>
+            <input type="search" class="form-control bg-body-tertiary border-0" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/sidebar_tree', 'searchInput') }}>
         </div>
 
         <div id="{{ id }}Tree" {{ stimulus_target('elements/sidebar_tree', 'tree') }}></div>
