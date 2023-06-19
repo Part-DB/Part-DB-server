@@ -99,7 +99,7 @@ label:not(.form-check-label, .custom-control-label) {
 
 form .col-form-label.required:after, form label.required:after {
     bottom: 4px;
-    color: var(--bs-dark);
+    color: var(--bs-secondary-color);
     content: "\2022";
     filter: opacity(75%);
     position: relative;

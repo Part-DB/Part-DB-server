@@ -28,7 +28,7 @@
 {% macro treeview_sidebar(id, default_mode) %}
     <div {{ stimulus_controller('elements/sidebar_tree') }} data-default-mode="{{ default_mode }}" id="{{ id }}">
         <div class="input-group input-group-sm mb-2 mt-1">
-            <button class="btn btn-light dropdown-toggle" type="button"
+            <button class="btn bg-body-tertiary dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             ><span class="sidebar-title" {{ stimulus_target('elements/sidebar_tree', 'sourceText') }}>Loading... / Access Denied</span></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownCat">
