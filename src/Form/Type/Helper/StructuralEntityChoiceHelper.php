@@ -69,11 +69,9 @@ class StructuralEntityChoiceHelper
                 $level -= $parent->getLevel() - 1;
             }
 
-            $tmp += [
-                'data-level' => $level,
-                'data-parent' => $choice->getParent() instanceof AbstractStructuralDBElement ? $choice->getParent()->getFullPath() : null,
-                'data-path' => $choice->getFullPath('->'),
-            ];
+            $tmp['data-level'] = $level;
+            $tmp['data-parent'] = $choice->getParent() instanceof AbstractStructuralDBElement ? $choice->getParent()->getFullPath() : null;
+            $tmp['data-path'] = $choice->getFullPath('->');
         }
 
         if ($choice instanceof HasMasterAttachmentInterface) {
