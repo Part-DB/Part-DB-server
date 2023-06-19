@@ -325,7 +325,7 @@ class UserSettingsController extends AbstractController
             'disabled' => $this->demo_mode || $user->isSamlUser(),
         ]);
         $google_enabled = $user->isGoogleAuthenticatorEnabled();
-        if (!$google_enabled && !$form->isSubmitted()) {
+        if (!$google_enabled && !$google_form->isSubmitted()) {
             $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
             $google_form->get('googleAuthenticatorSecret')->setData($user->getGoogleAuthenticatorSecret());
         }
