@@ -189,7 +189,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             }
 
             //Reseting autoincrement is only supported on MySQL platforms
-            if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SqlitePlatform) {
+            if ($platform instanceof AbstractMySQLPlatform ) { //|| $platform instanceof SqlitePlatform) {
                 $connection->beginTransaction();
                 $connection->executeQuery($this->getResetAutoIncrementSQL($tbl, $platform));
             }
@@ -209,9 +209,10 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             return 'ALTER TABLE '.$tableIdentifier->getQuotedName($platform).' AUTO_INCREMENT = 1;';
         }
 
-        if ($platform instanceof SqlitePlatform) {
+        //This seems to cause problems somehow
+        /*if ($platform instanceof SqlitePlatform) {
             return 'DELETE FROM `sqlite_sequence` WHERE name = \''.$tableIdentifier->getQuotedName($platform).'\';';
-        }
+        }*/
     }
 
     /**
