@@ -285,6 +285,7 @@ class UserSettingsController extends AbstractController
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'user.settings.pw_new.label',
+                    'password_estimator' => true,
                 ],
                 'second_options' => [
                     'label' => 'user.settings.pw_confirm.label',

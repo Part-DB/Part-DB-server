@@ -123,3 +123,21 @@
 {% block part_select_widget %}
     {{ form_widget(form.autocomplete) }}
 {% endblock %}
+
+{% block password_widget %}
+    {# If password_estimator setting is not set render it like normal #}
+    {% if password_estimator %}
+        <div {{ stimulus_controller('elements/password_strength_estimate') }}>
+            <div class="input-group">
+                <span class="input-group-text d-none">
+                    <span class="badge badge-primary" {{ stimulus_target('elements/password_strength_estimate', 'badge') }}></span>
+                </span>
+                {{- parent() -}}
+            </div>
+
+            <span class="form-text text-warning" {{ stimulus_target('elements/password_strength_estimate', 'warning') }}></span>
+        </div>
+    {% else %}
+        {{- parent() -}}
+    {% endif %}
+{% endblock %}
