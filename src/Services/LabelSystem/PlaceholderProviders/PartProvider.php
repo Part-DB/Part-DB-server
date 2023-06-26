@@ -96,6 +96,10 @@ final class PartProvider implements PlaceholderProviderInterface
             return $part->getManufacturerProductNumber();
         }
 
+        if ('[[IPN]]' === $placeholder) {
+            return $part->getIpn() ?? '';
+        }
+
         if ('[[TAGS]]' === $placeholder) {
             return $part->getTags();
         }

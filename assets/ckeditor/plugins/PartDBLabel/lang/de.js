@@ -39,6 +39,7 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Footprint (Full path)': 'Footprint (Vollständiger Pfad)',
     'Mass': 'Gewicht',
     'Manufacturer Product Number (MPN)': 'Hersteller Produktnummer (MPN)',
+    'Internal Part Number (IPN)': 'Internal Part Number (IPN)',
     'Tags': 'Tags',
     'Manufacturing status': 'Herstellungsstatus',
     'Description': 'Beschreibung',

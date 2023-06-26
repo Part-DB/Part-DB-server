@@ -76,6 +76,7 @@ const PLACEHOLDERS = [
             ['[[FOOTPRINT_FULL]]', 'Footprint (Full path)'],
             ['[[MASS]]', 'Mass'],
             ['[[MPN]]', 'Manufacturer Product Number (MPN)'],
+            ['[[IPN]]', 'Internal Part Number (IPN)'],
             ['[[TAGS]]', 'Tags'],
             ['[[M_STATUS]]', 'Manufacturing status'],
             ['[[DESCRIPTION]]', 'Description'],
