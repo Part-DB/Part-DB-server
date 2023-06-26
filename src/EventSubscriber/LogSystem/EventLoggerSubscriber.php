@@ -329,7 +329,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
         $logEntry->setOldData($old_data);
 
-        if ($new_data !== []) {
+        if ($new_data !== [] && $new_data !== null) {
             $new_data = $this->filterFieldRestrictions($entity, $new_data);
             $new_data = $this->fieldLengthRestrict($new_data);
 
