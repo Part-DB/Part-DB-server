@@ -11445,5 +11445,23 @@ Element 3</target>
         <target>None</target>
       </segment>
     </unit>
+    <unit id="R2nX4ip" name="ui.darkmode.light">
+      <segment>
+        <source>ui.darkmode.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="3NHpuW3" name="ui.darkmode.dark">
+      <segment>
+        <source>ui.darkmode.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
+    <unit id="4TGOK5_" name="ui.darkmode.auto">
+      <segment>
+        <source>ui.darkmode.auto</source>
+        <target>Auto (decide based on system settings)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
