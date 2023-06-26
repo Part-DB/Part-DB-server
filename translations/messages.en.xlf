@@ -11433,5 +11433,41 @@ Element 3</target>
         <target>Attachments</target>
       </segment>
     </unit>
+    <unit id="DGczoY6" name="tfa_u2f.add_key.registration_error">
+      <segment state="translated">
+        <source>tfa_u2f.add_key.registration_error</source>
+        <target>An error occurred during the registration of the security key. Try again or use another security key!</target>
+      </segment>
+    </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment state="translated">
+        <source>log.target_type.none</source>
+        <target>None</target>
+      </segment>
+    </unit>
+    <unit id="R2nX4ip" name="ui.darkmode.light">
+      <segment state="translated">
+        <source>ui.darkmode.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="3NHpuW3" name="ui.darkmode.dark">
+      <segment state="translated">
+        <source>ui.darkmode.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
+    <unit id="4TGOK5_" name="ui.darkmode.auto">
+      <segment state="translated">
+        <source>ui.darkmode.auto</source>
+        <target>Auto (decide based on system settings)</target>
+      </segment>
+    </unit>
+    <unit id="9N0N8aL" name="label_generator.no_lines_given">
+      <segment state="translated">
+        <source>label_generator.no_lines_given</source>
+        <target>No text content given! The labels will remain empty.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
