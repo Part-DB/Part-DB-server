@@ -41,20 +41,21 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Formatters\SIFormatter;
 use Parsedown;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartProviderTest
+ */
 final class PartProvider implements PlaceholderProviderInterface
 {
-    private SIFormatter $siFormatter;
-    private TranslatorInterface $translator;
-
-    public function __construct(SIFormatter $SIFormatter, TranslatorInterface $translator)
+    public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)
     {
-        $this->siFormatter = $SIFormatter;
-        $this->translator = $translator;
     }
 
     public function replace(string $placeholder, object $part, array $options = []): ?string
@@ -64,27 +65,27 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[CATEGORY]]' === $placeholder) {
-            return $part->getCategory() ? $part->getCategory()->getName() : '';
+            return $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '';
         }
 
         if ('[[CATEGORY_FULL]]' === $placeholder) {
-            return $part->getCategory() ? $part->getCategory()->getFullPath() : '';
+            return $part->getCategory() instanceof Category ? $part->getCategory()->getFullPath() : '';
         }
 
         if ('[[MANUFACTURER]]' === $placeholder) {
-            return $part->getManufacturer() ? $part->getManufacturer()->getName() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getName() : '';
         }
 
         if ('[[MANUFACTURER_FULL]]' === $placeholder) {
-            return $part->getManufacturer() ? $part->getManufacturer()->getFullPath() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getFullPath() : '';
         }
 
         if ('[[FOOTPRINT]]' === $placeholder) {
-            return $part->getFootprint() ? $part->getFootprint()->getName() : '';
+            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '';
         }
 
         if ('[[FOOTPRINT_FULL]]' === $placeholder) {
-            return $part->getFootprint() ? $part->getFootprint()->getFullPath() : '';
+            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getFullPath() : '';
         }
 
         if ('[[MASS]]' === $placeholder) {
@@ -114,7 +115,7 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[DESCRIPTION_T]]' === $placeholder) {
-            return strip_tags($parsedown->line($part->getDescription()));
+            return strip_tags((string) $parsedown->line($part->getDescription()));
         }
 
         if ('[[COMMENT]]' === $placeholder) {
@@ -122,7 +123,7 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[COMMENT_T]]' === $placeholder) {
-            return strip_tags($parsedown->line($part->getComment()));
+            return strip_tags((string) $parsedown->line($part->getComment()));
         }
 
         return null;

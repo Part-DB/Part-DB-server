@@ -24,6 +24,7 @@ namespace App\Repository;
 
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +33,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends NamedDBElementRepository<User>
  */
 final class UserRepository extends NamedDBElementRepository implements PasswordUpgraderInterface
 {
@@ -43,7 +45,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
      */
     public function getAnonymousUser(): ?User
     {
-        if (null === $this->anonymous_user) {
+        if (!$this->anonymous_user instanceof User) {
             $this->anonymous_user = $this->findOneBy([
                 'id' => User::ID_ANONYMOUS,
             ]);
@@ -61,7 +63,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
      */
     public function findByEmailOrName(string $name_or_password): ?User
     {
-        if (empty($name_or_password)) {
+        if ($name_or_password === '') {
             return null;
         }
 
@@ -77,12 +79,12 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
 
         try {
             return $qb->getQuery()->getOneOrNullResult();
-        } catch (NonUniqueResultException $nonUniqueResultException) {
+        } catch (NonUniqueResultException) {
             return null;
         }
     }
 
-    public function upgradePassword(UserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(UserInterface|PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if ($user instanceof User) {
             $user->setPassword($newHashedPassword);

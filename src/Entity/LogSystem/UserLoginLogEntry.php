@@ -27,9 +27,8 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when a user logs in.
- *
- * @ORM\Entity()
  */
+#[ORM\Entity]
 class UserLoginLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'user_login';
@@ -37,7 +36,7 @@ class UserLoginLogEntry extends AbstractLogEntry
     public function __construct(string $ip_address, bool $anonymize = true)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
         $this->setIPAddress($ip_address, $anonymize);
     }
 

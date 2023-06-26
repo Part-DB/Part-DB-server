@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
@@ -51,28 +52,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 
-/**
- * @Route("/user")
- */
+#[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    protected bool $demo_mode;
-
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
 
-    public function __construct(bool $demo_mode, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected bool $demo_mode, EventDispatcherInterface $eventDispatcher)
     {
-        $this->demo_mode = $demo_mode;
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @Route("/2fa_backup_codes", name="show_backup_codes")
-     */
-    public function showBackupCodes()
+    #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
+    public function showBackupCodes(): Response
     {
         $user = $this->getUser();
 
@@ -80,14 +74,14 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (!$user instanceof User) {
-            return new RuntimeException('This controller only works only for Part-DB User objects!');
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if ($user->isSamlUser()) {
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if (empty($user->getBackupCodes())) {
+        if ($user->getBackupCodes() === []) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
 
             throw new RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
@@ -98,9 +92,7 @@ class UserSettingsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/u2f_delete", name="u2f_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/u2f_delete', name: 'u2f_delete', methods: ['DELETE'])]
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager): RedirectResponse
     {
         if ($this->demo_mode) {
@@ -120,56 +112,50 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getID(), $request->request->get('_token'))) {
             //Handle U2F key removal
             if ($request->request->has('key_id')) {
                 $key_id = $request->request->get('key_id');
                 $key_repo = $entityManager->getRepository(U2FKey::class);
                 /** @var U2FKey|null $u2f */
                 $u2f = $key_repo->find($key_id);
-                if (null === $u2f) {
+                if (!$u2f instanceof U2FKey) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 //User can only delete its own U2F keys
                 if ($u2f->getUser() !== $user) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $entityManager->remove($u2f);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
-
                 $security_event = new SecurityEvent($user);
                 $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
-            } else if ($request->request->has('webauthn_key_id')) {
+            } elseif ($request->request->has('webauthn_key_id')) {
                 $key_id = $request->request->get('webauthn_key_id');
                 $key_repo = $entityManager->getRepository(WebauthnKey::class);
                 /** @var WebauthnKey|null $key */
                 $key = $key_repo->find($key_id);
-                if (null === $key) {
+                if (!$key instanceof WebauthnKey) {
                     $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 //User can only delete its own U2F keys
                 if ($key->getUser() !== $user) {
                     $this->addFlash('error', 'tfa_u2f.u2f_delete.access_denied');
 
                     return $this->redirectToRoute('user_settings');
                 }
-
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $entityManager->remove($key);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
-
                 $security_event = new SecurityEvent($user);
                 $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
             }
@@ -180,12 +166,8 @@ class UserSettingsController extends AbstractController
         return $this->redirectToRoute('user_settings');
     }
 
-    /**
-     * @Route("/invalidate_trustedDevices", name="tfa_trustedDevices_invalidate", methods={"DELETE"})
-     *
-     * @return RuntimeException|RedirectResponse
-     */
-    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
+    #[Route(path: '/invalidate_trustedDevices', name: 'tfa_trustedDevices_invalidate', methods: ['DELETE'])]
+    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager): \RuntimeException|RedirectResponse
     {
         if ($this->demo_mode) {
             throw new RuntimeException('You can not do 2FA things in demo mode');
@@ -204,7 +186,7 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
-        if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('devices_reset'.$user->getID(), $request->request->get('_token'))) {
             $user->invalidateTrustedDeviceTokens();
             $entityManager->flush();
             $this->addFlash('success', 'tfa_trustedDevice.invalidate.success');
@@ -219,11 +201,10 @@ class UserSettingsController extends AbstractController
     }
 
     /**
-     * @Route("/settings", name="user_settings")
-     *
      * @return RedirectResponse|Response
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper)
+    #[Route(path: '/settings', name: 'user_settings')]
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): RedirectResponse|Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -262,13 +243,11 @@ class UserSettingsController extends AbstractController
             }
 
             /** @var Form $form We need a form implementation for the next calls */
-            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName()) {
-                //Remove the avatar attachment from the user if requested
-                if ($user->getMasterPictureAttachment() !== null) {
-                    $em->remove($user->getMasterPictureAttachment());
-                    $user->setMasterPictureAttachment(null);
-                    $page_need_reload = true;
-                }
+            //Remove the avatar attachment from the user if requested
+            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof Attachment) {
+                $em->remove($user->getMasterPictureAttachment());
+                $user->setMasterPictureAttachment(null);
+                $page_need_reload = true;
             }
 
             $em->flush();
@@ -346,7 +325,7 @@ class UserSettingsController extends AbstractController
             'disabled' => $this->demo_mode || $user->isSamlUser(),
         ]);
         $google_enabled = $user->isGoogleAuthenticatorEnabled();
-        if (!$google_enabled && !$form->isSubmitted()) {
+        if (!$google_enabled && !$google_form->isSubmitted()) {
             $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
             $google_form->get('googleAuthenticatorSecret')->setData($user->getGoogleAuthenticatorSecret());
         }
@@ -382,7 +361,7 @@ class UserSettingsController extends AbstractController
             'attr' => [
                 'class' => 'btn-danger',
             ],
-            'disabled' => empty($user->getBackupCodes()),
+            'disabled' => $user->getBackupCodes() === [],
         ])->getForm();
 
         $backup_form->handleRequest($request);
@@ -397,7 +376,7 @@ class UserSettingsController extends AbstractController
          * Output both forms
          *****************************/
 
-        return $this->renderForm('users/user_settings.html.twig', [
+        return $this->render('users/user_settings.html.twig', [
             'user' => $user,
             'settings_form' => $form,
             'pw_form' => $pw_form,

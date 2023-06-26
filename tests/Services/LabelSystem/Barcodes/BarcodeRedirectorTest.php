@@ -47,10 +47,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BarcodeRedirectorTest extends KernelTestCase
 {
-    /**
-     * @var BarcodeRedirector
-     */
-    private $service;
+    private ?object $service = null;
 
     protected function setUp(): void
     {
@@ -81,7 +78,7 @@ class BarcodeRedirectorTest extends KernelTestCase
     {
         $this->expectException(EntityNotFoundException::class);
         //If we encounter an invalid lot, we must throw an exception
-        $this->service->getRedirectURL('lot', 12345678);
+        $this->service->getRedirectURL('lot', 12_345_678);
     }
 
     public function testInvalidType(): void

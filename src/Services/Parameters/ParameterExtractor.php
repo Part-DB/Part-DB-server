@@ -47,6 +47,9 @@ use InvalidArgumentException;
 
 use function preg_match;
 
+/**
+ * @see \App\Tests\Services\Parameters\ParameterExtractorTest
+ */
 class ParameterExtractor
 {
     protected const ALLOWED_PARAM_SEPARATORS = [', ', "\n"];
@@ -74,7 +77,7 @@ class ParameterExtractor
         $split = $this->splitString($input);
         foreach ($split as $param_string) {
             $tmp = $this->stringToParam($param_string, $class);
-            if (null !== $tmp) {
+            if ($tmp instanceof AbstractParameter) {
                 $parameters[] = $tmp;
             }
         }
@@ -89,12 +92,12 @@ class ParameterExtractor
 
         $matches = [];
         preg_match($regex, $input, $matches);
-        if (!empty($matches)) {
+        if ($matches !== []) {
             [, $name, $value] = $matches;
             $value = trim($value);
 
             //Don't allow empty names or values (these are a sign of an invalid extracted string)
-            if (empty($name) || empty($value)) {
+            if ($name === '' || $value === '') {
                 return null;
             }
 

@@ -30,18 +30,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class GroupFixtures extends Fixture
 {
-    public const ADMINS = 'group-admin';
-    public const USERS = 'group-users';
-    public const READONLY = 'group-readonly';
+    final public const ADMINS = 'group-admin';
+    final public const USERS = 'group-users';
+    final public const READONLY = 'group-readonly';
 
-
-    private PermissionPresetsHelper $permission_presets;
-    private PermissionManager $permissionManager;
-
-    public function __construct(PermissionPresetsHelper $permissionPresetsHelper, PermissionManager $permissionManager)
+    public function __construct(private readonly PermissionPresetsHelper $permission_presets, private readonly PermissionManager $permissionManager)
     {
-        $this->permission_presets = $permissionPresetsHelper;
-        $this->permissionManager = $permissionManager;
     }
 
     public function load(ObjectManager $manager): void

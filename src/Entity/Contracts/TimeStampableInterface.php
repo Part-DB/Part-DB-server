@@ -30,15 +30,15 @@ interface TimeStampableInterface
      * Returns the last time when the element was modified.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return DateTime|null the time of the last edit
+     * @return \DateTimeInterface|null the time of the last edit
      */
-    public function getLastModified(): ?DateTime;
+    public function getLastModified(): ?\DateTimeInterface;
 
     /**
      * Returns the date/time when the element was created.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return DateTime|null the creation time of the part
+     * @return \DateTimeInterface|null the creation time of the part
      */
-    public function getAddedDate(): ?DateTime;
+    public function getAddedDate(): ?\DateTimeInterface;
 }

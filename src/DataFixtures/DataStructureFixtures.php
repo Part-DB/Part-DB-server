@@ -31,18 +31,17 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use InvalidArgumentException;
 
-class DataStructureFixtures extends Fixture
+class DataStructureFixtures extends Fixture implements DependentFixtureInterface
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     /**
@@ -52,7 +51,7 @@ class DataStructureFixtures extends Fixture
     {
         //Reset autoincrement
         $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
-            MeasurementUnit::class, Storelocation::class, Supplier::class, ];
+            MeasurementUnit::class, Storelocation::class, Supplier::class,];
 
         foreach ($types as $type) {
             $this->createNodesForClass($type, $manager);
@@ -108,5 +107,12 @@ class DataStructureFixtures extends Fixture
         $manager->persist($node1_2);
         $manager->persist($node2_1);
         $manager->persist($node1_1_1);
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class
+        ];
     }
 }

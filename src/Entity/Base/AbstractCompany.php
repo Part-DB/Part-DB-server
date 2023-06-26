@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parameters\AbstractParameter;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use function is_string;
@@ -30,51 +33,54 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This abstract class is used for companies like suppliers or manufacturers.
  *
- * @ORM\MappedSuperclass()
+ * @template-covariant AT of Attachment
+ * @template-covariant PT of AbstractParameter
+ * @extends AbstractPartsContainingDBElement<AT, PT>
  */
+#[ORM\MappedSuperclass]
 abstract class AbstractCompany extends AbstractPartsContainingDBElement
 {
     /**
      * @var string The address of the company
-     * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
-     * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
-     * @ORM\Column(type="string")
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $fax_number = '';
 
     /**
      * @var string The email address of the company
-     * @ORM\Column(type="string")
-     * @Assert\Email()
-     * @Groups({"full"})
      */
+    #[Assert\Email]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $email_address = '';
 
     /**
      * @var string The website of the company
-     * @ORM\Column(type="string")
-     * @Assert\Url()
-     * @Groups({"full"})
      */
+    #[Assert\Url]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $website = '';
 
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: Types::STRING)]
     protected string $auto_product_url = '';
 
     /********************************************************************************

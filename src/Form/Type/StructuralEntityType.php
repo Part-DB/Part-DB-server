@@ -44,21 +44,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class StructuralEntityType extends AbstractType
 {
-    protected EntityManagerInterface $em;
-    protected TranslatorInterface $translator;
-    protected StructuralEntityChoiceHelper $choice_helper;
-
-    /**
-     * @var NodesListBuilder
-     */
-    protected NodesListBuilder $builder;
-
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choice_helper)
+    public function __construct(protected EntityManagerInterface $em, protected NodesListBuilder $builder, protected TranslatorInterface $translator, protected StructuralEntityChoiceHelper $choice_helper)
     {
-        $this->em = $em;
-        $this->builder = $builder;
-        $this->translator = $translator;
-        $this->choice_helper = $choice_helper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -81,11 +68,7 @@ class StructuralEntityType extends AbstractType
         });
 
         $builder->addModelTransformer(new CallbackTransformer(
-            function ($value) use ($options) {
-                return $this->modelTransform($value, $options);
-            }, function ($value) use ($options) {
-            return $this->modelReverseTransform($value, $options);
-        }));
+            fn($value) => $this->modelTransform($value, $options), fn($value) => $this->modelReverseTransform($value, $options)));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -96,25 +79,11 @@ class StructuralEntityType extends AbstractType
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
-            'choice_value' => function (?AbstractNamedDBElement $element) {
-                return $this->choice_helper->generateChoiceValue($element);
-            }, //Use the element id as option value and for comparing items
-            'choice_loader' => function (Options $options) {
-                return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
-            },
-            'choice_label' => function (Options $options) {
-                return function ($choice, $key, $value) {
-                    return $this->choice_helper->generateChoiceLabel($choice);
-                };
-            },
-            'choice_attr' => function (Options $options) {
-                return function ($choice, $key, $value) use ($options) {
-                    return $this->choice_helper->generateChoiceAttr($choice, $options);
-                };
-            },
-            'group_by' => function (AbstractNamedDBElement $element) {
-                return $this->choice_helper->generateGroupBy($element);
-            },
+            'choice_value' => fn(?AbstractNamedDBElement $element) => $this->choice_helper->generateChoiceValue($element), //Use the element id as option value and for comparing items
+            'choice_loader' => fn(Options $options) => new StructuralEntityChoiceLoader($options, $this->builder, $this->em),
+            'choice_label' => fn(Options $options) => fn($choice, $key, $value) => $this->choice_helper->generateChoiceLabel($choice),
+            'choice_attr' => fn(Options $options) => fn($choice, $key, $value) => $this->choice_helper->generateChoiceAttr($choice, $options),
+            'group_by' => fn(AbstractNamedDBElement $element) => $this->choice_helper->generateGroupBy($element),
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
 

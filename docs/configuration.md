@@ -98,7 +98,7 @@ The following options are available:
 
 * `partdb.global_theme`: The default theme to use, when no user specific theme is set. Should be one of the themes from the `partdb.available_themes` config option.
 * `partdb.locale_menu`: The codes of the languages, which should be shown in the language chooser menu (the one with the user icon in the navbar). The first language in the list will be the default language.
-* `partdb.gpdr_compliance`: When set to true (default value), IP addresses which are saved in the database will be anonymized, by removing the last byte of the IP. This is required by the GDPR (General Data Protection Regulation) in the EU.
+* `partdb.gdpr_compliance`: When set to true (default value), IP addresses which are saved in the database will be anonymized, by removing the last byte of the IP. This is required by the GDPR (General Data Protection Regulation) in the EU.
 * `partdb.sidebar.items`: The panel contents which should be shown in the sidebar by default. You can also change the number of sidebar panels by changing the number of items in this list.
 * `partdb.sidebar.root_node_enable`: Show a root node in the sidebar trees, of which all nodes are children of
 * `partdb.sidebar.root_expanded`: Expand the root node in the sidebar trees by default

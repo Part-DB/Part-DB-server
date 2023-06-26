@@ -22,23 +22,19 @@ declare(strict_types=1);
 
 namespace App\Services\UserSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\UserSystem\User;
 use Locale;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * Purpose of this service is to generate a key unique for a user, to use in Cache keys and tags.
  */
 class UserCacheKeyGenerator
 {
-    protected Security $security;
-    protected RequestStack $requestStack;
-
-    public function __construct(Security $security, RequestStack $requestStack)
+    public function __construct(protected Security $security, protected RequestStack $requestStack)
     {
-        $this->security = $security;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -51,10 +47,10 @@ class UserCacheKeyGenerator
     {
         $request = $this->requestStack->getCurrentRequest();
         //Retrieve the locale from the request, if possible, otherwise use the default locale
-        $locale = $request ? $request->getLocale() : Locale::getDefault();
+        $locale = $request instanceof Request ? $request->getLocale() : Locale::getDefault();
 
         //If no user was specified, use the currently used one.
-        if (null === $user) {
+        if (!$user instanceof User) {
             $user = $this->security->getUser();
         }
 

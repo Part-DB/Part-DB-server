@@ -48,23 +48,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartListsController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private NodesListBuilder $nodesListBuilder;
-    private DataTableFactory $dataTableFactory;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory, TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
-        $this->nodesListBuilder = $nodesListBuilder;
-        $this->dataTableFactory = $dataTableFactory;
-        $this->translator = $translator;
     }
 
-    /**
-     * @Route("/table/action", name="table_action", methods={"POST"})
-     */
+    #[Route(path: '/table/action', name: 'table_action', methods: ['POST'])]
     public function tableAction(Request $request, PartsTableActionHandler $actionHandler): Response
     {
         $this->denyAccessUnlessGranted('@parts.edit');
@@ -102,8 +90,6 @@ class PartListsController extends AbstractController
 
     /**
      * Disable the given form interface after creation of the form by removing and reattaching the form.
-     * @param  FormInterface  $form
-     * @return void
      */
     private function disableFormFieldAfterCreation(FormInterface $form, bool $disabled = true): void
     {
@@ -111,12 +97,12 @@ class PartListsController extends AbstractController
         $attrs['disabled'] = $disabled;
 
         $parent = $form->getParent();
-        if ($parent === null) {
+        if (!$parent instanceof FormInterface) {
             throw new \RuntimeException('This function can only be used on form fields that are children of another form!');
         }
 
         $parent->remove($form->getName());
-        $parent->add($form->getName(), get_class($form->getConfig()->getType()->getInnerType()), $attrs);
+        $parent->add($form->getName(), $form->getConfig()->getType()->getInnerType()::class, $attrs);
     }
 
     /**
@@ -127,7 +113,6 @@ class PartListsController extends AbstractController
      * @param  callable|null  $form_changer  A function that is called with the form object as parameter. This function can be used to customize the form
      * @param  array  $additonal_template_vars  Any additional template variables that should be passed to the template
      * @param  array  $additional_table_vars Any additional variables that should be passed to the table creation
-     * @return Response
      */
     protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = [], array $additional_table_vars = []): Response
     {
@@ -174,11 +159,7 @@ class PartListsController extends AbstractController
         ], $additonal_template_vars));
     }
 
-    /**
-     * @Route("/category/{id}/parts", name="part_list_category")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/category/{id}/parts', name: 'part_list_category')]
     public function showCategory(Category $category, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
@@ -186,7 +167,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/category_list.html.twig',
             function (PartFilter $filter) use ($category) {
-                $filter->getCategory()->setOperator('INCLUDING_CHILDREN')->setValue($category);
+                $filter->category->setOperator('INCLUDING_CHILDREN')->setValue($category);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
             }, [
@@ -196,11 +177,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/footprint/{id}/parts", name="part_list_footprint")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/footprint/{id}/parts', name: 'part_list_footprint')]
     public function showFootprint(Footprint $footprint, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@footprints.read');
@@ -208,7 +185,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/footprint_list.html.twig',
             function (PartFilter $filter) use ($footprint) {
-                $filter->getFootprint()->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
+                $filter->footprint->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('footprint')->get('value'));
             }, [
@@ -218,11 +195,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/manufacturer/{id}/parts", name="part_list_manufacturer")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/manufacturer/{id}/parts', name: 'part_list_manufacturer')]
     public function showManufacturer(Manufacturer $manufacturer, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@manufacturers.read');
@@ -230,7 +203,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/manufacturer_list.html.twig',
             function (PartFilter $filter) use ($manufacturer) {
-                $filter->getManufacturer()->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
+                $filter->manufacturer->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('manufacturer')->get('value'));
             }, [
@@ -240,11 +213,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/store_location/{id}/parts", name="part_list_store_location")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/store_location/{id}/parts', name: 'part_list_store_location')]
     public function showStorelocation(Storelocation $storelocation, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@storelocations.read');
@@ -252,7 +221,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/store_location_list.html.twig',
             function (PartFilter $filter) use ($storelocation) {
-                $filter->getStorelocation()->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
+                $filter->storelocation->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('storelocation')->get('value'));
             }, [
@@ -262,11 +231,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/supplier/{id}/parts", name="part_list_supplier")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/supplier/{id}/parts', name: 'part_list_supplier')]
     public function showSupplier(Supplier $supplier, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@suppliers.read');
@@ -274,7 +239,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/supplier_list.html.twig',
             function (PartFilter $filter) use ($supplier) {
-                $filter->getSupplier()->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
+                $filter->supplier->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('supplier')->get('value'));
             }, [
@@ -284,11 +249,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/parts/by_tag/{tag}", name="part_list_tags", requirements={"tag": ".*"})
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/parts/by_tag/{tag}', name: 'part_list_tags', requirements: ['tag' => '.*'])]
     public function showTag(string $tag, Request $request): Response
     {
         $tag = trim($tag);
@@ -296,7 +257,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/tags_list.html.twig',
             function (PartFilter $filter) use ($tag) {
-                $filter->getTags()->setOperator('ANY')->setValue($tag);
+                $filter->tags->setOperator('ANY')->setValue($tag);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('tags')->get('value'));
             }, [
@@ -329,11 +290,7 @@ class PartListsController extends AbstractController
         return $filter;
     }
 
-    /**
-     * @Route("/parts/search", name="parts_search")
-     *
-     * @return JsonResponse|Response
-     */
+    #[Route(path: '/parts/search', name: 'parts_search')]
     public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
         $searchFilter = $this->searchRequestToFilter($request);
@@ -352,11 +309,7 @@ class PartListsController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/parts", name="parts_show_all")
-     *
-     * @return Response
-     */
+    #[Route(path: '/parts', name: 'parts_show_all')]
     public function showAll(Request $request): Response
     {
         return $this->showListWithFilter($request,'parts/lists/all_list.html.twig');

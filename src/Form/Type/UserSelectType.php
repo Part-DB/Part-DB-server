@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Type;
 
 use App\Entity\UserSystem\User;
@@ -28,15 +30,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserSelectType extends AbstractType
 {
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'class' => User::class,
-            'choice_label' => function (Options $options) {
-                return function (User $choice, $key, $value) {
-                    return $choice->getFullName(true);
-                };
-            },
+            'choice_label' => fn(Options $options) => fn(User $choice, $key, $value) => $choice->getFullName(true),
         ]);
     }
 

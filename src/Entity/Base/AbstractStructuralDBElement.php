@@ -22,9 +22,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parameters\AbstractParameter;
+use App\Repository\StructuralDBElementRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\Common\Proxy\Proxy;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Valid;
 use function count;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,36 +51,40 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * It's allowed to have instances of root elements, but if you try to change
  * an attribute of a root element, you will get an exception!
  *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
  *
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
+ * @see \App\Tests\Entity\Base\AbstractStructuralDBElementTest
  *
- * @UniqueEntity(fields={"name", "parent"}, ignoreNull=false, message="structural.entity.unique_name")
+ * @template-covariant AT of Attachment
+ * @template-covariant PT of AbstractParameter
+ * @template-use ParametersTrait<PT>
+ * @extends AttachmentContainingDBElement<AT>
+ * @uses ParametersTrait<PT>
  */
+#[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
+#[ORM\MappedSuperclass(repositoryClass: StructuralDBElementRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     use ParametersTrait;
 
-    public const ID_ROOT_ELEMENT = 0;
-
     /**
      * This is a not standard character, so build a const, so a dev can easily use it.
      */
-    public const PATH_DELIMITER_ARROW = ' → ';
+    final public const PATH_DELIMITER_ARROW = ' → ';
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool If this property is set, this element can not be selected for part properties.
      *           Useful if this element should be used only for grouping, sorting.
-     * @ORM\Column(type="boolean")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $not_selectable = false;
 
     /**
@@ -84,17 +96,28 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * We can not define the mapping here, or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
-     * @var AbstractStructuralDBElement[]|Collection
-     * @Groups({"include_children"})
+     * @var Collection<int, AbstractStructuralDBElement>
+     * @phpstan-var Collection<int, static>
      */
+    #[Groups(['include_children'])]
     protected Collection $children;
 
     /**
-     * @var AbstractStructuralDBElement
-     * @NoneOfItsChildren()
-     * @Groups({"include_parents", "import"})
+     * @var AbstractStructuralDBElement|null
+     * @phpstan-var static|null
      */
+    #[Groups(['include_parents', 'import'])]
+    #[NoneOfItsChildren]
     protected ?AbstractStructuralDBElement $parent = null;
+
+    /**
+     * Mapping done in subclasses.
+     *
+     * @var Collection<int, AbstractParameter>
+     * @phpstan-var Collection<int, PT>
+     */
+    #[Assert\Valid()]
+    protected Collection $parameters;
 
     /** @var string[] all names of all parent elements as an array of strings,
      *  the last array element is the name of the element itself
@@ -106,7 +129,6 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         parent::__construct();
         $this->children = new ArrayCollection();
         $this->parameters = new ArrayCollection();
-        $this->parent = null;
     }
 
     public function __clone()
@@ -142,11 +164,11 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
         //Check if both elements compared, are from the same type
         // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
-        if (!is_a($another_element, $class_name) && !is_a($this, get_class($another_element))) {
+        if (!$another_element instanceof $class_name && !is_a($this, $another_element::class)) {
             throw new InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
-        if (null === $this->getParent()) { // this is the root node
+        if (!$this->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement) { // this is the root node
             return false;
         }
 
@@ -171,7 +193,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function isRoot(): bool
     {
-        return null === $this->parent;
+        return $this->parent === null;
     }
 
     /******************************************************************************
@@ -183,7 +205,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the parent of this element.
      *
-     * @return AbstractStructuralDBElement|null The parent element. Null if this element, does not have a parent.
+     * @return static|null The parent element. Null if this element, does not have a parent.
      */
     public function getParent(): ?self
     {
@@ -214,9 +236,9 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         /*
          * Only check for nodes that have a parent. In the other cases zero is correct.
          */
-        if (0 === $this->level && null !== $this->parent) {
+        if (0 === $this->level && $this->parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
             $element = $this->parent;
-            while (null !== $element) {
+            while ($element instanceof \App\Entity\Base\AbstractStructuralDBElement) {
                 /** @var AbstractStructuralDBElement $element */
                 $element = $element->parent;
                 ++$this->level;
@@ -235,14 +257,14 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function getFullPath(string $delimiter = self::PATH_DELIMITER_ARROW): string
     {
-        if (empty($this->full_path_strings)) {
+        if ($this->full_path_strings === []) {
             $this->full_path_strings = [];
             $this->full_path_strings[] = $this->getName();
             $element = $this;
 
             $overflow = 20; //We only allow 20 levels depth
 
-            while (null !== $element->parent && $overflow >= 0) {
+            while ($element->parent instanceof \App\Entity\Base\AbstractStructuralDBElement && $overflow >= 0) {
                 $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
                 //Decrement to prevent mem overflow.
@@ -315,9 +337,8 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Sets the new parent object.
      *
-     * @param  AbstractStructuralDBElement|null  $new_parent  The new parent object
-     *
-     * @return AbstractStructuralDBElement
+     * @param  static|null  $new_parent  The new parent object
+     * @return $this
      */
     public function setParent(?self $new_parent): self
     {
@@ -329,7 +350,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         $this->parent = $new_parent;
 
         //Add this element as child to the new parent
-        if (null !== $new_parent) {
+        if ($new_parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
             $new_parent->getChildren()->add($this);
         }
 
@@ -341,7 +362,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      *
      * @param  string  $new_comment  the new comment
      *
-     * @return AbstractStructuralDBElement
+     * @return $this
      */
     public function setComment(string $new_comment): self
     {

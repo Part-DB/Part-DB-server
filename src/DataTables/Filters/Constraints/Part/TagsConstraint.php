@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,32 +20,29 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints\Part;
 
+use Doctrine\ORM\Query\Expr\Orx;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class TagsConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
+    final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
 
     /**
-     * @var string|null The operator to use
+     * @param string $value
      */
-    protected ?string $operator;
-
-    /**
+    public function __construct(string $property, string $identifier = null, /**
      * @var string The value to compare to
      */
-    protected $value;
-
-    public function __construct(string $property, string $identifier = null, $value = null, string $operator = '')
+    protected $value = null, /**
+     * @var string|null The operator to use
+     */
+    protected ?string $operator = '')
     {
         parent::__construct($property, $identifier);
-        $this->value = $value;
-        $this->operator = $operator;
     }
 
     /**
@@ -62,17 +62,11 @@ class TagsConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param  string  $value
-     */
     public function setValue(string $value): self
     {
         $this->value = $value;
@@ -82,7 +76,7 @@ class TagsConstraint extends AbstractConstraint
     public function isEnabled(): bool
     {
         return $this->value !== null
-            && !empty($this->operator);
+            && ($this->operator !== null && $this->operator !== '');
     }
 
     /**
@@ -96,11 +90,8 @@ class TagsConstraint extends AbstractConstraint
 
     /**
      * Builds an expression to query for a single tag
-     * @param  QueryBuilder  $queryBuilder
-     * @param  string  $tag
-     * @return Expr\Orx
      */
-    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Expr\Orx
+    protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Orx
     {
         $tag_identifier_prefix = uniqid($this->identifier . '_', false);
 

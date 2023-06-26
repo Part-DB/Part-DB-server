@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -29,30 +31,20 @@ class LogLevelHelper
      * Returns the FontAwesome icon class for the given log level.
      * This returns just the specific icon class (so 'fa-info' for example).
      * @param  string  $logLevel The string representation of the log level (one of the LogLevel::* constants)
-     * @return string
      */
     public function logLevelToIconClass(string $logLevel): string
     {
-        switch ($logLevel) {
-            case LogLevel::DEBUG:
-                return 'fa-bug';
-            case LogLevel::INFO:
-                return 'fa-info';
-            case LogLevel::NOTICE:
-                return 'fa-flag';
-            case LogLevel::WARNING:
-                return 'fa-exclamation-circle';
-            case LogLevel::ERROR:
-                return 'fa-exclamation-triangle';
-            case LogLevel::CRITICAL:
-                return 'fa-bolt';
-            case LogLevel::ALERT:
-                return 'fa-radiation';
-            case LogLevel::EMERGENCY:
-                return 'fa-skull-crossbones';
-            default:
-                return 'fa-question-circle';
-        }
+        return match ($logLevel) {
+            LogLevel::DEBUG => 'fa-bug',
+            LogLevel::INFO => 'fa-info',
+            LogLevel::NOTICE => 'fa-flag',
+            LogLevel::WARNING => 'fa-exclamation-circle',
+            LogLevel::ERROR => 'fa-exclamation-triangle',
+            LogLevel::CRITICAL => 'fa-bolt',
+            LogLevel::ALERT => 'fa-radiation',
+            LogLevel::EMERGENCY => 'fa-skull-crossbones',
+            default => 'fa-question-circle',
+        };
     }
 
     /**
@@ -63,18 +55,11 @@ class LogLevelHelper
     public function logLevelToTableColorClass(string $logLevel): string
     {
 
-        switch ($logLevel) {
-            case LogLevel::EMERGENCY:
-            case LogLevel::ALERT:
-            case LogLevel::CRITICAL:
-            case LogLevel::ERROR:
-                return 'table-danger';
-            case LogLevel::WARNING:
-                return 'table-warning';
-            case LogLevel::NOTICE:
-                return 'table-info';
-            default:
-                return '';
-        }
+        return match ($logLevel) {
+            LogLevel::EMERGENCY, LogLevel::ALERT, LogLevel::CRITICAL, LogLevel::ERROR => 'table-danger',
+            LogLevel::WARNING => 'table-warning',
+            LogLevel::NOTICE => 'table-info',
+            default => '',
+        };
     }
 }

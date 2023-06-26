@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use Doctrine\ORM\EntityManager;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
@@ -61,7 +62,7 @@ class PartProviderTest extends WebTestCase
     protected Part $target;
 
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
     protected $em;
 
@@ -85,25 +86,22 @@ class PartProviderTest extends WebTestCase
         $this->target->setComment('<b>Bold</b> *Italic*');
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['Node 2.1', '[[CATEGORY]]'],
-            ['Node 2 → Node 2.1', '[[CATEGORY_FULL]]'],
-            ['Node 2.1', '[[FOOTPRINT]]'],
-            ['Node 2 → Node 2.1', '[[FOOTPRINT_FULL]]'],
-            ['', '[[MANUFACTURER]]'],
-            ['', '[[MANUFACTURER_FULL]]'],
-
-            ['1.2 kg', '[[MASS]]'],
-            ['MPN123', '[[MPN]]'],
-            ['SMD, Tag1, Tag2', '[[TAGS]]'],
-            ['Active', '[[M_STATUS]]'],
-            ['<b>Bold</b> <em>Italic</em>', '[[DESCRIPTION]]'],
-            ['Bold Italic', '[[DESCRIPTION_T]]'],
-            ['<b>Bold</b> <em>Italic</em>', '[[COMMENT]]'],
-            ['Bold Italic', '[[COMMENT_T]]'],
-        ];
+        yield ['Node 2.1', '[[CATEGORY]]'];
+        yield ['Node 2 → Node 2.1', '[[CATEGORY_FULL]]'];
+        yield ['Node 2.1', '[[FOOTPRINT]]'];
+        yield ['Node 2 → Node 2.1', '[[FOOTPRINT_FULL]]'];
+        yield ['', '[[MANUFACTURER]]'];
+        yield ['', '[[MANUFACTURER_FULL]]'];
+        yield ['1.2 kg', '[[MASS]]'];
+        yield ['MPN123', '[[MPN]]'];
+        yield ['SMD, Tag1, Tag2', '[[TAGS]]'];
+        yield ['Active', '[[M_STATUS]]'];
+        yield ['<b>Bold</b> <em>Italic</em>', '[[DESCRIPTION]]'];
+        yield ['Bold Italic', '[[DESCRIPTION_T]]'];
+        yield ['<b>Bold</b> <em>Italic</em>', '[[COMMENT]]'];
+        yield ['Bold Italic', '[[COMMENT_T]]'];
     }
 
     /**

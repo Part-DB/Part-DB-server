@@ -126,7 +126,7 @@
 
 {% macro breadcrumb_entity_link(entity, link_type = "list_parts", icon = "") %}
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb py-2 px-3 rounded" style="background-color: var(--bs-gray-200);">
+        <ol class="breadcrumb py-2 px-3 rounded bg-body-tertiary">
             {% if icon is not empty %}
                 <i class="{{ icon }} fa-fw me-1" style="line-height: inherit;"></i>
             {% else %}

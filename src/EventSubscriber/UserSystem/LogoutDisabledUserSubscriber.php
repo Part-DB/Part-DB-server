@@ -22,13 +22,13 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber\UserSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * This subscriber is used to log out a disabled user, as soon as he to do a request.
@@ -36,14 +36,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->security = $security;
-
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function onRequest(RequestEvent $event): void

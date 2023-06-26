@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,17 +20,17 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * This class is used to store the permissions of a user.
  * This has to be an embeddable or otherwise doctrine could not track the changes of the underlying data array (which is serialized to JSON in the database)
- *
- * @ORM\Embeddable()
+ * @see \App\Tests\Entity\UserSystem\PermissionDataTest
  */
+#[ORM\Embeddable]
 final class PermissionData implements \JsonSerializable
 {
     /**
@@ -43,26 +46,21 @@ final class PermissionData implements \JsonSerializable
     public const CURRENT_SCHEMA_VERSION = 2;
 
     /**
-     * @var array|null This array contains the permission values for each permission
-     * This array contains the permission values for each permission, in the form of:
-     * permission => [
-     *     operation => value,
-     * ]
-     * @ORM\Column(type="json", name="data")
-     */
-    protected ?array $data = [
-        //$ prefixed entries are used for metadata
-        '$ver' => self::CURRENT_SCHEMA_VERSION, //The schema version of the permission data
-    ];
-
-    /**
      * Creates a new Permission Data Instance using the given data.
      * By default, an empty array is used, meaning
      */
-    public function __construct(array $data = [])
+    public function __construct(
+        /**
+         * @var array This array contains the permission values for each permission
+         * This array contains the permission values for each permission, in the form of:
+         * permission => [
+         *     operation => value,
+         * ]
+         */
+        #[ORM\Column(type: Types::JSON, name: 'data')]
+        protected array $data = []
+    )
     {
-        $this->data = $data;
-
         //If the passed data did not contain a schema version, we set it to the current version
         if (!isset($this->data['$ver'])) {
             $this->data['$ver'] = self::CURRENT_SCHEMA_VERSION;
@@ -71,8 +69,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Checks if any of the operations of the given permission is defined (meaning it is either ALLOW or DENY)
-     * @param  string  $permission
-     * @return bool
      */
     public function isAnyOperationOfPermissionSet(string $permission): bool
     {
@@ -81,7 +77,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Returns an associative array containing all defined (non-INHERIT) operations of the given permission.
-     * @param  string  $permission
      * @return array An array in the form ["operation" => value], returns an empty array if no operations are defined
      */
     public function getAllDefinedOperationsOfPermission(string $permission): array
@@ -96,8 +91,6 @@ final class PermissionData implements \JsonSerializable
     /**
      * Sets all operations of the given permission via the given array.
      * The data is an array in the form [$operation => $value], all existing values will be overwritten/deleted.
-     * @param  string  $permission
-     * @param  array  $data
      * @return $this
      */
     public function setAllOperationsOfPermission(string $permission, array $data): self
@@ -109,7 +102,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Removes a whole permission from the data including all operations (effectivly setting them to INHERIT)
-     * @param  string  $permission
      * @return $this
      */
     public function removePermission(string $permission): self
@@ -121,14 +113,12 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Check if a permission value is set for the given permission and operation (meaning there value is not inherit).
-     * @param  string  $permission
-     * @param  string  $operation
      * @return bool True if the permission value is set, false otherwise
      */
     public function isPermissionSet(string $permission, string $operation): bool
     {
         //We cannot access metadata via normal permission data
-        if (strpos($permission, '$') !== false) {
+        if (str_contains($permission, '$')) {
             return false;
         }
 
@@ -137,8 +127,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Returns the permission value for the given permission and operation.
-     * @param  string  $permission
-     * @param  string  $operation
      * @return bool|null True means allow, false means disallow, null means inherit
      */
     public function getPermissionValue(string $permission, string $operation): ?bool
@@ -153,9 +141,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Sets the permission value for the given permission and operation.
-     * @param  string  $permission
-     * @param  string  $operation
-     * @param  bool|null  $value
      * @return $this
      */
     public function setPermissionValue(string $permission, string $operation, ?bool $value): self
@@ -186,8 +171,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Creates a new Permission Data Instance using the given JSON encoded data
-     * @param  string  $json
-     * @return static
      * @throws \JsonException
      */
     public static function fromJSON(string $json): self
@@ -203,7 +186,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Returns an JSON encodable representation of this object.
-     * @return array
      */
     public function jsonSerialize(): array
     {
@@ -216,9 +198,7 @@ final class PermissionData implements \JsonSerializable
                 continue;
             }
 
-            $ret[$permission] = array_filter($operations, static function ($value) {
-                return $value !== null;
-            });
+            $ret[$permission] = array_filter($operations, static fn($value) => $value !== null);
 
             //If the permission has no operations, unset it
             if (empty($ret[$permission])) {
@@ -240,7 +220,6 @@ final class PermissionData implements \JsonSerializable
 
     /**
      * Sets the schema version of this permission data
-     * @param  int  $new_version
      * @return $this
      */
     public function setSchemaVersion(int $new_version): self

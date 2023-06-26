@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -34,32 +35,32 @@ trait AdvancedPropertyTrait
 {
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
-     * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
-     * @ORM\Column(type="text")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $tags = '';
 
     /**
      * @var float|null how much a single part unit weighs in grams
-     * @ORM\Column(type="float", nullable=true)
-     * @Assert\PositiveOrZero()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\PositiveOrZero]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $mass = null;
 
     /**
      * @var string|null The internal part number of the part
-     * @ORM\Column(type="string", length=100, nullable=true, unique=true)
-     * @Assert\Length(max="100")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Length(max: 100)]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 100, nullable: true, unique: true)]
     protected ?string $ipn = null;
 
     /**
@@ -142,7 +143,6 @@ trait AdvancedPropertyTrait
     /**
      * Sets the internal part number of the part
      * @param  string  $ipn The new IPN of the part
-     * @return Part
      */
     public function setIpn(?string $ipn): Part
     {

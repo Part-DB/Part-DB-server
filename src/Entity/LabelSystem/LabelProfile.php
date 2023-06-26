@@ -41,6 +41,10 @@ declare(strict_types=1);
 
 namespace App\Entity\LabelSystem;
 
+use App\Repository\LabelProfileRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\LabelAttachment;
 use Doctrine\Common\Collections\Collection;
@@ -49,41 +53,43 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LabelProfileRepository")
- * @ORM\Table(name="label_profiles")
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- * @UniqueEntity({"name", "options.supported_element"})
+ * @extends AttachmentContainingDBElement<LabelAttachment>
  */
+#[UniqueEntity(['name', 'options.supported_element'])]
+#[ORM\Entity(repositoryClass: LabelProfileRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
+#[ORM\Table(name: 'label_profiles')]
 class LabelProfile extends AttachmentContainingDBElement
 {
     /**
      * @var Collection<int, LabelAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\LabelAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
      * @var LabelOptions
-     * @ORM\Embedded(class="LabelOptions")
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\Embedded(class: 'LabelOptions')]
     protected LabelOptions $options;
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="text")
      */
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $show_in_dropdown = true;
 
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->options = new LabelOptions();
     }
@@ -127,8 +133,6 @@ class LabelProfile extends AttachmentContainingDBElement
 
     /**
      * Sets the show in dropdown menu.
-     *
-     * @return LabelProfile
      */
     public function setShowInDropdown(bool $show_in_dropdown): self
     {

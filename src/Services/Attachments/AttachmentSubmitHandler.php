@@ -55,16 +55,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class AttachmentSubmitHandler
 {
-    protected AttachmentPathResolver $pathResolver;
     protected array $folder_mapping;
-    protected bool $allow_attachments_downloads;
-    protected HttpClientInterface $httpClient;
-    protected MimeTypesInterface $mimeTypes;
-    protected FileTypeFilterTools $filterTools;
-    /**
-     * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
-     */
-    protected string $max_upload_size;
 
     private ?int $max_upload_size_bytes = null;
 
@@ -72,18 +63,13 @@ class AttachmentSubmitHandler
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
         'htpasswd', ''];
 
-    public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
-                                HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,
-        FileTypeFilterTools $filterTools, string $max_upload_size)
+    public function __construct(protected AttachmentPathResolver $pathResolver, protected bool $allow_attachments_downloads,
+                                protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes,
+        protected FileTypeFilterTools $filterTools, /**
+         * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
+         */
+        protected string $max_upload_size)
     {
-        $this->pathResolver = $pathResolver;
-        $this->allow_attachments_downloads = $allow_attachments_downloads;
-        $this->httpClient = $httpClient;
-        $this->mimeTypes = $mimeTypes;
-        $this->max_upload_size = $max_upload_size;
-
-        $this->filterTools = $filterTools;
-
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
             PartAttachment::class => 'part',
@@ -109,7 +95,7 @@ class AttachmentSubmitHandler
     public function isValidFileExtension(AttachmentType $attachment_type, UploadedFile $uploadedFile): bool
     {
         //Only validate if the attachment type has specified a filetype filter:
-        if (empty($attachment_type->getFiletypeFilter())) {
+        if ($attachment_type->getFiletypeFilter() === '') {
             return true;
         }
 
@@ -155,25 +141,21 @@ class AttachmentSubmitHandler
      */
     public function generateAttachmentPath(Attachment $attachment, bool $secure_upload = false): string
     {
-        if ($secure_upload) {
-            $base_path = $this->pathResolver->getSecurePath();
-        } else {
-            $base_path = $this->pathResolver->getMediaPath();
-        }
+        $base_path = $secure_upload ? $this->pathResolver->getSecurePath() : $this->pathResolver->getMediaPath();
 
         //Ensure the given attachment class is known to mapping
-        if (!isset($this->folder_mapping[get_class($attachment)])) {
-            throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.get_class($attachment));
+        if (!isset($this->folder_mapping[$attachment::class])) {
+            throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.$attachment::class);
         }
         //Ensure the attachment has an assigned element
-        if (null === $attachment->getElement()) {
+        if (!$attachment->getElement() instanceof AttachmentContainingDBElement) {
             throw new InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
         }
 
         //Build path
         return
             $base_path.DIRECTORY_SEPARATOR //Base path
-            .$this->folder_mapping[get_class($attachment)].DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
+            .$this->folder_mapping[$attachment::class].DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
     }
 
     /**
@@ -194,7 +176,7 @@ class AttachmentSubmitHandler
         $options = $resolver->resolve($options);
 
         //When a file is given then upload it, otherwise check if we need to download the URL
-        if ($file) {
+        if ($file instanceof UploadedFile) {
             $this->upload($attachment, $file, $options);
         } elseif ($options['download_url'] && $attachment->isExternal()) {
             $this->downloadURL($attachment, $options);
@@ -210,7 +192,7 @@ class AttachmentSubmitHandler
         //this is only possible if the attachment is new (not yet persisted to DB)
         if ($options['become_preview_if_empty'] && null === $attachment->getID() && $attachment->isPicture()) {
             $element = $attachment->getElement();
-            if ($element instanceof AttachmentContainingDBElement && null === $element->getMasterPictureAttachment()) {
+            if ($element instanceof AttachmentContainingDBElement && !$element->getMasterPictureAttachment() instanceof Attachment) {
                 $element->setMasterPictureAttachment($attachment);
             }
         }
@@ -220,8 +202,6 @@ class AttachmentSubmitHandler
 
     /**
      * Rename attachments with an unsafe extension (meaning files which would be run by a  to a safe one).
-     * @param Attachment $attachment
-     * @return Attachment
      */
     protected function renameBlacklistedExtensions(Attachment $attachment): Attachment
     {
@@ -232,7 +212,7 @@ class AttachmentSubmitHandler
 
         //Determine the old filepath
         $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
-        if (empty($old_path) || !file_exists($old_path)) {
+        if ($old_path === null || $old_path === '' || !file_exists($old_path)) {
             return $attachment;
         }
         $filename = basename($old_path);
@@ -240,7 +220,7 @@ class AttachmentSubmitHandler
 
 
         //Check if the extension is blacklisted and replace the file extension with txt if needed
-        if(in_array($ext, self::BLACKLISTED_EXTENSIONS)) {
+        if(in_array($ext, self::BLACKLISTED_EXTENSIONS, true)) {
             $new_path = $this->generateAttachmentPath($attachment, $attachment->isSecure())
             .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
 
@@ -377,7 +357,7 @@ class AttachmentSubmitHandler
 
             //Check if we have an extension given
             $pathinfo = pathinfo($filename);
-            if (!empty($pathinfo['extension'])) {
+            if ($pathinfo['extension'] !== '') {
                 $new_ext = $pathinfo['extension'];
             } else { //Otherwise we have to guess the extension for the new file, based on its content
                 $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';
@@ -391,7 +371,7 @@ class AttachmentSubmitHandler
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setPath($new_path);
-        } catch (TransportExceptionInterface $transportExceptionInterface) {
+        } catch (TransportExceptionInterface) {
             throw new AttachmentDownloadException('Transport error!');
         }
 
@@ -428,8 +408,6 @@ class AttachmentSubmitHandler
     /**
      * Parses the given file size string and returns the size in bytes.
      * Taken from https://github.com/symfony/symfony/blob/6.2/src/Symfony/Component/Validator/Constraints/File.php
-     * @param  string  $maxSize
-     * @return int
      */
     private function parseFileSizeString(string $maxSize): int
     {

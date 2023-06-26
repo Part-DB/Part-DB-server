@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -28,24 +32,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand('partdb:users:list|users:list', 'Lists all users')]
 class UserListCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:list|users:list';
-
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Lists all users')
-            ->setHelp('This command lists all users in the database.')
+        $this->setHelp('This command lists all users in the database.')
             ->addOption('local', 'l', null, 'Only list local users')
             ->addOption('saml', 's', null, 'Only list SAML users')
         ;
@@ -82,13 +79,13 @@ class UserListCommand extends Command
 
         foreach ($users as $user) {
             $table->addRow([
-                $user->getId(),
+                $user->getID(),
                 $user->getUsername(),
                 $user->getFullName(),
                 $user->getEmail(),
-                $user->getGroup() !== null ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
+                $user->getGroup() instanceof Group ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
                 $user->isDisabled() ? 'Yes' : 'No',
-                $user->isSAMLUser() ? 'SAML' : 'Local',
+                $user->isSamlUser() ? 'SAML' : 'Local',
             ]);
         }
 

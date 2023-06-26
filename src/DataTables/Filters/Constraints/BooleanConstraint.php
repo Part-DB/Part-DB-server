@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,26 +20,24 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use Doctrine\ORM\QueryBuilder;
 
 class BooleanConstraint extends AbstractConstraint
 {
-    /** @var bool|null The value of our constraint */
-    protected ?bool $value;
-
-
-    public function __construct(string $property, string $identifier = null, ?bool $default_value = null)
+    public function __construct(
+        string $property,
+        string $identifier = null,
+        /** @var bool|null The value of our constraint */
+        protected ?bool $value = null
+    )
     {
         parent::__construct($property, $identifier);
-        $this->value = $default_value;
     }
 
     /**
      * Gets the value of this constraint. Null means "don't filter", true means "filter for true", false means "filter for false".
-     * @return bool|null
      */
     public function getValue(): ?bool
     {
@@ -45,7 +46,6 @@ class BooleanConstraint extends AbstractConstraint
 
     /**
      * Sets the value of this constraint. Null means "don't filter", true means "filter for true", false means "filter for false".
-     * @param  bool|null  $value
      */
     public function setValue(?bool $value): void
     {

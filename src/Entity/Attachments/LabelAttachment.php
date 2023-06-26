@@ -47,18 +47,18 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to a user element.
- *
- * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
+ * @extends Attachment<LabelProfile>
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
+#[ORM\Entity]
 class LabelAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = LabelProfile::class;
+    final public const ALLOWED_ELEMENT_CLASS = LabelProfile::class;
 
     /**
      * @var LabelProfile the element this attachment is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\LabelSystem\LabelProfile", inversedBy="attachments")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: LabelProfile::class, inversedBy: 'attachments')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

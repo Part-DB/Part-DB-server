@@ -27,25 +27,26 @@ use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventUndoMode;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface, LogWithEventUndoInterface
 {
+    use LogWithEventUndoTrait;
+
     protected string $typeString = 'element_created';
 
     public function __construct(AbstractDBElement $new_element)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
         $this->setTargetElement($new_element);
 
         //Creation of new users is maybe more interesting...
         if ($new_element instanceof User || $new_element instanceof Group) {
-            $this->level = self::LEVEL_NOTICE;
+            $this->level = LogLevel::NOTICE;
         }
     }
 
@@ -80,40 +81,5 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
         $this->extra['m'] = $new_comment;
 
         return $this;
-    }
-
-    public function isUndoEvent(): bool
-    {
-        return isset($this->extra['u']);
-    }
-
-    public function getUndoEventID(): ?int
-    {
-        return $this->extra['u'] ?? null;
-    }
-
-    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
-    {
-        $this->extra['u'] = $event->getID();
-
-        if ('undo' === $mode) {
-            $this->extra['um'] = 1;
-        } elseif ('revert' === $mode) {
-            $this->extra['um'] = 2;
-        } else {
-            throw new InvalidArgumentException('Passed invalid $mode!');
-        }
-
-        return $this;
-    }
-
-    public function getUndoMode(): string
-    {
-        $mode_int = $this->extra['um'] ?? 1;
-        if (1 === $mode_int) {
-            return 'undo';
-        }
-
-        return 'revert';
     }
 }

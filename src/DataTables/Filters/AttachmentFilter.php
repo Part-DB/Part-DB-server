@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
@@ -35,13 +37,13 @@ class AttachmentFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    protected NumberConstraint $dbId;
-    protected InstanceOfConstraint $targetType;
-    protected TextConstraint $name;
-    protected EntityConstraint $attachmentType;
-    protected BooleanConstraint $showInTable;
-    protected DateTimeConstraint $lastModified;
-    protected DateTimeConstraint $addedDate;
+    public readonly NumberConstraint $dbId;
+    public readonly InstanceOfConstraint $targetType;
+    public readonly TextConstraint $name;
+    public readonly EntityConstraint $attachmentType;
+    public readonly BooleanConstraint $showInTable;
+    public readonly DateTimeConstraint $lastModified;
+    public readonly DateTimeConstraint $addedDate;
 
 
     public function __construct(NodesListBuilder $nodesListBuilder)
@@ -59,68 +61,4 @@ class AttachmentFilter implements FilterInterface
     {
         $this->applyAllChildFilters($queryBuilder);
     }
-
-    /**
-     * @return NumberConstraint
-     */
-    public function getDbId(): NumberConstraint
-    {
-        return $this->dbId;
-    }
-
-    /**
-     * @return TextConstraint
-     */
-    public function getName(): TextConstraint
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return DateTimeConstraint
-     */
-    public function getLastModified(): DateTimeConstraint
-    {
-        return $this->lastModified;
-    }
-
-    /**
-     * @return DateTimeConstraint
-     */
-    public function getAddedDate(): DateTimeConstraint
-    {
-        return $this->addedDate;
-    }
-
-
-    /**
-     * @return BooleanConstraint
-     */
-    public function getShowInTable(): BooleanConstraint
-    {
-        return $this->showInTable;
-    }
-
-
-    /**
-     * @return EntityConstraint
-     */
-    public function getAttachmentType(): EntityConstraint
-    {
-        return $this->attachmentType;
-    }
-
-    /**
-     * @return InstanceOfConstraint
-     */
-    public function getTargetType(): InstanceOfConstraint
-    {
-        return $this->targetType;
-    }
-
-
-
-
-
-
 }

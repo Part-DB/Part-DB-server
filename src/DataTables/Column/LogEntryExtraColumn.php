@@ -28,20 +28,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryExtraColumn extends AbstractColumn
 {
-    protected TranslatorInterface $translator;
-    protected LogEntryExtraFormatter $formatter;
-
-    public function __construct(TranslatorInterface $translator, LogEntryExtraFormatter $formatter)
+    public function __construct(protected TranslatorInterface $translator, protected LogEntryExtraFormatter $formatter)
     {
-        $this->translator = $translator;
-        $this->formatter = $formatter;
     }
 
     /**
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Controller;
 
 use App\Entity\Base\AbstractNamedDBElement;
@@ -37,66 +39,46 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("/select_api")
- *
  * This endpoint is used by the select2 library to dynamically load data (used in the multiselect action helper in parts lists)
  */
+#[Route(path: '/select_api')]
 class SelectAPIController extends AbstractController
 {
-    private NodesListBuilder $nodesListBuilder;
-    private TranslatorInterface $translator;
-    private StructuralEntityChoiceHelper $choiceHelper;
-
-    public function __construct(NodesListBuilder $nodesListBuilder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper)
+    public function __construct(private readonly NodesListBuilder $nodesListBuilder, private readonly TranslatorInterface $translator, private readonly StructuralEntityChoiceHelper $choiceHelper)
     {
-        $this->nodesListBuilder = $nodesListBuilder;
-        $this->translator = $translator;
-        $this->choiceHelper = $choiceHelper;
     }
 
-    /**
-     * @Route("/category", name="select_category")
-     */
+    #[Route(path: '/category', name: 'select_category')]
     public function category(): Response
     {
         return $this->getResponseForClass(Category::class);
     }
 
-    /**
-     * @Route("/footprint", name="select_footprint")
-     */
+    #[Route(path: '/footprint', name: 'select_footprint')]
     public function footprint(): Response
     {
         return $this->getResponseForClass(Footprint::class, true);
     }
 
-    /**
-     * @Route("/manufacturer", name="select_manufacturer")
-     */
+    #[Route(path: '/manufacturer', name: 'select_manufacturer')]
     public function manufacturer(): Response
     {
         return $this->getResponseForClass(Manufacturer::class, true);
     }
 
-    /**
-     * @Route("/measurement_unit", name="select_measurement_unit")
-     */
+    #[Route(path: '/measurement_unit', name: 'select_measurement_unit')]
     public function measurement_unit(): Response
     {
         return $this->getResponseForClass(MeasurementUnit::class, true);
     }
 
-    /**
-     * @Route("/project", name="select_project")
-     */
+    #[Route(path: '/project', name: 'select_project')]
     public function projects(): Response
     {
         return $this->getResponseForClass(Project::class, false);
     }
 
-    /**
-     * @Route("/export_level", name="select_export_level")
-     */
+    #[Route(path: '/export_level', name: 'select_export_level')]
     public function exportLevel(): Response
     {
         $entries = [
@@ -105,18 +87,13 @@ class SelectAPIController extends AbstractController
             3 => $this->translator->trans('export.level.full'),
         ];
 
-        return $this->json(array_map(static function ($key, $value) {
-            return [
-                'text' => $value,
-                'value' => $key,
-            ];
-        }, array_keys($entries), $entries));
+        return $this->json(array_map(static fn($key, $value) => [
+            'text' => $value,
+            'value' => $key,
+        ], array_keys($entries), $entries));
     }
 
-    /**
-     * @Route("/label_profiles", name="select_label_profiles")
-     * @return Response
-     */
+    #[Route(path: '/label_profiles', name: 'select_label_profiles')]
     public function labelProfiles(EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
@@ -134,10 +111,7 @@ class SelectAPIController extends AbstractController
         return $this->json($nodes);
     }
 
-    /**
-     * @Route("/label_profiles_lot", name="select_label_profiles_lot")
-     * @return Response
-     */
+    #[Route(path: '/label_profiles_lot', name: 'select_label_profiles_lot')]
     public function labelProfilesLot(EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
@@ -198,7 +172,7 @@ class SelectAPIController extends AbstractController
                 //Remove the data-* prefix for each key
                 $data = array_combine(
                     array_map(static function ($key) {
-                        if (strpos($key, 'data-') === 0) {
+                        if (str_starts_with($key, 'data-')) {
                             return substr($key, 5);
                         }
                         return $key;

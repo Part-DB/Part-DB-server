@@ -29,25 +29,26 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventUndoMode;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected string $typeString = 'element_deleted';
 
+    use LogWithEventUndoTrait;
+
     public function __construct(AbstractDBElement $deleted_element)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
         $this->setTargetElement($deleted_element);
 
         //Deletion of a user is maybe more interesting...
         if ($deleted_element instanceof User || $deleted_element instanceof Group) {
-            $this->level = self::LEVEL_NOTICE;
+            $this->level = LogLevel::NOTICE;
         }
     }
 
@@ -113,40 +114,5 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
         $this->extra['m'] = $new_comment;
 
         return $this;
-    }
-
-    public function isUndoEvent(): bool
-    {
-        return isset($this->extra['u']);
-    }
-
-    public function getUndoEventID(): ?int
-    {
-        return $this->extra['u'] ?? null;
-    }
-
-    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
-    {
-        $this->extra['u'] = $event->getID();
-
-        if ('undo' === $mode) {
-            $this->extra['um'] = 1;
-        } elseif ('revert' === $mode) {
-            $this->extra['um'] = 2;
-        } else {
-            throw new InvalidArgumentException('Passed invalid $mode!');
-        }
-
-        return $this;
-    }
-
-    public function getUndoMode(): string
-    {
-        $mode_int = $this->extra['um'] ?? 1;
-        if (1 === $mode_int) {
-            return 'undo';
-        }
-
-        return 'revert';
     }
 }

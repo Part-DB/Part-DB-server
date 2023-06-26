@@ -35,21 +35,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PasswordResetManager
 {
-    protected MailerInterface $mailer;
-    protected EntityManagerInterface $em;
     protected PasswordHasherInterface $passwordEncoder;
-    protected TranslatorInterface $translator;
-    protected UserPasswordHasherInterface $userPasswordEncoder;
 
-    public function __construct(MailerInterface $mailer, EntityManagerInterface $em,
-                                TranslatorInterface $translator, UserPasswordHasherInterface $userPasswordEncoder,
+    public function __construct(protected MailerInterface $mailer, protected EntityManagerInterface $em,
+                                protected TranslatorInterface $translator, protected UserPasswordHasherInterface $userPasswordEncoder,
                                 PasswordHasherFactoryInterface $encoderFactory)
     {
-        $this->em = $em;
-        $this->mailer = $mailer;
         $this->passwordEncoder = $encoderFactory->getPasswordHasher(User::class);
-        $this->translator = $translator;
-        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     public function request(string $name_or_email): void
@@ -59,7 +51,7 @@ class PasswordResetManager
         //Try to find a user by the given string
         $user = $repo->findByEmailOrName($name_or_email);
         //Do nothing if no user was found
-        if (null === $user) {
+        if (!$user instanceof User) {
             return;
         }
 
@@ -71,7 +63,7 @@ class PasswordResetManager
         $expiration_date->add(date_interval_create_from_date_string('1 day'));
         $user->setPwResetExpires($expiration_date);
 
-        if (!empty($user->getEmail())) {
+        if ($user->getEmail() !== null && $user->getEmail() !== '') {
             $address = new Address($user->getEmail(), $user->getFullName());
             $mail = new TemplatedEmail();
             $mail->to($address);
@@ -109,7 +101,7 @@ class PasswordResetManager
         $user = $repo->findOneBy(['name' => $username]);
 
         //If no user matching the name, show an error message
-        if (null === $user) {
+        if (!$user instanceof User) {
             return false;
         }
 

@@ -43,6 +43,9 @@ namespace App\Services\LabelSystem\Barcodes;
 
 use InvalidArgumentException;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeNormalizerTest
+ */
 final class BarcodeNormalizer
 {
     private const PREFIX_TYPE_MAP = [

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\PartRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
@@ -47,15 +49,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * The class properties are split over various traits in directory PartTraits.
  * Otherwise, this class would be too big, to be maintained.
- *
- * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
- * @ORM\Table("`parts`", indexes={
- *    @ORM\Index(name="parts_idx_datet_name_last_id_needs", columns={"datetime_added", "name", "last_modified", "id", "needs_review"}),
- *    @ORM\Index(name="parts_idx_name", columns={"name"}),
- *    @ORM\Index(name="parts_idx_ipn", columns={"ipn"}),
- * })
- * @UniqueEntity(fields={"ipn"}, message="part.ipn.must_be_unique")
+ * @see \App\Tests\Entity\Parts\PartTest
+ * @extends AttachmentContainingDBElement<PartAttachment>
+ * @template-use ParametersTrait<PartParameter>
  */
+#[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
+#[ORM\Entity(repositoryClass: PartRepository::class)]
+#[ORM\Table('`parts`')]
+#[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
+#[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
@@ -68,54 +71,44 @@ class Part extends AttachmentContainingDBElement
     use ProjectTrait;
 
     /** @var Collection<int, PartParameter>
-     * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
+    #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
-    /**
-     * @ORM\Column(type="datetime", name="datetime_added", options={"default":"CURRENT_TIMESTAMP"})
-     */
-    protected ?DateTime $addedDate = null;
 
     /** *************************************************************
      * Overridden properties
      * (They are defined here and not in a trait, to avoid conflicts).
      ****************************************************************/
-
     /**
      * @var string The name of this part
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**
      * @var Collection<int, PartAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
-     * @Groups({"full"})
      */
+    #[Assert\Valid]
+    #[Groups(['full'])]
+    #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
-     * @var DateTime|null the date when this element was modified the last time
-     * @ORM\Column(type="datetime", name="last_modified", options={"default":"CURRENT_TIMESTAMP"})
-     */
-    protected ?DateTime $lastModified = null;
-
-    /**
      * @var Attachment|null
-     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
-     * @ORM\JoinColumn(name="id_preview_attachment", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      */
+    #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
+    #[ORM\ManyToOne(targetEntity: Attachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->partLots = new ArrayCollection();
         $this->orderdetails = new ArrayCollection();
@@ -150,21 +143,17 @@ class Part extends AttachmentContainingDBElement
         parent::__clone();
     }
 
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Ensure that the part name fullfills the regex of the category
-        if ($this->category) {
+        if ($this->category instanceof Category) {
             $regex = $this->category->getPartnameRegex();
-            if (!empty($regex)) {
-                if (!preg_match($regex, $this->name)) {
-                    $context->buildViolation('part.name.must_match_category_regex')
-                        ->atPath('name')
-                        ->setParameter('%regex%', $regex)
-                        ->addViolation();
-                }
+            if ($regex !== '' && !preg_match($regex, $this->name)) {
+                $context->buildViolation('part.name.must_match_category_regex')
+                    ->atPath('name')
+                    ->setParameter('%regex%', $regex)
+                    ->addViolation();
             }
         }
     }

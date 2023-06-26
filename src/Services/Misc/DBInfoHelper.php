@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\Misc;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
@@ -31,11 +34,9 @@ use Doctrine\ORM\EntityManagerInterface;
 class DBInfoHelper
 {
     protected Connection $connection;
-    protected EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->connection = $entityManager->getConnection();
     }
 
@@ -58,8 +59,7 @@ class DBInfoHelper
 
     /**
      * Returns the database version of the used database.
-     * @return string|null
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function getDatabaseVersion(): ?string
     {
@@ -77,22 +77,22 @@ class DBInfoHelper
     /**
      * Returns the database size in bytes.
      * @return int|null The database size in bytes or null if unknown
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     public function getDatabaseSize(): ?int
     {
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
-                return $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
-            } catch (\Doctrine\DBAL\Exception $e) {
+                return (int) $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
+            } catch (Exception) {
                 return null;
             }
         }
 
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             try {
-                return $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
-            } catch (\Doctrine\DBAL\Exception $e) {
+                return (int) $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
+            } catch (Exception) {
                 return null;
             }
         }
@@ -102,7 +102,6 @@ class DBInfoHelper
 
     /**
      * Returns the name of the database.
-     * @return string|null
      */
     public function getDatabaseName(): ?string
     {
@@ -111,14 +110,13 @@ class DBInfoHelper
 
     /**
      * Returns the name of the database user.
-     * @return string|null
      */
     public function getDatabaseUsername(): ?string
     {
         if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             try {
                 return $this->connection->fetchOne('SELECT USER()');
-            } catch (\Doctrine\DBAL\Exception $e) {
+            } catch (Exception) {
                 return null;
             }
         }

@@ -26,14 +26,12 @@ use App\Entity\UserSystem\User;
 
 /**
  * This services offers methods to manage backup codes for two-factor authentication.
+ * @see \App\Tests\Services\UserSystem\TFA\BackupCodeManagerTest
  */
 class BackupCodeManager
 {
-    protected BackupCodeGenerator $backupCodeGenerator;
-
-    public function __construct(BackupCodeGenerator $backupCodeGenerator)
+    public function __construct(protected BackupCodeGenerator $backupCodeGenerator)
     {
-        $this->backupCodeGenerator = $backupCodeGenerator;
     }
 
     /**
@@ -42,7 +40,7 @@ class BackupCodeManager
      */
     public function enableBackupCodes(User $user): void
     {
-        if (empty($user->getBackupCodes())) {
+        if ($user->getBackupCodes() === []) {
             $this->regenerateBackupCodes($user);
         }
     }

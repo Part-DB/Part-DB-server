@@ -81,6 +81,14 @@ export default class extends Controller {
             this._tree.remove();
         }
 
+        const BS53Theme = {
+            getOptions() {
+                return {
+                    onhoverColor: 'var(--bs-secondary-bg)',
+                };
+            }
+        }
+
         this._tree = new BSTreeView(this.treeTarget, {
             levels: 1,
             showTags: this._showTags,
@@ -93,7 +101,7 @@ export default class extends Controller {
                 }
             },
             //onNodeContextmenu: contextmenu_handler,
-        }, [BS5Theme, FAIconTheme]);
+        }, [BS5Theme, BS53Theme, FAIconTheme]);
 
         this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
             /** @type {BSTreeView} */

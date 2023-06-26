@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Security;
 
 use App\Entity\UserSystem\User;
@@ -47,7 +49,7 @@ class SamlUserFactoryTest extends WebTestCase
 
         $this->assertInstanceOf(User::class, $user);
 
-        $this->assertEquals('sso_user', $user->getUsername());
+        $this->assertSame('sso_user', $user->getUserIdentifier());
         //User must not change his password
         $this->assertFalse($user->isNeedPwChange());
         //And must not be disabled
@@ -56,10 +58,10 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertSame('!!SAML!!', $user->getPassword());
 
         //Info should be set
-        $this->assertEquals('John', $user->getFirstName());
-        $this->assertEquals('Doe', $user->getLastName());
-        $this->assertEquals('IT', $user->getDepartment());
-        $this->assertEquals('j.doe@invalid.invalid', $user->getEmail());
+        $this->assertSame('John', $user->getFirstName());
+        $this->assertSame('Doe', $user->getLastName());
+        $this->assertSame('IT', $user->getDepartment());
+        $this->assertSame('j.doe@invalid.invalid', $user->getEmail());
     }
 
     public function testMapSAMLRolesToLocalGroupID(): void
@@ -80,10 +82,10 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertSame(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'does_not_matter', 'manager'], $mapping));
         $this->assertSame(3, $this->service->mapSAMLRolesToLocalGroupID(['administrator', 'does_not_matter', 'manager'], $mapping));
         //Test if mapping is case-sensitive
-        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
+        $this->assertSame(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
 
         //Test that wildcard mapping works
-        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['entry1', 'entry2'], $mapping));
-        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID([], $mapping));
+        $this->assertSame(4, $this->service->mapSAMLRolesToLocalGroupID(['entry1', 'entry2'], $mapping));
+        $this->assertSame(4, $this->service->mapSAMLRolesToLocalGroupID([], $mapping));
     }
 }

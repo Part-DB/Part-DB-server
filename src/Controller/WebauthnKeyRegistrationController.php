@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Controller;
 
 use App\Entity\UserSystem\User;
@@ -27,23 +29,19 @@ use Jbtronics\TFAWebauthn\Services\TFAWebauthnRegistrationHelper;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use function Symfony\Component\Translation\t;
 
 class WebauthnKeyRegistrationController extends AbstractController
 {
-    private bool $demo_mode;
-
-    public function __construct(bool $demo_mode)
+    public function __construct(private readonly bool $demo_mode)
     {
-        $this->demo_mode = $demo_mode;
     }
 
-    /**
-     * @Route("/webauthn/register", name="webauthn_register")
-     */
-    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em)
+    #[Route(path: '/webauthn/register', name: 'webauthn_register')]
+    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em): Response
     {
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -75,14 +73,19 @@ class WebauthnKeyRegistrationController extends AbstractController
             //Check the response
             try {
                 $new_key = $registrationHelper->checkRegistrationResponse($webauthnResponse);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 $this->addFlash('error', t('tfa_u2f.add_key.registration_error'));
                 return $this->redirectToRoute('webauthn_register');
             }
 
+            $user = $this->getUser();
+            if (!$user instanceof User) {
+                throw new RuntimeException('This controller only works only for Part-DB User objects!');
+            }
+
             $keyEntity = WebauthnKey::fromRegistration($new_key);
             $keyEntity->setName($keyName);
-            $keyEntity->setUser($this->getUser());
+            $keyEntity->setUser($user);
 
             $em->persist($keyEntity);
             $em->flush();

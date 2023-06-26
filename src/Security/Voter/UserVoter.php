@@ -44,7 +44,7 @@ class UserVoter extends ExtendedVoter
                     $this->resolver->listOperationsForPermission('self'),
                     ['info']
                 ),
-                false
+                true
             );
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Services\Parts;
 
 use App\Entity\Parts\Part;
@@ -46,7 +48,6 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(PartLotWithdrawAddHelper::class);
@@ -118,15 +119,15 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     {
         //Add 5 to lot 1
         $this->service->add($this->partLot1, 5, "Test");
-        $this->assertEquals(15, $this->partLot1->getAmount());
+        $this->assertSame(15.0, $this->partLot1->getAmount());
 
         //Add 3.2 to lot 2
         $this->service->add($this->partLot2, 3.2, "Test");
-        $this->assertEquals(5, $this->partLot2->getAmount());
+        $this->assertSame(5.0, $this->partLot2->getAmount());
 
         //Add 1.5 to lot 3
         $this->service->add($this->partLot3, 1.5, "Test");
-        $this->assertEquals(2, $this->partLot3->getAmount());
+        $this->assertSame(2.0, $this->partLot3->getAmount());
 
     }
 
@@ -134,23 +135,23 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     {
         //Withdraw 5 from lot 1
         $this->service->withdraw($this->partLot1, 5, "Test");
-        $this->assertEquals(5, $this->partLot1->getAmount());
+        $this->assertSame(5.0, $this->partLot1->getAmount());
 
         //Withdraw 2.2 from lot 2
         $this->service->withdraw($this->partLot2, 2.2, "Test");
-        $this->assertEquals(0, $this->partLot2->getAmount());
+        $this->assertSame(0.0, $this->partLot2->getAmount());
     }
 
     public function testMove(): void
     {
         //Move 5 from lot 1 to lot 2
         $this->service->move($this->partLot1, $this->partLot2, 5, "Test");
-        $this->assertEquals(5, $this->partLot1->getAmount());
-        $this->assertEquals(7, $this->partLot2->getAmount());
+        $this->assertSame(5.0, $this->partLot1->getAmount());
+        $this->assertSame(7.0, $this->partLot2->getAmount());
 
         //Move 2.2 from lot 2 to lot 3
         $this->service->move($this->partLot2, $this->partLot3, 2.2, "Test");
-        $this->assertEquals(5, $this->partLot2->getAmount());
-        $this->assertEquals(2, $this->partLot3->getAmount());
+        $this->assertSame(5.0, $this->partLot2->getAmount());
+        $this->assertSame(2.0, $this->partLot3->getAmount());
     }
 }

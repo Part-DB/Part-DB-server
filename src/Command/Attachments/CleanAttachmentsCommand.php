@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Attachments;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
@@ -40,30 +41,21 @@ use function count;
 
 use const DIRECTORY_SEPARATOR;
 
+#[AsCommand('partdb:attachments:clean-unused|app:clean-attachments', 'Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')]
 class CleanAttachmentsCommand extends Command
 {
-    protected static $defaultName = 'partdb:attachments:clean-unused|app:clean-attachments';
-
-    protected AttachmentManager $attachment_helper;
-    protected AttachmentReverseSearch $reverseSearch;
     protected MimeTypes $mimeTypeGuesser;
-    protected AttachmentPathResolver $pathResolver;
 
-    public function __construct(AttachmentManager $attachmentHelper, AttachmentReverseSearch $reverseSearch, AttachmentPathResolver $pathResolver)
+    public function __construct(protected AttachmentManager $attachment_helper, protected AttachmentReverseSearch $reverseSearch, protected AttachmentPathResolver $pathResolver)
     {
-        $this->attachment_helper = $attachmentHelper;
-        $this->pathResolver = $pathResolver;
-        $this->reverseSearch = $reverseSearch;
         $this->mimeTypeGuesser = new MimeTypes();
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')
-            ->setHelp('This command allows to find all files in the media folder which are not associated with an attachment anymore.'.
-                ' These files are not needed and can eventually deleted.');
+        $this->setHelp('This command allows to find all files in the media folder which are not associated with an attachment anymore.'.
+            ' These files are not needed and can eventually deleted.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -91,7 +83,7 @@ class CleanAttachmentsCommand extends Command
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it
-            if (0 === count($this->reverseSearch->findAttachmentsByFile($file))) {
+            if ([] === $this->reverseSearch->findAttachmentsByFile($file)) {
                 $file_list[] = $file;
                 $table->addRow([
                     $fs->makePathRelative($file->getPathname(), $mediaPath),
@@ -101,14 +93,14 @@ class CleanAttachmentsCommand extends Command
             }
         }
 
-        if (count($file_list) > 0) {
+        if ($file_list !== []) {
             $table->render();
 
             $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', count($file_list)), false);
 
             if (!$continue) {
                 //We are finished here, when no files should be deleted
-                return 0;
+                return Command::SUCCESS;
             }
 
             //Delete the files
@@ -121,7 +113,7 @@ class CleanAttachmentsCommand extends Command
             $io->success('No abandoned files found.');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**

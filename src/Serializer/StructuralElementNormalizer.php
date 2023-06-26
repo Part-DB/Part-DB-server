@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,29 +20,36 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class StructuralElementNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+/**
+ * @see \App\Tests\Serializer\StructuralElementNormalizerTest
+ */
+class StructuralElementNormalizer implements NormalizerInterface
 {
-    private NormalizerInterface $normalizer;
-
-    public function __construct(ObjectNormalizer $normalizer)
+    public function __construct(
+        #[Autowire(service: ObjectNormalizer::class)]private readonly NormalizerInterface $normalizer
+    )
     {
-        $this->normalizer = $normalizer;
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    /**
+     * @return array<string, mixed>
+     */
+    public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');
@@ -57,8 +67,13 @@ class StructuralElementNormalizer implements NormalizerInterface, CacheableSuppo
         return $data;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return [
+            AbstractStructuralDBElement::class => true,
+        ];
     }
 }

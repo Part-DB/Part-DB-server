@@ -22,9 +22,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -48,17 +50,15 @@ use Doctrine\ORM\Mapping\Entity;
 use function get_class;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @see \App\Tests\Services\ElementTypeNameGeneratorTest
+ */
 class ElementTypeNameGenerator
 {
-    protected TranslatorInterface $translator;
-    private EntityURLGenerator $entityURLGenerator;
     protected array $mapping;
 
-    public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator)
+    public function __construct(protected TranslatorInterface $translator, private readonly EntityURLGenerator $entityURLGenerator)
     {
-        $this->translator = $translator;
-        $this->entityURLGenerator = $entityURLGenerator;
-
         //Child classes has to become before parent classes
         $this->mapping = [
             Attachment::class => $this->translator->trans('attachment.label'),
@@ -95,9 +95,9 @@ class ElementTypeNameGenerator
      *
      * @throws EntityNotSupportedException when the passed entity is not supported
      */
-    public function getLocalizedTypeLabel($entity): string
+    public function getLocalizedTypeLabel(object|string $entity): string
     {
-        $class = is_string($entity) ? $entity : get_class($entity);
+        $class = is_string($entity) ? $entity : $entity::class;
 
         //Check if we have a direct array entry for our entity class, then we can use it
         if (isset($this->mapping[$class])) {
@@ -105,14 +105,14 @@ class ElementTypeNameGenerator
         }
 
         //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
-        foreach ($this->mapping as $class => $translation) {
-            if (is_a($entity, $class, true)) {
+        foreach ($this->mapping as $class_to_check => $translation) {
+            if (is_a($entity, $class_to_check, true)) {
                 return $translation;
             }
         }
 
         //When nothing was found throw an exception
-        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', is_object($entity) ? get_class($entity) : (string) $entity));
+        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', is_object($entity) ? $entity::class : (string) $entity));
     }
 
     /**
@@ -131,7 +131,7 @@ class ElementTypeNameGenerator
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>'.$type.':</i> '.htmlspecialchars($entity->getName());
+            return '<i>'.$type.':</i> '.htmlspecialchars((string) $entity->getName());
         }
 
         return $type.': '.$entity->getName();
@@ -143,19 +143,18 @@ class ElementTypeNameGenerator
      * "Type: ID" (on elements without a name). If possible the value is given as a link to the element.
      * @param  AbstractDBElement  $entity The entity for which the label should be generated
      * @param  bool  $include_associated If set to true, the associated entity (like the part belonging to a part lot) is included in the label to give further information
-     * @return string
      */
     public function formatLabelHTMLForEntity(AbstractDBElement $entity, bool $include_associated = false): string
     {
         //The element is existing
-        if ($entity instanceof NamedElementInterface && !empty($entity->getName())) {
+        if ($entity instanceof NamedElementInterface && $entity->getName() !== '') {
             try {
                 $tmp = sprintf(
                     '<a href="%s">%s</a>',
                     $this->entityURLGenerator->infoURL($entity),
                     $this->getTypeNameCombination($entity, true)
                 );
-            } catch (EntityNotSupportedException $exception) {
+            } catch (EntityNotSupportedException) {
                 $tmp = $this->getTypeNameCombination($entity, true);
             }
         } else { //Target does not have a name
@@ -168,28 +167,28 @@ class ElementTypeNameGenerator
 
         //Add a hint to the associated element if possible
         if ($include_associated) {
-            if ($entity instanceof Attachment && null !== $entity->getElement()) {
+            if ($entity instanceof Attachment && $entity->getElement() instanceof AttachmentContainingDBElement) {
                 $on = $entity->getElement();
-            } elseif ($entity instanceof AbstractParameter && null !== $entity->getElement()) {
+            } elseif ($entity instanceof AbstractParameter && $entity->getElement() instanceof AbstractDBElement) {
                 $on = $entity->getElement();
-            } elseif ($entity instanceof PartLot && null !== $entity->getPart()) {
+            } elseif ($entity instanceof PartLot && $entity->getPart() instanceof Part) {
                 $on = $entity->getPart();
-            } elseif ($entity instanceof Orderdetail && null !== $entity->getPart()) {
+            } elseif ($entity instanceof Orderdetail && $entity->getPart() instanceof Part) {
                 $on = $entity->getPart();
-            } elseif ($entity instanceof Pricedetail && null !== $entity->getOrderdetail() && null !== $entity->getOrderdetail()->getPart()) {
+            } elseif ($entity instanceof Pricedetail && $entity->getOrderdetail() instanceof Orderdetail && $entity->getOrderdetail()->getPart() instanceof Part) {
                 $on = $entity->getOrderdetail()->getPart();
-            } elseif ($entity instanceof ProjectBOMEntry && null !== $entity->getProject()) {
+            } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof Project) {
                 $on = $entity->getProject();
             }
 
-            if (isset($on) && is_object($on)) {
+            if (isset($on) && $on instanceof NamedElementInterface) {
                 try {
                     $tmp .= sprintf(
                         ' (<a href="%s">%s</a>)',
                         $this->entityURLGenerator->infoURL($on),
                         $this->getTypeNameCombination($on, true)
                     );
-                } catch (EntityNotSupportedException $exception) {
+                } catch (EntityNotSupportedException) {
                 }
             }
         }
@@ -200,9 +199,6 @@ class ElementTypeNameGenerator
     /**
      * Create a HTML formatted label for a deleted element of which we only know the class and the ID.
      * Please note that it is not checked if the element really not exists anymore, so you have to do this yourself.
-     * @param  string  $class
-     * @param  int  $id
-     * @return string
      */
     public function formatElementDeletedHTML(string $class, int $id): string
     {

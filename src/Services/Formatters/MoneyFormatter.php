@@ -28,12 +28,10 @@ use NumberFormatter;
 
 class MoneyFormatter
 {
-    protected string $base_currency;
     protected string $locale;
 
-    public function __construct(string $base_currency)
+    public function __construct(protected string $base_currency)
     {
-        $this->base_currency = $base_currency;
         $this->locale = Locale::getDefault();
     }
 
@@ -45,10 +43,10 @@ class MoneyFormatter
      * @param  int  $decimals        the number of decimals that should be shown
      * @param bool          $show_all_digits if set to true, all digits are shown, even if they are null
      */
-    public function format($value, ?Currency $currency = null, int $decimals = 5, bool $show_all_digits = false): string
+    public function format(string|float $value, ?Currency $currency = null, int $decimals = 5, bool $show_all_digits = false): string
     {
         $iso_code = $this->base_currency;
-        if (null !== $currency && !empty($currency->getIsoCode())) {
+        if ($currency instanceof Currency && ($currency->getIsoCode() !== null && $currency->getIsoCode() !== '')) {
             $iso_code = $currency->getIsoCode();
         }
 

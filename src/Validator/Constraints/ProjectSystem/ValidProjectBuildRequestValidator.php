@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Validator\Constraints\ProjectSystem;
 
 use App\Entity\Parts\PartLot;
@@ -36,7 +38,7 @@ class ValidProjectBuildRequestValidator extends ConstraintValidator
             ->setParameter('{{ lot }}', $partLot->getName());
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ValidProjectBuildRequest) {
             throw new UnexpectedTypeException($constraint, ValidProjectBuildRequest::class);

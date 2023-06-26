@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -29,25 +31,14 @@ class LogDataFormatter
 {
     private const STRING_MAX_LENGTH = 1024;
 
-    private TranslatorInterface $translator;
-    private EntityManagerInterface $entityManager;
-    private ElementTypeNameGenerator $elementTypeNameGenerator;
-
-    public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager, ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly EntityManagerInterface $entityManager, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->translator = $translator;
-        $this->entityManager = $entityManager;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     /**
      * Formats the given data of a log entry as HTML
-     * @param mixed $data
-     * @param  AbstractLogEntry  $logEntry
-     * @param  string  $fieldName
-     * @return string
      */
-    public function formatData($data, AbstractLogEntry $logEntry, string $fieldName): string
+    public function formatData(mixed $data, AbstractLogEntry $logEntry, string $fieldName): string
     {
         if (is_string($data)) {
             $tmp = '<span class="text-muted user-select-none">"</span>' . mb_strimwidth(htmlspecialchars($data), 0, self::STRING_MAX_LENGTH, ) . '<span class="text-muted user-select-none">"</span>';
@@ -55,9 +46,8 @@ class LogDataFormatter
             //Show special characters and line breaks
             $tmp = preg_replace('/\n/', '<span class="text-muted user-select-none">\\n</span><br>', $tmp);
             $tmp = preg_replace('/\r/', '<span class="text-muted user-select-none">\\r</span>', $tmp);
-            $tmp = preg_replace('/\t/', '<span class="text-muted user-select-none">\\t</span>', $tmp);
 
-            return $tmp;
+            return preg_replace('/\t/', '<span class="text-muted user-select-none">\\t</span>', $tmp);
         }
 
         if (is_bool($data)) {
@@ -126,7 +116,7 @@ class LogDataFormatter
             }
 
 
-        } catch (\InvalidArgumentException|\ReflectionException $exception) {
+        } catch (\InvalidArgumentException|\ReflectionException) {
             return '<i>unknown target class</i>: ' . $id;
         }
     }
@@ -147,7 +137,7 @@ class LogDataFormatter
 
         try {
             $dateTime = new \DateTime($date, new \DateTimeZone($timezone));
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return '<i>unknown DateTime format</i>';
         }
 

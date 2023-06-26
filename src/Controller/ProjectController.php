@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Controller;
 
 use App\DataTables\ProjectBomEntriesDataTable;
@@ -47,21 +49,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use function Symfony\Component\Translation\t;
 
-/**
- * @Route("/project")
- */
+#[Route(path: '/project')]
 class ProjectController extends AbstractController
 {
-    private DataTableFactory $dataTableFactory;
-
-    public function __construct(DataTableFactory $dataTableFactory)
+    public function __construct(private readonly DataTableFactory $dataTableFactory)
     {
-        $this->dataTableFactory = $dataTableFactory;
     }
 
-    /**
-     * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
     public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
@@ -80,9 +75,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/build", name="project_build", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/build', name: 'project_build', requirements: ['id' => '\d+'])]
     public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
@@ -117,7 +110,7 @@ class ProjectController extends AbstractController
             $this->addFlash('error', 'project.build.flash.invalid_input');
         }
 
-        return $this->renderForm('projects/build/build.html.twig', [
+        return $this->render('projects/build/build.html.twig', [
             'buildHelper' => $buildHelper,
             'project' => $project,
             'build_request' => $projectBuildRequest,
@@ -126,9 +119,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/import_bom", name="project_import_bom", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/import_bom', name: 'project_import_bom', requirements: ['id' => '\d+'])]
     public function importBOM(Request $request, EntityManagerInterface $entityManager, Project $project,
         BOMImporter $BOMImporter, ValidatorInterface $validator): Response
     {
@@ -185,32 +176,26 @@ class ProjectController extends AbstractController
                     return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
                 }
 
-                if (count ($errors) > 0) {
-                    $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
-                }
-            } catch (\UnexpectedValueException $e) {
-                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
-            } catch (SyntaxError $e) {
+                //When we get here, there were validation errors
+                $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
+
+            } catch (\UnexpectedValueException|SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }
         }
 
-        return $this->renderForm('projects/import_bom.html.twig', [
+        return $this->render('projects/import_bom.html.twig', [
             'project' => $project,
             'form' => $form,
             'errors' => $errors ?? null,
         ]);
     }
 
-    /**
-     * @Route("/add_parts", name="project_add_parts_no_id")
-     * @Route("/{id}/add_parts", name="project_add_parts", requirements={"id"="\d+"})
-     * @param  Request  $request
-     * @param  Project|null  $project
-     */
+    #[Route(path: '/add_parts', name: 'project_add_parts_no_id')]
+    #[Route(path: '/{id}/add_parts', name: 'project_add_parts', requirements: ['id' => '\d+'])]
     public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
-        if($project) {
+        if($project instanceof Project) {
             $this->denyAccessUnlessGranted('edit', $project);
         } else {
             $this->denyAccessUnlessGranted('@projects.edit');
@@ -220,7 +205,7 @@ class ProjectController extends AbstractController
         $builder->add('project', StructuralEntityType::class, [
             'class' => Project::class,
             'required' => true,
-            'disabled' => $project !== null, //If a project is given, disable the field
+            'disabled' => $project instanceof Project, //If a project is given, disable the field
             'data' => $project,
             'constraints' => [
                 new NotNull()
@@ -232,7 +217,7 @@ class ProjectController extends AbstractController
 
         //Preset the BOM entries with the selected parts, when the form was not submitted yet
         $preset_data = new ArrayCollection();
-        foreach (explode(',', $request->get('parts', '')) as $part_id) {
+        foreach (explode(',', (string) $request->get('parts', '')) as $part_id) {
             $part = $entityManager->getRepository(Part::class)->find($part_id);
             if (null !== $part) {
                 //If there is already a BOM entry for this part, we use this one (we edit it then)
@@ -274,7 +259,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_info', ['id' => $target_project->getID()]);
         }
 
-        return $this->renderForm('projects/add_parts.html.twig', [
+        return $this->render('projects/add_parts.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);

@@ -8,9 +8,6 @@ use App\Migration\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20230417211732 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string

@@ -46,6 +46,9 @@ use DateTime;
 use IntlDateFormatter;
 use Locale;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\TimestampableElementProviderTest
+ */
 final class TimestampableElementProvider implements PlaceholderProviderInterface
 {
     public function replace(string $placeholder, object $label_target, array $options = []): ?string

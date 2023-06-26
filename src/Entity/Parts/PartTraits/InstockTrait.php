@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
@@ -36,34 +37,33 @@ trait InstockTrait
 {
     /**
      * @var Collection|PartLot[] A list of part lots where this part is stored
-     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
-     * @ORM\OrderBy({"amount" = "DESC"})
-     * @Groups({"extended", "full", "import"})
      */
-    protected $partLots;
+    #[Assert\Valid]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['amount' => 'DESC'])]
+    protected Collection $partLots;
 
     /**
      * @var float The minimum amount of the part that has to be instock, otherwise more is ordered.
      *            Given in the partUnit.
-     * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\PositiveOrZero]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
-     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
-     * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
+    #[ORM\JoinColumn(name: 'id_part_unit')]
     protected ?MeasurementUnit $partUnit = null;
 
     /**
      * Get all part lots where this part is stored.
-     *
-     * @return PartLot[]|Collection
+     * @phpstan-return Collection<int, PartLot>
      */
     public function getPartLots(): Collection
     {
@@ -153,7 +153,6 @@ trait InstockTrait
 
     /**
      * Returns true, if the total instock amount of this part is less than the minimum amount.
-     * @return bool
      */
     public function isNotEnoughInstock(): bool
     {
@@ -188,7 +187,7 @@ trait InstockTrait
         $sum = 0;
         foreach ($this->getPartLots() as $lot) {
             //Don't use the in stock value, if it is unknown
-            if ($lot->isInstockUnknown() || $lot->isExpired() ?? false) {
+            if ($lot->isInstockUnknown() || ($lot->isExpired() ?? false)) {
                 continue;
             }
 
@@ -204,7 +203,6 @@ trait InstockTrait
 
     /**
      * Returns the summed amount of all part lots that are expired. If no part lots are expired 0 is returned.
-     * @return float
      */
     public function getExpiredAmountSum(): float
     {

@@ -1,7 +1,8 @@
+<?php
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -17,21 +18,29 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.darkmode-layer {
-    z-index: 2020;
-}
+namespace App\Services\LogSystem;
 
-/** If darkmode is enabled revert the blening for images and videos, as these should be shown not inverted */
-.darkmode--activated img,
-.darkmode--activated video,
-.darkmode--activated object {
-    mix-blend-mode: difference;
-}
+use InvalidArgumentException;
 
-.darkmode--activated .hoverpic:hover {
-    background: black;
-}
+enum EventUndoMode: string
+{
+    case UNDO = 'undo';
+    case REVERT = 'revert';
 
-.tools-ic-logos img {
-    mix-blend-mode: normal;
+    public function toExtraInt(): int
+    {
+        return match ($this) {
+            self::UNDO =>  1,
+            self::REVERT => 2,
+        };
+    }
+
+    public static function fromExtraInt(int $int): self
+    {
+        return match ($int) {
+            1 => self::UNDO,
+            2 => self::REVERT,
+            default => throw new InvalidArgumentException('Invalid int ' . (string) $int . ' for EventUndoMode'),
+        };
+    }
 }

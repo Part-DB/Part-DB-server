@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Filters\Constraints;
 
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
@@ -30,11 +32,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TagsConstraintType extends AbstractType
 {
-    protected UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(protected UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

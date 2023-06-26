@@ -55,16 +55,14 @@ use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class PartFixtures extends Fixture
+class PartFixtures extends Fixture implements DependentFixtureInterface
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     public function load(ObjectManager $manager): void
@@ -134,5 +132,12 @@ class PartFixtures extends Fixture
 
         $manager->persist($part);
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            DataStructureFixtures::class
+        ];
     }
 }

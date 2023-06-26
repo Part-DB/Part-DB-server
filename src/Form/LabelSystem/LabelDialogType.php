@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Form\LabelSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Form\LabelOptionsType;
 use App\Validator\Constraints\Misc\ValidRange;
 use Symfony\Component\Form\AbstractType;
@@ -48,15 +49,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class LabelDialogType extends AbstractType
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(protected Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

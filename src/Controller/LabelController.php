@@ -43,7 +43,9 @@ namespace App\Controller;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Exceptions\TwigModeException;
 use App\Form\LabelSystem\LabelDialogType;
 use App\Repository\DBElementRepository;
@@ -59,59 +61,39 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route("/label")
- */
+#[Route(path: '/label')]
 class LabelController extends AbstractController
 {
-    protected LabelGenerator $labelGenerator;
-    protected EntityManagerInterface $em;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
-    protected RangeParser $rangeParser;
-    protected TranslatorInterface $translator;
-
-    public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator,
-        RangeParser $rangeParser, TranslatorInterface $translator)
+    public function __construct(protected LabelGenerator $labelGenerator, protected EntityManagerInterface $em, protected ElementTypeNameGenerator $elementTypeNameGenerator, protected RangeParser $rangeParser, protected TranslatorInterface $translator)
     {
-        $this->labelGenerator = $labelGenerator;
-        $this->em = $em;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->rangeParser = $rangeParser;
-        $this->translator = $translator;
     }
 
-    /**
-     * @Route("/dialog", name="label_dialog")
-     * @Route("/{profile}/dialog", name="label_dialog_profile")
-     */
+    #[Route(path: '/dialog', name: 'label_dialog')]
+    #[Route(path: '/{profile}/dialog', name: 'label_dialog_profile')]
     public function generator(Request $request, ?LabelProfile $profile = null): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
 
         //If we inherit a LabelProfile, the user need to have access to it...
-        if (null !== $profile) {
+        if ($profile instanceof LabelProfile) {
             $this->denyAccessUnlessGranted('read', $profile);
         }
 
-        if ($profile) {
-            $label_options = $profile->getOptions();
-        } else {
-            $label_options = new LabelOptions();
-        }
+        $label_options = $profile instanceof LabelProfile ? $profile->getOptions() : new LabelOptions();
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
-        $disable_options = 'twig' === $label_options->getLinesMode() && !$this->isGranted('@labels.use_twig');
+        $disable_options = (LabelProcessMode::TWIG === $label_options->getProcessMode()) && !$this->isGranted('@labels.use_twig');
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,
         ]);
 
         //Try to parse given target_type and target_id
-        $target_type = $request->query->get('target_type', null);
+        $target_type = $request->query->getEnum('target_type', LabelSupportedElement::class, null);
         $target_id = $request->query->get('target_id', null);
         $generate = $request->query->getBoolean('generate', false);
 
-        if (null === $profile && is_string($target_type)) {
+        if (!$profile instanceof LabelProfile && $target_type instanceof LabelSupportedElement) {
             $label_options->setSupportedElement($target_type);
         }
         if (is_string($target_id)) {
@@ -128,10 +110,10 @@ class LabelController extends AbstractController
         $filename = 'invalid.pdf';
 
         //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
-        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && null !== $profile)) {
+        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile instanceof LabelProfile)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
-            if (!empty($targets)) {
+            if ($targets !== []) {
                 try {
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
                     $filename = $this->getLabelName($targets[0], $profile);
@@ -146,7 +128,7 @@ class LabelController extends AbstractController
             }
         }
 
-        return $this->renderForm('label_system/dialog.html.twig', [
+        return $this->render('label_system/dialog.html.twig', [
             'form' => $form,
             'pdf_data' => $pdf_data,
             'filename' => $filename,
@@ -162,16 +144,12 @@ class LabelController extends AbstractController
         return $ret.'.pdf';
     }
 
-    protected function findObjects(string $type, string $ids): array
+    protected function findObjects(LabelSupportedElement $type, string $ids): array
     {
-        if (!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
-            throw new InvalidArgumentException('The given type is not known and can not be mapped to a class!');
-        }
-
         $id_array = $this->rangeParser->parse($ids);
 
         /** @var DBElementRepository $repo */
-        $repo = $this->em->getRepository(LabelGenerator::CLASS_SUPPORT_MAPPING[$type]);
+        $repo = $this->em->getRepository($type->getEntityClass());
 
         return $repo->getElementsFromIDArray($id_array);
     }

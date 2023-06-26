@@ -97,7 +97,7 @@ export default class extends Controller {
             },
             buttons: [{
                 "extend": 'colvis',
-                'className': 'mr-2 btn-light',
+                'className': 'mr-2 btn-outline-secondary',
                 'columns': ':not(.no-colvis)',
                 "text": "<i class='fa fa-cog'></i>"
             }],
@@ -122,6 +122,22 @@ export default class extends Controller {
             .catch(err => {
                 console.error("Error initializing datatables: " + err);
             });
+
+        //Fix height of the length selector
+        promise.then((dt) => {
+            //Find all length selectors (select with name dt_length), which are inside a label
+            const lengthSelectors = document.querySelectorAll('label select[name="dt_length"]');
+            //And remove the surrounding label, while keeping the select with all event handlers
+            lengthSelectors.forEach((selector) => {
+                selector.parentElement.replaceWith(selector);
+            });
+
+            //Find all column visibility buttons (button with buttons-colvis class) and remove the btn-secondary class
+            const colVisButtons = document.querySelectorAll('button.buttons-colvis');
+            colVisButtons.forEach((button) => {
+                button.classList.remove('btn-secondary');
+            });
+        });
 
         //Dispatch an event to let others know that the datatables has been loaded
         promise.then((dt) => {

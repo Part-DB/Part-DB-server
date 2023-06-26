@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\Tools;
 
 use App\Entity\PriceInformations\Currency;
@@ -27,13 +29,8 @@ use Swap\Swap;
 
 class ExchangeRateUpdater
 {
-    private string $base_currency;
-    private Swap $swap;
-
-    public function __construct(string $base_currency, Swap $swap)
+    public function __construct(private readonly string $base_currency, private readonly Swap $swap)
     {
-        $this->base_currency = $base_currency;
-        $this->swap = $swap;
     }
 
     /**

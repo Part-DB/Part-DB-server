@@ -25,6 +25,9 @@ namespace App\Helpers;
 use League\HTMLToMarkdown\HtmlConverter;
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
 
+/**
+ * @see \App\Tests\Helpers\BBCodeToMarkdownConverterTest
+ */
 class BBCodeToMarkdownConverter
 {
     protected HtmlConverter $html_to_markdown;

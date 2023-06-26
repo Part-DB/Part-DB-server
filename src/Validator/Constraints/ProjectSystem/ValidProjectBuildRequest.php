@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,16 +20,14 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Validator\Constraints\ProjectSystem;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
  * This constraint checks that the given ProjectBuildRequest is valid.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class ValidProjectBuildRequest extends Constraint
 {
     public function getTargets(): string

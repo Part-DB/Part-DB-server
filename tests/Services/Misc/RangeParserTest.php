@@ -57,30 +57,28 @@ class RangeParserTest extends WebTestCase
         $this->service = self::getContainer()->get(RangeParser::class);
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            [[], ''],
-            [[], '   '],
-            [[], "\t"],
-            [[1], '1'],
-            [[1, 2, 3], '1,2, 3'],
-            [[1, 2, 3], '1-3'],
-            [[1, 2, 3, 4], '1- 3, 4'],
-            [[1, 2, 3, 4], '1, 2,3 -   4'],
-            [[1, 2, 3], '  1; 2, 3'],
-            [[-1, 0, 1, 2], '-1; 0; 1, 2'],
-            [[4, 3, 1, 2], '4,3, 1;2'],
-            [[1, 2, 3, 4], '2-1, 3-4'],
-            [[1], '1-1'],
-            [[-3, -2, -1], '-3--1'],
-            [[1, 2, 3], '1,,2;;,,3'],
-            [[100, 1000, 1], '100, 1000, 1'],
-            [[], 'test', true],
-            [[], '1-2-3-4,5', true],
-            [[], '1 2 3, 455, 23', true],
-            [[], '1, 2, test', true],
-        ];
+        yield [[], ''];
+        yield [[], '   '];
+        yield [[], "\t"];
+        yield [[1], '1'];
+        yield [[1, 2, 3], '1,2, 3'];
+        yield [[1, 2, 3], '1-3'];
+        yield [[1, 2, 3, 4], '1- 3, 4'];
+        yield [[1, 2, 3, 4], '1, 2,3 -   4'];
+        yield [[1, 2, 3], '  1; 2, 3'];
+        yield [[-1, 0, 1, 2], '-1; 0; 1, 2'];
+        yield [[4, 3, 1, 2], '4,3, 1;2'];
+        yield [[1, 2, 3, 4], '2-1, 3-4'];
+        yield [[1], '1-1'];
+        yield [[-3, -2, -1], '-3--1'];
+        yield [[1, 2, 3], '1,,2;;,,3'];
+        yield [[100, 1000, 1], '100, 1000, 1'];
+        yield [[], 'test', true];
+        yield [[], '1-2-3-4,5', true];
+        yield [[], '1 2 3, 455, 23', true];
+        yield [[], '1, 2, test', true];
     }
 
     public function validDataProvider(): array

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
 use InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -30,28 +31,17 @@ use function strlen;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @see \App\Tests\Services\Attachments\AttachmentURLGeneratorTest
+ */
 class AttachmentURLGenerator
 {
-    protected Packages $assets;
     protected string $public_path;
-    protected AttachmentPathResolver $pathResolver;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected AttachmentManager $attachmentHelper;
-    protected CacheManager $thumbnailManager;
 
-    protected LoggerInterface $logger;
-
-    public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
-                                UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,
-        CacheManager $thumbnailManager, LoggerInterface $logger)
+    public function __construct(protected Packages $assets, protected AttachmentPathResolver $pathResolver,
+                                protected UrlGeneratorInterface $urlGenerator, protected AttachmentManager $attachmentHelper,
+        protected CacheManager $thumbnailManager, protected LoggerInterface $logger)
     {
-        $this->assets = $assets;
-        $this->pathResolver = $pathResolver;
-        $this->urlGenerator = $urlGenerator;
-        $this->attachmentHelper = $attachmentHelper;
-        $this->thumbnailManager = $thumbnailManager;
-        $this->logger = $logger;
-
         //Determine a normalized path to the public folder (assets are relative to this folder)
         $this->public_path = $this->pathResolver->parameterToAbsolutePath('public');
     }
@@ -78,7 +68,7 @@ class AttachmentURLGenerator
         }
 
         //Our absolute path must begin with public path, or we can not use it for asset pathes.
-        if (0 !== strpos($absolute_path, $public_path)) {
+        if (!str_starts_with($absolute_path, $public_path)) {
             return null;
         }
 
@@ -129,7 +119,7 @@ class AttachmentURLGenerator
             throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
-        if ($attachment->isExternal() && !empty($attachment->getURL())) {
+        if ($attachment->isExternal() && ($attachment->getURL() !== null && $attachment->getURL() !== '')) {
             return $attachment->getURL();
         }
 
@@ -154,7 +144,7 @@ class AttachmentURLGenerator
             $tmp = $this->thumbnailManager->getBrowserPath($asset_path, $filter_name, [], null, UrlGeneratorInterface::NETWORK_PATH);
             //So we remove the schema manually
             return preg_replace('/^https?:/', '', $tmp);
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log a warning
             $this->logger->warning('Could not open thumbnail for attachment with ID ' . $attachment->getID() . ': ' . $e->getMessage());
             return $this->assets->getUrl($asset_path);

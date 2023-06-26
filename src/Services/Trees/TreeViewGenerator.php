@@ -45,28 +45,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function count;
 
+/**
+ * @see \App\Tests\Services\Trees\TreeViewGeneratorTest
+ */
 class TreeViewGenerator
 {
-    protected EntityURLGenerator $urlGenerator;
-    protected EntityManagerInterface $em;
-    protected TagAwareCacheInterface $cache;
-    protected UserCacheKeyGenerator $keyGenerator;
-    protected TranslatorInterface $translator;
-
-    protected bool $rootNodeExpandedByDefault;
-    protected bool $rootNodeEnabled;
-
-    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault, bool $rootNodeEnabled)
+    public function __construct(protected EntityURLGenerator $urlGenerator, protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected TranslatorInterface $translator, protected bool $rootNodeExpandedByDefault, protected bool $rootNodeEnabled)
     {
-        $this->urlGenerator = $URLGenerator;
-        $this->em = $em;
-        $this->cache = $treeCache;
-        $this->keyGenerator = $keyGenerator;
-        $this->translator = $translator;
-
-        $this->rootNodeExpandedByDefault = $rootNodeExpandedByDefault;
-        $this->rootNodeEnabled = $rootNodeEnabled;
     }
 
     /**
@@ -92,7 +77,7 @@ class TreeViewGenerator
             $href = $this->urlGenerator->createURL(new $class());
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
             //When the id of the selected element is null, then we have a new element, and we need to select "new" node
-            if (null === $selectedElement || null === $selectedElement->getID()) {
+            if (!$selectedElement instanceof AbstractDBElement || null === $selectedElement->getID()) {
                 $new_node->setSelected(true);
             }
             $head[] = $new_node;
@@ -116,21 +101,21 @@ class TreeViewGenerator
         $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
             /** @var TreeViewNode $item */
-            if (null !== $selectedElement && $item->getId() === $selectedElement->getID()) {
+            if ($selectedElement instanceof AbstractDBElement && $item->getId() === $selectedElement->getID()) {
                 $item->setSelected(true);
             }
 
-            if (!empty($item->getNodes())) {
+            if ($item->getNodes() !== null && $item->getNodes() !== []) {
                 $item->addTag((string) count($item->getNodes()));
             }
 
-            if (!empty($href_type) && null !== $item->getId()) {
+            if ($href_type !== '' && null !== $item->getId()) {
                 $entity = $this->em->getPartialReference($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }
 
             //Translate text if text starts with $$
-            if (0 === strpos($item->getText(), '$$')) {
+            if (str_starts_with($item->getText(), '$$')) {
                 $item->setText($this->translator->trans(substr($item->getText(), 2)));
             }
         }
@@ -148,43 +133,29 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
-        switch ($class) {
-            case Category::class:
-                return $this->translator->trans('category.labelp');
-            case Storelocation::class:
-                return $this->translator->trans('storelocation.labelp');
-            case Footprint::class:
-                return $this->translator->trans('footprint.labelp');
-            case Manufacturer::class:
-                return $this->translator->trans('manufacturer.labelp');
-            case Supplier::class:
-                return $this->translator->trans('supplier.labelp');
-            case Project::class:
-                return $this->translator->trans('project.labelp');
-            default:
-                return $this->translator->trans('tree.root_node.text');
-        }
+        return match ($class) {
+            Category::class => $this->translator->trans('category.labelp'),
+            Storelocation::class => $this->translator->trans('storelocation.labelp'),
+            Footprint::class => $this->translator->trans('footprint.labelp'),
+            Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
+            Supplier::class => $this->translator->trans('supplier.labelp'),
+            Project::class => $this->translator->trans('project.labelp'),
+            default => $this->translator->trans('tree.root_node.text'),
+        };
     }
 
     protected function entityClassToRootNodeIcon(string $class): ?string
     {
         $icon = "fa-fw fa-treeview fa-solid ";
-        switch ($class) {
-            case Category::class:
-                return $icon . 'fa-tags';
-            case Storelocation::class:
-                return $icon . 'fa-cube';
-            case Footprint::class:
-                return $icon . 'fa-microchip';
-            case Manufacturer::class:
-                return $icon . 'fa-industry';
-            case Supplier::class:
-                return $icon . 'fa-truck';
-            case Project::class:
-                return $icon . 'fa-archive';
-            default:
-                return null;
-        }
+        return match ($class) {
+            Category::class => $icon . 'fa-tags',
+            Storelocation::class => $icon . 'fa-cube',
+            Footprint::class => $icon . 'fa-microchip',
+            Manufacturer::class => $icon . 'fa-industry',
+            Supplier::class => $icon . 'fa-truck',
+            Project::class => $icon . 'fa-archive',
+            default => null,
+        };
     }
 
     /**
@@ -202,7 +173,7 @@ class TreeViewGenerator
         if (!is_a($class, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
-        if (null !== $parent && !is_a($parent, $class)) {
+        if ($parent instanceof AbstractStructuralDBElement && !$parent instanceof $class) {
             throw new InvalidArgumentException('$parent must be of the type $class!');
         }
 
@@ -210,7 +181,7 @@ class TreeViewGenerator
         $repo = $this->em->getRepository($class);
 
         //If we just want a part of a tree, don't cache it
-        if (null !== $parent) {
+        if ($parent instanceof AbstractStructuralDBElement) {
             return $repo->getGenericNodeTree($parent);
         }
 

@@ -22,21 +22,18 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class MassCreationForm extends AbstractType
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(protected Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

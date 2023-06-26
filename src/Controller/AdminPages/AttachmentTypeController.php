@@ -37,8 +37,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/attachment_type")
+ * @see \App\Tests\Controller\AdminPages\AttachmentTypeControllerTest
  */
+#[Route(path: '/attachment_type')]
 class AttachmentTypeController extends BaseAdminController
 {
     protected string $entity_class = AttachmentType::class;
@@ -48,44 +49,34 @@ class AttachmentTypeController extends BaseAdminController
     protected string $attachment_class = AttachmentTypeAttachment::class;
     protected ?string $parameter_class = AttachmentTypeParameter::class;
 
-    /**
-     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'attachment_type_delete', methods: ['DELETE'])]
     public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="attachment_type_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'attachment_type_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(AttachmentType $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="attachment_type_new")
-     * @Route("/{id}/clone", name="attachment_type_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'attachment_type_new')]
+    #[Route(path: '/{id}/clone', name: 'attachment_type_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AttachmentType $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="attachment_type_export_all")
-     */
+    #[Route(path: '/export', name: 'attachment_type_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="attachment_type_export")
-     */
+    #[Route(path: '/{id}/export', name: 'attachment_type_export')]
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

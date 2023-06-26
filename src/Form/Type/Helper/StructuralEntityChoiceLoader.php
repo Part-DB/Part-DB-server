@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Type\Helper;
 
 use App\Repository\StructuralDBElementRepository;
@@ -28,17 +30,10 @@ use Symfony\Component\OptionsResolver\Options;
 
 class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
-    private Options $options;
-    private NodesListBuilder $builder;
-    private EntityManagerInterface $entityManager;
-
     private ?string $additional_element = null;
 
-    public function __construct(Options $options, NodesListBuilder $builder, EntityManagerInterface $entityManager)
+    public function __construct(private readonly Options $options, private readonly NodesListBuilder $builder, private readonly EntityManagerInterface $entityManager)
     {
-        $this->options = $options;
-        $this->builder = $builder;
-        $this->entityManager = $entityManager;
     }
 
     protected function loadChoices(): iterable

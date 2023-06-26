@@ -1,30 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 trait ProjectTrait
 {
     /**
-     * @var Collection<int, ProjectBOMEntry> $project_bom_entries
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectSystem\ProjectBOMEntry", mappedBy="part", cascade={"remove"}, orphanRemoval=true)
+     * @var Collection<ProjectBOMEntry> $project_bom_entries
      */
-    protected $project_bom_entries = [];
+    /**
+     * @var Collection<ProjectBOMEntry> $project_bom_entries
+     */
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
+    protected Collection $project_bom_entries;
 
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
-     * @ORM\OneToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="build_part")
-     * @ORM\JoinColumn(nullable=true)
      */
+    #[ORM\OneToOne(targetEntity: Project::class, inversedBy: 'build_part')]
+    #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 
     /**
-     * Returns all ProjectBOMEntries that use this part.
-     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
+     *  Returns all ProjectBOMEntries that use this part.
+     *
+     * @phpstan-return Collection<int, ProjectBOMEntry>
      */
     public function getProjectBomEntries(): Collection
     {
@@ -42,7 +49,6 @@ trait ProjectTrait
 
     /**
      * Returns the project that this part represents the builds of, or null if it doesn't
-     * @return Project|null
      */
     public function getBuiltProject(): ?Project
     {

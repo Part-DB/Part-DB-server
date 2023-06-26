@@ -45,6 +45,7 @@ use InvalidArgumentException;
 
 /**
  * This Parser allows to parse number ranges like 1-3, 4, 5.
+ * @see \App\Tests\Services\Misc\RangeParserTest
  */
 class RangeParser
 {
@@ -70,7 +71,7 @@ class RangeParser
                 $ranges[] = $this->generateMinMaxRange($matches[1], $matches[2]);
             } elseif (is_numeric($number)) {
                 $ranges[] = [(int) $number];
-            } elseif (empty($number)) { //Allow empty tokens
+            } elseif ($number === '') { //Allow empty tokens
                 continue;
             } else {
                 throw new InvalidArgumentException('Invalid range encoutered: '.$number);
@@ -94,7 +95,7 @@ class RangeParser
             $this->parse($range_str);
 
             return true;
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             return false;
         }
     }

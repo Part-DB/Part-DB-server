@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Doctrine\Types;
 
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -47,7 +48,7 @@ class UTCDateTimeType extends DateTimeType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (!self::$utc_timezone) {
+        if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
         }
 
@@ -58,9 +59,18 @@ class UTCDateTimeType extends DateTimeType
         return parent::convertToDatabaseValue($value, $platform);
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
+    /**
+     * {@inheritDoc}
+     *
+     * @param T $value
+     *
+     * @return (T is null ? null : DateTimeInterface)
+     *
+     * @template T
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?\DateTimeInterface
     {
-        if (!self::$utc_timezone) {
+        if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
         }
 

@@ -44,6 +44,10 @@
     {{ block('text_constraint_widget') }}
 {% endblock %}
 
+{% block enum_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
 {% block parameter_constraint_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": path('typeahead_parameters', {"query": "__QUERY__", "type": "part"}) }) }} >

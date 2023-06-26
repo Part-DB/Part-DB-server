@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\UserSystem;
 
 use App\Entity\UserSystem\PermissionData;
@@ -27,11 +29,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestPermissionHolder implements HasPermissionsInterface
 {
-    private PermissionData $perm_data;
-
-    public function __construct(PermissionData $perm_data)
+    public function __construct(private readonly PermissionData $perm_data)
     {
-        $this->perm_data = $perm_data;
     }
 
     public function getPermissions(): PermissionData
@@ -49,7 +48,6 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
     public function setUp(): void
     {
-        parent::setUp();
         self::bootKernel();
 
         $this->service = self::getContainer()->get(PermissionSchemaUpdater::class);
@@ -77,7 +75,7 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
         //With schema version 0, an update should be done and the schema version should be updated
         self::assertTrue($this->service->upgradeSchema($user));
-        self::assertEquals(PermissionData::CURRENT_SCHEMA_VERSION, $user->getPermissions()->getSchemaVersion());
+        self::assertSame(PermissionData::CURRENT_SCHEMA_VERSION, $user->getPermissions()->getSchemaVersion());
 
         //If we redo it with the same schema version, no update should be done
         self::assertFalse($this->service->upgradeSchema($user));

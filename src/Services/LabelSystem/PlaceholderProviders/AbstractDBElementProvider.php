@@ -46,11 +46,8 @@ use App\Services\ElementTypeNameGenerator;
 
 final class AbstractDBElementProvider implements PlaceholderProviderInterface
 {
-    private ElementTypeNameGenerator $elementTypeNameGenerator;
-
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string

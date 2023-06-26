@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use App\Repository\Parts\DeviceRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\ProjectParameter;
@@ -35,75 +37,63 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Class AttachmentType.
+ * This class represents a project in the database.
  *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\DeviceRepository")
- * @ORM\Table(name="projects")
+ * @extends AbstractStructuralDBElement<ProjectAttachment, ProjectParameter>
  */
+#[ORM\Entity(repositoryClass: DeviceRepository::class)]
+#[ORM\Table(name: 'projects')]
 class Project extends AbstractStructuralDBElement
 {
-    /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection
-     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected ?AbstractStructuralDBElement $parent;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
+    protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
-     * @Groups({"extended", "full"})
-     */
+    #[Assert\Valid]
+    #[Groups(['extended', 'full'])]
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $bom_entries;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
      * @var string|null The current status of the project
-     * @ORM\Column(type="string", length=64, nullable=true)
-     * @Assert\Choice({"draft","planning","in_production","finished","archived"})
-     * @Groups({"extended", "full"})
      */
+    #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
+    #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 
 
     /**
      * @var Part|null The (optional) part that represents the builds of this project in the stock
-     * @ORM\OneToOne(targetEntity="App\Entity\Parts\Part", mappedBy="built_project", cascade={"persist"}, orphanRemoval=true)
      */
+    #[ORM\OneToOne(targetEntity: Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
     protected ?Part $build_part = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $order_only_missing_parts = false;
 
-    /**
-     * @ORM\Column(type="text", nullable=false)
-     * @Groups({"simple", "extended", "full"})
-     */
+    #[Groups(['simple', 'extended', 'full'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var Collection<int, ProjectAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ProjectAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ProjectParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ProjectParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /********************************************************************************
@@ -114,6 +104,8 @@ class Project extends AbstractStructuralDBElement
 
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
         $this->children = new ArrayCollection();
@@ -183,8 +175,6 @@ class Project extends AbstractStructuralDBElement
      *  Set the "order_only_missing_parts" attribute.
      *
      * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
-     *
-     * @return Project
      */
     public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self
     {
@@ -193,16 +183,12 @@ class Project extends AbstractStructuralDBElement
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
-     */
     public function getBomEntries(): Collection
     {
         return $this->bom_entries;
     }
 
     /**
-     * @param  ProjectBOMEntry  $entry
      * @return $this
      */
     public function addBomEntry(ProjectBOMEntry $entry): self
@@ -213,7 +199,6 @@ class Project extends AbstractStructuralDBElement
     }
 
     /**
-     * @param  ProjectBOMEntry  $entry
      * @return $this
      */
     public function removeBomEntry(ProjectBOMEntry $entry): self
@@ -222,18 +207,11 @@ class Project extends AbstractStructuralDBElement
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param  string  $description
-     * @return Project
-     */
     public function setDescription(string $description): Project
     {
         $this->description = $description;
@@ -258,16 +236,14 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * Checks if this project has an associated part representing the builds of this project in the stock.
-     * @return bool
      */
     public function hasBuildPart(): bool
     {
-        return $this->build_part !== null;
+        return $this->build_part instanceof Part;
     }
 
     /**
      * Gets the part representing the builds of this project in the stock, if it is existing
-     * @return Part|null
      */
     public function getBuildPart(): ?Part
     {
@@ -276,25 +252,22 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * Sets the part representing the builds of this project in the stock.
-     * @param  Part|null  $build_part
      */
     public function setBuildPart(?Part $build_part): void
     {
         $this->build_part = $build_part;
-        if ($build_part) {
+        if ($build_part instanceof Part) {
             $build_part->setBuiltProject($this);
         }
     }
 
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //If this project has subprojects, and these have builds part, they must be included in the BOM
         foreach ($this->getChildren() as $child) {
             /** @var $child Project */
-            if ($child->getBuildPart() === null) {
+            if (!$child->getBuildPart() instanceof Part) {
                 continue;
             }
             //We have to search all bom entries for the build part

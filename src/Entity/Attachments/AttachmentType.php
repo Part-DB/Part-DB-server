@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Repository\StructuralDBElementRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Validator\Constraints\ValidFileFilter;
@@ -32,56 +34,55 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
- *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table(name="`attachment_types`", indexes={
- *     @ORM\Index(name="attachment_types_idx_name", columns={"name"}),
- *     @ORM\Index(name="attachment_types_idx_parent_name", columns={"parent_id", "name"}),
- * })
+ * @see \App\Tests\Entity\Attachments\AttachmentTypeTest
+ * @extends AbstractStructuralDBElement<AttachmentTypeAttachment, AttachmentTypeParameter>
  */
+#[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
+#[ORM\Table(name: '`attachment_types`')]
+#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    /**
-     * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected ?AbstractStructuralDBElement $parent;
+    #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
+    protected ?AbstractStructuralDBElement $parent = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[ValidFileFilter]
+    protected string $filetype_filter = '';
 
     /**
-     * @var string
-     * @ORM\Column(type="text")
-     * @ValidFileFilter
-     */
-    protected string $filetype_filter = '';
-    /**
      * @var Collection<int, AttachmentTypeAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, AttachmentTypeParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
-     * @var Collection<int, Attachment>
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
+     * @var Collection<Attachment>
      */
-    protected $attachments_with_type;
+    /**
+     * @var Collection<Attachment>
+     */
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
+    protected Collection $attachments_with_type;
 
     public function __construct()
     {
+        $this->children = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->attachments = new ArrayCollection();
         $this->attachments_with_type = new ArrayCollection();
@@ -90,8 +91,9 @@ class AttachmentType extends AbstractStructuralDBElement
     /**
      * Get all attachments ("Attachment" objects) with this type.
      *
-     * @return Collection|Attachment[] all attachments with this type, as a one-dimensional array of Attachments
+     * @return Collection all attachments with this type, as a one-dimensional array of Attachments
      *                                 (sorted by their names)
+     * @phpstan-return Collection<int, Attachment>
      */
     public function getAttachmentsForType(): Collection
     {

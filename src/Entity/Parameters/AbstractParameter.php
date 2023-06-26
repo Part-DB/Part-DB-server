@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Repository\ParameterRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
@@ -51,91 +53,75 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @ORM\Table("parameters", indexes={
- *    @ORM\Index(name="parameter_name_idx", columns={"name"}),
- *    @ORM\Index(name="parameter_group_idx", columns={"param_group"}),
- *    @ORM\Index(name="parameter_type_element_idx", columns={"type", "element_id"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="smallint")
- * @ORM\DiscriminatorMap({
- *      0 = "CategoryParameter",
- *      1 = "CurrencyParameter",
- *      2 = "ProjectParameter",
- *      3 = "FootprintParameter",
- *      4 = "GroupParameter",
- *      5 = "ManufacturerParameter",
- *      6 = "MeasurementUnitParameter",
- *      7 = "PartParameter",
- *      8 = "StorelocationParameter",
- *      9 = "SupplierParameter",
- *      10 = "AttachmentTypeParameter"
- * })
- */
+#[ORM\Entity(repositoryClass: ParameterRepository::class)]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
+#[ORM\DiscriminatorMap([0 => 'CategoryParameter', 1 => 'CurrencyParameter', 2 => 'ProjectParameter', 3 => 'FootprintParameter', 4 => 'GroupParameter', 5 => 'ManufacturerParameter', 6 => 'MeasurementUnitParameter', 7 => 'PartParameter', 8 => 'StorelocationParameter', 9 => 'SupplierParameter', 10 => 'AttachmentTypeParameter'])]
+#[ORM\Table('parameters')]
+#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
+#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
 abstract class AbstractParameter extends AbstractNamedDBElement
 {
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      */
-    public const ALLOWED_ELEMENT_CLASS = '';
+    protected const ALLOWED_ELEMENT_CLASS = '';
 
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
-     * @Assert\Length(max=20)
-     * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Assert\Length(max: 20)]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';
 
     /**
      * @var float|null the guaranteed minimum value of this property
-     * @Assert\Type({"float","null"})
-     * @Assert\LessThanOrEqual(propertyPath="value_typical", message="parameters.validator.min_lesser_typical")
-     * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
-     * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type(['float', null])]
+    #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
+    #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
     /**
      * @var float|null the typical value of this property
-     * @Assert\Type({"null", "float"})
-     * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type([null, 'float'])]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
     /**
      * @var float|null the maximum value of this property
-     * @Assert\Type({"float", "null"})
-     * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
-     * @ORM\Column(type="float", nullable=true)
-     * @Groups({"full"})
      */
+    #[Assert\Type(['float', null])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
-     * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
-     * @ORM\Column(type="string", nullable=false)
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
-     * @ORM\Column(type="string", nullable=false, name="param_group")
-     * @Groups({"full"})
-     * @Groups({"full"})
      */
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::STRING, name: 'param_group')]
     protected string $group = '';
 
     /**
@@ -202,7 +188,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
             $str .= ')';
         }
 
-        if ($this->value_text) {
+        if ($this->value_text !== '' && $this->value_text !== '0') {
             $str .= ' ['.$this->value_text.']';
         }
 
@@ -332,7 +318,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * Sets the typical value of this property.
      *
-     * @param  float|null  $value_typical
      *
      * @return $this
      */
@@ -409,10 +394,19 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected function formatWithUnit(float $value, string $format = '%g'): string
     {
         $str = sprintf($format, $value);
-        if (!empty($this->unit)) {
+        if ($this->unit !== '') {
             return $str.' '.$this->unit;
         }
 
         return $str;
+    }
+
+    /**
+     * Returns the class of the element that is allowed to be associated with this attachment.
+     * @return string
+     */
+    public function getElementClass(): string
+    {
+        return static::ALLOWED_ELEMENT_CLASS;
     }
 }

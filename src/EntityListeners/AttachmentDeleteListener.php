@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\EntityListeners;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
@@ -41,22 +42,14 @@ use SplFileInfo;
  */
 class AttachmentDeleteListener
 {
-    protected AttachmentReverseSearch $attachmentReverseSearch;
-    protected AttachmentManager $attachmentHelper;
-    protected AttachmentPathResolver $pathResolver;
-
-    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentManager $attachmentHelper, AttachmentPathResolver $pathResolver)
+    public function __construct(protected AttachmentReverseSearch $attachmentReverseSearch, protected AttachmentManager $attachmentHelper, protected AttachmentPathResolver $pathResolver)
     {
-        $this->attachmentReverseSearch = $attachmentReverseSearch;
-        $this->attachmentHelper = $attachmentHelper;
-        $this->pathResolver = $pathResolver;
     }
 
     /**
      * Removes the file associated with the attachment, if the file associated with the attachment changes.
-     *
-     * @PreUpdate
      */
+    #[PreUpdate]
     public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event): void
     {
         if ($event->hasChangedField('path')) {
@@ -81,15 +74,14 @@ class AttachmentDeleteListener
 
     /**
      * Ensure that attachments are not used in preview, so that they can be deleted (without integrity violation).
-     *
-     * @ORM\PreRemove()
      */
+    #[ORM\PreRemove]
     public function preRemoveHandler(Attachment $attachment, PreRemoveEventArgs $event): void
     {
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
         $attachment_holder = $attachment->getElement();
 
-        if (null === $attachment_holder) {
+        if (!$attachment_holder instanceof AttachmentContainingDBElement) {
             return;
         }
 
@@ -102,16 +94,15 @@ class AttachmentDeleteListener
             if (!$em instanceof EntityManagerInterface) {
                 throw new \RuntimeException('Invalid EntityManagerInterface!');
             }
-            $classMetadata = $em->getClassMetadata(get_class($attachment_holder));
+            $classMetadata = $em->getClassMetadata($attachment_holder::class);
             $em->getUnitOfWork()->computeChangeSet($classMetadata, $attachment_holder);
         }
     }
 
     /**
      * Removes the file associated with the attachment, after the attachment was deleted.
-     *
-     * @PostRemove
      */
+    #[PostRemove]
     public function postRemoveHandler(Attachment $attachment, PostRemoveEventArgs $event): void
     {
         //Dont delete file if the attachment uses a builtin ressource:
@@ -121,7 +112,7 @@ class AttachmentDeleteListener
 
         $file = $this->attachmentHelper->attachmentToFile($attachment);
         //Only delete if the attachment has a valid file.
-        if (null !== $file) {
+        if ($file instanceof \SplFileInfo) {
             /* The original file has already been removed, so we have to decrease the threshold to zero,
             as any remaining attachment depends on this attachment, and we must not delete this file! */
             $this->attachmentReverseSearch->deleteIfNotUsed($file, 0);

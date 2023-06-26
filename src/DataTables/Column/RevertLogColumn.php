@@ -41,30 +41,25 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use Omines\DataTablesBundle\Column\AbstractColumn;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RevertLogColumn extends AbstractColumn
 {
-    protected TranslatorInterface $translator;
-    protected Security $security;
-
-    public function __construct(TranslatorInterface $translator, Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected Security $security)
     {
-        $this->translator = $translator;
-        $this->security = $security;
     }
 
     /**
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }
@@ -105,8 +100,6 @@ class RevertLogColumn extends AbstractColumn
             $this->translator->trans('log.undo.revert')
         );
 
-        $tmp .= '</div>';
-
-        return $tmp;
+        return $tmp . '</div>';
     }
 }

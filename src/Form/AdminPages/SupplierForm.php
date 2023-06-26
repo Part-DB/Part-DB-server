@@ -22,22 +22,19 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
-    protected string $default_currency;
-
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
-        $this->default_currency = $default_currency;
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
@@ -56,7 +53,7 @@ class SupplierForm extends CompanyForm
 
         $builder->add('shipping_costs', BigDecimalMoneyType::class, [
             'required' => false,
-            'currency' => $this->default_currency,
+            'currency' => $this->base_currency,
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),

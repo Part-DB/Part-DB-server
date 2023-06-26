@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Serializer;
 
 use App\Serializer\BigNumberNormalizer;
@@ -33,7 +35,6 @@ class BigNumberNormalizerTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         //Get an service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(BigNumberNormalizer::class);

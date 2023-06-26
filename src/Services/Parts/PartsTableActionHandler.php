@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\Parts;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -33,19 +36,11 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 
 final class PartsTableActionHandler
 {
-    private EntityManagerInterface $entityManager;
-    private Security $security;
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(EntityManagerInterface $entityManager, Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->entityManager = $entityManager;
-        $this->security = $security;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -86,10 +81,8 @@ final class PartsTableActionHandler
             if ($action === 'generate_label') {
                 $targets = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             } else { //For lots we have to extract the part lots
-                $targets = implode(',', array_map(static function (Part $part) {
-                    //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
-                    return implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray()));
-                }, $selected_parts));
+                $targets = implode(',', array_map(static fn(Part $part): string => //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
+implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray())), $selected_parts));
             }
 
             return new RedirectResponse(
@@ -106,18 +99,11 @@ final class PartsTableActionHandler
         $matches = [];
         if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
-            switch ($target_id) {
-                case 1:
-                default:
-                    $level = 'simple';
-                    break;
-                case 2:
-                    $level = 'extended';
-                    break;
-                case 3:
-                    $level = 'full';
-                    break;
-            }
+            $level = match ($target_id) {
+                2 => 'extended',
+                3 => 'full',
+                default => 'simple',
+            };
 
 
             return new RedirectResponse(
@@ -192,7 +178,7 @@ final class PartsTableActionHandler
      *
      * @throws AccessDeniedException
      */
-    private function denyAccessUnlessGranted($attributes, $subject = null, string $message = 'Access Denied.'): void
+    private function denyAccessUnlessGranted(mixed $attributes, mixed $subject = null, string $message = 'Access Denied.'): void
     {
         if (!$this->security->isGranted($attributes, $subject)) {
             $exception = new AccessDeniedException($message);

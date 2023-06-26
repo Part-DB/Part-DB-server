@@ -46,14 +46,12 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
 /**
  * This service replaces the Placeholders of the user provided lines with the proper informations.
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
+ * @see \App\Tests\Services\LabelSystem\LabelTextReplacerTest
  */
 final class LabelTextReplacer
 {
-    private iterable $providers;
-
-    public function __construct(iterable $providers)
+    public function __construct(private readonly iterable $providers)
     {
-        $this->providers = $providers;
     }
 
     /**
@@ -79,21 +77,20 @@ final class LabelTextReplacer
     }
 
     /**
-     * Replaces all placeholders in the input lines.
+     *  Replaces all placeholders in the input lines.
      *
      * @param string $lines  The input lines that should be replaced
-     * @param object $target the object that should be used as source for the informations
+     * @param object $target the object that should be used as source for the information
      *
-     * @return string the Lines with replaced informations
+     * @return string the Lines with replaced information
      */
     public function replace(string $lines, object $target): string
     {
         $patterns = [
-            '/(\[\[[A-Z_0-9]+\]\])/' => function ($match) use ($target) {
-                return $this->handlePlaceholder($match[0], $target);
-            },
+            '/(\[\[[A-Z_0-9]+\]\])/' => fn($match): string => $this->handlePlaceholder($match[0], $target),
         ];
 
-        return preg_replace_callback_array($patterns, $lines);
+        return preg_replace_callback_array($patterns, $lines) ?? throw new \RuntimeException('Could not replace placeholders!');
+
     }
 }

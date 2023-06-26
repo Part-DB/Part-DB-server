@@ -35,7 +35,7 @@ final class CustomEnvVarProcessor implements EnvVarProcessorInterface
                 $env = $getEnv($name);
 
                 return !empty($env) && 'null://null' !== $env;
-            } catch (EnvNotFoundException $envNotFoundException) {
+            } catch (EnvNotFoundException) {
                 return false;
             }
         }

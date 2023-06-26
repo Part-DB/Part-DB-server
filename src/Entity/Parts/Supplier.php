@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\SupplierRepository;
+use App\Entity\PriceInformations\Orderdetail;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -36,64 +39,63 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Supplier.
+ * This entity represents a supplier of parts (the company that sells the parts).
  *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\SupplierRepository")
- * @ORM\Table("`suppliers`", indexes={
- *     @ORM\Index(name="supplier_idx_name", columns={"name"}),
- *     @ORM\Index(name="supplier_idx_parent_name", columns={"parent_id", "name"}),
- * })
+ * @extends AbstractCompany<SupplierAttachment, SupplierParameter>
  */
+#[ORM\Entity(repositoryClass: SupplierRepository::class)]
+#[ORM\Table('`suppliers`')]
+#[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
 class Supplier extends AbstractCompany
 {
-    /**
-     * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection
-     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected ?AbstractStructuralDBElement $parent;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="supplier")
+     * @var Collection<int, Orderdetail>|Orderdetail[]
      */
+    /**
+     * @var Collection<int, Orderdetail>|Orderdetail[]
+     */
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'supplier')]
     protected Collection $orderdetails;
 
     /**
      * @var Currency|null The currency that should be used by default for order informations with this supplier.
      *                    Set to null, to use global base currency.
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(name="default_currency_id", referencedColumnName="id", nullable=true)
-     * @Selectable()
      */
+    #[ORM\ManyToOne(targetEntity: Currency::class)]
+    #[ORM\JoinColumn(name: 'default_currency_id')]
+    #[Selectable()]
     protected ?Currency $default_currency = null;
 
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
-     * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
-     * @Groups({"extended", "full", "import"})
-     * @BigDecimalPositiveOrZero()
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(name: 'shipping_costs', nullable: true, type: 'big_decimal', precision: 11, scale: 5)]
+    #[BigDecimalPositiveOrZero()]
     protected ?BigDecimal $shipping_costs = null;
 
     /**
      * @var Collection<int, SupplierAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, SupplierParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     /**
@@ -106,8 +108,6 @@ class Supplier extends AbstractCompany
 
     /**
      * Sets the default currency.
-     *
-     * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self
     {
@@ -130,12 +130,10 @@ class Supplier extends AbstractCompany
      * Sets the shipping costs for an order with this supplier.
      *
      * @param BigDecimal|null $shipping_costs a BigDecimal with the shipping costs
-     *
-     * @return Supplier
      */
     public function setShippingCosts(?BigDecimal $shipping_costs): self
     {
-        if (null === $shipping_costs) {
+        if (!$shipping_costs instanceof BigDecimal) {
             $this->shipping_costs = null;
         }
 
@@ -145,5 +143,13 @@ class Supplier extends AbstractCompany
         }
 
         return $this;
+    }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->orderdetails = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 }

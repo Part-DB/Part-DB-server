@@ -36,8 +36,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/category")
+ * @see \App\Tests\Controller\AdminPages\CategoryControllerTest
  */
+#[Route(path: '/category')]
 class CategoryController extends BaseAdminController
 {
     protected string $entity_class = Category::class;
@@ -47,44 +48,34 @@ class CategoryController extends BaseAdminController
     protected string $attachment_class = CategoryAttachment::class;
     protected ?string $parameter_class = CategoryParameter::class;
 
-    /**
-     * @Route("/{id}", name="category_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'category_delete', methods: ['DELETE'])]
     public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="category_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'category_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Category $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="category_new")
-     * @Route("/{id}/clone", name="category_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'category_new')]
+    #[Route(path: '/{id}/clone', name: 'category_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Category $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="category_export_all")
-     */
+    #[Route(path: '/export', name: 'category_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="category_export")
-     */
+    #[Route(path: '/{id}/export', name: 'category_export')]
     public function exportEntity(Category $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

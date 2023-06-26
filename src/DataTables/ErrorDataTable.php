@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables;
 
 use App\DataTables\Column\RowClassColumn;
@@ -46,7 +48,7 @@ class ErrorDataTable implements DataTableTypeInterface
         });
     }
 
-    public function configure(DataTable $dataTable, array $options)
+    public function configure(DataTable $dataTable, array $options): void
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -54,16 +56,12 @@ class ErrorDataTable implements DataTableTypeInterface
 
         $dataTable
             ->add('dont_matter_we_only_set_color', RowClassColumn::class, [
-                'render' => function ($value, $context) {
-                    return 'table-warning';
-                },
+                'render' => fn($value, $context): string => 'table-warning',
             ])
 
             ->add('error', TextColumn::class, [
                 'label' => 'error_table.error',
-                'render' => function ($value, $context) {
-                    return '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . $value;
-                },
+                'render' => fn($value, $context): string => '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . $value,
             ])
         ;
 
@@ -76,7 +74,10 @@ class ErrorDataTable implements DataTableTypeInterface
         $dataTable->createAdapter(ArrayAdapter::class, $data);
     }
 
-    public static function errorTable(DataTableFactory $dataTableFactory, Request $request, $errors): Response
+    /**
+     * @param  string[]|string  $errors
+     */
+    public static function errorTable(DataTableFactory $dataTableFactory, Request $request, array|string $errors): Response
     {
         $error_table = $dataTableFactory->createFromType(self::class, ['errors' => $errors]);
         $error_table->handleRequest($request);

@@ -22,6 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Repository\UserRepository;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Validator\Constraints\NoLockout;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -30,8 +34,8 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use App\Validator\Constraints\ValidTheme;
-use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
+use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Webauthn\PublicKeyCredentialUserEntity;
@@ -54,14 +58,16 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 /**
  * This entity represents a user, which can log in and have permissions.
  * Also, this entity is able to save some information about the user, like the names, email-address and other info.
+ * @see \App\Tests\Entity\UserSystem\UserTest
  *
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table("`users`", indexes={
- *    @ORM\Index(name="user_idx_username", columns={"name"})
- * })
- * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
- * @UniqueEntity("name", message="validator.user.username_already_used")
+ * @extends AttachmentContainingDBElement<UserAttachment>
  */
+#[UniqueEntity('name', message: 'validator.user.username_already_used')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
+#[ORM\Table('`users`')]
+#[ORM\Index(name: 'user_idx_username', columns: ['name'])]
+#[NoLockout()]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
@@ -70,179 +76,171 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * The User id of the anonymous user.
      */
-    public const ID_ANONYMOUS = 1;
+    final public const ID_ANONYMOUS = 1;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
-     * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disabled = false;
 
     /**
      * @var string|null The theme
-     * @ORM\Column(type="string", name="config_theme", nullable=true)
-     * @ValidTheme()
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
+    #[ValidTheme()]
     protected ?string $theme = null;
 
     /**
      * @var string|null the hash of a token the user must provide when he wants to reset his password
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $pw_reset_token = null;
 
-    /**
-     * @ORM\Column(type="text", name="config_instock_comment_a")
-     */
+    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_a')]
     protected string $instock_comment_a = '';
 
-    /**
-     * @ORM\Column(type="text", name="config_instock_comment_w")
-     */
+    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_w')]
     protected string $instock_comment_w = '';
 
     /**
      * @var string A self-description of the user
-     * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $aboutMe = '';
 
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
-     *  @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $trustedDeviceCookieVersion = 0;
 
     /**
      * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
-     * @ORM\Column(type="json")
      */
+    #[ORM\Column(type: Types::JSON)]
     protected ?array $backupCodes = [];
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     protected ?int $id = null;
 
     /**
      * @var Group|null the group this user belongs to
      * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
-     * @Selectable()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(name: 'group_id')]
+    #[Selectable]
     protected ?Group $group = null;
 
     /**
      * @var string|null The secret used for Google authenticator
-     * @ORM\Column(name="google_authenticator_secret", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'google_authenticator_secret', type: Types::STRING, nullable: true)]
     protected ?string $googleAuthenticatorSecret = null;
 
     /**
      * @var string|null The timezone the user prefers
-     * @ORM\Column(type="string", name="config_timezone", nullable=true)
-     * @Assert\Timezone()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Timezone]
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::STRING, name: 'config_timezone', nullable: true)]
     protected ?string $timezone = '';
 
     /**
      * @var string|null The language/locale the user prefers
-     * @ORM\Column(type="string", name="config_language", nullable=true)
-     * @Assert\Language()
-     * @Groups({"full", "import"})
      */
+    #[Assert\Language]
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::STRING, name: 'config_language', nullable: true)]
     protected ?string $language = '';
 
     /**
      * @var string|null The email address of the user
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\Email]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $email = '';
 
     /**
      * @var bool True if the user wants to show his email address on his (public) profile
-     * @ORM\Column(type="boolean", options={"default": false})
      */
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     protected bool $show_email_on_profile = false;
 
     /**
      * @var string|null The department the user is working
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
-     * @ORM\Column(type="string", length=255,  nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
-     * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $need_pw_change = true;
 
     /**
      * @var string|null The hashed password
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Regex("/^[\w\.\+\-\$]+$/", message="user.invalid_username")
-     */
+    #[Assert\NotBlank]
+    #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     protected string $name = '';
 
     /**
      * @var array|null
-     * @ORM\Column(type="json")
      */
+    #[ORM\Column(type: Types::JSON)]
     protected ?array $settings = [];
 
     /**
      * @var Collection<int, UserAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
      */
+    #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    /** @var DateTime|null The time when the backup codes were generated
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"full"})
+    /** @var \DateTimeInterface|null The time when the backup codes were generated
      */
-    protected ?DateTime $backupCodesGenerationDate = null;
+    #[Groups(['full'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    protected ?\DateTimeInterface $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
+    #[ORM\OneToMany(targetEntity: U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\WebauthnKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
+    #[ORM\OneToMany(targetEntity: WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
@@ -250,36 +248,34 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *                    Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
      *                    TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
      *                    TODO: Find a way to use fetch EAGER (this improves performance a bit)
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
-     * @Selectable()
-     * @Groups({"extended", "full", "import"})
      */
-    protected ?Currency $currency;
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: Currency::class)]
+    #[ORM\JoinColumn(name: 'currency_id')]
+    #[Selectable]
+    protected ?Currency $currency = null;
 
-    /**
-     * @var PermissionData|null
-     * @ValidPermission()
-     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
-     * @Groups({"simple", "extended", "full", "import"})
-     */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
+    #[ValidPermission()]
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var DateTime|null the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true, options={"default": null})
+     * @var \DateTimeInterface|null the time until the password reset token is valid
      */
-    protected ?DateTime $pw_reset_expires;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    protected ?\DateTimeInterface $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
-     * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full"})
      */
+    #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $saml_user = false;
 
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
@@ -292,7 +288,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
 
@@ -359,8 +355,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the password hash for this user.
-     *
-     * @return User
      */
     public function setPassword(string $password): self
     {
@@ -398,8 +392,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the currency the users prefers to see prices in.
-     *
-     * @return User
      */
     public function setCurrency(?Currency $currency): self
     {
@@ -422,8 +414,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Sets the status if a user is disabled.
      *
      * @param bool $disabled true if the user should be disabled
-     *
-     * @return User
      */
     public function setDisabled(bool $disabled): self
     {
@@ -434,7 +424,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getPermissions(): PermissionData
     {
-        if ($this->permissions === null) {
+        if (!$this->permissions instanceof PermissionData) {
             $this->permissions = new PermissionData();
         }
 
@@ -451,8 +441,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Set the status, if the user needs a password change.
-     *
-     * @return User
      */
     public function setNeedPwChange(bool $need_pw_change): self
     {
@@ -471,8 +459,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the encrypted password reset token.
-     *
-     * @return User
      */
     public function setPwResetToken(?string $pw_reset_token): self
     {
@@ -482,19 +468,17 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Gets the datetime when the password reset token expires.
+     *  Gets the datetime when the password reset token expires.
      */
-    public function getPwResetExpires(): DateTime
+    public function getPwResetExpires(): \DateTimeInterface|null
     {
         return $this->pw_reset_expires;
     }
 
     /**
      * Sets the datetime when the password reset token expires.
-     *
-     * @return User
      */
-    public function setPwResetExpires(DateTime $pw_reset_expires): self
+    public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
@@ -517,7 +501,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         $tmp = $this->getFirstName();
         //Don't add a space, if the name has only one part (it would look strange)
-        if (!empty($this->getFirstName()) && !empty($this->getLastName())) {
+        if ($this->getFirstName() !== null && $this->getFirstName() !== '' && ($this->getLastName() !== null && $this->getLastName() !== '')) {
             $tmp .= ' ';
         }
         $tmp .= $this->getLastName();
@@ -604,8 +588,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Change the department of the user.
      *
      * @param  string|null  $department  The new department
-     *
-     * @return User
      */
     public function setDepartment(?string $department): self
     {
@@ -640,7 +622,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets whether the email address of the user is shown on the public profile page.
-     * @return bool
      */
     public function isShowEmailOnProfile(): bool
     {
@@ -649,8 +630,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets whether the email address of the user is shown on the public profile page.
-     * @param  bool  $show_email_on_profile
-     * @return User
      */
     public function setShowEmailOnProfile(bool $show_email_on_profile): User
     {
@@ -662,7 +641,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns the about me text of the user.
-     * @return string
      */
     public function getAboutMe(): string
     {
@@ -671,8 +649,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Change the about me text of the user.
-     * @param  string  $aboutMe
-     * @return User
      */
     public function setAboutMe(string $aboutMe): User
     {
@@ -698,8 +674,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @param string|null $language The new language as 2-letter ISO code (e.g. 'en' or 'de').
      *                              Set to null, to use the system-wide language.
-     *
-     * @return User
      */
     public function setLanguage(?string $language): self
     {
@@ -864,11 +838,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function setBackupCodes(array $codes): self
     {
         $this->backupCodes = $codes;
-        if (empty($codes)) {
-            $this->backupCodesGenerationDate = null;
-        } else {
-            $this->backupCodesGenerationDate = new DateTime();
-        }
+        $this->backupCodesGenerationDate = $codes === [] ? null : new DateTime();
 
         return $this;
     }
@@ -876,7 +846,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the date when the backup codes were generated.
      */
-    public function getBackupCodesGenerationDate(): ?DateTime
+    public function getBackupCodesGenerationDate(): ?\DateTimeInterface
     {
         return $this->backupCodesGenerationDate;
     }
@@ -930,7 +900,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         return new PublicKeyCredentialUserEntity(
             $this->getUsername(),
-            (string) $this->getId(),
+            (string) $this->getID(),
             $this->getFullName(),
         );
     }
@@ -947,7 +917,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns true, if the user was created by the SAML authentication.
-     * @return bool
      */
     public function isSamlUser(): bool
     {
@@ -956,8 +925,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the saml_user flag.
-     * @param  bool  $saml_user
-     * @return User
      */
     public function setSamlUser(bool $saml_user): User
     {
@@ -967,7 +934,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
 
 
-    public function setSamlAttributes(array $attributes)
+    public function setSamlAttributes(array $attributes): void
     {
         //When mail attribute exists, set it
         if (isset($attributes['email'])) {

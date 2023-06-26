@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
@@ -36,15 +37,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class OrderdetailType extends AbstractType
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(protected Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -82,7 +79,7 @@ class OrderdetailType extends AbstractType
             $orderdetail = $event->getData();
 
             $dummy_pricedetail = new Pricedetail();
-            if (null !== $orderdetail && null !== $orderdetail->getSupplier()) {
+            if ($orderdetail instanceof Orderdetail && $orderdetail->getSupplier() instanceof Supplier) {
                 $dummy_pricedetail->setCurrency($orderdetail->getSupplier()->getDefaultCurrency());
             }
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use App\Entity\Base\AbstractDBElement;
@@ -34,45 +36,25 @@ class EntityConstraint extends AbstractConstraint
     private const ALLOWED_OPERATOR_VALUES_STRUCTURAL = ['INCLUDING_CHILDREN', 'EXCLUDING_CHILDREN'];
 
     /**
-     * @var NodesListBuilder
-     */
-    protected ?NodesListBuilder $nodesListBuilder;
-
-    /**
-     * @var class-string<T> The class to use for the comparison
-     */
-    protected string $class;
-
-    /**
-     * @var string|null The operator to use
-     */
-    protected ?string $operator;
-
-    /**
-     * @var T The value to compare to
-     */
-    protected $value;
-
-    /**
      * @param  NodesListBuilder|null  $nodesListBuilder
      * @param  class-string<T>  $class
      * @param  string  $property
      * @param  string|null  $identifier
-     * @param  null  $value
-     * @param  string  $operator
+     * @param  null|T  $value
+     * @param  string|null  $operator
      */
-    public function __construct(?NodesListBuilder $nodesListBuilder, string $class, string $property, string $identifier = null, $value = null, string $operator = '')
+    public function __construct(protected ?NodesListBuilder $nodesListBuilder,
+        protected string $class,
+        string $property,
+        string $identifier = null,
+        protected $value = null,
+        protected ?string $operator = null)
     {
-        $this->nodesListBuilder = $nodesListBuilder;
-        $this->class = $class;
-
-        if ($nodesListBuilder === null && $this->isStructural()) {
+        if (!$nodesListBuilder instanceof NodesListBuilder && $this->isStructural()) {
             throw new \InvalidArgumentException('NodesListBuilder must be provided for structural entities');
         }
 
         parent::__construct($property, $identifier);
-        $this->value = $value;
-        $this->operator = $operator;
     }
 
     public function getClass(): string
@@ -80,17 +62,11 @@ class EntityConstraint extends AbstractConstraint
         return $this->class;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOperator(): ?string
     {
         return $this->operator;
     }
 
-    /**
-     * @param  string|null  $operator
-     */
     public function setOperator(?string $operator): self
     {
         $this->operator = $operator;
@@ -106,9 +82,10 @@ class EntityConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  T|null $value
+     * @param  AbstractDBElement|null $value
+     * @phpstan-param T|null $value
      */
-    public function setValue(?AbstractDBElement $value): void
+    public function setValue(AbstractDBElement|null $value): void
     {
         if (!$value instanceof $this->class) {
             throw new \InvalidArgumentException('The value must be an instance of ' . $this->class);
@@ -119,7 +96,7 @@ class EntityConstraint extends AbstractConstraint
 
     /**
      * Checks whether the constraints apply to a structural type or not
-     * @return bool
+     * @phpstan-assert-if-true AbstractStructuralDBElement $this->value
      */
     public function isStructural(): bool
     {
@@ -136,7 +113,7 @@ class EntityConstraint extends AbstractConstraint
         $tmp = self::ALLOWED_OPERATOR_VALUES_BASE;
 
         if ($this->isStructural()) {
-            $tmp = array_merge($tmp, self::ALLOWED_OPERATOR_VALUES_STRUCTURAL);
+            $tmp = [...$tmp, ...self::ALLOWED_OPERATOR_VALUES_STRUCTURAL];
         }
 
         return $tmp;
@@ -144,7 +121,7 @@ class EntityConstraint extends AbstractConstraint
 
     public function isEnabled(): bool
     {
-        return !empty($this->operator);
+        return $this->operator !== null && $this->operator !== '';
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -160,7 +137,7 @@ class EntityConstraint extends AbstractConstraint
         }
 
         //We need to handle null values differently, as they can not be compared with == or !=
-        if ($this->value === null) {
+        if (!$this->value instanceof AbstractDBElement) {
             if($this->operator === '=' || $this->operator === 'INCLUDING_CHILDREN') {
                 $queryBuilder->andWhere(sprintf("%s IS NULL", $this->property));
                 return;

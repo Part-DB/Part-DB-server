@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\ProjectSystem;
 
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -18,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ProjectBOMEntryType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
 
@@ -86,11 +88,5 @@ class ProjectBOMEntryType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProjectBOMEntry::class,
         ]);
-    }
-
-
-    public function getBlockPrefix(): string
-    {
-        return 'project_bom_entry';
     }
 }

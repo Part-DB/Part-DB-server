@@ -41,23 +41,24 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Entity\LabelSystem\BarcodeType;
+use App\Entity\LabelSystem\LabelProcessMode;
+use App\Entity\LabelSystem\LabelSupportedElement;
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class LabelOptionsType extends AbstractType
 {
-    private Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -81,31 +82,33 @@ class LabelOptionsType extends AbstractType
             ],
         ]);
 
-        $builder->add('supported_element', ChoiceType::class, [
+        $builder->add('supported_element', EnumType::class, [
             'label' => 'label_options.supported_elements.label',
-            'choices' => [
-                'part.label' => 'part',
-                'part_lot.label' => 'part_lot',
-                'storelocation.label' => 'storelocation',
-            ],
+            'class' => LabelSupportedElement::class,
+            'choice_label' => fn(LabelSupportedElement $choice) => match($choice) {
+                LabelSupportedElement::PART => 'part.label',
+                LabelSupportedElement::PART_LOT => 'part_lot.label',
+                LabelSupportedElement::STORELOCATION => 'storelocation.label',
+            },
         ]);
 
-        $builder->add('barcode_type', ChoiceType::class, [
+        $builder->add('barcode_type', EnumType::class, [
             'label' => 'label_options.barcode_type.label',
             'empty_data' => 'none',
-            'choices' => [
-                'label_options.barcode_type.none' => 'none',
-                'label_options.barcode_type.qr' => 'qr',
-                'label_options.barcode_type.code128' => 'code128',
-                'label_options.barcode_type.code39' => 'code39',
-                'label_options.barcode_type.code93' => 'code93',
-                'label_options.barcode_type.datamatrix' => 'datamatrix',
-            ],
-            'group_by' => static function ($choice, $key, $value) {
-                if (in_array($choice, ['qr', 'datamatrix'], true)) {
+            'class' => BarcodeType::class,
+            'choice_label' => fn(BarcodeType $choice) => match($choice) {
+                BarcodeType::NONE => 'label_options.barcode_type.none',
+                BarcodeType::QR => 'label_options.barcode_type.qr',
+                BarcodeType::CODE128 => 'label_options.barcode_type.code128',
+                BarcodeType::CODE39 => 'label_options.barcode_type.code39',
+                BarcodeType::CODE93 => 'label_options.barcode_type.code93',
+                BarcodeType::DATAMATRIX => 'label_options.barcode_type.datamatrix',
+            },
+            'group_by' => static function (BarcodeType $choice, $key, $value): ?string {
+                if ($choice->is2D()) {
                     return 'label_options.barcode_type.2D';
                 }
-                if (in_array($choice, ['code39', 'code93', 'code128'], true)) {
+                if ($choice->is1D()) {
                     return 'label_options.barcode_type.1D';
                 }
 
@@ -132,12 +135,13 @@ class LabelOptionsType extends AbstractType
             'required' => false,
         ]);
 
-        $builder->add('lines_mode', ChoiceType::class, [
+        $builder->add('process_mode', EnumType::class, [
             'label' => 'label_options.lines_mode.label',
-            'choices' => [
-                'label_options.lines_mode.html' => 'html',
-                'label.options.lines_mode.twig' => 'twig',
-            ],
+            'class' => LabelProcessMode::class,
+            'choice_label' => fn(LabelProcessMode $choice) => match($choice) {
+                LabelProcessMode::PLACEHOLDER => 'label_options.lines_mode.html',
+                LabelProcessMode::TWIG => 'label.options.lines_mode.twig',
+            },
             'help' => 'label_options.lines_mode.help',
             'help_html' => true,
             'expanded' => true,

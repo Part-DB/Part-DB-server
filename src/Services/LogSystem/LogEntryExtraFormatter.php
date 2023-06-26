@@ -33,6 +33,7 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\ExceptionLogEntry;
 use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
+use App\Entity\LogSystem\PartStockChangeType;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
@@ -48,13 +49,9 @@ class LogEntryExtraFormatter
 {
     protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>'];
     protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
-    protected TranslatorInterface $translator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
 
-    public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(protected TranslatorInterface $translator, protected ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->translator = $translator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     /**
@@ -72,7 +69,7 @@ class LogEntryExtraFormatter
                 $str .= '<error>'.$this->translator->trans($key).'</error>: ';
             }
             $str .= $value;
-            if (!empty($str)) {
+            if ($str !== '') {
                 $tmp[] = $str;
             }
         }
@@ -95,7 +92,7 @@ class LogEntryExtraFormatter
                 $str .= '<b>'.$this->translator->trans($key).'</b>: ';
             }
             $str .= $value;
-            if (!empty($str)) {
+            if ($str !== '') {
                 $tmp[] = $str;
             }
         }
@@ -130,9 +127,9 @@ class LogEntryExtraFormatter
         }
 
         if (($context instanceof LogWithEventUndoInterface) && $context->isUndoEvent()) {
-            if ('undo' === $context->getUndoMode()) {
+            if (EventUndoMode::UNDO === $context->getUndoMode()) {
                 $array['log.undo_mode.undo'] = '#' . $context->getUndoEventID();
-            } elseif ('revert' === $context->getUndoMode()) {
+            } elseif (EventUndoMode::REVERT === $context->getUndoMode()) {
                 $array['log.undo_mode.revert'] = '#' . $context->getUndoEventID();
             }
         }
@@ -163,7 +160,7 @@ class LogEntryExtraFormatter
                 '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',
                 $context->getOldInstock(),
                 $context->getNewInstock(),
-                (!$context->isWithdrawal() ? '+' : '-').$context->getDifference(true)
+                ($context->isWithdrawal() ? '-' : '+').$context->getDifference(true)
             );
             $array['log.instock_changed.comment'] = htmlspecialchars($context->getComment());
         }
@@ -188,10 +185,10 @@ class LogEntryExtraFormatter
                 $context->getNewStock(),
                 ($context->getNewStock() > $context->getOldStock() ? '+' : '-'). $context->getChangeAmount(),
             );
-            if (!empty($context->getComment())) {
+            if ($context->getComment() !== '') {
                 $array['log.part_stock_changed.comment'] = htmlspecialchars($context->getComment());
             }
-            if ($context->getInstockChangeType() === PartStockChangedLogEntry::TYPE_MOVE) {
+            if ($context->getInstockChangeType() === PartStockChangeType::MOVE) {
                 $array['log.part_stock_changed.move_target'] =
                     htmlspecialchars($this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class))
                     .' ' . $context->getMoveToTargetID();

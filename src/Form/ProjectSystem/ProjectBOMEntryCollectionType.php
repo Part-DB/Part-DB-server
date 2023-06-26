@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\ProjectSystem;
 
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +15,7 @@ class ProjectBOMEntryCollectionType extends AbstractType
         return CollectionType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'entry_type' => ProjectBOMEntryType::class,
@@ -26,10 +28,5 @@ class ProjectBOMEntryCollectionType extends AbstractType
             'reindex_enable' => true,
             'label' => false,
         ]);
-    }
-
-    public function getBlockPrefix(): string
-    {
-        return 'project_bom_entry_collection';
     }
 }

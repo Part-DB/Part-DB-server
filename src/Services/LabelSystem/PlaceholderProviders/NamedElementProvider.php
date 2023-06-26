@@ -43,6 +43,9 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Contracts\NamedElementInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\NamedElementProviderTest
+ */
 final class NamedElementProvider implements PlaceholderProviderInterface
 {
     public function replace(string $placeholder, object $label_target, array $options = []): ?string

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Migrations;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\ProjectSystem\Project;
@@ -47,6 +48,7 @@ use function count;
 /**
  * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used Markdown format.
  */
+#[AsCommand('partdb:migrations:convert-bbcode|app:convert-bbcode', 'Converts BBCode used in old Part-DB versions to newly used Markdown')]
 class ConvertBBCodeCommand extends Command
 {
     /**
@@ -57,18 +59,10 @@ class ConvertBBCodeCommand extends Command
      * @var string The regex (performed in PHP) used to check if a property really contains BBCODE
      */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
-
-    protected static $defaultName = 'partdb:migrations:convert-bbcode|app:convert-bbcode';
-
-    protected EntityManagerInterface $em;
-    protected PropertyAccessorInterface $propertyAccessor;
     protected BBCodeToMarkdownConverter $converter;
 
-    public function __construct(EntityManagerInterface $entityManager, PropertyAccessorInterface $propertyAccessor)
+    public function __construct(protected EntityManagerInterface $em, protected PropertyAccessorInterface $propertyAccessor)
     {
-        $this->em = $entityManager;
-        $this->propertyAccessor = $propertyAccessor;
-
         $this->converter = new BBCodeToMarkdownConverter();
 
         parent::__construct();
@@ -76,9 +70,7 @@ class ConvertBBCodeCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Converts BBCode used in old Part-DB versions to newly used Markdown')
-            ->setHelp('Older versions of Part-DB (<1.0) used BBCode for rich text formatting.
+        $this->setHelp('Older versions of Part-DB (<1.0) used BBCode for rich text formatting.
                 Part-DB now uses Markdown which offers more features but is incompatible with BBCode.
                 When you upgrade from an pre 1.0 version you have to run this command to convert your comment fields');
 
@@ -129,25 +121,25 @@ class ConvertBBCodeCommand extends Command
 
             //Fetch resulting classes
             $results = $qb->getQuery()->getResult();
-            $io->note(sprintf('Found %d entities, that need to be converted!', count($results)));
+            $io->note(sprintf('Found %d entities, that need to be converted!', is_countable($results) ? count($results) : 0));
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {
                 /** @var AbstractNamedDBElement $result */
                 $io->writeln(
-                    'Convert entity: '.$result->getName().' ('.get_class($result).': '.$result->getID().')',
+                    'Convert entity: '.$result->getName().' ('.$result::class.': '.$result->getID().')',
                     OutputInterface::VERBOSITY_VERBOSE
                 );
                 foreach ($properties as $property) {
                     //Retrieve bbcode from entity
                     $bbcode = $this->propertyAccessor->getValue($result, $property);
                     //Check if the current property really contains BBCode
-                    if (!preg_match(static::BBCODE_REGEX, $bbcode)) {
+                    if (!preg_match(static::BBCODE_REGEX, (string) $bbcode)) {
                         continue;
                     }
                     $io->writeln(
                         'BBCode (old): '
-                        .str_replace('\n', ' ', substr($bbcode, 0, 255)),
+                        .str_replace('\n', ' ', substr((string) $bbcode, 0, 255)),
                         OutputInterface::VERBOSITY_VERY_VERBOSE
                     );
                     $markdown = $this->converter->convert($bbcode);
@@ -168,6 +160,6 @@ class ConvertBBCodeCommand extends Command
             $io->success('Changes saved to DB successfully!');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

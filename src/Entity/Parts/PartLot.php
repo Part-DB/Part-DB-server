@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
@@ -40,84 +41,84 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * This entity describes a lot where parts can be stored.
  * It is the connection between a part and its store locations.
  *
- * @ORM\Entity()
- * @ORM\Table(name="part_lots", indexes={
- *    @ORM\Index(name="part_lots_idx_instock_un_expiration_id_part", columns={"instock_unknown", "expiration_date", "id_part"}),
- *    @ORM\Index(name="part_lots_idx_needs_refill", columns={"needs_refill"}),
- * })
- * @ORM\HasLifecycleCallbacks()
- * @ValidPartLot()
+ * @see \App\Tests\Entity\Parts\PartLotTest
  */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'part_lots')]
+#[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
+#[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
+#[ValidPartLot]
 class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
     /**
      * @var string A short description about this lot, shown in table
-     * @ORM\Column(type="text")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
-     * @ORM\Column(type="text")
-     * @Groups({"full", "import"})
      */
+    #[Groups(['full', 'import'])]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
     /**
-     * @var ?DateTime Set a time until when the lot must be used.
+     * @var \DateTimeInterface|null Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
-     * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
-     * @Groups({"extended", "full", "import"})
      */
-    protected ?DateTime $expiration_date = null;
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
+    protected ?\DateTimeInterface $expiration_date = null;
 
     /**
      * @var Storelocation|null The storelocation of this lot
-     * @ORM\ManyToOne(targetEntity="Storelocation")
-     * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id", nullable=true)
-     * @Selectable()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: Storelocation::class)]
+    #[ORM\JoinColumn(name: 'id_store_location')]
+    #[Selectable()]
     protected ?Storelocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
-     * @ORM\Column(type="boolean")
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $instock_unknown = false;
 
     /**
      * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
-     * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\PositiveOrZero]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
-     * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_refill = false;
 
     /**
-     * @var Part The part that is stored in this lot
-     * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
+     * @var Part|null The part that is stored in this lot
      */
-    protected Part $part;
+    #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
+    #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
+    protected ?Part $part = null;
 
     /**
      * @var User|null The owner of this part lot
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     protected ?User $owner = null;
 
     public function __clone()
@@ -138,7 +139,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     public function isExpired(): ?bool
     {
-        if (null === $this->expiration_date) {
+        if (!$this->expiration_date instanceof \DateTimeInterface) {
             return null;
         }
 
@@ -156,8 +157,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the description of the part lot.
-     *
-     * @return PartLot
      */
     public function setDescription(string $description): self
     {
@@ -176,8 +175,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the comment for this part lot.
-     *
-     * @return PartLot
      */
     public function setComment(string $comment): self
     {
@@ -189,7 +186,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
      */
-    public function getExpirationDate(): ?DateTime
+    public function getExpirationDate(): ?\DateTimeInterface
     {
         return $this->expiration_date;
     }
@@ -197,11 +194,9 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expire.
      *
-     * @param  DateTime|null  $expiration_date
      *
-     * @return PartLot
      */
-    public function setExpirationDate(?DateTime $expiration_date): self
+    public function setExpirationDate(?\DateTimeInterface $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
 
@@ -220,8 +215,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the storage location, where this part lot is stored.
-     *
-     * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
     {
@@ -233,15 +226,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Return the part that is stored in this part lot.
      */
-    public function getPart(): Part
+    public function getPart(): ?Part
     {
         return $this->part;
     }
 
     /**
      * Sets the part that is stored in this part lot.
-     *
-     * @return PartLot
      */
     public function setPart(Part $part): self
     {
@@ -260,8 +251,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Set the unknown instock status of this part lot.
-     *
-     * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
     {
@@ -303,9 +292,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this->needs_refill;
     }
 
-    /**
-     * @return PartLot
-     */
     public function setNeedsRefill(bool $needs_refill): self
     {
         $this->needs_refill = $needs_refill;
@@ -315,7 +301,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Returns the owner of this part lot.
-     * @return User|null
      */
     public function getOwner(): ?User
     {
@@ -324,8 +309,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Sets the owner of this part lot.
-     * @param  User|null  $owner
-     * @return PartLot
      */
     public function setOwner(?User $owner): PartLot
     {
@@ -338,10 +321,8 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this->description;
     }
 
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Ensure that the owner is not the anonymous user
         if ($this->getOwner() && $this->getOwner()->isAnonymousUser()) {
@@ -352,14 +333,12 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
         //When the storage location sets the owner must match, the part lot owner must match the storage location owner
         if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
-            && $this->getStorageLocation()->getOwner() && $this->getOwner()) {
-            if ($this->getOwner() !== $this->getStorageLocation()->getOwner()
-                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID()) {
-                $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
-                    ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
-                    ->atPath('owner')
-                    ->addViolation();
-            }
+            && $this->getStorageLocation()->getOwner() && $this->getOwner() && ($this->getOwner() !== $this->getStorageLocation()->getOwner()
+                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID())) {
+            $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
+                ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
+                ->atPath('owner')
+                ->addViolation();
         }
     }
 }

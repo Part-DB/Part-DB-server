@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\ImportExportSystem;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
@@ -42,8 +43,6 @@ class EntityImporterTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(EntityImporter::class);
@@ -83,8 +82,12 @@ Test1
 Test2
 EOT;
 
+        //Define a new anonymous class, which is not structural. We can not use User here, because it does some validation
+        $anonymous_object = new class extends AttachmentContainingDBElement {};
+        $anonymous_class = get_class($anonymous_object);
+
         $errors = [];
-        $results = $this->service->massCreation($input, User::class, null, $errors);
+        $results = $this->service->massCreation($input, $anonymous_class, null, $errors);
 
         //Import must not fail, even with non-structural classes
         $this->assertCount(3, $results);

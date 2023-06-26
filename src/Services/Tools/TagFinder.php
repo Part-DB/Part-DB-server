@@ -34,11 +34,8 @@ use function array_slice;
  */
 class TagFinder
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     /**
@@ -78,7 +75,7 @@ class TagFinder
 
         //Iterate over each possible tags (which are comma separated) and extract tags which match our keyword
         foreach ($possible_tags as $tags) {
-            $tags = explode(',', $tags['tags']);
+            $tags = explode(',', (string) $tags['tags']);
             $results = array_merge($results, preg_grep($keyword_regex, $tags));
         }
 

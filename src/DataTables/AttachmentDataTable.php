@@ -42,27 +42,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class AttachmentDataTable implements DataTableTypeInterface
 {
-    private TranslatorInterface $translator;
-    private EntityURLGenerator $entityURLGenerator;
-    private AttachmentManager $attachmentHelper;
-    private ElementTypeNameGenerator $elementTypeNameGenerator;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-
-    public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator,
-                                AttachmentManager $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,
-                                ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly EntityURLGenerator $entityURLGenerator, private readonly AttachmentManager $attachmentHelper, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->translator = $translator;
-        $this->entityURLGenerator = $entityURLGenerator;
-        $this->attachmentHelper = $attachmentHelper;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     public function configure(DataTable $dataTable, array $options): void
     {
         $dataTable->add('dont_matter', RowClassColumn::class, [
-            'render' => function ($value, Attachment $context) {
+            'render' => function ($value, Attachment $context): string {
                 //Mark attachments with missing files yellow
                 if(!$this->attachmentHelper->isFileExisting($context)){
                     return 'table-warning';
@@ -75,7 +62,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('picture', TextColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
-            'render' => function ($value, Attachment $context) {
+            'render' => function ($value, Attachment $context): string {
                 if ($context->isPicture()
                     && !$context->isExternal()
                     && $this->attachmentHelper->isFileExisting($context)) {
@@ -125,25 +112,21 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('attachment_type', TextColumn::class, [
             'label' => 'attachment.table.type',
             'field' => 'attachment_type.name',
-            'render' => function ($value, Attachment $context) {
-                return sprintf(
-                    '<a href="%s">%s</a>',
-                    $this->entityURLGenerator->editURL($context->getAttachmentType()),
-                    htmlspecialchars($value)
-                );
-            },
+            'render' => fn($value, Attachment $context): string => sprintf(
+                '<a href="%s">%s</a>',
+                $this->entityURLGenerator->editURL($context->getAttachmentType()),
+                htmlspecialchars((string) $value)
+            ),
         ]);
 
         $dataTable->add('element', TextColumn::class, [
             'label' => 'attachment.table.element',
             //'propertyPath' => 'element.name',
-            'render' => function ($value, Attachment $context) {
-                return sprintf(
-                    '<a href="%s">%s</a>',
-                    $this->entityURLGenerator->infoURL($context->getElement()),
-                    $this->elementTypeNameGenerator->getTypeNameCombination($context->getElement(), true)
-                );
-            },
+            'render' => fn($value, Attachment $context): string => sprintf(
+                '<a href="%s">%s</a>',
+                $this->entityURLGenerator->infoURL($context->getElement()),
+                $this->elementTypeNameGenerator->getTypeNameCombination($context->getElement(), true)
+            ),
         ]);
 
         $dataTable->add('filename', TextColumn::class, [

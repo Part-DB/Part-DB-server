@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,24 +20,30 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Twig;
 
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Twig\TwigTest;
 
 /**
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.
+ * @see \App\Tests\Twig\TwigCoreExtensionTest
  */
 final class TwigCoreExtension extends AbstractExtension
 {
-    protected ObjectNormalizer $objectNormalizer;
-
-    public function __construct(ObjectNormalizer $objectNormalizer)
+    public function __construct(protected ObjectNormalizer $objectNormalizer)
     {
-        $this->objectNormalizer = $objectNormalizer;
+    }
+
+    public function getFunctions(): array
+    {
+        return [
+            /* Returns the enum cases as values */
+            new TwigFunction('enum_cases', [$this, 'getEnumCases']),
+        ];
     }
 
     public function getTests(): array
@@ -43,30 +52,35 @@ final class TwigCoreExtension extends AbstractExtension
             /*
              * Checks if a given variable is an instance of a given class. E.g. ` x is instanceof('App\Entity\Parts\Part')`
              */
-            new TwigTest('instanceof', static function ($var, $instance) {
-                return $var instanceof $instance;
-            }),
+            new TwigTest('instanceof', static fn($var, $instance) => $var instanceof $instance),
             /* Checks if a given variable is an object. E.g. `x is object` */
-            new TwigTest('object', static function ($var) {
-                return is_object($var);
-            }),
+            new TwigTest('object', static fn($var): bool => is_object($var)),
         ];
+    }
+
+    /**
+     * @param  string  $enum_class
+     * @phpstan-param class-string $enum_class
+     */
+    public function getEnumCases(string $enum_class): array
+    {
+        if (!enum_exists($enum_class)) {
+            throw new \InvalidArgumentException(sprintf('The given class "%s" is not an enum!', $enum_class));
+        }
+
+        return ($enum_class)::cases();
     }
 
     public function getFilters(): array
     {
         return [
             /* Converts the given object to an array representation of the public/accessible properties  */
-            new TwigFilter('to_array', [$this, 'toArray']),
+            new TwigFilter('to_array', fn($object) => $this->toArray($object)),
         ];
     }
 
-    public function toArray($object)
+    public function toArray(object|array $object): array
     {
-        if(! is_object($object) && ! is_array($object)) {
-            throw new \InvalidArgumentException('The given variable is not an object or array!');
-        }
-
         //If it is already an array, we can just return it
         if(is_array($object)) {
             return $object;

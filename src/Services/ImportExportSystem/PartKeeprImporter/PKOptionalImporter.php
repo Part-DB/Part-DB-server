@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
 use App\Entity\Attachments\ProjectAttachment;
@@ -45,7 +47,6 @@ class PKOptionalImporter
 
     /**
      * Import the projects from the given data.
-     * @param  array  $data
      * @return int The number of imported projects
      */
     public function importProjects(array $data): int
@@ -99,12 +100,11 @@ class PKOptionalImporter
 
         $this->importAttachments($data, 'projectattachment', Project::class, 'project_id', ProjectAttachment::class);
 
-        return count($projects_data);
+        return is_countable($projects_data) ? count($projects_data) : 0;
     }
 
     /**
      * Import the users from the given data.
-     * @param  array  $data
      * @return int The number of imported users
      */
     public function importUsers(array $data): int
@@ -144,6 +144,6 @@ class PKOptionalImporter
 
         $this->em->flush();
 
-        return count($users_data);
+        return is_countable($users_data) ? count($users_data) : 0;
     }
 }

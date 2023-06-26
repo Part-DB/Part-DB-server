@@ -29,17 +29,16 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * This service converts the relative pathes for attachments saved in database (like %MEDIA%/img.jpg) to real pathes
  * an vice versa.
+ * @see \App\Tests\Services\Attachments\AttachmentPathResolverTest
  */
 class AttachmentPathResolver
 {
-    protected string $project_dir;
-
-    protected ?string $media_path;
-    protected ?string $footprints_path;
+    protected string $media_path;
+    protected string $footprints_path;
     protected ?string $models_path;
     protected ?string $secure_path;
 
-    protected array $placeholders;
+    protected array $placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
     protected array $pathes;
     protected array $placeholders_regex;
     protected array $pathes_regex;
@@ -53,18 +52,13 @@ class AttachmentPathResolver
      *                                     Set to null if this ressource should be disabled.
      * @param string|null $models_path     set to null if this ressource should be disabled
      */
-    public function __construct(string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
+    public function __construct(protected string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
     {
-        $this->project_dir = $project_dir;
-
-        //Determine the path for our ressources
-        $this->media_path = $this->parameterToAbsolutePath($media_path);
-        $this->footprints_path = $this->parameterToAbsolutePath($footprints_path);
+        //Determine the path for our resources
+        $this->media_path = $this->parameterToAbsolutePath($media_path) ?? throw new \InvalidArgumentException('The media path must be set and valid!');
+        $this->secure_path = $this->parameterToAbsolutePath($secure_path) ?? throw new \InvalidArgumentException('The secure path must be set and valid!');
+        $this->footprints_path = $this->parameterToAbsolutePath($footprints_path) ;
         $this->models_path = $this->parameterToAbsolutePath($models_path);
-        $this->secure_path = $this->parameterToAbsolutePath($secure_path);
-
-        //Here we define the valid placeholders and their replacement values
-        $this->placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
         $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path, $this->secure_path];
 
         //Remove all disabled placeholders
@@ -134,7 +128,7 @@ class AttachmentPathResolver
         $count = 0;
 
         //When path is a footprint we have to first run the string through our lecagy german mapping functions
-        if (strpos($placeholder_path, '%FOOTPRINTS%') !== false) {
+        if (str_contains($placeholder_path, '%FOOTPRINTS%')) {
             $placeholder_path = $this->convertOldFootprintPath($placeholder_path);
         }
 
@@ -151,7 +145,7 @@ class AttachmentPathResolver
         }
 
         //Path is invalid if path is directory traversal
-        if (false !== strpos($placeholder_path, '..')) {
+        if (str_contains($placeholder_path, '..')) {
             return null;
         }
 
@@ -198,7 +192,7 @@ class AttachmentPathResolver
     }
 
     /**
-     * The path where uploaded attachments is stored.
+     *  The path where uploaded attachments is stored.
      *
      * @return string the absolute path to the media folder
      */
@@ -208,8 +202,8 @@ class AttachmentPathResolver
     }
 
     /**
-     * The path where secured attachments are stored. Must not be located in public/ folder, so it can only be accessed
-     * via the attachment controller.
+     *  The path where secured attachments are stored. Must not be located in public/ folder, so it can only be accessed
+     *  via the attachment controller.
      *
      * @return string the absolute path to the secure path
      */
@@ -221,7 +215,7 @@ class AttachmentPathResolver
     /**
      * The string where the builtin footprints are stored.
      *
-     * @return string|null The absolute path to the footprints folder. Null if built footprints were disabled.
+     * @return string|null The absolute path to the footprints' folder. Null if built footprints were disabled.
      */
     public function getFootprintsPath(): ?string
     {
@@ -231,7 +225,7 @@ class AttachmentPathResolver
     /**
      * The string where the builtin 3D models are stored.
      *
-     * @return string|null The absolute path to the models folder. Null if builtin models were disabled.
+     * @return string|null The absolute path to the models' folder. Null if builtin models were disabled.
      */
     public function getModelsPath(): ?string
     {
@@ -248,7 +242,7 @@ class AttachmentPathResolver
         $ret = [];
 
         foreach ($array as $item) {
-            $item = str_replace(['\\'], ['/'], $item);
+            $item = str_replace(['\\'], ['/'], (string) $item);
             $ret[] = '/'.preg_quote($item, '/').'/';
         }
 

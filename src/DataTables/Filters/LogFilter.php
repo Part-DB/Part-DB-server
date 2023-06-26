@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\ChoiceConstraint;
@@ -33,13 +35,13 @@ class LogFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    protected DateTimeConstraint $timestamp;
-    protected IntConstraint $dbId;
-    protected ChoiceConstraint $level;
-    protected InstanceOfConstraint $eventType;
-    protected ChoiceConstraint $targetType;
-    protected IntConstraint $targetId;
-    protected EntityConstraint $user;
+    public readonly DateTimeConstraint $timestamp;
+    public readonly IntConstraint $dbId;
+    public readonly ChoiceConstraint $level;
+    public readonly InstanceOfConstraint $eventType;
+    public readonly ChoiceConstraint $targetType;
+    public readonly IntConstraint $targetId;
+    public readonly EntityConstraint $user;
 
     public function __construct()
     {
@@ -57,59 +59,4 @@ class LogFilter implements FilterInterface
     {
         $this->applyAllChildFilters($queryBuilder);
     }
-
-    /**
-     * @return DateTimeConstraint
-     */
-    public function getTimestamp(): DateTimeConstraint
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @return IntConstraint|NumberConstraint
-     */
-    public function getDbId()
-    {
-        return $this->dbId;
-    }
-
-    /**
-     * @return ChoiceConstraint
-     */
-    public function getLevel(): ChoiceConstraint
-    {
-        return $this->level;
-    }
-
-    /**
-     * @return InstanceOfConstraint
-     */
-    public function getEventType(): InstanceOfConstraint
-    {
-        return $this->eventType;
-    }
-
-    /**
-     * @return ChoiceConstraint
-     */
-    public function getTargetType(): ChoiceConstraint
-    {
-        return $this->targetType;
-    }
-
-    /**
-     * @return IntConstraint
-     */
-    public function getTargetId(): IntConstraint
-    {
-        return $this->targetId;
-    }
-
-    public function getUser(): EntityConstraint
-    {
-        return $this->user;
-    }
-
-
 }

@@ -27,9 +27,8 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Constraints the parent property on StructuralDBElement objects in the way, that neither the object self nor any
  * of its children can be assigned.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class NoneOfItsChildren extends Constraint
 {
     /**

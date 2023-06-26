@@ -26,6 +26,8 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use Composer\Semver\Constraint\Constraint;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,17 +38,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @see \App\Tests\Services\ImportExportSystem\EntityImporterTest
+ */
 class EntityImporter
 {
-    protected SerializerInterface $serializer;
-    protected EntityManagerInterface $em;
-    protected ValidatorInterface $validator;
-
-    public function __construct(SerializerInterface $serializer, EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator)
     {
-        $this->serializer = $serializer;
-        $this->em = $em;
-        $this->validator = $validator;
     }
 
     /**
@@ -68,7 +66,7 @@ class EntityImporter
         if (!is_a($class_name, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if (null !== $parent && !is_a($parent, $class_name)) {
+        if ($parent instanceof AbstractStructuralDBElement && !$parent instanceof $class_name) {
             throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -92,11 +90,7 @@ class EntityImporter
             }
             while ($identSize < end($indentations)) {
                 //If the line is intendet less than the last line, we have to go up in the tree
-                if ($current_parent instanceof AbstractStructuralDBElement) {
-                    $current_parent = $current_parent->getParent();
-                } else {
-                    $current_parent = null;
-                }
+                $current_parent = $current_parent instanceof AbstractStructuralDBElement ? $current_parent->getParent() : null;
                 array_pop($indentations);
             }
 
@@ -246,7 +240,7 @@ class EntityImporter
      * @param array  $options    options for the import process
      * @param AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
      *
-     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
+     * @return array<string, ConstraintViolationList> An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfully, the array should be empty.
      */
     public function importFileAndPersistToDB(File $file, array $options = [], array &$entities = []): array
@@ -297,20 +291,13 @@ class EntityImporter
         //Convert the extension to lower case
         $extension = strtolower($extension);
 
-        switch ($extension) {
-            case 'json':
-                return 'json';
-            case 'xml':
-                return 'xml';
-            case 'csv':
-            case 'tsv':
-                return 'csv';
-            case 'yaml':
-            case 'yml':
-                return 'yaml';
-            default:
-                return null;
-        }
+        return match ($extension) {
+            'json' => 'json',
+            'xml' => 'xml',
+            'csv', 'tsv' => 'csv',
+            'yaml', 'yml' => 'yaml',
+            default => null,
+        };
     }
 
     /**

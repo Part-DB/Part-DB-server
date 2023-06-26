@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,25 +20,22 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Twig;
 
+use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
 
 final class MiscExtension extends AbstractExtension
 {
-    private EventCommentNeededHelper $eventCommentNeededHelper;
-
-    public function __construct(EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(private readonly EventCommentNeededHelper $eventCommentNeededHelper)
     {
-        $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
     public function getFunctions(): array
     {
         return [
-            new \Twig\TwigFunction('event_comment_needed',
+            new TwigFunction('event_comment_needed',
                 fn(string $operation_type) => $this->eventCommentNeededHelper->isCommentNeeded($operation_type)
             ),
         ];

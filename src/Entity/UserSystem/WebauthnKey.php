@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,78 +20,55 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
 
-/**
- * @ORM\Table(name="webauthn_keys")
- * @ORM\Entity()
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'webauthn_keys')]
 class WebauthnKey extends BasePublicKeyCredentialSource
 {
     use TimestampTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\GeneratedValue]
     protected int $id;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected string $name;
+    #[ORM\Column(type: Types::STRING)]
+    #[NotBlank]
+    protected string $name = '';
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="webauthn_keys")
-     **/
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'webauthn_keys')]
     protected ?User $user = null;
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param  string  $name
-     * @return WebauthnKey
-     */
     public function setName(string $name): WebauthnKey
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return User|null
-     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @param  User|null  $user
-     * @return WebauthnKey
-     */
     public function setUser(?User $user): WebauthnKey
     {
         $this->user = $user;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

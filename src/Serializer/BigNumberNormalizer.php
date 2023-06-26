@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,17 +20,18 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use Brick\Math\BigNumber;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+/**
+ * @see \App\Tests\Serializer\BigNumberNormalizerTest
+ */
+class BigNumberNormalizer implements NormalizerInterface
 {
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof BigNumber;
     }
@@ -41,8 +45,13 @@ class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMetho
         return (string) $object;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return [
+            BigNumber::class => true,
+        ];
     }
 }

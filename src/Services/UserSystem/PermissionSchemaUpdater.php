@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\Group;
@@ -25,11 +27,13 @@ use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 
+/**
+ * @see \App\Tests\Services\UserSystem\PermissionSchemaUpdaterTest
+ */
 class PermissionSchemaUpdater
 {
     /**
      * Check if the given user/group needs an update of its permission schema.
-     * @param  HasPermissionsInterface  $holder
      * @return bool True if the permission schema needs an update, false otherwise.
      */
     public function isSchemaUpdateNeeded(HasPermissionsInterface $holder): bool
@@ -42,12 +46,11 @@ class PermissionSchemaUpdater
     /**
      * Upgrades the permission schema of the given user/group to the chosen version.
      * Please note that this function does not flush the changes to DB!
-     * @param  HasPermissionsInterface  $holder
-     * @param  int  $target_version
      * @return bool True, if an upgrade was done, false if it was not needed.
      */
     public function upgradeSchema(HasPermissionsInterface $holder, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
     {
+        $e = null;
         if ($target_version > PermissionData::CURRENT_SCHEMA_VERSION) {
             throw new \InvalidArgumentException('The target version is higher than the maximum possible schema version!');
         }
@@ -62,11 +65,9 @@ class PermissionSchemaUpdater
             $reflectionClass = new \ReflectionClass(self::class);
             try {
                 $method = $reflectionClass->getMethod('upgradeSchemaToVersion'.($n + 1));
-                //Set the method accessible, so we can call it (needed for PHP < 8.1)
-                $method->setAccessible(true);
                 $method->invoke($this, $holder);
             } catch (\ReflectionException $e) {
-                throw new \RuntimeException('Could not find update method for schema version '.($n + 1));
+                throw new \RuntimeException('Could not find update method for schema version '.($n + 1), $e->getCode(), $e);
             }
 
             //Bump the schema version
@@ -80,8 +81,6 @@ class PermissionSchemaUpdater
     /**
      * Upgrades the permission schema of the given group and all of its parent groups to the chosen version.
      * Please note that this function does not flush the changes to DB!
-     * @param  Group  $group
-     * @param  int  $target_version
      * @return bool True if an upgrade was done, false if it was not needed.
      */
     public function groupUpgradeSchemaRecursively(Group $group, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
@@ -101,21 +100,19 @@ class PermissionSchemaUpdater
     /**
      * Upgrades the permissions schema of the given users and its parent (including parent groups) to the chosen version.
      * Please note that this function does not flush the changes to DB!
-     * @param  User  $user
-     * @param  int  $target_version
      * @return bool True if an upgrade was done, false if it was not needed.
      */
     public function userUpgradeSchemaRecursively(User $user, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
     {
         $updated = $this->upgradeSchema($user, $target_version);
-        if ($user->getGroup()) {
+        if ($user->getGroup() instanceof Group) {
             $updated = $this->groupUpgradeSchemaRecursively($user->getGroup(), $target_version) || $updated;
         }
 
         return $updated;
     }
 
-    private function upgradeSchemaToVersion1(HasPermissionsInterface $holder): void
+    private function upgradeSchemaToVersion1(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
     {
         //Use the part edit permission to set the preset value for the new part stock permission
         if (
@@ -132,7 +129,7 @@ class PermissionSchemaUpdater
         }
     }
 
-    private function upgradeSchemaToVersion2(HasPermissionsInterface $holder): void
+    private function upgradeSchemaToVersion2(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
     {
         //If the projects permissions are not defined yet, rename devices permission to projects (just copy its data over)
         if (!$holder->getPermissions()->isAnyOperationOfPermissionSet('projects')) {

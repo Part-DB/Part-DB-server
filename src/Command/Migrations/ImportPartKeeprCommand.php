@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Command\Migrations;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKDatastructureImporter;
 use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
@@ -33,34 +36,19 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand('partdb:migrations:import-partkeepr', 'Import a PartKeepr database XML dump into Part-DB')]
 class ImportPartKeeprCommand extends Command
 {
 
-    protected static $defaultName = 'partdb:migrations:import-partkeepr';
-
-    protected EntityManagerInterface $em;
-    protected MySQLDumpXMLConverter $xml_converter;
-    protected PKDatastructureImporter $datastructureImporter;
-    protected PKImportHelper $importHelper;
-    protected PKPartImporter $partImporter;
-    protected PKOptionalImporter $optionalImporter;
-
-    public function __construct(EntityManagerInterface $em, MySQLDumpXMLConverter $xml_converter,
-        PKDatastructureImporter $datastructureImporter, PKPartImporter $partImporter, PKImportHelper $importHelper,
-        PKOptionalImporter $optionalImporter)
+    public function __construct(protected EntityManagerInterface $em, protected MySQLDumpXMLConverter $xml_converter,
+        protected PKDatastructureImporter $datastructureImporter, protected PKPartImporter $partImporter, protected PKImportHelper $importHelper,
+        protected PKOptionalImporter $optionalImporter)
     {
         parent::__construct(self::$defaultName);
-        $this->em = $em;
-        $this->datastructureImporter = $datastructureImporter;
-        $this->importHelper = $importHelper;
-        $this->partImporter = $partImporter;
-        $this->xml_converter = $xml_converter;
-        $this->optionalImporter = $optionalImporter;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
-        $this->setDescription('Import a PartKeepr database XML dump into Part-DB');
         $this->setHelp('This command allows you to import a PartKeepr database exported by mysqldump as XML file into Part-DB');
 
         $this->addArgument('file', InputArgument::REQUIRED, 'The file to which should be imported.');
@@ -100,7 +88,7 @@ class ImportPartKeeprCommand extends Command
         if (!$this->importHelper->checkVersion($data)) {
             $db_version = $this->importHelper->getDatabaseSchemaVersion($data);
             $io->error('The version of the imported database is not supported! (Version: '.$db_version.')');
-            return 1;
+            return Command::FAILURE;
         }
 
         //Import the mandatory data
@@ -118,7 +106,7 @@ class ImportPartKeeprCommand extends Command
             $io->success('Imported '.$count.' users.');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function doImport(SymfonyStyle $io, array $data): void

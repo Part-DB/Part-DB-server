@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\EventSubscriber\UserSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\UserSystem\PermissionSchemaUpdater;
@@ -28,24 +32,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * The purpose of this event subscriber is to check if the permission schema of the current user is up-to-date and upgrade it automatically if needed.
  */
 class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
-    private PermissionSchemaUpdater $permissionSchemaUpdater;
-    private EntityManagerInterface $entityManager;
-    private EventCommentHelper $eventCommentHelper;
-
-    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
+    public function __construct(private readonly Security $security, private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $entityManager, private readonly EventCommentHelper $eventCommentHelper)
     {
-        $this->security = $security;
-        $this->permissionSchemaUpdater = $permissionSchemaUpdater;
-        $this->entityManager = $entityManager;
-        $this->eventCommentHelper = $eventCommentHelper;
     }
 
     public function onRequest(RequestEvent $event): void
@@ -55,7 +49,7 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         }
 
         $user = $this->security->getUser();
-        if (null === $user) {
+        if (!$user instanceof UserInterface) {
             //Retrieve anonymous user
             $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
         }
@@ -63,6 +57,11 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         /** @var Session $session */
         $session = $event->getRequest()->getSession();
         $flashBag = $session->getFlashBag();
+
+        //Check if the user is an instance of User, otherwise we can't upgrade the schema
+        if (!$user instanceof User) {
+            return;
+        }
 
         if ($this->permissionSchemaUpdater->isSchemaUpdateNeeded($user)) {
             $this->eventCommentHelper->setMessage('Automatic permission schema update');

@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpZip\Constants\ZipCompressionMethod;
@@ -16,19 +20,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
-    protected static $defaultName = 'partdb:backup';
-    protected static $defaultDescription = 'Backup the files and the database of Part-DB';
-
-    private string $project_dir;
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(string $project_dir, EntityManagerInterface $entityManager)
+    public function __construct(private readonly string $project_dir, private readonly EntityManagerInterface $entityManager)
     {
-        $this->project_dir = $project_dir;
-        $this->entityManager = $entityManager;
-
         parent::__construct();
     }
 
@@ -71,13 +67,10 @@ class BackupCommand extends Command
         $io->info('Backup Part-DB to '.$output_filepath);
 
         //Check if the file already exists
-        if (file_exists($output_filepath)) {
-            //Then ask the user, if he wants to overwrite the file
-            if (!$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
-                $io->error('Backup aborted!');
-
-                return Command::FAILURE;
-            }
+        //Then ask the user, if he wants to overwrite the file
+        if (file_exists($output_filepath) && !$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
+            $io->error('Backup aborted!');
+            return Command::FAILURE;
         }
 
         $io->note('Starting backup...');
@@ -115,8 +108,6 @@ class BackupCommand extends Command
     /**
      * Constructs the MySQL PDO DSN.
      * Taken from https://github.com/doctrine/dbal/blob/3.5.x/src/Driver/PDO/MySQL/Driver.php
-     *
-     * @param array $params
      */
     private function configureDumper(array $params, DbDumper $dumper): void
     {
@@ -166,7 +157,7 @@ class BackupCommand extends Command
                 $io->error('Could not dump database: '.$e->getMessage());
                 $io->error('This can maybe be fixed by installing the mysqldump binary and adding it to the PATH variable!');
             }
-        } elseif ($connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\SqlitePlatform) {
+        } elseif ($connection->getDatabasePlatform() instanceof SqlitePlatform) {
             $io->note('SQLite database detected. Copy DB file to ZIP...');
             $params = $connection->getParams();
             $zip->addFile($params['path'], 'var/app.db');

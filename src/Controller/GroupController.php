@@ -39,9 +39,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/group")
- */
+#[Route(path: '/group')]
 class GroupController extends BaseAdminController
 {
     protected string $entity_class = Group::class;
@@ -51,10 +49,8 @@ class GroupController extends BaseAdminController
     protected string $attachment_class = GroupAttachment::class;
     protected ?string $parameter_class = GroupParameter::class;
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'group_edit')]
+    #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
     public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {
         //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
@@ -63,7 +59,7 @@ class GroupController extends BaseAdminController
         //Handle permissions presets
         if ($request->request->has('permission_preset')) {
             $this->denyAccessUnlessGranted('edit_permissions', $entity);
-            if ($this->isCsrfTokenValid('group'.$entity->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('group'.$entity->getID(), $request->request->get('_token'))) {
                 $preset = $request->request->get('permission_preset');
 
                 $permissionPresetsHelper->applyPreset($entity, $preset);
@@ -82,35 +78,27 @@ class GroupController extends BaseAdminController
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="group_new")
-     * @Route("/{id}/clone", name="group_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'group_new')]
+    #[Route(path: '/{id}/clone', name: 'group_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Group $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/{id}", name="group_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'group_delete', methods: ['DELETE'])]
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/export", name="group_export_all")
-     */
+    #[Route(path: '/export', name: 'group_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="group_export")
-     */
+    #[Route(path: '/{id}/export', name: 'group_export')]
     public function exportEntity(Group $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

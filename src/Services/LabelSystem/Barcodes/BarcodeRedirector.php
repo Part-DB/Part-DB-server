@@ -47,15 +47,13 @@ use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeRedirectorTest
+ */
 final class BarcodeRedirector
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private EntityManagerInterface $em;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->em = $entityManager;
     }
 
     /**
@@ -76,7 +74,7 @@ final class BarcodeRedirector
             case 'lot':
                 //Try to determine the part to the given lot
                 $lot = $this->em->find(PartLot::class, $id);
-                if (null === $lot) {
+                if (!$lot instanceof PartLot) {
                     throw new EntityNotFoundException();
                 }
 

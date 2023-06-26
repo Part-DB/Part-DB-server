@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LogSystem;
 
 use Jfcherng\Diff\DiffHelper;
@@ -29,7 +31,6 @@ class LogDiffFormatter
      * If the diff is not possible, an empty string is returned.
      * @param $old_data
      * @param $new_data
-     * @return string
      */
     public function formatDiff($old_data, $new_data): string
     {
@@ -56,7 +57,11 @@ class LogDiffFormatter
             ]);
     }
 
-    private function diffNumeric($old_data, $new_data): string
+    /**
+     * @param numeric $old_data
+     * @param numeric $new_data
+     */
+    private function diffNumeric(int|float|string $old_data, int|float|string $new_data): string
     {
         if ((!is_numeric($old_data)) || (!is_numeric($new_data))) {
             throw new \InvalidArgumentException('The given data is not numeric.');
@@ -67,7 +72,7 @@ class LogDiffFormatter
         //Positive difference
         if ($difference > 0) {
             return sprintf('<span class="text-success">+%s</span>', $difference);
-        } else if ($difference < 0) {
+        } elseif ($difference < 0) {
             return sprintf('<span class="text-danger">%s</span>', $difference);
         } else {
             return sprintf('<span class="text-muted">%s</span>', $difference);

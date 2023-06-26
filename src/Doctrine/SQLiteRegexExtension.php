@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,10 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Doctrine;
 
 use App\Exceptions\InvalidRegexException;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
@@ -31,7 +34,8 @@ use Doctrine\DBAL\Platforms\SqlitePlatform;
  * As a PHP callback is called for every entry to compare it is most likely much slower than using regex on MySQL.
  * But as regex is not often used, this should be fine for most use cases, also it is almost impossible to implement a better solution.
  */
-class SQLiteRegexExtension implements EventSubscriberInterface
+#[AsDoctrineListener(Events::postConnect)]
+class SQLiteRegexExtension
 {
     public function postConnect(ConnectionEventArgs $eventArgs): void
     {
@@ -45,19 +49,12 @@ class SQLiteRegexExtension implements EventSubscriberInterface
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
                 $native_connection->sqliteCreateFunction('REGEXP', function ($pattern, $value) {
                     try {
-                        return (false !== mb_ereg($pattern, $value)) ? 1 : 0;
+                        return (mb_ereg($pattern, $value)) ? 1 : 0;
                     } catch (\ErrorException $e) {
                         throw InvalidRegexException::fromMBRegexError($e);
                     }
                 });
             }
         }
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return[
-            Events::postConnect
-        ];
     }
 }

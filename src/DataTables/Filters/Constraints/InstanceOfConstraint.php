@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use Doctrine\ORM\QueryBuilder;
@@ -27,17 +29,17 @@ use Doctrine\ORM\QueryBuilder;
  */
 class InstanceOfConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
+    final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
 
     /**
      * @var string[] The values to compare to (fully qualified class names)
      */
-    protected array $value;
+    protected array $value = [];
 
     /**
      * @var string The operator to use
      */
-    protected string $operator;
+    protected string $operator = "";
 
     /**
      * @return string[]
@@ -57,16 +59,12 @@ class InstanceOfConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
     /**
-     * @param  string  $operator
      * @return $this
      */
     public function setOperator(string $operator): self
@@ -79,7 +77,7 @@ class InstanceOfConstraint extends AbstractConstraint
 
     public function isEnabled(): bool
     {
-        return !empty($this->operator);
+        return $this->operator !== '' && count($this->value) > 0;
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -96,6 +94,7 @@ class InstanceOfConstraint extends AbstractConstraint
 
         $expressions = [];
 
+        /** @phpstan-ignore-next-line */
         if ($this->operator === 'ANY' || $this->operator === 'NONE') {
             foreach($this->value as $value) {
                 //We can not use a parameter here, as this is the only way to pass the FCQN to the query (via binded params, we would need to use ClassMetaData). See: https://github.com/doctrine/orm/issues/4462

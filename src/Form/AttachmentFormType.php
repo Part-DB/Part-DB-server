@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Form\Type\StructuralEntityType;
@@ -41,32 +42,14 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
-    protected AttachmentManager $attachment_helper;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected bool $allow_attachments_download;
-    protected string $max_file_size;
-    protected Security $security;
-    protected AttachmentSubmitHandler $submitHandler;
-    protected TranslatorInterface $translator;
-
-    public function __construct(AttachmentManager $attachmentHelper, UrlGeneratorInterface $urlGenerator,
-        Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
-        bool $allow_attachments_downloads, string $max_file_size)
+    public function __construct(protected AttachmentManager $attachment_helper, protected UrlGeneratorInterface $urlGenerator, protected Security $security, protected AttachmentSubmitHandler $submitHandler, protected TranslatorInterface $translator, protected bool $allow_attachments_download, protected string $max_file_size)
     {
-        $this->attachment_helper = $attachmentHelper;
-        $this->urlGenerator = $urlGenerator;
-        $this->allow_attachments_download = $allow_attachments_downloads;
-        $this->security = $security;
-        $this->submitHandler = $submitHandler;
-        $this->translator = $translator;
-        $this->max_file_size = $max_file_size;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -161,7 +144,7 @@ class AttachmentFormType extends AbstractType
             }
 
             //If the name is empty, use the original file name as attachment name
-            if (empty($attachment->getName())) {
+            if ($attachment->getName() === '') {
                 $attachment->setName($file->getClientOriginalName());
             }
         }, 100000);
@@ -187,7 +170,7 @@ class AttachmentFormType extends AbstractType
         ]);
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['max_upload_size'] = $this->submitHandler->getMaximumAllowedUploadSize();
     }

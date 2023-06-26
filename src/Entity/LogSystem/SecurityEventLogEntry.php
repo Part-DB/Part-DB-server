@@ -50,12 +50,11 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when something security related to a user happens.
- *
- * @ORM\Entity()
  */
+#[ORM\Entity]
 class SecurityEventLogEntry extends AbstractLogEntry
 {
-    public const SECURITY_TYPE_MAPPING = [
+    final public const SECURITY_TYPE_MAPPING = [
         0 => SecurityEvents::PASSWORD_CHANGED,
         1 => SecurityEvents::PASSWORD_RESET,
         2 => SecurityEvents::BACKUP_KEYS_RESET,
@@ -70,10 +69,9 @@ class SecurityEventLogEntry extends AbstractLogEntry
     public function __construct(string $type, string $ip_address, bool $anonymize = true)
     {
         parent::__construct();
-        $this->level = self::LEVEL_INFO;
         $this->setIPAddress($ip_address, $anonymize);
         $this->setEventType($type);
-        $this->level = self::LEVEL_NOTICE;
+        $this->level = LogLevel::NOTICE;
     }
 
     public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,24 +20,23 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use Doctrine\ORM\QueryBuilder;
 
 class ChoiceConstraint extends AbstractConstraint
 {
-    public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
+    final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
 
     /**
      * @var string[]|int[] The values to compare to
      */
-    protected array $value;
+    protected array $value = [];
 
     /**
      * @var string The operator to use
      */
-    protected string $operator;
+    protected string $operator = "";
 
     /**
      * @return string[]|int[]
@@ -46,7 +48,6 @@ class ChoiceConstraint extends AbstractConstraint
 
     /**
      * @param  string[]|int[]  $value
-     * @return ChoiceConstraint
      */
     public function setValue(array $value): ChoiceConstraint
     {
@@ -54,18 +55,11 @@ class ChoiceConstraint extends AbstractConstraint
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @param  string  $operator
-     * @return ChoiceConstraint
-     */
     public function setOperator(string $operator): ChoiceConstraint
     {
         $this->operator = $operator;
@@ -76,7 +70,7 @@ class ChoiceConstraint extends AbstractConstraint
 
     public function isEnabled(): bool
     {
-        return !empty($this->operator);
+        return $this->operator !== '' && count($this->value) > 0;
     }
 
     public function apply(QueryBuilder $queryBuilder): void

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
@@ -40,17 +41,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    protected Security $security;
-    protected EventCommentNeededHelper $eventCommentNeededHelper;
-
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(protected Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
     {
-        $this->security = $security;
-        $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -82,7 +77,7 @@ class BaseEntityAdminForm extends AbstractType
                 'parent',
                 StructuralEntityType::class,
                 [
-                    'class' => get_class($entity),
+                    'class' => $entity::class,
                     'required' => false,
                     'label' => 'parent.label',
                     'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),

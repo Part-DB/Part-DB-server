@@ -14,11 +14,11 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             bool $demo_mode: '%partdb.demo_mode%'
-            bool $gpdr_compliance : '%partdb.gpdr_compliance%'
-            bool $kernel_debug: '%kernel.debug%'
+            bool $gdpr_compliance: '%partdb.gdpr_compliance%'
+            bool $kernel_debug_enabled: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
             string $partdb_title: '%partdb.title%'
-            string $default_currency: '%partdb.default_currency%'
+            string $base_currency: '%partdb.default_currency%'
 
     _instanceof:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
@@ -88,7 +88,7 @@ services:
 
     App\Form\AttachmentFormType:
         arguments:
-            $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
+            $allow_attachments_download: '%partdb.attachments.allow_downloads%'
             $max_file_size: '%partdb.attachments.max_file_size%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
@@ -96,12 +96,6 @@ services:
             $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
             $mimeTypes: '@mime_types'
             $max_upload_size: '%partdb.attachments.max_file_size%'
-
-    App\EventSubscriber\LogSystem\LogoutLoggerListener:
-        tags:
-            - name: 'kernel.event_listener'
-              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
-              dispatcher: security.event_dispatcher.main
 
     App\Services\LogSystem\EventCommentNeededHelper:
         arguments:
@@ -183,7 +177,7 @@ services:
 
     App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
         arguments:
-            $timezone: '%partdb.timezone%'
+            $default_timezone: '%partdb.timezone%'
 
     App\Controller\SecurityController:
         arguments:
@@ -265,7 +259,7 @@ services:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
 
-    # We are needing this service inside of a migration, where only the container is injected. So we need to define it as public, to access it from the container.
+    # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
         public: true
 
@@ -289,3 +283,14 @@ services:
         autowire: true
         tags:
             - { name: monolog.processor }
+
+when@test:
+    services:
+        # Decorate the doctrine fixtures load command to use our custom purger by default
+        doctrine.fixtures_load_command.custom:
+            decorates: doctrine.fixtures_load_command
+            class: Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand
+            arguments:
+                - '@doctrine.fixtures.loader'
+                - '@doctrine'
+                - { default: '@App\Doctrine\Purger\ResetAutoIncrementPurgerFactory' }

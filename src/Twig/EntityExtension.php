@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
@@ -42,26 +44,20 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
+/**
+ * @see \App\Tests\Twig\EntityExtensionTest
+ */
 final class EntityExtension extends AbstractExtension
 {
-    protected EntityURLGenerator $entityURLGenerator;
-    protected TreeViewGenerator $treeBuilder;
-    private ElementTypeNameGenerator $nameGenerator;
-
-    public function __construct(EntityURLGenerator $entityURLGenerator, TreeViewGenerator $treeBuilder, ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(protected EntityURLGenerator $entityURLGenerator, protected TreeViewGenerator $treeBuilder, private readonly ElementTypeNameGenerator $nameGenerator)
     {
-        $this->entityURLGenerator = $entityURLGenerator;
-        $this->treeBuilder = $treeBuilder;
-        $this->nameGenerator = $elementTypeNameGenerator;
     }
 
     public function getTests(): array
     {
         return [
             /* Checks if the given variable is an entitity (instance of AbstractDBElement) */
-            new TwigTest('entity', static function ($var) {
-                return $var instanceof AbstractDBElement;
-            }),
+            new TwigTest('entity', static fn($var) => $var instanceof AbstractDBElement),
         ];
     }
 
@@ -69,16 +65,16 @@ final class EntityExtension extends AbstractExtension
     {
         return [
             /* Returns a string representation of the given entity */
-            new TwigFunction('entity_type', [$this, 'getEntityType']),
+            new TwigFunction('entity_type', fn(object $entity): ?string => $this->getEntityType($entity)),
             /* Returns the URL to the given entity */
-            new TwigFunction('entity_url', [$this, 'generateEntityURL']),
+            new TwigFunction('entity_url', fn(AbstractDBElement $entity, string $method = 'info'): string => $this->generateEntityURL($entity, $method)),
             /* Returns the URL to the given entity in timetravel mode */
-            new TwigFunction('timetravel_url', [$this, 'timeTravelURL']),
+            new TwigFunction('timetravel_url', fn(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string => $this->timeTravelURL($element, $dateTime)),
             /* Generates a JSON array of the given tree */
-            new TwigFunction('tree_data', [$this, 'treeData']),
+            new TwigFunction('tree_data', fn(AbstractDBElement $element, string $type = 'newEdit'): string => $this->treeData($element, $type)),
 
             /* Gets a human readable label for the type of the given entity */
-            new TwigFunction('entity_type_label', [$this->nameGenerator, 'getLocalizedTypeLabel']),
+            new TwigFunction('entity_type_label', fn(object|string $entity): string => $this->nameGenerator->getLocalizedTypeLabel($entity)),
         ];
     }
 
@@ -86,14 +82,14 @@ final class EntityExtension extends AbstractExtension
     {
         try {
             return $this->entityURLGenerator->timeTravelURL($element, $dateTime);
-        } catch (EntityNotSupportedException $e) {
+        } catch (EntityNotSupportedException) {
             return null;
         }
     }
 
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
     {
-        $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
+        $tree = $this->treeBuilder->getTreeView($element::class, null, $type, $element);
 
         return json_encode($tree, JSON_THROW_ON_ERROR);
     }
@@ -127,6 +123,6 @@ final class EntityExtension extends AbstractExtension
             }
         }
 
-        return false;
+        return null;
     }
 }

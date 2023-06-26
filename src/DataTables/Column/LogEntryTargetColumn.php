@@ -44,22 +44,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryTargetColumn extends AbstractColumn
 {
-    private LogTargetHelper $logTargetHelper;
-
-    public function __construct(LogTargetHelper $logTargetHelper)
+    public function __construct(private readonly LogTargetHelper $logTargetHelper)
     {
-        $this->logTargetHelper = $logTargetHelper;
     }
 
     /**
      * @param $value
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }
 
+    /**
+     * @return $this
+     */
     public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Repository;
 
 use App\Entity\Base\AbstractPartsContainingDBElement;
@@ -25,6 +27,10 @@ use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\Parts\Part;
 use InvalidArgumentException;
 
+/**
+ * @template TEntityClass of AbstractPartsContainingDBElement
+ * @extends StructuralDBElementRepository<TEntityClass>
+ */
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
     /** @var int The maximum number of levels for which we can recurse before throwing an error */
@@ -51,7 +57,6 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     /**
      * Returns the count of the parts associated with this element and all its children.
      * Please be aware that this function is pretty slow on large trees!
-     * @param  AbstractPartsContainingDBElement  $element
      * @return int
      */
     public function getPartsCountRecursive(AbstractPartsContainingDBElement $element): int
@@ -64,8 +69,6 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
      * This function is used to limit the recursion depth (remaining_depth is decreased on each call).
      * If the recursion limit is reached (remaining_depth <= 0), a RuntimeException is thrown.
      * @internal This function is not intended to be called directly, use getPartsCountRecursive() instead.
-     * @param  AbstractPartsContainingDBElement  $element
-     * @param  int  $remaining_depth
      * @return int
      */
     protected function getPartsCountRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): int

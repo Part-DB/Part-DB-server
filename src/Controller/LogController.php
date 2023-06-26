@@ -34,6 +34,7 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Form\Filters\LogFilterType;
 use App\Repository\DBElementRepository;
 use App\Services\LogSystem\EventUndoHelper;
+use App\Services\LogSystem\EventUndoMode;
 use App\Services\LogSystem\LogEntryExtraFormatter;
 use App\Services\LogSystem\LogLevelHelper;
 use App\Services\LogSystem\LogTargetHelper;
@@ -49,27 +50,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/log")
- */
+#[Route(path: '/log')]
 class LogController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected TimeTravel $timeTravel;
     protected DBElementRepository $dbRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
+    public function __construct(protected EntityManagerInterface $entityManager, protected TimeTravel $timeTravel)
     {
-        $this->entityManager = $entityManager;
-        $this->timeTravel = $timeTravel;
         $this->dbRepository = $entityManager->getRepository(AbstractDBElement::class);
     }
 
-    /**
-     * @Route("/", name="log_view")
-     *
-     * @return Response
-     */
+    #[Route(path: '/', name: 'log_view')]
     public function showLogs(Request $request, DataTableFactory $dataTable): Response
     {
         $this->denyAccessUnlessGranted('@system.show_logs');
@@ -93,17 +84,12 @@ class LogController extends AbstractController
 
         return $this->render('log_system/log_list.html.twig', [
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm,
         ]);
     }
 
-    /**
-     * @Route("/{id}/details", name="log_details")
-     * @param  Request  $request
-     * @param  AbstractLogEntry  $logEntry
-     * @return Response
-     */
-    public function logDetails(Request $request, AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
+    #[Route(path: '/{id}/details', name: 'log_details')]
+    public function logDetails(AbstractLogEntry $logEntry, LogEntryExtraFormatter $logEntryExtraFormatter,
         LogLevelHelper $logLevelHelper, LogTargetHelper $logTargetHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('show_details', $logEntry);
@@ -123,14 +109,12 @@ class LogController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="log_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}/delete', name: 'log_delete', methods: ['DELETE'])]
     public function deleteLogEntry(Request $request, AbstractLogEntry $logEntry, EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $logEntry);
 
-        if ($this->isCsrfTokenValid('delete'.$logEntry->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$logEntry->getID(), $request->request->get('_token'))) {
             //Remove part
             $entityManager->remove($logEntry);
             //Flush changes
@@ -142,22 +126,24 @@ class LogController extends AbstractController
     }
 
 
-    /**
-     * @Route("/undo", name="log_undo", methods={"POST"})
-     */
+    #[Route(path: '/undo', name: 'log_undo', methods: ['POST'])]
     public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): RedirectResponse
     {
-        $mode = EventUndoHelper::MODE_UNDO;
-        $id = $request->request->get('undo');
+        $mode = EventUndoMode::UNDO;
+        $id = $request->request->getInt('undo');
 
         //If no undo value was set check if a revert was set
-        if (null === $id) {
-            $id = $request->get('revert');
-            $mode = EventUndoHelper::MODE_REVERT;
+        if (0 === $id) {
+            $id = $request->request->getInt('revert');
+            $mode = EventUndoMode::REVERT;
+        }
+
+        if (0 === $id) {
+            throw new InvalidArgumentException('No log entry ID was given!');
         }
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
-        if (null === $log_element) {
+        if (!$log_element instanceof AbstractLogEntry) {
             throw new InvalidArgumentException('No log entry with the given ID is existing!');
         }
 
@@ -166,9 +152,9 @@ class LogController extends AbstractController
         $eventUndoHelper->setMode($mode);
         $eventUndoHelper->setUndoneEvent($log_element);
 
-        if (EventUndoHelper::MODE_UNDO === $mode) {
+        if (EventUndoMode::UNDO === $mode) {
             $this->undoLog($log_element);
-        } elseif (EventUndoHelper::MODE_REVERT === $mode) {
+        } elseif (EventUndoMode::REVERT === $mode) {
             $this->revertLog($log_element);
         }
 

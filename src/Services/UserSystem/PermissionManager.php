@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\UserSystem;
 
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
@@ -36,23 +37,21 @@ use Symfony\Component\Yaml\Yaml;
  * This class manages the permissions of users and groups.
  * Permissions are defined in the config/permissions.yaml file, and are parsed and resolved by this class using the
  * user and hierachical group PermissionData information.
+ * @see \App\Tests\Services\UserSystem\PermissionManagerTest
  */
 class PermissionManager
 {
     protected $permission_structure;
-
-    protected bool $is_debug;
     protected string $cache_file;
 
     /**
      * PermissionResolver constructor.
      */
-    public function __construct(bool $kernel_debug, string $kernel_cache_dir)
+    public function __construct(protected readonly bool $kernel_debug_enabled, string $kernel_cache_dir)
     {
         $cache_dir = $kernel_cache_dir;
         //Here the cached structure will be saved.
         $this->cache_file = $cache_dir.'/permissions.php.cache';
-        $this->is_debug = $kernel_debug;
 
         $this->permission_structure = $this->generatePermissionStructure();
     }
@@ -113,7 +112,7 @@ class PermissionManager
 
         /** @var Group $parent */
         $parent = $user->getGroup();
-        while (null !== $parent) { //The top group, has parent == null
+        while ($parent instanceof Group) { //The top group, has parent == null
             //Check if our current element gives an info about disallow/allow
             $allowed = $this->dontInherit($parent, $permission, $operation);
             if (null !== $allowed) {
@@ -196,8 +195,6 @@ class PermissionManager
 
     /**
      * This functions sets all operations mentioned in the alsoSet value of a permission, so that the structure is always valid.
-     * @param  HasPermissionsInterface $user
-     * @return void
      */
     public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
     {
@@ -215,12 +212,7 @@ class PermissionManager
                         //Set every op listed in also Set
                         foreach ($op['alsoSet'] as $set_also) {
                             //If the alsoSet value contains a dot then we set the operation of another permission
-                            if (false !== strpos($set_also, '.')) {
-                                [$set_perm, $set_op] = explode('.', $set_also);
-                            } else {
-                                //Else we set the operation of the same permission
-                                [$set_perm, $set_op] = [$perm_key, $set_also];
-                            }
+                            [$set_perm, $set_op] = str_contains((string) $set_also, '.') ? explode('.', (string) $set_also) : [$perm_key, $set_also];
 
                             //Check if we change the value of the permission
                             if ($this->dontInherit($user, $set_perm, $set_op) !== true) {
@@ -237,9 +229,6 @@ class PermissionManager
 
     /**
      * Sets all possible operations of all possible permissions of the given entity to the given value.
-     * @param  HasPermissionsInterface  $perm_holder
-     * @param  bool|null  $new_value
-     * @return void
      */
     public function setAllPermissions(HasPermissionsInterface $perm_holder, ?bool $new_value): void
     {
@@ -253,11 +242,6 @@ class PermissionManager
     /**
      * Sets all operations of the given permissions to the given value.
      * Please note that you have to call ensureCorrectSetOperations() after this function, to ensure that all alsoSet values are set.
-     *
-     * @param  HasPermissionsInterface  $perm_holder
-     * @param  string  $permission
-     * @param  bool|null  $new_value
-     * @return void
      */
     public function setAllOperationsOfPermission(HasPermissionsInterface $perm_holder, string $permission, ?bool $new_value): void
     {
@@ -272,11 +256,6 @@ class PermissionManager
 
     /**
      * This function sets all operations of the given permission to the given value, except the ones listed in the except array.
-     * @param  HasPermissionsInterface  $perm_holder
-     * @param  string  $permission
-     * @param  bool|null  $new_value
-     * @param  array  $except
-     * @return void
      */
     public function setAllOperationsOfPermissionExcept(HasPermissionsInterface $perm_holder, string $permission, ?bool $new_value, array $except): void
     {
@@ -294,7 +273,7 @@ class PermissionManager
 
     protected function generatePermissionStructure()
     {
-        $cache = new ConfigCache($this->cache_file, $this->is_debug);
+        $cache = new ConfigCache($this->cache_file, $this->kernel_debug_enabled);
 
         //Check if the cache is fresh, else regenerate it.
         if (!$cache->isFresh()) {

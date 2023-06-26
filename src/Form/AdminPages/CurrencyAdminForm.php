@@ -22,22 +22,19 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Security;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    private string $default_currency;
-
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $base_currency)
     {
         parent::__construct($security, $eventCommentNeededHelper);
-        $this->default_currency = $default_currency;
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
@@ -54,7 +51,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $builder->add('exchange_rate', BigDecimalMoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
-            'currency' => $this->default_currency,
+            'currency' => $this->base_currency,
             'scale' => 6,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);

@@ -36,12 +36,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class CurrencyEntityType extends StructuralEntityType
 {
-    protected ?string $base_currency;
-
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper, ?string $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper, protected ?string $base_currency)
     {
         parent::__construct($em, $builder, $translator, $choiceHelper);
-        $this->base_currency = $base_currency;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -56,11 +53,7 @@ class CurrencyEntityType extends StructuralEntityType
         // This options allows you to override the currency shown for the null value
         $resolver->setDefault('base_currency', null);
 
-        $resolver->setDefault('choice_attr', function (Options $options) {
-            return function ($choice) use ($options) {
-                return $this->choice_helper->generateChoiceAttrCurrency($choice, $options);
-            };
-        });
+        $resolver->setDefault('choice_attr', fn(Options $options) => fn($choice) => $this->choice_helper->generateChoiceAttrCurrency($choice, $options));
 
         $resolver->setDefault('empty_message', function (Options $options) {
             //By default, we use the global base currency:

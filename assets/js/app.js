@@ -22,7 +22,6 @@
 
 import '../css/app/layout.css';
 import '../css/app/helpers.css';
-import '../css/app/darkmode.css';
 import '../css/app/tables.css';
 import '../css/app/bs-overrides.css';
 import '../css/app/treeview.css';

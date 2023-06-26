@@ -41,11 +41,8 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         //Get an service instance.
-        self::bootKernel();
-        $this->service = self::$container->get(ElementTypeNameGenerator::class);
+        $this->service = self::getContainer()->get(ElementTypeNameGenerator::class);
     }
 
     public function testGetLocalizedTypeNameCombination(): void

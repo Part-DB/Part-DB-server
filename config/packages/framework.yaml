@@ -2,8 +2,9 @@
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: true
+    handle_all_throwables: true
 
-    # Must be set to true, to enable the change of HTTP methhod via _method parameter, otherwise our delete routines does not work anymore
+    # Must be set to true, to enable the change of HTTP method via _method parameter, otherwise our delete routines does not work anymore
     # TODO: Rework delete routines to work without _method parameter as it is not recommended anymore (see https://github.com/symfony/symfony/issues/45278)
     http_method_override: true
 
@@ -28,9 +29,6 @@ framework:
     #fragments: true
     php_errors:
         log: true
-
-    form:
-        legacy_error_messages: false    # Enable to use the new Form component validation messages
 
 when@test:
     framework:

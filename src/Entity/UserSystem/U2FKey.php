@@ -22,19 +22,15 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="u2f_keys",
- * uniqueConstraints={
- * @ORM\UniqueConstraint(name="user_unique",columns={"user_id",
- * "key_handle"})
- * })
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'u2f_keys')]
+#[ORM\UniqueConstraint(name: 'user_unique', columns: ['user_id', 'key_handle'])]
 class U2FKey implements LegacyU2FKeyInterface
 {
     use TimestampTrait;
@@ -43,50 +39,42 @@ class U2FKey implements LegacyU2FKeyInterface
      * We have to restrict the length here, as InnoDB only supports key index with max. 767 Bytes.
      * Max length of keyhandles should be 128. (According to U2F_MAX_KH_SIZE in FIDO example C code).
      *
-     * @ORM\Column(type="string", length=128)
      *
      * @var string
      **/
-    public string $keyHandle;
+    #[ORM\Column(type: Types::STRING, length: 128)]
+    public string $keyHandle = '';
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string
      **/
-    public string $publicKey;
+    #[ORM\Column(type: Types::STRING)]
+    public string $publicKey = '';
 
     /**
-     * @ORM\Column(type="text")
-     *
      * @var string
      **/
-    public string $certificate;
+    #[ORM\Column(type: Types::TEXT)]
+    public string $certificate = '';
 
     /**
-     * @ORM\Column(type="string")
-     *
-     * @var int
+     * @var string
      **/
-    public int $counter;
+    #[ORM\Column(type: Types::STRING)]
+    public string $counter = '0';
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\GeneratedValue]
     protected int $id;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string
      **/
-    protected string $name;
+    #[ORM\Column(type: Types::STRING)]
+    protected string $name = '';
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
-     **/
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'u2fKeys')]
     protected ?User $user = null;
 
     public function getKeyHandle(): string
@@ -126,7 +114,7 @@ class U2FKey implements LegacyU2FKeyInterface
         return $this;
     }
 
-    public function getCounter(): int
+    public function getCounter(): string
     {
         return $this->counter;
     }
@@ -151,9 +139,9 @@ class U2FKey implements LegacyU2FKeyInterface
     }
 
     /**
-     * Gets the user, this U2F key belongs to.
+     *  Gets the user, this U2F key belongs to.
      */
-    public function getUser(): User
+    public function getUser(): User|null
     {
         return $this->user;
     }

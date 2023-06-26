@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LogSystem;
 
 use App\Entity\Attachments\Attachment;
@@ -40,21 +42,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogTargetHelper
 {
-    protected EntityManagerInterface $em;
     protected LogEntryRepository $entryRepository;
-    protected EntityURLGenerator $entityURLGenerator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
-    protected TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, EntityURLGenerator $entityURLGenerator,
-        ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator)
+    public function __construct(protected EntityManagerInterface $em, protected EntityURLGenerator $entityURLGenerator,
+        protected ElementTypeNameGenerator $elementTypeNameGenerator, protected TranslatorInterface $translator)
     {
-        $this->em = $entityManager;
-        $this->entryRepository = $entityManager->getRepository(AbstractLogEntry::class);
-
-        $this->entityURLGenerator = $entityURLGenerator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->translator = $translator;
+        $this->entryRepository = $em->getRepository(AbstractLogEntry::class);
     }
 
     private function configureOptions(OptionsResolver $resolver): self
@@ -79,10 +72,10 @@ class LogTargetHelper
         $target = $this->entryRepository->getTargetElement($context);
 
         //If the target is null and the context has a target, that means that the target was deleted. Show it that way.
-        if ($target === null) {
+        if (!$target instanceof AbstractDBElement) {
             if ($context->hasTarget()) {
                 return $this->elementTypeNameGenerator->formatElementDeletedHTML($context->getTargetClass(),
-                    $context->getTargetId());
+                    $context->getTargetID());
             }
             //If no target is set, we can't do anything
             return '';

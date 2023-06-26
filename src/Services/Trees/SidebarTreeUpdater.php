@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\Trees;
 
 use Symfony\Contracts\Cache\CacheInterface;
@@ -27,19 +29,18 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 final class SidebarTreeUpdater
 {
     private const CACHE_KEY = 'sidebar_tree_updated';
-    private const TTL = 60 * 60 * 24; // 24 hours
+    private const TTL = 60 * 60 * 24;
 
-    private CacheInterface $cache;
-
-    public function __construct(TagAwareCacheInterface $treeCache)
+    public function __construct(
+        // 24 hours
+        private readonly TagAwareCacheInterface $cache
+    )
     {
-        $this->cache = $treeCache;
     }
 
     /**
      * Returns the time when the sidebar tree was updated the last time.
      * The frontend uses this information to reload the sidebar tree.
-     * @return \DateTimeInterface
      */
     public function getLastTreeUpdate(): \DateTimeInterface
     {

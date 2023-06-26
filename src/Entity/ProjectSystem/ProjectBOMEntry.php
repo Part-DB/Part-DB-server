@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
@@ -36,114 +37,88 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * The ProjectBOMEntry class represents an entry in a project's BOM.
- *
- * @ORM\Table("project_bom_entries")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity()
- * @UniqueEntity(fields={"part", "project"}, message="project.bom_entry.part_already_in_bom")
- * @UniqueEntity(fields={"name", "project"}, message="project.bom_entry.name_already_in_bom", ignoreNull=true)
  */
+#[UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom')]
+#[UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom', ignoreNull: true)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Entity]
+#[ORM\Table('project_bom_entries')]
 class ProjectBOMEntry extends AbstractDBElement
 {
     use TimestampTrait;
 
-    /**
-     * @var float
-     * @ORM\Column(type="float", name="quantity")
-     * @Assert\Positive()
-     */
-    protected float $quantity;
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::FLOAT, name: 'quantity')]
+    protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
-     * @ORM\Column(type="text", name="mountnames")
      */
+    #[ORM\Column(type: Types::TEXT, name: 'mountnames')]
     protected string $mountnames = '';
 
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\Expression(
-     *     "this.getPart() !== null or this.getName() !== null",
-     *     message="validator.project.bom_entry.name_or_part_needed"
-     * )
      */
+    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
-     * @ORM\Column(type="text")
      */
-    protected string $comment;
+    #[ORM\Column(type: Types::TEXT)]
+    protected string $comment = '';
 
     /**
      * @var Project|null
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="bom_entries")
-     * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
+    #[ORM\JoinColumn(name: 'id_device')]
     protected ?Project $project = null;
 
     /**
      * @var Part|null The part associated with this
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="project_bom_entries")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'project_bom_entries')]
+    #[ORM\JoinColumn(name: 'id_part')]
     protected ?Part $part = null;
 
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
-     * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
-     * @Assert\AtLeastOneOf({
-     *     @BigDecimalPositive(),
-     *     @Assert\IsNull()
-     * })
      */
-    protected ?BigDecimal $price;
+    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
+    #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
+    protected ?BigDecimal $price = null;
 
     /**
      * @var ?Currency The currency for the price of this non-part BOM entry
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
-     * @ORM\JoinColumn(nullable=true)
-     * @Selectable()
      */
+    #[ORM\ManyToOne(targetEntity: Currency::class)]
+    #[ORM\JoinColumn]
+    #[Selectable]
     protected ?Currency $price_currency = null;
 
     public function __construct()
     {
-        //$this->price = BigDecimal::zero()->toScale(5);
-        $this->price = null;
     }
 
-    /**
-     * @return float
-     */
     public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    /**
-     * @param  float  $quantity
-     * @return ProjectBOMEntry
-     */
     public function setQuantity(float $quantity): ProjectBOMEntry
     {
         $this->quantity = $quantity;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getMountnames(): string
     {
         return $this->mountnames;
     }
 
-    /**
-     * @param  string  $mountnames
-     * @return ProjectBOMEntry
-     */
     public function setMountnames(string $mountnames): ProjectBOMEntry
     {
         $this->mountnames = $mountnames;
@@ -160,7 +135,6 @@ class ProjectBOMEntry extends AbstractDBElement
 
     /**
      * @param  string  $name
-     * @return ProjectBOMEntry
      */
     public function setName(?string $name): ProjectBOMEntry
     {
@@ -168,36 +142,22 @@ class ProjectBOMEntry extends AbstractDBElement
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getComment(): string
     {
         return $this->comment;
     }
 
-    /**
-     * @param  string  $comment
-     * @return ProjectBOMEntry
-     */
     public function setComment(string $comment): ProjectBOMEntry
     {
         $this->comment = $comment;
         return $this;
     }
 
-    /**
-     * @return Project|null
-     */
     public function getProject(): ?Project
     {
         return $this->project;
     }
 
-    /**
-     * @param  Project|null  $project
-     * @return ProjectBOMEntry
-     */
     public function setProject(?Project $project): ProjectBOMEntry
     {
         $this->project = $project;
@@ -206,18 +166,11 @@ class ProjectBOMEntry extends AbstractDBElement
 
 
 
-    /**
-     * @return Part|null
-     */
     public function getPart(): ?Part
     {
         return $this->part;
     }
 
-    /**
-     * @param  Part|null  $part
-     * @return ProjectBOMEntry
-     */
     public function setPart(?Part $part): ProjectBOMEntry
     {
         $this->part = $part;
@@ -227,7 +180,6 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * Returns the price of this BOM entry, if existing.
      * Prices are only valid on non-Part BOM entries.
-     * @return BigDecimal|null
      */
     public function getPrice(): ?BigDecimal
     {
@@ -237,24 +189,17 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * Sets the price of this BOM entry.
      * Prices are only valid on non-Part BOM entries.
-     * @param  BigDecimal|null  $price
      */
     public function setPrice(?BigDecimal $price): void
     {
         $this->price = $price;
     }
 
-    /**
-     * @return Currency|null
-     */
     public function getPriceCurrency(): ?Currency
     {
         return $this->price_currency;
     }
 
-    /**
-     * @param  Currency|null  $price_currency
-     */
     public function setPriceCurrency(?Currency $price_currency): void
     {
         $this->price_currency = $price_currency;
@@ -266,22 +211,18 @@ class ProjectBOMEntry extends AbstractDBElement
      */
     public function isPartBomEntry(): bool
     {
-        return $this->part !== null;
+        return $this->part instanceof Part;
     }
 
-    /**
-     * @Assert\Callback
-     */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part
-        if ($this->part) {
-            if (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger()) {
-                $this->quantity = round($this->quantity);
-            }
+        if ($this->part instanceof Part && (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger())) {
+            $this->quantity = round($this->quantity);
         }
         //Non-Part BOM entries are rounded
-        if ($this->part === null) {
+        if (!$this->part instanceof Part) {
             $this->quantity = round($this->quantity);
         }
 
@@ -298,21 +239,21 @@ class ProjectBOMEntry extends AbstractDBElement
         }
 
         //Check that the number of mountnames is the same as the (rounded) quantity
-        if (!empty($this->mountnames) && count($uniq_mountnames) !== (int) round ($this->quantity)) {
+        if ($this->mountnames !== '' && count($uniq_mountnames) !== (int) round ($this->quantity)) {
             $context->buildViolation('project.bom_entry.mountnames_quantity_mismatch')
                 ->atPath('mountnames')
                 ->addViolation();
         }
 
         //Prices are only allowed on non-part BOM entries
-        if ($this->part !== null && $this->price !== null) {
+        if ($this->part instanceof Part && $this->price instanceof BigDecimal) {
             $context->buildViolation('project.bom_entry.price_not_allowed_on_parts')
                 ->atPath('price')
                 ->addViolation();
         }
 
         //Check that the part is not the build representation part of this device or one of its parents
-        if ($this->part && $this->part->getBuiltProject() !== null) {
+        if ($this->part && $this->part->getBuiltProject() instanceof Project) {
             //Get the associated project
             $associated_project = $this->part->getBuiltProject();
             //Check that it is not the same as the current project neither one of its parents

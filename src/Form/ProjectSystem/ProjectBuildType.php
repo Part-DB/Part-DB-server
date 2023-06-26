@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\ProjectSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Form\Type\PartLotSelectType;
 use App\Form\Type\SIUnitType;
@@ -34,18 +38,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
-    private Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound' => true,
@@ -53,7 +53,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setDataMapper($this);
 
@@ -79,10 +79,10 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => $build_request->getProject()->getBuildPart() === null,
+                'disabled' => !$build_request->getProject()->getBuildPart() instanceof Part,
             ]);
 
-            if ($build_request->getProject()->getBuildPart()) {
+            if ($build_request->getProject()->getBuildPart() instanceof Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'project.build.builds_part_lot',
                     'required' => false,
@@ -106,7 +106,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         });
     }
 
-    public function mapDataToForms($data, \Traversable $forms)
+    public function mapDataToForms($data, \Traversable $forms): void
     {
         if (!$data instanceof ProjectBuildRequest) {
             throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);
@@ -131,7 +131,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
 
     }
 
-    public function mapFormsToData(\Traversable $forms, &$data)
+    public function mapFormsToData(\Traversable $forms, &$data): void
     {
         if (!$data instanceof ProjectBuildRequest) {
             throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);
@@ -155,7 +155,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             if (!$lot) { //When the user selected "Create new lot", create a new lot
                 $lot = new PartLot();
                 $description = 'Build ' . date('Y-m-d H:i:s');
-                if (!empty($data->getComment())) {
+                if ($data->getComment() !== '') {
                     $description .= ' (' . $data->getComment() . ')';
                 }
                 $lot->setDescription($description);

@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\UserSystem\User;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,9 +50,12 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
+/**
+ * @see \App\Tests\Twig\UserExtensionTest
+ */
 final class UserExtension extends AbstractExtension
 {
-    private LogEntryRepository $repo;
+    private readonly LogEntryRepository $repo;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -60,7 +65,7 @@ final class UserExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('remove_locale_from_path', [$this, 'removeLocaleFromPath']),
+            new TwigFilter('remove_locale_from_path', fn(string $path): string => $this->removeLocaleFromPath($path)),
         ];
     }
 
@@ -68,9 +73,9 @@ final class UserExtension extends AbstractExtension
     {
         return [
             /* Returns the user which has edited the given entity the last time. */
-            new TwigFunction('last_editing_user', [$this->repo, 'getLastEditingUser']),
+            new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
             /* Returns the user which has created the given entity. */
-            new TwigFunction('creating_user', [$this->repo, 'getCreatingUser']),
+            new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
         ];
     }
 

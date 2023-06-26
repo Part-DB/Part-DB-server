@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Services\Misc\GitVersionInfo;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -27,25 +30,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
 class VersionCommand extends Command
 {
-    protected static $defaultName = 'partdb:version|app:version';
-
-    protected VersionManagerInterface $versionManager;
-    protected GitVersionInfo $gitVersionInfo;
-
-    public function __construct(VersionManagerInterface $versionManager, GitVersionInfo $gitVersionInfo)
+    public function __construct(protected VersionManagerInterface $versionManager, protected GitVersionInfo $gitVersionInfo)
     {
-        $this->versionManager = $versionManager;
-        $this->gitVersionInfo = $gitVersionInfo;
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Shows the currently installed version of Part-DB.')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -66,6 +60,6 @@ class VersionCommand extends Command
         $io->info('OS: '. php_uname());
         $io->info('PHP extension: '. implode(', ', get_loaded_extensions()));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

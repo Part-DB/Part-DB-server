@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Adapters;
 
 use Doctrine\ORM\QueryBuilder;
@@ -37,7 +39,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
  */
 class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 {
-    public function getCount(QueryBuilder $queryBuilder, $identifier): ?int
+    public function getCount(QueryBuilder $queryBuilder, $identifier): int
     {
         $qb_without_group_by = clone $queryBuilder;
 
@@ -48,6 +50,6 @@ class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 
         $paginator = new Paginator($qb_without_group_by);
 
-        return $paginator->count();
+        return $paginator->count() ?? 0;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters;
 
 use Doctrine\Common\Collections\Collection;
@@ -37,9 +39,6 @@ trait CompoundFilterTrait
         $reflection = new \ReflectionClass($this);
 
         foreach ($reflection->getProperties() as $property) {
-            //Set property to accessible (otherwise we run into problems on PHP < 8.1)
-            $property->setAccessible(true);
-
             $value = $property->getValue($this);
             //We only want filters (objects implementing FilterInterface)
             if($value instanceof FilterInterface) {
@@ -60,8 +59,6 @@ trait CompoundFilterTrait
 
     /**
      * Applies all children filters that are declared as property of this filter using reflection.
-     * @param  QueryBuilder  $queryBuilder
-     * @return void
      */
     protected function applyAllChildFilters(QueryBuilder $queryBuilder): void
     {

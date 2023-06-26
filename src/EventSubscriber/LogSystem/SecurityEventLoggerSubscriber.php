@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber\LogSystem;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -53,15 +54,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
-    private RequestStack $requestStack;
-    private bool $gpdr_compliant;
-    private EventLogger $eventLogger;
-
-    public function __construct(RequestStack $requestStack, EventLogger $eventLogger, bool $gpdr_compliance)
+    public function __construct(private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gdpr_compliance)
     {
-        $this->requestStack = $requestStack;
-        $this->gpdr_compliant = $gpdr_compliance;
-        $this->eventLogger = $eventLogger;
     }
 
     public static function getSubscribedEvents(): array
@@ -126,10 +120,10 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 
     private function addLog(string $type, SecurityEvent $event): void
     {
-        $anonymize = $this->gpdr_compliant;
+        $anonymize = $this->gdpr_compliance;
 
         $request = $this->requestStack->getCurrentRequest();
-        if (null !== $request) {
+        if ($request instanceof Request) {
             $ip = $request->getClientIp() ?? 'unknown';
         } else {
             $ip = 'Console';

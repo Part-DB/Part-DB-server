@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\Parts\ManufacturerRepository;
+use App\Entity\Base\AbstractStructuralDBElement;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -30,41 +33,43 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Manufacturer.
+ * This entity represents a manufacturer of a part (The company that produces the part).
  *
- * @ORM\Entity(repositoryClass="App\Repository\Parts\ManufacturerRepository")
- * @ORM\Table("`manufacturers`", indexes={
- *     @ORM\Index(name="manufacturer_name", columns={"name"}),
- *     @ORM\Index(name="manufacturer_idx_parent_name", columns={"parent_id", "name"}),
- * })
+ * @extends AbstractCompany<ManufacturerAttachment, ManufacturerParameter>
  */
+#[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
+#[ORM\Table('`manufacturers`')]
+#[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
+#[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
 class Manufacturer extends AbstractCompany
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected ?\App\Entity\Base\AbstractStructuralDBElement $parent;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
+    protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Manufacturer", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection
-     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     /**
      * @var Collection<int, ManufacturerAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /** @var Collection<int, ManufacturerParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ManufacturerParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+    }
 }

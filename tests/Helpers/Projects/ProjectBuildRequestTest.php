@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Helpers\Projects;
 
 use App\Entity\Parts\MeasurementUnit;
@@ -43,10 +45,8 @@ class ProjectBuildRequestTest extends TestCase
     /** @var ProjectBOMEntry */
     private ProjectBOMEntry $bom_entry1c;
 
-    /** @var PartLot $lot1a */
-    private $lot1a;
-    /** @var PartLot $lot1b */
-    private $lot1b;
+    private PartLot $lot1a;
+    private PartLot $lot1b;
     private PartLot $lot2;
 
     /** @var Part */
@@ -120,17 +120,17 @@ class ProjectBuildRequestTest extends TestCase
         //The values should be already prefilled correctly
         $request = new ProjectBuildRequest($this->project1, 10);
         //We need totally 20: Take 10 from the first (maximum 10) and 10 from the second (maximum 20)
-        $this->assertEquals(10, $request->getLotWithdrawAmount($this->lot1a));
-        $this->assertEquals(10, $request->getLotWithdrawAmount($this->lot1b));
+        $this->assertSame(10.0, $request->getLotWithdrawAmount($this->lot1a));
+        $this->assertSame(10.0, $request->getLotWithdrawAmount($this->lot1b));
 
         //If the needed amount is higher than the maximum, we should get the maximum
-        $this->assertEquals(2.5, $request->getLotWithdrawAmount($this->lot2));
+        $this->assertSame(2.5, $request->getLotWithdrawAmount($this->lot2));
     }
 
     public function testGetNumberOfBuilds(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
-        $this->assertEquals(5, $build_request->getNumberOfBuilds());
+        $this->assertSame(5, $build_request->getNumberOfBuilds());
     }
 
     public function testGetProject(): void
@@ -142,9 +142,9 @@ class ProjectBuildRequestTest extends TestCase
     public function testGetNeededAmountForBOMEntry(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
-        $this->assertEquals(10, $build_request->getNeededAmountForBOMEntry($this->bom_entry1a));
-        $this->assertEquals(7.5, $build_request->getNeededAmountForBOMEntry($this->bom_entry1b));
-        $this->assertEquals(20, $build_request->getNeededAmountForBOMEntry($this->bom_entry1c));
+        $this->assertSame(10.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1a));
+        $this->assertSame(7.5, $build_request->getNeededAmountForBOMEntry($this->bom_entry1b));
+        $this->assertSame(20.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1c));
     }
 
     public function testGetSetLotWithdrawAmount(): void
@@ -156,8 +156,8 @@ class ProjectBuildRequestTest extends TestCase
         $build_request->setLotWithdrawAmount($this->lot1b->getID(), 3);
 
         //And it should be possible to get the amount via the lot object or via the ID
-        $this->assertEquals(2, $build_request->getLotWithdrawAmount($this->lot1a->getID()));
-        $this->assertEquals(3, $build_request->getLotWithdrawAmount($this->lot1b));
+        $this->assertSame(2.0, $build_request->getLotWithdrawAmount($this->lot1a->getID()));
+        $this->assertSame(3.0, $build_request->getLotWithdrawAmount($this->lot1b));
     }
 
     public function testGetWithdrawAmountSum(): void
@@ -168,9 +168,9 @@ class ProjectBuildRequestTest extends TestCase
         $build_request->setLotWithdrawAmount($this->lot1a, 2);
         $build_request->setLotWithdrawAmount($this->lot1b, 3);
 
-        $this->assertEquals(5, $build_request->getWithdrawAmountSum($this->bom_entry1a));
+        $this->assertSame(5.0, $build_request->getWithdrawAmountSum($this->bom_entry1a));
         $build_request->setLotWithdrawAmount($this->lot2, 1.5);
-        $this->assertEquals(1.5, $build_request->getWithdrawAmountSum($this->bom_entry1b));
+        $this->assertSame(1.5, $build_request->getWithdrawAmountSum($this->bom_entry1b));
     }
 
 

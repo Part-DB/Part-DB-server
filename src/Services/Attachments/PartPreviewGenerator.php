@@ -22,16 +22,19 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use App\Entity\Parts\Footprint;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 
 class PartPreviewGenerator
 {
-    protected AttachmentManager $attachmentHelper;
-
-    public function __construct(AttachmentManager $attachmentHelper)
+    public function __construct(protected AttachmentManager $attachmentHelper)
     {
-        $this->attachmentHelper = $attachmentHelper;
     }
 
     /**
@@ -55,21 +58,21 @@ class PartPreviewGenerator
             $list[] = $attachment;
         }
 
-        if (null !== $part->getFootprint()) {
+        if ($part->getFootprint() instanceof Footprint) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if (null !== $part->getBuiltProject()) {
+        if ($part->getBuiltProject() instanceof Project) {
             $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if (null !== $part->getCategory()) {
+        if ($part->getCategory() instanceof Category) {
             $attachment = $part->getCategory()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
@@ -77,7 +80,7 @@ class PartPreviewGenerator
         }
 
         foreach ($part->getPartLots() as $lot) {
-            if (null !== $lot->getStorageLocation()) {
+            if ($lot->getStorageLocation() instanceof Storelocation) {
                 $attachment = $lot->getStorageLocation()->getMasterPictureAttachment();
                 if ($this->isAttachmentValidPicture($attachment)) {
                     $list[] = $attachment;
@@ -85,14 +88,14 @@ class PartPreviewGenerator
             }
         }
 
-        if (null !== $part->getPartUnit()) {
+        if ($part->getPartUnit() instanceof MeasurementUnit) {
             $attachment = $part->getPartUnit()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
             }
         }
 
-        if (null !== $part->getManufacturer()) {
+        if ($part->getManufacturer() instanceof Manufacturer) {
             $attachment = $part->getManufacturer()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 $list[] = $attachment;
@@ -117,7 +120,7 @@ class PartPreviewGenerator
         }
 
         //Otherwise check if the part has a footprint with a valid master attachment
-        if (null !== $part->getFootprint()) {
+        if ($part->getFootprint() instanceof Footprint) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
@@ -125,7 +128,7 @@ class PartPreviewGenerator
         }
 
         //With lowest priority use the master attachment of the project this part represents (when existing)
-        if (null !== $part->getBuiltProject()) {
+        if ($part->getBuiltProject() instanceof Project) {
             $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
@@ -145,7 +148,7 @@ class PartPreviewGenerator
      */
     protected function isAttachmentValidPicture(?Attachment $attachment): bool
     {
-        return null !== $attachment
+        return $attachment instanceof Attachment
             && $attachment->isPicture()
             && $this->attachmentHelper->isFileExisting($attachment);
     }

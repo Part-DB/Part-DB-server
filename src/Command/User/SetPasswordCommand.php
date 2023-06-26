@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -34,28 +35,17 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[AsCommand('partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password', 'Sets the password of a user')]
 class SetPasswordCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password';
-
-    protected EntityManagerInterface $entityManager;
-    protected UserPasswordHasherInterface $encoder;
-    protected EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected EntityManagerInterface $entityManager, protected UserPasswordHasherInterface $encoder, protected EventDispatcherInterface $eventDispatcher)
     {
-        $this->entityManager = $entityManager;
-        $this->encoder = $passwordEncoder;
-        $this->eventDispatcher = $eventDispatcher;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Sets the password of a user')
-            ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
+        $this->setHelp('This password allows you to set the password of a user, without knowing the old password.')
             ->addArgument('user', InputArgument::REQUIRED, 'The username or email of the user')
         ;
     }
@@ -67,17 +57,17 @@ class SetPasswordCommand extends Command
 
         $user = $this->entityManager->getRepository(User::class)->findByEmailOrName($user_name);
 
-        if (!$user) {
+        if (!$user instanceof User) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $io->note('User found!');
 
         if ($user->isSamlUser()) {
             $io->error('This user is a SAML user, so you can not change the password!');
-            return 1;
+            return Command::FAILURE;
         }
 
         $proceed = $io->confirm(
@@ -85,7 +75,7 @@ class SetPasswordCommand extends Command
                 $user->getFullName(true), $user->getID()));
 
         if (!$proceed) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $success = false;
@@ -116,6 +106,6 @@ class SetPasswordCommand extends Command
         $security_event = new SecurityEvent($user);
         $this->eventDispatcher->dispatch($security_event, SecurityEvents::PASSWORD_CHANGED);
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use Doctrine\ORM\QueryBuilder;
@@ -27,7 +29,7 @@ trait FilterTrait
 
     protected bool $useHaving = false;
 
-    public function useHaving($value = true): self
+    public function useHaving($value = true): static
     {
         $this->useHaving = $value;
         return $this;
@@ -35,7 +37,6 @@ trait FilterTrait
 
     /**
      * Checks if the given input is an aggregateFunction like COUNT(part.partsLot) or so
-     * @return bool
      */
     protected function isAggregateFunctionString(string $input): bool
     {
@@ -44,8 +45,6 @@ trait FilterTrait
 
     /**
      * Generates a parameter identifier that can be used for the given property. It gives random results, to be unique, so you have to cache it.
-     * @param  string  $property
-     * @return string
      */
     protected function generateParameterIdentifier(string $property): string
     {
@@ -57,13 +56,8 @@ trait FilterTrait
 
     /**
      * Adds a simple constraint in the form of (property OPERATOR value) (e.g. "part.name = :name") to the given query builder.
-     * @param  QueryBuilder  $queryBuilder
-     * @param  string  $property
-     * @param  string  $comparison_operator
-     * @param  mixed $value
-     * @return void
      */
-    protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, $value): void
+    protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, mixed $value): void
     {
         if ($comparison_operator === 'IN' || $comparison_operator === 'NOT IN') {
             $expression = sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier);

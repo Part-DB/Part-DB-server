@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Currencies;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Tools\ExchangeRateUpdater;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,30 +36,17 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use function strlen;
 
+#[AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
 class UpdateExchangeRatesCommand extends Command
 {
-    protected static $defaultName = 'partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates';
-
-    protected string $base_current;
-    protected EntityManagerInterface $em;
-    protected ExchangeRateUpdater $exchangeRateUpdater;
-
-    public function __construct(string $base_current, EntityManagerInterface $entityManager, ExchangeRateUpdater $exchangeRateUpdater)
+    public function __construct(protected string $base_current, protected EntityManagerInterface $em, protected ExchangeRateUpdater $exchangeRateUpdater)
     {
-        //$this->swap = $swap;
-        $this->base_current = $base_current;
-
-        $this->em = $entityManager;
-        $this->exchangeRateUpdater = $exchangeRateUpdater;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Updates the currency exchange rates.')
-            ->addArgument('iso_code', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'The ISO Codes of the currencies that should be updated.');
+        $this->addArgument('iso_code', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'The ISO Codes of the currencies that should be updated.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -69,7 +57,7 @@ class UpdateExchangeRatesCommand extends Command
         if (3 !== strlen($this->base_current)) {
             $io->error('Chosen Base current is not valid. Check your settings!');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $io->note('Update currency exchange rates with base currency: '.$this->base_current);
@@ -78,11 +66,7 @@ class UpdateExchangeRatesCommand extends Command
         $iso_code = $input->getArgument('iso_code');
         $repo = $this->em->getRepository(Currency::class);
 
-        if (!empty($iso_code)) {
-            $candidates = $repo->findBy(['iso_code' => $iso_code]);
-        } else {
-            $candidates = $repo->findAll();
-        }
+        $candidates = empty($iso_code) ? $repo->findAll() : $repo->findBy(['iso_code' => $iso_code]);
 
         $success_counter = 0;
 
@@ -106,6 +90,6 @@ class UpdateExchangeRatesCommand extends Command
 
         $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

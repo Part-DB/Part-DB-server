@@ -29,6 +29,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
@@ -72,29 +73,16 @@ abstract class BaseAdminController extends AbstractController
     protected string $route_base = '';
     protected string $attachment_class = '';
     protected ?string $parameter_class = '';
-
-    protected UserPasswordHasherInterface $passwordEncoder;
-    protected TranslatorInterface $translator;
-    protected AttachmentSubmitHandler $attachmentSubmitHandler;
-    protected EventCommentHelper $commentHelper;
-
-    protected HistoryHelper $historyHelper;
-    protected TimeTravel $timeTravel;
-    protected DataTableFactory $dataTableFactory;
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
-    protected LabelGenerator $labelGenerator;
-    protected LabelExampleElementsGenerator $barcodeExampleGenerator;
 
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $passwordEncoder,
-        AttachmentSubmitHandler $attachmentSubmitHandler,
-        EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
-        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, LabelExampleElementsGenerator $barcodeExampleGenerator,
-        LabelGenerator $labelGenerator, EntityManagerInterface $entityManager)
+    public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
+        protected AttachmentSubmitHandler $attachmentSubmitHandler,
+        protected EventCommentHelper $commentHelper, protected HistoryHelper $historyHelper, protected TimeTravel $timeTravel,
+        protected DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
+        protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -107,18 +95,7 @@ abstract class BaseAdminController extends AbstractController
         if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
             throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
         }
-
-        $this->translator = $translator;
-        $this->passwordEncoder = $passwordEncoder;
-        $this->attachmentSubmitHandler = $attachmentSubmitHandler;
-        $this->commentHelper = $commentHelper;
-        $this->historyHelper = $historyHelper;
-        $this->timeTravel = $timeTravel;
-        $this->dataTableFactory = $dataTableFactory;
         $this->eventDispatcher = $eventDispatcher;
-        $this->barcodeExampleGenerator = $barcodeExampleGenerator;
-        $this->labelGenerator = $labelGenerator;
-        $this->entityManager = $entityManager;
     }
 
     protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
@@ -177,13 +154,13 @@ abstract class BaseAdminController extends AbstractController
         $form_options = [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
-            'disabled' => null !== $timeTravel_timestamp,
+            'disabled' => $timeTravel_timestamp instanceof \DateTime,
         ];
 
         //Disable editing of options, if user is not allowed to use twig...
         if (
             $entity instanceof LabelProfile
-            && 'twig' === $entity->getOptions()->getLinesMode()
+            && LabelProcessMode::TWIG === $entity->getOptions()->getProcessMode()
             && !$this->isGranted('@labels.use_twig')
         ) {
             $form_options['disable_options'] = true;
@@ -245,7 +222,7 @@ abstract class BaseAdminController extends AbstractController
         /** @var AbstractPartsContainingRepository $repo */
         $repo = $this->entityManager->getRepository($this->entity_class);
 
-        return $this->renderForm($this->twig_template, [
+        return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form,
             'route_base' => $this->route_base,
@@ -267,15 +244,9 @@ abstract class BaseAdminController extends AbstractController
         return true;
     }
 
-    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
+    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null): Response
     {
-        if (null === $entity) {
-            /** @var AbstractStructuralDBElement|User $new_entity */
-            $new_entity = new $this->entity_class();
-        } else {
-            /** @var AbstractStructuralDBElement|User $new_entity */
-            $new_entity = clone $entity;
-        }
+        $new_entity = $entity instanceof AbstractNamedDBElement ? clone $entity : new $this->entity_class();
 
         $this->denyAccessUnlessGranted('read', $new_entity);
 
@@ -287,42 +258,37 @@ abstract class BaseAdminController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Perform additional actions
-            if ($this->additionalActionNew($form, $new_entity)) {
-                //Upload passed files
-                $attachments = $form['attachments'];
-                foreach ($attachments as $attachment) {
-                    /** @var FormInterface $attachment */
-                    $options = [
-                        'secure_attachment' => $attachment['secureFile']->getData(),
-                        'download_url' => $attachment['downloadURL']->getData(),
-                    ];
+        //Perform additional actions
+        if ($form->isSubmitted() && $form->isValid() && $this->additionalActionNew($form, $new_entity)) {
+            //Upload passed files
+            $attachments = $form['attachments'];
+            foreach ($attachments as $attachment) {
+                /** @var FormInterface $attachment */
+                $options = [
+                    'secure_attachment' => $attachment['secureFile']->getData(),
+                    'download_url' => $attachment['downloadURL']->getData(),
+                ];
 
-                    try {
-                        $this->attachmentSubmitHandler->handleFormSubmit(
-                            $attachment->getData(),
-                            $attachment['file']->getData(),
-                            $options
-                        );
-                    } catch (AttachmentDownloadException $attachmentDownloadException) {
-                        $this->addFlash(
-                            'error',
-                            $this->translator->trans(
-                                'attachment.download_failed'
-                            ).' '.$attachmentDownloadException->getMessage()
-                        );
-                    }
+                try {
+                    $this->attachmentSubmitHandler->handleFormSubmit(
+                        $attachment->getData(),
+                        $attachment['file']->getData(),
+                        $options
+                    );
+                } catch (AttachmentDownloadException $attachmentDownloadException) {
+                    $this->addFlash(
+                        'error',
+                        $this->translator->trans(
+                            'attachment.download_failed'
+                        ).' '.$attachmentDownloadException->getMessage()
+                    );
                 }
-
-                $this->commentHelper->setMessage($form['log_comment']->getData());
-
-                $em->persist($new_entity);
-                $em->flush();
-                $this->addFlash('success', 'entity.created_flash');
-
-                return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
             }
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+            $em->persist($new_entity);
+            $em->flush();
+            $this->addFlash('success', 'entity.created_flash');
+            return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
@@ -362,14 +328,13 @@ abstract class BaseAdminController extends AbstractController
             try {
                 $errors = $importer->importFileAndPersistToDB($file, $options);
 
-                /** @var ConstraintViolationList $error */
                 foreach ($errors as $name => $error) {
-                    foreach ($error['violations'] as $violation) {
+                    foreach ($error as $violation) {
                         $this->addFlash('error', $name.': '.$violation->getMessage());
                     }
                 }
             }
-            catch (UnexpectedValueException $e) {
+            catch (UnexpectedValueException) {
                 $this->addFlash('error', 'parts.import.flash.error.invalid_file');
             }
         }
@@ -402,7 +367,7 @@ abstract class BaseAdminController extends AbstractController
         }
 
         ret:
-        return $this->renderForm($this->twig_template, [
+        return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
             'import_form' => $import_form,
@@ -437,7 +402,7 @@ abstract class BaseAdminController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
-        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entity->getID(), $request->request->get('_token'))) {
 
             $entityManager = $this->entityManager;
 

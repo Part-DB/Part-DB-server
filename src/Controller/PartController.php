@@ -48,6 +48,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -59,29 +60,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
 
-/**
- * @Route("/part")
- */
+#[Route(path: '/part')]
 class PartController extends AbstractController
 {
-    protected PricedetailHelper $pricedetailHelper;
-    protected PartPreviewGenerator $partPreviewGenerator;
-    protected EventCommentHelper $commentHelper;
-
-    public function __construct(PricedetailHelper $pricedetailHelper,
-        PartPreviewGenerator $partPreviewGenerator, EventCommentHelper $commentHelper)
+    public function __construct(protected PricedetailHelper $pricedetailHelper, protected PartPreviewGenerator $partPreviewGenerator, protected EventCommentHelper $commentHelper)
     {
-        $this->pricedetailHelper = $pricedetailHelper;
-        $this->partPreviewGenerator = $partPreviewGenerator;
-        $this->commentHelper = $commentHelper;
     }
 
     /**
-     * @Route("/{id}/info/{timestamp}", name="part_info")
-     * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @throws Exception
      */
+    #[Route(path: '/{id}/info/{timestamp}', name: 'part_info')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
         DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, PartLotWithdrawAddHelper $withdrawAddHelper, ?string $timestamp = null): Response
     {
@@ -129,9 +120,7 @@ class PartController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="part_edit")
-     */
+    #[Route(path: '/{id}/edit', name: 'part_edit')]
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
@@ -182,21 +171,19 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
-        return $this->renderForm('parts/edit/edit_part_info.html.twig',
+        return $this->render('parts/edit/edit_part_info.html.twig',
             [
                 'part' => $part,
                 'form' => $form,
             ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
     public function delete(Request $request, Part $part, EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
-        if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$part->getID(), $request->request->get('_token'))) {
 
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
@@ -212,23 +199,22 @@ class PartController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
 
-    /**
-     * @Route("/new", name="part_new")
-     * @Route("/{id}/clone", name="part_clone")
-     * @Route("/new_build_part/{project_id}", name="part_new_build_part")
-     * @ParamConverter("part", options={"id" = "id"})
-     * @ParamConverter("project", options={"id" = "project_id"})
-     */
+    #[Route(path: '/new', name: 'part_new')]
+    #[Route(path: '/{id}/clone', name: 'part_clone')]
+    #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
-        ?Part $part = null, ?Project $project = null): Response
+        #[MapEntity(mapping: ['id' => 'id'])] ?Part $part = null,
+        #[MapEntity(mapping: ['id' => 'project_id'])] ?Project $project = null): Response
     {
 
-        if ($part) { //Clone part
+        if ($part instanceof Part) {
+            //Clone part
             $new_part = clone $part;
-        } else if ($project) { //Initialize a new part for a build part from the given project
+        } elseif ($project instanceof Project) {
+            //Initialize a new part for a build part from the given project
             //Ensure that the project has not already a build part
-            if ($project->getBuildPart() !== null) {
+            if ($project->getBuildPart() instanceof Part) {
                 $this->addFlash('error', 'part.new_build_part.error.build_part_already_exists');
                 return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
             }
@@ -241,7 +227,7 @@ class PartController extends AbstractController
 
         $cid = $request->get('category', null);
         $category = $cid ? $em->find(Category::class, $cid) : null;
-        if (null !== $category && null === $new_part->getCategory()) {
+        if ($category instanceof Category && !$new_part->getCategory() instanceof Category) {
             $new_part->setCategory($category);
             $new_part->setDescription($category->getDefaultDescription());
             $new_part->setComment($category->getDefaultComment());
@@ -249,19 +235,19 @@ class PartController extends AbstractController
 
         $fid = $request->get('footprint', null);
         $footprint = $fid ? $em->find(Footprint::class, $fid) : null;
-        if (null !== $footprint && null === $new_part->getFootprint()) {
+        if ($footprint instanceof Footprint && !$new_part->getFootprint() instanceof Footprint) {
             $new_part->setFootprint($footprint);
         }
 
         $mid = $request->get('manufacturer', null);
         $manufacturer = $mid ? $em->find(Manufacturer::class, $mid) : null;
-        if (null !== $manufacturer && null === $new_part->getManufacturer()) {
+        if ($manufacturer instanceof Manufacturer && !$new_part->getManufacturer() instanceof Manufacturer) {
             $new_part->setManufacturer($manufacturer);
         }
 
         $store_id = $request->get('storelocation', null);
         $storelocation = $store_id ? $em->find(Storelocation::class, $store_id) : null;
-        if (null !== $storelocation && $new_part->getPartLots()->isEmpty()) {
+        if ($storelocation instanceof Storelocation && $new_part->getPartLots()->isEmpty()) {
             $partLot = new PartLot();
             $partLot->setStorageLocation($storelocation);
             $partLot->setInstockUnknown(true);
@@ -270,7 +256,7 @@ class PartController extends AbstractController
 
         $supplier_id = $request->get('supplier', null);
         $supplier = $supplier_id ? $em->find(Supplier::class, $supplier_id) : null;
-        if (null !== $supplier && $new_part->getOrderdetails()->isEmpty()) {
+        if ($supplier instanceof Supplier && $new_part->getOrderdetails()->isEmpty()) {
             $orderdetail = new Orderdetail();
             $orderdetail->setSupplier($supplier);
             $new_part->addOrderdetail($orderdetail);
@@ -328,22 +314,20 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 
-        return $this->renderForm('parts/edit/new_part.html.twig',
+        return $this->render('parts/edit/new_part.html.twig',
             [
                 'part' => $new_part,
                 'form' => $form,
             ]);
     }
 
-    /**
-     * @Route("/{id}/add_withdraw", name="part_add_withdraw", methods={"POST"})
-     */
+    #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response
     {
         if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {
             //Retrieve partlot from the request
             $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
-            if($partLot === null) {
+            if(!$partLot instanceof PartLot) {
                 throw new \RuntimeException('Part lot not found!');
             }
             //Ensure that the partlot belongs to the part
@@ -383,7 +367,7 @@ class PartController extends AbstractController
                     default:
                         throw new \RuntimeException("Unknown action!");
                 }
-            } catch (AccessDeniedException $exception) {
+            } catch (AccessDeniedException) {
                 $this->addFlash('error', t('part.withdraw.access_denied'));
                 goto err;
             }

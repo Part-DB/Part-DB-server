@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Doctrine\Types;
 
 use Brick\Math\BigDecimal;
@@ -27,23 +29,20 @@ use Doctrine\DBAL\Types\Type;
 
 class BigDecimalType extends Type
 {
-    public const BIG_DECIMAL = 'big_decimal';
+    final public const BIG_DECIMAL = 'big_decimal';
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return $platform->getDecimalTypeDeclarationSQL($fieldDeclaration);
     }
 
-    /**
-     * @param string|null $value
-     *
-     * @return BigDecimal|BigNumber|mixed
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?BigNumber
     {
         if (null === $value) {
             return null;
         }
+
+
 
         return BigDecimal::of($value);
     }
@@ -53,7 +52,7 @@ class BigDecimalType extends Type
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (null === $value) {
+        if (!$value instanceof BigDecimal) {
             return null;
         }
 

@@ -29,17 +29,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a measurement unit element.
- *
- * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
+ * @extends Attachment<MeasurementUnit>
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
+#[ORM\Entity]
 class MeasurementUnitAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = MeasurementUnit::class;
+    final public const ALLOWED_ELEMENT_CLASS = MeasurementUnit::class;
     /**
      * @var Manufacturer|null the element this attachment is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\MeasurementUnit", inversedBy="attachments")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: MeasurementUnit::class, inversedBy: 'attachments')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

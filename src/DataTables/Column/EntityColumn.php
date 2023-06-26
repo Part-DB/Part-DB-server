@@ -31,13 +31,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EntityColumn extends AbstractColumn
 {
-    protected EntityURLGenerator $urlGenerator;
-    protected PropertyAccessorInterface $accessor;
-
-    public function __construct(EntityURLGenerator $URLGenerator, PropertyAccessorInterface $accessor)
+    public function __construct(protected EntityURLGenerator $urlGenerator, protected PropertyAccessorInterface $accessor)
     {
-        $this->urlGenerator = $URLGenerator;
-        $this->accessor = $accessor;
     }
 
     /**
@@ -46,46 +41,45 @@ class EntityColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         /** @var AbstractNamedDBElement $value */
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver): self
+    /**
+     * @return $this
+     */
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
 
         $resolver->setRequired('property');
 
-        $resolver->setDefault('field', static function (Options $option) {
-            return $option['property'].'.name';
-        });
+        $resolver->setDefault('field', static fn(Options $option): string => $option['property'].'.name');
 
-        $resolver->setDefault('render', function (Options $options) {
-            return function ($value, $context) use ($options) {
-                if ($this->accessor->isReadable($context, $options['property'])) {
-                    $entity = $this->accessor->getValue($context, $options['property']);
-                } else {
-                    $entity = null;
+        $resolver->setDefault('render', fn(Options $options) => function ($value, $context) use ($options): string {
+            if ($this->accessor->isReadable($context, $options['property'])) {
+                $entity = $this->accessor->getValue($context, $options['property']);
+            } else {
+                $entity = null;
+            }
+
+            /** @var AbstractNamedDBElement|null $entity */
+
+            if ($entity instanceof AbstractNamedDBElement) {
+                if (null !== $entity->getID()) {
+                    return sprintf(
+                        '<a href="%s">%s</a>',
+                        $this->urlGenerator->listPartsURL($entity),
+                        htmlspecialchars($entity->getName())
+                    );
                 }
 
-                /** @var AbstractNamedDBElement|null $entity */
+                return sprintf('<i>%s</i>', $value);
+            }
 
-                if (null !== $entity) {
-                    if (null !== $entity->getID()) {
-                        return sprintf(
-                            '<a href="%s">%s</a>',
-                            $this->urlGenerator->listPartsURL($entity),
-                            htmlspecialchars($entity->getName())
-                        );
-                    }
-
-                    return sprintf('<i>%s</i>', $value);
-                }
-
-                return '';
-            };
+            return '';
         });
 
         return $this;

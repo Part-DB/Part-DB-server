@@ -77,10 +77,10 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="loadProfilesButton">
                             {% if is_granted("@labels.create_labels") %}
-                                {% for type in constant("App\\Entity\\LabelSystem\\LabelOptions::SUPPORTED_ELEMENTS") %}
+                                {% for type in enum_cases("App\\Entity\\LabelSystem\\LabelSupportedElement") %}
                                     {% set profiles = label_profile_dropdown_helper.dropdownProfiles(type) %}
                                     {% if profiles is not empty %}
-                                        <h6 class="dropdown-header">{{ (type~'.label') | trans }}</h6>
+                                        <h6 class="dropdown-header">{{ (type.value~'.label') | trans }}</h6>
                                     {% endif %}
                                     {% for profile in profiles %}
                                         <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id }) }}">{{ profile.name }}</a>

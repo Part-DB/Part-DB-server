@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Repository\NamedDBElementRepository;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,20 +32,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * All subclasses of this class have an attribute "name".
- *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\NamedDBElement")
- * @ORM\HasLifecycleCallbacks()
  */
-abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface
+#[ORM\MappedSuperclass(repositoryClass: NamedDBElementRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface, \Stringable
 {
     use TimestampTrait;
 
     /**
      * @var string the name of this element
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     * @Groups({"simple", "extended", "full", "import"})
      */
+    #[Assert\NotBlank]
+    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /******************************************************************************
@@ -52,7 +53,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      *
      ******************************************************************************/
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

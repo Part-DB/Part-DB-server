@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Controller;
 
 use App\Services\Attachments\AttachmentPathResolver;
@@ -32,14 +34,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
-/**
- * @Route("/tools")
- */
+#[Route(path: '/tools')]
 class ToolsController extends AbstractController
 {
-    /**
-     * @Route("/reel_calc", name="tools_reel_calculator")
-     */
+    #[Route(path: '/reel_calc', name: 'tools_reel_calculator')]
     public function reelCalculator(): Response
     {
         $this->denyAccessUnlessGranted('@tools.reel_calculator');
@@ -47,9 +45,7 @@ class ToolsController extends AbstractController
         return $this->render('tools/reel_calculator/reel_calculator.html.twig');
     }
 
-    /**
-     * @Route("/server_infos", name="tools_server_infos")
-     */
+    #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
         AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
@@ -65,7 +61,7 @@ class ToolsController extends AbstractController
             'default_theme' => $this->getParameter('partdb.global_theme'),
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
-            'gpdr_compliance' => $this->getParameter('partdb.gpdr_compliance'),
+            'gpdr_compliance' => $this->getParameter('partdb.gdpr_compliance'),
             'use_gravatar' => $this->getParameter('partdb.users.use_gravatar'),
             'email_password_reset' => $this->getParameter('partdb.users.email_pw_reset'),
             'enviroment' => $this->getParameter('kernel.environment'),
@@ -83,7 +79,7 @@ class ToolsController extends AbstractController
             'php_version' => PHP_VERSION,
             'php_uname' => php_uname('a'),
             'php_sapi' => PHP_SAPI,
-            'php_extensions' => array_merge(get_loaded_extensions()),
+            'php_extensions' => [...get_loaded_extensions()],
             'php_opcache_enabled' => ini_get('opcache.enable'),
             'php_upload_max_filesize' => ini_get('upload_max_filesize'),
             'php_post_max_size' => ini_get('post_max_size'),
@@ -97,33 +93,23 @@ class ToolsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/builtin_footprints", name="tools_builtin_footprints_viewer")
-     * @return Response
-     */
+    #[Route(path: '/builtin_footprints', name: 'tools_builtin_footprints_viewer')]
     public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator): Response
     {
         $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
 
         $grouped_footprints = $builtinAttachmentsFinder->getListOfFootprintsGroupedByFolder();
-        $grouped_footprints = array_map(function($group) use ($urlGenerator) {
-            return array_map(function($placeholder_filepath) use ($urlGenerator) {
-                return [
-                    'filename' => basename($placeholder_filepath),
-                    'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
-                ];
-            }, $group);
-        }, $grouped_footprints);
+        $grouped_footprints = array_map(fn($group) => array_map(fn($placeholder_filepath) => [
+            'filename' => basename((string) $placeholder_filepath),
+            'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
+        ], $group), $grouped_footprints);
 
         return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
         ]);
     }
 
-    /**
-     * @Route("/ic_logos", name="tools_ic_logos")
-     * @return Response
-     */
+    #[Route(path: '/ic_logos', name: 'tools_ic_logos')]
     public function icLogos(): Response
     {
         $this->denyAccessUnlessGranted('@tools.ic_logos');

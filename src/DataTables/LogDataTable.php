@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Column\EnumColumn;
+use App\Entity\LogSystem\LogTargetType;
+use Symfony\Bundle\SecurityBundle\Security;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
@@ -56,32 +59,17 @@ use Psr\Log\LogLevel;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogDataTable implements DataTableTypeInterface
 {
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
-    protected TranslatorInterface $translator;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected EntityURLGenerator $entityURLGenerator;
     protected LogEntryRepository $logRepo;
-    protected Security $security;
-    protected UserAvatarHelper $userAvatarHelper;
-    protected LogLevelHelper $logLevelHelper;
 
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
-        Security $security, UserAvatarHelper $userAvatarHelper, LogLevelHelper $logLevelHelper)
+    public function __construct(protected ElementTypeNameGenerator $elementTypeNameGenerator, protected TranslatorInterface $translator,
+        protected UrlGeneratorInterface $urlGenerator, protected EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
+        protected Security $security, protected UserAvatarHelper $userAvatarHelper, protected LogLevelHelper $logLevelHelper)
     {
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
-        $this->entityURLGenerator = $entityURLGenerator;
         $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
-        $this->security = $security;
-        $this->userAvatarHelper = $userAvatarHelper;
-        $this->logLevelHelper = $logLevelHelper;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -115,21 +103,17 @@ class LogDataTable implements DataTableTypeInterface
 
         //This special $$rowClass column is used to set the row class depending on the log level. The class gets set by the frontend controller
         $dataTable->add('dont_matter', RowClassColumn::class, [
-            'render' => function ($value, AbstractLogEntry $context) {
-                return $this->logLevelHelper->logLevelToTableColorClass($context->getLevelString());
-            },
+            'render' => fn($value, AbstractLogEntry $context) => $this->logLevelHelper->logLevelToTableColorClass($context->getLevelString()),
         ]);
 
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
-            'render' => function ($value, AbstractLogEntry $context) {
-                return sprintf(
-                    '<i class="fas fa-fw %s" title="%s"></i>',
-                    $this->logLevelHelper->logLevelToIconClass($context->getLevelString()),
-                    $context->getLevelString()
-                );
-            },
+            'render' => fn($value, AbstractLogEntry $context): string => sprintf(
+                '<i class="fas fa-fw %s" title="%s"></i>',
+                $this->logLevelHelper->logLevelToIconClass($context->getLevelString()),
+                $context->getLevelString()
+            ),
         ]);
 
         $dataTable->add('id', TextColumn::class, [
@@ -140,12 +124,10 @@ class LogDataTable implements DataTableTypeInterface
         $dataTable->add('timestamp', LocaleDateTimeColumn::class, [
             'label' => 'log.timestamp',
             'timeFormat' => 'medium',
-            'render' => function (string $value, AbstractLogEntry $context) {
-                return sprintf('<a href="%s">%s</a>',
-                    $this->urlGenerator->generate('log_details', ['id' => $context->getId()]),
-                    $value
-                );
-            }
+            'render' => fn(string $value, AbstractLogEntry $context): string => sprintf('<a href="%s">%s</a>',
+                $this->urlGenerator->generate('log_details', ['id' => $context->getID()]),
+                $value
+            )
         ]);
 
         $dataTable->add('type', TextColumn::class, [
@@ -157,7 +139,7 @@ class LogDataTable implements DataTableTypeInterface
                 if ($context instanceof PartStockChangedLogEntry) {
                     $text .= sprintf(
                         ' (<i>%s</i>)',
-                        $this->translator->trans('log.part_stock_changed.' . $context->getInstockChangeType())
+                        $this->translator->trans('log.part_stock_changed.' . $context->getInstockChangeType()->toExtraShortType())
                     );
                 }
 
@@ -169,18 +151,16 @@ class LogDataTable implements DataTableTypeInterface
             'label' => 'log.level',
             'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
-            'render' => function (string $value, AbstractLogEntry $context) {
-                return $this->translator->trans('log.level.'.$value);
-            },
+            'render' => fn(string $value, AbstractLogEntry $context) => $this->translator->trans('log.level.'.$value),
         ]);
 
         $dataTable->add('user', TextColumn::class, [
             'label' => 'log.user',
-            'render' => function ($value, AbstractLogEntry $context) {
+            'render' => function ($value, AbstractLogEntry $context): string {
                 $user = $context->getUser();
 
                 //If user was deleted, show the info from the username field
-                if ($user === null) {
+                if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
                             htmlentities($context->getCLIUsername()),
@@ -208,11 +188,12 @@ class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
-        $dataTable->add('target_type', TextColumn::class, [
+        $dataTable->add('target_type', EnumColumn::class, [
             'label' => 'log.target_type',
             'visible' => false,
-            'render' => function ($value, AbstractLogEntry $context) {
-                $class = $context->getTargetClass();
+            'class' => LogTargetType::class,
+            'render' => function (LogTargetType $value, AbstractLogEntry $context) {
+                $class = $value->toClass();
                 if (null !== $class) {
                     return $this->elementTypeNameGenerator->getLocalizedTypeLabel($class);
                 }
@@ -241,19 +222,17 @@ class LogDataTable implements DataTableTypeInterface
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
-                        if (null !== $target) {
+                        if ($target instanceof AbstractDBElement) {
                             return $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
                         }
-                    } catch (EntityNotSupportedException $exception) {
+                    } catch (EntityNotSupportedException) {
                         return null;
                     }
                 }
 
                 return null;
             },
-            'disabled' => function ($value, AbstractLogEntry $context) {
-                return !$this->security->isGranted('show_history', $context->getTargetClass());
-            },
+            'disabled' => fn($value, AbstractLogEntry $context) => !$this->security->isGranted('show_history', $context->getTargetClass()),
         ]);
 
         $dataTable->add('actionRevert', RevertLogColumn::class, [
@@ -301,8 +280,8 @@ class LogDataTable implements DataTableTypeInterface
                 ->andWhere('log.target_type NOT IN (:disallowed)');
 
             $builder->setParameter('disallowed', [
-                AbstractLogEntry::targetTypeClassToID(User::class),
-                AbstractLogEntry::targetTypeClassToID(Group::class),
+                LogTargetType::USER,
+                LogTargetType::GROUP,
             ]);
         }
 
@@ -310,9 +289,12 @@ class LogDataTable implements DataTableTypeInterface
             foreach ($options['filter_elements'] as $element) {
                 /** @var AbstractDBElement $element */
 
-                $target_type = AbstractLogEntry::targetTypeClassToID(get_class($element));
+                $target_type = LogTargetType::fromElementClass($element);
                 $target_id = $element->getID();
-                $builder->orWhere("log.target_type = ${target_type} AND log.target_id = ${target_id}");
+
+                $builder->orWhere('log.target_type = :filter_target_type AND log.target_id = :filter_target_id');
+                $builder->setParameter('filter_target_type', $target_type);
+                $builder->setParameter('filter_target_id', $target_id);
             }
         }
     }

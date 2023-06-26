@@ -45,6 +45,10 @@ use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 
+/**
+ * @template TEntityClass of AbstractDBElement
+ * @extends EntityRepository<TEntityClass>
+ */
 class DBElementRepository extends EntityRepository
 {
     /**
@@ -52,12 +56,13 @@ class DBElementRepository extends EntityRepository
      * You should only use it to undelete former existing elements, everything else is most likely a bad idea!
      *
      * @param AbstractDBElement $element The element whose ID should be changed
-     * @param int               $new_id  The new ID
+     * @phpstan-param TEntityClass $element
+     * @param int     $new_id  The new ID
      */
     public function changeID(AbstractDBElement $element, int $new_id): void
     {
         $qb = $this->createQueryBuilder('element');
-        $q = $qb->update(get_class($element), 'element')
+        $q = $qb->update($element::class, 'element')
             ->set('element.id', $new_id)
             ->where('element.id = ?1')
             ->setParameter(1, $element->getID())
@@ -73,6 +78,7 @@ class DBElementRepository extends EntityRepository
      * Find all elements that match a list of IDs.
      *
      * @return AbstractDBElement[]
+     * @phpstan-return list<TEntityClass>
      */
     public function getElementsFromIDArray(array $ids): array
     {
@@ -87,7 +93,7 @@ class DBElementRepository extends EntityRepository
 
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void
     {
-        $reflection = new ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
         $property->setValue($element, $new_value);

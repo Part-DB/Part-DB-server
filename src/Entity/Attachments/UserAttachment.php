@@ -28,18 +28,18 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a user element.
- *
- * @ORM\Entity()
- * @UniqueEntity({"name", "attachment_type", "element"})
+ * @extends Attachment<User>
  */
+#[UniqueEntity(['name', 'attachment_type', 'element'])]
+#[ORM\Entity]
 class UserAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = User::class;
+    final public const ALLOWED_ELEMENT_CLASS = User::class;
 
     /**
      * @var User|null the element this attachment is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="attachments")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'attachments')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -55,18 +56,13 @@ use ReflectionClass;
 
 final class LabelExampleElementsGenerator
 {
-    public function getElement(string $type): object
+    public function getElement(LabelSupportedElement $type): object
     {
-        switch ($type) {
-            case 'part':
-                return $this->getExamplePart();
-            case 'part_lot':
-                return $this->getExamplePartLot();
-            case 'storelocation':
-                return $this->getStorelocation();
-            default:
-                throw new InvalidArgumentException('Unknown $type.');
-        }
+        return match ($type) {
+            LabelSupportedElement::PART => $this->getExamplePart(),
+            LabelSupportedElement::PART_LOT => $this->getExamplePartLot(),
+            LabelSupportedElement::STORELOCATION => $this->getStorelocation(),
+        };
     }
 
     public function getExamplePart(): Part
@@ -135,6 +131,14 @@ final class LabelExampleElementsGenerator
         return $user;
     }
 
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param  string  $class
+     * @phpstan-param class-string<T> $class
+     * @return AbstractStructuralDBElement
+     * @phpstan-return T
+     * @throws \ReflectionException
+     */
     private function getStructuralData(string $class): AbstractStructuralDBElement
     {
         if (!is_a($class, AbstractStructuralDBElement::class, true)) {

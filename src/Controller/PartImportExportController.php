@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Controller;
 
 use App\Entity\Parts\Part;
@@ -36,23 +38,11 @@ use UnexpectedValueException;
 
 class PartImportExportController extends AbstractController
 {
-    private PartsTableActionHandler $partsTableActionHandler;
-    private EntityImporter $entityImporter;
-    private EventCommentHelper $commentHelper;
-
-    public function __construct(PartsTableActionHandler $partsTableActionHandler,
-        EntityImporter $entityImporter, EventCommentHelper $commentHelper)
+    public function __construct(private readonly PartsTableActionHandler $partsTableActionHandler, private readonly EntityImporter $entityImporter, private readonly EventCommentHelper $commentHelper)
     {
-        $this->partsTableActionHandler = $partsTableActionHandler;
-        $this->entityImporter = $entityImporter;
-        $this->commentHelper = $commentHelper;
     }
 
-    /**
-     * @Route("/parts/import", name="parts_import")
-     * @param  Request  $request
-     * @return Response
-     */
+    #[Route(path: '/parts/import', name: 'parts_import')]
     public function importParts(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@parts.import');
@@ -109,23 +99,20 @@ class PartImportExportController extends AbstractController
 
 
         ret:
-        return $this->renderForm('parts/import/parts_import.html.twig', [
+        return $this->render('parts/import/parts_import.html.twig', [
             'import_form' => $import_form,
             'imported_entities' => $entities ?? [],
             'import_errors' => $errors ?? [],
         ]);
     }
 
-    /**
-     * @Route("/parts/export", name="parts_export", methods={"GET"})
-     * @return Response
-     */
+    #[Route(path: '/parts/export', name: 'parts_export', methods: ['GET'])]
     public function exportParts(Request $request, EntityExporter $entityExporter): Response
     {
         $ids = $request->query->get('ids', '');
         $parts = $this->partsTableActionHandler->idStringToArray($ids);
 
-        if (empty($parts)) {
+        if ($parts === []) {
             throw new \RuntimeException('No parts found!');
         }
 

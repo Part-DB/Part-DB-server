@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\DataTables\Filters;
 
 use App\DataTables\Filters\CompoundFilterTrait;
@@ -54,16 +56,8 @@ class CompoundFilterTraitTest extends TestCase
         $filter = new class($f1, $f2, $f3, null) {
             use CompoundFilterTrait;
 
-            protected $filter1;
-            private $filter2;
-            public $filter3;
-            protected $filter4;
-
-            public function __construct($f1, $f2, $f3, $f4) {
-                $this->filter1 = $f1;
-                $this->filter2 = $f2;
-                $this->filter3 = $f3;
-                $this->filter4 = $f4;
+            public function __construct(protected $filter1, private $filter2, public $filter3, protected $filter4)
+            {
             }
 
             public function _findAllChildFilters()
@@ -104,16 +98,8 @@ class CompoundFilterTraitTest extends TestCase
         $filter = new class($f1, $f2, $f3, null) {
             use CompoundFilterTrait;
 
-            protected $filter1;
-            private $filter2;
-            public $filter3;
-            protected $filter4;
-
-            public function __construct($f1, $f2, $f3, $f4) {
-                $this->filter1 = $f1;
-                $this->filter2 = $f2;
-                $this->filter3 = $f3;
-                $this->filter4 = $f4;
+            public function __construct(protected $filter1, private $filter2, public $filter3, protected $filter4)
+            {
             }
 
             public function _applyAllChildFilters(QueryBuilder $queryBuilder): void

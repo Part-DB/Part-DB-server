@@ -26,7 +26,7 @@ use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 
 class UserTest extends TestCase
@@ -133,7 +133,7 @@ class UserTest extends TestCase
             [],
             "Test",
             new EmptyTrustPath(),
-            Uuid::fromDateTime(new \DateTime()),
+            Uuid::v4(),
             "",
             "",
             0

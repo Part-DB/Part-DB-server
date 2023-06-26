@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,17 +20,21 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Repository;
 
+use App\Entity\Parameters\AbstractParameter;
+
+/**
+ * @template TEntityClass of AbstractParameter
+ * @extends DBElementRepository<TEntityClass>
+ */
 class ParameterRepository extends DBElementRepository
 {
     /**
      * Find parameters using a parameter name
      * @param  string  $name The name to search for
      * @param  bool  $exact True, if only exact names should match. False, if the name just needs to be contained in the parameter name
-     * @param  int  $max_results
-     * @return array
+     * @phpstan-return array<array{name: string, symbol: string, unit: string}>
      */
     public function autocompleteParamName(string $name, bool $exact = false, int $max_results = 50): array
     {

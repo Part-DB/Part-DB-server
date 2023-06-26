@@ -41,53 +41,38 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem;
 
+use App\Entity\LabelSystem\LabelProcessMode;
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
 use InvalidArgumentException;
-use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\Error;
 
 final class LabelHTMLGenerator
 {
-    private Environment $twig;
-    private ElementTypeNameGenerator $elementTypeNameGenerator;
-    private LabelTextReplacer $replacer;
-    private BarcodeGenerator $barcodeGenerator;
-    private SandboxedTwigProvider $sandboxedTwigProvider;
-    private string $partdb_title;
-    private Security $security;
-
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
-        BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, Security $security, string $partdb_title)
+    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator, private readonly LabelTextReplacer $replacer, private readonly Environment $twig, private readonly BarcodeGenerator $barcodeGenerator, private readonly SandboxedTwigProvider $sandboxedTwigProvider, private readonly Security $security, private readonly string $partdb_title)
     {
-        $this->twig = $twig;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->replacer = $replacer;
-        $this->barcodeGenerator = $barcodeGenerator;
-        $this->sandboxedTwigProvider = $sandboxedTwigProvider;
-        $this->security = $security;
-        $this->partdb_title = $partdb_title;
     }
 
     public function getLabelHTML(LabelOptions $options, array $elements): string
     {
-        if (empty($elements)) {
+        if ($elements === []) {
             throw new InvalidArgumentException('$elements must not be empty');
         }
 
         $twig_elements = [];
 
-        if ('twig' === $options->getLinesMode()) {
+        if (LabelProcessMode::TWIG === $options->getProcessMode()) {
             $sandboxed_twig = $this->sandboxedTwigProvider->getTwig($options);
             $current_user = $this->security->getUser();
         }
 
         $page = 1;
         foreach ($elements as $element) {
-            if (isset($sandboxed_twig, $current_user) && 'twig' === $options->getLinesMode()) {
+            if (isset($sandboxed_twig, $current_user) && LabelProcessMode::TWIG === $options->getProcessMode()) {
                 try {
                     $lines = $sandboxed_twig->render(
                         'lines',

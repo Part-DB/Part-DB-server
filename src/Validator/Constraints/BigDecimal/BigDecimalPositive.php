@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,28 +20,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Validator\Constraints\BigDecimal;
 
-use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Positive;
 
-/**
- * @Annotation
- * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
- *
- * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
- */
-class BigDecimalPositive extends GreaterThan
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
+class BigDecimalPositive extends Positive
 {
-    use BigNumberConstraintTrait;
-
-    public $message = 'This value should be positive.';
-
-    public function __construct($options = null)
-    {
-        parent::__construct($this->configureNumberConstraintOptions($options));
-    }
-
     public function validatedBy(): string
     {
         return BigDecimalGreaterThanValidator::class;

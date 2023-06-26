@@ -46,7 +46,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LabelProfileControllerTest extends AbstractAdminControllerTest
 {
-    protected static string $base_path = '/en'.'/label_profile';
+    protected static string $base_path = '/en/label_profile';
     protected static string $entity_class = LabelProfile::class;
 
     /**

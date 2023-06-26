@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,18 +20,16 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LogSystem;
 
 /**
  * This service is used to check if a log change comment is needed for a given operation type.
  * It is configured using the "enforce_change_comments_for" config parameter.
+ * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
  */
 class EventCommentNeededHelper
 {
-    protected array $enforce_change_comments_for;
-
-    public const VALID_OPERATION_TYPES = [
+    final public const VALID_OPERATION_TYPES = [
         'part_edit',
         'part_create',
         'part_delete',
@@ -38,15 +39,12 @@ class EventCommentNeededHelper
         'datastructure_delete',
     ];
 
-    public function __construct(array $enforce_change_comments_for)
+    public function __construct(protected array $enforce_change_comments_for)
     {
-        $this->enforce_change_comments_for = $enforce_change_comments_for;
     }
 
     /**
      * Checks if a log change comment is needed for the given operation type
-     * @param  string  $comment_type
-     * @return bool
      */
     public function isCommentNeeded(string $comment_type): bool
     {

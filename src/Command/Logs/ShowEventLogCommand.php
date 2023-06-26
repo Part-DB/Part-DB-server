@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Command\Logs;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use App\Entity\UserSystem\User;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
@@ -36,23 +38,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[AsCommand('partdb:logs:show|app:show-logs', 'List the last event log entries.')]
 class ShowEventLogCommand extends Command
 {
-    protected static $defaultName = 'partdb:logs:show|app:show-logs';
-    protected EntityManagerInterface $entityManager;
-    protected TranslatorInterface $translator;
-    protected ElementTypeNameGenerator $elementTypeNameGenerator;
     protected LogEntryRepository $repo;
-    protected LogEntryExtraFormatter $formatter;
 
-    public function __construct(EntityManagerInterface $entityManager,
-        TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator, LogEntryExtraFormatter $formatter)
+    public function __construct(protected EntityManagerInterface $entityManager,
+        protected TranslatorInterface $translator, protected ElementTypeNameGenerator $elementTypeNameGenerator, protected LogEntryExtraFormatter $formatter)
     {
-        $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->formatter = $formatter;
-
         $this->repo = $this->entityManager->getRepository(AbstractLogEntry::class);
         parent::__construct();
     }
@@ -74,7 +67,7 @@ class ShowEventLogCommand extends Command
         if ($page > $max_page && $max_page > 0) {
             $io->error("There is no page ${page}! The maximum page is ${max_page}.");
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $io->note("There are a total of ${total_count} log entries in the DB.");
@@ -84,21 +77,19 @@ class ShowEventLogCommand extends Command
             $this->showPage($output, $desc, $limit, $page, $max_page, $showExtra);
 
             if ($onePage) {
-                return 0;
+                return Command::SUCCESS;
             }
 
             $continue = $io->confirm('Do you want to show the next page?');
             ++$page;
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('List the last event log entries.')
-            ->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50)
+        $this->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50)
             ->addOption('oldest_first', null, InputOption::VALUE_NONE, 'Show older entries first.')
             ->addOption('page', 'p', InputOption::VALUE_REQUIRED, 'Which page should be shown?', 1)
             ->addOption('onePage', null, InputOption::VALUE_NONE, 'Show only one page (dont ask to go to next).')
@@ -147,14 +138,12 @@ class ShowEventLogCommand extends Command
             $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
         }
 
-        if ($entry->getUser()) {
+        if ($entry->getUser() instanceof User) {
             $user = $entry->getUser()->getFullName(true);
+        } elseif ($entry->isCLIEntry()) {
+            $user = $entry->getCLIUsername() . ' [CLI]';
         } else {
-            if ($entry->isCLIEntry()) {
-                $user = $entry->getCLIUsername() . ' [CLI]';
-            } else {
-                $user = $entry->getUsername() . ' [deleted]';
-            }
+            $user = $entry->getUsername() . ' [deleted]';
         }
 
         $row = [

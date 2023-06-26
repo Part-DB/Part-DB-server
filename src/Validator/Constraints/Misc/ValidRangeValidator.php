@@ -49,11 +49,8 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class ValidRangeValidator extends ConstraintValidator
 {
-    protected RangeParser $rangeParser;
-
-    public function __construct(RangeParser $rangeParser)
+    public function __construct(protected RangeParser $rangeParser)
     {
-        $this->rangeParser = $rangeParser;
     }
 
     public function validate($value, Constraint $constraint): void

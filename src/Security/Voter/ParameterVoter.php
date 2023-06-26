@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Security\Voter;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
@@ -36,16 +40,12 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
-use Symfony\Component\Security\Core\Security;
 
 class ParameterVoter extends ExtendedVoter
 {
 
-    protected Security $security;
-
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
     {
-        $this->security = $security;
         parent::__construct($resolver, $entityManager);
     }
 
@@ -60,31 +60,14 @@ class ParameterVoter extends ExtendedVoter
         if (is_object($subject)) {
             //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
             $target_element = $subject->getElement();
-            if ($target_element !== null) {
-                //Depending on the operation delegate either to the attachments element or to the attachment permission
-
-
-                switch ($attribute) {
-                    //We can view the attachment if we can view the element
-                    case 'read':
-                    case 'view':
-                        $operation = 'read';
-                        break;
-                    //We can edit/create/delete the attachment if we can edit the element
-                    case 'edit':
-                    case 'create':
-                    case 'delete':
-                        $operation = 'edit';
-                        break;
-                    case 'show_history':
-                        $operation = 'show_history';
-                        break;
-                    case 'revert_element':
-                        $operation = 'revert_element';
-                        break;
-                    default:
-                        throw new RuntimeException('Unknown operation: '.$attribute);
-                }
+            if ($target_element instanceof AbstractDBElement) {
+                $operation = match ($attribute) {
+                    'read', 'view' => 'read',
+                    'edit', 'create', 'delete' => 'edit',
+                    'show_history' => 'show_history',
+                    'revert_element' => 'revert_element',
+                    default => throw new RuntimeException('Unknown operation: '.$attribute),
+                };
 
                 return $this->security->isGranted($operation, $target_element);
             }
@@ -118,7 +101,7 @@ class ParameterVoter extends ExtendedVoter
             $param = 'parts';
         }
         else {
-            throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? get_class($subject) : $subject));
+            throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
         }
 
         return $this->resolver->inherit($user, $param, $attribute) ?? false;

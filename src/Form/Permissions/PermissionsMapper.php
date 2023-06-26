@@ -34,25 +34,20 @@ use Traversable;
  */
 final class PermissionsMapper implements DataMapperInterface
 {
-    private PermissionManager $resolver;
-    private bool $inherit;
-
-    public function __construct(PermissionManager $resolver, bool $inherit = false)
+    public function __construct(private readonly PermissionManager $resolver, private readonly bool $inherit = false)
     {
-        $this->inherit = $inherit;
-        $this->resolver = $resolver;
     }
 
     /**
-     * Maps the view data of a compound form to its children.
+     *  Maps the view data of a compound form to its children.
      *
-     * The method is responsible for calling {@link FormInterface::setData()}
-     * on the children of compound forms, defining their underlying model data.
+     *  The method is responsible for calling {@link FormInterface::setData()}
+     *  on the children of compound forms, defining their underlying model data.
      *
      * @param mixed                       $viewData View data of the compound form being initialized
-     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
+     * @param Traversable $forms A list of {@link FormInterface} instances
      */
-    public function mapDataToForms($viewData, $forms): void
+    public function mapDataToForms($viewData, \Traversable $forms): void
     {
         foreach ($forms as $form) {
             if ($this->inherit) {
@@ -73,33 +68,33 @@ final class PermissionsMapper implements DataMapperInterface
     }
 
     /**
-     * Maps the model data of a list of children forms into the view data of their parent.
+     *  Maps the model data of a list of children forms into the view data of their parent.
      *
-     * This is the internal cascade call of FormInterface::submit for compound forms, since they
-     * cannot be bound to any input nor the request as scalar, but their children may:
+     *  This is the internal cascade call of FormInterface::submit for compound forms, since they
+     *  cannot be bound to any input nor the request as scalar, but their children may:
      *
-     *     $compoundForm->submit($arrayOfChildrenViewData)
-     *     // inside:
-     *     $childForm->submit($childViewData);
-     *     // for each entry, do the same and/or reverse transform
-     *     $this->dataMapper->mapFormsToData($compoundForm, $compoundInitialViewData)
-     *     // then reverse transform
+     *      $compoundForm->submit($arrayOfChildrenViewData)
+     *      // inside:
+     *      $childForm->submit($childViewData);
+     *      // for each entry, do the same and/or reverse transform
+     *      $this->dataMapper->mapFormsToData($compoundForm, $compoundInitialViewData)
+     *      // then reverse transform
      *
-     * When a simple form is submitted the following is happening:
+     *  When a simple form is submitted the following is happening:
      *
-     *     $simpleForm->submit($submittedViewData)
-     *     // inside:
-     *     $this->viewData = $submittedViewData
-     *     // then reverse transform
+     *      $simpleForm->submit($submittedViewData)
+     *      // inside:
+     *      $this->viewData = $submittedViewData
+     *      // then reverse transform
      *
-     * The model data can be an array or an object, so this second argument is always passed
-     * by reference.
+     *  The model data can be an array or an object, so this second argument is always passed
+     *  by reference.
      *
-     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
+     * @param Traversable $forms A list of {@link FormInterface} instances
      * @param mixed                       $viewData The compound form's view data that get mapped
      *                                              its children model data
      */
-    public function mapFormsToData($forms, &$viewData): void
+    public function mapFormsToData(\Traversable $forms, &$viewData): void
     {
         if ($this->inherit) {
             throw new RuntimeException('The permission type is readonly when it is showing read only data!');

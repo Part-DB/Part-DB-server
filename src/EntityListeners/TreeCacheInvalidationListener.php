@@ -35,25 +35,18 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class TreeCacheInvalidationListener
 {
-    protected TagAwareCacheInterface $cache;
-    protected UserCacheKeyGenerator $keyGenerator;
-
-    public function __construct(TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator)
     {
-        $this->cache = $treeCache;
-        $this->keyGenerator = $keyGenerator;
     }
 
-    /**
-     * @ORM\PostUpdate()
-     * @ORM\PostPersist()
-     * @ORM\PostRemove()
-     */
+    #[ORM\PostUpdate]
+    #[ORM\PostPersist]
+    #[ORM\PostRemove]
     public function invalidate(AbstractDBElement $element, LifecycleEventArgs $event): void
     {
         //If an element was changed, then invalidate all cached trees with this element class
         if ($element instanceof AbstractStructuralDBElement || $element instanceof LabelProfile) {
-            $secure_class_name = str_replace('\\', '_', get_class($element));
+            $secure_class_name = str_replace('\\', '_', $element::class);
             $this->cache->invalidateTags([$secure_class_name]);
 
             //Trigger a sidebar reload for all users (see SidebarTreeUpdater service)
@@ -64,7 +57,7 @@ class TreeCacheInvalidationListener
 
         //If a user change, then invalidate all cached trees for him
         if ($element instanceof User) {
-            $secure_class_name = str_replace('\\', '_', get_class($element));
+            $secure_class_name = str_replace('\\', '_', $element::class);
             $tag = $this->keyGenerator->generateKey($element);
             $this->cache->invalidateTags([$tag, $secure_class_name]);
         }

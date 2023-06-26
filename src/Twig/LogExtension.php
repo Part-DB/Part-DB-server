@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Twig;
 
+use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\LogSystem\LogDataFormatter;
 use App\Services\LogSystem\LogDiffFormatter;
 use Twig\Extension\AbstractExtension;
@@ -28,20 +31,15 @@ use Twig\TwigFunction;
 final class LogExtension extends AbstractExtension
 {
 
-    private LogDataFormatter $logDataFormatter;
-    private LogDiffFormatter $logDiffFormatter;
-
-    public function __construct(LogDataFormatter $logDataFormatter, LogDiffFormatter $logDiffFormatter)
+    public function __construct(private readonly LogDataFormatter $logDataFormatter, private readonly LogDiffFormatter $logDiffFormatter)
     {
-        $this->logDataFormatter = $logDataFormatter;
-        $this->logDiffFormatter = $logDiffFormatter;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new TwigFunction('format_log_data', [$this->logDataFormatter, 'formatData'], ['is_safe' => ['html']]),
-            new TwigFunction('format_log_diff', [$this->logDiffFormatter, 'formatDiff'], ['is_safe' => ['html']]),
+            new TwigFunction('format_log_data', fn($data, AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),
+            new TwigFunction('format_log_diff', fn($old_data, $new_data): string => $this->logDiffFormatter->formatDiff($old_data, $new_data), ['is_safe' => ['html']]),
         ];
     }
 }

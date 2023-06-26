@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Command\User;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
 use App\Services\UserSystem\PermissionManager;
@@ -34,22 +37,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[AsCommand('partdb:users:permissions|partdb:user:permissions', 'View and edit the permissions of a given user')]
 class UsersPermissionsCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:permissions|partdb:user:permissions';
-    protected static $defaultDescription = 'View and edit the permissions of a given user';
-
-    protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
-    protected PermissionManager $permissionResolver;
-    protected TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, PermissionManager $permissionResolver, TranslatorInterface $translator)
+    public function __construct(protected EntityManagerInterface $entityManager, protected PermissionManager $permissionResolver, protected TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository(User::class);
-        $this->permissionResolver = $permissionResolver;
-        $this->translator = $translator;
 
         parent::__construct(self::$defaultName);
     }
@@ -73,12 +68,12 @@ class UsersPermissionsCommand extends Command
         //Find user
         $io->note('Finding user with username: ' . $username);
         $user = $this->userRepository->findByEmailOrName($username);
-        if ($user === null) {
+        if (!$user instanceof User) {
             $io->error('No user found with username: ' . $username);
             return Command::FAILURE;
         }
 
-        $io->note(sprintf('Found user %s with ID %d', $user->getFullName(true), $user->getId()));
+        $io->note(sprintf('Found user %s with ID %d', $user->getFullName(true), $user->getID()));
 
         $edit_mapping = $this->renderPermissionTable($output, $user, $inherit);
 
@@ -102,7 +97,7 @@ class UsersPermissionsCommand extends Command
 
 
             $new_value_str = $io->ask('Enter the new value for the permission (A = allow, D = disallow, I = inherit)');
-            switch (strtolower($new_value_str)) {
+            switch (strtolower((string) $new_value_str)) {
                 case 'a':
                 case 'allow':
                     $new_value = true;
@@ -209,11 +204,11 @@ class UsersPermissionsCommand extends Command
 
         if ($permission_value === true) {
             return '<fg=green>Allow</>';
-        } else if ($permission_value === false) {
+        } elseif ($permission_value === false) {
             return '<fg=red>Disallow</>';
-        } else if ($permission_value === null && !$inherit) {
+        } elseif ($permission_value === null && !$inherit) {
             return '<fg=blue>Inherit</>';
-        } else if ($permission_value === null && $inherit) {
+        } elseif ($permission_value === null && $inherit) {
             return '<fg=red>Disallow (Inherited)</>';
         }
 

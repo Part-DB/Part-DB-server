@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\PriceInformations\Currency;
 use Doctrine\ORM\Mapping as ORM;
@@ -48,18 +49,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a category element.
- *
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @UniqueEntity(fields={"name", "group", "element"})
  */
+#[UniqueEntity(fields: ['name', 'group', 'element'])]
+#[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class CurrencyParameter extends AbstractParameter
 {
-    public const ALLOWED_ELEMENT_CLASS = Currency::class;
+    final public const ALLOWED_ELEMENT_CLASS = Currency::class;
 
     /**
      * @var Currency the element this para is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", inversedBy="parameters")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'parameters')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AbstractDBElement $element = null;
 }

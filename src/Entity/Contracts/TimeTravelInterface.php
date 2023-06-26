@@ -41,5 +41,5 @@ interface TimeTravelInterface
     /**
      * Returns the timestamp associated with this change.
      */
-    public function getTimestamp(): DateTime;
+    public function getTimestamp(): \DateTimeInterface;
 }

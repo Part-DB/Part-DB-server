@@ -19,7 +19,7 @@ parameters:
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################
-  partdb.gpdr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GPDR compliant
+  partdb.gdpr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GDPR compliant
   partdb.users.use_gravatar: '%env(bool:USE_GRAVATAR)%'         # Set to false, if no Gravatar images should be used for user profiles.
   partdb.users.email_pw_reset: '%env(bool:ALLOW_EMAIL_PW_RESET)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
 

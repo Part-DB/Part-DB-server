@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -26,21 +28,26 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
+/**
+ * @see \App\Tests\Serializer\StructuralElementFromNameDenormalizerTest
+ */
+class StructuralElementFromNameDenormalizer implements DenormalizerInterface
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @phpstan-param class-string<T> $type
+     * @phpstan-return T|null
+     */
+    public function denormalize($data, string $type, string $format = null, array $context = []): AbstractStructuralDBElement|null
     {
         //Retrieve the repository for the given type
         /** @var StructuralDBElementRepository $repo */
@@ -54,22 +61,27 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface, Ca
             foreach ($elements as $element) {
                 $this->em->persist($element);
             }
-            if (empty($elements)) {
+            if ($elements === []) {
                 return null;
             }
             return end($elements);
         }
 
         $elements = $repo->getEntityByPath($data, $path_delimiter);
-        if (empty($elements)) {
+        if ($elements === []) {
             return null;
         }
         return end($elements);
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
-        //Must be false, because we do an is_string check on data in supportsDenormalization
-        return false;
+        //Cachable value Must be false, because we do an is_string check on data in supportsDenormalization
+        return [
+            AbstractStructuralDBElement::class => false
+        ];
     }
 }

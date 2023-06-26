@@ -41,19 +41,19 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class LabelProfileFixtures extends Fixture
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     public function load(ObjectManager $manager): void
@@ -65,8 +65,8 @@ class LabelProfileFixtures extends Fixture
 
         $option1 = new LabelOptions();
         $option1->setLines("[[NAME]]\n[[DESCRIPION]]");
-        $option1->setBarcodeType('none');
-        $option1->setSupportedElement('part');
+        $option1->setBarcodeType(BarcodeType::NONE);
+        $option1->setSupportedElement(LabelSupportedElement::PART);
         $profile1->setOptions($option1);
 
         $manager->persist($profile1);
@@ -77,8 +77,8 @@ class LabelProfileFixtures extends Fixture
 
         $option2 = new LabelOptions();
         $option2->setLines("[[NAME]]\n[[DESCRIPION]]");
-        $option2->setBarcodeType('qr');
-        $option2->setSupportedElement('part');
+        $option2->setBarcodeType(BarcodeType::QR);
+        $option2->setSupportedElement(LabelSupportedElement::PART);
         $profile2->setOptions($option2);
 
         $manager->persist($profile2);
@@ -89,8 +89,8 @@ class LabelProfileFixtures extends Fixture
 
         $option3 = new LabelOptions();
         $option3->setLines("[[NAME]]\n[[DESCRIPION]]");
-        $option3->setBarcodeType('code128');
-        $option3->setSupportedElement('part_lot');
+        $option3->setBarcodeType(BarcodeType::CODE128);
+        $option3->setSupportedElement(LabelSupportedElement::PART_LOT);
         $profile3->setOptions($option3);
 
         $manager->persist($profile3);
@@ -101,13 +101,20 @@ class LabelProfileFixtures extends Fixture
 
         $option4 = new LabelOptions();
         $option4->setLines('{{ element.name }}');
-        $option4->setBarcodeType('code39');
-        $option4->setSupportedElement('part');
-        $option4->setLinesMode('twig');
+        $option4->setBarcodeType(BarcodeType::CODE39);
+        $option4->setSupportedElement(LabelSupportedElement::PART);
+        $option4->setProcessMode(LabelProcessMode::TWIG);
         $profile4->setOptions($option4);
 
         $manager->persist($profile4);
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            PartFixtures::class,
+        ];
     }
 }

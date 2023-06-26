@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use App\Entity\Parts\Part;
@@ -27,13 +29,20 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class PartNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
+/**
+ * @see \App\Tests\Serializer\PartNormalizerTest
+ */
+class PartNormalizer implements NormalizerInterface, DenormalizerInterface
 {
+
     private const DENORMALIZE_KEY_MAPPING = [
         'notes' => 'comment',
         'quantity' => 'instock',
@@ -44,21 +53,27 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         'storage_location' => 'storelocation',
     ];
 
-    private ObjectNormalizer $normalizer;
-    private StructuralElementFromNameDenormalizer $locationDenormalizer;
-
-    public function __construct(ObjectNormalizer $normalizer, StructuralElementFromNameDenormalizer $locationDenormalizer)
+    public function __construct(
+        private readonly StructuralElementFromNameDenormalizer $locationDenormalizer,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly NormalizerInterface $normalizer,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly DenormalizerInterface $denormalizer,
+    )
     {
-        $this->normalizer = $normalizer;
-        $this->locationDenormalizer = $locationDenormalizer;
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof Part;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    /**
+     * @return (float|mixed)[]|\ArrayObject|null|scalar
+     *
+     * @psalm-return \ArrayObject|array{total_instock: float|mixed,...}|null|scalar
+     */
+    public function normalize($object, string $format = null, array $context = [])
     {
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
@@ -76,7 +91,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $data;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_array($data) && is_a($type, Part::class, true);
     }
@@ -114,18 +129,18 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
             $data['minamount'] = 0.0;
         }
 
-        $object = $this->normalizer->denormalize($data, $type, $format, $context);
+        $object = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
         }
 
-        if ((isset($data['instock']) && trim($data['instock']) !== "") || (isset($data['storelocation']) && trim($data['storelocation']) !== "")) {
+        if ((isset($data['instock']) && trim((string) $data['instock']) !== "") || (isset($data['storelocation']) && trim((string) $data['storelocation']) !== "")) {
             $partLot = new PartLot();
 
             if (isset($data['instock']) && $data['instock'] !== "") {
                 //Replace comma with dot
-                $instock = (float) str_replace(',', '.', $data['instock']);
+                $instock = (float) str_replace(',', '.', (string) $data['instock']);
 
                 $partLot->setAmount($instock);
             } else {
@@ -157,7 +172,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
                     $pricedetail = new Pricedetail();
                     $pricedetail->setMinDiscountQuantity(1);
                     $pricedetail->setPriceRelatedQuantity(1);
-                    $price = BigDecimal::of(str_replace(',', '.', $data['price']));
+                    $price = BigDecimal::of(str_replace(',', '.', (string) $data['price']));
                     $pricedetail->setPrice($price);
 
                     $orderdetail->addPricedetail($pricedetail);
@@ -168,9 +183,14 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return $object;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    /**
+     * @return bool[]
+     */
+    public function getSupportedTypes(?string $format): array
     {
         //Must be false, because we rely on is_array($data) in supportsDenormalization()
-        return false;
+        return [
+            Part::class => false,
+        ];
     }
 }

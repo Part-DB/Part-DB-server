@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\ProjectSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 
+/**
+ * @see \App\Tests\Services\ProjectSystem\ProjectBuildPartHelperTest
+ */
 class ProjectBuildPartHelper
 {
     /**
      * Returns a part that represents the builds of a project. This part is not saved to the database, and can be used
      * as initial data for the new part form.
-     * @param  Project  $project
-     * @return Part
      */
     public function getPartInitialization(Project $project): Part
     {

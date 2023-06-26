@@ -36,3 +36,42 @@
 .ck-html-label .ck-content hr {
     margin: 2px;
 }
+
+/***********************************************
+ * Hide CKEditor powered by message
+ ***********************************************/
+.ck-powered-by {
+    display: none;
+}
+
+
+
+
+/***********************************************
+ * Use Bootstrap color vars for CKEditor
+ ***********************************************/
+:root {
+    --ck-color-base-foreground: var(--bs-secondary-bg);
+    --ck-color-base-background: var(--bs-body-bg);
+    --ck-color-base-border: var(--bs-border-color);
+    --ck-color-base-action: var(--bs-success);
+    --ck-color-base-focus: var(--bs-primary-border-subtle);
+    --ck-color-base-text: var(--bs-body-color);
+    --ck-color-base-active: var(--bs-primary-bg-subtle);
+    --ck-color-base-active-focus: var(--bs-primary);
+    --ck-color-base-error: var(--bs-danger);
+
+    /* Improve contrast between text and toolbar */
+    --ck-color-toolbar-background: var(--bs-tertiary-bg);
+
+    /* Buttons */
+    --ck-color-button-default-hover-background: var(--bs-secondary-bg);
+    --ck-color-button-default-active-background: var(--bs-secondary-bg);
+
+    --ck-color-button-on-background: var(--bs-body-bg);
+    --ck-color-button-on-hover-background: var(--bs-secondary-bg);
+    --ck-color-button-on-active-background: var(--bs-secondary-bg);
+    --ck-color-button-on-disabled-background: var(--bs-secondary-bg);
+    --ck-color-button-on-color:	var(--bs-primary)
+
+}

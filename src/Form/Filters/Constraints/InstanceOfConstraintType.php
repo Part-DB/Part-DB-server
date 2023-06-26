@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Filters\Constraints;
 
 use App\DataTables\Filters\Constraints\InstanceOfConstraint;
@@ -27,14 +29,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InstanceOfConstraintType extends AbstractType
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', InstanceOfConstraint::class);
     }

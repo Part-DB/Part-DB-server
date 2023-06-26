@@ -36,14 +36,12 @@ use function Symfony\Component\String\u;
 
 /**
  * Use this class to export an entity to multiple file formats.
+ * @see \App\Tests\Services\ImportExportSystem\EntityExporterTest
  */
 class EntityExporter
 {
-    protected SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(protected SerializerInterface $serializer)
     {
-        $this->serializer = $serializer;
     }
 
     protected function configureOptions(OptionsResolver $resolver): void
@@ -67,7 +65,7 @@ class EntityExporter
      * @param  array  $options The options to use for exporting
      * @return string The serialized data
      */
-    public function exportEntities($entities, array $options): string
+    public function exportEntities(AbstractNamedDBElement|array $entities, array $options): string
     {
         if (!is_array($entities)) {
             $entities = [$entities];
@@ -111,7 +109,7 @@ class EntityExporter
      *
      * @throws ReflectionException
      */
-    public function exportEntityFromRequest($entities, Request $request): Response
+    public function exportEntityFromRequest(AbstractNamedDBElement|array $entities, Request $request): Response
     {
         $options = [
             'format' => $request->get('format') ?? 'json',

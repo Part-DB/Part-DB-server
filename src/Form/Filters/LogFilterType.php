@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,12 +20,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\LogSystem\LogLevel;
+use App\Entity\LogSystem\LogTargetType;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -54,6 +58,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
+use App\Form\Filters\Constraints\EnumConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
@@ -65,17 +70,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LogFilterType extends AbstractType
 {
-    protected const LEVEL_CHOICES = [
-        'log.level.debug' => AbstractLogEntry::LEVEL_DEBUG,
-        'log.level.info' => AbstractLogEntry::LEVEL_INFO,
-        'log.level.notice' => AbstractLogEntry::LEVEL_NOTICE,
-        'log.level.warning' => AbstractLogEntry::LEVEL_WARNING,
-        'log.level.error' => AbstractLogEntry::LEVEL_ERROR,
-        'log.level.critical' => AbstractLogEntry::LEVEL_CRITICAL,
-        'log.level.alert' => AbstractLogEntry::LEVEL_ALERT,
-        'log.level.emergency' => AbstractLogEntry::LEVEL_EMERGENCY,
-    ];
-
     protected const TARGET_TYPE_CHOICES = [
         'log.type.collection_element_deleted' => CollectionElementDeleted::class,
         'log.type.database_updated' => DatabaseUpdatedLogEntry::class,
@@ -101,7 +95,7 @@ class LogFilterType extends AbstractType
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('dbId', NumberConstraintType::class, [
             'label' => 'part.filter.dbId',
@@ -115,9 +109,10 @@ class LogFilterType extends AbstractType
 
 
 
-        $builder->add('level', ChoiceConstraintType::class, [
+        $builder->add('level', EnumConstraintType::class, [
             'label' => 'log.level',
-            'choices' => self::LEVEL_CHOICES,
+            'enum_class' => LogLevel::class,
+            'choice_label' => fn(LogLevel $level): string => 'log.level.' . $level->toPSR3LevelString(),
         ]);
 
         $builder->add('eventType', InstanceOfConstraintType::class, [
@@ -129,29 +124,31 @@ class LogFilterType extends AbstractType
            'label'  => 'log.user',
         ]);
 
-        $builder->add('targetType', ChoiceConstraintType::class, [
+        $builder->add('targetType', EnumConstraintType::class, [
             'label' => 'log.target_type',
-            'choices' => [
-                'user.label' => AbstractLogEntry::targetTypeClassToID(User::class),
-                'attachment.label' => AbstractLogEntry::targetTypeClassToID(Attachment::class),
-                'attachment_type.label' => AbstractLogEntry::targetTypeClassToID(AttachmentType::class),
-                'category.label' => AbstractLogEntry::targetTypeClassToID(Category::class),
-                'project.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
-                'project_bom_entry.label' => AbstractLogEntry::targetTypeClassToID(ProjectBOMEntry::class),
-                'footprint.label' => AbstractLogEntry::targetTypeClassToID(Footprint::class),
-                'group.label' => AbstractLogEntry::targetTypeClassToID(Group::class),
-                'manufacturer.label' => AbstractLogEntry::targetTypeClassToID(Manufacturer::class),
-                'part.label' => AbstractLogEntry::targetTypeClassToID(Part::class),
-                'storelocation.label' => AbstractLogEntry::targetTypeClassToID(Storelocation::class),
-                'supplier.label' => AbstractLogEntry::targetTypeClassToID(Supplier::class),
-                'part_lot.label' => AbstractLogEntry::targetTypeClassToID(PartLot::class),
-                'currency.label' => AbstractLogEntry::targetTypeClassToID(Currency::class),
-                'orderdetail.label' => AbstractLogEntry::targetTypeClassToID(Orderdetail::class),
-                'pricedetail.label' => AbstractLogEntry::targetTypeClassToID(Pricedetail::class),
-                'measurement_unit.label' => AbstractLogEntry::targetTypeClassToID(MeasurementUnit::class),
-                'parameter.label' => AbstractLogEntry::targetTypeClassToID(AbstractParameter::class),
-                'label_profile.label' => AbstractLogEntry::targetTypeClassToID(LabelProfile::class),
-            ]
+            'enum_class' => LogTargetType::class,
+            'choice_label' => fn(LogTargetType $type): string => match ($type) {
+                LogTargetType::NONE => 'log.target_type.none',
+                LogTargetType::USER => 'user.label',
+                LogTargetType::ATTACHMENT => 'attachment.label',
+                LogTargetType::ATTACHMENT_TYPE => 'attachment_type.label',
+                LogTargetType::CATEGORY => 'category.label',
+                LogTargetType::PROJECT => 'project.label',
+                LogTargetType::BOM_ENTRY => 'project_bom_entry.label',
+                LogTargetType::FOOTPRINT => 'footprint.label',
+                LogTargetType::GROUP => 'group.label',
+                LogTargetType::MANUFACTURER => 'manufacturer.label',
+                LogTargetType::PART => 'part.label',
+                LogTargetType::STORELOCATION => 'storelocation.label',
+                LogTargetType::SUPPLIER => 'supplier.label',
+                LogTargetType::PART_LOT => 'part_lot.label',
+                LogTargetType::CURRENCY => 'currency.label',
+                LogTargetType::ORDERDETAIL => 'orderdetail.label',
+                LogTargetType::PRICEDETAIL => 'pricedetail.label',
+                LogTargetType::MEASUREMENT_UNIT => 'measurement_unit.label',
+                LogTargetType::PARAMETER => 'parameter.label',
+                LogTargetType::LABEL_PROFILE => 'label_profile.label',
+            },
         ]);
 
         $builder->add('targetId', NumberConstraintType::class, [

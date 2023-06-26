@@ -30,16 +30,12 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * This service is used to find builtin attachment ressources.
+ * @see \App\Tests\Services\Attachments\BuiltinAttachmentsFinderTest
  */
 class BuiltinAttachmentsFinder
 {
-    protected AttachmentPathResolver $pathResolver;
-    protected CacheInterface $cache;
-
-    public function __construct(CacheInterface $cache, AttachmentPathResolver $pathResolver)
+    public function __construct(protected CacheInterface $cache, protected AttachmentPathResolver $pathResolver)
     {
-        $this->pathResolver = $pathResolver;
-        $this->cache = $cache;
     }
 
     /**
@@ -49,7 +45,6 @@ class BuiltinAttachmentsFinder
      *          '%FOOTPRINTS%/path/to/folder/file1.png',
      *          '%FOOTPRINTS%/path/to/folder/file2.png',
      * ]
-     * @return array
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
@@ -63,7 +58,7 @@ class BuiltinAttachmentsFinder
         foreach($finder as $file) {
             $folder = $file->getRelativePath();
             //Normalize path (replace \ with /)
-            $folder = str_replace('\\', '/', $folder);
+            $folder = str_replace('\\', '/', (string) $folder);
 
             if(!isset($output[$folder])) {
                 $output[$folder] = [];
@@ -109,7 +104,7 @@ class BuiltinAttachmentsFinder
 
                 return $results;
             });
-        } catch (InvalidArgumentException $invalidArgumentException) {
+        } catch (InvalidArgumentException) {
             return [];
         }
     }
@@ -125,7 +120,7 @@ class BuiltinAttachmentsFinder
      */
     public function find(string $keyword, array $options = [], ?array $base_list = []): array
     {
-        if (empty($base_list)) {
+        if ($base_list === null || $base_list === []) {
             $base_list = $this->getListOfRessources();
         }
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\UserSystem;
 
+use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
@@ -33,35 +36,22 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserAvatarHelper
 {
-    private bool $use_gravatar;
-    private Packages $packages;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-    private FilterService $filterService;
-    private EntityManagerInterface $entityManager;
-    private AttachmentSubmitHandler $submitHandler;
-
-    public function __construct(bool $use_gravatar, Packages $packages, AttachmentURLGenerator $attachmentURLGenerator,
-        FilterService $filterService, EntityManagerInterface $entityManager, AttachmentSubmitHandler $attachmentSubmitHandler)
+    public function __construct(private readonly bool $use_gravatar, private readonly Packages $packages, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly FilterService $filterService, private readonly EntityManagerInterface $entityManager, private readonly AttachmentSubmitHandler $submitHandler)
     {
-        $this->use_gravatar = $use_gravatar;
-        $this->packages = $packages;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->filterService = $filterService;
-        $this->entityManager = $entityManager;
-        $this->submitHandler = $attachmentSubmitHandler;
     }
 
 
     /**
-     * Returns the URL to the profile picture of the given user (in big size)
-     * @param  User  $user
+     *  Returns the URL to the profile picture of the given user (in big size)
+     *
      * @return string
      */
     public function getAvatarURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md');
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -76,8 +66,9 @@ class UserAvatarHelper
     public function getAvatarSmURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs');
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');;
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -88,7 +79,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -97,8 +88,9 @@ class UserAvatarHelper
     public function getAvatarMdURL(User $user): string
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
-        if ($user->getMasterPictureAttachment() !== null) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm');
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm')
+                ?? throw new RuntimeException('Could not generate thumbnail URL');
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -109,7 +101,7 @@ class UserAvatarHelper
         try {
             //Otherwise we can serve the relative path via Asset component
             return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
-        } catch (\Imagine\Exception\RuntimeException $e) {
+        } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             return $this->packages->getUrl('/img/default_avatar.png');
         }
@@ -130,28 +122,24 @@ class UserAvatarHelper
     private function getGravatar(User $user, int $s = 80, string $d = 'identicon', string $r = 'g'): string
     {
         $email = $user->getEmail();
-        if (empty($email)) {
+        if ($email === null || $email === '') {
             $email = 'Part-DB';
         }
 
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
-        $url .= "?s=${s}&d=${d}&r=${r}";
 
-        return $url;
+        return $url . "?s=${s}&d=${d}&r=${r}";
     }
 
     /**
      * Handles the upload of the user avatar.
-     * @param  User  $user
-     * @param  UploadedFile  $file
-     * @return Attachment
      */
     public function handleAvatarUpload(User $user, UploadedFile $file): Attachment
     {
         //Determine which attachment to user
         //If the user already has a master attachment, we use this one
-        if ($user->getMasterPictureAttachment()) {
+        if ($user->getMasterPictureAttachment() instanceof Attachment) {
             $attachment = $user->getMasterPictureAttachment();
         } else { //Otherwise we have to create one
             $attachment = new UserAttachment();

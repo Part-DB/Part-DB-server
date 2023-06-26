@@ -43,19 +43,19 @@ namespace App\Services\LabelSystem;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\BarcodeGeneratorTest
+ */
 final class BarcodeGenerator
 {
-    private BarcodeContentGenerator $barcodeContentGenerator;
-
-
-    public function __construct(BarcodeContentGenerator $barcodeContentGenerator)
+    public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator)
     {
-        $this->barcodeContentGenerator = $barcodeContentGenerator;
     }
 
     public function generateHTMLBarcode(LabelOptions $options, object $target): ?string
@@ -79,7 +79,7 @@ final class BarcodeGenerator
         $repr = 'data:';
 
         $repr .= $mime;
-        if (0 === strpos($mime, 'text/')) {
+        if (str_starts_with($mime, 'text/')) {
             $repr .= ','.rawurlencode($data);
         } else {
             $repr .= ';base64,'.base64_encode($data);
@@ -92,52 +92,31 @@ final class BarcodeGenerator
     {
         $barcode = new Barcode();
 
-        switch ($options->getBarcodeType()) {
-            case 'qr':
-                $type = 'QRCODE';
+        $type = match ($options->getBarcodeType()) {
+            BarcodeType::NONE => null,
+            BarcodeType::QR => 'QRCODE',
+            BarcodeType::DATAMATRIX => 'DATAMATRIX',
+            BarcodeType::CODE39 => 'C39',
+            BarcodeType::CODE93 => 'C93',
+            BarcodeType::CODE128 => 'C128A',
+        };
 
-                break;
-            case 'datamatrix':
-                $type = 'DATAMATRIX';
-
-                break;
-            case 'code39':
-                $type = 'C39';
-
-                break;
-            case 'code93':
-                $type = 'C93';
-
-                break;
-            case 'code128':
-                $type = 'C128A';
-
-                break;
-            case 'none':
-                return null;
-            default:
-                throw new InvalidArgumentException('Unknown label type!');
+        if ($type === null) {
+            return null;
         }
 
-        $bobj = $barcode->getBarcodeObj($type, $this->getContent($options, $target));
 
-        return $bobj->getSvgCode();
+        return $barcode->getBarcodeObj($type, $this->getContent($options, $target))->getSvgCode();
     }
 
     public function getContent(LabelOptions $options, AbstractDBElement $target): ?string
     {
-        switch ($options->getBarcodeType()) {
-            case 'qr':
-            case 'datamatrix':
-                return $this->barcodeContentGenerator->getURLContent($target);
-            case 'code39':
-            case 'code93':
-            case 'code128':
-                return $this->barcodeContentGenerator->get1DBarcodeContent($target);
-            case 'none':
-                return null;
-            default:
-                throw new InvalidArgumentException('Unknown label type!');
-        }
+        $barcode = $options->getBarcodeType();
+        return match (true) {
+            $barcode->is2D() => $this->barcodeContentGenerator->getURLContent($target),
+            $barcode->is1D() => $this->barcodeContentGenerator->get1DBarcodeContent($target),
+            $barcode === BarcodeType::NONE => null,
+            default => throw new InvalidArgumentException('Unknown label type!'),
+        };
     }
 }

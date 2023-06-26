@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber\UserSystem;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -29,7 +31,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\HttpUtils;
 
 /**
@@ -55,13 +56,9 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * @var string The route the user will redirected to, if he needs to change this password
      */
     public const REDIRECT_TARGET = 'user_settings';
-    private Security $security;
-    private HttpUtils $httpUtils;
 
-    public function __construct(Security $security, HttpUtils $httpUtils)
+    public function __construct(private readonly Security $security, private readonly HttpUtils $httpUtils)
     {
-        $this->security = $security;
-        $this->httpUtils = $httpUtils;
     }
 
     /**
@@ -96,7 +93,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
 
         /* Dont redirect tree endpoints, as this would cause trouble and creates multiple flash
         warnigs for one page reload */
-        if (false !== strpos($request->getUri(), '/tree/')) {
+        if (str_contains($request->getUri(), '/tree/')) {
             return;
         }
 
@@ -129,7 +126,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     {
         $tfa_enabled = $user->isWebAuthnAuthenticatorEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        return null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
+        return $user->getGroup() instanceof Group && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
     }
 
     public static function getSubscribedEvents(): array

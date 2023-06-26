@@ -32,6 +32,7 @@ use Symfony\Contracts\Cache\ItemInterface;
  * A service that helps to work with filetype filters (based on the format <input type=file> accept uses).
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers for
  * more details.
+ * @see \App\Tests\Services\Attachments\FileTypeFilterToolsTest
  */
 class FileTypeFilterTools
 {
@@ -43,13 +44,8 @@ class FileTypeFilterTools
     protected const AUDIO_EXTS = ['mp3', 'flac', 'ogg', 'oga', 'wav', 'm4a', 'opus'];
     protected const ALLOWED_MIME_PLACEHOLDERS = ['image/*', 'audio/*', 'video/*'];
 
-    protected MimeTypesInterface $mimeTypes;
-    protected CacheInterface $cache;
-
-    public function __construct(MimeTypesInterface $mimeTypes, CacheInterface $cache)
+    public function __construct(protected MimeTypesInterface $mimeTypes, protected CacheInterface $cache)
     {
-        $this->mimeTypes = $mimeTypes;
-        $this->cache = $cache;
     }
 
     /**
@@ -73,7 +69,7 @@ class FileTypeFilterTools
             $element = trim($element);
             if (!preg_match('#^\.\w+$#', $element) // .ext is allowed
                 && !preg_match('#^[-\w.]+/[-\w.]+#', $element) //Explicit MIME type is allowed
-                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
+                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, true)) { //image/* is allowed
                 return false;
             }
         }
@@ -108,7 +104,7 @@ class FileTypeFilterTools
             }
 
             //Convert *.jpg to .jpg
-            if (0 === strpos($element, '*.')) {
+            if (str_starts_with($element, '*.')) {
                 $element = str_replace('*.', '.', $element);
             }
 
@@ -119,7 +115,7 @@ class FileTypeFilterTools
                 $element = 'video/*';
             } elseif ('audio' === $element || 'audio/' === $element) {
                 $element = 'audio/*';
-            } elseif (!preg_match('#^[-\w.]+/[-\w.*]+#', $element) && 0 !== strpos($element, '.')) {
+            } elseif (!preg_match('#^[-\w.]+/[-\w.*]+#', $element) && !str_starts_with($element, '.')) {
                 //Convert jpg to .jpg
                 $element = '.'.$element;
             }
@@ -147,7 +143,7 @@ class FileTypeFilterTools
 
             foreach ($elements as $element) {
                 $element = trim($element);
-                if (0 === strpos($element, '.')) {
+                if (str_starts_with($element, '.')) {
                     //We found an explicit specified file extension -> add it to list
                     $extensions[] = substr($element, 1);
                 } elseif ('image/*' === $element) {
@@ -177,6 +173,6 @@ class FileTypeFilterTools
     {
         $extension = strtolower($extension);
 
-        return empty($filter) || in_array($extension, $this->resolveFileExtensions($filter), false);
+        return $filter === '' || in_array($extension, $this->resolveFileExtensions($filter), true);
     }
 }

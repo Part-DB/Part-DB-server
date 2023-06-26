@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Filters\Constraints;
 
 use App\DataTables\Filters\FilterInterface;
@@ -25,11 +27,6 @@ use App\DataTables\Filters\FilterInterface;
 abstract class AbstractConstraint implements FilterInterface
 {
     use FilterTrait;
-
-    /**
-     * @var string The property where this BooleanConstraint should apply to
-     */
-    protected string $property;
 
     /**
      * @var string
@@ -43,9 +40,13 @@ abstract class AbstractConstraint implements FilterInterface
      */
     abstract public function isEnabled(): bool;
 
-    public function __construct(string $property, string $identifier = null)
+    public function __construct(
+        /**
+     * @var string The property where this BooleanConstraint should apply to
+     */
+    protected string $property,
+    string $identifier = null)
     {
-        $this->property = $property;
         $this->identifier = $identifier ?? $this->generateParameterIdentifier($property);
     }
 }

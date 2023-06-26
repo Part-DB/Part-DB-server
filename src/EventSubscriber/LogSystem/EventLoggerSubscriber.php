@@ -70,30 +70,12 @@ class EventLoggerSubscriber implements EventSubscriber
     ];
 
     protected const MAX_STRING_LENGTH = 2000;
-
-    protected EventLogger $logger;
-    protected SerializerInterface $serializer;
-    protected EventCommentHelper $eventCommentHelper;
-    protected EventUndoHelper $eventUndoHelper;
-    protected bool $save_changed_fields;
-    protected bool $save_changed_data;
-    protected bool $save_removed_data;
     protected bool $save_new_data;
-    protected PropertyAccessorInterface $propertyAccessor;
 
-    public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper,
-        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, bool $save_new_data,
-        PropertyAccessorInterface $propertyAccessor, EventUndoHelper $eventUndoHelper)
+    public function __construct(protected EventLogger $logger, protected SerializerInterface $serializer, protected EventCommentHelper $eventCommentHelper,
+        protected bool $save_changed_fields, protected bool $save_changed_data, protected bool $save_removed_data, bool $save_new_data,
+        protected PropertyAccessorInterface $propertyAccessor, protected EventUndoHelper $eventUndoHelper)
     {
-        $this->logger = $logger;
-        $this->serializer = $serializer;
-        $this->eventCommentHelper = $commentHelper;
-        $this->propertyAccessor = $propertyAccessor;
-        $this->eventUndoHelper = $eventUndoHelper;
-
-        $this->save_changed_fields = $save_changed_fields;
-        $this->save_changed_data = $save_changed_data;
-        $this->save_removed_data = $save_removed_data;
         //This option only makes sense if save_changed_data is true
         $this->save_new_data = $save_new_data && $save_changed_data;
     }
@@ -164,7 +146,7 @@ class EventLoggerSubscriber implements EventSubscriber
         $uow = $em->getUnitOfWork();
         // If we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
         $uow->computeChangeSets();
-        if ($uow->hasPendingInsertions() || !empty($uow->getScheduledEntityUpdates())) {
+        if ($uow->hasPendingInsertions() || $uow->getScheduledEntityUpdates() !== []) {
             $em->flush();
         }
 
@@ -181,7 +163,7 @@ class EventLoggerSubscriber implements EventSubscriber
     public function hasFieldRestrictions(AbstractDBElement $element): bool
     {
         foreach (array_keys(static::FIELD_BLACKLIST) as $class) {
-            if (is_a($element, $class)) {
+            if ($element instanceof $class) {
                 return true;
             }
         }
@@ -195,7 +177,7 @@ class EventLoggerSubscriber implements EventSubscriber
     public function shouldFieldBeSaved(AbstractDBElement $element, string $field_name): bool
     {
         foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
-            if (is_a($element, $class) && in_array($field_name, $blacklist, true)) {
+            if ($element instanceof $class && in_array($field_name, $blacklist, true)) {
                 return false;
             }
         }
@@ -231,11 +213,11 @@ class EventLoggerSubscriber implements EventSubscriber
 
         //Check if we have to log CollectionElementDeleted entries
         if ($this->save_changed_data) {
-            $metadata = $em->getClassMetadata(get_class($entity));
+            $metadata = $em->getClassMetadata($entity::class);
             $mappings = $metadata->getAssociationMappings();
             //Check if class is whitelisted for CollectionElementDeleted entry
             foreach (static::TRIGGER_ASSOCIATION_LOG_WHITELIST as $class => $whitelist) {
-                if (is_a($entity, $class)) {
+                if ($entity instanceof $class) {
                     //Check names
                     foreach ($mappings as $field => $mapping) {
                         if (in_array($field, $whitelist, true)) {
@@ -308,8 +290,6 @@ class EventLoggerSubscriber implements EventSubscriber
     /**
      * Restrict the length of every string in the given array to MAX_STRING_LENGTH, to save memory in the case of very
      * long strings (e.g. images in notes)
-     * @param  array  $fields
-     * @return array
      */
     protected function fieldLengthRestrict(array $fields): array
     {
@@ -325,6 +305,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
     protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, bool $element_deleted = false): void
     {
+        $new_data = null;
         $uow = $em->getUnitOfWork();
 
         if (!$logEntry instanceof ElementEditedLogEntry && !$logEntry instanceof ElementDeletedLogEntry) {
@@ -348,7 +329,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
         $logEntry->setOldData($old_data);
 
-        if (!empty($new_data)) {
+        if ($new_data !== []) {
             $new_data = $this->filterFieldRestrictions($entity, $new_data);
             $new_data = $this->fieldLengthRestrict($new_data);
 

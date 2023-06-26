@@ -40,8 +40,6 @@ class AttachmentPathResolverTest extends WebTestCase
 
     public function setUp(): void
     {
-        parent::setUp();
-
         //Get a service instance.
         self::bootKernel();
 
@@ -161,7 +159,6 @@ class AttachmentPathResolverTest extends WebTestCase
 
     /**
      * @dataProvider germanFootprintPathdDataProvider
-     * @return void
      */
     public function testConversionOfGermanFootprintPaths(string $expected, string $input): void
     {

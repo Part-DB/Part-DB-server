@@ -18,6 +18,24 @@
  */
 
 .tagsinput.ts-wrapper.multi .ts-control > div {
-    background: var(--bs-secondary);
-    color: var(--bs-white);
+    background: var(--bs-secondary-bg);
+    color: var(--bs-body-color);
 }
+
+/*********
+ * BS 5.3 compatible dark mode
+ ***************/
+
+.ts-dropdown .active {
+    background-color: var(--bs-secondary-bg) !important;
+    color: var(--bs-body-color) !important;
+}
+
+.ts-dropdown, .ts-control, .ts-control input {
+    color: var(--bs-body-color) !important;
+}
+
+.ts-dropdown, .ts-dropdown.form-control, .ts-dropdown.form-select {
+    background: var(--bs-body-bg);
+}
+

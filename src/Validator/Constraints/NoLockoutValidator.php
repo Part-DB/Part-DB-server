@@ -22,28 +22,20 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class NoLockoutValidator extends ConstraintValidator
 {
-    protected PermissionManager $resolver;
-    protected array $perm_structure;
-    protected Security $security;
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(PermissionManager $resolver, Security $security, EntityManagerInterface $entityManager)
+    public function __construct(protected PermissionManager $resolver, protected Security $security, protected EntityManagerInterface $entityManager)
     {
-        $this->resolver = $resolver;
-        $this->perm_structure = $resolver->getPermissionStructure();
-        $this->security = $security;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -64,18 +56,20 @@ class NoLockoutValidator extends ConstraintValidator
         if ($perm_holder instanceof User || $perm_holder instanceof Group) {
             $user = $this->security->getUser();
 
-            if (null === $user) {
+            if (!$user instanceof UserInterface) {
                 $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
             }
 
             //Check if the change_permission permission has changed from allow to disallow
-            if (($user instanceof User) && false === ($this->resolver->inherit(
+            if (($user instanceof User) && !($this->resolver->inherit(
                         $user,
                         'users',
                         'edit_permissions'
                     ) ?? false)) {
                 $this->context->addViolation($constraint->message);
             }
+        } else {
+            throw new \LogicException('The NoLockout constraint can only be used on User or Group objects.');
         }
     }
 }

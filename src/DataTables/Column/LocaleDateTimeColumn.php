@@ -38,7 +38,6 @@ class LocaleDateTimeColumn extends AbstractColumn
 {
     /**
      * @param $value
-     * @return string
      * @throws Exception
      */
     public function normalize($value): string
@@ -80,6 +79,9 @@ class LocaleDateTimeColumn extends AbstractColumn
         );
     }
 
+    /**
+     * @return $this
+     */
     protected function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);

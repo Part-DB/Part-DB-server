@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\UserSystem\User;
 use App\Entity\Parts\Storelocation;
 
 class StorelocationProvider implements PlaceholderProviderInterface
@@ -28,11 +31,11 @@ class StorelocationProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof Storelocation) {
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getUsername() : '';
             }
         }
 

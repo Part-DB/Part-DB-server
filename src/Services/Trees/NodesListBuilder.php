@@ -31,18 +31,12 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 /**
  *  This service gives you a flat list containing all structured entities in the order of the structure.
+ * @see \App\Tests\Services\Trees\NodesListBuilderTest
  */
 class NodesListBuilder
 {
-    protected EntityManagerInterface $em;
-    protected TagAwareCacheInterface $cache;
-    protected UserCacheKeyGenerator $keyGenerator;
-
-    public function __construct(EntityManagerInterface $em, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator)
     {
-        $this->em = $em;
-        $this->keyGenerator = $keyGenerator;
-        $this->cache = $treeCache;
     }
 
     /**
@@ -56,7 +50,7 @@ class NodesListBuilder
      */
     public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
-        $parent_id = null !== $parent ? $parent->getID() : '0';
+        $parent_id = $parent instanceof AbstractStructuralDBElement ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace('\\', '_', $class_name);
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;
@@ -72,15 +66,19 @@ class NodesListBuilder
     }
 
     /**
-     * Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
-     * The value is cached for performance reasons.
+     *  Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
+     *  The value is cached for performance reasons.
      *
      * @template T of AbstractStructuralDBElement
-     * @param  T $element
-     * @return T[]
+     *
+     * @param T $element
+     *
+     * @return AbstractStructuralDBElement[]
+     *
+     * @phpstan-return list<T>
      */
     public function getChildrenFlatList(AbstractStructuralDBElement $element): array
     {
-        return $this->typeToNodesList(get_class($element), $element);
+        return $this->typeToNodesList($element::class, $element);
     }
 }

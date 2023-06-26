@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,34 +20,32 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\ProjectSystem;
 
+use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 
+/**
+ * @see \App\Tests\Services\ProjectSystem\ProjectBuildHelperTest
+ */
 class ProjectBuildHelper
 {
-    private PartLotWithdrawAddHelper $withdraw_add_helper;
-
-    public function __construct(PartLotWithdrawAddHelper $withdraw_add_helper)
+    public function __construct(private readonly PartLotWithdrawAddHelper $withdraw_add_helper)
     {
-        $this->withdraw_add_helper = $withdraw_add_helper;
     }
 
     /**
      * Returns the maximum buildable amount of the given BOM entry based on the stock of the used parts.
      * This function only works for BOM entries that are associated with a part.
-     * @param  ProjectBOMEntry  $projectBOMEntry
-     * @return int
      */
     public function getMaximumBuildableCountForBOMEntry(ProjectBOMEntry $projectBOMEntry): int
     {
         $part = $projectBOMEntry->getPart();
 
-        if ($part === null) {
+        if (!$part instanceof Part) {
             throw new \InvalidArgumentException('This function cannot determine the maximum buildable count for a BOM entry without a part!');
         }
 
@@ -59,13 +60,11 @@ class ProjectBuildHelper
 
     /**
      * Returns the maximum buildable amount of the given project, based on the stock of the used parts in the BOM.
-     * @param  Project  $project
-     * @return int
      */
     public function getMaximumBuildableCount(Project $project): int
     {
         $maximum_buildable_count = PHP_INT_MAX;
-        foreach ($project->getBOMEntries() as $bom_entry) {
+        foreach ($project->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
             if (!$bom_entry->isPartBomEntry()) {
                 continue;
@@ -81,9 +80,7 @@ class ProjectBuildHelper
     /**
      * Checks if the given project can be built with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
-     * @param  Project  $project
-     * @parm int $number_of_builds
-     * @return bool
+     * @param int $number_of_builds
      */
     public function isProjectBuildable(Project $project, int $number_of_builds = 1): bool
     {
@@ -93,9 +90,6 @@ class ProjectBuildHelper
     /**
      * Check if the given BOM entry can be built with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
-     * @param  ProjectBOMEntry  $bom_entry
-     * @param  int  $number_of_builds
-     * @return bool
      */
     public function isBOMEntryBuildable(ProjectBOMEntry $bom_entry, int $number_of_builds = 1): bool
     {
@@ -120,7 +114,7 @@ class ProjectBuildHelper
             $part = $bomEntry->getPart();
 
             //Skip BOM entries without a part (as we can not determine that)
-            if ($part === null) {
+            if (!$part instanceof Part) {
                 continue;
             }
 
@@ -138,8 +132,6 @@ class ProjectBuildHelper
      * Withdraw the parts from the stock using the given ProjectBuildRequest and create the build parts entries, if needed.
      * The ProjectBuildRequest has to be validated before!!
      * You have to flush changes to DB afterward
-     * @param  ProjectBuildRequest  $buildRequest
-     * @return void
      */
     public function doBuild(ProjectBuildRequest $buildRequest): void
     {

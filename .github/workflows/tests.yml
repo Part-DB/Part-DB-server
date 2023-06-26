@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: [ '7.4', '8.0', '8.1', '8.2' ]
+        php-versions: [ '8.1', '8.2' ]
         db-type: [ 'mysql', 'sqlite' ]
 
     env:
@@ -109,7 +109,7 @@ jobs:
         run: php bin/console --env test doctrine:migrations:migrate -n
     
       - name: Load fixtures
-        run: php bin/console --env test doctrine:fixtures:load -n --purger reset_autoincrement_purger
+        run: php bin/console --env test doctrine:fixtures:load -n
     
       - name: Run PHPunit and generate coverage
         run: ./bin/phpunit --coverage-clover=coverage.xml

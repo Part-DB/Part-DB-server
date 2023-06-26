@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
+use Doctrine\ORM\Id\AssignedGenerator;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
@@ -45,7 +48,6 @@ trait PKImportHelperTrait
      * @param  array  $attachment_row The attachment row from the PartKeepr database
      * @param  string  $target_class The target class for the attachment
      * @param  string  $type The type of the attachment (attachment or image)
-     * @return Attachment
      * @throws \Exception
      */
     protected function convertAttachmentDataToEntity(array $attachment_row, string $target_class, string $type): Attachment
@@ -87,10 +89,10 @@ trait PKImportHelperTrait
             //Use mime type to determine the extension like PartKeepr does in legacy implementation (just use the second part of the mime type)
             //See UploadedFile.php:291 in PartKeepr (https://github.com/partkeepr/PartKeepr/blob/f6176c3354b24fa39ac8bc4328ee0df91de3d5b6/src/PartKeepr/UploadedFileBundle/Entity/UploadedFile.php#L291)
             if (!empty ($attachment_row['mimetype'])) {
-                $attachment_row['extension'] = explode('/', $attachment_row['mimetype'])[1];
+                $attachment_row['extension'] = explode('/', (string) $attachment_row['mimetype'])[1];
             } else {
                 //If the mime type is empty, we use the original extension
-                $attachment_row['extension'] = pathinfo($attachment_row['originalname'], PATHINFO_EXTENSION);
+                $attachment_row['extension'] = pathinfo((string) $attachment_row['originalname'], PATHINFO_EXTENSION);
             }
 
         }
@@ -115,7 +117,6 @@ trait PKImportHelperTrait
      * @param  string  $target_class The target class (e.g. Part)
      * @param  string  $target_id_field The field name where the target ID is stored
      * @param  string  $attachment_class The attachment class (e.g. PartAttachment)
-     * @return void
      */
     protected function importAttachments(array $data, string $table_name, string $target_class, string $target_id_field, string $attachment_class): void
     {
@@ -156,12 +157,9 @@ trait PKImportHelperTrait
 
     /**
      * Assigns the parent to the given entity, using the numerical IDs from the imported data.
-     * @param  string  $class
-     * @param int|string $element_id
-     * @param int|string $parent_id
      * @return AbstractStructuralDBElement The structural element that was modified (with $element_id)
      */
-    protected function setParent(string $class, $element_id, $parent_id): AbstractStructuralDBElement
+    protected function setParent(string $class, int|string $element_id, int|string $parent_id): AbstractStructuralDBElement
     {
         $element = $this->em->find($class, (int) $element_id);
         if (!$element) {
@@ -184,7 +182,6 @@ trait PKImportHelperTrait
 
     /**
      * Sets the given field of the given entity to the entity with the given ID.
-     * @return AbstractDBElement
      */
     protected function setAssociationField(AbstractDBElement $element, string $field, string $other_class, $other_id): AbstractDBElement
     {
@@ -205,11 +202,8 @@ trait PKImportHelperTrait
 
     /**
      * Set the ID of an entity to a specific value. Must be called before persisting the entity, but before flushing.
-     * @param  AbstractDBElement  $element
-     * @param  int|string $id
-     * @return void
      */
-    protected function setIDOfEntity(AbstractDBElement $element, $id): void
+    protected function setIDOfEntity(AbstractDBElement $element, int|string $id): void
     {
         if (!is_int($id) && !is_string($id)) {
             throw new \InvalidArgumentException('ID must be an integer or string');
@@ -217,9 +211,9 @@ trait PKImportHelperTrait
 
         $id = (int) $id;
 
-        $metadata = $this->em->getClassMetadata(get_class($element));
+        $metadata = $this->em->getClassMetadata($element::class);
         $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_NONE);
-        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+        $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdentifierValues($element, ['id' => $id]);
     }
 

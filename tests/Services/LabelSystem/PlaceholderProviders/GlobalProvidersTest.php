@@ -61,12 +61,10 @@ class GlobalProvidersTest extends WebTestCase
         $this->target = new Part();
     }
 
-    public function dataProvider(): array
+    public function dataProvider(): \Iterator
     {
-        return [
-            ['Part-DB', '[[INSTALL_NAME]]'],
-            ['anonymous', '[[USERNAME]]'],
-        ];
+        yield ['Part-DB', '[[INSTALL_NAME]]'];
+        yield ['anonymous', '[[USERNAME]]'];
     }
 
     /**

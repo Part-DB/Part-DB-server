@@ -35,11 +35,8 @@ use function strlen;
  */
 class AttachmentManager
 {
-    protected AttachmentPathResolver $pathResolver;
-
-    public function __construct(AttachmentPathResolver $pathResolver)
+    public function __construct(protected AttachmentPathResolver $pathResolver)
     {
-        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -67,7 +64,7 @@ class AttachmentManager
      */
     public function toAbsoluteFilePath(Attachment $attachment): ?string
     {
-        if (empty($attachment->getPath())) {
+        if ($attachment->getPath() === '') {
             return null;
         }
 
@@ -101,7 +98,7 @@ class AttachmentManager
      */
     public function isFileExisting(Attachment $attachment): bool
     {
-        if (empty($attachment->getPath())) {
+        if ($attachment->getPath() === '') {
             return false;
         }
 

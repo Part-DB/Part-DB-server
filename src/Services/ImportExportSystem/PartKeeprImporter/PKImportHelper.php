@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
 use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
@@ -28,18 +30,14 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class PKImportHelper
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     /**
      * Purges the database tables for the import, so that all data can be created from scratch.
      * Existing users and groups are not purged.
      * This is needed to avoid ID collisions.
-     * @return void
      */
     public function purgeDatabaseForImport(): void
     {
@@ -50,8 +48,6 @@ class PKImportHelper
 
     /**
      * Extracts the current database schema version from the PartKeepr XML dump.
-     * @param  array  $data
-     * @return string
      */
     public function getDatabaseSchemaVersion(array $data): string
     {
@@ -64,7 +60,6 @@ class PKImportHelper
 
     /**
      * Checks that the database schema of the PartKeepr XML dump is compatible with the importer
-     * @param  array  $data
      * @return bool True if the schema is compatible, false otherwise
      */
     public function checkVersion(array $data): bool

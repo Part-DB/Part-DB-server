@@ -67,11 +67,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class CollectionTypeExtension extends AbstractTypeExtension
 {
-    protected PropertyAccessorInterface $propertyAccess;
-
-    public function __construct(PropertyAccessorInterface $propertyAccess)
+    public function __construct(protected PropertyAccessorInterface $propertyAccess)
     {
-        $this->propertyAccess = $propertyAccess;
     }
 
     public static function getExtendedTypes(): iterable
@@ -93,9 +90,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 
         //Set a unique prototype name, so that we can use nested collections
         $resolver->setDefaults([
-            'prototype_name' => function (Options $options) {
-                return '__name_'.uniqid("", false) . '__';
-            },
+            'prototype_name' => fn(Options $options): string => '__name_'.uniqid("", false) . '__',
         ]);
 
         $resolver->setAllowedTypes('reindex_enable', 'bool');
@@ -103,7 +98,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
         $resolver->setAllowedTypes('reindex_path', 'string');
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         parent::finishView($view, $form, $options);
         //Add prototype name to view, so that we can pass it to the stimulus controller
@@ -156,7 +151,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
            //The validator uses the number  of the element as index, so we have to map the errors to the correct index
            $error_mapping = [];
            $n = 0;
-           foreach ($data as $key => $item) {
+           foreach (array_keys($data) as $key) {
                $error_mapping['['.$n.']'] = $key;
                $n++;
            }
@@ -167,9 +162,11 @@ class CollectionTypeExtension extends AbstractTypeExtension
     /**
      * Set the option of the form.
      * This a bit hacky because we access private properties....
-     *
+     * @param FormConfigInterface $builder The form on which the option should be set
+     * @param string $option The option which should be changed
+     * @param mixed $value The new value
      */
-    public function setOption(FormConfigInterface $builder, string $option, $value): void
+    public function setOption(FormConfigInterface $builder, string $option, mixed $value): void
     {
         if (!$builder instanceof FormConfigBuilder) {
             throw new \RuntimeException('This method only works with FormConfigBuilder instances.');
@@ -178,10 +175,8 @@ class CollectionTypeExtension extends AbstractTypeExtension
         //We have to use FormConfigBuilder::class here, because options is private and not available in subclasses
         $reflection = new ReflectionClass(FormConfigBuilder::class);
         $property = $reflection->getProperty('options');
-        $property->setAccessible(true);
         $tmp = $property->getValue($builder);
         $tmp[$option] = $value;
         $property->setValue($builder, $tmp);
-        $property->setAccessible(false);
     }
 }

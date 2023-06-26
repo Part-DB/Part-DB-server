@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,37 +36,37 @@ use Doctrine\ORM\Mapping as ORM;
 trait OrderTrait
 {
     /**
-     * @var Orderdetail[]|Collection the details about how and where you can order this part
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @Assert\Valid()
-     * @ORM\OrderBy({"supplierpartnr" = "ASC"})
-     * @Groups({"extended", "full", "import"})
+     * @var Collection<int, Orderdetail> the details about how and where you can order this part
      */
-    protected $orderdetails;
+    #[Assert\Valid]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
+    protected Collection $orderdetails;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Column(type: Types::INTEGER)]
     protected int $order_quantity = 0;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $manual_order = false;
 
     /**
      * @var Orderdetail|null
-     * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
-     * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      */
+    #[ORM\OneToOne(targetEntity: Orderdetail::class)]
+    #[ORM\JoinColumn(name: 'order_orderdetails_id')]
     protected ?Orderdetail $order_orderdetail = null;
 
     /**
      * Get the selected order orderdetails of this part.
      *
-     * @return Orderdetail the selected order orderdetails
+     * @return Orderdetail|null the selected order orderdetails
      */
     public function getOrderOrderdetails(): ?Orderdetail
     {
@@ -97,7 +98,7 @@ trait OrderTrait
      *
      * @param bool $hide_obsolete If true, obsolete orderdetails will NOT be returned
      *
-     * @return Collection|Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
+     * @return Collection<int, Orderdetail> * all orderdetails as a one-dimensional array of Orderdetails objects
      *                                  (empty array if there are no ones)
      *                                  * the array is sorted by the suppliers names / minimum order quantity
      */
@@ -105,9 +106,7 @@ trait OrderTrait
     {
         //If needed hide the obsolete entries
         if ($hide_obsolete) {
-            return $this->orderdetails->filter(function (Orderdetail $orderdetail) {
-                return ! $orderdetail->getObsolete();
-            });
+            return $this->orderdetails->filter(fn(Orderdetail $orderdetail) => ! $orderdetail->getObsolete());
         }
 
         return $this->orderdetails;

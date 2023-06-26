@@ -32,14 +32,15 @@ use Locale;
 
 use function count;
 
+/**
+ * @see \App\Tests\Services\Parts\PricedetailHelperTest
+ */
 class PricedetailHelper
 {
-    protected string $base_currency;
     protected string $locale;
 
-    public function __construct(string $base_currency)
+    public function __construct(protected string $base_currency)
     {
-        $this->base_currency = $base_currency;
         $this->locale = Locale::getDefault();
     }
 
@@ -56,7 +57,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === count($pricedetails)) {
+            if (0 === (is_countable($pricedetails) ? count($pricedetails) : 0)) {
                 continue;
             }
 
@@ -67,9 +68,7 @@ class PricedetailHelper
             } else {
                 // We have to sort the pricedetails manually
                 $array = $pricedetails->map(
-                    static function (Pricedetail $pricedetail) {
-                        return $pricedetail->getMinDiscountQuantity();
-                    }
+                    static fn(Pricedetail $pricedetail) => $pricedetail->getMinDiscountQuantity()
                 )->toArray();
                 sort($array);
                 $max_amount = end($array);
@@ -103,7 +102,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === count($pricedetails)) {
+            if (0 === (is_countable($pricedetails) ? count($pricedetails) : 0)) {
                 continue;
             }
 
@@ -154,13 +153,13 @@ class PricedetailHelper
             $pricedetail = $orderdetail->findPriceForQty($amount);
 
             //When we don't have information about this amount, ignore it
-            if (null === $pricedetail) {
+            if (!$pricedetail instanceof Pricedetail) {
                 continue;
             }
 
             $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
             //Ignore price information that can not be converted to base currency.
-            if (null !== $converted) {
+            if ($converted instanceof BigDecimal) {
                 $avg = $avg->plus($converted);
                 ++$count;
             }
@@ -193,9 +192,9 @@ class PricedetailHelper
 
         $val_base = $value;
         //Convert value to base currency
-        if (null !== $originCurrency) {
+        if ($originCurrency instanceof Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (null === $originCurrency->getExchangeRate() || $originCurrency->getExchangeRate()->isZero()) {
+            if (!$originCurrency->getExchangeRate() instanceof BigDecimal || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 
@@ -204,9 +203,9 @@ class PricedetailHelper
 
         $val_target = $val_base;
         //Convert value in base currency to target currency
-        if (null !== $targetCurrency) {
+        if ($targetCurrency instanceof Currency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (null === $targetCurrency->getExchangeRate()) {
+            if (!$targetCurrency->getExchangeRate() instanceof BigDecimal) {
                 return null;
             }
 

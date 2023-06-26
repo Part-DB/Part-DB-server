@@ -24,9 +24,7 @@ namespace App\Entity\LogSystem;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class UserNotAllowedLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'user_not_allowed';
@@ -34,7 +32,7 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
     public function __construct(string $path)
     {
         parent::__construct();
-        $this->level = static::LEVEL_WARNING;
+        $this->level = LogLevel::WARNING;
 
         $this->extra['a'] = $path;
     }

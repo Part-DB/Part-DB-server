@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\PermissionData;
@@ -152,11 +154,11 @@ class PermissionDataTest extends TestCase
         $data = new PermissionData();
 
         //By default the schema version must be the CURRENT_SCHEMA_VERSION
-        $this->assertEquals(PermissionData::CURRENT_SCHEMA_VERSION, $data->getSchemaVersion());
+        $this->assertSame(PermissionData::CURRENT_SCHEMA_VERSION, $data->getSchemaVersion());
 
         //Ensure that the schema version can be set
         $data->setSchemaVersion(12345);
-        $this->assertEquals(12345, $data->getSchemaVersion());
+        $this->assertSame(12345, $data->getSchemaVersion());
     }
 
     public function testIsAnyOperationOfPermissionSet(): void

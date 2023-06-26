@@ -84,24 +84,22 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * @ORM\Entity()
- * This log entry is created when an element is deleted, that is used in a collection of another entity.
- * This is needed to signal time travel, that it has to undelete the deleted entity.
- */
+#[ORM\Entity]
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
 {
+    use LogWithEventUndoTrait;
+
     protected string $typeString = 'collection_element_deleted';
-    protected int $level = self::LEVEL_INFO;
 
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {
         parent::__construct();
 
-        $this->level = self::LEVEL_INFO;
+        $this->level = LogLevel::INFO;
+
         $this->setTargetElement($changed_element);
         $this->extra['n'] = $collection_name;
-        $this->extra['c'] = self::targetTypeClassToID(get_class($deletedElement));
+        $this->extra['c'] = LogTargetType::fromElementClass($deletedElement)->value;
         $this->extra['i'] = $deletedElement->getID();
         if ($deletedElement instanceof NamedElementInterface) {
             $this->extra['o'] = $deletedElement->getName();
@@ -131,7 +129,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     public function getDeletedElementClass(): string
     {
         //The class name of our target element
-        $tmp = self::targetTypeIdToClass($this->extra['c']);
+        $tmp = LogTargetType::from($this->extra['c'])->toClass();
 
         $reflection_class = new \ReflectionClass($tmp);
         //If the class is abstract, we have to map it to an instantiable class
@@ -145,8 +143,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     /**
      * This functions maps an abstract class name derived from the extra c element to an instantiable class name (based on the target element of this log entry).
      * For example if the target element is a part and the extra c element is "App\Entity\Attachments\Attachment", this function will return "App\Entity\Attachments\PartAttachment".
-     * @param  string  $abstract_class
-     * @return string
      */
     private function resolveAbstractClassToInstantiableClass(string $abstract_class): string
     {
@@ -221,40 +217,5 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     public function getDeletedElementID(): int
     {
         return $this->extra['i'];
-    }
-
-    public function isUndoEvent(): bool
-    {
-        return isset($this->extra['u']);
-    }
-
-    public function getUndoEventID(): ?int
-    {
-        return $this->extra['u'] ?? null;
-    }
-
-    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
-    {
-        $this->extra['u'] = $event->getID();
-
-        if ('undo' === $mode) {
-            $this->extra['um'] = 1;
-        } elseif ('revert' === $mode) {
-            $this->extra['um'] = 2;
-        } else {
-            throw new InvalidArgumentException('Passed invalid $mode!');
-        }
-
-        return $this;
-    }
-
-    public function getUndoMode(): string
-    {
-        $mode_int = $this->extra['um'] ?? 1;
-        if (1 === $mode_int) {
-            return 'undo';
-        }
-
-        return 'revert';
     }
 }

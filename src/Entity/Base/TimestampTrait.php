@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use Doctrine\DBAL\Types\Types;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -32,26 +33,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait TimestampTrait
 {
     /**
-     * @var DateTime|null the date when this element was modified the last time
-     * @ORM\Column(type="datetime", name="last_modified", options={"default":"CURRENT_TIMESTAMP"})
-     * @Groups({"extended", "full"})
+     * @var \DateTimeInterface|null the date when this element was modified the last time
      */
-    protected ?DateTime $lastModified = null;
+    #[Groups(['extended', 'full'])]
+    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    protected ?\DateTimeInterface $lastModified = null;
 
     /**
-     * @var DateTime|null the date when this element was created
-     * @ORM\Column(type="datetime", name="datetime_added", options={"default":"CURRENT_TIMESTAMP"})
-     * @Groups({"extended", "full"})
+     * @var \DateTimeInterface|null the date when this element was created
      */
-    protected ?DateTime $addedDate = null;
+    #[Groups(['extended', 'full'])]
+    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    protected ?\DateTimeInterface $addedDate = null;
 
     /**
      * Returns the last time when the element was modified.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return DateTime|null the time of the last edit
+     * @return \DateTimeInterface|null the time of the last edit
      */
-    public function getLastModified(): ?DateTime
+    public function getLastModified(): ?\DateTimeInterface
     {
         return $this->lastModified;
     }
@@ -60,19 +61,18 @@ trait TimestampTrait
      * Returns the date/time when the element was created.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return DateTime|null the creation time of the part
+     * @return \DateTimeInterface|null the creation time of the part
      */
-    public function getAddedDate(): ?DateTime
+    public function getAddedDate(): ?\DateTimeInterface
     {
         return $this->addedDate;
     }
 
     /**
      * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');

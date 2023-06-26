@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,29 +20,31 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface, CacheableSupportsMethodInterface
+/**
+ * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
+ */
+class StructuralElementDenormalizer implements DenormalizerInterface
 {
-
-    private DenormalizerInterface $normalizer;
-    private EntityManagerInterface $entityManager;
 
     private array $object_cache = [];
 
-    public function __construct(ObjectNormalizer $normalizer, EntityManagerInterface $entityManager)
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        #[Autowire(service: ObjectNormalizer::class)]
+        private readonly DenormalizerInterface $denormalizer)
     {
-        $this->normalizer = $normalizer;
-        $this->entityManager = $entityManager;
     }
 
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
@@ -53,7 +58,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         /** @var AbstractStructuralDBElement $deserialized_entity */
-        $deserialized_entity = $this->normalizer->denormalize($data, $type, $format, $context);
+        $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         //Check if we already have the entity in the database (via path)
         /** @var StructuralDBElementRepository $repo */
@@ -61,7 +66,7 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
 
         $path = $deserialized_entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
         $db_elements = $repo->getEntityByPath($path, AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
-        if ($db_elements) {
+        if ($db_elements !== []) {
             //We already have the entity in the database, so we can return it
             return end($db_elements);
         }
@@ -84,8 +89,11 @@ class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface
         return $deserialized_entity;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(): array
     {
-        return false;
+        //Must be false, because we use in_array in supportsDenormalization
+        return [
+            AbstractStructuralDBElement::class => false,
+        ];
     }
 }

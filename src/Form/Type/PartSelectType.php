@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\Type;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
@@ -19,21 +24,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartSelectType extends AbstractType implements DataMapperInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private EntityManagerInterface $em;
-    private PartPreviewGenerator $previewGenerator;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, PartPreviewGenerator $previewGenerator,
-        AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em, private readonly PartPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
-        $this->em = $em;
-        $this->previewGenerator = $previewGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         //At initialization, we have to fill the form element with our selected data, so the user can see it
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
@@ -73,7 +68,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
        $builder->setDataMapper($this);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'class' => Part::class,
@@ -96,10 +91,10 @@ class PartSelectType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             //Prefill the selected choice with the needed data, so the user can see it without an additional Ajax request
             'choice_attr' => ChoiceList::attr($this, function (?Part $part) {
-                if($part) {
+                if($part instanceof Part) {
                     //Determine the picture to show:
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($part);
-                    if ($preview_attachment !== null) {
+                    if ($preview_attachment instanceof Attachment) {
                         $preview_url = $this->attachmentURLGenerator->getThumbnailURL($preview_attachment,
                             'thumbnail_sm');
                     } else {
@@ -107,28 +102,23 @@ class PartSelectType extends AbstractType implements DataMapperInterface
                     }
                 }
 
-                return $part ? [
+                return $part instanceof Part ? [
                     'data-description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
-                    'data-category' => $part->getCategory() ? $part->getCategory()->getName() : '',
-                    'data-footprint' => $part->getFootprint() ? $part->getFootprint()->getName() : '',
+                    'data-category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '',
+                    'data-footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                     'data-image' => $preview_url,
                 ] : [];
             })
         ]);
     }
 
-    public function getBlockPrefix(): string
-    {
-        return 'part_select';
-    }
-
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, \Traversable $forms): void
     {
         $form = current(iterator_to_array($forms, false));
         $form->setData($data);
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData(\Traversable $forms, &$data): void
     {
         $form = current(iterator_to_array($forms, false));
         $data = $form->getData();

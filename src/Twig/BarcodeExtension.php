@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Twig;
 
 use Com\Tecnick\Barcode\Barcode;
@@ -30,7 +32,7 @@ final class BarcodeExtension extends AbstractExtension
     {
         return [
             /* Generates a barcode with the given Type and Data and returns it as an SVG represenation */
-            new TwigFunction('barcode_svg', [$this, 'barcodeSVG']),
+            new TwigFunction('barcode_svg', fn(string $content, string $type = 'QRCODE'): string => $this->barcodeSVG($content, $type)),
         ];
     }
 

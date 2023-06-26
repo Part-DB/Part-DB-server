@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -38,7 +39,6 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\UserSystem\UserCacheKeyGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -49,24 +49,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    protected TranslatorInterface $translator;
-    protected UrlGeneratorInterface $urlGenerator;
-    protected UserCacheKeyGenerator $keyGenerator;
-    protected TagAwareCacheInterface $cache;
-    protected Security $security;
-
-    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
-        Security $security)
+    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected Security $security)
     {
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
-
-        $this->cache = $treeCache;
-
-        $this->keyGenerator = $keyGenerator;
-
-        $this->security = $security;
     }
 
     /**
@@ -84,20 +68,20 @@ class ToolsTreeBuilder
             $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
             $tree = [];
-            if (!empty($this->getToolsNode())) {
+            if ($this->getToolsNode() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-toolbox');
             }
 
-            if (!empty($this->getEditNodes())) {
+            if ($this->getEditNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-pen-to-square');
             }
-            if (!empty($this->getShowNodes())) {
+            if ($this->getShowNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes()))
                     ->setIcon('fa-fw fa-treeview fa-solid fa-eye');
             }
-            if (!empty($this->getSystemNodes())) {
+            if ($this->getSystemNodes() !== []) {
                 $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes()))
                 ->setIcon('fa-fw fa-treeview fa-solid fa-server');
             }

@@ -34,18 +34,8 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class AttachmentReverseSearch
 {
-    protected EntityManagerInterface $em;
-    protected AttachmentPathResolver $pathResolver;
-    protected CacheManager $cacheManager;
-    protected AttachmentURLGenerator $attachmentURLGenerator;
-
-    public function __construct(EntityManagerInterface $em, AttachmentPathResolver $pathResolver,
-                                CacheManager $cacheManager, AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(protected EntityManagerInterface $em, protected AttachmentPathResolver $pathResolver, protected CacheManager $cacheManager, protected AttachmentURLGenerator $attachmentURLGenerator)
     {
-        $this->em = $em;
-        $this->pathResolver = $pathResolver;
-        $this->cacheManager = $cacheManager;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     /**

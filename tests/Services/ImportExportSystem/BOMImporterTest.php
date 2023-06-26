@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\ImportExportSystem;
 
 use App\Entity\ProjectSystem\Project;
@@ -36,8 +38,6 @@ class BOMImporterTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(BOMImporter::class);
@@ -83,8 +83,8 @@ class BOMImporterTest extends WebTestCase
         $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom);
         $this->assertCount(4, $bom);
 
-        $this->assertEquals('R19,R17', $bom[0]->getMountnames());
-        $this->assertEquals(2.0, $bom[0]->getQuantity());
+        $this->assertSame('R19,R17', $bom[0]->getMountnames());
+        $this->assertSame(2.0, $bom[0]->getQuantity());
         $this->assertSame('4.7k (R_0805_2012Metric_Pad1.20x1.40mm_HandSolder)', $bom[0]->getName());
         $this->assertSame('Test', $bom[0]->getComment());
 
@@ -102,8 +102,8 @@ class BOMImporterTest extends WebTestCase
         $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom);
         $this->assertCount(4, $bom);
 
-        $this->assertEquals('R19,R17', $bom[0]->getMountnames());
-        $this->assertEquals(2.0, $bom[0]->getQuantity());
+        $this->assertSame('R19,R17', $bom[0]->getMountnames());
+        $this->assertSame(2.0, $bom[0]->getQuantity());
         $this->assertSame('4.7k (R_0805_2012Metric_Pad1.20x1.40mm_HandSolder)', $bom[0]->getName());
         $this->assertSame('Test', $bom[0]->getComment());
     }

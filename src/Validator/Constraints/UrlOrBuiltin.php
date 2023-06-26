@@ -27,9 +27,8 @@ use Symfony\Component\Validator\Constraints\Url;
 
 /**
  * Constraints the field that way that the content is either an url or a path to a builtin ressource (like %FOOTPRINTS%).
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class UrlOrBuiltin extends Url
 {
     /**

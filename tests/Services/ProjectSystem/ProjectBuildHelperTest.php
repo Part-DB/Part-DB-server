@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\ProjectSystem;
 
 use App\Entity\Parts\Part;
@@ -34,7 +36,6 @@ class ProjectBuildHelperTest extends WebTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         self::bootKernel();
         $this->service = self::getContainer()->get(ProjectBuildHelper::class);
     }
@@ -66,12 +67,12 @@ class ProjectBuildHelperTest extends WebTestCase
         $project_bom_entry->setPart($part);
 
         //We have 125 parts in stock, so we can build 12 times the project (125 / 10 = 12.5)
-        $this->assertEquals(12, $this->service->getMaximumBuildableCountForBOMEntry($project_bom_entry));
+        $this->assertSame(12, $this->service->getMaximumBuildableCountForBOMEntry($project_bom_entry));
 
 
         $lot1->setAmount(0);
         //We have 5 parts in stock, so we can build 0 times the project (5 / 10 = 0.5)
-        $this->assertEquals(0, $this->service->getMaximumBuildableCountForBOMEntry($project_bom_entry));
+        $this->assertSame(0, $this->service->getMaximumBuildableCountForBOMEntry($project_bom_entry));
     }
 
     public function testGetMaximumBuildableCount(): void
@@ -102,15 +103,15 @@ class ProjectBuildHelperTest extends WebTestCase
         $project->addBomEntry((new ProjectBOMEntry())->setName('Non part entry')->setQuantity(1));
 
         //Restricted by the few parts in stock of part2
-        $this->assertEquals(2, $this->service->getMaximumBuildableCount($project));
+        $this->assertSame(2, $this->service->getMaximumBuildableCount($project));
 
         $lot3->setAmount(1000);
         //Now the build count is restricted by the few parts in stock of part1
-        $this->assertEquals(12, $this->service->getMaximumBuildableCount($project));
+        $this->assertSame(12, $this->service->getMaximumBuildableCount($project));
 
         $lot3->setAmount(0);
         //Now the build count must be 0, as we have no parts in stock
-        $this->assertEquals(0, $this->service->getMaximumBuildableCount($project));
+        $this->assertSame(0, $this->service->getMaximumBuildableCount($project));
 
     }
 }

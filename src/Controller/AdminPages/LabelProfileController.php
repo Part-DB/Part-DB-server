@@ -36,8 +36,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/label_profile")
+ * @see \App\Tests\Controller\AdminPages\LabelProfileControllerTest
  */
+#[Route(path: '/label_profile')]
 class LabelProfileController extends BaseAdminController
 {
     protected string $entity_class = LabelProfile::class;
@@ -48,44 +49,34 @@ class LabelProfileController extends BaseAdminController
     //Just a placeholder
     protected ?string $parameter_class = null;
 
-    /**
-     * @Route("/{id}", name="label_profile_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'label_profile_delete', methods: ['DELETE'])]
     public function delete(Request $request, LabelProfile $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="label_profile_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'label_profile_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(LabelProfile $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="label_profile_new")
-     * @Route("/{id}/clone", name="label_profile_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'label_profile_new')]
+    #[Route(path: '/{id}/clone', name: 'label_profile_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?LabelProfile $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="label_profile_export_all")
-     */
+    #[Route(path: '/export', name: 'label_profile_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="label_profile_export")
-     */
+    #[Route(path: '/{id}/export', name: 'label_profile_export')]
     public function exportEntity(LabelProfile $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

@@ -32,20 +32,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\MappedSuperclass()
+ * @template-covariant AT of Attachment
  */
+#[ORM\MappedSuperclass]
 abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface, HasAttachmentsInterface
 {
     use MasterAttachmentTrait;
 
     /**
-     * @var Attachment[]|Collection
-     *                              //TODO
-     *                              //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
-     *
-     * Mapping is done in sub classes like part
-     * @Groups({"full"})
+     * @var Collection<int, Attachment>
+     * @phpstan-var Collection<int, AT>
+     * ORM Mapping is done in subclasses (e.g. Part)
      */
+    #[Groups(['full'])]
     protected Collection $attachments;
 
     public function __construct()
@@ -79,9 +78,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
      *********************************************************************************/
 
     /**
-     * Gets all attachments associated with this element.
-     *
-     * @return Attachment[]|Collection
+     *  Gets all attachments associated with this element.
      */
     public function getAttachments(): Collection
     {

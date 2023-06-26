@@ -49,6 +49,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
@@ -68,6 +69,9 @@ use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
+/**
+ * @see \App\Tests\Services\LabelSystem\SandboxedTwigProviderTest
+ */
 final class SandboxedTwigProvider
 {
     private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
@@ -114,16 +118,13 @@ final class SandboxedTwigProvider
     ];
     private const ALLOWED_PROPERTIES = [];
 
-    private FormatExtension $appExtension;
-
-    public function __construct(FormatExtension $appExtension)
+    public function __construct(private readonly FormatExtension $appExtension)
     {
-        $this->appExtension = $appExtension;
     }
 
     public function getTwig(LabelOptions $options): Environment
     {
-        if ('twig' !== $options->getLinesMode()) {
+        if (LabelProcessMode::TWIG !== $options->getProcessMode()) {
             throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
         }
 

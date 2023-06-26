@@ -22,6 +22,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\ProjectParameter;
@@ -51,23 +55,15 @@ use Symfony\Component\Serializer\Serializer;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
- *
- * @Route("/typeahead")
  */
+#[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
 {
-    protected AttachmentURLGenerator $urlGenerator;
-    protected Packages $assets;
-
-    public function __construct(AttachmentURLGenerator $URLGenerator, Packages $assets)
+    public function __construct(protected AttachmentURLGenerator $urlGenerator, protected Packages $assets)
     {
-        $this->urlGenerator = $URLGenerator;
-        $this->assets = $assets;
     }
 
-    /**
-     * @Route("/builtInResources/search", name="typeahead_builtInRessources")
-     */
+    #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
     public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
         $query = $request->get('query');
@@ -91,51 +87,32 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($result, 'json');
 
-        return new JsonResponse($data, 200, [], true);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 
     /**
      * This function map the parameter type to the class, so we can access its repository
-     * @param  string  $type
      * @return class-string
      */
     private function typeToParameterClass(string $type): string
     {
-        switch ($type) {
-            case 'category':
-                return CategoryParameter::class;
-            case 'part':
-                return PartParameter::class;
-            case 'device':
-                return ProjectParameter::class;
-            case 'footprint':
-                return FootprintParameter::class;
-            case 'manufacturer':
-                return ManufacturerParameter::class;
-            case 'storelocation':
-                return StorelocationParameter::class;
-            case 'supplier':
-                return SupplierParameter::class;
-            case 'attachment_type':
-                return AttachmentTypeParameter::class;
-            case 'group':
-                return GroupParameter::class;
-            case 'measurement_unit':
-                return MeasurementUnitParameter::class;
-            case 'currency':
-                return Currency::class;
-
-            default:
-                throw new \InvalidArgumentException('Invalid parameter type: '.$type);
-        }
+        return match ($type) {
+            'category' => CategoryParameter::class,
+            'part' => PartParameter::class,
+            'device' => ProjectParameter::class,
+            'footprint' => FootprintParameter::class,
+            'manufacturer' => ManufacturerParameter::class,
+            'storelocation' => StorelocationParameter::class,
+            'supplier' => SupplierParameter::class,
+            'attachment_type' => AttachmentTypeParameter::class,
+            'group' => GroupParameter::class,
+            'measurement_unit' => MeasurementUnitParameter::class,
+            'currency' => Currency::class,
+            default => throw new \InvalidArgumentException('Invalid parameter type: '.$type),
+        };
     }
 
-    /**
-     * @Route("/parts/search/{query}", name="typeahead_parts")
-     * @param  string  $query
-     * @param  EntityManagerInterface  $entityManager
-     * @return JsonResponse
-     */
+    #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
     public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
     AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
     {
@@ -149,7 +126,7 @@ class TypeaheadController extends AbstractController
         foreach ($parts as $part) {
             //Determine the picture to show:
             $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
-            if($preview_attachment !== null) {
+            if($preview_attachment instanceof Attachment) {
                 $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
             } else {
                 $preview_url = '';
@@ -159,8 +136,8 @@ class TypeaheadController extends AbstractController
             $data[] = [
                 'id' => $part->getID(),
                 'name' => $part->getName(),
-                'category' => $part->getCategory() ? $part->getCategory()->getName() : 'Unknown',
-                'footprint' => $part->getFootprint() ? $part->getFootprint()->getName() : '',
+                'category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : 'Unknown',
+                'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
                 ];
@@ -169,11 +146,7 @@ class TypeaheadController extends AbstractController
         return new JsonResponse($data);
     }
 
-    /**
-     * @Route("/parameters/{type}/search/{query}", name="typeahead_parameters", requirements={"type" = ".+"})
-     * @param  string  $query
-     * @return JsonResponse
-     */
+    #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]
     public function parameters(string $type, EntityManagerInterface $entityManager, string $query = ""): JsonResponse
     {
         $class = $this->typeToParameterClass($type);
@@ -190,9 +163,7 @@ class TypeaheadController extends AbstractController
         return new JsonResponse($data);
     }
 
-    /**
-     * @Route("/tags/search/{query}", name="typeahead_tags", requirements={"query"= ".+"})
-     */
+    #[Route(path: '/tags/search/{query}', name: 'typeahead_tags', requirements: ['query' => '.+'])]
     public function tags(string $query, TagFinder $finder): JsonResponse
     {
         $this->denyAccessUnlessGranted('@parts.read');
@@ -209,6 +180,6 @@ class TypeaheadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($array, 'json');
 
-        return new JsonResponse($data, 200, [], true);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 }

@@ -32,11 +32,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPartLotValidator extends ConstraintValidator
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     /**
@@ -56,7 +53,7 @@ class ValidPartLotValidator extends ConstraintValidator
         }
 
         //We can only validate the values if we know the storelocation
-        if ($value->getStorageLocation()) {
+        if ($value->getStorageLocation() instanceof Storelocation) {
             $repo = $this->em->getRepository(Storelocation::class);
             //We can only determine associated parts, if the part have an ID
             //When the storage location is new (no ID), we can just assume there are no other parts

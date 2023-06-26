@@ -37,8 +37,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/footprint")
+ * @see \App\Tests\Controller\AdminPages\FootprintControllerTest
  */
+#[Route(path: '/footprint')]
 class FootprintController extends BaseAdminController
 {
     protected string $entity_class = Footprint::class;
@@ -48,44 +49,34 @@ class FootprintController extends BaseAdminController
     protected string $attachment_class = FootprintAttachment::class;
     protected ?string $parameter_class = FootprintParameter::class;
 
-    /**
-     * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'footprint_delete', methods: ['DELETE'])]
     public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="footprint_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'footprint_edit')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Footprint $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
-    /**
-     * @Route("/new", name="footprint_new")
-     * @Route("/{id}/clone", name="footprint_clone")
-     * @Route("/")
-     */
+    #[Route(path: '/new', name: 'footprint_new')]
+    #[Route(path: '/{id}/clone', name: 'footprint_clone')]
+    #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Footprint $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    /**
-     * @Route("/export", name="footprint_export_all")
-     */
+    #[Route(path: '/export', name: 'footprint_export_all')]
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
 
-    /**
-     * @Route("/{id}/export", name="footprint_export")
-     */
+    #[Route(path: '/{id}/export', name: 'footprint_export')]
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);

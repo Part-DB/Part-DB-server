@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\DataTables\Helpers;
 
+use App\Entity\ProjectSystem\Project;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
@@ -31,19 +35,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartDataTableHelper
 {
-    private PartPreviewGenerator $previewGenerator;
-    private AttachmentURLGenerator $attachmentURLGenerator;
-
-    private TranslatorInterface $translator;
-    private EntityURLGenerator $entityURLGenerator;
-
-    public function __construct(PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator,
-    EntityURLGenerator $entityURLGenerator, TranslatorInterface $translator)
+    public function __construct(private readonly PartPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly EntityURLGenerator $entityURLGenerator, private readonly TranslatorInterface $translator)
     {
-        $this->previewGenerator = $previewGenerator;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->translator = $translator;
-        $this->entityURLGenerator = $entityURLGenerator;
     }
 
     public function renderName(Part $context): string
@@ -57,7 +50,7 @@ class PartDataTableHelper
         if ($context->isNeedsReview()) {
             $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
         }
-        if ($context->getBuiltProject() !== null) {
+        if ($context->getBuiltProject() instanceof Project) {
             $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
                 $this->translator->trans('part.info.projectBuildPart.hint') . ': ' . $context->getBuiltProject()->getName());
         }
@@ -74,7 +67,7 @@ class PartDataTableHelper
     public function renderPicture(Part $context): string
     {
         $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
-        if (null === $preview_attachment) {
+        if (!$preview_attachment instanceof Attachment) {
             return '';
         }
 

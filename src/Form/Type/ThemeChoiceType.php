@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -26,11 +28,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ThemeChoiceType extends AbstractType
 {
-    private array $available_themes;
-
-    public function __construct(array $available_themes)
+    public function __construct(private readonly array $available_themes)
     {
-        $this->available_themes = $available_themes;
     }
 
     public function getParent(): string
@@ -38,13 +37,11 @@ class ThemeChoiceType extends AbstractType
         return ChoiceType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => $this->available_themes,
-            'choice_label' => static function ($entity, $key, $value) {
-                return $value;
-            },
+            'choice_label' => static fn($entity, $key, $value) => $value,
             'choice_translation_domain' => false,
             'placeholder' => 'user_settings.theme.placeholder'
         ]);

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Validator\Constraints\NoLockout;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
@@ -36,64 +38,61 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a user group.
  *
- * @ORM\Entity()
- * @ORM\Table("`groups`", indexes={
- *     @ORM\Index(name="group_idx_name", columns={"name"}),
- *     @ORM\Index(name="group_idx_parent_name", columns={"parent_id", "name"}),
- * })
+ * @extends AbstractStructuralDBElement<GroupAttachment, GroupParameter>
  */
+#[ORM\Entity]
+#[ORM\Table('`groups`')]
+#[ORM\Index(name: 'group_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
+#[NoLockout()]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @var Collection<int, self>
-     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected ?AbstractStructuralDBElement $parent;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id')]
+    protected ?AbstractStructuralDBElement $parent = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="group")
      * @var Collection<int, User>
      */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     protected Collection $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
-     * @ORM\Column(type="boolean", name="enforce_2fa")
-     * @Groups({"extended", "full", "import"})
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN, name: 'enforce_2fa')]
     protected bool $enforce2FA = false;
+
     /**
      * @var Collection<int, GroupAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"name" = "ASC"})
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    /**
-     * @var PermissionData|null
-     * @ValidPermission()
-     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
-     * @Groups({"full"})
-     */
+    #[Groups(['full'])]
+    #[ORM\Embedded(class: PermissionData::class, columnPrefix: 'permissions_')]
+    #[ValidPermission()]
     protected ?PermissionData $permissions = null;
 
-    /** @var Collection<int, GroupParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @Assert\Valid()
+    /**
+     * @var Collection<int, GroupParameter>
      */
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()
     {
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
         parent::__construct();
         $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
@@ -124,7 +123,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     public function getPermissions(): PermissionData
     {
-        if ($this->permissions === null) {
+        if (!$this->permissions instanceof PermissionData) {
             $this->permissions = new PermissionData();
         }
 

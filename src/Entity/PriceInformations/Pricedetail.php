@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -37,67 +38,65 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Pricedetail.
- *
- * @ORM\Entity()
- * @ORM\Table("`pricedetails`", indexes={
- *     @ORM\Index(name="pricedetails_idx_min_discount", columns={"min_discount_quantity"}),
- *     @ORM\Index(name="pricedetails_idx_min_discount_price_qty", columns={"min_discount_quantity", "price_related_quantity"}),
- * })
- * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"min_discount_quantity", "orderdetail"})
  */
+#[UniqueEntity(fields: ['min_discount_quantity', 'orderdetail'])]
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table('`pricedetails`')]
+#[ORM\Index(name: 'pricedetails_idx_min_discount', columns: ['min_discount_quantity'])]
+#[ORM\Index(name: 'pricedetails_idx_min_discount_price_qty', columns: ['min_discount_quantity', 'price_related_quantity'])]
 class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
 
-    public const PRICE_PRECISION = 5;
+    final public const PRICE_PRECISION = 5;
 
     /**
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
-     * @ORM\Column(type="big_decimal", precision=11, scale=5)
-     * @BigDecimalPositive()
-     * @Groups({"extended", "full"})
      */
+    #[Groups(['extended', 'full'])]
+    #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5)]
+    #[BigDecimalPositive()]
     protected BigDecimal $price;
 
     /**
      * @var ?Currency The currency used for the current price information.
-     *                If this is null, the global base unit is assumed.
-     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
-     * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
-     * @Selectable()
-     * @Groups({"extended", "full", "import"})
+     *                If this is null, the global base unit is assumed
      */
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'pricedetails')]
+    #[ORM\JoinColumn(name: 'id_currency')]
+    #[Selectable()]
     protected ?Currency $currency = null;
 
     /**
      * @var float
-     * @ORM\Column(type="float")
-     * @Assert\Positive()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Positive]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $price_related_quantity = 1.0;
 
     /**
      * @var float
-     * @ORM\Column(type="float")
-     * @Assert\Positive()
-     * @Groups({"extended", "full", "import"})
      */
+    #[Assert\Positive]
+    #[Groups(['extended', 'full', 'import'])]
+    #[ORM\Column(type: Types::FLOAT)]
     protected float $min_discount_quantity = 1.0;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean")
      */
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $manual_input = true;
 
     /**
      * @var Orderdetail|null
-     * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
-     * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: Orderdetail::class, inversedBy: 'pricedetails')]
+    #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Orderdetail $orderdetail = null;
 
     public function __construct()
@@ -115,14 +114,13 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
      */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');
-        if (null === $this->addedDate) {
+        if (!$this->addedDate instanceof \DateTimeInterface) {
             $this->addedDate = new DateTime('now');
         }
 
@@ -169,7 +167,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @return BigDecimal the price as a bcmath string
      */
-    public function getPricePerUnit($multiplier = 1.0): BigDecimal
+    public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
         $tmp = BigDecimal::of($multiplier);
         $tmp = $tmp->multipliedBy($this->price);
@@ -251,8 +249,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the currency associated with the price information.
      * Set to null, to use the global base currency.
-     *
-     * @return Pricedetail
      */
     public function setCurrency(?Currency $currency): self
     {

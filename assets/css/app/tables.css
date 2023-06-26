@@ -91,7 +91,7 @@ th.select-checkbox {
 /** Fix datatables select-checkbox position */
 table.dataTable tr.selected td.select-checkbox:after
 {
-    margin-top: -28px !important;
+    margin-top: -25px !important;
 }
 
 
@@ -116,23 +116,33 @@ table.dataTable > thead > tr > th.select-checkbox:before,
 table.dataTable > thead > tr > th.select-checkbox:after {
     display: block;
     position: absolute;
-    top: 1.2em;
+    top: 0.9em;
     left: 50%;
-    width: 12px;
-    height: 12px;
+    width: 1em !important;
+    height: 1em !important;
     box-sizing: border-box;
 }
 table.dataTable > thead > tr > th.select-checkbox:before {
     content: " ";
     margin-top: -5px;
     margin-left: -6px;
-    border: 1px solid black;
+    border: 2px solid var(--bs-tertiary-color);
     border-radius: 3px;
 }
+
+table.dataTable > tbody > tr > td.select-checkbox:before, table.dataTable > tbody > tr > th.select-checkbox:before {
+    border: 2px solid var(--bs-tertiary-color) !important;
+}
+
+table.dataTable > tbody > tr > td.select-checkbox:before, table.dataTable > tbody > tr > td.select-checkbox:after, table.dataTable > tbody > tr > th.select-checkbox:before, table.dataTable > tbody > tr > th.select-checkbox:after {
+    width: 1em !important;
+    height: 1em !important;
+}
+
 table.dataTable > thead > tr.selected > th.select-checkbox:after {
     content: "✓";
     font-size: 20px;
-    margin-top: -23px;
+    margin-top: -20px;
     margin-left: -6px;
     text-align: center;
     /*text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9; */

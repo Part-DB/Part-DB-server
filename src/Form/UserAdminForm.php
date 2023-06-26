@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
@@ -43,16 +44,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Length;
 
 class UserAdminForm extends AbstractType
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
+    public function __construct(protected Security $security)
     {
-        $this->security = $security;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

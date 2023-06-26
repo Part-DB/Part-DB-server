@@ -27,11 +27,8 @@ use Omines\DataTablesBundle\Column\AbstractColumn;
 
 class MarkdownColumn extends AbstractColumn
 {
-    protected MarkdownParser $markdown;
-
-    public function __construct(MarkdownParser $markdown)
+    public function __construct(protected MarkdownParser $markdown)
     {
-        $this->markdown = $markdown;
     }
 
     /**
@@ -40,7 +37,7 @@ class MarkdownColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $this->markdown->markForRendering($value, true);
     }

@@ -27,11 +27,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TagsColumn extends AbstractColumn
 {
-    protected UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(protected UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -40,17 +37,21 @@ class TagsColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         if (empty($value)) {
             return [];
         }
 
-        return explode(',', $value);
+        return explode(',', (string) $value);
     }
 
     public function render($tags, $context): string
     {
+        if (!is_iterable($tags)) {
+            throw new \LogicException('TagsColumn::render() expects an iterable');
+        }
+
         $html = '';
         $count = 10;
         foreach ($tags as $tag) {
@@ -61,7 +62,7 @@ class TagsColumn extends AbstractColumn
             $html .= sprintf(
                 '<a href="%s" class="badge bg-primary badge-table">%s</a>',
                 $this->urlGenerator->generate('part_list_tags', ['tag' => $tag]),
-                htmlspecialchars($tag)
+                htmlspecialchars((string) $tag)
             );
         }
 

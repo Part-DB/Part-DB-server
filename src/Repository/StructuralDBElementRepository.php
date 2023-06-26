@@ -27,6 +27,11 @@ use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
 use RecursiveIteratorIterator;
 
+/**
+ * @see \App\Tests\Repository\StructuralDBElementRepositoryTest
+ * @template TEntityClass of AbstractStructuralDBElement
+ * @extends NamedDBElementRepository<TEntityClass>
+ */
 class StructuralDBElementRepository extends NamedDBElementRepository
 {
     /**
@@ -49,7 +54,8 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
      *
-     * @param AbstractStructuralDBElement|null $parent the parent the root elements should have
+     * @param  AbstractStructuralDBElement|null  $parent  the parent the root elements should have
+     * @phpstan-param TEntityClass|null $parent
      *
      * @return TreeViewNode[]
      */
@@ -75,8 +81,9 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a flattened hierarchical tree. Useful for generating option lists.
      *
      * @param AbstractStructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
-     *
+     * @phpstan-param TEntityClass|null $parent
      * @return AbstractStructuralDBElement[] a flattened list containing the tree elements
+     * @phpstan-return array<int, TEntityClass>
      */
     public function toNodesList(?AbstractStructuralDBElement $parent = null): array
     {
@@ -100,9 +107,8 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Creates a structure of AbstractStructuralDBElements from a path separated by $separator, which splits the various levels.
      * This function will try to use existing elements, if they are already in the database. If not, they will be created.
      * An array of the created elements will be returned, with the last element being the deepest element.
-     * @param  string  $path
-     * @param  string  $separator
      * @return AbstractStructuralDBElement[]
+     * @phpstan-return array<int, TEntityClass>
      */
     public function getNewEntityFromPath(string $path, string $separator = '->'): array
     {
@@ -118,7 +124,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             $entity = $this->getNewEntityFromCache($name, $parent);
 
             //See if we already have an element with this name and parent in the database
-            if (!$entity) {
+            if (!$entity instanceof AbstractStructuralDBElement) {
                 $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
             }
             if (null === $entity) {
@@ -140,11 +146,8 @@ class StructuralDBElementRepository extends NamedDBElementRepository
 
     private function getNewEntityFromCache(string $name, ?AbstractStructuralDBElement $parent): ?AbstractStructuralDBElement
     {
-        $key = $parent ? $parent->getFullPath('%->%').'%->%'.$name : $name;
-        if (isset($this->new_entity_cache[$key])) {
-            return $this->new_entity_cache[$key];
-        }
-        return null;
+        $key = $parent instanceof AbstractStructuralDBElement ? $parent->getFullPath('%->%').'%->%'.$name : $name;
+        return $this->new_entity_cache[$key] ?? null;
     }
 
     private function setNewEntityToCache(AbstractStructuralDBElement $entity): void
@@ -157,9 +160,8 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Returns an element of AbstractStructuralDBElements queried from a path separated by $separator, which splits the various levels.
      * An array of the created elements will be returned, with the last element being the deepest element.
      * If no element was found, an empty array will be returned.
-     * @param  string  $path
-     * @param  string  $separator
      * @return AbstractStructuralDBElement[]
+     * @phpstan-return array<int, TEntityClass>
      */
     public function getEntityByPath(string $path, string $separator = '->'): array
     {

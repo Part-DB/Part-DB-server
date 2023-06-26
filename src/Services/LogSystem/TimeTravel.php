@@ -43,12 +43,10 @@ use ReflectionClass;
 
 class TimeTravel
 {
-    protected EntityManagerInterface $em;
     protected LogEntryRepository $repo;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 
@@ -81,7 +79,7 @@ class TimeTravel
      *
      * @throws Exception
      */
-    public function revertEntityToTimestamp(AbstractDBElement $element, DateTime $timestamp, array $reverted_elements = []): void
+    public function revertEntityToTimestamp(AbstractDBElement $element, \DateTimeInterface $timestamp, array $reverted_elements = []): void
     {
         if (!$element instanceof TimeStampableInterface) {
             throw new InvalidArgumentException('$element must have a Timestamp!');
@@ -126,7 +124,7 @@ class TimeTravel
         }
 
         // Revert any of the associated elements
-        $metadata = $this->em->getClassMetadata(get_class($element));
+        $metadata = $this->em->getClassMetadata($element::class);
         $associations = $metadata->getAssociationMappings();
         foreach ($associations as $field => $mapping) {
             if (
@@ -148,10 +146,10 @@ class TimeTravel
             } elseif ( //Revert *_TO_MANY associations (collection properties)
                 (ClassMetadataInfo::MANY_TO_MANY === $mapping['type']
                     || ClassMetadataInfo::ONE_TO_MANY === $mapping['type'])
-                && false === $mapping['isOwningSide']
+                && !$mapping['isOwningSide']
             ) {
                 $target_elements = $this->getField($element, $field);
-                if (null === $target_elements || count($target_elements) > 10) {
+                if (null === $target_elements || (is_countable($target_elements) ? count($target_elements) : 0) > 10) {
                     continue;
                 }
                 foreach ($target_elements as $target_element) {
@@ -200,7 +198,7 @@ class TimeTravel
         if (!$element instanceof TimeStampableInterface) {
             return;
         }
-        $metadata = $this->em->getClassMetadata(get_class($element));
+        $metadata = $this->em->getClassMetadata($element::class);
         $old_data = $logEntry->getOldData();
 
         foreach ($old_data as $field => $data) {
@@ -230,23 +228,21 @@ class TimeTravel
         $this->setField($element, 'lastModified', $logEntry->getTimestamp());
     }
 
-    protected function getField(AbstractDBElement $element, string $field)
+    protected function getField(AbstractDBElement $element, string $field): mixed
     {
-        $reflection = new ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
-        $property->setAccessible(true);
 
         return $property->getValue($element);
     }
 
     /**
-     * @param DateTime|int|null $new_value
+     * @param int|null|object $new_value
      */
-    protected function setField(AbstractDBElement $element, string $field, $new_value): void
+    protected function setField(AbstractDBElement $element, string $field, mixed $new_value): void
     {
-        $reflection = new ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
-        $property->setAccessible(true);
 
         $property->setValue($element, $new_value);
     }

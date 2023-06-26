@@ -30,12 +30,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionGroupType extends AbstractType
 {
-    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionManager $resolver)
+    public function __construct(protected PermissionManager $resolver)
     {
-        $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
@@ -68,9 +66,7 @@ class PermissionGroupType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('group_name', static function (Options $options) {
-            return trim($options['name']);
-        });
+        $resolver->setDefault('group_name', static fn(Options $options): string => trim((string) $options['name']));
 
         $resolver->setDefault('inherit', false);
 

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class RedirectControllerTest extends WebTestCase
 {
     protected EntityManagerInterface $em;
     protected UserRepository $userRepo;
-    protected \Symfony\Bundle\FrameworkBundle\KernelBrowser $client;
+    protected KernelBrowser $client;
 
     protected function setUp(): void
     {
@@ -75,7 +76,7 @@ class RedirectControllerTest extends WebTestCase
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         if ($expect_redirect) {
-            $this->assertSame(302, $response->getStatusCode());
+            $this->assertResponseStatusCodeSame(302);
         }
         $this->assertSame($expect_redirect, $response->isRedirect());
     }
@@ -104,10 +105,6 @@ class RedirectControllerTest extends WebTestCase
      * @dataProvider urlAddLocaleDataProvider
      * @group slow
      * @depends      testUrlMatch
-     *
-     * @param string|null $user_locale
-     * @param string $input_path
-     * @param string $redirect_path
      */
     public function testAddLocale(?string $user_locale, string $input_path, string $redirect_path): void
     {
@@ -122,6 +119,6 @@ class RedirectControllerTest extends WebTestCase
 
         $this->client->followRedirects(false);
         $this->client->request('GET', $input_path);
-        $this->assertSame($redirect_path, $this->client->getResponse()->headers->get('Location'));
+        $this->assertResponseRedirects($redirect_path);
     }
 }

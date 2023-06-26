@@ -27,9 +27,8 @@ use Symfony\Component\Validator\Constraint;
 /**
  * If a property is marked with this constraint, the choosen value (of type StructuralDBElement)
  * must NOT be marked as not selectable.
- *
- * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Selectable extends Constraint
 {
     public $message = 'validator.isSelectable';

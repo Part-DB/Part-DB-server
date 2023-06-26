@@ -41,23 +41,22 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Supplier;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @UniqueEntity(fields={"name", "group", "element"})
- */
+#[UniqueEntity(fields: ['name', 'group', 'element'])]
+#[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class SupplierParameter extends AbstractParameter
 {
-    public const ALLOWED_ELEMENT_CLASS = Supplier::class;
+    final public const ALLOWED_ELEMENT_CLASS = Supplier::class;
 
     /**
      * @var Supplier the element this para is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="parameters")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
+    #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'parameters')]
+    #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AbstractDBElement $element = null;
 }

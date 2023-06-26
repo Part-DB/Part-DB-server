@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Repository\AttachmentRepository;
+use App\EntityListeners\AttachmentDeleteListener;
+use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,27 +36,19 @@ use LogicException;
 
 /**
  * Class Attachment.
- *
- * @ORM\Entity(repositoryClass="App\Repository\AttachmentRepository")
- * @ORM\Table(name="`attachments`", indexes={
- *    @ORM\Index(name="attachments_idx_id_element_id_class_name", columns={"id", "element_id", "class_name"}),
- *    @ORM\Index(name="attachments_idx_class_name_id", columns={"class_name", "id"}),
- *    @ORM\Index(name="attachment_name_idx", columns={"name"}),
- *    @ORM\Index(name="attachment_element_idx", columns={"class_name", "element_id"})
- * })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="class_name", type="string")
- * @ORM\DiscriminatorMap({
- *     "PartDB\Part" = "PartAttachment", "Part" = "PartAttachment",
- *     "PartDB\Device" = "ProjectAttachment", "Device" = "ProjectAttachment",
- *     "AttachmentType" = "AttachmentTypeAttachment", "Category" = "CategoryAttachment",
- *     "Footprint" = "FootprintAttachment", "Manufacturer" = "ManufacturerAttachment",
- *     "Currency" = "CurrencyAttachment", "Group" = "GroupAttachment",
- *     "MeasurementUnit" = "MeasurementUnitAttachment", "Storelocation" = "StorelocationAttachment",
- *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment", "LabelProfile" = "LabelAttachment",
- * })
- * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
+ * @see \App\Tests\Entity\Attachments\AttachmentTest
+ * @template-covariant  T of AttachmentContainingDBElement
  */
+#[ORM\Entity(repositoryClass: AttachmentRepository::class)]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
+#[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
+#[ORM\EntityListeners([AttachmentDeleteListener::class])]
+#[ORM\Table(name: '`attachments`')]
+#[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
+#[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
+#[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
@@ -61,73 +56,69 @@ abstract class Attachment extends AbstractNamedDBElement
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
      * It will be used to determine if an attachment is a picture and therefore will be shown to user as preview.
      */
-    public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
+    final public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
         'svg', 'webp', ];
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
      */
-    public const MODEL_EXTS = ['x3d'];
+    final public const MODEL_EXTS = ['x3d'];
 
     /**
      * When the path begins with one of the placeholders.
      */
-    public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
+    final public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
     /**
      * @var array placeholders for attachments which using built in files
      */
-    public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
+    final public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
+     * @phpstan-var class-string<T>
      */
-    public const ALLOWED_ELEMENT_CLASS = '';
+    protected const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
 
     /**
      * @var string|null the original filename the file had, when the user uploaded it
-     * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $original_filename = null;
 
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
-     * @ORM\Column(type="string", name="path")
      */
+    #[ORM\Column(type: Types::STRING, name: 'path')]
     protected string $path = '';
 
     /**
      * @var string the name of this element
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="validator.attachment.name_not_blank")
-     * @Groups({"simple", "extended", "full"})
      */
+    #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
+    #[Groups(['simple', 'extended', 'full'])]
+    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**
      * ORM mapping is done in subclasses (like PartAttachment).
+     * @phpstan-param T|null $element
      */
     protected ?AttachmentContainingDBElement $element = null;
 
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $show_in_table = false;
 
-    /**
-     * @var AttachmentType|null
-     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
-     * @Selectable()
-     * @Assert\NotNull(message="validator.attachment.must_not_be_null")
-     */
+    #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
+    #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
+    #[ORM\JoinColumn(name: 'type_id', nullable: false)]
+    #[Selectable()]
     protected ?AttachmentType $attachment_type = null;
 
     public function __construct()
     {
         //parent::__construct();
-        if ('' === static::ALLOWED_ELEMENT_CLASS) {
+        if (AttachmentContainingDBElement::class === static::ALLOWED_ELEMENT_CLASS) {
             throw new LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
         }
     }
@@ -187,7 +178,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function isExternal(): bool
     {
         //When path is empty, this attachment can not be external
-        if (empty($this->path)) {
+        if ($this->path === '') {
             return false;
         }
 
@@ -241,7 +232,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return null;
         }
 
-        if (!empty($this->original_filename)) {
+        if ($this->original_filename !== null && $this->original_filename !== '') {
             return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
         }
 
@@ -251,7 +242,8 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * Get the element, associated with this Attachment (for example a "Part" object).
      *
-     * @return AttachmentContainingDBElement the associated Element
+     * @return AttachmentContainingDBElement|null the associated Element
+     * @phpstan-return T|null
      */
     public function getElement(): ?AttachmentContainingDBElement
     {
@@ -307,7 +299,7 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         //If we have a stored original filename, then use it
-        if (!empty($this->original_filename)) {
+        if ($this->original_filename !== null && $this->original_filename !== '') {
             return $this->original_filename;
         }
 
@@ -369,7 +361,6 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * Sets the element that is associated with this attachment.
-     *
      * @return $this
      */
     public function setElement(AttachmentContainingDBElement $element): self
@@ -416,8 +407,8 @@ abstract class Attachment extends AbstractNamedDBElement
     public function setURL(?string $url): self
     {
         //Only set if the URL is not empty
-        if (!empty($url)) {
-            if (false !== strpos($url, '%BASE%') || false !== strpos($url, '%MEDIA%')) {
+        if ($url !== null && $url !== '') {
+            if (str_contains($url, '%BASE%') || str_contains($url, '%MEDIA%')) {
                 throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }
 
@@ -446,7 +437,7 @@ abstract class Attachment extends AbstractNamedDBElement
         $tmp = explode('/', $path);
         //Builtins must have a %PLACEHOLDER% construction
 
-        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
+        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, true);
     }
 
     /**
@@ -472,5 +463,14 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         return (bool) filter_var($string, FILTER_VALIDATE_URL);
+    }
+
+    /**
+     * Returns the class of the element that is allowed to be associated with this attachment.
+     * @return string
+     */
+    public function getElementClass(): string
+    {
+        return static::ALLOWED_ELEMENT_CLASS;
     }
 }

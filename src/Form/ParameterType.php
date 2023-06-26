@@ -148,7 +148,7 @@ class ParameterType extends AbstractType
         ]);
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         //By default use part parameters for autocomplete
         $view->vars['type'] = 'part';

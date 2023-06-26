@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Repository\LabelProfileRepository;
 use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,21 +51,24 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class LabelProfileDropdownHelper
 {
-    private TagAwareCacheInterface $cache;
-    private EntityManagerInterface $entityManager;
-    private UserCacheKeyGenerator $keyGenerator;
-
-    public function __construct(TagAwareCacheInterface $treeCache, EntityManagerInterface $entityManager, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(private readonly TagAwareCacheInterface $cache, private readonly EntityManagerInterface $entityManager, private readonly UserCacheKeyGenerator $keyGenerator)
     {
-        $this->cache = $treeCache;
-        $this->entityManager = $entityManager;
-        $this->keyGenerator = $keyGenerator;
     }
 
-    public function getDropdownProfiles(string $type): array
+    /**
+     * Return all label profiles for the given supported element type
+     * @param  LabelSupportedElement|string  $type
+     * @return array
+     */
+    public function getDropdownProfiles(LabelSupportedElement|string $type): array
     {
+        //Useful for the twig templates, where we use the string representation of the enum
+        if (is_string($type)) {
+            $type = LabelSupportedElement::from($type);
+        }
+
         $secure_class_name = str_replace('\\', '_', LabelProfile::class);
-        $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.'_'.$type;
+        $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.'_'.$type->value;
 
         /** @var LabelProfileRepository $repo */
         $repo = $this->entityManager->getRepository(LabelProfile::class);

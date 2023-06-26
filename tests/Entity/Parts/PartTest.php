@@ -104,9 +104,9 @@ class PartTest extends TestCase
         $this->assertSame(13.141, $part->getAmountSum());
 
         //1 billion part lot
-        $part->addPartLot((new PartLot())->setAmount(1000000000));
-        $this->assertSame(1000000013.141, $part->getAmountSum());
+        $part->addPartLot((new PartLot())->setAmount(1_000_000_000));
+        $this->assertSame(1_000_000_013.141, $part->getAmountSum());
         $measurement_unit->setIsInteger(true);
-        $this->assertSame(1000000013.0, $part->getAmountSum());
+        $this->assertSame(1_000_000_013.0, $part->getAmountSum());
     }
 }
