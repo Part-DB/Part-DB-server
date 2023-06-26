@@ -9178,7 +9178,7 @@
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
-      <segment state="translated">
+      <segment>
         <source>homepage.forum.text</source>
         <target>Все вопросы по Part-DB в ветке обсуждения на &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
       </segment>
