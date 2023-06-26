@@ -21,6 +21,8 @@
 
 import { Controller } from '@hotwired/stimulus';
 import { marked } from "marked";
+import { mangle } from "marked-mangle";
+import { gfmHeadingId } from "marked-gfm-heading-id";
 import DOMPurify from 'dompurify';
 
 import "../../css/app/markdown.css";
@@ -81,6 +83,10 @@ export default class extends Controller {
      */
     configureMarked()
     {
+        marked.use(mangle());
+        marked.use(gfmHeadingId({
+        }));
+
         marked.setOptions({
             gfm: true,
         });

@@ -80,6 +80,8 @@
         "jszip": "^3.2.0",
         "katex": "^0.16.0",
         "marked": "^5.1.0",
+        "marked-gfm-heading-id": "^3.0.4",
+        "marked-mangle": "^1.0.1",
         "pdfmake": "^0.2.2",
         "stimulus-use": "^0.52.0",
         "tom-select": "^2.1.0",
