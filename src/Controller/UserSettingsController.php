@@ -35,6 +35,7 @@ use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -204,7 +205,8 @@ class UserSettingsController extends AbstractController
      * @return RedirectResponse|Response
      */
     #[Route(path: '/settings', name: 'user_settings')]
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): RedirectResponse|Response
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder,
+        GoogleAuthenticatorInterface $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper): RedirectResponse|Response
     {
         /** @var User $user */
         $user = $this->getUser();
