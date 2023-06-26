@@ -78,8 +78,6 @@ body {
         overflow: -moz-scrollbars-none;
         /* Use standard version for hiding the scrollbar */
         scrollbar-width: none;
-
-        background-color: var(--light);
     }
 
     #sidebar-container {

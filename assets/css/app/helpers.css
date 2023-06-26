@@ -79,7 +79,7 @@ ul.structural_link li {
 /* Add a slash symbol (/) before/behind each list item */
 ul.structural_link li+li:before {
     padding: 2px;
-    color: grey;
+    color: var(--bs-tertiary-color);
     /*content: "/\00a0";*/
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -89,13 +89,13 @@ ul.structural_link li+li:before {
 
 /* Add a color to all links inside the list */
 ul.structural_link li a {
-    color: #0275d8;
+    color: var(--bs-link-color);
     text-decoration: none;
 }
 
 /* Add a color on mouse-over */
 ul.structural_link li a:hover {
-    color: #01447e;
+    color: var(--bs-link-hover-color);
     text-decoration: underline;
 }
 
