@@ -1,10 +1,6 @@
 {% import "components/datatables.macro.html.twig" as datatables %}
 
-<div class="mb-2"></div>
-
-{{ datatables.datatable(datatable, 'elements/datatables/datatables', 'projects') }}
-
-<div class="btn-group">
+<div class="btn-group mb-2">
     <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
        href="{{ path('project_add_parts', {"id": project.id, "_redirect": app.request.requestUri}) }}">
         <i class="fa-solid fa-square-plus fa-fw"></i>
@@ -22,3 +18,5 @@
         </li>
     </ul>
 </div>
+
+{{ datatables.datatable(datatable, 'elements/datatables/datatables', 'projects') }}
