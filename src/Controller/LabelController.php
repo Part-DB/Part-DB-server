@@ -126,6 +126,11 @@ class LabelController extends AbstractController
                     new FormError($this->translator->trans('label_generator.no_entities_found'))
                 );
             }
+
+            //When the profile lines are empty, show a notice flash
+            if (trim($form_options->getLines()) === '') {
+                $this->addFlash('notice', 'label_generator.no_lines_given');
+            }
         }
 
         return $this->render('label_system/dialog.html.twig', [

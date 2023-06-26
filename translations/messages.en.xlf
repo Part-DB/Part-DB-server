@@ -11463,5 +11463,11 @@ Element 3</target>
         <target>Auto (decide based on system settings)</target>
       </segment>
     </unit>
+    <unit id="9N0N8aL" name="label_generator.no_lines_given">
+      <segment>
+        <source>label_generator.no_lines_given</source>
+        <target>No text content given! The labels will remain empty.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
