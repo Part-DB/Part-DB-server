@@ -39,3 +39,8 @@
     background: var(--bs-body-bg);
 }
 
+.ts-dropdown .optgroup-header {
+    color: var(--bs-tertiary-color);
+    background: var(--bs-body-bg);
+    cursor: default;
+}
