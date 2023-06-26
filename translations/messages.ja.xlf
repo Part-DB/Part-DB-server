@@ -8937,7 +8937,7 @@ Exampletown</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
-      <segment state="translated">
+      <segment>
         <source>homepage.forum.text</source>
         <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
       </segment>
