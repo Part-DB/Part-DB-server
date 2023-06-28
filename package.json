@@ -61,6 +61,12 @@
         "@ckeditor/ckeditor5-watchdog": "^38.0.1",
         "@ckeditor/ckeditor5-word-count": "^38.0.1",
         "@jbtronics/bs-treeview": "^1.0.1",
+        "@zxcvbn-ts/core": "^3.0.2",
+        "@zxcvbn-ts/language-common": "^3.0.3",
+        "@zxcvbn-ts/language-de": "^3.0.1",
+        "@zxcvbn-ts/language-en": "^3.0.1",
+        "@zxcvbn-ts/language-fr": "^3.0.1",
+        "@zxcvbn-ts/language-ja": "^3.0.1",
         "bootbox": "^6.0.0",
         "bootswatch": "^5.1.3",
         "bs-custom-file-input": "^1.3.4",
@@ -86,7 +92,6 @@
         "stimulus-use": "^0.52.0",
         "tom-select": "^2.1.0",
         "ts-loader": "^9.2.6",
-        "typescript": "^4.0.2",
-        "zxcvbn": "^4.4.2"
+        "typescript": "^4.0.2"
     }
 }

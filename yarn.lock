@@ -2103,6 +2103,38 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zxcvbn-ts/core@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/core/-/core-3.0.2.tgz#61bdc1f6b8a026e4ce9e9e06928040809fa10525"
+  integrity sha512-0IcC51nu4ium8H+89RcsEio+BHADtAPElkhHLd2kYr027+cPFg9Y0+tedLAxNKU+iHgMW0n2ajG/JVua5uV/fQ==
+  dependencies:
+    fastest-levenshtein "1.0.16"
+
+"@zxcvbn-ts/language-common@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-common/-/language-common-3.0.3.tgz#9093def00f4bfe1569cccdc18e6dbc098c371662"
+  integrity sha512-eDu0X45t43/vXL3UBFxEG6TI5n/vWfKVmokepkLHzSF5qEtlJ4ON1/5VnSzAzPfK0llyx027dZz5Fce201qC5w==
+
+"@zxcvbn-ts/language-de@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-de/-/language-de-3.0.1.tgz#0ac4d21764bca060666dbde18e871070316fb4b2"
+  integrity sha512-FynrEhJ7CwfLT3IySGXN8RhbCXPl7jrMq6bY3e+YbwHO8gYLv8hRBkdMqC9U1mNNGjLqP/zXqsqE0dzupigpsw==
+
+"@zxcvbn-ts/language-en@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-en/-/language-en-3.0.1.tgz#5d372aeebc74623b32ae3ed879a0db673cecb4c4"
+  integrity sha512-GyWxruQzJkIE3yTutCEU9zNnEIWC65gixMYunMTOc/8iInvzUL7h2l4GSylYZL8k7Whk/cyrKVyNVTYvK4Acog==
+
+"@zxcvbn-ts/language-fr@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-fr/-/language-fr-3.0.1.tgz#90a15571913bb0aa6a39f87e922c94288e593698"
+  integrity sha512-pL9hsvlq1DGNkn+0Q3Qsd4SgYkrTG/wHxJ4VGGL2grwW31YSLdMoYO4momQd8Wkl3+PNx+FKDM0oR+26V5eNbg==
+
+"@zxcvbn-ts/language-ja@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-ja/-/language-ja-3.0.1.tgz#b15fb0d7d2f3abf00f9f07684d718b0ed7157fae"
+  integrity sha512-gz9NgDDvrnQEH1NiPAwYcNIWam2n6u+JfgDTe0imLv3YTzPosUzH5GtFAJM/435WuiK2s1QEe9oMOOQDI+kFVw==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -3746,7 +3778,7 @@ fast-levenshtein@~2.0.6:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
 
-fastest-levenshtein@^1.0.12, fastest-levenshtein@^1.0.7:
+fastest-levenshtein@1.0.16, fastest-levenshtein@^1.0.12, fastest-levenshtein@^1.0.7:
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/fastest-levenshtein/-/fastest-levenshtein-1.0.16.tgz#210e61b6ff181de91ea9b3d1b84fdedd47e034e5"
   integrity sha512-eRnCtTTtGZFpQCwhJiUOuxPQWRXVKYDn0b2PeHfXL6/Zi53SLAzAHfVhVWK2AryC/WH05kGfxhFIPvTF0SXQzg==
@@ -6926,8 +6958,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-zxcvbn@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
-  integrity sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==

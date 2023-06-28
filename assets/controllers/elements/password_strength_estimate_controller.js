@@ -19,21 +19,53 @@
 
 
 import {Controller} from "@hotwired/stimulus";
-import zxcvbn from "zxcvbn";
+import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core';
+import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
+import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
+import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
+import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
+import * as zxcvbnJaPackage from '@zxcvbn-ts/language-ja';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
 
     _passwordInput;
 
-    static targets = ["badge", "suggestion", "warning"]
+    static targets = ["badge", "warning"]
+
+    _getTranslations() {
+        //Get the current locale
+        const locale = document.documentElement.lang;
+        if (locale.includes('de')) {
+            return zxcvbnDePackage.translations;
+        } else if (locale.includes('fr')) {
+            return zxcvbnFrPackage.translations;
+        } else if (locale.includes('ja')) {
+            return zxcvbnJaPackage.translations;
+        }
+
+        //Fallback to english
+        return zxcvbnEnPackage.translations;
+    }
 
     connect() {
         //Find the password input field
         this._passwordInput = this.element.querySelector('input[type="password"]');
 
+        //Configure zxcvbn
+        const options = {
+            graphs: zxcvbnCommonPackage.adjacencyGraphs,
+            dictionary: {
+                ...zxcvbnCommonPackage.dictionary,
+                // We could use the english dictionary here too, but it is very big. So we just use the common words
+                //...zxcvbnEnPackage.dictionary,
+            },
+            translations: this._getTranslations(),
+        };
+        zxcvbnOptions.setOptions(options);
+
         //Add event listener to the password input field
         this._passwordInput.addEventListener('input', this._onPasswordInput.bind(this));
-
     }
 
     _onPasswordInput() {
