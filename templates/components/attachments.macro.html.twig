@@ -20,7 +20,7 @@
 {% endmacro %}
 
 {% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x hoverpic", link = true) %}
-    {% set disabled = attachment.secure and not is_granted("show_secure", attachment) %}
+    {% set disabled = attachment.secure and not is_granted("show_private", attachment) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
         {% if link and not disabled %}
             <a target="_blank" data-turbo="false" rel="noopener" href="{{ entity_url(attachment, 'file_view') }}">
