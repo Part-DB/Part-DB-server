@@ -61,7 +61,7 @@ export default class extends Controller {
 
         if(!prototype) {
             console.warn("Prototype is not set, we cannot create a new element. This is most likely due to missing permissions.");
-            bootbox.alert("You do not have the permsissions to create a new element. (No protoype element is set)");
+            bootbox.alert("You do not have the permissions to create a new element. (No protoype element is set)");
             return;
         }
 
