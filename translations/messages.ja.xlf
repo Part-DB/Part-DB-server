@@ -1455,28 +1455,6 @@
         <target>フォーラム</target>
       </segment>
     </unit>
-    <unit id="SV0IxK0" name=" homepage.basedOn ">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:36</note>
-        <note priority="1">templates\homepage.html.twig:33</note>
-      </notes>
-      <segment state="translated">
-        <source> homepage.basedOn </source>
-        <target> オリジナルのPart-DBの作者 </target>
-      </segment>
-    </unit>
-    <unit id="Qw1sChr" name=" homepage.others ">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:39</note>
-        <note priority="1">templates\homepage.html.twig:36</note>
-      </notes>
-      <segment state="translated">
-        <source> homepage.others </source>
-        <target> 他 </target>
-      </segment>
-    </unit>
     <unit id="jOOAjnK" name="homepage.last_activity">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
@@ -6334,52 +6312,6 @@
         <target>サーバー全体のテーマ</target>
       </segment>
     </unit>
-    <unit id="CPJxiHz" name="M">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>M</source>
-        <target>M</target>
-      </segment>
-    </unit>
-    <unit id="glTDKak" name="k">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>k</source>
-        <target>k</target>
-      </segment>
-    </unit>
-    <unit id="47DEQpj" name="">
-      <segment>
-        <source/>
-        <target> </target>
-      </segment>
-    </unit>
-    <unit id="YsZqel3" name="m">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>m</source>
-        <target>m</target>
-      </segment>
-    </unit>
-    <unit id="WgcvG_T" name="µ">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>µ</source>
-        <target>µ</target>
-      </segment>
-    </unit>
     <unit id="oHq_Mt5" name="log.user_login.ip">
       <notes>
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
@@ -7462,17 +7394,6 @@ Exampletown</target>
         <target>変更を破棄</target>
       </segment>
     </unit>
-    <unit id="eG9UnaY" name="part.withdraw.caption:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:161</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption:</source>
-        <target>部品を撤回する</target>
-      </segment>
-    </unit>
     <unit id="7TiUzGF" name="part.withdraw.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
@@ -7581,26 +7502,6 @@ Exampletown</target>
       <segment state="translated">
         <source>part.mininstock.placeholder</source>
         <target>例: 5</target>
-      </segment>
-    </unit>
-    <unit id="gAFUu2a" name="homepage.basedOn">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.basedOn</source>
-        <target>オリジナルのPart-DBの作者:</target>
-      </segment>
-    </unit>
-    <unit id="PlY3xmo" name="homepage.others">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.others</source>
-        <target>他</target>
       </segment>
     </unit>
     <unit id="cpRdMwo" name="part.order.price_per">
@@ -8697,15 +8598,6 @@ Exampletown</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>要素の以前のバージョンを表示する (タイムトラベル)</target>
-      </segment>
-    </unit>
-    <unit id="AiBoPxF" name="log.type.">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>log.type.</source>
-        <target>__log.type.</target>
       </segment>
     </unit>
     <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">

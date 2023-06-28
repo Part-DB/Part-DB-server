@@ -25,6 +25,8 @@ import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
 import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
 import * as zxcvbnJaPackage from '@zxcvbn-ts/language-ja';
+import {trans, USER_PASSWORD_STRENGTH_VERY_WEAK, USER_PASSWORD_STRENGTH_WEAK, USER_PASSWORD_STRENGTH_MEDIUM,
+    USER_PASSWORD_STRENGTH_STRONG, USER_PASSWORD_STRENGTH_VERY_STRONG} from '../../translator.js';
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
@@ -87,27 +89,27 @@ export default class extends Controller {
 
         switch (level) {
             case 0:
-                text = "Very weak";
+                text = trans(USER_PASSWORD_STRENGTH_VERY_WEAK);
                 classes = "bg-danger badge-danger";
                 break;
             case 1:
-                text = "Weak";
+                text = trans(USER_PASSWORD_STRENGTH_WEAK);
                 classes = "bg-warning badge-warning";
                 break;
             case 2:
-                text = "Medium";
+                text = trans(USER_PASSWORD_STRENGTH_MEDIUM)
                 classes = "bg-info badge-info";
                 break;
             case 3:
-                text = "Strong";
+                text = trans(USER_PASSWORD_STRENGTH_STRONG);
                 classes = "bg-primary badge-primary";
                 break;
             case 4:
-                text = "Very strong";
+                text = trans(USER_PASSWORD_STRENGTH_VERY_STRONG);
                 classes = "bg-success badge-success";
                 break;
             default:
-                text = "Unknown";
+                text = "???";
                 classes = "bg-secondary badge-secondary";
         }
 

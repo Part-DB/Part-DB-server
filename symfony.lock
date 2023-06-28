@@ -731,6 +731,21 @@
             "./config/packages/uid.yaml"
         ]
     },
+    "symfony/ux-translator": {
+        "version": "2.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.9",
+            "ref": "bc396565cc4cab95692dd6df810553dc22e352e1"
+        },
+        "files": [
+            "./assets/translator.js",
+            "./config/packages/ux_translator.yaml",
+            "./var/translations/configuration.js",
+            "./var/translations/index.js"
+        ]
+    },
     "symfony/ux-turbo": {
         "version": "v2.0.1"
     },

@@ -1,0 +1,3 @@
+ux_translator:
+    # The directory where the JavaScript translations are dumped
+    dump_directory: '%kernel.project_dir%/var/translations'

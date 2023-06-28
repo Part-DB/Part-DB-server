@@ -1484,28 +1484,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Forum</target>
       </segment>
     </unit>
-    <unit id="SV0IxK0" name=" homepage.basedOn ">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:36</note>
-        <note priority="1">templates\homepage.html.twig:33</note>
-      </notes>
-      <segment>
-        <source> homepage.basedOn </source>
-        <target> Basierend auf dem originale Part-DB von </target>
-      </segment>
-    </unit>
-    <unit id="Qw1sChr" name=" homepage.others ">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:39</note>
-        <note priority="1">templates\homepage.html.twig:36</note>
-      </notes>
-      <segment>
-        <source> homepage.others </source>
-        <target> und anderen </target>
-      </segment>
-    </unit>
     <unit id="jOOAjnK" name="homepage.last_activity">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
@@ -6400,52 +6378,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Serverweites Theme</target>
       </segment>
     </unit>
-    <unit id="CPJxiHz" name="M">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>M</source>
-        <target>M</target>
-      </segment>
-    </unit>
-    <unit id="glTDKak" name="k">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>k</source>
-        <target>k</target>
-      </segment>
-    </unit>
-    <unit id="47DEQpj" name="">
-      <segment>
-        <source></source>
-        <target> </target>
-      </segment>
-    </unit>
-    <unit id="YsZqel3" name="m">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>m</source>
-        <target>m</target>
-      </segment>
-    </unit>
-    <unit id="WgcvG_T" name="µ">
-      <notes>
-        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>µ</source>
-        <target>µ</target>
-      </segment>
-    </unit>
     <unit id="oHq_Mt5" name="log.user_login.ip">
       <notes>
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
@@ -7527,17 +7459,6 @@ Element 3</target>
         <target>Änderungen verwerfen</target>
       </segment>
     </unit>
-    <unit id="eG9UnaY" name="part.withdraw.caption:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:161</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>part.withdraw.caption:</source>
-        <target>Bauteile entnehmen:</target>
-      </segment>
-    </unit>
     <unit id="7TiUzGF" name="part.withdraw.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
@@ -7646,26 +7567,6 @@ Element 3</target>
       <segment>
         <source>part.mininstock.placeholder</source>
         <target>z.B. 10</target>
-      </segment>
-    </unit>
-    <unit id="gAFUu2a" name="homepage.basedOn">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>homepage.basedOn</source>
-        <target>basierend auf Arbeit von</target>
-      </segment>
-    </unit>
-    <unit id="PlY3xmo" name="homepage.others">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>homepage.others</source>
-        <target>und anderen</target>
       </segment>
     </unit>
     <unit id="cpRdMwo" name="part.order.price_per">
@@ -8778,15 +8679,6 @@ Element 3</target>
       <segment>
         <source>perm.tools.timeTravel</source>
         <target>Alte Versionsstände anzeigen (Zeitreisen)</target>
-      </segment>
-    </unit>
-    <unit id="AiBoPxF" name="log.type.">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>log.type.</source>
-        <target>__log.type.</target>
       </segment>
     </unit>
     <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
@@ -11445,6 +11337,36 @@ Element 3</target>
       <segment>
         <source>ui.darkmode.auto</source>
         <target>Auto (decided on system settings)</target>
+      </segment>
+    </unit>
+    <unit id="RdFvZsb" name="user.password_strength.very_weak">
+      <segment>
+        <source>user.password_strength.very_weak</source>
+        <target>Sehr schwach</target>
+      </segment>
+    </unit>
+    <unit id="IBjmblZ" name="user.password_strength.weak">
+      <segment>
+        <source>user.password_strength.weak</source>
+        <target>Schwach</target>
+      </segment>
+    </unit>
+    <unit id="qSm_ID0" name="user.password_strength.medium">
+      <segment>
+        <source>user.password_strength.medium</source>
+        <target>Mittel</target>
+      </segment>
+    </unit>
+    <unit id="aWAaADS" name="user.password_strength.strong">
+      <segment>
+        <source>user.password_strength.strong</source>
+        <target>Stark</target>
+      </segment>
+    </unit>
+    <unit id="Wa9CStW" name="user.password_strength.very_strong">
+      <segment>
+        <source>user.password_strength.very_strong</source>
+        <target>Sehr stark</target>
       </segment>
     </unit>
   </file>
