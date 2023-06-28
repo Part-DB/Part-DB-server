@@ -12,7 +12,7 @@
                 {# @var pic App\Entity\Attachments\Attachment #}
                 <div class="carousel-item  {% if loop.first %}active{% endif %}">
                     <a href="{{ entity_url(pic, 'file_view') }}" data-turbo="false" target="_blank" rel="noopener">
-                        <img class="d-block w-100 img-fluid img-thumbnail bg-body-tertiary part-info-image" src="{{ entity_url(pic, 'file_view') }}" alt="">
+                        <img class="d-block w-100 img-fluid img-thumbnail bg-light part-info-image" src="{{ entity_url(pic, 'file_view') }}" alt="">
                         <div class="mask"></div>
                         <div class="carousel-caption-hover">
                             <div class="carousel-caption text-body ">
@@ -38,5 +38,5 @@
     </div>
 
 {% else %}
-    <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-body-tertiary mb-2" alt="Part main image" height="300" width="300">
+    <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light mb-2" alt="Part main image" height="300" width="300">
 {% endif %}
