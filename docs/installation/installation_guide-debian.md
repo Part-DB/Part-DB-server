@@ -22,7 +22,7 @@ sudo apt install git curl zip ca-certificates software-properties-common apt-tra
 ```
 
 ### Install PHP and apache2
-Part-DB is written in [PHP](https://php.net) and therefore needs an PHP interpreter to run. Part-DB needs PHP 7.3 or higher, however it is recommended to use the most recent version of PHP for performance reasons and future compatibility.
+Part-DB is written in [PHP](https://php.net) and therefore needs an PHP interpreter to run. Part-DB needs PHP 8.1 or higher, however it is recommended to use the most recent version of PHP for performance reasons and future compatibility.
 
 As Debian 11 does not ship PHP 8.1 in it's default repositories, we have to add a repository for it. You can skip this step if your distribution is shipping a recent version of PHP or you want to use the built-in PHP version.
 ```bash
