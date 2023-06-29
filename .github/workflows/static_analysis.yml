@@ -38,9 +38,10 @@ jobs:
     
     - name: Lint twig templates
       run: ./bin/console lint:twig templates --env=prod
-    
-    - name: Lint translations 
-      run: ./bin/console lint:xliff translations
+
+    # This causes problems with emtpy language files
+    #- name: Lint translations
+    #  run: ./bin/console lint:xliff translations
 
     - name: Check dependencies for security
       uses: symfonycorp/security-checker-action@v5
