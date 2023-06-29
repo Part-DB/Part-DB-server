@@ -11321,22 +11321,28 @@ Element 3</target>
         <target>Dateianhänge</target>
       </segment>
     </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment state="translated">
+        <source>log.target_type.none</source>
+        <target>Keine</target>
+      </segment>
+    </unit>
     <unit id="R2nX4ip" name="ui.darkmode.light">
       <segment state="translated">
         <source>ui.darkmode.light</source>
-        <target>Light</target>
+        <target>Hell</target>
       </segment>
     </unit>
     <unit id="3NHpuW3" name="ui.darkmode.dark">
       <segment state="translated">
         <source>ui.darkmode.dark</source>
-        <target>Dark</target>
+        <target>Dunkel</target>
       </segment>
     </unit>
     <unit id="4TGOK5_" name="ui.darkmode.auto">
       <segment state="translated">
         <source>ui.darkmode.auto</source>
-        <target>Auto (decided on system settings)</target>
+        <target>Auto (basierend auf Systemeinstellungen)</target>
       </segment>
     </unit>
     <unit id="RdFvZsb" name="user.password_strength.very_weak">
