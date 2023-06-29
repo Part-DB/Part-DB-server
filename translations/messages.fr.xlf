@@ -1455,6 +1455,17 @@ Show/Hide sidebar</target>
         <target>Forum</target>
       </segment>
     </unit>
+    <unit id="jOOAjnK" name="homepage.last_activity">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.last_activity</source>
+        <target>Activité récente</target>
+      </segment>
+    </unit>
     <unit id="bqeaYn7" name="label_generator.title">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
@@ -9057,31 +9068,31 @@ exemple de ville</target>
       </segment>
     </unit>
     <unit id="1HcqCmo" name="currency.edit.update_rate">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.update_rate</source>
         <target>Taux de rafraîchissement</target>
       </segment>
     </unit>
     <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.unsupported_currency</source>
         <target>Devise non prise en charge</target>
       </segment>
     </unit>
     <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.generic_error</source>
         <target>Erreur générique</target>
       </segment>
     </unit>
     <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_updated.success</source>
         <target>Succès</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
-      <segment state="translated">
+      <segment>
         <source>homepage.forum.text</source>
         <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
       </segment>

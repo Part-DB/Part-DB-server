@@ -171,7 +171,7 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>validator.noneofitschild.self</source>
         <target>要素は自身の親とすることはできません。</target>
       </segment>
@@ -180,25 +180,25 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>validator.noneofitschild.children</source>
         <target>要素は自身の子とすることはできません。</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <segment state="translated">
+      <segment>
         <source>validator.part_lot.only_existing</source>
         <target>新しい部品を追加できません。保管場所は「既存の部品のみ」とマークされています。</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment state="translated">
+      <segment>
         <source>validator.part_lot.location_full</source>
         <target>新しい部品を追加できません。保管場所が満杯とマークされています。</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment state="translated">
+      <segment>
         <source>validator.part_lot.single_part</source>
         <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>
       </segment>

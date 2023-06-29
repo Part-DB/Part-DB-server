@@ -11321,50 +11321,56 @@ Element 3</target>
         <target>Dateianhänge</target>
       </segment>
     </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment state="translated">
+        <source>log.target_type.none</source>
+        <target>Keine</target>
+      </segment>
+    </unit>
     <unit id="R2nX4ip" name="ui.darkmode.light">
-      <segment>
+      <segment state="translated">
         <source>ui.darkmode.light</source>
-        <target>Light</target>
+        <target>Hell</target>
       </segment>
     </unit>
     <unit id="3NHpuW3" name="ui.darkmode.dark">
-      <segment>
+      <segment state="translated">
         <source>ui.darkmode.dark</source>
-        <target>Dark</target>
+        <target>Dunkel</target>
       </segment>
     </unit>
     <unit id="4TGOK5_" name="ui.darkmode.auto">
-      <segment>
+      <segment state="translated">
         <source>ui.darkmode.auto</source>
-        <target>Auto (decided on system settings)</target>
+        <target>Auto (basierend auf Systemeinstellungen)</target>
       </segment>
     </unit>
     <unit id="RdFvZsb" name="user.password_strength.very_weak">
-      <segment>
+      <segment state="translated">
         <source>user.password_strength.very_weak</source>
         <target>Sehr schwach</target>
       </segment>
     </unit>
     <unit id="IBjmblZ" name="user.password_strength.weak">
-      <segment>
+      <segment state="translated">
         <source>user.password_strength.weak</source>
         <target>Schwach</target>
       </segment>
     </unit>
     <unit id="qSm_ID0" name="user.password_strength.medium">
-      <segment>
+      <segment state="translated">
         <source>user.password_strength.medium</source>
         <target>Mittel</target>
       </segment>
     </unit>
     <unit id="aWAaADS" name="user.password_strength.strong">
-      <segment>
+      <segment state="translated">
         <source>user.password_strength.strong</source>
         <target>Stark</target>
       </segment>
     </unit>
     <unit id="Wa9CStW" name="user.password_strength.very_strong">
-      <segment>
+      <segment state="translated">
         <source>user.password_strength.very_strong</source>
         <target>Sehr stark</target>
       </segment>

@@ -1454,6 +1454,17 @@
         <target>Форум</target>
       </segment>
     </unit>
+    <unit id="jOOAjnK" name="homepage.last_activity">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.last_activity</source>
+        <target>Последние действия</target>
+      </segment>
+    </unit>
     <unit id="bqeaYn7" name="label_generator.title">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
@@ -9059,7 +9070,7 @@
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
-      <segment state="translated">
+      <segment>
         <source>homepage.forum.text</source>
         <target>Все вопросы по Part-DB в ветке обсуждения на &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
       </segment>
