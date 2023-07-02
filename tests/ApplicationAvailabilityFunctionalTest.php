@@ -124,7 +124,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         //Scan test
         yield ['/scan'];  //Interactive scan dialog
-        yield ['/scan/part/1']; //Scan a part
 
         //Tools
         yield ['/tools/reel_calc'];

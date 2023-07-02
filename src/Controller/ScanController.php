@@ -49,6 +49,7 @@ use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/scan')]
@@ -59,16 +60,18 @@ class ScanController extends AbstractController
     }
 
     #[Route(path: '/', name: 'scan_dialog')]
-    public function dialog(Request $request): Response
+    public function dialog(Request $request, #[MapQueryParameter] ?string $input = null): Response
     {
         $this->denyAccessUnlessGranted('@tools.label_scanner');
 
         $form = $this->createForm(ScanDialogType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($input === null && $form->isSubmitted() && $form->isValid()) {
             $input = $form['input']->getData();
+        }
 
+        if ($input !== null) {
             try {
                 [$type, $id] = $this->barcodeNormalizer->normalizeBarcodeContent($input);
 
