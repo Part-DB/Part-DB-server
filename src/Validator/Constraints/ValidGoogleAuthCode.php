@@ -32,10 +32,10 @@ class ValidGoogleAuthCode extends Constraint
      */
     public function __construct(
         array $options = null,
-        string $message = null,
         array $groups = null,
+        mixed $payload = null,
         public ?TwoFactorInterface $user = null)
     {
-        parent::__construct($options, $message, $groups);
+        parent::__construct($options, $groups, $payload);
     }
 }
