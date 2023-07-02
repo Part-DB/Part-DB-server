@@ -26,21 +26,26 @@ use App\DataTables\ProjectBomEntriesDataTable;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\ProjectSystem\ProjectAddPartsType;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\ProjectSystem\ProjectBuildType;
 use App\Form\Type\StructuralEntityType;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -201,19 +206,10 @@ class ProjectController extends AbstractController
             $this->denyAccessUnlessGranted('@projects.edit');
         }
 
-        $builder = $this->createFormBuilder();
-        $builder->add('project', StructuralEntityType::class, [
-            'class' => Project::class,
-            'required' => true,
-            'disabled' => $project instanceof Project, //If a project is given, disable the field
-            'data' => $project,
-            'constraints' => [
-                new NotNull()
-            ]
+        $form = $this->createForm(ProjectAddPartsType::class, null, [
+            'project' => $project,
         ]);
-        $builder->add('bom_entries', ProjectBOMEntryCollectionType::class);
-        $builder->add('submit', SubmitType::class, ['label' => 'save']);
-        $form = $builder->getForm();
+
 
         //Preset the BOM entries with the selected parts, when the form was not submitted yet
         $preset_data = new ArrayCollection();
@@ -249,7 +245,10 @@ class ProjectController extends AbstractController
             foreach ($bom_entries as $bom_entry){
                 $target_project->addBOMEntry($bom_entry);
             }
+
+
             $entityManager->flush();
+
 
             //If a redirect query parameter is set, redirect to this page
             if ($request->query->get('_redirect')) {
