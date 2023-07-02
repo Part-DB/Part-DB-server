@@ -2,7 +2,7 @@
 
 scan_qr:
     path: /scan/{type}/{id}
-    controller: App\Controller\ScanController:scanQRCode
+    controller: App\Controller\ScanController::scanQRCode
 
 csp_report:
     path: /csp/report

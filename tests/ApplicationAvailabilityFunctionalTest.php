@@ -117,11 +117,14 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/select_api/measurement_unit'];
 
         //Label test
-        yield ['/scan'];
         yield ['/label/dialog'];
         yield ['/label/dialog?target_id=1&target_type=part'];
         yield ['/label/1/dialog'];
         yield ['/label/1/dialog?target_id=1&target_type=part&generate=1'];
+
+        //Scan test
+        yield ['/scan'];  //Interactive scan dialog
+        yield ['/scan/part/1']; //Scan a part
 
         //Tools
         yield ['/tools/reel_calc'];

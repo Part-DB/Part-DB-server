@@ -58,7 +58,7 @@ class ScanController extends AbstractController
     {
     }
 
-    #[Route(path: '', name: 'scan_dialog')]
+    #[Route(path: '/', name: 'scan_dialog')]
     public function dialog(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@tools.label_scanner');
