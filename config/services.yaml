@@ -221,6 +221,11 @@ services:
         tags:
             - { name: 'app.label_placeholder_provider', priority: 10}
 
+    App\Services\LabelSystem\DompdfFactory:
+        arguments:
+            $fontDirectory: '%kernel.project_dir%/var/dompdf/fonts/'
+            $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
+
     ####################################################################################################################
     # Trees
     ####################################################################################################################

@@ -47,6 +47,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use Dompdf\Dompdf;
 use InvalidArgumentException;
+use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;
 
 /**
  * @see \App\Tests\Services\LabelSystem\LabelGeneratorTest
@@ -55,7 +56,8 @@ final class LabelGenerator
 {
     public const MM_TO_POINTS_FACTOR = 2.83465;
 
-    public function __construct(private readonly LabelHTMLGenerator $labelHTMLGenerator)
+    public function __construct(private readonly LabelHTMLGenerator $labelHTMLGenerator,
+        private readonly DompdfFactoryInterface $dompdfFactory)
     {
     }
 
@@ -78,7 +80,7 @@ final class LabelGenerator
             }
         }
 
-        $dompdf = new Dompdf();
+        $dompdf = $this->dompdfFactory->create();
         $dompdf->setPaper($this->mmToPointsArray($options->getWidth(), $options->getHeight()));
         $dompdf->loadHtml($this->labelHTMLGenerator->getLabelHTML($options, $elements));
         $dompdf->render();
