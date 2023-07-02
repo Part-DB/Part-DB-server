@@ -39,6 +39,7 @@ use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use RecursiveIteratorIterator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -50,7 +51,9 @@ use function count;
  */
 class TreeViewGenerator
 {
-    public function __construct(protected EntityURLGenerator $urlGenerator, protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected TranslatorInterface $translator, protected bool $rootNodeExpandedByDefault, protected bool $rootNodeEnabled)
+    public function __construct(protected EntityURLGenerator $urlGenerator, protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache,
+        protected UserCacheKeyGenerator $keyGenerator, protected TranslatorInterface $translator, private UrlGeneratorInterface $router,
+        protected bool $rootNodeExpandedByDefault, protected bool $rootNodeEnabled)
     {
     }
 
@@ -121,7 +124,10 @@ class TreeViewGenerator
         }
 
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
-            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), null, $generic);
+            //We show the root node as a link to the list of all parts
+            $show_all_parts_url = $this->router->generate('parts_show_all');
+
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $show_all_parts_url, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $root_node->setIcon($this->entityClassToRootNodeIcon($class));
 
