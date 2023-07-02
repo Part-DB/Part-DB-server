@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac083d3e7e6f9bfde54fb37e99edf662",
+    "content-hash": "18320dea5be78e0552d040f1c9275345",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1807,16 +1807,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v2.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "e8d2d5e37e8b0b30f0732a011295ab80680d7e85"
+                "reference": "87bea32efe0b0db309e1d31537201f64d5508280"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/e8d2d5e37e8b0b30f0732a011295ab80680d7e85",
-                "reference": "e8d2d5e37e8b0b30f0732a011295ab80680d7e85",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/87bea32efe0b0db309e1d31537201f64d5508280",
+                "reference": "87bea32efe0b0db309e1d31537201f64d5508280",
                 "shasum": ""
             },
             "require": {
@@ -1828,11 +1828,13 @@
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
+                "ext-gd": "*",
                 "ext-json": "*",
                 "ext-zip": "*",
                 "mockery/mockery": "^1.3",
                 "phpunit/phpunit": "^7.5 || ^8 || ^9",
-                "squizlabs/php_codesniffer": "^3.5"
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/process": "^4.4 || ^5.4 || ^6.2"
             },
             "suggest": {
                 "ext-gd": "Needed to process images",
@@ -1840,6 +1842,7 @@
                 "ext-imagick": "Improves image processing performance",
                 "ext-zlib": "Needed for pdf stream compression"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1863,9 +1866,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v2.0.3"
+                "source": "https://github.com/dompdf/dompdf/tree/master"
             },
-            "time": "2023-02-07T12:51:48+00:00"
+            "time": "2023-06-23T12:41:01+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -16214,9 +16217,17 @@
             "time": "2023-06-27T16:39:49+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "dompdf/dompdf",
+            "version": "9999999-dev",
+            "alias": "v2.0.3",
+            "alias_normalized": "2.0.3.0"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "dompdf/dompdf": 20,
         "florianv/swap-bundle": 20,
         "symfony/ux-translator": 20,
         "roave/security-advisories": 20
