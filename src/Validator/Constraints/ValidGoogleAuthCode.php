@@ -22,8 +22,20 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Symfony\Component\Validator\Constraint;
 
 class ValidGoogleAuthCode extends Constraint
 {
+    /**
+     * @param  TwoFactorInterface|null  $user The user to use for the validation process, if null, the current user is used
+     */
+    public function __construct(
+        array $options = null,
+        string $message = null,
+        array $groups = null,
+        public ?TwoFactorInterface $user = null)
+    {
+        parent::__construct($options, $message, $groups);
+    }
 }

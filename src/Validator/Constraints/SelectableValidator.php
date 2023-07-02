@@ -53,7 +53,7 @@ class SelectableValidator extends ConstraintValidator
 
         //Check type of value. Validating only works for StructuralDBElements
         if (!$value instanceof AbstractStructuralDBElement) {
-            throw new UnexpectedValueException($value, 'StructuralDBElement');
+            throw new UnexpectedValueException($value, AbstractStructuralDBElement::class);
         }
 
         //Check if the value is not selectable -> show error message then.

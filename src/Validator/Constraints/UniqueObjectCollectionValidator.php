@@ -69,9 +69,12 @@ class UniqueObjectCollectionValidator extends ConstraintValidator
 
                 $violation = $this->context->buildViolation($constraint->message);
 
-                $violation->atPath('[' . $key . ']' . '.' . $constraint->fields[0]);
+                //Use the first supplied field as the target field, or the first defined field name of the element if none is supplied
+                $target_field = $constraint->fields[0] ?? array_keys($element)[0];
 
-                $violation->setParameter('{{ value }}', $this->formatValue($value))
+                $violation->atPath('[' . $key . ']' . '.' . $target_field);
+
+                $violation->setParameter('{{ object }}', $this->formatValue($object, ConstraintValidator::OBJECT_TO_STRING))
                     ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
                     ->addViolation();
 

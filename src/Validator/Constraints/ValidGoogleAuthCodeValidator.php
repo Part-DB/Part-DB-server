@@ -23,8 +23,10 @@ declare(strict_types=1);
 namespace App\Validator\Constraints;
 
 use App\Entity\UserSystem\User;
+use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -36,7 +38,7 @@ use function strlen;
 
 class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
-    public function __construct(protected GoogleAuthenticatorInterface $googleAuthenticator)
+    public function __construct(private GoogleAuthenticatorInterface $googleAuthenticator, private Security $security)
     {
     }
 
@@ -56,23 +58,24 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
 
         if (!ctype_digit($value)) {
             $this->context->addViolation('validator.google_code.only_digits_allowed');
+            return;
         }
 
         //Number must have 6 digits
         if (6 !== strlen($value)) {
             $this->context->addViolation('validator.google_code.wrong_digit_count');
+            return;
         }
 
-        //Try to retrieve the user we want to check
-        if ($this->context->getObject() instanceof FormInterface &&
-            $this->context->getObject()->getParent() instanceof FormInterface
-        && $this->context->getObject()->getParent()->getData() instanceof User) {
-            $user = $this->context->getObject()->getParent()->getData();
+        //Use the current user to check the code
+        $user = $constraint->user ?? $this->security->getUser();
+        if (!$user instanceof TwoFactorInterface) {
+            throw new UnexpectedValueException($user, TwoFactorInterface::class);
+        }
 
-            //Check if the given code is valid
-            if (!$this->googleAuthenticator->checkCode($user, $value)) {
-                $this->context->addViolation('validator.google_code.wrong_code');
-            }
+        //Check if the given code is valid
+        if (!$this->googleAuthenticator->checkCode($user, $value)) {
+            $this->context->addViolation('validator.google_code.wrong_code');
         }
     }
 }

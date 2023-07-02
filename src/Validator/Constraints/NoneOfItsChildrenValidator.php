@@ -63,7 +63,7 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
 
         // Check if the targeted parent is the object itself:
         $entity_id = $entity->getID();
-        if (null !== $entity_id && $entity_id === $value->getID()) {
+        if ($entity === $value || (null !== $entity_id && $entity_id === $value->getID())) {
             //Set the entity to a valid state
             $entity->setParent(null);
             $this->context->buildViolation($constraint->self_message)->addViolation();
