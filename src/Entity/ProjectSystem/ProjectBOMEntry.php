@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -38,12 +39,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * The ProjectBOMEntry class represents an entry in a project's BOM.
  */
-#[UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom')]
-#[UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom', ignoreNull: true)]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity]
 #[ORM\Table('project_bom_entries')]
-class ProjectBOMEntry extends AbstractDBElement
+class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInterface
 {
     use TimestampTrait;
 
@@ -270,4 +269,11 @@ class ProjectBOMEntry extends AbstractDBElement
     }
 
 
+    public function getComparableFields(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'part' => $this->getPart()?->getID(),
+        ];
+    }
 }

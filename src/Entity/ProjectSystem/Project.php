@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\ProjectSystem;
 
 use App\Repository\Parts\DeviceRepository;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -56,6 +57,8 @@ class Project extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[Groups(['extended', 'full'])]
     #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[UniqueObjectCollection(fields: ['part'], message: 'project.bom_entry.part_already_in_bom')]
+    #[UniqueObjectCollection(fields: ['name'], message: 'project.bom_entry.name_already_in_bom')]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]

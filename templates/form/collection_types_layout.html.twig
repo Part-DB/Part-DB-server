@@ -38,16 +38,16 @@
             </button>
         </td>
         <td>
-            {{ form_errors(form.quantity) }}
             {{ form_widget(form.quantity) }}
+            {{ form_errors(form.quantity) }}
         </td>
         <td style="min-width: 250px;">
-            {{ form_errors(form.part) }}
             {{ form_widget(form.part) }}
+            {{ form_errors(form.part) }}
         </td>
         <td>
-            {{ form_errors(form.name) }}
             {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
