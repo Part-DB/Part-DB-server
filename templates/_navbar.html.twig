@@ -62,7 +62,7 @@
                         {% endif %}
                         <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator"></li>
                         <div class="px-4 py-0 d-flex justify-content-between align-items-baseline">
-                            <span>{% trans %}ui.toggle_darkmode{% endtrans %}</span>
+                            <span class="me-2">{% trans %}ui.toggle_darkmode{% endtrans %}</span>
                             <div class="btn-group" role="group" {{ stimulus_controller('common/darkmode') }}>
                                 <input type="radio" class="btn-check" name="darkmode" id="darkmode-light" autocomplete="off" value="light">
                                 <label class="btn btn-outline-secondary" for="darkmode-light" title="{% trans %}ui.darkmode.light{% endtrans %}"><i class="fa-solid fa-sun"></i></label>
