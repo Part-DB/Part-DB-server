@@ -29,4 +29,5 @@ return [
     Nbgrp\OneloginSamlBundle\NbgrpOneloginSamlBundle::class => ['all' => true],
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
     Symfony\UX\Translator\UxTranslatorBundle::class => ['all' => true],
+    Jbtronics\DompdfFontLoaderBundle\DompdfFontLoaderBundle::class => ['all' => true],
 ];

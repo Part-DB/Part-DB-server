@@ -177,6 +177,9 @@
     "jbtronics/2fa-webauthn": {
         "version": "dev-master"
     },
+    "jbtronics/dompdf-font-loader-bundle": {
+        "version": "dev-main"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28e49fed0a1eb5f33d7ca39a19ba2fff",
+    "content-hash": "ac083d3e7e6f9bfde54fb37e99edf662",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2512,6 +2512,61 @@
             "time": "2023-06-11T11:09:45+00:00"
         },
         {
+            "name": "jbtronics/dompdf-font-loader-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbtronics/dompdf-font-loader-bundle.git",
+                "reference": "8323aa3d4c3e70536b958a44f159208a6a0f7fa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/8323aa3d4c3e70536b958a44f159208a6a0f7fa2",
+                "reference": "8323aa3d4c3e70536b958a44f159208a6a0f7fa2",
+                "shasum": ""
+            },
+            "require": {
+                "dompdf/dompdf": "v1.0.0|v2.0.3",
+                "ext-json": "*",
+                "php": "^8.1",
+                "symfony/finder": "^6.0",
+                "symfony/framework-bundle": "^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest",
+                "symfony/phpunit-bridge": "^6.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Jbtronics\\DompdfFontLoaderBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Böhmer",
+                    "email": "mail@jan-boehmer.de"
+                }
+            ],
+            "description": "A symfony bundle to easily load custom fonts for dompdf (on cache warming)",
+            "keywords": [
+                "dompdf",
+                "fonts",
+                "symfony",
+                "symfony-bundle"
+            ],
+            "support": {
+                "issues": "https://github.com/jbtronics/dompdf-font-loader-bundle/issues",
+                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.0.0"
+            },
+            "time": "2023-07-02T00:21:14+00:00"
+        },
+        {
             "name": "jfcherng/php-color-output",
             "version": "3.0.0",
             "source": {
@@ -4138,6 +4193,44 @@
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
             "time": "2022-06-14T06:56:20+00:00"
+        },
+        {
+            "name": "part-db/label-fonts",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Part-DB/label-fonts.git",
+                "reference": "65f4a47d877f45e39804cd86a4fc65789b49ee2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/65f4a47d877f45e39804cd86a4fc65789b49ee2f",
+                "reference": "65f4a47d877f45e39804cd86a4fc65789b49ee2f",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "The Part-DB Team",
+                    "homepage": "https://github.com/Part-DB/Part-DB-server"
+                }
+            ],
+            "description": "This library bundles the fonts used in Part-DB for label generators. Fonts are work of others.",
+            "homepage": "https://github.com/Part-DB/Part-DB-server",
+            "keywords": [
+                "font",
+                "fonts",
+                "part-db"
+            ],
+            "support": {
+                "issues": "https://github.com/Part-DB/label-fonts/issues",
+                "source": "https://github.com/Part-DB/label-fonts/tree/v1.0.0"
+            },
+            "time": "2023-07-02T01:01:20+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -14370,16 +14463,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.21",
+            "version": "1.10.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5"
+                "reference": "97d694dfd4ceb57bcce4e3b38548f13ea62e4287"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/97d694dfd4ceb57bcce4e3b38548f13ea62e4287",
+                "reference": "97d694dfd4ceb57bcce4e3b38548f13ea62e4287",
                 "shasum": ""
             },
             "require": {
@@ -14428,7 +14521,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-21T20:07:58+00:00"
+            "time": "2023-06-30T20:04:11+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -14752,12 +14845,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9920192eab87b9ae105696b0b86326c8fac91677"
+                "reference": "885786b30f50e83a88941df2062d68de623599fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9920192eab87b9ae105696b0b86326c8fac91677",
-                "reference": "9920192eab87b9ae105696b0b86326c8fac91677",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/885786b30f50e83a88941df2062d68de623599fd",
+                "reference": "885786b30f50e83a88941df2062d68de623599fd",
                 "shasum": ""
             },
             "conflict": {
@@ -15011,7 +15104,7 @@
                 "marcwillmann/turn": "<0.3.3",
                 "matyhtf/framework": "<3.0.6",
                 "mautic/core": "<4.3|= 2.13.1",
-                "mediawiki/core": ">=1.27,<1.27.6|>=1.29,<1.29.3|>=1.30,<1.30.2|>=1.31,<1.31.9|>=1.32,<1.32.6|>=1.32.99,<1.33.3|>=1.33.99,<1.34.3|>=1.34.99,<1.35",
+                "mediawiki/core": "<=1.39.3",
                 "mediawiki/matomo": "<2.4.3",
                 "melisplatform/melis-asset-manager": "<5.0.1",
                 "melisplatform/melis-cms": "<5.0.1",
@@ -15229,7 +15322,7 @@
                 "thelia/thelia": ">=2.1-beta.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<=5.1.7",
-                "thorsten/phpmyfaq": "<3.2-beta",
+                "thorsten/phpmyfaq": "<3.2-beta.2",
                 "tinymce/tinymce": "<5.10.7|>=6,<6.3.1",
                 "tinymighty/wiki-seo": "<1.2.2",
                 "titon/framework": ">=0,<9.9.99",
@@ -15275,7 +15368,7 @@
                 "wintercms/winter": "<1.0.475|>=1.1,<1.1.10|>=1.2,<1.2.1",
                 "woocommerce/woocommerce": "<6.6",
                 "wp-cli/wp-cli": "<2.5",
-                "wp-graphql/wp-graphql": "<0.3.5",
+                "wp-graphql/wp-graphql": "<=1.14.5",
                 "wpanel/wpanel4-cms": "<=4.3.1",
                 "wpcloud/wp-stateless": "<3.2",
                 "wwbn/avideo": "<=12.4",
@@ -15360,7 +15453,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-28T23:04:41+00:00"
+            "time": "2023-06-30T21:04:19+00:00"
         },
         {
             "name": "sebastian/diff",

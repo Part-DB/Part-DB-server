@@ -1,0 +1,11 @@
+dompdf_font_loader:
+  auto_install: true
+
+  fonts:
+    unifont:
+      normal: "%kernel.project_dir%/vendor/part-db/label-fonts/fonts/unifont.ttf"
+
+  # Enable autodiscovery of fonts, so that font installation is much easier
+  autodiscovery:
+    paths:
+      - "%kernel.project_dir%/assets/fonts/dompdf"

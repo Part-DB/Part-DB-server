@@ -181,7 +181,8 @@ Editor.defaultConfig = {
             'DejaVu Serif, serif',
             'Helvetica, Arial, sans-serif',
             'Times New Roman, Times, serif',
-            'Courier New, Courier, monospace'
+            'Courier New, Courier, monospace',
+            'Unifont, monospace',
         ],
         supportAllValues: true
     },
