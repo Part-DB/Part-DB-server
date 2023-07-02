@@ -30,14 +30,17 @@ class ScanControllerTest extends WebTestCase
 
     public function setUp(): void
     {
-        $this->client = static::createClient();
+        $this->client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'test',
+        ]);
         $this->client->disableReboot();
         $this->client->catchExceptions(false);
     }
 
     public function testRedirectOnInputParameter(): void
     {
-        $this->client->request('GET', '/en/scan/?input=0000001');
+        $this->client->request('GET', '/en/scan?input=0000001');
         $this->assertResponseRedirects('/en/part/1');
     }
 
