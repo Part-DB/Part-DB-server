@@ -8,7 +8,8 @@
     <meta name="keywords" content="Part-DB, Label, Barcode">
     <style>
         {% include("label_system/labels/label_style.css.twig") %}
-        {{ options.additionalCss | escape("html") }}
+        {# We must not escape it here, as the string might contain ", which would be escaped. As user can control the whole HTML, XSS is not really a problem here. #}
+        {{ options.additionalCss | raw }}
     </style>
 </head>
 <body>
