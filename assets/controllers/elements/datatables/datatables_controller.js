@@ -71,6 +71,8 @@ export default class extends Controller {
         if (data) {
             //Do not save the start value (current page), as we want to always start at the first page on a page reload
             data.start = 0;
+            //50 is the default length supplied by datatables, reset it to that value
+            data.length = 50;
         }
 
         return data;
