@@ -96,7 +96,7 @@ class StructuralEntityChoiceHelper
     public function generateChoiceAttrCurrency(Currency $choice, Options|array $options): array
     {
         $tmp = $this->generateChoiceAttr($choice, $options);
-        $symbol = $choice->getIsoCode() === null || $choice->getIsoCode() === '' ? null : Currencies::getSymbol($choice->getIsoCode());
+        $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
         $tmp['data-short'] = $options['short'] ? $symbol : $choice->getName();
 
         return $tmp + [
