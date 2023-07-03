@@ -75,7 +75,7 @@ class PKPartImporter
                 $entity->setComment('This part represents a former metapart in PartKeepr. It is not supported in Part-DB yet. And you can most likely delete it.');
                 $entity->setTags('partkeepr-imported,partkeepr-metapart');
             } else {
-                $entity->setMinAmount($part['minStockLevel'] ?? 0);
+                $entity->setMinAmount((float) ($part['minStockLevel'] ?? 0));
                 if (!empty($part['internalPartNumber'])) {
                     $entity->setIpn($part['internalPartNumber']);
                 }
@@ -92,7 +92,7 @@ class PKPartImporter
 
                 //Create a part lot to store the stock level and location
                 $lot = new PartLot();
-                $lot->setAmount($part['stockLevel'] ?? 0);
+                $lot->setAmount((float) ($part['stockLevel'] ?? 0));
                 $this->setAssociationField($lot, 'storage_location', Storelocation::class, $part['storageLocation_id']);
                 $entity->addPartLot($lot);
 
@@ -278,7 +278,7 @@ class PKPartImporter
                 $orderdetail->addPricedetail($pricedetail);
                 //Partkeepr stores the price per item, we need to convert it to the price per packaging unit
                 $price_per_item = BigDecimal::of($partdistributor['price']);
-                $packaging_unit = $partdistributor['packagingUnit'] ?? 1;
+                $packaging_unit = (float) ($partdistributor['packagingUnit'] ?? 1);
                 $pricedetail->setPrice($price_per_item->multipliedBy($packaging_unit));
                 $pricedetail->setPriceRelatedQuantity($packaging_unit);
                 //We have to set the minimum discount quantity to the packaging unit (PartKeepr does not know this concept)
