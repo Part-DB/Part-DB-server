@@ -157,12 +157,15 @@ class Currency extends AbstractStructuralDBElement
      */
     public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
-        if (!$exchange_rate instanceof BigDecimal) {
+        //If the exchange rate is null, set it to null and return.
+        if ($exchange_rate === null) {
             $this->exchange_rate = null;
+            return $this;
         }
-        $tmp = $exchange_rate->toScale(self::PRICE_SCALE, RoundingMode::HALF_UP);
+
         //Only change the object, if the value changes, so that doctrine does not detect it as changed.
-        if ((string) $tmp !== (string) $this->exchange_rate) {
+        //Or if the current exchange rate is currently null, as we can not compare it then
+        if ($this->exchange_rate === null || $exchange_rate->compareTo($this->exchange_rate) !== 0) {
             $this->exchange_rate = $exchange_rate;
         }
 
