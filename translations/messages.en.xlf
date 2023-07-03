@@ -731,10 +731,10 @@
       </notes>
       <segment>
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target>This will disable &lt;b&gt;all active two-factor authentication methods of the user&lt;/b&gt; and delete the &lt;b&gt;backup codes&lt;/b&gt;!
-&lt;br&gt;
-The user will have to set up all two-factor authentication methods again and print new backup codes! &lt;br&gt;&lt;br&gt;
-&lt;b&gt;Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!&lt;/b&gt;</target>
+        <target><![CDATA[This will disable <b>all active two-factor authentication methods of the user</b> and delete the <b>backup codes</b>!
+<br>
+The user will have to set up all two-factor authentication methods again and print new backup codes! <br><br>
+<b>Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!</b>]]></target>
       </segment>
     </unit>
     <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
@@ -11326,69 +11326,87 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="DGczoY6" name="tfa_u2f.add_key.registration_error">
-      <segment state="translated">
+      <segment>
         <source>tfa_u2f.add_key.registration_error</source>
         <target>An error occurred during the registration of the security key. Try again or use another security key!</target>
       </segment>
     </unit>
     <unit id="ie0Ca0l" name="log.target_type.none">
-      <segment state="translated">
+      <segment>
         <source>log.target_type.none</source>
         <target>None</target>
       </segment>
     </unit>
     <unit id="R2nX4ip" name="ui.darkmode.light">
-      <segment state="translated">
+      <segment>
         <source>ui.darkmode.light</source>
         <target>Light</target>
       </segment>
     </unit>
     <unit id="3NHpuW3" name="ui.darkmode.dark">
-      <segment state="translated">
+      <segment>
         <source>ui.darkmode.dark</source>
         <target>Dark</target>
       </segment>
     </unit>
     <unit id="4TGOK5_" name="ui.darkmode.auto">
-      <segment state="translated">
+      <segment>
         <source>ui.darkmode.auto</source>
         <target>Auto (decide based on system settings)</target>
       </segment>
     </unit>
     <unit id="9N0N8aL" name="label_generator.no_lines_given">
-      <segment state="translated">
+      <segment>
         <source>label_generator.no_lines_given</source>
         <target>No text content given! The labels will remain empty.</target>
       </segment>
     </unit>
     <unit id="RdFvZsb" name="user.password_strength.very_weak">
-      <segment state="translated">
+      <segment>
         <source>user.password_strength.very_weak</source>
         <target>Very weak</target>
       </segment>
     </unit>
     <unit id="IBjmblZ" name="user.password_strength.weak">
-      <segment state="translated">
+      <segment>
         <source>user.password_strength.weak</source>
         <target>Weak</target>
       </segment>
     </unit>
     <unit id="qSm_ID0" name="user.password_strength.medium">
-      <segment state="translated">
+      <segment>
         <source>user.password_strength.medium</source>
         <target>Medium</target>
       </segment>
     </unit>
     <unit id="aWAaADS" name="user.password_strength.strong">
-      <segment state="translated">
+      <segment>
         <source>user.password_strength.strong</source>
         <target>Strong</target>
       </segment>
     </unit>
     <unit id="Wa9CStW" name="user.password_strength.very_strong">
-      <segment state="translated">
+      <segment>
         <source>user.password_strength.very_strong</source>
         <target>Very strong</target>
+      </segment>
+    </unit>
+    <unit id="6OHd5fv" name="perm.users.impersonate">
+      <segment>
+        <source>perm.users.impersonate</source>
+        <target>Impersonate other users</target>
+      </segment>
+    </unit>
+    <unit id="ssn1H1A" name="user.impersonated_by.label">
+      <segment>
+        <source>user.impersonated_by.label</source>
+        <target>Impersonated by</target>
+      </segment>
+    </unit>
+    <unit id="inTlSge" name="user.stop_impersonation">
+      <segment>
+        <source>user.stop_impersonation</source>
+        <target>Stop impersonation</target>
       </segment>
     </unit>
   </file>

@@ -190,6 +190,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       set_password:
         label: "perm.users.set_password"
         alsoSet: 'read'
+      impersonate:
+        label: "perm.users.impersonate"
+        alsoSet: ['set_password']
       change_user_settings:
         label: "perm.users.change_user_settings"
       show_history:
