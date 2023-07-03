@@ -70,14 +70,15 @@
         {% set min_order_amount = pricedetail_helper.minOrderAmount(part) %}
         {% set max_order_amount = pricedetail_helper.maxDiscountAmount(part) %}
         {% set max_order_price = pricedetail_helper.calculateAvgPrice(part, max_order_amount, app.user.currency ?? null) %}
+        {% set min_order_price = pricedetail_helper.calculateAvgPrice(part, min_order_amount, app.user.currency ?? null ) %}
         {% if max_order_price is not null %}
             <h6>
                 <i class="fas fa-money-bill-alt fa-fw"></i>
                 <span class="text-muted">
                     <span title="{% trans %}part.avg_price.label{% endtrans %} {{ max_order_amount | format_amount(part.partUnit) }}">{{ max_order_price | format_money(app.user.currency ?? null) }}</span>
-                    {% if min_order_amount < max_order_amount %}
+                    {% if min_order_price is not null and min_order_amount < max_order_amount %}
                         <span> - </span>
-                        <span title="{% trans %}part.avg_price.label{% endtrans %} {{ min_order_amount | format_amount(part.partUnit) }}">{{pricedetail_helper.calculateAvgPrice(part, min_order_amount, app.user.currency ?? null ) | format_money(app.user.currency ?? null) }}</span>
+                        <span title="{% trans %}part.avg_price.label{% endtrans %} {{ min_order_amount | format_amount(part.partUnit) }}">{% if max_order_price is not null %}{{ min_order_price | format_money(app.user.currency ?? null) }}{% else %}???{% endif %}</span>
                     {% endif %}
             </span>
             </h6>
