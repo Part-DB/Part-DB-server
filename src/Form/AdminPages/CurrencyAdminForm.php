@@ -42,7 +42,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $is_new = null === $entity->getID();
 
         $builder->add('iso_code', CurrencyType::class, [
-            'required' => false,
+            'required' => true,
             'label' => 'currency.edit.iso_code',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),

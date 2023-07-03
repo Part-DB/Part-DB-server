@@ -62,6 +62,7 @@ class Currency extends AbstractStructuralDBElement
      * @var string the 3-letter ISO code of the currency
      */
     #[Assert\Currency]
+    #[Assert\NotBlank]
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
@@ -113,12 +114,12 @@ class Currency extends AbstractStructuralDBElement
      *
      * @return string
      */
-    public function getIsoCode(): ?string
+    public function getIsoCode(): string
     {
         return $this->iso_code;
     }
 
-    public function setIsoCode(?string $iso_code): self
+    public function setIsoCode(string $iso_code): self
     {
         $this->iso_code = $iso_code;
 
