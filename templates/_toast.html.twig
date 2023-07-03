@@ -5,7 +5,7 @@
 
         {% set flash_bg = label|replace({'success': 'bg-success text-white',
             'error': 'bg-danger text-white', 'warning': 'bg-warning text-white',
-            'notice': 'bg-info text-white', 'info': 'bg-light'})%}
+            'notice': 'bg-info text-white', 'info': 'bg-body-tertiary'})%}
 
 <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" {{ stimulus_controller('common/toast') }}>
     <div class="toast-header {{ flash_bg }}">
