@@ -11429,5 +11429,11 @@ Element 3</target>
 Please note, that you can not impersonate a disabled user. If you try you will get an "Access Denied" message.</target>
       </segment>
     </unit>
+    <unit id="df2ac87" name="log.type.security.user_impersonated">
+      <segment>
+        <source>log.type.security.user_impersonated</source>
+        <target>User impersonated</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

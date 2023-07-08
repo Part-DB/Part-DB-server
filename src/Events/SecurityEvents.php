@@ -52,4 +52,6 @@ class SecurityEvents
     final public const GOOGLE_DISABLED = 'security.google_disabled';
     final public const TRUSTED_DEVICE_RESET = 'security.trusted_device_reset';
     final public const TFA_ADMIN_RESET = 'security.2fa_admin_reset';
+
+    final public const USER_IMPERSONATED = 'security.user_impersonated';
 }
