@@ -50,10 +50,12 @@ class ParameterConstraintType extends AbstractType
 
         $builder->add('unit', SearchType::class, [
             'required' => false,
+            'empty_data' => '',
         ]);
 
         $builder->add('symbol', SearchType::class, [
-            'required' => false
+            'required' => false,
+            'empty_data' => '',
         ]);
 
         $builder->add('value_text', TextConstraintType::class, [
