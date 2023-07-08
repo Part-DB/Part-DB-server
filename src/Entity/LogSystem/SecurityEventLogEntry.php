@@ -64,6 +64,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
         6 => SecurityEvents::GOOGLE_DISABLED,
         7 => SecurityEvents::TRUSTED_DEVICE_RESET,
         8 => SecurityEvents::TFA_ADMIN_RESET,
+        9 => SecurityEvents::USER_IMPERSONATED,
     ];
 
     public function __construct(string $type, string $ip_address, bool $anonymize = true)

@@ -46,6 +46,10 @@ use App\Entity\UserSystem\User;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -57,7 +61,9 @@ final class UserExtension extends AbstractExtension
 {
     private readonly LogEntryRepository $repo;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em,
+        private readonly Security $security,
+        private readonly UrlGeneratorInterface $urlGenerator)
     {
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
@@ -76,7 +82,39 @@ final class UserExtension extends AbstractExtension
             new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
             /* Returns the user which has created the given entity. */
             new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
+            new TwigFunction('impersonator_user', $this->getImpersonatorUser(...)),
+            new TwigFunction('impersonation_active', $this->isImpersonationActive(...)),
+            new TwigFunction('impersonation_path', $this->getImpersonationPath(...)),
         ];
+    }
+
+    /**
+     * This function returns the user which has impersonated the current user.
+     * If the current user is not impersonated, null is returned.
+     * @return User|null
+     */
+    public function getImpersonatorUser(): ?User
+    {
+        $token = $this->security->getToken();
+        if ($token instanceof SwitchUserToken) {
+            return $token->getOriginalToken()->getUser();
+        }
+
+        return null;
+    }
+
+    public function isImpersonationActive(): bool
+    {
+        return $this->security->isGranted('IS_IMPERSONATOR');
+    }
+
+    public function getImpersonationPath(User $user, string $route_name = 'homepage'): string
+    {
+        if (! $this->security->isGranted('CAN_SWITCH_USER', $user)) {
+            throw new AccessDeniedException('You are not allowed to impersonate this user!');
+        }
+
+        return $this->urlGenerator->generate($route_name, ['_switch_user' => $user->getUsername()]);
     }
 
     /**

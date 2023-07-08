@@ -78,6 +78,11 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
             return;
         }
 
+        //If the user is impersonated, we don't need to redirect him
+        if ($this->security->isGranted('IS_IMPERSONATOR')) {
+            return;
+        }
+
         //Abort if we dont need to redirect the user.
         if (!$user->isNeedPwChange() && !static::TFARedirectNeeded($user)) {
             return;

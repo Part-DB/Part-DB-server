@@ -48,6 +48,7 @@ use App\Events\SecurityEvents;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 
 /**
  * This subscriber writes entries to log if a security related event happens (e.g. the user changes its password).
@@ -70,6 +71,7 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
             SecurityEvents::GOOGLE_DISABLED => 'google_disabled',
             SecurityEvents::GOOGLE_ENABLED => 'google_enabled',
             SecurityEvents::TFA_ADMIN_RESET => 'tfa_admin_reset',
+            SecurityEvents::USER_IMPERSONATED => 'user_impersonated',
         ];
     }
 
@@ -101,6 +103,11 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
     public function u2f_removed(SecurityEvent $event): void
     {
         $this->addLog(SecurityEvents::U2F_REMOVED, $event);
+    }
+
+    public function user_impersonated(SecurityEvent $event): void
+    {
+        $this->addLog(SecurityEvents::USER_IMPERSONATED, $event);
     }
 
     public function u2f_added(SecurityEvent $event): void

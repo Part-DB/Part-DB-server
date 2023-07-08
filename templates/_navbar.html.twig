@@ -37,23 +37,45 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle link-anchor nav-link" data-bs-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false" id="navbar-user-dropdown-btn" data-bs-reference="window">
-                        {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user"
-                                                                                                   aria-hidden="true"></i>{% endif %}
+                        {% if app.user %} {# Logged in #}
+                            {% if impersonation_active() %} {# Impersonated user #}
+                                <i class="fa-solid fa-user-secret text-warning"></i>
+                            {% else %}
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            {% endif %}
+                        {% else %} {#  Not logged in #}
+                            <i class="far fa-user" aria-hidden="true"></i>
+                        {% endif %}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-end" id="login-menu" aria-labelledby="navbar-user-dropdown-btn">
                         {% if app.user %}
                             <a class="dropdown-item disabled" href="#">{% trans %}user.loggedin.label{% endtrans %}
-                               {{ helper.user_icon(app.user) }} <b>{{ app.user.firstName }} {{ app.user.lastName }}</b> (@{{ app.user.name }})</a>
-                            <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw"
-                                                                                           aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}
+                                {{ helper.user_icon(app.user) }} <b>{{ app.user.firstName }} {{ app.user.lastName }}</b> (@{{ app.user.name }})</a>
+
+                            {% if impersonation_active() %}
+                                {% set impersonator = impersonator_user() %}
+                                <a class="dropdown-item disabled text-warning" href="#">{% trans %}user.impersonated_by.label{% endtrans %}
+                                    {{ helper.user_icon(impersonator) }} <b>{{ impersonator.firstName }} {{ impersonator.lastName }}</b> (@{{ impersonator.name }})</a>
+                            {% endif %}
+
+
+
+                            <a class="dropdown-item" href="{{ path("user_settings") }}">
+                                <i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}
                             </a>
-                            <a class="dropdown-item" href="{{ path("user_info_self") }}"><i
-                                        class="fa fa-info-circle fa-fw"
-                                        aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path("user_info_self") }}">
+                                <i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
                             <li role="separator" class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="{{ path('logout') }}" data-turbo="false" data-turbo-frame="_top"><i
-                                        class="fa fa-sign-out-alt fa-fw"
-                                        aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
+
+                            {% if impersonation_active() %}
+                            <a class="dropdown-item" href="{{ impersonation_exit_path() }}" data-turbo="false" data-turbo-frame="_top">
+                                <i class="fa fa-turn-up fa-fw" aria-hidden="true"></i> {% trans %}user.stop_impersonation{% endtrans %}
+                            </a>
+                            {% endif %}
+
+                                <a class="dropdown-item" href="{{ path('logout') }}" data-turbo="false" data-turbo-frame="_top">
+                                    <i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}
+                                </a>
                         {% else %}
                             <a class="dropdown-item"
                                href="{{ path('login', {'_target_path': app.request.pathinfo | remove_locale_from_path}) }}"
