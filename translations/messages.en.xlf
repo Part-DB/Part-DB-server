@@ -11391,5 +11391,49 @@ Element 3</target>
         <target>Very strong</target>
       </segment>
     </unit>
+    <unit id="6OHd5fv" name="perm.users.impersonate">
+      <segment state="translated">
+        <source>perm.users.impersonate</source>
+        <target>Impersonate other users</target>
+      </segment>
+    </unit>
+    <unit id="ssn1H1A" name="user.impersonated_by.label">
+      <segment state="translated">
+        <source>user.impersonated_by.label</source>
+        <target>Impersonated by</target>
+      </segment>
+    </unit>
+    <unit id="inTlSge" name="user.stop_impersonation">
+      <segment state="translated">
+        <source>user.stop_impersonation</source>
+        <target>Stop impersonation</target>
+      </segment>
+    </unit>
+    <unit id="T3yB7KF" name="user.impersonate.btn">
+      <segment state="translated">
+        <source>user.impersonate.btn</source>
+        <target>Impersonate</target>
+      </segment>
+    </unit>
+    <unit id="sFE8diE" name="user.impersonate.confirm.title">
+      <segment state="translated">
+        <source>user.impersonate.confirm.title</source>
+        <target>Do you really want to impersonate this user?</target>
+      </segment>
+    </unit>
+    <unit id="MlJJSEo" name="user.impersonate.confirm.message">
+      <segment state="translated">
+        <source>user.impersonate.confirm.message</source>
+        <target>This will be logged. You should only do this with a good reason.
+
+Please note, that you can not impersonate a disabled user. If you try you will get an "Access Denied" message.</target>
+      </segment>
+    </unit>
+    <unit id="df2ac87" name="log.type.security.user_impersonated">
+      <segment state="translated">
+        <source>log.type.security.user_impersonated</source>
+        <target>User impersonated</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
