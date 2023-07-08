@@ -43,6 +43,9 @@ The following configuration options can only be changed by the server administra
 * `EMAIL_SENDER_NAME`: Similar to `EMAIL_SENDER_EMAIL` but this allows you to specify the name from which the mails are sent from.
 * `ALLOW_EMAIL_PW_RESET`: Set this value to true, if you wan to allow users to reset their password via an email notification. You have to configure the mailprovider first before via the MAILER_DSN setting.
 
+### Table related settings
+* `TABLE_DEFAULT_PAGE_SIZE`: The default page size for tables. This is the number of rows which are shown per page. Set to `-1` to disable pagination and show all rows at once.
+
 ### History/Eventlog related settings
 The following options are used to configure, which (and how much) data is written to the system log:
 * `HISTORY_SAVE_CHANGED_FIELDS`: When this option is set to true, the name of the fields which are changed, are saved to the DB (so for example it is logged that a user has changed, that the user has changed the name and description of the field, but not the data/content of these changes)

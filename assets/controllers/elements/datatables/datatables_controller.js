@@ -68,11 +68,13 @@ export default class extends Controller {
     stateLoadCallback(settings) {
         const data = JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
 
+        debugger;
+
         if (data) {
             //Do not save the start value (current page), as we want to always start at the first page on a page reload
-            data.start = 0;
-            //50 is the default length supplied by datatables, reset it to that value
-            data.length = 50;
+            delete data.start;
+            //Reset the data length to the default value by deleting the length property
+            delete data.length;
         }
 
         return data;

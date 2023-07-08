@@ -9,7 +9,7 @@ datatables:
     # Set options, as documented at https://datatables.net/reference/option/
     options:
         lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
-        pageLength: 50
+        pageLength: '%partdb.table.default_page_size%'   # Set to -1 to disable pagination (i.e. show all rows) by default
         #dom: "<'row' <'col-sm-12' tr>><'row' <'col-sm-6'l><'col-sm-6 text-right'pif>>"
         dom: "  <'row'<'col mb-2 input-group' B l> <'col mb-2' <'pull-end' p>>>
                         <'card'

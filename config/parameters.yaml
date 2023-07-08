@@ -49,6 +49,11 @@ parameters:
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
   ######################################################################################################################
+  # Table settings
+  ######################################################################################################################
+  partdb.table.default_page_size:  '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'   # The default number of entries shown per page in tables
+
+  ######################################################################################################################
   # Sidebar
   ######################################################################################################################
   # You can configures the default shown tree items in the sidebar here. You can add or remove entries here, to change the number of trees in the sidebar. The possible entries are: categories, locations, footprints, manufacturers, suppliers, devices, tools
@@ -118,6 +123,8 @@ parameters:
   env(EMAIL_SENDER_EMAIL): 'noreply@partdb.changeme'
   env(EMAIL_SENDER_NAME): 'Part-DB Mailer'
   env(ALLOW_EMAIL_PW_RESET): 0
+
+  env(TABLE_DEFAULT_PAGE_SIZE): 50
 
   env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
   env(TRUSTED_HOSTS): '' # Trust all host names by default
