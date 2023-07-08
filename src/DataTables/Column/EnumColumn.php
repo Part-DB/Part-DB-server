@@ -31,10 +31,14 @@ class EnumColumn extends AbstractColumn
 {
 
     /**
-     * @phpstan-return T
+     * @phpstan-return T|null
      */
-    public function normalize($value): UnitEnum
+    public function normalize($value): ?UnitEnum
     {
+        if ($value === null) {
+            return null;
+        }
+
         if (is_a($value, $this->getEnumClass())) {
             return $value;
         }

@@ -37,6 +37,10 @@
 {% endmacro %}
 
 {% macro m_status_to_badge(status, class="badge") %}
+    {% if status is enum %}
+        {% set status = status.value %}
+    {% endif %}
+
     {% if status is not empty %}
         {% set color = " bg-secondary" %}
 

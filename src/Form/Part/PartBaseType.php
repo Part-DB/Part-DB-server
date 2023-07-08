@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use App\Entity\Parts\ManufacturingStatus;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parameters\PartParameter;
@@ -42,6 +43,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -62,14 +64,6 @@ class PartBaseType extends AbstractType
         $part = $builder->getData();
         $new_part = null === $part->getID();
 
-        $status_choices = [
-            'm_status.unknown' => '',
-            'm_status.announced' => 'announced',
-            'm_status.active' => 'active',
-            'm_status.nrfnd' => 'nrfnd',
-            'm_status.eol' => 'eol',
-            'm_status.discontinued' => 'discontinued',
-        ];
 
         //Common section
         $builder
@@ -140,9 +134,10 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'label' => 'part.edit.mpn',
             ])
-            ->add('manufacturing_status', ChoiceType::class, [
+            ->add('manufacturing_status', EnumType::class, [
                 'label' => 'part.edit.manufacturing_status',
-                'choices' => $status_choices,
+                'class' => ManufacturingStatus::class,
+                'choice_label' => fn (ManufacturingStatus $status) => $status->toTranslationKey(),
                 'required' => false,
             ]);
 
