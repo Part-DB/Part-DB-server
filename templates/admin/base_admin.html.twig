@@ -77,21 +77,22 @@
 
                                 {{ form_start(form) }}
 
-
-                                <ul class="nav nav-pills mb-2">
-                                    <li class="nav-item">
-                                        <a data-bs-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
-                                    </li>
-                                    {% block additional_pills %}{% endblock %}
-                                    <li class="nav-item">
-                                        <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
-                                    </li>
-                                    {% if entity.parameters is defined %}
+                                {% block nav_pills_container %}
+                                    <ul class="nav nav-pills mb-2">
                                         <li class="nav-item">
-                                            <a data-bs-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
+                                            <a data-bs-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
                                         </li>
-                                    {% endif %}
-                                </ul>
+                                        {% block additional_pills %}{% endblock %}
+                                        <li class="nav-item">
+                                            <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
+                                        </li>
+                                        {% if entity.parameters is defined %}
+                                            <li class="nav-item">
+                                                <a data-bs-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {% endblock %}
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
@@ -183,12 +184,12 @@
                                     </fieldset>
                                 </div>
 
-                                    <div id="mass_creation" class="tab-pane fade">
-                                        <div class="row">
-                                            <p class="text-muted offset-sm-3 col-sm-9">{% trans %}mass_creation.help{% endtrans %}</p>
-                                        </div>
-                                        {{ form(mass_creation_form) }}
+                                <div id="mass_creation" class="tab-pane fade">
+                                    <div class="row">
+                                        <p class="text-muted offset-sm-3 col-sm-9">{% trans %}mass_creation.help{% endtrans %}</p>
                                     </div>
+                                    {{ form(mass_creation_form) }}
+                                </div>
 
 
                             {% endif %}

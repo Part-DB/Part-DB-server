@@ -11409,5 +11409,25 @@ Element 3</target>
         <target>Stop impersonation</target>
       </segment>
     </unit>
+    <unit id="T3yB7KF" name="user.impersonate.btn">
+      <segment>
+        <source>user.impersonate.btn</source>
+        <target>Impersonate</target>
+      </segment>
+    </unit>
+    <unit id="sFE8diE" name="user.impersonate.confirm.title">
+      <segment>
+        <source>user.impersonate.confirm.title</source>
+        <target>Do you really want to impersonate this user?</target>
+      </segment>
+    </unit>
+    <unit id="MlJJSEo" name="user.impersonate.confirm.message">
+      <segment>
+        <source>user.impersonate.confirm.message</source>
+        <target>This will be logged. You should only do this with a good reason.
+
+Please note, that you can not impersonate a disabled user. If you try you will get an "Access Denied" message.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

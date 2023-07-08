@@ -16,6 +16,20 @@
     <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
 {% endblock %}
 
+{% block nav_pills_container %}
+
+    <div class="d-flex justify-content-between">
+        {{ parent() }}
+        <div>
+            {% if entity.id is not null and is_granted('CAN_SWITCH_USER', entity) %}
+                <a href="{{ impersonation_path(entity) }}" data-turbo="false" class="btn btn-outline-warning"
+                   {{ stimulus_controller('elements/link_confirm', {title: 'user.impersonate.confirm.title'|trans, message: 'user.impersonate.confirm.message'|trans}) }}
+                >{% trans %}user.impersonate.btn{% endtrans %}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
 {% block additional_controls %}
     {{ form_row(form.group) }}
     {{ form_row(form.first_name) }}
@@ -24,12 +38,6 @@
     {{ form_row(form.showEmailOnProfile) }}
     {{ form_row(form.department) }}
     {{ form_row(form.aboutMe) }}
-
-    <div class="row mb-2">
-        <a href="#" class="btn btn-link">Impersonate</a>
-    </div>
-
-
 {% endblock %}
 
 {% block additional_panes %}
