@@ -144,8 +144,9 @@ final class PartsDataTable implements DataTableTypeInterface
                             continue;
                         }
                         $tmp[] = sprintf(
-                            '<a href="%s">%s</a>',
+                            '<a href="%s" title="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
+                            htmlspecialchars($lot->getStorageLocation()->getFullPath()),
                             htmlspecialchars($lot->getStorageLocation()->getName())
                         );
                     }

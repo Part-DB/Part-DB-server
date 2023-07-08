@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables\Column;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Services\EntityURLGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\Options;
@@ -70,8 +71,9 @@ class EntityColumn extends AbstractColumn
             if ($entity instanceof AbstractNamedDBElement) {
                 if (null !== $entity->getID()) {
                     return sprintf(
-                        '<a href="%s">%s</a>',
+                        '<a href="%s" title="%s">%s</a>',
                         $this->urlGenerator->listPartsURL($entity),
+                        $entity instanceof AbstractStructuralDBElement ? htmlspecialchars($entity->getFullPath()) : htmlspecialchars($entity->getName()),
                         htmlspecialchars($entity->getName())
                     );
                 }
