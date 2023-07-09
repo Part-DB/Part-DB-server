@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -117,5 +118,10 @@ class DigikeyProvider implements InfoProviderInterface
             'Preliminary' => ManufacturingStatus::ANNOUNCED,
             default => ManufacturingStatus::NOT_SET,
         };
+    }
+
+    public function getDetails(string $id): PartDetailDTO
+    {
+        // TODO: Implement getDetails() method.
     }
 }

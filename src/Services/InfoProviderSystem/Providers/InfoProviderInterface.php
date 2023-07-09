@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 
 interface InfoProviderInterface
@@ -61,6 +62,13 @@ interface InfoProviderInterface
      * @return SearchResultDTO[] A list of search results
      */
     public function searchByKeyword(string $keyword): array;
+
+    /**
+     * Returns detailed information about the part with the given id
+     * @param  string  $id
+     * @return PartDetailDTO
+     */
+    public function getDetails(string $id): PartDetailDTO;
 
     /**
      * A list of capabilities this provider supports (which kind of data it can provide).

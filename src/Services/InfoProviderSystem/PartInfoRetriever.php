@@ -23,12 +23,14 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
+use App\Entity\Parts\Part;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 
 class PartInfoRetriever
 {
-    public function __construct(private readonly ProviderRegistry $provider_registry)
+    public function __construct(private readonly ProviderRegistry $provider_registry, private readonly DTOtoEntityConverter $dto_to_entity_converter)
     {
     }
 
@@ -56,5 +58,28 @@ class PartInfoRetriever
         }
 
         return $results;
+    }
+
+    /**
+     * Retrieves the details for a part from the given provider with the given (provider) part id
+     * @param  string  $provider_key
+     * @param  string  $part_id
+     * @return
+     */
+    public function getDetails(string $provider_key, string $part_id): PartDetailDTO
+    {
+        return $this->provider_registry->getProviderByKey($provider_key)->getDetails($part_id);
+    }
+
+    public function getDetailsForSearchResult(SearchResultDTO $search_result): PartDetailDTO
+    {
+        return $this->getDetails($search_result->provider_key, $search_result->provider_id);
+    }
+
+    public function createPart(string $provider_key, string $part_id): Part
+    {
+        $details = $this->getDetails($provider_key, $part_id);
+
+        return $this->dto_to_entity_converter->convertPart($details);
     }
 }

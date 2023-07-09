@@ -46,6 +46,8 @@ class SearchResultDTO
         public readonly ?ManufacturingStatus $manufacturing_status = null,
         /** @var string|null A link to the part on the providers page */
         public readonly ?string $provider_url = null,
+        /** @var string|null A footprint representation of the providers page */
+        public readonly ?string $footprint = null,
     ) {
 
     }

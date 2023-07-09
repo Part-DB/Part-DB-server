@@ -24,6 +24,7 @@
                     <th>MPN</th>
                     <th>Status</th>
                     <th>Provider</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,11 @@
                     <td>{{ result.mpn ?? '' }}</td>
                     <td>{{ helper.m_status_to_badge(result.manufacturing_status) }}</td>
                     <td><a href="{{ result.provider_url ?? '#' }}">{{ result.provider_key }}: {{ result.provider_id }}</a></td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('info_providers_create_part', {'providerKey': result.provider_key, 'providerId': result.provider_id}) }}" target="_blank">
+                            <i class="fa-solid fa-plus-square"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
 

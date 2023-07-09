@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+
 class TestProvider implements InfoProviderInterface
 {
 
@@ -57,5 +59,10 @@ class TestProvider implements InfoProviderInterface
             ProviderCapabilities::BASIC,
             ProviderCapabilities::FOOTPRINT,
         ];
+    }
+
+    public function getDetails(string $id): PartDetailDTO
+    {
+        // TODO: Implement getDetails() method.
     }
 }

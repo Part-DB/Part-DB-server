@@ -25,6 +25,9 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
 use App\Form\InfoProviderSystem\ProviderSelectType;
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -35,6 +38,9 @@ class Element14Provider implements InfoProviderInterface
     private const FARNELL_STORE_ID = 'de.farnell.com';
     private const API_VERSION_NUMBER = '1.2';
     private const NUMBER_OF_RESULTS = 20;
+
+    private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
+        'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
     public function __construct(private readonly HttpClientInterface $element14Client, private readonly string $api_key)
     {
@@ -60,7 +66,11 @@ class Element14Provider implements InfoProviderInterface
         return !empty($this->api_key);
     }
 
-    private function queryByTerm(string $term, string $responseGroup = 'large'): array
+    /**
+     * @param  string  $term
+     * @return PartDetailDTO[]
+     */
+    private function queryByTerm(string $term): array
     {
         $response = $this->element14Client->request('GET', self::ENDPOINT_URL, [
             'query' => [
@@ -68,16 +78,59 @@ class Element14Provider implements InfoProviderInterface
                 'storeInfo.id' => self::FARNELL_STORE_ID,
                 'resultsSettings.offset' => 0,
                 'resultsSettings.numberOfResults' => self::NUMBER_OF_RESULTS,
-                'resultsSettings.responseGroup' => $responseGroup,
+                'resultsSettings.responseGroup' => 'large',
                 'callInfo.apiKey' => $this->api_key,
                 'callInfo.responseDataFormat' => 'json',
                 'callInfo.version' => self::API_VERSION_NUMBER,
             ],
         ]);
 
-        return $response->toArray();
+        $arr = $response->toArray();
+        if (isset($arr['keywordSearchReturn'])) {
+            $products = $arr['keywordSearchReturn']['products'] ?? [];
+        } elseif (isset($arr['premierFarnellPartNumberReturn'])) {
+            $products = $arr['premierFarnellPartNumberReturn']['products'] ?? [];
+        } else {
+            throw new \RuntimeException('Unknown response format');
+        }
 
+        $result = [];
+
+        foreach ($products as $product) {
+            $result[] = new PartDetailDTO(
+                provider_key: $this->getProviderKey(), provider_id: $product['sku'],
+                name: $product['translatedManufacturerPartNumber'],
+                description: $this->displayNameToDescription($product['displayName'], $product['translatedManufacturerPartNumber']),
+                manufacturer: $product['vendorName'] ?? $product['brandName'] ?? null,
+                mpn: $product['translatedManufacturerPartNumber'],
+                preview_image_url: $this->toImageUrl($product['image'] ?? null),
+                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['releaseStatusCode'] ?? null),
+                provider_url: 'https://' . self::FARNELL_STORE_ID . '/' . $product['sku'],
+                datasheets: $this->parseDataSheets($product['datasheets'] ?? null),
+                parameters: $this->attributesToParameters($product['attributes'] ?? null),
+            );
+        }
+
+        return $result;
     }
+
+    /**
+     * @param  mixed[]|null  $datasheets
+     * @return FileDTO[]|null Array of FileDTOs
+     */
+    private function parseDataSheets(?array $datasheets): ?array
+    {
+        if ($datasheets === null || count($datasheets) === 0) {
+            return null;
+        }
+
+        $result = [];
+        foreach ($datasheets as $datasheet) {
+            $result[] = new FileDTO(url: $datasheet['url'], name: $datasheet['description']);
+        }
+
+        return $result;
+   }
 
     private function toImageUrl(?array $image): ?string
     {
@@ -92,6 +145,33 @@ class Element14Provider implements InfoProviderInterface
         }
 
         return 'https://' . self::FARNELL_STORE_ID . '/productimages/standard/' . $locale . $image['baseName'];
+    }
+
+    /**
+     * @param  array|null  $attributes
+     * @return ParameterDTO[]|null
+     */
+    private function attributesToParameters(?array $attributes): ?array
+    {
+        $result = [];
+
+        foreach ($attributes as $attribute) {
+            $group = null;
+
+            //Check if the attribute is a compliance attribute, they get assigned to the compliance group
+            if (in_array($attribute['attributeLabel'], self::COMPLIANCE_ATTRIBUTES, true)) {
+                $group = 'Compliance';
+            }
+
+            //tariffCode is a special case, we prepend a # to prevent conversion to float
+            if (in_array($attribute['attributeLabel'], ['tariffCode', 'hazardCode'])) {
+                $attribute['attributeValue'] = '#' . $attribute['attributeValue'];
+            }
+
+            $result[] = ParameterDTO::parseValueField(name: $attribute['attributeLabel'], value: $attribute['attributeValue'], unit: $attribute['attributeUnit'] ?? null, group: $group);
+        }
+
+        return $result;
     }
 
     private function displayNameToDescription(string $display_name, string $mpn): string
@@ -123,25 +203,21 @@ class Element14Provider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
-        $response = $this->queryByTerm('any:' . $keyword);
-        $products = $response['keywordSearchReturn']['products'] ?? [];
+        return $this->queryByTerm('any:' . $keyword);
+    }
 
-        $result = [];
-
-        foreach ($products as $product) {
-            $result[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(), provider_id: $product['sku'],
-                name: $product['translatedManufacturerPartNumber'],
-                description: $this->displayNameToDescription($product['displayName'], $product['translatedManufacturerPartNumber']),
-                manufacturer: $product['vendorName'] ?? $product['brandName'] ?? null,
-                mpn: $product['translatedManufacturerPartNumber'],
-                preview_image_url: $this->toImageUrl($product['image'] ?? null),
-                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['releaseStatusCode'] ?? null),
-                provider_url: 'https://' . self::FARNELL_STORE_ID . '/' . $product['sku']
-            );
+    public function getDetails(string $id): PartDetailDTO
+    {
+        $tmp = $this->queryByTerm('id:' . $id);
+        if (count($tmp) === 0) {
+            throw new \RuntimeException('No part found with ID ' . $id);
         }
 
-        return $result;
+        if (count($tmp) > 1) {
+            throw new \RuntimeException('Multiple parts found with ID ' . $id);
+        }
+
+        return $tmp[0];
     }
 
     public function getCapabilities(): array
