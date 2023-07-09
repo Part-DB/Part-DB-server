@@ -1,0 +1,46 @@
+{% extends "main_card.html.twig" %}
+
+{% import "info_providers/providers.macro.html.twig" as providers_macro %}
+{% import "helper.twig" as helper %}
+
+{% block title %}{% trans %}info_providers.providers_list.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.providers_list.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+
+    {{ form(form) }}
+
+    {% if results is not null %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Manufactuer</th>
+                    <th>MPN</th>
+                    <th>Status</th>
+                    <th>Provider</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for result in results  %}
+                <tr>
+                    <td><img style="width: 40px;" src="{{ result.preview_image_url }}"></td>
+                    <td>{{ result.name }}</td>
+                    <td>{{ result.description }}</td>
+                    <td>{{ result.manufacturer ?? '' }}</td>
+                    <td>{{ result.mpn ?? '' }}</td>
+                    <td>{{ helper.m_status_to_badge(result.manufacturing_status) }}</td>
+                    <td><a href="{{ result.provider_url ?? '#' }}">{{ result.provider_key }}: {{ result.provider_id }}</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

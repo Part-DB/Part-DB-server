@@ -21,41 +21,19 @@
 declare(strict_types=1);
 
 
-namespace App\Services\InfoProviderSystem\Providers;
+namespace App\Form\InfoProviderSystem;
 
-class TestProvider implements InfoProviderInterface
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class PartSearchType extends AbstractType
 {
-
-    public function getProviderInfo(): array
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return [
-            'name' => 'Test Provider',
-            'description' => 'This is a test provider',
-            //'url' => 'https://example.com',
-            'disabled_help' => 'This provider is disabled for testing purposes'
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'test';
-    }
-
-    public function isActive(): bool
-    {
-        return true;
-    }
-
-    public function searchByKeyword(string $keyword): array
-    {
-        // TODO: Implement searchByKeyword() method.
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
-        ];
+        $builder->add('keyword', SearchType::class);
+        $builder->add('providers', ProviderSelectType::class);
+        $builder->add('submit', SubmitType::class);
     }
 }

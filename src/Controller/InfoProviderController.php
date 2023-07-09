@@ -23,8 +23,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Form\InfoProviderSystem\PartSearchType;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -42,8 +45,23 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/search', name: 'info_providers_search')]
-    public function search(): Response
+    public function search(Request $request, PartInfoRetriever $infoRetriever): Response
     {
+        $form = $this->createForm(PartSearchType::class);
+        $form->handleRequest($request);
 
+        $results = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $keyword = $form->get('keyword')->getData();
+            $providers = $form->get('providers')->getData();
+
+            $results = $infoRetriever->searchByKeyword(keyword: $keyword, providers: $providers);
+        }
+
+        return $this->render('info_providers/search/part_search.html.twig', [
+            'form' => $form,
+            'results' => $results,
+        ]);
     }
 }
