@@ -244,6 +244,10 @@ services:
         arguments:
             $providers: !tagged_iterator 'app.info_provider'
 
+    App\Services\InfoProviderSystem\Providers\Element14Provider:
+        arguments:
+            $api_key: '%env(PROVIDER_ELEMENT14_KEY)%'
+
     ####################################################################################################################
     # Symfony overrides
     ####################################################################################################################
