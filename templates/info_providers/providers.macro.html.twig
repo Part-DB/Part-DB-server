@@ -1,0 +1,52 @@
+{% macro provider_info_table(providers) %}
+    <table class="table table-striped table-hover">
+        <tbody>
+        {% for provider in providers %}
+            {# @var provider \App\Services\InfoProviderSystem\Providers\InfoProviderInterface #}
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>
+                                {% if provider.providerInfo.url is defined and provider.providerInfo.url is not empty %}
+                                    <a href="{{ provider.providerInfo.url }}" target="_blank">{{ provider.providerInfo.name }}</a>
+                                {% else %}
+                                    {{ provider.providerInfo.name | trans }}
+                                {% endif %}
+
+                            </h5>
+                            <div>
+                                {% if provider.providerInfo.description is defined and provider.providerInfo.description is not null %}
+                                    {{ provider.providerInfo.description | trans }}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <div class="col-6">
+                            {% for capability in provider.capabilities %}
+                                {# @var capability \App\Services\InfoProviderSystem\Providers\ProviderCapabilities #}
+                                <span class="badge text-bg-secondary">
+                                    <i class="{{ capability.fAIconClass }} fa-fw"></i>
+                                    {{ capability.translationKey|trans }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if provider.active == false %}
+                        <div class="row">
+                            <div class="col text-danger">
+                                <i class="fa-solid fa-circle-exclamation"></i> <b>{% trans %}info_providers.providers_list.disabled{% endtrans %}</b>
+                                {% if provider.providerInfo.disabled_help is defined and provider.providerInfo.disabled_help is not empty %}
+                                    <br>
+                                    <span class="text-muted">{{ provider.providerInfo.disabled_help|trans }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

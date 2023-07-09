@@ -11435,5 +11435,53 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>User impersonated</target>
       </segment>
     </unit>
+    <unit id="08SKwoy" name="info_providers.providers_list.title">
+      <segment>
+        <source>info_providers.providers_list.title</source>
+        <target>Info providers</target>
+      </segment>
+    </unit>
+    <unit id="BnbVOSD" name="info_providers.providers_list.active">
+      <segment>
+        <source>info_providers.providers_list.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="adJnJGT" name="info_providers.providers_list.disabled">
+      <segment>
+        <source>info_providers.providers_list.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
+    <unit id="1M7yaPw" name="info_providers.capabilities.basic">
+      <segment>
+        <source>info_providers.capabilities.basic</source>
+        <target>Basic</target>
+      </segment>
+    </unit>
+    <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
+      <segment>
+        <source>info_providers.capabilities.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="NGbCaWh" name="info_providers.capabilities.picture">
+      <segment>
+        <source>info_providers.capabilities.picture</source>
+        <target>Picture</target>
+      </segment>
+    </unit>
+    <unit id="a5JK5hi" name="info_providers.capabilities.datasheet">
+      <segment>
+        <source>info_providers.capabilities.datasheet</source>
+        <target>Datasheets</target>
+      </segment>
+    </unit>
+    <unit id="60AvDOv" name="info_providers.capabilities.price">
+      <segment>
+        <source>info_providers.capabilities.price</source>
+        <target>Prices</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
