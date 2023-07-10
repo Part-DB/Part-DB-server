@@ -76,13 +76,13 @@ git clone https://github.com/Part-DB/Part-DB-symfony.git /var/www/partdb
 
 By default you are now on the latest development version. In most cases you want to use the latest stable version. You can switch to the latest stable version (tagged) by running the following command:
 ```bash
-    # This finds the latest release/tag and checks it out
-    git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+# This finds the latest release/tag and checks it out
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
 ```
 Alternatively you can checkout a specific version by running (see [GitHub Relases page](https://github.com/Part-DB/Part-DB-server/releases) for a list of available versions):
 ```bash
-    # This checks out the version 1.5.2
-    git checkout v1.5.2
+# This checks out the version 1.5.2
+git checkout v1.5.2
 ```
 
 Change ownership of the files to the apache user:
