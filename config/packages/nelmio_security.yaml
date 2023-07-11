@@ -12,6 +12,9 @@ nelmio_security:
     external_redirects:
         abort: true
         log: true
+        allow_list:
+            # Whitelist the domain of the SAML IDP, so we can redirect to it during the SAML login process
+            - '%env(string:key:host:url:SAML_IDP_SINGLE_SIGN_ON_SERVICE)%'
 
     # forces Microsoft's XSS-Protection with
     # its block mode
