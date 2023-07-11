@@ -24,7 +24,7 @@ sudo apt install git curl zip ca-certificates software-properties-common apt-tra
 ### Install PHP and apache2
 Part-DB is written in [PHP](https://php.net) and therefore needs an PHP interpreter to run. Part-DB needs PHP 8.1 or higher, however it is recommended to use the most recent version of PHP for performance reasons and future compatibility.
 
-As Debian 11 does not ship PHP 8.1 in it's default repositories, we have to add a repository for it. You can skip this step if your distribution is shipping a recent version of PHP or you want to use the built-in PHP version.
+As Debian 11 does not ship PHP 8.1 in it's default repositories, we have to add a repository for it. You can skip this step if your distribution is shipping a recent version of PHP or you want to use the built-in PHP version. If you are using Debian 12, you can skip this step, as PHP 8.1 is already included in the default repositories.    
 ```bash
 # Add sury repository for PHP 8.1
 sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
@@ -72,6 +72,17 @@ We now have all prerequisites installed and can start to install Part-DB. We wil
 ```bash
 # Download Part-DB into the new folder /var/www/partdb
 git clone https://github.com/Part-DB/Part-DB-symfony.git /var/www/partdb
+```
+
+By default you are now on the latest development version. In most cases you want to use the latest stable version. You can switch to the latest stable version (tagged) by running the following command:
+```bash
+# This finds the latest release/tag and checks it out
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+```
+Alternatively you can checkout a specific version by running (see [GitHub Relases page](https://github.com/Part-DB/Part-DB-server/releases) for a list of available versions):
+```bash
+# This checks out the version 1.5.2
+git checkout v1.5.2
 ```
 
 Change ownership of the files to the apache user:
@@ -184,6 +195,10 @@ If you want to update your existing Part-DB installation, you just have to run t
 cd /var/www/partdb
 # Pull latest Part-DB version from GitHub
 git pull
+
+# Checkout the latest version (or use a specific version, like described above) 
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+
 # Apply correct permission
 chown -R www-data:www-data .
 # Install new composer dependencies
