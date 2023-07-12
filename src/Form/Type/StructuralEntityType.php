@@ -122,6 +122,11 @@ class StructuralEntityType extends AbstractType
 
     public function modelTransform($value, array $options)
     {
+        $choice_loader = $options['choice_loader'];
+        if ($choice_loader instanceof StructuralEntityChoiceLoader) {
+            $choice_loader->setStartingElement($value);
+        }
+
         return $value;
     }
 

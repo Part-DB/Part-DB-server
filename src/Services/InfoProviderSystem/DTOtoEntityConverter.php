@@ -25,19 +25,26 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * This class converts DTOs to entities which can be persisted in the DB
  */
 class DTOtoEntityConverter
 {
+
+    public function __construct(private readonly EntityManagerInterface $em)
+    {
+    }
 
     public function convertParameter(ParameterDTO $dto, PartParameter $entity = new PartParameter()): PartParameter
     {
@@ -79,6 +86,8 @@ class DTOtoEntityConverter
         $entity->setDescription($dto->description ?? '');
         $entity->setComment($dto->notes ?? '');
 
+        $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
+
         $entity->setManufacturerProductNumber($dto->mpn ?? '');
         $entity->setManufacturingStatus($dto->manufacturing_status ?? ManufacturingStatus::NOT_SET);
 
@@ -93,6 +102,16 @@ class DTOtoEntityConverter
         }
 
         return $entity;
+    }
+
+    private function getOrCreateEntity(string $class, ?string $name): ?AbstractStructuralDBElement
+    {
+        //Fall through to make converting easier
+        if ($name === null) {
+            return null;
+        }
+
+        return $this->em->getRepository($class)->findOrCreateForInfoProvider($name);
     }
 
 }

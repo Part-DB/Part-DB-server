@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Form\Type\Helper;
 
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,13 +33,21 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
     private ?string $additional_element = null;
 
+    private ?AbstractStructuralDBElement $starting_element = null;
+
     public function __construct(private readonly Options $options, private readonly NodesListBuilder $builder, private readonly EntityManagerInterface $entityManager)
     {
     }
 
     protected function loadChoices(): iterable
     {
-        $tmp = [];
+        //If the starting_element is set and not persisted yet, add it to the list
+        if ($this->starting_element !== null && $this->starting_element->getID() === null) {
+            $tmp = [$this->starting_element];
+        } else {
+            $tmp = [];
+        }
+
         if ($this->additional_element) {
             $tmp = $this->createNewEntitiesFromValue($this->additional_element);
             $this->additional_element = null;
@@ -85,5 +94,24 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     {
         return $this->additional_element;
     }
+
+    /**
+     * @return AbstractStructuralDBElement|null
+     */
+    public function getStartingElement(): ?AbstractStructuralDBElement
+    {
+        return $this->starting_element;
+    }
+
+    /**
+     * @param  AbstractStructuralDBElement|null  $starting_element
+     * @return StructuralEntityChoiceLoader
+     */
+    public function setStartingElement(?AbstractStructuralDBElement $starting_element): StructuralEntityChoiceLoader
+    {
+        $this->starting_element = $starting_element;
+        return $this;
+    }
+
 
 }
