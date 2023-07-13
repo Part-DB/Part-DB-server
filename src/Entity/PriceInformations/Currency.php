@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -42,7 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @extends AbstractStructuralDBElement<CurrencyAttachment, CurrencyParameter>
  */
 #[UniqueEntity('iso_code')]
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\Table(name: 'currencies')]
 #[ORM\Index(name: 'currency_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'currency_idx_parent_name', columns: ['parent_id', 'name'])]

@@ -28,7 +28,9 @@ use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface
@@ -38,6 +40,8 @@ class Element14Provider implements InfoProviderInterface
     private const FARNELL_STORE_ID = 'de.farnell.com';
     private const API_VERSION_NUMBER = '1.2';
     private const NUMBER_OF_RESULTS = 20;
+
+    public const DISTRIBUTOR_NAME = 'Farnell';
 
     private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
@@ -105,13 +109,19 @@ class Element14Provider implements InfoProviderInterface
                 mpn: $product['translatedManufacturerPartNumber'],
                 preview_image_url: $this->toImageUrl($product['image'] ?? null),
                 manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['releaseStatusCode'] ?? null),
-                provider_url: 'https://' . self::FARNELL_STORE_ID . '/' . $product['sku'],
+                provider_url: $this->generateProductURL($product['sku']),
                 datasheets: $this->parseDataSheets($product['datasheets'] ?? null),
                 parameters: $this->attributesToParameters($product['attributes'] ?? null),
+                vendor_infos: $this->pricesToVendorInfo($product['sku'], $product['prices'] ?? [])
             );
         }
 
         return $result;
+    }
+
+    private function generateProductURL($sku): string
+    {
+        return 'https://' . self::FARNELL_STORE_ID . '/' . $sku;
     }
 
     /**
@@ -145,6 +155,90 @@ class Element14Provider implements InfoProviderInterface
         }
 
         return 'https://' . self::FARNELL_STORE_ID . '/productimages/standard/' . $locale . $image['baseName'];
+    }
+
+    /**
+     * Converts the price array to a VendorInfoDTO array to be used in the PartDetailDTO
+     * @param  string  $sku
+     * @param  array  $prices
+     * @return array
+     */
+    private function pricesToVendorInfo(string $sku, array $prices): array
+    {
+        $price_dtos = [];
+
+        foreach ($prices as $price) {
+            $price_dtos[] = new PriceDTO(
+                minimum_discount_amount: $price['from'],
+                price: (string) $price['cost'],
+                currency_iso_code: $this->getUsedCurrency(),
+                includes_tax: false,
+            );
+        }
+
+        return [
+            new PurchaseInfoDTO(
+                distributor_name: self::DISTRIBUTOR_NAME,
+                order_number: $sku,
+                prices: $price_dtos,
+                product_url: $this->generateProductURL($sku)
+            )
+        ];
+    }
+
+    public function getUsedCurrency(): string
+    {
+        //Decide based on the shop ID
+        return match (self::FARNELL_STORE_ID) {
+            'bg.farnell.com' => 'EUR',
+            'cz.farnell.com' => 'CZK',
+            'dk.farnell.com' => 'DKK',
+            'at.farnell.com' => 'EUR',
+            'ch.farnell.com' => 'CHF',
+            'de.farnell.com' => 'EUR',
+            'cpc.farnell.com' => 'GBP',
+            'cpcireland.farnell.com' => 'EUR',
+            'export.farnell.com' => 'GBP',
+            'onecall.farnell.com' => 'GBP',
+            'ie.farnell.com' => 'EUR',
+            'il.farnell.com' => 'USD',
+            'uk.farnell.com' => 'GBP',
+            'es.farnell.com' => 'EUR',
+            'ee.farnell.com' => 'EUR',
+            'fi.farnell.com' => 'EUR',
+            'fr.farnell.com' => 'EUR',
+            'hu.farnell.com' => 'HUF',
+            'it.farnell.com' => 'EUR',
+            'lt.farnell.com' => 'EUR',
+            'lv.farnell.com' => 'EUR',
+            'be.farnell.com' => 'EUR',
+            'nl.farnell.com' => 'EUR',
+            'no.farnell.com' => 'NOK',
+            'pl.farnell.com' => 'PLN',
+            'pt.farnell.com' => 'EUR',
+            'ro.farnell.com' => 'EUR',
+            'ru.farnell.com' => 'RUB',
+            'sk.farnell.com' => 'EUR',
+            'si.farnell.com' => 'EUR',
+            'se.farnell.com' => 'SEK',
+            'tr.farnell.com' => 'TRY',
+            'canada.newark.com' => 'CAD',
+            'mexico.newark.com' => 'MXN',
+            'www.newark.com' => 'USD',
+            'cn.element14.com' => 'CNY',
+            'au.element14.com' => 'AUD',
+            'nz.element14.com' => 'NZD',
+            'hk.element14.com' => 'HKD',
+            'sg.element14.com' => 'SGD',
+            'my.element14.com' => 'MYR',
+            'ph.element14.com' => 'PHP',
+            'th.element14.com' => 'THB',
+            'in.element14.com' => 'INR',
+            'tw.element14.com' => 'TWD',
+            'kr.element14.com' => 'KRW',
+            'vn.element14.com' => 'VND',
+            default => throw new \RuntimeException('Unknown store ID: ' . self::FARNELL_STORE_ID)
+        };
     }
 
     /**

@@ -107,7 +107,14 @@ export default class extends Controller {
         }
 
         if (data.short) {
-            return '<div><b>' + escape(data.short) + '</b></div>';
+            let short = escape(data.short)
+
+            //Make text italic, if the item is not yet in the DB
+            if (data.not_in_db_yet) {
+                short = '<i>' + short + '</i>';
+            }
+
+            return '<div><b>' + short + '</b></div>';
         }
 
         let name = "";

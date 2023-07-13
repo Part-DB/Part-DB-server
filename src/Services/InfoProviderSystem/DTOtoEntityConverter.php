@@ -31,9 +31,16 @@ use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -42,7 +49,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class DTOtoEntityConverter
 {
 
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly string $base_currency)
     {
     }
 
@@ -56,6 +63,35 @@ class DTOtoEntityConverter
         $entity->setUnit($dto->unit ?? '');
         $entity->setSymbol($dto->symbol ?? '');
         $entity->setGroup($dto->group ?? '');
+
+        return $entity;
+    }
+
+    public function convertPrice(PriceDTO $dto, Pricedetail $entity = new Pricedetail()): Pricedetail
+    {
+        $entity->setMinDiscountQuantity($dto->minimum_discount_amount);
+        $entity->setPrice($dto->getPriceAsBigDecimal());
+
+        //Currency TODO
+        if ($dto->currency_iso_code !== null) {
+            $entity->setCurrency($this->getCurrency($dto->currency_iso_code));
+        } else {
+            $entity->setCurrency(null);
+        }
+
+
+        return $entity;
+    }
+
+    public function convertPurchaseInfo(PurchaseInfoDTO $dto, Orderdetail $entity = new Orderdetail()): Orderdetail
+    {
+        $entity->setSupplierpartnr($dto->order_number);
+        $entity->setSupplierProductUrl($dto->product_url ?? '');
+
+        $entity->setSupplier($this->getOrCreateEntityNonNull(Supplier::class, $dto->distributor_name));
+        foreach ($dto->prices as $price) {
+            $entity->addPricedetail($this->convertPrice($price));
+        }
 
         return $entity;
     }
@@ -101,9 +137,22 @@ class DTOtoEntityConverter
             $entity->addAttachment($this->convertFile($datasheet));
         }
 
+        //Add orderdetails and prices
+        foreach ($dto->vendor_infos ?? [] as $vendor_info) {
+            $entity->addOrderdetail($this->convertPurchaseInfo($vendor_info));
+        }
+
         return $entity;
     }
 
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param  string  $class
+     * @phpstan-param class-string<T> $class
+     * @param  string|null  $name
+     * @return AbstractStructuralDBElement|null
+     * @phpstan-return T|null
+     */
     private function getOrCreateEntity(string $class, ?string $name): ?AbstractStructuralDBElement
     {
         //Fall through to make converting easier
@@ -111,7 +160,30 @@ class DTOtoEntityConverter
             return null;
         }
 
+        return $this->getOrCreateEntityNonNull($class, $name);
+    }
+
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param  string  $class The class of the entity to create
+     * @phpstan-param class-string<T> $class
+     * @param  string  $name The name of the entity to create
+     * @return AbstractStructuralDBElement
+     * @phpstan-return T|null
+     */
+    private function getOrCreateEntityNonNull(string $class, string $name): AbstractStructuralDBElement
+    {
         return $this->em->getRepository($class)->findOrCreateForInfoProvider($name);
+    }
+
+    private function getCurrency(string $iso_code): ?Currency
+    {
+        //Check if the currency is the base currency (then we can just return null)
+        if ($iso_code === $this->base_currency) {
+            return null;
+        }
+
+        return $this->em->getRepository(Currency::class)->findOrCreateByISOCode($iso_code);
     }
 
 }

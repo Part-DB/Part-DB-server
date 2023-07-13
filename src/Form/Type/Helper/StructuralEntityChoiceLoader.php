@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Type\Helper;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\PriceInformations\Currency;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,6 +60,12 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     public function createNewEntitiesFromValue(string $value): array
     {
         if (!$this->options['allow_add']) {
+            //Always allow the starting element to be added
+            if ($this->starting_element !== null && $this->starting_element->getID() === null) {
+                $this->entityManager->persist($this->starting_element);
+                return [$this->starting_element];
+            }
+
             throw new \RuntimeException('Cannot create new entity, because allow_add is not enabled!');
         }
 

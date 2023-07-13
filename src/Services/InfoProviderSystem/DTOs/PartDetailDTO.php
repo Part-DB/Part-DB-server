@@ -44,6 +44,8 @@ class PartDetailDTO extends SearchResultDTO
         public readonly ?array $datasheets = null,
         /** @var ParameterDTO[]|null */
         public readonly ?array $parameters = null,
+        /** @var PurchaseInfoDTO[]|null */
+        public readonly ?array $vendor_infos = null,
     ) {
         parent::__construct(
             provider_key: $provider_key,

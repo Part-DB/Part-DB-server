@@ -192,6 +192,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Also, it will try to find the element using the additional names field, of the elements.
      * @param  string  $name
      * @return AbstractStructuralDBElement|null
+     * @phpstan-return TEntityClass|null
      */
     public function findForInfoProvider(string $name): ?AbstractStructuralDBElement
     {
@@ -228,6 +229,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Similar to findForInfoProvider, but will create a new element with the given name if none was found.
      * @param  string  $name
      * @return AbstractStructuralDBElement
+     * @phpstan-return TEntityClass
      */
     public function findOrCreateForInfoProvider(string $name): AbstractStructuralDBElement
     {

@@ -102,6 +102,9 @@ class StructuralEntityChoiceHelper
         $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
         $tmp['data-short'] = $options['short'] ? $symbol : $choice->getName();
 
+        //Show entities that are not added to DB yet separately from other entities
+        $tmp['data-not_in_db_yet'] = $choice->getID() === null;
+
         return $tmp + [
             'data-symbol' => $symbol,
         ];
