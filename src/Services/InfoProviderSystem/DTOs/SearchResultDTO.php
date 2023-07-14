@@ -36,6 +36,8 @@ class SearchResultDTO
         public readonly string $name,
         /** @var string A short description of the part */
         public readonly string $description,
+        /** @var string|null The category the distributor assumes for the part */
+        public readonly ?string $category = null,
         /** @var string|null The manufacturer of the part */
         public readonly ?string $manufacturer = null,
         /** @var string|null The manufacturer part number */

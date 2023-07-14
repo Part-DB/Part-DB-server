@@ -33,6 +33,7 @@ class PartDetailDTO extends SearchResultDTO
         string $provider_id,
         string $name,
         string $description,
+        ?string $category = null,
         ?string $manufacturer = null,
         ?string $mpn = null,
         ?string $preview_image_url = null,
@@ -46,12 +47,15 @@ class PartDetailDTO extends SearchResultDTO
         public readonly ?array $parameters = null,
         /** @var PurchaseInfoDTO[]|null */
         public readonly ?array $vendor_infos = null,
+        /** The mass of the product in grams */
+        public readonly ?float $mass = null,
     ) {
         parent::__construct(
             provider_key: $provider_key,
             provider_id: $provider_id,
             name: $name,
             description: $description,
+            category: $category,
             manufacturer: $manufacturer,
             mpn: $mpn,
             preview_image_url: $preview_image_url,

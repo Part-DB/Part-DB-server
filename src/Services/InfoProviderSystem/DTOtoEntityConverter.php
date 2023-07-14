@@ -122,6 +122,8 @@ class DTOtoEntityConverter
         $entity->setDescription($dto->description ?? '');
         $entity->setComment($dto->notes ?? '');
 
+        $entity->setMass($dto->mass);
+
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
 
         $entity->setManufacturerProductNumber($dto->mpn ?? '');

@@ -41,7 +41,22 @@ class ParameterDTO
     public static function parseValueField(string $name, string|float $value, ?string $unit = null, ?string $symbol = null, ?string $group = null): self
     {
         if (is_float($value) || is_numeric($value)) {
-            return new self($name, value_typ: (float) $value, unit: $unit, symbol: $symbol);
+            return new self($name, value_typ: (float) $value, unit: $unit, symbol: $symbol, group: $group);
+        }
+
+        return new self($name, value_text: $value, unit: $unit, symbol: $symbol, group: $group);
+    }
+
+    public static function parseValueIncludingUnit(string $name, string|float $value, ?string $symbol = null, ?string $group = null): self
+    {
+        if (is_float($value) || is_numeric($value)) {
+            return new self($name, value_typ: (float) $value, symbol: $symbol, group: $group);
+        }
+
+        $unit = null;
+        if (preg_match('/^(?<value>[0-9.]+)\s*(?<unit>[a-zA-Z]+)$/', $value, $matches)) {
+            $value = $matches['value'];
+            $unit = $matches['unit'];
         }
 
         return new self($name, value_text: $value, unit: $unit, symbol: $symbol, group: $group);
