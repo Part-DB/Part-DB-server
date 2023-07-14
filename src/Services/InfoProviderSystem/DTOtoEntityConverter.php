@@ -28,6 +28,7 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
@@ -125,6 +126,7 @@ class DTOtoEntityConverter
         $entity->setMass($dto->mass);
 
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
+        $entity->setFootprint($this->getOrCreateEntity(Footprint::class, $dto->footprint));
 
         $entity->setManufacturerProductNumber($dto->mpn ?? '');
         $entity->setManufacturingStatus($dto->manufacturing_status ?? ManufacturingStatus::NOT_SET);

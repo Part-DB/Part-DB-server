@@ -115,6 +115,10 @@ class TMEProvider implements InfoProviderInterface
 
         $files = $this->getFiles($id);
 
+        $footprint = null;
+
+        $parameters = $this->getParameters($id, $footprint);
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['Symbol'],
@@ -126,8 +130,9 @@ class TMEProvider implements InfoProviderInterface
             preview_image_url: $this->normalizeURL($product['Photo']),
             manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['ProductStatusList']),
             provider_url: $productInfoPage,
+            footprint: $footprint,
             datasheets: $files['datasheets'],
-            parameters: $this->getParameters($id),
+            parameters: $parameters,
             vendor_infos: [$this->getVendorInfo($id, $productInfoPage)],
             mass: $product['WeightUnit'] === 'g' ? $product['Weight'] : null,
         );
@@ -211,9 +216,10 @@ class TMEProvider implements InfoProviderInterface
     /**
      * Fetches the parameters of a product
      * @param  string  $id
+     * @param string|null  $footprint_name You can pass a variable by reference, where the name of the footprint will be stored
      * @return ParameterDTO[]
      */
-    public function getParameters(string $id): array
+    public function getParameters(string $id, string|null &$footprint_name = null): array
     {
         $response = $this->tmeClient->makeRequest('Products/GetParameters', [
             'Country' => $this->country,
@@ -225,8 +231,15 @@ class TMEProvider implements InfoProviderInterface
 
         $result = [];
 
+        $footprint_name = null;
+
         foreach($data['ParameterList'] as $parameter) {
             $result[] = ParameterDTO::parseValueIncludingUnit($parameter['ParameterName'], $parameter['ParameterValue']);
+
+            //Check if the parameter is the case/footprint
+            if ($parameter['ParameterId'] === 35) {
+                $footprint_name = $parameter['ParameterValue'];
+            }
         }
 
         return $result;
