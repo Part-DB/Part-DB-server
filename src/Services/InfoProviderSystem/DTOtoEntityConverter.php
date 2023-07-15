@@ -47,13 +47,21 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * This class converts DTOs to entities which can be persisted in the DB
  */
-class DTOtoEntityConverter
+final class DTOtoEntityConverter
 {
+    private const TYPE_DATASHEETS_NAME = 'Datasheet';
+    private const TYPE_IMAGE_NAME = 'Image';
 
     public function __construct(private readonly EntityManagerInterface $em, private readonly string $base_currency)
     {
     }
 
+    /**
+     * Converts the given DTO to a PartParameter entity.
+     * @param  ParameterDTO  $dto
+     * @param  PartParameter  $entity The entity to apply the DTO on. If null a new entity will be created
+     * @return PartParameter
+     */
     public function convertParameter(ParameterDTO $dto, PartParameter $entity = new PartParameter()): PartParameter
     {
         $entity->setName($dto->name);
@@ -68,6 +76,12 @@ class DTOtoEntityConverter
         return $entity;
     }
 
+    /**
+     * Converts the given DTO to a Pricedetail entity.
+     * @param  PriceDTO  $dto
+     * @param  Pricedetail  $entity
+     * @return Pricedetail
+     */
     public function convertPrice(PriceDTO $dto, Pricedetail $entity = new Pricedetail()): Pricedetail
     {
         $entity->setMinDiscountQuantity($dto->minimum_discount_amount);
@@ -84,6 +98,9 @@ class DTOtoEntityConverter
         return $entity;
     }
 
+    /**
+     * Converts the given DTO to an orderdetail entity.
+     */
     public function convertPurchaseInfo(PurchaseInfoDTO $dto, Orderdetail $entity = new Orderdetail()): Orderdetail
     {
         $entity->setSupplierpartnr($dto->order_number);
@@ -97,9 +114,18 @@ class DTOtoEntityConverter
         return $entity;
     }
 
-    public function convertFile(FileDTO $dto, PartAttachment $entity = new PartAttachment()): PartAttachment
+    /**
+     * Converts the given DTO to an Attachment entity.
+     * @param  FileDTO  $dto
+     * @param  AttachmentType  $type The type which should be used for the attachment
+     * @param  PartAttachment  $entity
+     * @return PartAttachment
+     */
+    public function convertFile(FileDTO $dto, AttachmentType $type, PartAttachment $entity = new PartAttachment()): PartAttachment
     {
         $entity->setURL($dto->url);
+
+        $entity->setAttachmentType($type);
 
         //If no name is given, try to extract the name from the URL
         if (empty($dto->name)) {
@@ -137,8 +163,9 @@ class DTOtoEntityConverter
         }
 
         //Add datasheets
+        $datasheet_type = $this->getDatasheetType();
         foreach ($dto->datasheets ?? [] as $datasheet) {
-            $entity->addAttachment($this->convertFile($datasheet));
+            $entity->addAttachment($this->convertFile($datasheet, $datasheet_type));
         }
 
         //Add orderdetails and prices
@@ -150,6 +177,8 @@ class DTOtoEntityConverter
     }
 
     /**
+     * Get the existing entity of the given class with the given name or create it if it does not exist.
+     * If the name is null, null is returned.
      * @template T of AbstractStructuralDBElement
      * @param  string  $class
      * @phpstan-param class-string<T> $class
@@ -168,6 +197,7 @@ class DTOtoEntityConverter
     }
 
     /**
+     * Get the existing entity of the given class with the given name or create it if it does not exist.
      * @template T of AbstractStructuralDBElement
      * @param  string  $class The class of the entity to create
      * @phpstan-param class-string<T> $class
@@ -180,6 +210,11 @@ class DTOtoEntityConverter
         return $this->em->getRepository($class)->findOrCreateForInfoProvider($name);
     }
 
+    /**
+     * Returns the currency entity for the given ISO code or create it if it does not exist
+     * @param  string  $iso_code
+     * @return Currency|null
+     */
     private function getCurrency(string $iso_code): ?Currency
     {
         //Check if the currency is the base currency (then we can just return null)
@@ -188,6 +223,40 @@ class DTOtoEntityConverter
         }
 
         return $this->em->getRepository(Currency::class)->findOrCreateByISOCode($iso_code);
+    }
+
+    /**
+     * Returns the attachment type used for datasheets or creates it if it does not exist
+     * @return AttachmentType
+     */
+    private function getDatasheetType(): AttachmentType
+    {
+        /** @var AttachmentType $tmp */
+        $tmp = $this->em->getRepository(AttachmentType::class)->findOrCreateForInfoProvider(self::TYPE_DATASHEETS_NAME);
+
+        //If the entity was newly created, set the file filter
+        if ($tmp->getId() === null) {
+            $tmp->setFiletypeFilter('application/pdf');
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Returns the attachment type used for datasheets or creates it if it does not exist
+     * @return AttachmentType
+     */
+    private function getImageType(): AttachmentType
+    {
+        /** @var AttachmentType $tmp */
+        $tmp = $this->em->getRepository(AttachmentType::class)->findOrCreateForInfoProvider(self::TYPE_IMAGE_NAME);
+
+        //If the entity was newly created, set the file filter
+        if ($tmp->getId() === null) {
+            $tmp->setFiletypeFilter('image/*');
+        }
+
+        return $tmp;
     }
 
 }

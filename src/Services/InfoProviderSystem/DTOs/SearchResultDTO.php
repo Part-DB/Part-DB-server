@@ -25,6 +25,9 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 use App\Entity\Parts\ManufacturingStatus;
 
+/**
+ * This DTO represents a search result for a part.
+ */
 class SearchResultDTO
 {
     public function __construct(

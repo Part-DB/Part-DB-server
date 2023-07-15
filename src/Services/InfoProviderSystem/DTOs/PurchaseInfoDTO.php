@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+/**
+ * This DTO represents a purchase information for a part (supplier name, order number and prices).
+ */
 class PurchaseInfoDTO
 {
     public function __construct(

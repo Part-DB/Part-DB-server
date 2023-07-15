@@ -25,24 +25,24 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 
-class ProviderRegistry
+/**
+ * This class keeps track of all registered info providers and allows to find them by their key
+ */
+final class ProviderRegistry
 {
-
     /**
      * @var InfoProviderInterface[] The info providers index by their keys
-     * @psalm-var array
+     * @phpstan-var array<string, InfoProviderInterface>
      */
     private array $providers_by_name = [];
 
     /**
      * @var InfoProviderInterface[] The enabled providers indexed by their keys
-     * @psalm-var array
      */
     private array $providers_active = [];
 
     /**
      * @var InfoProviderInterface[] The disabled providers indexed by their keys
-     * @psalm-var array
      */
     private array $providers_disabled = [];
 

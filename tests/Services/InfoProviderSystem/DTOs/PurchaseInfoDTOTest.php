@@ -18,25 +18,17 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use PHPUnit\Framework\TestCase;
 
-namespace App\Services\InfoProviderSystem\DTOs;
-
-/**
- * This DTO represents a file that can be downloaded from a URL.
- * This could be a datasheet, a 3D model, a picture or similar.
- */
-class FileDTO
+class PurchaseInfoDTOTest extends TestCase
 {
-    /**
-     * @param  string  $url The URL where to get this file
-     * @param  string|null  $name Optionally the name of this file
-     */
-    public function __construct(
-        public readonly string $url,
-        public readonly ?string $name = null,
-    ) {}
-
-
+    public function testThrowOnInvalidType(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The prices array must only contain PriceDTO instances');
+        new PurchaseInfoDTO('test', 'test', [new \stdClass()]);
+    }
 }

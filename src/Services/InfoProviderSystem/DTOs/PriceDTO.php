@@ -46,6 +46,10 @@ class PriceDTO
         $this->price_as_big_decimal = BigDecimal::of($this->price);
     }
 
+    /**
+     * Gets the price as BigDecimal
+     * @return BigDecimal
+     */
     public function getPriceAsBigDecimal(): BigDecimal
     {
         return $this->price_as_big_decimal;

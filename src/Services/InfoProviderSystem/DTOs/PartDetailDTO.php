@@ -24,8 +24,10 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\DTOs;
 
 use App\Entity\Parts\ManufacturingStatus;
-use Hoa\Zformat\Parameter;
 
+/**
+ * This DTO represents a part with all its details.
+ */
 class PartDetailDTO extends SearchResultDTO
 {
     public function __construct(
@@ -43,6 +45,8 @@ class PartDetailDTO extends SearchResultDTO
         public readonly ?string $notes = null,
         /** @var FileDTO[]|null */
         public readonly ?array $datasheets = null,
+        /** @var FileDTO[]|null */
+        public readonly ?array $images = null,
         /** @var ParameterDTO[]|null */
         public readonly ?array $parameters = null,
         /** @var PurchaseInfoDTO[]|null */

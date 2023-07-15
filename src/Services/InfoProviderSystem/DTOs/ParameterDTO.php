@@ -23,6 +23,10 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+/**
+ * This DTO represents a parameter of a part (similar to the AbstractParameter entity).
+ * This could be a voltage, a current, a temperature or similar.
+ */
 class ParameterDTO
 {
     public function __construct(
