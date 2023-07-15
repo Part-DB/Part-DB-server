@@ -233,5 +233,386 @@
         <target>全部折叠</target>
       </segment>
     </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>这就是该部分在 %timestamp% 之前出现的方式。 &lt;i&gt;请注意，此功能尚处于实验阶段，因此信息可能不正确。&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>属性</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>信息</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>历史</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>导出</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>导入 / 导出</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>批量创建</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>通常</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>参数</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>导出所有元素</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>每一行将被解释为将创建的元素的名称。 您可以通过缩进创建嵌套结构。</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>编辑元素 "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>新元素</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>封装</target>
+      </segment>
+    </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>编辑封装</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>新建封装</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>组</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>权限</target>
+      </segment>
+    </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>编辑组</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>新建组</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>标签属性</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>高级</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>留言</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>编辑标签属性</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>新建标签属性</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.caption</source>
+        <target>制造商</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>编辑制造商</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>新建制造商</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>测量单位</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>存储位置</target>
+      </segment>
+    </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>编辑存储位置</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>新建存储位置</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.caption</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>编辑供货商</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>新建供货商</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
