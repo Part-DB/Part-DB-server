@@ -162,6 +162,30 @@ final class DTOtoEntityConverter
             $entity->addParameter($this->convertParameter($parameter));
         }
 
+        //Add preview image
+        $image_type = $this->getImageType();
+
+        if ($dto->preview_image_url) {
+            $preview_image = new PartAttachment();
+            $preview_image->setURL($dto->preview_image_url);
+            $preview_image->setName('Main image');
+            $preview_image->setAttachmentType($image_type);
+
+            $entity->addAttachment($preview_image);
+            $entity->setMasterPictureAttachment($preview_image);
+        }
+
+        //Add other images
+        foreach ($dto->images ?? [] as $image) {
+            //Ensure that the image is not the same as the preview image
+            if ($image->url === $dto->preview_image_url) {
+                continue;
+            }
+
+            $entity->addAttachment($this->convertFile($image, $image_type));
+        }
+
+
         //Add datasheets
         $datasheet_type = $this->getDatasheetType();
         foreach ($dto->datasheets ?? [] as $datasheet) {

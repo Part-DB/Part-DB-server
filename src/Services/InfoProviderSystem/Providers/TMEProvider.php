@@ -86,7 +86,7 @@ class TMEProvider implements InfoProviderInterface
             $result[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['Symbol'],
-                name: $product['OriginalSymbol'] ?? $product['Symbol'],
+                name: !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
                 description: $product['Description'],
                 category: $product['Category'],
                 manufacturer: $product['Producer'],
@@ -122,7 +122,7 @@ class TMEProvider implements InfoProviderInterface
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['Symbol'],
-            name: $product['OriginalSymbol'] ?? $product['Symbol'],
+            name:  !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
             description: $product['Description'],
             category: $product['Category'],
             manufacturer: $product['Producer'],
@@ -132,6 +132,7 @@ class TMEProvider implements InfoProviderInterface
             provider_url: $productInfoPage,
             footprint: $footprint,
             datasheets: $files['datasheets'],
+            images: $files['images'],
             parameters: $parameters,
             vendor_infos: [$this->getVendorInfo($id, $productInfoPage)],
             mass: $product['WeightUnit'] === 'g' ? $product['Weight'] : null,
@@ -142,7 +143,7 @@ class TMEProvider implements InfoProviderInterface
      * Fetches all files for a given product id
      * @param  string  $id
      * @return array<string, list<FileDTO>> An array with the keys 'datasheet'
-     * @phpstan-return array{datasheets: list<FileDTO>}
+     * @phpstan-return array{datasheets: list<FileDTO>, images: list<FileDTO>}
      */
     public function getFiles(string $id): array
     {
@@ -164,9 +165,19 @@ class TMEProvider implements InfoProviderInterface
             );
         }
 
+        //Extract images
+        $imageList = $files['AdditionalPhotoList'];
+        $images = [];
+        foreach($imageList as $image) {
+            $images[] = new FileDTO(
+                url: $this->normalizeURL($image['HighResolutionPhoto']),
+            );
+        }
+
 
         return [
             'datasheets' => $datasheets,
+            'images' => $images,
         ];
     }
 
