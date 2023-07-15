@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
   <file id="validators.en">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\LabelSystem\LabelProfile.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>part.master_attachment.must_be_picture</source>
+        <target>预览附件必须是一张有效的图像！</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
