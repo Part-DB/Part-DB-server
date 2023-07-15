@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use App\Entity\Parts\InfoProviderReference;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -62,6 +63,12 @@ trait AdvancedPropertyTrait
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(type: Types::STRING, length: 100, nullable: true, unique: true)]
     protected ?string $ipn = null;
+
+    /**
+     * @var InfoProviderReference The reference to the info provider, that provided the information about this part
+     */
+    #[ORM\Embedded(class: InfoProviderReference::class, columnPrefix: 'provider_reference_')]
+    protected InfoProviderReference $providerReference;
 
     /**
      * Checks if this part is marked, for that it needs further review.
@@ -149,6 +156,28 @@ trait AdvancedPropertyTrait
         $this->ipn = $ipn;
         return $this;
     }
+
+    /**
+     * Returns the reference to the info provider, that provided the information about this part.
+     * @return InfoProviderReference
+     */
+    public function getProviderReference(): InfoProviderReference
+    {
+        return $this->providerReference;
+    }
+
+    /**
+     * Sets the reference to the info provider, that provided the information about this part.
+     * @param  InfoProviderReference  $providerReference
+     * @return AdvancedPropertyTrait
+     */
+    public function setProviderReference(InfoProviderReference $providerReference): self
+    {
+        $this->providerReference = $providerReference;
+        return $this;
+    }
+
+
 
 
 }

@@ -29,6 +29,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Footprint;
+use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
@@ -156,6 +157,9 @@ final class DTOtoEntityConverter
 
         $entity->setManufacturerProductNumber($dto->mpn ?? '');
         $entity->setManufacturingStatus($dto->manufacturing_status ?? ManufacturingStatus::NOT_SET);
+
+        //Set the provider reference on the part
+        $entity->setProviderReference(InfoProviderReference::fromPartDTO($dto));
 
         //Add parameters
         foreach ($dto->parameters ?? [] as $parameter) {

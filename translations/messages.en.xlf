@@ -11483,5 +11483,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Prices</target>
       </segment>
     </unit>
+    <unit id="nNKOyNM" name="part.info_provider_reference.badge">
+      <segment>
+        <source>part.info_provider_reference.badge</source>
+        <target>The information provider used to create this part.</target>
+      </segment>
+    </unit>
+    <unit id="WTB_AKQ" name="part.info_provider_reference">
+      <segment>
+        <source>part.info_provider_reference</source>
+        <target>Created by Information provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

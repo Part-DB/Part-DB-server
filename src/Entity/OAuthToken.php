@@ -1,0 +1,67 @@
+<?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+
+namespace App\Entity;
+
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * This entity represents a OAuth token pair (access and refresh token), for an application
+ */
+#[ORM\Entity()]
+#[ORM\Table(name: 'oauth_tokens')]
+#[ORM\UniqueConstraint(name: 'oauth_tokens_unique_name', columns: ['name'])]
+#[ORM\Index(columns: ['name'], name: 'oauth_tokens_name_idx')]
+class OAuthToken extends AbstractNamedDBElement
+{
+    /** @var string|null The short-term usable OAuth2 token */
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $token = null;
+
+    /** @var \DateTimeInterface The date when the token expires */
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeInterface $expires_at = null;
+
+    /** @var string The refresh token for the OAuth2 auth */
+    #[ORM\Column(type: 'string')]
+    private string $refresh_token = '';
+
+    public function __construct(string $name, string $refresh_token, string $token = null, \DateTimeInterface $expires_at = null)
+    {
+        parent::__construct();
+
+        //If token is given, you also have to give the expires_at date
+        if ($token !== null && $expires_at === null) {
+            throw new \InvalidArgumentException('If you give a token, you also have to give the expires_at date');
+        }
+
+        $this->name = $name;
+        $this->refresh_token = $refresh_token;
+        $this->expires_at = $expires_at;
+        $this->token = $token;
+    }
+
+}
