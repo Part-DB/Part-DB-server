@@ -49,7 +49,7 @@ class InfoProviderReference
     #[Column(type: 'string', nullable: true)]
     private ?string $provider_url = null;
 
-    #[Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Column(type: Types::DATETIME_MUTABLE, nullable: true,  options: ['default' => null])]
     private ?\DateTimeInterface $last_updated = null;
 
     /**
