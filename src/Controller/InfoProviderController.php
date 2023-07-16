@@ -30,6 +30,7 @@ use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Services\Parts\PartFormHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -43,7 +44,7 @@ class InfoProviderController extends  AbstractController
 {
 
     public function __construct(private readonly ProviderRegistry $providerRegistry,
-        private readonly PartInfoRetriever $infoRetriever, private readonly EventCommentHelper $commentHelper)
+        private readonly PartInfoRetriever $infoRetriever)
     {
 
     }
@@ -80,75 +81,5 @@ class InfoProviderController extends  AbstractController
             'form' => $form,
             'results' => $results,
         ]);
-    }
-
-    #[Route('/part/{providerKey}/{providerId}/create', name: 'info_providers_create_part')]
-    public function createPart(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentSubmitHandler $attachmentSubmitHandler, string $providerKey, string $providerId): Response
-    {
-        $this->denyAccessUnlessGranted('@info_providers.create_parts');
-
-        $dto = $this->infoRetriever->getDetails($providerKey, $providerId);
-        $new_part = $this->infoRetriever->dtoToPart($dto);
-
-        $form = $this->createForm(PartBaseType::class, $new_part, [
-            'info_provider_dto' => $dto,
-        ]);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
-                $options = [
-                    'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData(),
-                ];
-
-                try {
-                    $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
-                    );
-                }
-            }
-
-            $this->commentHelper->setMessage($form['log_comment']->getData());
-
-            $em->persist($new_part);
-            $em->flush();
-            $this->addFlash('success', 'part.created_flash');
-
-            //If a redirect URL was given, redirect there
-            if ($request->query->get('_redirect')) {
-                return $this->redirect($request->query->get('_redirect'));
-            }
-
-            //Redirect to clone page if user wished that...
-            //@phpstan-ignore-next-line
-            if ('save_and_clone' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
-            }
-            //@phpstan-ignore-next-line
-            if ('save_and_new' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_new');
-            }
-
-            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
-        }
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'part.created_flash.invalid');
-        }
-
-        return $this->render('parts/edit/new_part.html.twig',
-            [
-                'part' => $new_part,
-                'form' => $form,
-            ]);
     }
 }
