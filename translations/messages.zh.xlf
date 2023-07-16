@@ -1085,6 +1085,280 @@
         <target>最后修改</target>
       </segment>
     </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>此元素下的元件数量</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>特性</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>符号</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>最小值</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>典型值</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>最大值</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>单位</target>
+      </segment>
+    </unit>
+    <unit id="05vM0Vp" name="specifications.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.text</source>
+        <target>文本</target>
+      </segment>
+    </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.group</source>
+        <target>组</target>
+      </segment>
+    </unit>
+    <unit id="MZTH_sJ" name="specification.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>specification.create</source>
+        <target>创建特性</target>
+      </segment>
+    </unit>
+    <unit id="eEuzINH" name="parameter.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.delete.confirm</source>
+        <target>确认要删除这个特性吗？</target>
+      </segment>
+    </unit>
+    <unit id="rpzRyMx" name="attachment.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.list.title</source>
+        <target>附件列表</target>
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.caption</source>
+        <target>加载中</target>
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.message</source>
+        <target>这可能需要一些时间。 如果此消息没有消失，请尝试重新加载页面。</target>
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">templates\base.html.twig:246</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.base.javascript_hint</source>
+        <target>请激活 Javascript 才能使用所有功能！</target>
+      </segment>
+    </unit>
+    <unit id="0rLRD9e" name="sidebar.big.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.big.toggle</source>
+        <target>显示/隐藏侧边栏</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">templates\base.html.twig:271</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.caption</source>
+        <target>加载:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">templates\base.html.twig:272</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.message</source>
+        <target>这可能需要一段时间。 如果此消息持续很长时间，请尝试重新加载页面。</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">templates\base.html.twig:277</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.bar</source>
+        <target>加载中...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">templates\base.html.twig:288</note>
+      </notes>
+      <segment state="translated">
+        <source>back_to_top</source>
+        <target>返回至页面顶部</target>
+      </segment>
+    </unit>
+    <unit id="yXZ1kdn" name="permission.edit.permission">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.permission</source>
+        <target>权限</target>
+      </segment>
+    </unit>
+    <unit id="tFYZZcS" name="permission.edit.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.value</source>
+        <target>值</target>
+      </segment>
+    </unit>
+    <unit id="KzyDL60" name="permission.legend.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.title</source>
+        <target>状态说明:</target>
+      </segment>
+    </unit>
+    <unit id="owrJ0Qw" name="permission.legend.disallow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.disallow</source>
+        <target>拒绝</target>
+      </segment>
+    </unit>
+    <unit id="1nY8d_O" name="permission.legend.allow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.allow</source>
+        <target>允许</target>
+      </segment>
+    </unit>
+    <unit id="uNMtwn9" name="permission.legend.inherit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.inherit</source>
+        <target>从父级继承</target>
+      </segment>
+    </unit>
     <unit id="QSE9MT9" name="bool.true">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
@@ -1867,6 +2141,490 @@
         <target>元件供应商</target>
       </segment>
     </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>统计</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>参数</target>
+      </segment>
+    </unit>
+    <unit id="a0Bt1My" name="entity.info.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="pqMTPTv" name="entity.info.parent">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parent</source>
+        <target>父级</target>
+      </segment>
+    </unit>
+    <unit id="nDEGgY0" name="entity.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:70</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.btn</source>
+        <target>编辑</target>
+      </segment>
+    </unit>
+    <unit id="Rsrawma" name="entity.info.children_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.children_count</source>
+        <target>子元素数量</target>
+      </segment>
+    </unit>
+    <unit id="3WtQFdr" name="tfa.check.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.title</source>
+        <target>需要双因素认证</target>
+      </segment>
+    </unit>
+    <unit id="FPvJfPr" name="tfa.code.trusted_pc">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.code.trusted_pc</source>
+        <target>这是受信任的计算机（如果启用此功能，则不会在此计算机上执行进一步的两因素查询）</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>login.btn</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>user.logout</source>
+        <target>登出</target>
+      </segment>
+    </unit>
+    <unit id="INlwXoR" name="tfa.check.code.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.label</source>
+        <target>认证器代码</target>
+      </segment>
+    </unit>
+    <unit id="TUbr0_A" name="tfa.check.code.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.help</source>
+        <target>输入身份验证器应用程序中的 6 位代码，或者如果身份验证器不可用，请输入备用代码之一。</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">templates\security\login.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>login.title</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">templates\security\login.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>login.card_title</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">templates\security\login.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.label</source>
+        <target>用户名</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">templates\security\login.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.placeholder</source>
+        <target>用户名</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">templates\security\login.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.label</source>
+        <target>密码</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">templates\security\login.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.placeholder</source>
+        <target>密码</target>
+      </segment>
+    </unit>
+    <unit id="BSn76q_" name="login.rememberme">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">templates\security\login.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>login.rememberme</source>
+        <target>请记住您的登录信息</target>
+      </segment>
+    </unit>
+    <unit id="GO.ZhTX" name="pw_reset.password_forget">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.password_forget</source>
+        <target>忘记用户名/密码</target>
+      </segment>
+    </unit>
+    <unit id="hbW2JJr" name="pw_reset.new_pw.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.header.title</source>
+        <target>设置新密码</target>
+      </segment>
+    </unit>
+    <unit id="3Tgn6io" name="pw_reset.request.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.header.title</source>
+        <target>请求新密码</target>
+      </segment>
+    </unit>
+    <unit id="J1aHED." name="tfa_u2f.http_warning">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.http_warning</source>
+        <target>您正在使用不安全的 HTTP 方法访问此页面，因此 U2F 很可能无法工作（错误请求错误消息）。 如果您想使用安全密钥，请要求管理员设置安全 HTTPS 方法。</target>
+      </segment>
+    </unit>
+    <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.pressbutton</source>
+        <target>请插入您的安全密钥并按下其按钮！</target>
+      </segment>
+    </unit>
+    <unit id="T4i5SE4" name="tfa_u2f.add_key.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.title</source>
+        <target>添加安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="rIJ.Flq" name="tfa_u2f.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.explanation</source>
+        <target>借助 U2F/FIDO 兼容的安全密钥（例如 YubiKey 或 NitroKey），可以实现用户友好且安全的双因素身份验证。 可以在此处注册安全密钥，如果需要两步验证，只需通过 USB 插入密钥或通过 NFC 在设备上输入密钥即可。</target>
+      </segment>
+    </unit>
+    <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.backup_hint</source>
+        <target>为了即使钥匙丢失也能确保访问，建议注册第二把钥匙作为备份并将其存放在安全的地方！</target>
+      </segment>
+    </unit>
+    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.name</source>
+        <target>显示的密钥名称（例如备份）</target>
+      </segment>
+    </unit>
+    <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.add_button</source>
+        <target>添加安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="JyEfylJ" name="tfa_u2f.add_key.back_to_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.back_to_settings</source>
+        <target>返回设置</target>
+      </segment>
+    </unit>
+    <unit id="yD.UA07" name="statistics.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.title</source>
+        <target>统计数据</target>
+      </segment>
+    </unit>
+    <unit id="6l0Fwd2" name="statistics.parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts</source>
+        <target>元件</target>
+      </segment>
+    </unit>
+    <unit id="QRdK9zd" name="statistics.data_structures">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.data_structures</source>
+        <target>数据结构</target>
+      </segment>
+    </unit>
+    <unit id="50kyfxA" name="statistics.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachments</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="Op0xko9" name="statistics.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.property</source>
+        <target>属性</target>
+      </segment>
+    </unit>
+    <unit id="zn.PnJ2" name="statistics.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.value</source>
+        <target>值</target>
+      </segment>
+    </unit>
+    <unit id=".lLfExB" name="statistics.distinct_parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.distinct_parts_count</source>
+        <target>唯一部件的数量</target>
+      </segment>
+    </unit>
+    <unit id="IjDWXUD" name="statistics.parts_instock_sum">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_instock_sum</source>
+        <target>所有元件库存的总和</target>
+      </segment>
+    </unit>
+    <unit id="OUVlqDZ" name="statistics.parts_with_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_with_price</source>
+        <target>带有价格信息的元件数量</target>
+      </segment>
+    </unit>
+    <unit id="VX9aZ2j" name="statistics.categories_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.categories_count</source>
+        <target>分类计数</target>
+      </segment>
+    </unit>
+    <unit id="Aks9a3Q" name="statistics.footprints_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.footprints_count</source>
+        <target>封装计数</target>
+      </segment>
+    </unit>
+    <unit id="wvwDajm" name="statistics.manufacturers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.manufacturers_count</source>
+        <target>制造商计数</target>
+      </segment>
+    </unit>
+    <unit id="MDdSIU0" name="statistics.storelocations_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.storelocations_count</source>
+        <target>存储位置计数</target>
+      </segment>
+    </unit>
     <unit id="q9tLL7." name="statistics.suppliers_count">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
@@ -1876,6 +2634,72 @@
       <segment state="translated">
         <source>statistics.suppliers_count</source>
         <target>供货商数量</target>
+      </segment>
+    </unit>
+    <unit id="xzr9lD3" name="statistics.currencies_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.currencies_count</source>
+        <target>货币计数</target>
+      </segment>
+    </unit>
+    <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.measurement_units_count</source>
+        <target>测量单位计数</target>
+      </segment>
+    </unit>
+    <unit id="T0BDQn_" name="statistics.devices_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.devices_count</source>
+        <target>工程计数</target>
+      </segment>
+    </unit>
+    <unit id="8HKc.Yq" name="statistics.attachment_types_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachment_types_count</source>
+        <target>附件类型计数</target>
+      </segment>
+    </unit>
+    <unit id="S1UPbY3" name="statistics.all_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.all_attachments_count</source>
+        <target>所有附件计数</target>
+      </segment>
+    </unit>
+    <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.user_uploaded_attachments_count</source>
+        <target>用户上传附件数</target>
       </segment>
     </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
