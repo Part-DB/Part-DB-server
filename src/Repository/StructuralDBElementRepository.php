@@ -185,4 +185,74 @@ class StructuralDBElementRepository extends NamedDBElementRepository
 
         return $result;
     }
+
+    /**
+     * Finds the element with the given name for the use with the InfoProvider System
+     * The name search is a bit more fuzzy than the normal findByName, because it is case-insensitive and ignores special characters.
+     * Also, it will try to find the element using the additional names field, of the elements.
+     * @param  string  $name
+     * @return AbstractStructuralDBElement|null
+     * @phpstan-return TEntityClass|null
+     */
+    public function findForInfoProvider(string $name): ?AbstractStructuralDBElement
+    {
+        //First try to find the element by name
+        $qb = $this->createQueryBuilder('e');
+        //Use lowercase conversion to be case-insensitive
+        $qb->where($qb->expr()->like('LOWER(e.name)', 'LOWER(:name)'));
+
+        $qb->setParameter('name', $name);
+
+        $result = $qb->getQuery()->getResult();
+
+        if (count($result) === 1) {
+            return $result[0];
+        }
+
+        //If we have no result, try to find the element by alternative names
+        $qb = $this->createQueryBuilder('e');
+        //Use lowercase conversion to be case-insensitive
+        $qb->where($qb->expr()->like('LOWER(e.alternative_names)', 'LOWER(:name)'));
+        $qb->setParameter('name', '%'.$name.',%');
+
+        $result = $qb->getQuery()->getResult();
+
+        if (count($result) >= 1) {
+            return $result[0];
+        }
+
+        //If we find nothing, return null
+        return null;
+    }
+
+    /**
+     * Similar to findForInfoProvider, but will create a new element with the given name if none was found.
+     * @param  string  $name
+     * @return AbstractStructuralDBElement
+     * @phpstan-return TEntityClass
+     */
+    public function findOrCreateForInfoProvider(string $name): AbstractStructuralDBElement
+    {
+        $entity = $this->findForInfoProvider($name);
+        if (null === $entity) {
+
+            //Try to find if we already have an element cached for this name
+            $entity = $this->getNewEntityFromCache($name, null);
+            if ($entity) {
+                return $entity;
+            }
+
+            $class = $this->getClassName();
+            /** @var AbstractStructuralDBElement $entity */
+            $entity = new $class;
+            $entity->setName($name);
+
+            //Set the found name to the alternative names, so the entity can be easily renamed later
+            $entity->setAlternativeNames($name);
+
+            $this->setNewEntityToCache($entity);
+        }
+
+        return $entity;
+    }
 }

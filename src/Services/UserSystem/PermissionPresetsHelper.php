@@ -105,6 +105,9 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
 
+        //Allow to manage Oauth tokens
+        $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
+
     }
 
     private function editor(HasPermissionsInterface $permHolder): HasPermissionsInterface
@@ -138,6 +141,9 @@ class PermissionPresetsHelper
 
         //Various other permissions
         $this->permissionResolver->setPermission($permHolder, 'tools', 'lastActivity', PermissionData::ALLOW);
+
+        //Allow to create parts from information providers
+        $this->permissionResolver->setPermission($permHolder, 'info_providers', 'create_parts', PermissionData::ALLOW);
 
 
         return $permHolder;

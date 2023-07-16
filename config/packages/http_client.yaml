@@ -1,0 +1,5 @@
+framework:
+  http_client:
+    default_options:
+      headers:
+        'User-Agent': 'Part-DB'

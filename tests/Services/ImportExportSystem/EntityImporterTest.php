@@ -215,7 +215,7 @@ EOT;
         $this->assertSame($category, $results[1]->getCategory());
 
         $input = <<<EOT
-        [{"name":"Test 1","description":"Test 1 description","notes":"Test 1 notes","manufacturer":"Test 1 manufacturer", "tags": "test,test2"},{"name":"Test 2","description":"Test 2 description","notes":"Test 2 notes","manufacturer":"Test 2 manufacturer", "manufacturing_status": "invalid"}]
+        [{"name":"Test 1","description":"Test 1 description","notes":"Test 1 notes","manufacturer":"Test 1 manufacturer", "tags": "test,test2"},{"name":"","description":"Test 2 description","notes":"Test 2 notes","manufacturer":"Test 2 manufacturer", "manufacturing_status": "active"}]
         EOT;
 
         $errors = [];
@@ -234,10 +234,10 @@ EOT;
         //Check the format of the error
         $error = reset($errors);
         $this->assertInstanceOf(Part::class, $error['entity']);
-        $this->assertSame('Test 2', $error['entity']->getName());
+        $this->assertSame('', $error['entity']->getName());
         $this->assertContainsOnlyInstancesOf(ConstraintViolation::class, $error['violations']);
         //Element name must be element name
-        $this->assertArrayHasKey('Test 2', $errors);
+        $this->assertArrayHasKey('', $errors);
 
         //Check the valid element
         $this->assertSame('Test 1', $results[0]->getName());

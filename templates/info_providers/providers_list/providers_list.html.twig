@@ -1,0 +1,33 @@
+{% extends "main_card.html.twig" %}
+
+{% import "info_providers/providers.macro.html.twig" as providers_macro %}
+
+{% block title %}{% trans %}info_providers.providers_list.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud"></i> {% trans %}info_providers.providers_list.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="server_infos-partdb-tab" data-bs-toggle="tab" data-bs-target="#providers_list_active" type="button" role="tab" aria-controls="providers_list_active" aria-selected="true">
+                {% trans %}info_providers.providers_list.active{% endtrans %}
+                <span class="badge bg-secondary">{{ active_providers|length }}</span>
+            </button>
+            <button class="nav-link" id="server_infos-php-tab" data-bs-toggle="tab" data-bs-target="#providers_list_disabled" type="button" role="tab" aria-controls="providers_list_disabled" aria-selected="false">
+                {% trans %}info_providers.providers_list.disabled{% endtrans %}
+                <span class="badge bg-secondary">{{ disabled_providers|length }}</span>
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="tabContent">
+        <div class="tab-pane fade show active" id="providers_list_active" role="tabpanel" aria-labelledby="server_infos-partdb-tab">
+            {{ providers_macro.provider_info_table(active_providers) }}
+        </div>
+        <div class="tab-pane fade" id="providers_list_disabled" role="tabpanel" aria-labelledby="server_infos-php-tab">
+            {{ providers_macro.provider_info_table(disabled_providers) }}
+        </div>
+    </div>
+
+{% endblock %}

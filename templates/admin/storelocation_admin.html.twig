@@ -21,6 +21,8 @@
 
 {% block additional_panes %}
     <div class="tab-pane" id="home_options">
+        {{ form_row(form.alternative_names) }}
+
         {{ form_row(form.storage_type) }}
         {{ form_row(form.is_full) }}
         {{ form_row(form.limit_to_existing_parts) }}

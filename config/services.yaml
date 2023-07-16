@@ -24,6 +24,9 @@ services:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
             tags: ['app.label_placeholder_provider']
 
+        App\Services\InfoProviderSystem\Providers\InfoProviderInterface:
+            tags: ['app.info_provider']
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -233,6 +236,37 @@ services:
         arguments:
             $rootNodeExpandedByDefault: '%partdb.sidebar.root_expanded%'
             $rootNodeEnabled: '%partdb.sidebar.root_node_enable%'
+
+    ####################################################################################################################
+    # Part info provider system
+    ####################################################################################################################
+    App\Services\InfoProviderSystem\ProviderRegistry:
+        arguments:
+            $providers: !tagged_iterator 'app.info_provider'
+
+    App\Services\InfoProviderSystem\Providers\Element14Provider:
+        arguments:
+            $api_key: '%env(string:PROVIDER_ELEMENT14_KEY)%'
+            $store_id: '%env(string:PROVIDER_ELEMENT14_STORE_ID)%'
+
+    App\Services\InfoProviderSystem\Providers\DigikeyProvider:
+        arguments:
+            $clientId: '%env(string:PROVIDER_DIGIKEY_CLIENT_ID)%'
+            $currency: '%env(string:PROVIDER_DIGIKEY_CURRENCY)%'
+            $language: '%env(string:PROVIDER_DIGIKEY_LANGUAGE)%'
+            $country: '%env(string:PROVIDER_DIGIKEY_COUNTRY)%'
+
+    App\Services\InfoProviderSystem\Providers\TMEClient:
+        arguments:
+            $secret: '%env(string:PROVIDER_TME_SECRET)%'
+            $token: '%env(string:PROVIDER_TME_KEY)%'
+
+    App\Services\InfoProviderSystem\Providers\TMEProvider:
+        arguments:
+            $currency: '%env(string:PROVIDER_TME_CURRENCY)%'
+            $country: '%env(string:PROVIDER_TME_COUNTRY)%'
+            $language: '%env(string:PROVIDER_TME_LANGUAGE)%'
+            $get_gross_prices: '%env(bool:PROVIDER_TME_GET_GROSS_PRICES)%'
 
     ####################################################################################################################
     # Symfony overrides

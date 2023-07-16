@@ -62,5 +62,28 @@
             {% endif %}
         </td>
     </tr>
+
+    <tr>
+        <td>{% trans %}part.info_provider_reference{% endtrans %}</td>
+        <td>
+            {% if part.providerReference.providerCreated %}
+                {% if part.providerReference.providerUrl %}
+                    <a href="{{ part.providerReference.providerUrl }}" rel="noopener">
+                {% endif %}
+                <span title="{{ part.providerReference.providerKey }}">{{ info_provider_label(part.providerReference.providerKey)|default(part.providerReference.providerKey) }}</span>: {{ part.providerReference.providerId }}
+                <span> ({{ part.providerReference.lastUpdated | format_datetime() }})</span>
+                {% if part.providerReference.providerUrl %}
+                    </a>
+                {% endif %}
+
+                {# Show last updated date #}
+
+            {% else %}
+                {{ helper.boolean_badge(part.providerReference.providerCreated) }}
+            {% endif %}
+
+        </td>
+    </tr>
+
     </tbody>
 </table>

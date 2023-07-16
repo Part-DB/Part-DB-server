@@ -36,6 +36,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
@@ -63,7 +64,11 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/part')]
 class PartController extends AbstractController
 {
-    public function __construct(protected PricedetailHelper $pricedetailHelper, protected PartPreviewGenerator $partPreviewGenerator, protected EventCommentHelper $commentHelper)
+    public function __construct(protected PricedetailHelper $pricedetailHelper,
+        protected PartPreviewGenerator $partPreviewGenerator,
+        private readonly TranslatorInterface $translator,
+        private readonly AttachmentSubmitHandler $attachmentSubmitHandler, private readonly EntityManagerInterface $em,
+        protected EventCommentHelper $commentHelper)
     {
     }
 
@@ -121,65 +126,15 @@ class PartController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'part_edit')]
-    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentSubmitHandler $attachmentSubmitHandler): Response
+    public function edit(Part $part, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
-        $form = $this->createForm(PartBaseType::class, $part);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
-                $options = [
-                    'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData(),
-                ];
-
-                try {
-                    $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
-                    );
-                }
-            }
-
-            $this->commentHelper->setMessage($form['log_comment']->getData());
-
-            $em->persist($part);
-            $em->flush();
-            $this->addFlash('success', 'part.edited_flash');
-
-            //Redirect to clone page if user wished that...
-            //@phpstan-ignore-next-line
-            if ('save_and_clone' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_clone', ['id' => $part->getID()]);
-            }
-            //@phpstan-ignore-next-line
-            if ('save_and_new' === $form->getClickedButton()->getName()) {
-                return $this->redirectToRoute('part_new');
-            }
-
-            //Reload form, so the SIUnitType entries use the new part unit
-            $form = $this->createForm(PartBaseType::class, $part);
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'part.edited_flash.invalid');
-        }
-
-        return $this->render('parts/edit/edit_part_info.html.twig',
-            [
-                'part' => $part,
-                'form' => $form,
-            ]);
+        return $this->renderPartForm('edit', $request, $part);
     }
 
     #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Part $part, EntityManagerInterface $entityManager): RedirectResponse
+    public function delete(Request $request, Part $part): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
@@ -188,10 +143,10 @@ class PartController extends AbstractController
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
             //Remove part
-            $entityManager->remove($part);
+            $this->em->remove($part);
 
             //Flush changes
-            $entityManager->flush();
+            $this->em->flush();
 
             $this->addFlash('success', 'part.deleted');
         }
@@ -262,7 +217,39 @@ class PartController extends AbstractController
             $new_part->addOrderdetail($orderdetail);
         }
 
-        $form = $this->createForm(PartBaseType::class, $new_part);
+        return $this->renderPartForm('new', $request, $new_part);
+    }
+
+    #[Route('/from_info_provider/{providerKey}/{providerId}/create', name: 'info_providers_create_part')]
+    public function createFromInfoProvider(Request $request, string $providerKey, string $providerId, PartInfoRetriever $infoRetriever): Response
+    {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        $new_part = $infoRetriever->dtoToPart($dto);
+
+        return $this->renderPartForm('new', $request, $new_part, [
+            'info_provider_dto' => $dto,
+        ]);
+    }
+
+    /**
+     * This function provides a common implementation for methods, which use the part form.
+     * @param  Request  $request
+     * @param  Part  $data
+     * @param  array  $form_options
+     * @return Response
+     */
+    private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = []): Response
+    {
+        //Ensure that mode is either 'new' or 'edit
+        if (!in_array($mode, ['new', 'edit'], true)) {
+            throw new \InvalidArgumentException('Invalid mode given');
+        }
+
+        $new_part = $data;
+
+        $form = $this->createForm(PartBaseType::class, $new_part, $form_options);
 
         $form->handleRequest($request);
 
@@ -277,20 +264,24 @@ class PartController extends AbstractController
                 ];
 
                 try {
-                    $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
+                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
                     );
                 }
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
-            $em->persist($new_part);
-            $em->flush();
-            $this->addFlash('success', 'part.created_flash');
+            $this->em->persist($new_part);
+            $this->em->flush();
+            if ($mode === 'new') {
+                $this->addFlash('success', 'part.created_flash');
+            } else if ($mode === 'edit') {
+                $this->addFlash('success', 'part.edited_flash');
+            }
 
             //If a redirect URL was given, redirect there
             if ($request->query->get('_redirect')) {
@@ -314,12 +305,20 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 
-        return $this->render('parts/edit/new_part.html.twig',
+        $template = '';
+        if ($mode === 'new') {
+            $template = 'parts/edit/new_part.html.twig';
+        } else if ($mode === 'edit') {
+            $template = 'parts/edit/edit_part_info.html.twig';
+        }
+
+        return $this->render($template,
             [
                 'part' => $new_part,
                 'form' => $form,
             ]);
     }
+
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response

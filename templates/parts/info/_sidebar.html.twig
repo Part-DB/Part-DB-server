@@ -68,3 +68,15 @@
         </h6>
     </div>
 {% endif %}
+
+{# Info provider badge #}
+{% if part.providerReference.providerCreated %}
+    <div class="mt-1">
+        <h6>
+            <a href="{{ part.providerReference.providerUrl ?? '#' }}" class="badge bg-info badge-info" title="{% trans %}part.info_provider_reference.badge{% endtrans %}">
+                <i class="fa-solid fa-cloud"></i>
+                {{ info_provider_label(part.providerReference.providerKey)|default(part.providerReference.providerKey) }}
+            </a>
+        </h6>
+    </div>
+{% endif %}

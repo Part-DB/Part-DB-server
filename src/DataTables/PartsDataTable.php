@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Column\EnumColumn;
+use App\Entity\Parts\ManufacturingStatus;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Storelocation;
 use App\DataTables\Adapters\CustomFetchJoinORMAdapter;
@@ -227,18 +229,17 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.favorite'),
                 'visible' => false,
             ])
-            ->add('manufacturing_status', MapColumn::class, [
+            ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'visible' => false,
-                'default' => $this->translator->trans('m_status.unknown'),
-                'map' => [
-                    '' => $this->translator->trans('m_status.unknown'),
-                    'announced' => $this->translator->trans('m_status.announced'),
-                    'active' => $this->translator->trans('m_status.active'),
-                    'nrfnd' => $this->translator->trans('m_status.nrfnd'),
-                    'eol' => $this->translator->trans('m_status.eol'),
-                    'discontinued' => $this->translator->trans('m_status.discontinued'),
-                ],
+                'class' => ManufacturingStatus::class,
+                'render' => function(?ManufacturingStatus $status, Part $context): string {
+                    if (!$status) {
+                        return '';
+                    }
+
+                    return $this->translator->trans($status->toTranslationKey());
+                } ,
             ])
             ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),

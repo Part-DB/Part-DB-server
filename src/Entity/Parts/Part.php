@@ -114,6 +114,9 @@ class Part extends AttachmentContainingDBElement
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->project_bom_entries = new ArrayCollection();
+
+        //By default, the part has no provider
+        $this->providerReference = InfoProviderReference::noProvider();
     }
 
     public function __clone()
@@ -139,6 +142,9 @@ class Part extends AttachmentContainingDBElement
             foreach ($parameters as $parameter) {
                 $this->addParameter(clone $parameter);
             }
+
+            //Deep clone info provider
+            $this->providerReference = clone $this->providerReference;
         }
         parent::__clone();
     }

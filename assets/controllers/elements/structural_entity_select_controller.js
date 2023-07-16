@@ -22,6 +22,8 @@ import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 import {Controller} from "@hotwired/stimulus";
 
+import {trans, ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB} from '../../translator.js'
+
 
 export default class extends Controller {
     _tomSelect;
@@ -40,7 +42,7 @@ export default class extends Controller {
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
-            create: allowAdd,
+            create: allowAdd ? this.createItem.bind(this) : false,
             createFilter: /\D/, //Must contain a non-digit character, otherwise they would be recognized as DB ID
 
             searchField: [
@@ -66,6 +68,14 @@ export default class extends Controller {
 
         this._tomSelect = new TomSelect(this.element, settings);
         this._tomSelect.sync();
+    }
+
+    createItem(input, callback) {
+        callback({
+            value: input,
+            text: input,
+            not_in_db_yet: true,
+        });
     }
 
 
@@ -97,14 +107,27 @@ export default class extends Controller {
         }
 
         if (data.short) {
-            return '<div><b>' + escape(data.short) + '</b></div>';
+            let short = escape(data.short)
+
+            //Make text italic, if the item is not yet in the DB
+            if (data.not_in_db_yet) {
+                short = '<i>' + short + '</i>';
+            }
+
+            return '<div><b>' + short + '</b></div>';
         }
 
         let name = "";
         if (data.parent) {
             name += escape(data.parent) + "&nbsp;→&nbsp;";
         }
-        name += "<b>" + escape(data.text) + "</b>";
+
+        if (data.not_in_db_yet) {
+            //Not yet added items are shown italic and with a badge
+            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans(ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB) + "</span>";
+        } else {
+            name += "<b>" + escape(data.text) + "</b>";
+        }
 
         return '<div>' + (data.image ? "<img class='structural-entity-select-image' style='margin-right: 5px;' ' src='" + data.image + "'/>" : "") + name + '</div>';
     }

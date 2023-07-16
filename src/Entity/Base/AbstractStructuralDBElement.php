@@ -124,6 +124,12 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     private array $full_path_strings = [];
 
+    /**
+     * Alternative names (semicolon-separated) for this element, which can be used for searching (especially for info provider system)
+     */
+    #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
+    private ?string $alternative_names = "";
+
     public function __construct()
     {
         parent::__construct();
@@ -410,6 +416,36 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     public function clearChildren(): self
     {
         $this->children = new ArrayCollection();
+
+        return $this;
+    }
+
+    /**
+     * Returns a comma separated list of alternative names.
+     * @return string|null
+     */
+    public function getAlternativeNames(): ?string
+    {
+        if ($this->alternative_names === null) {
+            return null;
+        }
+
+        //Remove trailing comma
+        return rtrim($this->alternative_names, ',');
+    }
+
+    /**
+     * Sets a comma separated list of alternative names.
+     * @return $this
+     */
+    public function setAlternativeNames(?string $new_value): self
+    {
+        //Add a trailing comma, if not already there (makes it easier to find in the database)
+        if (is_string($new_value) && substr($new_value, -1) !== ',') {
+            $new_value .= ',';
+        }
+
+        $this->alternative_names = $new_value;
 
         return $this;
     }

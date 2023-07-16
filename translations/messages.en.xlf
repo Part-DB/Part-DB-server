@@ -11435,5 +11435,149 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>User impersonated</target>
       </segment>
     </unit>
+    <unit id="08SKwoy" name="info_providers.providers_list.title">
+      <segment>
+        <source>info_providers.providers_list.title</source>
+        <target>Information providers</target>
+      </segment>
+    </unit>
+    <unit id="BnbVOSD" name="info_providers.providers_list.active">
+      <segment>
+        <source>info_providers.providers_list.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="adJnJGT" name="info_providers.providers_list.disabled">
+      <segment>
+        <source>info_providers.providers_list.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
+    <unit id="1M7yaPw" name="info_providers.capabilities.basic">
+      <segment>
+        <source>info_providers.capabilities.basic</source>
+        <target>Basic</target>
+      </segment>
+    </unit>
+    <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
+      <segment>
+        <source>info_providers.capabilities.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="NGbCaWh" name="info_providers.capabilities.picture">
+      <segment>
+        <source>info_providers.capabilities.picture</source>
+        <target>Picture</target>
+      </segment>
+    </unit>
+    <unit id="a5JK5hi" name="info_providers.capabilities.datasheet">
+      <segment>
+        <source>info_providers.capabilities.datasheet</source>
+        <target>Datasheets</target>
+      </segment>
+    </unit>
+    <unit id="60AvDOv" name="info_providers.capabilities.price">
+      <segment>
+        <source>info_providers.capabilities.price</source>
+        <target>Prices</target>
+      </segment>
+    </unit>
+    <unit id="nNKOyNM" name="part.info_provider_reference.badge">
+      <segment>
+        <source>part.info_provider_reference.badge</source>
+        <target>The information provider used to create this part.</target>
+      </segment>
+    </unit>
+    <unit id="WTB_AKQ" name="part.info_provider_reference">
+      <segment>
+        <source>part.info_provider_reference</source>
+        <target>Created by Information provider</target>
+      </segment>
+    </unit>
+    <unit id="Qhaj.j4" name="oauth_client.connect.btn">
+      <segment>
+        <source>oauth_client.connect.btn</source>
+        <target>Connect OAuth</target>
+      </segment>
+    </unit>
+    <unit id="5_Z_m9s" name="info_providers.table.provider.label">
+      <segment>
+        <source>info_providers.table.provider.label</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="Cj5csML" name="info_providers.search.keyword">
+      <segment>
+        <source>info_providers.search.keyword</source>
+        <target>Keyword</target>
+      </segment>
+    </unit>
+    <unit id="rvTOWHb" name="info_providers.search.submit">
+      <segment>
+        <source>info_providers.search.submit</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="Mwq891Y" name="info_providers.search.providers.help">
+      <segment>
+        <source>info_providers.search.providers.help</source>
+        <target>Select the providers in which should be searched.</target>
+      </segment>
+    </unit>
+    <unit id="nvk25qA" name="info_providers.search.providers">
+      <segment>
+        <source>info_providers.search.providers</source>
+        <target>Providers</target>
+      </segment>
+    </unit>
+    <unit id="5kSES8M" name="info_providers.search.info_providers_list">
+      <segment>
+        <source>info_providers.search.info_providers_list</source>
+        <target>Show all available info providers</target>
+      </segment>
+    </unit>
+    <unit id="Y2gg4WI" name="info_providers.search.title">
+      <segment>
+        <source>info_providers.search.title</source>
+        <target>Create parts from info provider</target>
+      </segment>
+    </unit>
+    <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
+      <segment>
+        <source>oauth_client.flash.connection_successful</source>
+        <target>Connected to OAuth application successfully!</target>
+      </segment>
+    </unit>
+    <unit id="9ULD.eH" name="perm.part.info_providers">
+      <segment>
+        <source>perm.part.info_providers</source>
+        <target>Info providers</target>
+      </segment>
+    </unit>
+    <unit id="En713bs" name="perm.part.info_providers.create_parts">
+      <segment>
+        <source>perm.part.info_providers.create_parts</source>
+        <target>Create parts from info provider</target>
+      </segment>
+    </unit>
+    <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
+      <segment>
+        <source>entity.edit.alternative_names.label</source>
+        <target>Alternative names</target>
+      </segment>
+    </unit>
+    <unit id="GgN2HwP" name="entity.edit.alternative_names.help">
+      <segment>
+        <source>entity.edit.alternative_names.help</source>
+        <target>The alternative names given here, are used to find this element based on the results of the information providers.</target>
+      </segment>
+    </unit>
+    <unit id="TRmIjDN" name="info_providers.form.help_prefix">
+      <segment>
+        <source>info_providers.form.help_prefix</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

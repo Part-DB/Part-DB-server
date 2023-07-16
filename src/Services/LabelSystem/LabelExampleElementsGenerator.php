@@ -46,6 +46,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -79,7 +80,7 @@ final class LabelExampleElementsGenerator
         $part->setMass(123.4);
         $part->setManufacturerProductNumber('CUSTOM MPN');
         $part->setTags('Tag1, Tag2, Tag3');
-        $part->setManufacturingStatus('active');
+        $part->setManufacturingStatus(ManufacturingStatus::ACTIVE);
         $part->updateTimestamps();
 
         $part->setFavorite(true);

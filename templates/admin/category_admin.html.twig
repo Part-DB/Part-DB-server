@@ -26,6 +26,8 @@
     </div>
 
     <div class="tab-pane" id="home_advanced">
+        {{ form_row(form.alternative_names) }}
+        <hr>
         {{ form_row(form.partname_regex) }}
         {{ form_row(form.partname_hint) }}
         <hr>

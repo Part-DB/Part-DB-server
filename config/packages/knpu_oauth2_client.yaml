@@ -1,0 +1,23 @@
+knpu_oauth2_client:
+    clients:
+        # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
+
+        ip_digikey_oauth:
+            type: generic
+            provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
+
+            client_id: '%env(PROVIDER_DIGIKEY_CLIENT_ID)%'
+            client_secret: '%env(PROVIDER_DIGIKEY_SECRET)%'
+
+            redirect_route: 'oauth_client_check'
+            redirect_params: {name: 'ip_digikey_oauth'}
+
+            provider_options:
+                urlAuthorize: 'https://api.digikey.com/v1/oauth2/authorize'
+                urlAccessToken: 'https://api.digikey.com/v1/oauth2/token'
+                urlResourceOwnerDetails: ''
+
+                # Sandbox
+                #urlAuthorize: 'https://sandbox-api.digikey.com/v1/oauth2/authorize'
+                #urlAccessToken: 'https://sandbox-api.digikey.com/v1/oauth2/token'
+                #urlResourceOwnerDetails: ''

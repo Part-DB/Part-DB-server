@@ -105,11 +105,11 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[M_STATUS]]' === $placeholder) {
-            if ('' === $part->getManufacturingStatus()) {
+            if (null === $part->getManufacturingStatus()) {
                 return '';
             }
 
-            return $this->translator->trans('m_status.'.$part->getManufacturingStatus());
+            return $this->translator->trans($part->getManufacturingStatus()->toTranslationKey());
         }
 
         $parsedown = new Parsedown();

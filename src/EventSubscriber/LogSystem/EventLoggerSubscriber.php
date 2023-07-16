@@ -29,6 +29,7 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\OAuthToken;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
@@ -344,6 +345,11 @@ class EventLoggerSubscriber implements EventSubscriber
      */
     protected function validEntity(object $entity): bool
     {
+        //Dont log OAuthTokens
+        if ($entity instanceof OAuthToken) {
+            return false;
+        }
+
         //Dont log logentries itself!
         return $entity instanceof AbstractDBElement && !$entity instanceof AbstractLogEntry;
     }

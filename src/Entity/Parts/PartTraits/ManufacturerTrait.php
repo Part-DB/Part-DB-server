@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
@@ -60,12 +61,11 @@ trait ManufacturerTrait
     protected string $manufacturer_product_number = '';
 
     /**
-     * @var string|null The production status of this part. Can be one of the specified ones.
+     * @var ManufacturingStatus|null The production status of this part. Can be one of the specified ones.
      */
-    #[Assert\Choice(['announced', 'active', 'nrfnd', 'eol', 'discontinued', ''])]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    protected ?string $manufacturing_status = '';
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true, enumType: ManufacturingStatus::class)]
+    protected ?ManufacturingStatus $manufacturing_status = ManufacturingStatus::NOT_SET;
 
     /**
      * Get the link to the website of the article on the manufacturers website
@@ -113,9 +113,9 @@ trait ManufacturerTrait
      * * "eol": Part will become discontinued soon
      * * "discontinued": Part is obsolete/discontinued by the manufacturer.
      *
-     * @return string
+     * @return ManufacturingStatus|null
      */
-    public function getManufacturingStatus(): ?string
+    public function getManufacturingStatus(): ?ManufacturingStatus
     {
         return $this->manufacturing_status;
     }
@@ -124,9 +124,9 @@ trait ManufacturerTrait
      * Sets the manufacturing status for this part
      * See getManufacturingStatus() for valid values.
      *
-     * @return Part
+     * @return $this
      */
-    public function setManufacturingStatus(string $manufacturing_status): self
+    public function setManufacturingStatus(ManufacturingStatus $manufacturing_status): self
     {
         $this->manufacturing_status = $manufacturing_status;
 

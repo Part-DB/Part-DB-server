@@ -97,7 +97,11 @@ final class UserExtension extends AbstractExtension
     {
         $token = $this->security->getToken();
         if ($token instanceof SwitchUserToken) {
-            return $token->getOriginalToken()->getUser();
+            $tmp = $token->getOriginalToken()->getUser();
+
+            if ($tmp instanceof User) {
+                return $tmp;
+            }
         }
 
         return null;
