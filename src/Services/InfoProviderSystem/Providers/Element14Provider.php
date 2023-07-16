@@ -37,7 +37,6 @@ class Element14Provider implements InfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://api.element14.com/catalog/products';
-    private const FARNELL_STORE_ID = 'de.farnell.com';
     private const API_VERSION_NUMBER = '1.2';
     private const NUMBER_OF_RESULTS = 20;
 
@@ -46,7 +45,7 @@ class Element14Provider implements InfoProviderInterface
     private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
-    public function __construct(private readonly HttpClientInterface $element14Client, private readonly string $api_key)
+    public function __construct(private readonly HttpClientInterface $element14Client, private readonly string $api_key, private readonly string $store_id)
     {
 
     }
@@ -57,6 +56,7 @@ class Element14Provider implements InfoProviderInterface
             'name' => 'Farnell element14',
             'description' => 'This provider uses the Farnell element14 API to search for parts.',
             'url' => 'https://www.element14.com/',
+            'disabled_help' => 'Configure the API key in the PROVIDER_ELEMENT14_KEY environment variable to enable.'
         ];
     }
 
@@ -79,7 +79,7 @@ class Element14Provider implements InfoProviderInterface
         $response = $this->element14Client->request('GET', self::ENDPOINT_URL, [
             'query' => [
                 'term' => $term,
-                'storeInfo.id' => self::FARNELL_STORE_ID,
+                'storeInfo.id' => $this->store_id,
                 'resultsSettings.offset' => 0,
                 'resultsSettings.numberOfResults' => self::NUMBER_OF_RESULTS,
                 'resultsSettings.responseGroup' => 'large',
@@ -121,7 +121,7 @@ class Element14Provider implements InfoProviderInterface
 
     private function generateProductURL($sku): string
     {
-        return 'https://' . self::FARNELL_STORE_ID . '/' . $sku;
+        return 'https://' . $this->store_id . '/' . $sku;
     }
 
     /**
@@ -154,7 +154,7 @@ class Element14Provider implements InfoProviderInterface
             $locale = 'en_US';
         }
 
-        return 'https://' . self::FARNELL_STORE_ID . '/productimages/standard/' . $locale . $image['baseName'];
+        return 'https://' . $this->store_id . '/productimages/standard/' . $locale . $image['baseName'];
     }
 
     /**
@@ -189,7 +189,7 @@ class Element14Provider implements InfoProviderInterface
     public function getUsedCurrency(): string
     {
         //Decide based on the shop ID
-        return match (self::FARNELL_STORE_ID) {
+        return match ($this->store_id) {
             'bg.farnell.com' => 'EUR',
             'cz.farnell.com' => 'CZK',
             'dk.farnell.com' => 'DKK',
@@ -237,7 +237,7 @@ class Element14Provider implements InfoProviderInterface
             'tw.element14.com' => 'TWD',
             'kr.element14.com' => 'KRW',
             'vn.element14.com' => 'VND',
-            default => throw new \RuntimeException('Unknown store ID: ' . self::FARNELL_STORE_ID)
+            default => throw new \RuntimeException('Unknown store ID: ' . $this->store_id)
         };
     }
 

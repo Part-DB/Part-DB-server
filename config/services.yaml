@@ -246,17 +246,27 @@ services:
 
     App\Services\InfoProviderSystem\Providers\Element14Provider:
         arguments:
-            $api_key: '%env(PROVIDER_ELEMENT14_KEY)%'
+            $api_key: '%env(string:PROVIDER_ELEMENT14_KEY)%'
+            $store_id: '%env(string:PROVIDER_ELEMENT14_STORE_ID)%'
 
     App\Services\InfoProviderSystem\Providers\DigikeyProvider:
         arguments:
-            $clientId: '%env(PROVIDER_DIGIKEY_CLIENT_ID)%'
-            $currency: '%partdb.default_currency%'
+            $clientId: '%env(string:PROVIDER_DIGIKEY_CLIENT_ID)%'
+            $currency: '%env(string:PROVIDER_DIGIKEY_CURRENCY)%'
+            $language: '%env(string:PROVIDER_DIGIKEY_LANGUAGE)%'
+            $country: '%env(string:PROVIDER_DIGIKEY_COUNTRY)%'
 
     App\Services\InfoProviderSystem\Providers\TMEClient:
         arguments:
-            $secret: '%env(PROVIDER_TME_SECRET)%'
-            $token: '%env(PROVIDER_TME_KEY)%'
+            $secret: '%env(string:PROVIDER_TME_SECRET)%'
+            $token: '%env(string:PROVIDER_TME_KEY)%'
+
+    App\Services\InfoProviderSystem\Providers\TMEProvider:
+        arguments:
+            $currency: '%env(string:PROVIDER_TME_CURRENCY)%'
+            $country: '%env(string:PROVIDER_TME_COUNTRY)%'
+            $language: '%env(string:PROVIDER_TME_LANGUAGE)%'
+            $get_gross_prices: '%env(bool:PROVIDER_TME_GET_GROSS_PRICES)%'
 
     ####################################################################################################################
     # Symfony overrides

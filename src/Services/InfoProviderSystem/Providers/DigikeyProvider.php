@@ -46,15 +46,17 @@ class DigikeyProvider implements InfoProviderInterface
     private readonly HttpClientInterface $digikeyClient;
 
 
-    public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager, private readonly string $currency, private readonly string $clientId)
+    public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
+        private readonly string $currency, private readonly string $clientId,
+        private readonly string $language, private readonly string $country)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([
             "base_uri" => self::BASE_URI,
             "headers" => [
                 "X-DIGIKEY-Client-Id" => $clientId,
-                "X-DIGIKEY-Locale-Site" => 'DE',
-                "X-DIGIKEY-Locale-Language" => 'de',
+                "X-DIGIKEY-Locale-Site" => $this->country,
+                "X-DIGIKEY-Locale-Language" => $this->language,
                 "X-DIGIKEY-Locale-Currency" => $this->currency,
                 "X-DIGIKEY-Customer-Id" => 0,
             ]
@@ -68,6 +70,7 @@ class DigikeyProvider implements InfoProviderInterface
             'description' => 'This provider uses the DigiKey API to search for parts.',
             'url' => 'https://www.digikey.com/',
             'oauth_app_name' => self::OAUTH_APP_NAME,
+            'disabled_help' => 'Set the PROVIDER_DIGIKEY_CLIENT_ID and PROVIDER_DIGIKEY_SECRET env option and connect OAuth to enable.'
         ];
     }
 

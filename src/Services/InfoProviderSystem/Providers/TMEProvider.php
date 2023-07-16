@@ -38,15 +38,10 @@ class TMEProvider implements InfoProviderInterface
 
     private const VENDOR_NAME = 'TME';
 
-    private string $country = 'DE';
-    private string $language = 'en';
-    private string $currency = 'EUR';
-    /**
-     * @var bool If true, the prices are gross prices. If false, the prices are net prices.
-     */
-    private bool $get_gross_prices = true;
-
-    public function __construct(private readonly TMEClient $tmeClient)
+    public function __construct(private readonly TMEClient $tmeClient, private readonly string $country,
+        private readonly string $language, private readonly string $currency,
+        /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
+        private readonly string $get_gross_prices)
     {
 
     }
@@ -57,6 +52,7 @@ class TMEProvider implements InfoProviderInterface
             'name' => 'TME',
             'description' => 'This provider uses the API of TME (Transfer Multipart).',
             'url' => 'https://tme.eu/',
+            'disabled_help' => 'Configure the PROVIDER_TME_KEY and PROVIDER_TME_SECRET environment variables to use this provider.'
         ];
     }
 
