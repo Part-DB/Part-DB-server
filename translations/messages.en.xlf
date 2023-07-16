@@ -11438,7 +11438,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="08SKwoy" name="info_providers.providers_list.title">
       <segment>
         <source>info_providers.providers_list.title</source>
-        <target>Create parts from info provider</target>
+        <target>Information providers</target>
       </segment>
     </unit>
     <unit id="BnbVOSD" name="info_providers.providers_list.active">
@@ -11535,6 +11535,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment>
         <source>info_providers.search.info_providers_list</source>
         <target>Show all available info providers</target>
+      </segment>
+    </unit>
+    <unit id="Y2gg4WI" name="info_providers.search.title">
+      <segment>
+        <source>info_providers.search.title</source>
+        <target>Create parts from info provider</target>
       </segment>
     </unit>
   </file>
