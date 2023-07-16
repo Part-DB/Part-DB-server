@@ -51,6 +51,8 @@ class InfoProviderController extends  AbstractController
     #[Route('/providers', name: 'info_providers_list')]
     public function listProviders(): Response
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
         return $this->render('info_providers/providers_list/providers_list.html.twig', [
             'active_providers' => $this->providerRegistry->getActiveProviders(),
             'disabled_providers' => $this->providerRegistry->getDisabledProviders(),
@@ -60,6 +62,8 @@ class InfoProviderController extends  AbstractController
     #[Route('/search', name: 'info_providers_search')]
     public function search(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
         $form = $this->createForm(PartSearchType::class);
         $form->handleRequest($request);
 
@@ -82,6 +86,7 @@ class InfoProviderController extends  AbstractController
     public function createPart(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, string $providerKey, string $providerId): Response
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
         $new_part = $this->infoRetriever->createPart($providerKey, $providerId);
 

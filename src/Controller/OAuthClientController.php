@@ -43,6 +43,8 @@ class OAuthClientController extends AbstractController
     #[Route('/{name}/connect', name: 'oauth_client_connect')]
     public function connect(string $name): Response
     {
+        $this->denyAccessUnlessGranted('@system.manage_oauth_tokens');
+
         return $this->clientRegistry
             ->getClient($name) // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect();
@@ -51,6 +53,8 @@ class OAuthClientController extends AbstractController
     #[Route('/{name}/check', name: 'oauth_client_check')]
     public function check(string $name, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('@system.manage_oauth_tokens');
+
         $client = $this->clientRegistry->getClient($name);
 
         $access_token = $client->getAccessToken();

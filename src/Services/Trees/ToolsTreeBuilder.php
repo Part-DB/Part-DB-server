@@ -133,6 +133,13 @@ class ToolsTreeBuilder
             ))->setIcon('fa-treeview fa-fw fa-solid fa-file-import');
         }
 
+        if ($this->security->isGranted('@info_providers.create_parts')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('info_providers.search.title'),
+                $this->urlGenerator->generate('info_providers_search')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
+        }
+
         return $nodes;
     }
 

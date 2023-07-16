@@ -43,7 +43,7 @@ final class PermissionData implements \JsonSerializable
     /**
      * The current schema version of the permission data
      */
-    public const CURRENT_SCHEMA_VERSION = 2;
+    public const CURRENT_SCHEMA_VERSION = 3;
 
     /**
      * Creates a new Permission Data Instance using the given data.

@@ -11543,5 +11543,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Create parts from info provider</target>
       </segment>
     </unit>
+    <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
+      <segment>
+        <source>oauth_client.flash.connection_successful</source>
+        <target>Connected to OAuth application successfully!</target>
+      </segment>
+    </unit>
+    <unit id="9ULD.eH" name="perm.part.info_providers">
+      <segment>
+        <source>perm.part.info_providers</source>
+        <target>Info providers</target>
+      </segment>
+    </unit>
+    <unit id="En713bs" name="perm.part.info_providers.create_parts">
+      <segment>
+        <source>perm.part.info_providers.create_parts</source>
+        <target>Create parts from info provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

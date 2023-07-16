@@ -139,6 +139,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       ic_logos:
         label: "perm.tools.ic_logos"
 
+  info_providers:
+    label: "perm.part.info_providers"
+    operations:
+      create_parts:
+        label: "perm.part.info_providers.create_parts"
+        alsoSet: ['parts.create']
+
   groups:
     label: "perm.groups"
     group: "system"
@@ -242,6 +249,8 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         alsoSet: 'show_logs'
       server_infos:
         label: "perm.server_infos"
+      manage_oauth_tokens:
+        label: "Manage OAuth tokens"
 
   attachments:
     label: "perm.part.attachments"
