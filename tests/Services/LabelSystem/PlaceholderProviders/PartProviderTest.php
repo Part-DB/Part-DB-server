@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -80,7 +81,7 @@ class PartProviderTest extends WebTestCase
         $this->target->setMass(1234.2);
         $this->target->setTags('SMD, Tag1, Tag2');
         $this->target->setManufacturerProductNumber('MPN123');
-        $this->target->setManufacturingStatus('active');
+        $this->target->setManufacturingStatus(ManufacturingStatus::ACTIVE);
 
         $this->target->setDescription('<b>Bold</b> *Italic*');
         $this->target->setComment('<b>Bold</b> *Italic*');

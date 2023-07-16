@@ -46,6 +46,7 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -83,7 +84,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part->setTags('test, Test, Part2');
         $part->setMass(100.2);
         $part->setNeedsReview(true);
-        $part->setManufacturingStatus('active');
+        $part->setManufacturingStatus(ManufacturingStatus::ACTIVE);
         $manager->persist($part);
 
         /** Part with orderdetails, storelocations and Attachments */
