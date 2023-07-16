@@ -3,15 +3,3 @@ framework:
     default_options:
       headers:
         'User-Agent': 'Part-DB'
-
-
-    scoped_clients:
-      digikey.client:
-        base_uri: 'https://sandbox-api.digikey.com'
-        auth_bearer: '%env(PROVIDER_DIGIKEY_TOKEN)%'
-        headers:
-          X-DIGIKEY-Client-Id: '%env(PROVIDER_DIGIKEY_CLIENT_ID)%'
-          X-DIGIKEY-Locale-Site: 'DE'
-          X-DIGIKEY-Locale-Language: 'de'
-          X-DIGIKEY-Locale-Currency: '%partdb.default_currency%'
-          X-DIGIKEY-Customer-Id: 0

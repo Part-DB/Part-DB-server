@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 
 /**
  * This entity represents a OAuth token pair (access and refresh token), for an application
@@ -35,7 +36,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'oauth_tokens')]
 #[ORM\UniqueConstraint(name: 'oauth_tokens_unique_name', columns: ['name'])]
 #[ORM\Index(columns: ['name'], name: 'oauth_tokens_name_idx')]
-class OAuthToken extends AbstractNamedDBElement
+class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
 {
     /** @var string|null The short-term usable OAuth2 token */
     #[ORM\Column(type: 'string', nullable: true)]
@@ -49,10 +50,10 @@ class OAuthToken extends AbstractNamedDBElement
     #[ORM\Column(type: 'string')]
     private string $refresh_token = '';
 
+    private const DEFAULT_EXPIRATION_TIME = 3600;
+
     public function __construct(string $name, string $refresh_token, string $token = null, \DateTimeInterface $expires_at = null)
     {
-        parent::__construct();
-
         //If token is given, you also have to give the expires_at date
         if ($token !== null && $expires_at === null) {
             throw new \InvalidArgumentException('If you give a token, you also have to give the expires_at date');
@@ -64,4 +65,70 @@ class OAuthToken extends AbstractNamedDBElement
         $this->token = $token;
     }
 
+    public static function fromAccessToken(AccessTokenInterface $accessToken, string $name): self
+    {
+        return new self(
+            $name,
+            $accessToken->getRefreshToken(),
+            $accessToken->getToken(),
+            self::unixTimestampToDatetime($accessToken->getExpires() ?? time() + self::DEFAULT_EXPIRATION_TIME)
+        );
+    }
+
+    private static function unixTimestampToDatetime(int $timestamp): \DateTimeInterface
+    {
+        return \DateTimeImmutable::createFromFormat('U', (string)$timestamp);
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function getExpirationDate(): ?\DateTimeInterface
+    {
+        return $this->expires_at;
+    }
+
+    public function getRefreshToken(): string
+    {
+        return $this->refresh_token;
+    }
+
+    public function isExpired(): bool
+    {
+        //null token is always expired
+        if ($this->token === null) {
+            return true;
+        }
+
+        if ($this->expires_at === null) {
+            return false;
+        }
+
+        return $this->expires_at->getTimestamp() < time();
+    }
+
+    public function replaceWithNewToken(AccessTokenInterface $accessToken): void
+    {
+        $this->token = $accessToken->getToken();
+        $this->refresh_token = $accessToken->getRefreshToken();
+        //If no expiration date is given, we set it to the default expiration time
+        $this->expires_at = self::unixTimestampToDatetime($accessToken->getExpires() ?? time() + self::DEFAULT_EXPIRATION_TIME);
+    }
+
+    public function getExpires()
+    {
+        return $this->expires_at->getTimestamp();
+    }
+
+    public function hasExpired()
+    {
+        return $this->isExpired();
+    }
+
+    public function getValues()
+    {
+        return [];
+    }
 }

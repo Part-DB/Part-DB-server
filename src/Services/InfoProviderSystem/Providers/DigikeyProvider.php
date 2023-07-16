@@ -26,14 +26,29 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\OAuth\OAuthTokenManager;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DigikeyProvider implements InfoProviderInterface
 {
 
-    public function __construct(private readonly HttpClientInterface $digikeyClient)
-    {
+    private const OAUTH_APP_NAME = 'ip_digikey_oauth';
 
+    private readonly HttpClientInterface $digikeyClient;
+
+    public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager, string $currency, string $clientId)
+    {
+        //Create the HTTP client with some default options
+        $this->digikeyClient = $httpClient->withOptions([
+            "base_uri" => 'https://sandbox-api.digikey.com',
+            "headers" => [
+                "X-DIGIKEY-Client-Id" => $clientId,
+                "X-DIGIKEY-Locale-Site" => 'DE',
+                "X-DIGIKEY-Locale-Language" => 'de',
+                "X-DIGIKEY-Locale-Currency" => $currency,
+                "X-DIGIKEY-Customer-Id" => 0,
+            ]
+        ]);
     }
 
     public function getProviderInfo(): array
@@ -77,6 +92,7 @@ class DigikeyProvider implements InfoProviderInterface
 
         $response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
             'json' => $request,
+            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
         $response_array = $response->toArray();

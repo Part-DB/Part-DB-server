@@ -248,6 +248,11 @@ services:
         arguments:
             $api_key: '%env(PROVIDER_ELEMENT14_KEY)%'
 
+    App\Services\InfoProviderSystem\Providers\DigikeyProvider:
+        arguments:
+            $clientId: '%env(PROVIDER_DIGIKEY_CLIENT_ID)%'
+            $currency: '%partdb.default_currency%'
+
     App\Services\InfoProviderSystem\Providers\TMEClient:
         arguments:
             $secret: '%env(PROVIDER_TME_SECRET)%'
