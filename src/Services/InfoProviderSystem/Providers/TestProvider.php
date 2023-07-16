@@ -23,8 +23,15 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
+/**
+ * This is a provider, which is used during tests
+ */
+#[When(env: 'test')]
 class TestProvider implements InfoProviderInterface
 {
 
@@ -50,7 +57,11 @@ class TestProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
-        // TODO: Implement searchByKeyword() method.
+        return [
+            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element1', name: 'Element 1', description: 'fd'),
+            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element2', name: 'Element 2', description: 'fd'),
+            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element3', name: 'Element 3', description: 'fd'),
+        ];
     }
 
     public function getCapabilities(): array
@@ -63,6 +74,22 @@ class TestProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        // TODO: Implement getDetails() method.
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $id,
+            name: 'Test Element',
+            description: 'fd',
+            manufacturer: 'Test Manufacturer',
+            mpn: '1234',
+            provider_url: 'https://invalid.invalid',
+            footprint: 'Footprint',
+            notes: 'Notes',
+            datasheets: [
+                new FileDTO('https://invalid.invalid/invalid.pdf', 'Datasheet')
+            ],
+            images: [
+                new FileDTO('https://invalid.invalid/invalid.png', 'Image')
+            ]
+        );
     }
 }

@@ -140,5 +140,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/project/1/add_parts?parts=1,2'];
         yield ['/project/1/build?n=1'];
         yield ['/project/1/import_bom'];
+
+        //Test info provider system
+        yield ['/tools/info_providers/providers']; //List all providers
+        yield ['/tools/info_providers/search']; //Search page
+        yield ['/part/from_info_provider/test/element1/create']; //Create part from info provider
     }
 }
