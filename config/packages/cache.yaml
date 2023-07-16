@@ -20,3 +20,6 @@ framework:
             tree.cache:
                 adapter: cache.app
                 tags: true
+
+            info_provider.cache:
+                adapter: cache.app

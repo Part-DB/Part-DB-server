@@ -27,15 +27,22 @@ use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
-class PartInfoRetriever
+final class PartInfoRetriever
 {
-    public function __construct(private readonly ProviderRegistry $provider_registry, private readonly DTOtoEntityConverter $dto_to_entity_converter)
+
+    private const CACHE_DETAIL_EXPIRATION = 60 * 60 * 24 * 4; // 4 days
+    private const CACHE_RESULT_EXPIRATION = 60 * 60 * 24 * 7; // 7 days
+
+    public function __construct(private readonly ProviderRegistry $provider_registry,
+        private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache)
     {
     }
 
     /**
-     * Search for a keyword in the given providers
+     * Search for a keyword in the given providers. The results can be cached
      * @param  string[]|InfoProviderInterface[]  $providers A list of providers to search in, either as provider keys or as provider instances
      * @param  string  $keyword The keyword to search for
      * @return SearchResultDTO[] The search results
@@ -54,21 +61,43 @@ class PartInfoRetriever
             }
 
             /** @noinspection SlowArrayOperationsInLoopInspection */
-            $results = array_merge($results, $provider->searchByKeyword($keyword));
+            $results = array_merge($results, $this->searchInProvider($provider, $keyword));
         }
 
         return $results;
     }
 
     /**
-     * Retrieves the details for a part from the given provider with the given (provider) part id
+     * Search for a keyword in the given provider. The result is cached for 7 days.
+     * @return SearchResultDTO[]
+     */
+    protected function searchInProvider(InfoProviderInterface $provider, string $keyword): array
+    {
+        return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$keyword}", function (ItemInterface $item) use ($provider, $keyword) {
+            //Set the expiration time
+            $item->expiresAfter(self::CACHE_RESULT_EXPIRATION);
+
+            return $provider->searchByKeyword($keyword);
+        });
+    }
+
+    /**
+     * Retrieves the details for a part from the given provider with the given (provider) part id.
+     * The result is cached for 4 days.
      * @param  string  $provider_key
      * @param  string  $part_id
      * @return
      */
     public function getDetails(string $provider_key, string $part_id): PartDetailDTO
     {
-        return $this->provider_registry->getProviderByKey($provider_key)->getDetails($part_id);
+        $provider = $this->provider_registry->getProviderByKey($provider_key);
+
+        return $this->partInfoCache->get("details_{$provider_key}_{$part_id}", function (ItemInterface $item) use ($provider, $part_id) {
+            //Set the expiration time
+            $item->expiresAfter(self::CACHE_DETAIL_EXPIRATION);
+
+            return $provider->getDetails($part_id);
+        });
     }
 
     public function getDetailsForSearchResult(SearchResultDTO $search_result): PartDetailDTO
