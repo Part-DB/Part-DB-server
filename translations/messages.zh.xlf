@@ -2702,6 +2702,36 @@
         <target>用户上传附件数</target>
       </segment>
     </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_delete</source>
+        <target>删除密钥</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>没有注册任何安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_new_key</source>
+        <target>注册新的安全密钥</target>
+      </segment>
+    </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:40</note>
