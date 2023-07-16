@@ -1268,5 +1268,115 @@
         <target>库存</target>
       </segment>
     </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>未知储存位置</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>数量不明</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>过期时间</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>已过期</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>需要补充</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>上一张图片</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>下一张图片</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>重量</target>
+      </segment>
+    </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>需要检查</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>收藏</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>已停产</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
