@@ -2732,6 +2732,159 @@
         <target>注册新的安全密钥</target>
       </segment>
     </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>在检查双因素认证时，可以将当前计算机标记为可信，这样不再需要对此计算机进行双因素检查。
+如果您的操作不正确或者计算机不再受信任，您可以在此处重置&lt;i&gt;所有 &lt;/i&gt;计算机的状态。</target>
+      </segment>
+    </unit>
+    <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_title</source>
+        <target>真的要删除所有受信任的计算机吗？</target>
+      </segment>
+    </unit>
+    <unit id="r7Z3.L4" name="tfa_trustedDevices.invalidate.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_message</source>
+        <target>您必须在所有计算机上再次执行双因素身份验证。 确保您手边有双因素设备。</target>
+      </segment>
+    </unit>
+    <unit id="jiNvzqA" name="tfa_trustedDevices.invalidate.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.btn</source>
+        <target>重置认可的设备</target>
+      </segment>
+    </unit>
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.toggle</source>
+        <target>切换侧边栏</target>
+      </segment>
+    </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>扫描仪</target>
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">templates\base.html.twig:97</note>
+      </notes>
+      <segment state="translated">
+        <source>user.loggedin.label</source>
+        <target>登录为</target>
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">templates\base.html.twig:103</note>
+      </notes>
+      <segment state="translated">
+        <source>user.login</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="Eorzg9b" name="ui.toggle_darkmode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>ui.toggle_darkmode</source>
+        <target>暗色模式</target>
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">templates\base.html.twig:106</note>
+        <note priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>user.language_select</source>
+        <target>语言选择</target>
+      </segment>
+    </unit>
+    <unit id="el2uFyW" name="search.options.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>search.options.label</source>
+        <target>搜索选项</target>
+      </segment>
+    </unit>
+    <unit id="V2u6xXi" name="tags.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
+      </notes>
+      <segment state="translated">
+        <source>tags.label</source>
+        <target>标签</target>
+      </segment>
+    </unit>
+    <unit id="RezjOdV" name="storelocation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">templates\base.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:36</note>
+        <note priority="1">src\Form\PartType.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.label</source>
+        <target>存储位置</target>
+      </segment>
+    </unit>
+    <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">templates\base.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>ordernumber.label.short</source>
+        <target>供货商单号</target>
+      </segment>
+    </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:40</note>
@@ -2745,6 +2898,93 @@
         <target>供货商</target>
       </segment>
     </unit>
+    <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note priority="1">templates\base.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>search.deactivateBarcode</source>
+        <target>检索码已停用</target>
+      </segment>
+    </unit>
+    <unit id="biFM.cv" name="search.regexmatching">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:56</note>
+        <note priority="1">templates\base.html.twig:77</note>
+      </notes>
+      <segment state="translated">
+        <source>search.regexmatching</source>
+        <target>正则表达式检索</target>
+      </segment>
+    </unit>
+    <unit id="N66qZeD" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>搜索</target>
+      </segment>
+    </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>项目</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">templates\base.html.twig:165</note>
+        <note priority="1">templates\base.html.twig:192</note>
+        <note priority="1">templates\base.html.twig:220</note>
+      </notes>
+      <segment state="translated">
+        <source>actions</source>
+        <target>动作</target>
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">templates\base.html.twig:169</note>
+        <note priority="1">templates\base.html.twig:196</note>
+        <note priority="1">templates\base.html.twig:224</note>
+      </notes>
+      <segment state="translated">
+        <source>datasource</source>
+        <target>数据源</target>
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:173</note>
+        <note priority="1">templates\base.html.twig:200</note>
+        <note priority="1">templates\base.html.twig:228</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.labelp</source>
+        <target>制造商</target>
+      </segment>
+    </unit>
     <unit id="DQQjhS_" name="supplier.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
@@ -2756,6 +2996,98 @@
       <segment state="translated">
         <source>supplier.labelp</source>
         <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="V1QubEL" name="attachment.download_failed">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:268</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download_failed</source>
+        <target>下载外部附件失败</target>
+      </segment>
+    </unit>
+    <unit id="A7i8za4" name="entity.edit_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash</source>
+        <target>修改成功保存</target>
+      </segment>
+    </unit>
+    <unit id="AoZHore" name="entity.edit_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash.invalid</source>
+        <target>无法保存变更。检查的你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="8MJvWmd" name="entity.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash</source>
+        <target>元素已创建</target>
+      </segment>
+    </unit>
+    <unit id="zZdZuYS" name="entity.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash.invalid</source>
+        <target>无法创建元素。请检查你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
+        <note priority="1">src\Controller\BaseAdminController.php:154</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>元素已删除！</target>
+      </segment>
+    </unit>
+    <unit id="2bvWUoo" name="csfr_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:182</note>
+      </notes>
+      <segment state="translated">
+        <source>csfr_invalid</source>
+        <target>CSRF Token 无效。请刷新你懂的页面或联系管理员。</target>
+      </segment>
+    </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>在此范围内没有发现物品</target>
       </segment>
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
