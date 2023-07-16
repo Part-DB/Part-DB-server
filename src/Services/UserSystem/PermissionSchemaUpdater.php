@@ -138,13 +138,4 @@ class PermissionSchemaUpdater
             $holder->getPermissions()->removePermission('devices');
         }
     }
-
-    private function upgradeSchemaToVersion3(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
-    {
-        //If the info_providers permissions are not defined yet, set it if the user can create parts
-        if (!$holder->getPermissions()->isAnyOperationOfPermissionSet('info_providers')) {
-            $user_can_create_parts = $holder->getPermissions()->getPermissionValue('parts', 'create');
-            $holder->getPermissions()->setPermissionValue('info_providers', 'create_parts', $user_can_create_parts);
-        }
-    }
 }
