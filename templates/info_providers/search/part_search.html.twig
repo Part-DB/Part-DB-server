@@ -11,36 +11,83 @@
 
 {% block card_content %}
 
-    <a href="{{ path('info_providers_list') }}">All info providers</a>
 
-    {{ form(form) }}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.keyword) }}
+    {{ form_row(form.providers) }}
+
+    <div class="row mb-2">
+        <div class="col-sm-9 offset-sm-3">
+            <a href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+        </div>
+    </div>
+
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
 
     {% if results is not null %}
         <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Manufactuer</th>
-                    <th>MPN</th>
-                    <th>Status</th>
-                    <th>Provider</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th></th>
+                <th>{% trans %}name.label{% endtrans %} / {% trans %}part.table.mpn{% endtrans %}</th>
+                <th>{% trans %}description.label{% endtrans %} / {% trans %}category.label{% endtrans %}</th>
+                <th>{% trans %}manufacturer.label{% endtrans %} / {% trans %}footprint.label{% endtrans %}</th>
+                <th>{% trans %}part.table.manufacturingStatus{% endtrans %}</th>
+                <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
             {% for result in results  %}
                 <tr>
-                    <td><img style="width: 40px;" src="{{ result.preview_image_url }}"></td>
-                    <td>{{ result.name }}</td>
-                    <td>{{ result.description }}</td>
-                    <td>{{ result.manufacturer ?? '' }}</td>
-                    <td>{{ result.mpn ?? '' }}</td>
-                    <td>{{ helper.m_status_to_badge(result.manufacturing_status) }}</td>
-                    <td><a href="{{ result.provider_url ?? '#' }}">{{ result.provider_key }}: {{ result.provider_id }}</a></td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('info_providers_create_part', {'providerKey': result.provider_key, 'providerId': result.provider_id}) }}" target="_blank">
+                        <img src="{{ result.preview_image_url }}" data-thumbnail="{{ result.preview_image_url }}"
+                             class="hoverpic" style="max-width: 45px;" {{ stimulus_controller('elements/hoverpic') }}>
+                    </td>
+                    <td>
+                        {% if result.provider_url is not null %}
+                            <a href="{{ result.provider_url }}" target="_blank" rel="noopener">{{ result.name }}</a>
+                        {% else %}
+                            {{ result.name }}
+                        {% endif %}
+
+                        {% if result.mpn is not null %}
+                            <br>
+                            <small class="text-muted" title="{% trans %}part.table.mpn{% endtrans %}">{{ result.mpn }}</small>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ result.description }}
+                        {% if result.category is not null %}
+                            <br>
+                            <small class="text-muted">{{ result.category }}</small>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ result.manufacturer ?? '' }}
+                        {% if result.footprint is not null %}
+                            <br>
+                            <small class="text-muted">{{ result.footprint }}</small>
+                        {% endif %}
+                    </td>
+                    <td>{{ helper.m_status_to_badge(result.manufacturing_status) }}</td>
+                    <td>
+                        {% if result.provider_url %}
+                            <a href="{{ result.provider_url }}" target="_blank" rel="noopener">
+                                {{ info_provider_label(result.provider_key)|default(result.provider_key) }}
+                            </a>
+                        {% else %}
+                            {{ info_provider_label(result.provider_key)|default(result.provider_key) }}
+                        {% endif %}
+                        <br>
+                        <small class="text-muted">{{ result.provider_id }}</small>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('info_providers_create_part', {'providerKey': result.provider_key, 'providerId': result.provider_id}) }}"
+                           target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
                             <i class="fa-solid fa-plus-square"></i>
                         </a>
                     </td>

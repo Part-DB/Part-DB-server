@@ -30,10 +30,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class PartSearchType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('keyword', SearchType::class);
-        $builder->add('providers', ProviderSelectType::class);
-        $builder->add('submit', SubmitType::class);
+        $builder->add('keyword', SearchType::class, [
+            'label' => 'info_providers.search.keyword',
+        ]);
+        $builder->add('providers', ProviderSelectType::class, [
+            'label' => 'info_providers.search.providers',
+            'help' => 'info_providers.search.providers.help',
+        ]);
+
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'info_providers.search.submit'
+        ]);
     }
 }

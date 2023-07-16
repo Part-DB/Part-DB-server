@@ -11438,7 +11438,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="08SKwoy" name="info_providers.providers_list.title">
       <segment>
         <source>info_providers.providers_list.title</source>
-        <target>Info providers</target>
+        <target>Create parts from info provider</target>
       </segment>
     </unit>
     <unit id="BnbVOSD" name="info_providers.providers_list.active">
@@ -11499,6 +11499,42 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment>
         <source>oauth_client.connect.btn</source>
         <target>Connect OAuth</target>
+      </segment>
+    </unit>
+    <unit id="5_Z_m9s" name="info_providers.table.provider.label">
+      <segment>
+        <source>info_providers.table.provider.label</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="Cj5csML" name="info_providers.search.keyword">
+      <segment>
+        <source>info_providers.search.keyword</source>
+        <target>Keyword</target>
+      </segment>
+    </unit>
+    <unit id="rvTOWHb" name="info_providers.search.submit">
+      <segment>
+        <source>info_providers.search.submit</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="Mwq891Y" name="info_providers.search.providers.help">
+      <segment>
+        <source>info_providers.search.providers.help</source>
+        <target>Select the providers in which should be searched.</target>
+      </segment>
+    </unit>
+    <unit id="nvk25qA" name="info_providers.search.providers">
+      <segment>
+        <source>info_providers.search.providers</source>
+        <target>Providers</target>
+      </segment>
+    </unit>
+    <unit id="5kSES8M" name="info_providers.search.info_providers_list">
+      <segment>
+        <source>info_providers.search.info_providers_list</source>
+        <target>Show all available info providers</target>
       </segment>
     </unit>
   </file>
