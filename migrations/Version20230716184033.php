@@ -21,7 +21,7 @@ final class Version20230716184033 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE categories ADD alternative_names LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE currencies ADD alternative_names LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE footprints ADD alternative_names LONGTEXT DEFAULT NULL');
-        $this->addSql('ALTER TABLE groups ADD alternative_names LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE `groups` ADD alternative_names LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE manufacturers ADD alternative_names LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE measurement_units ADD alternative_names LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE parts ADD provider_reference_provider_key VARCHAR(255) DEFAULT NULL, ADD provider_reference_provider_id VARCHAR(255) DEFAULT NULL, ADD provider_reference_provider_url VARCHAR(255) DEFAULT NULL, ADD provider_reference_last_updated DATETIME DEFAULT NULL');
