@@ -11495,5 +11495,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Created by Information provider</target>
       </segment>
     </unit>
+    <unit id="Qhaj.j4" name="oauth_client.connect.btn">
+      <segment>
+        <source>oauth_client.connect.btn</source>
+        <target>Connect OAuth</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

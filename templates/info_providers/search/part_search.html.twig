@@ -11,6 +11,8 @@
 
 {% block card_content %}
 
+    <a href="{{ path('info_providers_list') }}">All info providers</a>
+
     {{ form(form) }}
 
     {% if results is not null %}

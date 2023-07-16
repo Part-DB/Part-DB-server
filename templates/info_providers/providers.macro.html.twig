@@ -30,6 +30,10 @@
                                     {{ capability.translationKey|trans }}
                                 </span>
                             {% endfor %}
+                            {% if provider.providerInfo.oauth_app_name is defined and provider.providerInfo.oauth_app_name is not empty %}
+                                <br>
+                                <a href="{{ path('oauth_client_connect', {'name': provider.providerInfo.oauth_app_name}) }}" target="_blank" class="btn btn-outline-secondary btn-sm mt-2">{% trans %}oauth_client.connect.btn{% endtrans %}</a>
+                            {% endif %}
                         </div>
                     </div>
                     {% if provider.active == false %}
@@ -42,7 +46,6 @@
                                 {% endif %}
                             </div>
                         </div>
-
                     {% endif %}
                 </td>
             </tr>

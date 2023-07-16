@@ -75,6 +75,16 @@ final class OAuthTokenManager
     }
 
     /**
+     * Checks if a token for the given app name is existing
+     * @param  string  $app_name
+     * @return bool
+     */
+    public function hasToken(string $app_name): bool
+    {
+        return $this->getToken($app_name) !== null;
+    }
+
+    /**
      * This function refreshes the token for the given app name. The new token is saved to the database
      * The app_name must be registered in the knpu_oauth2_client.yaml
      * @param  string  $app_name
