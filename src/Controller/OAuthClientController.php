@@ -47,7 +47,7 @@ class OAuthClientController extends AbstractController
 
         return $this->clientRegistry
             ->getClient($name) // key used in config/packages/knpu_oauth2_client.yaml
-            ->redirect();
+            ->redirect([], []);
     }
 
     #[Route('/{name}/check', name: 'oauth_client_check')]

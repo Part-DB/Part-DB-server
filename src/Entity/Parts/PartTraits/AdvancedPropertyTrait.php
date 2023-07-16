@@ -169,9 +169,9 @@ trait AdvancedPropertyTrait
     /**
      * Sets the reference to the info provider, that provided the information about this part.
      * @param  InfoProviderReference  $providerReference
-     * @return AdvancedPropertyTrait
+     * @return Part
      */
-    public function setProviderReference(InfoProviderReference $providerReference): self
+    public function setProviderReference(InfoProviderReference $providerReference): Part
     {
         $this->providerReference = $providerReference;
         return $this;

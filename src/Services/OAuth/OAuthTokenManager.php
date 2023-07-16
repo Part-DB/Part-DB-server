@@ -50,6 +50,7 @@ final class OAuthTokenManager
         if ($tokenEntity) {
             $tokenEntity->replaceWithNewToken($token);
 
+            //@phpstan-ignore-next-line
             $this->entityManager->flush($tokenEntity);
 
             //We are done
@@ -59,6 +60,7 @@ final class OAuthTokenManager
         //If the token was not existing, we create a new one
         $tokenEntity = OAuthToken::fromAccessToken($token, $app_name);
         $this->entityManager->persist($tokenEntity);
+        //@phpstan-ignore-next-line
         $this->entityManager->flush($tokenEntity);
 
         return;
@@ -104,6 +106,8 @@ final class OAuthTokenManager
 
         //Persist the token
         $token->replaceWithNewToken($new_token);
+
+        //@phpstan-ignore-next-line
         $this->entityManager->flush($token);
 
         return $token;
@@ -112,7 +116,7 @@ final class OAuthTokenManager
     /**
      * This function returns the token of the given app name
      * @param  string  $app_name
-     * @return OAuthToken|null
+     * @return string|null
      */
     public function getAlwaysValidTokenString(string $app_name): ?string
     {

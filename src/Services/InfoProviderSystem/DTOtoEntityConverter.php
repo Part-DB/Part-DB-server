@@ -231,7 +231,7 @@ final class DTOtoEntityConverter
      * @phpstan-param class-string<T> $class
      * @param  string  $name The name of the entity to create
      * @return AbstractStructuralDBElement
-     * @phpstan-return T|null
+     * @phpstan-return T
      */
     private function getOrCreateEntityNonNull(string $class, string $name): AbstractStructuralDBElement
     {
@@ -263,7 +263,7 @@ final class DTOtoEntityConverter
         $tmp = $this->em->getRepository(AttachmentType::class)->findOrCreateForInfoProvider(self::TYPE_DATASHEETS_NAME);
 
         //If the entity was newly created, set the file filter
-        if ($tmp->getId() === null) {
+        if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('application/pdf');
             $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
         }
@@ -281,7 +281,7 @@ final class DTOtoEntityConverter
         $tmp = $this->em->getRepository(AttachmentType::class)->findOrCreateForInfoProvider(self::TYPE_IMAGE_NAME);
 
         //If the entity was newly created, set the file filter
-        if ($tmp->getId() === null) {
+        if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('image/*');
             $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
         }

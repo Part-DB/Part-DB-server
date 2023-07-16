@@ -236,14 +236,14 @@ class PartController extends AbstractController
     /**
      * This function provides a common implementation for methods, which use the part form.
      * @param  Request  $request
-     * @param  Part  $new_part
+     * @param  Part  $data
      * @param  array  $form_options
      * @return Response
      */
     private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = []): Response
     {
         //Ensure that mode is either 'new' or 'edit
-        if (!in_array($mode, ['new', 'edit'])) {
+        if (!in_array($mode, ['new', 'edit'], true)) {
             throw new \InvalidArgumentException('Invalid mode given');
         }
 
@@ -305,6 +305,7 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 
+        $template = '';
         if ($mode === 'new') {
             $template = 'parts/edit/new_part.html.twig';
         } else if ($mode === 'edit') {

@@ -49,7 +49,7 @@ final class ProviderRegistry
     /**
      * @param  iterable<InfoProviderInterface>  $providers
      */
-    public function __construct(private readonly iterable $providers)
+    public function __construct(iterable $providers)
     {
         foreach ($providers as $provider) {
             $key = $provider->getProviderKey();

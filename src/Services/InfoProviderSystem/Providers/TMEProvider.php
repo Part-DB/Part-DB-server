@@ -41,7 +41,7 @@ class TMEProvider implements InfoProviderInterface
     public function __construct(private readonly TMEClient $tmeClient, private readonly string $country,
         private readonly string $language, private readonly string $currency,
         /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
-        private readonly string $get_gross_prices)
+        private readonly bool $get_gross_prices)
     {
 
     }

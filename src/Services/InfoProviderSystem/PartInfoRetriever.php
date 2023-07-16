@@ -86,7 +86,7 @@ final class PartInfoRetriever
      * The result is cached for 4 days.
      * @param  string  $provider_key
      * @param  string  $part_id
-     * @return
+     * @return PartDetailDTO
      */
     public function getDetails(string $provider_key, string $part_id): PartDetailDTO
     {

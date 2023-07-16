@@ -243,9 +243,9 @@ class Element14Provider implements InfoProviderInterface
 
     /**
      * @param  array|null  $attributes
-     * @return ParameterDTO[]|null
+     * @return ParameterDTO[]
      */
-    private function attributesToParameters(?array $attributes): ?array
+    private function attributesToParameters(?array $attributes): array
     {
         $result = [];
 
@@ -258,7 +258,7 @@ class Element14Provider implements InfoProviderInterface
             }
 
             //tariffCode is a special case, we prepend a # to prevent conversion to float
-            if (in_array($attribute['attributeLabel'], ['tariffCode', 'hazardCode'])) {
+            if (in_array($attribute['attributeLabel'], ['tariffCode', 'hazardCode'], true)) {
                 $attribute['attributeValue'] = '#' . $attribute['attributeValue'];
             }
 
