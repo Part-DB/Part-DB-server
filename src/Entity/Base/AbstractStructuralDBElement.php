@@ -124,6 +124,12 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     private array $full_path_strings = [];
 
+    /**
+     * Alternative names (semicolon-separated) for this element, which can be used for searching (especially for info provider system)
+     */
+    #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
+    private ?string $alternative_names = "";
+
     public function __construct()
     {
         parent::__construct();
