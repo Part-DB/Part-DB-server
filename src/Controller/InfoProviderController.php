@@ -88,9 +88,12 @@ class InfoProviderController extends  AbstractController
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
-        $new_part = $this->infoRetriever->createPart($providerKey, $providerId);
+        $dto = $this->infoRetriever->getDetails($providerKey, $providerId);
+        $new_part = $this->infoRetriever->dtoToPart($dto);
 
-        $form = $this->createForm(PartBaseType::class, $new_part);
+        $form = $this->createForm(PartBaseType::class, $new_part, [
+            'info_provider_dto' => $dto,
+        ]);
 
         $form->handleRequest($request);
 

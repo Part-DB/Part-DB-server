@@ -100,6 +100,17 @@ class StructuralEntityType extends AbstractType
 
         $resolver->setDefault('controller', 'elements--structural-entity-select');
 
+        //Options for DTO values
+        $resolver->setDefault('dto_value', null);
+        $resolver->setAllowedTypes('dto_value', ['null', 'string']);
+        //If no help text is explicitly set, we use the dto value as help text and show it as html
+        $resolver->setDefault('help', function (Options $options) {
+            return $this->dtoText($options['dto_value']);
+        });
+        $resolver->setDefault('help_html', function (Options $options) {
+            return $options['dto_value'] !== null;
+        });
+
         $resolver->setDefault('attr', function (Options $options) {
             $tmp = [
                 'data-controller' => $options['controller'],
@@ -114,6 +125,16 @@ class StructuralEntityType extends AbstractType
         });
     }
 
+    private function dtoText(?string $text): ?string
+    {
+        if ($text === null) {
+            return null;
+        }
+
+        $result = '<b>' . $this->translator->trans('info_providers.form.help_prefix') . ':</b> ';
+
+        return $result . htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ;
+    }
 
     public function getParent(): string
     {

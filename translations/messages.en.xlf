@@ -11573,5 +11573,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>The alternative names given here, are used to find this element based on the results of the information providers.</target>
       </segment>
     </unit>
+    <unit id="TRmIjDN" name="info_providers.form.help_prefix">
+      <segment>
+        <source>info_providers.form.help_prefix</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

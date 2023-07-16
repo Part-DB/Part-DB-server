@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Part;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parameters\PartParameter;
@@ -51,6 +52,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartBaseType extends AbstractType
 {
@@ -64,6 +66,8 @@ class PartBaseType extends AbstractType
         $part = $builder->getData();
         $new_part = null === $part->getID();
 
+        /** @var PartDetailDTO|null $dto */
+        $dto = $options['info_provider_dto'];
 
         //Common section
         $builder
@@ -95,6 +99,7 @@ class PartBaseType extends AbstractType
             ->add('category', StructuralEntityType::class, [
                 'class' => Category::class,
                 'allow_add' => $this->security->isGranted('@categories.create'),
+                'dto_value' => $dto?->category,
                 'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
             ])
@@ -102,6 +107,7 @@ class PartBaseType extends AbstractType
                 'class' => Footprint::class,
                 'required' => false,
                 'label' => 'part.edit.footprint',
+                'dto_value' => $dto?->footprint,
                 'allow_add' => $this->security->isGranted('@footprints.create'),
                 'disable_not_selectable' => true,
             ])
@@ -122,6 +128,7 @@ class PartBaseType extends AbstractType
             'required' => false,
             'label' => 'part.edit.manufacturer.label',
             'allow_add' => $this->security->isGranted('@manufacturers.create'),
+            'dto_value' => $dto?->manufacturer,
             'disable_not_selectable' => true,
         ])
             ->add('manufacturer_product_url', UrlType::class, [
@@ -268,10 +275,15 @@ class PartBaseType extends AbstractType
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }
 
+
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Part::class,
+            'info_provider_dto' => null,
         ]);
+
+        $resolver->setAllowedTypes('info_provider_dto', [PartDetailDTO::class, 'null']);
     }
 }

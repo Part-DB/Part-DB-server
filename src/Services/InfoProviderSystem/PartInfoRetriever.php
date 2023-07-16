@@ -100,11 +100,28 @@ final class PartInfoRetriever
         });
     }
 
+    /**
+     * Retrieves the details for a part, based on the given search result.
+     * @param  SearchResultDTO  $search_result
+     * @return PartDetailDTO
+     */
     public function getDetailsForSearchResult(SearchResultDTO $search_result): PartDetailDTO
     {
         return $this->getDetails($search_result->provider_key, $search_result->provider_id);
     }
 
+    /**
+     * Converts the given DTO to a part entity
+     * @return Part
+     */
+    public function dtoToPart(PartDetailDTO $search_result): Part
+    {
+        return $this->createPart($search_result->provider_key, $search_result->provider_id);
+    }
+
+    /**
+     * Use the given details to create a part entity
+     */
     public function createPart(string $provider_key, string $part_id): Part
     {
         $details = $this->getDetails($provider_key, $part_id);
