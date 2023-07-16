@@ -13,6 +13,11 @@ knpu_oauth2_client:
             redirect_params: {name: 'ip_digikey_oauth'}
 
             provider_options:
-                urlAuthorize: 'https://sandbox-api.digikey.com/v1/oauth2/authorize'
-                urlAccessToken: 'https://sandbox-api.digikey.com/v1/oauth2/token'
+                urlAuthorize: 'https://api.digikey.com/v1/oauth2/authorize'
+                urlAccessToken: 'https://api.digikey.com/v1/oauth2/token'
                 urlResourceOwnerDetails: ''
+
+                # Sandbox
+                #urlAuthorize: 'https://sandbox-api.digikey.com/v1/oauth2/authorize'
+                #urlAccessToken: 'https://sandbox-api.digikey.com/v1/oauth2/token'
+                #urlResourceOwnerDetails: ''

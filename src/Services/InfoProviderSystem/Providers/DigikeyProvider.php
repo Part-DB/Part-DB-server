@@ -24,7 +24,10 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\OAuth\OAuthTokenManager;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -34,18 +37,24 @@ class DigikeyProvider implements InfoProviderInterface
 
     private const OAUTH_APP_NAME = 'ip_digikey_oauth';
 
+    //Sandbox:'https://sandbox-api.digikey.com'; (you need to change it in knpu/oauth2-client-bundle config too)
+    private const BASE_URI = 'https://api.digikey.com';
+
+    private const VENDOR_NAME = 'DigiKey';
+
     private readonly HttpClientInterface $digikeyClient;
 
-    public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager, string $currency, private readonly string $clientId)
+
+    public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager, private readonly string $currency, private readonly string $clientId)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([
-            "base_uri" => 'https://sandbox-api.digikey.com',
+            "base_uri" => self::BASE_URI,
             "headers" => [
                 "X-DIGIKEY-Client-Id" => $clientId,
                 "X-DIGIKEY-Locale-Site" => 'DE',
                 "X-DIGIKEY-Locale-Language" => 'de',
-                "X-DIGIKEY-Locale-Currency" => $currency,
+                "X-DIGIKEY-Locale-Currency" => $this->currency,
                 "X-DIGIKEY-Customer-Id" => 0,
             ]
         ]);
@@ -112,11 +121,38 @@ class DigikeyProvider implements InfoProviderInterface
                 mpn: $product['ManufacturerPartNumber'],
                 preview_image_url: $product['PrimaryPhoto'] ?? null,
                 manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']),
-                provider_url: 'https://digikey.com'.$product['ProductUrl'],
+                provider_url: $product['ProductUrl'],
             );
         }
 
         return $result;
+    }
+
+    public function getDetails(string $id): PartDetailDTO
+    {
+        $response = $this->digikeyClient->request('GET', '/Search/v3/Products/' . $id, [
+            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+        ]);
+
+        $product = $response->toArray();
+
+        $footprint = null;
+        $parameters = $this->parametersToDTOs($product['Parameters'] ?? [], $footprint);
+
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $product['DigiKeyPartNumber'],
+            name: $product['ManufacturerPartNumber'],
+            description: $product['DetailedDescription'] ?? $product['ProductDescription'],
+            manufacturer: $product['Manufacturer']['Value'] ?? null,
+            mpn: $product['ManufacturerPartNumber'],
+            preview_image_url: $product['PrimaryPhoto'] ?? null,
+            manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']),
+            provider_url: $product['ProductUrl'],
+            footprint: $footprint,
+            parameters: $parameters,
+            vendor_infos: $this->pricingToDTOs($product['StandardPricing'] ?? [], $product['DigiKeyPartNumber'], $product['ProductUrl']),
+        );
     }
 
     /**
@@ -138,8 +174,46 @@ class DigikeyProvider implements InfoProviderInterface
         };
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    /**
+     * This function converts the "Parameters" part of the Digikey API response to an array of ParameterDTOs
+     * @param  array  $parameters
+     * @param string|null  $footprint_name You can pass a variable by reference, where the name of the footprint will be stored
+     * @return ParameterDTO[]
+     */
+    private function parametersToDTOs(array $parameters, string|null &$footprint_name = null): array
     {
-        // TODO: Implement getDetails() method.
+        $results = [];
+
+        $footprint_name = null;
+
+        foreach ($parameters as $parameter) {
+            if ($parameter['ParameterId'] === 1291) { //Meaning "Manufacturer given footprint"
+                $footprint_name = $parameter['Value'];
+            }
+
+            $results[] = ParameterDTO::parseValueIncludingUnit($parameter['Parameter'], $parameter['Value']);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Converts the pricing (StandardPricing field) from the Digikey API to an array of PurchaseInfoDTOs
+     * @param  array  $price_breaks
+     * @param  string  $order_number
+     * @param  string  $product_url
+     * @return PurchaseInfoDTO[]
+     */
+    private function pricingToDTOs(array $price_breaks, string $order_number, string $product_url): array
+    {
+        $prices = [];
+
+        foreach ($price_breaks as $price_break) {
+            $prices[] = new PriceDTO(minimum_discount_amount:  $price_break['BreakQuantity'], price: (string) $price_break['UnitPrice'], currency_iso_code: $this->currency);
+        }
+
+        return [
+            new PurchaseInfoDTO(distributor_name: self::VENDOR_NAME, order_number: $order_number, prices: $prices, product_url: $product_url)
+        ];
     }
 }
