@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
@@ -116,7 +117,8 @@ class DigikeyProvider implements InfoProviderInterface
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['DigiKeyPartNumber'],
                 name: $product['ManufacturerPartNumber'],
-                description: $product['ProductDescription'],
+                description: $product['DetailedDescription'] ?? $product['ProductDescription'],
+                category: $this->getCategoryString($product),
                 manufacturer: $product['Manufacturer']['Value'] ?? null,
                 mpn: $product['ManufacturerPartNumber'],
                 preview_image_url: $product['PrimaryPhoto'] ?? null,
@@ -138,18 +140,22 @@ class DigikeyProvider implements InfoProviderInterface
 
         $footprint = null;
         $parameters = $this->parametersToDTOs($product['Parameters'] ?? [], $footprint);
+        $media = $this->mediaToDTOs($product['MediaLinks']);
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['DigiKeyPartNumber'],
             name: $product['ManufacturerPartNumber'],
             description: $product['DetailedDescription'] ?? $product['ProductDescription'],
+            category: $this->getCategoryString($product),
             manufacturer: $product['Manufacturer']['Value'] ?? null,
             mpn: $product['ManufacturerPartNumber'],
             preview_image_url: $product['PrimaryPhoto'] ?? null,
             manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']),
             provider_url: $product['ProductUrl'],
             footprint: $footprint,
+            datasheets: $media['datasheets'],
+            images: $media['images'],
             parameters: $parameters,
             vendor_infos: $this->pricingToDTOs($product['StandardPricing'] ?? [], $product['DigiKeyPartNumber'], $product['ProductUrl']),
         );
@@ -172,6 +178,17 @@ class DigikeyProvider implements InfoProviderInterface
             'Preliminary' => ManufacturingStatus::ANNOUNCED,
             default => ManufacturingStatus::NOT_SET,
         };
+    }
+
+    private function getCategoryString(array $product): string
+    {
+        $category = $product['Category']['Value'];
+        $sub_category = $product['Family']['Value'];
+
+        //Replace the  ' - ' category separator with ' -> '
+        $sub_category = str_replace(' - ', ' -> ', $sub_category);
+
+        return $category . ' -> ' . $sub_category;
     }
 
     /**
@@ -216,4 +233,34 @@ class DigikeyProvider implements InfoProviderInterface
             new PurchaseInfoDTO(distributor_name: self::VENDOR_NAME, order_number: $order_number, prices: $prices, product_url: $product_url)
         ];
     }
+
+    /**
+     * @param  array  $media_links
+     * @return FileDTO[][]
+     * @phpstan-return array<string, FileDTO[]>
+     */
+    private function mediaToDTOs(array $media_links): array
+    {
+        $datasheets = [];
+        $images = [];
+
+        foreach ($media_links as $media_link) {
+            $file = new FileDTO(url: $media_link['Url'], name: $media_link['Title']);
+
+            switch ($media_link['MediaType']) {
+                case 'Datasheets':
+                    $datasheets[] = $file;
+                    break;
+                case 'Product Photos':
+                    $images[] = $file;
+                    break;
+            }
+        }
+
+        return [
+            'datasheets' => $datasheets,
+            'images' => $images,
+        ];
+    }
+
 }
