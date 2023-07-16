@@ -265,6 +265,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getId() === null) {
             $tmp->setFiletypeFilter('application/pdf');
+            $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
         }
 
         return $tmp;
@@ -282,6 +283,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getId() === null) {
             $tmp->setFiletypeFilter('image/*');
+            $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
         }
 
         return $tmp;

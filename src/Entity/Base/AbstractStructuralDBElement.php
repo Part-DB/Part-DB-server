@@ -419,4 +419,34 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
         return $this;
     }
+
+    /**
+     * Returns a comma separated list of alternative names.
+     * @return string|null
+     */
+    public function getAlternativeNames(): ?string
+    {
+        if ($this->alternative_names === null) {
+            return null;
+        }
+
+        //Remove trailing comma
+        return rtrim($this->alternative_names, ',');
+    }
+
+    /**
+     * Sets a comma separated list of alternative names.
+     * @return $this
+     */
+    public function setAlternativeNames(?string $new_value): self
+    {
+        //Add a trailing comma, if not already there (makes it easier to find in the database)
+        if (is_string($new_value) && substr($new_value, -1) !== ',') {
+            $new_value .= ',';
+        }
+
+        $this->alternative_names = $new_value;
+
+        return $this;
+    }
 }

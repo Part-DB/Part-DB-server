@@ -16,3 +16,7 @@
 {% block new_title %}
     {% trans %}footprint.new{% endtrans %}
 {% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.alternative_names) }}
+{% endblock %}

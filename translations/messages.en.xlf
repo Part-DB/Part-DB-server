@@ -11561,5 +11561,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Create parts from info provider</target>
       </segment>
     </unit>
+    <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
+      <segment>
+        <source>entity.edit.alternative_names.label</source>
+        <target>Alternative names</target>
+      </segment>
+    </unit>
+    <unit id="GgN2HwP" name="entity.edit.alternative_names.help">
+      <segment>
+        <source>entity.edit.alternative_names.help</source>
+        <target>The alternative names given here, are used to find this element based on the results of the information providers.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

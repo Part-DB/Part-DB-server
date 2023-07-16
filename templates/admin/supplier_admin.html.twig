@@ -6,6 +6,7 @@
 
 {% block additional_panes %}
     <div class="tab-pane" id="home_advanced">
+        {{ form_row(form.alternative_names) }}
         {{ form_row(form.default_currency) }}
         {{ form_row(form.shipping_costs) }}
         {{ form_row(form.comment) }}

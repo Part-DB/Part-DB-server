@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Entity\PriceInformations\Currency;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\UserSystem\Group;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -109,6 +112,19 @@ class BaseEntityAdminForm extends AbstractType
                     'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 ]
             );
+        }
+
+        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Currency)) {
+            $builder->add('alternative_names', TextType::class, [
+                'required' => false,
+                'label' => 'entity.edit.alternative_names.label',
+                'help' => 'entity.edit.alternative_names.help',
+                'empty_data' => null,
+                'attr' => [
+                    'class' => 'tagsinput',
+                    'data-controller' => 'elements--tagsinput',
+                ]
+            ]);
         }
 
         $this->additionalFormElements($builder, $options, $entity);

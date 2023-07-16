@@ -209,17 +209,17 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             return $result[0];
         }
 
-        /*//If we have no result, try to find the element by additional names
+        //If we have no result, try to find the element by alternative names
         $qb = $this->createQueryBuilder('e');
         //Use lowercase conversion to be case-insensitive
-        $qb->where($qb->expr()->like('LOWER(e.additional_names)', 'LOWER(:name)'));
-        $qb->setParameter('name', '%'.$name.'%');
+        $qb->where($qb->expr()->like('LOWER(e.alternative_names)', 'LOWER(:name)'));
+        $qb->setParameter('name', '%'.$name.',%');
 
         $result = $qb->getQuery()->getResult();
 
-        if (count($result) === 1) {
+        if (count($result) >= 1) {
             return $result[0];
-        }*/
+        }
 
         //If we find nothing, return null
         return null;
@@ -246,6 +246,9 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             /** @var AbstractStructuralDBElement $entity */
             $entity = new $class;
             $entity->setName($name);
+
+            //Set the found name to the alternative names, so the entity can be easily renamed later
+            $entity->setAlternativeNames($name);
 
             $this->setNewEntityToCache($entity);
         }
