@@ -40,6 +40,8 @@ Also there are limits on how many requests you can do per day or months, dependi
 
 The following providers are currently available and shipped with Part-DB:
 
+(All trademarks are property of their respective owners. Part-DB is not affiliated with any of the companies.)
+
 ### Digi-Key
 The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and getting shopping information from [Digi-Key](https://www.digikey.com/).
 To use it you have to create an account at Digi-Key and get an API key on the [Digi-Key API page](https://developer.digikey.com/). 
