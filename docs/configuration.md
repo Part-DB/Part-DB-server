@@ -74,6 +74,9 @@ You can find more advanced settings in the `config/packages/hslavich_onelogin_sa
 * `SAML_SP_X509_CERT`: The public X.509 certificate of your SAML SP (here Part-DB). This is the value you have configured for the Part-DB client in your IdP. It should start with `MIIC` and end with `=`. IdPs like keycloak allows you to generate a public/private key pair for the client which you can setup here and in the `SAML_SP_PRIVATE_KEY` setting.
 * `SAML_SP_PRIVATE_KEY`: The private key of your SAML SP (here Part-DB), corresponding the public key specified in `SAML_SP_X509_CERT`. This is the value you have configured for the Part-DB client in your IdP. It should start with `MIIE` and end with `=`. IdPs like keycloak allows you to generate a public/private key pair for the client which you can setup here and in the `SAML_SP_X509_CERT` setting.
 
+### Information provider settings
+The settings prefixes with `PROVIDER_*` are used to configure the information providers.
+See the [information providers]({% link usage/information_provider_system.md %}) page for more information.
 
 ### Other / less used options
 * `TRUSTED_PROXIES`: Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct IP informations (see [here](https://symfony.com/doc/current/deployment/proxies.html) for more info).
