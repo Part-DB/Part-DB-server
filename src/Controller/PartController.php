@@ -220,7 +220,7 @@ class PartController extends AbstractController
         return $this->renderPartForm('new', $request, $new_part);
     }
 
-    #[Route('/from_info_provider/{providerKey}/{providerId}/create', name: 'info_providers_create_part')]
+    #[Route('/from_info_provider/{providerKey}/{providerId}/create', name: 'info_providers_create_part', requirements: ['providerId' => '.+'])]
     public function createFromInfoProvider(Request $request, string $providerKey, string $providerId, PartInfoRetriever $infoRetriever): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');

@@ -135,7 +135,7 @@ class DigikeyProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $response = $this->digikeyClient->request('GET', '/Search/v3/Products/' . $id, [
+        $response = $this->digikeyClient->request('GET', '/Search/v3/Products/' . urlencode($id), [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
