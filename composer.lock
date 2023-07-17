@@ -2782,16 +2782,16 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad"
+                "reference": "0bd4222b21cec7c4b7693e43dc4093d965329e00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad",
-                "reference": "807ae06ccbc73a17983ea80b5a2e4cc78c07f8ad",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/0bd4222b21cec7c4b7693e43dc4093d965329e00",
+                "reference": "0bd4222b21cec7c4b7693e43dc4093d965329e00",
                 "shasum": ""
             },
             "require": {
@@ -2835,9 +2835,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
-                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v2.0.0"
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v2.0.1"
             },
-            "time": "2023-06-11T11:09:45+00:00"
+            "time": "2023-07-17T21:39:09+00:00"
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
@@ -15396,17 +15396,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "63f15424de3fd93ab776497787df3bb2eded004b"
+                "reference": "e5af9ce18347a240cb120454a8c2665c5b162aa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/63f15424de3fd93ab776497787df3bb2eded004b",
-                "reference": "63f15424de3fd93ab776497787df3bb2eded004b",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e5af9ce18347a240cb120454a8c2665c5b162aa1",
+                "reference": "e5af9ce18347a240cb120454a8c2665c5b162aa1",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
-                "admidio/admidio": "<4.2.9",
+                "admidio/admidio": "<4.2.10",
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<=2.2.1",
                 "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
@@ -16024,7 +16024,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-14T22:04:26+00:00"
+            "time": "2023-07-17T11:04:34+00:00"
         },
         {
             "name": "sebastian/diff",
