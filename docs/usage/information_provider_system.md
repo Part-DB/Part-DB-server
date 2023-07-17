@@ -86,3 +86,11 @@ To create a custom provider, you have to create a new class implementing the `In
 Besides some metadata functions, you have to implement the `searchByKeyword()` and `getDetails()` functions, which do the actual API requests and return the information to Part-DB.
 See the existing providers for examples.
 If you created a new provider, feel free to create a pull request to add it to the Part-DB core.
+
+## Result caching
+To reduce the number of API calls against the providers, the results are cached:
+* The search results (exact search term) are cached for 7 days
+* The product details are cached for 4 days
+
+If you need a fresh result, you can clear the cache by running `php .\bin\console cache:pool:clear info_provider.cache` on the command line. 
+The default `php bin/console cache:clear` also clears the result cache, as it clears all caches.
