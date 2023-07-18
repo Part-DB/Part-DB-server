@@ -244,7 +244,7 @@ class EventLoggerSubscriber implements EventSubscriber
         $changeSet = $uow->getEntityChangeSet($entity);
 
         //Skip log entry, if only the lastModified field has changed...
-        if (isset($changeSet['lastModified']) && count($changeSet)) {
+        if (count($changeSet) === 1 && isset($changeSet['lastModified'])) {
             return;
         }
 

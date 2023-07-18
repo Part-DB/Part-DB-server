@@ -2,10 +2,6 @@
 
 {% import "log_system/details/helper.macro.html.twig" as log_helper %}
 
-{% if entry.undoEvent %}
-    <span class="badge badge-info bg-info">Test</span>
-{% endif %}
-
 {{ log_helper.comment_field(entry) }}
 
 {{ log_helper.data_change_table(entry) }}
