@@ -26,6 +26,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -84,7 +85,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         }
 
         //Abort if we dont need to redirect the user.
-        if (!$user->isNeedPwChange() && !static::TFARedirectNeeded($user)) {
+        if (!$user->isNeedPwChange() && !self::TFARedirectNeeded($user, $request)) {
             return;
         }
 
@@ -111,7 +112,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
             $flashBag->add('warning', 'user.pw_change_needed.flash');
         }
 
-        if (static::TFARedirectNeeded($user)) {
+        if (self::TFARedirectNeeded($user, $request)) {
             $flashBag->add('warning', 'user.2fa_needed.flash');
         }
 
@@ -122,16 +123,35 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * Check if a redirect because of a missing 2FA method is needed.
      * That is the case if the group of the user enforces 2FA, but the user has neither Google Authenticator nor an
      * U2F key setup.
+     * The result is cached for some minutes in the session to prevent unnecessary database queries.
      *
      * @param User $user the user for which should be checked if it needs to be redirected
      *
      * @return bool true if the user needs to be redirected
      */
-    public static function TFARedirectNeeded(User $user): bool
+    public static function TFARedirectNeeded(User $user, Request $request): bool
     {
+        //Check if when we have checked the user the last time
+        $session = $request->getSession();
+        $last_check = $session->get('tfa_redirect_check', 0);
+
+        //If we have checked the user already in the last 10 minutes, we don't need to check it again
+        if ($last_check > time() - 600) {
+            return false;
+        }
+
+        //Otherwise we check the user again
+
         $tfa_enabled = $user->isWebAuthnAuthenticatorEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        return $user->getGroup() instanceof Group && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
+        $result = $user->getGroup() instanceof Group && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
+
+        //If no redirect is needed, we set the last check time to now
+        if (!$result) {
+            $session->set('tfa_redirect_check', time());
+        }
+
+        return $result;
     }
 
     public static function getSubscribedEvents(): array

@@ -27,6 +27,9 @@ use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 
@@ -37,21 +40,33 @@ class PasswordChangeNeededSubscriberTest extends TestCase
         $user = new User();
         $group = new Group();
 
+        $request = new Request();
+        $session = new Session(new MockArraySessionStorage());
+        $request->setSession($session);
+
         //A user without a group must not redirect
         $user->setGroup(null);
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user, $request));
+
+        $session->clear();
 
         //When the group does not enforce the redirect the user must not be redirected
         $user->setGroup($group);
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user, $request));
+
+        $session->clear();
 
         //The user must be redirected if the group enforces 2FA, and it does not have a method
         $group->setEnforce2FA(true);
-        $this->assertTrue(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertTrue(PasswordChangeNeededSubscriber::TFARedirectNeeded($user, $request));
+
+        $session->clear();
 
         //User must not be redirect if google authenticator is set up
         $user->setGoogleAuthenticatorSecret('abcd');
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user, $request));
+
+        $session->clear();
 
         //User must not be redirect if 2FA is set up
         $user->setGoogleAuthenticatorSecret(null);
@@ -66,6 +81,9 @@ class PasswordChangeNeededSubscriberTest extends TestCase
             "",
             0
         ));
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        
+        $session->clear();
+
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user, $request));
     }
 }
