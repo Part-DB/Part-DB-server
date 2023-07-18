@@ -104,5 +104,7 @@ class ProviderRegistryTest extends TestCase
             $this->getMockProvider('test2'),
             $this->getMockProvider('test1'),
         ]);
+
+        $registry->getProviders();
     }
 }

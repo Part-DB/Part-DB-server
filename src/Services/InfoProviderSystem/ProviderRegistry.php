@@ -47,11 +47,27 @@ final class ProviderRegistry
     private array $providers_disabled = [];
 
     /**
+     * @var bool Whether the registry has been initialized
+     */
+    private bool $initialized = false;
+
+    /**
      * @param  iterable<InfoProviderInterface>  $providers
      */
-    public function __construct(iterable $providers)
+    public function __construct(private readonly iterable $providers)
     {
-        foreach ($providers as $provider) {
+        //We do not initialize the structures here, because we do not want to do unnecessary work
+        //We do this lazy on the first call to getProviders()
+    }
+
+    /**
+     * Initializes the registry, we do this lazy to avoid unnecessary work, on construction, which is always called
+     * even if the registry is not used
+     * @return void
+     */
+    private function initStructures(): void
+    {
+        foreach ($this->providers as $provider) {
             $key = $provider->getProviderKey();
 
             if (isset($this->providers_by_name[$key])) {
@@ -65,6 +81,8 @@ final class ProviderRegistry
                 $this->providers_disabled[$key] = $provider;
             }
         }
+
+        $this->initialized = true;
     }
 
     /**
@@ -73,6 +91,10 @@ final class ProviderRegistry
      */
     public function getProviders(): array
     {
+        if (!$this->initialized) {
+            $this->initStructures();
+        }
+
         return $this->providers_by_name;
     }
 
@@ -84,6 +106,10 @@ final class ProviderRegistry
      */
     public function getProviderByKey(string $key): InfoProviderInterface
     {
+        if (!$this->initialized) {
+            $this->initStructures();
+        }
+
         return $this->providers_by_name[$key] ?? throw new \InvalidArgumentException("Provider with key $key not found");
     }
 
@@ -93,6 +119,10 @@ final class ProviderRegistry
      */
     public function getActiveProviders(): array
     {
+        if (!$this->initialized) {
+            $this->initStructures();
+        }
+
         return $this->providers_active;
     }
 
@@ -102,6 +132,10 @@ final class ProviderRegistry
      */
     public function getDisabledProviders(): array
     {
+        if (!$this->initialized) {
+            $this->initStructures();
+        }
+
         return $this->providers_disabled;
     }
 }
