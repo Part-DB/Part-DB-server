@@ -293,9 +293,13 @@ class LogDataTable implements DataTableTypeInterface
                 $target_type = LogTargetType::fromElementClass($element);
                 $target_id = $element->getID();
 
-                $builder->orWhere('log.target_type = :filter_target_type AND log.target_id = :filter_target_id');
-                $builder->setParameter('filter_target_type', $target_type);
-                $builder->setParameter('filter_target_id', $target_id);
+                //We have to create unique parameter names for each element
+                $target_type_var = 'filter_target_type_' . uniqid('', false);
+                $target_id_var = 'filter_target_id_' . uniqid('', false);
+
+                $builder->orWhere("log.target_type = :$target_type_var AND log.target_id = :$target_id_var");
+                $builder->setParameter($target_type_var, $target_type);
+                $builder->setParameter($target_id_var, $target_id);
             }
         }
     }
