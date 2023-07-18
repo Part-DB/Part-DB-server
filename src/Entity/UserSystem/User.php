@@ -222,7 +222,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var Collection<int, UserAttachment>
      */
-    #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
@@ -234,13 +234,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
-    #[ORM\OneToMany(targetEntity: U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: U2FKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      */
-    #[ORM\OneToMany(targetEntity: WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WebauthnKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
