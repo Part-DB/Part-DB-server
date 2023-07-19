@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\FootprintRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -58,6 +60,10 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ORM\OneToMany(targetEntity: FootprintAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: FootprintAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     /**
      * @var FootprintAttachment|null

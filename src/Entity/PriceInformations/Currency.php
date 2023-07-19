@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
@@ -83,6 +85,10 @@ class Currency extends AbstractStructuralDBElement
     #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: CurrencyAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, CurrencyParameter>
      */

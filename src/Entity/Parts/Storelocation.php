@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\Attachment;
 use App\Repository\Parts\StorelocationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -108,6 +109,10 @@ class Storelocation extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: StorelocationAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     /********************************************************************************
      *

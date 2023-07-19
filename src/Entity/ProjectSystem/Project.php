@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\DeviceRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
@@ -92,6 +94,10 @@ class Project extends AbstractStructuralDBElement
     #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: ProjectAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, ProjectParameter>
      */

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
@@ -75,6 +77,10 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: GroupAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     #[Groups(['full'])]
     #[ORM\Embedded(class: PermissionData::class, columnPrefix: 'permissions_')]

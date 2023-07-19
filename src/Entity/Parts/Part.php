@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
@@ -102,7 +103,7 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment|null
      */
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
-    #[ORM\ManyToOne(targetEntity: Attachment::class)]
+    #[ORM\ManyToOne(targetEntity: PartAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

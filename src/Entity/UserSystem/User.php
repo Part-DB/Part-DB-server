@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\UserRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Validator\Constraints\NoLockout;
@@ -225,6 +227,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
+
+    #[ORM\OneToOne(targetEntity: UserAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated
      */

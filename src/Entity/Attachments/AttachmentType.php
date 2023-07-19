@@ -63,6 +63,10 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
+    #[ORM\OneToOne(targetEntity: AttachmentTypeAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    protected ?Attachment $master_picture_attachment = null;
+
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
@@ -70,9 +74,6 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
-    /**
-     * @var Collection<Attachment>
-     */
     /**
      * @var Collection<Attachment>
      */
