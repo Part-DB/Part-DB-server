@@ -246,7 +246,7 @@ class TimeTravel
 
         //Check if the property is an BackedEnum, then convert the int or float value to an enum instance
         if ((is_string($new_value) || is_int($new_value))
-            && $property->getType() !== null
+            && $property->getType() instanceof \ReflectionNamedType
             && is_a($property->getType()->getName(), \BackedEnum::class, true)) {
             /** @phpstan-var class-string<\BackedEnum> $enum_class */
             $enum_class = $property->getType()->getName();
