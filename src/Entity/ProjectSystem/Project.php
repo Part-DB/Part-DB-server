@@ -95,7 +95,7 @@ class Project extends AbstractStructuralDBElement
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: ProjectAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: ProjectAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

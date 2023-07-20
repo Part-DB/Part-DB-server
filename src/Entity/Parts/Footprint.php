@@ -61,7 +61,7 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: FootprintAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: FootprintAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

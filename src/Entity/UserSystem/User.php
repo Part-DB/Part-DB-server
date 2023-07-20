@@ -228,7 +228,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: UserAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: UserAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

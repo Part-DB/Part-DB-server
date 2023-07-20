@@ -61,7 +61,7 @@ class Manufacturer extends AbstractCompany
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: ManufacturerAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: ManufacturerAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

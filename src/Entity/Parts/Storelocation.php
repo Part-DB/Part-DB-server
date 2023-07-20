@@ -110,7 +110,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     #[ORM\OneToMany(targetEntity: StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: StorelocationAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: StorelocationAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

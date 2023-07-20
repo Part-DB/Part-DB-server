@@ -78,7 +78,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: GroupAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: GroupAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

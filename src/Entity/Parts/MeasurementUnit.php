@@ -92,7 +92,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: MeasurementUnitAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: MeasurementUnitAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 

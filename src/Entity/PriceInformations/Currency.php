@@ -86,7 +86,7 @@ class Currency extends AbstractStructuralDBElement
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
-    #[ORM\OneToOne(targetEntity: CurrencyAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: CurrencyAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 
