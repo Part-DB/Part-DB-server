@@ -51,6 +51,8 @@ use ReflectionClass;
  */
 class DBElementRepository extends EntityRepository
 {
+    private array $find_elements_by_id_cache = [];
+
     /**
      * Changes the ID of the given element to a new value.
      * You should only use it to undelete former existing elements, everything else is most likely a bad idea!
@@ -89,6 +91,38 @@ class DBElementRepository extends EntityRepository
             ->getQuery();
 
         return $q->getResult();
+    }
+
+    /**
+     * Returns the elements with the given IDs in the same order, as they were given in the input array.
+     *
+     * @param  array  $ids
+     * @return array
+     */
+    public function findByIDInMatchingOrder(array $ids): array
+    {
+        $cache_key = implode(',', $ids);
+
+        //Check if the result is already cached
+        if (isset($this->find_elements_by_id_cache[$cache_key])) {
+            return $this->find_elements_by_id_cache[$cache_key];
+        }
+
+        //Otherwise do the query
+        $qb = $this->createQueryBuilder('element');
+        $q = $qb->select('element')
+            ->where('element.id IN (?1)')
+            ->setParameter(1, $ids)
+            ->getQuery();
+
+        $result = $q->getResult();
+        $result = array_combine($ids, $result);
+        $result = array_map(fn ($id) => $result[$id], $ids);
+
+        //Cache the result
+        $this->find_elements_by_id_cache[$cache_key] = $result;
+
+        return $result;
     }
 
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void

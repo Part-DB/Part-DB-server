@@ -35,6 +35,8 @@ trait MasterAttachmentTrait
      * @var Attachment|null
      * Mapping is done in the subclasses (e.g. Part), like with the attachments.
      * If this is done here (which is possible in theory), the attachment is not lazy loaded anymore, which causes unnecessary overhead.
+     *
+     * !!! If you change this name, you have to change it in the fetchHint in the AttachmentContainingDBElementRepository (getElementsAndPreviewAttachmentByIDs()) too !!!
      */
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
     protected ?Attachment $master_picture_attachment = null;

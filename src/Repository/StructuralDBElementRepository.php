@@ -32,7 +32,7 @@ use RecursiveIteratorIterator;
  * @template TEntityClass of AbstractStructuralDBElement
  * @extends NamedDBElementRepository<TEntityClass>
  */
-class StructuralDBElementRepository extends NamedDBElementRepository
+class StructuralDBElementRepository extends AttachmentContainingDBElementRepository
 {
     /**
      * @var array An array containing all new entities created by getNewEntityByPath.
@@ -85,7 +85,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * @return AbstractStructuralDBElement[] a flattened list containing the tree elements
      * @phpstan-return array<int, TEntityClass>
      */
-    public function toNodesList(?AbstractStructuralDBElement $parent = null): array
+    public function getFlatList(?AbstractStructuralDBElement $parent = null): array
     {
         $result = [];
 

@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Contracts\HasAttachmentsInterface;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
+use App\Repository\AttachmentContainingDBElementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,7 +35,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @template-covariant AT of Attachment
  */
-#[ORM\MappedSuperclass]
+#[ORM\MappedSuperclass(repositoryClass: AttachmentContainingDBElementRepository::class)]
 abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface, HasAttachmentsInterface
 {
     use MasterAttachmentTrait;

@@ -92,7 +92,7 @@ class StructuralDBElementRepositoryTest extends WebTestCase
     public function testToNodesListRoot(): void
     {
         //List all root nodes and their children
-        $nodes = $this->repo->toNodesList();
+        $nodes = $this->repo->getFlatList();
 
         $this->assertCount(7, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);
@@ -109,7 +109,7 @@ class StructuralDBElementRepositoryTest extends WebTestCase
     {
         //List all nodes that are children to Node 1
         $node1 = $this->repo->find(1);
-        $nodes = $this->repo->toNodesList($node1);
+        $nodes = $this->repo->getFlatList($node1);
 
         $this->assertCount(3, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);

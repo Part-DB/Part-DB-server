@@ -22,7 +22,12 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Repository\AttachmentContainingDBElementRepository;
+use App\Repository\DBElementRepository;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,6 +55,31 @@ class NodesListBuilder
      */
     public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
+        /**
+         * We can not cache the entities directly, because loading them from cache will break the doctrine proxies.
+         */
+        //Retrieve the IDs of the elements
+        $ids = $this->getFlattenedIDs($class_name, $parent);
+
+        //Retrieve the elements from the IDs, the order is the same as in the $ids array
+        /** @var DBElementRepository $repo */
+        $repo = $this->em->getRepository($class_name);
+
+        if ($repo instanceof AttachmentContainingDBElementRepository) {
+            return $repo->getElementsAndPreviewAttachmentByIDs($ids);
+        }
+
+        return $repo->getElementsFromIDArray($ids);
+    }
+
+    /**
+     * This functions returns the (cached) list of the IDs of the elements for the flattened tree.
+     * @param  string  $class_name
+     * @param  AbstractStructuralDBElement|null  $parent
+     * @return array
+     */
+    private function getFlattenedIDs(string $class_name, ?AbstractStructuralDBElement $parent = null): array
+    {
         $parent_id = $parent instanceof AbstractStructuralDBElement ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace('\\', '_', $class_name);
@@ -58,10 +88,11 @@ class NodesListBuilder
         return $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
             // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
+
             /** @var StructuralDBElementRepository $repo */
             $repo = $this->em->getRepository($class_name);
 
-            return $repo->toNodesList($parent);
+            return array_map(fn(AbstractDBElement $element) => $element->getID(), $repo->getFlatList($parent));
         });
     }
 
