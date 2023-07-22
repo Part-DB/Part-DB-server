@@ -73,7 +73,7 @@ class NodesListBuilder
             return $repo->getElementsAndPreviewAttachmentByIDs($ids);
         }
 
-        return $repo->getElementsFromIDArray($ids);
+        return $repo->findByIDInMatchingOrder($ids);
     }
 
     /**

@@ -62,8 +62,7 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
         $q->setFetchMode($this->getEntityName(), 'master_picture_attachment', ClassMetadataInfo::FETCH_EAGER);
 
         $result = $q->getResult();
-        $result = array_combine($ids, $result);
-        $result = array_map(fn ($id) => $result[$id], $ids);
+        $this->sortResultArrayByIDArray($result, $ids);
 
         //Cache the result
         $this->elementsAndPreviewAttachmentCache[$cache_key] = $result;

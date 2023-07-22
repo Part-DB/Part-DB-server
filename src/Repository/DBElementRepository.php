@@ -116,13 +116,28 @@ class DBElementRepository extends EntityRepository
             ->getQuery();
 
         $result = $q->getResult();
-        $result = array_combine($ids, $result);
-        $result = array_map(fn ($id) => $result[$id], $ids);
+
+        //Sort the result so that the elements are in the same order as the input array
+        $this->sortResultArrayByIDArray($result, $ids);
 
         //Cache the result
         $this->find_elements_by_id_cache[$cache_key] = $result;
 
         return $result;
+    }
+
+    /**
+     * The elements in the result array will be sorted, so that their order of their IDs matches the order of the IDs in the input array.
+     * @param  array  $result_array
+     * @phpstan-param list<TEntityClass> $result_array
+     * @param  int[]  $ids
+     * @return void
+     */
+    protected function sortResultArrayByIDArray(array &$result_array, array $ids): void
+    {
+        usort($result_array, static function (AbstractDBElement $a, AbstractDBElement $b) use ($ids) {
+            return array_search($a->getID(), $ids, true) <=> array_search($b->getID(), $ids, true);
+        });
     }
 
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void
