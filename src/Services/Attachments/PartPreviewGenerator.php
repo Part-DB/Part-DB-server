@@ -58,6 +58,14 @@ class PartPreviewGenerator
             $list[] = $attachment;
         }
 
+        //Then comes the other images of the part
+        foreach ($part->getAttachments() as $attachment) {
+            //Dont show the master attachment twice
+            if ($this->isAttachmentValidPicture($attachment) && $attachment !== $part->getMasterPictureAttachment()) {
+                $list[] = $attachment;
+            }
+        }
+
         if ($part->getFootprint() instanceof Footprint) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
