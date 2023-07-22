@@ -48,10 +48,14 @@ class NodesListBuilder
      * Gets a flattened hierarchical tree. Useful for generating option lists.
      * In difference to the Repository Function, the results here are cached.
      *
+     * @template T of AbstractDBElement
+     *
      * @param string                           $class_name the class name of the entity you want to retrieve
+     * @phpstan-param class-string<T> $class_name
      * @param AbstractStructuralDBElement|null $parent     This entity will be used as root element. Set to null, to use global root
      *
-     * @return AbstractStructuralDBElement[] a flattened list containing the tree elements
+     * @return AbstractDBElement[] a flattened list containing the tree elements
+     * @phpstan-return list<T>
      */
     public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
@@ -76,7 +80,7 @@ class NodesListBuilder
      * This functions returns the (cached) list of the IDs of the elements for the flattened tree.
      * @param  string  $class_name
      * @param  AbstractStructuralDBElement|null  $parent
-     * @return array
+     * @return int[]
      */
     private function getFlattenedIDs(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
@@ -101,9 +105,7 @@ class NodesListBuilder
      *  The value is cached for performance reasons.
      *
      * @template T of AbstractStructuralDBElement
-     *
      * @param T $element
-     *
      * @return AbstractStructuralDBElement[]
      *
      * @phpstan-return list<T>

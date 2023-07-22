@@ -30,7 +30,7 @@ use RecursiveIteratorIterator;
 /**
  * @see \App\Tests\Repository\StructuralDBElementRepositoryTest
  * @template TEntityClass of AbstractStructuralDBElement
- * @extends NamedDBElementRepository<TEntityClass>
+ * @extends AttachmentContainingDBElementRepository<TEntityClass>
  */
 class StructuralDBElementRepository extends AttachmentContainingDBElementRepository
 {

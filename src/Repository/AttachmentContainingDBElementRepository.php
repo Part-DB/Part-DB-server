@@ -41,6 +41,7 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
      * Similar to the findByIDInMatchingOrder function, but it also hints to doctrine that the master picture attachment should be fetched eagerly.
      * @param  array  $ids
      * @return array
+     * @phpstan-return array<int, TEntityClass>
      */
     public function getElementsAndPreviewAttachmentByIDs(array $ids): array
     {
