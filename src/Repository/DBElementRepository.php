@@ -113,12 +113,11 @@ class DBElementRepository extends EntityRepository
         $q = $qb->select('element')
             ->where('element.id IN (?1)')
             ->setParameter(1, $ids)
+            //Order the results in the same order as the IDs in the input array (mysql supports this native, for SQLite we emulate it)
+            ->orderBy('FIELD(element.id, ?1)')
             ->getQuery();
 
         $result = $q->getResult();
-
-        //Sort the result so that the elements are in the same order as the input array
-        $this->sortResultArrayByIDArray($result, $ids);
 
         //Cache the result
         $this->find_elements_by_id_cache[$cache_key] = $result;

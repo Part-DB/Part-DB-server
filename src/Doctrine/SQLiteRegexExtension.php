@@ -47,14 +47,48 @@ class SQLiteRegexExtension
 
             //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
-                $native_connection->sqliteCreateFunction('REGEXP', function ($pattern, $value) {
-                    try {
-                        return (mb_ereg($pattern, $value)) ? 1 : 0;
-                    } catch (\ErrorException $e) {
-                        throw InvalidRegexException::fromMBRegexError($e);
-                    }
-                });
+                $native_connection->sqliteCreateFunction('REGEXP', $this->regexp(...), 2);
+                $native_connection->sqliteCreateFunction('FIELD', $this->field(...));
             }
         }
+    }
+
+    /**
+     * This function emulates the MySQL regexp function for SQLite
+     * @param  string  $pattern
+     * @param  string  $value
+     * @return int
+     */
+    private function regexp(string $pattern, string $value): int
+    {
+        try {
+            return (mb_ereg($pattern, $value)) ? 1 : 0;
+        } catch (\ErrorException $e) {
+            throw InvalidRegexException::fromMBRegexError($e);
+        }
+    }
+
+    /**
+     * This function emulates the MySQL field function for SQLite
+     * This function returns the index (position) of the first argument in the subsequent arguments.#
+     * If the first argument is not found or is NULL, 0 is returned.
+     * @param  string|int|null  $value
+     * @param  mixed  ...$array
+     * @return int
+     */
+    private function field(string|int|null $value, ...$array): int
+    {
+        if ($value === null) {
+            return 0;
+        }
+
+        //We are loose with the types here
+        $index = array_search($value, $array, false);
+
+        if ($index === false) {
+            return 0;
+        }
+
+        return $index + 1;
     }
 }

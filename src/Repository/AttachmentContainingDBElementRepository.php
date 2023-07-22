@@ -56,13 +56,14 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
         $qb = $this->createQueryBuilder('element');
         $q = $qb->select('element')
             ->where('element.id IN (?1)')
+            //Order the results in the same order as the IDs in the input array (mysql supports this native, for SQLite we emulate it)
+            ->orderBy('FIELD(element.id, ?1)')
             ->setParameter(1, $ids)
             ->getQuery();
 
         $q->setFetchMode($this->getEntityName(), 'master_picture_attachment', ClassMetadataInfo::FETCH_EAGER);
 
         $result = $q->getResult();
-        $this->sortResultArrayByIDArray($result, $ids);
 
         //Cache the result
         $this->elementsAndPreviewAttachmentCache[$cache_key] = $result;

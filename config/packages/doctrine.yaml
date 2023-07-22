@@ -38,6 +38,7 @@ doctrine:
             string_functions:
                 regexp: DoctrineExtensions\Query\Mysql\Regexp
                 ifnull: DoctrineExtensions\Query\Mysql\IfNull
+                field: DoctrineExtensions\Query\Mysql\Field
 
 when@test:
     doctrine:
