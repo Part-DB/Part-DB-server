@@ -28,6 +28,28 @@ With a click on the blue plus button, you will be redirected to the part creatio
 
 ![image]({% link assets/usage/information_provider_system/animation.gif %})
 
+## Alternative names
+
+Part-DB tries to automatically find existing elements from your database for the information it got from the providers for fields like manufacturer, footprint, etc.
+For this it searches for a element with the same name (case-insensitive) as the information it got from the provider. So e.g. if the provider returns "EXAMPLE CORP" as manufacturer,
+Part-DB will automatically select the element with the name "Example Corp" from your database.
+
+As the names of these fields differ from provider to provider (and maybe not even normalized for the same provider), you 
+can define multiple alternative names for an element (on their editing page).
+For example if define a manufacturer "Example Corp" with the alternative names "Example Corp.", "Example Corp", "Example Corp. Inc." and "Example Corporation",
+then the provider can return any of these names and Part-DB will still automatically select the right element.
+
+If Part-DB finds no matching element, it will automatically create a new one, when you do not change the value before saving.
+
+## Attachment types
+
+The information provider system uses attachment types to differentiate between datasheets and image attachments.
+For this it will create a "Datasheet" and "Image" attachment type on the first run. You can change the names of these 
+types in the attachment type settings (as long as you keep the "Datasheet"/"Image" in the alternative names field).
+
+If you already have attachment types for images and datasheets and want the information provider system to use them, you can
+add the alternative names "Datasheet" and "Image" to the alternative names field of the attachment types.
+
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.
