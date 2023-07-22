@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Repository\PartLotRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -79,7 +80,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var Storelocation|null The storelocation of this lot
      */
     #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: Storelocation::class)]
+    #[ORM\ManyToOne(targetEntity: Storelocation::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_store_location')]
     #[Selectable()]
     protected ?Storelocation $storage_location = null;

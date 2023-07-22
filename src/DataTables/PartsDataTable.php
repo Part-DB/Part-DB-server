@@ -22,11 +22,16 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
 use App\DataTables\Column\EnumColumn;
 use App\Entity\Parts\ManufacturingStatus;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Query;
+use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Storelocation;
-use App\DataTables\Adapters\CustomFetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -43,12 +48,9 @@ use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Services\Formatters\AmountFormatter;
-use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
-use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -267,12 +269,12 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(CustomFetchJoinORMAdapter::class, [
-                'simple_total_query' => true,
+            ->createAdapter(FetchResultsAtOnceORMAdapter::class, [
                 'query' => function (QueryBuilder $builder): void {
                     $this->getQuery($builder);
                 },
                 'entity' => Part::class,
+                'hydrate' => Query::HYDRATE_OBJECT,
                 'criteria' => [
                     function (QueryBuilder $builder) use ($options): void {
                         $this->buildCriteria($builder, $options);
@@ -280,13 +282,29 @@ final class PartsDataTable implements DataTableTypeInterface
                     new SearchCriteriaProvider(),
                 ],
             ]);
+
+        $dataTable->addEventListener(ORMAdapterEvents::PRE_QUERY, $this->preQueryEventHandler(...));
+    }
+
+    private function preQueryEventHandler(ORMAdapterQueryEvent $event): void
+    {
+        $query = $event->getQuery();
+
+        //Eager fetch the associations of the part entity (we can only fetch toOne associations that way)
+        $query->setFetchMode(Part::class, 'category', ClassMetadataInfo::FETCH_EAGER);
+        $query->setFetchMode(Part::class, 'footprint', ClassMetadata::FETCH_EAGER);
+        $query->setFetchMode(Part::class, 'manufacturer', ClassMetadata::FETCH_EAGER);
+        $query->setFetchMode(Part::class, 'partUnit', ClassMetadata::FETCH_EAGER);
+        $query->setFetchMode(Part::class, 'master_picture_attachment', ClassMetadata::FETCH_EAGER);
     }
 
     private function getQuery(QueryBuilder $builder): void
     {
         //Distinct is very slow here, do not add this here (also I think this is not needed here, as the id column is always distinct)
-        $builder->select('part')
-            ->addSelect('category')
+        $builder
+            //->distinct()
+            ->select('part')
+            /*->addSelect('category')
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partUnit')
@@ -295,7 +313,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('partLots')
             ->addSelect('orderdetails')
             ->addSelect('attachments')
-            ->addSelect('storelocations')
+            ->addSelect('storelocations')*/
             //Calculate amount sum using a subquery, so we can filter and sort by it
             ->addSelect(
                 '(
@@ -321,8 +339,9 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.parameters', 'parameters')
 
             //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
-            ->addGroupBy('part')
-            ->addGroupBy('partLots')
+            ->addGroupBy('part.id')
+            //->addGroupBy('part')
+            /*->addGroupBy('partLots')
             ->addGroupBy('category')
             ->addGroupBy('master_picture_attachment')
             ->addGroupBy('storelocations')
@@ -333,7 +352,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
-            ->addGroupBy('parameters')
+            ->addGroupBy('parameters')*/
         ;
     }
 
