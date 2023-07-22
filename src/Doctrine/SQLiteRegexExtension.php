@@ -83,6 +83,7 @@ class SQLiteRegexExtension
         }
 
         //We are loose with the types here
+        //@phpstan-ignore-next-line
         $index = array_search($value, $array, false);
 
         if ($index === false) {
