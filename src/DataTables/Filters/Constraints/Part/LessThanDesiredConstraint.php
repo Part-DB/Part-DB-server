@@ -41,9 +41,9 @@ class LessThanDesiredConstraint extends BooleanConstraint
 
         //If value is true, we want to filter for parts with stock < desired stock
         if ($this->value) {
-            $queryBuilder->andHaving('amountSum < part.minamount');
+            $queryBuilder->andHaving('amountSum < minamount');
         } else {
-            $queryBuilder->andHaving('amountSum >= part.minamount');
+            $queryBuilder->andHaving('amountSum >= minamount');
         }
     }
 }

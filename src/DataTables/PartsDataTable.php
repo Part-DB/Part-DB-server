@@ -23,11 +23,13 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
+use App\DataTables\Adapters\TwoStepORMAdapater;
 use App\DataTables\Column\EnumColumn;
 use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -269,10 +271,9 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(FetchResultsAtOnceORMAdapter::class, [
-                'query' => function (QueryBuilder $builder): void {
-                    $this->getQuery($builder);
-                },
+            ->createAdapter(TwoStepORMAdapater::class, [
+                'filter_query' => $this->getFilterQuery(...),
+                'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
                 'hydrate' => Query::HYDRATE_OBJECT,
                 'criteria' => [
@@ -282,38 +283,18 @@ final class PartsDataTable implements DataTableTypeInterface
                     new SearchCriteriaProvider(),
                 ],
             ]);
-
-        $dataTable->addEventListener(ORMAdapterEvents::PRE_QUERY, $this->preQueryEventHandler(...));
     }
 
-    private function preQueryEventHandler(ORMAdapterQueryEvent $event): void
-    {
-        $query = $event->getQuery();
 
-        //Eager fetch the associations of the part entity (we can only fetch toOne associations that way)
-        $query->setFetchMode(Part::class, 'category', ClassMetadataInfo::FETCH_EAGER);
-        $query->setFetchMode(Part::class, 'footprint', ClassMetadata::FETCH_EAGER);
-        $query->setFetchMode(Part::class, 'manufacturer', ClassMetadata::FETCH_EAGER);
-        $query->setFetchMode(Part::class, 'partUnit', ClassMetadata::FETCH_EAGER);
-        $query->setFetchMode(Part::class, 'master_picture_attachment', ClassMetadata::FETCH_EAGER);
-    }
-
-    private function getQuery(QueryBuilder $builder): void
+    private function getFilterQuery(QueryBuilder $builder): void
     {
-        //Distinct is very slow here, do not add this here (also I think this is not needed here, as the id column is always distinct)
+        /* In the filter query we only select the IDs. The fetching of the full entities is done in the detail query.
+         * We only need to join the entities here, so we can filter by them.
+         * The filter conditions are added to this QB in the buildCriteria method.
+         */
         $builder
-            //->distinct()
-            ->select('part')
-            /*->addSelect('category')
-            ->addSelect('footprint')
-            ->addSelect('manufacturer')
-            ->addSelect('partUnit')
-            ->addSelect('master_picture_attachment')
-            ->addSelect('footprint_attachment')
-            ->addSelect('partLots')
-            ->addSelect('orderdetails')
-            ->addSelect('attachments')
-            ->addSelect('storelocations')*/
+            ->select('part.id')
+            ->addSelect('part.minamount AS HIDDEN minamount')
             //Calculate amount sum using a subquery, so we can filter and sort by it
             ->addSelect(
                 '(
@@ -338,10 +319,63 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.parameters', 'parameters')
 
-            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
+            //This must be the only group by, or the paginator will not work correctly
             ->addGroupBy('part.id')
-            //->addGroupBy('part')
-            /*->addGroupBy('partLots')
+        ;
+    }
+
+    private function getDetailQuery(QueryBuilder $builder, array $ids): void
+    {
+        /*
+         * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
+         * full entities.
+         * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
+         * The only condition should be for the IDs.
+         * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
+         */
+        $builder
+            ->select('part')
+            ->addSelect('category')
+            ->addSelect('footprint')
+            ->addSelect('manufacturer')
+            ->addSelect('partUnit')
+            ->addSelect('master_picture_attachment')
+            ->addSelect('footprint_attachment')
+            ->addSelect('partLots')
+            ->addSelect('orderdetails')
+            ->addSelect('attachments')
+            ->addSelect('storelocations')
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            ->addSelect(
+                '(
+                    SELECT IFNULL(SUM(partLot.amount), 0.0)
+                    FROM '. PartLot::class. ' partLot
+                    WHERE partLot.part = part.id
+                    AND partLot.instock_unknown = false
+                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
+                ) AS HIDDEN amountSum'
+            )
+            ->from(Part::class, 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
+            ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
+            ->leftJoin('part.attachments', 'attachments')
+            ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.parameters', 'parameters')
+
+            ->where('part.id IN (:ids)')
+            ->orderBy('FIELD(part.id, :ids)')
+            ->setParameter('ids', $ids)
+
+            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
+            ->addGroupBy('part')
+            ->addGroupBy('partLots')
             ->addGroupBy('category')
             ->addGroupBy('master_picture_attachment')
             ->addGroupBy('storelocations')
@@ -352,7 +386,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
-            ->addGroupBy('parameters')*/
+            ->addGroupBy('parameters')
         ;
     }
 
