@@ -30,6 +30,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountOutputWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
 use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -52,7 +53,15 @@ class TwoStepORMAdapater extends ORMAdapter
 {
     private \Closure $detailQueryCallable;
 
-    private bool $use_simple_total;
+    private bool $use_simple_total = false;
+
+    public function __construct(ManagerRegistry $registry = null)
+    {
+        parent::__construct($registry);
+        $this->detailQueryCallable = static function (QueryBuilder $qb, array $ids) {
+            throw new \RuntimeException('You need to set the detail_query option to use the TwoStepORMAdapter');
+        };
+    }
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
