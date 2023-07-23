@@ -30,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
@@ -172,7 +173,7 @@ class PartFilterType extends AbstractType
 
         $builder->add('supplier', StructuralEntityConstraintType::class, [
             'label' => 'supplier.label',
-            'entity_class' => Manufacturer::class
+            'entity_class' => Supplier::class
         ]);
 
         $builder->add('orderdetailsCount', NumberConstraintType::class, [
