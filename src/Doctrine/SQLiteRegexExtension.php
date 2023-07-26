@@ -47,8 +47,9 @@ class SQLiteRegexExtension
 
             //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
-                $native_connection->sqliteCreateFunction('REGEXP', $this->regexp(...), 2);
-                $native_connection->sqliteCreateFunction('FIELD', $this->field(...));
+                $native_connection->sqliteCreateFunction('REGEXP', $this->regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
+                $native_connection->sqliteCreateFunction('FIELD', $this->field(...), -1, \PDO::SQLITE_DETERMINISTIC);
+                $native_connection->sqliteCreateFunction('FIELD2', $this->field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
             }
         }
     }
@@ -66,6 +67,19 @@ class SQLiteRegexExtension
         } catch (\ErrorException $e) {
             throw InvalidRegexException::fromMBRegexError($e);
         }
+    }
+
+    /**
+     * Very similar to the field function, but takes the array values as a comma separated string.
+     * This is needed as SQLite has a pretty low argument count limit.
+     * @param  string|int|null  $value
+     * @param  string  $imploded_array
+     * @return int
+     */
+    private function field2(string|int|null $value, string $imploded_array): int
+    {
+        $array = explode(',', $imploded_array);
+        return $this->field($value, ...$array);
     }
 
     /**
