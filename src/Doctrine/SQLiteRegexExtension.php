@@ -47,9 +47,9 @@ class SQLiteRegexExtension
 
             //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
             if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
-                $native_connection->sqliteCreateFunction('REGEXP', $this->regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
-                $native_connection->sqliteCreateFunction('FIELD', $this->field(...), -1, \PDO::SQLITE_DETERMINISTIC);
-                $native_connection->sqliteCreateFunction('FIELD2', $this->field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
+                $native_connection->sqliteCreateFunction('REGEXP', self::regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
+                $native_connection->sqliteCreateFunction('FIELD', self::field(...), -1, \PDO::SQLITE_DETERMINISTIC);
+                $native_connection->sqliteCreateFunction('FIELD2', self::field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
             }
         }
     }
@@ -60,10 +60,11 @@ class SQLiteRegexExtension
      * @param  string  $value
      * @return int
      */
-    private function regexp(string $pattern, string $value): int
+    final public static function regexp(string $pattern, string $value): int
     {
         try {
             return (mb_ereg($pattern, $value)) ? 1 : 0;
+
         } catch (\ErrorException $e) {
             throw InvalidRegexException::fromMBRegexError($e);
         }
@@ -76,21 +77,21 @@ class SQLiteRegexExtension
      * @param  string  $imploded_array
      * @return int
      */
-    private function field2(string|int|null $value, string $imploded_array): int
+    final public static function field2(string|int|null $value, string $imploded_array): int
     {
         $array = explode(',', $imploded_array);
-        return $this->field($value, ...$array);
+        return self::field($value, ...$array);
     }
 
     /**
      * This function emulates the MySQL field function for SQLite
-     * This function returns the index (position) of the first argument in the subsequent arguments.#
+     * This function returns the index (position) of the first argument in the subsequent arguments.
      * If the first argument is not found or is NULL, 0 is returned.
      * @param  string|int|null  $value
      * @param  mixed  ...$array
      * @return int
      */
-    private function field(string|int|null $value, ...$array): int
+    final public static function field(string|int|null $value, ...$array): int
     {
         if ($value === null) {
             return 0;
