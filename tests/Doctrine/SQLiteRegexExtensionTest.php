@@ -49,27 +49,26 @@ class SQLiteRegexExtensionTest extends TestCase
 
     public function fieldDataProvider(): \Generator
     {
-        yield [
-            // Null cases
-            0, null, [],
-            0, null, [1],
-            0, 42, [1, 2],
 
-            // Ints
-            1, 1, [1],
-            1, 2, [2, 1],
-            2, 1, [2, 1],
-            2, 2, [2, 1, 2],
-            5, 3, [2, 1, 2, 1, 2, 3],
-            1, 2, [2, 1, 2, 1, 2, 1, 2, 1, 2, 1],
+        // Null cases
+        yield [0, null, []];
+        yield [0, null, [1]];
+        yield [0, 42, [1, 2]];
 
-            // Strings
-            1, 'a', ['a'],
-            1, 'b', ['b', 'a'],
-            2, 'a', ['b', 'a'],
-            2, 'b', ['b', 'a', 'b'],
-            5, 'c', ['b', 'a', 'b', 'a', 'b', 'c'],
-        ];
+        // Ints
+        yield [1, 1, [1]];
+        yield [1, 2, [2, 1]];
+        yield [2, 1, [2, 1]];
+        yield [6, 3, [2, 1, 2, 1, 2, 3]];
+        yield [1, 2, [2, 1, 2, 1, 2, 1, 2, 1, 2, 1]];
+        yield [3, 5, [2, 1, 5, 3]];
+
+        // Strings
+        yield [1, 'a', ['a']];
+        yield [1, 'b', ['b', 'a']];
+        yield [2, 'a', ['b', 'a']];
+        yield [1, 'b', ['b', 'a', 'b']];
+        yield [6, 'c', ['b', 'a', 'b', 'a', 'b', 'c']];
     }
 
     /**

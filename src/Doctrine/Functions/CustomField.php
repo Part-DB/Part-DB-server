@@ -26,6 +26,8 @@ namespace App\Doctrine\Functions;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\AST\InputParameter;
+use Doctrine\ORM\Query\AST\Literal;
 use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
@@ -37,6 +39,7 @@ class CustomField extends Field
 
     protected Node|null|string $field = null;
 
+    /** @var Node[] */
     protected array $values = [];
 
 
@@ -93,21 +96,34 @@ class CustomField extends Field
      */
     private function getSqlForSQLite(SqlWalker $sqlWalker): string
     {
-        $query = 'FIELD2(';
+        //We must collect the real values (including the bind ones, of all values) and merge them into one string
+        $resolved = [];
 
-        $query .= $this->field->dispatch($sqlWalker);
-
-        $query .= ', "';
-
-        for ($i = 0, $iMax = count($this->values); $i < $iMax; $i++) {
-            if ($i > 0) {
-                $query .= ',';
+        foreach ($this->values as $node) {
+            if ($node instanceof InputParameter) {
+                $value = $sqlWalker->getQuery()->getParameter($node->name)?->getValue();
+                if ($value) {
+                    $resolved[] = $value;
+                }
             }
-
-            $query .= $this->values[$i]->dispatch($sqlWalker);
         }
 
-        $query .= '")';
+        $output = [];
+        array_walk_recursive($resolved, function($value) use (&$output) {
+            $output[] = $value;
+        });
+
+        //Merge all values into one string and create a new node
+        $stringified = implode(',', $output);
+        //We use it as a string literal here, as bound parameters, seems to be difficult to use here
+        $literal = new Literal(Literal::STRING, $stringified);
+
+        $query = 'FIELD2(';
+        $query .= $this->field->dispatch($sqlWalker);
+        $query .= ',';
+        //We bind the stringified values as a new parameter
+        $query .= $literal->dispatch($sqlWalker);
+        $query .= ')';
 
         return $query;
     }
