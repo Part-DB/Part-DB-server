@@ -145,7 +145,8 @@ class PKPartImporter
                 throw new \RuntimeException(sprintf('Could not find part with ID %s', $partmanufacturer['part_id']));
             }
             $manufacturer = $this->em->find(Manufacturer::class, (int) $partmanufacturer['manufacturer_id']);
-            if (!$manufacturer instanceof Manufacturer) {
+            //The manufacturer is optional
+            if (!$manufacturer instanceof Manufacturer && !empty($partmanufacturer['manufacturer_id'])) {
                 throw new \RuntimeException(sprintf('Could not find manufacturer with ID %s', $partmanufacturer['manufacturer_id']));
             }
             $part->setManufacturer($manufacturer);
