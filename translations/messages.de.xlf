@@ -11387,5 +11387,47 @@ Element 3</target>
         <target>Sehr stark</target>
       </segment>
     </unit>
+    <unit id="6OHd5fv" name="perm.users.impersonate">
+      <segment state="translated">
+        <source>perm.users.impersonate</source>
+        <target>Als anderer Benutzer ausgeben</target>
+      </segment>
+    </unit>
+    <unit id="ssn1H1A" name="user.impersonated_by.label">
+      <segment state="translated">
+        <source>user.impersonated_by.label</source>
+        <target>Als Benutzer ausgegeben durch</target>
+      </segment>
+    </unit>
+    <unit id="Qhaj.j4" name="oauth_client.connect.btn">
+      <segment state="translated">
+        <source>oauth_client.connect.btn</source>
+        <target>OAuth verbinden</target>
+      </segment>
+    </unit>
+    <unit id="Cj5csML" name="info_providers.search.keyword">
+      <segment state="translated">
+        <source>info_providers.search.keyword</source>
+        <target>Suchwort</target>
+      </segment>
+    </unit>
+    <unit id="rvTOWHb" name="info_providers.search.submit">
+      <segment state="translated">
+        <source>info_providers.search.submit</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
+      <segment state="translated">
+        <source>oauth_client.flash.connection_successful</source>
+        <target>Verbindung zur OAuth Anwendung erfolgreich hergestellt!</target>
+      </segment>
+    </unit>
+    <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
+      <segment state="translated">
+        <source>entity.edit.alternative_names.label</source>
+        <target>Alternative Namen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
