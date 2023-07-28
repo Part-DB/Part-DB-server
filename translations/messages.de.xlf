@@ -11399,6 +11399,32 @@ Element 3</target>
         <target>Als Benutzer ausgegeben durch</target>
       </segment>
     </unit>
+    <unit id="inTlSge" name="user.stop_impersonation">
+      <segment state="translated">
+        <source>user.stop_impersonation</source>
+        <target>Beende "Als Nutzer ausgeben"</target>
+      </segment>
+    </unit>
+    <unit id="T3yB7KF" name="user.impersonate.btn">
+      <segment state="translated">
+        <source>user.impersonate.btn</source>
+        <target>Als Benutzer ausgeben</target>
+      </segment>
+    </unit>
+    <unit id="sFE8diE" name="user.impersonate.confirm.title">
+      <segment state="translated">
+        <source>user.impersonate.confirm.title</source>
+        <target>Möchten Sie sich wirklich als dieser Benutzer ausgeben?</target>
+      </segment>
+    </unit>
+    <unit id="MlJJSEo" name="user.impersonate.confirm.message">
+      <segment state="translated">
+        <source>user.impersonate.confirm.message</source>
+        <target>Dies wird geloggt. Sie sollten dies nur mit einem Grund tun.
+
+Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben können. Wenn Sie dies versuchen, erhalten Sie eine "Zugriff verweigert" Nachricht.</target>
+      </segment>
+    </unit>
     <unit id="Qhaj.j4" name="oauth_client.connect.btn">
       <segment state="translated">
         <source>oauth_client.connect.btn</source>
