@@ -25,6 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
 use App\DataTables\Adapters\TwoStepORMAdapater;
 use App\DataTables\Column\EnumColumn;
+use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -324,8 +325,10 @@ final class PartsDataTable implements DataTableTypeInterface
         ;
     }
 
-    private function getDetailQuery(QueryBuilder $builder, array $ids): void
+    private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
     {
+        $ids = array_map(fn($row) => $row['id'], $filter_results);
+
         /*
          * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
          * full entities.
@@ -370,7 +373,6 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.parameters', 'parameters')
 
             ->where('part.id IN (:ids)')
-            ->orderBy('FIELD(part.id, :ids)')
             ->setParameter('ids', $ids)
 
             //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
@@ -388,6 +390,9 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('partUnit')
             ->addGroupBy('parameters')
         ;
+
+        //Get the results in the same order as the IDs were passed
+        FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
     }
 
     private function buildCriteria(QueryBuilder $builder, array $options): void

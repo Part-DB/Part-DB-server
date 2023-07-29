@@ -41,7 +41,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Base\AbstractDBElement;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 
@@ -101,6 +103,11 @@ class DBElementRepository extends EntityRepository
      */
     public function findByIDInMatchingOrder(array $ids): array
     {
+        //If no IDs are given, return an empty array
+        if (count($ids) === 0) {
+            return [];
+        }
+
         $cache_key = implode(',', $ids);
 
         //Check if the result is already cached
@@ -110,12 +117,14 @@ class DBElementRepository extends EntityRepository
 
         //Otherwise do the query
         $qb = $this->createQueryBuilder('element');
-        $q = $qb->select('element')
+        $qb->select('element')
             ->where('element.id IN (?1)')
-            ->setParameter(1, $ids)
-            //Order the results in the same order as the IDs in the input array (mysql supports this native, for SQLite we emulate it)
-            ->orderBy('FIELD(element.id, ?1)')
-            ->getQuery();
+            ->setParameter(1, $ids);
+
+        //Order the results in the same order as the IDs in the input array
+        FieldHelper::addOrderByFieldParam($qb, 'element.id', 1);
+
+        $q = $qb->getQuery();
 
         $result = $q->getResult();
 

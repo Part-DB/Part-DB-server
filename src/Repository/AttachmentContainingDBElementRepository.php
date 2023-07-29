@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
@@ -45,6 +46,11 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
      */
     public function getElementsAndPreviewAttachmentByIDs(array $ids): array
     {
+        //If no IDs are given, return an empty array
+        if (count($ids) === 0) {
+            return [];
+        }
+
         //Convert the ids to a string
         $cache_key = implode(',', $ids);
 
@@ -53,13 +59,16 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
             return $this->elementsAndPreviewAttachmentCache[$cache_key];
         }
 
-        $qb = $this->createQueryBuilder('element');
-        $q = $qb->select('element')
+        $qb = $this->createQueryBuilder('element')
+            ->select('element')
             ->where('element.id IN (?1)')
             //Order the results in the same order as the IDs in the input array (mysql supports this native, for SQLite we emulate it)
-            ->orderBy('FIELD(element.id, ?1)')
-            ->setParameter(1, $ids)
-            ->getQuery();
+            ->setParameter(1, $ids);
+
+        //Order the results in the same order as the IDs in the input array
+        FieldHelper::addOrderByFieldParam($qb, 'element.id', 1);
+
+        $q = $qb->getQuery();
 
         $q->setFetchMode($this->getEntityName(), 'master_picture_attachment', ClassMetadataInfo::FETCH_EAGER);
 
