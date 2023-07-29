@@ -130,12 +130,17 @@ final class DTOtoEntityConverter
 
         //If no name is given, try to extract the name from the URL
         if (empty($dto->name)) {
-            $entity->setName(basename($dto->url));
+            $entity->setName($this->getAttachmentNameFromURL($dto->url));
         } else {
             $entity->setName($dto->name);
         }
 
         return $entity;
+    }
+
+    private function getAttachmentNameFromURL(string $url): string
+    {
+        return basename(parse_url($url, PHP_URL_PATH));
     }
 
     /**
