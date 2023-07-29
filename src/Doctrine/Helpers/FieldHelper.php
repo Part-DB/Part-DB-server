@@ -57,12 +57,18 @@ final class FieldHelper
 
             //Generate a unique key from the field_expr
             $key = 'field2_' . (string) $bound_param;
-            //Otherwise we have to it using the FIELD2 function
-            $qb->orderBy("FIELD2($field_expr, :$key)", $order);
-            $qb->setParameter($key, implode(',', $param->getValue()));
+            self::addSqliteOrderBy($qb, $field_expr, $key, $param->getValue(), $order);
         }
 
         return $qb;
+    }
+
+    private static function addSqliteOrderBy(QueryBuilder $qb, string $field_expr, string $key, array $values, ?string $order = null): void
+    {
+        //Otherwise we emulate it using
+        $qb->orderBy("LOCATE(CONCAT($field_expr, ','), :$key)", $order);
+        //The value have to end with a comma, otherwise the search using INSTR will fail
+        $qb->setParameter($key, implode(',', $values) . ',');
     }
 
     /**
@@ -87,9 +93,10 @@ final class FieldHelper
             //Generate a unique key from the field_expr
 
             //Otherwise we have to it using the FIELD2 function
-            $qb->orderBy("FIELD2($field_expr, :$key)", $order);
-            $qb->setParameter($key, implode(',', $values));
+            self::addSqliteOrderBy($qb, $field_expr, $key, $values, $order);
         }
+
+        $qb->setParameter($key, $values);
 
         return $qb;
     }
