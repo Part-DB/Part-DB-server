@@ -11425,6 +11425,36 @@ Element 3</target>
 Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben können. Wenn Sie dies versuchen, erhalten Sie eine "Zugriff verweigert" Nachricht.</target>
       </segment>
     </unit>
+    <unit id="1M7yaPw" name="info_providers.capabilities.basic">
+      <segment state="translated">
+        <source>info_providers.capabilities.basic</source>
+        <target>Grundinformationen</target>
+      </segment>
+    </unit>
+    <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
+      <segment state="translated">
+        <source>info_providers.capabilities.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="NGbCaWh" name="info_providers.capabilities.picture">
+      <segment state="translated">
+        <source>info_providers.capabilities.picture</source>
+        <target>Bilder</target>
+      </segment>
+    </unit>
+    <unit id="a5JK5hi" name="info_providers.capabilities.datasheet">
+      <segment state="translated">
+        <source>info_providers.capabilities.datasheet</source>
+        <target>Datenblätter</target>
+      </segment>
+    </unit>
+    <unit id="60AvDOv" name="info_providers.capabilities.price">
+      <segment state="translated">
+        <source>info_providers.capabilities.price</source>
+        <target>Preise</target>
+      </segment>
+    </unit>
     <unit id="Qhaj.j4" name="oauth_client.connect.btn">
       <segment state="translated">
         <source>oauth_client.connect.btn</source>
