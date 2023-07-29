@@ -1,1269 +1,3466 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-TW">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
   <file id="messages.en">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.caption</source>
+        <target>附件文件类型</target>
+      </segment>
+    </unit>
+    <unit id="5cpaOO8" name="attachment_type.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit</source>
+        <target>编辑附件类型</target>
+      </segment>
+    </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>新附件类型</target>
+      </segment>
+    </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:163</note>
+        <note priority="1">templates\base.html.twig:170</note>
+        <note priority="1">templates\base.html.twig:197</note>
+        <note priority="1">templates\base.html.twig:225</note>
+      </notes>
+      <segment state="translated">
+        <source>category.labelp</source>
+        <target>类别</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>选项</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.advanced</source>
+        <target>高级</target>
+      </segment>
+    </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>编辑类别</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>新建类别</target>
+      </segment>
+    </unit>
+    <unit id="BJtSZa4" name="currency.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.caption</source>
+        <target>货币</target>
+      </segment>
+    </unit>
+    <unit id="dzfYFww" name="currency.iso_code.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.iso_code.caption</source>
+        <target>ISO 代码</target>
+      </segment>
+    </unit>
+    <unit id="lrCa3tF" name="currency.symbol.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.symbol.caption</source>
+        <target>货币符号</target>
+      </segment>
+    </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>编辑货币</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>新建货币</target>
+      </segment>
+    </unit>
+    <unit id="zNlEdQs" name="project.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>project.caption</source>
+        <target>项目</target>
+      </segment>
+    </unit>
+    <unit id="DTt5Co7" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>编辑项目</target>
+      </segment>
+    </unit>
+    <unit id="O_iNK2O" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>新建项目</target>
+      </segment>
+    </unit>
+    <unit id="lQ8QeGr" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:80</note>
+        <note priority="1">templates\base.html.twig:179</note>
+        <note priority="1">templates\base.html.twig:206</note>
+        <note priority="1">templates\base.html.twig:237</note>
+      </notes>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>搜索</target>
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:166</note>
+        <note priority="1">templates\base.html.twig:193</note>
+        <note priority="1">templates\base.html.twig:221</note>
+      </notes>
+      <segment state="translated">
+        <source>expandAll</source>
+        <target>全部展开</target>
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note priority="1">templates\base.html.twig:167</note>
+        <note priority="1">templates\base.html.twig:194</note>
+        <note priority="1">templates\base.html.twig:222</note>
+      </notes>
+      <segment state="translated">
+        <source>reduceAll</source>
+        <target>全部折叠</target>
+      </segment>
+    </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>这就是该部分在 %timestamp% 之前出现的方式。 &lt;i&gt;请注意，此功能尚处于实验阶段，因此信息可能不正确。&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>属性</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>信息</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>历史</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>导出</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>导入 / 导出</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>批量创建</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>通常</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>参数</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>导出所有元素</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>每一行将被解释为将创建的元素的名称。 您可以通过缩进创建嵌套结构。</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>编辑元素 "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>新元素</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>封装</target>
+      </segment>
+    </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>编辑封装</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>新建封装</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>组</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>权限</target>
+      </segment>
+    </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>编辑组</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>新建组</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>标签属性</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>高级</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>留言</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>编辑标签属性</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>新建标签属性</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.caption</source>
+        <target>制造商</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>编辑制造商</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>新建制造商</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>测量单位</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>存储位置</target>
+      </segment>
+    </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>编辑存储位置</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>新建存储位置</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.caption</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>编辑供货商</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>新建供货商</target>
+      </segment>
+    </unit>
+    <unit id=".YoS4pi" name="user.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.caption</source>
+        <target>用户</target>
+      </segment>
+    </unit>
+    <unit id="eDE4Z9X" name="user.edit.configuration">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.configuration</source>
+        <target>配置</target>
+      </segment>
+    </unit>
+    <unit id="3HIFZxy" name="user.edit.password">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.password</source>
+        <target>密码</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.caption</source>
+        <target>双因素认证</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.google_active</source>
+        <target>已激活认证应用</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.remaining_tokens</source>
+        <target>剩余的备份代码</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.generation_date</source>
+        <target>备份代码的生成日期</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disabled</source>
+        <target>没有启用此方法</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>已激活的安全密钥</target>
+      </segment>
+    </unit>
+    <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_title</source>
+        <target>你确定要这么做吗？</target>
+      </segment>
+    </unit>
+    <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_message</source>
+        <target>这将禁用&lt;b&gt;用户的所有活动双因素身份验证方法&lt;/b&gt;并删除&lt;b&gt;备份代码&lt;/b&gt;！
+&lt;br&gt;
+用户将必须重新设置所有双因素身份验证方法并打印新的备份代码！ &lt;br&gt;&lt;br&gt;
+&lt;b&gt;只有在您完全确定用户的身份（寻求帮助）时才执行此操作，否则账号可能会被攻击者入侵！&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa.btn</source>
+        <target>禁用所有双因素认证</target>
+      </segment>
+    </unit>
+    <unit id="vQxH4zm" name="user.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:85</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit</source>
+        <target>编辑用户</target>
+      </segment>
+    </unit>
+    <unit id="TvuuOMC" name="user.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:89</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.new</source>
+        <target>新建用户</target>
+      </segment>
+    </unit>
+    <unit id="0EjI8FY" name="attachment.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.delete</source>
+        <target>删除</target>
+      </segment>
+    </unit>
+    <unit id="ffvhms1" name="attachment.external">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external</source>
+        <target>外部附件</target>
+      </segment>
+    </unit>
+    <unit id="vTU.j2g" name="attachment.preview.alt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview.alt</source>
+        <target>附件预览</target>
+      </segment>
+    </unit>
+    <unit id="CNqXx.c" name="attachment.view">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.view</source>
+        <target>查看</target>
+      </segment>
+    </unit>
+    <unit id="HnHc.HV" name="attachment.file_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_not_found</source>
+        <target>找不到附件</target>
+      </segment>
+    </unit>
+    <unit id="vnfQKjk" name="attachment.secure">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.secure</source>
+        <target>私有附件</target>
+      </segment>
+    </unit>
+    <unit id="NCjSwVs" name="attachment.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.create</source>
+        <target>添加附件</target>
+      </segment>
+    </unit>
+    <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.delete.confirm</source>
+        <target>您真的要删除该库存吗？ 这不能被撤消！</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.confirm_title</source>
+        <target>您确实要删除 %name% 吗？</target>
+      </segment>
+    </unit>
+    <unit id="0B3xeO2" name="entity.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.message</source>
+        <target>这不能被撤消！
+&lt;br&gt;
+子元素将向上移动。</target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete</source>
+        <target>删除</target>
+      </segment>
+    </unit>
+    <unit id="jix.mo1" name="edit.log_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:286</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:43</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.log_comment</source>
+        <target>更换评论</target>
+      </segment>
+    </unit>
+    <unit id="A15hzUY" name="entity.delete.recursive">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.recursive</source>
+        <target>递归删除 (所有子元素)</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>克隆元素</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">src\Form\ImportType.php:67</note>
+      </notes>
+      <segment state="translated">
+        <source>export.format</source>
+        <target>文件格式</target>
+      </segment>
+    </unit>
+    <unit id="FlGXF7u" name="export.level">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:16</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level</source>
+        <target>日志级别</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.simple</source>
+        <target>简易</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.extended</source>
+        <target>详细</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.full</source>
+        <target>全部</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>export.include_children</source>
+        <target>导出（包含子元素）</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>export.btn</source>
+        <target>导出</target>
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>id.label</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
+      <segment state="translated">
+        <source>createdAt</source>
+        <target>创建于</target>
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
+      <segment state="translated">
+        <source>lastModified</source>
+        <target>最后修改</target>
+      </segment>
+    </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>此元素下的元件数量</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>特性</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>符号</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>最小值</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>典型值</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>最大值</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>单位</target>
+      </segment>
+    </unit>
+    <unit id="05vM0Vp" name="specifications.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.text</source>
+        <target>文本</target>
+      </segment>
+    </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.group</source>
+        <target>组</target>
+      </segment>
+    </unit>
+    <unit id="MZTH_sJ" name="specification.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>specification.create</source>
+        <target>创建特性</target>
+      </segment>
+    </unit>
+    <unit id="eEuzINH" name="parameter.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.delete.confirm</source>
+        <target>确认要删除这个特性吗？</target>
+      </segment>
+    </unit>
+    <unit id="rpzRyMx" name="attachment.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.list.title</source>
+        <target>附件列表</target>
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.caption</source>
+        <target>加载中</target>
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.message</source>
+        <target>这可能需要一些时间。 如果此消息没有消失，请尝试重新加载页面。</target>
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">templates\base.html.twig:246</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.base.javascript_hint</source>
+        <target>请激活 Javascript 才能使用所有功能！</target>
+      </segment>
+    </unit>
+    <unit id="0rLRD9e" name="sidebar.big.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.big.toggle</source>
+        <target>显示/隐藏侧边栏</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">templates\base.html.twig:271</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.caption</source>
+        <target>加载:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">templates\base.html.twig:272</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.message</source>
+        <target>这可能需要一段时间。 如果此消息持续很长时间，请尝试重新加载页面。</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">templates\base.html.twig:277</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.bar</source>
+        <target>加载中...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">templates\base.html.twig:288</note>
+      </notes>
+      <segment state="translated">
+        <source>back_to_top</source>
+        <target>返回至页面顶部</target>
+      </segment>
+    </unit>
+    <unit id="yXZ1kdn" name="permission.edit.permission">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.permission</source>
+        <target>权限</target>
+      </segment>
+    </unit>
+    <unit id="tFYZZcS" name="permission.edit.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.value</source>
+        <target>值</target>
+      </segment>
+    </unit>
+    <unit id="KzyDL60" name="permission.legend.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.title</source>
+        <target>状态说明:</target>
+      </segment>
+    </unit>
+    <unit id="owrJ0Qw" name="permission.legend.disallow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.disallow</source>
+        <target>拒绝</target>
+      </segment>
+    </unit>
+    <unit id="1nY8d_O" name="permission.legend.allow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.allow</source>
+        <target>允许</target>
+      </segment>
+    </unit>
+    <unit id="uNMtwn9" name="permission.legend.inherit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.inherit</source>
+        <target>从父级继承</target>
+      </segment>
+    </unit>
+    <unit id="QSE9MT9" name="bool.true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
+        <note priority="1">Part-DB1\templates\helper.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.true</source>
+        <target>是</target>
+      </segment>
+    </unit>
+    <unit id="UlrxUmI" name="bool.false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:5</note>
+        <note priority="1">Part-DB1\templates\helper.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.false</source>
+        <target>否</target>
+      </segment>
+    </unit>
+    <unit id="haOas0X" name="Yes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
+        <note priority="1">Part-DB1\templates\helper.twig:87</note>
+      </notes>
+      <segment state="translated">
+        <source>Yes</source>
+        <target>是</target>
+      </segment>
+    </unit>
+    <unit id="HqRCoTS" name="No">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
+        <note priority="1">Part-DB1\templates\helper.twig:89</note>
+      </notes>
+      <segment state="translated">
+        <source>No</source>
+        <target>否</target>
+      </segment>
+    </unit>
+    <unit id="PbJl5cf" name="specifications.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:126</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value</source>
+        <target>值</target>
+      </segment>
+    </unit>
+    <unit id="Qj.Hpb." name="version.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">templates\homepage.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>version.caption</source>
+        <target>版本</target>
+      </segment>
+    </unit>
+    <unit id="GDYG7.b" name="homepage.license">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">templates\homepage.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.license</source>
+        <target>许可证</target>
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.caption</source>
+        <target>项目页</target>
+      </segment>
+    </unit>
+    <unit id="7nCeHg7" name="homepage.github.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.text</source>
+        <target>源代码，下载，错误报告，开发目标可以在 &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub 项目页面&lt;/a&gt; 找到。</target>
+      </segment>
+    </unit>
+    <unit id="9pp.6vF" name="homepage.help.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.caption</source>
+        <target>帮助</target>
+      </segment>
+    </unit>
+    <unit id="exp3iqv" name="homepage.help.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.text</source>
+        <target>帮助和说明可以在 &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub 页面&lt;/a&gt; 的 Wiki 中找到。</target>
+      </segment>
+    </unit>
+    <unit id="R2g.45a" name="homepage.forum.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">templates\homepage.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.forum.caption</source>
+        <target>论坛</target>
+      </segment>
+    </unit>
+    <unit id="jOOAjnK" name="homepage.last_activity">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.last_activity</source>
+        <target>最近活动</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.title</source>
+        <target>标签生成器</target>
+      </segment>
+    </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.common</source>
+        <target>通常</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>高级</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>配置</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>已选择的配置</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>编辑配置</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>加载配置</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>下载</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>生成标签</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>新的空标签</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>标签扫描</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>没有找到摄像头</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>您需要一个网络摄像头并授予使用的权限。 您可以在下面手动输入条形码。</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>选择源</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>log.list.title</source>
+        <target>系统日志</target>
+      </segment>
+    </unit>
+    <unit id="_1bnAgm" name="log.undo.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_title</source>
+        <target>真的撤消更改/恢复到时间戳吗？</target>
+      </segment>
+    </unit>
+    <unit id="ATlnZ1T" name="log.undo.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_message</source>
+        <target>您真的想撤消给定的更改/将元素重置为给定的时间戳吗？</target>
+      </segment>
+    </unit>
+    <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.email_sent_by</source>
+        <target>这封邮件被以下实体自动发送</target>
+      </segment>
+    </unit>
+    <unit id="AchaWxK" name="mail.footer.dont_reply">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.dont_reply</source>
+        <target>不要回复此邮件。</target>
+      </segment>
+    </unit>
+    <unit id="S6Fot75" name="email.hi %name%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>email.hi %name%</source>
+        <target>您好 %name%</target>
+      </segment>
+    </unit>
+    <unit id="VKSPbrb" name="email.pw_reset.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.message</source>
+        <target>有人（希望是您）请求重置您的密码。 如果此请求不是您提出的，请忽略此邮件。</target>
+      </segment>
+    </unit>
+    <unit id="lu8bcCN" name="email.pw_reset.button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.button</source>
+        <target>单击此处重置密码</target>
+      </segment>
+    </unit>
+    <unit id="tS_htiy" name="email.pw_reset.fallback">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.fallback</source>
+        <target>如果这对您不起作用，请转到 &lt;a href="%url%"&gt;%url%&lt;/a&gt; 并输入以下信息</target>
+      </segment>
+    </unit>
+    <unit id="QBTV5KP" name="email.pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.username</source>
+        <target>用户名</target>
+      </segment>
+    </unit>
+    <unit id="6UyKd6G" name="email.pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.token</source>
+        <target>代码</target>
+      </segment>
+    </unit>
+    <unit id="3Rl4ELy" name="email.pw_reset.valid_unit %date%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.valid_unit %date%</source>
+        <target>这些代码将在 &lt;i&gt;%date%&lt;/i&gt; 之后过期。</target>
+      </segment>
+    </unit>
+    <unit id="ItQbhLs" name="orderdetail.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:78</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.delete</source>
+        <target>删除</target>
+      </segment>
+    </unit>
+    <unit id="uUvRF8P" name="pricedetails.edit.min_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.min_qty</source>
+        <target>最低折扣数量</target>
+      </segment>
+    </unit>
+    <unit id="3meOpdA" name="pricedetails.edit.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price</source>
+        <target>价格</target>
+      </segment>
+    </unit>
+    <unit id="1gzHhnJ" name="pricedetails.edit.price_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price_qty</source>
+        <target>购买数量</target>
+      </segment>
+    </unit>
+    <unit id="8BF.OZR" name="pricedetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.create</source>
+        <target>添加价格</target>
+      </segment>
+    </unit>
+    <unit id="nS44Iqv" name="part.edit.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.title</source>
+        <target>编辑元件</target>
+      </segment>
+    </unit>
+    <unit id="Ko2G29K" name="part.edit.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.card_title</source>
+        <target>编辑元件</target>
+      </segment>
+    </unit>
+    <unit id="MvJvWIA" name="part.edit.tab.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.common</source>
+        <target>通常</target>
+      </segment>
+    </unit>
+    <unit id="RjPp2bd" name="part.edit.tab.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.manufacturer</source>
+        <target>制造商</target>
+      </segment>
+    </unit>
+    <unit id="e9FzmOU" name="part.edit.tab.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.advanced</source>
+        <target>高级</target>
+      </segment>
+    </unit>
+    <unit id="uc9NwcF" name="part.edit.tab.part_lots">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.part_lots</source>
+        <target>库存</target>
+      </segment>
+    </unit>
+    <unit id="3tdTZVD" name="part.supplier.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="RiciNp5" name="part.supplier.partnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.partnr</source>
+        <target>元件编号</target>
+      </segment>
+    </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>未知储存位置</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>数量不明</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>过期时间</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>已过期</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>需要补充</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>上一张图片</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>下一张图片</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>重量</target>
+      </segment>
+    </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>需要检查</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>收藏</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>已停产</target>
+      </segment>
+    </unit>
+    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.extracted_from_description</source>
+        <target>自动从描述提取</target>
+      </segment>
+    </unit>
+    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.auto_extracted_from_comment</source>
+        <target>自动从说明中提取</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>编辑元件</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>克隆元件</target>
+      </segment>
+    </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>新建元件</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>是否确定删除这个元件？</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>此元件和任何相关信息（如附件、价格信息等）将被删除。 这不能被撤消！</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>删除元件</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>所有元件</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>元件类别</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>元件封装</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>元件制造商</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>搜索元件</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>元件储存位置</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>元件供应商</target>
+      </segment>
+    </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>统计</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>参数</target>
+      </segment>
+    </unit>
+    <unit id="a0Bt1My" name="entity.info.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="pqMTPTv" name="entity.info.parent">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parent</source>
+        <target>父级</target>
+      </segment>
+    </unit>
+    <unit id="nDEGgY0" name="entity.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:70</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.btn</source>
+        <target>编辑</target>
+      </segment>
+    </unit>
+    <unit id="Rsrawma" name="entity.info.children_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.children_count</source>
+        <target>子元素数量</target>
+      </segment>
+    </unit>
+    <unit id="3WtQFdr" name="tfa.check.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.title</source>
+        <target>需要双因素认证</target>
+      </segment>
+    </unit>
+    <unit id="FPvJfPr" name="tfa.code.trusted_pc">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.code.trusted_pc</source>
+        <target>这是受信任的计算机（如果启用此功能，则不会在此计算机上执行进一步的两因素查询）</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>login.btn</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>user.logout</source>
+        <target>登出</target>
+      </segment>
+    </unit>
+    <unit id="INlwXoR" name="tfa.check.code.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.label</source>
+        <target>认证器代码</target>
+      </segment>
+    </unit>
+    <unit id="TUbr0_A" name="tfa.check.code.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.help</source>
+        <target>输入身份验证器应用程序中的 6 位代码，或者如果身份验证器不可用，请输入备用代码之一。</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">templates\security\login.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>login.title</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">templates\security\login.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>login.card_title</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">templates\security\login.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.label</source>
+        <target>用户名</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">templates\security\login.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.placeholder</source>
+        <target>用户名</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">templates\security\login.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.label</source>
+        <target>密码</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">templates\security\login.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.placeholder</source>
+        <target>密码</target>
+      </segment>
+    </unit>
+    <unit id="BSn76q_" name="login.rememberme">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">templates\security\login.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>login.rememberme</source>
+        <target>请记住您的登录信息</target>
+      </segment>
+    </unit>
+    <unit id="GO.ZhTX" name="pw_reset.password_forget">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.password_forget</source>
+        <target>忘记用户名/密码</target>
+      </segment>
+    </unit>
+    <unit id="hbW2JJr" name="pw_reset.new_pw.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.header.title</source>
+        <target>设置新密码</target>
+      </segment>
+    </unit>
+    <unit id="3Tgn6io" name="pw_reset.request.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.header.title</source>
+        <target>请求新密码</target>
+      </segment>
+    </unit>
+    <unit id="J1aHED." name="tfa_u2f.http_warning">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.http_warning</source>
+        <target>您正在使用不安全的 HTTP 方法访问此页面，因此 U2F 很可能无法工作（错误请求错误消息）。 如果您想使用安全密钥，请要求管理员设置安全 HTTPS 方法。</target>
+      </segment>
+    </unit>
+    <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.pressbutton</source>
+        <target>请插入您的安全密钥并按下其按钮！</target>
+      </segment>
+    </unit>
+    <unit id="T4i5SE4" name="tfa_u2f.add_key.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.title</source>
+        <target>添加安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="rIJ.Flq" name="tfa_u2f.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.explanation</source>
+        <target>借助 U2F/FIDO 兼容的安全密钥（例如 YubiKey 或 NitroKey），可以实现用户友好且安全的双因素身份验证。 可以在此处注册安全密钥，如果需要两步验证，只需通过 USB 插入密钥或通过 NFC 在设备上输入密钥即可。</target>
+      </segment>
+    </unit>
+    <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.backup_hint</source>
+        <target>为了即使钥匙丢失也能确保访问，建议注册第二把钥匙作为备份并将其存放在安全的地方！</target>
+      </segment>
+    </unit>
+    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.name</source>
+        <target>显示的密钥名称（例如备份）</target>
+      </segment>
+    </unit>
+    <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.add_button</source>
+        <target>添加安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="JyEfylJ" name="tfa_u2f.add_key.back_to_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.back_to_settings</source>
+        <target>返回设置</target>
+      </segment>
+    </unit>
+    <unit id="yD.UA07" name="statistics.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.title</source>
+        <target>统计数据</target>
+      </segment>
+    </unit>
+    <unit id="6l0Fwd2" name="statistics.parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts</source>
+        <target>元件</target>
+      </segment>
+    </unit>
+    <unit id="QRdK9zd" name="statistics.data_structures">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.data_structures</source>
+        <target>数据结构</target>
+      </segment>
+    </unit>
+    <unit id="50kyfxA" name="statistics.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachments</source>
+        <target>附件</target>
+      </segment>
+    </unit>
+    <unit id="Op0xko9" name="statistics.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.property</source>
+        <target>属性</target>
+      </segment>
+    </unit>
+    <unit id="zn.PnJ2" name="statistics.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.value</source>
+        <target>值</target>
+      </segment>
+    </unit>
+    <unit id=".lLfExB" name="statistics.distinct_parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.distinct_parts_count</source>
+        <target>唯一部件的数量</target>
+      </segment>
+    </unit>
+    <unit id="IjDWXUD" name="statistics.parts_instock_sum">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_instock_sum</source>
+        <target>所有元件库存的总和</target>
+      </segment>
+    </unit>
+    <unit id="OUVlqDZ" name="statistics.parts_with_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_with_price</source>
+        <target>带有价格信息的元件数量</target>
+      </segment>
+    </unit>
+    <unit id="VX9aZ2j" name="statistics.categories_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.categories_count</source>
+        <target>分类计数</target>
+      </segment>
+    </unit>
+    <unit id="Aks9a3Q" name="statistics.footprints_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.footprints_count</source>
+        <target>封装计数</target>
+      </segment>
+    </unit>
+    <unit id="wvwDajm" name="statistics.manufacturers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.manufacturers_count</source>
+        <target>制造商计数</target>
+      </segment>
+    </unit>
+    <unit id="MDdSIU0" name="statistics.storelocations_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.storelocations_count</source>
+        <target>存储位置计数</target>
+      </segment>
+    </unit>
+    <unit id="q9tLL7." name="statistics.suppliers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.suppliers_count</source>
+        <target>供货商数量</target>
+      </segment>
+    </unit>
+    <unit id="xzr9lD3" name="statistics.currencies_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.currencies_count</source>
+        <target>货币计数</target>
+      </segment>
+    </unit>
+    <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.measurement_units_count</source>
+        <target>测量单位计数</target>
+      </segment>
+    </unit>
+    <unit id="T0BDQn_" name="statistics.devices_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.devices_count</source>
+        <target>工程计数</target>
+      </segment>
+    </unit>
+    <unit id="8HKc.Yq" name="statistics.attachment_types_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachment_types_count</source>
+        <target>附件类型计数</target>
+      </segment>
+    </unit>
+    <unit id="S1UPbY3" name="statistics.all_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.all_attachments_count</source>
+        <target>所有附件计数</target>
+      </segment>
+    </unit>
+    <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.user_uploaded_attachments_count</source>
+        <target>用户上传附件数</target>
+      </segment>
+    </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_delete</source>
+        <target>删除密钥</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>没有注册任何安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_new_key</source>
+        <target>注册新的安全密钥</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>在检查双因素认证时，可以将当前计算机标记为可信，这样不再需要对此计算机进行双因素检查。
+如果您的操作不正确或者计算机不再受信任，您可以在此处重置&lt;i&gt;所有 &lt;/i&gt;计算机的状态。</target>
+      </segment>
+    </unit>
+    <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_title</source>
+        <target>真的要删除所有受信任的计算机吗？</target>
+      </segment>
+    </unit>
+    <unit id="r7Z3.L4" name="tfa_trustedDevices.invalidate.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_message</source>
+        <target>您必须在所有计算机上再次执行双因素身份验证。 确保您手边有双因素设备。</target>
+      </segment>
+    </unit>
+    <unit id="jiNvzqA" name="tfa_trustedDevices.invalidate.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.btn</source>
+        <target>重置认可的设备</target>
+      </segment>
+    </unit>
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.toggle</source>
+        <target>切换侧边栏</target>
+      </segment>
+    </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>扫描仪</target>
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">templates\base.html.twig:97</note>
+      </notes>
+      <segment state="translated">
+        <source>user.loggedin.label</source>
+        <target>登录为</target>
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">templates\base.html.twig:103</note>
+      </notes>
+      <segment state="translated">
+        <source>user.login</source>
+        <target>登录</target>
+      </segment>
+    </unit>
+    <unit id="Eorzg9b" name="ui.toggle_darkmode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>ui.toggle_darkmode</source>
+        <target>暗色模式</target>
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">templates\base.html.twig:106</note>
+        <note priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>user.language_select</source>
+        <target>语言选择</target>
+      </segment>
+    </unit>
+    <unit id="el2uFyW" name="search.options.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>search.options.label</source>
+        <target>搜索选项</target>
+      </segment>
+    </unit>
+    <unit id="V2u6xXi" name="tags.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
+      </notes>
+      <segment state="translated">
+        <source>tags.label</source>
+        <target>标签</target>
+      </segment>
+    </unit>
+    <unit id="RezjOdV" name="storelocation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">templates\base.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:36</note>
+        <note priority="1">src\Form\PartType.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.label</source>
+        <target>存储位置</target>
+      </segment>
+    </unit>
+    <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">templates\base.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>ordernumber.label.short</source>
+        <target>供货商单号</target>
+      </segment>
+    </unit>
+    <unit id="zT4k8ZJ" name="supplier.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:40</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:35</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">templates\base.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.label</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note priority="1">templates\base.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>search.deactivateBarcode</source>
+        <target>条码已停用</target>
+      </segment>
+    </unit>
+    <unit id="biFM.cv" name="search.regexmatching">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:56</note>
+        <note priority="1">templates\base.html.twig:77</note>
+      </notes>
+      <segment state="translated">
+        <source>search.regexmatching</source>
+        <target>正则表达式检索</target>
+      </segment>
+    </unit>
+    <unit id="N66qZeD" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>搜索</target>
+      </segment>
+    </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>项目</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">templates\base.html.twig:165</note>
+        <note priority="1">templates\base.html.twig:192</note>
+        <note priority="1">templates\base.html.twig:220</note>
+      </notes>
+      <segment state="translated">
+        <source>actions</source>
+        <target>动作</target>
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">templates\base.html.twig:169</note>
+        <note priority="1">templates\base.html.twig:196</note>
+        <note priority="1">templates\base.html.twig:224</note>
+      </notes>
+      <segment state="translated">
+        <source>datasource</source>
+        <target>数据源</target>
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:173</note>
+        <note priority="1">templates\base.html.twig:200</note>
+        <note priority="1">templates\base.html.twig:228</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.labelp</source>
+        <target>制造商</target>
+      </segment>
+    </unit>
+    <unit id="DQQjhS_" name="supplier.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:174</note>
+        <note priority="1">templates\base.html.twig:201</note>
+        <note priority="1">templates\base.html.twig:229</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.labelp</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="V1QubEL" name="attachment.download_failed">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:268</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download_failed</source>
+        <target>下载外部附件失败</target>
+      </segment>
+    </unit>
+    <unit id="A7i8za4" name="entity.edit_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash</source>
+        <target>修改成功保存</target>
+      </segment>
+    </unit>
+    <unit id="AoZHore" name="entity.edit_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash.invalid</source>
+        <target>无法保存变更。检查的你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="8MJvWmd" name="entity.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash</source>
+        <target>元素已创建</target>
+      </segment>
+    </unit>
+    <unit id="zZdZuYS" name="entity.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash.invalid</source>
+        <target>无法创建元素。请检查你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
+        <note priority="1">src\Controller\BaseAdminController.php:154</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>元素已删除！</target>
+      </segment>
+    </unit>
+    <unit id="2bvWUoo" name="csfr_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:182</note>
+      </notes>
+      <segment state="translated">
+        <source>csfr_invalid</source>
+        <target>CSRF Token 无效。请刷新你懂的页面或联系管理员。</target>
+      </segment>
+    </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>在此范围内没有发现物品</target>
+      </segment>
+    </unit>
+    <unit id="BeMACpw" name="log.undo.target_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.target_not_found</source>
+        <target>目标元素无法在数据库中找到！</target>
+      </segment>
+    </unit>
+    <unit id="sG2PEwi" name="log.undo.revert_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:156</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert_success</source>
+        <target>成功还原到目标时间戳</target>
+      </segment>
+    </unit>
+    <unit id="GMilP1t" name="log.undo.element_undelete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:176</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_undelete_success</source>
+        <target>撤销删除元素成功</target>
+      </segment>
+    </unit>
+    <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:178</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_element_already_undeleted</source>
+        <target>元素成功删除</target>
+      </segment>
+    </unit>
+    <unit id="NI2CbLV" name="log.undo.element_delete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:185</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_delete_success</source>
+        <target>成功删除元素</target>
+      </segment>
+    </unit>
+    <unit id=".D_N333" name="log.undo.element.element_already_delted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:187</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:191</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element.element_already_delted</source>
+        <target>元素已经被删除</target>
+      </segment>
+    </unit>
+    <unit id="Bz3n92Q" name="log.undo.element_change_undone">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:198</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_change_undone</source>
+        <target>已成功撤销变更</target>
+      </segment>
+    </unit>
+    <unit id="Ne_xS01" name="log.undo.do_undelete_before">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:196</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:200</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.do_undelete_before</source>
+        <target>你必须取消删除此元素才能撤销这个变更！</target>
+      </segment>
+    </unit>
+    <unit id="GswNRna" name="log.undo.log_type_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:199</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:203</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.log_type_invalid</source>
+        <target>日志条目不能被回滚！</target>
+      </segment>
+    </unit>
+    <unit id="6xOvKkk" name="part.edited_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">src\Controller\PartController.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash</source>
+        <target>变更已保存！</target>
+      </segment>
+    </unit>
+    <unit id="w57VDWn" name="part.edited_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash.invalid</source>
+        <target>保存时发生错误：请检查你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="suYw2UL" name="part.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.deleted</source>
+        <target>元件已删除</target>
+      </segment>
+    </unit>
+    <unit id="tG.Jfwp" name="part.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:277</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:317</note>
+        <note priority="1">src\Controller\PartController.php:113</note>
+        <note priority="1">src\Controller\PartController.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash</source>
+        <target>元件已创建</target>
+      </segment>
+    </unit>
+    <unit id="LOw_XJ." name="part.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:283</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash.invalid</source>
+        <target>创建时发生错误：请检查你的输入！</target>
+      </segment>
+    </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>没有发现匹配的条码</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>未知类型</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>发现元素</target>
+      </segment>
+    </unit>
+    <unit id="B1T9Kt6" name="pw_reset.user_or_email">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:114</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.user_or_email</source>
+        <target>用户名 / 邮箱</target>
+      </segment>
+    </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.none</source>
+        <target>无</target>
+      </segment>
+    </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.qr</source>
+        <target>二维码 (推荐)</target>
+      </segment>
+    </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code128</source>
+        <target>Code 128 (推荐)</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code39</source>
+        <target>Code 39 (推荐)</target>
+      </segment>
+    </unit>
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code93</source>
+        <target>Code 93</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>数据矩阵</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.label</source>
+        <target>条码</target>
+      </segment>
+    </unit>
+    <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:72</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr</source>
+        <target>供货商元件编号</target>
+      </segment>
+    </unit>
+    <unit id="CimWRtu" name="orderdetails.edit.supplier">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:81</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplier</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr.placeholder</source>
+        <target>例如 BC 547</target>
+      </segment>
+    </unit>
+    <unit id="BFfweU_" name="tree.tools.edit.suppliers">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:167</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.suppliers</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">templates\base.html.twig:88</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>barcode.scan</source>
+        <target>扫描条形码</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>默认货币</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>运费</target>
+      </segment>
+    </unit>
+    <unit id="yYWackl" name="perm.part.supplier">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.supplier</source>
+        <target>供货商</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>二维</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>一维</target>
+      </segment>
+    </unit>
+    <unit id="ZX180Uu" name="log.element_edited.changed_fields.supplierpartnr">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplierpartnr</source>
+        <target>供货商元件编号</target>
+      </segment>
+    </unit>
+    <unit id="Bzp4a3p" name="log.element_edited.changed_fields.supplier_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplier_product_url</source>
+        <target>商品页</target>
+      </segment>
+    </unit>
+    <unit id="aQlVtZN" name="log.element_edited.changed_fields.options.barcode_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.barcode_type</source>
+        <target>条码类型</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
