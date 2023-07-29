@@ -144,9 +144,17 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function isPicture(): bool
     {
-        //We can not check if an external link is a picture, so just assume this is false
         if ($this->isExternal()) {
-            return true;
+            //Check if we can extract a file extension from the URL
+            $extension = pathinfo(parse_url($this->path, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
+
+            //If no extension is found or it is known picture extension, we assume that this is a picture extension
+            if ($extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true)) {
+                return true;
+            }
+
+            //Otherwise we assume that the file is not a picture
+            return false;
         }
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);

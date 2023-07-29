@@ -182,8 +182,11 @@ class AttachmentTest extends TestCase
         return [
             ['%MEDIA%/foo/bar.txt', false],
             ['https://test.de/picture.jpeg', true],
+            ['https://test.de/picture.png?test=fdsj&width=34', true],
+            ['https://invalid.invalid/file.txt', false],
+            ['http://infsf.inda/file.zip?test', false],
             ['https://test.de', true],
-            ['http://test.de/google.de', true],
+            ['https://invalid.com/invalid/pic', true],
             ['%MEDIA%/foo/bar.jpeg', true],
             ['%MEDIA%/foo/bar.webp', true],
             ['%MEDIA%/foo', false],
