@@ -11425,10 +11425,34 @@ Element 3</target>
 Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben können. Wenn Sie dies versuchen, erhalten Sie eine "Zugriff verweigert" Nachricht.</target>
       </segment>
     </unit>
+    <unit id="df2ac87" name="log.type.security.user_impersonated">
+      <segment state="translated">
+        <source>log.type.security.user_impersonated</source>
+        <target>Als Benutzer ausgegeben</target>
+      </segment>
+    </unit>
+    <unit id="08SKwoy" name="info_providers.providers_list.title">
+      <segment state="translated">
+        <source>info_providers.providers_list.title</source>
+        <target>Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="BnbVOSD" name="info_providers.providers_list.active">
+      <segment state="translated">
+        <source>info_providers.providers_list.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="adJnJGT" name="info_providers.providers_list.disabled">
+      <segment state="translated">
+        <source>info_providers.providers_list.disabled</source>
+        <target>Deaktiviert</target>
+      </segment>
+    </unit>
     <unit id="1M7yaPw" name="info_providers.capabilities.basic">
       <segment state="translated">
         <source>info_providers.capabilities.basic</source>
-        <target>Grundinformationen</target>
+        <target>Basis</target>
       </segment>
     </unit>
     <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
@@ -11455,10 +11479,28 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Preise</target>
       </segment>
     </unit>
+    <unit id="nNKOyNM" name="part.info_provider_reference.badge">
+      <segment state="translated">
+        <source>part.info_provider_reference.badge</source>
+        <target>Die Informationsquelle, die verwendet wurde, um dieses Bauteil zu erstellen.</target>
+      </segment>
+    </unit>
+    <unit id="WTB_AKQ" name="part.info_provider_reference">
+      <segment state="translated">
+        <source>part.info_provider_reference</source>
+        <target>Erzeugt aus Informationsquelle</target>
+      </segment>
+    </unit>
     <unit id="Qhaj.j4" name="oauth_client.connect.btn">
       <segment state="translated">
         <source>oauth_client.connect.btn</source>
         <target>OAuth verbinden</target>
+      </segment>
+    </unit>
+    <unit id="5_Z_m9s" name="info_providers.table.provider.label">
+      <segment state="translated">
+        <source>info_providers.table.provider.label</source>
+        <target>Quelle</target>
       </segment>
     </unit>
     <unit id="Cj5csML" name="info_providers.search.keyword">
@@ -11473,16 +11515,64 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Suchen</target>
       </segment>
     </unit>
+    <unit id="Mwq891Y" name="info_providers.search.providers.help">
+      <segment state="translated">
+        <source>info_providers.search.providers.help</source>
+        <target>Wählen Sie die Informationsquellen aus, die durchsucht werden sollen.</target>
+      </segment>
+    </unit>
+    <unit id="nvk25qA" name="info_providers.search.providers">
+      <segment state="translated">
+        <source>info_providers.search.providers</source>
+        <target>Quellen</target>
+      </segment>
+    </unit>
+    <unit id="5kSES8M" name="info_providers.search.info_providers_list">
+      <segment state="translated">
+        <source>info_providers.search.info_providers_list</source>
+        <target>Alle verfügbaren Informationsquellen anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="Y2gg4WI" name="info_providers.search.title">
+      <segment state="translated">
+        <source>info_providers.search.title</source>
+        <target>Bauteil aus Informationsquelle erstellen</target>
+      </segment>
+    </unit>
     <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
       <segment state="translated">
         <source>oauth_client.flash.connection_successful</source>
         <target>Verbindung zur OAuth Anwendung erfolgreich hergestellt!</target>
       </segment>
     </unit>
+    <unit id="9ULD.eH" name="perm.part.info_providers">
+      <segment state="translated">
+        <source>perm.part.info_providers</source>
+        <target>Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="En713bs" name="perm.part.info_providers.create_parts">
+      <segment state="translated">
+        <source>perm.part.info_providers.create_parts</source>
+        <target>Bauteile erstellen</target>
+      </segment>
+    </unit>
     <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
       <segment state="translated">
         <source>entity.edit.alternative_names.label</source>
         <target>Alternative Namen</target>
+      </segment>
+    </unit>
+    <unit id="GgN2HwP" name="entity.edit.alternative_names.help">
+      <segment state="translated">
+        <source>entity.edit.alternative_names.help</source>
+        <target>Die hier angegeben alternativen Namen, werden benutzt, um dieses Element automatisch anhand der von Informationsquellen zurückgelieferten Daten auszuwählen.</target>
+      </segment>
+    </unit>
+    <unit id="TRmIjDN" name="info_providers.form.help_prefix">
+      <segment state="translated">
+        <source>info_providers.form.help_prefix</source>
+        <target>Quelle</target>
       </segment>
     </unit>
   </file>
