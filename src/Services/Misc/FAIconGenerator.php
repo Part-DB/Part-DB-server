@@ -56,9 +56,6 @@ class FAIconGenerator
      */
     public function fileExtensionToFAType(string $extension): string
     {
-        if ('' === $extension) {
-            throw new InvalidArgumentException('You must specify an extension!');
-        }
         //Normalize file extension
         $extension = strtolower($extension);
         foreach (self::EXT_MAPPING as $fa => $exts) {
