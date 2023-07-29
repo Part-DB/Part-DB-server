@@ -66,9 +66,9 @@ final class FieldHelper
     private static function addSqliteOrderBy(QueryBuilder $qb, string $field_expr, string $key, array $values, ?string $order = null): void
     {
         //Otherwise we emulate it using
-        $qb->orderBy("LOCATE(CONCAT($field_expr, ','), :$key)", $order);
-        //The value have to end with a comma, otherwise the search using INSTR will fail
-        $qb->setParameter($key, implode(',', $values) . ',');
+        $qb->orderBy("LOCATE(CONCAT(',', $field_expr, ','), :$key)", $order);
+        //The string must be padded with a comma on both sides, otherwise the search using INSTR will fail
+        $qb->setParameter($key, ',' .implode(',', $values) . ',');
     }
 
     /**
