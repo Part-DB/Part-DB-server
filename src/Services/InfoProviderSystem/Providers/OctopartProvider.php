@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\OAuth\OAuthTokenManager;
 use Symfony\Component\HttpClient\HttpOptions;
@@ -58,9 +59,6 @@ class OctopartProvider implements InfoProviderInterface
                 url
                 name
             }
-            extras {
-              lifeCycle
-            }
             manufacturerUrl
             medianPrice1000 {
               price
@@ -79,6 +77,21 @@ class OctopartProvider implements InfoProviderInterface
                     moq
                     packaging
                 }
+            },
+            specs {
+                attribute {
+                    name
+                    shortname
+                    group
+                    id
+                }
+                displayValue
+                value
+                siValue
+                units
+                unitsName
+                unitsSymbol
+                valueType
             }
         }
         GRAPHQL;
@@ -155,8 +168,56 @@ class OctopartProvider implements InfoProviderInterface
         return true;
     }
 
+    private function mapLifeCycleStatus(?string $value): ?ManufacturingStatus
+    {
+        return match ($value) {
+            'Production', 'New' => ManufacturingStatus::ACTIVE,
+            'Obsolete' => ManufacturingStatus::DISCONTINUED,
+            'NRND' => ManufacturingStatus::NRFND,
+            'EOL' => ManufacturingStatus::EOL,
+            default => null,
+        };
+    }
+
     private function partResultToDTO(array $part): PartDetailDTO
     {
+        //Parse the specifications
+        $parameters = [];
+        $mass = null;
+        $package = null;
+        $pinCount = null;
+        $mStatus = null;
+        foreach ($part['specs'] as $spec) {
+
+            //If we encounter the mass spec, we save it for later
+            if ($spec['attribute']['shortname'] === "weight") {
+                $mass = (float) $spec['siValue'];
+            } else if ($spec['attribute']['shortname'] === "case_package") { //Package
+                $package = $spec['value'];
+            } else if ($spec['attribute']['shortname'] === "numberofpins") { //Pin Count
+                $pinCount = $spec['value'];
+            } else if ($spec['attribute']['shortname'] === "lifecyclestatus") { //LifeCycleStatus
+                $mStatus = $this->mapLifeCycleStatus($spec['value']);
+            }
+
+            $parameters[] = new ParameterDTO(
+                name: $spec['attribute']['name'],
+                value_text: $spec['valueType'] === 'text' ? $spec['value'] : null,
+                value_typ: in_array($spec['valueType'], ['float', 'integer'], true) ? (float) $spec['value'] : null,
+                unit: $spec['valueType'] === 'text' ? null : $spec['units'],
+                group: $spec['attribute']['group'],
+            );
+        }
+
+        //Generate a footprint name from the package and pin count
+        $footprint = null;
+        if ($package !== null) {
+            $footprint = $package;
+            if ($pinCount !== null) { //Add pin count if available
+                $footprint .= '-' . $pinCount;
+            }
+        }
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $part['id'],
@@ -166,10 +227,13 @@ class OctopartProvider implements InfoProviderInterface
             manufacturer: $part['manufacturer']['name'],
             mpn: $part['mpn'],
             preview_image_url: $part['bestImage']['url'],
-            manufacturing_status: ManufacturingStatus::NOT_SET, //TODO
+            manufacturing_status: $mStatus,
             provider_url: $part['octopartUrl'],
+            footprint: $footprint,
             datasheets: [new FileDTO($part['bestDatasheet']['url'], $part['bestDatasheet']['name'])],
-            manufacturer_product_url: $part['manufacturerUrl'], //TODO
+            parameters: $parameters,
+            mass: $mass,
+            manufacturer_product_url: $part['manufacturerUrl'],
         );
     }
 
@@ -216,8 +280,6 @@ class OctopartProvider implements InfoProviderInterface
               %s
             }
             GRAPHQL, self::GRAPHQL_PART_SECTION);
-
-        dump($graphql);
 
         $result = $this->makeGraphQLCall($graphql, [
             'ids' => [$id],
