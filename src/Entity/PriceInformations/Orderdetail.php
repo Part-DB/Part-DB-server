@@ -75,7 +75,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\Url]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $supplier_product_url = '';
 
     /**
