@@ -300,7 +300,7 @@ class OctopartProvider implements InfoProviderInterface
 
         $tmp = [];
 
-        foreach ($result['data']['supSearch']['results'] as $p) {
+        foreach ($result['data']['supSearch']['results'] ?? [] as $p) {
             $tmp[] = $this->partResultToDTO($p['part']);
         }
 
