@@ -31,7 +31,6 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\OAuth\OAuthTokenManager;
 use Symfony\Component\HttpClient\HttpOptions;
-use Symfony\Component\HttpClient\NativeHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OctopartProvider implements InfoProviderInterface
@@ -67,7 +66,7 @@ class OctopartProvider implements InfoProviderInterface
               currency
               quantity
             }
-            sellers(authorizedOnly: true) {
+            sellers(authorizedOnly: $authorizedOnly) {
                 company {
                     name
                 }
@@ -105,7 +104,10 @@ class OctopartProvider implements InfoProviderInterface
 
 
     public function __construct(private readonly HttpClientInterface $httpClient,
-        private readonly OAuthTokenManager $authTokenManager)
+        private readonly OAuthTokenManager $authTokenManager,
+        private readonly string $clientId, private readonly string $secret,
+        private readonly string $currency, private readonly string $country,
+        private readonly int $search_limit, private readonly bool $onlyAuthorizedSellers)
     {
 
     }
@@ -172,7 +174,7 @@ class OctopartProvider implements InfoProviderInterface
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
         //return /*!empty($this->clientId) && */ $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
-        return true;
+        return !empty($this->clientId) && !empty($this->secret);
     }
 
     private function mapLifeCycleStatus(?string $value): ?ManufacturingStatus
@@ -251,30 +253,32 @@ class OctopartProvider implements InfoProviderInterface
             provider_key: $this->getProviderKey(),
             provider_id: $part['id'],
             name: $part['mpn'],
-            description: $part['shortDescription'],
-            category: $part['category']['name'],
-            manufacturer: $part['manufacturer']['name'],
+            description: $part['shortDescription'] ?? null,
+            category: $part['category']['name'] ?? null,
+            manufacturer: $part['manufacturer']['name'] ?? null,
             mpn: $part['mpn'],
-            preview_image_url: $part['bestImage']['url'],
+            preview_image_url: $part['bestImage']['url'] ?? null,
             manufacturing_status: $mStatus,
-            provider_url: $part['octopartUrl'],
+            provider_url: $part['octopartUrl'] ?? null,
             footprint: $footprint,
-            datasheets: [new FileDTO($part['bestDatasheet']['url'], $part['bestDatasheet']['name'])],
+            datasheets: $part['bestDatasheet'] !== null ? [new FileDTO($part['bestDatasheet']['url'], $part['bestDatasheet']['name'])]: null,
             parameters: $parameters,
             vendor_infos: $orderinfos,
             mass: $mass,
-            manufacturer_product_url: $part['manufacturerUrl'],
+            manufacturer_product_url: $part['manufacturerUrl'] ?? null,
         );
     }
 
     public function searchByKeyword(string $keyword): array
     {
         $graphQL = sprintf(<<<'GRAPHQL'
-            query partSearch($keyword: String, $limit: Int) {
+            query partSearch($keyword: String, $limit: Int, $currency: String!, $country: String!, $authorizedOnly: Boolean!) {
               supSearch(
                 q: $keyword
                 inStockOnly: false
                 limit: $limit
+                currency: $currency
+                country: $country
               ) {
                 hits
                 results {
@@ -288,7 +292,10 @@ class OctopartProvider implements InfoProviderInterface
 
         $result = $this->makeGraphQLCall($graphQL, [
             'keyword' => $keyword,
-            'limit' => 4,
+            'limit' => $this->search_limit,
+            'currency' => $this->currency,
+            'country' => $this->country,
+            'authorizedOnly' => $this->onlyAuthorizedSellers,
         ]);
 
         $tmp = [];
@@ -305,14 +312,17 @@ class OctopartProvider implements InfoProviderInterface
     public function getDetails(string $id): PartDetailDTO
     {
         $graphql = sprintf(<<<'GRAPHQL'
-            query partSearch($ids: [String!]!) {
-              supParts(ids: $ids)
+            query partSearch($ids: [String!]!, $currency: String!, $country: String!, $authorizedOnly: Boolean!) {
+              supParts(ids: $ids, currency: $currency, country: $country)
               %s
             }
             GRAPHQL, self::GRAPHQL_PART_SECTION);
 
         $result = $this->makeGraphQLCall($graphql, [
             'ids' => [$id],
+            'currency' => $this->currency,
+            'country' => $this->country,
+            'authorizedOnly' => $this->onlyAuthorizedSellers,
         ]);
 
         return $this->partResultToDTO($result['data']['supParts'][0]);
