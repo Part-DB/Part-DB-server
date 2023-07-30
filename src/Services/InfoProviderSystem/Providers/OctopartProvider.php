@@ -27,6 +27,8 @@ use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\OAuth\OAuthTokenManager;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Component\HttpClient\NativeHttpClient;
@@ -65,17 +67,22 @@ class OctopartProvider implements InfoProviderInterface
               currency
               quantity
             }
-            sellers(authorizedOnly: false) {
+            sellers(authorizedOnly: true) {
                 company {
                     name
-                    homepageUrl
                 }
                 isAuthorized
                 offers {
                     clickUrl
                     inventoryLevel
                     moq
+                    sku
                     packaging
+                    prices {
+                        price
+                        currency
+                        quantity
+                    }
                 }
             },
             specs {
@@ -209,6 +216,28 @@ class OctopartProvider implements InfoProviderInterface
             );
         }
 
+        //Parse the offers
+        $orderinfos = [];
+        foreach ($part['sellers'] as $seller) {
+            foreach ($seller['offers'] as $offer) {
+                $prices = [];
+                foreach ($offer['prices'] as $price) {
+                    $prices[] = new PriceDTO(
+                        minimum_discount_amount: $price['quantity'],
+                        price: (string) $price['price'],
+                        currency_iso_code: $price['currency'],
+                    );
+                }
+
+                $orderinfos[] = new PurchaseInfoDTO(
+                    distributor_name: $seller['company']['name'],
+                    order_number: $offer['sku'],
+                    prices: $prices,
+                    product_url: $offer['clickUrl'],
+                );
+            }
+        }
+
         //Generate a footprint name from the package and pin count
         $footprint = null;
         if ($package !== null) {
@@ -232,6 +261,7 @@ class OctopartProvider implements InfoProviderInterface
             footprint: $footprint,
             datasheets: [new FileDTO($part['bestDatasheet']['url'], $part['bestDatasheet']['name'])],
             parameters: $parameters,
+            vendor_infos: $orderinfos,
             mass: $mass,
             manufacturer_product_url: $part['manufacturerUrl'],
         );
