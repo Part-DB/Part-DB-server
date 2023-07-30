@@ -74,7 +74,7 @@ final class PartInfoRetriever
     protected function searchInProvider(InfoProviderInterface $provider, string $keyword): array
     {
         //Generate key and escape reserved characters from the provider id
-        $escaped_keyword = urlencode($keyword);
+        $escaped_keyword = urlencode($keyword) . uniqid();
 
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time

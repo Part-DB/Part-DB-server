@@ -53,6 +53,8 @@ class PartDetailDTO extends SearchResultDTO
         public readonly ?array $vendor_infos = null,
         /** The mass of the product in grams */
         public readonly ?float $mass = null,
+        /** The URL to the product on the website of the manufacturer */
+        public readonly ?string $manufacturer_product_url = null,
     ) {
         parent::__construct(
             provider_key: $provider_key,

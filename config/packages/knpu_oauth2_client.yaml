@@ -21,3 +21,18 @@ knpu_oauth2_client:
                 #urlAuthorize: 'https://sandbox-api.digikey.com/v1/oauth2/authorize'
                 #urlAccessToken: 'https://sandbox-api.digikey.com/v1/oauth2/token'
                 #urlResourceOwnerDetails: ''
+
+        ip_octopart_oauth:
+            type: generic
+            provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
+
+            client_id: '%env(PROVIDER_OCTOPART_CLIENT_ID)%'
+            client_secret: '%env(PROVIDER_OCTOPART_SECRET)%'
+
+            redirect_route: 'oauth_client_check'
+            redirect_params: { name: 'ip_octopart_oauth' }
+
+            provider_options:
+                urlAuthorize: 'https://identity.nexar.com/connect/authorize'
+                urlAccessToken: 'https://identity.nexar.com/connect/token'
+                urlResourceOwnerDetails: ''
