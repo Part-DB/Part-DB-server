@@ -64,6 +64,26 @@ The following providers are currently available and shipped with Part-DB:
 
 (All trademarks are property of their respective owners. Part-DB is not affiliated with any of the companies.)
 
+### Ocotpart
+The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and getting informations.
+To use it you have to create an account at Nexar and create a new application on the [Nexar Portal](https://portal.nexar.com/). 
+The name does not matter, but it is important that the application has access to the "Supply" scope. 
+In the Authorization tab, you will find the client ID and client secret, which you have to enter in the Part-DB env configuration (see below).
+
+Please note that the Nexar API in the free plan is limited to 1000 results per month. 
+That means if you search for a keyword and results in 10 parts, then 10 will be substracted from your monthly limit. You can see your current usage on the Nexar portal.
+Part-DB caches the search results internally, so if you have searched for a part before, it will not count against your monthly limit again, when you create it from the search results.
+
+Following env configuration options are available:
+
+* `PROVIDER_OCTOPART_CLIENT_ID`: The client ID you got from Nexar (mandatory)
+* `PROVIDER_OCTOPART_CLIENT_SECRET`: The client secret you got from Nexar (mandatory)
+* `PROVIDER_OCTOPART_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`). If an offer is only available in a certain currency, 
+Part-DB will save the prices in their native currency, and you can use Part-DB currency conversion feature to convert it to your preferred currency.
+* `PROVIDER_OCOTPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code, default: `DE`). To get correct prices, you have to set this and the currency setting to the correct value.
+* `PROVIDER_OCTOPART_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `10`). This affects how quickly your monthly limit is used up.
+* `PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS`: If set to `true`, only offers from [authorized sellers](https://octopart.com/authorized) will be returned (optional, default: `false`).
+
 ### Digi-Key
 The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and getting shopping information from [Digi-Key](https://www.digikey.com/).
 To use it you have to create an account at Digi-Key and get an API key on the [Digi-Key API page](https://developer.digikey.com/). 
