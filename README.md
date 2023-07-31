@@ -51,7 +51,7 @@ Two-factor authentication is supported (Google Authenticator and Webauthn/U2F ke
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
 * Automatic thumbnail generation for pictures
-* Use cloud providers (like Digikey, farnell or TME) to automatically get part information, datasheets and prices for parts
+* Use cloud providers (like Octopart, Digikey, farnell or TME) to automatically get part information, datasheets and prices for parts
 
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,

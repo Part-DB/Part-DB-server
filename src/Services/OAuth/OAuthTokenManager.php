@@ -39,9 +39,9 @@ final class OAuthTokenManager
      * Saves the given token to the database, so it can be retrieved later
      * @param  string  $app_name
      * @param  AccessTokenInterface  $token
-     * @return void
+     * @return OAuthToken The saved token as database entity
      */
-    public function saveToken(string $app_name, AccessTokenInterface $token): void
+    public function saveToken(string $app_name, AccessTokenInterface $token): OAuthToken
     {
         //Check if we already have a token for this app
         $tokenEntity = $this->entityManager->getRepository(OAuthToken::class)->findOneBy(['name' => $app_name]);
@@ -54,7 +54,7 @@ final class OAuthTokenManager
             $this->entityManager->flush($tokenEntity);
 
             //We are done
-            return;
+            return $tokenEntity;
         }
 
         //If the token was not existing, we create a new one
@@ -63,7 +63,7 @@ final class OAuthTokenManager
         //@phpstan-ignore-next-line
         $this->entityManager->flush($tokenEntity);
 
-        return;
+        return $tokenEntity;
     }
 
     /**
@@ -102,7 +102,14 @@ final class OAuthTokenManager
         }
 
         $client = $this->clientRegistry->getClient($app_name);
-        $new_token = $client->refreshAccessToken($token->getRefreshToken());
+
+        //Check if the token is refreshable or if it is an client credentials token
+        if ($token->isClientCredentialsGrant()) {
+            $new_token = $client->getOAuth2Provider()->getAccessToken('client_credentials');
+        } else {
+            //Otherwise we can use the refresh token to get a new access token
+            $new_token = $client->refreshAccessToken($token->getRefreshToken());
+        }
 
         //Persist the token
         $token->replaceWithNewToken($new_token);
@@ -138,5 +145,21 @@ final class OAuthTokenManager
 
         //And return the new token
         return $token->getToken();
+    }
+
+    /**
+     * Retrieves an access token for the given app name using the client credentials grant (so no user flow is needed)
+     * The app_name must be registered in the knpu_oauth2_client.yaml
+     * The token is saved to the database, and afterward can be used as usual
+     * @param  string  $app_name
+     * @return OAuthToken
+     */
+    public function retrieveClientCredentialsToken(string $app_name): OAuthToken
+    {
+        $client = $this->clientRegistry->getClient($app_name);
+        $access_token = $client->getOAuth2Provider()->getAccessToken('client_credentials');
+
+
+        return $this->saveToken($app_name, $access_token);
     }
 }

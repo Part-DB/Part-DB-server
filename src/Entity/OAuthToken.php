@@ -39,24 +39,32 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
 {
     /** @var string|null The short-term usable OAuth2 token */
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $token = null;
 
     /** @var \DateTimeInterface The date when the token expires */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $expires_at = null;
 
-    /** @var string The refresh token for the OAuth2 auth */
-    #[ORM\Column(type: 'string')]
-    private string $refresh_token = '';
+    /** @var string|null The refresh token for the OAuth2 auth */
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $refresh_token = null;
 
+    /**
+     * The default expiration time for a authorization token, if no expiration time is given
+     */
     private const DEFAULT_EXPIRATION_TIME = 3600;
 
-    public function __construct(string $name, string $refresh_token, string $token = null, \DateTimeInterface $expires_at = null)
+    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeInterface $expires_at = null)
     {
         //If token is given, you also have to give the expires_at date
         if ($token !== null && $expires_at === null) {
             throw new \InvalidArgumentException('If you give a token, you also have to give the expires_at date');
+        }
+
+        //If no refresh_token is given, the token is a client credentials grant token, which must have a token
+        if ($refresh_token === null && $token === null) {
+            throw new \InvalidArgumentException('If you give no refresh_token, you have to give a token!');
         }
 
         $this->name = $name;
@@ -107,6 +115,16 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         }
 
         return $this->expires_at->getTimestamp() < time();
+    }
+
+    /**
+     * Returns true if this token is a client credentials grant token (meaning it has no refresh token), and
+     * needs to be refreshed via the client credentials grant.
+     * @return bool
+     */
+    public function isClientCredentialsGrant(): bool
+    {
+        return $this->refresh_token === null;
     }
 
     public function replaceWithNewToken(AccessTokenInterface $accessToken): void

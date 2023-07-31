@@ -75,7 +75,6 @@ final class PartInfoRetriever
     {
         //Generate key and escape reserved characters from the provider id
         $escaped_keyword = urlencode($keyword);
-
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time
             $item->expiresAfter(self::CACHE_RESULT_EXPIRATION);
@@ -97,8 +96,6 @@ final class PartInfoRetriever
 
         //Generate key and escape reserved characters from the provider id
         $escaped_part_id = urlencode($part_id);
-
-
         return $this->partInfoCache->get("details_{$provider_key}_{$escaped_part_id}", function (ItemInterface $item) use ($provider, $part_id) {
             //Set the expiration time
             $item->expiresAfter(self::CACHE_DETAIL_EXPIRATION);

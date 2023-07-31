@@ -50,7 +50,7 @@ trait ManufacturerTrait
      */
     #[Assert\Url]
     #[Groups(['full', 'import'])]
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::TEXT)]
     protected string $manufacturer_product_url = '';
 
     /**
