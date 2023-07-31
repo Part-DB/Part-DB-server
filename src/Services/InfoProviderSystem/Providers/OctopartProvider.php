@@ -294,7 +294,7 @@ class OctopartProvider implements InfoProviderInterface
 
         //Built the category full path
         $category = null;
-        if ($part['category']['name'] !== null) {
+        if (!empty($part['category']['name'])) {
             $category = implode(' -> ', array_map(fn($c) => $c['name'], $part['category']['ancestors'] ?? []));
             if (!empty($category)) {
                 $category .= ' -> ';
