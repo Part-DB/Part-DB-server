@@ -58,8 +58,10 @@ class OctopartProvider implements InfoProviderInterface
             }
             shortDescription
             category {
+                ancestors {
+                    name
+                }
                 name
-                path
             }
             bestImage {
                 url
@@ -290,12 +292,22 @@ class OctopartProvider implements InfoProviderInterface
             }
         }
 
+        //Built the category full path
+        $category = null;
+        if ($part['category']['name'] !== null) {
+            $category = implode(' -> ', array_map(fn($c) => $c['name'], $part['category']['ancestors'] ?? []));
+            if (!empty($category)) {
+                $category .= ' -> ';
+            }
+            $category .= $part['category']['name'];
+        }
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $part['id'],
             name: $part['mpn'],
             description: $part['shortDescription'] ?? null,
-            category: $part['category']['name'] ?? null,
+            category: $category ,
             manufacturer: $part['manufacturer']['name'] ?? null,
             mpn: $part['mpn'],
             preview_image_url: $part['bestImage']['url'] ?? null,
