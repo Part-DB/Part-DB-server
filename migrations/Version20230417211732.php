@@ -38,7 +38,7 @@ final class Version20230417211732 extends AbstractMultiPlatformMigration
     public function sqLiteUp(Schema $schema): void
     {
         //As legacy database can only be migrated to MySQL, we don't need to implement this method.
-        $this->skipIf(true, 'Not needed for SQLite');
+        //Dont skip here, as this causes this migration always to be executed. Do nothing instead.
     }
 
     public function sqLiteDown(Schema $schema): void
