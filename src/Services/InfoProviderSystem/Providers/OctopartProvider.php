@@ -30,9 +30,17 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\OAuth\OAuthTokenManager;
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * This class implements the Octopart/Nexar API as an InfoProvider
+ *
+ * As the limits for Octopart are quite limited, we use an additional layer of caching here, we get the full parts during a search
+ * and cache them, so we can use them for the detail view without having to query the API again.
+ */
 class OctopartProvider implements InfoProviderInterface
 {
     private const OAUTH_APP_NAME = 'ip_octopart_oauth';
@@ -104,7 +112,7 @@ class OctopartProvider implements InfoProviderInterface
 
 
     public function __construct(private readonly HttpClientInterface $httpClient,
-        private readonly OAuthTokenManager $authTokenManager,
+        private readonly OAuthTokenManager $authTokenManager, private readonly CacheItemPoolInterface $partInfoCache,
         private readonly string $clientId, private readonly string $secret,
         private readonly string $currency, private readonly string $country,
         private readonly int $search_limit, private readonly bool $onlyAuthorizedSellers)
@@ -186,6 +194,39 @@ class OctopartProvider implements InfoProviderInterface
             'EOL' => ManufacturingStatus::EOL,
             default => null,
         };
+    }
+
+    /**
+     * Saves the given part to the cache.
+     * Everytime this function is called, the cache is overwritten.
+     * @param  PartDetailDTO  $part
+     * @return void
+     */
+    private function saveToCache(PartDetailDTO $part): void
+    {
+        $key = 'octopart_part_'.$part->provider_id;
+
+        $item = $this->partInfoCache->getItem($key);
+        $item->set($part);
+        $item->expiresAfter(3600 * 24 * 1); //Cache for 1 day
+        $this->partInfoCache->save($item);
+    }
+
+    /**
+     * Retrieves a from the cache, or null if it was not cached yet.
+     * @param  string  $id
+     * @return PartDetailDTO|null
+     */
+    private function getFromCache(string $id): ?PartDetailDTO
+    {
+        $key = 'octopart_part_'.$id;
+
+        $item = $this->partInfoCache->getItem($key);
+        if ($item->isHit()) {
+            return $item->get();
+        }
+
+        return null;
     }
 
     private function partResultToDTO(array $part): PartDetailDTO
@@ -301,16 +342,24 @@ class OctopartProvider implements InfoProviderInterface
         $tmp = [];
 
         foreach ($result['data']['supSearch']['results'] ?? [] as $p) {
-            $tmp[] = $this->partResultToDTO($p['part']);
+            $dto = $this->partResultToDTO($p['part']);
+            $tmp[] = $dto;
+            //Cache the part, so we can get the details later, without having to make another request
+            $this->saveToCache($dto);
         }
 
         return $tmp;
     }
 
-
-
     public function getDetails(string $id): PartDetailDTO
     {
+        //Check if we have the part cached
+        $cached = $this->getFromCache($id);
+        if ($cached !== null) {
+            return $cached;
+        }
+
+        //Otherwise we have to make a request
         $graphql = sprintf(<<<'GRAPHQL'
             query partSearch($ids: [String!]!, $currency: String!, $country: String!, $authorizedOnly: Boolean!) {
               supParts(ids: $ids, currency: $currency, country: $country)
@@ -325,7 +374,9 @@ class OctopartProvider implements InfoProviderInterface
             'authorizedOnly' => $this->onlyAuthorizedSellers,
         ]);
 
-        return $this->partResultToDTO($result['data']['supParts'][0]);
+        $tmp = $this->partResultToDTO($result['data']['supParts'][0]);
+        $this->saveToCache($tmp);
+        return $tmp;
     }
 
     public function getCapabilities(): array
