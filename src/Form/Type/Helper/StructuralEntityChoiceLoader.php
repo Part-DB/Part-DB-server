@@ -22,8 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Form\Type\Helper;
 
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\PriceInformations\Currency;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,7 +34,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
     private ?string $additional_element = null;
 
-    private ?AbstractStructuralDBElement $starting_element = null;
+    private ?AbstractNamedDBElement $starting_element = null;
 
     public function __construct(private readonly Options $options, private readonly NodesListBuilder $builder, private readonly EntityManagerInterface $entityManager)
     {
@@ -108,19 +108,19 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
     /**
      * Gets the initial value used to populate the field.
-     * @return AbstractStructuralDBElement|null
+     * @return AbstractNamedDBElement|null
      */
-    public function getStartingElement(): ?AbstractStructuralDBElement
+    public function getStartingElement(): ?AbstractNamedDBElement
     {
         return $this->starting_element;
     }
 
     /**
      * Sets the initial value used to populate the field. This will always be an allowed value.
-     * @param  AbstractStructuralDBElement|null  $starting_element
+     * @param  AbstractNamedDBElement|null  $starting_element
      * @return StructuralEntityChoiceLoader
      */
-    public function setStartingElement(?AbstractStructuralDBElement $starting_element): StructuralEntityChoiceLoader
+    public function setStartingElement(?AbstractNamedDBElement $starting_element): StructuralEntityChoiceLoader
     {
         $this->starting_element = $starting_element;
         return $this;
