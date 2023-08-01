@@ -69,6 +69,10 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
 #[ORM\Index(name: 'user_idx_username', columns: ['name'])]
+#[ORM\AttributeOverrides([
+    new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
+])]
+
 #[NoLockout()]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
@@ -124,11 +128,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[ORM\Column(type: Types::JSON)]
     protected ?array $backupCodes = [];
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    protected ?int $id = null;
 
     /**
      * @var Group|null the group this user belongs to
@@ -212,7 +211,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     #[Assert\NotBlank]
     #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
-    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     protected string $name = '';
 
     /**

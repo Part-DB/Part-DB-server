@@ -84,10 +84,10 @@ class Part extends AttachmentContainingDBElement
      * Overridden properties
      * (They are defined here and not in a trait, to avoid conflicts).
      ****************************************************************/
+
     /**
      * @var string The name of this part
      */
-    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**

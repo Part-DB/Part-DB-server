@@ -97,7 +97,6 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
     #[Groups(['simple', 'extended', 'full'])]
-    #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
     /**
