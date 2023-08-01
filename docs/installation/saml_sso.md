@@ -143,7 +143,7 @@ The reverse is also possible: If you have existing SAML users and want them to b
 > It is recommended that you let the original admin user (ID: 2) be a local user, so you can still login to Part-DB if the SAML identity provider is not available.
 
 ## Advanced SAML configuration
-You can find some more advanced SAML configuration options in the `config/packages/hslavich_onelogin_saml.yaml` file. Refer to the file for more information.
+You can find some more advanced SAML configuration options in the `config/packages/nbgrp_onelogin_saml.yaml` file. Refer to the file for more information.
 Normally you don't have to change anything here.
 
 Please note that this file is not saved by the Part-DB backup tool, so you have to save it manually if you want to keep your changes. On docker containers you have to configure a volume mapping for it.

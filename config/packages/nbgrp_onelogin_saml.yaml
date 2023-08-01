@@ -1,5 +1,9 @@
 # See https://github.com/SAML-Toolkits/php-saml for more information about the SAML settings
 
+# Define a parameter here, so we can access it later in the default fallback
+parameters:
+  saml.sp.privateKey: '%env(string:SAML_SP_PRIVATE_KEY)%'
+
 nbgrp_onelogin_saml:
   onelogin_settings:
     default:
@@ -22,7 +26,9 @@ nbgrp_onelogin_saml:
           url: '%partdb.default_uri%logout'
           binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
         x509cert: '%env(string:SAML_SP_X509_CERT)%'
-        privateKey: '%env(string:SAMLP_SP_PRIVATE_KEY)%'
+        # Before the env variable was wrongly named "SAMLP_SP_PRIVATE_KEY".
+        # For compatibility reasons we keep it and only fallback to the new name if the old one is not set. This may be removed in the future.
+        privateKey: '%env(string:default:saml.sp.privateKey:string:SAMLP_SP_PRIVATE_KEY)%'
 
       # Optional settings
       #baseurl: 'http://myapp.com'
