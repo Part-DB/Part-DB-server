@@ -170,7 +170,7 @@ class SecurityController extends AbstractController
                 $this->addFlash('success', 'pw_reset.new_pw.success');
 
                 $repo = $em->getRepository(User::class);
-                $u = $repo->findOneBy(['name' => $data['username']]);
+                $u = $repo->findByUsername($data['username']);
                 $event = new SecurityEvent($u);
                 /** @var EventDispatcher $eventDispatcher */
                 $eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_RESET);

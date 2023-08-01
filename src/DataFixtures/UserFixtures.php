@@ -54,6 +54,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user = new User();
         $user->setName('user');
         $user->setNeedPwChange(false);
+        $user->setEmail('user@invalid.invalid');
         $user->setFirstName('Test')->setLastName('User');
         $user->setPassword($this->encoder->hashPassword($user, 'test'));
         $user->setGroup($this->getReference(GroupFixtures::USERS));
@@ -66,6 +67,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($noread);
 
         $manager->flush();
+
+        //Ensure that the anonymous user has the ID 0
+        $manager->getRepository(User::class)->changeID($anonymous, User::ID_ANONYMOUS);
     }
 
     public function getDependencies(): array

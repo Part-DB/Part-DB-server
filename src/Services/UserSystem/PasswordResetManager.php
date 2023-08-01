@@ -97,8 +97,7 @@ class PasswordResetManager
     {
         //Try to find the user
         $repo = $this->em->getRepository(User::class);
-        /** @var User|null $user */
-        $user = $repo->findOneBy(['name' => $username]);
+        $user = $repo->findByUsername($username);
 
         //If no user matching the name, show an error message
         if (!$user instanceof User) {

@@ -42,6 +42,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
     /**
      * Returns the anonymous user.
      * The result is cached, so the database is only called once, after the anonymous user was found.
+     * @return User|null The user if it is existing, null if no one matched the criteria
      */
     public function getAnonymousUser(): ?User
     {
@@ -52,6 +53,30 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
         }
 
         return $this->anonymous_user;
+    }
+
+    /**
+     * Find a user by its username.
+     * @param  string  $username
+     * @return User|null
+     */
+    public function findByUsername(string $username): ?User
+    {
+        if ($username === '') {
+            return null;
+        }
+
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u')
+            ->where('u.name = (:name)');
+
+        $qb->setParameter('name', $username);
+
+        try {
+            return $qb->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException) {
+            return null;
+        }
     }
 
     /**
