@@ -214,13 +214,13 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where this entity can be edited.
      *
-     * @param mixed $entity The entity for which the edit link should be generated
+     * @param AbstractDBElement $entity The entity for which the edit link should be generated
      *
      * @return string the URL to the edit page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function editURL(mixed $entity): string
+    public function editURL(AbstractDBElement $entity): string
     {
         $map = [
             Part::class => 'part_edit',
@@ -244,13 +244,14 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where a entity of this type can be created.
      *
-     * @param mixed $entity The entity for which the link should be generated
+     * @param AbstractDBElement|string $entity The entity (or the entity class) for which the link should be generated
+     * @phpstan-param AbstractDBElement|class-string<AbstractDBElement> $entity
      *
      * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function createURL(mixed $entity): string
+    public function createURL(AbstractDBElement|string $entity): string
     {
         $map = [
             Part::class => 'part_new',
@@ -352,21 +353,26 @@ class EntityURLGenerator
      * Throws an exception if the entity class is not known to the map.
      *
      * @param array $map    The map that should be used for determing the controller
-     * @param mixed $entity The entity for which the controller name should be determined
+     * @param AbstractDBElement|string $entity The entity for which the controller name should be determined
+     * @phpstan-param AbstractDBElement|class-string<AbstractDBElement> $entity
      *
      * @return string The name of the controller fitting the entity class
      *
      * @throws EntityNotSupportedException
      */
-    protected function mapToController(array $map, mixed $entity): string
+    protected function mapToController(array $map, string|AbstractDBElement $entity): string
     {
-        $class = $entity::class;
+        if (is_string($entity)) { //If a class name was already passed, then use it directly
+            $class = $entity;
+        } else { //Otherwise get the class name from the entity
+            $class = $entity::class;
+        }
 
         //Check if we have an direct mapping for the given class
         if (!array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
             foreach (array_keys($map) as $key) {
-                if (is_a($entity, $key)) {
+                if (is_a($entity, $key, true)) {
                     return $map[$key];
                 }
             }

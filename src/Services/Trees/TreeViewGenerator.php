@@ -77,7 +77,8 @@ class TreeViewGenerator
         //When we use the newEdit type, add the New Element node.
         if ('newEdit' === $mode) {
             //Generate the url for the new node
-            $href = $this->urlGenerator->createURL(new $class());
+            //DO NOT try to create an object from the class, as this might be an proxy, which can not be easily initialized, so just pass the class_name directly
+            $href = $this->urlGenerator->createURL($class);
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
             //When the id of the selected element is null, then we have a new element, and we need to select "new" node
             if (!$selectedElement instanceof AbstractDBElement || null === $selectedElement->getID()) {
