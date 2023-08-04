@@ -25,6 +25,7 @@ namespace App\Services\UserSystem;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
+use App\Helpers\TrinaryLogicHelper;
 use App\Security\Interfaces\HasPermissionsInterface;
 
 /**
@@ -136,6 +137,24 @@ class PermissionSchemaUpdater
             $operations_value = $holder->getPermissions()->getAllDefinedOperationsOfPermission('devices');
             $holder->getPermissions()->setAllOperationsOfPermission('projects', $operations_value);
             $holder->getPermissions()->removePermission('devices');
+        }
+    }
+
+    private function upgradeSchemaToVersion3(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //If the system.show_updates permission is not defined yet, set it to true, if the user can view server info, server logs or edit users or groups
+        if (!$permissions->isPermissionSet('system', 'show_updates')) {
+
+            $new_value = TrinaryLogicHelper::or(
+                $permissions->getPermissionValue('system', 'server_infos'),
+                $permissions->getPermissionValue('system', 'show_logs'),
+                $permissions->getPermissionValue('users', 'edit'),
+                $permissions->getPermissionValue('groups', 'edit')
+            );
+
+            $permissions->setPermissionValue('system', 'show_updates', $new_value);
         }
     }
 }

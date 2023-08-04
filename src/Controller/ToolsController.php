@@ -28,6 +28,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Misc\GitVersionInfo;
 use App\Services\Misc\DBInfoHelper;
+use App\Services\System\UpdateAvailableManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ class ToolsController extends AbstractController
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
@@ -90,6 +91,11 @@ class ToolsController extends AbstractController
             'db_size' => $DBInfoHelper->getDatabaseSize(),
             'db_name' => $DBInfoHelper->getDatabaseName() ?? 'Unknown',
             'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
+
+            //New version section
+            'new_version_available' => $updateAvailableManager->isUpdateAvailable(),
+            'new_version' => $updateAvailableManager->getLatestVersionString(),
+            'new_version_url' => $updateAvailableManager->getLatestVersionUrl(),
         ]);
     }
 

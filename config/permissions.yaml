@@ -251,6 +251,8 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.server_infos"
       manage_oauth_tokens:
         label: "Manage OAuth tokens"
+      show_updates:
+        label: "perm.system.show_available_updates"
 
   attachments:
     label: "perm.part.attachments"

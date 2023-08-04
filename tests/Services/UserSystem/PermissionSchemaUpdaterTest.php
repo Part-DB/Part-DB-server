@@ -110,4 +110,17 @@ class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertEquals(PermissionData::INHERIT, $user->getPermissions()->getPermissionValue('projects', 'edit'));
         self::assertEquals(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('projects', 'delete'));
     }
+
+    public function testUpgradeSchemaToVersion3(): void
+    {
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(2);
+        $perm_data->setPermissionValue('system', 'server_infos', PermissionData::ALLOW);
+
+        $user = new TestPermissionHolder($perm_data);
+
+        //After the upgrade the server.show_updates should be set to ALLOW
+        self::assertTrue($this->service->upgradeSchema($user, 3));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('system', 'show_updates'));
+    }
 }

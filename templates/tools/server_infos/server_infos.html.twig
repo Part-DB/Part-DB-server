@@ -1,9 +1,16 @@
 {% extends "main_card.html.twig" %}
+{% import "components/new_version.macro.html.twig" as nv %}
 
 {% block title %}{% trans %}tools.server_infos.title{% endtrans %}{% endblock %}
 
 {% block card_title %}
     <i class="fas fa-database"></i> {% trans %}tools.server_infos.title{% endtrans %}
+{% endblock %}
+
+{% block before_card %}
+    {% if is_granted('@system.show_updates') %}
+        {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
+    {% endif %}
 {% endblock %}
 
 {% block card_content %}

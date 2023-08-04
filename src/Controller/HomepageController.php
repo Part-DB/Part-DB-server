@@ -25,6 +25,7 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Part;
 use App\Services\Misc\GitVersionInfo;
+use App\Services\System\UpdateAvailableManager;
 use Doctrine\ORM\EntityManagerInterface;
 use const DIRECTORY_SEPARATOR;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -62,7 +63,8 @@ class HomepageController extends AbstractController
     }
 
     #[Route(path: '/', name: 'homepage')]
-    public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager): Response
+    public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager,
+    UpdateAvailableManager $updateAvailableManager): Response
     {
         if ($this->isGranted('@tools.lastActivity')) {
             $table = $this->dataTable->createFromType(
@@ -97,6 +99,9 @@ class HomepageController extends AbstractController
             'git_commit' => $versionInfo->getGitCommitHash(),
             'show_first_steps' => $show_first_steps,
             'datatable' => $table,
+            'new_version_available' => $updateAvailableManager->isUpdateAvailable(),
+            'new_version' => $updateAvailableManager->getLatestVersionString(),
+            'new_version_url' => $updateAvailableManager->getLatestVersionUrl(),
         ]);
     }
 }
