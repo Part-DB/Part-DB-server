@@ -39,7 +39,9 @@ class UpdateAvailableManager
     private const CACHE_KEY = 'uam_latest_version';
     private const CACHE_TTL = 60 * 60 * 24 * 2; // 2 day
 
-    public function __construct(private readonly HttpClientInterface $httpClient, private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager)
+    public function __construct(private readonly HttpClientInterface $httpClient,
+        private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager,
+        private readonly bool $check_for_updates)
     {
 
     }
@@ -77,6 +79,11 @@ class UpdateAvailableManager
      */
     public function isUpdateAvailable(): bool
     {
+        //If we don't want to check for updates, we can return false
+        if (!$this->check_for_updates) {
+            return false;
+        }
+
         $latestVersion = $this->getLatestVersion();
         $currentVersion = $this->versionManager->getVersion();
 
@@ -90,6 +97,14 @@ class UpdateAvailableManager
      */
     private function getLatestVersionInfo(): array
     {
+        //If we don't want to check for updates, we can return dummy data
+        if (!$this->check_for_updates) {
+            return [
+                'version' => '0.0.1',
+                'url' => 'update-checking-disabled'
+            ];
+        }
+
         return $this->updateCache->get(self::CACHE_KEY, function (ItemInterface $item) {
             $item->expiresAfter(self::CACHE_TTL);
             $response = $this->httpClient->request('GET', self::API_URL);

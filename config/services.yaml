@@ -315,6 +315,10 @@ services:
         arguments:
             $project_dir: '%kernel.project_dir%'
 
+    App\Services\System\UpdateAvailableManager:
+        arguments:
+            $check_for_updates: '%partdb.check_for_updates%'
+
     ####################################################################################################################
     # Monolog
     ####################################################################################################################
