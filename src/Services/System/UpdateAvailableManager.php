@@ -93,7 +93,7 @@ class UpdateAvailableManager
     /**
      * Get the latest version info. The value is cached for 2 days.
      * @return array
-     * @phpstan-return array{version: string}
+     * @phpstan-return array{version: string, url: string}
      */
     private function getLatestVersionInfo(): array
     {
