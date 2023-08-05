@@ -1,0 +1,6 @@
+api_platform:
+
+  title: 'Part-DB API'
+  description: 'API of Part-DB'
+
+  version: '0.1.0'

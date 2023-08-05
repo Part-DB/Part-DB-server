@@ -25,6 +25,7 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Part;
 use App\Services\Misc\GitVersionInfo;
+use App\Services\System\BannerHelper;
 use App\Services\System\UpdateAvailableManager;
 use Doctrine\ORM\EntityManagerInterface;
 use const DIRECTORY_SEPARATOR;
@@ -38,29 +39,11 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class HomepageController extends AbstractController
 {
-    public function __construct(protected CacheInterface $cache, protected KernelInterface $kernel, protected DataTableFactory $dataTable)
+    public function __construct(private readonly DataTableFactory $dataTable, private readonly BannerHelper $bannerHelper)
     {
     }
 
-    public function getBanner(): string
-    {
-        $banner = $this->getParameter('partdb.banner');
-        if (!is_string($banner)) {
-            throw new \RuntimeException('The parameter "partdb.banner" must be a string.');
-        }
-        if (empty($banner)) {
-            $banner_path = $this->kernel->getProjectDir()
-                .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';
 
-            $tmp = file_get_contents($banner_path);
-            if (false === $tmp) {
-                throw new \RuntimeException('The banner file could not be read.');
-            }
-            $banner = $tmp;
-        }
-
-        return $banner;
-    }
 
     #[Route(path: '/', name: 'homepage')]
     public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager,
@@ -94,7 +77,7 @@ class HomepageController extends AbstractController
         }
 
         return $this->render('homepage.html.twig', [
-            'banner' => $this->getBanner(),
+            'banner' => $this->bannerHelper->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
             'show_first_steps' => $show_first_steps,

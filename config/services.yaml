@@ -278,6 +278,15 @@ services:
             $onlyAuthorizedSellers: '%env(bool:PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS)%'
 
     ####################################################################################################################
+    # API system
+    ####################################################################################################################
+    App\State\PartDBInfoProvider:
+        arguments:
+            $default_uri: '%partdb.default_uri%'
+            $global_locale: '%partdb.locale%'
+            $global_timezone: '%partdb.timezone%'
+
+    ####################################################################################################################
     # Symfony overrides
     ####################################################################################################################
 
@@ -318,6 +327,12 @@ services:
     App\Services\System\UpdateAvailableManager:
         arguments:
             $check_for_updates: '%partdb.check_for_updates%'
+
+    App\Services\System\BannerHelper:
+        arguments:
+            $partdb_banner: '%partdb.banner%'
+            $project_dir: '%kernel.project_dir%'
+
 
     ####################################################################################################################
     # Monolog
