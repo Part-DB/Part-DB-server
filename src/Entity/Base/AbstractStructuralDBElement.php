@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Repository\StructuralDBElementRepository;
@@ -31,6 +32,7 @@ use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Valid;
 use function count;
@@ -261,6 +263,8 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      *
      * @return string the full path (incl. the name of this element), delimited by $delimiter
      */
+    #[Groups(['api:basic:read'])]
+    #[SerializedName('full_path')]
     public function getFullPath(string $delimiter = self::PATH_DELIMITER_ARROW): string
     {
         if ($this->full_path_strings === []) {

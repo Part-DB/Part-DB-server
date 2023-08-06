@@ -22,10 +22,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\ManufacturerRepository;
@@ -49,17 +51,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
 #[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
-    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']],
-    denormalizationContext: ['groups' => ['manufacturer:write', 'company:write', 'api:basic:write']],
+    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['manufacturer:write', 'company:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/manufacturers/{id}/children.{_format}',
-    operations: [new GetCollection()],
+    operations: [new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a manufacturer.'])],
     uriVariables: [
         'id' => new Link(fromClass: Manufacturer::class, fromProperty: 'children')
     ],
-    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']]
+    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
+#[ApiFilter(PropertyFilter::class)]
 class Manufacturer extends AbstractCompany
 {
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]

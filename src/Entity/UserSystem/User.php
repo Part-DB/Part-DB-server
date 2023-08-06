@@ -83,10 +83,10 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ApiResource(
     shortName: 'User',
     operations: [
-        new Get(),
-        new GetCollection(),
+        new Get(openapiContext: ['summary' => 'Get a specific user.']),
+        new GetCollection(openapiContext: ['summary' => 'Get all users defined in the system.']),
     ],
-    normalizationContext: ['groups' => ['user:read']],
+    normalizationContext: ['groups' => ['user:read'], 'openapi_definition_name' => 'Read'],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(SearchFilter::class, properties: ['name' => 'exact', 'email' => 'exact'])]
