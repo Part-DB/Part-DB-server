@@ -95,6 +95,7 @@ class EntityExporter
                 'as_collection' => true,
                 'csv_delimiter' => $options['csv_delimiter'],
                 'xml_root_node_name' => 'PartDBExport',
+                'partdb_export' => true,
             ]
         );
     }

@@ -22,6 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\ManufacturerRepository;
@@ -32,6 +36,7 @@ use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,10 +48,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`manufacturers`')]
 #[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
 #[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']],
+    denormalizationContext: ['groups' => ['manufacturer:write', 'company:write', 'api:basic:write']],
+)]
+#[ApiResource(
+    uriTemplate: '/manufacturers/{id}/children.{_format}',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'id' => new Link(fromClass: Manufacturer::class, fromProperty: 'children')
+    ],
+    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']]
+)]
 class Manufacturer extends AbstractCompany
 {
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['manufacturer:read', 'manufacturer:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
@@ -59,10 +78,14 @@ class Manufacturer extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['manufacturer:read', 'manufacturer:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: ManufacturerAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['manufacturer:read', 'manufacturer:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, ManufacturerParameter>

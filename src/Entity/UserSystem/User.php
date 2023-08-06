@@ -22,6 +22,14 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\UserRepository;
@@ -72,7 +80,16 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\AttributeOverrides([
     new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
 ])]
-
+#[ApiResource(
+    shortName: 'User',
+    operations: [
+        new Get(),
+        new GetCollection(),
+    ],
+    normalizationContext: ['groups' => ['user:read']],
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'exact', 'email' => 'exact'])]
 #[NoLockout()]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
@@ -84,17 +101,26 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     final public const ID_ANONYMOUS = 1;
 
+    #[Groups(['user:read'])]
+    protected ?int $id;
+
+    #[Groups(['user:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+    #[Groups(['user:read'])]
+    protected ?\DateTimeInterface $createdAt = null;
+
     /**
      * @var bool Determines if the user is disabled (user can not log in)
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disabled = false;
 
     /**
      * @var string|null The theme
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
     #[ValidTheme()]
     protected ?string $theme = null;
@@ -112,9 +138,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected string $instock_comment_w = '';
 
     /**
-     * @var string A self-description of the user
+     * @var string A self-description of the user as markdown text
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $aboutMe = '';
 
@@ -133,10 +159,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Group|null the group this user belongs to
      * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'users')]
     #[ORM\JoinColumn(name: 'group_id')]
     #[Selectable]
+    #[ApiProperty(readableLink: true, writableLink: false)]
     protected ?Group $group = null;
 
     /**
@@ -149,7 +176,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The timezone the user prefers
      */
     #[Assert\Timezone]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_timezone', nullable: true)]
     protected ?string $timezone = '';
 
@@ -157,7 +184,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The language/locale the user prefers
      */
     #[Assert\Language]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_language', nullable: true)]
     protected ?string $language = '';
 
@@ -165,7 +192,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The email address of the user
      */
     #[Assert\Email]
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $email = '';
 
@@ -173,33 +200,34 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var bool True if the user wants to show his email address on his (public) profile
      */
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    #[Groups(['full', 'import', 'user:read'])]
     protected bool $show_email_on_profile = false;
 
     /**
      * @var string|null The department the user is working
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $need_pw_change = true;
 
@@ -211,6 +239,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     #[Assert\NotBlank]
     #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[Groups(['user:read'])]
     protected string $name = '';
 
     /**
@@ -224,10 +253,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['user:read'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: UserAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['user:read'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated
@@ -501,6 +533,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return string a string with the full name of this user
      */
+    #[Groups(['user:read'])]
     public function getFullName(bool $including_username = false): string
     {
         $tmp = $this->getFirstName();

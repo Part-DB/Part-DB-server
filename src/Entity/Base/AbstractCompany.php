@@ -43,21 +43,21 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The address of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $fax_number = '';
 
@@ -65,7 +65,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The email address of the company
      */
     #[Assert\Email]
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $email_address = '';
 
@@ -73,7 +73,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The website of the company
      */
     #[Assert\Url]
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $website = '';
 

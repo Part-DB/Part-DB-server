@@ -43,7 +43,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      * @var string the name of this element
      */
     #[Assert\NotBlank]
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'api:basic:read', 'api:basic:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $name = '';
 
