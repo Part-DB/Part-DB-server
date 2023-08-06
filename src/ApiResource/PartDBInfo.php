@@ -23,19 +23,22 @@ declare(strict_types=1);
 
 namespace App\ApiResource;
 
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\State\PartDBInfoProvider;
 
 /**
  * This class is used to provide various information about the system.
  */
 #[ApiResource(
-    uriTemplate: '/info',
+    uriTemplate: '/info.{_format}',
     description: 'Basic information about Part-DB like version, title, etc.',
     operations: [new Get()],
     provider: PartDBInfoProvider::class
 )]
+#[ApiFilter(PropertyFilter::class)]
 class PartDBInfo
 {
     public function __construct(
