@@ -96,6 +96,8 @@ class Manufacturer extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['manufacturer:read', 'manufacturer:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
     public function __construct()
     {

@@ -22,6 +22,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\SupplierRepository;
@@ -49,6 +55,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`suppliers`')]
 #[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['supplier:write', 'company:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/suppliers/{id}/children.{_format}',
+    operations: [new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a supplier'])],
+    uriVariables: [
+        'id' => new Link(fromClass: Supplier::class, fromProperty: 'children')
+    ],
+    normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
 class Supplier extends AbstractCompany
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
@@ -57,11 +76,10 @@ class Supplier extends AbstractCompany
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @var Collection<int, Orderdetail>|Orderdetail[]
-     */
     /**
      * @var Collection<int, Orderdetail>|Orderdetail[]
      */
@@ -91,10 +109,14 @@ class Supplier extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: SupplierAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, SupplierParameter>
@@ -102,6 +124,8 @@ class Supplier extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
 
     /**
