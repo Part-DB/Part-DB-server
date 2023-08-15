@@ -1,0 +1,16 @@
+{% extends "main_card.html.twig" %}
+
+{% block card_title %}Add API token{% endblock %}
+
+{% block card_content %}
+    {# Show API secret after submit #}
+
+    {% if secret is not null %}
+        <div class="alert alert-success">
+            Your API token is: <strong>{{ secret }}</strong><br>
+            <span class="text-muted">Please save it. You wont be able to see it again!</span>
+        </div>
+    {% endif %}
+
+    {{ form(form) }}
+{% endblock %}

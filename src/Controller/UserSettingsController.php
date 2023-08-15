@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\UserSystem\ApiToken;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
@@ -39,6 +40,7 @@ use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -393,6 +395,48 @@ class UserSettingsController extends AbstractController
                 'secret' => $user->getGoogleAuthenticatorSecret(),
                 'username' => $user->getGoogleAuthenticatorUsername(),
             ],
+        ]);
+    }
+
+    /**
+     * @return Response
+     */
+    #[Route('/api_token/create', name: 'user_api_token_create')]
+    public function addApiToken(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $token = new ApiToken();
+
+        $secret = null;
+
+        $form = $this->createFormBuilder($token)
+            ->add('name', TextType::class, [
+                'label' => 'user.api_token.name',
+            ])
+            ->add('valid_until', DateTimeType::class, [
+                'label' => 'user.api_token.valid_until',
+                'widget' => 'single_text',
+                'required' => false,
+                'html5' => true
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'save',
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $token->setUser($this->getUser());
+            $entityManager->persist($token);
+            $entityManager->flush();
+
+            $secret = $token->getToken();
+        }
+
+        return $this->render('users/api_token_create.html.twig', [
+            'token' => $token,
+            'form' => $form,
+            'secret' => $secret,
         ]);
     }
 }

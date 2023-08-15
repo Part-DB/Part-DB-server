@@ -280,6 +280,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected Collection $webauthn_keys;
 
     /**
+     * @var Collection<int, ApiToken>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiToken::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection $api_tokens;
+
+    /**
      * @var Currency|null The currency the user wants to see prices in.
      *                    Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
      *                    TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
@@ -316,6 +322,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
         $this->webauthn_keys = new ArrayCollection();
+        $this->api_tokens = new ArrayCollection();
     }
 
     /**
@@ -969,8 +976,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
-
-
     public function setSamlAttributes(array $attributes): void
     {
         //When mail attribute exists, set it
@@ -1000,4 +1005,36 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
             $this->setEmail($attributes['urn:oid:1.2.840.113549.1.9.1'][0]);
         }
     }
+
+    /**
+     * Return all API tokens of the user.
+     * @return Collection
+     */
+    public function getApiTokens(): Collection
+    {
+        return $this->api_tokens;
+    }
+
+    /**
+     * Add an API token to the user.
+     * @param  ApiToken  $apiToken
+     * @return void
+     */
+    public function addApiToken(ApiToken $apiToken): void
+    {
+        $this->api_tokens->add($apiToken);
+    }
+
+    /**
+     * Remove an API token from the user.
+     * @param  ApiToken  $apiToken
+     * @return void
+     */
+    public function removeApiToken(ApiToken $apiToken): void
+    {
+        $this->api_tokens->removeElement($apiToken);
+    }
+
+
+
 }
