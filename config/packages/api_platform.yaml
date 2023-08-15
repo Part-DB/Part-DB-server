@@ -4,3 +4,10 @@ api_platform:
   description: 'API of Part-DB'
 
   version: '0.1.0'
+
+  swagger:
+    api_keys:
+      # overridden in OpenApiFactoryDecorator
+      access_token:
+        name: Authorization
+        type: header

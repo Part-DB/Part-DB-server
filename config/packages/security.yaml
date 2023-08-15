@@ -21,6 +21,9 @@ security:
             user_checker: App\Security\UserChecker
             entry_point: form_login
 
+            access_token:
+                token_handler: App\Security\ApiTokenHandler
+
             # Enable user impersonation
             switch_user: { role: CAN_SWITCH_USER }
 
