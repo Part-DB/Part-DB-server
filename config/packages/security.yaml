@@ -21,11 +21,11 @@ security:
             user_checker: App\Security\UserChecker
             entry_point: form_login
 
-            access_token:
-                token_handler: App\Security\ApiTokenHandler
-
             # Enable user impersonation
             switch_user: { role: CAN_SWITCH_USER }
+
+            custom_authenticators:
+                - App\Security\ApiTokenAuthenticator
 
             two_factor:
                 auth_form_path: 2fa_login

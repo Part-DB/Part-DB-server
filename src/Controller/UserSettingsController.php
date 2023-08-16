@@ -24,6 +24,7 @@ namespace App\Controller;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\ApiToken;
+use App\Entity\UserSystem\ApiTokenLevel;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
@@ -41,6 +42,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -405,6 +407,7 @@ class UserSettingsController extends AbstractController
     public function addApiToken(Request $request, EntityManagerInterface $entityManager): Response
     {
         $token = new ApiToken();
+        $token->setUser($this->getUser());
 
         $secret = null;
 
@@ -418,6 +421,10 @@ class UserSettingsController extends AbstractController
                 'required' => false,
                 'html5' => true
             ])
+            ->add('level', EnumType::class, [
+                'class' => ApiTokenLevel::class,
+                'label' => 'user.api_token.level',
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',
             ])
@@ -426,7 +433,6 @@ class UserSettingsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $token->setUser($this->getUser());
             $entityManager->persist($token);
             $entityManager->flush();
 

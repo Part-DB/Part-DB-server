@@ -58,6 +58,12 @@ class ApiToken
     #[ORM\Column(length: 68, unique: true)]
     private string $token;
 
+    #[ORM\Column(type: Types::SMALLINT, enumType: ApiTokenLevel::class)]
+    private ApiTokenLevel $level = ApiTokenLevel::READ_ONLY;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_time_used = null;
+
     public function __construct(ApiTokenType $tokenType = ApiTokenType::PERSONAL_ACCESS_TOKEN)
     {
         // Generate a rondom token on creation. The tokenType is 3 characters long (plus underscore), so the token is 68 characters long.
@@ -118,6 +124,37 @@ class ApiToken
     public function setName(string $name): ApiToken
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Gets the last time the token was used to authenticate or null if it was never used.
+     * @return \DateTimeInterface|null
+     */
+    public function getLastTimeUsed(): ?\DateTimeInterface
+    {
+        return $this->last_time_used;
+    }
+
+    /**
+     * Sets the last time the token was used to authenticate.
+     * @param \DateTimeInterface|null $last_time_used
+     * @return ApiToken
+     */
+    public function setLastTimeUsed(?\DateTimeInterface $last_time_used): ApiToken
+    {
+        $this->last_time_used = $last_time_used;
+        return $this;
+    }
+
+    public function getLevel(): ApiTokenLevel
+    {
+        return $this->level;
+    }
+
+    public function setLevel(ApiTokenLevel $level): ApiToken
+    {
+        $this->level = $level;
         return $this;
     }
 

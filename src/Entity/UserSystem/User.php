@@ -315,6 +315,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $saml_user = false;
 
+    /**
+     * @var ApiToken|null The api token which is used to authenticate the user, or null if the user is not authenticated via api token
+     */
+    private ?ApiToken $authenticating_api_token = null;
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -1035,6 +1040,23 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         $this->api_tokens->removeElement($apiToken);
     }
 
+    /**
+     * Mark the user as authenticated with an API token, should only be used by the API token authenticator.
+     * @param  ApiToken  $apiToken
+     * @return void
+     */
+    public function markAsApiTokenAuthenticated(ApiToken $apiToken): void
+    {
+        $this->authenticating_api_token = $apiToken;
+    }
 
+    /**
+     * Return the API token that is currently authenticating the user or null if the user is not authenticated with an API token.
+     * @return ApiToken|null
+     */
+    public function getAuthenticatingApiToken(): ?ApiToken
+    {
+        return $this->authenticating_api_token;
+    }
 
 }
