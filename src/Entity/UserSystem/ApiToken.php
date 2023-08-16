@@ -23,18 +23,34 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Repository\UserSystem\ApiTokenRepository;
+use App\State\CurrentApiTokenProvider;
+use App\State\PartDBInfoProvider;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
 #[ORM\Table(name: 'api_tokens')]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['name', 'user'])]
+
+#[ApiResource(
+    uriTemplate: '/current.{_format}',
+    description: 'A token used to authenticate API requests.',
+    operations: [new Get(openapiContext: ['summary' => 'Get information about the API token that is currently used.'])],
+    normalizationContext: ['groups' => ['token:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    provider: CurrentApiTokenProvider::class,
+)]
+#[ApiFilter(PropertyFilter::class)]
 class ApiToken
 {
 
@@ -47,21 +63,26 @@ class ApiToken
 
     #[ORM\Column(type: Types::STRING)]
     #[NotBlank]
+    #[Groups('token:read')]
     protected string $name = '';
 
     #[ORM\ManyToOne(inversedBy: 'api_tokens')]
+    #[Groups('token:read')]
     private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups('token:read')]
     private ?\DateTimeInterface $valid_until = null;
 
     #[ORM\Column(length: 68, unique: true)]
     private string $token;
 
     #[ORM\Column(type: Types::SMALLINT, enumType: ApiTokenLevel::class)]
+    #[Groups('token:read')]
     private ApiTokenLevel $level = ApiTokenLevel::READ_ONLY;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups('token:read')]
     private ?\DateTimeInterface $last_time_used = null;
 
     public function __construct(ApiTokenType $tokenType = ApiTokenType::PERSONAL_ACCESS_TOKEN)
