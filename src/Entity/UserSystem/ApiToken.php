@@ -72,7 +72,7 @@ class ApiToken
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups('token:read')]
-    private ?\DateTimeInterface $valid_until = null;
+    private ?\DateTimeInterface $valid_until;
 
     #[ORM\Column(length: 68, unique: true)]
     private string $token;
@@ -89,6 +89,9 @@ class ApiToken
     {
         // Generate a rondom token on creation. The tokenType is 3 characters long (plus underscore), so the token is 68 characters long.
         $this->token = $tokenType->getTokenPrefix() . bin2hex(random_bytes(32));
+
+        //By default, tokens are valid for 1 year.
+        $this->valid_until = new \DateTime('+1 year');
     }
 
     public function getTokenType(): ApiTokenType

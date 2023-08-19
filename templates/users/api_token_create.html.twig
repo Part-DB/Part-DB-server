@@ -1,16 +1,30 @@
 {% extends "main_card.html.twig" %}
 
-{% block card_title %}Add API token{% endblock %}
+{% block title %}{% trans %}api_token.create_new{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-plug fa-fw" aria-hidden="true"></i>
+    {% trans %}api_token.create_new{% endtrans %}
+{% endblock %}
 
 {% block card_content %}
     {# Show API secret after submit #}
 
     {% if secret is not null %}
         <div class="alert alert-success">
-            Your API token is: <strong>{{ secret }}</strong><br>
-            <span class="text-muted">Please save it. You wont be able to see it again!</span>
-        </div>
-    {% endif %}
+            <b>{% trans %}api_tokens.your_token_is{% endtrans %}:</b><br>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" value="{{ secret }}" readonly>
+                <button class="btn btn-outline-secondary" type="button" data-clipboard-text="{{ secret }}">
+                    <i class="fa-solid fa-clipboard fa-fw" aria-hidden="true"></i>
+                </button>
+            </div>
+            <i>{% trans %}api_tokens.please_save_it{% endtrans %}</i>
+            <br>
 
-    {{ form(form) }}
+            <a href="{{ path('user_settings') }}" class="btn btn-primary mt-4">{% trans %}api_tokens.create_new.back_to_user_settings{% endtrans %}</a>
+        </div>
+    {% else %}
+        {{ form(form) }}
+    {% endif %}
 {% endblock %}

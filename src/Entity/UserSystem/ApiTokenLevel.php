@@ -38,9 +38,13 @@ enum ApiTokenLevel: int
      */
     case EDIT = 2;
     /**
+     * The token can do some administrative tasks (like viewing all log entries), but can not change passwords and create new tokens.
+     */
+    case ADMIN = 3;
+    /**
      * The token can do everything the user can do.
      */
-    case FULL = 3;
+    case FULL = 4;
 
     /**
      * Returns the additional roles that the authenticated user should have when using this token.
@@ -54,5 +58,14 @@ enum ApiTokenLevel: int
             self::EDIT => [self::ROLE_READ_ONLY, self::ROLE_EDIT],
             self::FULL => [self::ROLE_READ_ONLY, self::ROLE_EDIT, self::ROLE_FULL],
         };
+    }
+
+    /**
+     * Returns the translation key for the name of this token level.
+     * @return string
+     */
+    public function getTranslationKey(): string
+    {
+        return 'api_token.level.' . strtolower($this->name);
     }
 }

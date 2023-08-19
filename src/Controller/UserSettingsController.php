@@ -413,17 +413,20 @@ class UserSettingsController extends AbstractController
 
         $form = $this->createFormBuilder($token)
             ->add('name', TextType::class, [
-                'label' => 'user.api_token.name',
-            ])
-            ->add('valid_until', DateTimeType::class, [
-                'label' => 'user.api_token.valid_until',
-                'widget' => 'single_text',
-                'required' => false,
-                'html5' => true
+                'label' => 'api_tokens.name',
             ])
             ->add('level', EnumType::class, [
                 'class' => ApiTokenLevel::class,
-                'label' => 'user.api_token.level',
+                'label' => 'api_tokens.access_level',
+                'help' => 'api_tokens.access_level.help',
+                'choice_label' => fn (ApiTokenLevel $level) => $level->getTranslationKey(),
+            ])
+            ->add('valid_until', DateTimeType::class, [
+                'label' => 'api_tokens.expiration_date',
+                'widget' => 'single_text',
+                'help' => 'api_tokens.expiration_date.help',
+                'required' => false,
+                'html5' => true
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

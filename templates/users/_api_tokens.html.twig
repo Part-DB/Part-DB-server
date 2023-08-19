@@ -1,0 +1,61 @@
+{# @var user \App\Entity\UserSystem\User #}
+
+{% macro format_date(datetime) %}
+    {% if datetime is null %}
+        <i>{% trans %}datetime.never{% endtrans %}</i>
+    {% else %}
+        {{ datetime|format_datetime }}
+    {% endif %}
+{% endmacro %}
+
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="fa-solid fa-plug fa-fw" aria-hidden="true"></i>
+        {% trans %}user.settings.api_tokens{% endtrans %}
+    </div>
+    <div class="card-body">
+        <span class="text-muted">{% trans %}user.settings.api_tokens.description{% endtrans %}</span><br>
+        <a href="{{ path('api_doc') }}">{% trans %}user.settings.show_api_documentation{% endtrans %}</a>
+
+        {% if user.apiTokens.empty %}
+            <br><br>
+            <b>{% trans %}user.settings.api_tokens.no_api_tokens_yet{% endtrans %}</b>
+        {% else %}
+            <table class="table table-striped table-bordered table-hover table-sm mt-2">
+                <thead>
+                <tr>
+                    <th>{% trans %}api_tokens.name{% endtrans %}</th>
+                    <th>{% trans %}api_tokens.access_level{% endtrans %}</th>
+                    <th>{% trans %}api_tokens.expiration_date{% endtrans %}</th>
+                    <th>{% trans %}tfa_u2f.keys.added_date{% endtrans %}</th>
+                    <th>{% trans %}api_tokens.last_time_used{% endtrans %}</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for api_token in user.apiTokens %}
+                    {# @var api_token \App\Entity\UserSystem\ApiToken #}
+                    <tr>
+                        <td>{{ api_token.name }}</td>
+                        <td>{{ api_token.level.translationKey|trans }}</td>
+                        <td>
+                            {{ _self.format_date(api_token.validUntil) }}
+                            {% if api_token.valid %}
+                                <span class="badge bg-success badge-success">{% trans %}api_token.valid{% endtrans %}</span>
+                            {% else %}
+                                <span class="badge bg-warning badge-warning">{% trans %}api_token.expired{% endtrans %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ _self.format_date(api_token.addedDate) }}</td>
+                        <td>{{ _self.format_date(api_token.lastTimeUsed) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        <a href="{{ path('user_api_token_create') }}" class="btn btn-success" ><i class="fas fa-plus-square fa-fw"></i> {% trans %}api_token.create_new{% endtrans %}</a>
+
+    </div>
+</div>
