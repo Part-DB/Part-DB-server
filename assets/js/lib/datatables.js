@@ -47,7 +47,8 @@
                 method: config.method,
                 data: {
                     _dt: config.name,
-                    _init: true
+                    _init: true,
+                    order: config.initial_order ?? undefined,
                 }
             }).done(function(data) {
                 var baseState;

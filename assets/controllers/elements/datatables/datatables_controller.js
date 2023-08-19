@@ -65,8 +65,13 @@ export default class extends Controller {
         localStorage.setItem( this.getStateSaveKey(), JSON.stringify(data) );
     }
 
-    stateLoadCallback(settings) {
-        const data = JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
+    stateLoadCallback() {
+        const json = localStorage.getItem(this.getStateSaveKey());
+        if(json === null || json === undefined) {
+            return null;
+        }
+
+        const data = JSON.parse(json);
 
         if (data) {
             //Do not save the start value (current page), as we want to always start at the first page on a page reload
@@ -89,6 +94,19 @@ export default class extends Controller {
 
         //Add url info, as the one available in the history is not enough, as Turbo may have not changed it yet
         settings.url = this.element.dataset.dtUrl;
+
+        //Add initial_order info to the settings, so that the order on the initial page load is the one saved in the state
+        const saved_state = this.stateLoadCallback();
+        if (saved_state !== null) {
+            const raw_order = saved_state.order;
+
+            settings.initial_order = raw_order.map((order) => {
+                return {
+                    column: order[0],
+                    dir: order[1]
+                }
+            });
+        }
 
         let options = {
             colReorder: true,
