@@ -24,7 +24,7 @@ var Encore = require('@symfony/webpack-encore');
 const zlib = require('zlib');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-translations' );
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -120,7 +120,7 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
-    .addPlugin( new CKEditorWebpackPlugin( {
+    .addPlugin( new CKEditorTranslationsPlugin( {
         // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
         language: 'en',
         addMainLanguageTranslationsToAllAssets: true,
