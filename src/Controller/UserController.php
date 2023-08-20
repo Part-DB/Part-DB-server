@@ -46,6 +46,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: '/user')]
 class UserController extends BaseAdminController
@@ -79,7 +80,8 @@ class UserController extends BaseAdminController
      */
     #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'user_edit')]
     #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
-    public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
+    public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper,
+        PermissionSchemaUpdater $permissionSchemaUpdater, ValidatorInterface $validator, ?string $timestamp = null): Response
     {
         //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
         $permissionSchemaUpdater->userUpgradeSchemaRecursively($entity);
@@ -108,7 +110,7 @@ class UserController extends BaseAdminController
 
                 $this->addFlash('success', 'user.edit.reset_success');
             } else {
-                $this->addFlash('danger', 'csfr_invalid');
+                $this->addFlash('error', 'csfr_invalid');
             }
         }
 
@@ -120,15 +122,25 @@ class UserController extends BaseAdminController
 
                 $permissionPresetsHelper->applyPreset($entity, $preset);
 
-                $em->flush();
+                //Ensure that the user is valid after applying the preset
+                $errors = $validator->validate($entity);
+                if (count($errors) > 0) {
+                    $this->addFlash('error', 'validator.noLockout');
+                    //Refresh the entity to remove the changes
+                    $em->refresh($entity);
+                } else {
+                    $em->flush();
 
-                $this->addFlash('success', 'user.edit.permission_success');
+                    $this->addFlash('success', 'user.edit.permission_success');
 
-                //We need to stop the execution here, or our permissions changes will be overwritten by the form values
-                return $this->redirectToRoute('user_edit', ['id' => $entity->getID()]);
+                    //We need to stop the execution here, or our permissions changes will be overwritten by the form values
+                    return $this->redirectToRoute('user_edit', ['id' => $entity->getID()]);
+                }
+
+
+            } else {
+                $this->addFlash('error', 'csfr_invalid');
             }
-
-            $this->addFlash('danger', 'csfr_invalid');
         }
 
         return $this->_edit($entity, $request, $em, $timestamp);
