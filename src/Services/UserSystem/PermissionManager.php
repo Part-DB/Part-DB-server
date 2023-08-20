@@ -271,6 +271,27 @@ class PermissionManager
         }
     }
 
+    /**
+     * This function checks if the given user has any permission set to allow, either directly or inherited.
+     * @param  User  $user
+     * @return bool
+     */
+    public function hasAnyPermissionSetToAllowInherited(User $user): bool
+    {
+        //Iterate over all permissions
+        foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+            //Iterate over all operations of the permission
+            foreach ($permission['operations'] as $op_key => $op) {
+                //Check if the user has the permission set to allow
+                if ($this->inherit($user, $perm_key, $op_key) === true) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     protected function generatePermissionStructure()
     {
         $cache = new ConfigCache($this->cache_file, $this->kernel_debug_enabled);

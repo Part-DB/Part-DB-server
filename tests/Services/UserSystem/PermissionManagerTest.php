@@ -31,15 +31,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PermissionManagerTest extends WebTestCase
 {
-    protected $user_withoutGroup;
+    protected ?User $user_withoutGroup = null;
 
-    protected $user;
-    protected $group;
+    protected ?User $user = null;
+    protected ?Group $group = null;
 
-    /**
-     * @var PermissionManager
-     */
-    protected $service;
+    protected ?PermissionManager $service = null;
 
     protected function setUp(): void
     {
@@ -293,5 +290,35 @@ class PermissionManagerTest extends WebTestCase
         $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
         $this->assertTrue($this->service->dontInherit($user, 'parts', 'edit'));
         $this->assertTrue($this->service->dontInherit($user, 'categories', 'read'));
+    }
+
+    public function testHasAnyPermissionSetToAllowInherited(): void
+    {
+        //For empty user this should return false
+        $user = new User();
+        $this->assertFalse($this->service->hasAnyPermissionSetToAllowInherited($user));
+
+        //If all permissions are set to false this should return false
+        $this->service->setAllPermissions($user, false);
+        $this->assertFalse($this->service->hasAnyPermissionSetToAllowInherited($user));
+
+        //If all permissions are set to null this should return false
+        $this->service->setAllPermissions($user, null);
+        $this->assertFalse($this->service->hasAnyPermissionSetToAllowInherited($user));
+
+        //If all permissions are set to true this should return true
+        $this->service->setAllPermissions($user, true);
+        $this->assertTrue($this->service->hasAnyPermissionSetToAllowInherited($user));
+
+        //The test data should return true
+        $this->assertTrue($this->service->hasAnyPermissionSetToAllowInherited($this->user));
+        $this->assertTrue($this->service->hasAnyPermissionSetToAllowInherited($this->user_withoutGroup));
+
+        //Create a user with a group
+        $user = new User();
+        $user->setGroup($this->group);
+        //This should return true
+        $this->assertTrue($this->service->hasAnyPermissionSetToAllowInherited($user));
+
     }
 }
