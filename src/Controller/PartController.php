@@ -160,7 +160,7 @@ class PartController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
         #[MapEntity(mapping: ['id' => 'id'])] ?Part $part = null,
-        #[MapEntity(mapping: ['id' => 'project_id'])] ?Project $project = null): Response
+        #[MapEntity(mapping: ['project_id' => 'id'])] ?Project $project = null): Response
     {
 
         if ($part instanceof Part) {
