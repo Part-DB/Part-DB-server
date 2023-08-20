@@ -69,12 +69,12 @@ class ValidProjectBuildRequestValidator extends ConstraintValidator
                         ->addViolation();
                 }
 
-                if ($withdraw_sum > $needed_amount) {
+                if ($withdraw_sum > $needed_amount && $value->isDontCheckQuantity() === false) {
                     $this->buildViolationForLot($lot, 'validator.project_build.lot_bigger_than_needed')
                         ->addViolation();
                 }
 
-                if ($withdraw_sum < $needed_amount) {
+                if ($withdraw_sum < $needed_amount && $value->isDontCheckQuantity() === false) {
                     $this->buildViolationForLot($lot, 'validator.project_build.lot_smaller_than_needed')
                         ->addViolation();
                 }

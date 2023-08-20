@@ -62,6 +62,15 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             'disabled' => !$this->security->isGranted('@parts_stock.withdraw'),
         ]);
 
+        $builder->add('dontCheckQuantity', CheckboxType::class, [
+            'label' => 'project.build.dont_check_quantity',
+            'help' => 'project.build.dont_check_quantity.help',
+            'required' => false,
+            'attr' => [
+                'data-controller' => 'pages--dont-check-quantity-checkbox'
+            ]
+        ]);
+
         $builder->add('comment', TextType::class, [
             'label' => 'part.info.withdraw_modal.comment',
             'help' => 'part.info.withdraw_modal.comment.hint',
@@ -124,6 +133,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         }
 
         $forms['comment']->setData($data->getComment());
+        $forms['dontCheckQuantity']->setData($data->isDontCheckQuantity());
         $forms['addBuildsToBuildsPart']->setData($data->getAddBuildsToBuildsPart());
         if (isset($forms['buildsPartLot'])) {
             $forms['buildsPartLot']->setData($data->getBuildsPartLot());
@@ -150,6 +160,8 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         }
 
         $data->setComment($forms['comment']->getData());
+        $data->setDontCheckQuantity($forms['dontCheckQuantity']->getData());
+
         if (isset($forms['buildsPartLot'])) {
             $lot = $forms['buildsPartLot']->getData();
             if (!$lot) { //When the user selected "Create new lot", create a new lot

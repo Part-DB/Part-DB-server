@@ -11603,5 +11603,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Show available Part-DB updates</target>
       </segment>
     </unit>
+    <unit id="VVpmfIj" name="project.build.dont_check_quantity">
+      <segment>
+        <source>project.build.dont_check_quantity</source>
+        <target>Do not check quantities</target>
+      </segment>
+    </unit>
+    <unit id="AzYSIiX" name="project.build.dont_check_quantity.help">
+      <segment>
+        <source>project.build.dont_check_quantity.help</source>
+        <target>If this option is selected, the given withdraw quantities are used as given, no matter if more or less parts are actually required to build this project.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

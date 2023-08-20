@@ -47,6 +47,8 @@ final class ProjectBuildRequest
 
     private bool $add_build_to_builds_part = false;
 
+    private bool $dont_check_quantity = false;
+
     /**
      * @param  Project  $project  The project that should be build
      * @param  int  $number_of_builds The number of builds that should be created
@@ -283,4 +285,26 @@ final class ProjectBuildRequest
     {
         return $this->number_of_builds;
     }
+
+    /**
+     * If Set to true, the given withdraw amounts are used without any checks for requirements.
+     * @return bool
+     */
+    public function isDontCheckQuantity(): bool
+    {
+        return $this->dont_check_quantity;
+    }
+
+    /**
+     * Set to true, the given withdraw amounts are used without any checks for requirements.
+     * @param  bool  $dont_check_quantity
+     * @return $this
+     */
+    public function setDontCheckQuantity(bool $dont_check_quantity): ProjectBuildRequest
+    {
+        $this->dont_check_quantity = $dont_check_quantity;
+        return $this;
+    }
+
+
 }
