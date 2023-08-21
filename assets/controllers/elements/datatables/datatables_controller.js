@@ -239,4 +239,16 @@ export default class extends Controller {
         return this.element.dataset.select ?? false;
     }
 
+    invertSelection() {
+        //Do nothing if the datatable is not selectable
+        if(!this.isSelectable()) {
+            return;
+        }
+
+        //Invert the selected rows on the datatable
+        const selected_rows = this._dt.rows({selected: true});
+        this._dt.rows().select();
+        selected_rows.deselect();
+    }
+
 }

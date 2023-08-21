@@ -32,6 +32,8 @@
             {# <span id="select_count"></span> #}
 
             <div class="input-group">
+                <button class="btn btn-outline-secondary" type="button" {{ stimulus_action('elements/datatables/parts', 'invertSelection')}}
+                        title="{% trans %}part_list.action.invert_selection{% endtrans %}" ><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
                 <span class="input-group-text">
                     <span class="badge bg-primary">{% trans with {'%count%': '<span ' ~ stimulus_target('elements/datatables/parts', 'selectCount') ~ '></span>'} %}part_list.action.part_count{% endtrans %}</span>
                 </span>
@@ -75,7 +77,7 @@
                     {# This is left empty, as this will be filled by Javascript #}
                 </select>
 
-                <button type="submit" class="btn btn-secondary">{% trans %}part_list.action.submit{% endtrans %}</button>
+                <button type="submit" class="btn btn-primary">{% trans %}part_list.action.submit{% endtrans %}</button>
             </div>
         </div>
 

@@ -11615,5 +11615,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>If this option is selected, the given withdraw quantities are used as given, no matter if more or less parts are actually required to build this project.</target>
       </segment>
     </unit>
+    <unit id="tfOeMsC" name="part_list.action.invert_selection">
+      <segment>
+        <source>part_list.action.invert_selection</source>
+        <target>Invert selection</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
