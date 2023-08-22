@@ -1860,6 +1860,20 @@
         <target>库存</target>
       </segment>
     </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>Unknown</source>
+        <target>未知</target>
+      </segment>
+    </unit>
     <unit id="3tdTZVD" name="part.supplier.name">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
@@ -1878,6 +1892,16 @@
       <segment state="translated">
         <source>part.supplier.partnr</source>
         <target>元件编号</target>
+      </segment>
+    </unit>
+    <unit id="qNZM46r" name="delete.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>delete.caption</source>
+        <target>删除</target>
       </segment>
     </unit>
     <unit id="upshmqD" name="part_lots.location_unknown">
