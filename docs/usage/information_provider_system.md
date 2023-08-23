@@ -84,6 +84,8 @@ Part-DB will save the prices in their native currency, and you can use Part-DB c
 * `PROVIDER_OCTOPART_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `10`). This affects how quickly your monthly limit is used up.
 * `PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS`: If set to `true`, only offers from [authorized sellers](https://octopart.com/authorized) will be returned (optional, default: `false`).
 
+**Attention**: If you change the octopart clientID after you have already used the provider, you have to remove the OAuth token in the Part-DB database. Remove the entry in the table `oauth_tokens` with the name `ip_octopart_oauth`.
+
 ### Digi-Key
 The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and getting shopping information from [Digi-Key](https://www.digikey.com/).
 To use it you have to create an account at Digi-Key and get an API key on the [Digi-Key API page](https://developer.digikey.com/). 
