@@ -11575,5 +11575,29 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Quelle</target>
       </segment>
     </unit>
+    <unit id="21tIbM2" name="update_manager.new_version_available.title">
+      <segment state="translated">
+        <source>update_manager.new_version_available.title</source>
+        <target>Neue Version verfügbar</target>
+      </segment>
+    </unit>
+    <unit id=".c.eoDV" name="update_manager.new_version_available.text">
+      <segment state="translated">
+        <source>update_manager.new_version_available.text</source>
+        <target>Eine neue Version von Part-DB ist verfügbar. Mehr Informationen gibt es hier</target>
+      </segment>
+    </unit>
+    <unit id="KOFGqJw" name="update_manager.new_version_available.only_administrators_can_see">
+      <segment state="translated">
+        <source>update_manager.new_version_available.only_administrators_can_see</source>
+        <target>Nur Administratoren können diese Nachricht sehen.</target>
+      </segment>
+    </unit>
+    <unit id="IFkvJpC" name="perm.system.show_available_updates">
+      <segment state="translated">
+        <source>perm.system.show_available_updates</source>
+        <target>Verfügbare Part-DB Updates anzeigen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
