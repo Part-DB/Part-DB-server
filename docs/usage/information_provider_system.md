@@ -77,7 +77,7 @@ Part-DB caches the search results internally, so if you have searched for a part
 Following env configuration options are available:
 
 * `PROVIDER_OCTOPART_CLIENT_ID`: The client ID you got from Nexar (mandatory)
-* `PROVIDER_OCTOPART_CLIENT_SECRET`: The client secret you got from Nexar (mandatory)
+* `PROVIDER_OCTOPART_SECRET`: The client secret you got from Nexar (mandatory)
 * `PROVIDER_OCTOPART_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`). If an offer is only available in a certain currency, 
 Part-DB will save the prices in their native currency, and you can use Part-DB currency conversion feature to convert it to your preferred currency.
 * `PROVIDER_OCOTPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code, default: `DE`). To get correct prices, you have to set this and the currency setting to the correct value.
