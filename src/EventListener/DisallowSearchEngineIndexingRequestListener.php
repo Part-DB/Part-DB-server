@@ -48,8 +48,8 @@ class DisallowSearchEngineIndexingRequestListener
             return;
         }
 
-        if (!$event->getResponse()->headers->has(static::HEADER_NAME)) {
-            $event->getResponse()->headers->set(static::HEADER_NAME, 'noindex');
+        if (!$event->getResponse()->headers->has(self::HEADER_NAME)) {
+            $event->getResponse()->headers->set(self::HEADER_NAME, 'noindex');
         }
     }
 }
