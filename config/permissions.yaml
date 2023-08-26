@@ -254,6 +254,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       show_updates:
         label: "perm.system.show_available_updates"
 
+
   attachments:
     label: "perm.part.attachments"
     operations:
@@ -304,4 +305,11 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.revert_elements"
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles', 'delete_profiles']
 
-
+  api:
+    label: "perm.api"
+    operations:
+      access_api:
+        label: "perm.api.access_api"
+      manage_tokens:
+        label: "perm.api.manage_tokens"
+        alsoSet: ['access_api']

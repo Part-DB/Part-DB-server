@@ -55,7 +55,9 @@
             </table>
         {% endif %}
 
-        <a href="{{ path('user_api_token_create') }}" class="btn btn-success" ><i class="fas fa-plus-square fa-fw"></i> {% trans %}api_token.create_new{% endtrans %}</a>
+        <a href="{{ path('user_api_token_create') }}" class="btn btn-success" {% if not is_granted('@api.manage_tokens') %}disabled="disabled"{% endif %}>
+            <i class="fas fa-plus-square fa-fw"></i> {% trans %}api_token.create_new{% endtrans %}
+        </a>
 
     </div>
 </div>

@@ -102,7 +102,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     final public const ID_ANONYMOUS = 1;
 
     #[Groups(['user:read'])]
-    protected ?int $id;
+    protected ?int $id = null;
 
     #[Groups(['user:read'])]
     protected ?\DateTimeInterface $lastModified = null;

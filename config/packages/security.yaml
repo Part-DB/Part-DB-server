@@ -69,3 +69,5 @@ security:
         # We get into trouble with the U2F authentication, if the calls to the trees trigger an 2FA login
         # This settings should not do much harm, because a read only access to show available data structures is not really critical
         - { path: "^/\\w{2}/tree", role: PUBLIC_ACCESS }
+        # Restrict access to API to users, which has the API access permission
+        - { path: "^/api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }

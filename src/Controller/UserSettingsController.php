@@ -406,6 +406,8 @@ class UserSettingsController extends AbstractController
     #[Route('/api_token/create', name: 'user_api_token_create')]
     public function addApiToken(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('@api.manage_tokens');
+
         $token = new ApiToken();
         $token->setUser($this->getUser());
 

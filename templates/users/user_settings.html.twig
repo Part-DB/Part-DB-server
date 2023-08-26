@@ -77,5 +77,7 @@
         </div>
     </div>
 
-    {% include "users/_api_tokens.html.twig" %}
+    {% if is_granted("@api.access_api") %}
+        {% include "users/_api_tokens.html.twig" %}
+    {% endif %}
 {% endblock %}
