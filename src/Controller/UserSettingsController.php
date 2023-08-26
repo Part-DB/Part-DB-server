@@ -407,6 +407,8 @@ class UserSettingsController extends AbstractController
     public function addApiToken(Request $request, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('@api.manage_tokens');
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $token = new ApiToken();
         $token->setUser($this->getUser());
@@ -449,5 +451,44 @@ class UserSettingsController extends AbstractController
             'form' => $form,
             'secret' => $secret,
         ]);
+    }
+
+    #[Route(path: '/api_token/delete', name: 'user_api_tokens_delete', methods: ['DELETE'])]
+    public function apiTokenRemove(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('@api.manage_tokens');
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if (!$this->isCsrfTokenValid('delete'.$user->getID(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'csfr_invalid');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        //Extract the token id from the request
+        $token_id = $request->request->getInt('token_id');
+
+        $token = $entityManager->find(ApiToken::class, $token_id);
+        if ($token === null) {
+            $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
+            return $this->redirectToRoute('user_settings');
+        }
+        //User can only delete its own API tokens
+        if ($token->getUser() !== $user) {
+            $this->addFlash('error', 'tfa_u2f.u2f_delete.access_denied');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        //Do the actual deletion
+        $entityManager->remove($token);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'api_tokens.deleted');
+        return $this->redirectToRoute('user_settings');
     }
 }

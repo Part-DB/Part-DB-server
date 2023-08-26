@@ -11765,5 +11765,29 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Manage API tokens</target>
       </segment>
     </unit>
+    <unit id="dH8PTLd" name="user.settings.api_tokens.delete.title">
+      <segment>
+        <source>user.settings.api_tokens.delete.title</source>
+        <target>Do you really want to delete this API token?</target>
+      </segment>
+    </unit>
+    <unit id="1QAaz2a" name="user.settings.api_tokens.delete">
+      <segment>
+        <source>user.settings.api_tokens.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="bE8wV70" name="user.settings.api_tokens.delete.message">
+      <segment>
+        <source>user.settings.api_tokens.delete.message</source>
+        <target>The application, which uses this API token, will no longer have access to Part-DB. This action can not be undone!</target>
+      </segment>
+    </unit>
+    <unit id="sLAzIhh" name="api_tokens.deleted">
+      <segment>
+        <source>api_tokens.deleted</source>
+        <target>API token deleted successfully!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

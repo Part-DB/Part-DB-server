@@ -21,38 +21,51 @@
             <br><br>
             <b>{% trans %}user.settings.api_tokens.no_api_tokens_yet{% endtrans %}</b>
         {% else %}
-            <table class="table table-striped table-bordered table-hover table-sm mt-2">
-                <thead>
-                <tr>
-                    <th>{% trans %}api_tokens.name{% endtrans %}</th>
-                    <th>{% trans %}api_tokens.access_level{% endtrans %}</th>
-                    <th>{% trans %}api_tokens.expiration_date{% endtrans %}</th>
-                    <th>{% trans %}tfa_u2f.keys.added_date{% endtrans %}</th>
-                    <th>{% trans %}api_tokens.last_time_used{% endtrans %}</th>
-                    <th></th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {% for api_token in user.apiTokens %}
-                    {# @var api_token \App\Entity\UserSystem\ApiToken #}
+            <form action="{{ path('user_api_tokens_delete') }}" method="post"
+                    {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                  data-delete-title="{% trans %}user.settings.api_tokens.delete.title{% endtrans %}"
+                  data-delete-message="{% trans %}user.settings.api_tokens.delete.message{% endtrans %}">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                <table class="table table-striped table-bordered table-hover table-sm mt-2">
+                    <thead>
                     <tr>
-                        <td>{{ api_token.name }}</td>
-                        <td>{{ api_token.level.translationKey|trans }}</td>
-                        <td>
-                            {{ _self.format_date(api_token.validUntil) }}
-                            {% if api_token.valid %}
-                                <span class="badge bg-success badge-success">{% trans %}api_token.valid{% endtrans %}</span>
-                            {% else %}
-                                <span class="badge bg-warning badge-warning">{% trans %}api_token.expired{% endtrans %}</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ _self.format_date(api_token.addedDate) }}</td>
-                        <td>{{ _self.format_date(api_token.lastTimeUsed) }}</td>
+                        <th>{% trans %}api_tokens.name{% endtrans %}</th>
+                        <th>{% trans %}api_tokens.access_level{% endtrans %}</th>
+                        <th>{% trans %}api_tokens.expiration_date{% endtrans %}</th>
+                        <th>{% trans %}tfa_u2f.keys.added_date{% endtrans %}</th>
+                        <th>{% trans %}api_tokens.last_time_used{% endtrans %}</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                    {% for api_token in user.apiTokens %}
+                        {# @var api_token \App\Entity\UserSystem\ApiToken #}
+                        <tr>
+                            <td>{{ api_token.name }}</td>
+                            <td>{{ api_token.level.translationKey|trans }}</td>
+                            <td>
+                                {{ _self.format_date(api_token.validUntil) }}
+                                {% if api_token.valid %}
+                                    <span class="badge bg-success badge-success">{% trans %}api_token.valid{% endtrans %}</span>
+                                {% else %}
+                                    <span class="badge bg-warning badge-warning">{% trans %}api_token.expired{% endtrans %}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ _self.format_date(api_token.addedDate) }}</td>
+                            <td>{{ _self.format_date(api_token.lastTimeUsed) }}</td>
+                            <td>
+                                <button type="submit" class="btn btn-danger btn-sm" name="token_id"
+                                        value="{{ api_token.id }}" {% if not is_granted('@api.manage_tokens') %}disabled="disabled"{% endif %}>
+                                    <i class="fas fa-trash-alt fa-fw"></i> {% trans %}user.settings.api_tokens.delete{% endtrans %}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
         {% endif %}
 
         <a href="{{ path('user_api_token_create') }}" class="btn btn-success" {% if not is_granted('@api.manage_tokens') %}disabled="disabled"{% endif %}>
