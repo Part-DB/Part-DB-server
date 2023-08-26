@@ -20,6 +20,7 @@
         {% if user.apiTokens.empty %}
             <br><br>
             <b>{% trans %}user.settings.api_tokens.no_api_tokens_yet{% endtrans %}</b>
+            <br><br>
         {% else %}
             <form action="{{ path('user_api_tokens_delete') }}" method="post"
                     {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}

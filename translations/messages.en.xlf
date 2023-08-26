@@ -11789,5 +11789,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>API token deleted successfully!</target>
       </segment>
     </unit>
+    <unit id="TFTBy25" name="user.settings.api_tokens.no_api_tokens_yet">
+      <segment>
+        <source>user.settings.api_tokens.no_api_tokens_yet</source>
+        <target>No API tokens configured yet.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
