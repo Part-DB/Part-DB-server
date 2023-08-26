@@ -4,6 +4,9 @@ framework:
     csrf_protection: true
     handle_all_throwables: true
 
+    # We set this header by ourself, so we can disable it here
+    disallow_search_engine_index: false
+
     # Must be set to true, to enable the change of HTTP method via _method parameter, otherwise our delete routines does not work anymore
     # TODO: Rework delete routines to work without _method parameter as it is not recommended anymore (see https://github.com/symfony/symfony/issues/45278)
     http_method_override: true

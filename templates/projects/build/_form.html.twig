@@ -74,6 +74,9 @@
 </table>
 
 {{ form_row(form.comment) }}
+<div {{ stimulus_controller('pages/dont_check_quantity_checkbox') }}>
+{{ form_row(form.dontCheckQuantity) }}
+</div>
 
 {{ form_row(form.addBuildsToBuildsPart) }}
 {% if form.buildsPartLot is defined %}

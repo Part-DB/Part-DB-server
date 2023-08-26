@@ -91,7 +91,7 @@ th.select-checkbox {
 /** Fix datatables select-checkbox position */
 table.dataTable tr.selected td.select-checkbox:after
 {
-    margin-top: -25px !important;
+    margin-top: -20px !important;
 }
 
 

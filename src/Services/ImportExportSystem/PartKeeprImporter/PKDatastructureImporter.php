@@ -265,8 +265,7 @@ class PKDatastructureImporter
     {
         $count = $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
 
-        //Footprints have both attachments and images
-        $this->importAttachments($data, 'storagelocationimage', Storelocation::class, 'footprint_id', StorelocationAttachment::class);
+        $this->importAttachments($data, 'storagelocationimage', Storelocation::class, 'storageLocation_id', StorelocationAttachment::class);
 
         return $count;
     }

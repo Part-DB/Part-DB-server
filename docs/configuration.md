@@ -36,6 +36,7 @@ The following configuration options can only be changed by the server administra
   * `datastructure_edit`: Edit operation of a existing datastructure (e.g. category, manufacturer, ...)
   * `datastructure_delete`: Delete operation of a existing datastructure (e.g. category, manufacturer, ...)
   * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
+* `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new versions, or if your server can not connect to the internet. 
 
 ### E-Mail settings
 * `MAILER_DSN`: You can configure the mail provider which should be used for email delivery (see https://symfony.com/doc/current/components/mailer.html for full documentation). If you just want to use an SMTP mail account, you can use the following syntax `MAILER_DSN=smtp://user:password@smtp.mailserver.invalid:587`

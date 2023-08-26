@@ -49,6 +49,8 @@ class HomepageController extends AbstractController
     public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager,
     UpdateAvailableManager $updateAvailableManager): Response
     {
+        $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
+
         if ($this->isGranted('@tools.lastActivity')) {
             $table = $this->dataTable->createFromType(
                 LogDataTable::class,

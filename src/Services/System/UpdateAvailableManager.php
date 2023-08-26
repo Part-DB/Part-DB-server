@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace App\Services\System;
 
+use Psr\Log\LoggerInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -41,7 +43,8 @@ class UpdateAvailableManager
 
     public function __construct(private readonly HttpClientInterface $httpClient,
         private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager,
-        private readonly bool $check_for_updates)
+        private readonly bool $check_for_updates, private readonly LoggerInterface $logger,
+        #[Autowire(param: 'kernel.debug')] private readonly bool $is_dev_mode)
     {
 
     }
@@ -107,17 +110,34 @@ class UpdateAvailableManager
 
         return $this->updateCache->get(self::CACHE_KEY, function (ItemInterface $item) {
             $item->expiresAfter(self::CACHE_TTL);
-            $response = $this->httpClient->request('GET', self::API_URL);
-            $result = $response->toArray();
-            $tag_name = $result['tag_name'];
+            try {
+                $response = $this->httpClient->request('GET', self::API_URL);
+                $result = $response->toArray();
+                $tag_name = $result['tag_name'];
 
-            // Remove the leading 'v' from the tag name
-            $version = substr($tag_name, 1);
+                // Remove the leading 'v' from the tag name
+                $version = substr($tag_name, 1);
 
-            return [
-                'version' => $version,
-                'url' => $result['html_url'],
-            ];
+                return [
+                    'version' => $version,
+                    'url' => $result['html_url'],
+                ];
+            } catch (\Exception $e) {
+                //When we are in dev mode, throw the exception, otherwise just silently log it
+                if ($this->is_dev_mode) {
+                    throw $e;
+                }
+
+                //In the case of an error, try it again after half of the cache time
+                $item->expiresAfter(self::CACHE_TTL / 2);
+
+                $this->logger->error('Checking for updates failed: ' . $e->getMessage());
+
+                return [
+                    'version' => '0.0.1',
+                    'url' => 'update-checking-error'
+                ];
+            }
         });
     }
 }

@@ -77,12 +77,14 @@ Part-DB caches the search results internally, so if you have searched for a part
 Following env configuration options are available:
 
 * `PROVIDER_OCTOPART_CLIENT_ID`: The client ID you got from Nexar (mandatory)
-* `PROVIDER_OCTOPART_CLIENT_SECRET`: The client secret you got from Nexar (mandatory)
+* `PROVIDER_OCTOPART_SECRET`: The client secret you got from Nexar (mandatory)
 * `PROVIDER_OCTOPART_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`). If an offer is only available in a certain currency, 
 Part-DB will save the prices in their native currency, and you can use Part-DB currency conversion feature to convert it to your preferred currency.
 * `PROVIDER_OCOTPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code, default: `DE`). To get correct prices, you have to set this and the currency setting to the correct value.
 * `PROVIDER_OCTOPART_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `10`). This affects how quickly your monthly limit is used up.
 * `PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS`: If set to `true`, only offers from [authorized sellers](https://octopart.com/authorized) will be returned (optional, default: `false`).
+
+**Attention**: If you change the octopart clientID after you have already used the provider, you have to remove the OAuth token in the Part-DB database. Remove the entry in the table `oauth_tokens` with the name `ip_octopart_oauth`.
 
 ### Digi-Key
 The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and getting shopping information from [Digi-Key](https://www.digikey.com/).
