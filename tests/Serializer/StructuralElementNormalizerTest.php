@@ -71,8 +71,11 @@ class StructuralElementNormalizerTest extends WebTestCase
         //Normalizer must only support StructuralElement objects (and child classes)
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));
         $this->assertFalse($this->service->supportsNormalization(new Part()));
-        $this->assertTrue($this->service->supportsNormalization(new Category()));
-        $this->assertTrue($this->service->supportsNormalization(new Footprint()));
+
+        //Must only be active when export is enabled
+        $this->assertFalse($this->service->supportsNormalization(new Category()));
+        $this->assertTrue($this->service->supportsNormalization(new Category(), null, ['partdb_export' => true]));
+        $this->assertTrue($this->service->supportsNormalization(new Footprint(), null, ['partdb_export' => true]));
 
     }
 }
