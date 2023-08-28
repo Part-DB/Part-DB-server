@@ -19,6 +19,10 @@ parameters:
     symfony:
         container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
 
+    doctrine:
+    	objectManagerLoader: tests/object-manager.php
+    	allowNullablePropertyForRequiredField: true
+
     checkUninitializedProperties: true
 
     checkFunctionNameCase: true
@@ -48,8 +52,11 @@ parameters:
     ignoreErrors:
         # Ignore errors caused by complex mapping with AbstractStructuralDBElement
         - '#AbstractStructuralDBElement does not have a field named \$parent#'
-        - '#AbstractStructuralDBElement does not have a field named \$name#'
+        #- '#AbstractStructuralDBElement does not have a field named \$name#'
 
         # Ignore errors related to the use of the ParametersTrait in Part entity
         - '#expects .*PartParameter, .*AbstractParameter given.#'
         - '#Part::getParameters\(\) should return .*AbstractParameter#'
+
+        # Ignore doctrine type mapping mismatch
+        - '#Property .* type mapping mismatch: property can contain .* but database expects .*#'

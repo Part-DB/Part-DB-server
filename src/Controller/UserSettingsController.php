@@ -411,6 +411,9 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $token = new ApiToken();
+        if (!$this->getUser() instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
         $token->setUser($this->getUser());
 
         $secret = null;

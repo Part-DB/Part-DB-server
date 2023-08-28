@@ -118,12 +118,8 @@ class ApiTokenAuthenticator implements AuthenticatorInterface
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        if (null !== $this->translator) {
-            $errorMessage = $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(),
-                'security');
-        } else {
-            $errorMessage = strtr($exception->getMessageKey(), $exception->getMessageData());
-        }
+        $errorMessage = $this->translator->trans($exception->getMessageKey(), $exception->getMessageData(),
+            'security');
 
         return new Response(
             null,
@@ -152,8 +148,9 @@ class ApiTokenAuthenticator implements AuthenticatorInterface
 
         return sprintf('Bearer %s', implode(',', $values));
     }
-public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-{
-    return null;
-}
+
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    {
+        return null;
+    }
 }
