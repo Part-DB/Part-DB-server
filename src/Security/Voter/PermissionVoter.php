@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  * This use the syntax like "@permission.op"
  * However you should use the "normal" object based voters if possible, because they are needed for a future ACL system.
  */
-class PermissionVoter extends Voter
+final class PermissionVoter extends Voter
 {
     public function __construct(private readonly VoterHelper $helper)
     {
@@ -62,7 +62,7 @@ class PermissionVoter extends Voter
             $attribute = ltrim($attribute, '@');
             [$perm, $op] = explode('.', $attribute);
 
-            $valid = $this->resolver->isValidOperation($perm, $op);
+            $valid = $this->helper->isValidOperation($perm, $op);
 
             //if an invalid operation is encountered, throw an exception so the developer knows it
             if(!$valid) {

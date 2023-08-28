@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\AbstractParameter;
@@ -40,16 +41,17 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ParameterVoter extends ExtendedVoter
+final class ParameterVoter extends Voter
 {
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
@@ -104,7 +106,7 @@ class ParameterVoter extends ExtendedVoter
             throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
         }
 
-        return $this->resolver->inherit($user, $param, $attribute) ?? false;
+        return $this->helper->isGranted($token, $param, $attribute);
     }
 
     protected function supports(string $attribute, $subject): bool

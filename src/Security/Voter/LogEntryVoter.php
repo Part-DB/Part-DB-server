@@ -22,41 +22,45 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class LogEntryVoter extends ExtendedVoter
+final class LogEntryVoter extends Voter
 {
     final public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, private readonly Security $security)
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
+        $user = $this->helper->resolveUser($token);
+
         if (!$subject instanceof AbstractLogEntry) {
             throw new \InvalidArgumentException('The subject must be an instance of '.AbstractLogEntry::class);
         }
 
         if ('delete' === $attribute) {
-            return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
+            return $this->helper->isGranted($token, 'system', 'delete_logs');
         }
 
         if ('read' === $attribute) {
             //Allow read of the users own log entries
             if (
                 $subject->getUser() === $user
-                && $this->resolver->inherit($user, 'self', 'show_logs')
+                && $this->helper->isGranted($token, 'self', 'show_logs')
             ) {
                 return true;
             }
 
-            return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
+            return $this->helper->isGranted($token, 'system', 'show_logs');
         }
 
         if ('show_details' === $attribute) {
@@ -67,7 +71,7 @@ class LogEntryVoter extends ExtendedVoter
             }
 
             //In other cases, this behaves like the read permission
-            return $this->voteOnUser('read', $subject, $user);
+            return $this->voteOnAttribute('read', $subject, $token);
         }
 
         return false;

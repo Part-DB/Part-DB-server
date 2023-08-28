@@ -43,8 +43,11 @@ namespace App\Security\Voter;
 
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class LabelProfileVoter extends ExtendedVoter
+final class LabelProfileVoter extends Voter
 {
     protected const MAPPING = [
         'read' => 'read_profiles',
@@ -55,9 +58,12 @@ class LabelProfileVoter extends ExtendedVoter
         'revert_element' => 'revert_element',
     ];
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    public function __construct(private readonly VoterHelper $helper)
+    {}
+
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        return $this->resolver->inherit($user, 'labels', self::MAPPING[$attribute]) ?? false;
+        return $this->helper->isGranted($token, 'labels', self::MAPPING[$attribute]);
     }
 
     protected function supports($attribute, $subject): bool
@@ -67,7 +73,7 @@ class LabelProfileVoter extends ExtendedVoter
                 return false;
             }
 
-            return $this->resolver->isValidOperation('labels', self::MAPPING[$attribute]);
+            return $this->helper->isValidOperation('labels', self::MAPPING[$attribute]);
         }
 
         return false;

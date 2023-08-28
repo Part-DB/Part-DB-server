@@ -25,36 +25,26 @@ namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class ImpersonateUserVoter extends Voter
+final class ImpersonateUserVoter extends Voter
 {
 
-    public function __construct(private PermissionManager $permissionManager)
+    public function __construct(private readonly VoterHelper $helper)
     {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $attribute == 'CAN_SWITCH_USER'
+        return $attribute === 'CAN_SWITCH_USER'
             && $subject instanceof UserInterface;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
-
-        if (!$user instanceof User || !$subject instanceof UserInterface) {
-            return false;
-        }
-
-        //An disabled user is not allowed to do anything...
-        if ($user->isDisabled()) {
-            return false;
-        }
-
-        return $this->permissionManager->inherit($user, 'users', 'impersonate') ?? false;
+        return $this->helper->isGranted($token, 'users', 'impersonate');
     }
 }

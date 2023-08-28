@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
@@ -37,29 +38,21 @@ use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
-use App\Entity\UserSystem\User;
-use App\Services\UserSystem\PermissionManager;
-use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function in_array;
 
-class AttachmentVoter extends ExtendedVoter
+final class AttachmentVoter extends Voter
 {
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
-    /**
-     * Similar to voteOnAttribute, but checking for the anonymous user is already done.
-     * The current user (or the anonymous user) is passed by $user.
-     *
-     * @param  string  $attribute
-     */
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
         //This voter only works for attachments
         if (!is_a($subject, Attachment::class, true)) {
@@ -67,7 +60,7 @@ class AttachmentVoter extends ExtendedVoter
         }
 
         if ($attribute === 'show_private') {
-            return $this->resolver->inherit($user, 'attachments', 'show_private') ?? false;
+            return $this->helper->isGranted($token, 'attachments', 'show_private');
         }
 
 
@@ -113,7 +106,7 @@ class AttachmentVoter extends ExtendedVoter
                 throw new RuntimeException('Encountered unknown Parameter type: ' . $subject);
             }
 
-            return $this->resolver->inherit($user, $param, $this->mapOperation($attribute)) ?? false;
+            return $this->helper->isGranted($token, $param, $this->mapOperation($attribute));
         }
 
         return false;

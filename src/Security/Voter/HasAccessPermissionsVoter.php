@@ -24,18 +24,27 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionManager;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * This voter implements a virtual role, which can be used if the user has any permission set to allowed.
  * We use this to restrict access to the homepage.
  */
-class HasAccessPermissionsVoter extends ExtendedVoter
+final class HasAccessPermissionsVoter extends Voter
 {
     public const ROLE = "HAS_ACCESS_PERMISSIONS";
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    public function __construct(private readonly PermissionManager $permissionManager, private readonly VoterHelper $helper)
     {
-        return $this->resolver->hasAnyPermissionSetToAllowInherited($user);
+    }
+
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    {
+        $user = $this->helper->resolveUser($token);
+        return $this->permissionManager->hasAnyPermissionSetToAllowInherited($user);
     }
 
     protected function supports(string $attribute, mixed $subject): bool

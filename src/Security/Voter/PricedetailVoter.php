@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
@@ -48,22 +49,19 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PricedetailVoter extends ExtendedVoter
+final class PricedetailVoter extends Voter
 {
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        if (!is_a($subject, Pricedetail::class, true)) {
-            throw new \RuntimeException('This voter can only handle Pricedetails objects!');
-        }
-
         $operation = match ($attribute) {
             'read' => 'read',
             'edit', 'create', 'delete' => 'edit',
@@ -74,7 +72,7 @@ class PricedetailVoter extends ExtendedVoter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) || !$subject->getOrderdetail() instanceof Orderdetail || !$subject->getOrderdetail()->getPart() instanceof Part) {
-            return $this->resolver->inherit($user, 'parts', $operation) ?? false;
+            return $this->helper->isGranted($token, 'parts', $operation);
         }
 
         //Otherwise vote on the part

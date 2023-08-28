@@ -32,10 +32,14 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
 use function get_class;
 use function is_object;
 
-class StructureVoter extends ExtendedVoter
+final class StructureVoter extends Voter
 {
     protected const OBJ_PERM_MAP = [
         AttachmentType::class => 'attachment_types',
@@ -48,6 +52,10 @@ class StructureVoter extends ExtendedVoter
         Currency::class => 'currencies',
         MeasurementUnit::class => 'measurement_units',
     ];
+
+    public function __construct(private readonly VoterHelper $helper)
+    {
+    }
 
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -62,7 +70,7 @@ class StructureVoter extends ExtendedVoter
         if (is_object($subject) || is_string($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
             //If permission name is null, then the subject is not supported
-            return (null !== $permission_name) && $this->resolver->isValidOperation($permission_name, $attribute);
+            return (null !== $permission_name) && $this->helper->isValidOperation($permission_name, $attribute);
         }
 
         return false;
@@ -99,10 +107,10 @@ class StructureVoter extends ExtendedVoter
      *
      * @param  string  $attribute
      */
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $permission_name = $this->instanceToPermissionName($subject);
         //Just resolve the permission
-        return $this->resolver->inherit($user, $permission_name, $attribute) ?? false;
+        return $this->helper->isGranted($token, $permission_name, $attribute);
     }
 }

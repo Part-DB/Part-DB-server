@@ -107,4 +107,18 @@ final class VoterHelper
         //Otherwise throw an exception
         throw new \RuntimeException('The user could not be resolved.');
     }
+
+    /**
+     * Checks if the permission operation combination with the given names is existing.
+     * Just a proxy to the permission manager.
+     *
+     * @param string $permission the name of the permission which should be checked
+     * @param string $operation  the name of the operation which should be checked
+     *
+     * @return bool true if the given permission operation combination is existing
+     */
+    public function isValidOperation(string $permission, string $operation): bool
+    {
+        return $this->permissionManager->isValidOperation($permission, $operation);
+    }
 }
