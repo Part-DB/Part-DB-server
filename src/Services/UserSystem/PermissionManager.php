@@ -28,6 +28,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 use InvalidArgumentException;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
@@ -41,7 +42,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class PermissionManager
 {
-    protected $permission_structure;
+    protected array $permission_structure;
     protected string $cache_file;
 
     /**
@@ -123,6 +124,40 @@ class PermissionManager
         }
 
         return null; //The inherited value is never resolved. Should be treated as false, in Voters.
+    }
+
+    /**
+     * Same as inherit(), but it checks if the access token has the required role.
+     * @param  User  $user  the user for which the operation should be checked
+     * @param array  $roles  The roles associated with the authentication token
+     * @param  string  $permission  the name of the permission for which should be checked
+     * @param  string  $operation  the name of the operation for which should be checked
+     *
+     * @return bool|null true, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
+     *                    if the value is set to inherit
+     */
+    public function inheritWithAPILevel(User $user, array $roles, string $permission, string $operation): ?bool
+    {
+        //Check that the permission/operation combination is valid
+        if (! $this->isValidOperation($permission, $operation)) {
+            throw new InvalidArgumentException('The permission/operation combination "'.$permission.'/'.$operation.'" is not valid!');
+        }
+
+        //Get what API level we require for the permission/operation
+        $level_role = $this->permission_structure['perms'][$permission]['operations'][$operation]['apiTokenRole'];
+
+        //When no role was set (or it is null), then the operation is blocked for API access
+        if (null === $level_role) {
+            return false;
+        }
+
+        //Otherwise check if the token has the required role, if not, then the operation is blocked for API access
+        if (!in_array($level_role, $roles, true)) {
+            return false;
+        }
+
+        //If we have the required role, then we can check the permission
+        return $this->inherit($user, $permission, $operation);
     }
 
     /**

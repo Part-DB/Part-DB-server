@@ -27,6 +27,7 @@ enum ApiTokenLevel: int
 {
     private const ROLE_READ_ONLY = 'ROLE_API_READ_ONLY';
     private const ROLE_EDIT = 'ROLE_API_EDIT';
+    private const ROLE_ADMIN = 'ROLE_API_ADMIN';
     private const ROLE_FULL = 'ROLE_API_FULL';
 
     /**
@@ -56,7 +57,8 @@ enum ApiTokenLevel: int
         return match ($this) {
             self::READ_ONLY => [self::ROLE_READ_ONLY],
             self::EDIT => [self::ROLE_READ_ONLY, self::ROLE_EDIT],
-            self::FULL => [self::ROLE_READ_ONLY, self::ROLE_EDIT, self::ROLE_FULL],
+            self::ADMIN => [self::ROLE_READ_ONLY, self::ROLE_EDIT, self::ROLE_ADMIN],
+            self::FULL => [self::ROLE_READ_ONLY, self::ROLE_EDIT, self::ROLE_ADMIN, self::ROLE_FULL],
         };
     }
 

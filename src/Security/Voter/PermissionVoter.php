@@ -23,26 +23,28 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * This voter allows you to directly check permissions from the permission structure, without passing an object.
  * This use the syntax like "@permission.op"
  * However you should use the "normal" object based voters if possible, because they are needed for a future ACL system.
  */
-class PermissionVoter extends ExtendedVoter
+class PermissionVoter extends Voter
 {
-    /**
-     * Similar to voteOnAttribute, but checking for the anonymous user is already done.
-     * The current user (or the anonymous user) is passed by $user.
-     *
-     * @param  string  $attribute
-     */
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    public function __construct(private readonly VoterHelper $helper)
+    {
+
+    }
+
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $attribute = ltrim($attribute, '@');
         [$perm, $op] = explode('.', $attribute);
 
-        return $this->resolver->inherit($user, $perm, $op) ?? false;
+        return $this->helper->isGranted($token, $perm, $op);
     }
 
     /**

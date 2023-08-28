@@ -25,27 +25,35 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         # If a part can be read by a user, he can also see all the datastructures (except devices)
         alsoSet: ['storelocations.read', 'footprints.read', 'categories.read', 'suppliers.read', 'manufacturers.read',
                   'currencies.read', 'attachment_types.read', 'measurement_units.read']
+        apiTokenRole: ROLE_API_READ_ONLY
       edit:
         label: "perm.edit"
         alsoSet: ['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move']
+        apiTokenRole: ROLE_API_EDIT
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
       delete:
         label: "perm.delete"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
       change_favorite:
         label: "perm.part.change_favorite"
         alsoSet: ['edit']
+        apiTokenRole: ROLE_API_EDIT
       show_history:
         label: "perm.part.show_history"
         alsoSet: ['read']
+        apiTokenRole: ROLE_API_READ_ONLY
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+        apiTokenRole: ROLE_API_EDIT
       import:
         label: "perm.import"
         alsoSet: ["read", "edit", "create"]
+        apiTokenRole: ROLE_API_EDIT
 
   parts_stock:
     group: "data"
@@ -53,10 +61,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       withdraw:
         label: "perm.parts_stock.withdraw"
+        apiTokenRole: ROLE_API_EDIT
       add:
         label: "perm.parts_stock.add"
+        apiTokenRole: ROLE_API_EDIT
       move:
         label: "perm.parts_stock.move"
+        apiTokenRole: ROLE_API_EDIT
 
 
   storelocations: &PART_CONTAINING
@@ -65,23 +76,30 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       read:
         label: "perm.read"
+        apiTokenRole: ROLE_API_READ_ONLY
       edit:
         label: "perm.edit"
         alsoSet: 'read'
+        apiTokenRole: ROLE_API_EDIT
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
       delete:
         label: "perm.delete"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
       show_history:
         label: "perm.show_history"
+        apiTokenRole: ROLE_API_READ_ONLY
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+        apiTokenRole: ROLE_API_EDIT
       import:
         label: "perm.import"
         alsoSet: [ "read", "edit", "create" ]
+        apiTokenRole: ROLE_API_EDIT
 
   footprints:
     <<: *PART_CONTAINING
@@ -145,6 +163,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       create_parts:
         label: "perm.part.info_providers.create_parts"
         alsoSet: ['parts.create']
+        apiTokenRole: ROLE_API_EDIT
 
   groups:
     label: "perm.groups"
@@ -152,26 +171,34 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       read:
         label: "perm.read"
+        apiTokenRole: ROLE_API_ADMIN
       edit:
         label: "perm.edit"
         alsoSet: 'read'
+        apiTokenRole: ROLE_API_ADMIN
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_ADMIN
       delete:
         label: "perm.delete"
         alsoSet: ['read', 'delete']
+        apiTokenRole: ROLE_API_ADMIN
       edit_permissions:
         label: "perm.edit_permissions"
         alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_ADMIN
       show_history:
         label: "perm.show_history"
+        apiTokenRole: ROLE_API_ADMIN
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "edit_permissions", "show_history"]
+        apiTokenRole: ROLE_API_ADMIN
       import:
         label: "perm.import"
         alsoSet: [ "read", "edit", "create" ]
+        apiTokenRole: ROLE_API_ADMIN
 
   users:
     label: "perm.users"
@@ -179,37 +206,49 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       read:
         label: "perm.read"
+        apiTokenRole: ROLE_API_ADMIN
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit_username', 'edit_infos']
+        apiTokenRole: ROLE_API_ADMIN
       delete:
         label: "perm.delete"
         alsoSet: ['read', 'edit_username', 'edit_infos']
+        apiTokenRole: ROLE_API_ADMIN
       edit_username:
         label: "perm.users.edit_user_name"
         alsoSet: ['read']
+        apiTokenRole: ROLE_API_ADMIN
       edit_infos:
         label: "perm.users.edit_infos"
         alsoSet: 'read'
+        apiTokenRole: ROLE_API_ADMIN
       edit_permissions:
         label: "perm.users.edit_permissions"
         alsoSet: 'read'
+        apiTokenRole: ROLE_API_ADMIN
       set_password:
         label: "perm.users.set_password"
         alsoSet: 'read'
+        apiTokenRole: ROLE_API_FULL
       impersonate:
         label: "perm.users.impersonate"
         alsoSet: ['set_password']
+        apiTokenRole: ROLE_API_FULL
       change_user_settings:
         label: "perm.users.change_user_settings"
+        apiTokenRole: ROLE_API_ADMIN
       show_history:
         label: "perm.show_history"
+        apiTokenRole: ROLE_API_ADMIN
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "edit_username"]
+        apiTokenRole: ROLE_API_ADMIN
       import:
         label: "perm.import"
         alsoSet: [ "read", "create" ]
+        apiTokenRole: ROLE_API_ADMIN
 
   #database:
   #  label: "perm.database"
@@ -244,15 +283,20 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       show_logs:
         label: "perm.show_logs"
+        apiTokenRole: ROLE_API_ADMIN
       delete_logs:
         label: "perm.delete_logs"
         alsoSet: 'show_logs'
+        apiTokenRole: ROLE_API_ADMIN
       server_infos:
         label: "perm.server_infos"
+        apiTokenRole: ROLE_API_ADMIN
       manage_oauth_tokens:
         label: "Manage OAuth tokens"
+        apiTokenRole: ROLE_API_ADMIN
       show_updates:
         label: "perm.system.show_available_updates"
+        apiTokenRole: ROLE_API_ADMIN
 
 
   attachments:
@@ -260,56 +304,73 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       show_private:
         label: "perm.attachments.show_private"
+        apiTokenRole: ROLE_API_READ_ONLY
       list_attachments:
         label: "perm.attachments.list_attachments"
         alsoSet: ['attachment_types.read']
+        apiTokenRole: ROLE_API_READ_ONLY
 
   self:
     label: "perm.self"
     operations:
       edit_infos:
         label: "perm.self.edit_infos"
+        apiTokenRole: ROLE_API_FULL
       edit_username:
         label: "perm.self.edit_username"
+        apiTokenRole: ROLE_API_FULL
       show_permissions:
         label: "perm.self.show_permissions"
+        apiTokenRole: ROLE_API_READ_ONLY
       show_logs:
         label: "perm.self.show_logs"
+        apiTokenRole: ROLE_API_FULL
 
   labels:
     label: "perm.labels"
     operations:
       create_labels:
         label: "perm.self.create_labels"
+        apiTokenRole: ROLE_API_READ_ONLY
       edit_options:
         label: "perm.self.edit_options"
         alsoSet: ['create_labels']
+        apiTokenRole: ROLE_API_READ_ONLY
       read_profiles:
         label: "perm.self.read_profiles"
+        apiTokenRole: ROLE_API_READ_ONLY
       edit_profiles:
         label: "perm.self.edit_profiles"
         alsoSet: ['read_profiles']
+        apiTokenRole: ROLE_API_EDIT
       create_profiles:
         label: "perm.self.create_profiles"
         alsoSet: ['read_profiles', 'edit_profiles']
+        apiTokenRole: ROLE_API_EDIT
       delete_profiles:
         label: "perm.self.delete_profiles"
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles']
+        apiTokenRole: ROLE_API_EDIT
       use_twig:
         label: "perm.labels.use_twig"
         alsoSet: ['create_labels', 'edit_options']
+        apiTokenRole: ROLE_API_ADMIN
       show_history:
         label: "perm.show_history"
         alsoSet: ['read_profiles']
+        apiTokenRole: ROLE_API_READ_ONLY
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles', 'delete_profiles']
+        apiTokenRole: ROLE_API_EDIT
 
   api:
     label: "perm.api"
     operations:
       access_api:
         label: "perm.api.access_api"
+        apiTokenRole: ROLE_API_READ_ONLY
       manage_tokens:
         label: "perm.api.manage_tokens"
         alsoSet: ['access_api']
+        apiTokenRole: ROLE_API_FULL
