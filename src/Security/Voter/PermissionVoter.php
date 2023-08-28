@@ -47,6 +47,12 @@ final class PermissionVoter extends Voter
         return $this->helper->isGranted($token, $perm, $op);
     }
 
+    public function supportsAttribute(string $attribute): bool
+    {
+        //Check if the attribute has the form '@permission.operation'
+        return preg_match('#^@\\w+\\.\\w+$#', $attribute) === 1;
+    }
+
     /**
      * Determines if the attribute and subject are supported by this voter.
      *

@@ -60,6 +60,16 @@ final class UserVoter extends Voter
         return false;
     }
 
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, User::class, true);
+    }
+
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.

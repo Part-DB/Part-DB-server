@@ -62,4 +62,14 @@ final class GroupVoter extends Voter
 
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('groups', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, Group::class, true);
+    }
 }

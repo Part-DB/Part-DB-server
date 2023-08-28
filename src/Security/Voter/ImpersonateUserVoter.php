@@ -47,4 +47,14 @@ final class ImpersonateUserVoter extends Voter
     {
         return $this->helper->isGranted($token, 'users', 'impersonate');
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $attribute === 'CAN_SWITCH_USER';
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return is_a($subjectType, User::class, true);
+    }
 }

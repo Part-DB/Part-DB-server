@@ -56,4 +56,14 @@ final class PartVoter extends Voter
         //Null concealing operator means, that no
         return $this->helper->isGranted($token, 'parts', $attribute);
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('parts', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return is_a($subjectType, Part::class, true);
+    }
 }

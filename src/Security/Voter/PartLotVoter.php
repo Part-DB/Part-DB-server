@@ -101,4 +101,14 @@ final class PartLotVoter extends Voter
 
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, self::ALLOWED_PERMS, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, PartLot::class, true);
+    }
 }

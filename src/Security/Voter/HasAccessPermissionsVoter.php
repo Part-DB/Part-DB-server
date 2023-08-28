@@ -51,4 +51,9 @@ final class HasAccessPermissionsVoter extends Voter
     {
         return $attribute === self::ROLE;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $attribute === self::ROLE;
+    }
 }

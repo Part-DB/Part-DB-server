@@ -47,6 +47,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 final class ParameterVoter extends Voter
 {
 
+    private const ALLOWED_ATTRIBUTES = ['read', 'edit', 'delete', 'create', 'show_history', 'revert_element'];
+
     public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
     }
@@ -113,10 +115,21 @@ final class ParameterVoter extends Voter
     {
         if (is_a($subject, AbstractParameter::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['read', 'edit', 'delete', 'create', 'show_history', 'revert_element'], true);
+            return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
         }
 
         //Allow class name as subject
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, AbstractParameter::class, true);
+    }
+
 }

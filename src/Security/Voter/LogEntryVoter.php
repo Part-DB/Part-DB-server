@@ -85,4 +85,14 @@ final class LogEntryVoter extends Voter
 
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, static::ALLOWED_OPS, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return is_a($subjectType, AbstractLogEntry::class, true);
+    }
 }

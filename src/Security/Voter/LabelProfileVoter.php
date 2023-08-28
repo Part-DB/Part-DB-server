@@ -78,4 +78,14 @@ final class LabelProfileVoter extends Voter
 
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return isset(self::MAPPING[$attribute]);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return is_a($subjectType, LabelProfile::class, true);
+    }
 }

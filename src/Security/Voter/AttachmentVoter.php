@@ -47,6 +47,8 @@ use function in_array;
 
 final class AttachmentVoter extends Voter
 {
+    private const ALLOWED_ATTRIBUTES = ['read', 'view', 'edit', 'delete', 'create', 'show_private', 'show_history'];
+
     public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
     }
@@ -134,10 +136,20 @@ final class AttachmentVoter extends Voter
     {
         if (is_a($subject, Attachment::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['read', 'view', 'edit', 'delete', 'create', 'show_private', 'show_history'], true);
+            return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
         }
 
         //Allow class name as subject
         return false;
+    }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, Attachment::class, true);
     }
 }

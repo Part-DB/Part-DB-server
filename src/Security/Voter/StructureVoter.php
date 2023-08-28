@@ -76,6 +76,11 @@ final class StructureVoter extends Voter
         return false;
     }
 
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || $this->instanceToPermissionName($subjectType) !== null;
+    }
+
     /**
      * Maps an instance type to the permission name.
      *
