@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Parts\InfoProviderReference;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
@@ -37,14 +38,14 @@ trait AdvancedPropertyTrait
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $tags = '';
 
@@ -52,7 +53,7 @@ trait AdvancedPropertyTrait
      * @var float|null how much a single part unit weighs in grams
      */
     #[Assert\PositiveOrZero]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $mass = null;
 
@@ -60,14 +61,15 @@ trait AdvancedPropertyTrait
      * @var string|null The internal part number of the part
      */
     #[Assert\Length(max: 100)]
-    #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: Types::STRING, length: 100, nullable: true, unique: true)]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
     protected ?string $ipn = null;
 
     /**
      * @var InfoProviderReference The reference to the info provider, that provided the information about this part
      */
     #[ORM\Embedded(class: InfoProviderReference::class, columnPrefix: 'provider_reference_')]
+    #[Groups(['full', 'part:read'])]
     protected InfoProviderReference $providerReference;
 
     /**

@@ -61,7 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
-        new GetCollection(security: 'is_granted("@measurement_unit.read")'),
+        new GetCollection(security: 'is_granted("@measurement_units.read")'),
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
@@ -73,7 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     uriTemplate: '/footprints/{id}/children.{_format}',
     operations: [
         new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a MeasurementUnit.'],
-            security: 'is_granted("@measurement_unit.read")')
+            security: 'is_granted("@measurement_units.read")')
     ],
     uriVariables: [
         'id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)

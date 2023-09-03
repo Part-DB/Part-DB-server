@@ -49,14 +49,14 @@ trait InstockTrait
      *            Given in the partUnit.
      */
     #[Assert\PositiveOrZero]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::FLOAT)]
     protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
     #[ORM\JoinColumn(name: 'id_part_unit')]
     protected ?MeasurementUnit $partUnit = null;

@@ -22,6 +22,15 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
@@ -60,6 +69,18 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
 #[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiFilter(PropertyFilter::class)]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;

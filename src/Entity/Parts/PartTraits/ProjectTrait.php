@@ -9,12 +9,10 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait ProjectTrait
 {
-    /**
-     * @var Collection<ProjectBOMEntry> $project_bom_entries
-     */
     /**
      * @var Collection<ProjectBOMEntry> $project_bom_entries
      */
@@ -42,6 +40,7 @@ trait ProjectTrait
      * Checks whether this part represents the builds of a project
      * @return bool True if it represents the builds, false if not
      */
+    #[Groups(['part:read'])]
     public function isProjectBuildPart(): bool
     {
         return $this->built_project !== null;
