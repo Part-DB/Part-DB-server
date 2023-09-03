@@ -22,8 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Parts\Footprint;
 use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
@@ -49,6 +60,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'currencies')]
 #[ORM\Index(name: 'currency_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'currency_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@currencies.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['currency:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['currency:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/currencies/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a currency.'],
+            security: 'is_granted("@currencies.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: Currency::class)
+    ],
+    normalizationContext: ['groups' => ['currency:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
 class Currency extends AbstractStructuralDBElement
 {
     final public const PRICE_SCALE = 5;
@@ -59,14 +93,19 @@ class Currency extends AbstractStructuralDBElement
      */
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
     #[BigDecimalPositive()]
+    #[Groups(['currency:read', 'currency:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?BigDecimal $exchange_rate = null;
+
+    #[Groups(['currency:read', 'currency:write'])]
+    protected string $comment = "";
 
     /**
      * @var string the 3-letter ISO code of the currency
      */
     #[Assert\Currency]
     #[Assert\NotBlank]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'currency:read', 'currency:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
 
@@ -76,6 +115,8 @@ class Currency extends AbstractStructuralDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['currency:read', 'currency:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
@@ -84,10 +125,12 @@ class Currency extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['currency:read', 'currency:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: CurrencyAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['currency:read', 'currency:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, CurrencyParameter>
@@ -95,6 +138,7 @@ class Currency extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
@@ -136,6 +180,7 @@ class Currency extends AbstractStructuralDBElement
     /**
      * Returns the inverse exchange rate (how many of the current currency the base unit is worth).
      */
+    #[Groups(['currency:read'])]
     public function getInverseExchangeRate(): ?BigDecimal
     {
         $tmp = $this->getExchangeRate();

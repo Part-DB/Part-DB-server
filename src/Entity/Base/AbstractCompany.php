@@ -82,6 +82,9 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $website = '';
 
+    #[Groups(['company:read', 'company:write'])]
+    protected string $comment = '';
+
     /**
      * @var string
      */

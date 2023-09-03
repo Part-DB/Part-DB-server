@@ -75,7 +75,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     final public const PATH_DELIMITER_ARROW = ' → ';
 
     /**
-     * @var string The comment info for this element
+     * @var string The comment info for this element as markdown
      */
     #[Groups(['full', 'import'])]
     #[ORM\Column(type: Types::TEXT)]
@@ -221,7 +221,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the comment of the element.
+     *  Get the comment of the element as markdown encoded string.
 
      *
      * @return string the comment

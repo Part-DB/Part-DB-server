@@ -22,6 +22,16 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\MeasurementUnitRepository;
@@ -48,6 +58,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`measurement_units`')]
 #[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@measurement_unit.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['measurement_unit:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/footprints/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a MeasurementUnit.'],
+            security: 'is_granted("@measurement_unit.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)
+    ],
+    normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
 class MeasurementUnit extends AbstractPartsContainingDBElement
 {
     /**
@@ -55,15 +88,18 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *             or m (for meters).
      */
     #[Assert\Length(max: 10)]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(type: Types::STRING, name: 'unit', nullable: true)]
     protected ?string $unit = null;
+
+    #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
+    protected string $comment = '';
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(type: Types::BOOLEAN, name: 'is_integer')]
     protected bool $is_integer = false;
 
@@ -72,7 +108,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *           Useful for sizes like meters. For this the unit must be set
      */
     #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(type: Types::BOOLEAN, name: 'use_si_prefix')]
     protected bool $use_si_prefix = false;
 
@@ -82,6 +118,8 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups('measurement_unit:read', 'measurement_unit:write')]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
@@ -90,10 +128,12 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['measurement_unit:read'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: MeasurementUnitAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['measurement_unit:read'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, MeasurementUnitParameter>
@@ -101,6 +141,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['measurement_unit:read'])]
     protected Collection $parameters;
 
     /**

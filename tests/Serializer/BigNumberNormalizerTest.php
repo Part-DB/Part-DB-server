@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\Serializer;
 
 use App\Serializer\BigNumberNormalizer;
+use Brick\Math\BigInteger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Brick\Math\BigDecimal;
@@ -56,5 +57,31 @@ class BigNumberNormalizerTest extends WebTestCase
 
         $bigDecimal = BigDecimal::of(1);
         $this->assertTrue($this->service->supportsNormalization($bigDecimal));
+    }
+
+    public function testSupportsDenormalization(): void
+    {
+        //Denormalizer must only support BigNumber objects (and child classes)
+        $this->assertFalse($this->service->supportsDenormalization("1.23", \stdClass::class));
+
+        //Denormalizer must only support number like input data
+        $this->assertFalse($this->service->supportsDenormalization(new \stdClass(), BigDecimal::class));
+
+        //Using the right class and data type
+        $this->assertTrue($this->service->supportsDenormalization("1.23", BigDecimal::class));
+        $this->assertTrue($this->service->supportsDenormalization("123", BigInteger::class));
+        $this->assertTrue($this->service->supportsDenormalization(123, BigInteger::class));
+        $this->assertTrue($this->service->supportsDenormalization(12.3, BigDecimal::class));
+    }
+
+    public function testDenormalize(): void
+    {
+        $bigDecimal = $this->service->denormalize("1.23456789", BigDecimal::class);
+        $this->assertInstanceOf(BigDecimal::class, $bigDecimal);
+        $this->assertSame('1.23456789', (string) $bigDecimal);
+
+        $bigInteger = $this->service->denormalize(1234, BigInteger::class);
+        $this->assertInstanceOf(BigInteger::class, $bigInteger);
+        $this->assertSame('1234', (string) $bigInteger);
     }
 }

@@ -22,8 +22,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,6 +54,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`categories`')]
 #[ORM\Index(name: 'category_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@categories.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['category:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['category:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/categories/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a category.'],
+            security: 'is_granted("@categories.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: Category::class)
+    ],
+    normalizationContext: ['groups' => ['category:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
 class Category extends AbstractPartsContainingDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
@@ -53,61 +85,66 @@ class Category extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['category:read', 'category:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
+
+    #[Groups(['category:read', 'category:write'])]
+    protected string $comment = '';
 
     /**
      * @var string
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $partname_hint = '';
 
     /**
      * @var string
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $partname_regex = '';
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_properties = false;
 
     /**
      * @var string
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $default_description = '';
 
     /**
      * @var string
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $default_comment = '';
 
@@ -115,19 +152,20 @@ class Category extends AbstractPartsContainingDBElement
      * @var Collection<int, CategoryAttachment>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'category:read'])]
     #[ORM\OneToMany(targetEntity: CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: CategoryAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['category:read'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, CategoryParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'category:read'])]
     #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
