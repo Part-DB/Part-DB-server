@@ -30,7 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
@@ -93,7 +93,7 @@ class PKPartImporter
                 //Create a part lot to store the stock level and location
                 $lot = new PartLot();
                 $lot->setAmount((float) ($part['stockLevel'] ?? 0));
-                $this->setAssociationField($lot, 'storage_location', Storelocation::class, $part['storageLocation_id']);
+                $this->setAssociationField($lot, 'storage_location', StorageLocation::class, $part['storageLocation_id']);
                 $entity->addPartLot($lot);
 
                 //For partCondition, productionsRemarks and Status, create a custom parameter

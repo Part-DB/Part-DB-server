@@ -49,7 +49,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\UserSystem\User;
 use DateTime;
 use InvalidArgumentException;
@@ -98,23 +98,23 @@ final class LabelExampleElementsGenerator
         $lot->setDescription('Example Lot');
         $lot->setComment('Lot comment');
         $lot->setExpirationDate(new DateTime('+1 days'));
-        $lot->setStorageLocation($this->getStructuralData(Storelocation::class));
+        $lot->setStorageLocation($this->getStructuralData(StorageLocation::class));
         $lot->setAmount(123);
         $lot->setOwner($this->getUser());
 
         return $lot;
     }
 
-    private function getStorelocation(): Storelocation
+    private function getStorelocation(): StorageLocation
     {
-        $storelocation = new Storelocation();
+        $storelocation = new StorageLocation();
         $storelocation->setName('Location 1');
         $storelocation->setComment('Example comment');
         $storelocation->updateTimestamps();
         $storelocation->setOwner($this->getUser());
 
 
-        $parent = new Storelocation();
+        $parent = new StorageLocation();
         $parent->setName('Parent');
 
         $storelocation->setParent($parent);

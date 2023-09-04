@@ -37,7 +37,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
@@ -71,7 +71,7 @@ class ElementTypeNameGenerator
             MeasurementUnit::class => $this->translator->trans('measurement_unit.label'),
             Part::class => $this->translator->trans('part.label'),
             PartLot::class => $this->translator->trans('part_lot.label'),
-            Storelocation::class => $this->translator->trans('storelocation.label'),
+            StorageLocation::class => $this->translator->trans('storelocation.label'),
             Supplier::class => $this->translator->trans('supplier.label'),
             Currency::class => $this->translator->trans('currency.label'),
             Orderdetail::class => $this->translator->trans('orderdetail.label'),

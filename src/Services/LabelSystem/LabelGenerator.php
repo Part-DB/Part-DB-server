@@ -44,7 +44,7 @@ namespace App\Services\LabelSystem;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use Dompdf\Dompdf;
 use InvalidArgumentException;
 use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;

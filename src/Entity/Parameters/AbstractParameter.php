@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\ParameterRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -56,7 +57,10 @@ use function sprintf;
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
-#[ORM\DiscriminatorMap([0 => 'CategoryParameter', 1 => 'CurrencyParameter', 2 => 'ProjectParameter', 3 => 'FootprintParameter', 4 => 'GroupParameter', 5 => 'ManufacturerParameter', 6 => 'MeasurementUnitParameter', 7 => 'PartParameter', 8 => 'StorelocationParameter', 9 => 'SupplierParameter', 10 => 'AttachmentTypeParameter'])]
+#[ORM\DiscriminatorMap([0 => CategoryParameter::class, 1 => CurrencyParameter::class, 2 => ProjectParameter::class,
+    3 => FootprintParameter::class, 4 => GroupParameter::class, 5 => ManufacturerParameter::class,
+    6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
+    9 => SupplierParameter::class, 10 => AttachmentTypeAttachment::class])]
 #[ORM\Table('parameters')]
 #[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]

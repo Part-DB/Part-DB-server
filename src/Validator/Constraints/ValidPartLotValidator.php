@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Validator\Constraints;
 
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
@@ -53,8 +53,8 @@ class ValidPartLotValidator extends ConstraintValidator
         }
 
         //We can only validate the values if we know the storelocation
-        if ($value->getStorageLocation() instanceof Storelocation) {
-            $repo = $this->em->getRepository(Storelocation::class);
+        if ($value->getStorageLocation() instanceof StorageLocation) {
+            $repo = $this->em->getRepository(StorageLocation::class);
             //We can only determine associated parts, if the part have an ID
             //When the storage location is new (no ID), we can just assume there are no other parts
             if (null !== $value->getID() && $value->getStorageLocation()->getID()) {

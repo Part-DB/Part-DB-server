@@ -35,7 +35,7 @@ use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\ProjectAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use RuntimeException;
@@ -94,7 +94,7 @@ final class AttachmentVoter extends Voter
                 $param = 'measurement_units';
             } elseif (is_a($subject, PartAttachment::class, true)) {
                 $param = 'parts';
-            } elseif (is_a($subject, StorelocationAttachment::class, true)) {
+            } elseif (is_a($subject, StorageLocationAttachment::class, true)) {
                 $param = 'storelocations';
             } elseif (is_a($subject, SupplierAttachment::class, true)) {
                 $param = 'suppliers';

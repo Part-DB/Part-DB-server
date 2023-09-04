@@ -35,7 +35,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
@@ -102,7 +102,7 @@ class EntityURLGenerator
             Project::class => 'project_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
-            Storelocation::class => 'store_location_edit',
+            StorageLocation::class => 'store_location_edit',
             Footprint::class => 'footprint_edit',
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
@@ -199,7 +199,7 @@ class EntityURLGenerator
             Project::class => 'project_info',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
-            Storelocation::class => 'store_location_edit',
+            StorageLocation::class => 'store_location_edit',
             Footprint::class => 'footprint_edit',
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
@@ -229,7 +229,7 @@ class EntityURLGenerator
             Project::class => 'project_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
-            Storelocation::class => 'store_location_edit',
+            StorageLocation::class => 'store_location_edit',
             Footprint::class => 'footprint_edit',
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
@@ -260,7 +260,7 @@ class EntityURLGenerator
             Project::class => 'project_new',
             Supplier::class => 'supplier_new',
             Manufacturer::class => 'manufacturer_new',
-            Storelocation::class => 'store_location_new',
+            StorageLocation::class => 'store_location_new',
             Footprint::class => 'footprint_new',
             User::class => 'user_new',
             Currency::class => 'currency_new',
@@ -291,7 +291,7 @@ class EntityURLGenerator
             Project::class => 'device_clone',
             Supplier::class => 'supplier_clone',
             Manufacturer::class => 'manufacturer_clone',
-            Storelocation::class => 'store_location_clone',
+            StorageLocation::class => 'store_location_clone',
             Footprint::class => 'footprint_clone',
             User::class => 'user_clone',
             Currency::class => 'currency_clone',
@@ -321,7 +321,7 @@ class EntityURLGenerator
             Footprint::class => 'part_list_footprint',
             Manufacturer::class => 'part_list_manufacturer',
             Supplier::class => 'part_list_supplier',
-            Storelocation::class => 'part_list_store_location',
+            StorageLocation::class => 'part_list_store_location',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -336,7 +336,7 @@ class EntityURLGenerator
             Project::class => 'project_delete',
             Supplier::class => 'supplier_delete',
             Manufacturer::class => 'manufacturer_delete',
-            Storelocation::class => 'store_location_delete',
+            StorageLocation::class => 'store_location_delete',
             Footprint::class => 'footprint_delete',
             User::class => 'user_delete',
             Currency::class => 'currency_delete',

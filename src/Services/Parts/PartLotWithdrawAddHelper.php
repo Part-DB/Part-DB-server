@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Parts;
 
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\Parts\PartLot;
 use App\Services\LogSystem\EventCommentHelper;
@@ -30,7 +30,7 @@ final class PartLotWithdrawAddHelper
         }
 
         //So far all other restrictions are defined at the storelocation level
-        if(!$partLot->getStorageLocation() instanceof Storelocation) {
+        if(!$partLot->getStorageLocation() instanceof StorageLocation) {
             return true;
         }
         //We can not add parts if the storage location of the lot is marked as full

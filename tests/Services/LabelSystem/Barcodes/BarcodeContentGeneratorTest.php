@@ -43,7 +43,7 @@ namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -62,7 +62,7 @@ class BarcodeContentGeneratorTest extends KernelTestCase
         return [
             ['P0000', Part::class],
             ['L0000', PartLot::class],
-            ['S0000', Storelocation::class],
+            ['S0000', StorageLocation::class],
         ];
     }
 
@@ -71,7 +71,7 @@ class BarcodeContentGeneratorTest extends KernelTestCase
         return [
             ['/scan/part/0', Part::class],
             ['/scan/lot/0', PartLot::class],
-            ['/scan/location/0', Storelocation::class],
+            ['/scan/location/0', StorageLocation::class],
         ];
     }
 

@@ -50,7 +50,7 @@ use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
 use Symfony\Component\Form\AbstractType;
@@ -163,7 +163,7 @@ class ParameterType extends AbstractType
             GroupParameter::class => 'group',
             ManufacturerParameter::class => 'manufacturer',
             MeasurementUnit::class => 'measurement_unit',
-            StorelocationParameter::class => 'storelocation',
+            StorageLocationParameter::class => 'storelocation',
             SupplierParameter::class => 'supplier',
         ];
 

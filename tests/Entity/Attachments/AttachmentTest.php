@@ -33,7 +33,7 @@ use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\ProjectSystem\Project;
@@ -42,7 +42,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
@@ -84,7 +84,7 @@ class AttachmentTest extends TestCase
             [ManufacturerAttachment::class, Manufacturer::class],
             [MeasurementUnitAttachment::class, MeasurementUnit::class],
             [PartAttachment::class, Part::class],
-            [StorelocationAttachment::class, Storelocation::class],
+            [StorageLocationAttachment::class, StorageLocation::class],
             [SupplierAttachment::class, Supplier::class],
             [UserAttachment::class, User::class],
         ];

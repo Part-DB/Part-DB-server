@@ -44,7 +44,7 @@ namespace App\Services\LabelSystem\Barcodes;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -56,13 +56,13 @@ final class BarcodeContentGenerator
     public const PREFIX_MAP = [
         Part::class => 'P',
         PartLot::class => 'L',
-        Storelocation::class => 'S',
+        StorageLocation::class => 'S',
     ];
 
     private const URL_MAP = [
         Part::class => 'part',
         PartLot::class => 'lot',
-        Storelocation::class => 'location',
+        StorageLocation::class => 'location',
     ];
 
     public function __construct(private readonly UrlGeneratorInterface $urlGenerator)

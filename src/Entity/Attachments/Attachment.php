@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;
@@ -42,7 +43,12 @@ use LogicException;
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
-#[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
+#[ORM\DiscriminatorMap(['PartDB\Part' => PartAttachment::class, 'Part' => PartAttachment::class,
+    'PartDB\Device' => ProjectAttachment::class, 'Device' => ProjectAttachment::class, 'AttachmentType' => AttachmentTypeAttachment::class,
+    'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
+    'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
+    'Storelocation' => StorageLocationAttachment::class, 'Supplier' => SupplierAttachment::class,
+    'User' => UserAttachment::class, 'LabelProfile' => LabelAttachment::class])]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
 #[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]

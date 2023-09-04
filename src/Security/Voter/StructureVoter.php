@@ -28,7 +28,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
@@ -47,7 +47,7 @@ final class StructureVoter extends Voter
         Project::class => 'projects',
         Footprint::class => 'footprints',
         Manufacturer::class => 'manufacturers',
-        Storelocation::class => 'storelocations',
+        StorageLocation::class => 'storelocations',
         Supplier::class => 'suppliers',
         Currency::class => 'currencies',
         MeasurementUnit::class => 'measurement_units',

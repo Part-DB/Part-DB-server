@@ -52,7 +52,7 @@ use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractDBElement;
@@ -69,14 +69,14 @@ use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
@@ -166,8 +166,8 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                     return MeasurementUnitParameter::class;
                 case Part::class:
                     return PartParameter::class;
-                case Storelocation::class:
-                    return StorelocationParameter::class;
+                case StorageLocation::class:
+                    return StorageLocationParameter::class;
                 case Supplier::class:
                     return SupplierParameter::class;
 
@@ -196,8 +196,8 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                     return MeasurementUnitAttachment::class;
                 case Part::class:
                     return PartAttachment::class;
-                case Storelocation::class:
-                    return StorelocationAttachment::class;
+                case StorageLocation::class:
+                    return StorageLocationAttachment::class;
                 case Supplier::class:
                     return SupplierAttachment::class;
                 case User::class:

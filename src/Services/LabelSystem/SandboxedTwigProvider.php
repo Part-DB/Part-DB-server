@@ -54,7 +54,7 @@ use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
@@ -101,7 +101,7 @@ final class SandboxedTwigProvider
         MeasurementUnit::class => ['getUnit', 'isInteger', 'useSIPrefix'],
         PartLot::class => ['isExpired', 'getDescription', 'getComment', 'getExpirationDate', 'getStorageLocation',
             'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill', ],
-        Storelocation::class => ['isFull', 'isOnlySinglePart', 'isLimitToExistingParts', 'getStorageType'],
+        StorageLocation::class => ['isFull', 'isOnlySinglePart', 'isLimitToExistingParts', 'getStorageType'],
         Supplier::class => ['getShippingCosts', 'getDefaultCurrency'],
         Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getDescription', 'isFavorite', 'getCategory',
             'getFootprint', 'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getAmountSum',

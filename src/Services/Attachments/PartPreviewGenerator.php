@@ -25,7 +25,7 @@ namespace App\Services\Attachments;
 use App\Entity\Parts\Footprint;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Attachments\Attachment;
@@ -88,7 +88,7 @@ class PartPreviewGenerator
         }
 
         foreach ($part->getPartLots() as $lot) {
-            if ($lot->getStorageLocation() instanceof Storelocation) {
+            if ($lot->getStorageLocation() instanceof StorageLocation) {
                 $attachment = $lot->getStorageLocation()->getMasterPictureAttachment();
                 if ($this->isAttachmentValidPicture($attachment)) {
                     $list[] = $attachment;

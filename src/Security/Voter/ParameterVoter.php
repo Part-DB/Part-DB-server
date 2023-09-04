@@ -35,7 +35,7 @@ use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
@@ -96,7 +96,7 @@ final class ParameterVoter extends Voter
             $param = 'measurement_units';
         } elseif (is_a($subject, PartParameter::class, true)) {
             $param = 'parts';
-        } elseif (is_a($subject, StorelocationParameter::class, true)) {
+        } elseif (is_a($subject, StorageLocationParameter::class, true)) {
             $param = 'storelocations';
         } elseif (is_a($subject, SupplierParameter::class, true)) {
             $param = 'suppliers';

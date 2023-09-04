@@ -29,7 +29,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
@@ -191,7 +191,7 @@ class PartFilterType extends AbstractType
          */
         $builder->add('storelocation', StructuralEntityConstraintType::class, [
             'label' => 'storelocation.label',
-            'entity_class' => Storelocation::class
+            'entity_class' => StorageLocation::class
         ]);
 
         $builder->add('minAmount', NumberConstraintType::class, [

@@ -23,13 +23,13 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\UserSystem\User;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 
 class StorelocationProvider implements PlaceholderProviderInterface
 {
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
-        if ($label_target instanceof Storelocation) {
+        if ($label_target instanceof StorageLocation) {
             if ('[[OWNER]]' === $placeholder) {
                 return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
             }

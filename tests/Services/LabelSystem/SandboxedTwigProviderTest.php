@@ -46,7 +46,7 @@ use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\SandboxedTwigProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Twig\Sandbox\SecurityError;
@@ -114,7 +114,7 @@ class SandboxedTwigProviderTest extends WebTestCase
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),
-            'location' => new Storelocation(),
+            'location' => new StorageLocation(),
         ]);
 
         $this->assertIsString($str);
@@ -136,7 +136,7 @@ class SandboxedTwigProviderTest extends WebTestCase
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),
-            'location' => new Storelocation(),
+            'location' => new StorageLocation(),
         ]);
 
         $this->assertIsString($str);

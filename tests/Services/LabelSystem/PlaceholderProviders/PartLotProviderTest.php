@@ -43,7 +43,7 @@ namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\UserSystem\User;
 use App\Services\LabelSystem\PlaceholderProviders\PartLotProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -68,9 +68,9 @@ class PartLotProviderTest extends WebTestCase
         $this->target->setExpirationDate(new \DateTime('1999-04-13'));
         $this->target->setInstockUnknown(true);
 
-        $location = new Storelocation();
+        $location = new StorageLocation();
         $location->setName('Location');
-        $location->setParent((new Storelocation())->setName('Parent'));
+        $location->setParent((new StorageLocation())->setName('Parent'));
         $this->target->setStorageLocation($location);
 
         $part = new Part();

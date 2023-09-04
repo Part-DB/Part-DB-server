@@ -37,7 +37,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Services\Trees\NodesListBuilder;
@@ -118,7 +118,7 @@ class PartFilter implements FilterInterface
         $this->lotCount = new IntConstraint('COUNT(partLots)');
         $this->lessThanDesired = new LessThanDesiredConstraint();
 
-        $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
+        $this->storelocation = new EntityConstraint($nodesListBuilder, StorageLocation::class, 'partLots.storage_location');
         $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
         $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
         $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');

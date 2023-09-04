@@ -34,7 +34,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Symfony\Bundle\SecurityBundle\Security;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -147,7 +147,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
                         //Ignore lots without storelocation
-                        if (!$lot->getStorageLocation() instanceof Storelocation) {
+                        if (!$lot->getStorageLocation() instanceof StorageLocation) {
                             continue;
                         }
                         $tmp[] = sprintf(

@@ -97,13 +97,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected ?\DateTimeInterface $expiration_date = null;
 
     /**
-     * @var Storelocation|null The storelocation of this lot
+     * @var StorageLocation|null The storelocation of this lot
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
-    #[ORM\ManyToOne(targetEntity: Storelocation::class, fetch: 'EAGER')]
+    #[ORM\ManyToOne(targetEntity: StorageLocation::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_store_location')]
     #[Selectable()]
-    protected ?Storelocation $storage_location = null;
+    protected ?StorageLocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
@@ -229,9 +229,9 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Gets the storage location, where this part lot is stored.
      *
-     * @return Storelocation|null The store location where this part is stored
+     * @return StorageLocation|null The store location where this part is stored
      */
-    public function getStorageLocation(): ?Storelocation
+    public function getStorageLocation(): ?StorageLocation
     {
         return $this->storage_location;
     }
@@ -239,7 +239,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the storage location, where this part lot is stored.
      */
-    public function setStorageLocation(?Storelocation $storage_location): self
+    public function setStorageLocation(?StorageLocation $storage_location): self
     {
         $this->storage_location = $storage_location;
 

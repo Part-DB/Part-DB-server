@@ -28,7 +28,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\ProjectSystem\Project;
@@ -201,8 +201,8 @@ class PartController extends AbstractController
         }
 
         $store_id = $request->get('storelocation', null);
-        $storelocation = $store_id ? $em->find(Storelocation::class, $store_id) : null;
-        if ($storelocation instanceof Storelocation && $new_part->getPartLots()->isEmpty()) {
+        $storelocation = $store_id ? $em->find(StorageLocation::class, $store_id) : null;
+        if ($storelocation instanceof StorageLocation && $new_part->getPartLots()->isEmpty()) {
             $partLot = new PartLot();
             $partLot->setStorageLocation($storelocation);
             $partLot->setInstockUnknown(true);

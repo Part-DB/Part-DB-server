@@ -49,7 +49,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Repository\AttachmentRepository;
@@ -113,7 +113,7 @@ class StatisticsHelper
             'footprint' => Footprint::class,
             'manufacturer' => Manufacturer::class,
             'measurement_unit' => MeasurementUnit::class,
-            'storelocation' => Storelocation::class,
+            'storelocation' => StorageLocation::class,
             'supplier' => Supplier::class,
             'currency' => Currency::class,
         ];

@@ -22,14 +22,23 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Attachments\Attachment;
 use App\Repository\Parts\StorelocationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,13 +47,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a storage location, where parts can be stored.
- * @extends AbstractPartsContainingDBElement<StorelocationAttachment, StorelocationParameter>
+ * @extends AbstractPartsContainingDBElement<StorageLocationAttachment, StorageLocationParameter>
  */
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(name: 'location_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
-class Storelocation extends AbstractPartsContainingDBElement
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@storelocations.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['location:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/storage_locations/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a storage location.'],
+            security: 'is_granted("@storelocations.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: Manufacturer::class)
+    ],
+    normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
+class StorageLocation extends AbstractPartsContainingDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => 'ASC'])]
@@ -61,10 +93,10 @@ class Storelocation extends AbstractPartsContainingDBElement
     #[ORM\JoinColumn(name: 'storage_type_id')]
     protected ?MeasurementUnit $storage_type = null;
 
-    /** @var Collection<int, StorelocationParameter>
+    /** @var Collection<int, StorageLocationParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: StorelocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: StorageLocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -104,13 +136,13 @@ class Storelocation extends AbstractPartsContainingDBElement
     protected bool $part_owner_must_match = false;
 
     /**
-     * @var Collection<int, StorelocationAttachment>
+     * @var Collection<int, StorageLocationAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: StorelocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: StorageLocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected Collection $attachments;
 
-    #[ORM\ManyToOne(targetEntity: StorelocationAttachment::class)]
+    #[ORM\ManyToOne(targetEntity: StorageLocationAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
     protected ?Attachment $master_picture_attachment = null;
 
@@ -186,7 +218,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * Sets the owner of this storage location
      */
-    public function setOwner(?User $owner): Storelocation
+    public function setOwner(?User $owner): StorageLocation
     {
         $this->owner = $owner;
         return $this;
@@ -203,7 +235,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
      */
-    public function setPartOwnerMustMatch(bool $part_owner_must_match): Storelocation
+    public function setPartOwnerMustMatch(bool $part_owner_must_match): StorageLocation
     {
         $this->part_owner_must_match = $part_owner_must_match;
         return $this;

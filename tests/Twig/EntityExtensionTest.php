@@ -30,7 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
@@ -56,7 +56,7 @@ class EntityExtensionTest extends WebTestCase
     {
         $this->assertSame('part', $this->service->getEntityType(new Part()));
         $this->assertSame('footprint', $this->service->getEntityType(new Footprint()));
-        $this->assertSame('storelocation', $this->service->getEntityType(new Storelocation()));
+        $this->assertSame('storelocation', $this->service->getEntityType(new StorageLocation()));
         $this->assertSame('manufacturer', $this->service->getEntityType(new Manufacturer()));
         $this->assertSame('category', $this->service->getEntityType(new Category()));
         $this->assertSame('device', $this->service->getEntityType(new Project()));
