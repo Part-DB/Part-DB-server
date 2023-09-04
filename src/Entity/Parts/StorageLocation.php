@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -84,13 +85,19 @@ class StorageLocation extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['location:read', 'location:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
+
+    #[Groups(['location:read', 'location:write'])]
+    protected string $comment = '';
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
      */
     #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
     #[ORM\JoinColumn(name: 'storage_type_id')]
+    #[Groups(['location:read', 'location:write'])]
     protected ?MeasurementUnit $storage_type = null;
 
     /** @var Collection<int, StorageLocationParameter>
@@ -103,21 +110,21 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $is_full = false;
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $only_single_part = false;
 
     /**
      * @var bool
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $limit_to_existing_parts = false;
 
@@ -127,12 +134,14 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[Assert\Expression('this.getOwner() == null or this.getOwner().isAnonymousUser() === false', message: 'validator.part_lot.owner_must_not_be_anonymous')]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
+    #[Groups(['location:read', 'location:write'])]
     protected ?User $owner = null;
 
     /**
      * @var bool If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
      */
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    #[Groups(['location:read', 'location:write'])]
     protected bool $part_owner_must_match = false;
 
     /**
@@ -140,10 +149,12 @@ class StorageLocation extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: StorageLocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Groups(['location:read', 'location:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: StorageLocationAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['location:read', 'location:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /********************************************************************************
