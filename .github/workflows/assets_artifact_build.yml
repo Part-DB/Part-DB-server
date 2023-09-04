@@ -19,7 +19,7 @@ jobs:
       APP_ENV: prod
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Get Composer Cache Directory
         id: composer-cache
