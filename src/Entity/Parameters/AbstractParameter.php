@@ -60,7 +60,7 @@ use function sprintf;
 #[ORM\DiscriminatorMap([0 => CategoryParameter::class, 1 => CurrencyParameter::class, 2 => ProjectParameter::class,
     3 => FootprintParameter::class, 4 => GroupParameter::class, 5 => ManufacturerParameter::class,
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
-    9 => SupplierParameter::class, 10 => AttachmentTypeAttachment::class])]
+    9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class])]
 #[ORM\Table('parameters')]
 #[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
