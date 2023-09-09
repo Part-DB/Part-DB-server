@@ -171,7 +171,7 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.self</source>
         <target>Элемент не может быть собственным родителем</target>
       </segment>
@@ -180,25 +180,25 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Родитель не может быть дочерним по отношению к себе</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.only_existing</source>
         <target>Вы не можете добавлять новые компоненты в хранилище которое помечено как "только существующие".</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.location_full</source>
         <target>Вы не можете добавлять новые компоненты в хранилище которое отмечено как "полное".</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.single_part</source>
         <target>Вы не можете добавлять новые компоненты в хранилище которое отмечено как "единственный компонент".</target>
       </segment>
