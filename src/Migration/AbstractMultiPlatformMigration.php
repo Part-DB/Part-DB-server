@@ -133,6 +133,24 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     }
 
     /**
+     * Checks if a column exists in a table.
+     * @return bool Returns true, if the column exists
+     * @throws Exception
+     */
+    public function doesColumnExist(string $table, string $column_name): bool
+    {
+        $db_type = $this->getDatabaseType();
+        if ($db_type !== 'mysql') {
+            throw new \RuntimeException('This method is only supported for MySQL/MariaDB databases!');
+        }
+
+        $sql = "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '$table' AND COLUMN_NAME = '$column_name'";
+        $result = (int) $this->connection->fetchOne($sql);
+
+        return $result > 0;
+    }
+
+    /**
      * Returns the database type of the used database.
      * @return string|null Returns 'mysql' for MySQL/MariaDB and 'sqlite' for SQLite. Returns null if unknown type
      */
