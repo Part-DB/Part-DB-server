@@ -11599,5 +11599,23 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Verfügbare Part-DB Updates anzeigen</target>
       </segment>
     </unit>
+    <unit id="VVpmfIj" name="project.build.dont_check_quantity">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity</source>
+        <target>Mengen nicht überprüfen</target>
+      </segment>
+    </unit>
+    <unit id="AzYSIiX" name="project.build.dont_check_quantity.help">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity.help</source>
+        <target>Wenn diese Option gewählt wird, werden die gewählten Mengen aus dem Lager entfernt, egal ob mehr oder weniger Bauteile sind, als für den Bau des Projekts eigentlich benötigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="tfOeMsC" name="part_list.action.invert_selection">
+      <segment state="translated">
+        <source>part_list.action.invert_selection</source>
+        <target>Auswahl umkehren</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
