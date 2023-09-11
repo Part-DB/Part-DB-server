@@ -970,21 +970,193 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Livello di verbosità</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.simple</source>
+        <target>Semplice</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.extended</source>
+        <target>Esteso</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.full</source>
+        <target>Completo</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>export.include_children</source>
+        <target>Includi i sub elementi nell'esportazione</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>export.btn</source>
+        <target>Esportare</target>
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>id.label</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
+      <segment state="translated">
+        <source>createdAt</source>
+        <target>Creato il</target>
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
+      <segment state="translated">
+        <source>lastModified</source>
+        <target>Ultima modifica</target>
+      </segment>
+    </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>Numero di componenti con questo elemento</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>Parametro</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>Simbolo</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>Min.</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>Typ.</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>Max.</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>Unità</target>
+      </segment>
+    </unit>
     <unit id="05vM0Vp" name="specifications.text">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
@@ -1394,49 +1566,490 @@ I sub elementi saranno spostati verso l'alto.</target>
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:83</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:71</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.partinfo.shopping_infos</source>
+        <target>Informazioni di acquisto</target>
+      </segment>
+    </unit>
+    <unit id="1Soir6U" name="vendor.partinfo.history">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:91</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:78</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:94</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.partinfo.history</source>
+        <target>Storico</target>
+      </segment>
+    </unit>
+    <unit id="__OuWRw" name="tools.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:97</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:84</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:176</note>
+        <note priority="1">templates\base.html.twig:203</note>
+        <note priority="1">templates\base.html.twig:217</note>
+        <note priority="1">templates\base.html.twig:231</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:100</note>
+      </notes>
+      <segment state="translated">
+        <source>tools.label</source>
+        <target>Utilità</target>
+      </segment>
+    </unit>
+    <unit id="BnHnqwK" name="extended_info.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:103</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>extended_info.label</source>
+        <target>Informazioni estese</target>
+      </segment>
+    </unit>
+    <unit id="vMya34Z" name="attachment.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="wFzihuM" name="attachment.attachment_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.attachment_type</source>
+        <target>Tipo di allegato</target>
+      </segment>
+    </unit>
+    <unit id="qbywfNk" name="attachment.file_name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_name</source>
+        <target>Nome del file</target>
+      </segment>
+    </unit>
+    <unit id="MUTx89j" name="attachment.file_size">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_size</source>
+        <target>Dimensioni del file</target>
+      </segment>
+    </unit>
+    <unit id="gWj51jS" name="attachment.preview">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview</source>
+        <target>Immagine di anteprima</target>
+      </segment>
+    </unit>
+    <unit id="GSjs0LU" name="attachment.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="5PiNnoA" name="user.creating_user">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:11</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.creating_user</source>
+        <target>Utente che ha creato questo componente</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>Unknown</source>
+        <target>Sconosciuto</target>
+      </segment>
+    </unit>
+    <unit id="n4o6jKZ" name="accessDenied">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>accessDenied</source>
+        <target>Accesso negato</target>
+      </segment>
+    </unit>
+    <unit id="uaxA.n." name="user.last_editing_user">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:26</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.last_editing_user</source>
+        <target>Utente che ha modificato questo componente</target>
+      </segment>
+    </unit>
+    <unit id="xQkqdM5" name="part.isFavorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>part.isFavorite</source>
+        <target>Preferito</target>
+      </segment>
+    </unit>
+    <unit id="qwRgUmm" name="part.minOrderAmount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.minOrderAmount</source>
+        <target>Importo minimo dell'ordine</target>
+      </segment>
+    </unit>
+    <unit id="WB3sH1G" name="manufacturer.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:46</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:41</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">templates\base.html.twig:70</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:24</note>
+        <note priority="1">src\Form\PartType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.label</source>
+        <target>Produttore</target>
+      </segment>
+    </unit>
+    <unit id="kTRK6H_" name="name.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:54</note>
+        <note priority="1">src\Form\PartType.php:62</note>
+      </notes>
+      <segment state="translated">
+        <source>name.label</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="xaKzTBt" name="part.back_to_info">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>part.back_to_info</source>
+        <target>Ritorno alla versione attuale</target>
+      </segment>
+    </unit>
+    <unit id="LSnWIG7" name="description.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:18</note>
+        <note priority="1">templates\base.html.twig:58</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:31</note>
+        <note priority="1">src\Form\PartType.php:65</note>
+      </notes>
+      <segment state="translated">
+        <source>description.label</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="ZY57BXc" name="category.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:14</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">templates\base.html.twig:56</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:32</note>
+        <note priority="1">src\Form\PartType.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>category.label</source>
+        <target>Categoria</target>
+      </segment>
+    </unit>
+    <unit id="J.AXbaM" name="instock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:42</note>
+        <note priority="1">src\Form\PartType.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>instock.label</source>
+        <target>A stock</target>
+      </segment>
+    </unit>
+    <unit id="VYcxdrz" name="mininstock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:44</note>
+        <note priority="1">src\Form\PartType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>mininstock.label</source>
+        <target>Scorta minima</target>
+      </segment>
+    </unit>
+    <unit id="griVyRf" name="footprint.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">templates\base.html.twig:73</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.label</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="LL2dt8U" name="part.avg_price.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:51</note>
+      </notes>
+      <segment state="translated">
+        <source>part.avg_price.label</source>
+        <target>Prezzo medio</target>
+      </segment>
+    </unit>
+    <unit id="3tdTZVD" name="part.supplier.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="RiciNp5" name="part.supplier.partnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.partnr</source>
+        <target>Codice</target>
+      </segment>
+    </unit>
+    <unit id="_SpdO.3" name="part.order.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.minamount</source>
+        <target>Importo minimo</target>
+      </segment>
+    </unit>
+    <unit id="4RsODVR" name="part.order.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price</source>
+        <target>Prezzo</target>
+      </segment>
+    </unit>
+    <unit id="Lr0c8K3" name="part.order.single_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.single_price</source>
+        <target>Prezzo unitario</target>
+      </segment>
+    </unit>
+    <unit id="EKnfKFl" name="edit.caption_short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption_short</source>
+        <target>Modificare</target>
+      </segment>
+    </unit>
+    <unit id="qNZM46r" name="delete.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>delete.caption</source>
+        <target>Eliminare</target>
+      </segment>
+    </unit>
+    <unit id="aUihK3c" name="part_lots.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="SOcXkyd" name="part_lots.storage_location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.storage_location</source>
+        <target>Ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="jVYrm0U" name="part_lots.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.amount</source>
+        <target>Quantità</target>
+      </segment>
+    </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>Ubicazione sconosciuta</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>Quantità sconosciuta</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>Data di scadenza</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>Scaduto</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>Necessita di rifornimento</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>Immagine precedente</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>Immagine successiva</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>Peso</target>
+      </segment>
+    </unit>
     
     
     
