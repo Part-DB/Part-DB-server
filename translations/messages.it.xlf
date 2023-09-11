@@ -3620,11 +3620,56 @@ Attenzione: senza l'autenticazione a due fattori il suo account non è ben prote
         <target>Fornitore</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
+    <unit id="qfScBBj" name="orderdetails.edit.url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:87</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.url</source>
+        <target>Link all'offerta</target>
+      </segment>
+    </unit>
+    <unit id="D_288lV" name="orderdetails.edit.obsolete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.obsolete</source>
+        <target>Non più disponibile</target>
+      </segment>
+    </unit>
+    <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr.placeholder</source>
+        <target>es. BC 547</target>
+      </segment>
+    </unit>
+    <unit id="HZwLFnu" name="part.edit.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="9MhdLlK" name="part.edit.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:109</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:107</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
     
     
     
