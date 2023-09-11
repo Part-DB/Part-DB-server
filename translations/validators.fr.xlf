@@ -171,7 +171,7 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.self</source>
         <target>Un élément ne peut pas être son propre parent.</target>
       </segment>
@@ -180,25 +180,25 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Le parent ne peut pas être un de ses propres enfants.</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.only_existing</source>
         <target>L'emplacement de stockage a été marqué comme "uniquement existant", donc aucun nouveau composant ne peut être ajouté.</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.location_full</source>
         <target>L'emplacement de stockage est plein, c'est pourquoi aucun nouveau composant ne peut être ajouté.</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.single_part</source>
         <target>L'emplacement de stockage a été marqué comme "Composant seul", par conséquent aucun nouveau composant ne peut être ajouté.</target>
       </segment>
