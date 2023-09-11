@@ -1512,7 +1512,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>label_generator.common</source>
-        <target>Common</target>
+        <target>Comune</target>
       </segment>
     </unit>
     <unit id="WLpYniK" name="label_generator.advanced">
