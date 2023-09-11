@@ -32,5 +32,37 @@
         <target>Nuovo tipo di file</target>
       </segment>
     </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:163</note>
+        <note priority="1">templates\base.html.twig:170</note>
+        <note priority="1">templates\base.html.twig:197</note>
+        <note priority="1">templates\base.html.twig:225</note>
+      </notes>
+      <segment state="translated">
+        <source>category.labelp</source>
+        <target>Categorie</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>Opzioni</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
