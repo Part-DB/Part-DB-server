@@ -2050,6 +2050,76 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Peso</target>
       </segment>
     </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>Necessaria revisione</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>Preferito</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>Non più disponibile</target>
+      </segment>
+    </unit>
+    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.extracted_from_description</source>
+        <target>Estratto automaticamente dalla descrizione</target>
+      </segment>
+    </unit>
+    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.auto_extracted_from_comment</source>
+        <target>Estratto automaticamente dalle note</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>Modifica componente</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>Clona il componente</target>
+      </segment>
+    </unit>
     
     
     
@@ -2100,241 +2170,1456 @@ I sub elementi saranno spostati verso l'alto.</target>
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id=".lLfExB" name="statistics.distinct_parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.distinct_parts_count</source>
+        <target>Numero di componenti distinti</target>
+      </segment>
+    </unit>
+    <unit id="IjDWXUD" name="statistics.parts_instock_sum">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_instock_sum</source>
+        <target>Somma di tutti i componenti a stock</target>
+      </segment>
+    </unit>
+    <unit id="OUVlqDZ" name="statistics.parts_with_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_with_price</source>
+        <target>Numero di componenti con informazioni di prezzo</target>
+      </segment>
+    </unit>
+    <unit id="VX9aZ2j" name="statistics.categories_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.categories_count</source>
+        <target>Numero di categorie</target>
+      </segment>
+    </unit>
+    <unit id="Aks9a3Q" name="statistics.footprints_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.footprints_count</source>
+        <target>Numero di footprint</target>
+      </segment>
+    </unit>
+    <unit id="wvwDajm" name="statistics.manufacturers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.manufacturers_count</source>
+        <target>Numero di fabbricanti</target>
+      </segment>
+    </unit>
+    <unit id="MDdSIU0" name="statistics.storelocations_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.storelocations_count</source>
+        <target>Numero di ubicazioni</target>
+      </segment>
+    </unit>
+    <unit id="q9tLL7." name="statistics.suppliers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.suppliers_count</source>
+        <target>Numero di fornitori</target>
+      </segment>
+    </unit>
+    <unit id="xzr9lD3" name="statistics.currencies_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.currencies_count</source>
+        <target>Numero di valute</target>
+      </segment>
+    </unit>
+    <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.measurement_units_count</source>
+        <target>Numero di unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="T0BDQn_" name="statistics.devices_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.devices_count</source>
+        <target>Numero di progetti</target>
+      </segment>
+    </unit>
+    <unit id="8HKc.Yq" name="statistics.attachment_types_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachment_types_count</source>
+        <target>Numero di tipi di allegati</target>
+      </segment>
+    </unit>
+    <unit id="S1UPbY3" name="statistics.all_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.all_attachments_count</source>
+        <target>Numero di allegati</target>
+      </segment>
+    </unit>
+    <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.user_uploaded_attachments_count</source>
+        <target>Numero di allegati caricati dall'utente</target>
+      </segment>
+    </unit>
+    <unit id="PcACWnw" name="statistics.private_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.private_attachments_count</source>
+        <target>Numero di allegati privati</target>
+      </segment>
+    </unit>
+    <unit id="b2F2Gpk" name="statistics.external_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.external_attachments_count</source>
+        <target>Numero di allegati esterni (URL)</target>
+      </segment>
+    </unit>
+    <unit id="xd6VhOm" name="tfa_backup.codes.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.title</source>
+        <target>Codici di backup</target>
+      </segment>
+    </unit>
+    <unit id="DE6_hcj" name="tfa_backup.codes.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.explanation</source>
+        <target>Stampare questi codici e conservare in luogo sicuro!</target>
+      </segment>
+    </unit>
+    <unit id="q3Apy0z" name="tfa_backup.codes.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.help</source>
+        <target>Se non si ha più accesso al proprio dispositivo con l'app Authenticator (smartphone perso, perdita di dati, ecc.) si può utilizzare uno di questi codici per accedere all'account ed eventualmente impostare una nuova app Authenticator. Ciascuno di questi codici può essere utilizzato una volta, si consiglia di eliminare i codici già utilizzati. Chiunque abbia accesso a questi codici può potenzialmente accedere al suo account, quindi sono da tenere in un luogo sicuro.</target>
+      </segment>
+    </unit>
+    <unit id="iPcPo4t" name="tfa_backup.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.username</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    <unit id="g7XKOBR" name="tfa_backup.codes.page_generated_on">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.page_generated_on</source>
+        <target>Pagina generata il %date%</target>
+      </segment>
+    </unit>
+    <unit id="3Qg6WkA" name="tfa_backup.codes.print">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:32</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.print</source>
+        <target>Stampa</target>
+      </segment>
+    </unit>
+    <unit id="CJiKz6Q" name="tfa_backup.codes.copy_clipboard">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.copy_clipboard</source>
+        <target>Copiare negli appunti</target>
+      </segment>
+    </unit>
+    <unit id="_M8LV3f" name="user.info.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">templates\base.html.twig:99</note>
+        <note priority="1">templates\Users\user_info.html.twig:3</note>
+        <note priority="1">templates\Users\user_info.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.info.label</source>
+        <target>Informazioni utente</target>
+      </segment>
+    </unit>
+    <unit id="PwI64fM" name="user.firstName.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">templates\Users\user_info.html.twig:18</note>
+        <note priority="1">src\Form\UserSettingsType.php:32</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.label</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="u2ayBIA" name="user.lastName.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:82</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:24</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:82</note>
+        <note priority="1">templates\Users\user_info.html.twig:24</note>
+        <note priority="1">src\Form\UserSettingsType.php:35</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.label</source>
+        <target>Cognome</target>
+      </segment>
+    </unit>
+    <unit id="cDu6Rok" name="user.email.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:30</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:92</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:30</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:92</note>
+        <note priority="1">templates\Users\user_info.html.twig:30</note>
+        <note priority="1">src\Form\UserSettingsType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.label</source>
+        <target>Indirizzo email</target>
+      </segment>
+    </unit>
+    <unit id="8GGUFm1" name="user.department.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:87</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:37</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:87</note>
+        <note priority="1">templates\Users\user_info.html.twig:37</note>
+        <note priority="1">src\Form\UserSettingsType.php:38</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.label</source>
+        <target>Dipartimento</target>
+      </segment>
+    </unit>
+    <unit id="oX4P2rM" name="user.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">templates\Users\user_info.html.twig:47</note>
+        <note priority="1">src\Form\UserSettingsType.php:30</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.label</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    <unit id="QK5x4IY" name="group.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:93</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:53</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:93</note>
+        <note priority="1">templates\Users\user_info.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>group.label</source>
+        <target>Gruppo:</target>
+      </segment>
+    </unit>
+    <unit id="A7LFSdc" name="user.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>user.permissions</source>
+        <target>Permessi</target>
+      </segment>
+    </unit>
+    <unit id="4fEJHYJ" name="user.settings.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:37</note>
+        <note priority="1">templates\base.html.twig:98</note>
+        <note priority="1">templates\Users\user_settings.html.twig:3</note>
+        <note priority="1">templates\Users\user_settings.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.label</source>
+        <target>Impostazioni utente</target>
+      </segment>
+    </unit>
+    <unit id="zqcVMWA" name="user_settings.data.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:18</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:18</note>
+        <note priority="1">templates\Users\user_settings.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.data.label</source>
+        <target>Dati personali</target>
+      </segment>
+    </unit>
+    <unit id="Dh.DwVa" name="user_settings.configuration.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:22</note>
+        <note priority="1">templates\Users\user_settings.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.configuration.label</source>
+        <target>Configurazione</target>
+      </segment>
+    </unit>
+    <unit id="v3ayVni" name="user.settings.change_pw">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:55</note>
+        <note priority="1">templates\Users\user_settings.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.change_pw</source>
+        <target>Cambio password</target>
+      </segment>
+    </unit>
+    <unit id="2g9WpFv" name="user.settings.2fa_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa_settings</source>
+        <target>Autenticazione a due fattori</target>
+      </segment>
+    </unit>
+    <unit id="4Ubnv0V" name="tfa.settings.google.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.google.tab</source>
+        <target>App di autenticazione</target>
+      </segment>
+    </unit>
+    <unit id="A0dMe4r" name="tfa.settings.bakup.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.bakup.tab</source>
+        <target>Codici di backup</target>
+      </segment>
+    </unit>
+    <unit id="dxSnk50" name="tfa.settings.u2f.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.u2f.tab</source>
+        <target>Chiavi di sicurezza (U2F)</target>
+      </segment>
+    </unit>
+    <unit id="6nafcsi" name="tfa.settings.trustedDevices.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:25</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.trustedDevices.tab</source>
+        <target>Dispositivi attendibili</target>
+      </segment>
+    </unit>
+    <unit id="AYt4Z2k" name="tfa_google.disable.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable.confirm_title</source>
+        <target>Si vuole veramente disabilitare l'App di autenticazione?</target>
+      </segment>
+    </unit>
+    <unit id="lTwm.J0" name="tfa_google.disable.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable.confirm_message</source>
+        <target>Se si disabilita l'app di autenticazione, tutti i codici di backup verranno eliminati, quindi potrebbe essere necessario ristamparli.&lt;br&gt;
+Attenzione: senza l'autenticazione a due fattori il suo account non è ben protetto da eventuali aggressori!</target>
+      </segment>
+    </unit>
+    <unit id="VYOAO2c" name="tfa_google.disabled_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disabled_message</source>
+        <target>App di autenticazione disattivata!</target>
+      </segment>
+    </unit>
+    <unit id="cW3GnIC" name="tfa_google.step.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.download</source>
+        <target>Scaricare un'App di autenticazione (ad esempio &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details? id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+      </segment>
+    </unit>
+    <unit id="TXv.pXw" name="tfa_google.step.scan">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.scan</source>
+        <target>Scansionare con l'app il codice QR adiacente o inserire i dati manualmente</target>
+      </segment>
+    </unit>
+    <unit id="A9Ex8CO" name="tfa_google.step.input_code">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.input_code</source>
+        <target>Digitare il codice generato nel campo sotto e confermare</target>
+      </segment>
+    </unit>
+    <unit id="RqoGsnx" name="tfa_google.step.download_backup">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:51</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:51</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.download_backup</source>
+        <target>Stampare i propri codici di backup e conservarli in un luogo sicuro</target>
+      </segment>
+    </unit>
+    <unit id="EygadTb" name="tfa_google.manual_setup">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup</source>
+        <target>Configurazione manuale</target>
+      </segment>
+    </unit>
+    <unit id="4jE4fvm" name="tfa_google.manual_setup.type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.type</source>
+        <target>Tipo</target>
+      </segment>
+    </unit>
+    <unit id="NqQTgh6" name="tfa_google.manual_setup.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.username</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <unit id="GMilP1t" name="log.undo.element_undelete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:176</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_undelete_success</source>
+        <target>Elemento recuperato con successo.</target>
+      </segment>
+    </unit>
+    <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:178</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_element_already_undeleted</source>
+        <target>L'elemento è stato già recuperato!</target>
+      </segment>
+    </unit>
+    <unit id="NI2CbLV" name="log.undo.element_delete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:185</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_delete_success</source>
+        <target>Elemento eliminato con successo.</target>
+      </segment>
+    </unit>
+    <unit id=".D_N333" name="log.undo.element.element_already_delted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:187</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:191</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element.element_already_delted</source>
+        <target>L'elemento è stato già eliminato!</target>
+      </segment>
+    </unit>
+    <unit id="Bz3n92Q" name="log.undo.element_change_undone">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:198</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_change_undone</source>
+        <target>Annullamento della modifica avvenuto con successo!</target>
+      </segment>
+    </unit>
+    <unit id="Ne_xS01" name="log.undo.do_undelete_before">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:196</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:200</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.do_undelete_before</source>
+        <target>Bisogna recuperare l'elemento eliminato prima di poter effettuare questa modifica!</target>
+      </segment>
+    </unit>
+    <unit id="GswNRna" name="log.undo.log_type_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:199</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:203</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.log_type_invalid</source>
+        <target>Questa riga del log non può essere annullata!</target>
+      </segment>
+    </unit>
+    <unit id="6xOvKkk" name="part.edited_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">src\Controller\PartController.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash</source>
+        <target>Modifiche salvate!</target>
+      </segment>
+    </unit>
+    <unit id="w57VDWn" name="part.edited_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash.invalid</source>
+        <target>Errore durante il salvataggio: per favore controllare i dati immessi!</target>
+      </segment>
+    </unit>
+    <unit id="suYw2UL" name="part.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.deleted</source>
+        <target>Componente eliminato con successo.</target>
+      </segment>
+    </unit>
+    <unit id="tG.Jfwp" name="part.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:277</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:317</note>
+        <note priority="1">src\Controller\PartController.php:113</note>
+        <note priority="1">src\Controller\PartController.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash</source>
+        <target>Componente creato!</target>
+      </segment>
+    </unit>
+    <unit id="LOw_XJ." name="part.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:283</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash.invalid</source>
+        <target>Errore durante la creazione: per favore verificare i dati immessi!</target>
+      </segment>
+    </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>Nessun elemento corrispondente al dato codice a barre.</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>Formato sconosciuto!</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>Elemento trovato.</target>
+      </segment>
+    </unit>
+    <unit id="B1T9Kt6" name="pw_reset.user_or_email">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:114</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.user_or_email</source>
+        <target>Nome utente / Email</target>
+      </segment>
+    </unit>
+    <unit id="C_43E5l" name="pw_reset.request.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:131</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.success</source>
+        <target>La richiesta di reimpostazione della password è andata a buon fine! Controllare la casella e-mail per ulteriori istruzioni.</target>
+      </segment>
+    </unit>
+    <unit id="Ytlen4L" name="pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:162</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:160</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.username</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    <unit id="kCND5gR" name="pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:165</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:163</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.token</source>
+        <target>Token</target>
+      </segment>
+    </unit>
+    <unit id="Kz.sA0j" name="pw_reset.new_pw.error">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:192</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.error</source>
+        <target>Nome utente o Token non valido! Per favore controllare i dati immessi.</target>
+      </segment>
+    </unit>
+    <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:196</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.success</source>
+        <target>La password è stata reimpostata correttamente. Ora puoi accedere con la tua nuova password.</target>
+      </segment>
+    </unit>
+    <unit id="L8g8bFy" name="user.edit.reset_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:107</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.reset_success</source>
+        <target>Tutti i metodi di autenticazione a due fattori sono stati disabilitati con successo.</target>
+      </segment>
+    </unit>
+    <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.no_codes_enabled</source>
+        <target>Nessun codice di backup abilitato!</target>
+      </segment>
+    </unit>
+    <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:138</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:132</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.u2f_delete.not_existing</source>
+        <target>Non esiste una chiave di sicurezza con questo ID.</target>
+      </segment>
+    </unit>
+    <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:145</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:139</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.u2f_delete.access_denied</source>
+        <target>Non puoi eliminare le chiavi di sicurezza di altri utenti!</target>
+      </segment>
+    </unit>
+    <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:153</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.u2f.u2f_delete.success</source>
+        <target>Chiave di sicurezza rimossa correttamente.</target>
+      </segment>
+    </unit>
+    <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:188</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevice.invalidate.success</source>
+        <target>Dispositivi attendibili reimpostati correttamente.</target>
+      </segment>
+    </unit>
+    <unit id="PBKICdd" name="user.settings.saved_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:235</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
+        <note priority="1">src\Controller\UserController.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.saved_flash</source>
+        <target>Impostazioni salvate!</target>
+      </segment>
+    </unit>
+    <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:297</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:288</note>
+        <note priority="1">src\Controller\UserController.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_changed_flash</source>
+        <target>Password cambiata!</target>
+      </segment>
+    </unit>
+    <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:317</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:306</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.google.activated</source>
+        <target>App di autenticazione attivata con successo.</target>
+      </segment>
+    </unit>
+    <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:328</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.google.disabled</source>
+        <target>App di autenticazione disattivata con successo.</target>
+      </segment>
+    </unit>
+    <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:346</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:332</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.backup_codes.regenerated</source>
+        <target>I nuovi codici di backup sono stati generati.</target>
+      </segment>
+    </unit>
+    <unit id="zC0oO.O" name="attachment.table.filename">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.filename</source>
+        <target>Nome del file</target>
+      </segment>
+    </unit>
+    <unit id="dNey6.4" name="attachment.table.filesize">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.filesize</source>
+        <target>Dimensioni del file</target>
+      </segment>
+    </unit>
+    <unit id="tb6kG2x" name="true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:183</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:191</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:200</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:209</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:245</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:252</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:183</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:191</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:200</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:209</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:193</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:200</note>
+      </notes>
+      <segment state="translated">
+        <source>true</source>
+        <target>vero</target>
+      </segment>
+    </unit>
+    <unit id=".LzxZZC" name="false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:184</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:192</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:201</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:210</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:246</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:253</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Type\SIUnitType.php:139</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:184</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:192</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:201</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:210</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:194</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:201</note>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:139</note>
+      </notes>
+      <segment state="translated">
+        <source>false</source>
+        <target>falso</target>
+      </segment>
+    </unit>
+    <unit id="eTGx8tR" name="log.target_deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:128</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target_deleted</source>
+        <target>eliminato</target>
+      </segment>
+    </unit>
+    <unit id="mzQZ0My" name="log.undo.undelete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:57</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:60</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undelete</source>
+        <target>Recupera elemento</target>
+      </segment>
+    </unit>
+    <unit id="PI8faHR" name="log.undo.undo">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:63</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:66</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undo</source>
+        <target>Annulla le modifiche</target>
+      </segment>
+    </unit>
+    <unit id="Q6mbDaS" name="log.undo.revert">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:83</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:86</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert</source>
+        <target>Ripristinare l'elemento a questa data</target>
+      </segment>
+    </unit>
+    <unit id="6DOZlwQ" name="log.id">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:173</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
+      </notes>
+      <segment state="translated">
+        <source>log.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMZOrO7" name="log.timestamp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:178</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>log.timestamp</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="Z0BzGVJ" name="log.type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:183</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:171</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type</source>
+        <target>Evento</target>
+      </segment>
+    </unit>
+    <unit id="KNddOUS" name="log.level">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:191</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:179</note>
+      </notes>
+      <segment state="translated">
+        <source>log.level</source>
+        <target>Livello</target>
+      </segment>
+    </unit>
+    <unit id="3Tv5Xzj" name="log.user">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:200</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:188</note>
+      </notes>
+      <segment state="translated">
+        <source>log.user</source>
+        <target>Utente</target>
+      </segment>
+    </unit>
+    <unit id="bgbGrN5" name="log.target_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:201</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target_type</source>
+        <target>Tipo di target</target>
+      </segment>
+    </unit>
+    <unit id=".IgL4C2" name="log.target">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:226</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:214</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target</source>
+        <target>Target</target>
+      </segment>
+    </unit>
+    <unit id="b4r5dEC" name="log.extra">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:231</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.extra</source>
+        <target>Extra</target>
+      </segment>
+    </unit>
+    <unit id="t2EE5cB" name="part.table.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:168</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:116</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="eshqdG." name="part.table.id">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code93</source>
+        <target>Code 93</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>Datamatrix</target>
+      </segment>
+    </unit>
+    <unit id="7I9OV_t" name="label_options.lines_mode.html">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.html</source>
+        <target>Segnaposto</target>
+      </segment>
+    </unit>
+    <unit id="dFMpKDI" name="label.options.lines_mode.twig">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label.options.lines_mode.twig</source>
+        <target>Twig</target>
+      </segment>
+    </unit>
+    <unit id="BybM1v9" name="label_options.lines_mode.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.help</source>
+        <target>Se si seleziona Twig qui, il campo del contenuto viene interpretato come modello Twig. Vedere &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; e &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; per ulteriori informazioni.</target>
+      </segment>
+    </unit>
+    <unit id="2d9g1o5" name="label_options.page_size.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:47</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.page_size.label</source>
+        <target>Misure dell'etichetta</target>
+      </segment>
+    </unit>
+    <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.supported_elements.label</source>
+        <target>Tipo di target</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.label</source>
+        <target>Codice a barre</target>
+      </segment>
+    </unit>
+    <unit id="Z8_BSQ1" name="label_profile.lines.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.lines.label</source>
+        <target>Contenuto</target>
+      </segment>
+    </unit>
+    <unit id="LfMiT9B" name="label_options.additional_css.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:111</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.additional_css.label</source>
+        <target>Stile aggiuntivo (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="0A6Twij" name="label_options.lines_mode.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:120</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.label</source>
+        <target>Parser mode</target>
+      </segment>
+    </unit>
+    <unit id="aPqzFJs" name="label_options.width.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:51</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.width.placeholder</source>
+        <target>Larghezza</target>
+      </segment>
+    </unit>
+    <unit id="t.j1KtN" name="label_options.height.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.height.placeholder</source>
+        <target>Altezza</target>
+      </segment>
+    </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:49</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.range_hint</source>
+        <target>Qui puoi specificare più ID (ad esempio 1,2,3) e/o un intervallo (1-3) per generare etichette per più elementi contemporaneamente.</target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.label</source>
+        <target>Target ID</target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.update</source>
+        <target>Aggiornamento</target>
+      </segment>
+    </unit>
+    <unit id="QQCsPWt" name="scan_dialog.input">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:36</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.input</source>
+        <target>Input</target>
+      </segment>
+    </unit>
+    <unit id="xENLE_d" name="scan_dialog.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.submit</source>
+        <target>Invia</target>
+      </segment>
+    </unit>
+    <unit id="o.P_V00" name="parameters.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.name.placeholder</source>
+        <target>es. DC Current Gain</target>
+      </segment>
+    </unit>
+    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.symbol.placeholder</source>
+        <target>es. h_{FE}</target>
+      </segment>
+    </unit>
+    <unit id="w7bfLKj" name="parameters.text.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.text.placeholder</source>
+        <target>es. Test conditions</target>
+      </segment>
+    </unit>
+    <unit id="6utToZ6" name="parameters.max.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.max.placeholder</source>
+        <target>es. 350</target>
+      </segment>
+    </unit>
+    <unit id="BypUOrf" name="parameters.min.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.min.placeholder</source>
+        <target>es. 100</target>
+      </segment>
+    </unit>
+    <unit id="VmYIvYF" name="parameters.typical.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.typical.placeholder</source>
+        <target>es. 200</target>
+      </segment>
+    </unit>
+    <unit id="kvhGoo0" name="parameters.unit.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.unit.placeholder</source>
+        <target>es. V</target>
+      </segment>
+    </unit>
+    <unit id="kL5OSi8" name="parameter.group.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.group.placeholder</source>
+        <target>es. Specifiche tecniche</target>
+      </segment>
+    </unit>
+    <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:72</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr</source>
+        <target>Codice componente del fornitore</target>
+      </segment>
+    </unit>
+    <unit id="CimWRtu" name="orderdetails.edit.supplier">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:81</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplier</source>
+        <target>Fornitore</target>
+      </segment>
+    </unit>
     
     
     
