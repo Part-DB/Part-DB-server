@@ -113,7 +113,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected bool $instock_unknown = false;
 
     /**
-     * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
+     * @var float The amount of parts in this lot. For integer-quantities this value is rounded to the next integer.
      */
     #[Assert\PositiveOrZero]
     #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]

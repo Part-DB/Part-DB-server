@@ -40,7 +40,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
     use TimestampTrait;
 
     /**
-     * @var string the name of this element
+     * @var string The name of this element
      */
     #[Assert\NotBlank]
     #[Groups(['simple', 'extended', 'full', 'import', 'api:basic:read', 'api:basic:write'])]

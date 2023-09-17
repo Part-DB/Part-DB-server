@@ -108,7 +108,7 @@ class Supplier extends AbstractCompany
     protected ?Currency $default_currency = null;
 
     /**
-     * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
+     * @var BigDecimal|null The shipping costs that have to be paid, when ordering via this supplier
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(name: 'shipping_costs', nullable: true, type: 'big_decimal', precision: 11, scale: 5)]

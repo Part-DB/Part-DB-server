@@ -40,6 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
+    /**
+     * @var Collection|ArrayCollection The parameters of this element
+     */
     #[Groups(['full'])]
     protected Collection $parameters;
 

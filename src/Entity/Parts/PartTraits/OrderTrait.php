@@ -36,7 +36,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait OrderTrait
 {
     /**
-     * @var Collection<int, Orderdetail> the details about how and where you can order this part
+     * @var Collection<int, Orderdetail> The details about how and where you can order this part
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]

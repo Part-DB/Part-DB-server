@@ -108,21 +108,21 @@ class StorageLocation extends AbstractPartsContainingDBElement
     protected Collection $parameters;
 
     /**
-     * @var bool
+     * @var bool When this attribute is set, it is not possible to add additional parts or increase the instock of existing parts.
      */
     #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $is_full = false;
 
     /**
-     * @var bool
+     * @var bool When this property is set, only one part (but many instock) is allowed to be stored in this store location.
      */
     #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $only_single_part = false;
 
     /**
-     * @var bool
+     * @var bool When this property is set, it is only possible to increase the instock of parts, that are already stored here.
      */
     #[Groups(['full', 'import', 'location:read', 'location:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]

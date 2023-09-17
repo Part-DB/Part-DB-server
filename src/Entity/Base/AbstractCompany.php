@@ -86,7 +86,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     protected string $comment = '';
 
     /**
-     * @var string
+     * @var string The link to the website of an article. Use %PARTNUMBER% as placeholder for the part number.
      */
     #[ORM\Column(type: Types::STRING)]
     protected string $auto_product_url = '';

@@ -93,56 +93,56 @@ class Category extends AbstractPartsContainingDBElement
     protected string $comment = '';
 
     /**
-     * @var string
+     * @var string The hint which is shown as hint under the partname field, when a part is created in this category.
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $partname_hint = '';
 
     /**
-     * @var string
+     * @var string The regular expression which is used to validate the partname of a part in this category.
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $partname_regex = '';
 
     /**
-     * @var bool
+     * @var bool Set to true, if the footprints should be disabled for parts this category (not implemented yet).
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_footprints = false;
 
     /**
-     * @var bool
+     * @var bool Set to true, if the manufacturers should be disabled for parts this category (not implemented yet).
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_manufacturers = false;
 
     /**
-     * @var bool
+     * @var bool Set to true, if the autodatasheets should be disabled for parts this category (not implemented yet).
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_autodatasheets = false;
 
     /**
-     * @var bool
+     * @var bool Set to true, if the properties should be disabled for parts this category (not implemented yet).
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disable_properties = false;
 
     /**
-     * @var string
+     * @var string The default description for parts in this category.
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $default_description = '';
 
     /**
-     * @var string
+     * @var string The default comment for parts in this category.
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
     #[ORM\Column(type: Types::TEXT)]

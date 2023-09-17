@@ -36,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait InstockTrait
 {
     /**
-     * @var Collection|PartLot[] A list of part lots where this part is stored
+     * @var Collection<int, PartLot> A list of part lots where this part is stored
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]

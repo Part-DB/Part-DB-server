@@ -46,7 +46,7 @@ trait ManufacturerTrait
     protected ?Manufacturer $manufacturer = null;
 
     /**
-     * @var string the url to the part on the manufacturer's homepage
+     * @var string The url to the part on the manufacturer's homepage
      */
     #[Assert\Url]
     #[Groups(['full', 'import', 'part:read', 'part:write'])]

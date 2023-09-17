@@ -90,7 +90,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     protected ?Currency $currency = null;
 
     /**
-     * @var float
+     * @var float The amount/quantity for which the price is for (in part unit)
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
@@ -98,7 +98,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     protected float $price_related_quantity = 1.0;
 
     /**
-     * @var float
+     * @var float The minimum amount/quantity, which is needed to get this discount (in part unit)
      */
     #[Assert\Positive]
     #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]

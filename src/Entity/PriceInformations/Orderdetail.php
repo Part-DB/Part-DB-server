@@ -89,21 +89,21 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected Collection $pricedetails;
 
     /**
-     * @var string
+     * @var string The order number of the part at the supplier
      */
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $supplierpartnr = '';
 
     /**
-     * @var bool
+     * @var bool True if this part is obsolete/not available anymore at the supplier
      */
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $obsolete = false;
 
     /**
-     * @var string
+     * @var string The URL to the product on the supplier's website
      */
     #[Assert\Url]
     #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
@@ -111,7 +111,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected string $supplier_product_url = '';
 
     /**
-     * @var Part|null
+     * @var Part|null The part with which this orderdetail is associated
      */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'orderdetails')]
@@ -120,7 +120,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected ?Part $part = null;
 
     /**
-     * @var Supplier|null
+     * @var Supplier|null The supplier of this orderdetail
      */
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]

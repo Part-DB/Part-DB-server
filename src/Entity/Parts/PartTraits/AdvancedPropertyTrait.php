@@ -43,14 +43,14 @@ trait AdvancedPropertyTrait
     protected bool $needs_review = false;
 
     /**
-     * @var string a comma separated list of tags, associated with the part
+     * @var string A comma separated list of tags, associated with the part
      */
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $tags = '';
 
     /**
-     * @var float|null how much a single part unit weighs in grams
+     * @var float|null How much a single part unit weighs in grams
      */
     #[Assert\PositiveOrZero]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
