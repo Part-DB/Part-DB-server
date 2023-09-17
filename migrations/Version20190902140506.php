@@ -69,6 +69,12 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         //For attachments
         $this->addSql('DELETE FROM `attachements` WHERE attachements.class_name = "Part" AND (SELECT COUNT(parts.id) FROM parts WHERE parts.id = attachements.element_id) = 0;');
 
+        //Add perms_labels column to groups table if not existing (it was not created in certain legacy versions)
+        //This prevents the migration failing (see https://github.com/Part-DB/Part-DB-server/issues/366 and https://github.com/Part-DB/Part-DB-server/issues/67)
+        if (!$this->doesColumnExist('groups', 'perms_labels')) {
+            $this->addSql('ALTER TABLE `groups` ADD `perms_labels` SMALLINT NOT NULL AFTER `perms_tools`');
+        }
+
         /**************************************************************************************************************
          * Doctrine generated SQL
          **************************************************************************************************************/

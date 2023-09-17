@@ -94,7 +94,7 @@ You will get an Client ID and a Client Secret, which you have to enter in the Pa
 
 Following env configuration options are available:
 * `PROVIDER_DIGIKEY_CLIENT_ID`: The client ID you got from Digi-Key (mandatory)
-* `PROVIDER_DIGIKEY_CLIENT_SECRET`: The client secret you got from Digi-Key (mandatory)
+* `PROVIDER_DIGIKEY_SECRET`: The client secret you got from Digi-Key (mandatory)
 * `PROVIDER_DIGIKEY_CURRENCY`: The currency you want to get prices in (optional, default: `EUR`)
 * `PROVIDER_DIGIKEY_LANGUAGE`: The language you want to get the descriptions in (optional, default: `en`)
 * `PROVIDER_DIGIKEY_COUNTRY`: The country you want to get the prices for (optional, default: `DE`)
@@ -110,8 +110,8 @@ To use it you have to create an account at TME and get an API key on the [TME AP
 You have to generate a new anonymous key there and enter the key and secret in the Part-DB env configuration (see below).
 
 Following env configuration options are available:
-* `PROVIDER_TME_API_KEY`: The API key you got from TME (mandatory)  
-* `PROVIDER_TME_API_SECRET`: The API secret you got from TME (mandatory)
+* `PROVIDER_TME_KEY`: The API key you got from TME (mandatory)  
+* `PROVIDER_TME_SECRET`: The API secret you got from TME (mandatory)
 * `PROVIDER_TME_CURRENCY`: The currency you want to get prices in (optional, default: `EUR`)
 * `PROVIDER_TME_LANGUAGE`: The language you want to get the descriptions in (`en`, `de` and `pl`) (optional, default: `en`)
 * `PROVIDER_TME_COUNTRY`: The country you want to get the prices for (optional, default: `DE`)

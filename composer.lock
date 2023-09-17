@@ -3363,16 +3363,16 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.11.0",
+            "version": "4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec"
+                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/169123b3ede20a9193480c53de2a8194f8c073ec",
-                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/36cbee228b427446419dd51944bdfb6bb8ddbcd0",
+                "reference": "36cbee228b427446419dd51944bdfb6bb8ddbcd0",
                 "shasum": ""
             },
             "require": {
@@ -3422,7 +3422,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-05-14T12:05:38+00:00"
+            "time": "2023-09-06T14:56:25+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -5708,16 +5708,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.23.1",
+            "version": "1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26"
+                "reference": "3510b0a6274cc42f7219367cb3abfc123ffa09d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/846ae76eef31c6d7790fac9bc399ecee45160b26",
-                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/3510b0a6274cc42f7219367cb3abfc123ffa09d6",
+                "reference": "3510b0a6274cc42f7219367cb3abfc123ffa09d6",
                 "shasum": ""
             },
             "require": {
@@ -5749,9 +5749,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.23.1"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.24.0"
             },
-            "time": "2023-08-03T16:32:59+00:00"
+            "time": "2023-09-07T20:46:32+00:00"
         },
         {
             "name": "psr/cache",
@@ -11758,6 +11758,7 @@
         },
         {
             "name": "symfony/stimulus-bundle",
+<<<<<<< HEAD
             "version": "v2.11.0",
             "source": {
                 "type": "git",
@@ -11768,6 +11769,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/8c94fd88cbc9f4ee8177a2b04e69532a2e01145c",
                 "reference": "8c94fd88cbc9f4ee8177a2b04e69532a2e01145c",
+=======
+            "version": "v2.11.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/stimulus-bundle.git",
+                "reference": "e0e19de8df4d5b2bed57328ae69ef7904df660c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/e0e19de8df4d5b2bed57328ae69ef7904df660c7",
+                "reference": "e0e19de8df4d5b2bed57328ae69ef7904df660c7",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -11806,7 +11819,11 @@
                 "symfony-ux"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/stimulus-bundle/tree/v2.11.0"
+=======
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.11.1"
+>>>>>>> master
             },
             "funding": [
                 {
@@ -11822,7 +11839,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-24T16:25:14+00:00"
+=======
+            "time": "2023-08-28T18:00:50+00:00"
+>>>>>>> master
         },
         {
             "name": "symfony/stopwatch",
@@ -12414,7 +12435,11 @@
         },
         {
             "name": "symfony/ux-translator",
+<<<<<<< HEAD
             "version": "v2.11.0",
+=======
+            "version": "v2.11.1",
+>>>>>>> master
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-translator.git",
@@ -12470,7 +12495,11 @@
                 "symfony-ux"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/ux-translator/tree/v2.11.0"
+=======
+                "source": "https://github.com/symfony/ux-translator/tree/v2.11.1"
+>>>>>>> master
             },
             "funding": [
                 {
@@ -12490,7 +12519,11 @@
         },
         {
             "name": "symfony/ux-turbo",
+<<<<<<< HEAD
             "version": "v2.11.0",
+=======
+            "version": "v2.11.1",
+>>>>>>> master
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-turbo.git",
@@ -12566,7 +12599,11 @@
                 "turbo-stream"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/ux-turbo/tree/v2.11.0"
+=======
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.11.1"
+>>>>>>> master
             },
             "funding": [
                 {
@@ -13066,16 +13103,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
-            "version": "1.17.25",
+            "version": "1.17.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
-                "reference": "2b87f7c63dfd05000445a202c1779aeb9eb4549d"
+                "reference": "bbada6319c7999b51430408359af389cdc5442c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/2b87f7c63dfd05000445a202c1779aeb9eb4549d",
-                "reference": "2b87f7c63dfd05000445a202c1779aeb9eb4549d",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/bbada6319c7999b51430408359af389cdc5442c8",
+                "reference": "bbada6319c7999b51430408359af389cdc5442c8",
                 "shasum": ""
             },
             "require": {
@@ -13102,7 +13139,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -13152,7 +13189,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-barcode/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/1.17.25"
+                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/1.17.29"
             },
             "funding": [
                 {
@@ -13160,20 +13197,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-18T08:10:11+00:00"
+            "time": "2023-09-06T13:20:35+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-color",
-            "version": "1.14.24",
+            "version": "1.14.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-color.git",
-                "reference": "6207533413f6edc3fea373d0e54041661d2bd905"
+                "reference": "c0ea9b1a8488776d33ae4051aa0701facf79e402"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/6207533413f6edc3fea373d0e54041661d2bd905",
-                "reference": "6207533413f6edc3fea373d0e54041661d2bd905",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/c0ea9b1a8488776d33ae4051aa0701facf79e402",
+                "reference": "c0ea9b1a8488776d33ae4051aa0701facf79e402",
                 "shasum": ""
             },
             "require": {
@@ -13196,7 +13233,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -13223,7 +13260,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-color/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-color/tree/1.14.24"
+                "source": "https://github.com/tecnickcom/tc-lib-color/tree/1.14.28"
             },
             "funding": [
                 {
@@ -13231,7 +13268,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-18T08:09:02+00:00"
+            "time": "2023-09-06T13:19:19+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -15393,6 +15430,7 @@
         },
         {
             "name": "phpstan/phpstan",
+<<<<<<< HEAD
             "version": "1.10.32",
             "source": {
                 "type": "git",
@@ -15403,6 +15441,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
                 "reference": "c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
+=======
+            "version": "1.10.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1",
+                "reference": "03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -15451,7 +15501,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-24T21:54:50+00:00"
+=======
+            "time": "2023-09-04T12:20:53+00:00"
+>>>>>>> master
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -15710,6 +15764,7 @@
         },
         {
             "name": "rector/rector",
+<<<<<<< HEAD
             "version": "0.18.1",
             "source": {
                 "type": "git",
@@ -15720,6 +15775,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/rectorphp/rector/zipball/ee72ef542680a7f47ed8c6784f78b032c0d2f381",
                 "reference": "ee72ef542680a7f47ed8c6784f78b032c0d2f381",
+=======
+            "version": "0.18.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "8606564b50ce70f99839d35c67f4536dc2ea090d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/8606564b50ce70f99839d35c67f4536dc2ea090d",
+                "reference": "8606564b50ce70f99839d35c67f4536dc2ea090d",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -15754,7 +15821,11 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/rectorphp/rector/tree/0.18.1"
+=======
+                "source": "https://github.com/rectorphp/rector/tree/0.18.2"
+>>>>>>> master
             },
             "funding": [
                 {
@@ -15762,7 +15833,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-28T18:01:58+00:00"
+=======
+            "time": "2023-09-06T08:50:38+00:00"
+>>>>>>> master
         },
         {
             "name": "roave/security-advisories",
@@ -15770,12 +15845,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
+<<<<<<< HEAD
                 "reference": "9971379442eb64596a59f6c3b89ec66fac58c611"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9971379442eb64596a59f6c3b89ec66fac58c611",
                 "reference": "9971379442eb64596a59f6c3b89ec66fac58c611",
+=======
+                "reference": "00de3fc12503b72bbd1dd43ee273213c811b184c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/00de3fc12503b72bbd1dd43ee273213c811b184c",
+                "reference": "00de3fc12503b72bbd1dd43ee273213c811b184c",
+>>>>>>> master
                 "shasum": ""
             },
             "conflict": {
@@ -15832,7 +15916,7 @@
                 "brotkrueml/schema": "<1.13.1|>=2,<2.5.1",
                 "brotkrueml/typo3-matomo-integration": "<1.3.2",
                 "buddypress/buddypress": "<7.2.1",
-                "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
+                "bugsnag/bugsnag-laravel": "<2.0.2",
                 "bytefury/crater": "<6.0.2",
                 "cachethq/cachet": "<2.5.1",
                 "cakephp/cakephp": "<3.10.3|>=4,<4.0.10|>=4.1,<4.1.4|>=4.2,<4.2.12|>=4.3,<4.3.11|>=4.4,<4.4.10",
@@ -15886,7 +15970,7 @@
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
                 "dolibarr/dolibarr": "<17.0.1",
                 "dompdf/dompdf": "<2.0.2|==2.0.2",
-                "drupal/core": ">=7,<7.96|>=8,<9.4.14|>=9.5,<9.5.8|>=10,<10.0.8",
+                "drupal/core": "<9.4.14|>=9.5,<9.5.8|>=10,<10.0.8",
                 "drupal/drupal": ">=6,<6.38|>=7,<7.80|>=8,<8.9.16|>=9,<9.1.12|>=9.2,<9.2.4",
                 "dweeves/magmi": "<=0.7.24",
                 "ecodev/newsletter": "<=4",
@@ -16018,7 +16102,7 @@
                 "kimai/kimai": "<1.1",
                 "kitodo/presentation": "<3.2.3|>=3.3,<3.3.4",
                 "klaviyo/magento2-extension": ">=1,<3",
-                "knplabs/knp-snappy": "<1.4.2",
+                "knplabs/knp-snappy": "<=1.4.2",
                 "kohana/core": "<3.3.3",
                 "krayin/laravel-crm": "<1.2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
@@ -16428,7 +16512,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-31T19:04:14+00:00"
+=======
+            "time": "2023-09-08T15:04:10+00:00"
+>>>>>>> master
         },
         {
             "name": "sebastian/diff",
@@ -17027,6 +17115,7 @@
         },
         {
             "name": "symplify/easy-coding-standard",
+<<<<<<< HEAD
             "version": "12.0.7",
             "source": {
                 "type": "git",
@@ -17037,6 +17126,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/79b5679f0dd758311770543969087b8dc46429ee",
                 "reference": "79b5679f0dd758311770543969087b8dc46429ee",
+=======
+            "version": "12.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easy-coding-standard/easy-coding-standard.git",
+                "reference": "99d87d188acc712dd6655ee946569f823cfeff69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/99d87d188acc712dd6655ee946569f823cfeff69",
+                "reference": "99d87d188acc712dd6655ee946569f823cfeff69",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -17069,7 +17170,11 @@
             ],
             "support": {
                 "issues": "https://github.com/easy-coding-standard/easy-coding-standard/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/12.0.7"
+=======
+                "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/12.0.8"
+>>>>>>> master
             },
             "funding": [
                 {
@@ -17081,7 +17186,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-24T21:43:33+00:00"
+=======
+            "time": "2023-09-08T10:17:14+00:00"
+>>>>>>> master
         },
         {
             "name": "vimeo/psalm",
