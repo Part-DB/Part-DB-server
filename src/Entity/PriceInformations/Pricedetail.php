@@ -22,6 +22,14 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -45,6 +53,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`pricedetails`')]
 #[ORM\Index(name: 'pricedetails_idx_min_discount', columns: ['min_discount_quantity'])]
 #[ORM\Index(name: 'pricedetails_idx_min_discount_price_qty', columns: ['min_discount_quantity', 'price_related_quantity'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['pricedetail:read',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['pricedetail:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiFilter(PropertyFilter::class)]
 class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
@@ -54,7 +74,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
      */
-    #[Groups(['extended', 'full'])]
+    #[Groups(['extended', 'full', 'pricedetail:read', 'pricedetail:write'])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5)]
     #[BigDecimalPositive()]
     protected BigDecimal $price;
@@ -63,7 +83,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var ?Currency The currency used for the current price information.
      *                If this is null, the global base unit is assumed
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
     #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'id_currency')]
     #[Selectable()]
@@ -73,7 +93,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      */
     #[Assert\Positive]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
     #[ORM\Column(type: Types::FLOAT)]
     protected float $price_related_quantity = 1.0;
 
@@ -81,7 +101,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      */
     #[Assert\Positive]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
     #[ORM\Column(type: Types::FLOAT)]
     protected float $min_discount_quantity = 1.0;
 
@@ -97,6 +117,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Orderdetail::class, inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
+    #[Groups(['pricedetail:read', 'pricedetail:write'])]
     protected ?Orderdetail $orderdetail = null;
 
     public function __construct()
