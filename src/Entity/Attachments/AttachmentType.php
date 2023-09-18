@@ -22,6 +22,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\Entity\Parts\Footprint;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -30,6 +41,7 @@ use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -41,6 +53,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`attachment_types`')]
 #[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@attachment_types.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['attachment_type:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/attachment_types/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of an attachment type.'],
+            security: 'is_granted("@attachment_types.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)
+    ],
+    normalizationContext: ['groups' => ['footprint:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
 class AttachmentType extends AbstractStructuralDBElement
 {
     #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
@@ -49,10 +84,18 @@ class AttachmentType extends AbstractStructuralDBElement
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
+    /**
+     * @var string A comma separated list of file types, which are allowed for attachment files.
+     * Must be in the format of <input type=file> accept attribute
+     * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
+     */
     #[ORM\Column(type: Types::TEXT)]
     #[ValidFileFilter]
+    #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected string $filetype_filter = '';
 
     /**
@@ -61,10 +104,12 @@ class AttachmentType extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: AttachmentTypeAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, AttachmentTypeParameter>
