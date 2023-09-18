@@ -44,7 +44,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[UniqueEntity(fields: ['name', 'user'])]
 
 #[ApiResource(
-    uriTemplate: '/current.{_format}',
+    uriTemplate: '/tokens/current.{_format}',
     description: 'A token used to authenticate API requests.',
     operations: [new Get(openapiContext: ['summary' => 'Get information about the API token that is currently used.'])],
     normalizationContext: ['groups' => ['token:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
