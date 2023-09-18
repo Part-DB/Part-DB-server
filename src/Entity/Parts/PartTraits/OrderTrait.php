@@ -39,7 +39,7 @@ trait OrderTrait
      * @var Collection<int, Orderdetail> The details about how and where you can order this part
      */
     #[Assert\Valid]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
     protected Collection $orderdetails;

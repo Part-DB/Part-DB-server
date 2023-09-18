@@ -39,7 +39,7 @@ trait InstockTrait
      * @var Collection<int, PartLot> A list of part lots where this part is stored
      */
     #[Assert\Valid]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['amount' => 'DESC'])]
     protected Collection $partLots;

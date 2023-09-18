@@ -61,7 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
-    normalizationContext: ['groups' => ['pricedetail:read',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    normalizationContext: ['groups' => ['pricedetail:read', 'pricedetail:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['pricedetail:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
@@ -117,7 +117,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Orderdetail::class, inversedBy: 'pricedetails')]
     #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['pricedetail:read', 'pricedetail:write'])]
+    #[Groups(['pricedetail:read:standalone', 'pricedetail:write'])]
     protected ?Orderdetail $orderdetail = null;
 
     public function __construct()

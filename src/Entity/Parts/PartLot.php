@@ -66,7 +66,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
-    normalizationContext: ['groups' => ['part_lot:read',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    normalizationContext: ['groups' => ['part_lot:read', 'part_lot:read:standalone',  'api:basic:read', 'pricedetail:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['part_lot:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
@@ -133,7 +133,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
     #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['part_lot:read', 'part_lot:write'])]
+    #[Groups(['part_lot:read:standalone', 'part_lot:write'])]
     protected ?Part $part = null;
 
     /**
