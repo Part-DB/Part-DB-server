@@ -42,6 +42,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -189,6 +190,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @return BigDecimal the price as a bcmath string
      */
     #[Groups(['pricedetail:read'])]
+    #[SerializedName('price_per_unit')]
     public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
         $tmp = BigDecimal::of($multiplier);
@@ -256,6 +258,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @return string|null
      */
     #[Groups(['pricedetail:read'])]
+    #[SerializedName('currency_iso_code')]
     public function getCurrencyISOCode(): ?string
     {
         return $this->currency?->getIsoCode();
