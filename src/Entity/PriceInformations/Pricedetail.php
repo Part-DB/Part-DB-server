@@ -188,6 +188,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @return BigDecimal the price as a bcmath string
      */
+    #[Groups(['pricedetail:read'])]
     public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
         $tmp = BigDecimal::of($multiplier);
@@ -247,6 +248,17 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     public function getCurrency(): ?Currency
     {
         return $this->currency;
+    }
+
+    /**
+     * Returns the ISO code of the currency associated with this price information, or null if no currency is selected.
+     * Then the global base currency should be assumed.
+     * @return string|null
+     */
+    #[Groups(['pricedetail:read'])]
+    public function getCurrencyISOCode(): ?string
+    {
+        return $this->currency?->getIsoCode();
     }
 
     /********************************************************************************
