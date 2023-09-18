@@ -89,3 +89,10 @@ For example if you only want to get the name and the description of a part, you 
 It is also possible to use this filters on list endpoints (get collection), to only get a subset of the properties of all entities in the collection.
 
 See [API Platform docs](https://api-platform.com/docs/core/filters/#property-filter) for more infos.
+
+## Change comment
+
+Similar to the changes using Part-DB web interface, you can add a change comment to every change you make via the API, which will be 
+visible in the log of the entity.
+
+You can pass the text for this via the `_comment` query parameter (beware the proper encoding). For example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
