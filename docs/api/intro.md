@@ -13,6 +13,7 @@ This allows external applications to interact with Part-DB, extend it or integra
 {: .warning }
 > This feature is currently in beta. Please report any bugs you find.
 > The API should not be considered stable yet and could change in future versions, without prior notice.
+> Some features might be missing or not working yet.
 > Also be aware, that there might be security issues in the API, which could allow attackers to access or edit data via the API, which
 > they normally should be able to access. So currently you should only use the API with trusted users and trusted applications.
 
@@ -69,3 +70,22 @@ API generators which can generate a client library for the API from the schema a
 Part-DB provides an interactive documentation for the API, which is available under `/api/docs` (so `https://your-part-db.local/api/docs`).
 You can pass your API token in the form on the top of the page, to authenticate yourself and then you can try out the API directly in the browser.
 This is a great way to test the API and see how it works, without having to write any code.
+
+## Pagination
+
+By default all list endpoints are paginated, which means only a certain number of results is returned per request.
+To get another page of the results, you have to use the `page` query parameter, which contains the page number you want to get (e.g. `/api/categoues/?page=2`).
+When using JSONLD, the links to the next page are also included in the `hydra:view` property of the response.
+
+To change the size of the pages (the number of items in a single page) use the `itemsPerPage` query parameter (e.g. `/api/categoues/?itemsPerPage=50`).
+
+See [API Platform docs](https://api-platform.com/docs/core/pagination) for more infos.
+
+## Property filter
+
+Sometimes you only want to get a subset of the properties of an entity, for example when you only need the name of a part, but not all the other properties.
+You can achieve this using the `properties[]` query parameter with the name of the field you want to get. You can use this parameter multiple times to get multiple fields.
+For example if you only want to get the name and the description of a part, you can use `/api/parts/123?properties[]=name&properties[]=description`.
+It is also possible to use this filters on list endpoints (get collection), to only get a subset of the properties of all entities in the collection.
+
+See [API Platform docs](https://api-platform.com/docs/core/filters/#property-filter) for more infos.

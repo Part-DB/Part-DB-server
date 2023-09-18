@@ -11,3 +11,6 @@ api_platform:
       access_token:
         name: Authorization
         type: header
+
+  defaults:
+    pagination_client_items_per_page: true # Allow clients to override the default items per page
