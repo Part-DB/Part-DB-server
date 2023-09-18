@@ -5,6 +5,9 @@ api_platform:
 
   version: '0.1.0'
 
+#  eager_loading:
+#    max_joins: 100
+
   swagger:
     api_keys:
       # overridden in OpenApiFactoryDecorator

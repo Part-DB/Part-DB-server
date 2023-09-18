@@ -152,14 +152,14 @@ class Category extends AbstractPartsContainingDBElement
      * @var Collection<int, CategoryAttachment>
      */
     #[Assert\Valid]
-    #[Groups(['full', 'category:read'])]
+    #[Groups(['full', 'category:read', 'category:write'])]
     #[ORM\OneToMany(targetEntity: CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: CategoryAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['category:read'])]
+    #[Groups(['category:read', 'category:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, CategoryParameter>

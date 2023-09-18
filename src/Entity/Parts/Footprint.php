@@ -98,12 +98,12 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: FootprintAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
-    #[Groups(['footprint:read'])]
+    #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: FootprintAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['footprint:read'])]
+    #[Groups(['footprint:read', 'footprint:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /**
@@ -111,7 +111,7 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     #[ORM\ManyToOne(targetEntity: FootprintAttachment::class)]
     #[ORM\JoinColumn(name: 'id_footprint_3d')]
-    #[Groups(['footprint:read'])]
+    #[Groups(['footprint:read', 'footprint:write'])]
     protected ?FootprintAttachment $footprint_3d = null;
 
     /** @var Collection<int, FootprintParameter>

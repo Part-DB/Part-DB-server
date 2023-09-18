@@ -253,13 +253,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
-    #[Groups(['user:read'])]
-    #[ApiProperty(readableLink: false, writableLink: false)]
+    #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: UserAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'usser:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated

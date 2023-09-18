@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -71,7 +72,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
 #[ApiResource(
     operations: [
-        new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read']], security: 'is_granted("read", object)'),
+        new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
+            'orderdetail:read', 'pricedetail:read', 'attachment:read']], security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@parts.read")'),
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
@@ -115,7 +117,7 @@ class Part extends AttachmentContainingDBElement
      * @var Collection<int, PartAttachment>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
@@ -126,6 +128,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
     #[ORM\ManyToOne(targetEntity: PartAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['part:read', 'part:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     public function __construct()

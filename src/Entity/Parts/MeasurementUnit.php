@@ -128,12 +128,12 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
-    #[Groups(['measurement_unit:read'])]
+    #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: MeasurementUnitAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['measurement_unit:read'])]
+    #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, MeasurementUnitParameter>

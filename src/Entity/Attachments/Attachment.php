@@ -62,7 +62,6 @@ use LogicException;
 #[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
 #[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
-
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -128,7 +127,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * ORM mapping is done in subclasses (like PartAttachment).
      * @phpstan-param T|null $element
      */
-    #[Groups(['attachment:read:standalone', 'attachment:read'])]
+    #[Groups(['attachment:read:standalone', 'attachment:write'])]
     protected ?AttachmentContainingDBElement $element = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
