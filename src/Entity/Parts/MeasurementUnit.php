@@ -118,7 +118,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
-    #[Groups('measurement_unit:read', 'measurement_unit:write')]
+    #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
