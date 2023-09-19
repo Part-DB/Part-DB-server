@@ -41,6 +41,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\ParameterRepository;
 use Doctrine\DBAL\Types\Types;
@@ -49,7 +55,9 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
@@ -65,6 +73,17 @@ use function sprintf;
 #[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
 #[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
+#[ApiResource(
+    shortName: 'Parameter',
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['parameter:read', 'parameter:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['parameter:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
 abstract class AbstractParameter extends AbstractNamedDBElement
 {
     /**
@@ -76,7 +95,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      */
     #[Assert\Length(max: 20)]
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';
 
@@ -86,7 +105,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     #[Assert\Type(['float', null])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter_write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
@@ -94,7 +113,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var float|null the typical value of this property
      */
     #[Assert\Type([null, 'float'])]
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
@@ -110,21 +129,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * @var string The unit in which the value values are given (e.g. V)
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING, name: 'param_group')]
     protected string $group = '';
 
@@ -133,6 +152,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
      */
+    #[Groups(['parameter:read:standalone', 'parameter:write'])]
     protected ?AbstractDBElement $element = null;
 
     public function __construct()
@@ -162,6 +182,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * Return a formatted string version of the values of the string.
      * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text].
      */
+    #[Groups('parameter:read', 'full')]
+    #[SerializedName('formatted')]
     public function getFormattedValue(): string
     {
         //If we just only have text value, return early

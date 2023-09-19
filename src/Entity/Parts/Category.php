@@ -165,7 +165,7 @@ class Category extends AbstractPartsContainingDBElement
     /** @var Collection<int, CategoryParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full', 'category:read'])]
+    #[Groups(['full', 'category:read', 'category:write'])]
     #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;

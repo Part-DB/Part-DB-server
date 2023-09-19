@@ -119,7 +119,7 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: FootprintParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
-    #[Groups(['footprint:read'])]
+    #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
     /****************************************

@@ -105,6 +105,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: StorageLocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
 
     /**

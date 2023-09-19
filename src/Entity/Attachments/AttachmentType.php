@@ -117,6 +117,7 @@ class AttachmentType extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected Collection $parameters;
 
     /**

@@ -58,6 +58,8 @@ The API supports different formats for the request and response data, which you 
 You should use [JSON-LD](https://json-ld.org/) as format, which is basically JSON with some additional metadata, which allows 
 to describe the data in a more structured way and also allows to link between different entities. You can achieve this by setting `Accept: application/ld+json` header to the API requests.
 
+To get plain JSON without any metadata or links, use the `Accept: application/json` header.
+
 ## OpenAPI schema
 
 Part-DB provides a [OpenAPI](https://swagger.io/specification/) (formally Swagger) schema for the API under `/api/docs.json` (so `https://your-part-db.local/api/docs.json`).

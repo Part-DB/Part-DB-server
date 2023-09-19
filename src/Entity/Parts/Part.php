@@ -73,7 +73,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
-            'orderdetail:read', 'pricedetail:read', 'attachment:read']], security: 'is_granted("read", object)'),
+            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read'],
+            'openapi_definition_name' => 'Read',
+        ], security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@parts.read")'),
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
@@ -97,7 +99,7 @@ class Part extends AttachmentContainingDBElement
     /** @var Collection<int, PartParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;

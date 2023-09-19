@@ -141,7 +141,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
-    #[Groups(['measurement_unit:read'])]
+    #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 
     /**
