@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use ApiPlatform\Metadata\ApiProperty;
 use Doctrine\DBAL\Types\Types;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,6 +37,7 @@ trait TimestampTrait
      * @var \DateTimeInterface|null the date when this element was modified the last time
      */
     #[Groups(['extended', 'full'])]
+    #[ApiProperty(writable: false)]
     #[ORM\Column(name: 'last_modified', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected ?\DateTimeInterface $lastModified = null;
 
@@ -43,6 +45,7 @@ trait TimestampTrait
      * @var \DateTimeInterface|null the date when this element was created
      */
     #[Groups(['extended', 'full'])]
+    #[ApiProperty(writable: false)]
     #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     protected ?\DateTimeInterface $addedDate = null;
 
