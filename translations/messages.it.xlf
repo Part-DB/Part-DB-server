@@ -2574,6 +2574,156 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Clona il componente</target>
       </segment>
     </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>Creare un nuovo componente</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>Si vuole cancellare questo componente?</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>Il componente e tutte le informazioni associate (stock, file allegati, ecc.) verranno cancellati. Questa azione non può essere annullata.</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>Cancellare il componente</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>Tutti i componenti</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>Componenti con categoria</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>Componenti con footprint</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>Componenti con produttore</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>Ricerca componenti</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>Componenti con ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>Componenti con fornitore</target>
+      </segment>
+    </unit>
+    <unit id="DBlWwba" name="parts_list.tags.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.tags.title</source>
+        <target>Componenti con tag</target>
+      </segment>
+    </unit>
+    <unit id="5tFcxpX" name="entity.info.common.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.common.tab</source>
+        <target>Comune</target>
+      </segment>
+    </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>Statistiche</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Allegati</target>
+      </segment>
+    </unit>
     
     
     
@@ -2608,22 +2758,21 @@ I sub elementi saranno spostati verso l'alto.</target>
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="zn.PnJ2" name="statistics.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.value</source>
+        <target>Valore</target>
+      </segment>
+    </unit>
     <unit id=".lLfExB" name="statistics.distinct_parts_count">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
@@ -3970,22 +4119,163 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="d0GsgCW" name="import.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">src\Form\ImportType.php:85</note>
+      </notes>
+      <segment state="translated">
+        <source>import.btn</source>
+        <target>Importare</target>
+      </segment>
+    </unit>
+    <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:113</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.secure_file.help</source>
+        <target>Un allegato contrassegnato come privato è accessibile solo da un utente loggato che ha l'autorizzazione corrispondente. Quando questa opzione è attiva, non vengono generate miniature e l'accesso al file è più lento.</target>
+      </segment>
+    </unit>
+    <unit id="pCsSiaz" name="attachment.edit.url.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:127</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.url.help</source>
+        <target>Qui è possibile inserire un URL per un file esterno o cercare inserendo una parola chiave nelle risorse incorporate (ad es. footprints).</target>
+      </segment>
+    </unit>
+    <unit id="3ZnUiT_" name="attachment.edit.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="kAlm7LR" name="attachment.edit.attachment_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:85</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.attachment_type</source>
+        <target>Tipo di allegato</target>
+      </segment>
+    </unit>
+    <unit id="xUV7Oz9" name="attachment.edit.show_in_table">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:94</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:91</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.show_in_table</source>
+        <target>Mostrare in tabella</target>
+      </segment>
+    </unit>
+    <unit id="v6FVutS" name="attachment.edit.secure_file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:105</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:102</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.secure_file</source>
+        <target>Allegato privato</target>
+      </segment>
+    </unit>
+    <unit id="TRy0RSZ" name="attachment.edit.url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:119</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:115</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.url</source>
+        <target>URL</target>
+      </segment>
+    </unit>
+    <unit id="ZZjrGgS" name="attachment.edit.download_url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:133</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:129</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.download_url</source>
+        <target>Download di un file esterno</target>
+      </segment>
+    </unit>
+    <unit id="Pew.kQr" name="attachment.edit.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:146</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.file</source>
+        <target>Upload del file</target>
+      </segment>
+    </unit>
+    <unit id="oZsKN5d" name="part.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>part.label</source>
+        <target>Componente</target>
+      </segment>
+    </unit>
+    <unit id="ucI6a2E" name="part_lot.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.label</source>
+        <target>Inventario componenti</target>
+      </segment>
+    </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.none</source>
+        <target>Nessuno</target>
+      </segment>
+    </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.qr</source>
+        <target>QR Code (raccomandato)</target>
+      </segment>
+    </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code128</source>
+        <target>Code 128 (raccomandato)</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code39</source>
+        <target>Code 39 (raccomandato)</target>
+      </segment>
+    </unit>
     <unit id="lz068u3" name="label_options.barcode_type.code93">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
@@ -4462,40 +4752,350 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>es. BC547</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="rMHwTBI" name="part.edit.description.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:113</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.description.placeholder</source>
+        <target>es. NPN 45V, 0,1A, 0,5W</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+      </notes>
+      <segment state="translated">
+        <source>part.editmininstock.placeholder</source>
+        <target>es. 1</target>
+      </segment>
+    </unit>
+    <unit id="6QS4K7r" name="part_lot.edit.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:69</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="IwPHYB0" name="part_lot.edit.location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.location</source>
+        <target>Ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="VEybZz7" name="part_lot.edit.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:89</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:89</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.amount</source>
+        <target>Quantità</target>
+      </segment>
+    </unit>
+    <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:98</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:97</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.instock_unknown</source>
+        <target>Quantità sconosciuta</target>
+      </segment>
+    </unit>
+    <unit id="uHBgsns" name="part_lot.edit.needs_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:109</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.needs_refill</source>
+        <target>Deve essere rifornito</target>
+      </segment>
+    </unit>
+    <unit id="xorQnlc" name="part_lot.edit.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.expiration_date</source>
+        <target>Data di scadenza</target>
+      </segment>
+    </unit>
+    <unit id="OjwY78X" name="part_lot.edit.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:128</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id=".8YTKod" name="perm.group.other">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+        <note priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.other</source>
+        <target>Varie</target>
+      </segment>
+    </unit>
+    <unit id="wPnvtWt" name="tfa_google.enable">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.enable</source>
+        <target>Attivare l'app Authenticator</target>
+      </segment>
+    </unit>
+    <unit id="g7Bwb96" name="tfa_google.disable">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:101</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable</source>
+        <target>Disattivare l'app Authenticator</target>
+      </segment>
+    </unit>
+    <unit id="j7YxSXm" name="google_confirmation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:74</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>google_confirmation</source>
+        <target>Codice di conferma</target>
+      </segment>
+    </unit>
+    <unit id="Lq0fGXJ" name="user.timezone.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:108</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:108</note>
+        <note priority="1">src\Form\UserSettingsType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>user.timezone.label</source>
+        <target>Fuso orario</target>
+      </segment>
+    </unit>
+    <unit id="uGQ16Yq" name="user.currency.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:133</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:132</note>
+      </notes>
+      <segment state="translated">
+        <source>user.currency.label</source>
+        <target>Valuta preferita</target>
+      </segment>
+    </unit>
+    <unit id="FX3KkuQ" name="save">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:139</note>
+        <note priority="1">src\Form\UserSettingsType.php:53</note>
+      </notes>
+      <segment state="translated">
+        <source>save</source>
+        <target>Applicare le modifiche</target>
+      </segment>
+    </unit>
+    <unit id="Ab4wu0o" name="reset">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:141</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
+        <note priority="1">src\Form\UserSettingsType.php:54</note>
+      </notes>
+      <segment state="translated">
+        <source>reset</source>
+        <target>Scartare le modifiche</target>
+      </segment>
+    </unit>
+    <unit id="lx12TjD" name="user_settings.language.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:104</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:104</note>
+        <note priority="1">src\Form\UserSettingsType.php:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.language.placeholder</source>
+        <target>Lingua del server</target>
+      </segment>
+    </unit>
+    <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:115</note>
+        <note priority="1">src\Form\UserSettingsType.php:48</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.timezone.placeholder</source>
+        <target>Fuso orario del server</target>
+      </segment>
+    </unit>
+    <unit id="ExjMUEE" name="attachment.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:79</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:79</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.label</source>
+        <target>Allegato</target>
+      </segment>
+    </unit>
+    <unit id="ASJkLeb" name="attachment_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:81</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:81</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.label</source>
+        <target>Tipo di allegato</target>
+      </segment>
+    </unit>
+    <unit id="w.zcG5D" name="project.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>project.label</source>
+        <target>Progetto</target>
+      </segment>
+    </unit>
+    <unit id="QPnDbnv" name="measurement_unit.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.label</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="5lJftbn" name="currency.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.label</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="zD9yfVF" name="orderdetail.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:91</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:91</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.label</source>
+        <target>Dettagli dell'ordine</target>
+      </segment>
+    </unit>
+    <unit id="7_5mSa9" name="pricedetail.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:92</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:92</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.label</source>
+        <target>Informazioni sul prezzo</target>
+      </segment>
+    </unit>
+    <unit id="S4Z.EZY" name="user.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:94</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:94</note>
+      </notes>
+      <segment state="translated">
+        <source>user.label</source>
+        <target>Utente</target>
+      </segment>
+    </unit>
+    <unit id="CxpVbHB" name="parameter.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.label</source>
+        <target>Parametro</target>
+      </segment>
+    </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Profilo di etichetta</target>
+      </segment>
+    </unit>
+    <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:161</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_deleted.old_name.unknown</source>
+        <target>Sconosciuto</target>
+      </segment>
+    </unit>
+    <unit id="jYAc6_i" name="markdown.loading">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+        <note priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+      </notes>
+      <segment state="translated">
+        <source>markdown.loading</source>
+        <target>Markdown in caricamento. Se questo dura troppo a lungo, provare a ricaricare la pagina!</target>
+      </segment>
+    </unit>
+    <unit id="JVlktlG" name="pw_reset.email.subject">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+        <note priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.email.subject</source>
+        <target>Reimpostazione della password per l'account Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Utilità</target>
+      </segment>
+    </unit>
+    <unit id="sgHHET2" name="tree.tools.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit</source>
+        <target>Modificare</target>
+      </segment>
+    </unit>
     
     
     
@@ -5069,138 +5669,891 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="9YIkqmF" name="currency.edit.exchange_rate">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit.exchange_rate</source>
+        <target>Tasso di cambio</target>
+      </segment>
+    </unit>
+    <unit id="n496LjY" name="footprint.edit.3d_model">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit.3d_model</source>
+        <target>Modello 3D</target>
+      </segment>
+    </unit>
+    <unit id="bxMaU3Y" name="mass_creation.lines">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines</source>
+        <target>Inserimento</target>
+      </segment>
+    </unit>
+    <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines.placeholder</source>
+        <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
+Element 2
+Element 3</target>
+      </segment>
+    </unit>
+    <unit id="yOi8.bI" name="entity.mass_creation.btn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.mass_creation.btn</source>
+        <target>Creare</target>
+      </segment>
+    </unit>
+    <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer</source>
+        <target>Numero intero</target>
+      </segment>
+    </unit>
+    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target>Quando questa opzione è abilitata, tutti i valori con questa unità sono arrotondati a numeri interi.</target>
+      </segment>
+    </unit>
+    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target>Utilizzare il prefisso SI</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>Se questa opzione è attivata, i prefissi SI vengono utilizzati per la formattazione dei numeri (ad es. 1,2kg invece di 1200g)</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>Simbolo dell'unità</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>es. m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>Ubicazione piena</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>Se questa opzione è attivata, non è possibile aggiungere nuovi componenti in questa ubicazione, né aumentare il numero di componenti esistenti.</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>Solo componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>Se questa opzione è attiva, non è possibile aggiungere nuovi componenti in questa ubicazione, ma è possibile aumentare il numero di componenti già esistenti.</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>Solo un componente</target>
+      </segment>
+    </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>Se questa opzione è attivata, questa ubicazione può contenere solo un singolo componente, ma in qualsiasi quantità. Utile per piccoli scomparti per SMD o alimentatori automatici.</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>Tipo di magazzino</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>Qui si può scegliere un'unità di misura che un componente deve avere per poter essere immagazzinato in questa ubicazione.</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>Valuta di default</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>Costo di spedizione</target>
+      </segment>
+    </unit>
+    <unit id="sG3lwwH" name="user.username.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.placeholder</source>
+        <target>es. mario</target>
+      </segment>
+    </unit>
+    <unit id="birjZUl" name="user.firstName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.placeholder</source>
+        <target>es. Mario</target>
+      </segment>
+    </unit>
+    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.placeholder</source>
+        <target>es. Rossi</target>
+      </segment>
+    </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>m.rossi@itcorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>es. Produzione</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>Nuova password</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>Confermare la nuova password</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>L'utente deve cambiare la password</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>Utente disabilitato (non può fare il login)</target>
+      </segment>
+    </unit>
+    <unit id="zPJhxi6" name="user.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.create</source>
+        <target>Creare l'utente</target>
+      </segment>
+    </unit>
+    <unit id="SxI0Jji" name="user.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.save</source>
+        <target>Salvare</target>
+      </segment>
+    </unit>
+    <unit id="oGnU8Jt" name="entity.edit.reset">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.reset</source>
+        <target>Scartare le modifiche</target>
+      </segment>
+    </unit>
+    <unit id="7TiUzGF" name="part.withdraw.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.btn</source>
+        <target>Prelevare</target>
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>Commento/Oggetto</target>
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>Aggiungere componenti</target>
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>Aggiungere</target>
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>Commento/Oggetto</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>Link al sito del produttore</target>
+      </segment>
+    </unit>
+    <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>es. NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>es. 10</target>
+      </segment>
+    </unit>
+    <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>es. 5</target>
+      </segment>
+    </unit>
+    <unit id="cpRdMwo" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>Prezzo per</target>
+      </segment>
+    </unit>
+    <unit id="1n22zD9" name="part.withdraw.caption">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption</source>
+        <target>Prelevare componenti</target>
+      </segment>
+    </unit>
+    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
+    <unit id="P.GFwjI" name="perm.group.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.parts</source>
+        <target>Componenti</target>
+      </segment>
+    </unit>
+    <unit id="WLb5wES" name="perm.group.structures">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.structures</source>
+        <target>Struttura dei dati</target>
+      </segment>
+    </unit>
+    <unit id="ziA7M4Z" name="perm.group.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.system</source>
+        <target>Sistema</target>
+      </segment>
+    </unit>
+    <unit id="qPM1wy5" name="perm.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.parts</source>
+        <target>Componenti</target>
+      </segment>
+    </unit>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <unit id="7FNNcYZ" name="perm.database.read_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.read_db_settings</source>
+        <target>Visualizza impostazioni DB</target>
+      </segment>
+    </unit>
+    <unit id="ppPTck0" name="perm.database.write_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.write_db_settings</source>
+        <target>Modificare impostazioni DB</target>
+      </segment>
+    </unit>
+    <unit id="h1iQLeD" name="perm.config.read_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.read_config</source>
+        <target>Leggere la configurazione</target>
+      </segment>
+    </unit>
+    <unit id="xnOnBUH" name="perm.config.edit_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.edit_config</source>
+        <target>Modificare la configurazione</target>
+      </segment>
+    </unit>
+    <unit id="soLL1gr" name="perm.config.server_info">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.server_info</source>
+        <target>Informazioni sul server</target>
+      </segment>
+    </unit>
+    <unit id="P5OVHh2" name="perm.config.use_debug">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.use_debug</source>
+        <target>Utilizzare gli strumenti di debug</target>
+      </segment>
+    </unit>
+    <unit id="WsTnNCU" name="perm.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_logs</source>
+        <target>Visualizza i log</target>
+      </segment>
+    </unit>
+    <unit id="zvV9XS2" name="perm.delete_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete_logs</source>
+        <target>Cancellare i log</target>
+      </segment>
+    </unit>
+    <unit id="aU9OJs5" name="perm.self.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_infos</source>
+        <target>Modificare le informazioni</target>
+      </segment>
+    </unit>
+    <unit id="tn675bY" name="perm.self.edit_username">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_username</source>
+        <target>Modificare il nome utente</target>
+      </segment>
+    </unit>
+    <unit id="ON0SOmi" name="perm.self.show_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_permissions</source>
+        <target>Visualizzare i permessi</target>
+      </segment>
+    </unit>
+    <unit id="7pWmKCP" name="perm.self.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_logs</source>
+        <target>Visualizzare i propri log</target>
+      </segment>
+    </unit>
+    <unit id="zgTB8dK" name="perm.self.create_labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_labels</source>
+        <target>Creare etichette</target>
+      </segment>
+    </unit>
+    <unit id="grMFlqb" name="perm.self.edit_options">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_options</source>
+        <target>Modificare le opzioni</target>
+      </segment>
+    </unit>
+    <unit id="aWY5kzX" name="perm.self.delete_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.delete_profiles</source>
+        <target>Cancellare i profili</target>
+      </segment>
+    </unit>
+    <unit id="Qh9_teh" name="perm.self.edit_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_profiles</source>
+        <target>Modificare i profili</target>
+      </segment>
+    </unit>
+    <unit id="riADuzS" name="perm.part.tools">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tools</source>
+        <target>Utilità</target>
+      </segment>
+    </unit>
+    <unit id="1TJffiQ" name="perm.groups">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.groups</source>
+        <target>Gruppi</target>
+      </segment>
+    </unit>
+    <unit id="Ot4Pe7g" name="perm.users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users</source>
+        <target>Utenti</target>
+      </segment>
+    </unit>
+    <unit id="hcV.ILa" name="perm.database">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database</source>
+        <target>Database</target>
+      </segment>
+    </unit>
+    <unit id="9XMk.TY" name="perm.config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config</source>
+        <target>Configurazione</target>
+      </segment>
+    </unit>
+    <unit id="YLLSA2T" name="perm.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.system</source>
+        <target>Sistema</target>
+      </segment>
+    </unit>
+    <unit id="LG3jpJo" name="perm.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self</source>
+        <target>Modificare il proprio utente</target>
+      </segment>
+    </unit>
+    <unit id="VoHEScr" name="perm.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels</source>
+        <target>Etichette</target>
+      </segment>
+    </unit>
+    <unit id="zf2PGmg" name="perm.part.category">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.category</source>
+        <target>Categorie</target>
+      </segment>
+    </unit>
+    <unit id="Ngq0_8b" name="perm.part.minamount">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.minamount</source>
+        <target>Quantità minima</target>
+      </segment>
+    </unit>
+    <unit id="vZwyFdD" name="perm.part.footprint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="cdrtuto" name="perm.part.mpn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="CjAJxQj" name="perm.part.status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.status</source>
+        <target>Stato di produzione</target>
+      </segment>
+    </unit>
+    <unit id="8vcZLOf" name="perm.part.tags">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="5PcGRLN" name="perm.part.unit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unit</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="64iRHQF" name="perm.part.mass">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mass</source>
+        <target>Peso</target>
+      </segment>
+    </unit>
     
     
     
