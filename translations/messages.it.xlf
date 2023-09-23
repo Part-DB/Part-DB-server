@@ -7645,56 +7645,506 @@ Element 3</target>
         <target>Componenti</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="eeUmOBN" name="perm.read">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.read</source>
+        <target>Visualizzare</target>
+      </segment>
+    </unit>
+    <unit id="lMypPBw" name="perm.edit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit</source>
+        <target>Modificare</target>
+      </segment>
+    </unit>
+    <unit id="d8mILUm" name="perm.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.create</source>
+        <target>Creare</target>
+      </segment>
+    </unit>
+    <unit id="cPI6oKn" name="perm.part.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.move</source>
+        <target>Cambiare categoria</target>
+      </segment>
+    </unit>
+    <unit id="oCKKcDZ" name="perm.delete">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete</source>
+        <target>Cancellare</target>
+      </segment>
+    </unit>
+    <unit id="blHcQm6" name="perm.part.search">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.search</source>
+        <target>Cercare</target>
+      </segment>
+    </unit>
+    <unit id="YaLEthp" name="perm.part.all_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.all_parts</source>
+        <target>Lista di tutti i componenti</target>
+      </segment>
+    </unit>
+    <unit id="QTbFLlT" name="perm.part.no_price_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.no_price_parts</source>
+        <target>Lista dei componenti senza prezzo</target>
+      </segment>
+    </unit>
+    <unit id="ym76SPS" name="perm.part.obsolete_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.obsolete_parts</source>
+        <target>Lista dei componenti obsoleti</target>
+      </segment>
+    </unit>
+    <unit id="juT_zEM" name="perm.part.unknown_instock_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unknown_instock_parts</source>
+        <target>Lista dei componenti con stock sconosciuto</target>
+      </segment>
+    </unit>
+    <unit id="NiOXKwC" name="perm.part.change_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.change_favorite</source>
+        <target>Cambia lo stato dei preferiti</target>
+      </segment>
+    </unit>
+    <unit id="TXG_vef" name="perm.part.show_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_favorite</source>
+        <target>Visualizza i preferiti</target>
+      </segment>
+    </unit>
+    <unit id="GMNxlDb" name="perm.part.show_last_edit_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_last_edit_parts</source>
+        <target>Mostra i componenti modificati/aggiunti di recente</target>
+      </segment>
+    </unit>
+    <unit id="7C4wYps" name="perm.part.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_users</source>
+        <target>Mostra l'ultimo utente che ha modificato</target>
+      </segment>
+    </unit>
+    <unit id="IOXC4wr" name="perm.part.show_history">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_history</source>
+        <target>Visualizza la storia</target>
+      </segment>
+    </unit>
+    <unit id="JnfedoQ" name="perm.part.name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="5a.KkeU" name="perm.part.description">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="zLUHVDn" name="perm.part.instock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.instock</source>
+        <target>In stock</target>
+      </segment>
+    </unit>
+    <unit id="0woqdF9" name="perm.part.mininstock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mininstock</source>
+        <target>Scorta minima</target>
+      </segment>
+    </unit>
+    <unit id="IXHxTEP" name="perm.part.comment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="B_OF7Kn" name="perm.part.storelocation">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.storelocation</source>
+        <target>Ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="yPQiYsi" name="perm.part.manufacturer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturer</source>
+        <target>Produttore</target>
+      </segment>
+    </unit>
+    <unit id="L2pl0H1" name="perm.part.orderdetails">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.orderdetails</source>
+        <target>Informazioni per l'ordine</target>
+      </segment>
+    </unit>
+    <unit id="4CedmDv" name="perm.part.prices">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.prices</source>
+        <target>Prezzi</target>
+      </segment>
+    </unit>
+    <unit id="3.LGmWy" name="perm.part.attachments">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachments</source>
+        <target>File allegati</target>
+      </segment>
+    </unit>
+    <unit id="VkclZwf" name="perm.part.order">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.order</source>
+        <target>Ordini</target>
+      </segment>
+    </unit>
+    <unit id="XPba.S5" name="perm.storelocations">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.storelocations</source>
+        <target>Ubicazioni</target>
+      </segment>
+    </unit>
+    <unit id="1MkJQeq" name="perm.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.move</source>
+        <target>Spostare</target>
+      </segment>
+    </unit>
+    <unit id="IRFIEMr" name="perm.list_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.list_parts</source>
+        <target>Lista dei componenti</target>
+      </segment>
+    </unit>
+    <unit id="h6Bzdt0" name="perm.part.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprints</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="f6E.ER4" name="perm.part.categories">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.categories</source>
+        <target>Categorie</target>
+      </segment>
+    </unit>
+    <unit id="yYWackl" name="perm.part.supplier">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.supplier</source>
+        <target>Fornitori</target>
+      </segment>
+    </unit>
+    <unit id="_dwi_1Y" name="perm.part.manufacturers">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturers</source>
+        <target>Produttori</target>
+      </segment>
+    </unit>
+    <unit id="1AtDlX." name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Progetti</target>
+      </segment>
+    </unit>
+    <unit id="hgZrqP_" name="perm.part.attachment_types">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachment_types</source>
+        <target>Tipi di allegati</target>
+      </segment>
+    </unit>
+    <unit id="BEdSmOu" name="perm.tools.import">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.import</source>
+        <target>Importare</target>
+      </segment>
+    </unit>
+    <unit id="PEyfknN" name="perm.tools.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.labels</source>
+        <target>Etichette</target>
+      </segment>
+    </unit>
+    <unit id="fWusD07" name="perm.tools.calculator">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.calculator</source>
+        <target>Calcolatore di resistenza</target>
+      </segment>
+    </unit>
+    <unit id="ripLPj1" name="perm.tools.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.footprints</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="1bNm4cw" name="perm.tools.ic_logos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.ic_logos</source>
+        <target>Loghi IC</target>
+      </segment>
+    </unit>
+    <unit id="soh_cnt" name="perm.tools.statistics">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.statistics</source>
+        <target>Statistiche</target>
+      </segment>
+    </unit>
+    <unit id="2r3a5MK" name="perm.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit_permissions</source>
+        <target>Modificare i permessi</target>
+      </segment>
+    </unit>
+    <unit id="dURrIXD" name="perm.users.edit_user_name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_user_name</source>
+        <target>Modificare il nome utente</target>
+      </segment>
+    </unit>
+    <unit id="w4ujxml" name="perm.users.edit_change_group">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_change_group</source>
+        <target>Modificare il gruppo</target>
+      </segment>
+    </unit>
+    <unit id="BBOEDsQ" name="perm.users.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_infos</source>
+        <target>Modificare le informazioni</target>
+      </segment>
+    </unit>
+    <unit id="Q1NDQfs" name="perm.users.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_permissions</source>
+        <target>Modificare i permessi</target>
+      </segment>
+    </unit>
+    <unit id="d6eo3tF" name="perm.users.set_password">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.set_password</source>
+        <target>Cambiare password</target>
+      </segment>
+    </unit>
+    <unit id="tJ6RatH" name="perm.users.change_user_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.change_user_settings</source>
+        <target>Cambiare i parametri dell'utente</target>
+      </segment>
+    </unit>
+    <unit id="X58DtVF" name="perm.database.see_status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.see_status</source>
+        <target>Mostra stato</target>
+      </segment>
+    </unit>
+    <unit id="1KSFyeg" name="perm.database.update_db">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.update_db</source>
+        <target>Aggiornare il database</target>
+      </segment>
+    </unit>
     <unit id="7FNNcYZ" name="perm.database.read_db_settings">
       <notes>
         <note priority="1">obsolete</note>
@@ -8921,48 +9371,258 @@ Element 3</target>
         <target>Scartare le modifiche</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="uVrP0no" name="filter.clear_filters">
+      <segment state="translated">
+        <source>filter.clear_filters</source>
+        <target>Ripristina tutti i filtri</target>
+      </segment>
+    </unit>
+    <unit id="Rd0n9wc" name="filter.title">
+      <segment state="translated">
+        <source>filter.title</source>
+        <target>Filtro</target>
+      </segment>
+    </unit>
+    <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Valore tip. =</target>
+      </segment>
+    </unit>
+    <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Valore tip. !=</target>
+      </segment>
+    </unit>
+    <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;</source>
+        <target>Valore tip. &lt;</target>
+      </segment>
+    </unit>
+    <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&gt;</source>
+        <target>Valore tip. &gt;</target>
+      </segment>
+    </unit>
+    <unit id="O4x0opb" name="filter.parameter_value_constraint.operator.&lt;=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;=</source>
+        <target>Valore tip. &lt;=</target>
+      </segment>
+    </unit>
+    <unit id="ituiTs9" name="filter.parameter_value_constraint.operator.&gt;=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&gt;=</source>
+        <target>Valore tip. &gt;=</target>
+      </segment>
+    </unit>
+    <unit id="Y8B3A9X" name="filter.parameter_value_constraint.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.BETWEEN</source>
+        <target>Valore tip. è fra</target>
+      </segment>
+    </unit>
+    <unit id="FqUoIEy" name="filter.parameter_value_constraint.operator.IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.IN_RANGE</source>
+        <target>Nell'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="v_1AWPE" name="filter.parameter_value_constraint.operator.NOT_IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.NOT_IN_RANGE</source>
+        <target>Non nell'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="X4hI3kL" name="filter.parameter_value_constraint.operator.GREATER_THAN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.GREATER_THAN_RANGE</source>
+        <target>Più grande dell'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="yQO92R2" name="filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE</source>
+        <target>Maggiore o uguale all'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="h8zJtL5" name="filter.parameter_value_constraint.operator.LESS_THAN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.LESS_THAN_RANGE</source>
+        <target>Minore dell'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="sxSjUOg" name="filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE</source>
+        <target>Minore o uguale all'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="fqRL5fp" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.RANGE_IN_RANGE</source>
+        <target>L'intervallo è completamente nell'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="PJgHP5E" name="filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE</source>
+        <target>L'intervallo interseca l'intervallo di valori</target>
+      </segment>
+    </unit>
+    <unit id="5Svrc5E" name="filter.text_constraint.value">
+      <segment state="translated">
+        <source>filter.text_constraint.value</source>
+        <target>Nessun valore impostato</target>
+      </segment>
+    </unit>
+    <unit id="EIwFuHJ" name="filter.number_constraint.value1">
+      <segment state="translated">
+        <source>filter.number_constraint.value1</source>
+        <target>Nessun valore impostato</target>
+      </segment>
+    </unit>
+    <unit id="nb9L_bM" name="filter.number_constraint.value2">
+      <segment state="translated">
+        <source>filter.number_constraint.value2</source>
+        <target>Valore massimo</target>
+      </segment>
+    </unit>
+    <unit id="Chr6I.s" name="filter.datetime_constraint.value1">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value1</source>
+        <target>Nessuna data/ora impostata</target>
+      </segment>
+    </unit>
+    <unit id="OX2SbVT" name="filter.datetime_constraint.value2">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value2</source>
+        <target>Massima data/ora</target>
+      </segment>
+    </unit>
+    <unit id="HsxzALM" name="filter.constraint.add">
+      <segment state="translated">
+        <source>filter.constraint.add</source>
+        <target>Aggiungi filtro</target>
+      </segment>
+    </unit>
+    <unit id=".CuxL5L" name="part.filter.parameters_count">
+      <segment state="translated">
+        <source>part.filter.parameters_count</source>
+        <target>Numero di parametri</target>
+      </segment>
+    </unit>
+    <unit id="Dn0SKIi" name="part.filter.lotDescription">
+      <segment state="translated">
+        <source>part.filter.lotDescription</source>
+        <target>Descrizione del lotto di componenti</target>
+      </segment>
+    </unit>
+    <unit id="W1rWF5g" name="parts_list.search.searching_for">
+      <segment state="translated">
+        <source>parts_list.search.searching_for</source>
+        <target>Cerca parti con la parola chiave &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="lkQ2zTi" name="parts_list.search_options.caption">
+      <segment state="translated">
+        <source>parts_list.search_options.caption</source>
+        <target>Opzioni di ricerca abilitate</target>
+      </segment>
+    </unit>
+    <unit id="biszSr8" name="attachment.table.element_type">
+      <segment state="translated">
+        <source>attachment.table.element_type</source>
+        <target>Tipo di elemento collegato</target>
+      </segment>
+    </unit>
+    <unit id="nUZamS5" name="log.level.debug">
+      <segment state="translated">
+        <source>log.level.debug</source>
+        <target>Debug</target>
+      </segment>
+    </unit>
+    <unit id="ZPxm2Ee" name="log.level.info">
+      <segment state="translated">
+        <source>log.level.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="NVXjDhG" name="log.level.notice">
+      <segment state="translated">
+        <source>log.level.notice</source>
+        <target>Avviso</target>
+      </segment>
+    </unit>
+    <unit id="9ObjWuR" name="log.level.warning">
+      <segment state="translated">
+        <source>log.level.warning</source>
+        <target>Avvertimento</target>
+      </segment>
+    </unit>
+    <unit id="WxMwuLP" name="log.level.error">
+      <segment state="translated">
+        <source>log.level.error</source>
+        <target>Errore</target>
+      </segment>
+    </unit>
+    <unit id="idch78J" name="log.level.critical">
+      <segment state="translated">
+        <source>log.level.critical</source>
+        <target>Critico</target>
+      </segment>
+    </unit>
+    <unit id="jehoQTd" name="log.level.alert">
+      <segment state="translated">
+        <source>log.level.alert</source>
+        <target>Allarme</target>
+      </segment>
+    </unit>
+    <unit id="XvKEDM0" name="log.level.emergency">
+      <segment state="translated">
+        <source>log.level.emergency</source>
+        <target>Emergenza</target>
+      </segment>
+    </unit>
+    <unit id="sEvRe10" name="log.type.security">
+      <segment state="translated">
+        <source>log.type.security</source>
+        <target>Evento di sicurezza</target>
+      </segment>
+    </unit>
+    <unit id="gJDmvym" name="log.type.instock_changed">
+      <segment state="translated">
+        <source>log.type.instock_changed</source>
+        <target>[ALT] Stock modificato</target>
+      </segment>
+    </unit>
+    <unit id="lJZCHHM" name="log.target_id">
+      <segment state="translated">
+        <source>log.target_id</source>
+        <target>ID dell'elemento di destinazione</target>
+      </segment>
+    </unit>
+    <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
+      <segment state="translated">
+        <source>entity.info.parts_count_recursive</source>
+        <target>Componenti con questo elemento o i suoi elementi figli</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Informazioni sul server</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Sola lettura</target>
+      </segment>
+    </unit>
     <unit id="HD3j3BW" name="permission.preset.read_only.desc">
       <segment state="translated">
         <source>permission.preset.read_only.desc</source>
@@ -9569,9 +10229,24 @@ Element 3</target>
         <target>Creare un nuovo lotto</target>
       </segment>
     </unit>
-    
-    
-    
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Add builds to project builds part</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment state="translated">
+        <source>project.build.builds_part_lot</source>
+        <target>Lotto target</target>
+      </segment>
+    </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment state="translated">
+        <source>project.builds.number_of_builds</source>
+        <target>Quantità da costruire</target>
+      </segment>
+    </unit>
     
     
     
@@ -9919,56 +10594,306 @@ Element 3</target>
         <target>MPN</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="tV.PNy_" name="log.element_edited.changed_fields.partUnit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partUnit</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.expiration_date</source>
+        <target>Data di scadenza</target>
+      </segment>
+    </unit>
+    <unit id="cPY3MD7" name="log.element_edited.changed_fields.amount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.amount</source>
+        <target>Quantità</target>
+      </segment>
+    </unit>
+    <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_location</source>
+        <target>Ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="Qt585vm" name="attachment.max_file_size">
+      <segment state="translated">
+        <source>attachment.max_file_size</source>
+        <target>Dimensione massima del file</target>
+      </segment>
+    </unit>
+    <unit id="tkkbiag" name="user.saml_user">
+      <segment state="translated">
+        <source>user.saml_user</source>
+        <target>Utente SSO / SAML</target>
+      </segment>
+    </unit>
+    <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
+      <segment state="translated">
+        <source>user.saml_user.pw_change_hint</source>
+        <target>Si sta usando Single Sign-On (SSO) per accedere. Pertanto non è possibile configurare la password e l'autenticazione a due fattori. Utilizzare gli strumenti del fornitore SSO per modificarle!</target>
+      </segment>
+    </unit>
+    <unit id="32beTBH" name="login.sso_saml_login">
+      <segment state="translated">
+        <source>login.sso_saml_login</source>
+        <target>Single Sign-On Login (SSO)</target>
+      </segment>
+    </unit>
+    <unit id="wnMLanX" name="login.local_login_hint">
+      <segment state="translated">
+        <source>login.local_login_hint</source>
+        <target>Il modulo qui sotto può essere utilizzato solo per accedere con un utente locale. Se invece si vuole accedere tramite Single Sign-On, usare il pulsante qui sopra.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment state="translated">
+        <source>part_list.action.action.export</source>
+        <target>Esportare componenti</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment state="translated">
+        <source>part_list.action.export_json</source>
+        <target>Esportare come JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment state="translated">
+        <source>part_list.action.export_csv</source>
+        <target>Esportare come CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment state="translated">
+        <source>part_list.action.export_yaml</source>
+        <target>Esportare in YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment state="translated">
+        <source>part_list.action.export_xml</source>
+        <target>Esportare come XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment state="translated">
+        <source>parts.import.title</source>
+        <target>Importare componenti</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment state="translated">
+        <source>parts.import.errors.title</source>
+        <target>Problemi con l'importazione</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment state="translated">
+        <source>parts.import.flash.error</source>
+        <target>Si sono verificati errori durante l'esportazione, probabilmente causati da dati errati.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment state="translated">
+        <source>parts.import.format.auto</source>
+        <target>Automatico (in base all'estensione del file)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment state="translated">
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Non è stato possibile determinare automaticamente il formato. Selezionare il formato corretto manualmente!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment state="translated">
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>File errato o formattato in modo errato. Verificare di aver scelto il formato corretto.</target>
+      </segment>
+    </unit>
+    <unit id="ih.wsVn" name="parts.import.part_category.label">
+      <segment state="translated">
+        <source>parts.import.part_category.label</source>
+        <target>Sovrascrivere categoria</target>
+      </segment>
+    </unit>
+    <unit id="mLczcax" name="parts.import.part_category.help">
+      <segment state="translated">
+        <source>parts.import.part_category.help</source>
+        <target>Se si seleziona una categoria qui, tutti i componenti importati saranno assegnati a questa categoria, indipendentemente da ciò che è scritto nei dati da importare.</target>
+      </segment>
+    </unit>
+    <unit id="W09n3nV" name="import.create_unknown_datastructures">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures</source>
+        <target>Crea strutture di dati sconosciute</target>
+      </segment>
+    </unit>
+    <unit id="QkzTk.8" name="import.create_unknown_datastructures.help">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures.help</source>
+        <target>Se questa opzione è selezionata, le strutture di dati (ad es. categorie, footprint, ecc.) che non esistono ancora nel database vengono create automaticamente. Se questa opzione non è selezionata, vengono utilizzate solo le strutture di dati che già esistono nel database, e se non esiste una struttura corrispondente, il campo corrispondente del componente viene lasciato vuoto.</target>
+      </segment>
+    </unit>
+    <unit id="p6fTkCQ" name="import.path_delimiter">
+      <segment state="translated">
+        <source>import.path_delimiter</source>
+        <target>Limitatore di percorso</target>
+      </segment>
+    </unit>
+    <unit id="gSn6XRk" name="import.path_delimiter.help">
+      <segment state="translated">
+        <source>import.path_delimiter.help</source>
+        <target>Il delimitatore utilizzato per contrassegnare diversi livelli nella struttura dei dati come le categorie, i footprint, ecc.</target>
+      </segment>
+    </unit>
+    <unit id="aNR2tK9" name="parts.import.help_documentation">
+      <segment state="translated">
+        <source>parts.import.help_documentation</source>
+        <target>Consultare la &lt;a href="%link%"&gt;Documentazione&lt;/a&gt; per ulteriori informazioni sul formato del file.</target>
+      </segment>
+    </unit>
+    <unit id="bOHORjK" name="parts.import.help">
+      <segment state="translated">
+        <source>parts.import.help</source>
+        <target>Con questo strumento è possibile importare componenti da file esistenti. I componenti sono memorizzati direttamente nel database (senza la possibilità di controllarli prima). Pertanto, controllate il vostro file di importazione prima di caricarlo qui!</target>
+      </segment>
+    </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment state="translated">
+        <source>parts.import.flash.success</source>
+        <target>Importazione di componenti avvenuta con successo!</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment state="translated">
+        <source>parts.import.errors.imported_entities</source>
+        <target>Componenti importati</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment state="translated">
+        <source>perm.import</source>
+        <target>Importare dati</target>
+      </segment>
+    </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.label</source>
+        <target>Contrassegnare tutti i componenti come "Necessaria revisione"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Quando questa opzione è selezionata, tutti i componenti importati sono contrassegnati come "Necessaria revisione", indipendentemente da ciò che è scritto nei dati di importazione.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>%Count% voci BOM importate con successo.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Tipo</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV file)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>Cancellare le voci della BOM (lista dei materiali) esistenti prima dell'importazione</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Quando questa opzione è selezionata, tutte le voci BOM (lista dei materiali) già esistenti nel progetto vengono cancellate e sovrascritte con i dati BOM importati.</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>Impossibile importare il file. Verificare di aver scelto il tipo di file corretto. Messaggio di errore: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Errore di convalida! Controllare il file importato!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment state="translated">
+        <source>project.import_bom</source>
+        <target>Importa BOM per il progetto</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment state="translated">
+        <source>project.edit.bom.import_bom</source>
+        <target>Importare BOM</target>
+      </segment>
+    </unit>
+    <unit id="qDVJg2i" name="measurement_unit.new">
+      <segment state="translated">
+        <source>measurement_unit.new</source>
+        <target>Nuova unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="WKzr7h0" name="measurement_unit.edit">
+      <segment state="translated">
+        <source>measurement_unit.edit</source>
+        <target>Modificare l'unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="gRatnCn" name="user.aboutMe.label">
+      <segment state="translated">
+        <source>user.aboutMe.label</source>
+        <target>About Me</target>
+      </segment>
+    </unit>
+    <unit id="WsHXARp" name="storelocation.owner.label">
+      <segment state="translated">
+        <source>storelocation.owner.label</source>
+        <target>Proprietario</target>
+      </segment>
+    </unit>
+    <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
+      <segment state="translated">
+        <source>storelocation.part_owner_must_match.label</source>
+        <target>Il proprietario del componente deve corrispondere al proprietario dell'ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="sddE1L." name="part_lot.owner">
+      <segment state="translated">
+        <source>part_lot.owner</source>
+        <target>Proprietario</target>
+      </segment>
+    </unit>
+    <unit id="XKIMr8j" name="part_lot.owner.help">
+      <segment state="translated">
+        <source>part_lot.owner.help</source>
+        <target>Solo il proprietario può prelevare o aggiungere componenti da questo lotto.</target>
+      </segment>
+    </unit>
+    <unit id="61.yfNy" name="log.element_edited.changed_fields.owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.owner</source>
+        <target>Proprietario</target>
+      </segment>
+    </unit>
     <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
       <segment state="translated">
         <source>log.element_edited.changed_fields.instock_unknown</source>
