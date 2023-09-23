@@ -734,7 +734,7 @@ Così appare il componente prima di %timestamp%. &lt;i&gt;Si prega di notare che
         <source>user.edit.tfa.disable_tfa_message</source>
         <target>Questo disabiliterà &lt;b&gt;tutti i metodi di autenticazione a due fattori attivi dell'utente&lt;/b&gt; ed eliminerà i &lt;b&gt;codici di backup&lt;/b&gt;!
 &lt;br&gt;
-L'utente dovrà configurare nuovamente tutti i metodi di autenticazione a due fattori e stampare nuovi codici di backup! &Lt;br&gt;&lt;br&gt;
+L'utente dovrà configurare nuovamente tutti i metodi di autenticazione a due fattori e stampare nuovi codici di backup! &lt;br&gt;&lt;br&gt;
 &lt;b&gt; Fare ciò solo se assolutamente sicuri dell'identità dell'utente, altrimenti l'account potrebbe essere compromesso da un utente malintenzionato! &lt;/b&gt;</target>
       </segment>
     </unit>
