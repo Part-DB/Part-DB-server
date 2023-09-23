@@ -1516,13 +1516,70 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Comune</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>Avanzate</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>Profili</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>Profilo attualmente selezionato</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>Modificare il profilo</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>Caricare il profilo</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>Generare una etichetta</target>
+      </segment>
+    </unit>
     
     
     
