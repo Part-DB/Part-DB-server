@@ -8766,48 +8766,258 @@ Element 3</target>
         <target>Prezzo</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Rimuovere i componenti dal lotto</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Aggiungere componenti al lotto</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Spostare i componenti in un altro lotto</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Quantità</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Spostare in</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Commento</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Puoi inserire qui un commento che descrive perché questa azione è stata eseguita (ad es. per cosa è stato necessario questo componente). Questa informazione viene memorizzata nel registro.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Chiudere</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Inviare</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Componenti rimossi/aggiunti/spostati con successo.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Stock di componenti</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Rimuovere componenti dallo stock</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Aggiungere componenti allo stock</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Spostare componenti tra gli stock</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment state="translated">
+        <source>user.permissions_schema_updated</source>
+        <target>Lo schema di autorizzazione del tuo account utente è stato aggiornato all'ultima versione.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment state="translated">
+        <source>log.type.part_stock_changed</source>
+        <target>Modificato lo stock di componenti</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment state="translated">
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Componenti prelevati</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment state="translated">
+        <source>log.part_stock_changed.add</source>
+        <target>Stock aggiunto</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment state="translated">
+        <source>log.part_stock_changed.move</source>
+        <target>Stock spostato</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment state="translated">
+        <source>log.part_stock_changed.comment</source>
+        <target>Commento</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment state="translated">
+        <source>log.part_stock_changed.change</source>
+        <target>Cambiare</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment state="translated">
+        <source>log.part_stock_changed.move_target</source>
+        <target>Spostato in</target>
+      </segment>
+    </unit>
+    <unit id="e2xzHIo" name="tools.builtin_footprints_viewer.title">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.title</source>
+        <target>Immagini del footprint incluse</target>
+      </segment>
+    </unit>
+    <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.hint</source>
+        <target>Questa galleria elenca tutte le immagini dei footprint incluse. Se vuoi usarli in un allegato, digita il nome (o una parola chiave) nel campo URL dell'allegato e seleziona l'immagine desiderata dal menu a discesa.</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment state="translated">
+        <source>tools.ic_logos.title</source>
+        <target>Loghi IC</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment state="translated">
+        <source>part_list.action.group.labels</source>
+        <target>Etichette</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label</source>
+        <target>Generare etichette (per componenti)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Generare etichette (per le scorte di componenti)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment state="translated">
+        <source>part_list.action.generate_label.empty</source>
+        <target>Etichetta vuota</target>
+      </segment>
+    </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment state="translated">
+        <source>project.info.builds.label</source>
+        <target>Costruire</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment state="translated">
+        <source>project.builds.build_not_possible</source>
+        <target>Impossibile costruire: non sono disponibili abbastanza componenti</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>I seguenti componenti non sono sufficienti per costruire questo progetto almeno una volta:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment state="translated">
+        <source>project.builds.stocked</source>
+        <target>a magazzino</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment state="translated">
+        <source>project.builds.needed</source>
+        <target>necessario</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment state="translated">
+        <source>project.builds.build_possible</source>
+        <target>Costruzione possibile</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment state="translated">
+        <source>project.builds.number_of_builds_possible</source>
+        <target>Ci sono abbastanza componenti in magazzino per costruire &lt;b&gt;%max_builds%&lt;/b&gt; copie di questo progetto.</target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment state="translated">
+        <source>project.builds.check_project_status</source>
+        <target>Lo stato attuale del progetto è &lt;b&gt;"%project_status%"&lt;/b&gt;. Controllare se si vuole davvero costruire il progetto con questo stato!</target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>Non ci sono abbastanza componenti disponibili per costruire questo progetto %number_of_builds% volte. In magazzino mancano i seguenti componenti:</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment state="translated">
+        <source>project.build.flash.invalid_input</source>
+        <target>Il progetto non può essere costruito. Si prega di controllare le voci!</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment state="translated">
+        <source>project.build.required_qty</source>
+        <target>Quantità richiesta</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment state="translated">
+        <source>project.build.btn_build</source>
+        <target>Costruire</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment state="translated">
+        <source>project.build.help</source>
+        <target>Seleziona da quali lotti devono essere prelevati i componenti necessari per la costruzione (e in quale quantità). Quando sarà completato il prelievo dei componenti, seleziona ogni voce BOM o usa la casella di controllo superiore per mettere tutti i segni di spunta in una volta sola.</target>
+      </segment>
+    </unit>
     <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
       <segment state="translated">
         <source>project.build.buildsPartLot.new_lot</source>
@@ -8864,139 +9074,554 @@ Element 3</target>
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="gZ_rDFJ" name="log.element_edited.changed_fields.shipping_costs">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.shipping_costs</source>
+        <target>Spese di spedizione</target>
+      </segment>
+    </unit>
+    <unit id="7yyrZp7" name="log.element_edited.changed_fields.default_currency">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.default_currency</source>
+        <target>Valuta di default</target>
+      </segment>
+    </unit>
+    <unit id="T_67Yyo" name="log.element_edited.changed_fields.address">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.address</source>
+        <target>Indirizzo</target>
+      </segment>
+    </unit>
+    <unit id="o6PKTJA" name="log.element_edited.changed_fields.phone_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.phone_number</source>
+        <target>Numero di telefono</target>
+      </segment>
+    </unit>
+    <unit id="W5rKz.M" name="log.element_edited.changed_fields.fax_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.fax_number</source>
+        <target>Numero di fax</target>
+      </segment>
+    </unit>
+    <unit id="BlkJXPJ" name="log.element_edited.changed_fields.email_address">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.email_address</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="jQ2bFEK" name="log.element_edited.changed_fields.website">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.website</source>
+        <target>Sito web</target>
+      </segment>
+    </unit>
+    <unit id="hQUV7ZC" name="log.element_edited.changed_fields.auto_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.auto_product_url</source>
+        <target>URL del prodotto</target>
+      </segment>
+    </unit>
+    <unit id="ZRxLMgU" name="log.element_edited.changed_fields.is_full">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.is_full</source>
+        <target>Ubicazione piena</target>
+      </segment>
+    </unit>
+    <unit id="hMc.US1" name="log.element_edited.changed_fields.limit_to_existing_parts">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.limit_to_existing_parts</source>
+        <target>Solo componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="czzufVD" name="log.element_edited.changed_fields.only_single_part">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.only_single_part</source>
+        <target>Solo componenti singoli</target>
+      </segment>
+    </unit>
+    <unit id="BFHeYb7" name="log.element_edited.changed_fields.storage_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_type</source>
+        <target>Tipo di ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="7c.vSJ5" name="log.element_edited.changed_fields.footprint_3d">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.footprint_3d</source>
+        <target>Modello 3D</target>
+      </segment>
+    </unit>
+    <unit id="EhKSmFQ" name="log.element_edited.changed_fields.master_picture_attachment">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.master_picture_attachment</source>
+        <target>Immagine di anteprima</target>
+      </segment>
+    </unit>
+    <unit id="0Qixo51" name="log.element_edited.changed_fields.exchange_rate">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.exchange_rate</source>
+        <target>Tasso di cambio</target>
+      </segment>
+    </unit>
+    <unit id="EippsOk" name="log.element_edited.changed_fields.iso_code">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.iso_code</source>
+        <target>Codice ISO</target>
+      </segment>
+    </unit>
+    <unit id="JPVZRzH" name="log.element_edited.changed_fields.unit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.unit</source>
+        <target>Simbolo dell'unità</target>
+      </segment>
+    </unit>
+    <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.is_integer</source>
+        <target>Numero intero</target>
+      </segment>
+    </unit>
+    <unit id="XkLHxqf" name="log.element_edited.changed_fields.use_si_prefix">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.use_si_prefix</source>
+        <target>Usa i prefissi SI</target>
+      </segment>
+    </unit>
+    <unit id="bgeqM2B" name="log.element_edited.changed_fields.options.width">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.width</source>
+        <target>Larghezza</target>
+      </segment>
+    </unit>
+    <unit id="UJNmG3d" name="log.element_edited.changed_fields.options.height">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.height</source>
+        <target>Altezza</target>
+      </segment>
+    </unit>
+    <unit id="M7z_SCq" name="log.element_edited.changed_fields.options.supported_element">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.supported_element</source>
+        <target>Tipo di elemento</target>
+      </segment>
+    </unit>
+    <unit id="WnWfGoW" name="log.element_edited.changed_fields.options.additional_css">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.additional_css</source>
+        <target>Sile CSS aggiuntivo</target>
+      </segment>
+    </unit>
+    <unit id="0wsPXyV" name="log.element_edited.changed_fields.options.lines">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.lines</source>
+        <target>Contenuto</target>
+      </segment>
+    </unit>
+    <unit id="SsbpFX0" name="log.element_edited.changed_fields.permissions.data">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.permissions.data</source>
+        <target>Autorizzazioni</target>
+      </segment>
+    </unit>
+    <unit id="GYoJ2_d" name="log.element_edited.changed_fields.disabled">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disabled</source>
+        <target>Disabilitato</target>
+      </segment>
+    </unit>
+    <unit id="q7TPEPu" name="log.element_edited.changed_fields.theme">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.theme</source>
+        <target>Tema</target>
+      </segment>
+    </unit>
+    <unit id="Qlf8uK3" name="log.element_edited.changed_fields.timezone">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.timezone</source>
+        <target>Fuso orario</target>
+      </segment>
+    </unit>
+    <unit id="2GWIhsp" name="log.element_edited.changed_fields.language">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.language</source>
+        <target>Lingua</target>
+      </segment>
+    </unit>
+    <unit id="Sw3SmBJ" name="log.element_edited.changed_fields.email">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="7FpvTOI" name="log.element_edited.changed_fields.department">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.department</source>
+        <target>Dipartimento</target>
+      </segment>
+    </unit>
+    <unit id="jWNSk.e" name="log.element_edited.changed_fields.last_name">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.last_name</source>
+        <target>Cognome</target>
+      </segment>
+    </unit>
+    <unit id="49zb3b7" name="log.element_edited.changed_fields.first_name">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.first_name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="b55U6o6" name="log.element_edited.changed_fields.group">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.group</source>
+        <target>Gruppo</target>
+      </segment>
+    </unit>
+    <unit id="fgxi1Rb" name="log.element_edited.changed_fields.currency">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.currency</source>
+        <target>Valuta preferita</target>
+      </segment>
+    </unit>
+    <unit id="YjMeEAn" name="log.element_edited.changed_fields.enforce2FA">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.enforce2FA</source>
+        <target>Forza 2FA</target>
+      </segment>
+    </unit>
+    <unit id="Ekpsda2" name="log.element_edited.changed_fields.symbol">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.symbol</source>
+        <target>Simbolo</target>
+      </segment>
+    </unit>
+    <unit id="VUH1O1d" name="log.element_edited.changed_fields.value_min">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_min</source>
+        <target>Valore min.</target>
+      </segment>
+    </unit>
+    <unit id="DqyfYKK" name="log.element_edited.changed_fields.value_max">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_max</source>
+        <target>Valore max.</target>
+      </segment>
+    </unit>
+    <unit id="qX_n4ud" name="log.element_edited.changed_fields.value_text">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_text</source>
+        <target>Valore di testo</target>
+      </segment>
+    </unit>
+    <unit id="T2zweRa" name="log.element_edited.changed_fields.show_in_table">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.show_in_table</source>
+        <target>Mostrare in tabella</target>
+      </segment>
+    </unit>
+    <unit id="TkaXDi7" name="log.element_edited.changed_fields.attachment_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachment_type</source>
+        <target>Tipo di file</target>
+      </segment>
+    </unit>
+    <unit id="YPerF93" name="log.element_edited.changed_fields.needs_review">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_review</source>
+        <target>Revisione necessaria</target>
+      </segment>
+    </unit>
+    <unit id="gF_Zo45" name="log.element_edited.changed_fields.tags">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="fjo2JY_" name="log.element_edited.changed_fields.mass">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mass</source>
+        <target>Massa</target>
+      </segment>
+    </unit>
+    <unit id="f7YI8uk" name="log.element_edited.changed_fields.ipn">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="vAHGo60" name="log.element_edited.changed_fields.favorite">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.favorite</source>
+        <target>Preferito</target>
+      </segment>
+    </unit>
+    <unit id="TUBvDxJ" name="log.element_edited.changed_fields.minamount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.minamount</source>
+        <target>Scorta minima</target>
+      </segment>
+    </unit>
+    <unit id="pVJ9vgg" name="log.element_edited.changed_fields.manufacturer_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_url</source>
+        <target>Link alla pagina del prodotto</target>
+      </segment>
+    </unit>
+    <unit id="JW.PgxU" name="log.element_edited.changed_fields.manufacturer_product_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_number</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.instock_unknown</source>
+        <target>Quantità sconosciuta</target>
+      </segment>
+    </unit>
+    <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_refill</source>
+        <target>Necessita di rifornimento</target>
+      </segment>
+    </unit>
+    <unit id="Gfw_MWL" name="part.withdraw.access_denied">
+      <segment state="translated">
+        <source>part.withdraw.access_denied</source>
+        <target>Non si è autorizzati a eseguire l'azione richiesta! Si prega di controllare le proprie autorizzazioni e il proprietario dello stock di componenti.</target>
+      </segment>
+    </unit>
+    <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
+      <segment state="translated">
+        <source>part.info.amount.less_than_desired</source>
+        <target>Meno di quanto desiderato</target>
+      </segment>
+    </unit>
+    <unit id="cdnsW4q" name="log.cli_user">
+      <segment state="translated">
+        <source>log.cli_user</source>
+        <target>Utente CLI</target>
+      </segment>
+    </unit>
+    <unit id="4GTAJ9E" name="log.element_edited.changed_fields.part_owner_must_match">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.part_owner_must_match</source>
+        <target>Il proprietario del componente deve corrispondere al proprietario dell'ubicazione!</target>
+      </segment>
+    </unit>
+    <unit id="u6qFa_j" name="part.filter.lessThanDesired">
+      <segment state="translated">
+        <source>part.filter.lessThanDesired</source>
+        <target>La giacenza è inferiore a quanto richiesto (quantità totale &lt; quantità minima)</target>
+      </segment>
+    </unit>
+    <unit id="lHTN.a1" name="part.filter.lotOwner">
+      <segment state="translated">
+        <source>part.filter.lotOwner</source>
+        <target>Proprietario del lotto</target>
+      </segment>
+    </unit>
+    <unit id="47OCK_W" name="user.show_email_on_profile.label">
+      <segment state="translated">
+        <source>user.show_email_on_profile.label</source>
+        <target>Visualizza l'indirizzo e-mail sulla pagina del profilo pubblico</target>
+      </segment>
+    </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment state="translated">
+        <source>log.details.title</source>
+        <target>Dettagli del log</target>
+      </segment>
+    </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment state="translated">
+        <source>log.user_login.login_from_ip</source>
+        <target>Login dall'indirizzo IP</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment state="translated">
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>Se mancano le ultime cifre dell'indirizzo IP, allora è attivata la modalità GDPR, in cui gli indirizzi IP sono resi anonimi.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment state="translated">
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Tentativo di accesso non autorizzato alla pagina</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment state="translated">
+        <source>log.user_not_allowed.hint</source>
+        <target>La richiesta è stata bloccata. Non dovrebbe essere necessaria alcuna altra azione.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment state="translated">
+        <source>log.no_comment</source>
+        <target>Nessun commento</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment state="translated">
+        <source>log.element_changed.field</source>
+        <target>Campo</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment state="translated">
+        <source>log.element_changed.data_before</source>
+        <target>Dati prima della modifica</target>
+      </segment>
+    </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment state="translated">
+        <source>error_table.error</source>
+        <target>Durante la richiesta si è verificato un errore.</target>
+      </segment>
+    </unit>
+    <unit id="tLXzED2" name="part.table.invalid_regex">
+      <segment state="translated">
+        <source>part.table.invalid_regex</source>
+        <target>Espressione regolare non valida (regex)</target>
+      </segment>
+    </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment state="translated">
+        <source>log.element_changed.data_after</source>
+        <target>Dati dopo la modifica</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment state="translated">
+        <source>log.element_changed.diff</source>
+        <target>Differenza</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment state="translated">
+        <source>log.undo.undo.short</source>
+        <target>Annullare</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment state="translated">
+        <source>log.undo.revert.short</source>
+        <target>Ripristina alla versione</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment state="translated">
+        <source>log.view_version</source>
+        <target>Visualizza la versione</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment state="translated">
+        <source>log.undo.undelete.short</source>
+        <target>Ripristinare</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Proprietario</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Elemento di livello superiore</target>
+      </segment>
+    </unit>
+    <unit id="GUthgcU" name="log.details.delete_entry">
+      <segment state="translated">
+        <source>log.details.delete_entry</source>
+        <target>Cancellare la voce di log</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment state="translated">
+        <source>log.delete.message.title</source>
+        <target>Si vuole davvero cancellare questa voce di log?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment state="translated">
+        <source>log.delete.message</source>
+        <target>Se questa è una voce di storia per un elemento, allora la cancellazione porterà alla perdita di dati della storia! Questo può dare risultati inaspettati quando si usa la funzione di viaggio nel tempo.</target>
+      </segment>
+    </unit>
+    <unit id="P.c4WmY" name="log.collection_deleted.on_collection">
+      <segment state="translated">
+        <source>log.collection_deleted.on_collection</source>
+        <target>in collezione</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Allegati</target>
+      </segment>
+    </unit>
     
     
     
