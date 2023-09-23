@@ -1580,49 +1580,446 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Generare una etichetta</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>Nuova etichetta vuota</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>Lettore di etichette</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>Webcam non trovata</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>E' necessaria una webcam e bisogna dare il permesso di usare la funzione scanner. Si può inserire manualmente il codice a barre qui sotto.</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>Selezionare una sorgente</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>log.list.title</source>
+        <target>Registro di sistema</target>
+      </segment>
+    </unit>
+    <unit id="_1bnAgm" name="log.undo.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_title</source>
+        <target>Annullare davvero la modifica/ripristinare il timestamp?</target>
+      </segment>
+    </unit>
+    <unit id="ATlnZ1T" name="log.undo.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_message</source>
+        <target>Vuoi annullare la modifica / reimpostare l'elemento a una determinata data?</target>
+      </segment>
+    </unit>
+    <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.email_sent_by</source>
+        <target>Questa e-mail è stata inviata automaticamente da</target>
+      </segment>
+    </unit>
+    <unit id="AchaWxK" name="mail.footer.dont_reply">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.dont_reply</source>
+        <target>Non rispondere a questa e-mail.</target>
+      </segment>
+    </unit>
+    <unit id="S6Fot75" name="email.hi %name%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>email.hi %name%</source>
+        <target>Buongiorno %name%</target>
+      </segment>
+    </unit>
+    <unit id="VKSPbrb" name="email.pw_reset.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.message</source>
+        <target>Qualcuno (si spera tu) ha richiesto una reimpostazione della tua password. Se questa richiesta non è stata fatta da te, ignora questa mail.</target>
+      </segment>
+    </unit>
+    <unit id="lu8bcCN" name="email.pw_reset.button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.button</source>
+        <target>Clicca qui per reimpostare la password</target>
+      </segment>
+    </unit>
+    <unit id="tS_htiy" name="email.pw_reset.fallback">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.fallback</source>
+        <target>Se questo non funziona, vai su &lt;a href="%url%"&gt;%url%&lt;/a&gt; e inserisci le seguenti informazioni</target>
+      </segment>
+    </unit>
+    <unit id="QBTV5KP" name="email.pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.username</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    <unit id="6UyKd6G" name="email.pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.token</source>
+        <target>Token</target>
+      </segment>
+    </unit>
+    <unit id="3Rl4ELy" name="email.pw_reset.valid_unit %date%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.valid_unit %date%</source>
+        <target>Il token di reset sarà valido fino al &lt;i&gt;%date%&lt;/i&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="ItQbhLs" name="orderdetail.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:78</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.delete</source>
+        <target>Cancellare</target>
+      </segment>
+    </unit>
+    <unit id="uUvRF8P" name="pricedetails.edit.min_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.min_qty</source>
+        <target>Quantità minima d'ordine</target>
+      </segment>
+    </unit>
+    <unit id="3meOpdA" name="pricedetails.edit.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price</source>
+        <target>Prezzo</target>
+      </segment>
+    </unit>
+    <unit id="1gzHhnJ" name="pricedetails.edit.price_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price_qty</source>
+        <target>per la quantità</target>
+      </segment>
+    </unit>
+    <unit id="8BF.OZR" name="pricedetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.create</source>
+        <target>Aggiungi prezzo</target>
+      </segment>
+    </unit>
+    <unit id="nS44Iqv" name="part.edit.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.title</source>
+        <target>Modifica il componente %name%</target>
+      </segment>
+    </unit>
+    <unit id="Ko2G29K" name="part.edit.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.card_title</source>
+        <target>Modificare le informazioni sui componenti di</target>
+      </segment>
+    </unit>
+    <unit id="MvJvWIA" name="part.edit.tab.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.common</source>
+        <target>In generale</target>
+      </segment>
+    </unit>
+    <unit id="RjPp2bd" name="part.edit.tab.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.manufacturer</source>
+        <target>Produttore</target>
+      </segment>
+    </unit>
+    <unit id="e9FzmOU" name="part.edit.tab.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.advanced</source>
+        <target>Avanzate</target>
+      </segment>
+    </unit>
+    <unit id="uc9NwcF" name="part.edit.tab.part_lots">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.part_lots</source>
+        <target>Stock</target>
+      </segment>
+    </unit>
+    <unit id="9HrMrf1" name="part.edit.tab.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.attachments</source>
+        <target>Allegati</target>
+      </segment>
+    </unit>
+    <unit id="tkdBTwZ" name="part.edit.tab.orderdetails">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.orderdetails</source>
+        <target>Informazioni di acquisto</target>
+      </segment>
+    </unit>
+    <unit id="fLuFk_2" name="part.edit.tab.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.specifications</source>
+        <target>Parametri</target>
+      </segment>
+    </unit>
+    <unit id="LgSgFFj" name="part.edit.tab.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="h0g53U_" name="part.new.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">templates\Parts\new_part.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part.new.card_title</source>
+        <target>Creare nuovo componente</target>
+      </segment>
+    </unit>
+    <unit id="X.m4tR7" name="part_lot.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.delete</source>
+        <target>Cancellare</target>
+      </segment>
+    </unit>
+    <unit id="Ey2BEY6" name="part_lot.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.create</source>
+        <target>Aggiungere stock</target>
+      </segment>
+    </unit>
+    <unit id="D7h1rMv" name="orderdetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.create</source>
+        <target>Aggiungere un distributore</target>
+      </segment>
+    </unit>
+    <unit id="uKZiiFJ" name="pricedetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.delete.confirm</source>
+        <target>Vuoi davvero cancellare questo prezzo? Questo non può essere annullato!</target>
+      </segment>
+    </unit>
+    <unit id="FIw9JVr" name="orderdetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.delete.confirm</source>
+        <target>Vuoi davvero cancellare questo fornitore? Questo non può essere annullato!</target>
+      </segment>
+    </unit>
+    <unit id="UoflU8w" name="part.info.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.title</source>
+        <target>Informazioni dettagliate per</target>
+      </segment>
+    </unit>
+    <unit id="ZrzEsc_" name="part.part_lots.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.part_lots.label</source>
+        <target>Stock</target>
+      </segment>
+    </unit>
+    <unit id="BWS7Lck" name="comment.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:26</note>
+        <note priority="1">templates\base.html.twig:62</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:74</note>
+        <note priority="1">src\Form\PartType.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>comment.label</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="Y2.Edoh" name="part.info.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.specifications</source>
+        <target>Parametri</target>
+      </segment>
+    </unit>
+    <unit id="MZz0rtU" name="attachment.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:74</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:82</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.labelp</source>
+        <target>Allegati</target>
+      </segment>
+    </unit>
     <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:83</note>
@@ -2786,24 +3183,190 @@ Attenzione: senza l'autenticazione a due fattori il suo account non è ben prote
         <target>Nome utente</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="pkupOqy" name="tfa_google.manual_setup.secret">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="zabzs3X" name="tfa_google.manual_setup.digit_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.digit_count</source>
+        <target>Numero di caratteri</target>
+      </segment>
+    </unit>
+    <unit id="FvB0dIm" name="tfa_google.enabled_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:74</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:74</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.enabled_message</source>
+        <target>App Authenticator abilitata</target>
+      </segment>
+    </unit>
+    <unit id="atzHEe7" name="tfa_backup.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.disabled</source>
+        <target>Codici di backup disattivati. Impostare l'app Authenticator per attivare i codici di backup.</target>
+      </segment>
+    </unit>
+    <unit id=".T4.dPM" name="tfa_backup.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.explanation</source>
+        <target>Questi codici di backup permettono di accedere al tuo account anche se si perde il dispositivo con l'app Authenticator. Stampare i codici e conservarli in un luogo sicuro.</target>
+      </segment>
+    </unit>
+    <unit id="H10CC4E" name="tfa_backup.reset_codes.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_title</source>
+        <target>Reimpostare davvero i codici?</target>
+      </segment>
+    </unit>
+    <unit id="5Fu2DpJ" name="tfa_backup.reset_codes.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_message</source>
+        <target>Questo cancellerà tutti i codici precedenti e genererà un set di nuovi codici. Questa azione non può essere annullata. Stampare i nuovi codici e depositarli in un luogo sicuro!</target>
+      </segment>
+    </unit>
+    <unit id="o5LtJ9_" name="tfa_backup.enabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.enabled</source>
+        <target>Codici di backup attivati</target>
+      </segment>
+    </unit>
+    <unit id="kqmz5H_" name="tfa_backup.show_codes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.show_codes</source>
+        <target>Visualizzare i codici di backup</target>
+      </segment>
+    </unit>
+    <unit id="7g11_KD" name="tfa_u2f.table_caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.table_caption</source>
+        <target>Chiavi di sicurezza registrate</target>
+      </segment>
+    </unit>
+    <unit id="UUr4y_o" name="tfa_u2f.delete_u2f.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_title</source>
+        <target>Rimuovere questa chiave di sicurezza?</target>
+      </segment>
+    </unit>
+    <unit id="5ggwjiF" name="tfa_u2f.delete_u2f.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_message</source>
+        <target>Se si rimuove questa chiave, non sarà più possibile effettuare il login con essa. Se non ci sono chiavi di sicurezza, l'autenticazione a due fattori è disabilitata.</target>
+      </segment>
+    </unit>
+    <unit id="QS7fv4V" name="tfa_u2f.keys.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.name</source>
+        <target>Nome della chiave</target>
+      </segment>
+    </unit>
+    <unit id="4qB9rjg" name="tfa_u2f.keys.added_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.added_date</source>
+        <target>Data di registrazione</target>
+      </segment>
+    </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_delete</source>
+        <target>Cancellare la chiave</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>Nessuna chiave di sicurezza registrata</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_new_key</source>
+        <target>Registrare una nuova chiave di sicurezza</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>Quando si controlla il secondo fattore, il computer corrente può essere contrassegnato come affidabile, quindi non sono più necessari controlli a due fattori su questo computer.
+
+Se è stato fatto in modo errato o se un computer non è più attendibile, puoi reimpostare lo stato di &lt;i&gt;tutti i &lt;/i&gt;computer qui.</target>
+      </segment>
+    </unit>
     
     
     
