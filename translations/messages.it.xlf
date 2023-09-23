@@ -7984,20 +7984,90 @@ Element 3</target>
         <target>Alcuni utenti fanno ancora parte di questo gruppo. Cambia il gruppo a questi utenti per poter cancellare questo gruppo.</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Modificare</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Modificare componente</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Selezionare una azione</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Preferito</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Componente favorito</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Annulla indicazione di favorito</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Modificare il campo</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Modificare la categoria</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Modificare footprint</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Modificare il produttore</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Modificare l'unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Cancellare</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% componenti selezionati !</target>
+      </segment>
+    </unit>
     <unit id="ssOogP5" name="company.edit.quick.website">
       <segment state="translated">
         <source>company.edit.quick.website</source>
@@ -8648,14 +8718,54 @@ Element 3</target>
         <target>Questo componente rappresenta le istanze costruite di questo progetto ed è collegato ad esso</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment state="translated">
+        <source>part.is_build_part</source>
+        <target>Componente di produzione</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Informazioni progetto</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>Voci BOM</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Sottoprogetto</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment state="translated">
+        <source>project.info.bom_add_parts</source>
+        <target>Aggiungere voci BOM</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment state="translated">
+        <source>project.info.sub_projects.label</source>
+        <target>Sottoprogetti</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment state="translated">
+        <source>project.bom.price</source>
+        <target>Prezzo</target>
+      </segment>
+    </unit>
     
     
     
