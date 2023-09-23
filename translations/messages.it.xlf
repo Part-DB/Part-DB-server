@@ -4032,22 +4032,198 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Corrispondenza Reg.Ex. </target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="N66qZeD" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>Cerca!</target>
+      </segment>
+    </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Progetti</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">templates\base.html.twig:165</note>
+        <note priority="1">templates\base.html.twig:192</note>
+        <note priority="1">templates\base.html.twig:220</note>
+      </notes>
+      <segment state="translated">
+        <source>actions</source>
+        <target>Azioni</target>
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">templates\base.html.twig:169</note>
+        <note priority="1">templates\base.html.twig:196</note>
+        <note priority="1">templates\base.html.twig:224</note>
+      </notes>
+      <segment state="translated">
+        <source>datasource</source>
+        <target>Fonte dati</target>
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:173</note>
+        <note priority="1">templates\base.html.twig:200</note>
+        <note priority="1">templates\base.html.twig:228</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.labelp</source>
+        <target>Produttori</target>
+      </segment>
+    </unit>
+    <unit id="DQQjhS_" name="supplier.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:174</note>
+        <note priority="1">templates\base.html.twig:201</note>
+        <note priority="1">templates\base.html.twig:229</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.labelp</source>
+        <target>Fornitori</target>
+      </segment>
+    </unit>
+    <unit id="V1QubEL" name="attachment.download_failed">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:268</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download_failed</source>
+        <target>Il download dell'allegato è fallito.</target>
+      </segment>
+    </unit>
+    <unit id="A7i8za4" name="entity.edit_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash</source>
+        <target>Modifiche salvate con successo.</target>
+      </segment>
+    </unit>
+    <unit id="AoZHore" name="entity.edit_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash.invalid</source>
+        <target>Non è stato possibile salvare le modifiche! Controllare i dati!</target>
+      </segment>
+    </unit>
+    <unit id="8MJvWmd" name="entity.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash</source>
+        <target>Elemento creato.</target>
+      </segment>
+    </unit>
+    <unit id="zZdZuYS" name="entity.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash.invalid</source>
+        <target>Non è stato possibile creare l'elemento. Controllare i dati!</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
+        <note priority="1">src\Controller\BaseAdminController.php:154</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>Elemento cancellato!</target>
+      </segment>
+    </unit>
+    <unit id="2bvWUoo" name="csfr_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:182</note>
+      </notes>
+      <segment state="translated">
+        <source>csfr_invalid</source>
+        <target>Token CSFR non valido! Ricaricare questa pagina o contattare un amministratore se il problema persiste!</target>
+      </segment>
+    </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>Nessun elemento trovato</target>
+      </segment>
+    </unit>
+    <unit id="BeMACpw" name="log.undo.target_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.target_not_found</source>
+        <target>Elemento di destinazione non trovato nel database!</target>
+      </segment>
+    </unit>
+    <unit id="sG2PEwi" name="log.undo.revert_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:156</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert_success</source>
+        <target>Componente resettato con successo.</target>
+      </segment>
+    </unit>
     <unit id="GMilP1t" name="log.undo.element_undelete_success">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:176</note>
@@ -4585,40 +4761,369 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>ID</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="zKnTKYw" name="part.table.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:182</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="2eOA0az" name="part.table.category">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:185</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:133</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.category</source>
+        <target>Categoria</target>
+      </segment>
+    </unit>
+    <unit id="jCf96.O" name="part.table.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:190</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:138</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="b46OytM" name="part.table.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:194</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.manufacturer</source>
+        <target>Produttore</target>
+      </segment>
+    </unit>
+    <unit id="T0ifXD5" name="part.table.storeLocations">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:197</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:145</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.storeLocations</source>
+        <target>Ubicazione</target>
+      </segment>
+    </unit>
+    <unit id="rD.1skI" name="part.table.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:216</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:164</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.amount</source>
+        <target>Quantità</target>
+      </segment>
+    </unit>
+    <unit id="Mv9g23S" name="part.table.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:224</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:172</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.minamount</source>
+        <target>Scorta minima</target>
+      </segment>
+    </unit>
+    <unit id="GjwSknL" name="part.table.partUnit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:232</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.partUnit</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="pw75u4x" name="part.table.addedDate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:184</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.addedDate</source>
+        <target>Creato il</target>
+      </segment>
+    </unit>
+    <unit id="eDb7mzC" name="part.table.lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:240</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:188</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.lastModified</source>
+        <target>Ultima modifica</target>
+      </segment>
+    </unit>
+    <unit id="DJ9YTs_" name="part.table.needsReview">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:244</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:192</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.needsReview</source>
+        <target>Necessita revisione</target>
+      </segment>
+    </unit>
+    <unit id="TSiqJH6" name="part.table.favorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:251</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:199</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.favorite</source>
+        <target>Favorito</target>
+      </segment>
+    </unit>
+    <unit id="n0h1ozV" name="part.table.manufacturingStatus">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:258</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:206</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.manufacturingStatus</source>
+        <target>Stato</target>
+      </segment>
+    </unit>
+    <unit id="MBCdfAy" name="m_status.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:260</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:262</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:208</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:210</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.unknown</source>
+        <target>Sconosciuto</target>
+      </segment>
+    </unit>
+    <unit id="BEnlUff" name="m_status.announced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:263</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:211</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.announced</source>
+        <target>Annunciato</target>
+      </segment>
+    </unit>
+    <unit id="TN5xR7J" name="m_status.active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:264</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:212</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.active</source>
+        <target>Attivo</target>
+      </segment>
+    </unit>
+    <unit id="0McKh_8" name="m_status.nrfnd">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.nrfnd</source>
+        <target>Non raccomandato per nuovi progetti</target>
+      </segment>
+    </unit>
+    <unit id="L7yLwn0" name="m_status.eol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:266</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:214</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.eol</source>
+        <target>Fine vita</target>
+      </segment>
+    </unit>
+    <unit id="5jxVP1H" name="m_status.discontinued">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:267</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:215</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.discontinued</source>
+        <target>Fuori produzione</target>
+      </segment>
+    </unit>
+    <unit id="HTkvjkE" name="part.table.mpn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:271</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="q_AsQoZ" name="part.table.mass">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:275</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:223</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mass</source>
+        <target>Peso</target>
+      </segment>
+    </unit>
+    <unit id="Cwisdej" name="part.table.tags">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:279</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:227</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="gGfALE0" name="part.table.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:283</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:231</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.attachments</source>
+        <target>Allegati</target>
+      </segment>
+    </unit>
+    <unit id="HISU3ZB" name="flash.login_successful">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\EventSubscriber\UserSystem\LoginSuccessSubscriber.php:82</note>
+        <note priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.login_successful</source>
+        <target>Accesso riuscito</target>
+      </segment>
+    </unit>
+    <unit id="2xohoLw" name="JSON">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>JSON</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="QGWOmvj" name="XML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>XML</source>
+        <target>XML</target>
+      </segment>
+    </unit>
+    <unit id="62tC9Ux" name="CSV">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>CSV</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="m26KvkJ" name="YAML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>YAML</source>
+        <target>YAML</target>
+      </segment>
+    </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation.help</source>
+        <target>Quando questa opzione è abilitata, il rilevamento di dati non validi annullerà l'intero processo. Se questa opzione non è attiva, le voci non valide vengono ignorate e si continuerà a tentare l'importazione delle altre voci.</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">src\Form\ImportType.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>import.csv_separator</source>
+        <target>Separatore CSV</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">src\Form\ImportType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>parent.label</source>
+        <target>Elemento padre</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">src\Form\ImportType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>import.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="0ybwwKw" name="import.preserve_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">src\Form\ImportType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>import.preserve_children</source>
+        <target>Importa anche sottoelementi</target>
+      </segment>
+    </unit>
+    <unit id="yyIAudL" name="import.abort_on_validation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">src\Form\ImportType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation</source>
+        <target>Interrompi in caso di dati non validi</target>
+      </segment>
+    </unit>
     <unit id="d0GsgCW" name="import.btn">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
@@ -8368,14 +8873,54 @@ Element 3</target>
         <target>Data di scadenza del lotto</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
+      <segment state="translated">
+        <source>part.filter.lotNeedsRefill</source>
+        <target>I lotti necessitano di rifornimento</target>
+      </segment>
+    </unit>
+    <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
+      <segment state="translated">
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>I lotti hanno quantità sconosciuta</target>
+      </segment>
+    </unit>
+    <unit id="lRKoTj_" name="part.filter.attachmentName">
+      <segment state="translated">
+        <source>part.filter.attachmentName</source>
+        <target>Nome dell'allegato</target>
+      </segment>
+    </unit>
+    <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>Qualsiasi</target>
+      </segment>
+    </unit>
+    <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>Nessuno di</target>
+      </segment>
+    </unit>
+    <unit id="ZnYcxRf" name="part.filter.amount_sum">
+      <segment state="translated">
+        <source>part.filter.amount_sum</source>
+        <target>Quantità totale</target>
+      </segment>
+    </unit>
+    <unit id="FGuEete" name="filter.submit">
+      <segment state="translated">
+        <source>filter.submit</source>
+        <target>Aggiornare</target>
+      </segment>
+    </unit>
+    <unit id="4jJXUNM" name="filter.discard">
+      <segment state="translated">
+        <source>filter.discard</source>
+        <target>Scartare le modifiche</target>
+      </segment>
+    </unit>
     
     
     
@@ -9622,54 +10167,301 @@ Element 3</target>
         <target>Allegati</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="DGczoY6" name="tfa_u2f.add_key.registration_error">
+      <segment state="translated">
+        <source>tfa_u2f.add_key.registration_error</source>
+        <target>Si è verificato un errore durante la registrazione della chiave di sicurezza. Riprovare o usare un'altra chiave!</target>
+      </segment>
+    </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment state="translated">
+        <source>log.target_type.none</source>
+        <target>Nessuno</target>
+      </segment>
+    </unit>
+    <unit id="R2nX4ip" name="ui.darkmode.light">
+      <segment state="translated">
+        <source>ui.darkmode.light</source>
+        <target>Luminoso</target>
+      </segment>
+    </unit>
+    <unit id="3NHpuW3" name="ui.darkmode.dark">
+      <segment state="translated">
+        <source>ui.darkmode.dark</source>
+        <target>Scuro</target>
+      </segment>
+    </unit>
+    <unit id="4TGOK5_" name="ui.darkmode.auto">
+      <segment state="translated">
+        <source>ui.darkmode.auto</source>
+        <target>Auto (in base alle impostazioni di sistema)</target>
+      </segment>
+    </unit>
+    <unit id="9N0N8aL" name="label_generator.no_lines_given">
+      <segment state="translated">
+        <source>label_generator.no_lines_given</source>
+        <target>Nessun contenuto di testo specificato! Le etichette generate saranno vuote.</target>
+      </segment>
+    </unit>
+    <unit id="RdFvZsb" name="user.password_strength.very_weak">
+      <segment state="translated">
+        <source>user.password_strength.very_weak</source>
+        <target>Molto debole</target>
+      </segment>
+    </unit>
+    <unit id="IBjmblZ" name="user.password_strength.weak">
+      <segment state="translated">
+        <source>user.password_strength.weak</source>
+        <target>Debole</target>
+      </segment>
+    </unit>
+    <unit id="qSm_ID0" name="user.password_strength.medium">
+      <segment state="translated">
+        <source>user.password_strength.medium</source>
+        <target>Media</target>
+      </segment>
+    </unit>
+    <unit id="aWAaADS" name="user.password_strength.strong">
+      <segment state="translated">
+        <source>user.password_strength.strong</source>
+        <target>Forte</target>
+      </segment>
+    </unit>
+    <unit id="Wa9CStW" name="user.password_strength.very_strong">
+      <segment state="translated">
+        <source>user.password_strength.very_strong</source>
+        <target>Molto forte</target>
+      </segment>
+    </unit>
+    <unit id="6OHd5fv" name="perm.users.impersonate">
+      <segment state="translated">
+        <source>perm.users.impersonate</source>
+        <target>Impersonare altri utenti</target>
+      </segment>
+    </unit>
+    <unit id="ssn1H1A" name="user.impersonated_by.label">
+      <segment state="translated">
+        <source>user.impersonated_by.label</source>
+        <target>Come utente</target>
+      </segment>
+    </unit>
+    <unit id="inTlSge" name="user.stop_impersonation">
+      <segment state="translated">
+        <source>user.stop_impersonation</source>
+        <target>Termina di impersonare</target>
+      </segment>
+    </unit>
+    <unit id="T3yB7KF" name="user.impersonate.btn">
+      <segment state="translated">
+        <source>user.impersonate.btn</source>
+        <target>Impersonare</target>
+      </segment>
+    </unit>
+    <unit id="sFE8diE" name="user.impersonate.confirm.title">
+      <segment state="translated">
+        <source>user.impersonate.confirm.title</source>
+        <target>Vuoi davvero fingere di essere questo utente?</target>
+      </segment>
+    </unit>
+    <unit id="MlJJSEo" name="user.impersonate.confirm.message">
+      <segment state="translated">
+        <source>user.impersonate.confirm.message</source>
+        <target>Questo utente è loggato. Dovrebbe essere fatto solo per un buon motivo.
+
+Notare che non è possibile impersonare un utente disattivato. Quando si prova a farlo, si riceverà un messaggio "Accesso negato".</target>
+      </segment>
+    </unit>
+    <unit id="df2ac87" name="log.type.security.user_impersonated">
+      <segment state="translated">
+        <source>log.type.security.user_impersonated</source>
+        <target>Utente impersonato</target>
+      </segment>
+    </unit>
+    <unit id="08SKwoy" name="info_providers.providers_list.title">
+      <segment state="translated">
+        <source>info_providers.providers_list.title</source>
+        <target>Fornitore di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="BnbVOSD" name="info_providers.providers_list.active">
+      <segment state="translated">
+        <source>info_providers.providers_list.active</source>
+        <target>Attivo</target>
+      </segment>
+    </unit>
+    <unit id="adJnJGT" name="info_providers.providers_list.disabled">
+      <segment state="translated">
+        <source>info_providers.providers_list.disabled</source>
+        <target>Disabilitato</target>
+      </segment>
+    </unit>
+    <unit id="1M7yaPw" name="info_providers.capabilities.basic">
+      <segment state="translated">
+        <source>info_providers.capabilities.basic</source>
+        <target>Di base</target>
+      </segment>
+    </unit>
+    <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
+      <segment state="translated">
+        <source>info_providers.capabilities.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="NGbCaWh" name="info_providers.capabilities.picture">
+      <segment state="translated">
+        <source>info_providers.capabilities.picture</source>
+        <target>Immagini</target>
+      </segment>
+    </unit>
+    <unit id="a5JK5hi" name="info_providers.capabilities.datasheet">
+      <segment state="translated">
+        <source>info_providers.capabilities.datasheet</source>
+        <target>Datasheets</target>
+      </segment>
+    </unit>
+    <unit id="60AvDOv" name="info_providers.capabilities.price">
+      <segment state="translated">
+        <source>info_providers.capabilities.price</source>
+        <target>Prezzi</target>
+      </segment>
+    </unit>
+    <unit id="nNKOyNM" name="part.info_provider_reference.badge">
+      <segment state="translated">
+        <source>part.info_provider_reference.badge</source>
+        <target>Il fornitore di informazioni utilizzato per creare questo componente</target>
+      </segment>
+    </unit>
+    <unit id="WTB_AKQ" name="part.info_provider_reference">
+      <segment state="translated">
+        <source>part.info_provider_reference</source>
+        <target>Creato tramite il fornitore di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="Qhaj.j4" name="oauth_client.connect.btn">
+      <segment state="translated">
+        <source>oauth_client.connect.btn</source>
+        <target>OAuth di connessione</target>
+      </segment>
+    </unit>
+    <unit id="5_Z_m9s" name="info_providers.table.provider.label">
+      <segment state="translated">
+        <source>info_providers.table.provider.label</source>
+        <target>Fornitore</target>
+      </segment>
+    </unit>
+    <unit id="Cj5csML" name="info_providers.search.keyword">
+      <segment state="translated">
+        <source>info_providers.search.keyword</source>
+        <target>Parola chiave</target>
+      </segment>
+    </unit>
+    <unit id="rvTOWHb" name="info_providers.search.submit">
+      <segment state="translated">
+        <source>info_providers.search.submit</source>
+        <target>Ricerca</target>
+      </segment>
+    </unit>
+    <unit id="Mwq891Y" name="info_providers.search.providers.help">
+      <segment state="translated">
+        <source>info_providers.search.providers.help</source>
+        <target>Seleziona le fonti di informazioni in cui cercare.</target>
+      </segment>
+    </unit>
+    <unit id="nvk25qA" name="info_providers.search.providers">
+      <segment state="translated">
+        <source>info_providers.search.providers</source>
+        <target>Fornitori</target>
+      </segment>
+    </unit>
+    <unit id="5kSES8M" name="info_providers.search.info_providers_list">
+      <segment state="translated">
+        <source>info_providers.search.info_providers_list</source>
+        <target>Visualizza tutte le fonti di informazioni disponibili</target>
+      </segment>
+    </unit>
+    <unit id="Y2gg4WI" name="info_providers.search.title">
+      <segment state="translated">
+        <source>info_providers.search.title</source>
+        <target>Creare un componente dalla fonte di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
+      <segment state="translated">
+        <source>oauth_client.flash.connection_successful</source>
+        <target>Connessione all'applicazione OAuth stabilita con successo!</target>
+      </segment>
+    </unit>
+    <unit id="9ULD.eH" name="perm.part.info_providers">
+      <segment state="translated">
+        <source>perm.part.info_providers</source>
+        <target>Fornitori di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="En713bs" name="perm.part.info_providers.create_parts">
+      <segment state="translated">
+        <source>perm.part.info_providers.create_parts</source>
+        <target>Creare componenti dalla fonte di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
+      <segment state="translated">
+        <source>entity.edit.alternative_names.label</source>
+        <target>Nomi alternativi</target>
+      </segment>
+    </unit>
+    <unit id="GgN2HwP" name="entity.edit.alternative_names.help">
+      <segment state="translated">
+        <source>entity.edit.alternative_names.help</source>
+        <target>I nomi alternativi qui forniti, sono utilizzati per selezionare automaticamente questo elemento in base ai dati restituiti dalle fonti di informazioni.</target>
+      </segment>
+    </unit>
+    <unit id="TRmIjDN" name="info_providers.form.help_prefix">
+      <segment state="translated">
+        <source>info_providers.form.help_prefix</source>
+        <target>Fornitore</target>
+      </segment>
+    </unit>
+    <unit id="21tIbM2" name="update_manager.new_version_available.title">
+      <segment state="translated">
+        <source>update_manager.new_version_available.title</source>
+        <target>E' disponibile una nuova versione</target>
+      </segment>
+    </unit>
+    <unit id=".c.eoDV" name="update_manager.new_version_available.text">
+      <segment state="translated">
+        <source>update_manager.new_version_available.text</source>
+        <target>E' disponibile una nuova versione di Part-DB. Controlla qui.</target>
+      </segment>
+    </unit>
+    <unit id="KOFGqJw" name="update_manager.new_version_available.only_administrators_can_see">
+      <segment state="translated">
+        <source>update_manager.new_version_available.only_administrators_can_see</source>
+        <target>Solo gli amministratori possono vedere questo messaggio.</target>
+      </segment>
+    </unit>
+    <unit id="IFkvJpC" name="perm.system.show_available_updates">
+      <segment state="translated">
+        <source>perm.system.show_available_updates</source>
+        <target>Visualizza gli aggiornamenti di Part-DB disponibili</target>
+      </segment>
+    </unit>
+    <unit id="VVpmfIj" name="project.build.dont_check_quantity">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity</source>
+        <target>Non controllare le quantità</target>
+      </segment>
+    </unit>
+    <unit id="AzYSIiX" name="project.build.dont_check_quantity.help">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity.help</source>
+        <target>Quando questa opzione è selezionata, le quantità selezionate vengono prelevate, indipendentemente dal fatto che ci siano più o meno componenti di quelli effettivamente necessari per costruire il progetto.</target>
+      </segment>
+    </unit>
+    <unit id="tfOeMsC" name="part_list.action.invert_selection">
+      <segment state="translated">
+        <source>part_list.action.invert_selection</source>
+        <target>Invertire la selezione</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
