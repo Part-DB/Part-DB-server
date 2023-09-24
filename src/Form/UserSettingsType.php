@@ -93,7 +93,7 @@ class UserSettingsType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '2M',
+                        'maxSize' => '5M',
                     ]),
                 ],
             ])
