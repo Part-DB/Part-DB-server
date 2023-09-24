@@ -55,7 +55,7 @@ class StructuralEntityType extends AbstractType
             //In that case we add the new element to our choice_loader
 
             $data = $event->getData();
-            if (str_starts_with($data, '$%$')) {
+            if (is_string($data) && str_starts_with($data, '$%$')) {
                 //Extract the real name from the data
                 $data = substr($data, 3);
             } else {
