@@ -27,6 +27,7 @@ use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\ThemeChoiceType;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -44,7 +45,9 @@ use Symfony\Component\Validator\Constraints\File;
 
 class UserSettingsType extends AbstractType
 {
-    public function __construct(protected Security $security, protected bool $demo_mode)
+    public function __construct(protected Security $security,
+        protected bool $demo_mode,
+        #[Autowire(param: 'partdb.locale_menu')] private readonly array $preferred_languages)
     {
     }
 
@@ -109,7 +112,7 @@ class UserSettingsType extends AbstractType
                 'required' => false,
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
-                'preferred_choices' => ['en', 'de'],
+                'preferred_choices' => $this->preferred_languages,
             ])
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
