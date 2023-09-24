@@ -2702,7 +2702,7 @@ I sub elementi saranno spostati verso l'alto.</target>
       </notes>
       <segment state="translated">
         <source>entity.info.common.tab</source>
-        <target>Comune</target>
+        <target>Di base</target>
       </segment>
     </unit>
     <unit id="F0da8x0" name="entity.info.statistics.tab">
@@ -4029,7 +4029,7 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>Corrispondenza Reg.Ex. </target>
+        <target>Corrispondenza Reg.Ex.</target>
       </segment>
     </unit>
     <unit id="N66qZeD" name="search.submit">
@@ -7037,7 +7037,7 @@ ROMA</target>
       </notes>
       <segment state="translated">
         <source>company.edit.phone_number.placeholder</source>
-        <target>+39 0612345678</target>
+        <target>ad es. +39 0612345678</target>
       </segment>
     </unit>
     <unit id="khUB2so" name="company.edit.fax_number">
@@ -10367,33 +10367,168 @@ Element 3</target>
         <target>Reimpostazione password</target>
       </segment>
     </unit>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <unit id="0yxA3bg" name="log.element_edited.changed_fields.comment">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="ZX180Uu" name="log.element_edited.changed_fields.supplierpartnr">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplierpartnr</source>
+        <target>Codice del fornitore</target>
+      </segment>
+    </unit>
+    <unit id="Bzp4a3p" name="log.element_edited.changed_fields.supplier_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplier_product_url</source>
+        <target>URL del prodotto</target>
+      </segment>
+    </unit>
+    <unit id="X2KjgsJ" name="log.element_edited.changed_fields.price">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.price</source>
+        <target>Prezzo</target>
+      </segment>
+    </unit>
+    <unit id="zlKYtvI" name="log.element_edited.changed_fields.min_discount_quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.min_discount_quantity</source>
+        <target>Quantità minima d'ordine</target>
+      </segment>
+    </unit>
+    <unit id="IrL23Tw" name="log.element_edited.changed_fields.original_filename">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.original_filename</source>
+        <target>Nome file originale</target>
+      </segment>
+    </unit>
+    <unit id="qvgIER7" name="log.element_edited.changed_fields.path">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.path</source>
+        <target>Percorso file</target>
+      </segment>
+    </unit>
+    <unit id="B7rbOAi" name="log.element_edited.changed_fields.description">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="iRpQ.r4" name="log.element_edited.changed_fields.manufacturing_status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturing_status</source>
+        <target>Stato di produzione</target>
+      </segment>
+    </unit>
+    <unit id="aQlVtZN" name="log.element_edited.changed_fields.options.barcode_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.barcode_type</source>
+        <target>Tipo di codice a barre</target>
+      </segment>
+    </unit>
+    <unit id="GrbTB8Q" name="log.element_edited.changed_fields.status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.status</source>
+        <target>Stato</target>
+      </segment>
+    </unit>
+    <unit id="2MH9WjL" name="log.element_edited.changed_fields.quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.quantity</source>
+        <target>Quantità BOM</target>
+      </segment>
+    </unit>
+    <unit id="XRhN7QN" name="log.element_edited.changed_fields.mountnames">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mountnames</source>
+        <target>Nome dell'attrezzatura</target>
+      </segment>
+    </unit>
+    <unit id="j5npGa6" name="log.element_edited.changed_fields.name">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="NjHccov" name="log.element_edited.changed_fields.part">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.part</source>
+        <target>Componente</target>
+      </segment>
+    </unit>
+    <unit id="SCBolPs" name="log.element_edited.changed_fields.price_currency">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.price_currency</source>
+        <target>Valuta del prezzo</target>
+      </segment>
+    </unit>
+    <unit id="qVqwVf0" name="log.element_edited.changed_fields.partname_hint">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partname_hint</source>
+        <target>Suggerimento sul nome del componente</target>
+      </segment>
+    </unit>
+    <unit id="HE8CkUq" name="log.element_edited.changed_fields.partname_regex">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partname_regex</source>
+        <target>Filtro nome</target>
+      </segment>
+    </unit>
+    <unit id="waUb8Sn" name="log.element_edited.changed_fields.disable_footprints">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disable_footprints</source>
+        <target>Disabilita footprint</target>
+      </segment>
+    </unit>
+    <unit id="jysLxE8" name="log.element_edited.changed_fields.disable_manufacturers">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disable_manufacturers</source>
+        <target>Disabilita produttori</target>
+      </segment>
+    </unit>
+    <unit id="7SOq4dc" name="log.element_edited.changed_fields.disable_autodatasheets">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disable_autodatasheets</source>
+        <target>Disattivare il datasheet automatico</target>
+      </segment>
+    </unit>
+    <unit id="VXVZch0" name="log.element_edited.changed_fields.disable_properties">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disable_properties</source>
+        <target>Disabilita le proprietà</target>
+      </segment>
+    </unit>
+    <unit id="gEePBMo" name="log.element_edited.changed_fields.default_description">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.default_description</source>
+        <target>Descrizione standard</target>
+      </segment>
+    </unit>
+    <unit id="nxg002v" name="log.element_edited.changed_fields.default_comment">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.default_comment</source>
+        <target>Commento standard</target>
+      </segment>
+    </unit>
+    <unit id="EzrwA.V" name="log.element_edited.changed_fields.filetype_filter">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.filetype_filter</source>
+        <target>Estensioni di file consentite</target>
+      </segment>
+    </unit>
+    <unit id="Fu4Pkpd" name="log.element_edited.changed_fields.not_selectable">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.not_selectable</source>
+        <target>Non selezionato</target>
+      </segment>
+    </unit>
+    <unit id="HOMIDJA" name="log.element_edited.changed_fields.parent">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.parent</source>
+        <target>Elemento padre di livello</target>
+      </segment>
+    </unit>
     <unit id="gZ_rDFJ" name="log.element_edited.changed_fields.shipping_costs">
       <segment state="translated">
         <source>log.element_edited.changed_fields.shipping_costs</source>
