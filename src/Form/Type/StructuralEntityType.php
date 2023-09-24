@@ -51,11 +51,14 @@ class StructuralEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event) {
-            //When the data contains non-digit characters, we assume that the user entered a new element.
+            //When the data starts with "$%$", we assume that the user entered a new element.
             //In that case we add the new element to our choice_loader
 
             $data = $event->getData();
-            if (null === $data || !is_string($data) || $data === "" || ctype_digit($data)) {
+            if (str_starts_with($data, '$%$')) {
+                //Extract the real name from the data
+                $data = substr($data, 3);
+            } else {
                 return;
             }
 

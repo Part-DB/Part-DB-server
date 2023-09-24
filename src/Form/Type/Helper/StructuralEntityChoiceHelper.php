@@ -136,9 +136,10 @@ class StructuralEntityChoiceHelper
         if ($element->getID() === null) {
             if ($element instanceof AbstractStructuralDBElement) {
                 //Must be the same as the separator in the choice_loader, otherwise this will not work!
-                return $element->getFullPath('->');
+                return '$%$' . $element->getFullPath('->');
             }
-            return $element->getName();
+            // '$%$' is the indicator prefix for a new entity
+            return '$%$' . $element->getName();
         }
 
         return $element->getID();
