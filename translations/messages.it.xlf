@@ -2511,7 +2511,7 @@ I sub elementi saranno spostati verso l'alto.</target>
       </notes>
       <segment state="translated">
         <source>part.needs_review.badge</source>
-        <target>Necessaria revisione</target>
+        <target>Necessita revisione</target>
       </segment>
     </unit>
     <unit id="dF6ZXKR" name="part.favorite.badge">
@@ -7067,7 +7067,7 @@ ROMA</target>
       </notes>
       <segment state="translated">
         <source>company.edit.email.placeholder</source>
-        <target>ad es. contatti@societa.it</target>
+        <target>es. contatti@societa.it</target>
       </segment>
     </unit>
     <unit id="jv3fl1U" name="company.edit.website">
@@ -7117,7 +7117,7 @@ ROMA</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://societa.it/product/%PARTNUMBER%</target>
+        <target>es. https://societa.it/product/%PARTNUMBER%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
@@ -10280,7 +10280,7 @@ Element 3</target>
     <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
       <segment state="translated">
         <source>category.edit.partname_regex.placeholder</source>
-        <target>ad es. "/Condensatore \d+ nF/i"</target>
+        <target>es. "/Condensatore \d+ nF/i"</target>
       </segment>
     </unit>
     <unit id="QFgP__5" name="category.edit.partname_regex.help">
