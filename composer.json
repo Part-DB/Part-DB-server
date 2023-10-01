@@ -86,8 +86,7 @@
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
         "web-auth/webauthn-symfony-bundle": "^4.0.0",
-        "webmozart/assert": "^1.4",
-        "webonyx/graphql-php": "^15.6"
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",
