@@ -44,7 +44,8 @@
                     {% for api_token in user.apiTokens %}
                         {# @var api_token \App\Entity\UserSystem\ApiToken #}
                         <tr>
-                            <td>{{ api_token.name }}</td>
+                            <td>{{ api_token.name }}<br>
+                                <small class="text-muted">{% trans%}api_token.ends_with{% endtrans%} ...<i>{{ api_token.lastTokenChars }}</i></small></td>
                             <td>{{ api_token.level.translationKey|trans }}</td>
                             <td>
                                 {{ _self.format_date(api_token.validUntil) }}

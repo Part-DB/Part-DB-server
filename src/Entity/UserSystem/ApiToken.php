@@ -182,5 +182,14 @@ class ApiToken
         return $this;
     }
 
+    /**
+     * Returns the last 4 characters of the token secret, which can be used to identify the token.
+     * @return string
+     */
+    public function getLastTokenChars(): string
+    {
+        return substr($this->token, -4);
+    }
+
 
 }
