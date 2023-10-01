@@ -32,6 +32,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\DocumentedAPIProperty;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
@@ -85,6 +86,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
+#[DocumentedAPIProperty(schemaName: 'Part-Read', property: 'total_instock', type: 'number', nullable: false,
+    description: 'The total amount of this part in stock (sum of all part lots).')]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;

@@ -29,6 +29,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\ApiPlatform\DocumentedAPIProperty;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;
@@ -73,6 +74,11 @@ use LogicException;
     normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
+#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'media_url', type: 'string', nullable: true,
+    description: 'The URL to the file, where the attachment file can be downloaded. This can be an internal or external URL.',
+    example: '/media/part/2/bc547-6508afa5a79c8.pdf')]
+#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
+    description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
