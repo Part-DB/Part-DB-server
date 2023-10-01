@@ -67,6 +67,8 @@ This schema is a machine readable description of the API, which can be imported 
 
 API generators which can generate a client library for the API from the schema are available for many programming languages, like [OpenAPI Generator](https://openapi-generator.tech/). 
 
+An JSONLD/Hydra version of the schema is also available under `/api/docs.jsonld` (so `https://your-part-db.local/api/docs.jsonld`).
+
 ## Interactive documentation
 
 Part-DB provides an interactive documentation for the API, which is available under `/api/docs` (so `https://your-part-db.local/api/docs`).

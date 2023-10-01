@@ -65,7 +65,7 @@ class APIDocsAvailabilityTest extends WebTestCase
             ['/api'],
             ['/api/docs.html'],
             ['/api/docs.json'],
-            //['/api/docs.jsonld'],
+            ['/api/docs.jsonld'],
         ];
     }
 }
