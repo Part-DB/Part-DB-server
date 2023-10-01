@@ -83,8 +83,10 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ApiResource(
     shortName: 'User',
     operations: [
-        new Get(openapiContext: ['summary' => 'Get a specific user.']),
-        new GetCollection(openapiContext: ['summary' => 'Get all users defined in the system.']),
+        new Get(openapiContext: ['summary' => 'Get a specific user.'],
+            security: 'is_granted("read", object)'),
+        new GetCollection(openapiContext: ['summary' => 'Get all users defined in the system.'],
+            security: 'is_granted("@users.read")'),
     ],
     normalizationContext: ['groups' => ['user:read'], 'openapi_definition_name' => 'Read'],
 )]
@@ -108,7 +110,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?\DateTimeInterface $lastModified = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $createdAt = null;
+    protected ?\DateTimeInterface $addedDate = null;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
@@ -258,7 +260,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     #[ORM\ManyToOne(targetEntity: UserAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['user:read', 'usser:write'])]
+    #[Groups(['user:read', 'user:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated
