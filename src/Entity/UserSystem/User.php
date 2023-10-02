@@ -1023,6 +1023,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function addApiToken(ApiToken $apiToken): void
     {
+        $apiToken->setUser($this);
         $this->api_tokens->add($apiToken);
     }
 
