@@ -96,6 +96,17 @@ whose name starts with "BC", you can use `/api/parts.jsonld?name=BC%25` (the `%2
 There are other filters available for some entities, allowing you to search on other fields, or restricting the results
 by numeric values or dates. See the endpoint documentation for the available filters.
 
+## Filter by associated entities
+
+To get all parts with a certain category, manufacturer, etc. you can use the `category`, `manufacturer`, etc. query parameters of the `/api/parts` endpoint.
+They are so called entitiy filters and accept a comma separated list of IDs of the entities you want to filter by. 
+For example if you want to get all parts with the category "Resistor" (Category ID 1) and "Capacitor" (Category ID 2), you can use `/api/parts.jsonld?category=1,2`.
+
+Suffix an id with `+` to suffix, to include all direct children categories of the given category. Use the `++` suffix to include all children categories recursively.
+To get all parts with the category "Resistor" (Category ID 1) and all children categories of "Capacitor" (Category ID 2), you can use `/api/parts.jsonld?category=1,2++`.
+
+See the endpoint documentation for the available entity filters.
+
 ## Ordering results
 
 When retrieving a list of entities, you can order the results by various fields using the `order` query parameter.

@@ -37,6 +37,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
@@ -91,8 +92,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
-#[ApiFilter(BooleanFilter::class, properties: ["favorite" ])]
+#[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
