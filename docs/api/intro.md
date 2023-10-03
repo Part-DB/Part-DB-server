@@ -85,6 +85,25 @@ To change the size of the pages (the number of items in a single page) use the `
 
 See [API Platform docs](https://api-platform.com/docs/core/pagination) for more infos.
 
+## Filtering results / Searching
+
+When retrieving a list of entities, you can restrict the results by various filters. Almost all entities have a search filter,
+which allows you to only include entities, which (text) fields match the given search term: For example if you only want to
+get parts, with the Name "BC547", you can use `/api/parts.jsonld?name=BC547`. You can use `%` as wildcard for multiple characters
+in the search term (Be sure to properly encode the search term, if you use special characters). For example if you want to get all parts,
+whose name starts with "BC", you can use `/api/parts.jsonld?name=BC%25` (the `%25` is the url encoded version of `%`).
+
+There are other filters available for some entities, allowing you to search on other fields, or restricting the results
+by numeric values or dates. See the endpoint documentation for the available filters.
+
+## Ordering results
+
+When retrieving a list of entities, you can order the results by various fields using the `order` query parameter.
+For example if you want to get all parts ordered by their name, you can use `/api/parts/?order[name]=asc`. You can use 
+this parameter multiple times to order by multiple fields.
+
+See the endpoint documentation for the available fields to order by.
+
 ## Property filter
 
 Sometimes you only want to get a subset of the properties of an entity, for example when you only need the name of a part, but not all the other properties.

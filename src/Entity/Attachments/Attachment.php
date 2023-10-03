@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -30,6 +33,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;
@@ -79,6 +83,9 @@ use LogicException;
     example: '/media/part/2/bc547-6508afa5a79c8.pdf')]
 #[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
     description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
+#[ApiFilter(LikeFilter::class, properties: ["name"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
