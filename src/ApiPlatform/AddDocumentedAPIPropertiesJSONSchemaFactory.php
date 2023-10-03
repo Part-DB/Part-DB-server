@@ -65,31 +65,6 @@ class AddDocumentedAPIPropertiesJSONSchemaFactory implements SchemaFactoryInterf
                 $api_property, $serializerContext ?? [], $format);
         }
 
-        /*if ($className === Attachment::class) {
-            $api_property = new ApiProperty(description: 'Test');
-            $this->buildPropertySchema($schema, 'Attachment-Read', 'media_url', $api_property, $serializerContext ?? [],
-                $format);
-        }*/
-
-        //Add media_url and thumbnail_url to the Attachment schema
-        /*if ($className === Attachment::class) {
-            $tmp = $schema->getDefinitions()->getArrayCopy();
-            $tmp['properties']['media_url'] = [
-                'type' => 'string',
-                'readOnly' => true,
-                'format' => 'uri',
-                'description' => 'The URL to the attachment',
-            ];
-            $tmp['properties']['thumbnail_url'] = [
-                'type' => 'string',
-                'readOnly' => true,
-                'format' => 'uri',
-                'description' => 'The URL to the thumbnail of the attachment',
-            ];
-            $schema->setDefinitions(new \ArrayObject($tmp));
-        }*/
-
-        //Fd
         return $schema;
     }
 
