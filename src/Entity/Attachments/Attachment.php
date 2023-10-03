@@ -33,6 +33,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
@@ -84,6 +85,7 @@ use LogicException;
 #[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
     description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
 #[ApiFilter(LikeFilter::class, properties: ["name"])]
+#[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 abstract class Attachment extends AbstractNamedDBElement
