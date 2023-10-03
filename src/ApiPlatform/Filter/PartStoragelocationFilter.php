@@ -27,6 +27,7 @@ use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parts\StorageLocation;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -35,7 +36,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class EntityFilter extends AbstractFilter
+class PartStoragelocationFilter extends AbstractFilter
 {
 
     public function __construct(
@@ -57,25 +58,19 @@ class EntityFilter extends AbstractFilter
         Operation $operation = null,
         array $context = []
     ): void {
+        //Do not check for mapping here, as we are using a virtual property
         if (
-            !$this->isPropertyEnabled($property, $resourceClass) ||
-            !$this->isPropertyMapped($property, $resourceClass, true)
+            !$this->isPropertyEnabled($property, $resourceClass)
         ) {
             return;
         }
 
-        $metadata = $this->getClassMetadata($resourceClass);
-        $target_class = $metadata->getAssociationTargetClass($property);
-        //If it is not an association we can not filter the property
-        if (!$target_class) {
-            return;
-        }
-
-        $elements = $this->filter_helper->valueToEntityArray($value, $target_class);
+        $elements = $this->filter_helper->valueToEntityArray($value, StorageLocation::class);
 
         $parameterName = $queryNameGenerator->generateParameterName($property); // Generate a unique parameter name to avoid collisions with other filters
         $queryBuilder
-            ->andWhere(sprintf('o.%s IN (:%s)', $property, $parameterName))
+            ->leftJoin('o.partLots', 'partLots')
+            ->andWhere(sprintf('partLots.storage_location IN (:%s)', $parameterName))
             ->setParameter($parameterName, $elements);
     }
 

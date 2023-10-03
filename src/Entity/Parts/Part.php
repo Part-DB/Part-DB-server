@@ -39,6 +39,7 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\DocumentedAPIProperty;
 use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
@@ -93,6 +94,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
+#[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
