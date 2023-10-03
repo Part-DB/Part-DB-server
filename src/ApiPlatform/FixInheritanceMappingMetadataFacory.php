@@ -51,7 +51,7 @@ class FixInheritanceMappingMetadataFacory implements ResourceMetadataCollectionF
     {
         //If we already have a cached value, we can return it
         if (isset($this->cache[$resourceClass])) {
-            return $this->cache[$resourceClass];
+            return $this->decorated->create($this->cache[$resourceClass]);
         }
 
         //Check if the resourceClass is a single inheritance class, then we can use the parent class to access it
