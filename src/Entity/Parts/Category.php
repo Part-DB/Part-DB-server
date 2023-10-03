@@ -177,6 +177,12 @@ class Category extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
+    #[Groups(['category:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['category:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     public function getPartnameHint(): string
     {
         return $this->partname_hint;

@@ -36,8 +36,6 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
-use App\Entity\Parts\Footprint;
 use App\Repository\CurrencyRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
@@ -151,6 +149,12 @@ class Currency extends AbstractStructuralDBElement
      */
     #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'currency')]
     protected Collection $pricedetails;
+
+    #[Groups(['currency:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['currency:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
 
     public function __construct()
     {

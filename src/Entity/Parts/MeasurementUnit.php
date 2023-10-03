@@ -150,6 +150,12 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 
+    #[Groups(['measurement_unit:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['measurement_unit:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     /**
      * @return string
      */

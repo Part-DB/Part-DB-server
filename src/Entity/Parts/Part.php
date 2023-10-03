@@ -150,6 +150,12 @@ class Part extends AttachmentContainingDBElement
     #[Groups(['part:read', 'part:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
+    #[Groups(['part:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['part:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();

@@ -164,6 +164,12 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[Groups(['location:read', 'location:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
+    #[Groups(['location:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['location:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     /********************************************************************************
      *
      *   Getters

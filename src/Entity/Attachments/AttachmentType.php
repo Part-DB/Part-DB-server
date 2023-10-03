@@ -76,7 +76,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     uriVariables: [
         'id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)
     ],
-    normalizationContext: ['groups' => ['footprint:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+    normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
@@ -96,7 +96,7 @@ class AttachmentType extends AbstractStructuralDBElement
 
     /**
      * @var string A comma separated list of file types, which are allowed for attachment files.
-     * Must be in the format of <input type=file> accept attribute
+     * Must be in the format of <pre><input type=file></pre> accept attribute
      * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
      */
     #[ORM\Column(type: Types::TEXT)]
@@ -131,6 +131,12 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
     protected Collection $attachments_with_type;
+
+    #[Groups(['attachment_type:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['attachment_type:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
 
     public function __construct()
     {

@@ -156,6 +156,12 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read', 'attachment_write'])]
     protected ?AttachmentType $attachment_type = null;
 
+    #[Groups(['attachment:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['attachment:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     public function __construct()
     {
         //parent::__construct();

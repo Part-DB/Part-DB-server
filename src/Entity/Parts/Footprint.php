@@ -129,6 +129,12 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
+    #[Groups(['footprint:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['footprint:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+
     /****************************************
      * Getters
      ****************************************/
