@@ -191,7 +191,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * Return a formatted string version of the values of the string.
      * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text].
      */
-    #[Groups('parameter:read', 'full')]
+    #[Groups(['parameter:read', 'full'])]
     #[SerializedName('formatted')]
     public function getFormattedValue(): string
     {

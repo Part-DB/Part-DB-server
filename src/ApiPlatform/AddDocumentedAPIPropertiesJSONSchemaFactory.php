@@ -98,6 +98,8 @@ class AddDocumentedAPIPropertiesJSONSchemaFactory implements SchemaFactoryInterf
         $version = $schema->getVersion();
         $swagger = Schema::VERSION_SWAGGER === $version;
 
+        $propertySchema = [];
+
         if (false === $propertyMetadata->writeable) {
             $propertySchema['readOnly'] = true;
         }
@@ -115,14 +117,14 @@ class AddDocumentedAPIPropertiesJSONSchemaFactory implements SchemaFactoryInterf
             $propertySchema['deprecated'] = true;
         }
 
-        if (!isset($propertySchema['default']) && !empty($default = $propertyMetadata->default)) {
+        if (!empty($default = $propertyMetadata->default)) {
             if ($default instanceof \BackedEnum) {
                 $default = $default->value;
             }
             $propertySchema['default'] = $default;
         }
 
-        if (!isset($propertySchema['example']) && !empty($example = $propertyMetadata->example)) {
+        if (!empty($example = $propertyMetadata->example)) {
             $propertySchema['example'] = $example;
         }
 
