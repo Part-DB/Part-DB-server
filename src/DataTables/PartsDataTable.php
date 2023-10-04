@@ -63,161 +63,161 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-	public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly Security $security, private readonly string $default_part_columns, protected LoggerInterface $logger)
-	{
-	}
+    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly Security $security, private readonly string $default_part_columns, protected LoggerInterface $logger)
+    {
+    }
 
-	public function configureOptions(OptionsResolver $optionsResolver): void
-	{
-		$optionsResolver->setDefaults([
-			'filter' => null,
-			'search' => null
-		]);
+    public function configureOptions(OptionsResolver $optionsResolver): void
+    {
+        $optionsResolver->setDefaults([
+            'filter' => null,
+            'search' => null
+        ]);
 
-		$optionsResolver->setAllowedTypes('filter', [PartFilter::class, 'null']);
-		$optionsResolver->setAllowedTypes('search', [PartSearchFilter::class, 'null']);
-	}
+        $optionsResolver->setAllowedTypes('filter', [PartFilter::class, 'null']);
+        $optionsResolver->setAllowedTypes('search', [PartSearchFilter::class, 'null']);
+    }
 
-	public function configure(DataTable $dataTable, array $options): void
-	{
-		$resolver = new OptionsResolver();
-		$this->configureOptions($resolver);
-		$options = $resolver->resolve($options);
+    public function configure(DataTable $dataTable, array $options): void
+    {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
 
-		$dataTable
-			//Color the table rows depending on the review and favorite status
-			->add('dont_matter', RowClassColumn::class, [
-				'render' => function ($value, Part $context): string {
-					if ($context->isNeedsReview()) {
-						return 'table-secondary';
-					}
-					if ($context->isFavorite()) {
-						return 'table-info';
-					}
+        $dataTable
+            //Color the table rows depending on the review and favorite status
+            ->add('dont_matter', RowClassColumn::class, [
+                'render' => function ($value, Part $context): string {
+                    if ($context->isNeedsReview()) {
+                        return 'table-secondary';
+                    }
+                    if ($context->isFavorite()) {
+                        return 'table-info';
+                    }
 
-					return ''; //Default coloring otherwise
-				},
-			])
+                    return ''; //Default coloring otherwise
+                },
+            ])
 
-			->add('select', SelectColumn::class)
-			->add('picture', TextColumn::class, [
-				'label' => '',
-				'className' => 'no-colvis',
-				'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
-			]);
+            ->add('select', SelectColumn::class)
+            ->add('picture', TextColumn::class, [
+                'label' => '',
+                'className' => 'no-colvis',
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
+            ]);
 
 
-		// internal array of $dataTable->add(...) parameters. Parameters will be later passed to the method 
-		// after sorting columns according to TABLE_PART_DEFAULT_COLUMNS option.
-		$columns = [];
+        // internal array of $dataTable->add(...) parameters. Parameters will be later passed to the method 
+        // after sorting columns according to TABLE_PART_DEFAULT_COLUMNS option.
+        $columns = [];
 
-		$columns['name'] = [
-			'name', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.name'),
-				'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
-			]
-		];
-		$columns['id'] = [
-			'id', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.id'),
-				'visible' => false,
-			]
-		];
-		$columns['ipn'] = [
-			'ipn', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.ipn'),
-				'visible' => false,
-			]
-		];
-		$columns['description'] = [
-			'description', MarkdownColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.description'),
-			]
-		];
+        $columns['name'] = [
+            'name', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.name'),
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
+            ]
+        ];
+        $columns['id'] = [
+            'id', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.id'),
+                'visible' => false,
+            ]
+        ];
+        $columns['ipn'] = [
+            'ipn', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.ipn'),
+                'visible' => false,
+            ]
+        ];
+        $columns['description'] = [
+            'description', MarkdownColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.description'),
+            ]
+        ];
 
-		if ($this->security->isGranted('@categories.read')) {
-			$columns['category'] = [
-				'category', EntityColumn::class,
-				[
-					'label' => $this->translator->trans('part.table.category'),
-					'property' => 'category',
-				]
-			];
-		}
+        if ($this->security->isGranted('@categories.read')) {
+            $columns['category'] = [
+                'category', EntityColumn::class,
+                [
+                    'label' => $this->translator->trans('part.table.category'),
+                    'property' => 'category',
+                ]
+            ];
+        }
 
-		if ($this->security->isGranted('@footprints.read')) {
-			$columns['footprint'] = [
-				'footprint', EntityColumn::class,
-				[
-					'property' => 'footprint',
-					'label' => $this->translator->trans('part.table.footprint'),
-				]
-			];
-		}
-		if ($this->security->isGranted('@manufacturers.read')) {
-			$columns['manufacturer'] = [
-				'manufacturer', EntityColumn::class,
-				[
-					'property' => 'manufacturer',
-					'label' => $this->translator->trans('part.table.manufacturer'),
-				]
-			];
-		}
-		if ($this->security->isGranted('@storelocations.read')) {
-			$columns['storelocation'] = [
-				'storelocation', TextColumn::class,
-				[
-					'label' => $this->translator->trans('part.table.storeLocations'),
-					'orderField' => 'storelocations.name',
-					'render' => function ($value, Part $context): string {
-						$tmp = [];
-						foreach ($context->getPartLots() as $lot) {
-							//Ignore lots without storelocation
-							if (!$lot->getStorageLocation() instanceof Storelocation) {
-								continue;
-							}
-							$tmp[] = sprintf(
-								'<a href="%s" title="%s">%s</a>',
-								$this->urlGenerator->listPartsURL($lot->getStorageLocation()),
-								htmlspecialchars($lot->getStorageLocation()->getFullPath()),
-								htmlspecialchars($lot->getStorageLocation()->getName())
-							);
-						}
+        if ($this->security->isGranted('@footprints.read')) {
+            $columns['footprint'] = [
+                'footprint', EntityColumn::class,
+                [
+                    'property' => 'footprint',
+                    'label' => $this->translator->trans('part.table.footprint'),
+                ]
+            ];
+        }
+        if ($this->security->isGranted('@manufacturers.read')) {
+            $columns['manufacturer'] = [
+                'manufacturer', EntityColumn::class,
+                [
+                    'property' => 'manufacturer',
+                    'label' => $this->translator->trans('part.table.manufacturer'),
+                ]
+            ];
+        }
+        if ($this->security->isGranted('@storelocations.read')) {
+            $columns['storelocation'] = [
+                'storelocation', TextColumn::class,
+                [
+                    'label' => $this->translator->trans('part.table.storeLocations'),
+                    'orderField' => 'storelocations.name',
+                    'render' => function ($value, Part $context): string {
+                        $tmp = [];
+                        foreach ($context->getPartLots() as $lot) {
+                            //Ignore lots without storelocation
+                            if (!$lot->getStorageLocation() instanceof Storelocation) {
+                                continue;
+                            }
+                            $tmp[] = sprintf(
+                                '<a href="%s" title="%s">%s</a>',
+                                $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
+                                htmlspecialchars($lot->getStorageLocation()->getFullPath()),
+                                htmlspecialchars($lot->getStorageLocation()->getName())
+                            );
+                        }
 
-						return implode('<br>', $tmp);
-					},
-				]
-			];
-		}
+                        return implode('<br>', $tmp);
+                    },
+                ]
+            ];
+        }
 
-		$columns['amount'] = [
-			'amount', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.amount'),
-				'render' => function ($value, Part $context) {
-					$amount = $context->getAmountSum();
-					$expiredAmount = $context->getExpiredAmountSum();
+        $columns['amount'] = [
+            'amount', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.amount'),
+                'render' => function ($value, Part $context) {
+                    $amount = $context->getAmountSum();
+                    $expiredAmount = $context->getExpiredAmountSum();
 
-					$ret = '';
+                    $ret = '';
 
-					if ($context->isAmountUnknown()) {
-						//When all amounts are unknown, we show a question mark
-						if ($amount === 0.0) {
-							$ret .= sprintf('<b class="text-primary" title="%s">?</b>',
-								$this->translator->trans('part_lots.instock_unknown'));
-						} else { //Otherwise mark it with greater equal and the (known) amount
-							$ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
-								$this->translator->trans('part_lots.instock_unknown')
-							);
-							$ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
-						}
-					} else {
-						$ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
-					}
+                    if ($context->isAmountUnknown()) {
+                        //When all amounts are unknown, we show a question mark
+                        if ($amount === 0.0) {
+                            $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                                $this->translator->trans('part_lots.instock_unknown'));
+                        } else { //Otherwise mark it with greater equal and the (known) amount
+                            $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                                $this->translator->trans('part_lots.instock_unknown')
+                            );
+                            $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                        }
+                    } else {
+                        $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                    }
 
                 //If we have expired lots, we show them in parentheses behind
                 if ($expiredAmount > 0) {
@@ -233,296 +233,296 @@ final class PartsDataTable implements DataTableTypeInterface
                         $ret);
                 }
 
-					return $ret;
-				},
-				'orderField' => 'amountSum'
-			]
-		];
-		$columns['minamount'] = [
-			'minamount', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.minamount'),
-				'visible' => false,
-				'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit())),
-			]
-		];
+                    return $ret;
+                },
+                'orderField' => 'amountSum'
+            ]
+        ];
+        $columns['minamount'] = [
+            'minamount', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.minamount'),
+                'visible' => false,
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit())),
+            ]
+        ];
 
-		if ($this->security->isGranted('@footprints.read')) {
-			$columns['partUnit'] = [
-				'partUnit', TextColumn::class,
-				[
-					'field' => 'partUnit.name',
-					'label' => $this->translator->trans('part.table.partUnit'),
-					'visible' => false,
-				]
-			];
-		}
+        if ($this->security->isGranted('@footprints.read')) {
+            $columns['partUnit'] = [
+                'partUnit', TextColumn::class,
+                [
+                    'field' => 'partUnit.name',
+                    'label' => $this->translator->trans('part.table.partUnit'),
+                    'visible' => false,
+                ]
+            ];
+        }
 
-		$columns['addedDate'] = [
-			'addedDate', LocaleDateTimeColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.addedDate'),
-				'visible' => false,
-			]
-		];
-		$columns['lastModified'] = [
-			'lastModified', LocaleDateTimeColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.lastModified'),
-				'visible' => false,
-			]
-		];
-		$columns['needs_review'] = [
-			'needs_review', PrettyBoolColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.needsReview'),
-				'visible' => false,
-			]
-		];
-		$columns['favorite'] = [
-			'favorite', PrettyBoolColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.favorite'),
-				'visible' => false,
-			]
-		];
-		$columns['manufacturing_status'] = [
-			'manufacturing_status', EnumColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.manufacturingStatus'),
-				'visible' => false,
-				'class' => ManufacturingStatus::class,
-				'render' => function(?ManufacturingStatus $status, Part $context): string {
-					if (!$status) {
-						return '';
-					}
+        $columns['addedDate'] = [
+            'addedDate', LocaleDateTimeColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.addedDate'),
+                'visible' => false,
+            ]
+        ];
+        $columns['lastModified'] = [
+            'lastModified', LocaleDateTimeColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.lastModified'),
+                'visible' => false,
+            ]
+        ];
+        $columns['needs_review'] = [
+            'needs_review', PrettyBoolColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.needsReview'),
+                'visible' => false,
+            ]
+        ];
+        $columns['favorite'] = [
+            'favorite', PrettyBoolColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.favorite'),
+                'visible' => false,
+            ]
+        ];
+        $columns['manufacturing_status'] = [
+            'manufacturing_status', EnumColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.manufacturingStatus'),
+                'visible' => false,
+                'class' => ManufacturingStatus::class,
+                'render' => function(?ManufacturingStatus $status, Part $context): string {
+                    if (!$status) {
+                        return '';
+                    }
 
-					return $this->translator->trans($status->toTranslationKey());
-				} ,
-			]
-		];
-		$columns['manufacturer_product_number'] = [
-			'manufacturer_product_number', TextColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.mpn'),
-				'visible' => false,
-			]
-		];
-		$columns['mass'] = [
-			'mass', SIUnitNumberColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.mass'),
-				'visible' => false,
-				'unit' => 'g'
-			]
-		];
-		$columns['tags'] = [
-			'tags', TagsColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.tags'),
-				'visible' => false,
-			]
-		];
-		$columns['attachments'] = [
-			'attachments', PartAttachmentsColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.attachments'),
-				'visible' => false,
-			]
-		];
-		$columns['edit'] = [
-			'edit', IconLinkColumn::class,
-			[
-				'label' => $this->translator->trans('part.table.edit'),
-				'visible' => false,
-				'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
-				'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
-				'title' => $this->translator->trans('part.table.edit.title'),
-			]
-		];
+                    return $this->translator->trans($status->toTranslationKey());
+                } ,
+            ]
+        ];
+        $columns['manufacturer_product_number'] = [
+            'manufacturer_product_number', TextColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.mpn'),
+                'visible' => false,
+            ]
+        ];
+        $columns['mass'] = [
+            'mass', SIUnitNumberColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.mass'),
+                'visible' => false,
+                'unit' => 'g'
+            ]
+        ];
+        $columns['tags'] = [
+            'tags', TagsColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.tags'),
+                'visible' => false,
+            ]
+        ];
+        $columns['attachments'] = [
+            'attachments', PartAttachmentsColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.attachments'),
+                'visible' => false,
+            ]
+        ];
+        $columns['edit'] = [
+            'edit', IconLinkColumn::class,
+            [
+                'label' => $this->translator->trans('part.table.edit'),
+                'visible' => false,
+                'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
+                'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
+                'title' => $this->translator->trans('part.table.edit.title'),
+            ]
+        ];
 
-		$visible_columns_ids = array_map("trim", explode(",", $this->default_part_columns));
-		$allowed_configurable_columns_ids = ["name", "id", "ipn", "description", "category", "footprint", "manufacturer",
-			"storelocation", "amount", "minamount", "partUnit", "addedDate", "lastModified", "needs_review", "favorite",
-			"manufacturing_status", "manufacturer_product_number", "mass", "tags", "attachments", "edit"
-		];
-		$processed_columns = [];
+        $visible_columns_ids = array_map("trim", explode(",", $this->default_part_columns));
+        $allowed_configurable_columns_ids = ["name", "id", "ipn", "description", "category", "footprint", "manufacturer",
+            "storelocation", "amount", "minamount", "partUnit", "addedDate", "lastModified", "needs_review", "favorite",
+            "manufacturing_status", "manufacturer_product_number", "mass", "tags", "attachments", "edit"
+        ];
+        $processed_columns = [];
 
-		foreach ($visible_columns_ids as $col_id) {
-			if (!in_array($col_id, $allowed_configurable_columns_ids) || !isset($columns[$col_id])) {
-				$this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify invalid column '$col_id'. Collumn is skipped.");
-				continue;
-			}
+        foreach ($visible_columns_ids as $col_id) {
+            if (!in_array($col_id, $allowed_configurable_columns_ids) || !isset($columns[$col_id])) {
+                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify invalid column '$col_id'. Collumn is skipped.");
+                continue;
+            }
 
-			if (in_array($col_id, $processed_columns)) {
-				$this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify column '$col_id' multiple time. Only first occurence is used.");
-				continue;
-			}
+            if (in_array($col_id, $processed_columns)) {
+                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify column '$col_id' multiple time. Only first occurence is used.");
+                continue;
+            }
 
-			$options = [];
-			if (count($columns[$col_id]) >= 3) {
-				$options = $columns[$col_id][2];
-			}
-			$options["visible"] = true;
-			$dataTable->add($col_id, $columns[$col_id][1], $options);
+            $options = [];
+            if (count($columns[$col_id]) >= 3) {
+                $options = $columns[$col_id][2];
+            }
+            $options["visible"] = true;
+            $dataTable->add($col_id, $columns[$col_id][1], $options);
 
-			$processed_columns[] = $col_id;
-		}
+            $processed_columns[] = $col_id;
+        }
 
-		// add remaining non-visible columns
-		foreach ($allowed_configurable_columns_ids as $col_id) {
-			if (in_array($col_id, $processed_columns)) {
-				// column already processed
-				continue;
-			}
+        // add remaining non-visible columns
+        foreach ($allowed_configurable_columns_ids as $col_id) {
+            if (in_array($col_id, $processed_columns)) {
+                // column already processed
+                continue;
+            }
 
-			$options = [];
-			if (count($columns[$col_id]) >= 3) {
-				$options = $columns[$col_id][2];
-			}
-			$options["visible"] = false;
-			$dataTable->add($col_id, $columns[$col_id][1], $options);
+            $options = [];
+            if (count($columns[$col_id]) >= 3) {
+                $options = $columns[$col_id][2];
+            }
+            $options["visible"] = false;
+            $dataTable->add($col_id, $columns[$col_id][1], $options);
 
-			$processed_columns[] = $col_id;
-		}
+            $processed_columns[] = $col_id;
+        }
 
-		$dataTable->addOrderBy('name')
-			->createAdapter(TwoStepORMAdapater::class, [
-				'filter_query' => $this->getFilterQuery(...),
-				'detail_query' => $this->getDetailQuery(...),
-				'entity' => Part::class,
-				'hydrate' => Query::HYDRATE_OBJECT,
-				'criteria' => [
-					function (QueryBuilder $builder) use ($options): void {
-						$this->buildCriteria($builder, $options);
-					},
-					new SearchCriteriaProvider(),
-				],
-			]);
-	}
+        $dataTable->addOrderBy('name')
+            ->createAdapter(TwoStepORMAdapater::class, [
+                'filter_query' => $this->getFilterQuery(...),
+                'detail_query' => $this->getDetailQuery(...),
+                'entity' => Part::class,
+                'hydrate' => Query::HYDRATE_OBJECT,
+                'criteria' => [
+                    function (QueryBuilder $builder) use ($options): void {
+                        $this->buildCriteria($builder, $options);
+                    },
+                    new SearchCriteriaProvider(),
+                ],
+            ]);
+    }
 
 
-	private function getFilterQuery(QueryBuilder $builder): void
-	{
-		/* In the filter query we only select the IDs. The fetching of the full entities is done in the detail query.
-		 * We only need to join the entities here, so we can filter by them.
-		 * The filter conditions are added to this QB in the buildCriteria method.
-		 */
-		$builder
-			->select('part.id')
-			->addSelect('part.minamount AS HIDDEN minamount')
-			//Calculate amount sum using a subquery, so we can filter and sort by it
-			->addSelect(
-				'(
+    private function getFilterQuery(QueryBuilder $builder): void
+    {
+        /* In the filter query we only select the IDs. The fetching of the full entities is done in the detail query.
+         * We only need to join the entities here, so we can filter by them.
+         * The filter conditions are added to this QB in the buildCriteria method.
+         */
+        $builder
+            ->select('part.id')
+            ->addSelect('part.minamount AS HIDDEN minamount')
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            ->addSelect(
+                '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
                     FROM '. PartLot::class. ' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
                 ) AS HIDDEN amountSum'
-			)
-			->from(Part::class, 'part')
-			->leftJoin('part.category', 'category')
-			->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-			->leftJoin('part.partLots', 'partLots')
-			->leftJoin('partLots.storage_location', 'storelocations')
-			->leftJoin('part.footprint', 'footprint')
-			->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
-			->leftJoin('part.manufacturer', 'manufacturer')
-			->leftJoin('part.orderdetails', 'orderdetails')
-			->leftJoin('orderdetails.supplier', 'suppliers')
-			->leftJoin('part.attachments', 'attachments')
-			->leftJoin('part.partUnit', 'partUnit')
-			->leftJoin('part.parameters', 'parameters')
+            )
+            ->from(Part::class, 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
+            ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
+            ->leftJoin('part.attachments', 'attachments')
+            ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.parameters', 'parameters')
 
-			//This must be the only group by, or the paginator will not work correctly
-			->addGroupBy('part.id')
-		;
-	}
+            //This must be the only group by, or the paginator will not work correctly
+            ->addGroupBy('part.id')
+        ;
+    }
 
-	private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
-	{
-		$ids = array_map(fn($row) => $row['id'], $filter_results);
+    private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
+    {
+        $ids = array_map(fn($row) => $row['id'], $filter_results);
 
-		/*
-		 * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
-		 * full entities.
-		 * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
-		 * The only condition should be for the IDs.
-		 * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
-		 */
-		$builder
-			->select('part')
-			->addSelect('category')
-			->addSelect('footprint')
-			->addSelect('manufacturer')
-			->addSelect('partUnit')
-			->addSelect('master_picture_attachment')
-			->addSelect('footprint_attachment')
-			->addSelect('partLots')
-			->addSelect('orderdetails')
-			->addSelect('attachments')
-			->addSelect('storelocations')
-			//Calculate amount sum using a subquery, so we can filter and sort by it
-			->addSelect(
-				'(
+        /*
+         * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
+         * full entities.
+         * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
+         * The only condition should be for the IDs.
+         * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
+         */
+        $builder
+            ->select('part')
+            ->addSelect('category')
+            ->addSelect('footprint')
+            ->addSelect('manufacturer')
+            ->addSelect('partUnit')
+            ->addSelect('master_picture_attachment')
+            ->addSelect('footprint_attachment')
+            ->addSelect('partLots')
+            ->addSelect('orderdetails')
+            ->addSelect('attachments')
+            ->addSelect('storelocations')
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            ->addSelect(
+                '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
                     FROM '. PartLot::class. ' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
                 ) AS HIDDEN amountSum'
-			)
-			->from(Part::class, 'part')
-			->leftJoin('part.category', 'category')
-			->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-			->leftJoin('part.partLots', 'partLots')
-			->leftJoin('partLots.storage_location', 'storelocations')
-			->leftJoin('part.footprint', 'footprint')
-			->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
-			->leftJoin('part.manufacturer', 'manufacturer')
-			->leftJoin('part.orderdetails', 'orderdetails')
-			->leftJoin('orderdetails.supplier', 'suppliers')
-			->leftJoin('part.attachments', 'attachments')
-			->leftJoin('part.partUnit', 'partUnit')
-			->leftJoin('part.parameters', 'parameters')
+            )
+            ->from(Part::class, 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
+            ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
+            ->leftJoin('part.attachments', 'attachments')
+            ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.parameters', 'parameters')
 
-			->where('part.id IN (:ids)')
-			->setParameter('ids', $ids)
+            ->where('part.id IN (:ids)')
+            ->setParameter('ids', $ids)
 
-			//We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
-			->addGroupBy('part')
-			->addGroupBy('partLots')
-			->addGroupBy('category')
-			->addGroupBy('master_picture_attachment')
-			->addGroupBy('storelocations')
-			->addGroupBy('footprint')
-			->addGroupBy('footprint_attachment')
-			->addGroupBy('manufacturer')
-			->addGroupBy('orderdetails')
-			->addGroupBy('suppliers')
-			->addGroupBy('attachments')
-			->addGroupBy('partUnit')
-			->addGroupBy('parameters')
-		;
+            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
+            ->addGroupBy('part')
+            ->addGroupBy('partLots')
+            ->addGroupBy('category')
+            ->addGroupBy('master_picture_attachment')
+            ->addGroupBy('storelocations')
+            ->addGroupBy('footprint')
+            ->addGroupBy('footprint_attachment')
+            ->addGroupBy('manufacturer')
+            ->addGroupBy('orderdetails')
+            ->addGroupBy('suppliers')
+            ->addGroupBy('attachments')
+            ->addGroupBy('partUnit')
+            ->addGroupBy('parameters')
+        ;
 
-		//Get the results in the same order as the IDs were passed
-		FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
-	}
+        //Get the results in the same order as the IDs were passed
+        FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
+    }
 
-	private function buildCriteria(QueryBuilder $builder, array $options): void
-	{
-		//Apply the search criterias first
-		if ($options['search'] instanceof PartSearchFilter) {
-			$search = $options['search'];
-			$search->apply($builder);
-		}
+    private function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        //Apply the search criterias first
+        if ($options['search'] instanceof PartSearchFilter) {
+            $search = $options['search'];
+            $search->apply($builder);
+        }
 
-		//We do the most stuff here in the filter class
-		if ($options['filter'] instanceof PartFilter) {
-			$filter = $options['filter'];
-			$filter->apply($builder);
-		}
+        //We do the most stuff here in the filter class
+        if ($options['filter'] instanceof PartFilter) {
+            $filter = $options['filter'];
+            $filter->apply($builder);
+        }
 
-	}
+    }
 }
