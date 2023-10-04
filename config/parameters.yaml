@@ -53,7 +53,8 @@ parameters:
   ######################################################################################################################
   # Table settings
   ######################################################################################################################
-  partdb.table.default_page_size:  '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'   # The default number of entries shown per page in tables
+  partdb.table.default_page_size: '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'               # The default number of entries shown per page in tables
+  partdb.table.default_part_columns: '%env(trim:string:TABLE_PART_DEFAULT_COLUMNS)%' # The default columns in part tables and their order
 
   ######################################################################################################################
   # Sidebar

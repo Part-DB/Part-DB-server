@@ -46,6 +46,7 @@ The following configuration options can only be changed by the server administra
 
 ### Table related settings
 * `TABLE_DEFAULT_PAGE_SIZE`: The default page size for tables. This is the number of rows which are shown per page. Set to `-1` to disable pagination and show all rows at once.
+* `TABLE_PART_DEFAULT_COLUMNS`: The default columns in part tables loading table for first time. Also specify default order of the columns. Specify as comma separated string.  Available columns are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storelocation`, `amount`, `minamount`, `partUnit`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
 
 ### History/Eventlog related settings
 The following options are used to configure, which (and how much) data is written to the system log:
