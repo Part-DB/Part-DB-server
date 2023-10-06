@@ -49,7 +49,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * This way we save the overhead of the fetch join query for the count and counting, which can be very slow, cause
  * no indexes can be used.
  */
-class TwoStepORMAdapater extends ORMAdapter
+class TwoStepORMAdapter extends ORMAdapter
 {
     private \Closure $detailQueryCallable;
 

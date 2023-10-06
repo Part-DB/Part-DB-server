@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
-use App\DataTables\Adapters\TwoStepORMAdapater;
+use App\DataTables\Adapters\TwoStepORMAdapter;
 use App\DataTables\Column\EnumColumn;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
@@ -272,7 +272,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(TwoStepORMAdapater::class, [
+            ->createAdapter(TwoStepORMAdapter::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
