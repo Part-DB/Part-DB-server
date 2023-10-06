@@ -87,7 +87,7 @@
         "json-formatter-js": "^2.3.4",
         "jszip": "^3.2.0",
         "katex": "^0.16.0",
-        "marked": "^7.0.4",
+        "marked": "^9.1.0",
         "marked-gfm-heading-id": "^3.0.4",
         "marked-mangle": "^1.0.1",
         "pdfmake": "^0.2.2",
