@@ -10,6 +10,7 @@ parameters:
             - src/DataTables/Adapter/*
             - src/Configuration/*
             - src/Doctrine/Purger/*
+            - src/DataTables/Adapters/TwoStepORMAdapter.php
 
 
 
