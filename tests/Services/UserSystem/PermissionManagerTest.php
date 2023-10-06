@@ -52,7 +52,11 @@ class PermissionManagerTest extends WebTestCase
             ->setPermissionValue('parts', 'edit', false) //edit
             ->setPermissionValue('parts', 'create', null) //create
             ->setPermissionValue('parts', 'move', null) //move
-            ->setPermissionValue('parts', 'delete', null); //delete
+            ->setPermissionValue('parts', 'delete', null) //delete
+
+            ->setPermissionValue('footprints', 'edit', true)
+            ->setPermissionValue('footprints', 'create', false)
+        ;
 
         $this->user = $this->createMock(User::class);
         $this->user->method('getPermissions')->willReturn($user_perms);
@@ -168,6 +172,19 @@ class PermissionManagerTest extends WebTestCase
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'create'));
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'show_history'));
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'delete'));
+    }
+
+    public function testInheritWithAPILevel(): void
+    {
+        //If no API roles are given, access should be prevented
+        $this->assertFalse($this->service->inheritWithAPILevel($this->user, [], 'parts', 'read'));
+        //Allow access with roles
+        $this->assertTrue($this->service->inheritWithAPILevel($this->user, ['ROLE_API_READ_ONLY', 'ROLE_API_FULL'], 'parts', 'read'));
+
+        //Block access if the token has not the sufficient level
+        $this->assertFalse($this->service->inheritWithAPILevel($this->user, ['ROLE_API_READ_ONLY'], 'footprints', 'edit'));
+        //And allow with role
+        $this->assertTrue($this->service->inheritWithAPILevel($this->user, ['ROLE_API_READ_ONLY', 'ROLE_API_EDIT'], 'footprints', 'edit'));
     }
 
     public function testSetPermission(): void

@@ -76,4 +76,8 @@
             {{ form_end(pw_form) }}
         </div>
     </div>
+
+    {% if is_granted("@api.access_api") %}
+        {% include "users/_api_tokens.html.twig" %}
+    {% endif %}
 {% endblock %}

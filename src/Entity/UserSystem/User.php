@@ -22,6 +22,17 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\UserRepository;
@@ -72,7 +83,20 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\AttributeOverrides([
     new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
 ])]
-
+#[ApiResource(
+    shortName: 'User',
+    operations: [
+        new Get(openapiContext: ['summary' => 'Get a specific user.'],
+            security: 'is_granted("read", object)'),
+        new GetCollection(openapiContext: ['summary' => 'Get all users defined in the system.'],
+            security: 'is_granted("@users.read")'),
+    ],
+    normalizationContext: ['groups' => ['user:read'], 'openapi_definition_name' => 'Read'],
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["name", "aboutMe"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 #[NoLockout()]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
@@ -84,17 +108,26 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     final public const ID_ANONYMOUS = 1;
 
+    #[Groups(['user:read'])]
+    protected ?int $id = null;
+
+    #[Groups(['user:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
+    #[Groups(['user:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+
     /**
      * @var bool Determines if the user is disabled (user can not log in)
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $disabled = false;
 
     /**
      * @var string|null The theme
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
     #[ValidTheme()]
     protected ?string $theme = null;
@@ -112,9 +145,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected string $instock_comment_w = '';
 
     /**
-     * @var string A self-description of the user
+     * @var string A self-description of the user as markdown text
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $aboutMe = '';
 
@@ -133,10 +166,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Group|null the group this user belongs to
      * DO NOT PUT A fetch eager here! Otherwise, you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'users')]
     #[ORM\JoinColumn(name: 'group_id')]
     #[Selectable]
+    #[ApiProperty(readableLink: true, writableLink: false)]
     protected ?Group $group = null;
 
     /**
@@ -149,7 +183,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The timezone the user prefers
      */
     #[Assert\Timezone]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_timezone', nullable: true)]
     protected ?string $timezone = '';
 
@@ -157,7 +191,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The language/locale the user prefers
      */
     #[Assert\Language]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, name: 'config_language', nullable: true)]
     protected ?string $language = '';
 
@@ -165,7 +199,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The email address of the user
      */
     #[Assert\Email]
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $email = '';
 
@@ -173,33 +207,34 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var bool True if the user wants to show his email address on his (public) profile
      */
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    #[Groups(['full', 'import', 'user:read'])]
     protected bool $show_email_on_profile = false;
 
     /**
      * @var string|null The department the user is working
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $need_pw_change = true;
 
@@ -211,6 +246,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     #[Assert\NotBlank]
     #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[Groups(['user:read'])]
     protected string $name = '';
 
     /**
@@ -224,10 +260,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: UserAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['user:read', 'user:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var \DateTimeInterface|null The time when the backup codes were generated
@@ -246,6 +284,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: WebauthnKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $webauthn_keys;
+
+    /**
+     * @var Collection<int, ApiToken>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiToken::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection $api_tokens;
 
     /**
      * @var Currency|null The currency the user wants to see prices in.
@@ -284,6 +328,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
         $this->webauthn_keys = new ArrayCollection();
+        $this->api_tokens = new ArrayCollection();
     }
 
     /**
@@ -501,6 +546,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return string a string with the full name of this user
      */
+    #[Groups(['user:read'])]
     public function getFullName(bool $including_username = false): string
     {
         $tmp = $this->getFirstName();
@@ -936,8 +982,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
-
-
     public function setSamlAttributes(array $attributes): void
     {
         //When mail attribute exists, set it
@@ -966,5 +1010,35 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         if (isset($attributes['urn:oid:1.2.840.113549.1.9.1'])) {
             $this->setEmail($attributes['urn:oid:1.2.840.113549.1.9.1'][0]);
         }
+    }
+
+    /**
+     * Return all API tokens of the user.
+     * @return Collection<int, ApiToken>
+     */
+    public function getApiTokens(): Collection
+    {
+        return $this->api_tokens;
+    }
+
+    /**
+     * Add an API token to the user.
+     * @param  ApiToken  $apiToken
+     * @return void
+     */
+    public function addApiToken(ApiToken $apiToken): void
+    {
+        $apiToken->setUser($this);
+        $this->api_tokens->add($apiToken);
+    }
+
+    /**
+     * Remove an API token from the user.
+     * @param  ApiToken  $apiToken
+     * @return void
+     */
+    public function removeApiToken(ApiToken $apiToken): void
+    {
+        $this->api_tokens->removeElement($apiToken);
     }
 }

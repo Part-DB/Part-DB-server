@@ -41,31 +41,31 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PartLotVoter extends ExtendedVoter
+final class PartLotVoter extends Voter
 {
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element', 'withdraw', 'add', 'move'];
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        if (! is_a($subject, PartLot::class, true)) {
-            throw new \RuntimeException('This voter can only handle PartLot objects!');
-        }
+        $user = $this->helper->resolveUser($token);
 
         if (in_array($attribute, ['withdraw', 'add', 'move'], true))
         {
-            $base_permission = $this->resolver->inherit($user, 'parts_stock', $attribute) ?? false;
+            $base_permission = $this->helper->isGranted($token, 'parts_stock', $attribute);
 
             $lot_permission = true;
             //If the lot has an owner, we need to check if the user is the owner of the lot to be allowed to withdraw it.
@@ -86,7 +86,7 @@ class PartLotVoter extends ExtendedVoter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) || !$subject->getPart() instanceof Part) {
-            return $this->resolver->inherit($user, 'parts', $operation) ?? false;
+            return $this->helper->isGranted($token, 'parts', $operation);
         }
 
         //Otherwise vote on the part
@@ -100,5 +100,15 @@ class PartLotVoter extends ExtendedVoter
         }
 
         return false;
+    }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, self::ALLOWED_PERMS, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, PartLot::class, true);
     }
 }

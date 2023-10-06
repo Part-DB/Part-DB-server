@@ -45,7 +45,9 @@ class StructuralElementFromNameDenormalizerTest extends WebTestCase
         $this->assertFalse($this->service->supportsDenormalization('doesnt_matter', \stdClass::class));
         $this->assertFalse($this->service->supportsDenormalization(['a' => 'b'], Category::class));
 
-        $this->assertTrue($this->service->supportsDenormalization('doesnt_matter', Category::class));
+        //The denormalizer should only be active, when we are doing a file import operation
+        $this->assertFalse($this->service->supportsDenormalization('doesnt_matter', Category::class));
+        $this->assertTrue($this->service->supportsDenormalization('doesnt_matter', Category::class, 'json', ['partdb_import' => true]));
     }
 
     public function testDenormalizeCreateNew(): void

@@ -27,7 +27,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\TreeViewGenerator;
@@ -80,10 +80,10 @@ class TreeController extends AbstractController
 
     #[Route(path: '/location/{id}', name: 'tree_location')]
     #[Route(path: '/locations', name: 'tree_location_root')]
-    public function locationTree(?Storelocation $location = null): JsonResponse
+    public function locationTree(?StorageLocation $location = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@storelocations.read')) {
-            $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
+            $tree = $this->treeGenerator->getTreeView(StorageLocation::class, $location, 'list_parts_root');
         } else {
             return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }

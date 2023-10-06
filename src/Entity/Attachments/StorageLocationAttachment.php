@@ -22,24 +22,24 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * An attachment attached to a measurement unit element.
- * @extends Attachment<Storelocation>
+ * @extends Attachment<StorageLocation>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
-class StorelocationAttachment extends Attachment
+class StorageLocationAttachment extends Attachment
 {
-    final public const ALLOWED_ELEMENT_CLASS = Storelocation::class;
+    final public const ALLOWED_ELEMENT_CLASS = StorageLocation::class;
 
     /**
-     * @var Storelocation|null the element this attachment is associated with
+     * @var StorageLocation|null the element this attachment is associated with
      */
-    #[ORM\ManyToOne(targetEntity: Storelocation::class, inversedBy: 'attachments')]
+    #[ORM\ManyToOne(targetEntity: StorageLocation::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
     protected ?AttachmentContainingDBElement $element = null;
 }

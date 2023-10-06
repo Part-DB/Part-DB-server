@@ -44,8 +44,9 @@ class StructuralElementDenormalizerTest extends WebTestCase
         $this->assertFalse($this->service->supportsDenormalization('doesnt_matter', Category::class, 'json', ['groups' => ['import']]));
         $this->assertFalse($this->service->supportsDenormalization(['name' => 'Test'], Category::class, 'json', ['groups' => ['simple']]));
 
-        //Denormalizer should only be active, when we use the import function
-        $this->assertTrue($this->service->supportsDenormalization(['name' => 'Test'], Category::class, 'json', ['groups' => ['import']]));
+        //Denormalizer should only be active, when we use the import function and partdb_import is set
+        $this->assertFalse($this->service->supportsDenormalization(['name' => 'Test'], Category::class, 'json', ['groups' => ['import']]));
+        $this->assertTrue($this->service->supportsDenormalization(['name' => 'Test'], Category::class, 'json', ['groups' => ['import'], 'partdb_import' => true]));
     }
 
     /**

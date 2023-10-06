@@ -156,6 +156,7 @@ class EntityImporter
                 'csv_delimiter' => $options['csv_delimiter'],
                 'create_unknown_datastructures' => $options['create_unknown_datastructures'],
                 'path_delimiter' => $options['path_delimiter'],
+                'partdb_import' => true,
             ]);
 
         //Ensure we have an array of entity elements.

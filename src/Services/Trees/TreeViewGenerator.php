@@ -29,7 +29,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
@@ -142,7 +142,7 @@ class TreeViewGenerator
     {
         return match ($class) {
             Category::class => $this->translator->trans('category.labelp'),
-            Storelocation::class => $this->translator->trans('storelocation.labelp'),
+            StorageLocation::class => $this->translator->trans('storelocation.labelp'),
             Footprint::class => $this->translator->trans('footprint.labelp'),
             Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
             Supplier::class => $this->translator->trans('supplier.labelp'),
@@ -156,7 +156,7 @@ class TreeViewGenerator
         $icon = "fa-fw fa-treeview fa-solid ";
         return match ($class) {
             Category::class => $icon . 'fa-tags',
-            Storelocation::class => $icon . 'fa-cube',
+            StorageLocation::class => $icon . 'fa-cube',
             Footprint::class => $icon . 'fa-microchip',
             Manufacturer::class => $icon . 'fa-industry',
             Supplier::class => $icon . 'fa-truck',

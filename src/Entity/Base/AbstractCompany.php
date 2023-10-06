@@ -40,24 +40,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\MappedSuperclass]
 abstract class AbstractCompany extends AbstractPartsContainingDBElement
 {
+    #[Groups(['company:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['company:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
     /**
      * @var string The address of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $fax_number = '';
 
@@ -65,7 +70,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The email address of the company
      */
     #[Assert\Email]
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $email_address = '';
 
@@ -73,12 +78,15 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The website of the company
      */
     #[Assert\Url]
-    #[Groups(['full'])]
+    #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $website = '';
 
+    #[Groups(['company:read', 'company:write'])]
+    protected string $comment = '';
+
     /**
-     * @var string
+     * @var string The link to the website of an article. Use %PARTNUMBER% as placeholder for the part number.
      */
     #[ORM\Column(type: Types::STRING)]
     protected string $auto_product_url = '';

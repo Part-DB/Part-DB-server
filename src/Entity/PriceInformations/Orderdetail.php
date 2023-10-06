@@ -23,6 +23,19 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -46,51 +59,80 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`orderdetails`')]
 #[ORM\Index(name: 'orderdetails_supplier_part_nr', columns: ['supplierpartnr'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['orderdetail:read', 'orderdetail:read:standalone',  'api:basic:read', 'pricedetail:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['orderdetail:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/parts/{id}/orderdetails.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the orderdetails of a part.'],
+            security: 'is_granted("@parts.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(toProperty: 'part', fromClass: Part::class)
+    ],
+    normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["supplierpartnr", "supplier_product_url"])]
+#[ApiFilter(BooleanFilter::class, properties: ["obsolete"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['supplierpartnr', 'id', 'addedDate', 'lastModified'])]
 class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
     #[Assert\Valid]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 
     /**
-     * @var string
+     * @var string The order number of the part at the supplier
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $supplierpartnr = '';
 
     /**
-     * @var bool
+     * @var bool True if this part is obsolete/not available anymore at the supplier
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $obsolete = false;
 
     /**
-     * @var string
+     * @var string The URL to the product on the supplier's website
      */
     #[Assert\Url]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $supplier_product_url = '';
 
     /**
-     * @var Part|null
+     * @var Part|null The part with which this orderdetail is associated
      */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'orderdetails')]
+    #[Groups(['orderdetail:read:standalone', 'orderdetail:write'])]
     #[ORM\JoinColumn(name: 'part_id', nullable: false, onDelete: 'CASCADE')]
     protected ?Part $part = null;
 
     /**
-     * @var Supplier|null
+     * @var Supplier|null The supplier of this orderdetail
      */
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;

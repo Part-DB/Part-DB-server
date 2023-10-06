@@ -23,10 +23,19 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionManager;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
 use function in_array;
 
-class UserVoter extends ExtendedVoter
+final class UserVoter extends Voter
 {
+    public function __construct(private readonly VoterHelper $helper, private readonly PermissionManager $resolver)
+    {
+    }
+
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
@@ -51,14 +60,26 @@ class UserVoter extends ExtendedVoter
         return false;
     }
 
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, User::class, true);
+    }
+
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param  string  $attribute
      */
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
+        $user = $this->helper->resolveUser($token);
+
         if ($attribute === 'info') {
             //Every logged-in user (non-anonymous) can see the info pages of other users
             if (!$user->isAnonymousUser()) {
@@ -71,9 +92,9 @@ class UserVoter extends ExtendedVoter
 
         //Check if the checked user is the user itself
         if (($subject instanceof User) && $subject->getID() === $user->getID() &&
-            $this->resolver->isValidOperation('self', $attribute)) {
+            $this->helper->isValidOperation('self', $attribute)) {
             //Then we also need to check the self permission
-            $tmp = $this->resolver->inherit($user, 'self', $attribute) ?? false;
+            $tmp = $this->helper->isGranted($token, 'self', $attribute);
             //But if the self value is not allowed then use just the user value:
             if ($tmp) {
                 return $tmp;
@@ -81,8 +102,8 @@ class UserVoter extends ExtendedVoter
         }
 
         //Else just check user permission:
-        if ($this->resolver->isValidOperation('users', $attribute)) {
-            return $this->resolver->inherit($user, 'users', $attribute) ?? false;
+        if ($this->helper->isValidOperation('users', $attribute)) {
+            return $this->helper->isGranted($token, 'users', $attribute);
         }
 
         return false;

@@ -29,7 +29,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -51,7 +51,7 @@ class DataStructureFixtures extends Fixture implements DependentFixtureInterface
     {
         //Reset autoincrement
         $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
-            MeasurementUnit::class, Storelocation::class, Supplier::class,];
+            MeasurementUnit::class, StorageLocation::class, Supplier::class,];
 
         foreach ($types as $type) {
             $this->createNodesForClass($type, $manager);

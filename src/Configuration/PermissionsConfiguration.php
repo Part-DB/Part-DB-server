@@ -55,6 +55,7 @@ final class PermissionsConfiguration implements ConfigurationInterface
             ->scalarNode('name')->end()
             ->scalarNode('label')->end()
             ->scalarNode('bit')->end()
+            ->scalarNode('apiTokenRole')->defaultNull()->end()
             ->arrayNode('alsoSet')
             ->beforeNormalization()->castToArray()->end()->scalarPrototype()->end();
 

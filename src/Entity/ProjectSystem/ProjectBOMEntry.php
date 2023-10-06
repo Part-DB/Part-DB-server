@@ -22,6 +22,18 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -33,6 +45,7 @@ use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -42,18 +55,46 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity]
 #[ORM\Table('project_bom_entries')]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
+        new GetCollection(security: 'is_granted("@projects.read")', uriTemplate: '/project_bom_entries.{_format}',),
+        new Post(securityPostDenormalize: 'is_granted("create", object)', uriTemplate: '/project_bom_entries.{_format}',),
+        new Patch(security: 'is_granted("edit", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
+        new Delete(security: 'is_granted("delete", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
+    ],
+    normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['bom_entry:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/projects/{id}/bom.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the BOM entries of the given project.'],
+            security: 'is_granted("@projects.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)
+    ],
+    normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment", 'mountnames'])]
+#[ApiFilter(RangeFilter::class, properties: ['quantity'])]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified', 'quantity'])]
 class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInterface
 {
     use TimestampTrait;
 
     #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT, name: 'quantity')]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
      */
     #[ORM\Column(type: Types::TEXT, name: 'mountnames')]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected string $mountnames = '';
 
     /**
@@ -61,12 +102,14 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
     #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected string $comment = '';
 
     /**
@@ -74,6 +117,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
     #[ORM\JoinColumn(name: 'id_device')]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?Project $project = null;
 
     /**
@@ -81,6 +125,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'project_bom_entries')]
     #[ORM\JoinColumn(name: 'id_part')]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?Part $part = null;
 
     /**
@@ -88,6 +133,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?BigDecimal $price = null;
 
     /**

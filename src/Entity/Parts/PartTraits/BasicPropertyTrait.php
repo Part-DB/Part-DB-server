@@ -35,14 +35,14 @@ trait BasicPropertyTrait
     /**
      * @var string A text describing what this part does
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
@@ -55,7 +55,7 @@ trait BasicPropertyTrait
     /**
      * @var bool true, if the part is marked as favorite
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $favorite = false;
 
@@ -65,7 +65,7 @@ trait BasicPropertyTrait
      */
     #[Assert\NotNull(message: 'validator.select_valid_category')]
     #[Selectable()]
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', "part:read", "part:write"])]
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'id_category', nullable: false)]
     protected ?Category $category = null;
@@ -73,7 +73,7 @@ trait BasicPropertyTrait
     /**
      * @var Footprint|null The footprint of this part (e.g. DIP8)
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: Footprint::class)]
     #[ORM\JoinColumn(name: 'id_footprint')]
     #[Selectable()]

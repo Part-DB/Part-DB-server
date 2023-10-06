@@ -41,7 +41,7 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\UserSystem\User;
 use App\Entity\Parts\PartLot;
 use App\Services\Formatters\AmountFormatter;
@@ -95,11 +95,11 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[LOCATION]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof Storelocation ? $label_target->getStorageLocation()->getName() : '';
+                return $label_target->getStorageLocation() instanceof StorageLocation ? $label_target->getStorageLocation()->getName() : '';
             }
 
             if ('[[LOCATION_FULL]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof Storelocation ? $label_target->getStorageLocation()->getFullPath() : '';
+                return $label_target->getStorageLocation() instanceof StorageLocation ? $label_target->getStorageLocation()->getFullPath() : '';
             }
 
             if ('[[OWNER]]' === $placeholder) {

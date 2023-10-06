@@ -22,13 +22,15 @@ declare(strict_types=1);
  */
 namespace App\Serializer;
 
+use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @see \App\Tests\Serializer\BigNumberNormalizerTest
  */
-class BigNumberNormalizer implements NormalizerInterface
+class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
 {
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
@@ -52,6 +54,22 @@ class BigNumberNormalizer implements NormalizerInterface
     {
         return [
             BigNumber::class => true,
+            BigDecimal::class => true,
         ];
+    }
+
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
+    {
+        if (!is_a($type, BigNumber::class, true)) {
+            throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
+        }
+
+        return $type::of($data);
+    }
+
+    public function supportsDenormalization(mixed $data, string $type, string $format = null)
+    {
+        //data must be a string or a number (int, float, etc.) and the type must be BigNumber or BigDecimal
+        return (is_string($data) || is_numeric($data)) && (is_subclass_of($type, BigNumber::class));
     }
 }

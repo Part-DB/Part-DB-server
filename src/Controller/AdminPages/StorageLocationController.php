@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Attachments\StorelocationAttachment;
-use App\Entity\Parameters\StorelocationParameter;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Attachments\StorageLocationAttachment;
+use App\Entity\Parameters\StorageLocationParameter;
+use App\Entity\Parts\StorageLocation;
 use App\Form\AdminPages\StorelocationAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
@@ -39,24 +39,24 @@ use Symfony\Component\Routing\Annotation\Route;
  * @see \App\Tests\Controller\AdminPages\StorelocationControllerTest
  */
 #[Route(path: '/store_location')]
-class StorelocationController extends BaseAdminController
+class StorageLocationController extends BaseAdminController
 {
-    protected string $entity_class = Storelocation::class;
+    protected string $entity_class = StorageLocation::class;
     protected string $twig_template = 'admin/storelocation_admin.html.twig';
     protected string $form_class = StorelocationAdminForm::class;
     protected string $route_base = 'store_location';
-    protected string $attachment_class = StorelocationAttachment::class;
-    protected ?string $parameter_class = StorelocationParameter::class;
+    protected string $attachment_class = StorageLocationAttachment::class;
+    protected ?string $parameter_class = StorageLocationParameter::class;
 
     #[Route(path: '/{id}', name: 'store_location_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
+    public function delete(Request $request, StorageLocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'store_location_edit')]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
-    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    public function edit(StorageLocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
@@ -64,7 +64,7 @@ class StorelocationController extends BaseAdminController
     #[Route(path: '/new', name: 'store_location_new')]
     #[Route(path: '/{id}/clone', name: 'store_location_clone')]
     #[Route(path: '/')]
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Storelocation $entity = null): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?StorageLocation $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
@@ -76,7 +76,7 @@ class StorelocationController extends BaseAdminController
     }
 
     #[Route(path: '/{id}/export', name: 'store_location_export')]
-    public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request): Response
+    public function exportEntity(StorageLocation $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

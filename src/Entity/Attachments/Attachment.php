@@ -22,6 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\Filter\EntityFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;
@@ -29,6 +42,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use function in_array;
 use InvalidArgumentException;
@@ -42,13 +56,38 @@ use LogicException;
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
-#[ORM\DiscriminatorMap(['PartDB\Part' => 'PartAttachment', 'Part' => 'PartAttachment', 'PartDB\Device' => 'ProjectAttachment', 'Device' => 'ProjectAttachment', 'AttachmentType' => 'AttachmentTypeAttachment', 'Category' => 'CategoryAttachment', 'Footprint' => 'FootprintAttachment', 'Manufacturer' => 'ManufacturerAttachment', 'Currency' => 'CurrencyAttachment', 'Group' => 'GroupAttachment', 'MeasurementUnit' => 'MeasurementUnitAttachment', 'Storelocation' => 'StorelocationAttachment', 'Supplier' => 'SupplierAttachment', 'User' => 'UserAttachment', 'LabelProfile' => 'LabelAttachment'])]
+#[ORM\DiscriminatorMap(['PartDB\Part' => PartAttachment::class, 'Part' => PartAttachment::class,
+    'PartDB\Device' => ProjectAttachment::class, 'Device' => ProjectAttachment::class, 'AttachmentType' => AttachmentTypeAttachment::class,
+    'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
+    'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
+    'Storelocation' => StorageLocationAttachment::class, 'Supplier' => SupplierAttachment::class,
+    'User' => UserAttachment::class, 'LabelProfile' => LabelAttachment::class])]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
 #[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
 #[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
 #[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
 #[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@attachments.list_attachments")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['attachment:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'media_url', type: 'string', nullable: true,
+    description: 'The URL to the file, where the attachment file can be downloaded. This can be an internal or external URL.',
+    example: '/media/part/2/bc547-6508afa5a79c8.pdf')]
+#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
+    description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
+#[ApiFilter(LikeFilter::class, properties: ["name"])]
+#[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
@@ -96,23 +135,32 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string the name of this element
      */
     #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
-    #[Groups(['simple', 'extended', 'full'])]
+    #[Groups(['simple', 'extended', 'full', 'attachment:read', 'attachment:write'])]
     protected string $name = '';
 
     /**
      * ORM mapping is done in subclasses (like PartAttachment).
      * @phpstan-param T|null $element
      */
+    #[Groups(['attachment:read:standalone', 'attachment:write'])]
     protected ?AttachmentContainingDBElement $element = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
+    #[Groups(['attachment:read', 'attachment_write'])]
     protected bool $show_in_table = false;
 
     #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     #[Selectable()]
+    #[Groups(['attachment:read', 'attachment_write'])]
     protected ?AttachmentType $attachment_type = null;
+
+    #[Groups(['attachment:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['attachment:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
 
     public function __construct()
     {
@@ -141,6 +189,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @return bool * true if the file extension is a picture extension
      *              * otherwise false
      */
+    #[Groups(['attachment:read'])]
     public function isPicture(): bool
     {
         if ($this->isExternal()) {
@@ -165,6 +214,8 @@ abstract class Attachment extends AbstractNamedDBElement
      * Check if this attachment is a 3D model and therefore can be directly shown to user.
      * If the attachment is external, false is returned (3D Models must be internal).
      */
+    #[Groups(['attachment:read'])]
+    #[SerializedName('3d_model')]
     public function is3DModel(): bool
     {
         //We just assume that 3D Models are internally saved, otherwise we get problems loading them.
@@ -182,6 +233,7 @@ abstract class Attachment extends AbstractNamedDBElement
      *
      * @return bool true, if the file is saved externally
      */
+    #[Groups(['attachment:read'])]
     public function isExternal(): bool
     {
         //When path is empty, this attachment can not be external
@@ -201,6 +253,8 @@ abstract class Attachment extends AbstractNamedDBElement
      *
      * @return bool true, if the file is secure
      */
+    #[Groups(['attachment:read'])]
+    #[SerializedName('private')]
     public function isSecure(): bool
     {
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
@@ -215,6 +269,7 @@ abstract class Attachment extends AbstractNamedDBElement
      *
      * @return bool true if the attachment is using a builtin file
      */
+    #[Groups(['attachment:read'])]
     public function isBuiltIn(): bool
     {
         return static::checkIfBuiltin($this->path);
@@ -261,6 +316,8 @@ abstract class Attachment extends AbstractNamedDBElement
      * The URL to the external file, or the path to the built-in file.
      * Returns null, if the file is not external (and not builtin).
      */
+    #[Groups(['attachment:read'])]
+    #[SerializedName('url')]
     public function getURL(): ?string
     {
         if (!$this->isExternal() && !$this->isBuiltIn()) {
@@ -411,6 +468,8 @@ abstract class Attachment extends AbstractNamedDBElement
      *
      * @return Attachment
      */
+    #[Groups(['attachment:write'])]
+    #[SerializedName('url')]
     public function setURL(?string $url): self
     {
         //Only set if the URL is not empty

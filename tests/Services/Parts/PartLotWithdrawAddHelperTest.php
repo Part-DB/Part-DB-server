@@ -6,7 +6,7 @@ namespace App\Tests\Services\Parts;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -29,10 +29,10 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     /** @var Part */
     private Part $part;
 
-    /** @var Storelocation */
-    private Storelocation $storageLocation;
-    /** @var Storelocation */
-    private Storelocation $full_storageLocation;
+    /** @var StorageLocation */
+    private StorageLocation $storageLocation;
+    /** @var StorageLocation */
+    private StorageLocation $full_storageLocation;
 
     /** @var PartLot */
     private PartLot $partLot1;
@@ -59,8 +59,8 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
     {
         $this->part = new Part();
 
-        $this->storageLocation = new Storelocation();
-        $this->full_storageLocation = new Storelocation();
+        $this->storageLocation = new StorageLocation();
+        $this->full_storageLocation = new StorageLocation();
         $this->full_storageLocation->setIsFull(true);
 
         $this->partLot1 = new TestPartLot();

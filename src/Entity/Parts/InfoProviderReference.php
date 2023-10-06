@@ -27,6 +27,7 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * This class represents a reference to a info provider inside a part.
@@ -37,19 +38,23 @@ class InfoProviderReference
 
     /** @var string|null The key referencing the provider used to get this part, or null if it was not provided by a data provider */
     #[Column(type: 'string', nullable: true)]
+    #[Groups(['provider_reference:read'])]
     private ?string $provider_key = null;
 
     /** @var string|null The id of this part inside the provider system or null if the part was not provided by a data provider */
     #[Column(type: 'string', nullable: true)]
+    #[Groups(['provider_reference:read'])]
     private ?string $provider_id = null;
 
     /**
      * @var string|null The url of this part inside the provider system or null if this info is not existing
      */
     #[Column(type: 'string', nullable: true)]
+    #[Groups(['provider_reference:read'])]
     private ?string $provider_url = null;
 
     #[Column(type: Types::DATETIME_MUTABLE, nullable: true,  options: ['default' => null])]
+    #[Groups(['provider_reference:read'])]
     private ?\DateTimeInterface $last_updated = null;
 
     /**

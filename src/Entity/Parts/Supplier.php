@@ -22,6 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\SupplierRepository;
@@ -49,6 +62,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`suppliers`')]
 #[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@suppliers.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['supplier:write', 'company:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/suppliers/{id}/children.{_format}',
+    operations: [new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a supplier'],
+        security: 'is_granted("@manufacturers.read")')],
+    uriVariables: [
+        'id' => new Link(fromClass: Supplier::class, fromProperty: 'children')
+    ],
+    normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Supplier extends AbstractCompany
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
@@ -57,11 +94,10 @@ class Supplier extends AbstractCompany
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    /**
-     * @var Collection<int, Orderdetail>|Orderdetail[]
-     */
     /**
      * @var Collection<int, Orderdetail>|Orderdetail[]
      */
@@ -78,7 +114,7 @@ class Supplier extends AbstractCompany
     protected ?Currency $default_currency = null;
 
     /**
-     * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
+     * @var BigDecimal|null The shipping costs that have to be paid, when ordering via this supplier
      */
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\Column(name: 'shipping_costs', nullable: true, type: 'big_decimal', precision: 11, scale: 5)]
@@ -91,10 +127,14 @@ class Supplier extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: SupplierAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, SupplierParameter>
@@ -102,6 +142,8 @@ class Supplier extends AbstractCompany
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['supplier:read', 'supplier:write'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
 
     /**

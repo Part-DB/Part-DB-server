@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Repository\Parts;
 
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\ORM\QueryBuilder;
 use InvalidArgumentException;
@@ -37,7 +37,7 @@ class StorelocationRepository extends AbstractPartsContainingRepository
      */
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
-        if (!$element instanceof Storelocation) {
+        if (!$element instanceof StorageLocation) {
             throw new InvalidArgumentException('$element must be an Storelocation!');
         }
 
@@ -58,7 +58,7 @@ class StorelocationRepository extends AbstractPartsContainingRepository
 
     public function getPartsCount(object $element): int
     {
-        if (!$element instanceof Storelocation) {
+        if (!$element instanceof StorageLocation) {
             throw new InvalidArgumentException('$element must be an Storelocation!');
         }
 

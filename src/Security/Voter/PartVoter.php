@@ -24,29 +24,46 @@ namespace App\Security\Voter;
 
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * A Voter that votes on Part entities.
  *
  * See parts permissions for valid operations.
  */
-class PartVoter extends ExtendedVoter
+final class PartVoter extends Voter
 {
     final public const READ = 'read';
+
+    public function __construct(private readonly VoterHelper $helper)
+    {
+    }
 
     protected function supports($attribute, $subject): bool
     {
         if (is_a($subject, Part::class, true)) {
-            return $this->resolver->isValidOperation('parts', $attribute);
+            return $this->helper->isValidOperation('parts', $attribute);
         }
 
         //Allow class name as subject
         return false;
     }
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         //Null concealing operator means, that no
-        return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
+        return $this->helper->isGranted($token, 'parts', $attribute);
+    }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('parts', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return is_a($subjectType, Part::class, true);
     }
 }

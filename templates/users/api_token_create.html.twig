@@ -1,0 +1,30 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}api_token.create_new{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-plug fa-fw" aria-hidden="true"></i>
+    {% trans %}api_token.create_new{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    {# Show API secret after submit #}
+
+    {% if secret is not null %}
+        <div class="alert alert-success">
+            <b>{% trans %}api_tokens.your_token_is{% endtrans %}:</b><br>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" value="{{ secret }}" readonly>
+                <button class="btn btn-outline-secondary" type="button" data-clipboard-text="{{ secret }}">
+                    <i class="fa-solid fa-clipboard fa-fw" aria-hidden="true"></i>
+                </button>
+            </div>
+            <i>{% trans %}api_tokens.please_save_it{% endtrans %}</i>
+            <br>
+
+            <a href="{{ path('user_settings') }}" class="btn btn-primary mt-4">{% trans %}api_tokens.create_new.back_to_user_settings{% endtrans %}</a>
+        </div>
+    {% else %}
+        {{ form(form) }}
+    {% endif %}
+{% endblock %}

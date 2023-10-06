@@ -29,7 +29,7 @@ use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
@@ -214,7 +214,7 @@ class PartListsController extends AbstractController
     }
 
     #[Route(path: '/store_location/{id}/parts', name: 'part_list_store_location')]
-    public function showStorelocation(Storelocation $storelocation, Request $request): Response
+    public function showStorelocation(StorageLocation $storelocation, Request $request): Response
     {
         $this->denyAccessUnlessGranted('@storelocations.read');
 
@@ -226,7 +226,7 @@ class PartListsController extends AbstractController
                 $this->disableFormFieldAfterCreation($filterForm->get('storelocation')->get('value'));
             }, [
                 'entity' => $storelocation,
-                'repo' => $this->entityManager->getRepository(Storelocation::class),
+                'repo' => $this->entityManager->getRepository(StorageLocation::class),
             ]
         );
     }

@@ -24,18 +24,26 @@ namespace App\Security\Voter;
 
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\VoterHelper;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class GroupVoter extends ExtendedVoter
+final class GroupVoter extends Voter
 {
+
+    public function __construct(private readonly VoterHelper $helper)
+    {
+    }
+
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param  string  $attribute
      */
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        return $this->resolver->inherit($user, 'groups', $attribute) ?? false;
+        return $this->helper->isGranted($token, 'groups', $attribute);
     }
 
     /**
@@ -49,9 +57,19 @@ class GroupVoter extends ExtendedVoter
     protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, Group::class, true)) {
-            return $this->resolver->isValidOperation('groups', $attribute);
+            return $this->helper->isValidOperation('groups', $attribute);
         }
 
         return false;
+    }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return $this->helper->isValidOperation('groups', $attribute);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, Group::class, true);
     }
 }

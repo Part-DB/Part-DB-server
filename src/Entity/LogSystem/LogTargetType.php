@@ -30,7 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
@@ -81,7 +81,7 @@ enum LogTargetType: int
             self::GROUP => Group::class,
             self::MANUFACTURER => Manufacturer::class,
             self::PART => Part::class,
-            self::STORELOCATION => Storelocation::class,
+            self::STORELOCATION => StorageLocation::class,
             self::SUPPLIER => Supplier::class,
             self::PART_LOT => PartLot::class,
             self::CURRENCY => Currency::class,

@@ -36,10 +36,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait InstockTrait
 {
     /**
-     * @var Collection|PartLot[] A list of part lots where this part is stored
+     * @var Collection<int, PartLot> A list of part lots where this part is stored
      */
     #[Assert\Valid]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['amount' => 'DESC'])]
     protected Collection $partLots;
@@ -49,14 +49,14 @@ trait InstockTrait
      *            Given in the partUnit.
      */
     #[Assert\PositiveOrZero]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::FLOAT)]
     protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: MeasurementUnit::class)]
     #[ORM\JoinColumn(name: 'id_part_unit')]
     protected ?MeasurementUnit $partUnit = null;

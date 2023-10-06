@@ -20,12 +20,18 @@
 'use strict';
 
 import {Dropdown} from "bootstrap";
+import ClipboardJS from "clipboard";
 
 class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
         this.configureDropdowns();
         this.registerSpecialCharInput();
+
+        //Initialize ClipboardJS
+        this.registerLoadHandler(() => {
+            new ClipboardJS('.btn');
+        })
 
         this.registerModalDropRemovalOnFormSubmit();
     }

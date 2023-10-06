@@ -49,6 +49,11 @@ class StructuralElementDenormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
+        //Only denormalize if we are doing a file import operation
+        if (!($context['partdb_import'] ?? false)) {
+            return false;
+        }
+
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
             //Only denormalize if we are doing a file import operation

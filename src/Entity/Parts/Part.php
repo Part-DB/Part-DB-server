@@ -22,6 +22,24 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\Filter\EntityFilter;
+use App\ApiPlatform\Filter\LikeFilter;
+use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
@@ -60,6 +78,30 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
 #[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
 #[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
+            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read'],
+            'openapi_definition_name' => 'Read',
+        ], security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
+#[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
+#[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
+#[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
+#[DocumentedAPIProperty(schemaName: 'Part-Read', property: 'total_instock', type: 'number', nullable: false,
+    description: 'The total amount of this part in stock (sum of all part lots).')]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
@@ -74,7 +116,7 @@ class Part extends AttachmentContainingDBElement
     /** @var Collection<int, PartParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
@@ -94,7 +136,7 @@ class Part extends AttachmentContainingDBElement
      * @var Collection<int, PartAttachment>
      */
     #[Assert\Valid]
-    #[Groups(['full'])]
+    #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
@@ -105,7 +147,14 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Expression('value == null or value.isPicture()', message: 'part.master_attachment.must_be_picture')]
     #[ORM\ManyToOne(targetEntity: PartAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['part:read', 'part:write'])]
     protected ?Attachment $master_picture_attachment = null;
+
+    #[Groups(['part:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['part:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
 
     public function __construct()
     {

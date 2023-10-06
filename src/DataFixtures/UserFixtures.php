@@ -31,6 +31,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const ADMIN = 'user-admin';
+
     public function __construct(protected UserPasswordHasherInterface $encoder, protected EntityManagerInterface $em)
     {
     }
@@ -50,6 +52,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setNeedPwChange(false);
         $admin->setGroup($this->getReference(GroupFixtures::ADMINS));
         $manager->persist($admin);
+        $this->addReference(self::ADMIN, $admin);
 
         $user = new User();
         $user->setName('user');

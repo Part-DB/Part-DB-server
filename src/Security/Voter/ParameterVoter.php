@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Security\Voter;
 
+use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\AbstractParameter;
@@ -34,22 +35,25 @@ use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ParameterVoter extends ExtendedVoter
+final class ParameterVoter extends Voter
 {
 
-    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, protected Security $security)
+    private const ALLOWED_ATTRIBUTES = ['read', 'edit', 'delete', 'create', 'show_history', 'revert_element'];
+
+    public function __construct(private readonly Security $security, private readonly VoterHelper $helper)
     {
-        parent::__construct($resolver, $entityManager);
     }
 
-    protected function voteOnUser(string $attribute, $subject, User $user): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
@@ -92,7 +96,7 @@ class ParameterVoter extends ExtendedVoter
             $param = 'measurement_units';
         } elseif (is_a($subject, PartParameter::class, true)) {
             $param = 'parts';
-        } elseif (is_a($subject, StorelocationParameter::class, true)) {
+        } elseif (is_a($subject, StorageLocationParameter::class, true)) {
             $param = 'storelocations';
         } elseif (is_a($subject, SupplierParameter::class, true)) {
             $param = 'suppliers';
@@ -104,17 +108,28 @@ class ParameterVoter extends ExtendedVoter
             throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
         }
 
-        return $this->resolver->inherit($user, $param, $attribute) ?? false;
+        return $this->helper->isGranted($token, $param, $attribute);
     }
 
     protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, AbstractParameter::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['read', 'edit', 'delete', 'create', 'show_history', 'revert_element'], true);
+            return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
         }
 
         //Allow class name as subject
         return false;
     }
+
+    public function supportsAttribute(string $attribute): bool
+    {
+        return in_array($attribute, self::ALLOWED_ATTRIBUTES, true);
+    }
+
+    public function supportsType(string $subjectType): bool
+    {
+        return $subjectType === 'string' || is_a($subjectType, AbstractParameter::class, true);
+    }
+
 }

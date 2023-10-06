@@ -22,6 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\PartLotRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -50,6 +63,23 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
 #[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
 #[ValidPartLot]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['part_lot:read', 'part_lot:read:standalone',  'api:basic:read', 'pricedetail:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['part_lot:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["description", "comment"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(BooleanFilter::class, properties: ['instock_unknown', 'needs_refill'])]
+#[ApiFilter(RangeFilter::class, properties: ['amount'])]
+#[ApiFilter(OrderFilter::class, properties: ['description', 'comment', 'addedDate', 'lastModified'])]
 class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
@@ -57,14 +87,14 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var string A short description about this lot, shown in table
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
      */
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $comment = '';
 
@@ -72,38 +102,38 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var \DateTimeInterface|null Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
     protected ?\DateTimeInterface $expiration_date = null;
 
     /**
-     * @var Storelocation|null The storelocation of this lot
+     * @var StorageLocation|null The storelocation of this lot
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
-    #[ORM\ManyToOne(targetEntity: Storelocation::class, fetch: 'EAGER')]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
+    #[ORM\ManyToOne(targetEntity: StorageLocation::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_store_location')]
     #[Selectable()]
-    protected ?Storelocation $storage_location = null;
+    protected ?StorageLocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $instock_unknown = false;
 
     /**
-     * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
+     * @var float The amount of parts in this lot. For integer-quantities this value is rounded to the next integer.
      */
     #[Assert\PositiveOrZero]
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::FLOAT)]
     protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $needs_refill = false;
 
@@ -113,6 +143,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
     #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
+    #[Groups(['part_lot:read:standalone', 'part_lot:write'])]
     protected ?Part $part = null;
 
     /**
@@ -120,6 +151,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
+    #[Groups(['part_lot:read', 'part_lot:write'])]
     protected ?User $owner = null;
 
     public function __clone()
@@ -207,9 +239,9 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Gets the storage location, where this part lot is stored.
      *
-     * @return Storelocation|null The store location where this part is stored
+     * @return StorageLocation|null The store location where this part is stored
      */
-    public function getStorageLocation(): ?Storelocation
+    public function getStorageLocation(): ?StorageLocation
     {
         return $this->storage_location;
     }
@@ -217,7 +249,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the storage location, where this part lot is stored.
      */
-    public function setStorageLocation(?Storelocation $storage_location): self
+    public function setStorageLocation(?StorageLocation $storage_location): self
     {
         $this->storage_location = $storage_location;
 

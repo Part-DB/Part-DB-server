@@ -22,8 +22,22 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Parts\Category;
 use App\Repository\Parts\DeviceRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
@@ -46,6 +60,31 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 #[ORM\Entity(repositoryClass: DeviceRepository::class)]
 #[ORM\Table(name: 'projects')]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@projects.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['project:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['project:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiResource(
+    uriTemplate: '/projects/{id}/children.{_format}',
+    operations: [
+        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a project.'],
+            security: 'is_granted("@projects.read")')
+    ],
+    uriVariables: [
+        'id' => new Link(fromProperty: 'children', fromClass: Project::class)
+    ],
+    normalizationContext: ['groups' => ['project:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Project extends AbstractStructuralDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
@@ -54,7 +93,12 @@ class Project extends AbstractStructuralDBElement
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
+    #[Groups(['project:read', 'project:write'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
+
+    #[Groups(['project:read', 'project:write'])]
+    protected string $comment = '';
 
     #[Assert\Valid]
     #[Groups(['extended', 'full'])]
@@ -70,7 +114,7 @@ class Project extends AbstractStructuralDBElement
      * @var string|null The current status of the project
      */
     #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
-    #[Groups(['extended', 'full'])]
+    #[Groups(['extended', 'full', 'project:read', 'project:write'])]
     #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 
@@ -79,12 +123,13 @@ class Project extends AbstractStructuralDBElement
      * @var Part|null The (optional) part that represents the builds of this project in the stock
      */
     #[ORM\OneToOne(targetEntity: Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
+    #[Groups(['project:read', 'project:write'])]
     protected ?Part $build_part = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $order_only_missing_parts = false;
 
-    #[Groups(['simple', 'extended', 'full'])]
+    #[Groups(['simple', 'extended', 'full', 'project:read', 'project:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $description = '';
 
@@ -93,17 +138,26 @@ class Project extends AbstractStructuralDBElement
      */
     #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: ProjectAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['project:read', 'project:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, ProjectParameter>
      */
     #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;
+
+    #[Groups(['project:read'])]
+    protected ?\DateTimeInterface $addedDate = null;
+    #[Groups(['project:read'])]
+    protected ?\DateTimeInterface $lastModified = null;
+
 
     /********************************************************************************
      *

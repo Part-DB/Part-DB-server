@@ -30,7 +30,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
@@ -85,7 +85,7 @@ class ConvertBBCodeCommand extends Command
         return [
             Part::class => ['description', 'comment'],
             AttachmentType::class => ['comment'],
-            Storelocation::class => ['comment'],
+            StorageLocation::class => ['comment'],
             Project::class => ['comment'],
             Category::class => ['comment'],
             Manufacturer::class => ['comment'],

@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\UserSystem\ApiToken;
+use App\Entity\UserSystem\ApiTokenLevel;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
@@ -39,6 +41,8 @@ use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -394,5 +398,100 @@ class UserSettingsController extends AbstractController
                 'username' => $user->getGoogleAuthenticatorUsername(),
             ],
         ]);
+    }
+
+    /**
+     * @return Response
+     */
+    #[Route('/api_token/create', name: 'user_api_token_create')]
+    public function addApiToken(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('@api.manage_tokens');
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $token = new ApiToken();
+        if (!$this->getUser() instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+        $token->setUser($this->getUser());
+
+        $secret = null;
+
+        $form = $this->createFormBuilder($token)
+            ->add('name', TextType::class, [
+                'label' => 'api_tokens.name',
+            ])
+            ->add('level', EnumType::class, [
+                'class' => ApiTokenLevel::class,
+                'label' => 'api_tokens.access_level',
+                'help' => 'api_tokens.access_level.help',
+                'choice_label' => fn (ApiTokenLevel $level) => $level->getTranslationKey(),
+            ])
+            ->add('valid_until', DateTimeType::class, [
+                'label' => 'api_tokens.expiration_date',
+                'widget' => 'single_text',
+                'help' => 'api_tokens.expiration_date.help',
+                'required' => false,
+                'html5' => true
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'save',
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($token);
+            $entityManager->flush();
+
+            $secret = $token->getToken();
+        }
+
+        return $this->render('users/api_token_create.html.twig', [
+            'token' => $token,
+            'form' => $form,
+            'secret' => $secret,
+        ]);
+    }
+
+    #[Route(path: '/api_token/delete', name: 'user_api_tokens_delete', methods: ['DELETE'])]
+    public function apiTokenRemove(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('@api.manage_tokens');
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if (!$this->isCsrfTokenValid('delete'.$user->getID(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'csfr_invalid');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        //Extract the token id from the request
+        $token_id = $request->request->getInt('token_id');
+
+        $token = $entityManager->find(ApiToken::class, $token_id);
+        if ($token === null) {
+            $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
+            return $this->redirectToRoute('user_settings');
+        }
+        //User can only delete its own API tokens
+        if ($token->getUser() !== $user) {
+            $this->addFlash('error', 'tfa_u2f.u2f_delete.access_denied');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        //Do the actual deletion
+        $entityManager->remove($token);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'api_tokens.deleted');
+        return $this->redirectToRoute('user_settings');
     }
 }

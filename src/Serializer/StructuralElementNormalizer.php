@@ -43,6 +43,11 @@ class StructuralElementNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
+        //Only normalize if we are doing a file export operation
+        if (!($context['partdb_export'] ?? false)) {
+            return false;
+        }
+
         return $data instanceof AbstractStructuralDBElement;
     }
 

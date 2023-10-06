@@ -39,31 +39,31 @@ trait ManufacturerTrait
     /**
      * @var Manufacturer|null The manufacturer of this part
      */
-    #[Groups(['simple', 'extended', 'full', 'import'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class)]
     #[ORM\JoinColumn(name: 'id_manufacturer')]
     #[Selectable()]
     protected ?Manufacturer $manufacturer = null;
 
     /**
-     * @var string the url to the part on the manufacturer's homepage
+     * @var string The url to the part on the manufacturer's homepage
      */
     #[Assert\Url]
-    #[Groups(['full', 'import'])]
+    #[Groups(['full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $manufacturer_product_number = '';
 
     /**
      * @var ManufacturingStatus|null The production status of this part. Can be one of the specified ones.
      */
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true, enumType: ManufacturingStatus::class)]
     protected ?ManufacturingStatus $manufacturing_status = ManufacturingStatus::NOT_SET;
 

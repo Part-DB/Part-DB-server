@@ -34,9 +34,10 @@ use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\ProjectAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -45,7 +46,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\Parts\MeasurementUnit;
@@ -66,14 +67,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Every database table which are managed with this class (or a subclass of it)
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
  */
-#[DiscriminatorMap(typeProperty: 'type', mapping: ['attachment_type' => AttachmentType::class, 'attachment' => Attachment::class, 'attachment_type_attachment' => AttachmentTypeAttachment::class, 'category_attachment' => CategoryAttachment::class, 'currency_attachment' => CurrencyAttachment::class, 'footprint_attachment' => FootprintAttachment::class, 'group_attachment' => GroupAttachment::class, 'label_attachment' => LabelAttachment::class, 'manufacturer_attachment' => ManufacturerAttachment::class, 'measurement_unit_attachment' => MeasurementUnitAttachment::class, 'part_attachment' => PartAttachment::class, 'project_attachment' => ProjectAttachment::class, 'storelocation_attachment' => StorelocationAttachment::class, 'supplier_attachment' => SupplierAttachment::class, 'user_attachment' => UserAttachment::class, 'category' => Category::class, 'project' => Project::class, 'project_bom_entry' => ProjectBOMEntry::class, 'footprint' => Footprint::class, 'group' => Group::class, 'manufacturer' => Manufacturer::class, 'orderdetail' => Orderdetail::class, 'part' => Part::class, 'pricedetail' => 'App\Entity\PriceInformation\Pricedetail', 'storelocation' => Storelocation::class, 'part_lot' => PartLot::class, 'currency' => Currency::class, 'measurement_unit' => MeasurementUnit::class, 'parameter' => 'App\Entity\Parts\AbstractParameter', 'supplier' => Supplier::class, 'user' => User::class])]
+#[DiscriminatorMap(typeProperty: 'type', mapping: ['attachment_type' => AttachmentType::class, 'attachment' => Attachment::class, 'attachment_type_attachment' => AttachmentTypeAttachment::class, 'category_attachment' => CategoryAttachment::class, 'currency_attachment' => CurrencyAttachment::class, 'footprint_attachment' => FootprintAttachment::class, 'group_attachment' => GroupAttachment::class, 'label_attachment' => LabelAttachment::class, 'manufacturer_attachment' => ManufacturerAttachment::class, 'measurement_unit_attachment' => MeasurementUnitAttachment::class, 'part_attachment' => PartAttachment::class, 'project_attachment' => ProjectAttachment::class, 'storelocation_attachment' => StorageLocationAttachment::class, 'supplier_attachment' => SupplierAttachment::class, 'user_attachment' => UserAttachment::class, 'category' => Category::class, 'project' => Project::class, 'project_bom_entry' => ProjectBOMEntry::class, 'footprint' => Footprint::class, 'group' => Group::class, 'manufacturer' => Manufacturer::class, 'orderdetail' => Orderdetail::class, 'part' => Part::class, 'pricedetail' => 'App\Entity\PriceInformation\Pricedetail', 'storelocation' => StorageLocation::class, 'part_lot' => PartLot::class, 'currency' => Currency::class, 'measurement_unit' => MeasurementUnit::class, 'parameter' => AbstractParameter::class, 'supplier' => Supplier::class, 'user' => User::class])]
 #[ORM\MappedSuperclass(repositoryClass: DBElementRepository::class)]
 abstract class AbstractDBElement implements JsonSerializable
 {
     /** @var int|null The Identification number for this part. This value is unique for the element in this table.
      * Null if the element is not saved to DB yet.
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'api:basic:read'])]
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\Id]
     #[ORM\GeneratedValue]

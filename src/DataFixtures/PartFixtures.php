@@ -49,7 +49,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -94,14 +94,14 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part->setCategory($manager->find(Category::class, 1));
         $partLot1 = new PartLot();
         $partLot1->setAmount(1.0);
-        $partLot1->setStorageLocation($manager->find(Storelocation::class, 1));
+        $partLot1->setStorageLocation($manager->find(StorageLocation::class, 1));
         $part->addPartLot($partLot1);
 
         $partLot2 = new PartLot();
         $partLot2->setExpirationDate(new DateTime());
         $partLot2->setComment('Test');
         $partLot2->setNeedsRefill(true);
-        $partLot2->setStorageLocation($manager->find(Storelocation::class, 3));
+        $partLot2->setStorageLocation($manager->find(StorageLocation::class, 3));
         $part->addPartLot($partLot2);
 
         $orderdetail = new Orderdetail();

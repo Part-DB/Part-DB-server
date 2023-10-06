@@ -46,7 +46,7 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\LabelGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -68,7 +68,7 @@ class LabelGeneratorTest extends WebTestCase
         return [
             [LabelSupportedElement::PART, Part::class],
             [LabelSupportedElement::PART_LOT, PartLot::class],
-            [LabelSupportedElement::STORELOCATION, Storelocation::class],
+            [LabelSupportedElement::STORELOCATION, StorageLocation::class],
         ];
     }
 

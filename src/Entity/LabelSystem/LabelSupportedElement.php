@@ -22,7 +22,7 @@ namespace App\Entity\LabelSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 
 enum LabelSupportedElement: string
 {
@@ -39,7 +39,7 @@ enum LabelSupportedElement: string
         return match ($this) {
             self::PART => Part::class,
             self::PART_LOT => PartLot::class,
-            self::STORELOCATION => Storelocation::class,
+            self::STORELOCATION => StorageLocation::class,
         };
     }
 }

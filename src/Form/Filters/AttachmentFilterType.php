@@ -32,7 +32,7 @@ use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Parts\Manufacturer;
@@ -85,7 +85,7 @@ class AttachmentFilterType extends AbstractType
                 'label_profile.label' => LabelAttachment::class,
                 'manufacturer.label' => Manufacturer::class,
                 'measurement_unit.label' => MeasurementUnit::class,
-                'storelocation.label' => StorelocationAttachment::class,
+                'storelocation.label' => StorageLocationAttachment::class,
                 'supplier.label' => SupplierAttachment::class,
                 'user.label' => UserAttachment::class,
             ]

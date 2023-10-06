@@ -24,7 +24,7 @@ namespace App\Serializer;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -148,7 +148,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
             }
 
             if (isset($data['storelocation']) && $data['storelocation'] !== "") {
-                $location = $this->locationDenormalizer->denormalize($data['storelocation'], Storelocation::class, $format, $context);
+                $location = $this->locationDenormalizer->denormalize($data['storelocation'], StorageLocation::class, $format, $context);
                 $partLot->setStorageLocation($location);
             }
 

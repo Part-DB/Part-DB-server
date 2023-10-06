@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 
 /**
  * @group slow
@@ -31,5 +31,5 @@ use App\Entity\Parts\Storelocation;
 class StorelocationControllerTest extends AbstractAdminControllerTest
 {
     protected static string $base_path = '/en/store_location';
-    protected static string $entity_class = Storelocation::class;
+    protected static string $entity_class = StorageLocation::class;
 }

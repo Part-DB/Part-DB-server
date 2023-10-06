@@ -34,7 +34,7 @@ use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
-use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
@@ -102,7 +102,7 @@ class TypeaheadController extends AbstractController
             'device' => ProjectParameter::class,
             'footprint' => FootprintParameter::class,
             'manufacturer' => ManufacturerParameter::class,
-            'storelocation' => StorelocationParameter::class,
+            'storelocation' => StorageLocationParameter::class,
             'supplier' => SupplierParameter::class,
             'attachment_type' => AttachmentTypeParameter::class,
             'group' => GroupParameter::class,

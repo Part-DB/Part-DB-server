@@ -25,7 +25,7 @@ namespace App\Services\ImportExportSystem\PartKeeprImporter;
 use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -36,7 +36,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -263,9 +263,9 @@ class PKDatastructureImporter
 
     public function importStorelocations(array $data): int
     {
-        $count = $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
+        $count = $this->importElementsWithCategory($data, StorageLocation::class, 'storagelocation');
 
-        $this->importAttachments($data, 'storagelocationimage', Storelocation::class, 'storageLocation_id', StorelocationAttachment::class);
+        $this->importAttachments($data, 'storagelocationimage', StorageLocation::class, 'storageLocation_id', StorageLocationAttachment::class);
 
         return $count;
     }

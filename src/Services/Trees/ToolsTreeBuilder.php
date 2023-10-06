@@ -31,7 +31,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
@@ -182,7 +182,7 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('manufacturer_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-industry');
         }
-        if ($this->security->isGranted('read', new Storelocation())) {
+        if ($this->security->isGranted('read', new StorageLocation())) {
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.storelocation'),
                 $this->urlGenerator->generate('store_location_new')

@@ -35,7 +35,7 @@ use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
@@ -81,7 +81,7 @@ class AttachmentSubmitHandler
             GroupAttachment::class => 'group',
             ManufacturerAttachment::class => 'manufacturer',
             MeasurementUnitAttachment::class => 'measurement_unit',
-            StorelocationAttachment::class => 'storelocation',
+            StorageLocationAttachment::class => 'storelocation',
             SupplierAttachment::class => 'supplier',
             UserAttachment::class => 'user',
             LabelAttachment::class => 'label_profile',
