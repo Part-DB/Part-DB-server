@@ -126,6 +126,18 @@ Following env configuration options are available:
 * `PROVIDER_ELEMENT14_KEY`: The API key you got from Farnell (mandatory)
 * `PROVIDER_ELEMENT14_STORE_ID`: The store ID you want to use. This decides the language of results, currency and country of prices (optional, default: `de.farnell.com`, see [here](https://partner.element14.com/docs/Product_Search_API_REST__Description) for availailable values)
 
+### Mouser
+The Mouser provider uses the [Mouser API](https://www.mouser.de/api-home/) to search for parts and getting shopping information from [Mouser](https://www.mouser.com/).
+You have to create an account at Mouser and register for an API key for the Search API on the [Mouser API page](https://www.mouser.de/api-home/).
+You will receive an API token, which you have to enter in the Part-DB env configuration (see below):
+At the registration you choose a country, language and currency in which you want to get the results.
+
+Following env configuration options are available:
+* `PROVIDER_MOUSER_KEY`: The API key you got from Mouser (mandatory)
+* `PROVIDER_MOUSER_SEARCH_LIMIT`: The maximum number of results to return per search (maximum 50)
+* `PROVIDER_MOUSER_SEARCH_OPTION`: You can choose an option here to restrict the search results to RoHs compliant and available parts. Possible values are `None`, `Rohs`, `InStock`, `RohsAndInStock`.
+* `PROVIDER_MOUSER_SEARCH_WITH_SIGNUP_LANGUAGE`: A bit of an obscure option. The original description of Mouser is: Used when searching for keywords in the language specified when you signed up for Search API.
+
 
 ### Custom provider
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long as it is a valid Symfony service, it will be automatically loaded and can be used.
