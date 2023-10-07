@@ -280,8 +280,8 @@ services:
     App\Services\InfoProviderSystem\Providers\MouserProvider:
         arguments:
             $api_key: '%env(string:PROVIDER_MOUSER_KEY)%'
-            $language: '%env(string:PROVIDER_MOUSER_LANGUAGE)%'
-            $options: '%env(string:PROVIDER_MOUSER_OPTION)%'
+            $language: '%env(string:PROVIDER_MOUSER_SEARCH_WITH_SIGNUP_LANGUAGE)%'
+            $options: '%env(string:PROVIDER_MOUSER_SEARCH_OPTION)%'
             $search_limit: '%env(int:PROVIDER_MOUSER_SEARCH_LIMIT)%'
 
     ####################################################################################################################
