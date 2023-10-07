@@ -49,18 +49,15 @@ class MouserProvider implements InfoProviderInterface
 
     private const ENDPOINT_URL = 'https://api.mouser.com/api/v2/search';
 
-    private const NUMBER_OF_RESULTS = 50; //MAX 50
-
-
     public const DISTRIBUTOR_NAME = 'Mouser';
 
-    public function __construct(private readonly HttpClientInterface $mouserClient,
+    public function __construct(
+        private readonly HttpClientInterface $mouserClient,
         private readonly string $api_key,
         private readonly string $language,
         private readonly string $options,
-        private readonly int $search_limit)
-    {
-
+        private readonly int $search_limit
+    ) {
     }
 
     public function getProviderInfo(): array
@@ -123,7 +120,7 @@ class MouserProvider implements InfoProviderInterface
             }
     */
 
-        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL . "/keyword?apiKey=" . $this->api_key , [
+        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/keyword?apiKey=".$this->api_key, [
             'json' => [
                 'SearchByKeywordRequest' => [
                     'keyword' => $keyword,
@@ -161,7 +158,7 @@ class MouserProvider implements InfoProviderInterface
             }
         */
 
-        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL . "/partnumber?apiKey=" . $this->api_key , [
+        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/partnumber?apiKey=".$this->api_key, [
             'json' => [
                 'SearchByPartRequest' => [
                     'mouserPartNumber' => $id,
@@ -173,11 +170,11 @@ class MouserProvider implements InfoProviderInterface
 
         //Ensure that we have exactly one result
         if (count($tmp) === 0) {
-            throw new \RuntimeException('No part found with ID ' . $id);
+            throw new \RuntimeException('No part found with ID '.$id);
         }
 
         if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID ' . $id);
+            throw new \RuntimeException('Multiple parts found with ID '.$id);
         }
 
         return $tmp[0];
@@ -195,7 +192,7 @@ class MouserProvider implements InfoProviderInterface
 
 
     /**
-     * @param  ResponseInterface $response
+     * @param  ResponseInterface  $response
      * @return PartDetailDTO[]
      */
     private function responseToDTOArray(ResponseInterface $response): array
@@ -214,23 +211,25 @@ class MouserProvider implements InfoProviderInterface
                 provider_id: $product['MouserPartNumber'],
                 name: $product['ManufacturerPartNumber'],
                 description: $product['Description'],
+                category: $product['Category'],
                 manufacturer: $product['Manufacturer'],
                 mpn: $product['ManufacturerPartNumber'],
                 preview_image_url: $product['ImagePath'],
-                category: $product['Category'],
-                provider_url: $product['ProductDetailUrl'],
                 manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['LifecycleStatus'] ?? null),
-                datasheets: $this->parseDataSheets($product['DataSheetUrl'], $product['MouserPartNumber'] ?? null),
-                vendor_infos: $this->pricingToDTOs($product['PriceBreaks'] ?? [], $product['MouserPartNumber'], $product['ProductDetailUrl']),
+                provider_url: $product['ProductDetailUrl'],
+                datasheets: $this->parseDataSheets($product['DataSheetUrl'] ?? null,
+                    $product['MouserPartNumber'] ?? null),
+                vendor_infos: $this->pricingToDTOs($product['PriceBreaks'] ?? [], $product['MouserPartNumber'],
+                    $product['ProductDetailUrl']),
             );
         }
         return $result;
     }
 
 
-    private function parseDataSheets(string $sheetUrl, string $sheetName): ?array
+    private function parseDataSheets(?string $sheetUrl, ?string $sheetName): ?array
     {
-        if ($sheetUrl === null) {
+        if (empty($sheetUrl)) {
             return null;
         }
         $result = [];
@@ -242,8 +241,9 @@ class MouserProvider implements InfoProviderInterface
     * Mouser API price is a string in the form "n[.,]nnn[.,] currency"
     * then this convert it to a number
     */
-    private function floatvalue($val){
-        $val = str_replace(",",".",$val);
+    private function priceStrToFloat($val): float
+    {
+        $val = str_replace(",", ".", $val);
         $val = preg_replace('/\.(?=.*\.)/', '', $val);
         return (float)$val;
     }
@@ -260,16 +260,19 @@ class MouserProvider implements InfoProviderInterface
         $prices = [];
 
         foreach ($price_breaks as $price_break) {
-            $number = $this->floatvalue($price_break['Price']);
-            $prices[] = new PriceDTO(minimum_discount_amount:  $price_break['Quantity'], price: (string)$number, currency_iso_code: $price_break['Currency']);
-            $number = 0;
+            $number = $this->priceStrToFloat($price_break['Price']);
+            $prices[] = new PriceDTO(
+                minimum_discount_amount: $price_break['Quantity'],
+                price: (string)$number,
+                currency_iso_code: $price_break['Currency']
+            );
         }
 
         return [
-            new PurchaseInfoDTO(distributor_name: self::DISTRIBUTOR_NAME, order_number: $order_number, prices: $prices, product_url: $product_url)
+            new PurchaseInfoDTO(distributor_name: self::DISTRIBUTOR_NAME, order_number: $order_number, prices: $prices,
+                product_url: $product_url)
         ];
     }
-
 
 
     /* Converts the product status from the MOUSER API to the manufacturing status used in Part-DB:
