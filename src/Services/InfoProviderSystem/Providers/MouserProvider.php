@@ -74,7 +74,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function getProviderKey(): string
     {
-        return 'Mouser';
+        return 'mouser';
     }
 
     public function isActive(): bool
