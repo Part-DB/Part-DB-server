@@ -26,6 +26,35 @@
                            href="{{ path("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
                     </li>
                 {% endif %}
+
+                {% if is_granted("@parts.create") %}
+                    {% set show_parts_create_dropdown = is_granted('@info_providers.create_parts') or is_granted('@parts.import') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link d-inline-block {% if show_parts_create_dropdown %}pe-0{% endif %}"
+                           href="{{ path("part_new") }}">{% trans %}tree.tools.edit.part{% endtrans %}</a>
+
+                        {% if show_parts_create_dropdown %}
+                            <a class="nav-link dropdown-toggle d-inline-block ps-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                            <ul class="dropdown-menu">
+                                {% if is_granted('@info_providers.create_parts') %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('info_providers_search') }}">
+                                            <i class="fa-fw fa-solid fa-cloud-arrow-down"></i>
+                                            {% trans %}info_providers.search.title{% endtrans %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted('@parts.import') %}
+                                    <li><a class="dropdown-item" href="{{ path('parts_import') }}">
+                                            <i class="fa-fw fa-solid fa-file-import"></i>
+                                            {% trans %}parts.import.title{% endtrans %}
+                                        </a></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endif %}
             </ul>
 
             {% if is_granted('@parts.read') %}
@@ -68,14 +97,14 @@
                             <li role="separator" class="dropdown-divider"></li>
 
                             {% if impersonation_active() %}
-                            <a class="dropdown-item" href="{{ impersonation_exit_path() }}" data-turbo="false" data-turbo-frame="_top">
-                                <i class="fa fa-turn-up fa-fw" aria-hidden="true"></i> {% trans %}user.stop_impersonation{% endtrans %}
-                            </a>
+                                <a class="dropdown-item" href="{{ impersonation_exit_path() }}" data-turbo="false" data-turbo-frame="_top">
+                                    <i class="fa fa-turn-up fa-fw" aria-hidden="true"></i> {% trans %}user.stop_impersonation{% endtrans %}
+                                </a>
                             {% endif %}
 
-                                <a class="dropdown-item" href="{{ path('logout') }}" data-turbo="false" data-turbo-frame="_top">
-                                    <i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}
-                                </a>
+                            <a class="dropdown-item" href="{{ path('logout') }}" data-turbo="false" data-turbo-frame="_top">
+                                <i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}
+                            </a>
                         {% else %}
                             <a class="dropdown-item"
                                href="{{ path('login', {'_target_path': app.request.pathinfo | remove_locale_from_path}) }}"
