@@ -41,6 +41,7 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 
 class MouserProvider implements InfoProviderInterface
@@ -82,11 +83,7 @@ class MouserProvider implements InfoProviderInterface
         return !empty($this->api_key);
     }
 
-    /**
-     * @param  string  $term
-     * @return PartDetailDTO[]
-     */
-    private function queryByTerm(string $term): array
+    public function searchByKeyword(string $keyword): array
     {
         /*
         SearchByKeywordRequest description:
@@ -129,7 +126,7 @@ class MouserProvider implements InfoProviderInterface
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL . "/keyword?apiKey=" . $this->api_key , [
             'json' => [
                 'SearchByKeywordRequest' => [
-                    'keyword' => $term,
+                    'keyword' => $keyword,
                     'records' => $this->search_limit, //self::NUMBER_OF_RESULTS,
                     'startingRecord' => 0,
                     'searchOptions' => $this->options,
@@ -138,38 +135,10 @@ class MouserProvider implements InfoProviderInterface
             ],
         ]);
 
-        $arr = $response->toArray();
-        if (isset($arr['SearchResults'])) {
-            $products = $arr['SearchResults']['Parts'] ?? [];
-        } else {
-            throw new \RuntimeException('Unknown response format');
-        }
-        $result = [];
-        foreach ($products as $product) {
-            $result[] = new PartDetailDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: $product['MouserPartNumber'],
-                name: $product['ManufacturerPartNumber'],
-                description: $product['Description'],
-                manufacturer: $product['Manufacturer'],
-                mpn: $product['ManufacturerPartNumber'],
-                preview_image_url: $product['ImagePath'],
-                category: $product['Category'],
-                provider_url: $product['ProductDetailUrl'],
-                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['LifecycleStatus'] ?? null),
-                datasheets: $this->parseDataSheets($product['DataSheetUrl'], $product['MouserPartNumber'] ?? null),
-                vendor_infos: $this->pricingToDTOs($product['PriceBreaks'] ?? [], $product['MouserPartNumber'], $product['ProductDetailUrl']),
-            );
-        }
-        return $result;
-
+        return $this->responseToDTOArray($response);
     }
 
-    /**
-     * @param  string  $parte
-     * @return PartDetailDTO[]
-     */
-    private function queryPartNumber(string $parte): array
+    public function getDetails(string $id): PartDetailDTO
     {
         /*
             SearchByPartRequest description:
@@ -195,18 +164,49 @@ class MouserProvider implements InfoProviderInterface
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL . "/partnumber?apiKey=" . $this->api_key , [
             'json' => [
                 'SearchByPartRequest' => [
-                    'mouserPartNumber' => $parte,
+                    'mouserPartNumber' => $id,
                     'partSearchOptions' => 2
                 ]
             ],
         ]);
+        $tmp = $this->responseToDTOArray($response);
+
+        //Ensure that we have exactly one result
+        if (count($tmp) === 0) {
+            throw new \RuntimeException('No part found with ID ' . $id);
+        }
+
+        if (count($tmp) > 1) {
+            throw new \RuntimeException('Multiple parts found with ID ' . $id);
+        }
+
+        return $tmp[0];
+    }
+
+    public function getCapabilities(): array
+    {
+        return [
+            ProviderCapabilities::BASIC,
+            ProviderCapabilities::PICTURE,
+            ProviderCapabilities::DATASHEET,
+            ProviderCapabilities::PRICE,
+        ];
+    }
+
+
+    /**
+     * @param  ResponseInterface $response
+     * @return PartDetailDTO[]
+     */
+    private function responseToDTOArray(ResponseInterface $response): array
+    {
         $arr = $response->toArray();
+
         if (isset($arr['SearchResults'])) {
             $products = $arr['SearchResults']['Parts'] ?? [];
         } else {
             throw new \RuntimeException('Unknown response format');
         }
-
         $result = [];
         foreach ($products as $product) {
             $result[] = new PartDetailDTO(
@@ -225,13 +225,6 @@ class MouserProvider implements InfoProviderInterface
             );
         }
         return $result;
-
-    }
-
-
-    private function generateProductURL($sku): string
-    {
-        return 'https://' . $this->store_id . '/' . $sku;
     }
 
 
@@ -252,7 +245,7 @@ class MouserProvider implements InfoProviderInterface
     private function floatvalue($val){
         $val = str_replace(",",".",$val);
         $val = preg_replace('/\.(?=.*\.)/', '', $val);
-        return floatval($val);
+        return (float)$val;
     }
 
     /**
@@ -299,35 +292,5 @@ class MouserProvider implements InfoProviderInterface
             "Obsolete" => ManufacturingStatus::DISCONTINUED,
             default => ManufacturingStatus::ACTIVE,
         };
-    }
-
-    public function searchByKeyword(string $keyword): array
-    {
-        return $this->queryByTerm($keyword);
-    }
-
-    public function getDetails(string $id): PartDetailDTO
-    {
-        $tmp = $this->queryPartNumber($id);
-
-        if (count($tmp) === 0) {
-            throw new \RuntimeException('No part found with ID ' . $id);
-        }
-
-        if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID ' . $id);
-        }
-
-        return $tmp[0];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
     }
 }
