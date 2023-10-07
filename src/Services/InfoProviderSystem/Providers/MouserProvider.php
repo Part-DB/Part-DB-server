@@ -120,7 +120,10 @@ class MouserProvider implements InfoProviderInterface
             }
     */
 
-        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/keyword?apiKey=".$this->api_key, [
+        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/keyword", [
+            'query' => [
+                'apiKey' => $this->api_key,
+            ],
             'json' => [
                 'SearchByKeywordRequest' => [
                     'keyword' => $keyword,
@@ -158,7 +161,10 @@ class MouserProvider implements InfoProviderInterface
             }
         */
 
-        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/partnumber?apiKey=".$this->api_key, [
+        $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/partnumber", [
+            'query' => [
+                'apiKey' => $this->api_key,
+            ],
             'json' => [
                 'SearchByPartRequest' => [
                     'mouserPartNumber' => $id,
