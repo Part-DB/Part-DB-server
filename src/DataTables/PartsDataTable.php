@@ -25,6 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
 use App\DataTables\Adapters\TwoStepORMAdapter;
 use App\DataTables\Column\EnumColumn;
+use App\DataTables\Helpers\ColumnSortHelper;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -62,8 +63,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly Security $security)
-    {
+    public function __construct(
+        private readonly EntityURLGenerator $urlGenerator,
+        private readonly TranslatorInterface $translator,
+        private readonly AmountFormatter $amountFormatter,
+        private readonly PartDataTableHelper $partDataTableHelper,
+        private readonly Security $security,
+        private readonly string $visible_columns,
+        private readonly ColumnSortHelper $csh,
+    ) {
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -83,9 +91,9 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
-        $dataTable
+        $this->csh
             //Color the table rows depending on the review and favorite status
-            ->add('dont_matter', RowClassColumn::class, [
+            ->add('row_color', RowClassColumn::class, [
                 'render' => function ($value, Part $context): string {
                     if ($context->isNeedsReview()) {
                         return 'table-secondary';
@@ -96,51 +104,39 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return ''; //Default coloring otherwise
                 },
-            ])
-
-            ->add('select', SelectColumn::class)
+            ], visibility_configurable: false)
+            ->add('select', SelectColumn::class, visibility_configurable: false)
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
-            ])
+            ], visibility_configurable: false)
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
-                'visible' => false,
             ])
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
-                'visible' => false,
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
-            ]);
-
-        if ($this->security->isGranted('@categories.read')) {
-            $dataTable->add('category', EntityColumn::class, [
+            ])
+            ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'category',
-            ]);
-        }
-
-        if ($this->security->isGranted('@footprints.read')) {
-            $dataTable->add('footprint', EntityColumn::class, [
+            ])
+            ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-            ]);
-        }
-        if ($this->security->isGranted('@manufacturers.read')) {
-            $dataTable->add('manufacturer', EntityColumn::class, [
+            ])
+            ->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-            ]);
-        }
-        if ($this->security->isGranted('@storelocations.read')) {
-            $dataTable->add('storelocation', TextColumn::class, [
+            ])
+            ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 'orderField' => 'storelocations.name',
                 'render' => function ($value, Part $context): string {
@@ -160,119 +156,106 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return implode('<br>', $tmp);
                 },
-            ]);
-        }
+            ], alias: 'storage_location')
+            ->add('amount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.amount'),
+                'render' => function ($value, Part $context) {
+                    $amount = $context->getAmountSum();
+                    $expiredAmount = $context->getExpiredAmountSum();
 
-        $dataTable->add('amount', TextColumn::class, [
-            'label' => $this->translator->trans('part.table.amount'),
-            'render' => function ($value, Part $context) {
-                $amount = $context->getAmountSum();
-                $expiredAmount = $context->getExpiredAmountSum();
+                    $ret = '';
 
-                $ret = '';
-
-                if ($context->isAmountUnknown()) {
-                    //When all amounts are unknown, we show a question mark
-                    if ($amount === 0.0) {
-                        $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
-                            $this->translator->trans('part_lots.instock_unknown'));
-                    } else { //Otherwise mark it with greater equal and the (known) amount
-                        $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
-                            $this->translator->trans('part_lots.instock_unknown')
-                        );
+                    if ($context->isAmountUnknown()) {
+                        //When all amounts are unknown, we show a question mark
+                        if ($amount === 0.0) {
+                            $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                                $this->translator->trans('part_lots.instock_unknown'));
+                        } else { //Otherwise mark it with greater equal and the (known) amount
+                            $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                                $this->translator->trans('part_lots.instock_unknown')
+                            );
+                            $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                        }
+                    } else {
                         $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
                     }
-                } else {
-                    $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
-                }
 
-                //If we have expired lots, we show them in parentheses behind
-                if ($expiredAmount > 0) {
-                    $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
-                        $this->translator->trans('part_lots.is_expired'),
-                        htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
-                }
+                    //If we have expired lots, we show them in parentheses behind
+                    if ($expiredAmount > 0) {
+                        $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
+                            $this->translator->trans('part_lots.is_expired'),
+                            htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
+                    }
 
-                //When the amount is below the minimum amount, we highlight the number red
-                if ($context->isNotEnoughInstock()) {
-                    $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
-                        $this->translator->trans('part.info.amount.less_than_desired'),
-                        $ret);
-                }
+                    //When the amount is below the minimum amount, we highlight the number red
+                    if ($context->isNotEnoughInstock()) {
+                        $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
+                            $this->translator->trans('part.info.amount.less_than_desired'),
+                            $ret);
+                    }
 
-                return $ret;
-            },
-            'orderField' => 'amountSum'
-        ])
+                    return $ret;
+                },
+                'orderField' => 'amountSum'
+            ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'visible' => false,
-                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit())),
-            ]);
-
-        if ($this->security->isGranted('@footprints.read')) {
-            $dataTable->add('partUnit', TextColumn::class, [
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
+                    $context->getPartUnit())),
+            ])
+            ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-                'visible' => false,
-            ]);
-        }
-
-        $dataTable->add('addedDate', LocaleDateTimeColumn::class, [
-            'label' => $this->translator->trans('part.table.addedDate'),
-            'visible' => false,
-        ])
+            ])
+            ->add('addedDate', LocaleDateTimeColumn::class, [
+                'label' => $this->translator->trans('part.table.addedDate'),
+            ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-                'visible' => false,
             ])
             ->add('needs_review', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
-                'visible' => false,
             ])
             ->add('favorite', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
-                'visible' => false,
             ])
             ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
-                'visible' => false,
                 'class' => ManufacturingStatus::class,
-                'render' => function(?ManufacturingStatus $status, Part $context): string {
+                'render' => function (?ManufacturingStatus $status, Part $context): string {
                     if (!$status) {
                         return '';
                     }
 
                     return $this->translator->trans($status->toTranslationKey());
-                } ,
+                },
             ])
             ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),
-                'visible' => false,
             ])
             ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
-                'visible' => false,
                 'unit' => 'g'
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
-                'visible' => false,
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
-                'visible' => false,
             ])
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
-                'visible' => false,
                 'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
                 'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
                 'title' => $this->translator->trans('part.table.edit.title'),
-            ])
+            ]);
 
-            ->addOrderBy('name')
-            ->createAdapter(TwoStepORMAdapter::class, [
+        //Apply the user configured order and visibility and add the columns to the table
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,
+            "TABLE_PARTS_DEFAULT_COLUMNS");
+
+        $dataTable->addOrderBy('name')
+            ->createAdapter(TwoStepORMAdapater::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
@@ -300,7 +283,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect(
                 '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '. PartLot::class. ' partLot
+                    FROM '.PartLot::class.' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
@@ -321,8 +304,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.parameters', 'parameters')
 
             //This must be the only group by, or the paginator will not work correctly
-            ->addGroupBy('part.id')
-        ;
+            ->addGroupBy('part.id');
     }
 
     private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
@@ -352,7 +334,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect(
                 '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '. PartLot::class. ' partLot
+                    FROM '.PartLot::class.' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
@@ -371,7 +353,6 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.parameters', 'parameters')
-
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
@@ -388,8 +369,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
-            ->addGroupBy('parameters')
-        ;
+            ->addGroupBy('parameters');
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
@@ -408,6 +388,5 @@ final class PartsDataTable implements DataTableTypeInterface
             $filter = $options['filter'];
             $filter->apply($builder);
         }
-
     }
 }
