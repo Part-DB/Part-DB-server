@@ -117,11 +117,9 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
-                'visible' => false,
             ])
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
-                'visible' => false,
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
@@ -213,7 +211,6 @@ final class PartsDataTable implements DataTableTypeInterface
         ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'visible' => false,
                 'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
                     $context->getPartUnit())),
             ]);
@@ -222,29 +219,23 @@ final class PartsDataTable implements DataTableTypeInterface
             $this->csh->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-                'visible' => false,
             ]);
         }
 
         $this->csh->add('addedDate', LocaleDateTimeColumn::class, [
             'label' => $this->translator->trans('part.table.addedDate'),
-            'visible' => false,
         ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-                'visible' => false,
             ])
             ->add('needs_review', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
-                'visible' => false,
             ])
             ->add('favorite', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
-                'visible' => false,
             ])
             ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
-                'visible' => false,
                 'class' => ManufacturingStatus::class,
                 'render' => function (?ManufacturingStatus $status, Part $context): string {
                     if (!$status) {
@@ -256,31 +247,27 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),
-                'visible' => false,
             ])
             ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
-                'visible' => false,
                 'unit' => 'g'
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
-                'visible' => false,
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
-                'visible' => false,
             ])
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
-                'visible' => false,
                 'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
                 'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
                 'title' => $this->translator->trans('part.table.edit.title'),
             ]);
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns, "TABLE_PARTS_DEFAULT_COLUMNS");
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,
+            "TABLE_PARTS_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name')
             ->createAdapter(TwoStepORMAdapater::class, [
