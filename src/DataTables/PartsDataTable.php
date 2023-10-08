@@ -123,29 +123,20 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
-            ]);
-
-        if ($this->security->isGranted('@categories.read')) {
-            $this->csh->add('category', EntityColumn::class, [
+            ])
+            ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'category',
-            ]);
-        }
-
-        if ($this->security->isGranted('@footprints.read')) {
-            $this->csh->add('footprint', EntityColumn::class, [
+            ])
+            ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-            ]);
-        }
-        if ($this->security->isGranted('@manufacturers.read')) {
-            $this->csh->add('manufacturer', EntityColumn::class, [
+            ])
+            ->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-            ]);
-        }
-        if ($this->security->isGranted('@storelocations.read')) {
-            $this->csh->add('storelocation', TextColumn::class, [
+            ])
+            ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 'orderField' => 'storelocations.name',
                 'render' => function ($value, Part $context): string {
@@ -165,66 +156,60 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return implode('<br>', $tmp);
                 },
-            ], alias: 'storage_location');
-        }
+            ], alias: 'storage_location')
+            ->add('amount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.amount'),
+                'render' => function ($value, Part $context) {
+                    $amount = $context->getAmountSum();
+                    $expiredAmount = $context->getExpiredAmountSum();
 
-        $this->csh->add('amount', TextColumn::class, [
-            'label' => $this->translator->trans('part.table.amount'),
-            'render' => function ($value, Part $context) {
-                $amount = $context->getAmountSum();
-                $expiredAmount = $context->getExpiredAmountSum();
+                    $ret = '';
 
-                $ret = '';
-
-                if ($context->isAmountUnknown()) {
-                    //When all amounts are unknown, we show a question mark
-                    if ($amount === 0.0) {
-                        $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
-                            $this->translator->trans('part_lots.instock_unknown'));
-                    } else { //Otherwise mark it with greater equal and the (known) amount
-                        $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
-                            $this->translator->trans('part_lots.instock_unknown')
-                        );
+                    if ($context->isAmountUnknown()) {
+                        //When all amounts are unknown, we show a question mark
+                        if ($amount === 0.0) {
+                            $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                                $this->translator->trans('part_lots.instock_unknown'));
+                        } else { //Otherwise mark it with greater equal and the (known) amount
+                            $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                                $this->translator->trans('part_lots.instock_unknown')
+                            );
+                            $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                        }
+                    } else {
                         $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
                     }
-                } else {
-                    $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
-                }
 
-                //If we have expired lots, we show them in parentheses behind
-                if ($expiredAmount > 0) {
-                    $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
-                        $this->translator->trans('part_lots.is_expired'),
-                        htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
-                }
+                    //If we have expired lots, we show them in parentheses behind
+                    if ($expiredAmount > 0) {
+                        $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
+                            $this->translator->trans('part_lots.is_expired'),
+                            htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
+                    }
 
-                //When the amount is below the minimum amount, we highlight the number red
-                if ($context->isNotEnoughInstock()) {
-                    $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
-                        $this->translator->trans('part.info.amount.less_than_desired'),
-                        $ret);
-                }
+                    //When the amount is below the minimum amount, we highlight the number red
+                    if ($context->isNotEnoughInstock()) {
+                        $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
+                            $this->translator->trans('part.info.amount.less_than_desired'),
+                            $ret);
+                    }
 
-                return $ret;
-            },
-            'orderField' => 'amountSum'
-        ])
+                    return $ret;
+                },
+                'orderField' => 'amountSum'
+            ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
                     $context->getPartUnit())),
-            ]);
-
-        if ($this->security->isGranted('@footprints.read')) {
-            $this->csh->add('partUnit', TextColumn::class, [
+            ])
+            ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-            ]);
-        }
-
-        $this->csh->add('addedDate', LocaleDateTimeColumn::class, [
-            'label' => $this->translator->trans('part.table.addedDate'),
-        ])
+            ])
+            ->add('addedDate', LocaleDateTimeColumn::class, [
+                'label' => $this->translator->trans('part.table.addedDate'),
+            ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
             ])
