@@ -25,6 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
 use App\DataTables\Adapters\TwoStepORMAdapater;
 use App\DataTables\Column\EnumColumn;
+use App\DataTables\Helpers\ColumnSortHelper;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -33,7 +34,6 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Storelocation;
 use App\DataTables\Column\EntityColumn;
@@ -63,8 +63,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    public function __construct(private readonly EntityURLGenerator $urlGenerator, private readonly TranslatorInterface $translator, private readonly AmountFormatter $amountFormatter, private readonly PartDataTableHelper $partDataTableHelper, private readonly Security $security, private readonly string $default_part_columns, protected LoggerInterface $logger)
-    {
+    public function __construct(
+        private readonly EntityURLGenerator $urlGenerator,
+        private readonly TranslatorInterface $translator,
+        private readonly AmountFormatter $amountFormatter,
+        private readonly PartDataTableHelper $partDataTableHelper,
+        private readonly Security $security,
+        private readonly string $visible_columns,
+        private readonly ColumnSortHelper $csh,
+    ) {
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -84,9 +91,9 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
-        $dataTable
+        $this->csh
             //Color the table rows depending on the review and favorite status
-            ->add('dont_matter', RowClassColumn::class, [
+            ->add('row_color', RowClassColumn::class, [
                 'render' => function ($value, Part $context): string {
                     if ($context->isNeedsReview()) {
                         return 'table-secondary';
@@ -97,127 +104,94 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return ''; //Default coloring otherwise
                 },
-            ])
-
-            ->add('select', SelectColumn::class)
+            ], visibility_configurable: false)
+            ->add('select', SelectColumn::class, visibility_configurable: false)
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
-            ]);
-
-
-        // internal array of $dataTable->add(...) parameters. Parameters will be later passed to the method 
-        // after sorting columns according to TABLE_PART_DEFAULT_COLUMNS option.
-        $columns = [];
-
-        $columns['name'] = [
-            'name', TextColumn::class,
-            [
+            ], visibility_configurable: false)
+            ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
-            ]
-        ];
-        $columns['id'] = [
-            'id', TextColumn::class,
-            [
+            ])
+            ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
                 'visible' => false,
-            ]
-        ];
-        $columns['ipn'] = [
-            'ipn', TextColumn::class,
-            [
+            ])
+            ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
                 'visible' => false,
-            ]
-        ];
-        $columns['description'] = [
-            'description', MarkdownColumn::class,
-            [
+            ])
+            ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
-            ]
-        ];
+            ]);
 
         if ($this->security->isGranted('@categories.read')) {
-            $columns['category'] = [
-                'category', EntityColumn::class,
-                [
-                    'label' => $this->translator->trans('part.table.category'),
-                    'property' => 'category',
-                ]
-            ];
+            $this->csh->add('category', EntityColumn::class, [
+                'label' => $this->translator->trans('part.table.category'),
+                'property' => 'category',
+            ]);
         }
 
         if ($this->security->isGranted('@footprints.read')) {
-            $columns['footprint'] = [
-                'footprint', EntityColumn::class,
-                [
-                    'property' => 'footprint',
-                    'label' => $this->translator->trans('part.table.footprint'),
-                ]
-            ];
+            $this->csh->add('footprint', EntityColumn::class, [
+                'property' => 'footprint',
+                'label' => $this->translator->trans('part.table.footprint'),
+            ]);
         }
         if ($this->security->isGranted('@manufacturers.read')) {
-            $columns['manufacturer'] = [
-                'manufacturer', EntityColumn::class,
-                [
-                    'property' => 'manufacturer',
-                    'label' => $this->translator->trans('part.table.manufacturer'),
-                ]
-            ];
+            $this->csh->add('manufacturer', EntityColumn::class, [
+                'property' => 'manufacturer',
+                'label' => $this->translator->trans('part.table.manufacturer'),
+            ]);
         }
         if ($this->security->isGranted('@storelocations.read')) {
-            $columns['storelocation'] = [
-                'storelocation', TextColumn::class,
-                [
-                    'label' => $this->translator->trans('part.table.storeLocations'),
-                    'orderField' => 'storelocations.name',
-                    'render' => function ($value, Part $context): string {
-                        $tmp = [];
-                        foreach ($context->getPartLots() as $lot) {
-                            //Ignore lots without storelocation
-                            if (!$lot->getStorageLocation() instanceof Storelocation) {
-                                continue;
-                            }
-                            $tmp[] = sprintf(
-                                '<a href="%s" title="%s">%s</a>',
-                                $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
-                                htmlspecialchars($lot->getStorageLocation()->getFullPath()),
-                                htmlspecialchars($lot->getStorageLocation()->getName())
-                            );
+            $this->csh->add('storelocation', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.storeLocations'),
+                'orderField' => 'storelocations.name',
+                'render' => function ($value, Part $context): string {
+                    $tmp = [];
+                    foreach ($context->getPartLots() as $lot) {
+                        //Ignore lots without storelocation
+                        if (!$lot->getStorageLocation() instanceof Storelocation) {
+                            continue;
                         }
+                        $tmp[] = sprintf(
+                            '<a href="%s" title="%s">%s</a>',
+                            $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
+                            htmlspecialchars($lot->getStorageLocation()->getFullPath()),
+                            htmlspecialchars($lot->getStorageLocation()->getName())
+                        );
+                    }
 
-                        return implode('<br>', $tmp);
-                    },
-                ]
-            ];
+                    return implode('<br>', $tmp);
+                },
+            ]);
         }
 
-        $columns['amount'] = [
-            'amount', TextColumn::class,
-            [
-                'label' => $this->translator->trans('part.table.amount'),
-                'render' => function ($value, Part $context) {
-                    $amount = $context->getAmountSum();
-                    $expiredAmount = $context->getExpiredAmountSum();
+        $this->csh->add('amount', TextColumn::class, [
+            'label' => $this->translator->trans('part.table.amount'),
+            'render' => function ($value, Part $context) {
+                $amount = $context->getAmountSum();
+                $expiredAmount = $context->getExpiredAmountSum();
 
-                    $ret = '';
+                $ret = '';
 
-                    if ($context->isAmountUnknown()) {
-                        //When all amounts are unknown, we show a question mark
-                        if ($amount === 0.0) {
-                            $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
-                                $this->translator->trans('part_lots.instock_unknown'));
-                        } else { //Otherwise mark it with greater equal and the (known) amount
-                            $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
-                                $this->translator->trans('part_lots.instock_unknown')
-                            );
-                            $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
-                        }
-                    } else {
+                if ($context->isAmountUnknown()) {
+                    //When all amounts are unknown, we show a question mark
+                    if ($amount === 0.0) {
+                        $ret .= sprintf('<b class="text-primary" title="%s">?</b>',
+                            $this->translator->trans('part_lots.instock_unknown'));
+                    } else { //Otherwise mark it with greater equal and the (known) amount
+                        $ret .= sprintf('<b class="text-primary" title="%s">≥</b>',
+                            $this->translator->trans('part_lots.instock_unknown')
+                        );
                         $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
                     }
+                } else {
+                    $ret .= htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
+                }
 
                 //If we have expired lots, we show them in parentheses behind
                 if ($expiredAmount > 0) {
@@ -233,158 +207,80 @@ final class PartsDataTable implements DataTableTypeInterface
                         $ret);
                 }
 
-                    return $ret;
-                },
-                'orderField' => 'amountSum'
-            ]
-        ];
-        $columns['minamount'] = [
-            'minamount', TextColumn::class,
-            [
+                return $ret;
+            },
+            'orderField' => 'amountSum'
+        ])
+            ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'visible' => false,
-                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit())),
-            ]
-        ];
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
+                    $context->getPartUnit())),
+            ]);
 
         if ($this->security->isGranted('@footprints.read')) {
-            $columns['partUnit'] = [
-                'partUnit', TextColumn::class,
-                [
-                    'field' => 'partUnit.name',
-                    'label' => $this->translator->trans('part.table.partUnit'),
-                    'visible' => false,
-                ]
-            ];
+            $this->csh->add('partUnit', TextColumn::class, [
+                'field' => 'partUnit.name',
+                'label' => $this->translator->trans('part.table.partUnit'),
+                'visible' => false,
+            ]);
         }
 
-        $columns['addedDate'] = [
-            'addedDate', LocaleDateTimeColumn::class,
-            [
-                'label' => $this->translator->trans('part.table.addedDate'),
-                'visible' => false,
-            ]
-        ];
-        $columns['lastModified'] = [
-            'lastModified', LocaleDateTimeColumn::class,
-            [
+        $this->csh->add('addedDate', LocaleDateTimeColumn::class, [
+            'label' => $this->translator->trans('part.table.addedDate'),
+            'visible' => false,
+        ])
+            ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false,
-            ]
-        ];
-        $columns['needs_review'] = [
-            'needs_review', PrettyBoolColumn::class,
-            [
+            ])
+            ->add('needs_review', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
                 'visible' => false,
-            ]
-        ];
-        $columns['favorite'] = [
-            'favorite', PrettyBoolColumn::class,
-            [
+            ])
+            ->add('favorite', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
                 'visible' => false,
-            ]
-        ];
-        $columns['manufacturing_status'] = [
-            'manufacturing_status', EnumColumn::class,
-            [
+            ])
+            ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'visible' => false,
                 'class' => ManufacturingStatus::class,
-                'render' => function(?ManufacturingStatus $status, Part $context): string {
+                'render' => function (?ManufacturingStatus $status, Part $context): string {
                     if (!$status) {
                         return '';
                     }
 
                     return $this->translator->trans($status->toTranslationKey());
-                } ,
-            ]
-        ];
-        $columns['manufacturer_product_number'] = [
-            'manufacturer_product_number', TextColumn::class,
-            [
+                },
+            ])
+            ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),
                 'visible' => false,
-            ]
-        ];
-        $columns['mass'] = [
-            'mass', SIUnitNumberColumn::class,
-            [
+            ])
+            ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
                 'visible' => false,
                 'unit' => 'g'
-            ]
-        ];
-        $columns['tags'] = [
-            'tags', TagsColumn::class,
-            [
+            ])
+            ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
                 'visible' => false,
-            ]
-        ];
-        $columns['attachments'] = [
-            'attachments', PartAttachmentsColumn::class,
-            [
+            ])
+            ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
                 'visible' => false,
-            ]
-        ];
-        $columns['edit'] = [
-            'edit', IconLinkColumn::class,
-            [
+            ])
+            ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
                 'visible' => false,
                 'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
                 'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
                 'title' => $this->translator->trans('part.table.edit.title'),
-            ]
-        ];
+            ]);
 
-        $visible_columns_ids = array_map("trim", explode(",", $this->default_part_columns));
-        $allowed_configurable_columns_ids = ["name", "id", "ipn", "description", "category", "footprint", "manufacturer",
-            "storelocation", "amount", "minamount", "partUnit", "addedDate", "lastModified", "needs_review", "favorite",
-            "manufacturing_status", "manufacturer_product_number", "mass", "tags", "attachments", "edit"
-        ];
-        $processed_columns = [];
-
-        foreach ($visible_columns_ids as $col_id) {
-            if (!in_array($col_id, $allowed_configurable_columns_ids) || !isset($columns[$col_id])) {
-                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify invalid column '$col_id'. Collumn is skipped.");
-                continue;
-            }
-
-            if (in_array($col_id, $processed_columns)) {
-                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify column '$col_id' multiple time. Only first occurence is used.");
-                continue;
-            }
-
-            $options = [];
-            if (count($columns[$col_id]) >= 3) {
-                $options = $columns[$col_id][2];
-            }
-            $options["visible"] = true;
-            $dataTable->add($col_id, $columns[$col_id][1], $options);
-
-            $processed_columns[] = $col_id;
-        }
-
-        // add remaining non-visible columns
-        foreach ($allowed_configurable_columns_ids as $col_id) {
-            if (in_array($col_id, $processed_columns)) {
-                // column already processed
-                continue;
-            }
-
-            $options = [];
-            if (count($columns[$col_id]) >= 3) {
-                $options = $columns[$col_id][2];
-            }
-            $options["visible"] = false;
-            $dataTable->add($col_id, $columns[$col_id][1], $options);
-
-            $processed_columns[] = $col_id;
-        }
+        //Apply the user configured order and visibility and add the columns to the table
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns);
 
         $dataTable->addOrderBy('name')
             ->createAdapter(TwoStepORMAdapater::class, [
@@ -415,7 +311,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect(
                 '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '. PartLot::class. ' partLot
+                    FROM '.PartLot::class.' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
@@ -436,8 +332,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.parameters', 'parameters')
 
             //This must be the only group by, or the paginator will not work correctly
-            ->addGroupBy('part.id')
-        ;
+            ->addGroupBy('part.id');
     }
 
     private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
@@ -467,7 +362,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect(
                 '(
                     SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '. PartLot::class. ' partLot
+                    FROM '.PartLot::class.' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
@@ -486,7 +381,6 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.parameters', 'parameters')
-
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
@@ -503,8 +397,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
-            ->addGroupBy('parameters')
-        ;
+            ->addGroupBy('parameters');
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
@@ -523,6 +416,5 @@ final class PartsDataTable implements DataTableTypeInterface
             $filter = $options['filter'];
             $filter->apply($builder);
         }
-
     }
 }

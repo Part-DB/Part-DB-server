@@ -216,7 +216,10 @@ services:
     ####################################################################################################################
     App\DataTables\PartsDataTable:
         arguments:
-            $default_part_columns: '%partdb.table.default_part_columns%'
+            $visible_columns: '%partdb.table.default_part_columns%'
+
+    App\DataTables\Helpers\ColumnSortHelper:
+        shared: false   # Service has a state so not share it between different tables
 
     ####################################################################################################################
     # Label system
