@@ -141,6 +141,19 @@ services:
             $saml_role_mapping: '%env(json:SAML_ROLE_MAPPING)%'
             $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
 
+
+    security.access_token_extractor.header.token:
+        class: Symfony\Component\Security\Http\AccessToken\HeaderAccessTokenExtractor
+        arguments:
+            $tokenType: 'Token'
+
+    security.access_token_extractor.main:
+        class: Symfony\Component\Security\Http\AccessToken\ChainAccessTokenExtractor
+        arguments:
+            $accessTokenExtractors:
+                - '@security.access_token_extractor.header'
+                - '@security.access_token_extractor.header.token'
+
     ####################################################################################################################
     # Cache
     ####################################################################################################################
