@@ -71,3 +71,5 @@ security:
         - { path: "^/\\w{2}/tree", role: PUBLIC_ACCESS }
         # Restrict access to API to users, which has the API access permission
         - { path: "^/api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
+        # Restrict access to KICAD to users, which has API access permission
+        - { path: "^/kicad-api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
