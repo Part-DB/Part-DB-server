@@ -76,7 +76,8 @@ class ColumnSortHelper
      * be visible by default. If a column is not listed here, it will be hidden by default.
      * @return void
      */
-    public function applyVisibilityAndConfigureColumns(DataTable $dataTable, string|array $visible_columns): void
+    public function applyVisibilityAndConfigureColumns(DataTable $dataTable, string|array $visible_columns,
+        string $config_var_name): void
     {
         //If the config is given as a string, convert it to an array first
         if (!is_array($visible_columns)) {
@@ -96,12 +97,12 @@ class ColumnSortHelper
         //Afterwards the columns, which should be visible by default
         foreach ($visible_columns as $col_id) {
             if (!isset($this->columns[$col_id]) || !$this->columns[$col_id]['visibility_configurable']) {
-                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify invalid column '$col_id'. Column is skipped.");
+                $this->logger->warning("Configuration option $config_var_name specify invalid column '$col_id'. Column is skipped.");
                 continue;
             }
 
             if (in_array($col_id, $processed_columns, true)) {
-                $this->logger->warning("Configuration option TABLE_PART_DEFAULT_COLUMNS specify column '$col_id' multiple time. Only first occurrence is used.");
+                $this->logger->warning("Configuration option $config_var_name specify column '$col_id' multiple time. Only first occurrence is used.");
                 continue;
             }
             $this->addColumnEntry($dataTable, $this->columns[$col_id], true);

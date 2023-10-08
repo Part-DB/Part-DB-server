@@ -167,7 +167,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return implode('<br>', $tmp);
                 },
-            ]);
+            ], alias: 'storage_location');
         }
 
         $this->csh->add('amount', TextColumn::class, [
@@ -280,7 +280,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ]);
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns);
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns, "TABLE_PARTS_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name')
             ->createAdapter(TwoStepORMAdapater::class, [
