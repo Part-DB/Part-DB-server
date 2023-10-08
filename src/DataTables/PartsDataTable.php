@@ -255,7 +255,7 @@ final class PartsDataTable implements DataTableTypeInterface
             "TABLE_PARTS_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name')
-            ->createAdapter(TwoStepORMAdapater::class, [
+            ->createAdapter(TwoStepORMAdapter::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
