@@ -60,11 +60,6 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('webauthn_tfa', './assets/js/webauthn_tfa.js')
 
-
-
-
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    .enableStimulusBridge('./assets/controllers.json')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
