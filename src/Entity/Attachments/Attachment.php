@@ -472,6 +472,10 @@ abstract class Attachment extends AbstractNamedDBElement
     #[SerializedName('url')]
     public function setURL(?string $url): self
     {
+        $url = trim($url);
+        //Escape spaces in URL
+        $url = str_replace(' ', '%20', $url);
+
         //Only set if the URL is not empty
         if ($url !== null && $url !== '') {
             if (str_contains($url, '%BASE%') || str_contains($url, '%MEDIA%')) {

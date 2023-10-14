@@ -265,6 +265,32 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->getFilename());
     }
 
+    public function testSetURL(): void
+    {
+        $attachment = new PartAttachment();
+
+        //Set URL
+        $attachment->setURL('https://google.de');
+        $this->assertSame('https://google.de', $attachment->getURL());
+
+        //Ensure that an empty url does not overwrite the existing one
+        $attachment->setPath('%MEDIA%/foo/bar.txt');
+        $attachment->setURL(' ');
+        $this->assertSame('%MEDIA%/foo/bar.txt', $attachment->getPath());
+
+        //Ensure that spaces get replaced by %20
+        $attachment->setURL('https://google.de/test file.txt');
+        $this->assertSame('https://google.de/test%20file.txt', $attachment->getURL());
+    }
+
+    public function testSetURLForbiddenURL(): void
+    {
+        $attachment = new PartAttachment();
+
+        $this->expectException(InvalidArgumentException::class);
+        $attachment->setURL('%MEDIA%/foo/bar.txt');
+    }
+
     public function testIsURL(): void
     {
         $url = '%MEDIA%/test.txt';
