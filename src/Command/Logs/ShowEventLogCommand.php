@@ -65,12 +65,12 @@ class ShowEventLogCommand extends Command
         $max_page = (int) ceil($total_count / $limit);
 
         if ($page > $max_page && $max_page > 0) {
-            $io->error("There is no page ${page}! The maximum page is ${max_page}.");
+            $io->error("There is no page $page! The maximum page is $max_page.");
 
             return Command::FAILURE;
         }
 
-        $io->note("There are a total of ${total_count} log entries in the DB.");
+        $io->note("There are a total of $total_count log entries in the DB.");
 
         $continue = true;
         while ($continue && $page <= $max_page) {
@@ -105,7 +105,7 @@ class ShowEventLogCommand extends Command
         $entries = $this->repo->getLogsOrderedByTimestamp($sorting, $limit, $offset);
 
         $table = new Table($output);
-        $table->setHeaderTitle("Page ${page} / ${max_page}");
+        $table->setHeaderTitle("Page $page / $max_page");
         $headers = ['ID', 'Timestamp', 'Type', 'User', 'Target Type', 'Target'];
         if ($showExtra) {
             $headers[] = 'Extra data';

@@ -129,7 +129,7 @@ class UserAvatarHelper
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
 
-        return $url . "?s=${s}&d=${d}&r=${r}";
+        return $url . "?s=$s&d=$d&r=$r";
     }
 
     /**
