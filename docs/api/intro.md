@@ -60,6 +60,9 @@ to describe the data in a more structured way and also allows to link between di
 
 To get plain JSON without any metadata or links, use the `Accept: application/json` header.
 
+Without an `Accept` header (e.g. when you call the endpoint in a browser), the API will return a HTML page with the documentation, so be sure to include the desired `Accept` header in your API requests.
+If you can not control the `Accept` header, you can add an `.json` or `.jsonld` suffix to the URL to enforce a JSON or JSON-LD response (e.g. `/api/parts.jsonld`).
+
 ## OpenAPI schema
 
 Part-DB provides a [OpenAPI](https://swagger.io/specification/) (formally Swagger) schema for the API under `/api/docs.json` (so `https://your-part-db.local/api/docs.json`).
