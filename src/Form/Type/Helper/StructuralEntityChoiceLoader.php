@@ -20,6 +20,7 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 namespace App\Form\Type\Helper;
 
 use App\Entity\Base\AbstractNamedDBElement;
@@ -28,7 +29,10 @@ use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\ChoiceList\Loader\AbstractChoiceLoader;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
@@ -36,8 +40,14 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
     private ?AbstractNamedDBElement $starting_element = null;
 
-    public function __construct(private readonly Options $options, private readonly NodesListBuilder $builder, private readonly EntityManagerInterface $entityManager)
-    {
+    private ?FormInterface $form = null;
+
+    public function __construct(
+        private readonly Options $options,
+        private readonly NodesListBuilder $builder,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     protected function loadChoices(): iterable
@@ -67,14 +77,22 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         if ($this->starting_element !== null
             && $this->starting_element->getID() === null //Element must not be persisted yet
             && $this->options['choice_value']($this->starting_element) === $value) {
-
             //Then reuse the starting element
             $this->entityManager->persist($this->starting_element);
             return [$this->starting_element];
         }
 
+
         if (!$this->options['allow_add']) {
-            throw new \RuntimeException('Cannot create new entity, because allow_add is not enabled!');
+            //If we have a form, add an error to it, to improve the user experience 
+            if ($this->form !== null) {
+                $this->form->addError(
+                    new FormError($this->translator->trans('entity.select.creating_new_entities_not_allowed')
+                    )
+                );
+            } else {
+                throw new \RuntimeException('Cannot create new entity, because allow_add is not enabled!');
+            }
         }
 
         $class = $this->options['class'];
@@ -85,10 +103,13 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
         $results = [];
 
-        foreach($entities as $entity) {
+        foreach ($entities as $entity) {
             //If the entity is newly created (ID null), add it as result and persist it.
             if ($entity->getID() === null) {
-                $this->entityManager->persist($entity);
+                //Only persist the entities if it is allowed
+                if ($this->options['allow_add']) {
+                    $this->entityManager->persist($entity);
+                }
                 $results[] = $entity;
             }
         }
@@ -113,6 +134,16 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     public function getStartingElement(): ?AbstractNamedDBElement
     {
         return $this->starting_element;
+    }
+
+    /**
+     * Sets the form that this loader is bound to.
+     * @param  FormInterface|null  $form
+     * @return void
+     */
+    public function setForm(?FormInterface $form): void
+    {
+        $this->form = $form;
     }
 
     /**

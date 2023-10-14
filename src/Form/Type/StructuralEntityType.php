@@ -67,6 +67,7 @@ class StructuralEntityType extends AbstractType
             $choice_loader = $options['choice_loader'];
             if ($choice_loader instanceof StructuralEntityChoiceLoader) {
                 $choice_loader->setAdditionalElement($data);
+                $choice_loader->setForm($form);
             }
         });
 
@@ -83,7 +84,7 @@ class StructuralEntityType extends AbstractType
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
             'choice_value' => fn(?AbstractNamedDBElement $element) => $this->choice_helper->generateChoiceValue($element), //Use the element id as option value and for comparing items
-            'choice_loader' => fn(Options $options) => new StructuralEntityChoiceLoader($options, $this->builder, $this->em),
+            'choice_loader' => fn(Options $options) => new StructuralEntityChoiceLoader($options, $this->builder, $this->em, $this->translator),
             'choice_label' => fn(Options $options) => fn($choice, $key, $value) => $this->choice_helper->generateChoiceLabel($choice),
             'choice_attr' => fn(Options $options) => fn($choice, $key, $value) => $this->choice_helper->generateChoiceAttr($choice, $options),
             'group_by' => fn(AbstractNamedDBElement $element) => $this->choice_helper->generateGroupBy($element),

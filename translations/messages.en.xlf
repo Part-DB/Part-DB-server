@@ -11801,5 +11801,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Ends with</target>
       </segment>
     </unit>
+    <unit id="SgLdhCl" name="entity.select.creating_new_entities_not_allowed">
+      <segment>
+        <source>entity.select.creating_new_entities_not_allowed</source>
+        <target>You are not allowed to create new entities of this type! Please choose a pre-existing one.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
