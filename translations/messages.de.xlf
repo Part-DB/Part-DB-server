@@ -11599,6 +11599,132 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Verfügbare Part-DB Updates anzeigen</target>
       </segment>
     </unit>
+    <unit id="bItnXAm" name="user.settings.api_tokens">
+      <segment state="translated">
+        <source>user.settings.api_tokens</source>
+        <target>API Token</target>
+      </segment>
+    </unit>
+    <unit id="stkMDET" name="user.settings.api_tokens.description">
+      <segment state="translated">
+        <source>user.settings.api_tokens.description</source>
+        <target>Mithilfe eines API-Tokens können andere Anwendungen auf Part-DB mit ihren Benutzerrechten zugreifen, um verschiedene Aktionen mittels der Part-DB REST API durchzuführen. Wenn Sie einen API-Token löschen, kann die Applikation, die den Token verwendet, nicht mehr in ihrem Namen auf Part-DB zugreifen.</target>
+      </segment>
+    </unit>
+    <unit id="pd794fq" name="api_tokens.name">
+      <segment state="translated">
+        <source>api_tokens.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="XodVxQi" name="api_tokens.access_level">
+      <segment state="translated">
+        <source>api_tokens.access_level</source>
+        <target>Zugriffslevel</target>
+      </segment>
+    </unit>
+    <unit id="kHaDSpK" name="api_tokens.expiration_date">
+      <segment state="translated">
+        <source>api_tokens.expiration_date</source>
+        <target>Ablaufdatum</target>
+      </segment>
+    </unit>
+    <unit id="b5uLOjr" name="api_tokens.added_date">
+      <segment state="translated">
+        <source>api_tokens.added_date</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="QPwuYKl" name="api_tokens.last_time_used">
+      <segment state="translated">
+        <source>api_tokens.last_time_used</source>
+        <target>Letzte Verwendung</target>
+      </segment>
+    </unit>
+    <unit id="G91glEH" name="datetime.never">
+      <segment state="translated">
+        <source>datetime.never</source>
+        <target>Niemals</target>
+      </segment>
+    </unit>
+    <unit id="xPeKpJU" name="api_token.valid">
+      <segment state="translated">
+        <source>api_token.valid</source>
+        <target>Gültig</target>
+      </segment>
+    </unit>
+    <unit id="jlBlmje" name="api_token.expired">
+      <segment state="translated">
+        <source>api_token.expired</source>
+        <target>Abgelaufen</target>
+      </segment>
+    </unit>
+    <unit id="Kmdx4SB" name="user.settings.show_api_documentation">
+      <segment state="translated">
+        <source>user.settings.show_api_documentation</source>
+        <target>API Dokumentation anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="hAUCZVo" name="api_token.create_new">
+      <segment state="translated">
+        <source>api_token.create_new</source>
+        <target>Neuen API Token erstellen</target>
+      </segment>
+    </unit>
+    <unit id="eX17pK8" name="api_token.level.read_only">
+      <segment state="translated">
+        <source>api_token.level.read_only</source>
+        <target>Nur-Lesen</target>
+      </segment>
+    </unit>
+    <unit id="PMVjK5p" name="api_token.level.edit">
+      <segment state="translated">
+        <source>api_token.level.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="1dVnGpy" name="api_token.level.admin">
+      <segment state="translated">
+        <source>api_token.level.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="gY4wVwS" name="api_token.level.full">
+      <segment state="translated">
+        <source>api_token.level.full</source>
+        <target>Voll</target>
+      </segment>
+    </unit>
+    <unit id="OAFErYa" name="api_tokens.access_level.help">
+      <segment state="translated">
+        <source>api_tokens.access_level.help</source>
+        <target>Hiermit lässt sich einschränken, worauf der API Token Zugriff ermöglicht. Der Zugriff ist immer durch die Berechtigungen des Nutzers begrenzt.</target>
+      </segment>
+    </unit>
+    <unit id="Xjs_v91" name="api_tokens.expiration_date.help">
+      <segment state="translated">
+        <source>api_tokens.expiration_date.help</source>
+        <target>Nach diesem Datum ist das Token nicht mehr nutzbar. Wird dieses Feld leer gelassen, läuft das Token niemals ab.</target>
+      </segment>
+    </unit>
+    <unit id="0e7mD8q" name="api_tokens.your_token_is">
+      <segment state="translated">
+        <source>api_tokens.your_token_is</source>
+        <target>Ihr API Token ist</target>
+      </segment>
+    </unit>
+    <unit id="nre_kP_" name="api_tokens.please_save_it">
+      <segment state="translated">
+        <source>api_tokens.please_save_it</source>
+        <target>Bitte speichern Sie dieses. Sie werden es nicht erneut sehen können!</target>
+      </segment>
+    </unit>
+    <unit id="b17FeDX" name="api_tokens.create_new.back_to_user_settings">
+      <segment state="translated">
+        <source>api_tokens.create_new.back_to_user_settings</source>
+        <target>Zurück zu den Benutzereinstellungen</target>
+      </segment>
+    </unit>
     <unit id="VVpmfIj" name="project.build.dont_check_quantity">
       <segment state="translated">
         <source>project.build.dont_check_quantity</source>
@@ -11615,6 +11741,66 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>part_list.action.invert_selection</source>
         <target>Auswahl umkehren</target>
+      </segment>
+    </unit>
+    <unit id="vvmdRvD" name="perm.api">
+      <segment state="translated">
+        <source>perm.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="VrWd7Fb" name="perm.api.access_api">
+      <segment state="translated">
+        <source>perm.api.access_api</source>
+        <target>API Zugriff</target>
+      </segment>
+    </unit>
+    <unit id="hLOM1pt" name="perm.api.manage_tokens">
+      <segment state="translated">
+        <source>perm.api.manage_tokens</source>
+        <target>API Token verwalten</target>
+      </segment>
+    </unit>
+    <unit id="dH8PTLd" name="user.settings.api_tokens.delete.title">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.title</source>
+        <target>Möchten Sie dieses API-Token wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="1QAaz2a" name="user.settings.api_tokens.delete">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="bE8wV70" name="user.settings.api_tokens.delete.message">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.message</source>
+        <target>Die Applikation, die dieses Token verwendet, wird keinen Zugriff mehr auf Part-DB haben. Dies kann nicht rückgängig gemacht werden!</target>
+      </segment>
+    </unit>
+    <unit id="sLAzIhh" name="api_tokens.deleted">
+      <segment state="translated">
+        <source>api_tokens.deleted</source>
+        <target>API Token erfolgreich entfernt!</target>
+      </segment>
+    </unit>
+    <unit id="TFTBy25" name="user.settings.api_tokens.no_api_tokens_yet">
+      <segment state="translated">
+        <source>user.settings.api_tokens.no_api_tokens_yet</source>
+        <target>Bisher wurden keine API Token erstellt.</target>
+      </segment>
+    </unit>
+    <unit id="8EdFeb6" name="api_token.ends_with">
+      <segment state="translated">
+        <source>api_token.ends_with</source>
+        <target>Endet mit</target>
+      </segment>
+    </unit>
+    <unit id="SgLdhCl" name="entity.select.creating_new_entities_not_allowed">
+      <segment state="translated">
+        <source>entity.select.creating_new_entities_not_allowed</source>
+        <target>Sie sind nicht berechtigt, neue Elemente dieses Typs anzulegen! Bitte wählen Sie ein vorgegebenes Element aus.</target>
       </segment>
     </unit>
   </file>
