@@ -6,14 +6,18 @@ nav_order: 10
 ---
 
 # Nginx
+
 You can also use [nginx](https://www.nginx.com/) as webserver for Part-DB. Setup Part-DB with apache is a bit easier, so
 this is the method shown in the guides. This guide assumes that you already have a working nginx installation with PHP
 configured.
 
 ## Setup
-1. Install composer and yarn like described in the [apache guide]({% link installation/installation_guide-debian.md %}#install-composer).
+
+1. Install composer and yarn like described in the [apache guide]({% link installation/installation_guide-debian.md
+   %}#install-composer).
 2. Create a folder for Part-DB and install and configure it as described
 3. Instead of creating the config for apache, add the following snippet to your nginx config:
+
 ```nginx
 server {
     # Redirect all HTTP requests to HTTPS
@@ -64,4 +68,6 @@ server {
     ssl_prefer_server_ciphers on;
 }
 ```
-4. Restart nginx with `sudo systemctl restart nginx` and you should be able to access Part-DB under your configured domain.
+
+4. Restart nginx with `sudo systemctl restart nginx` and you should be able to access Part-DB under your configured
+   domain.
