@@ -64,6 +64,6 @@ final class PartVoter extends Voter
 
     public function supportsType(string $subjectType): bool
     {
-        return is_a($subjectType, Part::class, true);
+        return $subjectType === 'string' || is_a($subjectType, Part::class, true);
     }
 }
