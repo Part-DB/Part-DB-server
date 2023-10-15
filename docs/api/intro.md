@@ -46,7 +46,8 @@ For most entities, there are endpoints like this:
 * **POST**: `/api/categories/` - Create a new category
 * **GET**: `/api/categories/{id}` - Get a specific category by its ID
 * **DELETE**: `/api/categories/{id}` - Delete a specific category by its ID
-* **UPDATE**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the request are updated, all other fields are left unchanged. Be aware that you have to set the [JSON Patch](https://en.wikipedia.org/wiki/JSON_Patch) content type header (`Content-Type: application/merge-patch+json`) for this to work.
+* **UPDATE**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the request are updated, all other fields are left unchanged. 
+Be aware that you have to set the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) content type header (`Content-Type: application/merge-patch+json`) for this to work.
 
 A full (interactive) list of endpoints can be displayed when visiting the `/api/` path in your browser, when you are logged in with a user, which is allowed to access the API.
 There is also a link to this page, on the user settings page in the API token section.

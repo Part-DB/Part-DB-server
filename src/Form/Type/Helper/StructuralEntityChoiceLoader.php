@@ -84,7 +84,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
 
         if (!$this->options['allow_add']) {
-            //If we have a form, add an error to it, to improve the user experience 
+            //If we have a form, add an error to it, to improve the user experience
             if ($this->form !== null) {
                 $this->form->addError(
                     new FormError($this->translator->trans('entity.select.creating_new_entities_not_allowed')
