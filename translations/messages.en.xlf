@@ -1510,9 +1510,9 @@ Sub elements will be moved upwards.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>label_generator.common</source>
-        <target>Comune</target>
+        <target>Common</target>
       </segment>
     </unit>
     <unit id="WLpYniK" name="label_generator.advanced">
@@ -2839,7 +2839,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>tfa.check.code.help</source>
-        <target>Enter the 6-digit code from your Authenticator App or one of your backup codes if the Authenticator is not available.</target>
+        <target>Enter the 6-digit code from your Authenticator app or one of your backup codes if the Authenticator is not available.</target>
       </segment>
     </unit>
     <unit id="Kd99AFq" name="login.title">
@@ -3185,7 +3185,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>Number of storelocations</target>
+        <target>Number of storage locations</target>
       </segment>
     </unit>
     <unit id="q9tLL7." name="statistics.suppliers_count">
@@ -7850,7 +7850,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.storelocation</source>
-        <target>Storelocation</target>
+        <target>Storage location</target>
       </segment>
     </unit>
     <unit id="yPQiYsi" name="perm.part.manufacturer">
@@ -7910,7 +7910,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.storelocations</source>
-        <target>Storelocations</target>
+        <target>Storage locations</target>
       </segment>
     </unit>
     <unit id="1MkJQeq" name="perm.move">
@@ -10944,7 +10944,7 @@ Element 3</target>
     <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
       <segment state="translated">
         <source>parts.import.flash.error.invalid_file</source>
-        <target>File invalid / malformatted. Please check that you have selected the right format!</target>
+        <target>File invalid. Please check that you have selected the right format!</target>
       </segment>
     </unit>
     <unit id="ih.wsVn" name="parts.import.part_category.label">
