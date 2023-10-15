@@ -153,7 +153,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>project.caption</source>
         <target>Projekte</target>
       </segment>
@@ -163,7 +163,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>project.edit</source>
         <target>Bearbeite Projekt</target>
       </segment>
@@ -173,7 +173,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>project.new</source>
         <target>Neues Projekt</target>
       </segment>
@@ -4050,7 +4050,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">templates\base.html.twig:202</note>
         <note priority="1">templates\base.html.twig:230</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>project.labelp</source>
         <target>Projekte</target>
       </segment>
@@ -5974,7 +5974,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>project.label</source>
         <target>Projekt</target>
       </segment>
@@ -6165,7 +6165,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tree.tools.edit.projects</source>
         <target>Projekte</target>
       </segment>
@@ -7974,7 +7974,7 @@ Element 3</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>perm.projects</source>
         <target>Projekte</target>
       </segment>
@@ -9600,7 +9600,7 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
-      <segment>
+      <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
         <target>Bauteile mit diesem Element oder dessen Kindelementen</target>
       </segment>
