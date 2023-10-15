@@ -11633,6 +11633,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Expiration date</target>
       </segment>
     </unit>
+    <unit id="b5uLOjr" name="api_tokens.added_date">
+      <segment state="translated">
+        <source>api_tokens.added_date</source>
+        <target>Added at</target>
+      </segment>
+    </unit>
     <unit id="QPwuYKl" name="api_tokens.last_time_used">
       <segment state="translated">
         <source>api_tokens.last_time_used</source>
