@@ -68,6 +68,7 @@ for the first time.
 * Automatic thumbnail generation for pictures
 * Use cloud providers (like Octopart, Digikey, farnell or TME) to automatically get part information, datasheets and
   prices for parts
+* API to access Part-DB from other applications/scripts
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.
