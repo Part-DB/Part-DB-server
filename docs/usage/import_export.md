@@ -79,7 +79,7 @@ leave them empty or do not include the column in your file.
 * **`favorite`**: If this is set to `1`, the part will be marked as favorite.
 * **`manufacturer`**: The manufacturer of the part. Can be a path similar to the category field.
 * **`manufacturer_product_number`** or **`mpn`**: The manufacturer product number of the part.
-* **`manufacturer_product_url`: The URL to the product page of the manufacturer of the part.
+* **`manufacturer_product_url`**: The URL to the product page of the manufacturer of the part.
 * **`manufacturing_status`**: The manufacturing status of the part, must be one of the following
   values: `announced`, `active`, `nrfnd`, `eol`, `discontinued` or left empty.
 * **`needs_review`** or **`needs_review`**: If this is set to `1`, the part will be marked as "needs review".

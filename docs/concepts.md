@@ -9,7 +9,7 @@ nav_order: 2
 This page explains the different concepts of Part-DB and what their intended use is:
 
 1. TOC
-   {:toc}
+{:toc}
 
 ## Part managment
 
