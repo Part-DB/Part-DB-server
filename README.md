@@ -1,7 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
 ![PHPUnit Tests](https://github.com/Part-DB/Part-DB-symfony/workflows/PHPUnit%20Tests/badge.svg)
 ![Static analysis](https://github.com/Part-DB/Part-DB-symfony/workflows/Static%20analysis/badge.svg)
-[![codecov](https://codecov.io/gh/Part-DB/Part-DB-symfony/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-server)
+[![codecov](https://codecov.io/gh/Part-DB/Part-DB-server/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-server)
 ![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.1-green)
 
@@ -9,21 +9,15 @@
 ![Docker Build Status](https://github.com/Part-DB/Part-DB-symfony/workflows/Docker%20Image%20Build/badge.svg)
 [![Crowdin](https://badges.crowdin.net/e/8325196085d4bee8c04b75f7c915452a/localized.svg)](https://part-db.crowdin.com/part-db)
 
-**[Documentation](https://docs.part-db.de/)** | **[Demo](https://part-db.herokuapp.com)** | *
-*[Docker Image](https://hub.docker.com/r/jbtronics/part-db1)**
+**[Documentation](https://docs.part-db.de/)** | **[Demo](https://part-db.herokuapp.com)** | **[Docker Image](https://hub.docker.com/r/jbtronics/part-db1)**
 
 # Part-DB
 
 Part-DB is an Open-Source inventory management system for your electronic components.
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
 
-The version in this Repository is a complete rewrite of the legacy [Part-DB](https://github.com/Part-DB/Part-DB)
-(Version < 1.0) based on a modern framework.
-Currently, it is still missing some (minor) features from the old version 
-(see [UPGRADE.md](https://docs.part-db.de/upgrade_legacy.html)) for more details, but also many huge improvements and
-advantages compared to the old version.
-If you start completely new with Part-DB it is recommended that you use the version from this repository, as it is
-actively developed.
+The version in this repository is a complete rewrite of the legacy [Part-DB](https://github.com/Part-DB/Part-DB)
+(Version < 1.0) based on a modern framework and is the recommended version to use.
 
 If you find a bug, please open an [Issue on GitHub,](https://github.com/Part-DB/Part-DB-server/issues) so it can be fixed
 for everybody.
