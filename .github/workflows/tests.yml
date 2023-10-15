@@ -45,6 +45,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           coverage: pcov
+          ini-values: xdebug.max_nesting_level=1000
           extensions: mbstring, intl, gd, xsl, gmp, bcmath        
     
       - name: Start MySQL
