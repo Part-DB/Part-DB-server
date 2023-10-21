@@ -16,10 +16,8 @@ sections carefully before proceeding to upgrade.
 
 ## Changes
 
-* PHP 7.4 or higher is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0).
-  PHP 7.4 (or newer) is shipped by all current major Linux distros now (and can be installed by third party sources on
-  others),
-  Releases are available for Windows too, so almost everybody should be able to use PHP 7.4
+* PHP 8.1 or higher is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0).
+  Releases are available for Windows too, so almost everybody should be able to use PHP 8.1
 * **Console access highly required.** The installation of composer and frontend dependencies require console access,
   also more sensitive stuff like database migration work via CLI now, so you should have console access on your server.
 * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.
