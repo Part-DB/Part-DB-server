@@ -145,8 +145,8 @@ final class PermissionData implements \JsonSerializable
      */
     public function setPermissionValue(string $permission, string $operation, ?bool $value): self
     {
-        if ($value === null) {
-            //If the value is null, unset the permission value (meaning implicit inherit)
+        //If the value is null, unset the permission value, if it was set befoere (meaning implicit inherit)
+        if ($value === null && isset($this->data[$permission][$operation])) {
             unset($this->data[$permission][$operation]);
         } else {
             //Otherwise, set the pemission value
