@@ -36,6 +36,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserAvatarHelper
 {
+    public const IMG_DEFAULT_AVATAR_PATH = '/img/default_avatar.png';
+
     public function __construct(private readonly bool $use_gravatar, private readonly Packages $packages, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly FilterService $filterService, private readonly EntityManagerInterface $entityManager, private readonly AttachmentSubmitHandler $submitHandler)
     {
     }
@@ -51,7 +53,7 @@ class UserAvatarHelper
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md')
-                ?? throw new RuntimeException('Could not generate thumbnail URL');
+                ?? $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -60,7 +62,7 @@ class UserAvatarHelper
         }
 
         //Fallback to the default avatar picture
-        return $this->packages->getUrl('/img/default_avatar.png');
+        return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
     }
 
     public function getAvatarSmURL(User $user): string
@@ -68,7 +70,7 @@ class UserAvatarHelper
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_xs')
-                ?? throw new RuntimeException('Could not generate thumbnail URL');;
+                ?? $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -78,10 +80,10 @@ class UserAvatarHelper
 
         try {
             //Otherwise we can serve the relative path via Asset component
-            return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
+            return $this->filterService->getUrlOfFilteredImage(self::IMG_DEFAULT_AVATAR_PATH, 'thumbnail_xs');
         } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
-            return $this->packages->getUrl('/img/default_avatar.png');
+            return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
         }
     }
 
@@ -90,7 +92,7 @@ class UserAvatarHelper
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() instanceof Attachment) {
             return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm')
-                ?? throw new RuntimeException('Could not generate thumbnail URL');
+                ?? $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
@@ -100,10 +102,10 @@ class UserAvatarHelper
 
         try {
             //Otherwise we can serve the relative path via Asset component
-            return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
+            return $this->filterService->getUrlOfFilteredImage(self::IMG_DEFAULT_AVATAR_PATH, 'thumbnail_xs');
         } catch (RuntimeException) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
-            return $this->packages->getUrl('/img/default_avatar.png');
+            return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
         }
     }
 
