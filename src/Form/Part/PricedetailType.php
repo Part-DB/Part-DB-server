@@ -27,12 +27,18 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\SIUnitType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PricedetailType extends AbstractType
 {
+
+    public function __construct(private readonly Security $security)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         //No labels needed, we define translation in templates
@@ -63,6 +69,7 @@ class PricedetailType extends AbstractType
             'required' => false,
             'label' => false,
             'short' => true,
+            'allow_add' => $this->security->isGranted('@currencies.create'),
         ]);
     }
 
