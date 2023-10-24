@@ -51,7 +51,7 @@
                     {% if log_entry.user %}
                         {{ helper.user_icon_link(log_entry.user) }} (@{{ log_entry.user.username }})
                     {% else %}
-                        @{{ log_entry.username }} ({% trans %}log.target_deleted{% endtrans %}
+                        @{{ log_entry.username }} ({% trans %}log.target_deleted{% endtrans %})
                     {% endif %}
                 {% endif %}
             </td>
