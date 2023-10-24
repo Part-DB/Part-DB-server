@@ -169,8 +169,14 @@ class UserController extends BaseAdminController
     #[Route(path: '/{id}', name: 'user_delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
+        //Disallow deleting the anonymous user
         if (User::ID_ANONYMOUS === $entity->getID()) {
-            throw new InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
+            throw new \LogicException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
+        }
+
+        //Disallow deleting the current logged-in user
+        if ($entity === $this->getUser()) {
+            throw new \LogicException('You can not delete your own user account!');
         }
 
         return $this->_delete($request, $entity, $recursionHelper);
