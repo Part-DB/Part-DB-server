@@ -30,7 +30,6 @@ use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\LogTargetType;
 use App\Entity\UserSystem\User;
-use DateTime;
 use RuntimeException;
 
 /**
@@ -219,9 +218,16 @@ class LogEntryRepository extends DBElementRepository
     protected function getLastUser(AbstractDBElement $element, string $log_class): ?User
     {
         $qb = $this->createQueryBuilder('log');
+        /**
+         * The select and join with user here are important, to get true null user values, if the user was deleted.
+         * This happens for sqlite database, before the SET NULL constraint was added, and doctrine generates a proxy
+         * entity which fails to resolve, without this line.
+         * This was the cause of issue #414 (https://github.com/Part-DB/Part-DB-server/issues/414)
+         */
         $qb->select('log')
-            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
+            ->addSelect('user')
             ->where('log INSTANCE OF '.$log_class)
+            ->leftJoin('log.user', 'user')
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
             ->orderBy('log.timestamp', 'DESC');
@@ -233,6 +239,7 @@ class LogEntryRepository extends DBElementRepository
 
         $query = $qb->getQuery();
         $query->setMaxResults(1);
+
         /** @var AbstractLogEntry[] $results */
         $results = $query->execute();
         if (isset($results[0])) {
