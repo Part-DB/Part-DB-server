@@ -41,6 +41,8 @@ class PriceDTO
         public readonly ?string $currency_iso_code,
         /** @var bool If the price includes tax */
         public readonly ?bool $includes_tax = true,
+        /** @var float the price related quantity */
+        public readonly ?float $price_related_quantity = 1.0,
     )
     {
         $this->price_as_big_decimal = BigDecimal::of($this->price);
