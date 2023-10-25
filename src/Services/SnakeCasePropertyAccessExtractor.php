@@ -41,7 +41,7 @@ class SnakeCasePropertyAccessExtractor implements PropertyAccessExtractorInterfa
         //$this->reflectionExtractor = new ReflectionExtractor();
     }
 
-    public function isReadable(string $class, string $property, array $context = [])
+    public function isReadable(string $class, string $property, array $context = []): ?bool
     {
         //Null means skip this extractor
         return null;
@@ -56,7 +56,7 @@ class SnakeCasePropertyAccessExtractor implements PropertyAccessExtractorInterfa
     }
 
 
-    public function isWritable(string $class, string $property, array $context = [])
+    public function isWritable(string $class, string $property, array $context = []): ?bool
     {
         //Check writeablity using a camelized property name
         $isWriteable = $this->reflectionExtractor->isWritable($class, $this->camelize($property), $context);

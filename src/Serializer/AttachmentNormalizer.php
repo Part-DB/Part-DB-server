@@ -40,7 +40,7 @@ class AttachmentNormalizer implements NormalizerInterface
 
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array|null
     {
         if (!$object instanceof Attachment) {
             throw new \InvalidArgumentException('This normalizer only supports Attachment objects!');

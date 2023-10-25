@@ -58,7 +58,7 @@ class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
         ];
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BigNumber|null
     {
         if (!is_a($type, BigNumber::class, true)) {
             throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
@@ -67,7 +67,7 @@ class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
         return $type::of($data);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null)
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         //data must be a string or a number (int, float, etc.) and the type must be BigNumber or BigDecimal
         return (is_string($data) || is_numeric($data)) && (is_subclass_of($type, BigNumber::class));

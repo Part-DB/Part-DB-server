@@ -135,17 +135,17 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         $this->expires_at = self::unixTimestampToDatetime($accessToken->getExpires() ?? time() + self::DEFAULT_EXPIRATION_TIME);
     }
 
-    public function getExpires()
+    public function getExpires(): ?int
     {
         return $this->expires_at->getTimestamp();
     }
 
-    public function hasExpired()
+    public function hasExpired(): bool
     {
         return $this->isExpired();
     }
 
-    public function getValues()
+    public function getValues(): array
     {
         return [];
     }

@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class UniqueObjectCollectionValidator extends ConstraintValidator
 {
 
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueObjectCollection) {
             throw new UnexpectedTypeException($constraint, UniqueObjectCollection::class);
