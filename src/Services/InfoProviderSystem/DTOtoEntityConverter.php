@@ -87,6 +87,7 @@ final class DTOtoEntityConverter
     {
         $entity->setMinDiscountQuantity($dto->minimum_discount_amount);
         $entity->setPrice($dto->getPriceAsBigDecimal());
+        $entity->setPriceRelatedQuantity($dto->price_related_quantity);
 
         //Currency TODO
         if ($dto->currency_iso_code !== null) {
@@ -94,7 +95,6 @@ final class DTOtoEntityConverter
         } else {
             $entity->setCurrency(null);
         }
-
 
         return $entity;
     }
