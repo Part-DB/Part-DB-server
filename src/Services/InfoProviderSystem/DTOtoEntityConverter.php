@@ -289,7 +289,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('image/*');
-            $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
+            $tmp->setAlternativeNames(self::TYPE_IMAGE_NAME);
         }
 
         return $tmp;
