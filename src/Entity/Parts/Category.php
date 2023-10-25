@@ -34,6 +34,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
@@ -72,8 +73,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     uriTemplate: '/categories/{id}/children.{_format}',
     operations: [
-        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a category.'],
-            security: 'is_granted("@categories.read")')
+        new GetCollection(
+            openapi: new Operation(summary: 'Retrieves the children elements of a category.'),
+            security: 'is_granted("@categories.read")'
+        )
     ],
     uriVariables: [
         'id' => new Link(fromProperty: 'children', fromClass: Category::class)

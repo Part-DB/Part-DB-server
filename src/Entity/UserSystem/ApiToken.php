@@ -26,6 +26,7 @@ namespace App\Entity\UserSystem;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -46,7 +47,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ApiResource(
     uriTemplate: '/tokens/current.{_format}',
     description: 'A token used to authenticate API requests.',
-    operations: [new Get(openapiContext: ['summary' => 'Get information about the API token that is currently used.'])],
+    operations: [new Get(
+        openapi: new Operation(summary: 'Get information about the API token that is currently used.'),
+    )],
     normalizationContext: ['groups' => ['token:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     provider: CurrentApiTokenProvider::class,
 )]

@@ -31,6 +31,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
@@ -86,10 +87,14 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ApiResource(
     shortName: 'User',
     operations: [
-        new Get(openapiContext: ['summary' => 'Get a specific user.'],
-            security: 'is_granted("read", object)'),
-        new GetCollection(openapiContext: ['summary' => 'Get all users defined in the system.'],
-            security: 'is_granted("@users.read")'),
+        new Get(
+            openapi: new Operation(summary: 'Get information about the current user.'),
+            security: 'is_granted("read", object)'
+        ),
+        new GetCollection(
+            openapi: new Operation(summary: 'Get all users defined in the system.'),
+            security: 'is_granted("@users.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['user:read'], 'openapi_definition_name' => 'Read'],
 )]
