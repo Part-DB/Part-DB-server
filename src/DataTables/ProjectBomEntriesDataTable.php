@@ -100,7 +100,16 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     throw new \Exception('This should never happen!');
                 },
             ])
-
+            ->add('ipn', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.ipn'),
+                'orderField' => 'part.ipn',
+                'visible' => false,
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    if($context->getPart() instanceof Part) {
+                        return $context->getPart()->getIpn();
+                    }
+                }
+            ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
                 'data' => function (ProjectBOMEntry $context) {
