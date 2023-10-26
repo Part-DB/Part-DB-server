@@ -41,13 +41,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
+use App\Services\LabelSystem\Barcodes\BarcodeScanResult;
+use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class BarcodeRedirectorTest extends KernelTestCase
+final class BarcodeRedirectorTest extends KernelTestCase
 {
-    private ?object $service = null;
+    private ?BarcodeRedirector $service = null;
 
     protected function setUp(): void
     {
@@ -55,13 +58,13 @@ class BarcodeRedirectorTest extends KernelTestCase
         $this->service = self::getContainer()->get(BarcodeRedirector::class);
     }
 
-    public function urlDataProvider(): array
+    public static function urlDataProvider(): array
     {
         return [
-            ['part', '/en/part/1'],
-            //Part lot redirects to Part info page (Part lot 1 is associated with part 3
-            ['lot', '/en/part/3'],
-            ['location', '/en/store_location/1/parts'],
+            [new BarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL), '/en/part/1'],
+            //Part lot redirects to Part info page (Part lot 1 is associated with part 3)
+            [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3'],
+            [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'],
         ];
     }
 
@@ -69,21 +72,16 @@ class BarcodeRedirectorTest extends KernelTestCase
      * @dataProvider urlDataProvider
      * @group DB
      */
-    public function testGetRedirectURL(string $type, string $url): void
+    public function testGetRedirectURL(BarcodeScanResult $scanResult, string $url): void
     {
-        $this->assertSame($url, $this->service->getRedirectURL($type, 1));
+        $this->assertSame($url, $this->service->getRedirectURL($scanResult));
     }
 
     public function testGetRedirectEntityNotFount(): void
     {
         $this->expectException(EntityNotFoundException::class);
         //If we encounter an invalid lot, we must throw an exception
-        $this->service->getRedirectURL('lot', 12_345_678);
-    }
-
-    public function testInvalidType(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->service->getRedirectURL('invalid', 1);
+        $this->service->getRedirectURL(new BarcodeScanResult(LabelSupportedElement::PART_LOT,
+            12_345_678, BarcodeSourceType::INTERNAL));
     }
 }

@@ -41,24 +41,59 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\Barcodes;
 
+use App\Entity\LabelSystem\LabelSupportedElement;
 use InvalidArgumentException;
 
 /**
  * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeNormalizerTest
  */
-final class BarcodeNormalizer
+final class BarcodeScanHelper
 {
     private const PREFIX_TYPE_MAP = [
-        'L' => 'lot',
-        'P' => 'part',
-        'S' => 'location',
+        'L' => LabelSupportedElement::PART_LOT,
+        'P' => LabelSupportedElement::PART,
+        'S' => LabelSupportedElement::STORELOCATION,
+    ];
+
+    public const QR_TYPE_MAP = [
+        'lot' => LabelSupportedElement::PART_LOT,
+        'part' => LabelSupportedElement::PART,
+        'location' => LabelSupportedElement::STORELOCATION,
     ];
 
     /**
-     * Parses barcode content and normalizes it.
-     * Returns an array in the format ['part', 1]: First entry contains element type, second the ID of the element.
+     * Parse the given barcode content and return the target type and ID.
+     * If the barcode could not be parsed, an exception is thrown.
+     * Using the $type parameter, you can specify how the barcode should be parsed. If set to null, the function
+     * will try to guess the type.
+     * @param  string  $input
+     * @param BarcodeSourceType|null  $type
+     * @return BarcodeScanResult
      */
-    public function normalizeBarcodeContent(string $input): array
+    public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): BarcodeScanResult
+    {
+        //Do specific parsing
+        if ($type === BarcodeSourceType::INTERNAL) {
+            return $this->parseInternalBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        }
+
+        //Null means auto and we try the different formats
+        $result = $this->parseInternalBarcode($input);
+
+        if ($result !== null) {
+            return $result;
+        }
+        throw new InvalidArgumentException('Unknown barcode format');
+    }
+
+    /**
+     * This function tries to interpret the given barcode content as an internal barcode.
+     * If the barcode could not be parsed at all, null is returned. If the barcode is a valid format, but could
+     * not be found in the database, an exception is thrown.
+     * @param  string  $input
+     * @return BarcodeScanResult|null
+     */
+    private function parseInternalBarcode(string $input): ?BarcodeScanResult
     {
         $input = trim($input);
         $matches = [];
@@ -68,7 +103,11 @@ final class BarcodeNormalizer
 
         //Extract parts from QR code's URL
         if (preg_match('#^https?://.*/scan/(\w+)/(\d+)/?$#', $input, $matches)) {
-            return [$matches[1], (int) $matches[2]];
+            return new BarcodeScanResult(
+                target_type:  self::QR_TYPE_MAP[strtolower($matches[1])],
+                target_id: (int) $matches[2],
+                source_type: BarcodeSourceType::INTERNAL
+            );
         }
 
         //New Code39 barcode use L0001 format
@@ -80,7 +119,11 @@ final class BarcodeNormalizer
                 throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
-            return [self::PREFIX_TYPE_MAP[$prefix], $id];
+            return new BarcodeScanResult(
+                target_type:  self::PREFIX_TYPE_MAP[$prefix],
+                target_id: $id,
+                source_type: BarcodeSourceType::INTERNAL
+            );
         }
 
         //During development the L-000001 format was used
@@ -92,19 +135,32 @@ final class BarcodeNormalizer
                 throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
-            return [self::PREFIX_TYPE_MAP[$prefix], $id];
+            return new BarcodeScanResult(
+                target_type:  self::PREFIX_TYPE_MAP[$prefix],
+                target_id: $id,
+                source_type: BarcodeSourceType::INTERNAL
+            );
         }
 
         //Legacy Part-DB location labels used $L00336 format
         if (preg_match('#^\$L(\d{5,})$#', $input, $matches)) {
-            return ['location', (int) $matches[1]];
+            return new BarcodeScanResult(
+                target_type: LabelSupportedElement::STORELOCATION,
+                target_id: (int) $matches[1],
+                source_type: BarcodeSourceType::INTERNAL
+            );
         }
 
         //Legacy Part-DB used EAN8 barcodes for part labels. Format 0000001(2) (note the optional 8th digit => checksum)
         if (preg_match('#^(\d{7})\d?$#', $input, $matches)) {
-            return ['part', (int) $matches[1]];
+            return new BarcodeScanResult(
+                target_type: LabelSupportedElement::PART,
+                target_id: (int) $matches[1],
+                source_type: BarcodeSourceType::INTERNAL
+            );
         }
 
-        throw new InvalidArgumentException('Unknown barcode format!');
+        //This function abstain from further parsing
+        return null;
     }
 }
