@@ -150,6 +150,7 @@ services:
   database:
     container_name: partdb_database
     image: mysql:8.0
+    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     environment:
       # Change this Password
