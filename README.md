@@ -101,24 +101,20 @@ for a detailed guide how to install Part-DB.**
       In bigger instances with concurrent accesses, MySQL is more performant. This can not be changed easily later, so
       choose wisely.
 4. Install composer dependencies and generate autoload files: `composer install -o --no-dev`
-5. If you have put Part-DB into a subdirectory on your server (like `part-db/`), you have to edit the file
-   `webpack.config.js` and uncomment the lines (remove the `//` before the lines) `.setPublicPath('/part-db/build')` (
-   line 43) and
-   `.setManifestKeyPrefix('build/')` (line 44). You have to replace `/part-db` with your own path on line 44.
-6. Install client side dependencies and build it: `yarn install` and `yarn build`
-7. _Optional_ (speeds up first load): Warmup cache: `php bin/console cache:warmup`
-8. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and
+5. Install client side dependencies and build it: `yarn install` and `yarn build`
+6. _Optional_ (speeds up first load): Warmup cache: `php bin/console cache:warmup`
+7. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and
    follow the instructions given. During the process the password for the admin is user is shown. Copy it. **Caution**:
    This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your
    database.
-9. You can configure Part-DB via `config/parameters.yaml`. You should check if settings match your expectations, after
+8. You can configure Part-DB via `config/parameters.yaml`. You should check if settings match your expectations, after
    you installed/upgraded Part-DB. Check if `partdb.default_currency` matches your mainly used currency (this can not be
    changed after creating price information).
    Run `php bin/console cache:clear` when you changed something.
-10. Access Part-DB in your browser (under the URL you put it) and login with user *admin*. Password is the one outputted
-    during DB setup.
-    If you can not remember the password, set a new one with `php bin/console app:set-password admin`. You can create
-    new users with the admin user and start using Part-DB.
+9. Access Part-DB in your browser (under the URL you put it) and login with user *admin*. Password is the one outputted
+   during DB setup.
+   If you can not remember the password, set a new one with `php bin/console app:set-password admin`. You can create
+   new users with the admin user and start using Part-DB.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
