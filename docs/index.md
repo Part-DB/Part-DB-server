@@ -12,8 +12,8 @@ It is installed on a web server and so can be accessed with any browser without 
 {: .important-title }
 > Demo
 >
-> If you want to test Part-DB without installing it, you can use [this](https://part-db.herokuapp.com) Heroku instance.
-> (Or this link for the [German Version](https://part-db.herokuapp.com/de/)).
+> If you want to test Part-DB without installing it, you can use [this](https://demo.part-db.de/) Heroku instance.
+> (Or this link for the [German Version](https://demo.part-db.de/de/)).
 >
 > You can log in with username: **user** and password: **user**, to change/create data.
 >

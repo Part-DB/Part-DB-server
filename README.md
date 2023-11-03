@@ -9,7 +9,7 @@
 ![Docker Build Status](https://github.com/Part-DB/Part-DB-symfony/workflows/Docker%20Image%20Build/badge.svg)
 [![Crowdin](https://badges.crowdin.net/e/8325196085d4bee8c04b75f7c915452a/localized.svg)](https://part-db.crowdin.com/part-db)
 
-**[Documentation](https://docs.part-db.de/)** | **[Demo](https://part-db.herokuapp.com)** | **[Docker Image](https://hub.docker.com/r/jbtronics/part-db1)**
+**[Documentation](https://docs.part-db.de/)** | **[Demo](https://demo.part-db.de/)** | **[Docker Image](https://hub.docker.com/r/jbtronics/part-db1)**
 
 # Part-DB
 
@@ -24,8 +24,8 @@ for everybody.
 
 ## Demo
 
-If you want to test Part-DB without installing it, you can use [this](https://part-db.herokuapp.com) Heroku instance.
-(Or this link for the [German Version](https://part-db.herokuapp.com/de/)).
+If you want to test Part-DB without installing it, you can use [this](https://demo.part-db.de/) Heroku instance.
+(Or this link for the [German Version](https://demo.part-db.de/de/)).
 
 You can log in with username: *user* and password: *user*.
 
