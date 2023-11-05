@@ -44,20 +44,17 @@ namespace App\Tests\Services\LabelSystem;
 use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
-use App\Services\LabelSystem\BarcodeGenerator;
+use App\Services\LabelSystem\LabelBarcodeGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class BarcodeGeneratorTest extends WebTestCase
+final class LabelBarcodeGeneratorTest extends WebTestCase
 {
-    /**
-     * @var BarcodeGenerator
-     */
-    protected $services;
+    protected ?LabelBarcodeGenerator $service = null;
 
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->services = self::getContainer()->get(BarcodeGenerator::class);
+        $this->service = self::getContainer()->get(LabelBarcodeGenerator::class);
     }
 
     public function testGetContent(): void
@@ -69,7 +66,7 @@ final class BarcodeGeneratorTest extends WebTestCase
         foreach (BarcodeType::cases() as $type) {
             $options = new LabelOptions();
             $options->setBarcodeType($type);
-            $content = $this->services->generateSVG($options, $part);
+            $content = $this->service->generateSVG($options, $part);
 
             //When type is none, service must return null.
             if (BarcodeType::NONE === $type) {
@@ -89,7 +86,7 @@ final class BarcodeGeneratorTest extends WebTestCase
         foreach (BarcodeType::cases() as $type) {
             $options = new LabelOptions();
             $options->setBarcodeType($type);
-            $svg = $this->services->generateSVG($options, $part);
+            $svg = $this->service->generateSVG($options, $part);
 
             //When type is none, service must return null.
             if (BarcodeType::NONE === $type) {

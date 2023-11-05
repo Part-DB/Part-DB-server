@@ -85,6 +85,9 @@ const PLACEHOLDERS = [
             ['[[COMMENT_T]]', 'Comment (plain text)'],
             ['[[LAST_MODIFIED]]', 'Last modified datetime'],
             ['[[CREATION_DATE]]', 'Creation datetime'],
+            ['[[IPN_BARCODE_QR]]', 'IPN as QR code'],
+            ['[[IPN_BARCODE_C128]]', 'IPN as Code 128 barcode'],
+            ['[[IPN_BARCODE_C39]]', 'IPN as Code 39 barcode'],
         ]
     },
     {
