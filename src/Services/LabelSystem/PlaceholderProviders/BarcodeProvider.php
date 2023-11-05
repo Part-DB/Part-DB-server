@@ -75,7 +75,8 @@ final class BarcodeProvider implements PlaceholderProviderInterface
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 
-        if ($label_target instanceof Part || $label_target instanceof PartLot) {
+        if (($label_target instanceof Part || $label_target instanceof PartLot)
+            && str_starts_with($placeholder, '[[IPN_BARCODE_')) {
             if ($label_target instanceof PartLot) {
                 $label_target = $label_target->getPart();
             }
