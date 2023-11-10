@@ -46,7 +46,7 @@ class PasswordTypeExtension extends AbstractTypeExtension
         $resolver->setAllowedTypes('password_estimator', 'bool');
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['password_estimator'] = $options['password_estimator'];
     }

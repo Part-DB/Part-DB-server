@@ -24,12 +24,18 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
-use App\Services\LabelSystem\BarcodeGenerator;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
+use App\Services\LabelSystem\Barcodes\BarcodeHelper;
+use App\Services\LabelSystem\LabelBarcodeGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
+use Com\Tecnick\Barcode\Exception;
 
 final class BarcodeProvider implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly BarcodeGenerator $barcodeGenerator, private readonly BarcodeContentGenerator $barcodeContentGenerator)
+    public function __construct(private readonly LabelBarcodeGenerator $barcodeGenerator,
+        private readonly BarcodeContentGenerator $barcodeContentGenerator,
+        private readonly BarcodeHelper $barcodeHelper)
     {
     }
 
@@ -68,6 +74,37 @@ final class BarcodeProvider implements PlaceholderProviderInterface
             $label_options->setBarcodeType(BarcodeType::CODE128);
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
+
+        if (($label_target instanceof Part || $label_target instanceof PartLot)
+            && str_starts_with($placeholder, '[[IPN_BARCODE_')) {
+            if ($label_target instanceof PartLot) {
+                $label_target = $label_target->getPart();
+            }
+
+            if ($label_target === null || $label_target->getIPN() === null || $label_target->getIPN() === '') {
+                //Replace with empty result, if no IPN is set
+                return '';
+            }
+
+            try {
+                //Add placeholders for the IPN barcode
+                if ('[[IPN_BARCODE_C39]]' === $placeholder) {
+                    return $this->barcodeHelper->barcodeAsHTML($label_target->getIPN(), BarcodeType::CODE39);
+                }
+                if ('[[IPN_BARCODE_C128]]' === $placeholder) {
+                    return $this->barcodeHelper->barcodeAsHTML($label_target->getIPN(), BarcodeType::CODE128);
+                }
+                if ('[[IPN_BARCODE_QR]]' === $placeholder) {
+                    return $this->barcodeHelper->barcodeAsHTML($label_target->getIPN(), BarcodeType::QR);
+                }
+            } catch (Exception $e) {
+                //If an error occurs, output it
+                return '<b>IPN Barcode ERROR!</b>: '.$e->getMessage();
+            }
+        }
+
+
+
 
         return null;
     }

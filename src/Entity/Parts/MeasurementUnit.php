@@ -33,6 +33,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
@@ -75,8 +76,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     uriTemplate: '/footprints/{id}/children.{_format}',
     operations: [
-        new GetCollection(openapiContext: ['summary' => 'Retrieves the children elements of a MeasurementUnit.'],
-            security: 'is_granted("@measurement_units.read")')
+        new GetCollection(
+            openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),
+            security: 'is_granted("@measurement_units.read")'
+        )
     ],
     uriVariables: [
         'id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)

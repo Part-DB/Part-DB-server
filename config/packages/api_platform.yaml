@@ -8,6 +8,8 @@ api_platform:
 #  eager_loading:
 #    max_joins: 100
 
+  keep_legacy_inflector: false
+
   swagger:
     api_keys:
       # overridden in OpenApiFactoryDecorator

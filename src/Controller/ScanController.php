@@ -42,8 +42,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
+use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
 use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
+use App\Services\LabelSystem\Barcodes\BarcodeScanResult;
+use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,7 +57,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/scan')]
 class ScanController extends AbstractController
 {
-    public function __construct(protected BarcodeRedirector $barcodeParser, protected BarcodeNormalizer $barcodeNormalizer)
+    public function __construct(protected BarcodeRedirector $barcodeParser, protected BarcodeScanHelper $barcodeNormalizer)
     {
     }
 
@@ -73,10 +75,9 @@ class ScanController extends AbstractController
 
         if ($input !== null) {
             try {
-                [$type, $id] = $this->barcodeNormalizer->normalizeBarcodeContent($input);
-
+                $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input);
                 try {
-                    return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
+                    return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
                 } catch (EntityNotFoundException) {
                     $this->addFlash('success', 'scan.qr_not_found');
                 }
@@ -95,10 +96,23 @@ class ScanController extends AbstractController
      */
     public function scanQRCode(string $type, int $id): Response
     {
+        $type = strtolower($type);
+
         try {
             $this->addFlash('success', 'scan.qr_success');
 
-            return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
+            if (!isset(BarcodeScanHelper::QR_TYPE_MAP[$type])) {
+                throw new InvalidArgumentException('Unknown type: '.$type);
+            }
+            //Construct the scan result manually, as we don't have a barcode here
+            $scan_result = new BarcodeScanResult(
+                target_type: BarcodeScanHelper::QR_TYPE_MAP[$type],
+                target_id: $id,
+                //The routes are only used on the internal generated QR codes
+                source_type: BarcodeSourceType::INTERNAL
+            );
+
+            return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
         } catch (EntityNotFoundException) {
             $this->addFlash('success', 'scan.qr_not_found');
 

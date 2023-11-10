@@ -70,11 +70,13 @@ class DTOtoEntityConverterTest extends WebTestCase
             price: "10.0",
             currency_iso_code: 'CNY',
             includes_tax: true,
+            price_related_quantity: 10.0,
         );
 
         $entity = $this->service->convertPrice($dto);
         $this->assertEquals($dto->minimum_discount_amount, $entity->getMinDiscountQuantity());
         $this->assertEquals((float) $dto->price, (float) (string) $entity->getPrice());
+        $this->assertEquals($dto->price_related_quantity, $entity->getPriceRelatedQuantity());
 
         //For non-base currencies, a new currency entity is created
         $currency = $entity->getCurrency();

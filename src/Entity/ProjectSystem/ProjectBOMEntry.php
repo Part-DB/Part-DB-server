@@ -32,6 +32,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Validator\UniqueValidatableInterface;
@@ -69,8 +70,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiResource(
     uriTemplate: '/projects/{id}/bom.{_format}',
     operations: [
-        new GetCollection(openapiContext: ['summary' => 'Retrieves the BOM entries of the given project.'],
-            security: 'is_granted("@projects.read")')
+        new GetCollection(
+            openapi: new Operation(summary: 'Retrieves the BOM entries of the given project.'),
+            security: 'is_granted("@projects.read")'
+        )
     ],
     uriVariables: [
         'id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)

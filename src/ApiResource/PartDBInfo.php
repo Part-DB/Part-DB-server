@@ -26,6 +26,7 @@ namespace App\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\State\PartDBInfoProvider;
 
@@ -35,7 +36,7 @@ use App\State\PartDBInfoProvider;
 #[ApiResource(
     uriTemplate: '/info.{_format}',
     description: 'Basic information about Part-DB like version, title, etc.',
-    operations: [new Get(openapiContext: ['summary' => 'Get basic information about the installed Part-DB instance.'])],
+    operations: [new Get(openapi: new Operation(summary: 'Get basic information about the installed Part-DB instance.'))],
     provider: PartDBInfoProvider::class
 )]
 #[ApiFilter(PropertyFilter::class)]

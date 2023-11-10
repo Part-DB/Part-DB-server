@@ -48,6 +48,9 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Comment (plain text)': 'Kommentar (Nur-Text)',
     'Last modified datetime': 'Zuletzt geändert',
     'Creation datetime': 'Erstellt',
+    'IPN as QR code': 'IPN als QR Code',
+    'IPN as Code 128 barcode': 'IPN als Code 128 Barcode',
+    'IPN as Code 39 barcode': 'IPN als Code 39 Barcode',
 
     'Lot ID': 'Lot ID',
     'Lot name': 'Lot Name',

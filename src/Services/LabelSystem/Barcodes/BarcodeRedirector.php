@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\Barcodes;
 
+use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -59,32 +60,30 @@ final class BarcodeRedirector
     /**
      * Determines the URL to which the user should be redirected, when scanning a QR code.
      *
-     * @param string $type The type of the element that was scanned (e.g. 'part', 'lot', etc.)
-     * @param int    $id   The ID of the element that was scanned
-     *
+     * @param  BarcodeScanResult  $barcodeScan The result of the barcode scan
      * @return string the URL to which should be redirected
      *
      * @throws EntityNotFoundException
      */
-    public function getRedirectURL(string $type, int $id): string
+    public function getRedirectURL(BarcodeScanResult $barcodeScan): string
     {
-        switch ($type) {
-            case 'part':
-                return $this->urlGenerator->generate('app_part_show', ['id' => $id]);
-            case 'lot':
+        switch ($barcodeScan->target_type) {
+            case LabelSupportedElement::PART:
+                return $this->urlGenerator->generate('app_part_show', ['id' => $barcodeScan->target_id]);
+            case LabelSupportedElement::PART_LOT:
                 //Try to determine the part to the given lot
-                $lot = $this->em->find(PartLot::class, $id);
+                $lot = $this->em->find(PartLot::class, $barcodeScan->target_id);
                 if (!$lot instanceof PartLot) {
                     throw new EntityNotFoundException();
                 }
 
                 return $this->urlGenerator->generate('app_part_show', ['id' => $lot->getPart()->getID()]);
 
-            case 'location':
-                return $this->urlGenerator->generate('part_list_store_location', ['id' => $id]);
+            case LabelSupportedElement::STORELOCATION:
+                return $this->urlGenerator->generate('part_list_store_location', ['id' => $barcodeScan->target_id]);
 
             default:
-                throw new InvalidArgumentException('Unknown $type: '.$type);
+                throw new InvalidArgumentException('Unknown $type: '.$barcodeScan->target_type->name);
         }
     }
 }

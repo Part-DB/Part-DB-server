@@ -46,67 +46,47 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
+use App\Services\LabelSystem\Barcodes\BarcodeHelper;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
 
 /**
  * @see \App\Tests\Services\LabelSystem\BarcodeGeneratorTest
  */
-final class BarcodeGenerator
+final class LabelBarcodeGenerator
 {
-    public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator)
+    public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator, private readonly BarcodeHelper $barcodeHelper)
     {
     }
 
-    public function generateHTMLBarcode(LabelOptions $options, object $target): ?string
-    {
-        $svg = $this->generateSVG($options, $target);
-        $base64 = $this->dataUri($svg, 'image/svg+xml');
-        return '<img src="'.$base64.'" width="100%" style="min-height: 25px;" alt="'. $this->getContent($options, $target) . '" />';
-    }
-
-     /**
-     * Creates a data URI (RFC 2397).
-     * Based on the Twig implementaion from HTMLExtension
-     *
-     * Length validation is not performed on purpose, validation should
-     * be done before calling this filter.
-     *
-     * @return string The generated data URI
+    /**
+     * Generate the barcode for the given label as HTML image tag.
+     * @param  LabelOptions  $options
+     * @param  AbstractDBElement  $target
+     * @return string|null
      */
-    private function dataUri(string $data, string $mime): string
+    public function generateHTMLBarcode(LabelOptions $options, AbstractDBElement $target): ?string
     {
-        $repr = 'data:';
-
-        $repr .= $mime;
-        if (str_starts_with($mime, 'text/')) {
-            $repr .= ','.rawurlencode($data);
-        } else {
-            $repr .= ';base64,'.base64_encode($data);
-        }
-
-        return $repr;
-    }
-
-    public function generateSVG(LabelOptions $options, object $target): ?string
-    {
-        $barcode = new Barcode();
-
-        $type = match ($options->getBarcodeType()) {
-            BarcodeType::NONE => null,
-            BarcodeType::QR => 'QRCODE',
-            BarcodeType::DATAMATRIX => 'DATAMATRIX',
-            BarcodeType::CODE39 => 'C39',
-            BarcodeType::CODE93 => 'C93',
-            BarcodeType::CODE128 => 'C128A',
-        };
-
-        if ($type === null) {
+        if ($options->getBarcodeType() === BarcodeType::NONE) {
             return null;
         }
 
+        return $this->barcodeHelper->barcodeAsHTML($this->getContent($options, $target), $options->getBarcodeType());
+    }
 
-        return $barcode->getBarcodeObj($type, $this->getContent($options, $target))->getSvgCode();
+    /**
+     * Generate the barcode for the given label as SVG string.
+     * @param  LabelOptions  $options
+     * @param  AbstractDBElement  $target
+     * @return string|null
+     */
+    public function generateSVG(LabelOptions $options, AbstractDBElement $target): ?string
+    {
+        if ($options->getBarcodeType() === BarcodeType::NONE) {
+            return null;
+        }
+
+        return $this->barcodeHelper->barcodeAsSVG($this->getContent($options, $target), $options->getBarcodeType());
     }
 
     public function getContent(LabelOptions $options, AbstractDBElement $target): ?string

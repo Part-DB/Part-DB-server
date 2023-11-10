@@ -87,6 +87,7 @@ final class DTOtoEntityConverter
     {
         $entity->setMinDiscountQuantity($dto->minimum_discount_amount);
         $entity->setPrice($dto->getPriceAsBigDecimal());
+        $entity->setPriceRelatedQuantity($dto->price_related_quantity);
 
         //Currency TODO
         if ($dto->currency_iso_code !== null) {
@@ -94,7 +95,6 @@ final class DTOtoEntityConverter
         } else {
             $entity->setCurrency(null);
         }
-
 
         return $entity;
     }
@@ -289,7 +289,7 @@ final class DTOtoEntityConverter
         //If the entity was newly created, set the file filter
         if ($tmp->getID() === null) {
             $tmp->setFiletypeFilter('image/*');
-            $tmp->setAlternativeNames(self::TYPE_DATASHEETS_NAME);
+            $tmp->setAlternativeNames(self::TYPE_IMAGE_NAME);
         }
 
         return $tmp;

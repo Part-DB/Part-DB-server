@@ -28,22 +28,21 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class ValidGoogleAuthCodeValidatorTest extends ConstraintValidatorTestCase
 {
 
-    protected function createValidator()
+    protected function createValidator(): ConstraintValidatorInterface
     {
         $googleAuth = new class implements GoogleAuthenticatorInterface
         {
 
             public function checkCode(TwoFactorInterface $user, string $code): bool
             {
-                if ($code === '123456') {
-                    return true;
-                }
-                return false;
+                return $code === '123456';
             }
 
             public function getQRContent(TwoFactorInterface $user): string

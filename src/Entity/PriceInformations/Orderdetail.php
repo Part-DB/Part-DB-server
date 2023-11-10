@@ -34,6 +34,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use Doctrine\DBAL\Types\Types;
@@ -73,8 +74,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     uriTemplate: '/parts/{id}/orderdetails.{_format}',
     operations: [
-        new GetCollection(openapiContext: ['summary' => 'Retrieves the orderdetails of a part.'],
-            security: 'is_granted("@parts.read")')
+        new GetCollection(
+            openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
+            security: 'is_granted("@parts.read")'
+        )
     ],
     uriVariables: [
         'id' => new Link(toProperty: 'part', fromClass: Part::class)
