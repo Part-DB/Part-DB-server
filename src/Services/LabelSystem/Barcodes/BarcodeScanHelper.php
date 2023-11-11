@@ -42,6 +42,8 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\Parts\Part;
+use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 
 /**
@@ -61,6 +63,10 @@ final class BarcodeScanHelper
         'location' => LabelSupportedElement::STORELOCATION,
     ];
 
+    public function __construct(private readonly EntityManagerInterface $entityManager)
+    {
+    }
+
     /**
      * Parse the given barcode content and return the target type and ID.
      * If the barcode could not be parsed, an exception is thrown.
@@ -76,6 +82,9 @@ final class BarcodeScanHelper
         if ($type === BarcodeSourceType::INTERNAL) {
             return $this->parseInternalBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
+        if ($type === BarcodeSourceType::IPN) {
+            return $this->parseIPNBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        }
 
         //Null means auto and we try the different formats
         $result = $this->parseInternalBarcode($input);
@@ -83,7 +92,33 @@ final class BarcodeScanHelper
         if ($result !== null) {
             return $result;
         }
+
+        //Try to parse as IPN barcode
+        $result = $this->parseIPNBarcode($input);
+        if ($result !== null) {
+            return $result;
+        }
+
         throw new InvalidArgumentException('Unknown barcode format');
+    }
+
+    private function parseIPNBarcode(string $input): ?BarcodeScanResult
+    {
+        $part_repo = $this->entityManager->getRepository(Part::class);
+        //Find only the first result
+        $results = $part_repo->findBy(['ipn' => $input], limit: 1);
+
+        if (count($results) === 0) {
+            return null;
+        }
+        //We found a part, so use it to create the result
+        $part = $results[0];
+
+        return new BarcodeScanResult(
+            target_type: LabelSupportedElement::PART,
+            target_id: $part->getID(),
+            source_type: BarcodeSourceType::IPN
+        );
     }
 
     /**

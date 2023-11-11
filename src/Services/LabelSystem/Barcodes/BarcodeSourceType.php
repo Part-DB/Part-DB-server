@@ -30,4 +30,6 @@ enum BarcodeSourceType
 {
     /** This Barcode was generated using Part-DB internal recommended barcode generator */
     case INTERNAL;
+    /** This barcode is containing an internal part number (IPN) */
+    case IPN;
 }

@@ -71,11 +71,12 @@ class ScanController extends AbstractController
 
         if ($input === null && $form->isSubmitted() && $form->isValid()) {
             $input = $form['input']->getData();
+            $mode = $form['mode']->getData();
         }
 
         if ($input !== null) {
             try {
-                $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input);
+                $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
                 try {
                     return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
                 } catch (EntityNotFoundException) {

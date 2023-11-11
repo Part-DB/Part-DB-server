@@ -103,6 +103,10 @@ class BarcodeScanHelperTest extends WebTestCase
             '00001236'];
         yield [new BarcodeScanResult(LabelSupportedElement::PART, 1_234_567, BarcodeSourceType::INTERNAL),
             '12345678'];
+
+        //Test IPN barcode
+        yield [new BarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::IPN),
+            'IPN123'];
     }
 
     public static function invalidDataProvider(): array
