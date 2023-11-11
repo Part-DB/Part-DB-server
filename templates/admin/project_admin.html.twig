@@ -36,7 +36,7 @@
                 {% if entity.buildPart %}
                     <span class="form-control-static"><a href="{{ entity_url(entity.buildPart) }}">{{ entity.buildPart.name }}</a></span>
                 {% else %}
-                    <a href="{{ path('part_new_build_part', {"project_id": entity.id , "_redirect": app.request.requestUri}) }}"
+                    <a href="{{ path('part_new_build_part', {"project_id": entity.id , "_redirect":  app.request.baseUrl ~ app.request.requestUri}) }}"
                        class="btn btn-outline-success">{% trans %}project.edit.associated_build_part.add{% endtrans %}</a>
                 {% endif %}
                 <p class="text-muted">{% trans %}project.edit.associated_build.hint{% endtrans %}</p>

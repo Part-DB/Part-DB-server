@@ -56,7 +56,7 @@
 {{ dropdown.profile_dropdown('part', part.id) }}
 
 <a class="btn btn-success mt-2" {% if not is_granted('@projects.edit') %}disabled{% endif %}
-   href="{{ path('project_add_parts_no_id', {"parts": part.id, "_redirect": app.request.requestUri}) }}">
+   href="{{ path('project_add_parts_no_id', {"parts": part.id, "_redirect":  app.request.baseUrl ~ app.request.requestUri}) }}">
     <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
     {% trans %}part.info.add_part_to_project{% endtrans %}
 </a>
