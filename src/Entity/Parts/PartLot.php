@@ -60,8 +60,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'part_lots')]
-#[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
-#[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
+#[ORM\Index(columns: ['instock_unknown', 'expiration_date', 'id_part'], name: 'part_lots_idx_instock_un_expiration_id_part')]
+#[ORM\Index(columns: ['needs_refill'], name: 'part_lots_idx_needs_refill')]
+#[ORM\Index(columns: ['vendor_barcode'], name: 'part_lots_idx_barcode')]
 #[ValidPartLot]
 #[ApiResource(
     operations: [
@@ -153,6 +154,12 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     #[Groups(['part_lot:read', 'part_lot:write'])]
     protected ?User $owner = null;
+
+    /**
+     * @var string|null The content of the barcode of this part lot (e.g. a barcode on the package put by the vendor)
+     */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    protected ?string $vendor_barcode = null;
 
     public function __clone()
     {
