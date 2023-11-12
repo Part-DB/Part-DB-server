@@ -41,10 +41,10 @@ class PartAssociation extends AbstractDBElement
     use TimestampTrait;
 
     /**
-     * @var PartAssociationType The type of this association (how the two parts are related)
+     * @var AssociationType The type of this association (how the two parts are related)
      */
-    #[ORM\Column(type: Types::SMALLINT, enumType: PartAssociationType::class)]
-    protected PartAssociationType $type = PartAssociationType::OTHER;
+    #[ORM\Column(type: Types::SMALLINT, enumType: AssociationType::class)]
+    protected AssociationType $type = AssociationType::OTHER;
 
     /**
      * @var string|null A comment describing this association further. Can also be used to specify the OTHER type
@@ -69,12 +69,12 @@ class PartAssociation extends AbstractDBElement
     #[Assert\NotNull]
     protected ?Part $other = null;
 
-    public function getType(): PartAssociationType
+    public function getType(): AssociationType
     {
         return $this->type;
     }
 
-    public function setType(PartAssociationType $type): PartAssociation
+    public function setType(AssociationType $type): PartAssociation
     {
         $this->type = $type;
         return $this;

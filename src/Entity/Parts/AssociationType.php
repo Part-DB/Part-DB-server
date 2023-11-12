@@ -26,7 +26,7 @@ namespace App\Entity\Parts;
 /**
  * The values of this enums are used to describe how two parts are associated with each other.
  */
-enum PartAssociationType: int
+enum AssociationType: int
 {
     /** A user definable association type, which can be described in the comment field */
     case OTHER = 0;
