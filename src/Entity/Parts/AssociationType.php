@@ -34,4 +34,13 @@ enum AssociationType: int
     case COMPATIBLE = 1;
     /** The owning part supersedes the other part (owner is newer version) */
     case SUPERSEDES = 2;
+
+    /**
+     * Returns the translation key for this association type.
+     * @return string
+     */
+    public function getTranslationKey(): string
+    {
+        return 'part_association.type.' . strtolower($this->name);
+    }
 }

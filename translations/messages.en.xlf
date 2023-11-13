@@ -11831,5 +11831,41 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part-DB barcode</target>
       </segment>
     </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment>
+        <source>part_association.label</source>
+        <target>Part association</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment>
+        <source>part.edit.tab.associations</source>
+        <target>Associated parts</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment>
+        <source>part_association.edit.other_part</source>
+        <target>Associated part</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment>
+        <source>part_association.edit.type</source>
+        <target>Relation Type</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment>
+        <source>part_association.edit.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment>
+        <source>part_association.edit.type.help</source>
+        <target>You can select here, how the chosen part is related to this part.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

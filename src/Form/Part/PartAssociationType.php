@@ -37,12 +37,18 @@ class PartAssociationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('other', PartSelectType::class, [
+                'label' => 'part_association.edit.other_part',
+            ])
             ->add('type', EnumType::class, [
                 'class' => AssociationType::class,
+                'label' => 'part_association.edit.type',
+                'choice_label' => fn(AssociationType $type) => $type->getTranslationKey(),
+                'help' => 'part_association.edit.type.help',
             ])
-            ->add('other', PartSelectType::class)
             ->add('comment', TextType::class, [
                 'required' => false,
+                'label' => 'part_association.edit.comment'
             ])
         ;
 

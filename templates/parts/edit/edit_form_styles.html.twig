@@ -184,3 +184,19 @@
         </td>
     </tr>
 {% endblock %}
+
+{% block part_association_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <tr>
+        <td>
+            {{ form_widget(form) }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+                <i class="fas fa-trash-alt fa-fw"></i>
+                {% trans %}part_lot.delete{% endtrans %}
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
