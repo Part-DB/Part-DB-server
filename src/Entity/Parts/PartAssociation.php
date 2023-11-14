@@ -28,6 +28,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -36,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: DBElementRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(fields: ['other', 'owner', 'type'], message: 'validator.part_association.already_exists')]
 class PartAssociation extends AbstractDBElement
 {
     use TimestampTrait;
@@ -51,6 +53,8 @@ class PartAssociation extends AbstractDBElement
      * is used if the type is OTHER
      */
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Assert\Expression("this.getType().value !== 0 or this.getOtherType() !== null",
+        message: 'validator.part_association.must_set_an_value_if_type_is_other')]
     protected ?string $other_type = null;
 
     /**
@@ -73,6 +77,8 @@ class PartAssociation extends AbstractDBElement
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'associated_parts_as_other')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Assert\NotNull]
+    #[Assert\Expression("this.getOwner() !== this.getOther()",
+        message: 'validator.part_association.part_cannot_be_associated_with_itself')]
     protected ?Part $other = null;
 
     public function getType(): AssociationType
