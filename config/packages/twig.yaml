@@ -20,6 +20,7 @@ twig:
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
         available_themes: '%partdb.available_themes%'
         saml_enabled: '%partdb.saml.enabled%'
+        part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
 
 when@test:
     twig:

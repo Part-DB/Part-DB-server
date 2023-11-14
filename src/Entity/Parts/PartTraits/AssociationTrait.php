@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints\Valid;
 use Doctrine\ORM\Mapping as ORM;
@@ -88,5 +90,19 @@ trait AssociationTrait
     public function getAssociatedPartsAsOther(): Collection
     {
         return $this->associated_parts_as_other;
+    }
+
+    /**
+     * Returns all associations where this part is the owned or other part.
+     * @return Collection<PartAssociation>
+     */
+    public function getAssociatedPartsAll(): Collection
+    {
+        return new ArrayCollection(
+            array_merge(
+                $this->associated_parts_as_owner->toArray(),
+                $this->associated_parts_as_other->toArray()
+            )
+        );
     }
 }

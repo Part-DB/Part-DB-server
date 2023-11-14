@@ -136,5 +136,17 @@ class PartAssociation extends AbstractDBElement
         return $this;
     }
 
+    /**
+     * Returns the translation key for the type of this association.
+     * If the type is set to OTHER, then the other_type field value is used.
+     * @return string
+     */
+    public function getTypeTranslationKey(): string
+    {
+        if ($this->type === AssociationType::OTHER) {
+            return $this->other_type ?? 'Unknown';
+        }
+        return $this->type->getTranslationKey();
+    }
 
 }

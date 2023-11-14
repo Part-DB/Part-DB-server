@@ -11867,5 +11867,53 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>You can select here, how the chosen part is related to this part.</target>
       </segment>
     </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment>
+        <source>part_association.table.from_this_part</source>
+        <target>Associations from this part to others</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment>
+        <source>part_association.table.from</source>
+        <target>From</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment>
+        <source>part_association.table.type</source>
+        <target>Relation</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment>
+        <source>part_association.table.to</source>
+        <target>To</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment>
+        <source>part_association.type.compatible</source>
+        <target>Is compatible with</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment>
+        <source>part_association.table.to_this_part</source>
+        <target>Associations to this part from others</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment>
+        <source>part_association.type.other</source>
+        <target>Other (custom value)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment>
+        <source>part_association.type.supersedes</source>
+        <target>Supersedes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

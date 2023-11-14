@@ -88,6 +88,17 @@
                         </a>
                     </li>
                 {% endif %}
+
+                {% if part.associatedPartsAll is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="associations-tab" data-bs-toggle="tab" href="#associations" role="tab">
+                            <i class="fas fas fa-circle-nodes fa-fw fa-fw"></i>
+                            {% trans %}part.edit.tab.associations{% endtrans %}
+                            <span class="badge bg-secondary">{{ part.associatedPartsAll | length }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+
                 <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
                     <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-bs-toggle="tab" href="#history" role="tab">
                         <i class="fas fa-history"></i>
@@ -140,6 +151,12 @@
                 <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
                     {%  include "parts/info/_order_infos.html.twig" %}
                 </div>
+                {% endif %}
+
+                {% if part.associatedPartsAll is not empty %}
+                    <div class="tab-pane fade" id="associations" role="tabpanel" aria-labelledby="associations-tab">
+                        {%  include "parts/info/_associations.html.twig" %}
+                    </div>
                 {% endif %}
 
                 <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">

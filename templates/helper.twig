@@ -188,6 +188,15 @@
     {% endif %}
 {% endmacro  %}
 
+{% macro part_icon_link(part) %}
+    {% set preview_attach = part_preview_generator.tablePreviewAttachment(part) %}
+    {% if preview_attach %}
+        <img src="{{ attachment_thumbnail(preview_attach, 'thumbnail_xs') }}" class="entity-image-xs" alt="Part image"
+                {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ attachment_thumbnail(preview_attach) }}">
+    {% endif %}
+    <a href="{{ entity_url(part) }}">{{ part.name }}</a>
+{% endmacro %}
+
 {% macro entity_preview_sm(entity) %}
     {# @var entity \App\Entity\Contracts\HasMasterAttachmentInterface #}
     {% if entity.masterPictureAttachment and entity.masterPictureAttachment.picture and attachment_manager.fileExisting(entity.masterPictureAttachment) %}
