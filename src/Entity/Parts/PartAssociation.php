@@ -47,8 +47,14 @@ class PartAssociation extends AbstractDBElement
     protected AssociationType $type = AssociationType::OTHER;
 
     /**
-     * @var string|null A comment describing this association further. Can also be used to specify the OTHER type
-     * further.
+     * @var string|null A user definable association type, which can be described in the comment field, which
+     * is used if the type is OTHER
+     */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    protected ?string $other_type = null;
+
+    /**
+     * @var string|null A comment describing this association further.
      */
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     protected ?string $comment = null;
@@ -110,6 +116,17 @@ class PartAssociation extends AbstractDBElement
     public function setOther(?Part $other): PartAssociation
     {
         $this->other = $other;
+        return $this;
+    }
+
+    public function getOtherType(): ?string
+    {
+        return $this->other_type;
+    }
+
+    public function setOtherType(?string $other_type): PartAssociation
+    {
+        $this->other_type = $other_type;
         return $this;
     }
 
