@@ -2,7 +2,7 @@
 
 <div class="btn-group mb-2 mt-2">
     <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
-       href="{{ path('project_add_parts', {"id": project.id, "_redirect": app.request.requestUri}) }}">
+       href="{{ path('project_add_parts', {"id": project.id, "_redirect":  app.request.baseUrl ~ app.request.requestUri}) }}">
         <i class="fa-solid fa-square-plus fa-fw"></i>
         {% trans %}project.info.bom_add_parts{% endtrans %}
     </a>

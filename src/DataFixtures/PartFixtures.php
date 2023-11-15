@@ -83,6 +83,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part->setManufacturer($manager->find(Manufacturer::class, 1));
         $part->setTags('test, Test, Part2');
         $part->setMass(100.2);
+        $part->setIpn('IPN123');
         $part->setNeedsReview(true);
         $part->setManufacturingStatus(ManufacturingStatus::ACTIVE);
         $manager->persist($part);

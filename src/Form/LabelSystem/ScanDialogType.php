@@ -41,7 +41,9 @@ declare(strict_types=1);
 
 namespace App\Form\LabelSystem;
 
+use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,6 +59,20 @@ class ScanDialogType extends AbstractType
                 'autofocus' => true,
                 'id' => 'scan_dialog_input',
             ],
+        ]);
+
+        $builder->add('mode', EnumType::class, [
+            'label' => 'scan_dialog.mode',
+            'expanded' => true,
+            'class' => BarcodeSourceType::class,
+            'required' => false,
+            'placeholder' => 'scan_dialog.mode.auto',
+            'choice_label' => fn (?BarcodeSourceType $enum) => match($enum) {
+                null => 'scan_dialog.mode.auto',
+                BarcodeSourceType::INTERNAL => 'scan_dialog.mode.internal',
+                BarcodeSourceType::IPN => 'scan_dialog.mode.ipn',
+            },
+
         ]);
 
         $builder->add('submit', SubmitType::class, [

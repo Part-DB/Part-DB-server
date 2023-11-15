@@ -21,3 +21,20 @@ TRUSTED_PROXIES=192.168.2.10
 
 Set the `DEFAULT_URI` environment variable to the URL of your Part-DB installation, available from the outside (so via
 the reverse proxy).
+
+## Part-DB in a subpath via reverse proxy
+
+If you put Part-DB into a subpath via the reverse proxy, you have to configure your webserver to include `X-Forwarded-Prefix` in the request headers.
+For example if you put Part-DB behind a reverse proxy with the URL `https://example.com/partdb`, you have to set the `X-Forwarded-Prefix` header to `/partdb`.
+
+In apache, you can do this by adding the following line to your virtual host configuration:
+
+```
+RequestHeader set X-Forwarded-Prefix "/partdb"
+```
+
+and in nginx, you can do this by adding the following line to your server configuration:
+
+```
+proxy_set_header X-Forwarded-Prefix "/partdb";
+```
