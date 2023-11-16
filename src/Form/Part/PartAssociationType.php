@@ -45,9 +45,16 @@ class PartAssociationType extends AbstractType
                 'label' => 'part_association.edit.type',
                 'choice_label' => fn(AssociationType $type) => $type->getTranslationKey(),
                 'help' => 'part_association.edit.type.help',
+                'attr' => [
+                    'data-pages--association-edit-type-select-target' => 'select'
+                ]
             ])
             ->add('other_type', TextType::class, [
                 'required' => false,
+                'label' => 'part_association.edit.other_type',
+                'row_attr' => [
+                    'data-pages--association-edit-type-select-target' => 'display'
+                ]
             ])
             ->add('comment', TextType::class, [
                 'required' => false,

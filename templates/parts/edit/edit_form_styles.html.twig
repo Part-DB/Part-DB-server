@@ -189,7 +189,9 @@
     {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>
-            {{ form_widget(form) }}
+            <div {{ stimulus_controller('pages/association_edit_type_select') }}>
+                {{ form_widget(form) }}
+            </div>
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>

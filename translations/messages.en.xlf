@@ -11915,5 +11915,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Supersedes</target>
       </segment>
     </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment>
+        <source>part_association.edit.other_type</source>
+        <target>Custom type</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
