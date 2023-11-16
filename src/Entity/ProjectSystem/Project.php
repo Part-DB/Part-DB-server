@@ -186,7 +186,7 @@ class Project extends AbstractStructuralDBElement
             //Set master attachment is needed
             foreach ($bom_entries as $bom_entry) {
                 $clone = clone $bom_entry;
-                $this->bom_entries->add($clone);
+                $this->addBomEntry($clone);
             }
         }
 
