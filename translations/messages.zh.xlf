@@ -1870,6 +1870,35 @@
         <target>parti.edit.tab 附件</target>
       </segment>
     </unit>
+    <unit id="tkdBTwZ" name="part.edit.tab.orderdetails">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.orderdetails</source>
+        <target>parti.edit.tab.订购信息</target>
+      </segment>
+    </unit>
+    <unit id="fLuFk_2" name="part.edit.tab.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.specifications</source>
+        <target>parti.edit.tab.自定义参数</target>
+      </segment>
+    </unit>
+    <unit id="LgSgFFj" name="part.edit.tab.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.comment</source>
+        <target>parti.edit.tab.备注</target>
+      </segment>
+    </unit>
     <unit id="t2TNwOq" name="Unknown">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
@@ -2734,6 +2763,16 @@
       <segment state="translated">
         <source>statistics.user_uploaded_attachments_count</source>
         <target>用户上传附件数</target>
+      </segment>
+    </unit>
+    <unit id="iPcPo4t" name="tfa_backup.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.username</source>
+        <target>用户名</target>
       </segment>
     </unit>
     <unit id="EDTcMLO" name="tfa_u2f.key_delete">
