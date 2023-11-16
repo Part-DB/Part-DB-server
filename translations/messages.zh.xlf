@@ -1860,6 +1860,16 @@
         <target>库存</target>
       </segment>
     </unit>
+    <unit id="9HrMrf1" name="part.edit.tab.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.attachments</source>
+        <target>parti.edit.tab 附件</target>
+      </segment>
+    </unit>
     <unit id="t2TNwOq" name="Unknown">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
