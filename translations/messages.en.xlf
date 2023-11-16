@@ -11921,5 +11921,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Custom type</target>
       </segment>
     </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment>
+        <source>part_association.edit.delete.confirm</source>
+        <target>Do you really want to delete this association? This can not be undone.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
