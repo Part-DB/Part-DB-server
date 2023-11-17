@@ -11945,5 +11945,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
       </segment>
     </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment>
+        <source>scan_dialog.mode.vendor</source>
+        <target>Vendor barcode (configured in part lot)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
