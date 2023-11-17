@@ -317,5 +317,29 @@
         <target>A lot owner must not be the anonymous user!</target>
       </segment>
     </unit>
+    <unit id="N8aA0Uh" name="validator.part_association.must_set_an_value_if_type_is_other">
+      <segment state="translated">
+        <source>validator.part_association.must_set_an_value_if_type_is_other</source>
+        <target>If you set the type to "other", then you have to set a descriptive value for it!</target>
+      </segment>
+    </unit>
+    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>A part can not be associated with itself!</target>
+      </segment>
+    </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>The association with this part already exists!</target>
+      </segment>
+    </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>This vendor barcode value was already used in another lot. The barcode must be unique!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
