@@ -76,7 +76,7 @@ class PartAssociation extends AbstractDBElement
      * @var AssociationType The type of this association (how the two parts are related)
      */
     #[ORM\Column(type: Types::SMALLINT, enumType: AssociationType::class)]
-    #[Groups('part_assoc:read', 'part_assoc:write')]
+    #[Groups(['part_assoc:read', 'part_assoc:write'])]
     protected AssociationType $type = AssociationType::OTHER;
 
     /**
@@ -86,14 +86,14 @@ class PartAssociation extends AbstractDBElement
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Assert\Expression("this.getType().value !== 0 or this.getOtherType() !== null",
         message: 'validator.part_association.must_set_an_value_if_type_is_other')]
-    #[Groups('part_assoc:read', 'part_assoc:write')]
+    #[Groups(['part_assoc:read', 'part_assoc:write'])]
     protected ?string $other_type = null;
 
     /**
      * @var string|null A comment describing this association further.
      */
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups('part_assoc:read', 'part_assoc:write')]
+    #[Groups(['part_assoc:read', 'part_assoc:write'])]
     protected ?string $comment = null;
 
     /**
@@ -102,7 +102,7 @@ class PartAssociation extends AbstractDBElement
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'associated_parts_as_owner')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Assert\NotNull]
-    #[Groups('part_assoc:read', 'part_assoc:write', 'part_assoc:read:standalone')]
+    #[Groups(['part_assoc:read:standalone', 'part_assoc:write'])]
     protected ?Part $owner = null;
 
     /**
@@ -113,7 +113,7 @@ class PartAssociation extends AbstractDBElement
     #[Assert\NotNull]
     #[Assert\Expression("this.getOwner() !== this.getOther()",
         message: 'validator.part_association.part_cannot_be_associated_with_itself')]
-    #[Groups('part_assoc:read', 'part_assoc:write')]
+    #[Groups(['part_assoc:read', 'part_assoc:write'])]
     protected ?Part $other = null;
 
     /**
