@@ -335,5 +335,11 @@
         <target>The association with this part already exists!</target>
       </segment>
     </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment>
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>This vendor barcode value was already used in another lot. The barcode must be unique!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

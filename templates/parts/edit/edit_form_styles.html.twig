@@ -89,7 +89,23 @@
     {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>
-            {{ form_widget(form) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.storage_location) }}
+            {{ form_row(form.amount) }}
+            {{ form_row(form.instock_unknown) }}
+            {{ form_row(form.needs_refill) }}
+            {{ form_row(form.expiration_date) }}
+
+            {% set id = 'collapse_' ~ random() %}
+
+            <a class="btn btn-link offset-sm-3 btn-sm" data-bs-toggle="collapse" href="#{{ id }}" role="button" aria-expanded="false" aria-controls="{{ id }}">
+                {% trans %}part_lot.edit.advanced{% endtrans %}
+            </a>
+            <div class="collapse" id="{{ id }}">
+                {{ form_row(form.comment) }}
+                {{ form_row(form.owner) }}
+                {{ form_row(form.vendor_barcode) }}
+            </div>
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>

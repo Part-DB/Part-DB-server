@@ -47,6 +47,7 @@ use App\Validator\Constraints\ValidPartLot;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -64,6 +65,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(columns: ['needs_refill'], name: 'part_lots_idx_needs_refill')]
 #[ORM\Index(columns: ['vendor_barcode'], name: 'part_lots_idx_barcode')]
 #[ValidPartLot]
+#[UniqueEntity(['vendor_barcode'], message: 'validator.part_lot.vendor_barcode_must_be_unique')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -159,6 +161,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var string|null The content of the barcode of this part lot (e.g. a barcode on the package put by the vendor)
      */
     #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(['part_lot:read', 'part_lot:write'])]
     protected ?string $vendor_barcode = null;
 
     public function __clone()
@@ -360,6 +363,29 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     {
         return $this->description;
     }
+
+    /**
+     * The content of the barcode of this part lot (e.g. a barcode on the package put by the vendor), or
+     * null if no barcode is set.
+     * @return string|null
+     */
+    public function getVendorBarcode(): ?string
+    {
+        return $this->vendor_barcode;
+    }
+
+    /**
+     * Set the content of the barcode of this part lot (e.g. a barcode on the package put by the vendor).
+     * @param  string|null  $vendor_barcode
+     * @return $this
+     */
+    public function setVendorBarcode(?string $vendor_barcode): PartLot
+    {
+        $this->vendor_barcode = $vendor_barcode;
+        return $this;
+    }
+
+
 
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void

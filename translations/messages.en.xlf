@@ -11927,5 +11927,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Do you really want to delete this association? This can not be undone.</target>
       </segment>
     </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment>
+        <source>part_lot.edit.advanced</source>
+        <target>Expand advanced options</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment>
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Vendor barcode</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment>
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
