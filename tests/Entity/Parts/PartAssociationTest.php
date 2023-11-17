@@ -18,23 +18,26 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+namespace App\Tests\Entity\Parts;
 
+use App\Entity\Parts\AssociationType;
+use App\Entity\Parts\PartAssociation;
+use PHPUnit\Framework\TestCase;
 
-namespace App\Services\LabelSystem\Barcodes;
-
-/**
- * This enum represents the different types, where a barcode/QR-code can be generated from
- */
-enum BarcodeSourceType
+class PartAssociationTest extends TestCase
 {
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
-    /**
-     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
-     * field of a part lot.
-     */
-    case VENDOR;
+
+    public function testGetTypeTranslationKey(): void
+    {
+        $assoc = new PartAssociation();
+        $assoc->setType(AssociationType::COMPATIBLE);
+        $assoc->setOtherType('Custom Type');
+
+        //If the type is not OTHER the translation key should be the same as the type
+        $this->assertEquals($assoc->getType()->getTranslationKey(), $assoc->getTypeTranslationKey());
+
+        //If the type is OTHER the translation key should be the other type
+        $assoc->setType(AssociationType::OTHER);
+        $this->assertEquals($assoc->getOtherType(), $assoc->getTypeTranslationKey());
+    }
 }

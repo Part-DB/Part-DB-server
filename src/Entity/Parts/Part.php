@@ -41,6 +41,7 @@ use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Parts\PartTraits\AssociationTrait;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
@@ -58,6 +59,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Jfcherng\Diff\Utility\Arr;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -112,6 +114,7 @@ class Part extends AttachmentContainingDBElement
     use OrderTrait;
     use ParametersTrait;
     use ProjectTrait;
+    use AssociationTrait;
 
     /** @var Collection<int, PartParameter>
      */
@@ -165,6 +168,9 @@ class Part extends AttachmentContainingDBElement
         $this->parameters = new ArrayCollection();
         $this->project_bom_entries = new ArrayCollection();
 
+        $this->associated_parts_as_owner = new ArrayCollection();
+        $this->associated_parts_as_other = new ArrayCollection();
+
         //By default, the part has no provider
         $this->providerReference = InfoProviderReference::noProvider();
     }
@@ -191,6 +197,13 @@ class Part extends AttachmentContainingDBElement
             $this->parameters = new ArrayCollection();
             foreach ($parameters as $parameter) {
                 $this->addParameter(clone $parameter);
+            }
+
+            //Deep clone the owned part associations (the owned ones make not much sense without the owner)
+            $ownedAssociations = $this->associated_parts_as_owner;
+            $this->associated_parts_as_owner = new ArrayCollection();
+            foreach ($ownedAssociations as $association) {
+                $this->addAssociatedPartsAsOwner(clone $association);
             }
 
             //Deep clone info provider

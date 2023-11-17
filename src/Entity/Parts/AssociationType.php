@@ -21,20 +21,26 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Entity\Parts;
 
 /**
- * This enum represents the different types, where a barcode/QR-code can be generated from
+ * The values of this enums are used to describe how two parts are associated with each other.
  */
-enum BarcodeSourceType
+enum AssociationType: int
 {
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
+    /** A user definable association type, which can be described in the comment field */
+    case OTHER = 0;
+    /** The owning part is compatible with the other part  */
+    case COMPATIBLE = 1;
+    /** The owning part supersedes the other part (owner is newer version) */
+    case SUPERSEDES = 2;
+
     /**
-     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
-     * field of a part lot.
+     * Returns the translation key for this association type.
+     * @return string
      */
-    case VENDOR;
+    public function getTranslationKey(): string
+    {
+        return 'part_association.type.' . strtolower($this->name);
+    }
 }

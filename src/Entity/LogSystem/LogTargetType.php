@@ -29,6 +29,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -63,6 +64,8 @@ enum LogTargetType: int
     case PARAMETER = 18;
     case LABEL_PROFILE = 19;
 
+    case PART_ASSOCIATION = 20;
+
     /**
      * Returns the class name of the target type or null if the target type is NONE.
      * @return string|null
@@ -90,6 +93,7 @@ enum LogTargetType: int
             self::MEASUREMENT_UNIT => MeasurementUnit::class,
             self::PARAMETER => AbstractParameter::class,
             self::LABEL_PROFILE => LabelProfile::class,
+            self::PART_ASSOCIATION => PartAssociation::class,
         };
     }
 

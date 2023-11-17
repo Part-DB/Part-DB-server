@@ -107,6 +107,10 @@ class BarcodeScanHelperTest extends WebTestCase
         //Test IPN barcode
         yield [new BarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::IPN),
             'IPN123'];
+
+        //Test vendor barcode
+        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 2,BarcodeSourceType::VENDOR),
+            'lot2_vendor_barcode'];
     }
 
     public static function invalidDataProvider(): array

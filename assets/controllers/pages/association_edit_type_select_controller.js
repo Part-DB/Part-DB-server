@@ -1,4 +1,3 @@
-<?php
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -18,23 +17,28 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+import {Controller} from "@hotwired/stimulus";
 
+export default class extends Controller {
 
-namespace App\Services\LabelSystem\Barcodes;
+    static targets = [ "display", "select" ]
 
-/**
- * This enum represents the different types, where a barcode/QR-code can be generated from
- */
-enum BarcodeSourceType
-{
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
-    /**
-     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
-     * field of a part lot.
-     */
-    case VENDOR;
+    connect()
+    {
+        this.update();
+        this.selectTarget.addEventListener('change', this.update.bind(this));
+    }
+
+    update()
+    {
+        //If the select value is 0, then we show the input field
+        if( this.selectTarget.value === '0')
+        {
+            this.displayTarget.classList.remove('d-none');
+        }
+        else
+        {
+            this.displayTarget.classList.add('d-none');
+        }
+    }
 }

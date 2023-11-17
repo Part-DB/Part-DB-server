@@ -43,6 +43,7 @@ namespace App\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 
@@ -82,6 +83,9 @@ final class BarcodeScanHelper
         if ($type === BarcodeSourceType::INTERNAL) {
             return $this->parseInternalBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
+        if ($type === BarcodeSourceType::VENDOR) {
+            return $this->parseVendorBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        }
         if ($type === BarcodeSourceType::IPN) {
             return $this->parseIPNBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
@@ -93,13 +97,38 @@ final class BarcodeScanHelper
             return $result;
         }
 
+        //Try to parse as vendor barcode
+        $result = $this->parseVendorBarcode($input);
+        if ($result !== null) {
+            return $result;
+        }
+
         //Try to parse as IPN barcode
         $result = $this->parseIPNBarcode($input);
         if ($result !== null) {
             return $result;
         }
 
-        throw new InvalidArgumentException('Unknown barcode format');
+        throw new InvalidArgumentException('Unknown barcode');
+    }
+
+    private function parseVendorBarcode(string $input): ?BarcodeScanResult
+    {
+        $lot_repo = $this->entityManager->getRepository(PartLot::class);
+        //Find only the first result
+        $results = $lot_repo->findBy(['vendor_barcode' => $input], limit: 1);
+
+        if (count($results) === 0) {
+            return null;
+        }
+        //We found a part, so use it to create the result
+        $lot = $results[0];
+
+        return new BarcodeScanResult(
+            target_type: LabelSupportedElement::PART_LOT,
+            target_id: $lot->getID(),
+            source_type: BarcodeSourceType::VENDOR
+        );
     }
 
     private function parseIPNBarcode(string $input): ?BarcodeScanResult

@@ -245,6 +245,16 @@ class PartBaseType extends AbstractType
             ],
         ]);
 
+        //Part associations
+        $builder->add('associated_parts_as_owner', CollectionType::class, [
+            'entry_type' => PartAssociationType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'reindex_enable' => true,
+            'label' => false,
+            'by_reference' => false,
+        ]);
+
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
