@@ -11831,5 +11831,125 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part-DB barcode</target>
       </segment>
     </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment state="translated">
+        <source>part_association.label</source>
+        <target>Part association</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment state="translated">
+        <source>part.edit.tab.associations</source>
+        <target>Associated parts</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment state="translated">
+        <source>part_association.edit.other_part</source>
+        <target>Associated part</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment state="translated">
+        <source>part_association.edit.type</source>
+        <target>Relation Type</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment state="translated">
+        <source>part_association.edit.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment state="translated">
+        <source>part_association.edit.type.help</source>
+        <target>You can select here, how the chosen part is related to this part.</target>
+      </segment>
+    </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment state="translated">
+        <source>part_association.table.from_this_part</source>
+        <target>Associations from this part to others</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment state="translated">
+        <source>part_association.table.from</source>
+        <target>From</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment state="translated">
+        <source>part_association.table.type</source>
+        <target>Relation</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment state="translated">
+        <source>part_association.table.to</source>
+        <target>To</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment state="translated">
+        <source>part_association.type.compatible</source>
+        <target>Is compatible with</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment state="translated">
+        <source>part_association.table.to_this_part</source>
+        <target>Associations to this part from others</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment state="translated">
+        <source>part_association.type.other</source>
+        <target>Other (custom value)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment state="translated">
+        <source>part_association.type.supersedes</source>
+        <target>Supersedes</target>
+      </segment>
+    </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment state="translated">
+        <source>part_association.edit.other_type</source>
+        <target>Custom type</target>
+      </segment>
+    </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment state="translated">
+        <source>part_association.edit.delete.confirm</source>
+        <target>Do you really want to delete this association? This can not be undone.</target>
+      </segment>
+    </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment state="translated">
+        <source>part_lot.edit.advanced</source>
+        <target>Expand advanced options</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Vendor barcode</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
+      </segment>
+    </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment state="translated">
+        <source>scan_dialog.mode.vendor</source>
+        <target>Vendor barcode (configured in part lot)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
