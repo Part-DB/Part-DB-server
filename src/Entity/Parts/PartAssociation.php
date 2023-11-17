@@ -23,12 +23,27 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\DBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -38,6 +53,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DBElementRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['other', 'owner', 'type'], message: 'validator.part_association.already_exists')]
+#[ApiResource(
+    operations: [
+        new Get(security: 'is_granted("read", object)'),
+        new GetCollection(security: 'is_granted("@parts.read")'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Patch(security: 'is_granted("edit", object)'),
+        new Delete(security: 'is_granted("delete", object)'),
+    ],
+    normalizationContext: ['groups' => ['part_assoc:read', 'part_assoc:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['part_assoc:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+)]
+#[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(LikeFilter::class, properties: ["other_type", "comment"])]
+#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(OrderFilter::class, properties: ['comment', 'addedDate', 'lastModified'])]
 class PartAssociation extends AbstractDBElement
 {
     use TimestampTrait;
@@ -46,6 +76,7 @@ class PartAssociation extends AbstractDBElement
      * @var AssociationType The type of this association (how the two parts are related)
      */
     #[ORM\Column(type: Types::SMALLINT, enumType: AssociationType::class)]
+    #[Groups('part_assoc:read', 'part_assoc:write')]
     protected AssociationType $type = AssociationType::OTHER;
 
     /**
@@ -55,12 +86,14 @@ class PartAssociation extends AbstractDBElement
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Assert\Expression("this.getType().value !== 0 or this.getOtherType() !== null",
         message: 'validator.part_association.must_set_an_value_if_type_is_other')]
+    #[Groups('part_assoc:read', 'part_assoc:write')]
     protected ?string $other_type = null;
 
     /**
      * @var string|null A comment describing this association further.
      */
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups('part_assoc:read', 'part_assoc:write')]
     protected ?string $comment = null;
 
     /**
@@ -69,6 +102,7 @@ class PartAssociation extends AbstractDBElement
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'associated_parts_as_owner')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Assert\NotNull]
+    #[Groups('part_assoc:read', 'part_assoc:write', 'part_assoc:read:standalone')]
     protected ?Part $owner = null;
 
     /**
@@ -79,6 +113,7 @@ class PartAssociation extends AbstractDBElement
     #[Assert\NotNull]
     #[Assert\Expression("this.getOwner() !== this.getOther()",
         message: 'validator.part_association.part_cannot_be_associated_with_itself')]
+    #[Groups('part_assoc:read', 'part_assoc:write')]
     protected ?Part $other = null;
 
     /**
