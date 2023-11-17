@@ -81,55 +81,101 @@ class PartAssociation extends AbstractDBElement
         message: 'validator.part_association.part_cannot_be_associated_with_itself')]
     protected ?Part $other = null;
 
+    /**
+     * Returns the (semantic) relation type of this association as an AssociationType enum value.
+     * If the type is set to OTHER, then the other_type field value is used for the user defined type.
+     * @return AssociationType
+     */
     public function getType(): AssociationType
     {
         return $this->type;
     }
 
+    /**
+     * Sets the (semantic) relation type of this association as an AssociationType enum value.
+     * @param  AssociationType  $type
+     * @return $this
+     */
     public function setType(AssociationType $type): PartAssociation
     {
         $this->type = $type;
         return $this;
     }
 
+    /**
+     * Returns a comment, which describes this association further.
+     * @return string|null
+     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
+    /**
+     * Sets a comment, which describes this association further.
+     * @param  string|null  $comment
+     * @return $this
+     */
     public function setComment(?string $comment): PartAssociation
     {
         $this->comment = $comment;
         return $this;
     }
 
+    /**
+     * Returns the part which "owns" this association, e.g. the part which is a replacement for another part.
+     * @return Part|null
+     */
     public function getOwner(): ?Part
     {
         return $this->owner;
     }
 
+    /**
+     * Sets the part which "owns" this association, e.g. the part which is a replacement for another part.
+     * @param  Part|null  $owner
+     * @return $this
+     */
     public function setOwner(?Part $owner): PartAssociation
     {
         $this->owner = $owner;
         return $this;
     }
 
+    /**
+     * Returns the part which is "owned" by this association, e.g. the part which is replaced by another part.
+     * @return Part|null
+     */
     public function getOther(): ?Part
     {
         return $this->other;
     }
 
+    /**
+     * Sets the part which is "owned" by this association, e.g. the part which is replaced by another part.
+     * @param  Part|null  $other
+     * @return $this
+     */
     public function setOther(?Part $other): PartAssociation
     {
         $this->other = $other;
         return $this;
     }
 
+    /**
+     * Returns the user defined association type, which is used if the type is set to OTHER.
+     * @return string|null
+     */
     public function getOtherType(): ?string
     {
         return $this->other_type;
     }
 
+    /**
+     * Sets the user defined association type, which is used if the type is set to OTHER.
+     * @param  string|null  $other_type
+     * @return $this
+     */
     public function setOtherType(?string $other_type): PartAssociation
     {
         $this->other_type = $other_type;
