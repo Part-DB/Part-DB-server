@@ -11605,6 +11605,96 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Visualizza gli aggiornamenti di Part-DB disponibili</target>
       </segment>
     </unit>
+    <unit id="bItnXAm" name="user.settings.api_tokens">
+      <segment state="translated">
+        <source>user.settings.api_tokens</source>
+        <target>API Tokens</target>
+      </segment>
+    </unit>
+    <unit id="stkMDET" name="user.settings.api_tokens.description">
+      <segment state="translated">
+        <source>user.settings.api_tokens.description</source>
+        <target>Utilizzando un token API, altre applicazioni possono accedere a Part-DB con i tuoi diritti utente per eseguire varie azioni tramite l'API REST di Part-DB. Se elimini un token API qui, l'applicazione che lo utilizza non sarà più in grado di accedere a Part-DB.</target>
+      </segment>
+    </unit>
+    <unit id="pd794fq" name="api_tokens.name">
+      <segment state="translated">
+        <source>api_tokens.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="XodVxQi" name="api_tokens.access_level">
+      <segment state="translated">
+        <source>api_tokens.access_level</source>
+        <target>Livello di accesso</target>
+      </segment>
+    </unit>
+    <unit id="kHaDSpK" name="api_tokens.expiration_date">
+      <segment state="translated">
+        <source>api_tokens.expiration_date</source>
+        <target>Data di scadenza</target>
+      </segment>
+    </unit>
+    <unit id="b5uLOjr" name="api_tokens.added_date">
+      <segment state="translated">
+        <source>api_tokens.added_date</source>
+        <target>Aggiunto il</target>
+      </segment>
+    </unit>
+    <unit id="QPwuYKl" name="api_tokens.last_time_used">
+      <segment state="translated">
+        <source>api_tokens.last_time_used</source>
+        <target>Ultimo utilizzo</target>
+      </segment>
+    </unit>
+    <unit id="G91glEH" name="datetime.never">
+      <segment state="translated">
+        <source>datetime.never</source>
+        <target>Mai</target>
+      </segment>
+    </unit>
+    <unit id="xPeKpJU" name="api_token.valid">
+      <segment state="translated">
+        <source>api_token.valid</source>
+        <target>Valido</target>
+      </segment>
+    </unit>
+    <unit id="jlBlmje" name="api_token.expired">
+      <segment state="translated">
+        <source>api_token.expired</source>
+        <target>Scaduto</target>
+      </segment>
+    </unit>
+    <unit id="Kmdx4SB" name="user.settings.show_api_documentation">
+      <segment state="translated">
+        <source>user.settings.show_api_documentation</source>
+        <target>Mostra la documentazione delle API</target>
+      </segment>
+    </unit>
+    <unit id="hAUCZVo" name="api_token.create_new">
+      <segment state="translated">
+        <source>api_token.create_new</source>
+        <target>Creare un nuovo API token</target>
+      </segment>
+    </unit>
+    <unit id="eX17pK8" name="api_token.level.read_only">
+      <segment state="translated">
+        <source>api_token.level.read_only</source>
+        <target>Sola lettura</target>
+      </segment>
+    </unit>
+    <unit id="PMVjK5p" name="api_token.level.edit">
+      <segment state="translated">
+        <source>api_token.level.edit</source>
+        <target>Modificare</target>
+      </segment>
+    </unit>
+    <unit id="1dVnGpy" name="api_token.level.admin">
+      <segment state="translated">
+        <source>api_token.level.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
     <unit id="VVpmfIj" name="project.build.dont_check_quantity">
       <segment state="translated">
         <source>project.build.dont_check_quantity</source>
