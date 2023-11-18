@@ -11614,7 +11614,7 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
     <unit id="stkMDET" name="user.settings.api_tokens.description">
       <segment state="translated">
         <source>user.settings.api_tokens.description</source>
-        <target>Utilizzando un token API, altre applicazioni possono accedere a Part-DB con i tuoi diritti utente per eseguire varie azioni tramite l'API REST di Part-DB. Se elimini un token API qui, l'applicazione che lo utilizza non sarà più in grado di accedere a Part-DB.</target>
+        <target>Utilizzando un token API, altre applicazioni possono accedere a Part-DB con i diritti utente per eseguire varie azioni tramite l'API REST di Part-DB. Se si elimina un token API qui, l'applicazione che lo utilizza non sarà più in grado di accedere a Part-DB.</target>
       </segment>
     </unit>
     <unit id="pd794fq" name="api_tokens.name">
@@ -11695,6 +11695,42 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Admin</target>
       </segment>
     </unit>
+    <unit id="gY4wVwS" name="api_token.level.full">
+      <segment state="translated">
+        <source>api_token.level.full</source>
+        <target>Completo</target>
+      </segment>
+    </unit>
+    <unit id="OAFErYa" name="api_tokens.access_level.help">
+      <segment state="translated">
+        <source>api_tokens.access_level.help</source>
+        <target>Si può limitare ciò a cui l'API token può accedere. L'accesso è sempre limitato dai permessi dell'utente.</target>
+      </segment>
+    </unit>
+    <unit id="Xjs_v91" name="api_tokens.expiration_date.help">
+      <segment state="translated">
+        <source>api_tokens.expiration_date.help</source>
+        <target>Dopo questa data, il token non sarà più utilizzabile. Lasciare vuoto se il token non deve mai scadere.</target>
+      </segment>
+    </unit>
+    <unit id="0e7mD8q" name="api_tokens.your_token_is">
+      <segment state="translated">
+        <source>api_tokens.your_token_is</source>
+        <target>Il tuo API token è</target>
+      </segment>
+    </unit>
+    <unit id="nre_kP_" name="api_tokens.please_save_it">
+      <segment state="translated">
+        <source>api_tokens.please_save_it</source>
+        <target>Per favore, conserva il token. Non sarà più possibile vederlo!</target>
+      </segment>
+    </unit>
+    <unit id="b17FeDX" name="api_tokens.create_new.back_to_user_settings">
+      <segment state="translated">
+        <source>api_tokens.create_new.back_to_user_settings</source>
+        <target>Tornare alle impostazioni utente</target>
+      </segment>
+    </unit>
     <unit id="VVpmfIj" name="project.build.dont_check_quantity">
       <segment state="translated">
         <source>project.build.dont_check_quantity</source>
@@ -11711,6 +11747,210 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       <segment state="translated">
         <source>part_list.action.invert_selection</source>
         <target>Invertire la selezione</target>
+      </segment>
+    </unit>
+    <unit id="vvmdRvD" name="perm.api">
+      <segment state="translated">
+        <source>perm.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="VrWd7Fb" name="perm.api.access_api">
+      <segment state="translated">
+        <source>perm.api.access_api</source>
+        <target>Accesso API</target>
+      </segment>
+    </unit>
+    <unit id="hLOM1pt" name="perm.api.manage_tokens">
+      <segment state="translated">
+        <source>perm.api.manage_tokens</source>
+        <target>Gestire gli API token</target>
+      </segment>
+    </unit>
+    <unit id="dH8PTLd" name="user.settings.api_tokens.delete.title">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.title</source>
+        <target>Si vuole davvero cancellare questo API token?</target>
+      </segment>
+    </unit>
+    <unit id="1QAaz2a" name="user.settings.api_tokens.delete">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete</source>
+        <target>Cancellare</target>
+      </segment>
+    </unit>
+    <unit id="bE8wV70" name="user.settings.api_tokens.delete.message">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.message</source>
+        <target>L'applicazione che utilizza questo API token non avrà più accesso a Part-DB. Questa azione non può essere annullata!</target>
+      </segment>
+    </unit>
+    <unit id="sLAzIhh" name="api_tokens.deleted">
+      <segment state="translated">
+        <source>api_tokens.deleted</source>
+        <target>Il token API è stato cancellato!</target>
+      </segment>
+    </unit>
+    <unit id="TFTBy25" name="user.settings.api_tokens.no_api_tokens_yet">
+      <segment state="translated">
+        <source>user.settings.api_tokens.no_api_tokens_yet</source>
+        <target>Ancora nessun API token configurato.</target>
+      </segment>
+    </unit>
+    <unit id="8EdFeb6" name="api_token.ends_with">
+      <segment state="translated">
+        <source>api_token.ends_with</source>
+        <target>Finisce con</target>
+      </segment>
+    </unit>
+    <unit id="SgLdhCl" name="entity.select.creating_new_entities_not_allowed">
+      <segment state="translated">
+        <source>entity.select.creating_new_entities_not_allowed</source>
+        <target>Non è consentito creare nuove entità di questo tipo. Si prega di selezionarne una preesistente.</target>
+      </segment>
+    </unit>
+    <unit id="eUQd7dA" name="scan_dialog.mode">
+      <segment state="translated">
+        <source>scan_dialog.mode</source>
+        <target>Tipo di codice a barre</target>
+      </segment>
+    </unit>
+    <unit id="7lPD8GF" name="scan_dialog.mode.auto">
+      <segment state="translated">
+        <source>scan_dialog.mode.auto</source>
+        <target>Rilevamento automatico</target>
+      </segment>
+    </unit>
+    <unit id=".q3g3eL" name="scan_dialog.mode.ipn">
+      <segment state="translated">
+        <source>scan_dialog.mode.ipn</source>
+        <target>Codice a barre IPN</target>
+      </segment>
+    </unit>
+    <unit id="jvHD3DB" name="scan_dialog.mode.internal">
+      <segment state="translated">
+        <source>scan_dialog.mode.internal</source>
+        <target>Codice a barre Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment state="translated">
+        <source>part_association.label</source>
+        <target>Associazione di componenti</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment state="translated">
+        <source>part.edit.tab.associations</source>
+        <target>Componenti associati</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment state="translated">
+        <source>part_association.edit.other_part</source>
+        <target>Componente associato</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment state="translated">
+        <source>part_association.edit.type</source>
+        <target>Tipo di relazione</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment state="translated">
+        <source>part_association.edit.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment state="translated">
+        <source>part_association.edit.type.help</source>
+        <target>Qui è possibile indicare come è correlato il componente scelto a questo componente.</target>
+      </segment>
+    </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment state="translated">
+        <source>part_association.table.from_this_part</source>
+        <target>Associazioni da questo componente ad altri</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment state="translated">
+        <source>part_association.table.from</source>
+        <target>Da</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment state="translated">
+        <source>part_association.table.type</source>
+        <target>Relazione</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment state="translated">
+        <source>part_association.table.to</source>
+        <target>A</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment state="translated">
+        <source>part_association.type.compatible</source>
+        <target>È compatibile con</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment state="translated">
+        <source>part_association.table.to_this_part</source>
+        <target>Associazioni a questo componente da altri</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment state="translated">
+        <source>part_association.type.other</source>
+        <target>Altro (valore personalizzato)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment state="translated">
+        <source>part_association.type.supersedes</source>
+        <target>Sostituisce</target>
+      </segment>
+    </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment state="translated">
+        <source>part_association.edit.other_type</source>
+        <target>Tipo personalizzato</target>
+      </segment>
+    </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment state="translated">
+        <source>part_association.edit.delete.confirm</source>
+        <target>Si vuole davvero eliminare questa associazione? Questa azione non può essere annullata.</target>
+      </segment>
+    </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment state="translated">
+        <source>part_lot.edit.advanced</source>
+        <target>Espandere le opzioni avanzate</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Codice a barre del fornitore</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>Se il lotto ha già un codice a barre (ad esempio inserito dal fornitore), è possibile inserirne il contenuto qui per facilitare la scansione.</target>
+      </segment>
+    </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment state="translated">
+        <source>scan_dialog.mode.vendor</source>
+        <target>Codice a barre del fornitore (configurato nel lotto della parte)</target>
       </segment>
     </unit>
   </file>
