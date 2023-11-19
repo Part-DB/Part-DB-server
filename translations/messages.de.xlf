@@ -11803,5 +11803,125 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Sie sind nicht berechtigt, neue Elemente dieses Typs anzulegen! Bitte wählen Sie ein vorgegebenes Element aus.</target>
       </segment>
     </unit>
+    <unit id="eUQd7dA" name="scan_dialog.mode">
+      <segment state="translated">
+        <source>scan_dialog.mode</source>
+        <target>Barcode-Typ</target>
+      </segment>
+    </unit>
+    <unit id="7lPD8GF" name="scan_dialog.mode.auto">
+      <segment state="translated">
+        <source>scan_dialog.mode.auto</source>
+        <target>Automatische Erkennung</target>
+      </segment>
+    </unit>
+    <unit id=".q3g3eL" name="scan_dialog.mode.ipn">
+      <segment state="translated">
+        <source>scan_dialog.mode.ipn</source>
+        <target>IPN Barcode</target>
+      </segment>
+    </unit>
+    <unit id="jvHD3DB" name="scan_dialog.mode.internal">
+      <segment state="translated">
+        <source>scan_dialog.mode.internal</source>
+        <target>Part-DB Barcode</target>
+      </segment>
+    </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment state="translated">
+        <source>part_association.label</source>
+        <target>Bauteileverknüpfung</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment state="translated">
+        <source>part.edit.tab.associations</source>
+        <target>Verknüpfte Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment state="translated">
+        <source>part_association.edit.other_part</source>
+        <target>Verknüpftes Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment state="translated">
+        <source>part_association.edit.type</source>
+        <target>Art der Beziehung</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment state="translated">
+        <source>part_association.edit.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment state="translated">
+        <source>part_association.edit.type.help</source>
+        <target>Sie können hier auswählen, in welcher Art von Verbindung die Bauteile stehen.</target>
+      </segment>
+    </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment state="translated">
+        <source>part_association.table.from_this_part</source>
+        <target>Verknüpfungen von diesem Bauteil zu anderen</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment state="translated">
+        <source>part_association.table.from</source>
+        <target>Von</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment state="translated">
+        <source>part_association.table.type</source>
+        <target>Beziehung</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment state="translated">
+        <source>part_association.table.to</source>
+        <target>Zu</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment state="translated">
+        <source>part_association.type.compatible</source>
+        <target>Ist kompatibel mit</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment state="translated">
+        <source>part_association.table.to_this_part</source>
+        <target>Verknüpfungen zu diesem Bauteil von anderen</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment state="translated">
+        <source>part_association.type.other</source>
+        <target>Andere (eigener Wert)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment state="translated">
+        <source>part_association.type.supersedes</source>
+        <target>Ersetzt</target>
+      </segment>
+    </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment state="translated">
+        <source>part_association.edit.other_type</source>
+        <target>Selbstgewählte Beziehung</target>
+      </segment>
+    </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment state="translated">
+        <source>part_lot.edit.advanced</source>
+        <target>Erweiterte Optionen zeigen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
