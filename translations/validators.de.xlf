@@ -317,5 +317,11 @@
         <target>Der Eigentümer darf nicht der anonymous Benutzer sein!</target>
       </segment>
     </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>Eine Verknüpfung mit diesem Bauteil existiert bereits!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
