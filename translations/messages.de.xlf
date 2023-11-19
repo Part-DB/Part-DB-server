@@ -11917,10 +11917,40 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Selbstgewählte Beziehung</target>
       </segment>
     </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment state="translated">
+        <source>part_association.edit.delete.confirm</source>
+        <target>Möchten Sie diese Verknüpfung wirklich löschen? Dies kann nicht rückgängig gemacht werden.</target>
+      </segment>
+    </unit>
     <unit id="o3HcwZn" name="part_lot.edit.advanced">
       <segment state="translated">
         <source>part_lot.edit.advanced</source>
         <target>Erweiterte Optionen zeigen</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Lieferanten Barcode</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>Wenn dieser Bestand bereits ein Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch scannen des Barcodes finden.</target>
+      </segment>
+    </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment state="translated">
+        <source>scan_dialog.mode.vendor</source>
+        <target>Lieferanten Barcode (in Bauteilebestand konfiguriert)</target>
+      </segment>
+    </unit>
+    <unit id="ilCTQni" name="project.bom.instockAmount">
+      <segment state="translated">
+        <source>project.bom.instockAmount</source>
+        <target>Bestand im Lager</target>
       </segment>
     </unit>
   </file>
