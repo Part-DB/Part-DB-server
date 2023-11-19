@@ -11951,5 +11951,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Vendor barcode (configured in part lot)</target>
       </segment>
     </unit>
+    <unit id="ilCTQni" name="project.bom.instockAmount">
+      <segment>
+        <source>project.bom.instockAmount</source>
+        <target>Stocked amount</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

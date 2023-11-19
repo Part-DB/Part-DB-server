@@ -151,6 +151,28 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 },
             ])
 
+            ->add('instockAmount', TextColumn::class, [
+                'label' => 'project.bom.instockAmount',
+                'visible' => false,
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    if ($context->getPart()) {
+                        return $this->partDataTableHelper->renderAmount($context->getPart());
+                    }
+
+                    return '';
+                }
+            ])
+            ->add('storageLocations', TextColumn::class, [
+                'label' => 'part.table.storeLocations',
+                'visible' => false,
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    if ($context->getPart()) {
+                        return $this->partDataTableHelper->renderStorageLocations($context->getPart());
+                    }
+
+                    return '';
+                }
+            ])
 
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
