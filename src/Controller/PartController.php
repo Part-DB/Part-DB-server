@@ -36,6 +36,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -229,6 +230,24 @@ class PartController extends AbstractController
         $new_part = $infoRetriever->dtoToPart($dto);
 
         return $this->renderPartForm('new', $request, $new_part, [
+            'info_provider_dto' => $dto,
+        ]);
+    }
+
+    #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', requirements: ['providerId' => '.+'])]
+    public function updateFromInfoProvider(Part $part, Request $request, string $providerKey, string $providerId,
+        PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        $provider_part = $infoRetriever->dtoToPart($dto);
+
+        $part = $partMerger->merge($part, $provider_part);
+
+        return $this->renderPartForm('edit', $request, $part, [
             'info_provider_dto' => $dto,
         ]);
     }

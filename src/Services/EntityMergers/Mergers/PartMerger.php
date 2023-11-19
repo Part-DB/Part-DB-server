@@ -37,14 +37,19 @@ class PartMerger implements EntityMergerInterface
         return $target instanceof Part && $other instanceof Part;
     }
 
-    public function merge(object $target, object $other, array $context = []): object
+    public function merge(object $target, object $other, array $context = []): Part
     {
         if (!$target instanceof Part || !$other instanceof Part) {
             throw new \InvalidArgumentException('The target and the other entity must be instances of Part');
         }
 
         //Merge the fields
+        $this->useOtherValueIfNotNull($target, $other, 'manufacturer');
+
         $this->mergeCollections($target, $other, 'partLots');
+        $this->mergeCollections($target, $other, 'attachments');
+        $this->mergeCollections($target, $other, 'orderdetails');
+        $this->mergeCollections($target, $other, 'parameters');
 
         return $target;
     }

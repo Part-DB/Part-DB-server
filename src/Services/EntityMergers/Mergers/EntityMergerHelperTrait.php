@@ -63,6 +63,8 @@ trait EntityMergerHelperTrait
 
         //Set the value
         $this->property_accessor->setValue($target, $field, $value);
+
+        return $target;
     }
 
     /**
@@ -75,7 +77,7 @@ trait EntityMergerHelperTrait
      */
     protected function useOtherValueIfNotNull(object $target, object $other, string $field): object
     {
-        $this->useCallback(
+        return $this->useCallback(
             function ($target_value, $other_value) {
                 return $target_value ?? $other_value;
             },
@@ -84,7 +86,6 @@ trait EntityMergerHelperTrait
             $field
         );
 
-        return $target;
     }
 
     /**
@@ -97,7 +98,7 @@ trait EntityMergerHelperTrait
      */
     protected function useOtherValueIfNotEmtpy(object $target, object $other, string $field): object
     {
-        $this->useCallback(
+        return $this->useCallback(
             function ($target_value, $other_value) {
                 return empty($target_value) ? $other_value : $target_value;
             },
@@ -105,8 +106,6 @@ trait EntityMergerHelperTrait
             $other,
             $field
         );
-
-        return $target;
     }
 
     /**
@@ -119,7 +118,7 @@ trait EntityMergerHelperTrait
      */
     protected function useLargerValue(object $target, object $other, string $field): object
     {
-        $this->useCallback(
+        return $this->useCallback(
             function ($target_value, $other_value) {
                 return max($target_value, $other_value);
             },
@@ -127,8 +126,6 @@ trait EntityMergerHelperTrait
             $other,
             $field
         );
-
-        return $target;
     }
 
     /**
@@ -141,7 +138,7 @@ trait EntityMergerHelperTrait
      */
     protected function useSmallerValue(object $target, object $other, string $field): object
     {
-        $this->useCallback(
+        return $this->useCallback(
             function ($target_value, $other_value) {
                 return min($target_value, $other_value);
             },
@@ -149,8 +146,6 @@ trait EntityMergerHelperTrait
             $other,
             $field
         );
-
-        return $target;
     }
 
     /**
