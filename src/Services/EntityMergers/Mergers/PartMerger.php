@@ -24,6 +24,9 @@ declare(strict_types=1);
 namespace App\Services\EntityMergers\Mergers;
 
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartLot;
+use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 #[Autoconfigure(public: true)]
@@ -43,14 +46,77 @@ class PartMerger implements EntityMergerInterface
             throw new \InvalidArgumentException('The target and the other entity must be instances of Part');
         }
 
-        //Merge the fields
+        //Merge basic infos
         $this->useOtherValueIfNotNull($target, $other, 'manufacturer');
+        $this->useOtherValueIfNotNull($target, $other, 'footprint');
+        $this->useOtherValueIfNotNull($target, $other, 'category');
+        $this->useOtherValueIfNotNull($target, $other, 'partUnit');
 
-        $this->mergeCollections($target, $other, 'partLots');
-        $this->mergeCollections($target, $other, 'attachments');
-        $this->mergeCollections($target, $other, 'orderdetails');
-        $this->mergeCollections($target, $other, 'parameters');
+        //We assume that the higher value is the correct one for minimum instock
+        $this->useLargerValue($target, $other, 'minamount');
+
+
 
         return $target;
+    }
+
+    private function mergeCollectionFields(Part $target, Part $other, array $context): void
+    {
+        /********************************************************************************
+         * Merge collections
+         ********************************************************************************/
+
+        //Lots from different parts are never considered equal, so we just merge them together
+        $this->mergeCollections($target, $other, 'partLots');
+        $this->mergeAttachments($target, $other);
+        $this->mergeParameters($target, $other);
+
+        $this->mergeCollections($target, $other, 'associated_parts_as_owner', function (PartAssociation $t, PartAssociation $o) {
+            //We compare the translation keys, as it contains info about the type and other type info
+            return $t->getOther() === $o->getOther()
+                && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
+        });
+
+        $this->mergeCollections($target, $other, 'orderdetails', function (Orderdetail $t, Orderdetail $o) {
+            //First check that the orderdetails infos are equal
+            $tmp = $t->getSupplier() === $o->getSupplier()
+                && $t->getSupplierPartNr() === $o->getSupplierPartNr()
+                && $t->getSupplierProductUrl(false) === $o->getSupplierProductUrl(false);
+
+            if (!$tmp) {
+                return false;
+            }
+
+            //Check if the pricedetails are equal
+            $t_pricedetails = $t->getPricedetails();
+            $o_pricedetails = $o->getPricedetails();
+            //Ensure that both pricedetails have the same length
+            if (count($t_pricedetails) !== count($o_pricedetails)) {
+                return false;
+            }
+
+            //Check if all pricedetails are equal
+            for ($n=0, $nMax = count($t_pricedetails); $n< $nMax; $n++) {
+                $t_price = $t_pricedetails->get($n);
+                $o_price = $o_pricedetails->get($n);
+
+                if (!$t_price->getPrice()->isEqualTo($o_price->getPrice())
+                    || $t_price->getCurrency() !== $o_price->getCurrency()
+                    || $t_price->getPriceRelatedQuantity() !== $o_price->getPriceRelatedQuantity()
+                    || $t_price->getMinDiscountQuantity() !== $o_price->getMinDiscountQuantity()
+                ) {
+                    return false;
+                }
+            }
+
+            //If all pricedetails are equal, the orderdetails are equal
+            return true;
+        });
+        //The pricedetails are not correctly assigned to the new orderdetails, so fix that
+        foreach ($target->getOrderdetails() as $orderdetail) {
+            foreach ($orderdetail->getPricedetails() as $pricedetail) {
+                $pricedetail->setOrderdetail($orderdetail);
+            }
+        }
     }
 }

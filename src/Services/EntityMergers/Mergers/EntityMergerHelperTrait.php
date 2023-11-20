@@ -23,6 +23,11 @@ declare(strict_types=1);
 
 namespace App\Services\EntityMergers\Mergers;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parts\Part;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -153,9 +158,12 @@ trait EntityMergerHelperTrait
      * @param  object  $target
      * @param  object  $other
      * @param  string  $field
+     * @param  callable|null  $equal_fn A function, which checks if two items are equal. The signature is: function(object $target, object other): bool.
+     * Return true if the items are equal, false otherwise. If two items are equal, the item from the other collection is not added to the target collection.
+     * If null, the items are compared by (instance) identity.
      * @return object
      */
-    protected function mergeCollections(object $target, object $other, string $field): object
+    protected function mergeCollections(object $target, object $other, string $field, ?callable $equal_fn = null): object
     {
         $target_collection = $this->property_accessor->getValue($target, $field);
         $other_collection = $this->property_accessor->getValue($other, $field);
@@ -167,6 +175,19 @@ trait EntityMergerHelperTrait
         //Clone the items from the other collection
         $clones = [];
         foreach ($other_collection as $item) {
+            //Check if the item is already in the target collection
+            if ($equal_fn !== null) {
+                foreach ($target_collection as $target_item) {
+                    if ($equal_fn($target_item, $item)) {
+                        continue 2;
+                    }
+                }
+            } else {
+                if ($target_collection->contains($item)) {
+                    continue;
+                }
+            }
+
             $clones[] = clone $item;
         }
 
@@ -176,5 +197,40 @@ trait EntityMergerHelperTrait
         $this->property_accessor->setValue($target, $field,  $tmp);
 
         return $target;
+    }
+
+    /**
+     * Merge the attachments from the target and the other entity.
+     * @param  AttachmentContainingDBElement  $target
+     * @param  AttachmentContainingDBElement  $other
+     * @return object
+     */
+    protected function mergeAttachments(AttachmentContainingDBElement $target, AttachmentContainingDBElement $other): object
+    {
+        return $this->mergeCollections($target, $other, 'attachments', function (Attachment $t, Attachment $o): bool {
+            return $t->getName() === $o->getName()
+                && $t->getAttachmentType() === $o->getAttachmentType()
+                && $t->getPath() === $o->getPath();
+        });
+    }
+
+    /**
+     * Merge the parameters from the target and the other entity.
+     * @param  AbstractStructuralDBElement|Part  $target
+     * @param  AbstractStructuralDBElement|Part  $other
+     * @return object
+     */
+    protected function mergeParameters(AbstractStructuralDBElement|Part $target, AbstractStructuralDBElement|Part $other): object
+    {
+        return $this->mergeCollections($target, $other, 'parameters', function (AbstractParameter $t, AbstractParameter $o): bool {
+            return $t->getName() === $o->getName()
+                && $t->getSymbol() === $o->getSymbol()
+                && $t->getUnit() === $o->getUnit()
+                && $t->getValueMax() === $o->getValueMax()
+                && $t->getValueMin() === $o->getValueMin()
+                && $t->getValueTypical() === $o->getValueTypical()
+                && $t->getValueText() === $o->getValueText()
+                && $t->getGroup() === $o->getGroup();
+        });
     }
 }
