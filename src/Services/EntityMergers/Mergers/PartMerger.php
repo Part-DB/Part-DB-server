@@ -55,7 +55,12 @@ class PartMerger implements EntityMergerInterface
         //We assume that the higher value is the correct one for minimum instock
         $this->useLargerValue($target, $other, 'minamount');
 
+        //We assume that a part needs review and is a favorite if one of the parts is
+        $this->useTrueValue($target, $other, 'needs_review');
+        $this->useTrueValue($target, $other, 'favorite');
 
+        //Merge the tags using the tag merger
+        $this->mergeTags($target, $other, 'tags');
 
         return $target;
     }

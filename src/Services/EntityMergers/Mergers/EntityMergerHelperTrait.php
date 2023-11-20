@@ -154,6 +154,54 @@ trait EntityMergerHelperTrait
     }
 
     /**
+     * Perform an OR operation on the boolean values from the target and the other entity for the given field.
+     * This effectively means that the value is true, if it is true in at least one of the entities.
+     * @param  object  $target
+     * @param  object  $other
+     * @param  string  $field
+     * @return object
+     */
+    protected function useTrueValue(object $target, object $other, string $field): object
+    {
+        return $this->useCallback(
+            function (bool $target_value, bool $other_value): bool {
+                return $target_value || $other_value;
+            },
+            $target,
+            $other,
+            $field
+        );
+    }
+
+    /**
+     * Perform a merge of comma separated lists from the target and the other entity for the given field.
+     * The values are merged and duplicates are removed.
+     * @param  object  $target
+     * @param  object  $other
+     * @param  string  $field
+     * @return object
+     */
+    protected function mergeTags(object $target, object $other, string $field, string $separator = ','): object
+    {
+        return $this->useCallback(
+            function (string $t, string $o) use ($separator): string {
+                //Explode the strings into arrays
+                $t_array = explode($separator, $t);
+                $o_array = explode($separator, $o);
+
+                //Merge the arrays and remove duplicates
+                $tmp = array_unique(array_merge($t_array, $o_array));
+
+                //Implode the array back to a string
+                return implode($separator, $tmp);
+            },
+            $target,
+            $other,
+            $field
+        );
+    }
+
+    /**
      * Merge the collections from the target and the other entity for the given field and put all items into the target collection.
      * @param  object  $target
      * @param  object  $other

@@ -20,6 +20,10 @@
 
 namespace App\Tests\Services\EntityMergers\Mergers;
 
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Services\EntityMergers\Mergers\PartMerger;
@@ -38,11 +42,65 @@ class PartMergerTest extends KernelTestCase
         $this->merger = self::getContainer()->get(PartMerger::class);
     }
 
+    public function testMergeOfEntityRelations(): void
+    {
+        $category = new Category();
+        $footprint = new Footprint();
+        $manufacturer1 = new Manufacturer();
+        $manufacturer2 = new Manufacturer();
+        $unit = new MeasurementUnit();
+
+        $part1 = (new Part())
+            ->setCategory($category)
+            ->setManufacturer($manufacturer1);
+
+        $part2 = (new Part())
+            ->setFootprint($footprint)
+            ->setManufacturer($manufacturer2)
+            ->setPartUnit($unit);
+
+        $merged = $this->merger->merge($part1, $part2);
+        $this->assertSame($merged, $part1);
+        $this->assertSame($category, $merged->getCategory());
+        $this->assertSame($footprint, $merged->getFootprint());
+        $this->assertSame($manufacturer1, $merged->getManufacturer());
+        $this->assertSame($unit, $merged->getPartUnit());
+    }
+
+    public function testMergeOfTags(): void
+    {
+        $part1 = (new Part())
+            ->setTags('tag1,tag2,tag3');
+
+        $part2 = (new Part())
+            ->setTags('tag2,tag3,tag4');
+
+        $merged = $this->merger->merge($part1, $part2);
+        $this->assertSame($merged, $part1);
+        $this->assertSame('tag1,tag2,tag3,tag4', $merged->getTags());
+    }
+
+    public function testMergeOfBoolFields(): void
+    {
+        $part1 = (new Part())
+            ->setFavorite(false)
+            ->setNeedsReview(true);
+
+        $part2 = (new Part())
+            ->setFavorite(true)
+            ->setNeedsReview(false);
+
+        $merged = $this->merger->merge($part1, $part2);
+        //Favorite and needs review should be true, as it is true in one of the parts
+        $this->assertTrue($merged->isFavorite());
+        $this->assertTrue($merged->isNeedsReview());
+    }
+
     /**
      * This test also functions as test for EntityMergerHelperTrait::mergeCollections() so its pretty long.
      * @return void
      */
-    public function testMergePartLots()
+    public function testMergeOfPartLots(): void
     {
         $lot1 = (new PartLot())->setAmount(2)->setNeedsRefill(true);
         $lot2 = (new PartLot())->setInstockUnknown(true)->setVendorBarcode('test');
