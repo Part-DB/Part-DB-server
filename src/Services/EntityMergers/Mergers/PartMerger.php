@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\EntityMergers\Mergers;
 
+use App\Entity\Parts\InfoProviderReference;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
@@ -46,7 +48,16 @@ class PartMerger implements EntityMergerInterface
             throw new \InvalidArgumentException('The target and the other entity must be instances of Part');
         }
 
-        //Merge basic infos
+        //Merge basic fields
+        $this->mergeTextWithSeparator($target, $other, 'name');
+        $this->mergeTextWithSeparator($target, $other, 'description');
+        $this->mergeComment($target, $other);
+        $this->useOtherValueIfNotEmtpy($target, $other, 'manufacturer_product_url');
+        $this->useOtherValueIfNotEmtpy($target, $other, 'manufacturer_product_number');
+        $this->useOtherValueIfNotEmtpy($target, $other, 'mass');
+        $this->useOtherValueIfNotEmtpy($target, $other, 'ipn');
+
+        //Merge relations to other entities
         $this->useOtherValueIfNotNull($target, $other, 'manufacturer');
         $this->useOtherValueIfNotNull($target, $other, 'footprint');
         $this->useOtherValueIfNotNull($target, $other, 'category');
@@ -61,6 +72,24 @@ class PartMerger implements EntityMergerInterface
 
         //Merge the tags using the tag merger
         $this->mergeTags($target, $other, 'tags');
+
+        //Merge manufacturing status
+        $this->useCallback(function (?ManufacturingStatus $t, ?ManufacturingStatus $o): ?ManufacturingStatus {
+            //Use the other value, if the target value is not set
+            if ($t === ManufacturingStatus::NOT_SET || $t === null) {
+                return $o ?? ManufacturingStatus::NOT_SET;
+            }
+
+            return $t;
+        }, $target, $other, 'manufacturing_status');
+
+        //Merge provider reference
+        $this->useCallback(function (InfoProviderReference $t, InfoProviderReference $o): InfoProviderReference {
+            if (!$t->isProviderCreated() && $o->isProviderCreated()) {
+                return $o;
+            }
+            return $t;
+        }, $target, $other, 'providerReference');
 
         return $target;
     }

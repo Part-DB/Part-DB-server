@@ -25,6 +25,7 @@ namespace App\Services\EntityMergers\Mergers;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Part;
@@ -32,6 +33,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\Service\Attribute\Required;
+
+use function Symfony\Component\String\u;
 
 /**
  * This trait provides helper methods for entity mergers.
@@ -184,10 +187,10 @@ trait EntityMergerHelperTrait
     protected function mergeTags(object $target, object $other, string $field, string $separator = ','): object
     {
         return $this->useCallback(
-            function (string $t, string $o) use ($separator): string {
+            function (string|null $t, string|null $o) use ($separator): string {
                 //Explode the strings into arrays
-                $t_array = explode($separator, $t);
-                $o_array = explode($separator, $o);
+                $t_array = explode($separator, $t ?? '');
+                $o_array = explode($separator, $o ?? '');
 
                 //Merge the arrays and remove duplicates
                 $tmp = array_unique(array_merge($t_array, $o_array));
@@ -280,5 +283,76 @@ trait EntityMergerHelperTrait
                 && $t->getValueText() === $o->getValueText()
                 && $t->getGroup() === $o->getGroup();
         });
+    }
+
+    /**
+     * Check if the two strings have equal content.
+     * This method is case-insensitive and ignores whitespace.
+     * @param  string|\Stringable  $t
+     * @param  string|\Stringable  $o
+     * @return bool
+     */
+    protected function areStringsEqual(string|\Stringable $t, string|\Stringable $o): bool
+    {
+        $t_str = u($t)->trim()->folded();
+        $o_str = u($o)->trim()->folded();
+
+        return $t_str->equalsTo($o_str);
+    }
+
+    /**
+     * Merge the text from the target and the other entity for the given field by attaching the other text to the target text via the given separator.
+     * For example, if the target text is "Hello" and the other text is "World", the result is "Hello / World".
+     * If the text is the same in both entities, the target text is returned.
+     * @param  object  $target
+     * @param  object  $other
+     * @param  string  $field
+     * @param  string  $separator
+     * @return object
+     */
+    protected function mergeTextWithSeparator(object $target, object $other, string $field, string $separator = ' / '): object
+    {
+        return $this->useCallback(
+            function (string $t, string $o) use ($separator): string {
+                //Check if the strings are equal
+                if ($this->areStringsEqual($t, $o)) {
+                    return $t;
+                }
+
+                return trim($t) . $separator . trim($o);
+            },
+            $target,
+            $other,
+            $field
+        );
+    }
+
+    /**
+     * Merge two comments from the target and the other entity for the given field.
+     * The comments of the both entities get concated, while the second part get a headline with the name of the old part.
+     * @param  AbstractNamedDBElement  $target
+     * @param  AbstractNamedDBElement  $other
+     * @param  string  $field
+     * @return object
+     */
+    protected function mergeComment(AbstractNamedDBElement $target, AbstractNamedDBElement $other, string $field = 'comment'): object
+    {
+        return $this->useCallback(
+            function (string $t, string $o) use ($other): string {
+                //Check if the strings are equal
+                if ($this->areStringsEqual($t, $o)) {
+                    return $t;
+                }
+
+                return sprintf("%s\n\n<b>%s:</b>\n%s",
+                    trim($t),
+                    $other->getName(),
+                    trim($o)
+                );
+            },
+            $target,
+            $other,
+            $field
+        );
     }
 }
