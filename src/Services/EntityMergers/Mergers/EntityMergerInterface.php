@@ -24,12 +24,17 @@ declare(strict_types=1);
 namespace App\Services\EntityMergers\Mergers;
 
 
+/**
+ * @template T of object
+ */
 interface EntityMergerInterface
 {
     /**
      * Determines if this merger supports merging the other entity into the target entity.
      * @param  object  $target
+     * @phpstan-param T $target
      * @param  object  $other
+     * @phpstan-param T $other
      * @param  array  $context
      * @return bool True if this merger supports merging the other entity into the target entity, false otherwise
      */
@@ -39,8 +44,11 @@ interface EntityMergerInterface
      * Merge the other entity into the target entity.
      * The target entity will be modified and returned.
      * @param  object  $target
+     * @phpstan-param T $target
      * @param  object  $other
+     * @phpstan-param T $other
      * @param  array  $context
+     * @phpstan-return T
      * @return object
      */
     public function merge(object $target, object $other, array $context = []): object;

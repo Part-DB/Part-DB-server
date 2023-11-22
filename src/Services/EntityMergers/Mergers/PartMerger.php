@@ -31,6 +31,9 @@ use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+/**
+ * @implements EntityMergerInterface<Part>
+ */
 #[Autoconfigure(public: true)]
 class PartMerger implements EntityMergerInterface
 {
@@ -74,7 +77,7 @@ class PartMerger implements EntityMergerInterface
         $this->mergeTags($target, $other, 'tags');
 
         //Merge manufacturing status
-        $this->useCallback(function (?ManufacturingStatus $t, ?ManufacturingStatus $o): ?ManufacturingStatus {
+        $this->useCallback(function (?ManufacturingStatus $t, ?ManufacturingStatus $o): ManufacturingStatus {
             //Use the other value, if the target value is not set
             if ($t === ManufacturingStatus::NOT_SET || $t === null) {
                 return $o ?? ManufacturingStatus::NOT_SET;
@@ -90,6 +93,9 @@ class PartMerger implements EntityMergerInterface
             }
             return $t;
         }, $target, $other, 'providerReference');
+
+        //Merge the collections
+        $this->mergeCollectionFields($target, $other, $context);
 
         return $target;
     }
