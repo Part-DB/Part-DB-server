@@ -7,7 +7,7 @@
     </a>
 {% endif %}
 
-
+{# Create new button #}
 {% if is_granted('create', part) %}
     <br>
     <div class="btn-group mt-2">
@@ -26,6 +26,9 @@
         </div>
     </div>
 {% endif %}
+
+{# Merge modal #}
+{% include "parts/info/_merge_modal.html.twig" %}
 
 <form method="post" class="mt-2" action="{{ entity_url(part, 'delete') }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
