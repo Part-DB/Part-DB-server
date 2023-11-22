@@ -11969,5 +11969,29 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>This element was newly created and was not persisted to the database yet.</target>
       </segment>
     </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment>
+        <source>part.merge.title</source>
+        <target>Merge part</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment>
+        <source>part.merge.title.into</source>
+        <target>into</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment>
+        <source>part.merge.confirm.title</source>
+        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment>
+        <source>part.merge.confirm.message</source>
+        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

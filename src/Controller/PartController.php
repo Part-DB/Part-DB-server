@@ -234,6 +234,22 @@ class PartController extends AbstractController
         ]);
     }
 
+    #[Route('/{target}/merge/{other}', name: 'part_merge')]
+    public function merge(Request $request, Part $target, Part $other, PartMerger $partMerger): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $target);
+        $this->denyAccessUnlessGranted('delete', $other);
+
+        //Save the old name of the target part for the template
+        $target_name = $target->getName();
+
+        $merged = $partMerger->merge($target, $other);
+        return $this->renderPartForm('merge', $request, $merged, [], [
+            'tname_before' => $target_name,
+            'other_part' => $other,
+        ]);
+    }
+
     #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', requirements: ['providerId' => '.+'])]
     public function updateFromInfoProvider(Part $part, Request $request, string $providerKey, string $providerId,
         PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
@@ -259,10 +275,10 @@ class PartController extends AbstractController
      * @param  array  $form_options
      * @return Response
      */
-    private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = []): Response
+    private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = [], array $merge_infos = []): Response
     {
         //Ensure that mode is either 'new' or 'edit
-        if (!in_array($mode, ['new', 'edit'], true)) {
+        if (!in_array($mode, ['new', 'edit', 'merge'], true)) {
             throw new \InvalidArgumentException('Invalid mode given');
         }
 
@@ -295,6 +311,12 @@ class PartController extends AbstractController
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $this->em->persist($new_part);
+
+            //When we are in merge mode, we have to remove the other part
+            if ($mode === 'merge') {
+                $this->em->remove($merge_infos['other_part']);
+            }
+
             $this->em->flush();
             if ($mode === 'new') {
                 $this->addFlash('success', 'part.created_flash');
@@ -329,12 +351,16 @@ class PartController extends AbstractController
             $template = 'parts/edit/new_part.html.twig';
         } else if ($mode === 'edit') {
             $template = 'parts/edit/edit_part_info.html.twig';
+        } else if ($mode === 'merge') {
+            $template = 'parts/edit/merge_parts.html.twig';
         }
 
         return $this->render($template,
             [
                 'part' => $new_part,
                 'form' => $form,
+                'merge_old_name' => $merge_infos['tname_before'] ?? null,
+                'merge_other' => $merge_infos['other_part'] ?? null
             ]);
     }
 

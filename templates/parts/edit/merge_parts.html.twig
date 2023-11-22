@@ -1,0 +1,27 @@
+{% extends "parts/edit/edit_part_info.html.twig" %}
+
+{# @var merge_other \App\Entity\Parts\Part #}
+
+{% block card_border %}border-info{% endblock %}
+{% block card_type %}bg-info text-bg-info{% endblock %}
+
+{% block title %}
+    {% trans %}part.merge.title{% endtrans %} {{ merge_other.name }} {% trans %}part.merge.title.into{% endtrans %} {{ merge_old_name }}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-code-merge" aria-hidden="true"></i>
+    {% trans %}part.merge.title{% endtrans %}
+    <b><a class="text-bg-info" href="{{ entity_url(merge_other, 'info') }}">{{ merge_other.name }} (ID: {{ merge_other.iD }})</a></b>
+    {% trans %}part.merge.title.into{% endtrans %}
+    <b><a class="text-bg-info" href="{{ entity_url(part, 'info') }}">{{ merge_old_name }} (ID: {{ part.id }})</a></b>
+{% endblock %}
+
+{% block card_content %}
+<div {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+        data-delete-title="{% trans with {'%target%': merge_old_name|escape, '%other%': merge_other.name }%}part.merge.confirm.title{% endtrans %}"
+        data-delete-message="{% trans with {'%other%': merge_other.name } %}part.merge.confirm.message{% endtrans %}">
+    {{ parent() }}
+</div>
+
+{% endblock %}
