@@ -11957,5 +11957,83 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Stocked amount</target>
       </segment>
     </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment state="translated">
+        <source>collection_type.new_element.tooltip</source>
+        <target>This element was newly created and was not persisted to the database yet.</target>
+      </segment>
+    </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment state="translated">
+        <source>part.merge.title</source>
+        <target>Merge part</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment state="translated">
+        <source>part.merge.title.into</source>
+        <target>into</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment state="translated">
+        <source>part.merge.confirm.title</source>
+        <target>Do you really want to merge &lt;b&gt;%other%&lt;/b&gt; into &lt;b&gt;%target%&lt;/b&gt;?</target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment state="translated">
+        <source>part.merge.confirm.message</source>
+        <target>&lt;b&gt;%other%&lt;/b&gt; will be deleted, and the part will be saved with the shown information.</target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment state="translated">
+        <source>part.info.merge_modal.title</source>
+        <target>Merge parts</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_part</source>
+        <target>Other part</target>
+      </segment>
+    </unit>
+    <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_into_this</source>
+        <target>Merge other part into this one (delete other part, keep this one)</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment state="translated">
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Merge this part into other one (delete this part, keep other one)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment state="translated">
+        <source>part.info.merge_btn</source>
+        <target>Merge part</target>
+      </segment>
+    </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Update part from info providers</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment state="translated">
+        <source>info_providers.update_part.title</source>
+        <target>Update existing part from info provider</target>
+      </segment>
+    </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment state="translated">
+        <source>part.merge.flash.please_review</source>
+        <target>Data not saved yet. Review the changes and click save to persist the new data.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
