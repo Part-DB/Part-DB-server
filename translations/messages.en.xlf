@@ -12035,5 +12035,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update existing part from info provider</target>
       </segment>
     </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment>
+        <source>part.merge.flash.please_review</source>
+        <target>Data not saved yet. Review the changes and click save to persist the new data.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

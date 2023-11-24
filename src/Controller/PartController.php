@@ -243,6 +243,8 @@ class PartController extends AbstractController
         //Save the old name of the target part for the template
         $target_name = $target->getName();
 
+        $this->addFlash('notice', t('part.merge.flash.please_review'));
+
         $merged = $partMerger->merge($target, $other);
         return $this->renderPartForm('merge', $request, $merged, [], [
             'tname_before' => $target_name,
@@ -264,6 +266,8 @@ class PartController extends AbstractController
         $provider_part = $infoRetriever->dtoToPart($dto);
 
         $part = $partMerger->merge($part, $provider_part);
+
+        $this->addFlash('notice', t('part.merge.flash.please_review'));
 
         return $this->renderPartForm('update_from_ip', $request, $part, [
             'info_provider_dto' => $dto,
