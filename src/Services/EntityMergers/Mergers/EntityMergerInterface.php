@@ -24,9 +24,12 @@ declare(strict_types=1);
 namespace App\Services\EntityMergers\Mergers;
 
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
 /**
  * @template T of object
  */
+#[AutoconfigureTag('app.entity_merger')]
 interface EntityMergerInterface
 {
     /**

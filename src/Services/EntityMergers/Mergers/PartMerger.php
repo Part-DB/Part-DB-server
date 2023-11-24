@@ -32,9 +32,10 @@ use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
+ * This class merges two parts together.
+ *
  * @implements EntityMergerInterface<Part>
  */
-#[Autoconfigure(public: true)]
 class PartMerger implements EntityMergerInterface
 {
 

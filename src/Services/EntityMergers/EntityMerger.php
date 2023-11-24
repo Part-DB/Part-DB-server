@@ -23,7 +23,54 @@ declare(strict_types=1);
 
 namespace App\Services\EntityMergers;
 
+use App\Services\EntityMergers\Mergers\EntityMergerInterface;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+
+/**
+ * This service is used to merge two entities together.
+ * It automatically finds the correct merger (implementing EntityMergerInterface) for the two entities if one exists.
+ */
 class EntityMerger
 {
+    public function __construct(#[TaggedIterator('app.entity_merger')] protected iterable $mergers)
+    {
+    }
 
+    /**
+     * This function finds the first merger that supports merging the other entity into the target entity.
+     * @param  object  $target
+     * @param  object  $other
+     * @param  array  $context
+     * @return EntityMergerInterface|null
+     */
+    public function findMergerForObject(object $target, object $other, array $context = []): ?EntityMergerInterface
+    {
+        foreach ($this->mergers as $merger) {
+            if ($merger->supports($target, $other, $context)) {
+                return $merger;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This function merges the other entity into the target entity. If no merger is found an exception is thrown.
+     * The target entity will be modified and returned.
+     * @param  object  $target
+     * @param  object  $other
+     * @param  array  $context
+     * @template T of object
+     * @phpstan-param T $target
+     * @phpstan-param T $other
+     * @phpstan-return T
+     * @return object
+     */
+    public function merge(object $target, object $other, array $context = []): object
+    {
+        $merger = $this->findMergerForObject($target, $other, $context);
+        if ($merger === null) {
+            throw new \RuntimeException('No merger found for merging '.get_class($other).' into '.get_class($target));
+        }
+        return $merger->merge($target, $other, $context);
+    }
 }
