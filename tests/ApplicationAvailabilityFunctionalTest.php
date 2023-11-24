@@ -91,6 +91,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         yield ['/part/3/clone'];
 
+        yield ['/part/1/merge/2'];
+
         yield ['/part/new'];
         yield ['/part/new?category=1&footprint=1&manufacturer=1&storelocation=1&supplier=1'];
 
@@ -144,6 +146,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         //Test info provider system
         yield ['/tools/info_providers/providers']; //List all providers
         yield ['/tools/info_providers/search']; //Search page
+        yield['/tools/info_providers/update/1']; //Update search for part from info provider
         yield ['/part/from_info_provider/test/element1/create']; //Create part from info provider
+        yield ['/part/1/from_info_provider/test/element1/update']; //Update part from info provider
     }
 }

@@ -14,9 +14,10 @@
         </td>
         <td>{{ form_widget(form.price_related_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price_related_quantity) }}</td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}"
+            <button type="button" class="btn btn-danger order_btn_delete btn-sm position-relative" title="{% trans %}orderdetail.delete{% endtrans %}"
                     {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>
@@ -57,8 +58,9 @@
             </div>
         </td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger order_btn_delete position-relative" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>
@@ -77,8 +79,10 @@
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm order_btn_delete {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger btn-sm order_btn_delete position-relative {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}"
+                    {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>
@@ -108,9 +112,10 @@
             </div>
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+            <button type="button" class="btn btn-danger lot_btn_delete position-relative" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
                 {% trans %}part_lot.delete{% endtrans %}
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>
@@ -140,9 +145,10 @@
 
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+            <button type="button" class="btn btn-danger lot_btn_delete position-relative" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
                 {% trans %}attachment.delete{% endtrans %}
+                {{ collection.new_element_indicator(value) }}
             </button>
 
             {% set attach = form.vars.value %}
@@ -210,9 +216,10 @@
             </div>
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+            <button type="button" class="btn btn-danger lot_btn_delete position-relative" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
                 {% trans %}part_lot.delete{% endtrans %}
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>

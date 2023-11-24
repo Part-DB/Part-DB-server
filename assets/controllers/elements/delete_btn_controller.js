@@ -43,7 +43,8 @@ export default class extends Controller
         const message = this.element.dataset.deleteMessage;
         const title = this.element.dataset.deleteTitle;
 
-        const form = this.element;
+        //Use event target, to find the form, where the submit button was clicked
+        const form = event.target;
         const submitter = event.submitter;
         const that = this;
 

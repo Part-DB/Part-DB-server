@@ -50,8 +50,9 @@
             {{ form_errors(form.name) }}
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+            <button type="button" class="btn btn-danger lot_btn_delete position-relative" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
+                {{ collection.new_element_indicator(value) }}
             </button>
             {{ form_errors(form) }}
         </td>

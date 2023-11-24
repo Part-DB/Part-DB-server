@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Form\Part\PartBaseType;
@@ -32,6 +33,7 @@ use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\Parts\PartFormHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +63,8 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/search', name: 'info_providers_search')]
-    public function search(Request $request): Response
+    #[Route('/update/{target}', name: 'info_providers_update_part_search')]
+    public function search(Request $request, #[MapEntity(id: 'target')] ?Part $update_target): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -69,6 +72,12 @@ class InfoProviderController extends  AbstractController
         $form->handleRequest($request);
 
         $results = null;
+
+        //When we are updating a part, use its name as keyword, to make searching easier
+        //However we can only do this, if the form was not submitted yet
+        if ($update_target !== null && !$form->isSubmitted()) {
+            $form->get('keyword')->setData($update_target->getName());
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $keyword = $form->get('keyword')->getData();
@@ -80,6 +89,7 @@ class InfoProviderController extends  AbstractController
         return $this->render('info_providers/search/part_search.html.twig', [
             'form' => $form,
             'results' => $results,
+            'update_target' => $update_target
         ]);
     }
 }

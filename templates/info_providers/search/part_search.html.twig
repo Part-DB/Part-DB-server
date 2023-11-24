@@ -3,15 +3,24 @@
 {% import "info_providers/providers.macro.html.twig" as providers_macro %}
 {% import "helper.twig" as helper %}
 
-{% block title %}{% trans %}info_providers.search.title{% endtrans %}{% endblock %}
+{% block title %}
+    {% if update_target %}
+        {% trans %}info_providers.update_part.title{% endtrans %}
+    {% else %}
+        {% trans %}info_providers.search.title{% endtrans %}
+    {% endif %}
+{% endblock %}
 
 {% block card_title %}
-    <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.search.title{% endtrans %}
+    {% if update_target %} {# If update_target is set, we update an existing part #}
+        <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.update_part.title{% endtrans %}:
+        <b><a href="{{ entity_url(update_target) }}" target="_blank" class="text-bg-primary">{{ update_target.name }}</a></b>
+    {% else %} {# Create a fresh part #}
+        <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.search.title{% endtrans %}
+    {% endif %}
 {% endblock %}
 
 {% block card_content %}
-
-
 
     {{ form_start(form) }}
 
@@ -86,7 +95,15 @@
                         <br>
                         <small class="text-muted">{{ result.provider_id }}</small>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('info_providers_create_part', {'providerKey': result.provider_key, 'providerId': result.provider_id}) }}"
+                        {% if update_target %} {# We update an existing part #}
+                            {% set href = path('info_providers_update_part',
+                                {'providerKey': result.provider_key, 'providerId': result.provider_id, 'id': update_target.iD}) %}
+                        {% else %} {# Create a fresh part #}
+                            {% set href = path('info_providers_create_part',
+                                {'providerKey': result.provider_key, 'providerId': result.provider_id}) %}
+                        {% endif %}
+
+                        <a class="btn btn-primary" href="{{ href }}"
                            target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
                             <i class="fa-solid fa-plus-square"></i>
                         </a>
