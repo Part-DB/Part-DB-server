@@ -1,0 +1,16 @@
+{% extends "parts/edit/edit_part_info.html.twig" %}
+
+{# @var merge_other \App\Entity\Parts\Part #}
+
+{% block card_border %}border-info{% endblock %}
+{% block card_type %}bg-info text-bg-info{% endblock %}
+
+{% block title %}
+    {% trans %}info_providers.update_part.title{% endtrans %}: {{ merge_old_name }}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud-arrow-down" aria-hidden="true"></i>
+    {% trans %}info_providers.update_part.title{% endtrans %}:
+    <b><a class="text-bg-info" href="{{ entity_url(part) }}">{{ merge_old_name }}</a></b>
+{% endblock %}

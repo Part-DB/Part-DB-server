@@ -255,16 +255,20 @@ class PartController extends AbstractController
         PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
-
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        //Save the old name of the target part for the template
+        $old_name = $part->getName();
 
         $dto = $infoRetriever->getDetails($providerKey, $providerId);
         $provider_part = $infoRetriever->dtoToPart($dto);
 
         $part = $partMerger->merge($part, $provider_part);
 
-        return $this->renderPartForm('edit', $request, $part, [
+        return $this->renderPartForm('update_from_ip', $request, $part, [
             'info_provider_dto' => $dto,
+        ], [
+            'tname_before' => $old_name
         ]);
     }
 
@@ -278,7 +282,7 @@ class PartController extends AbstractController
     private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = [], array $merge_infos = []): Response
     {
         //Ensure that mode is either 'new' or 'edit
-        if (!in_array($mode, ['new', 'edit', 'merge'], true)) {
+        if (!in_array($mode, ['new', 'edit', 'merge', 'update_from_ip'], true)) {
             throw new \InvalidArgumentException('Invalid mode given');
         }
 
@@ -353,6 +357,8 @@ class PartController extends AbstractController
             $template = 'parts/edit/edit_part_info.html.twig';
         } else if ($mode === 'merge') {
             $template = 'parts/edit/merge_parts.html.twig';
+        } else if ($mode === 'update_from_ip') {
+            $template = 'parts/edit/update_from_ip.html.twig';
         }
 
         return $this->render($template,

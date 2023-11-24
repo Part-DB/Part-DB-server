@@ -14,7 +14,7 @@
 {% block card_title %}
     {% if update_target %} {# If update_target is set, we update an existing part #}
         <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.update_part.title{% endtrans %}:
-        <a href="{{ entity_url(update_target) }}" target="_blank" class="text-bg-primary">{{ update_target.name }}</a>
+        <b><a href="{{ entity_url(update_target) }}" target="_blank" class="text-bg-primary">{{ update_target.name }}</a></b>
     {% else %} {# Create a fresh part #}
         <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.search.title{% endtrans %}
     {% endif %}
