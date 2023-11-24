@@ -22,15 +22,21 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use App\Controller\GroupController;
+use App\Controller\UserController;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\UserSystem\PermissionManager;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+use function Symfony\Component\Translation\t;
+
 class ValidPermissionValidator extends ConstraintValidator
 {
-    public function __construct(protected PermissionManager $resolver)
+    public function __construct(protected PermissionManager $resolver, protected RequestStack $requestStack)
     {
     }
 
@@ -49,6 +55,26 @@ class ValidPermissionValidator extends ConstraintValidator
         /** @var HasPermissionsInterface $perm_holder */
         $perm_holder = $this->context->getObject();
 
-        $this->resolver->ensureCorrectSetOperations($perm_holder);
+        $changed = $this->resolver->ensureCorrectSetOperations($perm_holder);
+
+        //Sending a flash message if the permissions were fixed (only if called from UserController or GroupController)
+        //This is pretty hacky and bad design but I dont see a better way without a complete rewrite of how permissions are validated
+        //on the admin pages
+        if ($changed) {
+            //Check if this was called in context of UserController
+            $request = $this->requestStack->getMainRequest();
+            if (!$request) {
+                return;
+            }
+            //Determine the controller class (the part before the ::)
+            $controller_class = explode('::', $request->attributes->get('_controller'))[0];
+
+            if (in_array($controller_class, [UserController::class, GroupController::class])) {
+                /** @var Session $session */
+                $session = $this->requestStack->getSession();
+                $flashBag = $session->getFlashBag();
+                $flashBag->add('warning', t('user.edit.flash.permissions_fixed'));
+            }
+        }
     }
 }

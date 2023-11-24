@@ -230,11 +230,15 @@ class PermissionManager
 
     /**
      * This functions sets all operations mentioned in the alsoSet value of a permission, so that the structure is always valid.
+     * This function should be called after every setPermission() call.
+     * @return bool true if values were changed/corrected, false if not
      */
-    public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
+    public function ensureCorrectSetOperations(HasPermissionsInterface $user): bool
     {
         //If we have changed anything on the permission structure due to the alsoSet value, this becomes true, so we
         //redo the whole process, to ensure that all alsoSet values are set recursively.
+
+        $return_value = false;
 
         do {
             $anything_changed = false; //Reset the variable for the next iteration
@@ -254,12 +258,15 @@ class PermissionManager
                                 $this->setPermission($user, $set_perm, $set_op, true);
                                 //Mark the change, so we redo the whole process
                                 $anything_changed = true;
+                                $return_value = true;
                             }
                         }
                     }
                 }
             }
         } while($anything_changed);
+
+        return $return_value;
     }
 
     /**
