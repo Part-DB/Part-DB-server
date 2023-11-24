@@ -45,6 +45,9 @@ class PermissionsType extends AbstractType
         $resolver->setDefaults([
             'show_legend' => true,
             'show_presets' => false,
+            'show_dependency_notice' => static function (Options $options) {
+                return !$options['disabled'];
+            },
             'constraints' => static function (Options $options) {
                 if (!$options['disabled']) {
                     return [new NoLockout()];
@@ -60,6 +63,7 @@ class PermissionsType extends AbstractType
     {
         $view->vars['show_legend'] = $options['show_legend'];
         $view->vars['show_presets'] = $options['show_presets'];
+        $view->vars['show_dependency_notice'] = $options['show_dependency_notice'];
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
