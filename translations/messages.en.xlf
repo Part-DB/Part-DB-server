@@ -12023,5 +12023,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Merge part</target>
       </segment>
     </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment>
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Update part from info providers</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment>
+        <source>info_providers.update_part.title</source>
+        <target>Update existing part from info provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -250,7 +250,7 @@ class PartController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', requirements: ['providerId' => '.+'])]
+    #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', name: 'info_providers_update_part', requirements: ['providerId' => '.+'])]
     public function updateFromInfoProvider(Part $part, Request $request, string $providerKey, string $providerId,
         PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
     {

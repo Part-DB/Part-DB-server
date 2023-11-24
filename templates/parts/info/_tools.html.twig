@@ -30,6 +30,16 @@
 {# Merge modal #}
 {% include "parts/info/_merge_modal.html.twig" %}
 
+{# Update part from info provider button #}
+{% if is_granted('edit', part) and is_granted('@info_providers.create_parts') %}
+    <br>
+    <a class="btn btn-info mt-2" href="{{ path('info_providers_update_part_search', {'target': part.iD}) }}">
+        <i class="fas fa-cloud-arrow-down"></i>
+        {% trans %}part.update_part_from_info_provider.btn{% endtrans %}
+    </a>
+{% endif %}
+
+
 <form method="post" class="mt-2" action="{{ entity_url(part, 'delete') }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
       data-delete-title="{% trans with {'%name%': part.name|escape }%}part.delete.confirm_title{% endtrans %}"
