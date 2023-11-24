@@ -319,6 +319,14 @@ trait EntityMergerHelperTrait
                     return $t;
                 }
 
+                //Skip empty strings
+                if (trim($t) === '') {
+                    return trim($o);
+                }
+                if (trim($o) === '') {
+                    return trim($t);
+                }
+
                 return trim($t) . $separator . trim($o);
             },
             $target,
@@ -342,6 +350,14 @@ trait EntityMergerHelperTrait
                 //Check if the strings are equal
                 if ($this->areStringsEqual($t, $o)) {
                     return $t;
+                }
+
+                //Skip empty strings
+                if (trim($t) === '') {
+                    return trim($o);
+                }
+                if (trim($o) === '') {
+                    return trim($t);
                 }
 
                 return sprintf("%s\n\n<b>%s:</b>\n%s",

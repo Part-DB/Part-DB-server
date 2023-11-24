@@ -207,6 +207,13 @@ class EntityMergerHelperTraitTest extends KernelTestCase
         $obj2->string_property = 'Test1';
         $this->assertSame($obj1, $this->mergeTextWithSeparator($obj1, $obj2, 'string_property', ' # '));
         $this->assertSame('Test1', $obj1->string_property);
+
+        //Test what happens if the second text is empty
+        $obj1->string_property = 'Test1';
+        $obj2->string_property = '';
+        $this->assertSame($obj1, $this->mergeTextWithSeparator($obj1, $obj2, 'string_property', ' # '));
+        $this->assertSame('Test1', $obj1->string_property);
+        
     }
 
     public function testMergeComment(): void
@@ -225,6 +232,12 @@ class EntityMergerHelperTraitTest extends KernelTestCase
         //If the comment is the same, it should not be duplicated
         $obj1->setComment('Comment1');
         $obj2->setComment('Comment1');
+        $this->assertSame($obj1, $this->mergeComment($obj1, $obj2));
+        $this->assertSame('Comment1', $obj1->getComment());
+
+        //Test what happens if the second comment is empty
+        $obj1->setComment('Comment1');
+        $obj2->setComment('');
         $this->assertSame($obj1, $this->mergeComment($obj1, $obj2));
         $this->assertSame('Comment1', $obj1->getComment());
     }
