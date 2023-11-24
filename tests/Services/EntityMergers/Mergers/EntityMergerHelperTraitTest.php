@@ -213,7 +213,7 @@ class EntityMergerHelperTraitTest extends KernelTestCase
         $obj2->string_property = '';
         $this->assertSame($obj1, $this->mergeTextWithSeparator($obj1, $obj2, 'string_property', ' # '));
         $this->assertSame('Test1', $obj1->string_property);
-        
+
     }
 
     public function testMergeComment(): void

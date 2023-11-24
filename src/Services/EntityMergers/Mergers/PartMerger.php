@@ -100,6 +100,12 @@ class PartMerger implements EntityMergerInterface
         return $target;
     }
 
+    private static function comparePartAssociations(PartAssociation $t, PartAssociation $o): bool {
+        //We compare the translation keys, as it contains info about the type and other type info
+        return $t->getOther() === $o->getOther()
+            && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
+    }
+
     private function mergeCollectionFields(Part $target, Part $other, array $context): void
     {
         /********************************************************************************
@@ -111,11 +117,29 @@ class PartMerger implements EntityMergerInterface
         $this->mergeAttachments($target, $other);
         $this->mergeParameters($target, $other);
 
-        $this->mergeCollections($target, $other, 'associated_parts_as_owner', function (PartAssociation $t, PartAssociation $o) {
-            //We compare the translation keys, as it contains info about the type and other type info
-            return $t->getOther() === $o->getOther()
-                && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
-        });
+        //Merge the associations
+        $this->mergeCollections($target, $other, 'associated_parts_as_owner', self::comparePartAssociations(...));
+
+        //We have to recreate the associations towards the other part, as they are not created by the merger
+        foreach ($other->getAssociatedPartsAsOther() as $association) {
+            //Clone the association
+            $clone = clone $association;
+            //Set the target part as the other part
+            $clone->setOther($target);
+            $owner = $clone->getOwner();
+            if (!$owner) {
+                continue;
+            }
+            //Ensure that the association is not already present
+            foreach ($owner->getAssociatedPartsAsOwner() as $existing_association) {
+                if (self::comparePartAssociations($existing_association, $clone)) {
+                    continue 2;
+                }
+            }
+
+            //Add the association to the owner
+            $owner->addAssociatedPartsAsOwner($clone);
+        }
 
         $this->mergeCollections($target, $other, 'orderdetails', function (Orderdetail $t, Orderdetail $o) {
             //First check that the orderdetails infos are equal

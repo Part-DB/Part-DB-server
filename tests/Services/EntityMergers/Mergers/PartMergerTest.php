@@ -20,12 +20,15 @@
 
 namespace App\Tests\Services\EntityMergers\Mergers;
 
+use App\Entity\Parts\AssociationType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -94,6 +97,46 @@ class PartMergerTest extends KernelTestCase
         //Favorite and needs review should be true, as it is true in one of the parts
         $this->assertTrue($merged->isFavorite());
         $this->assertTrue($merged->isNeedsReview());
+    }
+
+    public function testMergeOfAssociatedPartsAsOther(): void
+    {
+        //Part1 is associated with part2 and part3:
+        $part1 = (new Part())
+            ->setName('part1');
+        $part2 = (new Part())
+            ->setName('part2');
+        $part3 = (new Part())
+            ->setName('part3');
+
+        $association1 = (new PartAssociation())
+            ->setOther($part2)
+            ->setType(AssociationType::COMPATIBLE);
+
+        $association2 = (new PartAssociation())
+            ->setOther($part2)
+            ->setType(AssociationType::SUPERSEDES);
+
+        $association3 = (new PartAssociation())
+            ->setOther($part3)
+            ->setType(AssociationType::SUPERSEDES);
+
+        $part1->addAssociatedPartsAsOwner($association1);
+        $part1->addAssociatedPartsAsOwner($association2);
+        $part1->addAssociatedPartsAsOwner($association3);
+        //Fill the other side of the association manually, as we have no entity manager
+        $part2->getAssociatedPartsAsOther()->add($association1);
+        $part2->getAssociatedPartsAsOther()->add($association2);
+        $part3->getAssociatedPartsAsOther()->add($association3);
+
+        //Now we merge part2 into part3:
+        $merged = $this->merger->merge($part3, $part2);
+        $this->assertSame($merged, $part3);
+
+        //Now part1 should have 4 associations, 2 with part2 and 2 with part3
+        $this->assertCount(4, $part1->getAssociatedPartsAsOwner());
+        $this->assertCount(2, $part1->getAssociatedPartsAsOwner()->filter(fn(PartAssociation $a) => $a->getOther() === $part2));
+        $this->assertCount(2, $part1->getAssociatedPartsAsOwner()->filter(fn(PartAssociation $a) => $a->getOther() === $part3));
     }
 
     /**
