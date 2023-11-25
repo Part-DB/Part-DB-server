@@ -11957,12 +11957,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Stocked amount</target>
       </segment>
     </unit>
-    <unit id="hfwUcM0" name="collection_type.new_element">
-      <segment>
-        <source>collection_type.new_element</source>
-        <target>collection_type.new_element</target>
-      </segment>
-    </unit>
     <unit id="2NZFail" name="collection_type.new_element.tooltip">
       <segment>
         <source>collection_type.new_element.tooltip</source>
