@@ -6470,7 +6470,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>log.collection_deleted.deleted</source>
-        <target>Deleted element:</target>
+        <target>Deleted element</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
