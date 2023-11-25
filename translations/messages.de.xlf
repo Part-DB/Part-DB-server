@@ -11953,5 +11953,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bestand im Lager</target>
       </segment>
     </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment state="translated">
+        <source>part.merge.flash.please_review</source>
+        <target>Daten wurden noch nicht gespeichert. Bitte überprüfen Sie die Änderungen und klicken Sie speichern, um die Daten zu sichern.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
