@@ -11953,6 +11953,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bestand im Lager</target>
       </segment>
     </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment state="translated">
+        <source>info_providers.update_part.title</source>
+        <target>Bauteil aus Informationsquelle aktualisieren</target>
+      </segment>
+    </unit>
     <unit id="lkIVIWr" name="part.merge.flash.please_review">
       <segment state="translated">
         <source>part.merge.flash.please_review</source>
