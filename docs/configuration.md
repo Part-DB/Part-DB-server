@@ -137,6 +137,8 @@ want to edit it on docker, you have to map the file to a volume.
 
 * `SAML_ENABLED`: When this is set to 1, SAML SSO is enabled and the SSO Login button is shown in the login form. You
   have to configure the SAML settings below, before you can use this feature.
+* `SAML_BEHIND_PROXY`: Set this to 1, if Part-DB is behind a reverse proxy. See [here]({% link installation/reverse_proxy.md %})
+  for more information. Otherwise leave it to 0 (default.)
 * `SAML_ROLE_MAPPING`: A [JSON](https://en.wikipedia.org/wiki/JSON) encoded map which specifies how Part-DB should
   convert the user roles given by SAML attribute `group` should be converted to a Part-DB group (specified by ID). You
   can use a wildcard `*` to map all otherwise unmapped roles to a certain group.

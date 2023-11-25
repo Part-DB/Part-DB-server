@@ -5,6 +5,7 @@ parameters:
   saml.sp.privateKey: '%env(string:SAML_SP_PRIVATE_KEY)%'
 
 nbgrp_onelogin_saml:
+  use_proxy_vars: '%env(bool:SAML_BEHIND_PROXY)%'
   onelogin_settings:
     default:
       # Basic settings
