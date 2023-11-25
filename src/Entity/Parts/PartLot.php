@@ -27,6 +27,7 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -147,6 +148,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'partLots')]
     #[ORM\JoinColumn(name: 'id_part', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['part_lot:read:standalone', 'part_lot:write'])]
+    #[ApiProperty(writableLink: false)]
     protected ?Part $part = null;
 
     /**
@@ -155,6 +157,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_owner', onDelete: 'SET NULL')]
     #[Groups(['part_lot:read', 'part_lot:write'])]
+    #[ApiProperty(writableLink: false)]
     protected ?User $owner = null;
 
     /**
