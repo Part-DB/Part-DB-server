@@ -50,6 +50,18 @@
                             <div id="emailHelp" class="form-text">{% trans %}part.info.withdraw_modal.comment.hint{% endtrans %}</div>
                         </div>
                     </div>
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            {% trans %}part.info.withdraw_modal.timestamp{% endtrans %}
+                        </label>
+                        <div class="col-sm-9">
+                            {# The timestamp must be between a year ago and 1 hour in the future #}
+                            <input type="datetime-local" class="form-control" name="timestamp" value=""
+                                   max="{{ "+10mins"|date('Y-m-d\\TH:i') }}" min="{{ "-1year"|date('Y-m-d\\TH:i') }}">
+                            <div id="emailHelp" class="form-text">{% trans %}part.info.withdraw_modal.timestamp.hint{% endtrans %}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>

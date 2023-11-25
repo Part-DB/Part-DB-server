@@ -193,6 +193,10 @@ class LogEntryExtraFormatter
                     htmlspecialchars($this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class))
                     .' ' . $context->getMoveToTargetID();
             }
+            if ($context->getActionTimestamp()) {
+                $formatter = new \IntlDateFormatter($this->translator->getLocale(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
+                $array['log.part_stock_changed.timestamp'] = $formatter->format($context->getActionTimestamp());
+            }
         }
 
         return $array;

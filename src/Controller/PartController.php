@@ -401,22 +401,33 @@ class PartController extends AbstractController
             $comment = $request->request->get('comment');
             $action = $request->request->get('action');
 
+            $timestamp = null;
+            $timestamp_str = $request->request->getString('timestamp', '');
+            //Try to parse the timestamp
+            if($timestamp_str !== '') {
+                $timestamp = new DateTime($timestamp_str);
+            }
+
+            //Ensure that the timestamp is not in the future
+            if($timestamp !== null && $timestamp > new DateTime("+20min")) {
+                throw new \LogicException("The timestamp must not be in the future!");
+            }
 
             try {
                 switch ($action) {
                     case "withdraw":
                     case "remove":
                         $this->denyAccessUnlessGranted('withdraw', $partLot);
-                        $withdrawAddHelper->withdraw($partLot, $amount, $comment);
+                        $withdrawAddHelper->withdraw($partLot, $amount, $comment, $timestamp);
                         break;
                     case "add":
                         $this->denyAccessUnlessGranted('add', $partLot);
-                        $withdrawAddHelper->add($partLot, $amount, $comment);
+                        $withdrawAddHelper->add($partLot, $amount, $comment, $timestamp);
                         break;
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
                         $this->denyAccessUnlessGranted('move', $targetLot);
-                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
+                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp);
                         break;
                     default:
                         throw new \RuntimeException("Unknown action!");
