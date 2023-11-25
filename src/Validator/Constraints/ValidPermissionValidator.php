@@ -69,7 +69,7 @@ class ValidPermissionValidator extends ConstraintValidator
             //Determine the controller class (the part before the ::)
             $controller_class = explode('::', $request->attributes->get('_controller'))[0];
 
-            if (in_array($controller_class, [UserController::class, GroupController::class])) {
+            if (in_array($controller_class, [UserController::class, GroupController::class], true)) {
                 /** @var Session $session */
                 $session = $this->requestStack->getSession();
                 $flashBag = $session->getFlashBag();
