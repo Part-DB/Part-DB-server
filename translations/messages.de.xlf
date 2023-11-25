@@ -11953,5 +11953,119 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bestand im Lager</target>
       </segment>
     </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment state="translated">
+        <source>collection_type.new_element.tooltip</source>
+        <target>Dieses Element wurde neu erstellt und ist noch nicht in der Datenbank gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment state="translated">
+        <source>part.merge.title</source>
+        <target>Führe Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment state="translated">
+        <source>part.merge.title.into</source>
+        <target>zusammen in</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment state="translated">
+        <source>part.merge.confirm.title</source>
+        <target>Möchten Sie wirklich &lt;b&gt;%other%&lt;/b&gt; in &lt;b&gt;%target%&lt;/b&gt; zusammenführen?</target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment state="translated">
+        <source>part.merge.confirm.message</source>
+        <target>&lt;b&gt;%other%&lt;/b&gt; wird gelöscht, und das aktuelle Bauteil wird mit den angezeigten Daten gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment state="translated">
+        <source>part.info.merge_modal.title</source>
+        <target>Bauteile zusammenführen</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_part</source>
+        <target>Anderes Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_into_this</source>
+        <target>Führe anderes Bauteil in diesem zusammen (anderes Bauteil löschen, dieses behalten)</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment state="translated">
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Führe dieses Bauteil in anderem zusammen (dieses Bauteil löschen, anderes behalten)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment state="translated">
+        <source>part.info.merge_btn</source>
+        <target>Bauteil zusammenführen</target>
+      </segment>
+    </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Bauteil aus Informationsquelle aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment state="translated">
+        <source>info_providers.update_part.title</source>
+        <target>Bauteil aus Informationsquelle aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment state="translated">
+        <source>part.merge.flash.please_review</source>
+        <target>Daten wurden noch nicht gespeichert. Bitte überprüfen Sie die Änderungen und klicken Sie speichern, um die Daten zu sichern.</target>
+      </segment>
+    </unit>
+    <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
+      <segment state="translated">
+        <source>user.edit.flash.permissions_fixed</source>
+        <target>Berechtigungen, die für andere Berechtigungen erforderlich sind, fehlten. Dies wurde korrigiert. Bitte prüfen Sie, ob die Berechtigungen Ihren Vorstellungen entsprechen.</target>
+      </segment>
+    </unit>
+    <unit id="gjo2ZK7" name="permission.legend.dependency_note">
+      <segment state="translated">
+        <source>permission.legend.dependency_note</source>
+        <target>Bitte beachten Sie, dass einige Berechtigungsoperationen voneinander abhängen. Wenn Sie eine Warnung erhalten, dass fehlende Berechtigungen korrigiert wurden und eine Berechtigung wieder auf erlaubt gesetzt wurde, müssen Sie die abhängige Operation ebenfalls auf verboten setzen. Die Abhängigkeiten befinden sich normalerweise rechts von einer Operation.</target>
+      </segment>
+    </unit>
+    <unit id="VFdWqOX" name="log.part_stock_changed.timestamp">
+      <segment state="translated">
+        <source>log.part_stock_changed.timestamp</source>
+        <target>Zeitpunkt</target>
+      </segment>
+    </unit>
+    <unit id="Hj7NX8C" name="part.info.withdraw_modal.timestamp">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp</source>
+        <target>Aktionszeitpunkt</target>
+      </segment>
+    </unit>
+    <unit id="USYGK0J" name="part.info.withdraw_modal.timestamp.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp.hint</source>
+        <target>In diesem Feld können Sie das tatsächliche Datum angeben, an dem die Lageroperation tatsächlich durchgeführt wurde, und nicht nur das Datum, an dem sie protokolliert wurde. Dieser Wert wird im Extrafeld des Logeintrags gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.delete_lot_if_empty</source>
+        <target>Lösche diesen Bestand, wenn er durch Operation leer wird</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
