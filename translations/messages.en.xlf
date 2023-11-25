@@ -1326,7 +1326,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>permission.legend.title</source>
-        <target>Explanation of the states:</target>
+        <target>Explanation of the states</target>
       </segment>
     </unit>
     <unit id="owrJ0Qw" name="permission.legend.disallow">
@@ -12033,6 +12033,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>part.merge.flash.please_review</source>
         <target>Data not saved yet. Review the changes and click save to persist the new data.</target>
+      </segment>
+    </unit>
+    <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
+      <segment state="translated">
+        <source>user.edit.flash.permissions_fixed</source>
+        <target>Permissions required by other permissions were missing. This was corrected. Please check if the permissions are as you intended.</target>
+      </segment>
+    </unit>
+    <unit id="gjo2ZK7" name="permission.legend.dependency_note">
+      <segment state="translated">
+        <source>permission.legend.dependency_note</source>
+        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally found right of an operation.</target>
       </segment>
     </unit>
   </file>
