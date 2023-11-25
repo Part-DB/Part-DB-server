@@ -39,6 +39,11 @@ enum PartStockChangeType: string
         };
     }
 
+    public function toTranslationKey(): string
+    {
+        return 'log.part_stock_changed.' . $this->value;
+    }
+
     public static function fromExtraShortType(string $value): self
     {
         return match ($value) {
