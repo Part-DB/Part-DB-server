@@ -400,6 +400,7 @@ class PartController extends AbstractController
             $amount = (float) $request->request->get('amount');
             $comment = $request->request->get('comment');
             $action = $request->request->get('action');
+            $delete_lot_if_empty = $request->request->getBoolean('delete_lot_if_empty', false);
 
             $timestamp = null;
             $timestamp_str = $request->request->getString('timestamp', '');
@@ -418,7 +419,7 @@ class PartController extends AbstractController
                     case "withdraw":
                     case "remove":
                         $this->denyAccessUnlessGranted('withdraw', $partLot);
-                        $withdrawAddHelper->withdraw($partLot, $amount, $comment, $timestamp);
+                        $withdrawAddHelper->withdraw($partLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     case "add":
                         $this->denyAccessUnlessGranted('add', $partLot);
@@ -427,7 +428,7 @@ class PartController extends AbstractController
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
                         $this->denyAccessUnlessGranted('move', $targetLot);
-                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp);
+                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     default:
                         throw new \RuntimeException("Unknown action!");

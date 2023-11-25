@@ -12071,5 +12071,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>This field allows you to specify the real date, when the stock operation actually was performed, and not just when it was logged. This value is saved in the extra field of the log entry.</target>
       </segment>
     </unit>
+    <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
+      <segment>
+        <source>part.info.withdraw_modal.delete_lot_if_empty</source>
+        <target>Delete this lot, if it becomes empty</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
