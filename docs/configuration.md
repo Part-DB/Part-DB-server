@@ -53,6 +53,9 @@ options listed, see `.env` file for full list of possible env variables.
   download a file specified as a URL and create it as local file. Please note that this allows users access to all
   resources publicly available to the server (so full access to other servers in the same local network), which could
   be a security risk.
+* `ATTACHMENT_DOWNLOAD_BY_DEFAULT`: When this is set to 1, the "download external file" checkbox is checked by default
+  when adding a new attachment. Otherwise, it is unchecked by default. Use this if you wanna download all attachments
+  locally by default. Attachment download is only possible, when `ALLOW_ATTACHMENT_DOWNLOADS` is set to 1.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](https://gravatar.com/) images for user avatars (as long as they have
   not set their own picture). The users browsers have to download the pictures from a third-party (gravatar) server, so
   this might be a privacy risk.

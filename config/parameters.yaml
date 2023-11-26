@@ -35,6 +35,7 @@ parameters:
   # Attachments and files
   ######################################################################################################################
   partdb.attachments.allow_downloads: '%env(bool:ALLOW_ATTACHMENT_DOWNLOADS)%'    # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
+  partdb.attachments.download_by_default: '%env(bool:ATTACHMENT_DOWNLOAD_BY_DEFAULT)%' # If this is set the 'download external files' checkbox is set by default for new attachments (only if allow_downloads is set to true)
   partdb.attachments.dir.media: 'public/media/'                                   # The folder where uploaded attachment files are saved (must be in public folder)
   partdb.attachments.dir.secure: 'uploads/'                                       # The folder where secured attachment files are saved (must not be in public/)
   partdb.attachments.max_file_size: '%env(string:MAX_ATTACHMENT_FILE_SIZE)%'      # The maximum size of an attachment file (in bytes, you can use M for megabytes and G for gigabytes)

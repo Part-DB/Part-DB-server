@@ -48,8 +48,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
-    public function __construct(protected AttachmentManager $attachment_helper, protected UrlGeneratorInterface $urlGenerator, protected Security $security, protected AttachmentSubmitHandler $submitHandler, protected TranslatorInterface $translator, protected bool $allow_attachments_download, protected string $max_file_size)
-    {
+    public function __construct(
+        protected AttachmentManager $attachment_helper,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected Security $security,
+        protected AttachmentSubmitHandler $submitHandler,
+        protected TranslatorInterface $translator,
+        protected bool $allow_attachments_download,
+        protected bool $download_by_default,
+        protected string $max_file_size
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -85,7 +93,8 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'attr' => [
                 'data-controller' => 'elements--attachment-autocomplete',
-                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => '__QUERY__']),
+                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources',
+                    ['query' => '__QUERY__']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',
             ],
@@ -159,6 +168,30 @@ class AttachmentFormType extends AbstractType
                 }
             }
         );
+
+        //If the attachment should be downloaded by default (and is download allowed at all), register a listener,
+        // which sets the downloadURL checkbox to true for new attachments
+        if ($this->download_by_default && $this->allow_attachments_download) {
+            $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
+                $form = $event->getForm();
+                $attachment = $form->getData();
+
+                if (!$attachment instanceof Attachment && $attachment !== null) {
+                    return;
+                }
+
+                //If the attachment was not created yet, set the downloadURL checkbox to true
+                if ($attachment === null || $attachment->getId() === null) {
+                    $checkbox = $form->get('downloadURL');
+                    //Ensure that the checkbox is not disabled
+                    if ($checkbox->isDisabled()) {
+                        return;
+                    }
+                    //Set the checkbox
+                    $checkbox->setData(true);
+                }
+            });
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -93,6 +93,7 @@ services:
         arguments:
             $allow_attachments_download: '%partdb.attachments.allow_downloads%'
             $max_file_size: '%partdb.attachments.max_file_size%'
+            $download_by_default: '%partdb.attachments.download_by_default%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:
