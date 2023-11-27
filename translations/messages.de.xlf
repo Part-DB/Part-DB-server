@@ -12067,5 +12067,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Lösche diesen Bestand, wenn er durch Operation leer wird</target>
       </segment>
     </unit>
+    <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.client_exception</source>
+        <target>Bei der Kommunikation mit dem Informationsanbieter ist ein Fehler aufgetreten. Überprüfen Sie die Konfiguration für diesen Anbieter und erneuern Sie die OAuth-Tokens, falls möglich.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
