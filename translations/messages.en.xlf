@@ -12071,5 +12071,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Delete this lot, if it becomes empty</target>
       </segment>
     </unit>
+    <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.client_exception</source>
+        <target>An error occurred while communicating with the information provider. Check the configuration for this provider and refresh the OAuth tokens if possible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
