@@ -143,19 +143,35 @@ class AttachmentSubmitHandler
     {
         $base_path = $secure_upload ? $this->pathResolver->getSecurePath() : $this->pathResolver->getMediaPath();
 
-        //Ensure the given attachment class is known to mapping
-        if (!isset($this->folder_mapping[$attachment::class])) {
-            throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.$attachment::class);
-        }
         //Ensure the attachment has an assigned element
         if (!$attachment->getElement() instanceof AttachmentContainingDBElement) {
             throw new InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
         }
 
+        //Determine the folder prefix for the given attachment class:
+        $prefix = null;
+        //Check if we can use the class name dire
+        if (isset($this->folder_mapping[$attachment::class])) {
+            $prefix = $this->folder_mapping[$attachment::class];
+        } else {
+            //If not, check for instance of:
+            foreach ($this->folder_mapping as $class => $folder) {
+                if ($attachment instanceof $class) {
+                    $prefix = $folder;
+                    break;
+                }
+            }
+        }
+
+        //Ensure the given attachment class is known to mapping
+        if (!$prefix) {
+            throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.$attachment::class);
+        }
+
         //Build path
         return
             $base_path.DIRECTORY_SEPARATOR //Base path
-            .$this->folder_mapping[$attachment::class].DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
+            .$prefix.DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
     }
 
     /**
