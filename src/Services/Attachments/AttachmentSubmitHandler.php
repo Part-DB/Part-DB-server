@@ -357,7 +357,7 @@ class AttachmentSubmitHandler
 
             //Check if we have an extension given
             $pathinfo = pathinfo($filename);
-            if ($pathinfo['extension'] !== '') {
+            if (isset($pathinfo['extension']) && $pathinfo['extension'] !== '') {
                 $new_ext = $pathinfo['extension'];
             } else { //Otherwise we have to guess the extension for the new file, based on its content
                 $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';
