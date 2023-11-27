@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Entity\UserSystem;
 
+use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +32,7 @@ use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'webauthn_keys')]
-class WebauthnKey extends BasePublicKeyCredentialSource
+class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampableInterface
 {
     use TimestampTrait;
 

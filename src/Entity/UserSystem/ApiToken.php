@@ -30,6 +30,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Repository\UserSystem\ApiTokenRepository;
 use App\State\CurrentApiTokenProvider;
 use App\State\PartDBInfoProvider;
@@ -54,7 +55,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     provider: CurrentApiTokenProvider::class,
 )]
 #[ApiFilter(PropertyFilter::class)]
-class ApiToken
+class ApiToken implements TimeStampableInterface
 {
 
     use TimestampTrait;

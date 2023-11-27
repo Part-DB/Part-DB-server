@@ -37,6 +37,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Repository\DBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -68,7 +69,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(LikeFilter::class, properties: ["other_type", "comment"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['comment', 'addedDate', 'lastModified'])]
-class PartAssociation extends AbstractDBElement
+class PartAssociation extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
 

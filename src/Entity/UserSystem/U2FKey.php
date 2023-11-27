@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +32,7 @@ use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'u2f_keys')]
 #[ORM\UniqueConstraint(name: 'user_unique', columns: ['user_id', 'key_handle'])]
-class U2FKey implements LegacyU2FKeyInterface
+class U2FKey implements LegacyU2FKeyInterface, TimeStampableInterface
 {
     use TimestampTrait;
 
