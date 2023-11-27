@@ -141,6 +141,12 @@ class AttachmentFormType extends AbstractType
             }
 
             if (!$file instanceof UploadedFile) {
+                //When no file was uploaded, but a URL was entered, try to determine the attachment name from the URL
+                if (empty($attachment->getName()) && !empty($attachment->getURL())) {
+                    $name = basename(parse_url($attachment->getURL(), PHP_URL_PATH));
+                    $attachment->setName($name);
+                }
+
                 return;
             }
 
