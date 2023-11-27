@@ -64,7 +64,7 @@ class AttachmentSubmitHandler
         'htpasswd', ''];
 
     public function __construct(protected AttachmentPathResolver $pathResolver, protected bool $allow_attachments_downloads,
-                                protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes,
+        protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes,
         protected FileTypeFilterTools $filterTools, /**
          * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
          */
@@ -204,12 +204,21 @@ class AttachmentSubmitHandler
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
 
-        //Check if we should assign this attachment to master picture
-        //this is only possible if the attachment is new (not yet persisted to DB)
-        if ($options['become_preview_if_empty'] && null === $attachment->getID() && $attachment->isPicture()) {
-            $element = $attachment->getElement();
-            if ($element instanceof AttachmentContainingDBElement && !$element->getMasterPictureAttachment() instanceof Attachment) {
+        //Set / Unset the master picture attachment / preview image
+        $element = $attachment->getElement();
+        if ($element instanceof AttachmentContainingDBElement) {
+            //Make this attachment the master picture if needed and this was requested
+            if ($options['become_preview_if_empty']
+                && $element->getMasterPictureAttachment() === null  //Element must not have an preview image yet
+                && null === $attachment->getID()                    //Attachment must be null
+                && $attachment->isPicture()                         //Attachment must be a picture
+            ) {
                 $element->setMasterPictureAttachment($attachment);
+            }
+
+            //If this attachment is the master picture, but is not a picture anymore, dont use it as master picture anymore
+            if ($element->getMasterPictureAttachment() === $attachment && !$attachment->isPicture()) {
+                $element->setMasterPictureAttachment(null);
             }
         }
 
@@ -238,7 +247,7 @@ class AttachmentSubmitHandler
         //Check if the extension is blacklisted and replace the file extension with txt if needed
         if(in_array($ext, self::BLACKLISTED_EXTENSIONS, true)) {
             $new_path = $this->generateAttachmentPath($attachment, $attachment->isSecure())
-            .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
+                .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
 
             //Move file to new directory
             $fs = new Filesystem();
