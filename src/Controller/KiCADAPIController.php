@@ -25,6 +25,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Services\EDAIntegration\KiCADHelper;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/kicad-api/v1')]
 class KiCADAPIController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly KiCADHelper $kiCADHelper,
+
+    )
     {
 
     }
@@ -52,34 +57,18 @@ class KiCADAPIController extends AbstractController
     #[Route('/categories.json', name: 'kicad_api_categories')]
     public function categories(NodesListBuilder $nodesListBuilder): Response
     {
-        $categories = $nodesListBuilder->typeToNodesList(Category::class);
-        $result = [];
-        foreach ($categories as $category) {
-            $result[] = [
-                'id' => (string) $category->getId(),
-                'name' => $category->getFullPath('/'),
-            ];
-        }
+        $this->denyAccessUnlessGranted('@categories.read');
 
-        return $this->json($result);
+        return $this->json($this->kiCADHelper->getCategories());
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
     public function categoryParts(Category $category): Response
     {
-        $category_repo = $this->em->getRepository(Category::class);
-        $parts = $category_repo->getParts($category);
+        $this->denyAccessUnlessGranted('read', $category);
+        $this->denyAccessUnlessGranted('@parts.read');
 
-        $result = [];
-        foreach ($parts as $part) {
-            $result[] = [
-                'id' => (string) $part->getId(),
-                'name' => $part->getName(),
-                'description' => $part->getDescription(),
-            ];
-        }
-
-        return $this->json($result);
+        return $this->json($this->kiCADHelper->getCategoryParts($category));
     }
 
     #[Route('/parts/{part}.json', name: 'kicad_api_part')]
