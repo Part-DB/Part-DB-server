@@ -22,9 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
-use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -34,10 +32,12 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
-use App\Services\UserSystem\UserCacheKeyGenerator;
+use App\Services\Cache\UserCacheKeyGenerator;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;

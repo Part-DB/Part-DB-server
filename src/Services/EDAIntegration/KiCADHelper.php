@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Services\EDAIntegration;
 
 use App\Entity\Parts\Category;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -36,6 +38,7 @@ class KiCADHelper
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
         private readonly EntityManagerInterface $em,
+        private readonly ElementCacheTagGenerator $tagGenerator,
     )
     {
 
@@ -52,7 +55,7 @@ class KiCADHelper
     {
         return $this->kicadCache->get('kicad_categories', function (ItemInterface $item) {
             //Invalidate the cache on category changes
-            $secure_class_name = str_replace('\\', '_', Category::class);
+            $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
             $item->tag($secure_class_name);
 
             $categories = $this->nodesListBuilder->typeToNodesList(Category::class);
