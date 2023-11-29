@@ -25,12 +25,13 @@ namespace App\Services\EDAIntegration;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
-use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class KiCADHelper
 {
@@ -40,9 +41,9 @@ class KiCADHelper
         private readonly TagAwareCacheInterface $kicadCache,
         private readonly EntityManagerInterface $em,
         private readonly ElementCacheTagGenerator $tagGenerator,
-    )
-    {
-
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     /**
@@ -71,7 +72,7 @@ class KiCADHelper
 
                 //Format the category for KiCAD
                 $result[] = [
-                    'id' => (string) $category->getId(),
+                    'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
                 ];
             }
@@ -88,22 +89,112 @@ class KiCADHelper
      */
     public function getCategoryParts(Category $category): array
     {
-        return $this->kicadCache->get('kicad_category_parts_' . $category->getID(), function (ItemInterface $item) use ($category) {
-            $item->tag([$this->tagGenerator->getElementTypeCacheTag(Category::class), $this->tagGenerator->getElementTypeCacheTag(Part::class)]);
+        return $this->kicadCache->get('kicad_category_parts_'.$category->getID(),
+            function (ItemInterface $item) use ($category) {
+                $item->tag([
+                    $this->tagGenerator->getElementTypeCacheTag(Category::class),
+                    $this->tagGenerator->getElementTypeCacheTag(Part::class)
+                ]);
 
-            $category_repo = $this->em->getRepository(Category::class);
-            $parts = $category_repo->getParts($category);
+                $category_repo = $this->em->getRepository(Category::class);
+                $parts = $category_repo->getParts($category);
 
-            $result = [];
-            foreach ($parts as $part) {
-                $result[] = [
-                    'id' => (string) $part->getId(),
-                    'name' => $part->getName(),
-                    'description' => $part->getDescription(),
-                ];
+                $result = [];
+                foreach ($parts as $part) {
+                    $result[] = [
+                        'id' => (string)$part->getId(),
+                        'name' => $part->getName(),
+                        'description' => $part->getDescription(),
+                    ];
+                }
+
+                return $result;
+            });
+    }
+
+    public function getKiCADPart(Part $part): array
+    {
+        $result = [
+            'id' => (string)$part->getId(),
+            'name' => $part->getName(),
+            "symbolIdStr" => "Device:R",
+            "exclude_from_bom" => $this->boolToKicadBool(false),
+            "exclude_from_board" => $this->boolToKicadBool(false),
+            "exclude_from_sim" => $this->boolToKicadBool(true),
+            "fields" => []
+        ];
+
+        $result["fields"]["value"] = $this->createField($part->getName(), true);
+        $result["fields"]["keywords"] = $this->createField($part->getTags());
+
+        //Use the part info page as datasheet link. It must be an absolute URL.
+        $result["fields"]["datasheet"] = $this->createField(
+            $this->urlGenerator->generate(
+                'part_info',
+                ['id' => $part->getId()],
+                UrlGeneratorInterface::ABSOLUTE_URL)
+        );
+
+        //Add basic fields
+        $result["fields"]["description"] = $this->createField($part->getDescription());
+        if ($part->getCategory()) {
+            $result["fields"]["Category"] = $this->createField($part->getCategory()->getFullPath('/'));
+        }
+        if ($part->getManufacturer()) {
+            $result["fields"]["Manufacturer"] = $this->createField($part->getManufacturer()->getName());
+        }
+        if ($part->getManufacturerProductNumber() !== "") {
+            $result['fields']["MPN"] = $this->createField($part->getManufacturerProductNumber());
+        }
+        if ($part->getManufacturingStatus()) {
+            $result["fields"]["Manufacturing Status"] = $this->createField(
+                //Always use the english translation
+                $this->translator->trans($part->getManufacturingStatus()->toTranslationKey(), locale: 'en')
+            );
+        }
+        if ($part->getFootprint()) {
+            $result["fields"]["Part-DB Footprint"] = $this->createField($part->getFootprint()->getName());
+        }
+        if ($part->getPartUnit()) {
+            $unit = $part->getPartUnit()->getName();
+            if ($part->getPartUnit()->getUnit() !== "") {
+                $unit .= ' (' . $part->getPartUnit()->getUnit() . ')';
             }
+            $result["fields"]["Part-DB Unit"] = $this->createField($unit);
+        }
+        if ($part->getMass()) {
+            $result["fields"]["Mass"] = $this->createField($part->getMass());
+        }
+        $result["fields"]["Part-DB ID"] = $this->createField($part->getId());
+        if (!empty($part->getIpn())) {
+            $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
+        }
 
-            return $result;
-        });
+
+        return $result;
+    }
+
+    /**
+     * Converts a boolean value to the format required by KiCAD.
+     * @param  bool  $value
+     * @return string
+     */
+    private function boolToKicadBool(bool $value): string
+    {
+        return $value ? 'True' : 'False';
+    }
+
+    /**
+     * Creates a field array for KiCAD
+     * @param  string|int|float  $value
+     * @param  bool  $visible
+     * @return array
+     */
+    private function createField(string|int|float $value, bool $visible = false): array
+    {
+        return [
+            'value' => (string)$value,
+            'visible' => $this->boolToKicadBool($visible),
+        ];
     }
 }

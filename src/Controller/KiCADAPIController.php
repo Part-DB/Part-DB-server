@@ -74,37 +74,8 @@ class KiCADAPIController extends AbstractController
     #[Route('/parts/{part}.json', name: 'kicad_api_part')]
     public function partDetails(Part $part): Response
     {
-        return $this->json($this->partToKiCADPart($part));
-    }
+        $this->denyAccessUnlessGranted('read', $part);
 
-    private function partToKiCADPart(Part $part): array
-    {
-        $result = [
-            'id' => (string) $part->getId(),
-            'name' => $part->getName(),
-            "symbolIdStr" => "Device:R",
-            "exclude_from_bom" => "False",
-            "exclude_from_board" => "False",
-            "exclude_from_sim" => "True",
-            "fields" => []
-        ];
-
-        //Add misc fields
-        $result["fields"]["description"] = $this->createValue($part->getDescription());
-        $result["fields"]["value"] = $this->createValue($part->getName(), true);
-        $result["fields"]["keywords"] = $this->createValue($part->getTags());
-        if ($part->getManufacturer()) {
-            $result["fields"]["manufacturer"] = $this->createValue($part->getManufacturer()->getName());
-        }
-
-        return $result;
-    }
-
-    private function createValue(string|int|float $value, bool $visible = false): array
-    {
-        return [
-            'value' => (string) $value,
-            'visible' => $visible ? 'True' : 'False',
-        ];
+        return $this->json($this->kiCADHelper->getKiCADPart($part));
     }
 }
