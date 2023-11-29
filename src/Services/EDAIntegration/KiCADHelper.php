@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\EDAIntegration;
 
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Trees\NodesListBuilder;
@@ -87,18 +88,22 @@ class KiCADHelper
      */
     public function getCategoryParts(Category $category): array
     {
-        $category_repo = $this->em->getRepository(Category::class);
-        $parts = $category_repo->getParts($category);
+        return $this->kicadCache->get('kicad_category_parts_' . $category->getID(), function (ItemInterface $item) use ($category) {
+            $item->tag([$this->tagGenerator->getElementTypeCacheTag(Category::class), $this->tagGenerator->getElementTypeCacheTag(Part::class)]);
 
-        $result = [];
-        foreach ($parts as $part) {
-            $result[] = [
-                'id' => (string) $part->getId(),
-                'name' => $part->getName(),
-                'description' => $part->getDescription(),
-            ];
-        }
+            $category_repo = $this->em->getRepository(Category::class);
+            $parts = $category_repo->getParts($category);
 
-        return $result;
+            $result = [];
+            foreach ($parts as $part) {
+                $result[] = [
+                    'id' => (string) $part->getId(),
+                    'name' => $part->getName(),
+                    'description' => $part->getDescription(),
+                ];
+            }
+
+            return $result;
+        });
     }
 }
