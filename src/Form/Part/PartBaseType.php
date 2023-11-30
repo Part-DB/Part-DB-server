@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -253,6 +254,13 @@ class PartBaseType extends AbstractType
             'reindex_enable' => true,
             'label' => false,
             'by_reference' => false,
+        ]);
+
+        //EDA info
+        $builder->add('eda_info', EDAPartInfoType::class, [
+            'label' => false,
+            'required' => false,
+            'setter' => fn (Part $part, ?EDAPartInfo $x) => $part->setEdaInfo($x),
         ]);
 
         $builder->add('log_comment', TextType::class, [

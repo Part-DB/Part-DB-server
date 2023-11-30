@@ -39,6 +39,7 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\FootprintRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,6 +48,7 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -137,6 +139,8 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
+    #[Column(type: 'json_document', options: ['jsonb' => true])]
+    protected ?EDAPartInfo $eda_info = null;
 
     /****************************************
      * Getters

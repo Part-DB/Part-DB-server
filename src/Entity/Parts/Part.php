@@ -42,6 +42,7 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Parts\PartTraits\AssociationTrait;
+use App\Entity\Parts\PartTraits\EDATrait;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
@@ -115,6 +116,7 @@ class Part extends AttachmentContainingDBElement
     use ParametersTrait;
     use ProjectTrait;
     use AssociationTrait;
+    use EDATrait;
 
     /** @var Collection<int, PartParameter>
      */

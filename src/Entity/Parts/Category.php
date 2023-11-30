@@ -38,6 +38,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,6 +48,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -185,6 +187,8 @@ class Category extends AbstractPartsContainingDBElement
     #[Groups(['category:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
+    #[Column(type: 'json_document', options: ['jsonb' => true])]
+    protected ?EDAPartInfo $eda_info = null;
 
     public function getPartnameHint(): string
     {
