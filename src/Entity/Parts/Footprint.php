@@ -39,6 +39,8 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\EDA\EDACategoryInfo;
+use App\Entity\EDA\EDAFootprintInfo;
 use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\FootprintRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -139,8 +141,18 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
-    #[Column(type: 'json_document', options: ['jsonb' => true])]
-    protected ?EDAPartInfo $eda_info = null;
+    #[Assert\Valid]
+    #[ORM\Embedded(class: EDAFootprintInfo::class)]
+    protected EDAFootprintInfo $eda_info;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->eda_info = new EDAFootprintInfo();
+    }
 
     /****************************************
      * Getters
@@ -170,11 +182,15 @@ class Footprint extends AbstractPartsContainingDBElement
 
         return $this;
     }
-    public function __construct()
+
+    public function getEdaInfo(): EDAFootprintInfo
     {
-        parent::__construct();
-        $this->children = new ArrayCollection();
-        $this->attachments = new ArrayCollection();
-        $this->parameters = new ArrayCollection();
+        return $this->eda_info;
+    }
+
+    public function setEdaInfo(EDAFootprintInfo $eda_info): Footprint
+    {
+        $this->eda_info = $eda_info;
+        return $this;
     }
 }

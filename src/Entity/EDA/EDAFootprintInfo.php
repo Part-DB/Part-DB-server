@@ -21,32 +21,27 @@
 declare(strict_types=1);
 
 
-namespace App\Entity\Parts\PartTraits;
+namespace App\Entity\EDA;
 
-use App\Entity\EDA\EDAPartInfo;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Embedded;
-use Symfony\Component\Validator\Constraints\Valid;
+use Doctrine\ORM\Mapping\Embeddable;
 
-trait EDATrait
+#[Embeddable]
+class EDAFootprintInfo
 {
-    #[Valid]
-    #[Embedded(class: EDAPartInfo::class)]
-    protected EDAPartInfo $eda_info;
+    /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
+    #[Column(type: Types::STRING, nullable: true)]
+    private ?string $kicad_footprint = null;
 
-    public function getEdaInfo(): ?EDAPartInfo
+    public function getKicadFootprint(): ?string
     {
-        return $this->eda_info;
+        return $this->kicad_footprint;
     }
 
-    public function setEdaInfo(?EDAPartInfo $eda_info): self
+    public function setKicadFootprint(?string $kicad_footprint): EDAFootprintInfo
     {
-        if ($eda_info !== null) {
-            //Do a clone, to ensure that the property is updated in the database
-            $eda_info = clone $eda_info;
-        }
-
-        $this->eda_info = $eda_info;
+        $this->kicad_footprint = $kicad_footprint;
         return $this;
     }
 }

@@ -41,6 +41,7 @@ use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parts\PartTraits\AssociationTrait;
 use App\Entity\Parts\PartTraits\EDATrait;
 use App\Repository\PartRepository;
@@ -175,6 +176,7 @@ class Part extends AttachmentContainingDBElement
 
         //By default, the part has no provider
         $this->providerReference = InfoProviderReference::noProvider();
+        $this->eda_info = new EDAPartInfo();
     }
 
     public function __clone()
@@ -210,6 +212,7 @@ class Part extends AttachmentContainingDBElement
 
             //Deep clone info provider
             $this->providerReference = clone $this->providerReference;
+            $this->eda_info = clone $this->eda_info;
         }
         parent::__clone();
     }

@@ -152,15 +152,6 @@
     "dompdf/dompdf": {
         "version": "v0.8.5"
     },
-    "dunglas/doctrine-json-odm": {
-        "version": "1.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "0.1",
-            "ref": "c2ab78f625df0c89af5908d50a28602ff8c4919f"
-        }
-    },
     "egulias/email-validator": {
         "version": "2.1.11"
     },

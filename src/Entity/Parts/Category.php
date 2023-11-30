@@ -38,6 +38,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\EDA\EDACategoryInfo;
 use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
@@ -187,8 +188,18 @@ class Category extends AbstractPartsContainingDBElement
     #[Groups(['category:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
-    #[Column(type: 'json_document', options: ['jsonb' => true])]
-    protected ?EDAPartInfo $eda_info = null;
+    #[Assert\Valid]
+    #[ORM\Embedded(class: EDACategoryInfo::class)]
+    protected EDACategoryInfo $eda_info;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->eda_info = new EDACategoryInfo();
+    }
 
     public function getPartnameHint(): string
     {
@@ -282,14 +293,17 @@ class Category extends AbstractPartsContainingDBElement
     public function setDefaultComment(string $default_comment): self
     {
         $this->default_comment = $default_comment;
-
         return $this;
     }
-    public function __construct()
+
+    public function getEdaInfo(): EDACategoryInfo
     {
-        parent::__construct();
-        $this->children = new ArrayCollection();
-        $this->attachments = new ArrayCollection();
-        $this->parameters = new ArrayCollection();
+        return $this->eda_info;
+    }
+
+    public function setEdaInfo(EDACategoryInfo $eda_info): Category
+    {
+        $this->eda_info = $eda_info;
+        return $this;
     }
 }

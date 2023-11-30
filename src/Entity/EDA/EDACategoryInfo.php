@@ -28,17 +28,13 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
 
 #[Embeddable]
-class EDAPartInfo
+class EDACategoryInfo
 {
     /**
      * @var string|null The reference prefix of the Part in the schematic. E.g. "R" for resistors, or "C" for capacitors.
      */
     #[Column(type: Types::STRING, nullable: true)]
     private ?string $reference_prefix = null;
-
-    /** @var string|null The value, which should be shown together with the part (e.g. 470 for a 470 Ohm resistor) */
-    #[Column(type: Types::STRING, nullable: true)]
-    private ?string $value = null;
 
     /** @var bool|null If this is true, then this part is invisible for the EDA software */
     #[Column(type: Types::BOOLEAN, nullable: true)]
@@ -60,34 +56,14 @@ class EDAPartInfo
     #[Column(type: Types::STRING, nullable: true)]
     private ?string $kicad_symbol = null;
 
-    /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
-    #[Column(type: Types::STRING, nullable: true)]
-    private ?string $kicad_footprint = null;
-
-    public function __construct()
-    {
-
-    }
-
     public function getReferencePrefix(): ?string
     {
         return $this->reference_prefix;
     }
 
-    public function setReferencePrefix(?string $reference_prefix): EDAPartInfo
+    public function setReferencePrefix(?string $reference_prefix): EDACategoryInfo
     {
         $this->reference_prefix = $reference_prefix;
-        return $this;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
-
-    public function setValue(?string $value): EDAPartInfo
-    {
-        $this->value = $value;
         return $this;
     }
 
@@ -96,7 +72,7 @@ class EDAPartInfo
         return $this->invisible;
     }
 
-    public function setInvisible(?bool $invisible): EDAPartInfo
+    public function setInvisible(?bool $invisible): EDACategoryInfo
     {
         $this->invisible = $invisible;
         return $this;
@@ -107,7 +83,7 @@ class EDAPartInfo
         return $this->exclude_from_bom;
     }
 
-    public function setExcludeFromBom(?bool $exclude_from_bom): EDAPartInfo
+    public function setExcludeFromBom(?bool $exclude_from_bom): EDACategoryInfo
     {
         $this->exclude_from_bom = $exclude_from_bom;
         return $this;
@@ -118,7 +94,7 @@ class EDAPartInfo
         return $this->exclude_from_board;
     }
 
-    public function setExcludeFromBoard(?bool $exclude_from_board): EDAPartInfo
+    public function setExcludeFromBoard(?bool $exclude_from_board): EDACategoryInfo
     {
         $this->exclude_from_board = $exclude_from_board;
         return $this;
@@ -129,7 +105,7 @@ class EDAPartInfo
         return $this->exclude_from_sim;
     }
 
-    public function setExcludeFromSim(?bool $exclude_from_sim): EDAPartInfo
+    public function setExcludeFromSim(?bool $exclude_from_sim): EDACategoryInfo
     {
         $this->exclude_from_sim = $exclude_from_sim;
         return $this;
@@ -140,22 +116,10 @@ class EDAPartInfo
         return $this->kicad_symbol;
     }
 
-    public function setKicadSymbol(?string $kicad_symbol): EDAPartInfo
+    public function setKicadSymbol(?string $kicad_symbol): EDACategoryInfo
     {
         $this->kicad_symbol = $kicad_symbol;
         return $this;
     }
-
-    public function getKicadFootprint(): ?string
-    {
-        return $this->kicad_footprint;
-    }
-
-    public function setKicadFootprint(?string $kicad_footprint): EDAPartInfo
-    {
-        $this->kicad_footprint = $kicad_footprint;
-        return $this;
-    }
-
 
 }
