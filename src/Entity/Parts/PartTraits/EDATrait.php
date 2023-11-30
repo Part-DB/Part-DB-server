@@ -34,7 +34,7 @@ trait EDATrait
     #[Embedded(class: EDAPartInfo::class)]
     protected EDAPartInfo $eda_info;
 
-    public function getEdaInfo(): ?EDAPartInfo
+    public function getEdaInfo(): EDAPartInfo
     {
         return $this->eda_info;
     }

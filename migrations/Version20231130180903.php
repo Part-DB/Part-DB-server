@@ -14,7 +14,7 @@ final class Version20231130180903 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Added EDA fields';
     }
 
     public function up(Schema $schema): void

@@ -64,6 +64,11 @@ class KiCADHelper
             $repo = $this->em->getRepository(Category::class);
             $result = [];
             foreach ($categories as $category) {
+                //Skip invisible categories
+                if ($category->getEdaInfo()->getInvisible() ?? false) {
+                    continue;
+                }
+
                 /** @var $category Category */
                 //Ensure that the category contains parts
                 if ($repo->getPartsCount($category) < 1) {
@@ -101,6 +106,11 @@ class KiCADHelper
 
                 $result = [];
                 foreach ($parts as $part) {
+                    //If the part is invisible, then skip it
+                    if ($part->getEdaInfo()->getInvisible() ?? $part->getCategory()?->getEdaInfo()->getInvisible() ?? false) {
+                        continue;
+                    }
+
                     $result[] = [
                         'id' => (string)$part->getId(),
                         'name' => $part->getName(),
@@ -117,14 +127,16 @@ class KiCADHelper
         $result = [
             'id' => (string)$part->getId(),
             'name' => $part->getName(),
-            "symbolIdStr" => "Device:R",
-            "exclude_from_bom" => $this->boolToKicadBool(false),
-            "exclude_from_board" => $this->boolToKicadBool(false),
-            "exclude_from_sim" => $this->boolToKicadBool(true),
+            "symbolIdStr" => $part->getEdaInfo()->getKicadSymbol() ?? $part->getCategory()?->getEdaInfo()->getKicadSymbol() ?? "",
+            "exclude_from_bom" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromBom() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromBom() ?? false),
+            "exclude_from_board" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromBoard() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromBoard() ?? false),
+            "exclude_from_sim" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromSim() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromSim() ?? false),
             "fields" => []
         ];
 
-        $result["fields"]["value"] = $this->createField($part->getName(), true);
+        $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
+        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
         //Use the part info page as datasheet link. It must be an absolute URL.
@@ -148,7 +160,7 @@ class KiCADHelper
         }
         if ($part->getManufacturingStatus()) {
             $result["fields"]["Manufacturing Status"] = $this->createField(
-                //Always use the english translation
+            //Always use the english translation
                 $this->translator->trans($part->getManufacturingStatus()->toTranslationKey(), locale: 'en')
             );
         }
@@ -158,12 +170,12 @@ class KiCADHelper
         if ($part->getPartUnit()) {
             $unit = $part->getPartUnit()->getName();
             if ($part->getPartUnit()->getUnit() !== "") {
-                $unit .= ' (' . $part->getPartUnit()->getUnit() . ')';
+                $unit .= ' ('.$part->getPartUnit()->getUnit().')';
             }
             $result["fields"]["Part-DB Unit"] = $this->createField($unit);
         }
         if ($part->getMass()) {
-            $result["fields"]["Mass"] = $this->createField($part->getMass());
+            $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }
         $result["fields"]["Part-DB ID"] = $this->createField($part->getId());
         if (!empty($part->getIpn())) {
