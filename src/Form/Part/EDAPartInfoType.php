@@ -31,20 +31,59 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function Symfony\Component\Translation\t;
+
 class EDAPartInfoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference_prefix', TextType::class)
-            ->add('value', TextType::class)
-            ->add('invisible', TriStateCheckboxType::class)
-            ->add('exclude_from_bom', TriStateCheckboxType::class)
-            ->add('exclude_from_board', TriStateCheckboxType::class)
-            ->add('exclude_from_sim', TriStateCheckboxType::class)
-            ->add('kicad_symbol', TextType::class)
-            ->add('kicad_footprint', TextType::class)
-        ;
+            ->add('reference_prefix', TextType::class, [
+                    'label' => 'eda_info.reference_prefix',
+                    'attr' => [
+                        'placeholder' => t('eda_info.reference_prefix.placeholder'),
+                    ]
+                ]
+            )
+            ->add('value', TextType::class, [
+                'label' => 'eda_info.value',
+                'attr' => [
+                    'placeholder' => t('eda_info.value.placeholder'),
+                ]
+            ])
+            ->add('invisible', TriStateCheckboxType::class, [
+                'label' => 'eda_info.invisible',
+            ])
+            ->add('exclude_from_bom', TriStateCheckboxType::class, [
+                'label' => 'eda_info.exclude_from_bom',
+                'label_attr' => [
+                    'class' => 'checkbox-inline'
+                ]
+            ])
+            ->add('exclude_from_board', TriStateCheckboxType::class, [
+                'label' => 'eda_info.exclude_from_board',
+                'label_attr' => [
+                    'class' => 'checkbox-inline'
+                ]
+            ])
+            ->add('exclude_from_sim', TriStateCheckboxType::class, [
+                'label' => 'eda_info.exclude_from_sim',
+                'label_attr' => [
+                    'class' => 'checkbox-inline'
+                ]
+            ])
+            ->add('kicad_symbol', TextType::class, [
+                'label' => 'eda_info.kicad_symbol',
+                'attr' => [
+                    'placeholder' => t('eda_info.kicad_symbol.placeholder'),
+                ]
+            ])
+            ->add('kicad_footprint', TextType::class, [
+                'label' => 'eda_info.kicad_footprint',
+                'attr' => [
+                    'placeholder' => t('eda_info.kicad_footprint.placeholder'),
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
