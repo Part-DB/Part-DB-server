@@ -21,10 +21,10 @@
 declare(strict_types=1);
 
 
-namespace App\Form\Part;
+namespace App\Form\Part\EDA;
 
-use App\Entity\EDA\EDAPartInfo;
-use App\Entity\Parts\PartAssociation;
+use App\Entity\EDA\EDACategoryInfo;
+use App\Entity\EDA\EDAFootprintInfo;
 use App\Form\Type\TriStateCheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,7 +33,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function Symfony\Component\Translation\t;
 
-class EDAPartInfoType extends AbstractType
+class EDACategoryInfoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -45,12 +45,6 @@ class EDAPartInfoType extends AbstractType
                     ]
                 ]
             )
-            ->add('value', TextType::class, [
-                'label' => 'eda_info.value',
-                'attr' => [
-                    'placeholder' => t('eda_info.value.placeholder'),
-                ]
-            ])
             ->add('invisible', TriStateCheckboxType::class, [
                 'label' => 'eda_info.invisible',
             ])
@@ -78,18 +72,15 @@ class EDAPartInfoType extends AbstractType
                     'placeholder' => t('eda_info.kicad_symbol.placeholder'),
                 ]
             ])
-            ->add('kicad_footprint', TextType::class, [
-                'label' => 'eda_info.kicad_footprint',
-                'attr' => [
-                    'placeholder' => t('eda_info.kicad_footprint.placeholder'),
-                ]
-            ]);
+            ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => EDAPartInfo::class,
+            'data_class' => EDACategoryInfo::class,
         ]);
     }
 }

@@ -7,6 +7,7 @@
 {% block additional_pills %}
     <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#home_options">{% trans %}admin.options{% endtrans %}</a></li>
     <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#home_advanced">{% trans %}admin.advanced{% endtrans %}</a></li>
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#eda">{% trans %}part.edit.tab.eda{% endtrans %}</a></li>
 {% endblock %}
 
 {% block edit_title %}
@@ -33,5 +34,30 @@
         <hr>
         {{ form_row(form.default_description) }}
         {{ form_row(form.default_comment) }}
+    </div>
+
+    <div class="tab-pane" id="eda">
+        {{ form_row(form.eda_info.reference_prefix) }}
+
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                {{ form_row(form.eda_info.invisible) }}
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-sm-9 offset-sm-3">
+                {{ form_widget(form.eda_info.exclude_from_bom) }}
+                {{ form_widget(form.eda_info.exclude_from_board) }}
+                {{ form_widget(form.eda_info.exclude_from_sim) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                <h6>{% trans %}eda_info.kicad_section.title{% endtrans %}:</h6>
+            </div>
+        </div>
+        {{ form_row(form.eda_info.kicad_symbol) }}
     </div>
 {% endblock %}
