@@ -23,34 +23,37 @@ declare(strict_types=1);
 
 namespace App\Form\Part\EDA;
 
-use App\Entity\EDA\EDAFootprintInfo;
+use App\Form\Type\StaticFileAutocompleteType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use function Symfony\Component\Translation\t;
-
-class EDAFootprintInfoType extends AbstractType
+/**
+ * This is a specialized version of the StaticFileAutocompleteType, which loads the different types of Kicad lists.
+ */
+class KicadFieldAutocompleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('kicad_footprint', KicadFieldAutocompleteType::class, [
-                'type'  => KicadFieldAutocompleteType::TYPE_FOOTPRINT,
-                'label' => 'eda_info.kicad_footprint',
-                'attr' => [
-                    'placeholder' => t('eda_info.kicad_footprint.placeholder'),
-                ]
-            ]);
+    public const TYPE_FOOTPRINT = 'footprint';
+    public const TYPE_SYMBOL = 'symbol';
 
-
-    }
+    public const FOOTPRINT_PATH = '/kicad/footprints.txt';
+    public const SYMBOL_PATH = '/kicad/symbols.txt';
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setRequired('type');
+        $resolver->setAllowedValues('type', [self::TYPE_SYMBOL, self::TYPE_FOOTPRINT]);
+
         $resolver->setDefaults([
-            'data_class' => EDAFootprintInfo::class,
+            'file' => fn(Options $options) => match ($options['type']) {
+                self::TYPE_FOOTPRINT => self::FOOTPRINT_PATH,
+                self::TYPE_SYMBOL => self::SYMBOL_PATH,
+            }
         ]);
+    }
+
+    public function getParent(): string
+    {
+        return StaticFileAutocompleteType::class;
     }
 }

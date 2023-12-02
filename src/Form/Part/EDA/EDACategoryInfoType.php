@@ -66,8 +66,9 @@ class EDACategoryInfoType extends AbstractType
                     'class' => 'checkbox-inline'
                 ]
             ])
-            ->add('kicad_symbol', TextType::class, [
+            ->add('kicad_symbol', KicadFieldAutocompleteType::class, [
                 'label' => 'eda_info.kicad_symbol',
+                'type'  => KicadFieldAutocompleteType::TYPE_SYMBOL,
                 'attr' => [
                     'placeholder' => t('eda_info.kicad_symbol.placeholder'),
                 ]
