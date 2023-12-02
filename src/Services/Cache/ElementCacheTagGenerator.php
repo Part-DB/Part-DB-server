@@ -59,7 +59,7 @@ class ElementCacheTagGenerator
         }
 
         //If the element is a proxy, then get the real class name of the underlying object
-        if ($element instanceof Proxy || str_starts_with($element, 'Proxies\\')) {
+        if (is_a($element, Proxy::class, true) || str_starts_with($element, 'Proxies\\')) {
             $element = get_parent_class($element);
         }
 

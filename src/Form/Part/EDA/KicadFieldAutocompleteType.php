@@ -48,6 +48,7 @@ class KicadFieldAutocompleteType extends AbstractType
             'file' => fn(Options $options) => match ($options['type']) {
                 self::TYPE_FOOTPRINT => self::FOOTPRINT_PATH,
                 self::TYPE_SYMBOL => self::SYMBOL_PATH,
+                default => throw new \InvalidArgumentException('Invalid type'),
             }
         ]);
     }

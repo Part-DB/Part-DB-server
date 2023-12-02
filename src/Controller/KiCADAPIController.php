@@ -36,17 +36,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class KiCADAPIController extends AbstractController
 {
     public function __construct(
-        private readonly EntityManagerInterface $em,
         private readonly KiCADHelper $kiCADHelper,
-
     )
     {
-
     }
 
     #[Route('/', name: 'kicad_api_root')]
     public function root(): Response
     {
+        $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
+
         //The API documentation says this can be either blank or the URL to the endpoints
         return $this->json([
             'categories' => '',
