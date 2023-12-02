@@ -85,7 +85,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
-            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read'],
+            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
             'openapi_definition_name' => 'Read',
         ], security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@parts.read")'),
@@ -94,7 +94,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['part:write', 'api:basic:write', 'eda_info:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]

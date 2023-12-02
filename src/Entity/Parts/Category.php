@@ -190,6 +190,7 @@ class Category extends AbstractPartsContainingDBElement
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDACategoryInfo::class)]
+    #[Groups(['full', 'category:read', 'category:write'])]
     protected EDACategoryInfo $eda_info;
 
     public function __construct()

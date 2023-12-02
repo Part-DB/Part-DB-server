@@ -26,12 +26,14 @@ namespace App\Entity\Parts\PartTraits;
 use App\Entity\EDA\EDAPartInfo;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embedded;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Valid;
 
 trait EDATrait
 {
     #[Valid]
     #[Embedded(class: EDAPartInfo::class)]
+    #[Groups(['full', 'part:read', 'part:write'])]
     protected EDAPartInfo $eda_info;
 
     public function getEdaInfo(): EDAPartInfo

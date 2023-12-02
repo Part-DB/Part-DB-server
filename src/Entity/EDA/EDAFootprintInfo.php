@@ -26,12 +26,14 @@ namespace App\Entity\EDA;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[Embeddable]
 class EDAFootprintInfo
 {
     /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'footprint:read', 'footprint:write'])]
     private ?string $kicad_footprint = null;
 
     public function getKicadFootprint(): ?string

@@ -26,6 +26,7 @@ namespace App\Entity\EDA;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[Embeddable]
 class EDAPartInfo
@@ -34,34 +35,42 @@ class EDAPartInfo
      * @var string|null The reference prefix of the Part in the schematic. E.g. "R" for resistors, or "C" for capacitors.
      */
     #[Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?string $reference_prefix = null;
 
     /** @var string|null The value, which should be shown together with the part (e.g. 470 for a 470 Ohm resistor) */
     #[Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?string $value = null;
 
     /** @var bool|null If this is true, then this part is invisible for the EDA software */
     #[Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?bool $invisible = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded from the BOM */
     #[Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?bool $exclude_from_bom = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded from the board/the PCB */
     #[Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?bool $exclude_from_board = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded in the simulation */
     #[Column(type: Types::BOOLEAN, nullable: true)]
-    private ?bool $exclude_from_sim = true;
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    private ?bool $exclude_from_sim = null;
 
     /** @var string|null The KiCAD schematic symbol, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?string $kicad_symbol = null;
 
     /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
     private ?string $kicad_footprint = null;
 
     public function __construct()

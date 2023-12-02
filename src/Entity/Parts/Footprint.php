@@ -143,6 +143,7 @@ class Footprint extends AbstractPartsContainingDBElement
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDAFootprintInfo::class)]
+    #[Groups(['full', 'footprint:read', 'footprint:write'])]
     protected EDAFootprintInfo $eda_info;
 
     public function __construct()
