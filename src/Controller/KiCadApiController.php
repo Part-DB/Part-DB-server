@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/kicad-api/v1')]
-class KiCADAPIController extends AbstractController
+class KiCadApiController extends AbstractController
 {
     public function __construct(
         private readonly KiCADHelper $kiCADHelper,
@@ -54,7 +54,7 @@ class KiCADAPIController extends AbstractController
     }
 
     #[Route('/categories.json', name: 'kicad_api_categories')]
-    public function categories(NodesListBuilder $nodesListBuilder): Response
+    public function categories(): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
 
