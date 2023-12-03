@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c234e23bafed7344416d533eb5dd1176",
+    "content-hash": "bd82157e9fd31dc55d21709ad2fb6fa9",
     "packages": [
         {
             "name": "api-platform/core",
@@ -13032,16 +13032,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
-            "version": "1.18.4",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
-                "reference": "cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44"
+                "reference": "80703c7b44d06e60467a50be91c4e59af9510850"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44",
-                "reference": "cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/80703c7b44d06e60467a50be91c4e59af9510850",
+                "reference": "80703c7b44d06e60467a50be91c4e59af9510850",
                 "shasum": ""
             },
             "require": {
@@ -13049,14 +13049,14 @@
                 "ext-date": "*",
                 "ext-gd": "*",
                 "ext-pcre": "*",
-                "php": ">=5.6",
-                "tecnickcom/tc-lib-color": "^1.14"
+                "php": ">=8.0",
+                "tecnickcom/tc-lib-color": "^2.0"
             },
             "require-dev": {
                 "pdepend/pdepend": "2.13.0",
                 "phpmd/phpmd": "2.13.0",
-                "phpunit/phpunit": "10.1.2 || 9.6.7 || 8.5.31 || 7.5.20 || 6.5.14 || 5.7.27 || 4.8.36",
-                "squizlabs/php_codesniffer": "3.7.2 || 2.9.2"
+                "phpunit/phpunit": "10.1.2 || 9.6.13",
+                "squizlabs/php_codesniffer": "3.7.2"
             },
             "type": "library",
             "autoload": {
@@ -13120,7 +13120,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-barcode/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/1.18.4"
+                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/2.1.4"
             },
             "funding": [
                 {
@@ -13128,31 +13128,31 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-10-23T09:30:01+00:00"
+            "time": "2023-11-29T11:09:42+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-color",
-            "version": "1.14.39",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-color.git",
-                "reference": "f7a414e7ddbdcd98105506ca1eecc68d4820fb89"
+                "reference": "7dbdfbba5c40deade2561911ca60d8851c527311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/f7a414e7ddbdcd98105506ca1eecc68d4820fb89",
-                "reference": "f7a414e7ddbdcd98105506ca1eecc68d4820fb89",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/7dbdfbba5c40deade2561911ca60d8851c527311",
+                "reference": "7dbdfbba5c40deade2561911ca60d8851c527311",
                 "shasum": ""
             },
             "require": {
                 "ext-pcre": "*",
-                "php": ">=5.3"
+                "php": ">=8.0"
             },
             "require-dev": {
                 "pdepend/pdepend": "2.13.0",
                 "phpmd/phpmd": "2.13.0",
-                "phpunit/phpunit": "10.1.2 || 9.6.7 || 8.5.31 || 7.5.20 || 6.5.14 || 5.7.27 || 4.8.36",
-                "squizlabs/php_codesniffer": "3.7.2 || 2.9.2"
+                "phpunit/phpunit": "10.1.2 || 9.6.13",
+                "squizlabs/php_codesniffer": "3.7.2"
             },
             "type": "library",
             "autoload": {
@@ -13189,7 +13189,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-color/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-color/tree/1.14.39"
+                "source": "https://github.com/tecnickcom/tc-lib-color/tree/2.0.7"
             },
             "funding": [
                 {
@@ -13197,7 +13197,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-10-23T09:28:20+00:00"
+            "time": "2023-11-29T11:02:39+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
