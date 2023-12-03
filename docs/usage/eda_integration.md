@@ -41,8 +41,9 @@ To connect KiCad with Part-DB do following steps:
     }
 }    
 ```
-3. Replace the `root_url` with the URL of your Part-DB instance plus `/en/kicad-api/` replace the `token` field value with the token you have generated in step 1.
-4. Open KiCad and add this created file as library in the KiCad symbol table under (Preferences --> Manage Symbol Libraries)
+3. Replace the `root_url` with the URL of your Part-DB instance plus `/en/kicad-api/`. You can find the right value for this in the Part-DB user settings page under "API endpoints" in the "API tokens" panel.
+4. Replace the `token` field value with the token you have generated in step 1.
+5. Open KiCad and add this created file as library in the KiCad symbol table under (Preferences --> Manage Symbol Libraries)
 
 If you then place a new part, the library dialog opens and you should be able to see the categories and parts from Part-DB.
 

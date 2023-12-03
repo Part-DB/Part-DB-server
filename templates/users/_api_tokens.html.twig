@@ -74,5 +74,32 @@
             <i class="fas fa-plus-square fa-fw"></i> {% trans %}api_token.create_new{% endtrans %}
         </a>
 
+        <hr>
+        <h5>{% trans %}api.api_endpoints.title{% endtrans %}:</h5>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <b>{% trans %}api.api_endpoints.partdb{% endtrans %}:</b>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-outline-dark d-print-none btn-sm" data-clipboard-text="{{ url('api_entrypoint') }}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <span>{{ url('api_entrypoint') }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>{% trans %}api.api_endpoints.kicad_root_url{% endtrans %}:</b>
+            </div>
+            <div class="col-sm-10">
+                <button class="btn btn-outline-dark d-print-none btn-sm" data-clipboard-text="{{ absolute_url('/en/kicad-api/') }}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <span>{{ absolute_url('/en/kicad-api/') }}</span>
+            </div>
+        </div>
+
+
     </div>
 </div>

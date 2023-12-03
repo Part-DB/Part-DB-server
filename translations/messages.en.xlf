@@ -12161,5 +12161,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>EDA information</target>
       </segment>
     </unit>
+    <unit id="G0dSeRY" name="api.api_endpoints.title">
+      <segment>
+        <source>api.api_endpoints.title</source>
+        <target>API endpoints</target>
+      </segment>
+    </unit>
+    <unit id="yFYyK5u" name="api.api_endpoints.partdb">
+      <segment>
+        <source>api.api_endpoints.partdb</source>
+        <target>Part-DB API</target>
+      </segment>
+    </unit>
+    <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
+      <segment>
+        <source>api.api_endpoints.kicad_root_url</source>
+        <target>KiCad API root URL</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
