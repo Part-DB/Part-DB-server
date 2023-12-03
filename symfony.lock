@@ -907,13 +907,17 @@
         "version": "3.5.1"
     },
     "web-auth/webauthn-symfony-bundle": {
-        "version": "3.3",
+        "version": "4.7",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "3.0",
-            "ref": "9926090a80c2cceeffe96e6c3312b397ea55d4a7"
-        }
+            "ref": "a5dff33bd46575bea263af94069650af7742dcb6"
+        },
+        "files": [
+            "config/packages/webauthn.yaml",
+            "config/routes/webauthn_routes.yaml"
+        ]
     },
     "webmozart/assert": {
         "version": "1.4.0"
