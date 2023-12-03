@@ -89,9 +89,9 @@ class KiCadHelper
                     continue;
                 }
 
-                /** @var $category Category */
                 //Ensure that the category contains parts
                 //For the last level, we need to use a recursive query, otherwise we can use a simple query
+                /** @var Category $category */
                 $parts_count = $category->getLevel() >= $this->category_depth ? $repo->getPartsCountRecursive($category) : $repo->getPartsCount($category);
 
                 if ($parts_count < 1) {
