@@ -41,7 +41,9 @@ use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parts\PartTraits\AssociationTrait;
+use App\Entity\Parts\PartTraits\EDATrait;
 use App\Repository\PartRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
@@ -83,7 +85,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
-            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read'],
+            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
             'openapi_definition_name' => 'Read',
         ], security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@parts.read")'),
@@ -92,7 +94,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['part:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['part:write', 'api:basic:write', 'eda_info:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
@@ -115,6 +117,7 @@ class Part extends AttachmentContainingDBElement
     use ParametersTrait;
     use ProjectTrait;
     use AssociationTrait;
+    use EDATrait;
 
     /** @var Collection<int, PartParameter>
      */
@@ -173,6 +176,7 @@ class Part extends AttachmentContainingDBElement
 
         //By default, the part has no provider
         $this->providerReference = InfoProviderReference::noProvider();
+        $this->eda_info = new EDAPartInfo();
     }
 
     public function __clone()
@@ -208,6 +212,7 @@ class Part extends AttachmentContainingDBElement
 
             //Deep clone info provider
             $this->providerReference = clone $this->providerReference;
+            $this->eda_info = clone $this->eda_info;
         }
         parent::__clone();
     }

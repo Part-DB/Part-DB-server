@@ -46,7 +46,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ApiTokenAuthenticator implements AuthenticatorInterface
 {
     public function __construct(
-        #[Autowire(service: 'security.access_token_extractor.header')]
+        #[Autowire(service: 'security.access_token_extractor.main')]
         private readonly AccessTokenExtractorInterface $accessTokenExtractor,
         private readonly TranslatorInterface $translator,
         private readonly EntityManagerInterface $entityManager,

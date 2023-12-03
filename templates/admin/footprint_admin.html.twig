@@ -20,3 +20,18 @@
 {% block additional_controls %}
     {{ form_row(form.alternative_names) }}
 {% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#eda">{% trans %}part.edit.tab.eda{% endtrans %}</a></li>
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="eda">
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                <h6>{% trans %}eda_info.kicad_section.title{% endtrans %}:</h6>
+            </div>
+        </div>
+        {{ form_row(form.eda_info.kicad_footprint) }}
+    </div>
+{% endblock %}

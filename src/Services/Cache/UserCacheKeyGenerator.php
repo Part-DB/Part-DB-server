@@ -20,12 +20,12 @@
 
 declare(strict_types=1);
 
-namespace App\Services\UserSystem;
+namespace App\Services\Cache;
 
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\UserSystem\User;
 use Locale;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
