@@ -12108,12 +12108,6 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>e.s. 100n</target>
       </segment>
     </unit>
-    <unit id="Q8nJNWg" name="eda_info.invisible">
-      <segment state="translated">
-        <source>eda_info.invisible</source>
-        <target>Invisibile al software EDA</target>
-      </segment>
-    </unit>
     <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
       <segment state="translated">
         <source>eda_info.exclude_from_bom</source>
