@@ -12174,5 +12174,17 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>URL radice dell'API di KiCad</target>
       </segment>
     </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment state="translated">
+        <source>eda_info.visibility</source>
+        <target>Rendere visibile</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment state="translated">
+        <source>eda_info.visibility.help</source>
+        <target>Per impostazione predefinita, la visibilità del software EDA viene determinata automaticamente. Con questa casella di controllo, si può forzare il componente ad essere visibile o invisibile.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
