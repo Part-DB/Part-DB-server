@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace App\Services\EDAIntegration;
+namespace App\Services\EDA;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
@@ -33,7 +33,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class KiCADHelper
+class KiCadHelper
 {
 
     public function __construct(
@@ -43,7 +43,11 @@ class KiCADHelper
         private readonly ElementCacheTagGenerator $tagGenerator,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly TranslatorInterface $translator,
+        private readonly int $category_depth,
     ) {
+        if ($this->category_depth < 0) {
+            throw new \InvalidArgumentException('The category depth must be greater than or equal to 0');
+        }
     }
 
     /**
@@ -55,7 +59,7 @@ class KiCADHelper
      */
     public function getCategories(): array
     {
-        return $this->kicadCache->get('kicad_categories', function (ItemInterface $item) {
+        return $this->kicadCache->get('kicad_categories_' . $this->category_depth, function (ItemInterface $item) {
             //Invalidate the cache on category changes
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
             $item->tag($secure_class_name);
@@ -69,9 +73,17 @@ class KiCADHelper
                     continue;
                 }
 
+                //Skip categories with a depth greater than the configured one
+                if ($category->getLevel() > $this->category_depth) {
+                    continue;
+                }
+
                 /** @var $category Category */
                 //Ensure that the category contains parts
-                if ($repo->getPartsCount($category) < 1) {
+                //For the last level, we need to use a recursive query, otherwise we can use a simple query
+                $parts_count = $category->getLevel() >= $this->category_depth ? $repo->getPartsCountRecursive($category) : $repo->getPartsCount($category);
+
+                if ($parts_count < 1) {
                     continue;
                 }
 
@@ -94,7 +106,7 @@ class KiCADHelper
      */
     public function getCategoryParts(Category $category): array
     {
-        return $this->kicadCache->get('kicad_category_parts_'.$category->getID(),
+        return $this->kicadCache->get('kicad_category_parts_'.$category->getID() . '_' . $this->category_depth,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
@@ -102,7 +114,13 @@ class KiCADHelper
                 ]);
 
                 $category_repo = $this->em->getRepository(Category::class);
-                $parts = $category_repo->getParts($category);
+                if ($category->getLevel() >= $this->category_depth) {
+                    //Get all parts for the category and its children
+                    $parts = $category_repo->getPartsRecursive($category);
+                } else {
+                    //Get only direct parts for the category (without children), as the category is not collapsed
+                    $parts = $category_repo->getParts($category);
+                }
 
                 $result = [];
                 foreach ($parts as $part) {

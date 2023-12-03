@@ -25,7 +25,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
-use App\Services\EDAIntegration\KiCADHelper;
+use App\Services\EDA\KiCadHelper;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +36,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class KiCadApiController extends AbstractController
 {
     public function __construct(
-        private readonly KiCADHelper $kiCADHelper,
+        private readonly KiCadHelper $kiCADHelper,
     )
     {
     }
