@@ -128,6 +128,14 @@ then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAV
 * `ERROR_PAGE_SHOW_HELP`: Set this 0, to disable the solution hints shown on an error page. These hints should not
   contain sensitive information, but could confuse end-users.
 
+### EDA related settings
+
+* `EDA_KICAD_CATEGORY_DEPTH`: A number, which determines how many levels of Part-DB categories should be shown inside KiCad.
+   All parts in the selected category and all subcategories are shown in KiCad.
+   For performance reason this value should not be too high. The default is 0, which means that only the top level categories are shown in KiCad.
+   All parts in the selected category and all subcategories are shown in KiCad. Set this to a higher value, if you want to show more categories in KiCad.
+   When you set this value to -1, all parts are shown inside a single category in KiCad.
+
 ### SAML SSO settings
 
 The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to log in to

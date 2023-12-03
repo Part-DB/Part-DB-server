@@ -50,8 +50,9 @@ class EDAPartInfoType extends AbstractType
                     'placeholder' => t('eda_info.value.placeholder'),
                 ]
             ])
-            ->add('invisible', TriStateCheckboxType::class, [
-                'label' => 'eda_info.invisible',
+            ->add('visibility', TriStateCheckboxType::class, [
+                'help' => 'eda_info.visibility.help',
+                'label' => 'eda_info.visibility',
             ])
             ->add('exclude_from_bom', TriStateCheckboxType::class, [
                 'label' => 'eda_info.exclude_from_bom',

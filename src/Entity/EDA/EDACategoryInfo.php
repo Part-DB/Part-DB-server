@@ -38,10 +38,10 @@ class EDACategoryInfo
     #[Groups(['full', 'category:read', 'category:write'])]
     private ?string $reference_prefix = null;
 
-    /** @var bool|null If this is true, then this part is invisible for the EDA software */
-    #[Column(type: Types::BOOLEAN, nullable: true)]
+    /** @var bool|null Visibility of this part to EDA software in trinary logic. True=Visible, False=Invisible, Null=Auto */
+    #[Column(name: 'invisible', type: Types::BOOLEAN, nullable: true)] //TODO: Rename column to visibility
     #[Groups(['full', 'category:read', 'category:write'])]
-    private ?bool $invisible = null;
+    private ?bool $visibility = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded from the BOM */
     #[Column(type: Types::BOOLEAN, nullable: true)]
@@ -74,14 +74,14 @@ class EDACategoryInfo
         return $this;
     }
 
-    public function getInvisible(): ?bool
+    public function getVisibility(): ?bool
     {
-        return $this->invisible;
+        return $this->visibility;
     }
 
-    public function setInvisible(?bool $invisible): EDACategoryInfo
+    public function setVisibility(?bool $visibility): EDACategoryInfo
     {
-        $this->invisible = $invisible;
+        $this->visibility = $visibility;
         return $this;
     }
 

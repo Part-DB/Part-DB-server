@@ -12107,12 +12107,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>e.g. 100n</target>
       </segment>
     </unit>
-    <unit id="Q8nJNWg" name="eda_info.invisible">
-      <segment>
-        <source>eda_info.invisible</source>
-        <target>Invisible to EDA software</target>
-      </segment>
-    </unit>
     <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
       <segment>
         <source>eda_info.exclude_from_bom</source>
@@ -12177,6 +12171,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment>
         <source>api.api_endpoints.kicad_root_url</source>
         <target>KiCad API root URL</target>
+      </segment>
+    </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment>
+        <source>eda_info.visibility</source>
+        <target>Force visibility</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment>
+        <source>eda_info.visibility.help</source>
+        <target>By default, the visibility to the EDA software is automatically determined. With this checkbox, you can force the part to be visible or invisible.</target>
       </segment>
     </unit>
   </file>

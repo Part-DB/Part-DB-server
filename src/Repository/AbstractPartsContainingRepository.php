@@ -64,6 +64,11 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
         return $this->getPartsCountRecursiveWithDepthN($element, self::RECURSION_LIMIT);
     }
 
+    public function getPartsRecursive(AbstractPartsContainingDBElement $element): array
+    {
+        return $this->getPartsRecursiveWithDepthN($element, self::RECURSION_LIMIT);
+    }
+
     /**
      * The implementation of the recursive function to get the parts count.
      * This function is used to limit the recursion depth (remaining_depth is decreased on each call).
@@ -89,6 +94,23 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
         }
 
         return $count;
+    }
+
+    protected function getPartsRecursiveWithDepthN(AbstractPartsContainingDBElement $element, int $remaining_depth): array
+    {
+        if ($remaining_depth <= 0) {
+            throw new \RuntimeException('Recursion limit reached!');
+        }
+
+        //Add direct parts
+        $parts = $this->getParts($element);
+
+        //Then iterate over all children and add their parts
+        foreach ($element->getChildren() as $child) {
+            $parts = array_merge($parts, $this->getPartsRecursiveWithDepthN($child, $remaining_depth - 1));
+        }
+
+        return $parts;
     }
 
     protected function getPartsByField(object $element, array $order_by, string $field_name): array

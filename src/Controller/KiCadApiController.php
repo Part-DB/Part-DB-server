@@ -25,7 +25,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
-use App\Services\EDAIntegration\KiCADHelper;
+use App\Services\EDA\KiCadHelper;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +36,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class KiCadApiController extends AbstractController
 {
     public function __construct(
-        private readonly KiCADHelper $kiCADHelper,
+        private readonly KiCadHelper $kiCADHelper,
     )
     {
     }
@@ -62,9 +62,13 @@ class KiCadApiController extends AbstractController
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
-    public function categoryParts(Category $category): Response
+    public function categoryParts(?Category $category): Response
     {
-        $this->denyAccessUnlessGranted('read', $category);
+        if ($category) {
+            $this->denyAccessUnlessGranted('read', $category);
+        } else {
+            $this->denyAccessUnlessGranted('@categories.read');
+        }
         $this->denyAccessUnlessGranted('@parts.read');
 
         return $this->json($this->kiCADHelper->getCategoryParts($category));
