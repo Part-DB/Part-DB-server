@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34063c16f9d91c6646cef15a75f84099",
+    "content-hash": "f69e41dfdbfd08202ba19edb4a7a3f3d",
     "packages": [
         {
             "name": "api-platform/core",
@@ -14773,40 +14773,40 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v7.3.0",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "688eea6529ea894b83deada10c83662d7804f34b"
+                "reference": "e7ed49228d12853404aeb873adbada825062204c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/688eea6529ea894b83deada10c83662d7804f34b",
-                "reference": "688eea6529ea894b83deada10c83662d7804f34b",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/e7ed49228d12853404aeb873adbada825062204c",
+                "reference": "e7ed49228d12853404aeb873adbada825062204c",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "^3.3",
+                "doctrine/dbal": "^3.3 || ^4.0",
                 "doctrine/doctrine-bundle": "^2.2.2",
                 "ext-json": "*",
                 "php": "^7.3 || ^8.0",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/cache": "^5.4 || ^6.0",
-                "symfony/framework-bundle": "^5.4 || ^6.0"
+                "symfony/cache": "^5.4 || ^6.3 || ^7.0",
+                "symfony/framework-bundle": "^5.4 || ^6.3 || ^7.0"
             },
             "require-dev": {
                 "behat/behat": "^3.0",
-                "doctrine/cache": "^1.12",
+                "friendsofphp/php-cs-fixer": "^3.27",
                 "phpstan/phpstan": "^1.2",
                 "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0",
-                "symfony/phpunit-bridge": "^6.0",
-                "symfony/process": "^5.4 || ^6.0",
-                "symfony/yaml": "^5.4 || ^6.0"
+                "symfony/phpunit-bridge": "^6.3",
+                "symfony/process": "^5.4 || ^6.3 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.3 || ^7.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.x-dev"
+                    "dev-master": "8.x-dev"
                 }
             },
             "autoload": {
@@ -14830,13 +14830,14 @@
                 "isolation",
                 "performance",
                 "symfony",
+                "testing",
                 "tests"
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v7.3.0"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.0.0"
             },
-            "time": "2023-11-27T21:29:42+00:00"
+            "time": "2023-11-28T07:53:30+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
