@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\EDA;
 
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Trees\NodesListBuilder;
@@ -63,8 +64,8 @@ class KiCadHelper
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
             $item->tag($secure_class_name);
 
-            //If the category depth is smaller than 1, create only one dummy category
-            if ($this->category_depth < 1) {
+            //If the category depth is smaller than 0, create only one dummy category
+            if ($this->category_depth < 0) {
                 return [
                     [
                         'id' => '0',
@@ -98,6 +99,11 @@ class KiCadHelper
                     continue;
                 }
 
+                //Check if the category should be visible
+                if (!$this->shouldCategoryBeVisible($category)) {
+                    continue;
+                }
+
                 //Format the category for KiCAD
                 $result[] = [
                     'id' => (string)$category->getId(),
@@ -121,7 +127,9 @@ class KiCadHelper
             function (ItemInterface $item) use ($category) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
-                    $this->tagGenerator->getElementTypeCacheTag(Part::class)
+                    $this->tagGenerator->getElementTypeCacheTag(Part::class),
+                    //Visibility can change based on the footprint
+                    $this->tagGenerator->getElementTypeCacheTag(Footprint::class)
                 ]);
 
                 if ($this->category_depth >= 0) {
@@ -146,7 +154,7 @@ class KiCadHelper
                 $result = [];
                 foreach ($parts as $part) {
                     //If the part is invisible, then skip it
-                    if ($part->getEdaInfo()->getVisibility() === false || $part->getCategory()?->getEdaInfo()->getVisibility() === false) {
+                    if (!$this->shouldPartBeVisible($part)) {
                         continue;
                     }
 
@@ -223,6 +231,91 @@ class KiCadHelper
 
 
         return $result;
+    }
+
+    /**
+     * Determine if the given part should be visible for the EDA.
+     * @param  Category  $category
+     * @return bool
+     */
+    private function shouldCategoryBeVisible(Category $category): bool
+    {
+        $eda_info = $category->getEdaInfo();
+
+        //If the category visibility is explicitly set, then use it
+        if ($eda_info->getVisibility() !== null) {
+            return $eda_info->getVisibility();
+        }
+
+        //try to check if the fields were set
+        if ($eda_info->getKicadSymbol() !== null
+            || $eda_info->getReferencePrefix() !== null) {
+            return true;
+        }
+
+        //Check if there is any part in this category, which should be visible
+        $category_repo = $this->em->getRepository(Category::class);
+        if ($category->getLevel() >= $this->category_depth) {
+            //Get all parts for the category and its children
+            $parts = $category_repo->getPartsRecursive($category);
+        } else {
+            //Get only direct parts for the category (without children), as the category is not collapsed
+            $parts = $category_repo->getParts($category);
+        }
+
+        foreach ($parts as $part) {
+            if ($this->shouldPartBeVisible($part)) {
+                return true;
+            }
+        }
+
+        //Otherwise the category should be not visible
+        return false;
+    }
+
+    /**
+     * Determine if the given part should be visible for the EDA.
+     * @param  Part  $part
+     * @return bool
+     */
+    private function shouldPartBeVisible(Part $part): bool
+    {
+        $eda_info = $part->getEdaInfo();
+        $category = $part->getCategory();
+
+        //If the user set a visibility, then use it
+        if ($eda_info->getVisibility() !== null) {
+            return $part->getEdaInfo()->getVisibility();
+        }
+
+        //If the part has a category, then use the category visibility if possible
+        if ($category && $category->getEdaInfo()->getVisibility() !== null) {
+            return $category->getEdaInfo()->getVisibility();
+        }
+
+        //If both are null, then we try to determine the visibility based on if fields are set
+        if ($eda_info->getKicadSymbol() !== null
+            || $eda_info->getKicadFootprint() !== null
+            || $eda_info->getReferencePrefix() !== null
+            || $eda_info->getValue() !== null) {
+            return true;
+        }
+
+        //Check also if the fields are set for the category (if it exists)
+        if ($category && (
+                $category->getEdaInfo()->getKicadSymbol() !== null
+                || $category->getEdaInfo()->getReferencePrefix() !== null
+            )) {
+            return true;
+        }
+
+        //And on the footprint
+        if ($part->getFootprint() && $part->getFootprint()->getEdaInfo()->getKicadFootprint() !== null) {
+            return true;
+        }
+
+        //Otherwise the part should be not visible
+        return false;
     }
 
     /**
