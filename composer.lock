@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfd86c5e0f6babab714b138066e7ed7e",
+    "content-hash": "34063c16f9d91c6646cef15a75f84099",
     "packages": [
         {
             "name": "api-platform/core",
@@ -1986,12 +1986,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "87bea32efe0b0db309e1d31537201f64d5508280"
+                "reference": "511e7e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/87bea32efe0b0db309e1d31537201f64d5508280",
-                "reference": "87bea32efe0b0db309e1d31537201f64d5508280",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/511e7e0",
+                "reference": "511e7e0",
                 "shasum": ""
             },
             "require": {
