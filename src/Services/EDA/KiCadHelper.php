@@ -28,6 +28,7 @@ use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
@@ -43,11 +44,9 @@ class KiCadHelper
         private readonly ElementCacheTagGenerator $tagGenerator,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly TranslatorInterface $translator,
+        /** The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
         private readonly int $category_depth,
     ) {
-        if ($this->category_depth < 0) {
-            throw new \InvalidArgumentException('The category depth must be greater than or equal to 0');
-        }
     }
 
     /**
@@ -63,6 +62,18 @@ class KiCadHelper
             //Invalidate the cache on category changes
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
             $item->tag($secure_class_name);
+
+            //If the category depth is smaller than 1, create only one dummy category
+            if ($this->category_depth < 1) {
+                return [
+                    [
+                        'id' => '0',
+                        'name' => 'Part-DB',
+                    ]
+                ];
+            }
+
+            //Otherwise just get the categories and filter them
 
             $categories = $this->nodesListBuilder->typeToNodesList(Category::class);
             $repo = $this->em->getRepository(Category::class);
@@ -101,25 +112,35 @@ class KiCadHelper
     /**
      * Returns an array of objects containing all parts for the given category in the format required by KiCAD.
      * The result is cached for performance and invalidated on category or part changes.
-     * @param  Category  $category
+     * @param  Category|null  $category
      * @return array
      */
-    public function getCategoryParts(Category $category): array
+    public function getCategoryParts(?Category $category): array
     {
-        return $this->kicadCache->get('kicad_category_parts_'.$category->getID() . '_' . $this->category_depth,
+        return $this->kicadCache->get('kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
                     $this->tagGenerator->getElementTypeCacheTag(Part::class)
                 ]);
 
-                $category_repo = $this->em->getRepository(Category::class);
-                if ($category->getLevel() >= $this->category_depth) {
-                    //Get all parts for the category and its children
-                    $parts = $category_repo->getPartsRecursive($category);
+                if ($this->category_depth >= 0) {
+                    //Ensure that the category is set
+                    if (!$category) {
+                        throw new NotFoundHttpException('Category must be set, if category_depth is greater than 1!');
+                    }
+
+                    $category_repo = $this->em->getRepository(Category::class);
+                    if ($category->getLevel() >= $this->category_depth) {
+                        //Get all parts for the category and its children
+                        $parts = $category_repo->getPartsRecursive($category);
+                    } else {
+                        //Get only direct parts for the category (without children), as the category is not collapsed
+                        $parts = $category_repo->getParts($category);
+                    }
                 } else {
-                    //Get only direct parts for the category (without children), as the category is not collapsed
-                    $parts = $category_repo->getParts($category);
+                    //Get all parts
+                    $parts = $this->em->getRepository(Part::class)->findAll();
                 }
 
                 $result = [];

@@ -62,9 +62,13 @@ class KiCadApiController extends AbstractController
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
-    public function categoryParts(Category $category): Response
+    public function categoryParts(?Category $category): Response
     {
-        $this->denyAccessUnlessGranted('read', $category);
+        if ($category) {
+            $this->denyAccessUnlessGranted('read', $category);
+        } else {
+            $this->denyAccessUnlessGranted('@categories.read');
+        }
         $this->denyAccessUnlessGranted('@parts.read');
 
         return $this->json($this->kiCADHelper->getCategoryParts($category));
