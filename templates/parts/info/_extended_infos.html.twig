@@ -92,7 +92,7 @@
             <br>
             <b>{% trans %}eda_info.value{% endtrans %}:</b> {{ part.edaInfo.value }}
             <br>
-            <b>{% trans %}eda_info.invisible{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.invisible ?? part.category.edaInfo.invisible ?? false) }}
+            <b>{% trans %}eda_info.visibility{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.visibility ?? part.category.edaInfo.visibility) }}
             <br>
             <b>{% trans %}eda_info.exclude_from_bom{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.excludeFromBom ?? part.category.edaInfo.excludeFromBom ?? false) }}
             <br>

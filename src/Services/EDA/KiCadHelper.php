@@ -80,7 +80,7 @@ class KiCadHelper
             $result = [];
             foreach ($categories as $category) {
                 //Skip invisible categories
-                if ($category->getEdaInfo()->getInvisible() ?? false) {
+                if ($category->getEdaInfo()->getVisibility() === false) {
                     continue;
                 }
 
@@ -146,7 +146,7 @@ class KiCadHelper
                 $result = [];
                 foreach ($parts as $part) {
                     //If the part is invisible, then skip it
-                    if ($part->getEdaInfo()->getInvisible() ?? $part->getCategory()?->getEdaInfo()->getInvisible() ?? false) {
+                    if ($part->getEdaInfo()->getVisibility() === false || $part->getCategory()?->getEdaInfo()->getVisibility() === false) {
                         continue;
                     }
 
