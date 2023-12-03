@@ -2,9 +2,10 @@
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: true
+    annotations: false
     handle_all_throwables: true
 
-    # We set this header by ourself, so we can disable it here
+    # We set this header by ourselves, so we can disable it here
     disallow_search_engine_index: false
 
     # Must be set to true, to enable the change of HTTP method via _method parameter, otherwise our delete routines does not work anymore
@@ -26,7 +27,6 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
-        storage_factory_id: session.storage.factory.native
 
     #esi: true
     #fragments: true
