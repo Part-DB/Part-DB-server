@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd82157e9fd31dc55d21709ad2fb6fa9",
+    "content-hash": "210ae4cacb9f30ae2dad8611b4908bb0",
     "packages": [
         {
             "name": "api-platform/core",
@@ -1634,16 +1634,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "e4e0855ea993d169c8adb50e19b014e64bbdda46"
+                "reference": "47af29eef49f29ebee545947e8b2a4b3be318c8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e4e0855ea993d169c8adb50e19b014e64bbdda46",
-                "reference": "e4e0855ea993d169c8adb50e19b014e64bbdda46",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/47af29eef49f29ebee545947e8b2a4b3be318c8a",
+                "reference": "47af29eef49f29ebee545947e8b2a4b3be318c8a",
                 "shasum": ""
             },
             "require": {
@@ -1716,7 +1716,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
-                "source": "https://github.com/doctrine/migrations/tree/3.7.1"
+                "source": "https://github.com/doctrine/migrations/tree/3.7.2"
             },
             "funding": [
                 {
@@ -1732,7 +1732,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-19T06:55:22+00:00"
+            "time": "2023-12-05T11:35:05+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -2962,24 +2962,25 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "04246578095611b581446131fab9b0f2c8ff8f75"
+                "reference": "bd52eadd9346532557ba3ffbbe732dae1fa6e65d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/04246578095611b581446131fab9b0f2c8ff8f75",
-                "reference": "04246578095611b581446131fab9b0f2c8ff8f75",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/bd52eadd9346532557ba3ffbbe732dae1fa6e65d",
+                "reference": "bd52eadd9346532557ba3ffbbe732dae1fa6e65d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "nyholm/psr7": "^1.5",
                 "php": "^8.1",
-                "scheb/2fa-bundle": "^6.0.0",
-                "symfony/framework-bundle": "^6.0",
+                "psr/log": "^3.0.0|^2.0.0",
+                "scheb/2fa-bundle": "^6.0.0|^7.0.0",
+                "symfony/framework-bundle": "^6.0|^7.0",
                 "symfony/psr-http-message-bridge": "^2.1",
                 "symfony/uid": "^6.0",
                 "web-auth/webauthn-lib": "^4.7"
@@ -3015,30 +3016,30 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
-                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v2.1.0"
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v2.2.0"
             },
-            "time": "2023-10-03T23:16:20+00:00"
+            "time": "2023-12-05T22:25:31+00:00"
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/dompdf-font-loader-bundle.git",
-                "reference": "8323aa3d4c3e70536b958a44f159208a6a0f7fa2"
+                "reference": "ab85a2962caee9cf0c848bd19d5bd84f2b72101c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/8323aa3d4c3e70536b958a44f159208a6a0f7fa2",
-                "reference": "8323aa3d4c3e70536b958a44f159208a6a0f7fa2",
+                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/ab85a2962caee9cf0c848bd19d5bd84f2b72101c",
+                "reference": "ab85a2962caee9cf0c848bd19d5bd84f2b72101c",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "v1.0.0|v2.0.3",
                 "ext-json": "*",
                 "php": "^8.1",
-                "symfony/finder": "^6.0",
-                "symfony/framework-bundle": "^6.0"
+                "symfony/finder": "^6.0|^7.0",
+                "symfony/framework-bundle": "^6.0|^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -3070,9 +3071,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/dompdf-font-loader-bundle/issues",
-                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.0.0"
+                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.0"
             },
-            "time": "2023-07-02T00:21:14+00:00"
+            "time": "2023-12-05T21:16:54+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -6344,24 +6345,25 @@
         },
         {
             "name": "s9e/sweetdom",
-            "version": "2.1.2",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/SweetDOM.git",
-                "reference": "482d42537a1e0ab98924a9d932b724a175302fe8"
+                "reference": "1c1c4b83e9ef647ff0ae20235b61cd9c278102a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/SweetDOM/zipball/482d42537a1e0ab98924a9d932b724a175302fe8",
-                "reference": "482d42537a1e0ab98924a9d932b724a175302fe8",
+                "url": "https://api.github.com/repos/s9e/SweetDOM/zipball/1c1c4b83e9ef647ff0ae20235b61cd9c278102a8",
+                "reference": "1c1c4b83e9ef647ff0ae20235b61cd9c278102a8",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
-                "php": ">=8.0"
+                "php": ">=8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^10.0",
+                "s9e/repdoc": "dev-wip"
             },
             "type": "library",
             "autoload": {
@@ -6382,31 +6384,31 @@
             ],
             "support": {
                 "issues": "https://github.com/s9e/SweetDOM/issues",
-                "source": "https://github.com/s9e/SweetDOM/tree/2.1.2"
+                "source": "https://github.com/s9e/SweetDOM/tree/3.2.0"
             },
-            "time": "2023-10-07T13:06:42+00:00"
+            "time": "2023-11-26T15:30:50+00:00"
         },
         {
             "name": "s9e/text-formatter",
-            "version": "2.14.3",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "bec02b24b78e4bc292c731b334d7cd31be72c3c7"
+                "reference": "3eccb693643b65b2ffcda4baa34bd435c3b578f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/bec02b24b78e4bc292c731b334d7cd31be72c3c7",
-                "reference": "bec02b24b78e4bc292c731b334d7cd31be72c3c7",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/3eccb693643b65b2ffcda4baa34bd435c3b578f0",
+                "reference": "3eccb693643b65b2ffcda4baa34bd435c3b578f0",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-filter": "*",
                 "lib-pcre": ">=8.13",
-                "php": "^8.0",
+                "php": "^8.1",
                 "s9e/regexp-builder": "^1.4",
-                "s9e/sweetdom": "^2.0"
+                "s9e/sweetdom": "^3.0"
             },
             "require-dev": {
                 "code-lts/doctum": "*",
@@ -6424,7 +6426,7 @@
             },
             "type": "library",
             "extra": {
-                "version": "2.14.3"
+                "version": "2.15.0"
             },
             "autoload": {
                 "psr-4": {
@@ -6456,9 +6458,9 @@
             ],
             "support": {
                 "issues": "https://github.com/s9e/TextFormatter/issues",
-                "source": "https://github.com/s9e/TextFormatter/tree/2.14.3"
+                "source": "https://github.com/s9e/TextFormatter/tree/2.15.0"
             },
-            "time": "2023-11-11T15:27:53+00:00"
+            "time": "2023-12-03T23:25:29+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -8537,16 +8539,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "ae6dea68771c5fca9d172e0c0910bdd06199f6f4"
+                "reference": "67ee785f1aedada76461de7a7ec10cd7f8ff8d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/ae6dea68771c5fca9d172e0c0910bdd06199f6f4",
-                "reference": "ae6dea68771c5fca9d172e0c0910bdd06199f6f4",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/67ee785f1aedada76461de7a7ec10cd7f8ff8d36",
+                "reference": "67ee785f1aedada76461de7a7ec10cd7f8ff8d36",
                 "shasum": ""
             },
             "require": {
@@ -8582,7 +8584,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.4.1"
+                "source": "https://github.com/symfony/flex/tree/v2.4.2"
             },
             "funding": [
                 {
@@ -8598,7 +8600,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-30T18:35:17+00:00"
+            "time": "2023-12-05T14:09:35+00:00"
         },
         {
             "name": "symfony/form",
@@ -14778,16 +14780,16 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v8.0.0",
+            "version": "v8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "e7ed49228d12853404aeb873adbada825062204c"
+                "reference": "e382d27bc03ee04e0fd0ef95391047042792e7cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/e7ed49228d12853404aeb873adbada825062204c",
-                "reference": "e7ed49228d12853404aeb873adbada825062204c",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/e382d27bc03ee04e0fd0ef95391047042792e7cc",
+                "reference": "e382d27bc03ee04e0fd0ef95391047042792e7cc",
                 "shasum": ""
             },
             "require": {
@@ -14840,9 +14842,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.0.0"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.0.1"
             },
-            "time": "2023-11-28T07:53:30+00:00"
+            "time": "2023-12-05T16:11:29+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -16202,16 +16204,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.18.11",
+            "version": "0.18.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "9621124c860066f56a4ab841349cb7c284edfaee"
+                "reference": "ed8d5352a3faa69e4a5e315896abffd4bc29c828"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/9621124c860066f56a4ab841349cb7c284edfaee",
-                "reference": "9621124c860066f56a4ab841349cb7c284edfaee",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/ed8d5352a3faa69e4a5e315896abffd4bc29c828",
+                "reference": "ed8d5352a3faa69e4a5e315896abffd4bc29c828",
                 "shasum": ""
             },
             "require": {
@@ -16246,7 +16248,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.18.11"
+                "source": "https://github.com/rectorphp/rector/tree/0.18.12"
             },
             "funding": [
                 {
@@ -16254,7 +16256,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-27T13:27:43+00:00"
+            "time": "2023-12-04T08:47:30+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -16262,12 +16264,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b4728d9c4af8c60b059c1d7872759eedacccdb12"
+                "reference": "c7332a39b09af9d355cf0048e985c54055bd1fe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b4728d9c4af8c60b059c1d7872759eedacccdb12",
-                "reference": "b4728d9c4af8c60b059c1d7872759eedacccdb12",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c7332a39b09af9d355cf0048e985c54055bd1fe5",
+                "reference": "c7332a39b09af9d355cf0048e985c54055bd1fe5",
                 "shasum": ""
             },
             "conflict": {
@@ -16643,7 +16645,7 @@
                 "phpmyfaq/phpmyfaq": "<=3.1.7",
                 "phpoffice/phpexcel": "<1.8",
                 "phpoffice/phpspreadsheet": "<1.16",
-                "phpseclib/phpseclib": "<3.0.34",
+                "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.34",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.2.5",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5,<5.6.3",
@@ -16962,7 +16964,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-30T20:04:21+00:00"
+            "time": "2023-12-05T01:28:42+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -18565,16 +18567,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "5.16.0",
+            "version": "5.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "2897ba636551a8cb61601cc26f6ccfbba6c36591"
+                "reference": "c620f6e80d0abfca532b00bda366062aaedf6e5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/2897ba636551a8cb61601cc26f6ccfbba6c36591",
-                "reference": "2897ba636551a8cb61601cc26f6ccfbba6c36591",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/c620f6e80d0abfca532b00bda366062aaedf6e5d",
+                "reference": "c620f6e80d0abfca532b00bda366062aaedf6e5d",
                 "shasum": ""
             },
             "require": {
@@ -18671,7 +18673,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2023-11-22T20:38:47+00:00"
+            "time": "2023-12-03T20:21:41+00:00"
         }
     ],
     "aliases": [
