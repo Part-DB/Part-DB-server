@@ -20,7 +20,7 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Doctrine\SetSQLMode;
+namespace App\Doctrine\Middleware;
 
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Middleware;
@@ -30,7 +30,6 @@ use Doctrine\DBAL\Driver\Middleware;
  */
 class SetSQLModeMiddlewareWrapper implements Middleware
 {
-
     public function wrap(Driver $driver): Driver
     {
         return new SetSQLModeMiddlewareDriver($driver);
