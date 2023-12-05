@@ -62,8 +62,12 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
      * @param  string  $value
      * @return int
      */
-    final public static function regexp(string $pattern, string $value): int
+    final public static function regexp(string $pattern, ?string $value): int
     {
+        if ($value === null) {
+            return 0;
+        }
+
         try {
             return (mb_ereg($pattern, $value)) ? 1 : 0;
 
