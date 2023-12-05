@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "210ae4cacb9f30ae2dad8611b4908bb0",
+    "content-hash": "933822c8b0473aeb6ac94e3d7f74f6dd",
     "packages": [
         {
             "name": "api-platform/core",
@@ -4664,54 +4664,57 @@
         },
         {
             "name": "omines/datatables-bundle",
-            "version": "0.7.2",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/omines/datatables-bundle.git",
-                "reference": "8e0dce49a271e0cfdf128d42bf81a336f8f02232"
+                "reference": "d0503e8bd56f5c4b379e930f51f499d0a04d07c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/8e0dce49a271e0cfdf128d42bf81a336f8f02232",
-                "reference": "8e0dce49a271e0cfdf128d42bf81a336f8f02232",
+                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/d0503e8bd56f5c4b379e930f51f499d0a04d07c1",
+                "reference": "d0503e8bd56f5c4b379e930f51f499d0a04d07c1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0",
-                "symfony/event-dispatcher": "^5.4|^6.0",
-                "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/options-resolver": "^5.4|^6.0",
-                "symfony/property-access": "^5.4|^6.0",
-                "symfony/translation": "^5.4|^6.0"
+                "php": ">=8.1",
+                "symfony/event-dispatcher": "^6.3|^7.0",
+                "symfony/framework-bundle": "^6.3|^7.0",
+                "symfony/options-resolver": "^6.3|^7.0",
+                "symfony/property-access": "^6.3|^7.0",
+                "symfony/translation": "^6.3|^7.0"
             },
             "require-dev": {
                 "doctrine/common": "^2.6|^3.3",
-                "doctrine/doctrine-bundle": "^2.7|^3.0",
+                "doctrine/doctrine-bundle": "^2.11.1",
                 "doctrine/orm": "^2.13.1",
-                "doctrine/persistence": "^2.0|^3.0.3",
+                "doctrine/persistence": "^3.0.3",
                 "ext-curl": "*",
                 "ext-json": "*",
+                "ext-mongodb": "*",
                 "ext-pdo_sqlite": "*",
                 "ext-zip": "*",
-                "friendsofphp/php-cs-fixer": "^3.9.5",
+                "friendsofphp/php-cs-fixer": "^v3.40.0",
                 "mongodb/mongodb": "^1.12",
-                "ocramius/package-versions": "^2.5",
+                "ocramius/package-versions": "^2.8",
                 "phpoffice/phpspreadsheet": "^1.24.1",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan": "^1.8.2",
                 "phpstan/phpstan-doctrine": "^1.3.12",
                 "phpstan/phpstan-phpunit": "^1.1",
                 "phpstan/phpstan-symfony": "^1.2.9",
+                "phpunit/phpunit": "^10.5.1",
                 "ruflin/elastica": "^6.0|^7.2",
-                "symfony/browser-kit": "^5.4|^6.1.3",
-                "symfony/css-selector": "^5.4|^6.1.3",
-                "symfony/dom-crawler": "^5.4|^6.1.3",
-                "symfony/intl": "^5.4|^6.1",
-                "symfony/mime": "^5.4|^6.1.3",
-                "symfony/phpunit-bridge": "^5.4|^6.1.3",
-                "symfony/twig-bundle": "^5.4|^6.1.1",
-                "symfony/var-dumper": "^5.4|^6.1.3",
-                "symfony/yaml": "^5.4|^6.1.3"
+                "symfony/browser-kit": "^6.1.3|^7.0",
+                "symfony/css-selector": "^6.1.3|^7.0",
+                "symfony/doctrine-bridge": "^6.3|^7.0",
+                "symfony/dom-crawler": "^6.1.3|^7.0",
+                "symfony/intl": "^6.1|^7.0",
+                "symfony/mime": "^6.1.3|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0",
+                "symfony/twig-bundle": "^6.1.1|^7.0",
+                "symfony/var-dumper": "^6.1.3|^7.0",
+                "symfony/yaml": "^6.1.3|^7.0"
             },
             "suggest": {
                 "doctrine/doctrine-bundle": "For integrated access to Doctrine object managers",
@@ -4724,7 +4727,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7-dev"
+                    "dev-master": "0.8-dev"
                 }
             },
             "autoload": {
@@ -4740,12 +4743,12 @@
                 {
                     "name": "Robbert Beesems",
                     "email": "robbert.beesems@omines.com",
-                    "homepage": "https://omines.nl/"
+                    "homepage": "https://www.omines.nl/"
                 },
                 {
                     "name": "Niels Keurentjes",
                     "email": "niels.keurentjes@omines.com",
-                    "homepage": "https://omines.nl/"
+                    "homepage": "https://www.omines.nl/"
                 }
             ],
             "description": "Symfony DataTables Bundle with native Doctrine ORM, Elastica and MongoDB support",
@@ -4762,9 +4765,15 @@
             ],
             "support": {
                 "issues": "https://github.com/omines/datatables-bundle/issues",
-                "source": "https://github.com/omines/datatables-bundle/tree/0.7.2"
+                "source": "https://github.com/omines/datatables-bundle/tree/0.8.0"
             },
-            "time": "2023-04-24T09:09:02+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/curry684",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-12-05T08:18:04+00:00"
         },
         {
             "name": "onelogin/php-saml",

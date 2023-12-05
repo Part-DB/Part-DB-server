@@ -30,10 +30,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SelectColumn extends AbstractColumn
 {
-    /**
-     * @return $this
-     */
-    public function configureOptions(OptionsResolver $resolver): self
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
 

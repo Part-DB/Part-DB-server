@@ -57,10 +57,7 @@ class LogEntryTargetColumn extends AbstractColumn
         return $value;
     }
 
-    /**
-     * @return $this
-     */
-    public function configureOptions(OptionsResolver $resolver): self
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('show_associated', true);
