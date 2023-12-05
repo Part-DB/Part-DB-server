@@ -190,7 +190,6 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 
             //Reseting autoincrement is only supported on MySQL platforms
             if ($platform instanceof AbstractMySQLPlatform ) { //|| $platform instanceof SqlitePlatform) {
-                $connection->beginTransaction();
                 $connection->executeQuery($this->getResetAutoIncrementSQL($tbl, $platform));
             }
         }

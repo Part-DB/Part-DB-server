@@ -397,4 +397,4 @@ when@test:
             arguments:
                 - '@doctrine.fixtures.loader'
                 - '@doctrine'
-                - { default: '@App\Doctrine\Purger\ResetAutoIncrementPurgerFactory' }
+                - { default: '@App\Doctrine\Purger\DoNotUsePurgerFactory' }

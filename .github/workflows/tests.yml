@@ -107,9 +107,10 @@ jobs:
     
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
-    
+
+      # Use our own custom fixtures loading command to circumvent some problems with reset the autoincrement values
       - name: Load fixtures
-        run: php bin/console --env test doctrine:fixtures:load -n
+        run: php bin/console --env test partdb:fixtures:load -n
     
       - name: Run PHPunit and generate coverage
         run: ./bin/phpunit --coverage-clover=coverage.xml
