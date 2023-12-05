@@ -47,10 +47,10 @@ class TinyIntType extends Type
      * @param T $value
      *
      * @return (T is null ? null : int)
-     *
+          *
      * @template T
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?int
     {
         return $value === null ? null : (int) $value;
     }

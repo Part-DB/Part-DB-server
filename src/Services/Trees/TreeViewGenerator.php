@@ -127,7 +127,7 @@ class TreeViewGenerator
             }
 
             if ($href_type !== '' && null !== $item->getId()) {
-                $entity = $this->em->getPartialReference($class, $item->getId());
+                $entity = $this->em->find($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }
 
