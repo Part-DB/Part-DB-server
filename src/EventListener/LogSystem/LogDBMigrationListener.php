@@ -20,11 +20,11 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber\LogSystem;
+namespace App\EventListener\LogSystem;
 
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Services\LogSystem\EventLogger;
-use Doctrine\Common\EventSubscriber;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Event\MigrationsEventArgs;
 use Doctrine\Migrations\Events;
@@ -32,7 +32,9 @@ use Doctrine\Migrations\Events;
 /**
  * This subscriber logs databaseMigrations to Event log.
  */
-class LogDBMigrationSubscriber implements EventSubscriber
+#[AsDoctrineListener(Events::onMigrationsMigrated)]
+#[AsDoctrineListener(Events::onMigrationsMigrating)]
+class LogDBMigrationListener
 {
     protected ?string $old_version = null;
     protected ?string $new_version = null;
@@ -75,13 +77,5 @@ class LogDBMigrationSubscriber implements EventSubscriber
             //$this->old_version = $args->getConfiguration()->getCurrentVersion();
             $this->old_version = (string) $aliasResolver->resolveVersionAlias('current');
         }
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::onMigrationsMigrated,
-            Events::onMigrationsMigrating,
-        ];
     }
 }

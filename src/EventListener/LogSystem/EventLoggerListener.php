@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber\LogSystem;
+namespace App\EventListener\LogSystem;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
@@ -38,7 +38,7 @@ use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 use App\Services\LogSystem\EventUndoHelper;
-use Doctrine\Common\EventSubscriber;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -50,7 +50,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * This event subscriber writes to the event log when entities are changed, removed, created.
  */
-class EventLoggerSubscriber implements EventSubscriber
+#[AsDoctrineListener(Events::onFlush)]
+#[AsDoctrineListener(Events::postPersist)]
+#[AsDoctrineListener(Events::postFlush)]
+class EventLoggerListener
 {
     /**
      * @var array The given fields will not be saved, because they contain sensitive information
@@ -187,14 +190,6 @@ class EventLoggerSubscriber implements EventSubscriber
         return true;
     }
 
-    public function getSubscribedEvents(): array
-    {
-        return[
-            Events::onFlush,
-            Events::postPersist,
-            Events::postFlush,
-        ];
-    }
 
     protected function logElementDeleted(AbstractDBElement $entity, EntityManagerInterface $em): void
     {
