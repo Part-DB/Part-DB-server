@@ -20,10 +20,10 @@
 
 namespace App\Tests\Doctrine;
 
-use App\Doctrine\SQLiteRegexExtension;
+use App\Doctrine\Middleware\SQLiteRegexExtensionMiddlewareDriver;
 use PHPUnit\Framework\TestCase;
 
-class SQLiteRegexExtensionTest extends TestCase
+class SQLiteRegexMiddlewareTest extends TestCase
 {
 
     public function regexpDataProvider(): \Generator
@@ -44,7 +44,7 @@ class SQLiteRegexExtensionTest extends TestCase
      */
     public function testRegexp(int $expected, string $pattern, string $value): void
     {
-        $this->assertSame($expected, SQLiteRegexExtension::regexp($pattern, $value));
+        $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::regexp($pattern, $value));
     }
 
     public function fieldDataProvider(): \Generator
@@ -76,7 +76,7 @@ class SQLiteRegexExtensionTest extends TestCase
      */
     public function testField(int $expected, string|int|null $value, array $array): void
     {
-        $this->assertSame($expected, SQLiteRegexExtension::field($value, ...$array));
+        $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::field($value, ...$array));
     }
 
     /**
@@ -86,6 +86,6 @@ class SQLiteRegexExtensionTest extends TestCase
     {
         //Should be the same as field, but with the array comma imploded
         $string = implode(',', $array);
-        $this->assertSame($expected, SQLiteRegexExtension::field2($value, $string));
+        $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::field2($value, $string));
     }
 }
