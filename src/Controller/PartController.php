@@ -414,6 +414,12 @@ class PartController extends AbstractController
                 throw new \LogicException("The timestamp must not be in the future!");
             }
 
+            //Ensure that the amount is not null or negative
+            if ($amount <= 0) {
+                $this->addFlash('warning', 'part.withdraw.zero_amount');
+                goto err;
+            }
+
             try {
                 switch ($action) {
                     case "withdraw":

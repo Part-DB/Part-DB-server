@@ -11958,115 +11958,115 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="2NZFail" name="collection_type.new_element.tooltip">
-      <segment state="translated">
+      <segment>
         <source>collection_type.new_element.tooltip</source>
         <target>This element was newly created and was not persisted to the database yet.</target>
       </segment>
     </unit>
     <unit id="USUaBZ0" name="part.merge.title">
-      <segment state="translated">
+      <segment>
         <source>part.merge.title</source>
         <target>Merge part</target>
       </segment>
     </unit>
     <unit id="sCLZTwA" name="part.merge.title.into">
-      <segment state="translated">
+      <segment>
         <source>part.merge.title.into</source>
         <target>into</target>
       </segment>
     </unit>
     <unit id="nISUoQl" name="part.merge.confirm.title">
-      <segment state="translated">
+      <segment>
         <source>part.merge.confirm.title</source>
-        <target>Do you really want to merge &lt;b&gt;%other%&lt;/b&gt; into &lt;b&gt;%target%&lt;/b&gt;?</target>
+        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
       </segment>
     </unit>
     <unit id="qxHNYfX" name="part.merge.confirm.message">
-      <segment state="translated">
+      <segment>
         <source>part.merge.confirm.message</source>
-        <target>&lt;b&gt;%other%&lt;/b&gt; will be deleted, and the part will be saved with the shown information.</target>
+        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
       </segment>
     </unit>
     <unit id="BY9.T4F" name="part.info.merge_modal.title">
-      <segment state="translated">
+      <segment>
         <source>part.info.merge_modal.title</source>
         <target>Merge parts</target>
       </segment>
     </unit>
     <unit id="CasQeyD" name="part.info.merge_modal.other_part">
-      <segment state="translated">
+      <segment>
         <source>part.info.merge_modal.other_part</source>
         <target>Other part</target>
       </segment>
     </unit>
     <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
-      <segment state="translated">
+      <segment>
         <source>part.info.merge_modal.other_into_this</source>
         <target>Merge other part into this one (delete other part, keep this one)</target>
       </segment>
     </unit>
     <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
-      <segment state="translated">
+      <segment>
         <source>part.info.merge_modal.this_into_other</source>
         <target>Merge this part into other one (delete this part, keep other one)</target>
       </segment>
     </unit>
     <unit id="pO3q5CN" name="part.info.merge_btn">
-      <segment state="translated">
+      <segment>
         <source>part.info.merge_btn</source>
         <target>Merge part</target>
       </segment>
     </unit>
     <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
-      <segment state="translated">
+      <segment>
         <source>part.update_part_from_info_provider.btn</source>
         <target>Update part from info providers</target>
       </segment>
     </unit>
     <unit id="n6_Ec0h" name="info_providers.update_part.title">
-      <segment state="translated">
+      <segment>
         <source>info_providers.update_part.title</source>
         <target>Update existing part from info provider</target>
       </segment>
     </unit>
     <unit id="lkIVIWr" name="part.merge.flash.please_review">
-      <segment state="translated">
+      <segment>
         <source>part.merge.flash.please_review</source>
         <target>Data not saved yet. Review the changes and click save to persist the new data.</target>
       </segment>
     </unit>
     <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
-      <segment state="translated">
+      <segment>
         <source>user.edit.flash.permissions_fixed</source>
         <target>Permissions required by other permissions were missing. This was corrected. Please check if the permissions are as you intended.</target>
       </segment>
     </unit>
     <unit id="gjo2ZK7" name="permission.legend.dependency_note">
-      <segment state="translated">
+      <segment>
         <source>permission.legend.dependency_note</source>
         <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally found right of an operation.</target>
       </segment>
     </unit>
     <unit id="VFdWqOX" name="log.part_stock_changed.timestamp">
-      <segment state="translated">
+      <segment>
         <source>log.part_stock_changed.timestamp</source>
         <target>Timestamp</target>
       </segment>
     </unit>
     <unit id="Hj7NX8C" name="part.info.withdraw_modal.timestamp">
-      <segment state="translated">
+      <segment>
         <source>part.info.withdraw_modal.timestamp</source>
         <target>Action timestamp</target>
       </segment>
     </unit>
     <unit id="USYGK0J" name="part.info.withdraw_modal.timestamp.hint">
-      <segment state="translated">
+      <segment>
         <source>part.info.withdraw_modal.timestamp.hint</source>
         <target>This field allows you to specify the real date, when the stock operation actually was performed, and not just when it was logged. This value is saved in the extra field of the log entry.</target>
       </segment>
     </unit>
     <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
-      <segment state="translated">
+      <segment>
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
         <target>Delete this lot, if it becomes empty</target>
       </segment>
@@ -12078,111 +12078,117 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
-      <segment state="translated">
+      <segment>
         <source>eda_info.reference_prefix.placeholder</source>
         <target>e.g. R</target>
       </segment>
     </unit>
     <unit id="3nLUWrL" name="eda_info.reference_prefix">
-      <segment state="translated">
+      <segment>
         <source>eda_info.reference_prefix</source>
         <target>Reference prefix</target>
       </segment>
     </unit>
     <unit id="OTQU79e" name="eda_info.kicad_section.title">
-      <segment state="translated">
+      <segment>
         <source>eda_info.kicad_section.title</source>
         <target>KiCad specific settings</target>
       </segment>
     </unit>
     <unit id="_Z4ARu6" name="eda_info.value">
-      <segment state="translated">
+      <segment>
         <source>eda_info.value</source>
         <target>Value</target>
       </segment>
     </unit>
     <unit id="k5gOKhU" name="eda_info.value.placeholder">
-      <segment state="translated">
+      <segment>
         <source>eda_info.value.placeholder</source>
         <target>e.g. 100n</target>
       </segment>
     </unit>
     <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
-      <segment state="translated">
+      <segment>
         <source>eda_info.exclude_from_bom</source>
         <target>Exclude part from BOM</target>
       </segment>
     </unit>
     <unit id="jDHzKDL" name="eda_info.exclude_from_board">
-      <segment state="translated">
+      <segment>
         <source>eda_info.exclude_from_board</source>
         <target>Exclude part from PCB/Board</target>
       </segment>
     </unit>
     <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
-      <segment state="translated">
+      <segment>
         <source>eda_info.exclude_from_sim</source>
         <target>Exclude part from simulation</target>
       </segment>
     </unit>
     <unit id="P6keLR_" name="eda_info.kicad_symbol">
-      <segment state="translated">
+      <segment>
         <source>eda_info.kicad_symbol</source>
         <target>KiCad schematic symbol</target>
       </segment>
     </unit>
     <unit id="k_xjHgN" name="eda_info.kicad_symbol.placeholder">
-      <segment state="translated">
+      <segment>
         <source>eda_info.kicad_symbol.placeholder</source>
         <target>e.g. Transistor_BJT:BC547</target>
       </segment>
     </unit>
     <unit id="TAm88A8" name="eda_info.kicad_footprint">
-      <segment state="translated">
+      <segment>
         <source>eda_info.kicad_footprint</source>
         <target>KiCad footprint</target>
       </segment>
     </unit>
     <unit id="y2hGwZr" name="eda_info.kicad_footprint.placeholder">
-      <segment state="translated">
+      <segment>
         <source>eda_info.kicad_footprint.placeholder</source>
         <target>e.g. Package_TO_SOT_THT:TO-92</target>
       </segment>
     </unit>
     <unit id="2kt7qP7" name="part.edit.tab.eda">
-      <segment state="translated">
+      <segment>
         <source>part.edit.tab.eda</source>
         <target>EDA information</target>
       </segment>
     </unit>
     <unit id="G0dSeRY" name="api.api_endpoints.title">
-      <segment state="translated">
+      <segment>
         <source>api.api_endpoints.title</source>
         <target>API endpoints</target>
       </segment>
     </unit>
     <unit id="yFYyK5u" name="api.api_endpoints.partdb">
-      <segment state="translated">
+      <segment>
         <source>api.api_endpoints.partdb</source>
         <target>Part-DB API</target>
       </segment>
     </unit>
     <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
-      <segment state="translated">
+      <segment>
         <source>api.api_endpoints.kicad_root_url</source>
         <target>KiCad API root URL</target>
       </segment>
     </unit>
     <unit id="UXT_MIM" name="eda_info.visibility">
-      <segment state="translated">
+      <segment>
         <source>eda_info.visibility</source>
         <target>Force visibility</target>
       </segment>
     </unit>
     <unit id="NN5DZ4F" name="eda_info.visibility.help">
-      <segment state="translated">
+      <segment>
         <source>eda_info.visibility.help</source>
         <target>By default, the visibility to the EDA software is automatically determined. With this checkbox, you can force the part to be visible or invisible.</target>
+      </segment>
+    </unit>
+    <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
+      <segment>
+        <source>part.withdraw.zero_amount</source>
+        <target>You tried to withdraw/add an amount of zero! No action was performed.</target>
       </segment>
     </unit>
   </file>
