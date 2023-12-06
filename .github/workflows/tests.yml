@@ -45,7 +45,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           coverage: pcov
           ini-values: xdebug.max_nesting_level=1000
-          extensions: mbstring, intl, gd, xsl, gmp, bcmath        
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
     
       - name: Start MySQL
         run: sudo systemctl start mysql.service
