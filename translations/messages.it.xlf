@@ -242,8 +242,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the info may not be correct.&lt;/i&gt;
-Così appare il componente prima di %timestamp%. &lt;i&gt;Si prega di notare che questa funzione è sperimentale, quindi le informazioni potrebbero non essere corrette.&lt;/i&gt;</target>
+        <target>Così appare il componente prima di %timestamp%. &lt;i&gt;Si prega di notare che questa funzione è sperimentale, quindi le informazioni potrebbero non essere corrette.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
@@ -11951,6 +11950,240 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       <segment state="translated">
         <source>scan_dialog.mode.vendor</source>
         <target>Codice a barre del fornitore (configurato nel lotto della parte)</target>
+      </segment>
+    </unit>
+    <unit id="ilCTQni" name="project.bom.instockAmount">
+      <segment state="translated">
+        <source>project.bom.instockAmount</source>
+        <target>Quantità a magazzino</target>
+      </segment>
+    </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment state="translated">
+        <source>collection_type.new_element.tooltip</source>
+        <target>Questo elemento è stato creato di recente e non è stato ancora reso permanente nel database.</target>
+      </segment>
+    </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment state="translated">
+        <source>part.merge.title</source>
+        <target>Unire componente</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment state="translated">
+        <source>part.merge.title.into</source>
+        <target>in</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment state="translated">
+        <source>part.merge.confirm.title</source>
+        <target>Si vuole davvero unire &lt;b&gt;%other%&lt;/b&gt; in &lt;b&gt;%target%&lt;/b&gt;?</target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment state="translated">
+        <source>part.merge.confirm.message</source>
+        <target>&lt;b&gt;%other%&lt;/b&gt; verrà eliminato, e il componente verrà salvato con le informazioni mostrate.</target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment state="translated">
+        <source>part.info.merge_modal.title</source>
+        <target>Unire componenti</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_part</source>
+        <target>Altro componente</target>
+      </segment>
+    </unit>
+    <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_into_this</source>
+        <target>Unire l'altro componente in questo (elimina l'altro componente e mantiene questo)</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment state="translated">
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Unire questo componente in un altro (elimina questo componente e mantiene l'altro)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment state="translated">
+        <source>part.info.merge_btn</source>
+        <target>Unire componente</target>
+      </segment>
+    </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Aggiornare componente dalle fonti d'informazioni</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment state="translated">
+        <source>info_providers.update_part.title</source>
+        <target>Aggiornare componente esistente dalle fonti d'informazioni</target>
+      </segment>
+    </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment state="translated">
+        <source>part.merge.flash.please_review</source>
+        <target>Dati non ancora salvati. Rivedere le modifiche e fare clic su Salva per rendere persistenti i nuovi dati.</target>
+      </segment>
+    </unit>
+    <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
+      <segment state="translated">
+        <source>user.edit.flash.permissions_fixed</source>
+        <target>Mancavano le autorizzazioni richieste da altre autorizzazioni. Questo è stato corretto. Controllare se le autorizzazioni sono quelle previste.</target>
+      </segment>
+    </unit>
+    <unit id="gjo2ZK7" name="permission.legend.dependency_note">
+      <segment state="translated">
+        <source>permission.legend.dependency_note</source>
+        <target>Si prega di notare che alcune operazioni di autorizzazione dipendono l'una dall'altra. Se si riceve un avviso che le autorizzazioni mancanti sono state corrette e un'autorizzazione è stata impostata nuovamente su "consenti", è necessario impostare anche l'operazione dipendente su "proibisci". Le dipendenze sono normalmente indicate a destra di un'operazione.</target>
+      </segment>
+    </unit>
+    <unit id="VFdWqOX" name="log.part_stock_changed.timestamp">
+      <segment state="translated">
+        <source>log.part_stock_changed.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="Hj7NX8C" name="part.info.withdraw_modal.timestamp">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp</source>
+        <target>Timestamp dell'azione</target>
+      </segment>
+    </unit>
+    <unit id="USYGK0J" name="part.info.withdraw_modal.timestamp.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp.hint</source>
+        <target>Questo campo consente di specificare la data effettiva in cui l'operazione di magazzino è stata effettivamente eseguita, e non solo quando è stata registrata. Questo valore viene salvato nel campo extra dell'entry di registro.</target>
+      </segment>
+    </unit>
+    <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.delete_lot_if_empty</source>
+        <target>Eliminare questo lotto se diventa vuoto</target>
+      </segment>
+    </unit>
+    <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.client_exception</source>
+        <target>Si è verificato un errore durante la comunicazione con la fonte di informazioni. Verificare la configurazione per questa fonte e, se possibile, aggiornare i token OAuth.</target>
+      </segment>
+    </unit>
+    <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
+      <segment state="translated">
+        <source>eda_info.reference_prefix.placeholder</source>
+        <target>e.s. R</target>
+      </segment>
+    </unit>
+    <unit id="3nLUWrL" name="eda_info.reference_prefix">
+      <segment state="translated">
+        <source>eda_info.reference_prefix</source>
+        <target>Prefisso di riferimento</target>
+      </segment>
+    </unit>
+    <unit id="OTQU79e" name="eda_info.kicad_section.title">
+      <segment state="translated">
+        <source>eda_info.kicad_section.title</source>
+        <target>Impostazioni specifiche di KiCad</target>
+      </segment>
+    </unit>
+    <unit id="_Z4ARu6" name="eda_info.value">
+      <segment state="translated">
+        <source>eda_info.value</source>
+        <target>Valore</target>
+      </segment>
+    </unit>
+    <unit id="k5gOKhU" name="eda_info.value.placeholder">
+      <segment state="translated">
+        <source>eda_info.value.placeholder</source>
+        <target>e.s. 100n</target>
+      </segment>
+    </unit>
+    <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
+      <segment state="translated">
+        <source>eda_info.exclude_from_bom</source>
+        <target>Escludere componente dalla BOM</target>
+      </segment>
+    </unit>
+    <unit id="jDHzKDL" name="eda_info.exclude_from_board">
+      <segment state="translated">
+        <source>eda_info.exclude_from_board</source>
+        <target>Escludere componente dalla PCB/Board</target>
+      </segment>
+    </unit>
+    <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
+      <segment state="translated">
+        <source>eda_info.exclude_from_sim</source>
+        <target>Escludere componente dalla simulazione</target>
+      </segment>
+    </unit>
+    <unit id="P6keLR_" name="eda_info.kicad_symbol">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol</source>
+        <target>Simbolo schematico di KiCad</target>
+      </segment>
+    </unit>
+    <unit id="k_xjHgN" name="eda_info.kicad_symbol.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol.placeholder</source>
+        <target>e.s. Transistor_BJT:BC547</target>
+      </segment>
+    </unit>
+    <unit id="TAm88A8" name="eda_info.kicad_footprint">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint</source>
+        <target>Footprint di KiCad</target>
+      </segment>
+    </unit>
+    <unit id="y2hGwZr" name="eda_info.kicad_footprint.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint.placeholder</source>
+        <target>e.s. Package_TO_SOT_THT:TO-92</target>
+      </segment>
+    </unit>
+    <unit id="2kt7qP7" name="part.edit.tab.eda">
+      <segment state="translated">
+        <source>part.edit.tab.eda</source>
+        <target>Informazioni EDA</target>
+      </segment>
+    </unit>
+    <unit id="G0dSeRY" name="api.api_endpoints.title">
+      <segment state="translated">
+        <source>api.api_endpoints.title</source>
+        <target>Punti di accesso dell'API</target>
+      </segment>
+    </unit>
+    <unit id="yFYyK5u" name="api.api_endpoints.partdb">
+      <segment state="translated">
+        <source>api.api_endpoints.partdb</source>
+        <target>Part-DB API</target>
+      </segment>
+    </unit>
+    <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
+      <segment state="translated">
+        <source>api.api_endpoints.kicad_root_url</source>
+        <target>URL radice dell'API di KiCad</target>
+      </segment>
+    </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment state="translated">
+        <source>eda_info.visibility</source>
+        <target>Rendere visibile</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment state="translated">
+        <source>eda_info.visibility.help</source>
+        <target>Per impostazione predefinita, la visibilità del software EDA viene determinata automaticamente. Con questa casella di controllo, si può forzare il componente ad essere visibile o invisibile.</target>
       </segment>
     </unit>
   </file>
