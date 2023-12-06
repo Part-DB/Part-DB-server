@@ -12073,5 +12073,113 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bei der Kommunikation mit dem Informationsanbieter ist ein Fehler aufgetreten. Überprüfen Sie die Konfiguration für diesen Anbieter und erneuern Sie die OAuth-Tokens, falls möglich.</target>
       </segment>
     </unit>
+    <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
+      <segment state="translated">
+        <source>eda_info.reference_prefix.placeholder</source>
+        <target>z. B. R</target>
+      </segment>
+    </unit>
+    <unit id="3nLUWrL" name="eda_info.reference_prefix">
+      <segment state="translated">
+        <source>eda_info.reference_prefix</source>
+        <target>Referenzpräfix</target>
+      </segment>
+    </unit>
+    <unit id="OTQU79e" name="eda_info.kicad_section.title">
+      <segment state="translated">
+        <source>eda_info.kicad_section.title</source>
+        <target>KiCad spezifische Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="_Z4ARu6" name="eda_info.value">
+      <segment state="translated">
+        <source>eda_info.value</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="k5gOKhU" name="eda_info.value.placeholder">
+      <segment state="translated">
+        <source>eda_info.value.placeholder</source>
+        <target>z.B. 100n</target>
+      </segment>
+    </unit>
+    <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
+      <segment state="translated">
+        <source>eda_info.exclude_from_bom</source>
+        <target>Bauteil von BOM ausschließen</target>
+      </segment>
+    </unit>
+    <unit id="jDHzKDL" name="eda_info.exclude_from_board">
+      <segment state="translated">
+        <source>eda_info.exclude_from_board</source>
+        <target>Bauteil von Platine ausschließen</target>
+      </segment>
+    </unit>
+    <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
+      <segment state="translated">
+        <source>eda_info.exclude_from_sim</source>
+        <target>Bauteil von Simulation ausschließen</target>
+      </segment>
+    </unit>
+    <unit id="P6keLR_" name="eda_info.kicad_symbol">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol</source>
+        <target>KiCad-Schaltsymbol</target>
+      </segment>
+    </unit>
+    <unit id="k_xjHgN" name="eda_info.kicad_symbol.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol.placeholder</source>
+        <target>z.B. Transistor_BJT:BC547</target>
+      </segment>
+    </unit>
+    <unit id="TAm88A8" name="eda_info.kicad_footprint">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint</source>
+        <target>KiCad-Footprint</target>
+      </segment>
+    </unit>
+    <unit id="y2hGwZr" name="eda_info.kicad_footprint.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint.placeholder</source>
+        <target>z.B. Package_TO_SOT_THT:TO-92</target>
+      </segment>
+    </unit>
+    <unit id="2kt7qP7" name="part.edit.tab.eda">
+      <segment state="translated">
+        <source>part.edit.tab.eda</source>
+        <target>EDA Informationen</target>
+      </segment>
+    </unit>
+    <unit id="G0dSeRY" name="api.api_endpoints.title">
+      <segment state="translated">
+        <source>api.api_endpoints.title</source>
+        <target>API Endpunkte</target>
+      </segment>
+    </unit>
+    <unit id="yFYyK5u" name="api.api_endpoints.partdb">
+      <segment state="translated">
+        <source>api.api_endpoints.partdb</source>
+        <target>Part-DB API</target>
+      </segment>
+    </unit>
+    <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
+      <segment state="translated">
+        <source>api.api_endpoints.kicad_root_url</source>
+        <target>KiCad API root URL</target>
+      </segment>
+    </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment state="translated">
+        <source>eda_info.visibility</source>
+        <target>Erzwinge Sichtbarkeit</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment state="translated">
+        <source>eda_info.visibility.help</source>
+        <target>Standardmäßig wird die Sichtbarkeit innerhalb der EDA Software automatisch ermittelt. Mittels dieser Checkbox, lässt es sich erzwingen, dass das Bauteil sichtbar oder unsichtbar ist.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
