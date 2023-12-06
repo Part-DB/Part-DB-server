@@ -27,7 +27,7 @@ jobs:
           php-version: '8.2'
           coverage: none
           ini-values: xdebug.max_nesting_level=1000
-          extensions: mbstring, intl, gd, xsl, gmp, bcmath
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
 
       - name: Get Composer Cache Directory
         id: composer-cache
