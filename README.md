@@ -63,6 +63,8 @@ for the first time.
 * Use cloud providers (like Octopart, Digikey, farnell or TME) to automatically get part information, datasheets and
   prices for parts
 * API to access Part-DB from other applications/scripts
+* [Integration with KiCad](https://docs.part-db.de/usage/eda_integration.html): Use Part-DB as central datasource for your
+  KiCad and see available   parts from Part-DB directly inside KiCad.
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.
