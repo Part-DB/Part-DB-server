@@ -76,7 +76,7 @@ services:
             # Only the event classes specified here are saved to DB (set to []) to log all events
             $whitelist: []
 
-    App\EventListener\LogSystem\EventLoggerListener:
+    App\EventSubscriber\LogSystem\EventLoggerSubscriber:
         arguments:
             $save_changed_fields: '%env(bool:HISTORY_SAVE_CHANGED_FIELDS)%'
             $save_changed_data: '%env(bool:HISTORY_SAVE_CHANGED_DATA)%'
@@ -85,7 +85,7 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    App\EventListener\LogSystem\LogDBMigrationListener:
+    App\EventSubscriber\LogSystem\LogDBMigrationSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
