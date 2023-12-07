@@ -12181,5 +12181,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Standardmäßig wird die Sichtbarkeit innerhalb der EDA Software automatisch ermittelt. Mittels dieser Checkbox, lässt es sich erzwingen, dass das Bauteil sichtbar oder unsichtbar ist.</target>
       </segment>
     </unit>
+    <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
+      <segment state="translated">
+        <source>part.withdraw.zero_amount</source>
+        <target>Sie haben versucht eine Menge von Null zu entnehmen/hinzuzufügen! Es wurde keine Aktion durchgeführt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
