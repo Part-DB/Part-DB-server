@@ -37,6 +37,10 @@ filled in.
 
 ![image]({% link assets/usage/information_provider_system/animation.gif %})
 
+If you want to update an existing part, go to the parts info page and click on the "Update from info provider" button in
+the tools tab. You will be redirected to a search page, where you can search the info providers to automatically update this
+part.
+
 ## Alternative names
 
 Part-DB tries to automatically find existing elements from your database for the information it got from the providers
