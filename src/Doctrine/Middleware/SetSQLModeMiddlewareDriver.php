@@ -37,7 +37,7 @@ class SetSQLModeMiddlewareDriver extends AbstractDriverMiddleware
         //Only set this on MySQL connections, as other databases don't support this parameter
         if($this->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             //1002 is \PDO::MYSQL_ATTR_INIT_COMMAND constant value
-            $params['driverOptions'][1002] = 'SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode, \'ONLY_FULL_GROUP_BY\', \'\'))';
+            $params['driverOptions'][\PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode, \'ONLY_FULL_GROUP_BY\', \'\'))';
         }
 
         return parent::connect($params);
