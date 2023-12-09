@@ -370,6 +370,10 @@ services:
             $partdb_banner: '%partdb.banner%'
             $project_dir: '%kernel.project_dir%'
 
+    App\Doctrine\Middleware\MySQLSSLConnectionMiddlewareWrapper:
+        arguments:
+            $enabled: '%env(bool:DATABASE_MYSQL_USE_SSL_CA)%'
+            $verify: '%env(bool:DATABASE_MYSQL_SSL_VERIFY_CERT)%'
 
     ####################################################################################################################
     # Monolog

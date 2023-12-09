@@ -37,6 +37,9 @@ options listed, see `.env` file for full list of possible env variables.
   (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`). For sqlite use the following format to specify the
   absolute path where it should be located `sqlite:///path/part/app.db`. You can use `%kernel.project_dir%` as
   placeholder for the Part-DB root folder (e.g. `sqlite:///%kernel.project_dir%/var/app.db`)
+* `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
+ is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
+bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
 * `DEFAULT_LANG`: The default language to use server wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something
