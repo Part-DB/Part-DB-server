@@ -32,7 +32,7 @@ nbgrp_onelogin_saml:
         privateKey: '%env(string:default:saml.sp.privateKey:string:SAMLP_SP_PRIVATE_KEY)%'
 
       # Optional settings
-      #baseurl: 'http://myapp.com'
+      baseurl: '%partdb.default_uri%saml/'
       strict: true
       debug: false
       security:
