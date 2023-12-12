@@ -127,6 +127,7 @@ class ConsoleEnsureWebserverUserListener
             //If we have the COM extension available, we can use it to determine the owner
             if (extension_loaded('com_dotnet')) {
                 $su = new \COM("ADsSecurityUtility"); // Call interface
+                //@phpstan-ignore-next-line
                 $securityInfo = $su->GetSecurityDescriptor($path_to_check, 1, 1); // Call method
                 return $securityInfo->owner; // Get file owner
             }
