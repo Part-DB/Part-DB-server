@@ -77,13 +77,13 @@ jobs:
         run: zip -r /tmp/partdb_assets.zip public/build/ vendor/
 
       - name: Upload assets artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Only dependencies and built assets
           path: /tmp/partdb_assets.zip
 
       - name: Upload full artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Full Part-DB including dependencies and built assets
           path: /tmp/partdb_with_assets.zip
