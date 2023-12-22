@@ -225,7 +225,7 @@
         {% for param in parameters %}
             <tr>
                 <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex" data-controller="common--latex">${{ param.symbol }}$</span>{% endif %}</td>
-                <td>{{ param.formattedValue }}</td>
+                <td><span class="latex" data-controller="common--latex"> {{ param.formattedValue }}</span></td>
             </tr>
         {% endfor %}
         </tbody>
