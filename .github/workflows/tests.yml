@@ -26,6 +26,7 @@ jobs:
       SYMFONY_DEPRECATIONS_HELPER: disabled
       PHP_VERSION: ${{ matrix.php-versions }}
       DB_TYPE: ${{ matrix.db-type }}
+      CHECK_FOR_UPDATES: false  # Disable update checks for tests
 
     steps:
       - name: Set Database env for MySQL
