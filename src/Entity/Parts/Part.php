@@ -104,8 +104,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-#[DocumentedAPIProperty(schemaName: 'Part-Read', property: 'total_instock', type: 'number', nullable: false,
-    description: 'The total amount of this part in stock (sum of all part lots).')]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
