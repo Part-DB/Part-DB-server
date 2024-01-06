@@ -45,7 +45,9 @@ class PartNormalizerTest extends WebTestCase
     {
         //Normalizer must only support Part objects (and child classes)
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));
-        $this->assertTrue($this->service->supportsNormalization(new Part()));
+        //Part serialization should only work with csv
+        $this->assertFalse($this->service->supportsNormalization(new Part()));
+        $this->assertTrue($this->service->supportsNormalization(new Part(), 'csv'));
     }
 
     public function testNormalize(): void
@@ -58,11 +60,6 @@ class PartNormalizerTest extends WebTestCase
         $partLot2->setAmount(5);
         $part->addPartLot($partLot1);
         $part->addPartLot($partLot2);
-
-        $data = $this->service->normalize($part, 'json', ['groups' => ['simple']]);
-        $this->assertSame('Test Part', $data['name']);
-        $this->assertSame(6.0, $data['total_instock']);
-        $this->assertSame('part', $data['type']);
 
         //Check that type field is not present in CSV export
         $data = $this->service->normalize($part, 'csv', ['groups' => ['simple']]);
