@@ -12186,5 +12186,11 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Per impostazione predefinita, la visibilità del software EDA viene determinata automaticamente. Con questa casella di controllo, si può forzare il componente ad essere visibile o invisibile.</target>
       </segment>
     </unit>
+    <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
+      <segment state="translated">
+        <source>part.withdraw.zero_amount</source>
+        <target>Si è provato a prelevare/aggiungere una quantità pari a zero! Non è stata eseguita alcuna azione.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
