@@ -88,7 +88,7 @@ class ParameterExtractor
     protected function stringToParam(string $input, string $class): ?AbstractParameter
     {
         $input = trim($input);
-        $regex = '/^(.*) *(?:=|:) *(.+)/u';
+        $regex = '/^(.*) *(?:=|:)(?!\/) *(.+)/u';
 
         $matches = [];
         preg_match($regex, $input, $matches);
