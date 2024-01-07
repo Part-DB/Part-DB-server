@@ -158,6 +158,26 @@
         <target>Проект</target>
       </segment>
     </unit>
+    <unit id="DTt5Co7" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>Редактировать проект</target>
+      </segment>
+    </unit>
+    <unit id="O_iNK2O" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>Новый проект</target>
+      </segment>
+    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -4022,6 +4042,22 @@
         <target>Поехали!</target>
       </segment>
     </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Проекты</target>
+      </segment>
+    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -5936,6 +5972,16 @@
         <target>Тип вложения</target>
       </segment>
     </unit>
+    <unit id="w.zcG5D" name="project.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>project.label</source>
+        <target>Проект</target>
+      </segment>
+    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6114,6 +6160,17 @@
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Категории</target>
+      </segment>
+    </unit>
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.projects</source>
+        <target>Проекты</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -7916,6 +7973,16 @@
         <target>Производители</target>
       </segment>
     </unit>
+    <unit id="1AtDlX." name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Проекты</target>
+      </segment>
+    </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
       <notes>
         <note priority="1">obsolete</note>
@@ -8474,6 +8541,12 @@
       <segment state="translated">
         <source>google</source>
         <target>Google</target>
+      </segment>
+    </unit>
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Ключ безопасности</target>
       </segment>
     </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
@@ -9078,6 +9151,258 @@
       <segment state="translated">
         <source>tree.tools.tools.reel_calculator</source>
         <target>Калькулятор катушки SMD</target>
+      </segment>
+    </unit>
+    <unit id="7FpEp24" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Вам нужно сменить пароль! Пожалуйста, задайте новый.</target>
+      </segment>
+    </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Корень</target>
+      </segment>
+    </unit>
+    <unit id="EieqscF" name="part_list.action.select_null">
+      <segment state="translated">
+        <source>part_list.action.select_null</source>
+        <target>Пустой элемент</target>
+      </segment>
+    </unit>
+    <unit id="4IH1qgL" name="part_list.action.delete-title">
+      <segment state="translated">
+        <source>part_list.action.delete-title</source>
+        <target>Вы точно уверены, что хотите удалить эти компоненты?</target>
+      </segment>
+    </unit>
+    <unit id="te3YmqA" name="part_list.action.delete-message">
+      <segment state="translated">
+        <source>part_list.action.delete-message</source>
+        <target>Эти компоненты и вся связанная с ними информация (прикрепленные документы, ценники и т.п.) будут удалены. Отменить действие будет невозможно!</target>
+      </segment>
+    </unit>
+    <unit id="xd6OiPE" name="part.table.actions.success">
+      <segment state="translated">
+        <source>part.table.actions.success</source>
+        <target>Успешно исполнено.</target>
+      </segment>
+    </unit>
+    <unit id="_3l6FO_" name="attachment.edit.delete.confirm">
+      <segment state="translated">
+        <source>attachment.edit.delete.confirm</source>
+        <target>Вы точно хотите удалить это прикрепление?</target>
+      </segment>
+    </unit>
+    <unit id="JtGEdQP" name="filter.text_constraint.value.operator.EQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.EQ</source>
+        <target>Равно</target>
+      </segment>
+    </unit>
+    <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Не равно</target>
+      </segment>
+    </unit>
+    <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Начинается с</target>
+      </segment>
+    </unit>
+    <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Содержит</target>
+      </segment>
+    </unit>
+    <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Оканчивается на</target>
+      </segment>
+    </unit>
+    <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>СООТВЕТСТВУЕТ шаблону</target>
+      </segment>
+    </unit>
+    <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.REGEX</source>
+        <target>Регулярное выражение</target>
+      </segment>
+    </unit>
+    <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Между</target>
+      </segment>
+    </unit>
+    <unit id="Pho_nY5" name="filter.number_constraint.AND">
+      <segment state="translated">
+        <source>filter.number_constraint.AND</source>
+        <target>и</target>
+      </segment>
+    </unit>
+    <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Равно (исключая дочерние)</target>
+      </segment>
+    </unit>
+    <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Не равно (исключая дочерние)</target>
+      </segment>
+    </unit>
+    <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Равно (включая дочерние)</target>
+      </segment>
+    </unit>
+    <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Не равно (включая дочерние)</target>
+      </segment>
+    </unit>
+    <unit id="7.bq.cZ" name="part.filter.dbId">
+      <segment state="translated">
+        <source>part.filter.dbId</source>
+        <target>ID базы данных</target>
+      </segment>
+    </unit>
+    <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Любая из меток</target>
+      </segment>
+    </unit>
+    <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>Все отметки</target>
+      </segment>
+    </unit>
+    <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>Ни одна из отметок</target>
+      </segment>
+    </unit>
+    <unit id="wgXINWq" name="part.filter.lot_count">
+      <segment state="translated">
+        <source>part.filter.lot_count</source>
+        <target>Количество лотов</target>
+      </segment>
+    </unit>
+    <unit id="tjfJAIq" name="part.filter.attachments_count">
+      <segment state="translated">
+        <source>part.filter.attachments_count</source>
+        <target>Количество прикреплений</target>
+      </segment>
+    </unit>
+    <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
+      <segment state="translated">
+        <source>part.filter.orderdetails_count</source>
+        <target>Количество подробностей о заказе.</target>
+      </segment>
+    </unit>
+    <unit id="QnS490v" name="part.filter.lotExpirationDate">
+      <segment state="translated">
+        <source>part.filter.lotExpirationDate</source>
+        <target>Дата истечения лота</target>
+      </segment>
+    </unit>
+    <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
+      <segment state="translated">
+        <source>part.filter.lotNeedsRefill</source>
+        <target>Любой лот требующий пополнения</target>
+      </segment>
+    </unit>
+    <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
+      <segment state="translated">
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>Любой лот с неизвестным количеством</target>
+      </segment>
+    </unit>
+    <unit id="lRKoTj_" name="part.filter.attachmentName">
+      <segment state="translated">
+        <source>part.filter.attachmentName</source>
+        <target>Имя прикрепления</target>
+      </segment>
+    </unit>
+    <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>Любой из</target>
+      </segment>
+    </unit>
+    <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>Ни один из</target>
+      </segment>
+    </unit>
+    <unit id="ZnYcxRf" name="part.filter.amount_sum">
+      <segment state="translated">
+        <source>part.filter.amount_sum</source>
+        <target>Общее количество</target>
+      </segment>
+    </unit>
+    <unit id="FGuEete" name="filter.submit">
+      <segment state="translated">
+        <source>filter.submit</source>
+        <target>Обновить</target>
+      </segment>
+    </unit>
+    <unit id="4jJXUNM" name="filter.discard">
+      <segment state="translated">
+        <source>filter.discard</source>
+        <target>Сбросить изменения</target>
+      </segment>
+    </unit>
+    <unit id="uVrP0no" name="filter.clear_filters">
+      <segment state="translated">
+        <source>filter.clear_filters</source>
+        <target>Очистить все фильтры</target>
+      </segment>
+    </unit>
+    <unit id="Rd0n9wc" name="filter.title">
+      <segment state="translated">
+        <source>filter.title</source>
+        <target>Фильтр</target>
+      </segment>
+    </unit>
+    <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Тип. Значение =</target>
+      </segment>
+    </unit>
+    <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Тип. Значение !=</target>
+      </segment>
+    </unit>
+    <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;</source>
+        <target>Тип. Значение &lt;</target>
+      </segment>
+    </unit>
+    <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&gt;</source>
+        <target>Тип. Значение &gt;</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
