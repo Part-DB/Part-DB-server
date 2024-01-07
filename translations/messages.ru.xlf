@@ -4342,7 +4342,7 @@
       </notes>
       <segment state="translated">
         <source>part.created_flash</source>
-        <target>Деталь создана!</target>
+        <target>Компонент создан!</target>
       </segment>
     </unit>
     <unit id="LOw_XJ." name="part.created_flash.invalid">
@@ -7260,7 +7260,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.help</source>
-        <target>Если выбран этот параметр, невозможно добавить новые детали в это хранилище или увеличить количество существующих деталей.</target>
+        <target>Если выбран этот параметр, невозможно добавить новые детали в это хранилище или увеличить количество существующих компонентов.</target>
       </segment>
     </unit>
     <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
@@ -7280,7 +7280,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>Если эта опция активирована, невозможно добавить новые детали в это хранилище, но количество существующих деталей может быть увеличено.</target>
+        <target>Если эта опция активирована, невозможно добавить новые компоненты в это хранилище, но количество существующих компонентов может быть увеличено.</target>
       </segment>
     </unit>
     <unit id="1DWk7ny" name="storelocation.only_single_part.label">
@@ -9306,7 +9306,7 @@
     <unit id="tjfJAIq" name="part.filter.attachments_count">
       <segment state="translated">
         <source>part.filter.attachments_count</source>
-        <target>Количество прикреплений</target>
+        <target>Количество вложений</target>
       </segment>
     </unit>
     <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
@@ -9336,7 +9336,7 @@
     <unit id="lRKoTj_" name="part.filter.attachmentName">
       <segment state="translated">
         <source>part.filter.attachmentName</source>
-        <target>Имя прикрепления</target>
+        <target>Имя вложения</target>
       </segment>
     </unit>
     <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
@@ -9475,6 +9475,240 @@
       <segment state="translated">
         <source>filter.text_constraint.value</source>
         <target>Значение не установлено</target>
+      </segment>
+    </unit>
+    <unit id="EIwFuHJ" name="filter.number_constraint.value1">
+      <segment state="translated">
+        <source>filter.number_constraint.value1</source>
+        <target>Значение не установлено</target>
+      </segment>
+    </unit>
+    <unit id="nb9L_bM" name="filter.number_constraint.value2">
+      <segment state="translated">
+        <source>filter.number_constraint.value2</source>
+        <target>Максимальное значение</target>
+      </segment>
+    </unit>
+    <unit id="Chr6I.s" name="filter.datetime_constraint.value1">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value1</source>
+        <target>Дата/время не установлены</target>
+      </segment>
+    </unit>
+    <unit id="OX2SbVT" name="filter.datetime_constraint.value2">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value2</source>
+        <target>Максимальная дата/время</target>
+      </segment>
+    </unit>
+    <unit id="HsxzALM" name="filter.constraint.add">
+      <segment state="translated">
+        <source>filter.constraint.add</source>
+        <target>Добавить ограничение</target>
+      </segment>
+    </unit>
+    <unit id=".CuxL5L" name="part.filter.parameters_count">
+      <segment state="translated">
+        <source>part.filter.parameters_count</source>
+        <target>Количество параметров</target>
+      </segment>
+    </unit>
+    <unit id="Dn0SKIi" name="part.filter.lotDescription">
+      <segment state="translated">
+        <source>part.filter.lotDescription</source>
+        <target>Описание лота</target>
+      </segment>
+    </unit>
+    <unit id="W1rWF5g" name="parts_list.search.searching_for">
+      <segment state="translated">
+        <source>parts_list.search.searching_for</source>
+        <target>Поиск деталей по ключевому слову &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="lkQ2zTi" name="parts_list.search_options.caption">
+      <segment state="translated">
+        <source>parts_list.search_options.caption</source>
+        <target>Включенные параметры поиска</target>
+      </segment>
+    </unit>
+    <unit id="biszSr8" name="attachment.table.element_type">
+      <segment state="translated">
+        <source>attachment.table.element_type</source>
+        <target>Тип связанного элемента</target>
+      </segment>
+    </unit>
+    <unit id="nUZamS5" name="log.level.debug">
+      <segment state="translated">
+        <source>log.level.debug</source>
+        <target>Отладочный</target>
+      </segment>
+    </unit>
+    <unit id="ZPxm2Ee" name="log.level.info">
+      <segment state="translated">
+        <source>log.level.info</source>
+        <target>Информационный</target>
+      </segment>
+    </unit>
+    <unit id="NVXjDhG" name="log.level.notice">
+      <segment state="translated">
+        <source>log.level.notice</source>
+        <target>Уведомления</target>
+      </segment>
+    </unit>
+    <unit id="9ObjWuR" name="log.level.warning">
+      <segment state="translated">
+        <source>log.level.warning</source>
+        <target>Предупреждения</target>
+      </segment>
+    </unit>
+    <unit id="WxMwuLP" name="log.level.error">
+      <segment state="translated">
+        <source>log.level.error</source>
+        <target>Ошибки</target>
+      </segment>
+    </unit>
+    <unit id="idch78J" name="log.level.critical">
+      <segment state="translated">
+        <source>log.level.critical</source>
+        <target>Критические</target>
+      </segment>
+    </unit>
+    <unit id="jehoQTd" name="log.level.alert">
+      <segment state="translated">
+        <source>log.level.alert</source>
+        <target>Тревожный</target>
+      </segment>
+    </unit>
+    <unit id="XvKEDM0" name="log.level.emergency">
+      <segment state="translated">
+        <source>log.level.emergency</source>
+        <target>Чрезвычайные</target>
+      </segment>
+    </unit>
+    <unit id="sEvRe10" name="log.type.security">
+      <segment state="translated">
+        <source>log.type.security</source>
+        <target>Безопасность</target>
+      </segment>
+    </unit>
+    <unit id="gJDmvym" name="log.type.instock_changed">
+      <segment state="translated">
+        <source>log.type.instock_changed</source>
+        <target>[СТАРОЕ] Наличие изменено</target>
+      </segment>
+    </unit>
+    <unit id="lJZCHHM" name="log.target_id">
+      <segment state="translated">
+        <source>log.target_id</source>
+        <target>ID целевого элемента</target>
+      </segment>
+    </unit>
+    <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
+      <segment state="translated">
+        <source>entity.info.parts_count_recursive</source>
+        <target>Количество компонентов с этим элементом или его подэлементами.</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Информация сервера</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Только чтение</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Разрешить только операции чтения данных</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Наследовать все</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Установить все разрешения в Наследовать</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment state="translated">
+        <source>permission.preset.all_forbid</source>
+        <target>Запретить всё</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment state="translated">
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Установить все разрешения в Запретить</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment state="translated">
+        <source>permission.preset.all_allow</source>
+        <target>Разрешить всё</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment state="translated">
+        <source>permission.preset.all_allow.desc</source>
+        <target>Установить все разрешения в Разрешено</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment state="translated">
+        <source>perm.server_infos</source>
+        <target>Информация сервера</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment state="translated">
+        <source>permission.preset.editor</source>
+        <target>Редактор</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Разрешить изменять компоненты и структуры данных</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Администратор</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment state="translated">
+        <source>permission.preset.admin.desc</source>
+        <target>Разрешить административные действия</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Применить шаблон</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Показать личные вложения</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Закрыть</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
