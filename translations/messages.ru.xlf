@@ -9705,10 +9705,52 @@
         <target>Показать личные вложения</target>
       </segment>
     </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Здесь вы можете ввести комментарий, описывающий, почему было выполнено это действие (например, зачем нужен этот компонент). Эта информация сохраняется в журнале.</target>
+      </segment>
+    </unit>
     <unit id="Sumeg5G" name="modal.close">
       <segment state="translated">
         <source>modal.close</source>
         <target>Закрыть</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Отправить</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Компоненты успешно удалены/добавлены/перемещены.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Компоненты в наличии</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Снять компоненты со склада</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Добавить компоненты на склад</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Переместить компоненты между лотами</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
