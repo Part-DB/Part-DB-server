@@ -311,5 +311,35 @@
         <target>Ejeren af ​​denne komponentbeholdning og den valgte lagerplacering skal matche (%owner_name%)!</target>
       </segment>
     </unit>
+    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>Ejeren kan ikke være den anonyme bruger!</target>
+      </segment>
+    </unit>
+    <unit id="N8aA0Uh" name="validator.part_association.must_set_an_value_if_type_is_other">
+      <segment state="translated">
+        <source>validator.part_association.must_set_an_value_if_type_is_other</source>
+        <target>Hvis linktypen er sat til "Andet", skal du angive en beskrivende værdi!</target>
+      </segment>
+    </unit>
+    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>En komponent kan ikke knyttes til sig selv!</target>
+      </segment>
+    </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>Et link til denne komponent findes allerede!</target>
+      </segment>
+    </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>Denne leverandørstregkodeværdi er allerede brugt til en anden beholdning. Stregkoden skal være unik!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
