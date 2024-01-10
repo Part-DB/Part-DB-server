@@ -10695,5 +10695,17 @@
         <target>Временная зона</target>
       </segment>
     </unit>
+    <unit id="2GWIhsp" name="log.element_edited.changed_fields.language">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.language</source>
+        <target>Язык</target>
+      </segment>
+    </unit>
+    <unit id="Sw3SmBJ" name="log.element_edited.changed_fields.email">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
