@@ -224,7 +224,7 @@ trait PKImportHelperTrait
      */
     protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str)
     {
-        if ($datetime_str) {
+        if ($datetime_str !== null && $datetime_str !== '' && $datetime_str !== '0000-00-00 00:00:00') {
             $date = new \DateTime($datetime_str);
         } else {
             $date = null; //Null means "now" at persist time
