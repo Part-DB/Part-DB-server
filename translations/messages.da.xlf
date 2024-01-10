@@ -1,0 +1,1234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="da">
+  <file id="messages.en">
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.caption</source>
+        <target>Forespørgsel</target>
+      </segment>
+    </unit>
+    <unit id="5cpaOO8" name="attachment_type.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit</source>
+        <target>Ret filtype</target>
+      </segment>
+    </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>Ny filtype</target>
+      </segment>
+    </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:163</note>
+        <note priority="1">templates\base.html.twig:170</note>
+        <note priority="1">templates\base.html.twig:197</note>
+        <note priority="1">templates\base.html.twig:225</note>
+      </notes>
+      <segment state="translated">
+        <source>category.labelp</source>
+        <target>Kategorier</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>Optioner</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.advanced</source>
+        <target>Advanceret</target>
+      </segment>
+    </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>Ret kategori</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>Ny kategori</target>
+      </segment>
+    </unit>
+    <unit id="BJtSZa4" name="currency.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.caption</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="dzfYFww" name="currency.iso_code.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.iso_code.caption</source>
+        <target>ISO kode</target>
+      </segment>
+    </unit>
+    <unit id="lrCa3tF" name="currency.symbol.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.symbol.caption</source>
+        <target>Valutaenhed</target>
+      </segment>
+    </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>Ret valuta</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>Ny valuta</target>
+      </segment>
+    </unit>
+    <unit id="zNlEdQs" name="project.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>project.caption</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
+    <unit id="DTt5Co7" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>Ret projekt</target>
+      </segment>
+    </unit>
+    <unit id="O_iNK2O" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>Nyt projekt</target>
+      </segment>
+    </unit>
+    <unit id="lQ8QeGr" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:80</note>
+        <note priority="1">templates\base.html.twig:179</note>
+        <note priority="1">templates\base.html.twig:206</note>
+        <note priority="1">templates\base.html.twig:237</note>
+      </notes>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>Søg</target>
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:166</note>
+        <note priority="1">templates\base.html.twig:193</note>
+        <note priority="1">templates\base.html.twig:221</note>
+      </notes>
+      <segment state="translated">
+        <source>expandAll</source>
+        <target>Udfold alle</target>
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note priority="1">templates\base.html.twig:167</note>
+        <note priority="1">templates\base.html.twig:194</note>
+        <note priority="1">templates\base.html.twig:222</note>
+      </notes>
+      <segment state="translated">
+        <source>reduceAll</source>
+        <target>Sammenfold alle</target>
+      </segment>
+    </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>Det er hvordan delen fromstod før %timestamp%. &lt;i&gt;Venligst bemærk at dette er en eksperimentel funktion. Så derfor kan info være ukorrekt.&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>Egenskaber</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>Historik</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>Eksport</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>Import</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>Masseoprettelse</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>Fælles</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>Parametre</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>Eksportér alle elementer</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>Hver linje fortolkes og oprettes som et navn til et nyt element. Ved at indrykke tekst kan du lave strukturer</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>Ret element "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>Nyt element</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Ret footprint</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Nyt footprint</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>Grupper</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>Rettigheder</target>
+      </segment>
+    </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Ret gruppe</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>Ny gruppe</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Labelprofiler</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Advanceret</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Notater</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>Ret labelprofil</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>Ny labelprofil</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.caption</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>Ret fabrikanter</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>Ny fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>Ret lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>Ny lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.caption</source>
+        <target>Leverandører</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>Ret leverandør</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>Ny leverandør</target>
+      </segment>
+    </unit>
+    <unit id=".YoS4pi" name="user.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.caption</source>
+        <target>Brugere</target>
+      </segment>
+    </unit>
+    <unit id="eDE4Z9X" name="user.edit.configuration">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.configuration</source>
+        <target>Opsætning</target>
+      </segment>
+    </unit>
+    <unit id="3HIFZxy" name="user.edit.password">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.password</source>
+        <target>Password</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.caption</source>
+        <target>To-faktor godkendelse</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.google_active</source>
+        <target>Godkendelses-app aktiv</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.remaining_tokens</source>
+        <target>Antal resterende backupkoder</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.generation_date</source>
+        <target>Oprettelsesdato for backupkoder</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disabled</source>
+        <target>Metode ikke aktiveret</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>Aktive sikkerhedsnøgler</target>
+      </segment>
+    </unit>
+    <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_title</source>
+        <target>Ønsker du at fortsætte?</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>Kopier element</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">src\Form\ImportType.php:67</note>
+      </notes>
+      <segment state="translated">
+        <source>export.format</source>
+        <target>Filformat</target>
+      </segment>
+    </unit>
+    <unit id="FlGXF7u" name="export.level">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:16</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level</source>
+        <target>Detaljegrad</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.simple</source>
+        <target>Simpel</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.extended</source>
+        <target>Udvidet</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.full</source>
+        <target>Fuldstændig</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>export.include_children</source>
+        <target>medtag underelementer ved eksport</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>export.btn</source>
+        <target>Eksport</target>
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>id.label</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
+      <segment state="translated">
+        <source>createdAt</source>
+        <target>Oprettet på</target>
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
+      <segment state="translated">
+        <source>lastModified</source>
+        <target>Sidst rettet</target>
+      </segment>
+    </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>antal dele med dette element</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>Symbol</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>Min.</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>Typ.</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>Max.</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>Enhed</target>
+      </segment>
+    </unit>
+    <unit id="05vM0Vp" name="specifications.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.text</source>
+        <target>Tekst</target>
+      </segment>
+    </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.group</source>
+        <target>Gruppe</target>
+      </segment>
+    </unit>
+    <unit id="MZTH_sJ" name="specification.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>specification.create</source>
+        <target>Ny parameter</target>
+      </segment>
+    </unit>
+    <unit id="eEuzINH" name="parameter.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.delete.confirm</source>
+        <target>Ønsker du at slette denne parameter?</target>
+      </segment>
+    </unit>
+    <unit id="rpzRyMx" name="attachment.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.list.title</source>
+        <target>Bilagsliste</target>
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.caption</source>
+        <target>Henter</target>
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.message</source>
+        <target>Dette kan tage et øjeblik. Hvis denne meddelelse ikke forsvinder, prøv at genindlæse siden.</target>
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">templates\base.html.twig:246</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.base.javascript_hint</source>
+        <target>Sørg for at aktivere alle Javascriptfunktioner!</target>
+      </segment>
+    </unit>
+    <unit id="0rLRD9e" name="sidebar.big.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.big.toggle</source>
+        <target>Vis/skjul sidepanel</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">templates\base.html.twig:271</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.caption</source>
+        <target>Henter:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">templates\base.html.twig:272</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.message</source>
+        <target>Dette kan taget noget tid. Hvis denne meddelelse bliver stående i lang tid, forsøg da at genindlæse siden.</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">templates\base.html.twig:277</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.bar</source>
+        <target>Henter...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">templates\base.html.twig:288</note>
+      </notes>
+      <segment state="translated">
+        <source>back_to_top</source>
+        <target>Tilbage til toppen af siden</target>
+      </segment>
+    </unit>
+    <unit id="yXZ1kdn" name="permission.edit.permission">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.permission</source>
+        <target>Rettigheder</target>
+      </segment>
+    </unit>
+    <unit id="tFYZZcS" name="permission.edit.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.value</source>
+        <target>Værdi</target>
+      </segment>
+    </unit>
+    <unit id="KzyDL60" name="permission.legend.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.title</source>
+        <target>Forklaring til tilstande</target>
+      </segment>
+    </unit>
+    <unit id="owrJ0Qw" name="permission.legend.disallow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.disallow</source>
+        <target>Ej tilladt</target>
+      </segment>
+    </unit>
+    <unit id="1nY8d_O" name="permission.legend.allow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.allow</source>
+        <target>Tilladt</target>
+      </segment>
+    </unit>
+    <unit id="uNMtwn9" name="permission.legend.inherit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.inherit</source>
+        <target>Nedarv fra (overordnet) gruppe</target>
+      </segment>
+    </unit>
+    <unit id="QSE9MT9" name="bool.true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
+        <note priority="1">Part-DB1\templates\helper.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.true</source>
+        <target>Sand</target>
+      </segment>
+    </unit>
+    <unit id="UlrxUmI" name="bool.false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:5</note>
+        <note priority="1">Part-DB1\templates\helper.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.false</source>
+        <target>Falsk</target>
+      </segment>
+    </unit>
+    <unit id="haOas0X" name="Yes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
+        <note priority="1">Part-DB1\templates\helper.twig:87</note>
+      </notes>
+      <segment state="translated">
+        <source>Yes</source>
+        <target>Ja</target>
+      </segment>
+    </unit>
+    <unit id="HqRCoTS" name="No">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
+        <note priority="1">Part-DB1\templates\helper.twig:89</note>
+      </notes>
+      <segment state="translated">
+        <source>No</source>
+        <target>Nej</target>
+      </segment>
+    </unit>
+    <unit id="PbJl5cf" name="specifications.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:126</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value</source>
+        <target>Værdi</target>
+      </segment>
+    </unit>
+    <unit id="Qj.Hpb." name="version.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">templates\homepage.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>version.caption</source>
+        <target>Version</target>
+      </segment>
+    </unit>
+    <unit id="GDYG7.b" name="homepage.license">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">templates\homepage.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.license</source>
+        <target>Licensinformation</target>
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.caption</source>
+        <target>Projektoversigt</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
