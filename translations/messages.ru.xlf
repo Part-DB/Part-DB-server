@@ -10995,6 +10995,24 @@
         <target>С помощью этого инструмента вы можете импортировать компоненты из существующих файлов. Компоненты сохраняются непосредственно в базу данных (без возможности предварительной их повторной проверки). Пожалуйста, проверьте файл импорта здесь перед загрузкой!</target>
       </segment>
     </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment state="translated">
+        <source>parts.import.flash.success</source>
+        <target>Компонент успешно импортирован!</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment state="translated">
+        <source>parts.import.errors.imported_entities</source>
+        <target>Импортированные компоненты</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment state="translated">
+        <source>perm.import</source>
+        <target>Импортировать данные</target>
+      </segment>
+    </unit>
     <unit id="GUthgcU" name="log.details.delete_entry">
       <segment state="translated">
         <source>log.details.delete_entry</source>
