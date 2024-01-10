@@ -724,6 +724,217 @@
         <target>Ønsker du at fortsætte?</target>
       </segment>
     </unit>
+    <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_message</source>
+        <target>Dette vil deaktiver &lt;b&gt;alle aktive to-faktor godkendelses metoder af brugere&lt;/b&gt; og slette &lt;b&gt;backupkoderne&lt;/b&gt;!
+&lt;br&gt;
+Brugen skal sætte all to-faktor godkendelsesmetoder op igen og printe nye backupkoder! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Gør kun dette hvis du er helt sikker på identiten af brugeren (som søger hjælp), eller kan kontoen blive kompromiteret af en som ønsker at angrive systemet!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa.btn</source>
+        <target>Deaktivér all to-faktor godkendelsesmetoder</target>
+      </segment>
+    </unit>
+    <unit id="vQxH4zm" name="user.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:85</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit</source>
+        <target>Ret bruger</target>
+      </segment>
+    </unit>
+    <unit id="TvuuOMC" name="user.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:89</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.new</source>
+        <target>Ny bruger</target>
+      </segment>
+    </unit>
+    <unit id="0EjI8FY" name="attachment.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="ffvhms1" name="attachment.external">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external</source>
+        <target>Ekstern</target>
+      </segment>
+    </unit>
+    <unit id="vTU.j2g" name="attachment.preview.alt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview.alt</source>
+        <target>Billede af bilag</target>
+      </segment>
+    </unit>
+    <unit id="CNqXx.c" name="attachment.view">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.view</source>
+        <target>Vis</target>
+      </segment>
+    </unit>
+    <unit id="HnHc.HV" name="attachment.file_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_not_found</source>
+        <target>Fil ikke fundet</target>
+      </segment>
+    </unit>
+    <unit id="vnfQKjk" name="attachment.secure">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.secure</source>
+        <target>Privat bilag</target>
+      </segment>
+    </unit>
+    <unit id="NCjSwVs" name="attachment.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.create</source>
+        <target>Tilføj bilag</target>
+      </segment>
+    </unit>
+    <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.delete.confirm</source>
+        <target>Ønsker du virkeligt at slette dette lager? Du kan ikke fortryde det senere!</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.confirm_title</source>
+        <target>Ønsker du virkeligt at slette %name%?</target>
+      </segment>
+    </unit>
+    <unit id="0B3xeO2" name="entity.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.message</source>
+        <target>Dette kan ikke fortrydes!
+
+Underelementer vil blive flyttet opad.</target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete</source>
+        <target>Slet element</target>
+      </segment>
+    </unit>
+    <unit id="jix.mo1" name="edit.log_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:286</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:43</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.log_comment</source>
+        <target>Ret kommentar</target>
+      </segment>
+    </unit>
+    <unit id="A15hzUY" name="entity.delete.recursive">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.recursive</source>
+        <target>Slet rekursivt (alle underelementer)</target>
+      </segment>
+    </unit>
     <unit id="vlslklu" name="entity.duplicate">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
