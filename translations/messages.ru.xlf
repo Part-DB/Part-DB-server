@@ -11013,6 +11013,132 @@
         <target>Импортировать данные</target>
       </segment>
     </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.label</source>
+        <target>Пометить все импортированные компоненты как "Требуется проверки"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Если выбран этот параметр, все импортированные детали будут помечены как «Требуется проверка», независимо от того, что записано в данных импорта.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>Успешно импортировано %count% записей BOM.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Тип</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV файл)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>Удалить существующие записи BOM перед импортом.</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Если выбран этот параметр, все записи спецификации, которые уже существуют в проекте, будут удалены и перезаписаны импортированными данными спецификации.</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>Не удалось импортировать файл. Убедитесь, что вы выбрали правильный тип файла. Сообщение об ошибке: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Ошибка проверки! Пожалуйста, убедитесь что данные корректны!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment state="translated">
+        <source>project.import_bom</source>
+        <target>Импортировать BOM для проекта</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment state="translated">
+        <source>project.edit.bom.import_bom</source>
+        <target>Импортировать BOM</target>
+      </segment>
+    </unit>
+    <unit id="qDVJg2i" name="measurement_unit.new">
+      <segment state="translated">
+        <source>measurement_unit.new</source>
+        <target>Новая единица измерения</target>
+      </segment>
+    </unit>
+    <unit id="WKzr7h0" name="measurement_unit.edit">
+      <segment state="translated">
+        <source>measurement_unit.edit</source>
+        <target>Изменить единицу измерения</target>
+      </segment>
+    </unit>
+    <unit id="gRatnCn" name="user.aboutMe.label">
+      <segment state="translated">
+        <source>user.aboutMe.label</source>
+        <target>Обо мне</target>
+      </segment>
+    </unit>
+    <unit id="WsHXARp" name="storelocation.owner.label">
+      <segment state="translated">
+        <source>storelocation.owner.label</source>
+        <target>Владелец</target>
+      </segment>
+    </unit>
+    <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
+      <segment state="translated">
+        <source>storelocation.part_owner_must_match.label</source>
+        <target>Владелец лота должен совпадать с владельцем места хранения.</target>
+      </segment>
+    </unit>
+    <unit id="sddE1L." name="part_lot.owner">
+      <segment state="translated">
+        <source>part_lot.owner</source>
+        <target>Владелец</target>
+      </segment>
+    </unit>
+    <unit id="XKIMr8j" name="part_lot.owner.help">
+      <segment state="translated">
+        <source>part_lot.owner.help</source>
+        <target>Только владелец может удалять или добавлять компоненты из этого лота.</target>
+      </segment>
+    </unit>
+    <unit id="61.yfNy" name="log.element_edited.changed_fields.owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.owner</source>
+        <target>Владелец</target>
+      </segment>
+    </unit>
+    <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.instock_unknown</source>
+        <target>Количество неизвестно</target>
+      </segment>
+    </unit>
+    <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_refill</source>
+        <target>Необходимо пополнить</target>
+      </segment>
+    </unit>
     <unit id="GUthgcU" name="log.details.delete_entry">
       <segment state="translated">
         <source>log.details.delete_entry</source>
