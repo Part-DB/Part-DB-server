@@ -173,20 +173,20 @@ class PKPartImporter
             $entity->setName($name);
 
             $entity->setValueText($partparameter['stringValue'] ?? '');
-            if ($partparameter['unit_id'] === null) {
+            if ($partparameter['unit_id'] !== null && (int) $partparameter['unit_id'] !== 0) {
                 $entity->setUnit($this->getUnitSymbol($data, (int)$partparameter['unit_id']));
             } else {
                 $entity->setUnit("");
             }
 
-            if ($partparameter['normalizedMinValue'] !== null) {
-                $entity->setValueMin((float) $partparameter['normalizedMinValue']);
+            if ($partparameter['value'] !== null) {
+                $entity->setValueTypical((float) $partparameter['value'] * $this->getSIPrefixFactor($data, (int) $partparameter['siPrefix_id']));
             }
-            if ($partparameter['normalizedValue'] !== null) {
-                $entity->setValueTypical((float) $partparameter['normalizedValue']);
+            if ($partparameter['minimumValue'] !== null) {
+                $entity->setValueMin((float) $partparameter['minimumValue'] * $this->getSIPrefixFactor($data, (int) $partparameter['minSiPrefix_id']));
             }
-            if ($partparameter['normalizedMaxValue'] !== null) {
-                $entity->setValueMax((float) $partparameter['normalizedMaxValue']);
+            if ($partparameter['maximumValue'] !== null) {
+                $entity->setValueMax((float) $partparameter['maximumValue'] * $this->getSIPrefixFactor($data, (int) $partparameter['maxSiPrefix_id']));
             }
 
             $part = $this->em->find(Part::class, (int) $partparameter['part_id']);
