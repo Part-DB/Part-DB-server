@@ -2423,5 +2423,521 @@ Underelementer vil blive flyttet opad.</target>
         <target>Mængde</target>
       </segment>
     </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>Ukendt lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>Ukendt mængde</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>Udløbsdato</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>Udløbet</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>Skal fyldes op</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>Forrige billede</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>Næste billede</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>Vægt</target>
+      </segment>
+    </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>Gennemgang nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>Ikke længere tilgængelig</target>
+      </segment>
+    </unit>
+    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.extracted_from_description</source>
+        <target>Automatisk udtrukket fra beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.auto_extracted_from_comment</source>
+        <target>Automatisk udtrukket fra noter</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>Rediger komponent</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>Kopier komponent</target>
+      </segment>
+    </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>Opret ny komponent</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>Vil du virkelig slette denne komponent</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>Komponenten og alle dens relaterede oplysninger (bilag, priser osv. ) slettes. Dette kan ikke fortrydes!</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>Slet komponent</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>Alle komponenter</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>Komponent med kategori</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>Komponent med footprint</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>Komponenter med fabrikanter</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>Søg komponenter</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>Komponenter med lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>Komponenter med leverandører</target>
+      </segment>
+    </unit>
+    <unit id="DBlWwba" name="parts_list.tags.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.tags.title</source>
+        <target>Komponenter med tag</target>
+      </segment>
+    </unit>
+    <unit id="5tFcxpX" name="entity.info.common.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.common.tab</source>
+        <target>Fælles</target>
+      </segment>
+    </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>Statistik</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Vedhæftede filer</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>Parametre</target>
+      </segment>
+    </unit>
+    <unit id="a0Bt1My" name="entity.info.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="pqMTPTv" name="entity.info.parent">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parent</source>
+        <target>Overordnet element</target>
+      </segment>
+    </unit>
+    <unit id="nDEGgY0" name="entity.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:70</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.btn</source>
+        <target>Redigere</target>
+      </segment>
+    </unit>
+    <unit id="Rsrawma" name="entity.info.children_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.children_count</source>
+        <target>Antal af underelementer</target>
+      </segment>
+    </unit>
+    <unit id="3WtQFdr" name="tfa.check.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.title</source>
+        <target>To-faktor godkendelse påkrævet</target>
+      </segment>
+    </unit>
+    <unit id="FPvJfPr" name="tfa.code.trusted_pc">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.code.trusted_pc</source>
+        <target>Dette er en pålidelig computer (hvis dette er aktiveret, udføres der ikke yderligere to-faktorforespørgsler på denne computer)</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>login.btn</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>user.logout</source>
+        <target>Log ud</target>
+      </segment>
+    </unit>
+    <unit id="INlwXoR" name="tfa.check.code.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.label</source>
+        <target>Godkendelses app kode</target>
+      </segment>
+    </unit>
+    <unit id="TUbr0_A" name="tfa.check.code.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.help</source>
+        <target>Indtast den 6-cifrede kode fra din godkendelsesapp her eller en af dine backupkoder, hvis godkendelses app'en ikke er tilgændelig.</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">templates\security\login.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>login.title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">templates\security\login.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>login.card_title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">templates\security\login.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.label</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">templates\security\login.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.placeholder</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">templates\security\login.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.label</source>
+        <target>Password</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">templates\security\login.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.placeholder</source>
+        <target>Password</target>
+      </segment>
+    </unit>
+    <unit id="BSn76q_" name="login.rememberme">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">templates\security\login.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>login.rememberme</source>
+        <target>Forbliv logget ind (anbefales ikke på delte computere)</target>
+      </segment>
+    </unit>
+    <unit id="GO.ZhTX" name="pw_reset.password_forget">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.password_forget</source>
+        <target>Glemt brugernavn/password?</target>
+      </segment>
+    </unit>
+    <unit id="hbW2JJr" name="pw_reset.new_pw.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.header.title</source>
+        <target>Indstil ny adgangskode</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
