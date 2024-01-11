@@ -1463,6 +1463,28 @@ Underelementer vil blive flyttet opad.</target>
         <target>Hjælp</target>
       </segment>
     </unit>
+    <unit id="exp3iqv" name="homepage.help.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.text</source>
+        <target>Hjælp og tips kan findes på Wiki &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub siden&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="R2g.45a" name="homepage.forum.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">templates\homepage.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.forum.caption</source>
+        <target>Forum</target>
+      </segment>
+    </unit>
     <unit id="bqeaYn7" name="label_generator.title">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
