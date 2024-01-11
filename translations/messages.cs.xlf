@@ -22,5 +22,3082 @@
         <target>Upravit typ souboru</target>
       </segment>
     </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>Nový typ souboru</target>
+      </segment>
+    </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:163</note>
+        <note priority="1">templates\base.html.twig:170</note>
+        <note priority="1">templates\base.html.twig:197</note>
+        <note priority="1">templates\base.html.twig:225</note>
+      </notes>
+      <segment state="translated">
+        <source>category.labelp</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>Možnosti</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.advanced</source>
+        <target>Pokročilé</target>
+      </segment>
+    </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>Upravit kategorii</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>Nová kategorie</target>
+      </segment>
+    </unit>
+    <unit id="BJtSZa4" name="currency.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.caption</source>
+        <target>Měna</target>
+      </segment>
+    </unit>
+    <unit id="dzfYFww" name="currency.iso_code.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.iso_code.caption</source>
+        <target>Kód ISO</target>
+      </segment>
+    </unit>
+    <unit id="lrCa3tF" name="currency.symbol.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.symbol.caption</source>
+        <target>Symbol měny</target>
+      </segment>
+    </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>Upravit měnu</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>Nová měna</target>
+      </segment>
+    </unit>
+    <unit id="zNlEdQs" name="project.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>project.caption</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
+    <unit id="DTt5Co7" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>Upravit projekt</target>
+      </segment>
+    </unit>
+    <unit id="O_iNK2O" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>Nový projekt</target>
+      </segment>
+    </unit>
+    <unit id="lQ8QeGr" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:80</note>
+        <note priority="1">templates\base.html.twig:179</note>
+        <note priority="1">templates\base.html.twig:206</note>
+        <note priority="1">templates\base.html.twig:237</note>
+      </notes>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>Hledat</target>
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:166</note>
+        <note priority="1">templates\base.html.twig:193</note>
+        <note priority="1">templates\base.html.twig:221</note>
+      </notes>
+      <segment state="translated">
+        <source>expandAll</source>
+        <target>Rozbalit vše</target>
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note priority="1">templates\base.html.twig:167</note>
+        <note priority="1">templates\base.html.twig:194</note>
+        <note priority="1">templates\base.html.twig:222</note>
+      </notes>
+      <segment state="translated">
+        <source>reduceAll</source>
+        <target>Sbalit vše</target>
+      </segment>
+    </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>Takto vypadala část před %timestamp%. &lt;i&gt;Upozorňujeme, že tato funkce je experimentální, takže informace nemusí být správné.&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>Vlastnosti</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>Informace</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>Historie</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>Export</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>Import / Export</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>Hromadné vytváření</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>Společné</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>Parametr</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>Exportovat všechny prvky</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>Každý řádek bude interpretován jako název prvku, který bude vytvořen. Vnořené struktury můžete vytvářet pomocí odsazení.</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>Upravit prvek "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>Nový prvek</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>Otisky</target>
+      </segment>
+    </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Upravit otisk</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Nový otisk</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>Skupiny</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>Oprávnění</target>
+      </segment>
+    </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Upravit skupinu</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>Nová skupina</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Profily štítků</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Pokročilé</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>Upravit profil štítku</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>Nový profil štítku</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.caption</source>
+        <target>Výrobci</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>Upravit výrobce</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>Nový výrobce</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>Jednotka měření</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>Místa uložení</target>
+      </segment>
+    </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>Upravit umístění</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>Nové místo skladování</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.caption</source>
+        <target>Dodavatelé</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>Upravit dodavatele</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>Nový dodavatel</target>
+      </segment>
+    </unit>
+    <unit id=".YoS4pi" name="user.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.caption</source>
+        <target>Uživatelé</target>
+      </segment>
+    </unit>
+    <unit id="eDE4Z9X" name="user.edit.configuration">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.configuration</source>
+        <target>Konfigurace</target>
+      </segment>
+    </unit>
+    <unit id="3HIFZxy" name="user.edit.password">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.password</source>
+        <target>Heslo</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.caption</source>
+        <target>Dvoufaktorové ověřování</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.google_active</source>
+        <target>Aplikace Authenticator aktivní</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.remaining_tokens</source>
+        <target>Počet zbývajících záložních kódů</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.generation_date</source>
+        <target>Datum generování záložních kódů</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disabled</source>
+        <target>Metoda není povolena</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>Aktivní bezpečnostní klíče</target>
+      </segment>
+    </unit>
+    <unit id="CNqXx.c" name="attachment.view">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.view</source>
+        <target>Zobrazit</target>
+      </segment>
+    </unit>
+    <unit id="HnHc.HV" name="attachment.file_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_not_found</source>
+        <target>Soubor nebyl nalezen</target>
+      </segment>
+    </unit>
+    <unit id="vnfQKjk" name="attachment.secure">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.secure</source>
+        <target>Soukromá příloha</target>
+      </segment>
+    </unit>
+    <unit id="NCjSwVs" name="attachment.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.create</source>
+        <target>Přidat přílohu</target>
+      </segment>
+    </unit>
+    <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.delete.confirm</source>
+        <target>Opravdu chcete tuto zásobu smazat? To nelze vzít zpět!</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.confirm_title</source>
+        <target>Opravdu chcete smazat %name%?</target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete</source>
+        <target>Odstranit prvek</target>
+      </segment>
+    </unit>
+    <unit id="jix.mo1" name="edit.log_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:286</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:43</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.log_comment</source>
+        <target>Změnit komentář</target>
+      </segment>
+    </unit>
+    <unit id="A15hzUY" name="entity.delete.recursive">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.recursive</source>
+        <target>Odstranit rekurzivně (všechny dílčí prvky)</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>Duplicitní prvek</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">src\Form\ImportType.php:67</note>
+      </notes>
+      <segment state="translated">
+        <source>export.format</source>
+        <target>Formát souboru</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.simple</source>
+        <target>Jednoduchý</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.extended</source>
+        <target>Rozšířený</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.full</source>
+        <target>Úplný</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>export.include_children</source>
+        <target>Zahrnutí podřízených prvků do exportu</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>export.btn</source>
+        <target>Export</target>
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>id.label</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
+      <segment state="translated">
+        <source>createdAt</source>
+        <target>Vytvořeno v</target>
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
+      <segment state="translated">
+        <source>lastModified</source>
+        <target>Naposledy upraveno</target>
+      </segment>
+    </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>Počet dílů s tímto prvkem</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>Parametr</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>Symbol</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>Min.</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>Typ.</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>Max.</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>Jednotka</target>
+      </segment>
+    </unit>
+    <unit id="05vM0Vp" name="specifications.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.text</source>
+        <target>Text</target>
+      </segment>
+    </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.group</source>
+        <target>Skupina</target>
+      </segment>
+    </unit>
+    <unit id="MZTH_sJ" name="specification.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>specification.create</source>
+        <target>Nový parametr</target>
+      </segment>
+    </unit>
+    <unit id="eEuzINH" name="parameter.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.delete.confirm</source>
+        <target>Opravdu chcete tento parametr odstranit?</target>
+      </segment>
+    </unit>
+    <unit id="rpzRyMx" name="attachment.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.list.title</source>
+        <target>Seznam příloh</target>
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.caption</source>
+        <target>Načítání</target>
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.message</source>
+        <target>To může chvíli trvat. Pokud tato zpráva nezmizí, zkuste stránku načíst znovu.</target>
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">templates\base.html.twig:246</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.base.javascript_hint</source>
+        <target>Chcete-li používat všechny funkce, aktivujte prosím Javascript!</target>
+      </segment>
+    </unit>
+    <unit id="0rLRD9e" name="sidebar.big.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.big.toggle</source>
+        <target>Zobrazit/skrýt postranní panel</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">templates\base.html.twig:271</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.caption</source>
+        <target>Načítání:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">templates\base.html.twig:272</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.message</source>
+        <target>To může chvíli trvat. Pokud tato zpráva zůstává dlouho, zkuste stránku znovu načíst.</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">templates\base.html.twig:277</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.bar</source>
+        <target>Načítání...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">templates\base.html.twig:288</note>
+      </notes>
+      <segment state="translated">
+        <source>back_to_top</source>
+        <target>Zpět na začátek stránky</target>
+      </segment>
+    </unit>
+    <unit id="yXZ1kdn" name="permission.edit.permission">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.permission</source>
+        <target>Oprávnění</target>
+      </segment>
+    </unit>
+    <unit id="tFYZZcS" name="permission.edit.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.value</source>
+        <target>Hodnota</target>
+      </segment>
+    </unit>
+    <unit id="KzyDL60" name="permission.legend.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.title</source>
+        <target>Vysvětlení režimů</target>
+      </segment>
+    </unit>
+    <unit id="owrJ0Qw" name="permission.legend.disallow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.disallow</source>
+        <target>Zakázáno</target>
+      </segment>
+    </unit>
+    <unit id="1nY8d_O" name="permission.legend.allow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.allow</source>
+        <target>Povoleno</target>
+      </segment>
+    </unit>
+    <unit id="uNMtwn9" name="permission.legend.inherit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.inherit</source>
+        <target>Převzít z (nadřazené) skupiny</target>
+      </segment>
+    </unit>
+    <unit id="QSE9MT9" name="bool.true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
+        <note priority="1">Part-DB1\templates\helper.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.true</source>
+        <target>Ano</target>
+      </segment>
+    </unit>
+    <unit id="UlrxUmI" name="bool.false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:5</note>
+        <note priority="1">Part-DB1\templates\helper.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.false</source>
+        <target>Ne</target>
+      </segment>
+    </unit>
+    <unit id="haOas0X" name="Yes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
+        <note priority="1">Part-DB1\templates\helper.twig:87</note>
+      </notes>
+      <segment state="translated">
+        <source>Yes</source>
+        <target>Ano</target>
+      </segment>
+    </unit>
+    <unit id="HqRCoTS" name="No">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
+        <note priority="1">Part-DB1\templates\helper.twig:89</note>
+      </notes>
+      <segment state="translated">
+        <source>No</source>
+        <target>Ne</target>
+      </segment>
+    </unit>
+    <unit id="PbJl5cf" name="specifications.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:126</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value</source>
+        <target>Hodnota</target>
+      </segment>
+    </unit>
+    <unit id="Qj.Hpb." name="version.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:7</note>
+        <note priority="1">templates\homepage.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>version.caption</source>
+        <target>Verze</target>
+      </segment>
+    </unit>
+    <unit id="GDYG7.b" name="homepage.license">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">templates\homepage.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.license</source>
+        <target>Informace o licenci</target>
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.caption</source>
+        <target>Stránka projektu</target>
+      </segment>
+    </unit>
+    <unit id="7nCeHg7" name="homepage.github.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.text</source>
+        <target>Zdrojové kódy, soubory ke stažení, hlášení chyb, seznam úkolů atd. najdete na &lt;a href="%href%" class="link-external" target="_blank"&gt;stránce projektu GitHub&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="9pp.6vF" name="homepage.help.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.caption</source>
+        <target>Nápověda</target>
+      </segment>
+    </unit>
+    <unit id="exp3iqv" name="homepage.help.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.text</source>
+        <target>Nápovědu a tipy najdete na Wiki na &lt;a href="%href%" class="link-external" target="_blank"&gt;stránce GitHub&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="R2g.45a" name="homepage.forum.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">templates\homepage.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.forum.caption</source>
+        <target>Forum</target>
+      </segment>
+    </unit>
+    <unit id="jOOAjnK" name="homepage.last_activity">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.last_activity</source>
+        <target>Poslední aktivita</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.title</source>
+        <target>Generátor štítků</target>
+      </segment>
+    </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.common</source>
+        <target>Společné</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>Pokročilé</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>Profily</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>Aktuálně vybraný profil</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>Upravit profil</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>Načíst profil</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>Stáhnout</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>Vytvořit štítek</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>Nový prázdný štítek</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>Skener</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>Nebyla nalezena žádná webová kamera</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>Potřebujete webovou kameru a povolení k použití funkce skeneru. Kód čárového kódu můžete zadat ručně níže.</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>Vybrat zdroj</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>log.list.title</source>
+        <target>Systémový protokol</target>
+      </segment>
+    </unit>
+    <unit id="_1bnAgm" name="log.undo.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_title</source>
+        <target>Opravdu vrátit změnu / vrátit se k časovému razítku?</target>
+      </segment>
+    </unit>
+    <unit id="ATlnZ1T" name="log.undo.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_message</source>
+        <target>Opravdu chcete vrátit danou změnu / resetovat prvek na dané časové razítko?</target>
+      </segment>
+    </unit>
+    <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.email_sent_by</source>
+        <target>Tento e-mail byl automaticky odeslán</target>
+      </segment>
+    </unit>
+    <unit id="AchaWxK" name="mail.footer.dont_reply">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.dont_reply</source>
+        <target>Na tento e-mail neodpovídejte.</target>
+      </segment>
+    </unit>
+    <unit id="S6Fot75" name="email.hi %name%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>email.hi %name%</source>
+        <target>Ahoj %name%</target>
+      </segment>
+    </unit>
+    <unit id="VKSPbrb" name="email.pw_reset.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.message</source>
+        <target>někdo (doufejme, že vy) požádal o obnovení vašeho hesla. Pokud jste tuto žádost nepodali vy, ignorujte tento e-mail.</target>
+      </segment>
+    </unit>
+    <unit id="lu8bcCN" name="email.pw_reset.button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.button</source>
+        <target>Klikněte zde pro obnovení hesla</target>
+      </segment>
+    </unit>
+    <unit id="tS_htiy" name="email.pw_reset.fallback">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.fallback</source>
+        <target>Pokud vám to nefunguje, přejděte na &lt;a href="%url%"&gt;%url%&lt;/a&gt; a zadejte následující informace.</target>
+      </segment>
+    </unit>
+    <unit id="QBTV5KP" name="email.pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.username</source>
+        <target>Uživatelské jméno</target>
+      </segment>
+    </unit>
+    <unit id="6UyKd6G" name="email.pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.token</source>
+        <target>Token</target>
+      </segment>
+    </unit>
+    <unit id="3Rl4ELy" name="email.pw_reset.valid_unit %date%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.valid_unit %date%</source>
+        <target>Token obnovení bude platný do &lt;i&gt;%date%&lt;/i&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="ItQbhLs" name="orderdetail.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:78</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.delete</source>
+        <target>Odstranit</target>
+      </segment>
+    </unit>
+    <unit id="uUvRF8P" name="pricedetails.edit.min_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.min_qty</source>
+        <target>Minimální množství slevy</target>
+      </segment>
+    </unit>
+    <unit id="3meOpdA" name="pricedetails.edit.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price</source>
+        <target>Cena</target>
+      </segment>
+    </unit>
+    <unit id="1gzHhnJ" name="pricedetails.edit.price_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price_qty</source>
+        <target>pro částku</target>
+      </segment>
+    </unit>
+    <unit id="8BF.OZR" name="pricedetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.create</source>
+        <target>Přidat cenu</target>
+      </segment>
+    </unit>
+    <unit id="nS44Iqv" name="part.edit.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.title</source>
+        <target>Upravit díl</target>
+      </segment>
+    </unit>
+    <unit id="Ko2G29K" name="part.edit.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.card_title</source>
+        <target>Upravit díl</target>
+      </segment>
+    </unit>
+    <unit id="MvJvWIA" name="part.edit.tab.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.common</source>
+        <target>Společné</target>
+      </segment>
+    </unit>
+    <unit id="9HrMrf1" name="part.edit.tab.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
+    <unit id="tkdBTwZ" name="part.edit.tab.orderdetails">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.orderdetails</source>
+        <target>Informace o nákupu</target>
+      </segment>
+    </unit>
+    <unit id="fLuFk_2" name="part.edit.tab.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.specifications</source>
+        <target>Parametry</target>
+      </segment>
+    </unit>
+    <unit id="LgSgFFj" name="part.edit.tab.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="h0g53U_" name="part.new.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">templates\Parts\new_part.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part.new.card_title</source>
+        <target>Vytvořit nový díl</target>
+      </segment>
+    </unit>
+    <unit id="X.m4tR7" name="part_lot.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.delete</source>
+        <target>Odstranit</target>
+      </segment>
+    </unit>
+    <unit id="Ey2BEY6" name="part_lot.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.create</source>
+        <target>Přidat zásoby</target>
+      </segment>
+    </unit>
+    <unit id="D7h1rMv" name="orderdetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.create</source>
+        <target>Přidat distributora</target>
+      </segment>
+    </unit>
+    <unit id="uKZiiFJ" name="pricedetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.delete.confirm</source>
+        <target>Opravdu chcete tuto cenu smazat? To nelze vzít zpět.</target>
+      </segment>
+    </unit>
+    <unit id="FIw9JVr" name="orderdetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.delete.confirm</source>
+        <target>Opravdu chcete smazat informace o distributorovi? To nelze vzít zpět!</target>
+      </segment>
+    </unit>
+    <unit id="UoflU8w" name="part.info.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.title</source>
+        <target>Detailní informace o dílu</target>
+      </segment>
+    </unit>
+    <unit id="ZrzEsc_" name="part.part_lots.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.part_lots.label</source>
+        <target>Zásoby</target>
+      </segment>
+    </unit>
+    <unit id="BWS7Lck" name="comment.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:26</note>
+        <note priority="1">templates\base.html.twig:62</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:74</note>
+        <note priority="1">src\Form\PartType.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>comment.label</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>Unknown</source>
+        <target>Neznámý</target>
+      </segment>
+    </unit>
+    <unit id="n4o6jKZ" name="accessDenied">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>accessDenied</source>
+        <target>Přístup odepřen</target>
+      </segment>
+    </unit>
+    <unit id="xQkqdM5" name="part.isFavorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>part.isFavorite</source>
+        <target>Oblíbené</target>
+      </segment>
+    </unit>
+    <unit id="qwRgUmm" name="part.minOrderAmount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.minOrderAmount</source>
+        <target>Minimální výše objednávky</target>
+      </segment>
+    </unit>
+    <unit id="WB3sH1G" name="manufacturer.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:46</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:41</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">templates\base.html.twig:70</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:24</note>
+        <note priority="1">src\Form\PartType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.label</source>
+        <target>Výrobce</target>
+      </segment>
+    </unit>
+    <unit id="kTRK6H_" name="name.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:54</note>
+        <note priority="1">src\Form\PartType.php:62</note>
+      </notes>
+      <segment state="translated">
+        <source>name.label</source>
+        <target>Jméno</target>
+      </segment>
+    </unit>
+    <unit id="xaKzTBt" name="part.back_to_info">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>part.back_to_info</source>
+        <target>Zpět na aktuální verzi</target>
+      </segment>
+    </unit>
+    <unit id="LSnWIG7" name="description.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:18</note>
+        <note priority="1">templates\base.html.twig:58</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:31</note>
+        <note priority="1">src\Form\PartType.php:65</note>
+      </notes>
+      <segment state="translated">
+        <source>description.label</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="ZY57BXc" name="category.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:14</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">templates\base.html.twig:56</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:32</note>
+        <note priority="1">src\Form\PartType.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>category.label</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="J.AXbaM" name="instock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:42</note>
+        <note priority="1">src\Form\PartType.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>instock.label</source>
+        <target>Skladem</target>
+      </segment>
+    </unit>
+    <unit id="VYcxdrz" name="mininstock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:44</note>
+        <note priority="1">src\Form\PartType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>mininstock.label</source>
+        <target>Minimální skladová zásoba</target>
+      </segment>
+    </unit>
+    <unit id="griVyRf" name="footprint.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">templates\base.html.twig:73</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.label</source>
+        <target>Otisk</target>
+      </segment>
+    </unit>
+    <unit id="LL2dt8U" name="part.avg_price.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:51</note>
+      </notes>
+      <segment state="translated">
+        <source>part.avg_price.label</source>
+        <target>Průměrná cena</target>
+      </segment>
+    </unit>
+    <unit id="3tdTZVD" name="part.supplier.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.name</source>
+        <target>Jméno</target>
+      </segment>
+    </unit>
+    <unit id="RiciNp5" name="part.supplier.partnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.partnr</source>
+        <target>Objednací číslo</target>
+      </segment>
+    </unit>
+    <unit id="_SpdO.3" name="part.order.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.minamount</source>
+        <target>Minimální částka</target>
+      </segment>
+    </unit>
+    <unit id="4RsODVR" name="part.order.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price</source>
+        <target>Cena</target>
+      </segment>
+    </unit>
+    <unit id="Lr0c8K3" name="part.order.single_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.single_price</source>
+        <target>Jednotková cena</target>
+      </segment>
+    </unit>
+    <unit id="EKnfKFl" name="edit.caption_short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption_short</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="qNZM46r" name="delete.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>delete.caption</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="aUihK3c" name="part_lots.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.description</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="SOcXkyd" name="part_lots.storage_location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.storage_location</source>
+        <target>Místo uložení</target>
+      </segment>
+    </unit>
+    <unit id="jVYrm0U" name="part_lots.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.amount</source>
+        <target>Částka</target>
+      </segment>
+    </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>Místo uložení neznámé</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>Částka neznámá</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>Datum vypršení platnosti</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>Vypršela platnost</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>Potřebuje doplnit</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>Předchozí obrázek</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>Další obrázek</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>Hromadné</target>
+      </segment>
+    </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>Potřebuje revizi</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>Oblíbené</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>Již není k dispozici</target>
+      </segment>
+    </unit>
+    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.extracted_from_description</source>
+        <target>Automaticky extrahováno z popisu</target>
+      </segment>
+    </unit>
+    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.auto_extracted_from_comment</source>
+        <target>Automaticky extrahované z poznámek</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>Upravit díl</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>Duplikovat díl</target>
+      </segment>
+    </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>Vytvořit nový díl</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>Opravdu chcete tento díl odstranit?</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>Tento díl a všechny související informace (např. přílohy, informace o ceně atd.) budou odstraněny. Toto nelze vrátit zpět!</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>Odstranit díl</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>Všechny díly</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>Díly s kategorií</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>Díly s otiskem</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>Díly s výrobcem</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>Vyhledat díly</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>Díly s místy uložení</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>Díly s dodavatelem</target>
+      </segment>
+    </unit>
+    <unit id="DBlWwba" name="parts_list.tags.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.tags.title</source>
+        <target>Díly se štítkem</target>
+      </segment>
+    </unit>
+    <unit id="5tFcxpX" name="entity.info.common.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.common.tab</source>
+        <target>Společné</target>
+      </segment>
+    </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>Statistika</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Attachments</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>Parametry</target>
+      </segment>
+    </unit>
+    <unit id="nDEGgY0" name="entity.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:70</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.btn</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="50kyfxA" name="statistics.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
+    <unit id="S1UPbY3" name="statistics.all_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.all_attachments_count</source>
+        <target>Počet všech příloh</target>
+      </segment>
+    </unit>
+    <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.user_uploaded_attachments_count</source>
+        <target>Počet příloh nahraných uživatelem</target>
+      </segment>
+    </unit>
+    <unit id="PcACWnw" name="statistics.private_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.private_attachments_count</source>
+        <target>Počet soukromých příloh</target>
+      </segment>
+    </unit>
+    <unit id="b2F2Gpk" name="statistics.external_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.external_attachments_count</source>
+        <target>Počet externích příloh (URL)</target>
+      </segment>
+    </unit>
+    <unit id="_M8LV3f" name="user.info.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">templates\base.html.twig:99</note>
+        <note priority="1">templates\Users\user_info.html.twig:3</note>
+        <note priority="1">templates\Users\user_info.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.info.label</source>
+        <target>Informace o uživateli</target>
+      </segment>
+    </unit>
+    <unit id="PwI64fM" name="user.firstName.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">templates\Users\user_info.html.twig:18</note>
+        <note priority="1">src\Form\UserSettingsType.php:32</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.label</source>
+        <target>Křestní jméno</target>
+      </segment>
+    </unit>
+    <unit id="oX4P2rM" name="user.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">templates\Users\user_info.html.twig:47</note>
+        <note priority="1">src\Form\UserSettingsType.php:30</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.label</source>
+        <target>Uživatelské jméno</target>
+      </segment>
+    </unit>
+    <unit id="A7LFSdc" name="user.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>user.permissions</source>
+        <target>Oprávnění</target>
+      </segment>
+    </unit>
+    <unit id="TXv.pXw" name="tfa_google.step.scan">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.scan</source>
+        <target>Naskenujte přiložený QR kód pomocí aplikace nebo zadejte údaje ručně.</target>
+      </segment>
+    </unit>
+    <unit id="A9Ex8CO" name="tfa_google.step.input_code">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.input_code</source>
+        <target>Vygenerovaný kód zadejte do níže uvedeného pole a potvrďte.</target>
+      </segment>
+    </unit>
+    <unit id="EygadTb" name="tfa_google.manual_setup">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup</source>
+        <target>Ruční nastavení</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>Zatím nebyly zaregistrovány žádné klíče.</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>Při kontrole druhého faktoru lze aktuální počítač označit jako důvěryhodný, takže na tomto počítači již není třeba provádět žádné další dvoufaktorové kontroly.
+Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodný, můžete zde obnovit stav &lt;i&gt;všech &lt;/i&gt;počítačů.</target>
+      </segment>
+    </unit>
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.toggle</source>
+        <target>Přepnutí postranního panelu</target>
+      </segment>
+    </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>Skener</target>
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">templates\base.html.twig:97</note>
+      </notes>
+      <segment state="translated">
+        <source>user.loggedin.label</source>
+        <target>Přihlášen jako</target>
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">templates\base.html.twig:103</note>
+      </notes>
+      <segment state="translated">
+        <source>user.login</source>
+        <target>Příhlásit</target>
+      </segment>
+    </unit>
+    <unit id="Eorzg9b" name="ui.toggle_darkmode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>ui.toggle_darkmode</source>
+        <target>Tmavý režim</target>
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">templates\base.html.twig:106</note>
+        <note priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>user.language_select</source>
+        <target>Přepnutí jazyka</target>
+      </segment>
+    </unit>
+    <unit id="PBKICdd" name="user.settings.saved_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:235</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
+        <note priority="1">src\Controller\UserController.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.saved_flash</source>
+        <target>Nastavení uloženo!</target>
+      </segment>
+    </unit>
+    <unit id="dNey6.4" name="attachment.table.filesize">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.filesize</source>
+        <target>Velikost souboru</target>
+      </segment>
+    </unit>
+    <unit id="eTGx8tR" name="log.target_deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:128</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target_deleted</source>
+        <target>smazáno</target>
+      </segment>
+    </unit>
+    <unit id="mzQZ0My" name="log.undo.undelete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:57</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:60</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undelete</source>
+        <target>Odstranění prvku</target>
+      </segment>
+    </unit>
+    <unit id="PI8faHR" name="log.undo.undo">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:63</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:66</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undo</source>
+        <target>Vrátit změnu</target>
+      </segment>
+    </unit>
+    <unit id="Q6mbDaS" name="log.undo.revert">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:83</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:86</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert</source>
+        <target>Vrátit prvek na toto časové razítko</target>
+      </segment>
+    </unit>
+    <unit id=".IgL4C2" name="log.target">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:226</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:214</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target</source>
+        <target>Cíl</target>
+      </segment>
+    </unit>
+    <unit id="b4r5dEC" name="log.extra">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:231</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.extra</source>
+        <target>Extra</target>
+      </segment>
+    </unit>
+    <unit id="t2EE5cB" name="part.table.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:168</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:116</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.name</source>
+        <target>Název</target>
+      </segment>
+    </unit>
+    <unit id="eshqdG." name="part.table.id">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="zKnTKYw" name="part.table.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:182</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.description</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="2eOA0az" name="part.table.category">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:185</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:133</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.category</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="TN5xR7J" name="m_status.active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:264</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:212</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.active</source>
+        <target>Aktivní</target>
+      </segment>
+    </unit>
+    <unit id="0McKh_8" name="m_status.nrfnd">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.nrfnd</source>
+        <target>Nedoporučuje se pro nové návrhy</target>
+      </segment>
+    </unit>
+    <unit id="L7yLwn0" name="m_status.eol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:266</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:214</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.eol</source>
+        <target>Konec života</target>
+      </segment>
+    </unit>
+    <unit id="5jxVP1H" name="m_status.discontinued">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:267</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:215</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.discontinued</source>
+        <target>Přerušeno</target>
+      </segment>
+    </unit>
+    <unit id="HTkvjkE" name="part.table.mpn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:271</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="q_AsQoZ" name="part.table.mass">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:275</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:223</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mass</source>
+        <target>Hmotnost</target>
+      </segment>
+    </unit>
+    <unit id="Cwisdej" name="part.table.tags">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:279</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:227</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.tags</source>
+        <target>Štítky</target>
+      </segment>
+    </unit>
+    <unit id="gGfALE0" name="part.table.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:283</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:231</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
+    <unit id="2xohoLw" name="JSON">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>JSON</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="QGWOmvj" name="XML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>XML</source>
+        <target>XML</target>
+      </segment>
+    </unit>
+    <unit id="62tC9Ux" name="CSV">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>CSV</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="m26KvkJ" name="YAML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>YAML</source>
+        <target>YAML</target>
+      </segment>
+    </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation.help</source>
+        <target>Pokud je tato možnost aktivována, celý proces importu se přeruší, pokud jsou zjištěna neplatná data. Není-li tato možnost vybrána, neplatná data jsou ignorována a importér se pokusí importovat ostatní prvky.</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">src\Form\ImportType.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>import.csv_separator</source>
+        <target>CSV oddělovač</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">src\Form\ImportType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>parent.label</source>
+        <target>Nadřazený prvek</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">src\Form\ImportType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>import.file</source>
+        <target>Soubor</target>
+      </segment>
+    </unit>
+    <unit id="o.P_V00" name="parameters.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.name.placeholder</source>
+        <target>např. stejnosměrný proudový zisk</target>
+      </segment>
+    </unit>
+    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.symbol.placeholder</source>
+        <target>např. h_{FE}</target>
+      </segment>
+    </unit>
+    <unit id="w7bfLKj" name="parameters.text.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.text.placeholder</source>
+        <target>např. Testovací podmínky</target>
+      </segment>
+    </unit>
+    <unit id="6utToZ6" name="parameters.max.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.max.placeholder</source>
+        <target>např. 350</target>
+      </segment>
+    </unit>
+    <unit id="BypUOrf" name="parameters.min.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.min.placeholder</source>
+        <target>např. 100</target>
+      </segment>
+    </unit>
+    <unit id="VmYIvYF" name="parameters.typical.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.typical.placeholder</source>
+        <target>např. 200</target>
+      </segment>
+    </unit>
+    <unit id="kvhGoo0" name="parameters.unit.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.unit.placeholder</source>
+        <target>např. V</target>
+      </segment>
+    </unit>
+    <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:232</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.all_attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
+    <unit id="3.LGmWy" name="perm.part.attachments">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachments</source>
+        <target>Přílohy souborů</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Parametry</target>
+      </segment>
+    </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Typ přílohy stále obsahuje přílohy. Změňte jejich typ, abyste mohli tento typ přílohy odstranit.</target>
+      </segment>
+    </unit>
+    <unit id="tjfJAIq" name="part.filter.attachments_count">
+      <segment state="translated">
+        <source>part.filter.attachments_count</source>
+        <target>Počet příloh</target>
+      </segment>
+    </unit>
+    <unit id=".CuxL5L" name="part.filter.parameters_count">
+      <segment state="translated">
+        <source>part.filter.parameters_count</source>
+        <target>Počet parametrů</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Zobrazit soukromé přílohy</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment state="translated">
+        <source>perm.attachments.list_attachments</source>
+        <target>Zobrazit seznam všech příloh</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Přílohy</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
