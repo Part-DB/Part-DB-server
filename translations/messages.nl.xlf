@@ -233,5 +233,222 @@
         <target>Alles inklappen</target>
       </segment>
     </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>Dit is hoe het component er uitzag voor %timestamp%. &lt;i&gt;Let op: deze feature is nog experimenteel, de getoonde informatie kan onnauwkeurig zijn.&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>Eigenschappen</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>Informatie</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>Geschiedenis</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>Exporteren</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>Importeren/Exporteren</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>Bulk toevoegen</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>Algemeen</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>Bijlagen</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>Exporteer alle elementen</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>Elke regel wordt geïnterpreteerd als de naam van een element, dat aangemaakt zal worden. Je kunt geneste structuren maken d.m.v. indentatie.</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>Bewerk element "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>Nieuw element</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>Voetafdruk</target>
+      </segment>
+    </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Voetafdruk bewerken</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Nieuwe voetafdruk</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>Groepen</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>Rechten</target>
+      </segment>
+    </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Groep bewerken</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
