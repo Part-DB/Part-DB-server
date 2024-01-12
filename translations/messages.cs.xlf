@@ -5785,6 +5785,16 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Popis</target>
       </segment>
     </unit>
+    <unit id="IwPHYB0" name="part_lot.edit.location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.location</source>
+        <target>Umístění</target>
+      </segment>
+    </unit>
     <unit id="VEybZz7" name="part_lot.edit.amount">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:89</note>
@@ -6181,6 +6191,16 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       <segment state="translated">
         <source>tree.tools.edit.manufacturer</source>
         <target>Výrobce</target>
+      </segment>
+    </unit>
+    <unit id="0uWeEo4" name="tree.tools.edit.storelocation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:179</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.storelocation</source>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
@@ -7520,6 +7540,69 @@ Element 3</target>
         <target>Odkaz na výrobce</target>
       </segment>
     </unit>
+    <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>např. NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>např. 10</target>
+      </segment>
+    </unit>
+    <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>např. 5</target>
+      </segment>
+    </unit>
+    <unit id="cpRdMwo" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>Cena za</target>
+      </segment>
+    </unit>
+    <unit id="1n22zD9" name="part.withdraw.caption">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption</source>
+        <target>Stažení dílů</target>
+      </segment>
+    </unit>
+    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
     <unit id="P.GFwjI" name="perm.group.parts">
       <notes>
         <note priority="1">obsolete</note>
@@ -8360,6 +8443,16 @@ Element 3</target>
         <target>Štítky</target>
       </segment>
     </unit>
+    <unit id="5PcGRLN" name="perm.part.unit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unit</source>
+        <target>Jednotka dílu</target>
+      </segment>
+    </unit>
     <unit id="64iRHQF" name="perm.part.mass">
       <notes>
         <note priority="1">obsolete</note>
@@ -8368,6 +8461,16 @@ Element 3</target>
       <segment state="translated">
         <source>perm.part.mass</source>
         <target>Hmotnost</target>
+      </segment>
+    </unit>
+    <unit id="IWWN6u0" name="perm.part.lots">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.lots</source>
+        <target>Množství dílů</target>
       </segment>
     </unit>
     <unit id="cnJtmGW" name="perm.show_users">
@@ -8966,10 +9069,40 @@ Element 3</target>
         <target>Kalkulačka SMD navijáku</target>
       </segment>
     </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Vnitřní průměr</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Vnější průměr</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Tloušťka pásky</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Vzdálenost mezi díly</target>
+      </segment>
+    </unit>
     <unit id="Ysn3sXm" name="tools.reel_calc.update">
       <segment state="translated">
         <source>tools.reel_calc.update</source>
         <target>Aktualizace</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Díly na metr</target>
       </segment>
     </unit>
     <unit id="3R0ANJW" name="tools.reel_calc.result_length">
@@ -9068,10 +9201,100 @@ Element 3</target>
         <target>Is</target>
       </segment>
     </unit>
+    <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Není</target>
+      </segment>
+    </unit>
+    <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Začíná na</target>
+      </segment>
+    </unit>
+    <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Obsahuje</target>
+      </segment>
+    </unit>
+    <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Končí</target>
+      </segment>
+    </unit>
+    <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>LIKE vzor</target>
+      </segment>
+    </unit>
     <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
       <segment state="translated">
         <source>filter.text_constraint.value.operator.REGEX</source>
         <target>Regulární výraz</target>
+      </segment>
+    </unit>
+    <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Mezi</target>
+      </segment>
+    </unit>
+    <unit id="Pho_nY5" name="filter.number_constraint.AND">
+      <segment state="translated">
+        <source>filter.number_constraint.AND</source>
+        <target>a</target>
+      </segment>
+    </unit>
+    <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Je (kromě podřízených)</target>
+      </segment>
+    </unit>
+    <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Není (s výjimkou podřízených)</target>
+      </segment>
+    </unit>
+    <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Je (včetně podřízených)</target>
+      </segment>
+    </unit>
+    <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Není (s výjimkou podřízených)</target>
+      </segment>
+    </unit>
+    <unit id="7.bq.cZ" name="part.filter.dbId">
+      <segment state="translated">
+        <source>part.filter.dbId</source>
+        <target>Databáze ID</target>
+      </segment>
+    </unit>
+    <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Kterákoli ze značek</target>
+      </segment>
+    </unit>
+    <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>Všechny značky</target>
+      </segment>
+    </unit>
+    <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>Žádná ze značek</target>
       </segment>
     </unit>
     <unit id="wgXINWq" name="part.filter.lot_count">
@@ -9452,10 +9675,28 @@ Element 3</target>
         <target>Editor</target>
       </segment>
     </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Umožňuje měnit díly a datové struktury</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
     <unit id="0o2M0uj" name="permission.preset.admin.desc">
       <segment state="translated">
         <source>permission.preset.admin.desc</source>
         <target>Povolení administrativních úkonů</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Použít předvolbu</target>
       </segment>
     </unit>
     <unit id="6q4uHDx" name="perm.attachments.show_private">
@@ -9468,6 +9709,54 @@ Element 3</target>
       <segment state="translated">
         <source>perm.attachments.list_attachments</source>
         <target>Zobrazit seznam všech příloh</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment state="translated">
+        <source>user.edit.permission_success</source>
+        <target>Předvolba oprávnění byla úspěšně použita. Zkontrolujte, zda nová oprávnění vyhovují vašim potřebám.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment state="translated">
+        <source>perm.group.data</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Potřebuje revizi</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Nastavení stavu kontroly potřeb</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Nenastavený stav vyžaduje kontrolu</target>
+      </segment>
+    </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment state="translated">
+        <source>part.edit.ipn</source>
+        <target>Interní číslo dílu (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment state="translated">
+        <source>part.ipn.not_defined</source>
+        <target>Není definováno</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment state="translated">
+        <source>part.table.ipn</source>
+        <target>IPN</target>
       </segment>
     </unit>
     <unit id="1HcqCmo" name="currency.edit.update_rate">
@@ -9494,6 +9783,12 @@ Element 3</target>
         <target>Úspěšně načtený směnný kurz.</target>
       </segment>
     </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment state="translated">
+        <source>project.bom.quantity</source>
+        <target>Množství BOM.</target>
+      </segment>
+    </unit>
     <unit id="gqYIO6x" name="project.bom.mountnames">
       <segment state="translated">
         <source>project.bom.mountnames</source>
@@ -9506,10 +9801,58 @@ Element 3</target>
         <target>Název</target>
       </segment>
     </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment state="translated">
+        <source>project.bom.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment state="translated">
+        <source>project.bom.part</source>
+        <target>Díl</target>
+      </segment>
+    </unit>
     <unit id="apnWXEq" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
         <target>Přidat položku</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment state="translated">
+        <source>part_list.action.group.projects</source>
+        <target>Projekty</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment state="translated">
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Přidat díl do projektu</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment state="translated">
+        <source>project.bom.delete.confirm</source>
+        <target>Opravdu chcete tuto položku BOM odstranit?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment state="translated">
+        <source>project.add_parts_to_project</source>
+        <target>Přidání dílů do BOM projektu</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment state="translated">
+        <source>part.info.add_part_to_project</source>
+        <target>Přidat tento díl do projektu</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment state="translated">
+        <source>project_bom_entry.label</source>
+        <target>Položka BOM</target>
       </segment>
     </unit>
     <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
@@ -9980,10 +10323,58 @@ Element 3</target>
         <target>Typ úložiště</target>
       </segment>
     </unit>
+    <unit id="JPVZRzH" name="log.element_edited.changed_fields.unit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.unit</source>
+        <target>Symbol jednotky</target>
+      </segment>
+    </unit>
     <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
       <segment state="translated">
         <source>log.element_edited.changed_fields.is_integer</source>
         <target>Je celé číslo</target>
+      </segment>
+    </unit>
+    <unit id="XkLHxqf" name="log.element_edited.changed_fields.use_si_prefix">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.use_si_prefix</source>
+        <target>Použít předponu SI</target>
+      </segment>
+    </unit>
+    <unit id="bgeqM2B" name="log.element_edited.changed_fields.options.width">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.width</source>
+        <target>Šířka</target>
+      </segment>
+    </unit>
+    <unit id="UJNmG3d" name="log.element_edited.changed_fields.options.height">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.height</source>
+        <target>Výška</target>
+      </segment>
+    </unit>
+    <unit id="M7z_SCq" name="log.element_edited.changed_fields.options.supported_element">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.supported_element</source>
+        <target>Typ cíle</target>
+      </segment>
+    </unit>
+    <unit id="WnWfGoW" name="log.element_edited.changed_fields.options.additional_css">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.additional_css</source>
+        <target>Další styly (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="0wsPXyV" name="log.element_edited.changed_fields.options.lines">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.lines</source>
+        <target>Obsah</target>
+      </segment>
+    </unit>
+    <unit id="SsbpFX0" name="log.element_edited.changed_fields.permissions.data">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.permissions.data</source>
+        <target>Oprávnění</target>
       </segment>
     </unit>
     <unit id="GYoJ2_d" name="log.element_edited.changed_fields.disabled">
@@ -10326,6 +10717,24 @@ Element 3</target>
       <segment state="translated">
         <source>parts.import.part_needs_review.label</source>
         <target>Označit všechny importované díly jako "Potřeba zkontrolovat".</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Pokud je tato možnost vybrána, budou všechny části označeny jako "Potřeba revize" bez ohledu na to, co bylo nastaveno v údajích.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>Import %count% položek kusovníku proběhl úspěšně.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Typ</target>
       </segment>
     </unit>
     <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
