@@ -5755,6 +5755,16 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>např. BC547</target>
       </segment>
     </unit>
+    <unit id="rMHwTBI" name="part.edit.description.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:113</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.description.placeholder</source>
+        <target>např. NPN 45V, 0,1A, 0,5W</target>
+      </segment>
+    </unit>
     <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
@@ -5813,6 +5823,36 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       <segment state="translated">
         <source>part_lot.edit.expiration_date</source>
         <target>Datum vypršení platnosti</target>
+      </segment>
+    </unit>
+    <unit id="OjwY78X" name="part_lot.edit.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:128</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id=".8YTKod" name="perm.group.other">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+        <note priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.other</source>
+        <target>Různé</target>
+      </segment>
+    </unit>
+    <unit id="wPnvtWt" name="tfa_google.enable">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.enable</source>
+        <target>Povolit aplikaci authenticator</target>
       </segment>
     </unit>
     <unit id="g7Bwb96" name="tfa_google.disable">
@@ -6143,6 +6183,16 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Výrobce</target>
       </segment>
     </unit>
+    <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:185</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.footprint</source>
+        <target>Otisky</target>
+      </segment>
+    </unit>
     <unit id="RBBr5gI" name="tree.tools.edit.currency">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:191</note>
@@ -6214,6 +6264,48 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Statistiky</target>
       </segment>
     </unit>
+    <unit id="D1it4FK" name="tree.tools.system.users">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:258</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.users</source>
+        <target>Uživatelé</target>
+      </segment>
+    </unit>
+    <unit id="7rI.aP2" name="tree.tools.system.groups">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:264</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.groups</source>
+        <target>Skupiny</target>
+      </segment>
+    </unit>
+    <unit id="uwNvMFE" name="tree.tools.system.event_log">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:271</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.event_log</source>
+        <target>Protokol událostí</target>
+      </segment>
+    </unit>
+    <unit id="Y7FfSJt" name="entity.tree.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">src\Services\TreeBuilder.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.tree.new</source>
+        <target>Nový prvek</target>
+      </segment>
+    </unit>
     <unit id="3Vc5_D2" name="attachment.external_file">
       <notes>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
@@ -6232,6 +6324,78 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       <segment state="translated">
         <source>attachment.edit</source>
         <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">templates\base.html.twig:88</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>barcode.scan</source>
+        <target>Skenovat čárový kód</target>
+      </segment>
+    </unit>
+    <unit id="HhQjrkN" name="user.theme.label">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:119</note>
+        <note priority="1">src\Form\UserSettingsType.php:49</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.theme.label</source>
+        <target>Téma</target>
+      </segment>
+    </unit>
+    <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:129</note>
+        <note priority="1">src\Form\UserSettingsType.php:50</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.theme.placeholder</source>
+        <target>Serverové téma</target>
+      </segment>
+    </unit>
+    <unit id="oHq_Mt5" name="log.user_login.ip">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.user_login.ip</source>
+        <target>IP</target>
+      </segment>
+    </unit>
+    <unit id="JEAFg3_" name="log.undo_mode.undo">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:128</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:150</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:169</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:207</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.undo</source>
+        <target>Změna zrušena</target>
+      </segment>
+    </unit>
+    <unit id="w9Ow4hB" name="log.undo_mode.revert">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:130</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:152</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:171</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:209</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.revert</source>
+        <target>Prvek vrácen</target>
       </segment>
     </unit>
     <unit id="q6AoFKP" name="log.element_created.original_instock">
@@ -6254,6 +6418,39 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       <segment state="translated">
         <source>log.element_deleted.old_name</source>
         <target>Starý název</target>
+      </segment>
+    </unit>
+    <unit id="NyTftx6" name="log.element_edited.changed_fields">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:184</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_edited.changed_fields</source>
+        <target>Změněná pole</target>
+      </segment>
+    </unit>
+    <unit id="8YQSzN5" name="log.instock_changed.comment">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:198</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.instock_changed.comment</source>
+        <target>Komentář</target>
+      </segment>
+    </unit>
+    <unit id="ar.0VTi" name="log.collection_deleted.deleted">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:214</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.collection_deleted.deleted</source>
+        <target>Odstraněný prvek:</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
@@ -6956,6 +7153,16 @@ Element 2
 Element 3</target>
       </segment>
     </unit>
+    <unit id="yOi8.bI" name="entity.mass_creation.btn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.mass_creation.btn</source>
+        <target>Vytvořit</target>
+      </segment>
+    </unit>
     <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
       <notes>
         <note priority="1">obsolete</note>
@@ -6984,6 +7191,116 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit.use_si_prefix</source>
         <target>Použití předpony SI</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>Pokud je tato možnost aktivována, hodnoty se zobrazují s předponami SI (např. 1,2 kg místo 1200 g).</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>Symbol jednotky</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>např. m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>Úložiště plné</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>Pokud je tato možnost vybrána, není možné přidávat nové díly do tohoto umístění skladu ani zvyšovat množství stávajících dílů.</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>Omezení na stávající díly</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>okud je tato možnost aktivována, není možné přidávat nové díly do tohoto skladového umístění, ale množství stávajících dílů lze zvýšit.</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>Pouze jeden díl</target>
+      </segment>
+    </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>Pokud je tato možnost aktivována, lze k tomuto úložišti přiřadit pouze jeden díl (s každým množstvím). Užitečné pro malé krabičky SMD nebo podavače.</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>Typ úložiště</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>Zde můžete vybrat měrnou jednotku, kterou musí díl mít, aby mohl být přiřazen k tomuto úložišti.</target>
       </segment>
     </unit>
     <unit id="xBJM0.O" name="supplier.edit.default_currency">
@@ -7036,6 +7353,66 @@ Element 3</target>
         <target>např. Doe</target>
       </segment>
     </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>j.doe@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>např. Vývoj</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>Nové heslo</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>Potvrdit nové heslo</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>Uživatel musí změnit heslo</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>Uživatel zakázán (přihlášení není možné)</target>
+      </segment>
+    </unit>
     <unit id="zPJhxi6" name="user.create">
       <notes>
         <note priority="1">obsolete</note>
@@ -7075,6 +7452,172 @@ Element 3</target>
       <segment state="translated">
         <source>part.withdraw.btn</source>
         <target>Stáhnout</target>
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>Komentář/účel</target>
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>Přidání dílů</target>
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>Přidat</target>
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>Komentář/účel</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>Odkaz na výrobce</target>
+      </segment>
+    </unit>
+    <unit id="P.GFwjI" name="perm.group.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.parts</source>
+        <target>Díly</target>
+      </segment>
+    </unit>
+    <unit id="WLb5wES" name="perm.group.structures">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.structures</source>
+        <target>Datové struktury</target>
+      </segment>
+    </unit>
+    <unit id="ziA7M4Z" name="perm.group.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.system</source>
+        <target>Systém</target>
+      </segment>
+    </unit>
+    <unit id="qPM1wy5" name="perm.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.parts</source>
+        <target>Díly</target>
+      </segment>
+    </unit>
+    <unit id="eeUmOBN" name="perm.read">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.read</source>
+        <target>Zobrazit</target>
+      </segment>
+    </unit>
+    <unit id="lMypPBw" name="perm.edit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="d8mILUm" name="perm.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.create</source>
+        <target>Vytvořit</target>
+      </segment>
+    </unit>
+    <unit id="cPI6oKn" name="perm.part.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.move</source>
+        <target>Změnit kategorii</target>
+      </segment>
+    </unit>
+    <unit id="oCKKcDZ" name="perm.delete">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="blHcQm6" name="perm.part.search">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.search</source>
+        <target>Vyhledávání</target>
       </segment>
     </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
@@ -7707,6 +8250,56 @@ Element 3</target>
         <target>Uživatelé</target>
       </segment>
     </unit>
+    <unit id="hcV.ILa" name="perm.database">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database</source>
+        <target>Databáze</target>
+      </segment>
+    </unit>
+    <unit id="9XMk.TY" name="perm.config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config</source>
+        <target>Konfigurace</target>
+      </segment>
+    </unit>
+    <unit id="YLLSA2T" name="perm.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.system</source>
+        <target>Systém</target>
+      </segment>
+    </unit>
+    <unit id="LG3jpJo" name="perm.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self</source>
+        <target>Vlastní uživatel</target>
+      </segment>
+    </unit>
+    <unit id="VoHEScr" name="perm.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels</source>
+        <target>Štítky</target>
+      </segment>
+    </unit>
     <unit id="zf2PGmg" name="perm.part.category">
       <notes>
         <note priority="1">obsolete</note>
@@ -7727,6 +8320,116 @@ Element 3</target>
         <target>Min. částka</target>
       </segment>
     </unit>
+    <unit id="vZwyFdD" name="perm.part.footprint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprint</source>
+        <target>Otisk</target>
+      </segment>
+    </unit>
+    <unit id="cdrtuto" name="perm.part.mpn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="CjAJxQj" name="perm.part.status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.status</source>
+        <target>Stav výroby</target>
+      </segment>
+    </unit>
+    <unit id="8vcZLOf" name="perm.part.tags">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tags</source>
+        <target>Štítky</target>
+      </segment>
+    </unit>
+    <unit id="64iRHQF" name="perm.part.mass">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mass</source>
+        <target>Hmotnost</target>
+      </segment>
+    </unit>
+    <unit id="cnJtmGW" name="perm.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_users</source>
+        <target>Zobrazit posledního upravujícího uživatele</target>
+      </segment>
+    </unit>
+    <unit id="nThiSBd" name="perm.currencies">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.currencies</source>
+        <target>Měny</target>
+      </segment>
+    </unit>
+    <unit id="Pa4k4ZQ" name="perm.measurement_units">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.measurement_units</source>
+        <target>Měrná jednotka</target>
+      </segment>
+    </unit>
+    <unit id="ZrVNh2o" name="user.settings.pw_old.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_old.label</source>
+        <target>Staré heslo</target>
+      </segment>
+    </unit>
+    <unit id="Ed3ydow" name="pw_reset.submit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.submit</source>
+        <target>Obnovit heslo</target>
+      </segment>
+    </unit>
+    <unit id="E8uyrqE" name="u2f_two_factor">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>u2f_two_factor</source>
+        <target>Bezpečnostní klíč (U2F)</target>
+      </segment>
+    </unit>
     <unit id="u976KVD" name="google">
       <notes>
         <note priority="1">obsolete</note>
@@ -7735,6 +8438,12 @@ Element 3</target>
       <segment state="translated">
         <source>google</source>
         <target>Google</target>
+      </segment>
+    </unit>
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Bezpečnostní klíč</target>
       </segment>
     </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
@@ -7777,6 +8486,16 @@ Element 3</target>
         <target>Přihlášení uživatele</target>
       </segment>
     </unit>
+    <unit id="6suiYvP" name="log.type.user_logout">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_logout</source>
+        <target>Odhlášení uživatele</target>
+      </segment>
+    </unit>
     <unit id="Jjl8edA" name="log.type.unknown">
       <notes>
         <note priority="1">obsolete</note>
@@ -7797,6 +8516,26 @@ Element 3</target>
         <target>Prvek vytvořen</target>
       </segment>
     </unit>
+    <unit id="O9Iw2cd" name="log.type.element_edited">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_edited</source>
+        <target>Prvek upraven</target>
+      </segment>
+    </unit>
+    <unit id="WQkp3yE" name="log.type.element_deleted">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_deleted</source>
+        <target>Prvek smazán</target>
+      </segment>
+    </unit>
     <unit id="pjRvOZm" name="log.type.database_updated">
       <notes>
         <note priority="1">obsolete</note>
@@ -7805,6 +8544,51 @@ Element 3</target>
       <segment state="translated">
         <source>log.type.database_updated</source>
         <target>Databáze aktualizována</target>
+      </segment>
+    </unit>
+    <unit id="j0QJLb_" name="perm.revert_elements">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.revert_elements</source>
+        <target>Vrátit prvek</target>
+      </segment>
+    </unit>
+    <unit id="xernTe5" name="perm.show_history">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_history</source>
+        <target>Zobrazit historii</target>
+      </segment>
+    </unit>
+    <unit id="Ay52w3." name="perm.tools.lastActivity">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.lastActivity</source>
+        <target>Zobrazit poslední aktivitu</target>
+      </segment>
+    </unit>
+    <unit id="m3PTL2e" name="perm.tools.timeTravel">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.timeTravel</source>
+        <target>Zobrazit staré verze prvků (cestování v čase)</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Bezpečnostní klíč byl úspěšně přidán.</target>
       </segment>
     </unit>
     <unit id="47ienTP" name="Username">
@@ -7816,6 +8600,33 @@ Element 3</target>
         <target>Uživatelské jméno</target>
       </segment>
     </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Aplikace Authenticator je vypnutá</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Bezpečnostní klíč odstraněn</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Bezpečnostní klíč přidán</target>
+      </segment>
+    </unit>
     <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -7825,6 +8636,15 @@ Element 3</target>
         <target>Přegenerování záložních klíčů</target>
       </segment>
     </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Aplikace Authenticator je zapnutá</target>
+      </segment>
+    </unit>
     <unit id="XbsoHIr" name="log.type.security.password_changed">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -7832,6 +8652,15 @@ Element 3</target>
       <segment state="translated">
         <source>log.type.security.password_changed</source>
         <target>Heslo bylo změněno</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Důvěryhodná zařízení resetována</target>
       </segment>
     </unit>
     <unit id="n8flY2e" name="log.type.collection_element_deleted">
@@ -7852,6 +8681,24 @@ Element 3</target>
         <target>Obnovení hesla</target>
       </segment>
     </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Obnovení dvoufaktorového nastavení správcem</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Neoprávněný pokus o přístup</target>
+      </segment>
+    </unit>
     <unit id="Z28oTau" name="log.database_updated.success">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -7859,6 +8706,24 @@ Element 3</target>
       <segment state="translated">
         <source>log.database_updated.success</source>
         <target>Úspěšný</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
       </segment>
     </unit>
     <unit id="QMdRP48" name="perm.part.parameters">
@@ -7879,10 +8744,76 @@ Element 3</target>
         <target>Zobrazit soukromé přílohy</target>
       </segment>
     </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Skener štítků</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Přečíst profily</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Vytvořit profily</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Použití režimu Twig</target>
+      </segment>
+    </unit>
     <unit id="f_MQ1uL" name="label_profile.showInDropdown">
       <segment state="translated">
         <source>label_profile.showInDropdown</source>
         <target>Zobrazit v rychlém výběru</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Vynucení dvoufaktorového ověřování (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Pokud je tato možnost povolena, musí každý přímý člen této skupiny nakonfigurovat alespoň jeden druhý faktor pro ověření. Doporučeno pro skupiny správců s velkým počtem oprávnění.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Není vybráno nic</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Není vybráno nic</target>
+      </segment>
+    </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Element "%PATH%" stále obsahuje díly! Abyste mohli tento prvek odstranit, musíte díly přesunout.</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
@@ -7891,16 +8822,148 @@ Element 3</target>
         <target>Typ přílohy stále obsahuje přílohy. Změňte jejich typ, abyste mohli tento typ přílohy odstranit.</target>
       </segment>
     </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Měna stále obsahuje údaje o ceně. Abyste mohli tento prvek odstranit, musíte změnit jejich měnu.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Uživatelé stále používají tuto skupinu! Změňte jejich skupinu, abyste ji mohli smazat.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Upravit díl</target>
+      </segment>
+    </unit>
     <unit id="uAVyHXQ" name="part_list.action.action.title">
       <segment state="translated">
         <source>part_list.action.action.title</source>
         <target>Zvolte akci</target>
       </segment>
     </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Oblíbený stav</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Oblíbený</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Neoblíbené</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Změnit pole</target>
+      </segment>
+    </unit>
     <unit id="vzWZTcS" name="part_list.action.action.change_category">
       <segment state="translated">
         <source>part_list.action.action.change_category</source>
         <target>Změnit kategorii</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Změnit otisk</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Změnit výrobce</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Změna jednotky dílu</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Odeslat</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% dílů vybráno!</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Otevřít webové stránky</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>Odeslat e-mail</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Telefonní hovor</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Odeslat fax</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>např. +420 123 456 789</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Uložit a klonovat</target>
+      </segment>
+    </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>Přípona souboru není pro tento typ přílohy povolena.</target>
+      </segment>
+    </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>Kalkulačka SMD navijáku</target>
       </segment>
     </unit>
     <unit id="Ysn3sXm" name="tools.reel_calc.update">
@@ -8449,6 +9512,42 @@ Element 3</target>
         <target>Přidat položku</target>
       </segment>
     </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment state="translated">
+        <source>part.info.projectBuildPart.hint</source>
+        <target>Tento díl představuje sestavy následujícího projektu a je s ním spojena.</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment state="translated">
+        <source>part.is_build_part</source>
+        <target>Je součástí projektu</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Informace o projektu</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>Položky kusovníku</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Subprojekty</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
     <unit id="vaFaY8r" name="project.info.sub_projects.label">
       <segment state="translated">
         <source>project.info.sub_projects.label</source>
@@ -8779,6 +9878,18 @@ Element 3</target>
         <target>Nebo můžete přímo &lt;a href="%url%"&gt;vytvořit nový díl&lt;/a&gt;.</target>
       </segment>
     </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment state="translated">
+        <source>homepage.first_steps.hide_hint</source>
+        <target>Toto pole se skryje, jakmile vytvoříte první díl.</target>
+      </segment>
+    </unit>
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>Pro dotazy týkající se Part-DB použijte &lt;a href="%href%" class="link-external" target="_blank"&gt;diskusní fórum&lt;/a&gt;</target>
+      </segment>
+    </unit>
     <unit id="qmnrptL" name="log.element_edited.changed_fields.category">
       <segment state="translated">
         <source>log.element_edited.changed_fields.category</source>
@@ -8839,10 +9950,34 @@ Element 3</target>
         <target>Filtr názvu</target>
       </segment>
     </unit>
+    <unit id="VXVZch0" name="log.element_edited.changed_fields.disable_properties">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.disable_properties</source>
+        <target>Zakázat vlastnosti</target>
+      </segment>
+    </unit>
     <unit id="nxg002v" name="log.element_edited.changed_fields.default_comment">
       <segment state="translated">
         <source>log.element_edited.changed_fields.default_comment</source>
         <target>Výchozí poznámky</target>
+      </segment>
+    </unit>
+    <unit id="jQ2bFEK" name="log.element_edited.changed_fields.website">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.website</source>
+        <target>Webové stránky</target>
+      </segment>
+    </unit>
+    <unit id="hMc.US1" name="log.element_edited.changed_fields.limit_to_existing_parts">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.limit_to_existing_parts</source>
+        <target>Omezení na stávající díly</target>
+      </segment>
+    </unit>
+    <unit id="BFHeYb7" name="log.element_edited.changed_fields.storage_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_type</source>
+        <target>Typ úložiště</target>
       </segment>
     </unit>
     <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
@@ -9241,16 +10376,112 @@ Element 3</target>
         <target>Vlastník dílu se musí shodovat s vlastníkem místa uložení</target>
       </segment>
     </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment state="translated">
+        <source>log.details.title</source>
+        <target>Podrobnosti o záznamu</target>
+      </segment>
+    </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment state="translated">
+        <source>log.user_login.login_from_ip</source>
+        <target>Přihlášení z IP adresy</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment state="translated">
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>Pokud poslední číslice IP adresy chybí, je povolen režim GPDR, ve kterém jsou IP adresy anynomizovány.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment state="translated">
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Neoprávněný pokus o přístup na stránku</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment state="translated">
+        <source>log.user_not_allowed.hint</source>
+        <target>Žádost byla zablokována. Neměla by být vyžadována žádná akce.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment state="translated">
+        <source>log.no_comment</source>
+        <target>Bez komentáře</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment state="translated">
+        <source>log.element_changed.field</source>
+        <target>Pole</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment state="translated">
+        <source>log.element_changed.data_before</source>
+        <target>Údaje před změnou</target>
+      </segment>
+    </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment state="translated">
+        <source>error_table.error</source>
+        <target>Během vašeho požadavku došlo k chybě.</target>
+      </segment>
+    </unit>
     <unit id="tLXzED2" name="part.table.invalid_regex">
       <segment state="translated">
         <source>part.table.invalid_regex</source>
         <target>Nesprávný regulární výraz (regex)</target>
       </segment>
     </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment state="translated">
+        <source>log.element_changed.data_after</source>
+        <target>Údaje po změně</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment state="translated">
+        <source>log.element_changed.diff</source>
+        <target>Rozdíl</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment state="translated">
+        <source>log.undo.undo.short</source>
+        <target>Zrušit</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment state="translated">
+        <source>log.undo.revert.short</source>
+        <target>Návrat k tomuto časovému razítku</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment state="translated">
+        <source>log.view_version</source>
+        <target>Zobrazit verzi</target>
+      </segment>
+    </unit>
     <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
       <segment state="translated">
         <source>log.element_edited.changed_fields.id_owner</source>
         <target>Majitel</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment state="translated">
+        <source>log.delete.message.title</source>
+        <target>Opravdu chcete odstranit záznam protokolu?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment state="translated">
+        <source>log.delete.message</source>
+        <target>Pokud se jedná o položku historie prvků, dojde k přerušení historie prvků! To může vést k neočekávaným výsledkům při použití funkce cestování v čase.</target>
       </segment>
     </unit>
     <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
@@ -9651,16 +10882,94 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Váš token API je</target>
       </segment>
     </unit>
+    <unit id="nre_kP_" name="api_tokens.please_save_it">
+      <segment state="translated">
+        <source>api_tokens.please_save_it</source>
+        <target>Prosím, uložte si ji. Nebudete ji moci znovu vidět!</target>
+      </segment>
+    </unit>
+    <unit id="b17FeDX" name="api_tokens.create_new.back_to_user_settings">
+      <segment state="translated">
+        <source>api_tokens.create_new.back_to_user_settings</source>
+        <target>Zpět na uživatelská nastavení</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment state="translated">
+        <source>part_association.type.other</source>
+        <target>Ostatní (vlastní hodnota)</target>
+      </segment>
+    </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment state="translated">
+        <source>part_association.edit.delete.confirm</source>
+        <target>Opravdu chcete tuto asociaci smazat? To nelze zrušit.</target>
+      </segment>
+    </unit>
     <unit id="o3HcwZn" name="part_lot.edit.advanced">
       <segment state="translated">
         <source>part_lot.edit.advanced</source>
         <target>Rozbalit pokročilé možnosti</target>
       </segment>
     </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Čárový kód dodavatele</target>
+      </segment>
+    </unit>
     <unit id="ilCTQni" name="project.bom.instockAmount">
       <segment state="translated">
         <source>project.bom.instockAmount</source>
         <target>Množství zásob</target>
+      </segment>
+    </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment state="translated">
+        <source>collection_type.new_element.tooltip</source>
+        <target>Tento prvek byl nově vytvořen a dosud není uložen v databázi.</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment state="translated">
+        <source>part.merge.title.into</source>
+        <target>na</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment state="translated">
+        <source>part.merge.confirm.title</source>
+        <target>Opravdu chcete sloučit &lt;b&gt;%other%&lt;/b&gt; do &lt;b&gt;%target%&lt;/b&gt;?</target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment state="translated">
+        <source>part.merge.confirm.message</source>
+        <target>&lt;b&gt;%other%&lt;/b&gt; bude odstraněn a díl bude uložen se zobrazenými informacemi.</target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment state="translated">
+        <source>part.info.merge_modal.title</source>
+        <target>Sloučení dílů</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_part</source>
+        <target>Jiné díly</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment state="translated">
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Sloučit tento díl do jiného (tento díl smazat, jiný ponechat)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment state="translated">
+        <source>part.info.merge_btn</source>
+        <target>Sloučit díl</target>
       </segment>
     </unit>
     <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
