@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="da">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
   <file id="security.en">
     <unit id="aazoCks" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
-        <target>Din konto er deaktiveret! Kontakt en administrator hvis du mener dette er forkert.</target>
+        <target>Váš účet je deaktivován! Pokud si myslíte, že je to špatně, kontaktujte správce.</target>
       </segment>
     </unit>
     <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
-        <target>Du kan ikke logge ind som lokalbruger via SSO! Brug dit lokale bruger-password i stedet for.</target>
+        <target>Přes SSO se nelze přihlásit jako místní uživatel! Místo toho použijte heslo místního uživatele.</target>
       </segment>
     </unit>
   </file>
