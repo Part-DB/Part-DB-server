@@ -4039,5 +4039,98 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Kom nu!</target>
       </segment>
     </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="AoZHore" name="entity.edit_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash.invalid</source>
+        <target>Handlinger</target>
+      </segment>
+    </unit>
+    <unit id="8MJvWmd" name="entity.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash</source>
+        <target>Element oprettet med succes!</target>
+      </segment>
+    </unit>
+    <unit id="zZdZuYS" name="entity.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash.invalid</source>
+        <target>Elementet kunne ikke oprettes! Tjek dit input data</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
+        <note priority="1">src\Controller\BaseAdminController.php:154</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>Element slettet!</target>
+      </segment>
+    </unit>
+    <unit id="2bvWUoo" name="csfr_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:182</note>
+      </notes>
+      <segment state="translated">
+        <source>csfr_invalid</source>
+        <target>CSRF-token er ugyldig! Genindlæs denne side, eller kontakt en administrator, hvis problemet fortsætter!</target>
+      </segment>
+    </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>ingen elementer fundet.</target>
+      </segment>
+    </unit>
+    <unit id="BeMACpw" name="log.undo.target_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.target_not_found</source>
+        <target>Elementet blev ikke fundet i databasen!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
