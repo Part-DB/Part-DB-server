@@ -4055,6 +4055,84 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Projekter</target>
       </segment>
     </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">templates\base.html.twig:165</note>
+        <note priority="1">templates\base.html.twig:192</note>
+        <note priority="1">templates\base.html.twig:220</note>
+      </notes>
+      <segment state="translated">
+        <source>actions</source>
+        <target>Handlinger</target>
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">templates\base.html.twig:169</note>
+        <note priority="1">templates\base.html.twig:196</note>
+        <note priority="1">templates\base.html.twig:224</note>
+      </notes>
+      <segment state="translated">
+        <source>datasource</source>
+        <target>Datakilde</target>
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:173</note>
+        <note priority="1">templates\base.html.twig:200</note>
+        <note priority="1">templates\base.html.twig:228</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.labelp</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="DQQjhS_" name="supplier.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:174</note>
+        <note priority="1">templates\base.html.twig:201</note>
+        <note priority="1">templates\base.html.twig:229</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.labelp</source>
+        <target>Leverandører</target>
+      </segment>
+    </unit>
+    <unit id="V1QubEL" name="attachment.download_failed">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:268</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download_failed</source>
+        <target>Download af eksterne data fejlet!</target>
+      </segment>
+    </unit>
+    <unit id="A7i8za4" name="entity.edit_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash</source>
+        <target>Ændringer gemt med succes.</target>
+      </segment>
+    </unit>
     <unit id="AoZHore" name="entity.edit_flash.invalid">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
@@ -4130,6 +4208,1108 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>log.undo.target_not_found</source>
         <target>Elementet blev ikke fundet i databasen!</target>
+      </segment>
+    </unit>
+    <unit id="sG2PEwi" name="log.undo.revert_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:156</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert_success</source>
+        <target>Komponent rettet tilbage til tidligere version</target>
+      </segment>
+    </unit>
+    <unit id="GMilP1t" name="log.undo.element_undelete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:176</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_undelete_success</source>
+        <target>Komponent gendannet med succes.</target>
+      </segment>
+    </unit>
+    <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:178</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_element_already_undeleted</source>
+        <target>Komponent er allerede gendannet!</target>
+      </segment>
+    </unit>
+    <unit id="NI2CbLV" name="log.undo.element_delete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:185</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_delete_success</source>
+        <target>Komponent slettet med succes</target>
+      </segment>
+    </unit>
+    <unit id=".D_N333" name="log.undo.element.element_already_delted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:187</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:191</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element.element_already_delted</source>
+        <target>Komponent er allerede blevet slettet</target>
+      </segment>
+    </unit>
+    <unit id="Bz3n92Q" name="log.undo.element_change_undone">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:198</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_change_undone</source>
+        <target>Annullering af ændringerne gennemført</target>
+      </segment>
+    </unit>
+    <unit id="Ne_xS01" name="log.undo.do_undelete_before">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:196</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:200</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.do_undelete_before</source>
+        <target>Du skal først gendanne elementet, før du kan fortryde denne ændring!</target>
+      </segment>
+    </unit>
+    <unit id="GswNRna" name="log.undo.log_type_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:199</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:203</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.log_type_invalid</source>
+        <target>Denne logtype kan ikke fortrydes!</target>
+      </segment>
+    </unit>
+    <unit id="6xOvKkk" name="part.edited_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:182</note>
+        <note priority="1">src\Controller\PartController.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash</source>
+        <target>Ændringer gemt!</target>
+      </segment>
+    </unit>
+    <unit id="w57VDWn" name="part.edited_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edited_flash.invalid</source>
+        <target>Fejl ved lagring: Tjek dine indtastninger!</target>
+      </segment>
+    </unit>
+    <unit id="suYw2UL" name="part.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.deleted</source>
+        <target>Komponent slettet.</target>
+      </segment>
+    </unit>
+    <unit id="tG.Jfwp" name="part.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:302</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:277</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:317</note>
+        <note priority="1">src\Controller\PartController.php:113</note>
+        <note priority="1">src\Controller\PartController.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash</source>
+        <target>Komponenter oprettet med succes!</target>
+      </segment>
+    </unit>
+    <unit id="LOw_XJ." name="part.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:308</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:283</note>
+      </notes>
+      <segment state="translated">
+        <source>part.created_flash.invalid</source>
+        <target>Fejl ved oprettelse: Tjek dine indtastninger!</target>
+      </segment>
+    </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>Ingen element fundet</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>Ukendt format!</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>Element fundet.</target>
+      </segment>
+    </unit>
+    <unit id="B1T9Kt6" name="pw_reset.user_or_email">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:114</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.user_or_email</source>
+        <target>Brugernavn / e-mail</target>
+      </segment>
+    </unit>
+    <unit id="C_43E5l" name="pw_reset.request.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:131</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.success</source>
+        <target>Anmodning om password lykkedes! Tjek din e-mail for mere information.</target>
+      </segment>
+    </unit>
+    <unit id="Ytlen4L" name="pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:162</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:160</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.username</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="kCND5gR" name="pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:165</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:163</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.token</source>
+        <target>Token</target>
+      </segment>
+    </unit>
+    <unit id="Kz.sA0j" name="pw_reset.new_pw.error">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:192</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.error</source>
+        <target>Brugernavn eller token er ugyldigt! Tjek dine indtastninger.</target>
+      </segment>
+    </unit>
+    <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:196</note>
+        <note priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.success</source>
+        <target>Password blev nulstillet. Du kan nu logge ind med det nye password.</target>
+      </segment>
+    </unit>
+    <unit id="L8g8bFy" name="user.edit.reset_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:107</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.reset_success</source>
+        <target>Alle to-faktor-godkendelsesmetoder er blevet deaktiveret.</target>
+      </segment>
+    </unit>
+    <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.no_codes_enabled</source>
+        <target>Ingen backup-koder er aktiveret!</target>
+      </segment>
+    </unit>
+    <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:138</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:132</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.u2f_delete.not_existing</source>
+        <target>Der er ingen sikkerhedsnøgle med dette ID!</target>
+      </segment>
+    </unit>
+    <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:145</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:139</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.u2f_delete.access_denied</source>
+        <target>Du kan kun slette dine egne sikkerhedsnøgler!</target>
+      </segment>
+    </unit>
+    <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:153</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.u2f.u2f_delete.success</source>
+        <target>Sikkerhedsnøglen blev fjernet.</target>
+      </segment>
+    </unit>
+    <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:188</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevice.invalidate.success</source>
+        <target>Pålidelige enheder blev slettet.</target>
+      </segment>
+    </unit>
+    <unit id="PBKICdd" name="user.settings.saved_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:235</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
+        <note priority="1">src\Controller\UserController.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.saved_flash</source>
+        <target>Indstillinger gemt!</target>
+      </segment>
+    </unit>
+    <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:297</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:288</note>
+        <note priority="1">src\Controller\UserController.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_changed_flash</source>
+        <target>Password ændret!</target>
+      </segment>
+    </unit>
+    <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:317</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:306</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.google.activated</source>
+        <target>Godkendelses-app'en blev aktiveret.</target>
+      </segment>
+    </unit>
+    <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:328</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.google.disabled</source>
+        <target>Godkendelses-app'en er deaktiveret</target>
+      </segment>
+    </unit>
+    <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:346</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:332</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa.backup_codes.regenerated</source>
+        <target>Nye backupkoder blev oprettet.</target>
+      </segment>
+    </unit>
+    <unit id="zC0oO.O" name="attachment.table.filename">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.filename</source>
+        <target>Filnavn</target>
+      </segment>
+    </unit>
+    <unit id="dNey6.4" name="attachment.table.filesize">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:153</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.filesize</source>
+        <target>filstørrelse</target>
+      </segment>
+    </unit>
+    <unit id="tb6kG2x" name="true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:183</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:191</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:200</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:209</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:245</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:252</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:183</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:191</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:200</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:209</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:193</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:200</note>
+      </notes>
+      <segment state="translated">
+        <source>true</source>
+        <target>Sand</target>
+      </segment>
+    </unit>
+    <unit id=".LzxZZC" name="false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:184</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:192</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:201</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:210</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:246</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:253</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Type\SIUnitType.php:139</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:184</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:192</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:201</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:210</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:194</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:201</note>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:139</note>
+      </notes>
+      <segment state="translated">
+        <source>false</source>
+        <target>Falsk</target>
+      </segment>
+    </unit>
+    <unit id="eTGx8tR" name="log.target_deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:128</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target_deleted</source>
+        <target>Slettet</target>
+      </segment>
+    </unit>
+    <unit id="mzQZ0My" name="log.undo.undelete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:57</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:60</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undelete</source>
+        <target>Gendan element</target>
+      </segment>
+    </unit>
+    <unit id="PI8faHR" name="log.undo.undo">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:63</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:66</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.undo</source>
+        <target>Fortryd ændring</target>
+      </segment>
+    </unit>
+    <unit id="Q6mbDaS" name="log.undo.revert">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:83</note>
+        <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:86</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert</source>
+        <target>Nulstil element til nuværende status!</target>
+      </segment>
+    </unit>
+    <unit id="6DOZlwQ" name="log.id">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:173</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
+      </notes>
+      <segment state="translated">
+        <source>log.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMZOrO7" name="log.timestamp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:178</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>log.timestamp</source>
+        <target>Tidsstempel</target>
+      </segment>
+    </unit>
+    <unit id="Z0BzGVJ" name="log.type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:183</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:171</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type</source>
+        <target>Begivenhed</target>
+      </segment>
+    </unit>
+    <unit id="KNddOUS" name="log.level">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:191</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:179</note>
+      </notes>
+      <segment state="translated">
+        <source>log.level</source>
+        <target>Niveau</target>
+      </segment>
+    </unit>
+    <unit id="3Tv5Xzj" name="log.user">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:200</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:188</note>
+      </notes>
+      <segment state="translated">
+        <source>log.user</source>
+        <target>Bruger</target>
+      </segment>
+    </unit>
+    <unit id="bgbGrN5" name="log.target_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:201</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target_type</source>
+        <target>Måltype</target>
+      </segment>
+    </unit>
+    <unit id=".IgL4C2" name="log.target">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:226</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:214</note>
+      </notes>
+      <segment state="translated">
+        <source>log.target</source>
+        <target>Mål</target>
+      </segment>
+    </unit>
+    <unit id="b4r5dEC" name="log.extra">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:231</note>
+        <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.extra</source>
+        <target>Ekstra</target>
+      </segment>
+    </unit>
+    <unit id="t2EE5cB" name="part.table.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:168</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:116</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="eshqdG." name="part.table.id">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="zKnTKYw" name="part.table.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:182</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="2eOA0az" name="part.table.category">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:185</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:133</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.category</source>
+        <target>Kategori</target>
+      </segment>
+    </unit>
+    <unit id="jCf96.O" name="part.table.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:190</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:138</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="b46OytM" name="part.table.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:194</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="T0ifXD5" name="part.table.storeLocations">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:197</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:145</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.storeLocations</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="rD.1skI" name="part.table.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:216</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:164</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.amount</source>
+        <target>Antal</target>
+      </segment>
+    </unit>
+    <unit id="Mv9g23S" name="part.table.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:224</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:172</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.minamount</source>
+        <target>Min. beholdning</target>
+      </segment>
+    </unit>
+    <unit id="GjwSknL" name="part.table.partUnit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:232</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.partUnit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="pw75u4x" name="part.table.addedDate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:184</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.addedDate</source>
+        <target>Tilføjet</target>
+      </segment>
+    </unit>
+    <unit id="eDb7mzC" name="part.table.lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:240</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:188</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.lastModified</source>
+        <target>Sidst redigeret</target>
+      </segment>
+    </unit>
+    <unit id="DJ9YTs_" name="part.table.needsReview">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:244</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:192</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.needsReview</source>
+        <target>Gennemgang nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="TSiqJH6" name="part.table.favorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:251</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:199</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="n0h1ozV" name="part.table.manufacturingStatus">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:258</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:206</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.manufacturingStatus</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="MBCdfAy" name="m_status.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:260</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:262</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:208</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:210</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.unknown</source>
+        <target>Ukendt</target>
+      </segment>
+    </unit>
+    <unit id="BEnlUff" name="m_status.announced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:263</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:211</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.announced</source>
+        <target>Meddelt</target>
+      </segment>
+    </unit>
+    <unit id="TN5xR7J" name="m_status.active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:264</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:212</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="0McKh_8" name="m_status.nrfnd">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.nrfnd</source>
+        <target>Anbefales ikke til nye designs</target>
+      </segment>
+    </unit>
+    <unit id="L7yLwn0" name="m_status.eol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:266</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:214</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.eol</source>
+        <target>End of life</target>
+      </segment>
+    </unit>
+    <unit id="5jxVP1H" name="m_status.discontinued">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:267</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:215</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.discontinued</source>
+        <target>Discontinued</target>
+      </segment>
+    </unit>
+    <unit id="HTkvjkE" name="part.table.mpn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:271</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="q_AsQoZ" name="part.table.mass">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:275</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:223</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mass</source>
+        <target>Vægt</target>
+      </segment>
+    </unit>
+    <unit id="Cwisdej" name="part.table.tags">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:279</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:227</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="gGfALE0" name="part.table.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:283</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:231</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="HISU3ZB" name="flash.login_successful">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\EventSubscriber\UserSystem\LoginSuccessSubscriber.php:82</note>
+        <note priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.login_successful</source>
+        <target>Login lykkedes</target>
+      </segment>
+    </unit>
+    <unit id="2xohoLw" name="JSON">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>JSON</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="QGWOmvj" name="XML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>XML</source>
+        <target>XML</target>
+      </segment>
+    </unit>
+    <unit id="62tC9Ux" name="CSV">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>CSV</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="m26KvkJ" name="YAML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>YAML</source>
+        <target>YAML</target>
+      </segment>
+    </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation.help</source>
+        <target>Hvis denne indstilling er aktiveret, vil hele processen blive afbrudt, hvis der registreres ugyldige data. Hvis denne indstilling ikke er aktiv, ignoreres ugyldige poster, og de andre poster forsøges importeret.</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">src\Form\ImportType.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>import.csv_separator</source>
+        <target>CSV-separator</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">src\Form\ImportType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>parent.label</source>
+        <target>Overordnet element</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">src\Form\ImportType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>import.file</source>
+        <target>Fil</target>
+      </segment>
+    </unit>
+    <unit id="0ybwwKw" name="import.preserve_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">src\Form\ImportType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>import.preserve_children</source>
+        <target>Importer også underelementer</target>
+      </segment>
+    </unit>
+    <unit id="yyIAudL" name="import.abort_on_validation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">src\Form\ImportType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation</source>
+        <target>Annuller ved ugyldige data</target>
+      </segment>
+    </unit>
+    <unit id="d0GsgCW" name="import.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">src\Form\ImportType.php:85</note>
+      </notes>
+      <segment state="translated">
+        <source>import.btn</source>
+        <target>Importer</target>
+      </segment>
+    </unit>
+    <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:113</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.secure_file.help</source>
+        <target>En vedhæftet fil, der er markeret som privat, kan kun tilgås af autoriseret bruger som har de relevante tilladelser. Når denne indstilling er aktiv, genereres der ikke miniaturebilleder, og adgangen til filen er langsommere.</target>
+      </segment>
+    </unit>
+    <unit id="pCsSiaz" name="attachment.edit.url.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:127</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.url.help</source>
+        <target>Her kan du enten indtaste en URL til en ekstern fil, eller du kan søge efter de indbyggede ressourcer ved at indtaste et nøgleord (f.eks. footprint).</target>
+      </segment>
+    </unit>
+    <unit id="3ZnUiT_" name="attachment.edit.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="kAlm7LR" name="attachment.edit.attachment_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:85</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.attachment_type</source>
+        <target>Bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="9MhdLlK" name="part.edit.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:109</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:107</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="Xzj9BP8" name="part.edit.mininstock">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:118</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.mininstock</source>
+        <target>Minimumsmængde</target>
+      </segment>
+    </unit>
+    <unit id="1VN9ldj" name="part.edit.category">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:129</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:127</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.category</source>
+        <target>Kategori</target>
+      </segment>
+    </unit>
+    <unit id="IROdosg" name="part.edit.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:135</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:133</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="KHkWjTz" name="part.edit.tags">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:142</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:140</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="4ok13kM" name="part.edit.manufacturer.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:154</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:152</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.manufacturer.label</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="0qS9528" name="part.edit.manufacturer_url.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:161</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:159</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.manufacturer_url.label</source>
+        <target>Link til produktside</target>
+      </segment>
+    </unit>
+    <unit id="tuRAA_9" name="part.edit.mpn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:167</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:165</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.mpn</source>
+        <target>Fabrikant partnummer</target>
+      </segment>
+    </unit>
+    <unit id="rcE_03k" name="part.edit.manufacturing_status">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:173</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:171</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.manufacturing_status</source>
+        <target>Fabrikantstatus</target>
+      </segment>
+    </unit>
+    <unit id="tdUi2VV" name="part.edit.needs_review">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:181</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:179</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.needs_review</source>
+        <target>Gennemgang nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="thxZ5LH" name="part.edit.is_favorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:189</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:187</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.is_favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="epWuzE5" name="part.edit.mass">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:197</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:195</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.mass</source>
+        <target>Vægt</target>
+      </segment>
+    </unit>
+    <unit id="kpiGJo0" name="part.edit.partUnit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:203</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:201</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.partUnit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="LTZRVlq" name="part.edit.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:210</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.comment</source>
+        <target>Notater</target>
       </segment>
     </unit>
   </file>
