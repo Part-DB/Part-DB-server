@@ -2939,5 +2939,39 @@ Underelementer vil blive flyttet opad.</target>
         <target>Indstil ny adgangskode</target>
       </segment>
     </unit>
+    <unit id="3Tgn6io" name="pw_reset.request.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.header.title</source>
+        <target>Anmod om nyt password</target>
+      </segment>
+    </unit>
+    <unit id="J1aHED." name="tfa_u2f.http_warning">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.http_warning</source>
+        <target>Du tilgår denne side ved hjælp af den usikre HTTP-metode, så U2F vil højst sandsynligt ikke fungere (Bad Request-fejlmeddelelse). Bed en administrator om at konfigurere den sikre HTTPS-metode, hvis du vil bruge sikkerhedsnøgler.</target>
+      </segment>
+    </unit>
+    <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.pressbutton</source>
+        <target>Indsæt venligst sikkerhedsnøglen og tryk på knappen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
