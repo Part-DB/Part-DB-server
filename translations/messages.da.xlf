@@ -5542,6 +5542,36 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Link til tilbud</target>
       </segment>
     </unit>
+    <unit id="D_288lV" name="orderdetails.edit.obsolete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.obsolete</source>
+        <target>Ikke længere tilgængelig</target>
+      </segment>
+    </unit>
+    <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr.placeholder</source>
+        <target>f.eks. BC 547</target>
+      </segment>
+    </unit>
+    <unit id="HZwLFnu" name="part.edit.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
     <unit id="9MhdLlK" name="part.edit.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:109</note>
@@ -5680,6 +5710,140 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>part.edit.comment</source>
         <target>Notater</target>
+      </segment>
+    </unit>
+    <unit id="624h27t" name="tree.tools.edit.measurement_unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:174</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.measurement_unit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="YAalchf" name="tree.tools.edit.label_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.label_profile</source>
+        <target>Labelprofil</target>
+      </segment>
+    </unit>
+    <unit id="CBX7i_1" name="tree.tools.edit.part">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:209</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.part</source>
+        <target>Ny komponent</target>
+      </segment>
+    </unit>
+    <unit id="cMe4sAM" name="tree.tools.show.all_parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:226</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.all_parts</source>
+        <target>Vis alle dele</target>
+      </segment>
+    </unit>
+    <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:232</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.all_attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="4_7bZqX" name="tree.tools.show.statistics">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:239</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.statistics</source>
+        <target>Statistik</target>
+      </segment>
+    </unit>
+    <unit id="D1it4FK" name="tree.tools.system.users">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:258</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.users</source>
+        <target>Bruger</target>
+      </segment>
+    </unit>
+    <unit id="7rI.aP2" name="tree.tools.system.groups">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:264</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.groups</source>
+        <target>Grupper</target>
+      </segment>
+    </unit>
+    <unit id="uwNvMFE" name="tree.tools.system.event_log">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:271</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.event_log</source>
+        <target>Hændelseslog</target>
+      </segment>
+    </unit>
+    <unit id="Y7FfSJt" name="entity.tree.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">src\Services\TreeBuilder.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.tree.new</source>
+        <target>Nyt element</target>
+      </segment>
+    </unit>
+    <unit id="3Vc5_D2" name="attachment.external_file">
+      <notes>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external_file</source>
+        <target>Ekstern fil</target>
+      </segment>
+    </unit>
+    <unit id="gexfRxf" name="attachment.edit">
+      <notes>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit</source>
+        <target>Rediger</target>
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">templates\base.html.twig:88</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>barcode.scan</source>
+        <target>Scan stregkode</target>
       </segment>
     </unit>
   </file>
