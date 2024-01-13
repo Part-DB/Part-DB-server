@@ -5712,6 +5712,168 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Notater</target>
       </segment>
     </unit>
+    <unit id="cIVLqUs" name="part.edit.master_attachment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:250</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:246</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.master_attachment</source>
+        <target>Miniaturebillede</target>
+      </segment>
+    </unit>
+    <unit id="vZwa6za" name="part.edit.save">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:295</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:276</note>
+        <note priority="1">src\Form\PartType.php:91</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.save</source>
+        <target>Anvend ændringer</target>
+      </segment>
+    </unit>
+    <unit id="_GqPyC3" name="part.edit.reset">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:296</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:277</note>
+        <note priority="1">src\Form\PartType.php:92</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.reset</source>
+        <target>Annuller ændringer</target>
+      </segment>
+    </unit>
+    <unit id="wN.sxj3" name="part.edit.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:105</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:103</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.name.placeholder</source>
+        <target>f.eks. BC547</target>
+      </segment>
+    </unit>
+    <unit id="rMHwTBI" name="part.edit.description.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:113</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.description.placeholder</source>
+        <target>f.eks. NPN 45V, 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+      </notes>
+      <segment state="translated">
+        <source>part.editmininstock.placeholder</source>
+        <target>f.eks. 1</target>
+      </segment>
+    </unit>
+    <unit id="6QS4K7r" name="part_lot.edit.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:69</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="IwPHYB0" name="part_lot.edit.location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.location</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="VEybZz7" name="part_lot.edit.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:89</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:89</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.amount</source>
+        <target>Antal</target>
+      </segment>
+    </unit>
+    <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:98</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:97</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.instock_unknown</source>
+        <target>Ukendt antal</target>
+      </segment>
+    </unit>
+    <unit id="uHBgsns" name="part_lot.edit.needs_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:109</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.needs_refill</source>
+        <target>skal fyldes op igen</target>
+      </segment>
+    </unit>
+    <unit id="xorQnlc" name="part_lot.edit.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.expiration_date</source>
+        <target>Udløbsdato</target>
+      </segment>
+    </unit>
+    <unit id="OjwY78X" name="part_lot.edit.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:128</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.comment</source>
+        <target>Bemærk</target>
+      </segment>
+    </unit>
+    <unit id=".8YTKod" name="perm.group.other">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+        <note priority="1">Part-DB1\src\Form\Permissions\PermissionsType.php:99</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.other</source>
+        <target>Forskellige</target>
+      </segment>
+    </unit>
+    <unit id="wPnvtWt" name="tfa_google.enable">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:97</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.enable</source>
+        <target>Aktiver godkendelses-app</target>
+      </segment>
+    </unit>
+    <unit id="g7Bwb96" name="tfa_google.disable">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:101</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable</source>
+        <target>Deaktiver godkendelses-app</target>
+      </segment>
+    </unit>
     <unit id="624h27t" name="tree.tools.edit.measurement_unit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
