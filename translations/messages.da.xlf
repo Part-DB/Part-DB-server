@@ -2973,5 +2973,1071 @@ Underelementer vil blive flyttet opad.</target>
         <target>Indsæt venligst sikkerhedsnøglen og tryk på knappen</target>
       </segment>
     </unit>
+    <unit id="T4i5SE4" name="tfa_u2f.add_key.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.title</source>
+        <target>Tilføj sikkerhedsnøgle</target>
+      </segment>
+    </unit>
+    <unit id="rIJ.Flq" name="tfa_u2f.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.explanation</source>
+        <target>Brug af en U2F/FIDO-kompatibel sikkerhedsnøgle (f.eks. YubiKey eller NitroKey) kan øge brugervenligheden og sikre en sikker to-faktor-godkendelse. Sikkerhedsnøglerne kan registreres her. Hvis to-faktor verifikation er påkrævet, skal nøglen kun tilsluttes via USB eller sættes op mod enheden via NFC.</target>
+      </segment>
+    </unit>
+    <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.backup_hint</source>
+        <target>For at sikre adgang, selvom nøglen går tabt, anbefales det at registrere en anden nøgle som backup og opbevare den et sikkert sted!</target>
+      </segment>
+    </unit>
+    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.name</source>
+        <target>Vist nøglenavn (f.eks. backup)</target>
+      </segment>
+    </unit>
+    <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.add_button</source>
+        <target>Tilføj sikkerhedsnøgle</target>
+      </segment>
+    </unit>
+    <unit id="JyEfylJ" name="tfa_u2f.add_key.back_to_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.back_to_settings</source>
+        <target>Tilbage til indstillinger</target>
+      </segment>
+    </unit>
+    <unit id="yD.UA07" name="statistics.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.title</source>
+        <target>Statistikker</target>
+      </segment>
+    </unit>
+    <unit id="6l0Fwd2" name="statistics.parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="QRdK9zd" name="statistics.data_structures">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.data_structures</source>
+        <target>Datastrukturer</target>
+      </segment>
+    </unit>
+    <unit id="50kyfxA" name="statistics.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="Op0xko9" name="statistics.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.property</source>
+        <target>Egenskab</target>
+      </segment>
+    </unit>
+    <unit id="zn.PnJ2" name="statistics.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.value</source>
+        <target>Værdi</target>
+      </segment>
+    </unit>
+    <unit id=".lLfExB" name="statistics.distinct_parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.distinct_parts_count</source>
+        <target>Antal forskellige komponenter</target>
+      </segment>
+    </unit>
+    <unit id="IjDWXUD" name="statistics.parts_instock_sum">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_instock_sum</source>
+        <target>Komponenter på lager i alt</target>
+      </segment>
+    </unit>
+    <unit id="OUVlqDZ" name="statistics.parts_with_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_with_price</source>
+        <target>Komponenter med prisinformantion</target>
+      </segment>
+    </unit>
+    <unit id="VX9aZ2j" name="statistics.categories_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.categories_count</source>
+        <target>Antal kategorier</target>
+      </segment>
+    </unit>
+    <unit id="Aks9a3Q" name="statistics.footprints_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.footprints_count</source>
+        <target>Antal footprints</target>
+      </segment>
+    </unit>
+    <unit id="wvwDajm" name="statistics.manufacturers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.manufacturers_count</source>
+        <target>Antal fabrikanter</target>
+      </segment>
+    </unit>
+    <unit id="MDdSIU0" name="statistics.storelocations_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.storelocations_count</source>
+        <target>Antal lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="q9tLL7." name="statistics.suppliers_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.suppliers_count</source>
+        <target>Antal leverandører</target>
+      </segment>
+    </unit>
+    <unit id="xzr9lD3" name="statistics.currencies_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.currencies_count</source>
+        <target>Antal valutaer</target>
+      </segment>
+    </unit>
+    <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.measurement_units_count</source>
+        <target>Antal måleenheder</target>
+      </segment>
+    </unit>
+    <unit id="T0BDQn_" name="statistics.devices_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.devices_count</source>
+        <target>Antal projekter</target>
+      </segment>
+    </unit>
+    <unit id="8HKc.Yq" name="statistics.attachment_types_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachment_types_count</source>
+        <target>Antal af bilagstyper</target>
+      </segment>
+    </unit>
+    <unit id="S1UPbY3" name="statistics.all_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.all_attachments_count</source>
+        <target>Antal bilag i alt</target>
+      </segment>
+    </unit>
+    <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.user_uploaded_attachments_count</source>
+        <target>Antal uploadede bilag</target>
+      </segment>
+    </unit>
+    <unit id="PcACWnw" name="statistics.private_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.private_attachments_count</source>
+        <target>Antal private bilag</target>
+      </segment>
+    </unit>
+    <unit id="b2F2Gpk" name="statistics.external_attachments_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.external_attachments_count</source>
+        <target>Antallet af alle eksterne bilag (URL)</target>
+      </segment>
+    </unit>
+    <unit id="xd6VhOm" name="tfa_backup.codes.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.title</source>
+        <target>Backupkoder</target>
+      </segment>
+    </unit>
+    <unit id="DE6_hcj" name="tfa_backup.codes.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.explanation</source>
+        <target>Udskriv disse koder og opbevar dem et sikkert sted!</target>
+      </segment>
+    </unit>
+    <unit id="q3Apy0z" name="tfa_backup.codes.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.help</source>
+        <target>Hvis du ikke længere har adgang til din enhed med Godkendelses-appen (smartphone tabt, datatab osv.), kan du bruge en af ​​disse koder til at få adgang til din konto og eventuelt igen forbinde til godkendelses-app. Hver af disse koder kan bruges én gang; det er tilrådeligt at slette brugte koder. Alle med adgang til disse koder kan potentielt få adgang til din konto, så opbevar dem et sikkert sted.</target>
+      </segment>
+    </unit>
+    <unit id="iPcPo4t" name="tfa_backup.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.username</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="g7XKOBR" name="tfa_backup.codes.page_generated_on">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.page_generated_on</source>
+        <target>Side genereret den %date%</target>
+      </segment>
+    </unit>
+    <unit id="3Qg6WkA" name="tfa_backup.codes.print">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:32</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.print</source>
+        <target>Udskriv</target>
+      </segment>
+    </unit>
+    <unit id="CJiKz6Q" name="tfa_backup.codes.copy_clipboard">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.codes.copy_clipboard</source>
+        <target>Kopier til udklipsholder</target>
+      </segment>
+    </unit>
+    <unit id="_M8LV3f" name="user.info.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">templates\base.html.twig:99</note>
+        <note priority="1">templates\Users\user_info.html.twig:3</note>
+        <note priority="1">templates\Users\user_info.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.info.label</source>
+        <target>Brugerinformation</target>
+      </segment>
+    </unit>
+    <unit id="PwI64fM" name="user.firstName.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:18</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:77</note>
+        <note priority="1">templates\Users\user_info.html.twig:18</note>
+        <note priority="1">src\Form\UserSettingsType.php:32</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.label</source>
+        <target>Fornavn</target>
+      </segment>
+    </unit>
+    <unit id="u2ayBIA" name="user.lastName.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:82</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:24</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:82</note>
+        <note priority="1">templates\Users\user_info.html.twig:24</note>
+        <note priority="1">src\Form\UserSettingsType.php:35</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.label</source>
+        <target>Efternavn</target>
+      </segment>
+    </unit>
+    <unit id="cDu6Rok" name="user.email.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:30</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:92</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:30</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:92</note>
+        <note priority="1">templates\Users\user_info.html.twig:30</note>
+        <note priority="1">src\Form\UserSettingsType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.label</source>
+        <target>E-mail</target>
+      </segment>
+    </unit>
+    <unit id="8GGUFm1" name="user.department.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:87</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:37</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:87</note>
+        <note priority="1">templates\Users\user_info.html.twig:37</note>
+        <note priority="1">src\Form\UserSettingsType.php:38</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.label</source>
+        <target>Afdeling</target>
+      </segment>
+    </unit>
+    <unit id="oX4P2rM" name="user.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:73</note>
+        <note priority="1">templates\Users\user_info.html.twig:47</note>
+        <note priority="1">src\Form\UserSettingsType.php:30</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.label</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="QK5x4IY" name="group.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:93</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:53</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:93</note>
+        <note priority="1">templates\Users\user_info.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>group.label</source>
+        <target>Gruppe</target>
+      </segment>
+    </unit>
+    <unit id="A7LFSdc" name="user.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Users\user_info.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>user.permissions</source>
+        <target>Tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="4fEJHYJ" name="user.settings.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:37</note>
+        <note priority="1">templates\base.html.twig:98</note>
+        <note priority="1">templates\Users\user_settings.html.twig:3</note>
+        <note priority="1">templates\Users\user_settings.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.label</source>
+        <target>Brugerindstillinger</target>
+      </segment>
+    </unit>
+    <unit id="zqcVMWA" name="user_settings.data.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:18</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:18</note>
+        <note priority="1">templates\Users\user_settings.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.data.label</source>
+        <target>Personlige data</target>
+      </segment>
+    </unit>
+    <unit id="Dh.DwVa" name="user_settings.configuration.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:22</note>
+        <note priority="1">templates\Users\user_settings.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.configuration.label</source>
+        <target>Konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="v3ayVni" name="user.settings.change_pw">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:55</note>
+        <note priority="1">templates\Users\user_settings.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.change_pw</source>
+        <target>Ændre password</target>
+      </segment>
+    </unit>
+    <unit id="2g9WpFv" name="user.settings.2fa_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.2fa_settings</source>
+        <target>To-faktor godkendelse</target>
+      </segment>
+    </unit>
+    <unit id="4Ubnv0V" name="tfa.settings.google.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.google.tab</source>
+        <target>Godkendelses-app</target>
+      </segment>
+    </unit>
+    <unit id="A0dMe4r" name="tfa.settings.bakup.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.bakup.tab</source>
+        <target>Backup-koder</target>
+      </segment>
+    </unit>
+    <unit id="dxSnk50" name="tfa.settings.u2f.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.u2f.tab</source>
+        <target>Sikkerhedsnøgler (U2F)</target>
+      </segment>
+    </unit>
+    <unit id="6nafcsi" name="tfa.settings.trustedDevices.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:25</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.settings.trustedDevices.tab</source>
+        <target>Pålidelige enheder</target>
+      </segment>
+    </unit>
+    <unit id="AYt4Z2k" name="tfa_google.disable.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable.confirm_title</source>
+        <target>Er du sikker på, at du vil deaktivere godkendelses-appen?</target>
+      </segment>
+    </unit>
+    <unit id="lTwm.J0" name="tfa_google.disable.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disable.confirm_message</source>
+        <target>Hvis du deaktiverer godkendelses-apen slettes alle backupkoder. Så du skal muligvis genudskrive dem.&lt;br&gt;
+Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt beskyttet mod misbrug!</target>
+      </segment>
+    </unit>
+    <unit id="VYOAO2c" name="tfa_google.disabled_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.disabled_message</source>
+        <target>Godkendelses-app er deaktiveret</target>
+      </segment>
+    </unit>
+    <unit id="cW3GnIC" name="tfa_google.step.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.download</source>
+        <target>Download en godkendelses-app (f.eks. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android. apps. authenticator2"&gt;Google Authenticator&lt;/a&gt; eller &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org .fedorahosted .freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+      </segment>
+    </unit>
+    <unit id="TXv.pXw" name="tfa_google.step.scan">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.scan</source>
+        <target>Scan QR-koden nedenfor med appen eller indtast data manuelt</target>
+      </segment>
+    </unit>
+    <unit id="A9Ex8CO" name="tfa_google.step.input_code">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.input_code</source>
+        <target>Indtast den genererede kode i feltet nedenfor og bekræft</target>
+      </segment>
+    </unit>
+    <unit id="RqoGsnx" name="tfa_google.step.download_backup">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:51</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:51</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.step.download_backup</source>
+        <target>Udskriv dine backupkoder og gem dem et sikkert sted</target>
+      </segment>
+    </unit>
+    <unit id="EygadTb" name="tfa_google.manual_setup">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup</source>
+        <target>Manuel opsætning</target>
+      </segment>
+    </unit>
+    <unit id="4jE4fvm" name="tfa_google.manual_setup.type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="NqQTgh6" name="tfa_google.manual_setup.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.username</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="pkupOqy" name="tfa_google.manual_setup.secret">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="zabzs3X" name="tfa_google.manual_setup.digit_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.manual_setup.digit_count</source>
+        <target>Antal ciffre</target>
+      </segment>
+    </unit>
+    <unit id="FvB0dIm" name="tfa_google.enabled_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:74</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:74</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_google.enabled_message</source>
+        <target>Godkendelses-app aktiv</target>
+      </segment>
+    </unit>
+    <unit id="atzHEe7" name="tfa_backup.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.disabled</source>
+        <target>Backup-koder deaktiveret. Konfigurer godkendelses-appen for at aktivere backupkoder.</target>
+      </segment>
+    </unit>
+    <unit id=".T4.dPM" name="tfa_backup.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.explanation</source>
+        <target>Disse backupkoder giver dig adgang til din konto, selvom du mister enheden med godkendelse-appen. Udskriv koderne og opbevar dem et sikkert sted.</target>
+      </segment>
+    </unit>
+    <unit id="H10CC4E" name="tfa_backup.reset_codes.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_title</source>
+        <target>Vil du virkelig nulstille koder?</target>
+      </segment>
+    </unit>
+    <unit id="5Fu2DpJ" name="tfa_backup.reset_codes.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_message</source>
+        <target>Dette vil slette alle tidligere koder og generere et sæt nye koder. Dette kan ikke fortrydes. Husk at udskrive de nye koder og gem dem et sikkert sted!</target>
+      </segment>
+    </unit>
+    <unit id="o5LtJ9_" name="tfa_backup.enabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.enabled</source>
+        <target>Backupkoder aktiveret</target>
+      </segment>
+    </unit>
+    <unit id="kqmz5H_" name="tfa_backup.show_codes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.show_codes</source>
+        <target>Vis backupkoder</target>
+      </segment>
+    </unit>
+    <unit id="7g11_KD" name="tfa_u2f.table_caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.table_caption</source>
+        <target>Gemte backupkoder</target>
+      </segment>
+    </unit>
+    <unit id="UUr4y_o" name="tfa_u2f.delete_u2f.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_title</source>
+        <target>Ønsker du virkelig at slette denne backupkode?</target>
+      </segment>
+    </unit>
+    <unit id="5ggwjiF" name="tfa_u2f.delete_u2f.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_message</source>
+        <target>Hvis du fjerner denne nøgle, vil du ikke længere kunne logge på med den. Hvis der ikke er nogen sikkerhedsnøgler tilbage, er to-faktor-godkendelse deaktiveret.</target>
+      </segment>
+    </unit>
+    <unit id="QS7fv4V" name="tfa_u2f.keys.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.name</source>
+        <target>Nøglenavn</target>
+      </segment>
+    </unit>
+    <unit id="4qB9rjg" name="tfa_u2f.keys.added_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.added_date</source>
+        <target>Registreringsdato</target>
+      </segment>
+    </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_delete</source>
+        <target>Slet nøgle</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>Ingen gemte nøgler</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_new_key</source>
+        <target>Registrer ny sikkerhedsnøgle</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>Når du tjekker to-faktor, kan den aktuelle computer markeres som troværdig og så er to-faktor-tjek er ikke længere nødvendig på denne computer. Hvis du udførte dette ved en fejl, eller hvis en computer ikke længere er troværdig. Så kan du nulstille status for &lt;i&gt;alle &lt;/i&gt;computere her.</target>
+      </segment>
+    </unit>
+    <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_title</source>
+        <target>Vil du virkelig fjerne alle pålidelige computere?</target>
+      </segment>
+    </unit>
+    <unit id="r7Z3.L4" name="tfa_trustedDevices.invalidate.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_message</source>
+        <target>Du skal opsætte to-faktor-godkendelse igen på alle computere. Sørg for, at du har din to-faktor-enhed ved hånden.</target>
+      </segment>
+    </unit>
+    <unit id="jiNvzqA" name="tfa_trustedDevices.invalidate.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.btn</source>
+        <target>Fjern alle pålidelige enheder</target>
+      </segment>
+    </unit>
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.toggle</source>
+        <target>Aktivér/de-aktiver sidebjælke</target>
+      </segment>
+    </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>Scanner</target>
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">templates\base.html.twig:97</note>
+      </notes>
+      <segment state="translated">
+        <source>user.loggedin.label</source>
+        <target>Logget ind som</target>
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">templates\base.html.twig:103</note>
+      </notes>
+      <segment state="translated">
+        <source>user.login</source>
+        <target>Log ind</target>
+      </segment>
+    </unit>
+    <unit id="Eorzg9b" name="ui.toggle_darkmode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>ui.toggle_darkmode</source>
+        <target>Darkmode</target>
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">templates\base.html.twig:106</note>
+        <note priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>user.language_select</source>
+        <target>Sprog</target>
+      </segment>
+    </unit>
+    <unit id="el2uFyW" name="search.options.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>search.options.label</source>
+        <target>Søgemuligheder</target>
+      </segment>
+    </unit>
+    <unit id="V2u6xXi" name="tags.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
+      </notes>
+      <segment state="translated">
+        <source>tags.label</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="RezjOdV" name="storelocation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">templates\base.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:36</note>
+        <note priority="1">src\Form\PartType.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.label</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">templates\base.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>ordernumber.label.short</source>
+        <target>Bestillingsnummer</target>
+      </segment>
+    </unit>
+    <unit id="zT4k8ZJ" name="supplier.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:40</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:35</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">templates\base.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.label</source>
+        <target>Leverandør</target>
+      </segment>
+    </unit>
+    <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note priority="1">templates\base.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>search.deactivateBarcode</source>
+        <target>Deakt. stregkode</target>
+      </segment>
+    </unit>
+    <unit id="biFM.cv" name="search.regexmatching">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:56</note>
+        <note priority="1">templates\base.html.twig:77</note>
+      </notes>
+      <segment state="translated">
+        <source>search.regexmatching</source>
+        <target>Reg. Ex. matching</target>
+      </segment>
+    </unit>
+    <unit id="N66qZeD" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>Kom nu!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
