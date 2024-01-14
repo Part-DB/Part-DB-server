@@ -6685,5 +6685,85 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Produktion af ​​komponenten vil snart ophøre.</target>
       </segment>
     </unit>
+    <unit id="t8VuM2P" name="m_status.nrfnd.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.nrfnd.help</source>
+        <target>Komponenten fremstilles stadig. Dog anbefales den ikke anvendt længere til nye designs.</target>
+      </segment>
+    </unit>
+    <unit id="8x._AWi" name="m_status.unknown.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.unknown.help</source>
+        <target>Produktionsstatus er ukendt.</target>
+      </segment>
+    </unit>
+    <unit id="g4ahva6" name="flash.success">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.success</source>
+        <target>Succes</target>
+      </segment>
+    </unit>
+    <unit id="NehzWgk" name="flash.error">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.error</source>
+        <target>Fejl</target>
+      </segment>
+    </unit>
+    <unit id="h8vhq_r" name="flash.warning">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.warning</source>
+        <target>Advarsel</target>
+      </segment>
+    </unit>
+    <unit id="m5p2YEz" name="flash.notice">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.notice</source>
+        <target>Varsel</target>
+      </segment>
+    </unit>
+    <unit id="YA5xZMy" name="flash.info">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="hYFfpL7" name="validator.noLockout">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noLockout</source>
+        <target>Du kan ikke fjerne din egen tilladelse til at redigere tilladelser. Dette sikrer dig imod ved et uheld at låse dig ude!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
