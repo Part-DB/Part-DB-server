@@ -941,7 +941,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>entity.duplicate</source>
-        <target>Duplicitní prvek</target>
+        <target>Duplikovat prvek</target>
       </segment>
     </unit>
     <unit id="4_pqNGT" name="export.format">
