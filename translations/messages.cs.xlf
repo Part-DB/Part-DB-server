@@ -242,7 +242,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>Takto vypadala část před %timestamp%. &lt;i&gt;Upozorňujeme, že tato funkce je experimentální, takže informace nemusí být správné.&lt;/i&gt;</target>
+        <target>Takto vypadal díl před %timestamp%. &lt;i&gt;Upozorňujeme, že tato funkce je experimentální, takže informace nemusí být správné.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
@@ -560,7 +560,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.labelp</source>
-        <target>Místa uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="eSA7p5N" name="storelocation.edit">
@@ -2410,7 +2410,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part_lots.storage_location</source>
-        <target>Místo uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="jVYrm0U" name="part_lots.amount">
@@ -2430,7 +2430,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part_lots.location_unknown</source>
-        <target>Místo uložení neznámé</target>
+        <target>Umístění neznámé</target>
       </segment>
     </unit>
     <unit id="BTUni9r" name="part_lots.instock_unknown">
@@ -2460,7 +2460,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part_lots.is_expired</source>
-        <target>Vypršela platnost</target>
+        <target>Platnost vypršela</target>
       </segment>
     </unit>
     <unit id="EWX1Sti" name="part_lots.need_refill">
@@ -2510,7 +2510,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.needs_review.badge</source>
-        <target>Potřebuje revizi</target>
+        <target>Potřeba revize</target>
       </segment>
     </unit>
     <unit id="dF6ZXKR" name="part.favorite.badge">
@@ -3981,7 +3981,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>storelocation.label</source>
-        <target>Místo uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="z1DQ7QF" name="ordernumber.label.short">
@@ -4197,7 +4197,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>label_generator.no_entities_found</source>
-        <target>Bezpečnostní klíče (U2F)</target>
+        <target>Nebyly nalezeny žádné entity odpovídající zadání.</target>
       </segment>
     </unit>
     <unit id="BeMACpw" name="log.undo.target_not_found">
@@ -4806,7 +4806,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.storeLocations</source>
-        <target>Místa uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="rD.1skI" name="part.table.amount">
@@ -4866,7 +4866,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.needsReview</source>
-        <target>Potřebuje revizi</target>
+        <target>Potřeba revize</target>
       </segment>
     </unit>
     <unit id="TSiqJH6" name="part.table.favorite">
@@ -5240,7 +5240,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part_lot.label</source>
-        <target>Šarže dílu</target>
+        <target>Inventář</target>
       </segment>
     </unit>
     <unit id="FmESg.O" name="label_options.barcode_type.none">
@@ -5447,7 +5447,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>parameters.name.placeholder</source>
-        <target>např. stejnosměrný proudový zisk</target>
+        <target>např. Stejnosměrný proudový zisk</target>
       </segment>
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
@@ -5670,7 +5670,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.needs_review</source>
-        <target>Potřebuje revizi</target>
+        <target>Potřeba revize</target>
       </segment>
     </unit>
     <unit id="thxZ5LH" name="part.edit.is_favorite">
@@ -6117,7 +6117,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.system</source>
-        <target>System</target>
+        <target>Systém</target>
       </segment>
     </unit>
     <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
@@ -7910,7 +7910,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.storelocations</source>
-        <target>Místa uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="1MkJQeq" name="perm.move">
@@ -8970,7 +8970,7 @@ Element 3</target>
     <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
       <segment state="translated">
         <source>part_list.action.action.unfavorite</source>
-        <target>Neoblíbené</target>
+        <target>Neoblíbený</target>
       </segment>
     </unit>
     <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
@@ -9300,7 +9300,7 @@ Element 3</target>
     <unit id="wgXINWq" name="part.filter.lot_count">
       <segment state="translated">
         <source>part.filter.lot_count</source>
-        <target>Počet šarží</target>
+        <target>Počet inventářů</target>
       </segment>
     </unit>
     <unit id="tjfJAIq" name="part.filter.attachments_count">
@@ -9318,19 +9318,19 @@ Element 3</target>
     <unit id="QnS490v" name="part.filter.lotExpirationDate">
       <segment state="translated">
         <source>part.filter.lotExpirationDate</source>
-        <target>Datum ukončení platnosti šarže</target>
+        <target>Datum ukončení platnosti inventáře</target>
       </segment>
     </unit>
     <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
       <segment state="translated">
         <source>part.filter.lotNeedsRefill</source>
-        <target>Jakákoli šarže potřebuje doplnit</target>
+        <target>Jakýkoliv inventář potřebuje doplnit</target>
       </segment>
     </unit>
     <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
       <segment state="translated">
         <source>part.filter.lotUnknwonAmount</source>
-        <target>Jakákoli šarže má neznámé množství</target>
+        <target>Jakýkoliv inventář má neznámé množství</target>
       </segment>
     </unit>
     <unit id="lRKoTj_" name="part.filter.attachmentName">
@@ -9516,7 +9516,7 @@ Element 3</target>
     <unit id="Dn0SKIi" name="part.filter.lotDescription">
       <segment state="translated">
         <source>part.filter.lotDescription</source>
-        <target>Popis šarže</target>
+        <target>Popis inventáře</target>
       </segment>
     </unit>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
@@ -9726,19 +9726,19 @@ Element 3</target>
     <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
       <segment state="translated">
         <source>part_list.action.action.group.needs_review</source>
-        <target>Potřebuje revizi</target>
+        <target>Potřeba revize</target>
       </segment>
     </unit>
     <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
       <segment state="translated">
         <source>part_list.action.action.set_needs_review</source>
-        <target>Nastavení stavu kontroly potřeb</target>
+        <target>Nastavit stav "Potřebuje kontrolu"</target>
       </segment>
     </unit>
     <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
       <segment state="translated">
         <source>part_list.action.action.unset_needs_review</source>
-        <target>Nenastavený stav vyžaduje kontrolu</target>
+        <target>Zrušit stav "Potřebuje kontrolu"</target>
       </segment>
     </unit>
     <unit id="DNEEkTy" name="part.edit.ipn">
@@ -9936,7 +9936,7 @@ Element 3</target>
     <unit id="Y7z_Lil" name="project.info.bom_entries_count">
       <segment state="translated">
         <source>project.info.bom_entries_count</source>
-        <target>Položky kusovníku</target>
+        <target>Položky BOM</target>
       </segment>
     </unit>
     <unit id="jdkve2C" name="project.info.sub_projects_count">
@@ -9972,19 +9972,19 @@ Element 3</target>
     <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Stažení dílů z šarže</target>
+        <target>Stažení dílů z inventáře</target>
       </segment>
     </unit>
     <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.add</source>
-        <target>Přidání dílů do šarže</target>
+        <target>Přidání dílů do inventáře</target>
       </segment>
     </unit>
     <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.move</source>
-        <target>Přesun dílů z šarže do jiné šarže</target>
+        <target>Přesun dílů z inventáře do jiného</target>
       </segment>
     </unit>
     <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
@@ -10050,7 +10050,7 @@ Element 3</target>
     <unit id="JR4LXfJ" name="perm.parts_stock.move">
       <segment state="translated">
         <source>perm.parts_stock.move</source>
-        <target>Přesun dílů mezi šaržemi</target>
+        <target>Přesun dílů mezi inventáři</target>
       </segment>
     </unit>
     <unit id="DQ_FAfi" name="user.permissions_schema_updated">
@@ -10134,7 +10134,7 @@ Element 3</target>
     <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
       <segment state="translated">
         <source>part_list.action.projects.generate_label_lot</source>
-        <target>Generování štítků (pro šarže dílů)</target>
+        <target>Generování štítků (pro inventáře dílů)</target>
       </segment>
     </unit>
     <unit id="obOVNB9" name="part_list.action.generate_label.empty">
@@ -10218,13 +10218,13 @@ Element 3</target>
     <unit id="AqGFkiA" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Zvolte, z jakých zásob (a v jakém množství) mají být odebrány komponenty potřebné pro stavbu. Zaškrtněte políčko u každé položky kusovníku, když jste komponenty odebrali, nebo pomocí horního zaškrtávacího políčka zaškrtněte všechna políčka najednou.</target>
+        <target>Zvolte, z jakých zásob (a v jakém množství) mají být odebrány komponenty potřebné pro sestavení. Zaškrtněte políčko u každé položky BOM, když jste komponenty odebrali, nebo pomocí horního zaškrtávacího políčka zaškrtněte všechna políčka najednou.</target>
       </segment>
     </unit>
     <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
       <segment state="translated">
         <source>project.build.buildsPartLot.new_lot</source>
-        <target>Vytvořit novou šarži</target>
+        <target>Vytvořit nový inventář</target>
       </segment>
     </unit>
     <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
@@ -10236,13 +10236,13 @@ Element 3</target>
     <unit id="92b1_QD" name="project.build.builds_part_lot">
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
-        <target>Cílová šarže</target>
+        <target>Cílový inventář</target>
       </segment>
     </unit>
     <unit id="pyv0k6b" name="project.builds.number_of_builds">
       <segment state="translated">
         <source>project.builds.number_of_builds</source>
-        <target>Částka sestavy</target>
+        <target>Množství sestavy</target>
       </segment>
     </unit>
     <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
@@ -10578,7 +10578,7 @@ Element 3</target>
     <unit id="ZRxLMgU" name="log.element_edited.changed_fields.is_full">
       <segment state="translated">
         <source>log.element_edited.changed_fields.is_full</source>
-        <target>Uložiště plné</target>
+        <target>Umístění plné</target>
       </segment>
     </unit>
     <unit id="hMc.US1" name="log.element_edited.changed_fields.limit_to_existing_parts">
@@ -10782,7 +10782,7 @@ Element 3</target>
     <unit id="YPerF93" name="log.element_edited.changed_fields.needs_review">
       <segment state="translated">
         <source>log.element_edited.changed_fields.needs_review</source>
-        <target>Potřebuje revizi</target>
+        <target>Potřeba revize</target>
       </segment>
     </unit>
     <unit id="gF_Zo45" name="log.element_edited.changed_fields.tags">
@@ -10848,7 +10848,7 @@ Element 3</target>
     <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
       <segment state="translated">
         <source>log.element_edited.changed_fields.storage_location</source>
-        <target>Místo uložení</target>
+        <target>Umístění</target>
       </segment>
     </unit>
     <unit id="Qt585vm" name="attachment.max_file_size">
@@ -11022,13 +11022,13 @@ Element 3</target>
     <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
       <segment state="translated">
         <source>parts.import.part_needs_review.help</source>
-        <target>Pokud je tato možnost vybrána, budou všechny části označeny jako "Potřeba revize" bez ohledu na to, co bylo nastaveno v údajích.</target>
+        <target>Pokud je tato možnost vybrána, budou všechny díly označeny jako "Potřeba revize" bez ohledu na to, co bylo nastaveno v údajích.</target>
       </segment>
     </unit>
     <unit id="eVvGwjn" name="project.bom_import.flash.success">
       <segment state="translated">
         <source>project.bom_import.flash.success</source>
-        <target>Import %count% položek kusovníku proběhl úspěšně.</target>
+        <target>Import %count% položek BOM proběhl úspěšně.</target>
       </segment>
     </unit>
     <unit id="5mJNteq" name="project.bom_import.type">
@@ -11106,7 +11106,7 @@ Element 3</target>
     <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
       <segment state="translated">
         <source>storelocation.part_owner_must_match.label</source>
-        <target>Vlastník se musí shodovat s vlastníkem místa skladování</target>
+        <target>Vlastník se musí shodovat s vlastníkem umístění</target>
       </segment>
     </unit>
     <unit id="sddE1L." name="part_lot.owner">
@@ -11130,7 +11130,7 @@ Element 3</target>
     <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
       <segment state="translated">
         <source>log.element_edited.changed_fields.instock_unknown</source>
-        <target>Částka neznámá</target>
+        <target>Množství neznámé</target>
       </segment>
     </unit>
     <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
@@ -11160,7 +11160,7 @@ Element 3</target>
     <unit id="4GTAJ9E" name="log.element_edited.changed_fields.part_owner_must_match">
       <segment state="translated">
         <source>log.element_edited.changed_fields.part_owner_must_match</source>
-        <target>Vlastník dílu se musí shodovat s vlastníkem místa uložení</target>
+        <target>Vlastník dílu se musí shodovat s vlastníkem umístění</target>
       </segment>
     </unit>
     <unit id="u6qFa_j" name="part.filter.lessThanDesired">
@@ -11492,7 +11492,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="WTB_AKQ" name="part.info_provider_reference">
       <segment state="translated">
         <source>part.info_provider_reference</source>
-        <target>Vytvořil poskytovatel informací</target>
+        <target>Vytvořeno poskytovatelem informací</target>
       </segment>
     </unit>
     <unit id="Qhaj.j4" name="oauth_client.connect.btn">
@@ -11942,13 +11942,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>Pokud tato šarže již má čárový kód (např. vložený prodejcem), můžete zde zadat jeho obsah, abyste jej mohli snadno naskenovat.</target>
+        <target>Pokud již tento inventář má čárový kód (např. vložený prodejcem), můžete zde zadat jeho obsah, abyste jej mohli snadno naskenovat.</target>
       </segment>
     </unit>
     <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
       <segment state="translated">
         <source>scan_dialog.mode.vendor</source>
-        <target>Čárový kód prodejce (nakonfigurovaný v dílčí šarži)</target>
+        <target>Čárový kód prodejce (nakonfigurovaný v inventáři)</target>
       </segment>
     </unit>
     <unit id="ilCTQni" name="project.bom.instockAmount">
@@ -12020,13 +12020,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
       <segment state="translated">
         <source>part.update_part_from_info_provider.btn</source>
-        <target>Aktualizace dílu od poskytovatelů informací</target>
+        <target>Aktualizovat díl od poskytovatelů informací</target>
       </segment>
     </unit>
     <unit id="n6_Ec0h" name="info_providers.update_part.title">
       <segment state="translated">
         <source>info_providers.update_part.title</source>
-        <target>Aktualizace stávající dílu od poskytovatele informací</target>
+        <target>Aktualizace stávajícího dílu od poskytovatele informací</target>
       </segment>
     </unit>
     <unit id="lkIVIWr" name="part.merge.flash.please_review">
@@ -12068,7 +12068,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Vymazat tuto šarži, pokud se vyprázdní</target>
+        <target>Vymazat tento inventář, pokud se vyprázdní</target>
       </segment>
     </unit>
     <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
@@ -12110,7 +12110,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
       <segment state="translated">
         <source>eda_info.exclude_from_bom</source>
-        <target>Vyloučit díl z kusovníku</target>
+        <target>Vyloučit díl z BOM</target>
       </segment>
     </unit>
     <unit id="jDHzKDL" name="eda_info.exclude_from_board">
@@ -12176,13 +12176,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="UXT_MIM" name="eda_info.visibility">
       <segment state="translated">
         <source>eda_info.visibility</source>
-        <target>Zviditelnit</target>
+        <target>Viditelné</target>
       </segment>
     </unit>
     <unit id="NN5DZ4F" name="eda_info.visibility.help">
       <segment state="translated">
         <source>eda_info.visibility.help</source>
-        <target>Ve výchozím nastavení je viditelnost pro software EDA určena automaticky. Pomocí tohoto zaškrtávacího políčka můžete vynutit, aby byla součást viditelná nebo neviditelná.</target>
+        <target>Ve výchozím nastavení je viditelnost pro software EDA určena automaticky. Pomocí tohoto zaškrtávacího políčka můžete vynutit, aby byl díl viditelný nebo neviditelný.</target>
       </segment>
     </unit>
     <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
