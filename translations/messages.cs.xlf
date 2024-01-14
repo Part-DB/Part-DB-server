@@ -318,7 +318,7 @@
       </notes>
       <segment state="translated">
         <source>admin.common</source>
-        <target>Společné</target>
+        <target>Obecné</target>
       </segment>
     </unit>
     <unit id="NmnCJhH" name="admin.attachments">
@@ -1512,7 +1512,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>label_generator.common</source>
-        <target>Společné</target>
+        <target>Obecné</target>
       </segment>
     </unit>
     <unit id="WLpYniK" name="label_generator.advanced">
@@ -1785,7 +1785,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>pricedetails.edit.price_qty</source>
-        <target>pro částku</target>
+        <target>za množství</target>
       </segment>
     </unit>
     <unit id="8BF.OZR" name="pricedetail.create">
@@ -1827,7 +1827,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.tab.common</source>
-        <target>Společné</target>
+        <target>Obecné</target>
       </segment>
     </unit>
     <unit id="RjPp2bd" name="part.edit.tab.manufacturer">
@@ -1907,7 +1907,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.new.card_title</source>
-        <target>Vytvořit nový díl</target>
+        <target>Přidat nový díl</target>
       </segment>
     </unit>
     <unit id="X.m4tR7" name="part_lot.delete">
@@ -2116,7 +2116,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>attachment.preview</source>
-        <target>Náhled obrázku</target>
+        <target>Náhled</target>
       </segment>
     </unit>
     <unit id="GSjs0LU" name="attachment.download">
@@ -2195,7 +2195,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.minOrderAmount</source>
-        <target>Minimální výše objednávky</target>
+        <target>Minimální množství</target>
       </segment>
     </unit>
     <unit id="WB3sH1G" name="manufacturer.label">
@@ -2350,7 +2350,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.order.minamount</source>
-        <target>Minimální částka</target>
+        <target>Minimální množství</target>
       </segment>
     </unit>
     <unit id="4RsODVR" name="part.order.price">
@@ -2420,7 +2420,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part_lots.amount</source>
-        <target>Částka</target>
+        <target>Množství</target>
       </segment>
     </unit>
     <unit id="upshmqD" name="part_lots.location_unknown">
@@ -2581,7 +2581,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.create.btn</source>
-        <target>Vytvořit nový díl</target>
+        <target>Přidat nový díl</target>
       </segment>
     </unit>
     <unit id="GayDkXI" name="part.delete.confirm_title">
@@ -2701,7 +2701,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>entity.info.common.tab</source>
-        <target>Společné</target>
+        <target>Obecné</target>
       </segment>
     </unit>
     <unit id="F0da8x0" name="entity.info.statistics.tab">
@@ -2751,7 +2751,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>entity.info.parent</source>
-        <target>Rodič</target>
+        <target>Nadřazený</target>
       </segment>
     </unit>
     <unit id="nDEGgY0" name="entity.edit.btn">
@@ -2992,7 +2992,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.explanation</source>
-        <target>Pomocí bezpečnostního klíče kompatibilního s U2F/FIDO (např. YubiKey nebo NitroKey) lze dosáhnout uživatelsky přívětivého a bezpečného dvoufaktorového ověřování. Bezpečnostní klíče zde lze zaregistrovat, a pokud je vyžadováno dvoufaktorové ověření, stačí klíč vložit přes USB nebo zadat proti zařízení prostřednictvím NFC.</target>
+        <target>Pomocí bezpečnostního klíče kompatibilního s U2F/FIDO (např. YubiKey nebo NitroKey) lze dosáhnout uživatelsky přívětivého a bezpečného dvoufaktorového ověřování. Bezpečnostní klíče lze zde zaregistrovat a pokud je vyžadováno dvoufaktorové ověření, stačí vložit klíč do USB, nebo zadat přes zařízení prostřednictvím NFC.</target>
       </segment>
     </unit>
     <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
@@ -3415,7 +3415,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>user.email.label</source>
-        <target>Email</target>
+        <target>e-mail</target>
       </segment>
     </unit>
     <unit id="8GGUFm1" name="user.department.label">
@@ -4816,7 +4816,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.amount</source>
-        <target>Částka</target>
+        <target>Množství</target>
       </segment>
     </unit>
     <unit id="Mv9g23S" name="part.table.minamount">
@@ -4826,7 +4826,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.minamount</source>
-        <target>Min. částka</target>
+        <target>Min. množství</target>
       </segment>
     </unit>
     <unit id="GjwSknL" name="part.table.partUnit">
@@ -4948,7 +4948,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>m_status.eol</source>
-        <target>Konec života</target>
+        <target>Ukončeno</target>
       </segment>
     </unit>
     <unit id="5jxVP1H" name="m_status.discontinued">
@@ -5700,7 +5700,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.partUnit</source>
-        <target>Měřicí jednotka</target>
+        <target>Měrná jednotka</target>
       </segment>
     </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
@@ -5720,7 +5720,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.master_attachment</source>
-        <target>Náhled obrázku</target>
+        <target>Náhled</target>
       </segment>
     </unit>
     <unit id="vZwa6za" name="part.edit.save">
@@ -5742,7 +5742,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.reset</source>
-        <target>Reset změn</target>
+        <target>Zrušit změny</target>
       </segment>
     </unit>
     <unit id="wN.sxj3" name="part.edit.name.placeholder">
@@ -5802,7 +5802,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part_lot.edit.amount</source>
-        <target>Částka</target>
+        <target>Množství</target>
       </segment>
     </unit>
     <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
@@ -5987,7 +5987,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>measurement_unit.label</source>
-        <target>Měřicí jednotka</target>
+        <target>Měrná jednotka</target>
       </segment>
     </unit>
     <unit id="5lJftbn" name="currency.label">
@@ -6613,7 +6613,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>validator.part_lot.location_full.no_increasment</source>
-        <target>Skladové místo bylo označeno jako plné, takže nelze zvýšit množství zásob. (Nové množství max. {{ old_amount }})</target>
+        <target>Místo je obsazeno. Množství nelze navýšit (nová hodnota musí být menší než {{ old_amount }}).</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -7055,7 +7055,7 @@ Město</target>
       </notes>
       <segment state="translated">
         <source>company.edit.email</source>
-        <target>Email</target>
+        <target>e-mail</target>
       </segment>
     </unit>
     <unit id="vTq5HxO" name="company.edit.email.placeholder">
@@ -8400,7 +8400,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.minamount</source>
-        <target>Min. částka</target>
+        <target>Min. množství</target>
       </segment>
     </unit>
     <unit id="vZwyFdD" name="perm.part.footprint">
@@ -8904,13 +8904,13 @@ Element 3</target>
     <unit id="i7QKlzx" name="selectpicker.empty">
       <segment state="translated">
         <source>selectpicker.empty</source>
-        <target>Není vybráno nic</target>
+        <target>Nic není vybráno</target>
       </segment>
     </unit>
     <unit id="TPI_1p0" name="selectpicker.nothing_selected">
       <segment state="translated">
         <source>selectpicker.nothing_selected</source>
-        <target>Není vybráno nic</target>
+        <target>Nic není vybráno</target>
       </segment>
     </unit>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
@@ -9054,7 +9054,7 @@ Element 3</target>
     <unit id="tB_XJLr" name="part.edit.save_and_clone">
       <segment state="translated">
         <source>part.edit.save_and_clone</source>
-        <target>Uložit a klonovat</target>
+        <target>Uložit a duplikovat</target>
       </segment>
     </unit>
     <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
@@ -9312,7 +9312,7 @@ Element 3</target>
     <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
       <segment state="translated">
         <source>part.filter.orderdetails_count</source>
-        <target>Počet údajů o objednávce</target>
+        <target>Počet údajů k objednávce</target>
       </segment>
     </unit>
     <unit id="QnS490v" name="part.filter.lotExpirationDate">
@@ -9354,7 +9354,7 @@ Element 3</target>
     <unit id="ZnYcxRf" name="part.filter.amount_sum">
       <segment state="translated">
         <source>part.filter.amount_sum</source>
-        <target>Celková částka</target>
+        <target>Celkové množství</target>
       </segment>
     </unit>
     <unit id="FGuEete" name="filter.submit">
@@ -9504,7 +9504,7 @@ Element 3</target>
     <unit id="HsxzALM" name="filter.constraint.add">
       <segment state="translated">
         <source>filter.constraint.add</source>
-        <target>Přidat omezení</target>
+        <target>Přidat filtr</target>
       </segment>
     </unit>
     <unit id=".CuxL5L" name="part.filter.parameters_count">
@@ -9990,7 +9990,7 @@ Element 3</target>
     <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
       <segment state="translated">
         <source>part.info.withdraw_modal.amount</source>
-        <target>Částka</target>
+        <target>Množství</target>
       </segment>
     </unit>
     <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
@@ -10302,7 +10302,7 @@ Element 3</target>
     <unit id="i6.vjBW" name="part.edit.save_and_new">
       <segment state="translated">
         <source>part.edit.save_and_new</source>
-        <target>Uložit a vytvořit nový prázdný díl</target>
+        <target>Uložit a přidat nový prázdný díl</target>
       </segment>
     </unit>
     <unit id="q2IWd9b" name="homepage.first_steps.title">
@@ -10320,7 +10320,7 @@ Element 3</target>
     <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Nebo můžete přímo &lt;a href="%url%"&gt;vytvořit nový díl&lt;/a&gt;.</target>
+        <target>Nebo můžete přímo &lt;a href="%url%"&gt;přidat nový díl&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
@@ -10560,7 +10560,7 @@ Element 3</target>
     <unit id="BlkJXPJ" name="log.element_edited.changed_fields.email_address">
       <segment state="translated">
         <source>log.element_edited.changed_fields.email_address</source>
-        <target>Email</target>
+        <target>e-mail</target>
       </segment>
     </unit>
     <unit id="jQ2bFEK" name="log.element_edited.changed_fields.website">
@@ -10608,7 +10608,7 @@ Element 3</target>
     <unit id="EhKSmFQ" name="log.element_edited.changed_fields.master_picture_attachment">
       <segment state="translated">
         <source>log.element_edited.changed_fields.master_picture_attachment</source>
-        <target>Náhled obrázku</target>
+        <target>Náhled</target>
       </segment>
     </unit>
     <unit id="0Qixo51" name="log.element_edited.changed_fields.exchange_rate">
@@ -10704,7 +10704,7 @@ Element 3</target>
     <unit id="Sw3SmBJ" name="log.element_edited.changed_fields.email">
       <segment state="translated">
         <source>log.element_edited.changed_fields.email</source>
-        <target>Email</target>
+        <target>e-mail</target>
       </segment>
     </unit>
     <unit id="7FpvTOI" name="log.element_edited.changed_fields.department">
@@ -10830,7 +10830,7 @@ Element 3</target>
     <unit id="tV.PNy_" name="log.element_edited.changed_fields.partUnit">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partUnit</source>
-        <target>Měřicí jednotka</target>
+        <target>Měrná jednotka</target>
       </segment>
     </unit>
     <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
@@ -10842,7 +10842,7 @@ Element 3</target>
     <unit id="cPY3MD7" name="log.element_edited.changed_fields.amount">
       <segment state="translated">
         <source>log.element_edited.changed_fields.amount</source>
-        <target>Částka</target>
+        <target>Množství</target>
       </segment>
     </unit>
     <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
@@ -11292,7 +11292,7 @@ Element 3</target>
     <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
       <segment state="translated">
         <source>log.element_edited.changed_fields.parent_id</source>
-        <target>Rodič</target>
+        <target>Nadřazený</target>
       </segment>
     </unit>
     <unit id="GUthgcU" name="log.details.delete_entry">
@@ -12122,7 +12122,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
       <segment state="translated">
         <source>eda_info.exclude_from_sim</source>
-        <target>Vyloučení dílu ze simulace</target>
+        <target>Vyloučit díl ze simulace</target>
       </segment>
     </unit>
     <unit id="P6keLR_" name="eda_info.kicad_symbol">
@@ -12188,7 +12188,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
       <segment state="translated">
         <source>part.withdraw.zero_amount</source>
-        <target>Pokusili jste se vybrat/přidat nulovou částku! Nebyla provedena žádná akce.</target>
+        <target>Pokusili jste se vybrat/přidat nulové množství! Nebyla provedena žádná akce.</target>
       </segment>
     </unit>
   </file>
