@@ -6765,5 +6765,492 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Du kan ikke fjerne din egen tilladelse til at redigere tilladelser. Dette sikrer dig imod ved et uheld at låse dig ude!</target>
       </segment>
     </unit>
+    <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit.filetype_filter</source>
+        <target>Tilladte filtyper</target>
+      </segment>
+    </unit>
+    <unit id="1KMaa2P" name="attachment_type.edit.filetype_filter.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit.filetype_filter.help</source>
+        <target>Her kan du angive en kommasepareret liste over filtypenavne eller mime-typer, som en uploadet fil af denne type skal have. For at tillade alle understøttede billedfiler kan image/* benyttes.</target>
+      </segment>
+    </unit>
+    <unit id="wkNc9Pm" name="attachment_type.edit.filetype_filter.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit.filetype_filter.placeholder</source>
+        <target>f.eks. .txt, application/pdf, image/*</target>
+      </segment>
+    </unit>
+    <unit id="nEC2Xzw" name="part.name.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:63</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.name.placeholder</source>
+        <target>f.eks. BC547</target>
+      </segment>
+    </unit>
+    <unit id="SDbrzIT" name="entity.edit.not_selectable">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.not_selectable</source>
+        <target>Kan ikke vælges</target>
+      </segment>
+    </unit>
+    <unit id="5aUSkZz" name="entity.edit.not_selectable.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.not_selectable.help</source>
+        <target>Hvis denne mulighed er aktiveret, kan dette element ikke tildeles som en egenskab til nogen komponent. Nyttigt, for eksempel hvis dette element kun er beregnet til rene sorteringsformål.</target>
+      </segment>
+    </unit>
+    <unit id="en0DwC3" name="bbcode.hint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>bbcode.hint</source>
+        <target>BBCode kan bruges her (f.eks. [b]Fed[/b])</target>
+      </segment>
+    </unit>
+    <unit id="Q5hCjzL" name="entity.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.create</source>
+        <target>Opret element</target>
+      </segment>
+    </unit>
+    <unit id="bBoYWyf" name="entity.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.save</source>
+        <target>Gem</target>
+      </segment>
+    </unit>
+    <unit id="HeL2lAW" name="category.edit.disable_footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_footprints</source>
+        <target>Deaktiver Footprints</target>
+      </segment>
+    </unit>
+    <unit id="lpS1zKs" name="category.edit.disable_footprints.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_footprints.help</source>
+        <target>Når denne indstilling er aktiveret, er egenskaben footprint deaktiveret for alle komponenter i denne kategori.</target>
+      </segment>
+    </unit>
+    <unit id="1w_nFL7" name="category.edit.disable_manufacturers">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_manufacturers</source>
+        <target>Deaktiver fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="tNK6Sfl" name="category.edit.disable_manufacturers.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_manufacturers.help</source>
+        <target>Når denne indstilling er aktiveret, er fakbrikantegenskaben deaktiveret for alle komponenter i denne kategori.</target>
+      </segment>
+    </unit>
+    <unit id="HOZICfA" name="category.edit.disable_autodatasheets">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_autodatasheets</source>
+        <target>Deaktiver automatiske databladlinks</target>
+      </segment>
+    </unit>
+    <unit id="5HWLQAL" name="category.edit.disable_autodatasheets.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_autodatasheets.help</source>
+        <target>Hvis denne mulighed er aktiveret, vil der ikke blive genereret automatiske databladlinks for komponenter med denne kategori.</target>
+      </segment>
+    </unit>
+    <unit id="lfFBz4D" name="category.edit.disable_properties">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_properties</source>
+        <target>Deaktiver egenskaber</target>
+      </segment>
+    </unit>
+    <unit id="gu7SqNR" name="category.edit.disable_properties.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.disable_properties.help</source>
+        <target>Hvis denne indstilling er aktiveret, deaktiveres komponentegenskaberne for alle komponenter i denne kategori.</target>
+      </segment>
+    </unit>
+    <unit id="0FP6XeT" name="category.edit.partname_hint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.partname_hint</source>
+        <target>Ledetråd for navn</target>
+      </segment>
+    </unit>
+    <unit id="BG4G_f9" name="category.edit.partname_hint.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.partname_hint.placeholder</source>
+        <target>f.eks. 100nF</target>
+      </segment>
+    </unit>
+    <unit id="LbTbeDm" name="category.edit.partname_regex">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.partname_regex</source>
+        <target>Navnefilter</target>
+      </segment>
+    </unit>
+    <unit id="UH78POJ" name="category.edit.default_description">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.default_description</source>
+        <target>Standardbeskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="8hlqVRs" name="category.edit.default_description.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.default_description.placeholder</source>
+        <target>f.eks. kondensator, 10 mm x 10 mm, SMD</target>
+      </segment>
+    </unit>
+    <unit id="QMPrbSY" name="category.edit.default_comment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.default_comment</source>
+        <target>Standardkommentar</target>
+      </segment>
+    </unit>
+    <unit id="KN33Vgx" name="company.edit.address">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="AMjZLA3" name="company.edit.address.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.address.placeholder</source>
+        <target>F. eks. Eksempelvej 314
+3140 Eksempelby</target>
+      </segment>
+    </unit>
+    <unit id="WoyE_3B" name="company.edit.phone_number">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.phone_number</source>
+        <target>Telefonnummer</target>
+      </segment>
+    </unit>
+    <unit id="VSMS9Jw" name="company.edit.phone_number.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.phone_number.placeholder</source>
+        <target>f. eks. +45 1234 4321</target>
+      </segment>
+    </unit>
+    <unit id="khUB2so" name="company.edit.fax_number">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.fax_number</source>
+        <target>Faxnummer</target>
+      </segment>
+    </unit>
+    <unit id="63TXMfg" name="company.edit.email">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.email</source>
+        <target>e-mail</target>
+      </segment>
+    </unit>
+    <unit id="vTq5HxO" name="company.edit.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.email.placeholder</source>
+        <target>f.eks. kontakt@foo.bar</target>
+      </segment>
+    </unit>
+    <unit id="jv3fl1U" name="company.edit.website">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.website</source>
+        <target>Webside</target>
+      </segment>
+    </unit>
+    <unit id="fCwuIQc" name="company.edit.website.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.website.placeholder</source>
+        <target>https://www.foo.bar</target>
+      </segment>
+    </unit>
+    <unit id="l4BUu.S" name="company.edit.auto_product_url">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.auto_product_url</source>
+        <target>Produkt URL</target>
+      </segment>
+    </unit>
+    <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.auto_product_url.help</source>
+        <target>Dette felt benyttes til at knytte linke til en fabrikants komponentside Der vil %PARTNUMBER% så blive erstattet med ordrenummeret.</target>
+      </segment>
+    </unit>
+    <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.auto_product_url.placeholder</source>
+        <target>https://foo.bar/product/%PARTNUMBER%</target>
+      </segment>
+    </unit>
+    <unit id="NZUfSAR" name="currency.edit.iso_code">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit.iso_code</source>
+        <target>ISO-kode</target>
+      </segment>
+    </unit>
+    <unit id="9YIkqmF" name="currency.edit.exchange_rate">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit.exchange_rate</source>
+        <target>Valutakurs</target>
+      </segment>
+    </unit>
+    <unit id="n496LjY" name="footprint.edit.3d_model">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit.3d_model</source>
+        <target>3D-model</target>
+      </segment>
+    </unit>
+    <unit id="bxMaU3Y" name="mass_creation.lines">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines</source>
+        <target>Input</target>
+      </segment>
+    </unit>
+    <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines.placeholder</source>
+        <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
+Element 2
+Element 3</target>
+      </segment>
+    </unit>
+    <unit id="yOi8.bI" name="entity.mass_creation.btn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.mass_creation.btn</source>
+        <target>Opret</target>
+      </segment>
+    </unit>
+    <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer</source>
+        <target>er heltal</target>
+      </segment>
+    </unit>
+    <unit id="YaLEthp" name="perm.part.all_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.all_parts</source>
+        <target>Liste over alle komponenter</target>
+      </segment>
+    </unit>
+    <unit id="QTbFLlT" name="perm.part.no_price_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.no_price_parts</source>
+        <target>Komponenter uden prisinformation</target>
+      </segment>
+    </unit>
+    <unit id="ym76SPS" name="perm.part.obsolete_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.obsolete_parts</source>
+        <target>Vis udgåede komponenter</target>
+      </segment>
+    </unit>
+    <unit id="juT_zEM" name="perm.part.unknown_instock_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unknown_instock_parts</source>
+        <target>Vis komponenter med ukendt lagerstatus</target>
+      </segment>
+    </unit>
+    <unit id="NiOXKwC" name="perm.part.change_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.change_favorite</source>
+        <target>Ret favoritstatus</target>
+      </segment>
+    </unit>
+    <unit id="TXG_vef" name="perm.part.show_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_favorite</source>
+        <target>Vis favoritkomponenter</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
