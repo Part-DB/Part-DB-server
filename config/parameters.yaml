@@ -11,7 +11,7 @@ parameters:
   partdb.banner: '%env(trim:string:BANNER)%'                  # The info text shown in the homepage, if empty config/banner.md is used
   partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
   partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
-  partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja']    # The languages that are shown in user drop down menu
+  partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs']    # The languages that are shown in user drop down menu
   partdb.enforce_change_comments_for: '%env(csv:ENFORCE_CHANGE_COMMENTS_FOR)%' # The actions for which a change comment is required (e.g. "part_edit", "part_create", etc.). If this is empty, change comments are not required at all.
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
