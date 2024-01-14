@@ -5321,7 +5321,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target>Pokud zde vyberete Twig, bude pole obsahu interpretováno jako Twig šablona. Viz &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;dokumentace Twig&lt;/a&gt; a &lt;a href="https://docs.part-db.de /usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt;, kde najdete další informace.</target>
+        <target>Pokud zde vyberete Twig, bude pole obsahu interpretováno jako Twig šablona. Viz &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;dokumentace Twig&lt;/a&gt; a &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt;, kde najdete další informace.</target>
       </segment>
     </unit>
     <unit id="2d9g1o5" name="label_options.page_size.label">
