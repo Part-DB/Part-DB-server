@@ -5874,6 +5874,354 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Deaktiver godkendelses-app</target>
       </segment>
     </unit>
+    <unit id="j7YxSXm" name="google_confirmation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:74</note>
+        <note priority="1">Part-DB1\src\Form\TFAGoogleSettingsType.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>google_confirmation</source>
+        <target>Verifikationskode</target>
+      </segment>
+    </unit>
+    <unit id="Lq0fGXJ" name="user.timezone.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:108</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:108</note>
+        <note priority="1">src\Form\UserSettingsType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>user.timezone.label</source>
+        <target>Tidszone</target>
+      </segment>
+    </unit>
+    <unit id="uGQ16Yq" name="user.currency.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:133</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:132</note>
+      </notes>
+      <segment state="translated">
+        <source>user.currency.label</source>
+        <target>Foretrukken valuta</target>
+      </segment>
+    </unit>
+    <unit id="FX3KkuQ" name="save">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:139</note>
+        <note priority="1">src\Form\UserSettingsType.php:53</note>
+      </notes>
+      <segment state="translated">
+        <source>save</source>
+        <target>Anvend ændringer</target>
+      </segment>
+    </unit>
+    <unit id="Ab4wu0o" name="reset">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:141</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
+        <note priority="1">src\Form\UserSettingsType.php:54</note>
+      </notes>
+      <segment state="translated">
+        <source>reset</source>
+        <target>Kasser ændringer</target>
+      </segment>
+    </unit>
+    <unit id="lx12TjD" name="user_settings.language.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:104</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:104</note>
+        <note priority="1">src\Form\UserSettingsType.php:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.language.placeholder</source>
+        <target>Serversprog</target>
+      </segment>
+    </unit>
+    <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:115</note>
+        <note priority="1">src\Form\UserSettingsType.php:48</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.timezone.placeholder</source>
+        <target>Server tidszone</target>
+      </segment>
+    </unit>
+    <unit id="ExjMUEE" name="attachment.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:79</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:79</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.label</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="ASJkLeb" name="attachment_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:81</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:81</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.label</source>
+        <target>Bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="w.zcG5D" name="project.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>project.label</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
+    <unit id="QPnDbnv" name="measurement_unit.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.label</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="5lJftbn" name="currency.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.label</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="zD9yfVF" name="orderdetail.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:91</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:91</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.label</source>
+        <target>Bestillingsoplysninger</target>
+      </segment>
+    </unit>
+    <unit id="7_5mSa9" name="pricedetail.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:92</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:92</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.label</source>
+        <target>Prisinformation</target>
+      </segment>
+    </unit>
+    <unit id="S4Z.EZY" name="user.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:94</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:94</note>
+      </notes>
+      <segment state="translated">
+        <source>user.label</source>
+        <target>Rediger</target>
+      </segment>
+    </unit>
+    <unit id="CxpVbHB" name="parameter.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.label</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Labelprofil</target>
+      </segment>
+    </unit>
+    <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:161</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_deleted.old_name.unknown</source>
+        <target>Ukendt</target>
+      </segment>
+    </unit>
+    <unit id="jYAc6_i" name="markdown.loading">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+        <note priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+      </notes>
+      <segment state="translated">
+        <source>markdown.loading</source>
+        <target>Indlæs Markdown. Hvis dette varer ved i lang tid, så prøv at indlæse hjemmesiden igen!</target>
+      </segment>
+    </unit>
+    <unit id="JVlktlG" name="pw_reset.email.subject">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+        <note priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.email.subject</source>
+        <target>Password nulstillet for din Part-DB-konto</target>
+      </segment>
+    </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Værktøjer</target>
+      </segment>
+    </unit>
+    <unit id="sgHHET2" name="tree.tools.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit</source>
+        <target>Rediger</target>
+      </segment>
+    </unit>
+    <unit id="RRgi9vd" name="tree.tools.show">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:110</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:81</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show</source>
+        <target>Vis</target>
+      </segment>
+    </unit>
+    <unit id="nQkvo2A" name="tree.tools.system">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:111</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_dialog</source>
+        <target>Labeldialog</target>
+      </segment>
+    </unit>
+    <unit id="fVHzYVj" name="tree.tools.tools.label_scanner">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_scanner</source>
+        <target>Scanner</target>
+      </segment>
+    </unit>
+    <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:149</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:126</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:62</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.attachment_types</source>
+        <target>Bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="IWpzGV5" name="tree.tools.edit.categories">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:155</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:132</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:64</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.categories</source>
+        <target>Kategorier</target>
+      </segment>
+    </unit>
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.projects</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="BFfweU_" name="tree.tools.edit.suppliers">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:167</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.suppliers</source>
+        <target>Leverandører</target>
+      </segment>
+    </unit>
+    <unit id="bkM5GtE" name="tree.tools.edit.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:173</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:150</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.manufacturer</source>
+        <target>Fabrikanter</target>
+      </segment>
+    </unit>
+    <unit id="0uWeEo4" name="tree.tools.edit.storelocation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:179</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.storelocation</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:185</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.footprint</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="RBBr5gI" name="tree.tools.edit.currency">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:191</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:168</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.currency</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
     <unit id="624h27t" name="tree.tools.edit.measurement_unit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
@@ -6006,6 +6354,335 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>barcode.scan</source>
         <target>Scan stregkode</target>
+      </segment>
+    </unit>
+    <unit id="HhQjrkN" name="user.theme.label">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:119</note>
+        <note priority="1">src\Form\UserSettingsType.php:49</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.theme.label</source>
+        <target>Tema</target>
+      </segment>
+    </unit>
+    <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:129</note>
+        <note priority="1">src\Form\UserSettingsType.php:50</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user_settings.theme.placeholder</source>
+        <target>Server Tema</target>
+      </segment>
+    </unit>
+    <unit id="oHq_Mt5" name="log.user_login.ip">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.user_login.ip</source>
+        <target>IP:</target>
+      </segment>
+    </unit>
+    <unit id="JEAFg3_" name="log.undo_mode.undo">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:128</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:150</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:169</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:207</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.undo</source>
+        <target>Fortryd ændringer</target>
+      </segment>
+    </unit>
+    <unit id="w9Ow4hB" name="log.undo_mode.revert">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:130</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:152</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:171</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:209</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.revert</source>
+        <target>Element nulstillet</target>
+      </segment>
+    </unit>
+    <unit id="q6AoFKP" name="log.element_created.original_instock">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:139</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_created.original_instock</source>
+        <target>Gammelt lager</target>
+      </segment>
+    </unit>
+    <unit id="TutJY7L" name="log.element_deleted.old_name">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:160</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_deleted.old_name</source>
+        <target>Gammelt navn</target>
+      </segment>
+    </unit>
+    <unit id="NyTftx6" name="log.element_edited.changed_fields">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:184</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_edited.changed_fields</source>
+        <target>Ændrede egenskaber</target>
+      </segment>
+    </unit>
+    <unit id="8YQSzN5" name="log.instock_changed.comment">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:198</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.instock_changed.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="ar.0VTi" name="log.collection_deleted.deleted">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:214</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.collection_deleted.deleted</source>
+        <target>Slettet element</target>
+      </segment>
+    </unit>
+    <unit id="rOLpDSq" name="go.exclamation">
+      <notes>
+        <note priority="1">templates\base.html.twig:81</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>go.exclamation</source>
+        <target>Kom nu!</target>
+      </segment>
+    </unit>
+    <unit id="rMCnZt." name="language.english">
+      <notes>
+        <note priority="1">templates\base.html.twig:109</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>language.english</source>
+        <target>Engelsk</target>
+      </segment>
+    </unit>
+    <unit id="OmHgIys" name="language.german">
+      <notes>
+        <note priority="1">templates\base.html.twig:112</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>language.german</source>
+        <target>Tysk</target>
+      </segment>
+    </unit>
+    <unit id="EQgFD4g" name="flash.password_change_needed">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.password_change_needed</source>
+        <target>Dit password skal ændres</target>
+      </segment>
+    </unit>
+    <unit id="ya0_S7f" name="attachment.table.type">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.type</source>
+        <target>Bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="b_m6Jth" name="attachment.table.element">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.element</source>
+        <target>forbundet element</target>
+      </segment>
+    </unit>
+    <unit id="QRmJnyi" name="attachment.edit.isPicture">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.isPicture</source>
+        <target>Billede?</target>
+      </segment>
+    </unit>
+    <unit id="3lJuQED" name="attachment.edit.is3DModel">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.is3DModel</source>
+        <target>3D-model?</target>
+      </segment>
+    </unit>
+    <unit id="ogh2av7" name="attachment.edit.isBuiltin">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.isBuiltin</source>
+        <target>Indbygget ressource?</target>
+      </segment>
+    </unit>
+    <unit id="ths2hVl" name="category.edit.default_comment.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.default_comment.placeholder</source>
+        <target>f.eks. brugbar til strømforsyning</target>
+      </segment>
+    </unit>
+    <unit id="n13qerD" name="tfa_backup.regenerate_codes">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.regenerate_codes</source>
+        <target>Generer nye backup-koder</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.self</source>
+        <target>Et element kan ikke være overordnet for sig selv!</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.children</source>
+        <target>Et underordnet element kan ikke være det overordnede element!</target>
+      </segment>
+    </unit>
+    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.part_lot.location_full.no_increasment</source>
+        <target>Den anvendte lagerlokation er markeret som fuld, derfor kan beholdningen ikke øges. (Nyt lager maksimum {{ old_amount }})</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.part_lot.location_full</source>
+        <target>Lagerpladsen er fuld, så nye dele kan ikke tilføjes.</target>
+      </segment>
+    </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.part_lot.only_existing</source>
+        <target>Opbevaringsstedet er markeret som "kun eksisterende dele", så nye dele kan ikke tilføjes.</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.part_lot.single_part</source>
+        <target>Lagerlokationen er markeret som "Kun én komponent", så en ny komponent kan ikke tilføjes.</target>
+      </segment>
+    </unit>
+    <unit id="7yhBzTg" name="m_status.active.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.active.help</source>
+        <target>Komponenten er i øjeblikket under produktion og vil bliver produceret inden for en overskuelig fremtid.</target>
+      </segment>
+    </unit>
+    <unit id="UsEaNqy" name="m_status.announced.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.announced.help</source>
+        <target>Komponenten er blevet annonceret, men er endnu ikke tilgængelig.</target>
+      </segment>
+    </unit>
+    <unit id="huj6JXj" name="m_status.discontinued.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.discontinued.help</source>
+        <target>Komponenten produceres ikke længere.</target>
+      </segment>
+    </unit>
+    <unit id="xytsZcE" name="m_status.eol.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.eol.help</source>
+        <target>Produktion af ​​komponenten vil snart ophøre.</target>
       </segment>
     </unit>
   </file>
