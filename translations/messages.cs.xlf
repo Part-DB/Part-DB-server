@@ -1482,7 +1482,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>homepage.forum.caption</source>
-        <target>Forum</target>
+        <target>Fórum</target>
       </segment>
     </unit>
     <unit id="jOOAjnK" name="homepage.last_activity">
@@ -1594,7 +1594,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>label_scanner.title</source>
-        <target>Skener</target>
+        <target>Čtečka</target>
       </segment>
     </unit>
     <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
@@ -1612,7 +1612,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>label_scanner.no_cam_found.text</source>
-        <target>Potřebujete webovou kameru a povolení k použití funkce skeneru. Kód čárového kódu můžete zadat ručně níže.</target>
+        <target>Potřebujete webovou kameru a povolení k použití funkce čtečky. Kód čárového kódu můžete zadat ručně níže.</target>
       </segment>
     </unit>
     <unit id="6qQTB7S" name="label_scanner.source_select">
@@ -6135,7 +6135,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.tools.label_scanner</source>
-        <target>Skener</target>
+        <target>Čtečka</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -8853,7 +8853,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.tools.label_scanner</source>
-        <target>Skener štítků</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="QSODEfC" name="perm.self.read_profiles">
@@ -12116,7 +12116,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="jDHzKDL" name="eda_info.exclude_from_board">
       <segment state="translated">
         <source>eda_info.exclude_from_board</source>
-        <target>Vyloučení dílu z desky plošných spojů</target>
+        <target>Vyloučit díl z desky plošných spojů</target>
       </segment>
     </unit>
     <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
