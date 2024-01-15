@@ -895,7 +895,7 @@ Uživatel bude muset znovu nastavit všechny metody dvoufaktorového ověřován
         <source>entity.delete.message</source>
         <target>To nelze vrátit zpět!
 &lt;br&gt;
-Dílčí prvky budou posunuty nahoru.</target>
+Související prvky budou přesunuty nahoru.</target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
@@ -932,7 +932,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>entity.delete.recursive</source>
-        <target>Odstranit rekurzivně (všechny dílčí prvky)</target>
+        <target>Odstranit rekurzivně (všechny související prvky)</target>
       </segment>
     </unit>
     <unit id="vlslklu" name="entity.duplicate">
@@ -9606,7 +9606,7 @@ Element 3</target>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
-        <target>Počet díů s tímto prvkem nebo jeho dílčími prvky</target>
+        <target>Počet dílů s tímto prvkem nebo jeho souvisejícími prvky</target>
       </segment>
     </unit>
     <unit id="_hKlKv." name="tools.server_infos.title">
@@ -11142,7 +11142,7 @@ Element 3</target>
     <unit id="Gfw_MWL" name="part.withdraw.access_denied">
       <segment state="translated">
         <source>part.withdraw.access_denied</source>
-        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka dílčích prvků.</target>
+        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka souvisejících prvků.</target>
       </segment>
     </unit>
     <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
