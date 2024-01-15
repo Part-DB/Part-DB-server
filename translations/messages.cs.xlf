@@ -3900,7 +3900,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>navbar.scanner.link</source>
-        <target>Skener</target>
+        <target>Čtečka</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
@@ -9942,7 +9942,7 @@ Element 3</target>
     <unit id="jdkve2C" name="project.info.sub_projects_count">
       <segment state="translated">
         <source>project.info.sub_projects_count</source>
-        <target>Subprojekty</target>
+        <target>Podprojekty</target>
       </segment>
     </unit>
     <unit id="keeSexh" name="project.info.bom_add_parts">
