@@ -1064,7 +1064,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>createdAt</source>
-        <target>Vytvořeno v</target>
+        <target>Vytvořeno</target>
       </segment>
     </unit>
     <unit id="ZcUFNEJ" name="lastModified">
@@ -2440,7 +2440,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part_lots.instock_unknown</source>
-        <target>Částka neznámá</target>
+        <target>Množství neznámé</target>
       </segment>
     </unit>
     <unit id="NFa2bFQ" name="part_lots.expiration_date">
@@ -3185,7 +3185,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>Počet skladovacích míst</target>
+        <target>Počet umístění</target>
       </segment>
     </unit>
     <unit id="q9tLL7." name="statistics.suppliers_count">
@@ -3957,7 +3957,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>search.options.label</source>
-        <target>Možnosti vyhledávání</target>
+        <target>Možnosti hledání</target>
       </segment>
     </unit>
     <unit id="V2u6xXi" name="tags.label">
@@ -4846,7 +4846,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.addedDate</source>
-        <target>Vytvořeno v</target>
+        <target>Vytvořeno</target>
       </segment>
     </unit>
     <unit id="eDb7mzC" name="part.table.lastModified">
@@ -5150,7 +5150,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Zde můžete zadat adresu URL externího souboru nebo zadat klíčové slovo, které se používá k vyhledávání ve vestavěných zdrojích (např. otisky).</target>
+        <target>Zde můžete zadat adresu URL externího souboru nebo zadat klíčové slovo, které se používá k hledání ve vestavěných zdrojích (např. otisky).</target>
       </segment>
     </unit>
     <unit id="3ZnUiT_" name="attachment.edit.name">
@@ -5812,7 +5812,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part_lot.edit.instock_unknown</source>
-        <target>Částka neznámá</target>
+        <target>Množství neznámé</target>
       </segment>
     </unit>
     <unit id="uHBgsns" name="part_lot.edit.needs_refill">
@@ -7700,7 +7700,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.search</source>
-        <target>Vyhledávání</target>
+        <target>Hledat</target>
       </segment>
     </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
@@ -9066,7 +9066,7 @@ Element 3</target>
     <unit id="Wqa3lsL" name="tools.reel_calc.title">
       <segment state="translated">
         <source>tools.reel_calc.title</source>
-        <target>Kalkulačka SMD navijáku</target>
+        <target>Kalkulačka SMD kotoučů</target>
       </segment>
     </unit>
     <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
@@ -9144,13 +9144,13 @@ Element 3</target>
     <unit id="E1xAigo" name="perm.tools.reel_calculator">
       <segment state="translated">
         <source>perm.tools.reel_calculator</source>
-        <target>Kalkulačka SMD navijáku</target>
+        <target>Kalkulačka SMD kotoučů</target>
       </segment>
     </unit>
     <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
       <segment state="translated">
         <source>tree.tools.tools.reel_calculator</source>
-        <target>Kalkulačka SMD navijáku</target>
+        <target>Kalkulačka SMD kotoučů</target>
       </segment>
     </unit>
     <unit id="7FpEp24" name="user.pw_change_needed.flash">
@@ -9522,13 +9522,13 @@ Element 3</target>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target>Vyhledávání dílů pomocí klíčového slova &lt;b&gt;%keyword%&lt;/b&gt;</target>
+        <target>Hledání dílů pomocí klíčového slova &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="lkQ2zTi" name="parts_list.search_options.caption">
       <segment state="translated">
         <source>parts_list.search_options.caption</source>
-        <target>Povolené možnosti vyhledávání</target>
+        <target>Povolené možnosti hledání</target>
       </segment>
     </unit>
     <unit id="biszSr8" name="attachment.table.element_type">
@@ -11142,7 +11142,7 @@ Element 3</target>
     <unit id="Gfw_MWL" name="part.withdraw.access_denied">
       <segment state="translated">
         <source>part.withdraw.access_denied</source>
-        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka dílčích partií.</target>
+        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka dílčích prvků.</target>
       </segment>
     </unit>
     <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
@@ -11166,7 +11166,7 @@ Element 3</target>
     <unit id="u6qFa_j" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target>ladem méně než požadované množství (celkové množství &lt; min. množství)</target>
+        <target>Méně než požadované množství (celkové množství &lt; min. množství)</target>
       </segment>
     </unit>
     <unit id="lHTN.a1" name="part.filter.lotOwner">
@@ -11450,7 +11450,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="adJnJGT" name="info_providers.providers_list.disabled">
       <segment state="translated">
         <source>info_providers.providers_list.disabled</source>
-        <target>Zakázaný</target>
+        <target>Zakázané</target>
       </segment>
     </unit>
     <unit id="1M7yaPw" name="info_providers.capabilities.basic">
@@ -11516,7 +11516,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="rvTOWHb" name="info_providers.search.submit">
       <segment state="translated">
         <source>info_providers.search.submit</source>
-        <target>Vyhledávání</target>
+        <target>Hledat</target>
       </segment>
     </unit>
     <unit id="Mwq891Y" name="info_providers.search.providers.help">
