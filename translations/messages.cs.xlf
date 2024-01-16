@@ -895,7 +895,7 @@ Uživatel bude muset znovu nastavit všechny metody dvoufaktorového ověřován
         <source>entity.delete.message</source>
         <target>To nelze vrátit zpět!
 &lt;br&gt;
-Dílčí prvky budou posunuty nahoru.</target>
+Související prvky budou přesunuty nahoru.</target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
@@ -932,7 +932,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>entity.delete.recursive</source>
-        <target>Odstranit rekurzivně (všechny dílčí prvky)</target>
+        <target>Odstranit rekurzivně (všechny související prvky)</target>
       </segment>
     </unit>
     <unit id="vlslklu" name="entity.duplicate">
@@ -1242,7 +1242,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>vendor.base.javascript_hint</source>
-        <target>Chcete-li používat všechny funkce, aktivujte prosím Javascript!</target>
+        <target>Chcete-li používat všechny funkce, aktivujte prosím JavaScript!</target>
       </segment>
     </unit>
     <unit id="0rLRD9e" name="sidebar.big.toggle">
@@ -2137,7 +2137,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>user.creating_user</source>
-        <target>Uživatel, který vytvořil tuto komponentu</target>
+        <target>Uživatel, který vytvořil tento díl</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
@@ -3387,7 +3387,7 @@ Dílčí prvky budou posunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>user.firstName.label</source>
-        <target>Křestní jméno</target>
+        <target>Jméno</target>
       </segment>
     </unit>
     <unit id="u2ayBIA" name="user.lastName.label">
@@ -3946,7 +3946,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>user.language_select</source>
-        <target>Přepnutí jazyka</target>
+        <target>Jazyk</target>
       </segment>
     </unit>
     <unit id="el2uFyW" name="search.options.label">
@@ -4274,7 +4274,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>log.undo.element_change_undone</source>
-        <target>Změna úspěšně zrušena!</target>
+        <target>Změna úspěšně vrácena!</target>
       </segment>
     </unit>
     <unit id="Ne_xS01" name="log.undo.do_undelete_before">
@@ -4633,7 +4633,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>log.undo.undelete</source>
-        <target>Odstranění prvku</target>
+        <target>Odstranit prvek</target>
       </segment>
     </unit>
     <unit id="PI8faHR" name="log.undo.undo">
@@ -6076,7 +6076,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>pw_reset.email.subject</source>
-        <target>Obnovení hesla pro váš účet Part-DB</target>
+        <target>Obnovení hesla k účtu Part-DB</target>
       </segment>
     </unit>
     <unit id="_D86R1w" name="tree.tools.tools">
@@ -9606,7 +9606,7 @@ Element 3</target>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
-        <target>Počet díů s tímto prvkem nebo jeho dílčími prvky</target>
+        <target>Počet dílů s tímto prvkem nebo jeho souvisejícími prvky</target>
       </segment>
     </unit>
     <unit id="_hKlKv." name="tools.server_infos.title">
@@ -9768,13 +9768,13 @@ Element 3</target>
     <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
       <segment state="translated">
         <source>currency.edit.exchange_rate_update.unsupported_currency</source>
-        <target>Měna není poskytovatelem směnných kurzů podporována. Zkontrolujte konfiguraci poskytovatele směnných kurzů.</target>
+        <target>Měna není podporována zdrojem směnných kurzů. Zkontrolujte konfiguraci zdroje směnných kurzů.</target>
       </segment>
     </unit>
     <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
       <segment state="translated">
         <source>currency.edit.exchange_rate_update.generic_error</source>
-        <target>Nelze načíst směnný kurz. Zkontrolujte konfiguraci poskytovatele směnných kurzů.</target>
+        <target>Nelze načíst směnný kurz. Zkontrolujte konfiguraci zdroje směnných kurzů.</target>
       </segment>
     </unit>
     <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
@@ -10266,7 +10266,7 @@ Element 3</target>
     <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
       <segment state="translated">
         <source>user_settings.remove_avatar.label</source>
-        <target>Odstranění profilového obrázku</target>
+        <target>Odstranit profilový obrázek</target>
       </segment>
     </unit>
     <unit id="Y1Aes28" name="part.edit.name.category_hint">
@@ -10866,7 +10866,7 @@ Element 3</target>
     <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
       <segment state="translated">
         <source>user.saml_user.pw_change_hint</source>
-        <target>Váš uživatel používá jednotné přihlášení (SSO). Heslo a nastavení 2FA zde nelze změnit. Nakonfigurujte je raději u svého centrálního poskytovatele SSO!</target>
+        <target>Uživatel používá jednotné přihlášení (SSO). Heslo a nastavení 2FA zde nelze změnit. Nakonfigurujte je raději u svého centrálního zdroje SSO!</target>
       </segment>
     </unit>
     <unit id="32beTBH" name="login.sso_saml_login">
@@ -11142,7 +11142,7 @@ Element 3</target>
     <unit id="Gfw_MWL" name="part.withdraw.access_denied">
       <segment state="translated">
         <source>part.withdraw.access_denied</source>
-        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka dílčích prvků.</target>
+        <target>Není povoleno provést požadovanou akci. Zkontrolujte prosím svá oprávnění a vlastníka souvisejících prvků.</target>
       </segment>
     </unit>
     <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
@@ -11184,7 +11184,7 @@ Element 3</target>
     <unit id="4rkjIk2" name="log.details.title">
       <segment state="translated">
         <source>log.details.title</source>
-        <target>Podrobnosti o záznamu</target>
+        <target>Podrobnosti záznamu</target>
       </segment>
     </unit>
     <unit id="aeYMkHS" name="log.user_login.login_from_ip">
@@ -11298,7 +11298,7 @@ Element 3</target>
     <unit id="GUthgcU" name="log.details.delete_entry">
       <segment state="translated">
         <source>log.details.delete_entry</source>
-        <target>Odstranění záznamu protokolu</target>
+        <target>Odstranit záznam protokolu</target>
       </segment>
     </unit>
     <unit id="Wv0WAmO" name="log.delete.message.title">
@@ -11492,7 +11492,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="WTB_AKQ" name="part.info_provider_reference">
       <segment state="translated">
         <source>part.info_provider_reference</source>
-        <target>Vytvořeno poskytovatelem informací</target>
+        <target>Vytvořeno zdrojem informací</target>
       </segment>
     </unit>
     <unit id="Qhaj.j4" name="oauth_client.connect.btn">
@@ -11522,7 +11522,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="Mwq891Y" name="info_providers.search.providers.help">
       <segment state="translated">
         <source>info_providers.search.providers.help</source>
-        <target>Vyberte poskytovatele, ve kterých se má vyhledávat.</target>
+        <target>Vyberte zdroje, ve kterých se má vyhledávat.</target>
       </segment>
     </unit>
     <unit id="nvk25qA" name="info_providers.search.providers">
@@ -11534,13 +11534,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="5kSES8M" name="info_providers.search.info_providers_list">
       <segment state="translated">
         <source>info_providers.search.info_providers_list</source>
-        <target>Zobrazit všechny dostupné poskytovatele informací</target>
+        <target>Zobrazit všechny dostupné zdroje informací</target>
       </segment>
     </unit>
     <unit id="Y2gg4WI" name="info_providers.search.title">
       <segment state="translated">
         <source>info_providers.search.title</source>
-        <target>Vytvoření dílů z poskytovatele informací</target>
+        <target>Vytvořit díly ze zdroje informací</target>
       </segment>
     </unit>
     <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
@@ -11558,7 +11558,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="En713bs" name="perm.part.info_providers.create_parts">
       <segment state="translated">
         <source>perm.part.info_providers.create_parts</source>
-        <target>Vytvoření dílů z poskytovatele informací</target>
+        <target>Vytvořit díly ze zdroje informací</target>
       </segment>
     </unit>
     <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
@@ -11714,7 +11714,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="0e7mD8q" name="api_tokens.your_token_is">
       <segment state="translated">
         <source>api_tokens.your_token_is</source>
-        <target>Váš token API je</target>
+        <target>Token API je</target>
       </segment>
     </unit>
     <unit id="nre_kP_" name="api_tokens.please_save_it">
@@ -11864,13 +11864,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="rL3sVOB" name="part_association.edit.type.help">
       <segment state="translated">
         <source>part_association.edit.type.help</source>
-        <target>Zde můžete vybrat, jaký vybraná díl souvisí s tímto dílem.</target>
+        <target>Zde můžete vybrat, jak vybraný díl souvisí s tímto dílem.</target>
       </segment>
     </unit>
     <unit id="ulXO3uA" name="part_association.table.from_this_part">
       <segment state="translated">
         <source>part_association.table.from_this_part</source>
-        <target>Asociace tohodot dílu k ostatním</target>
+        <target>Přidružení tohoto dílu k ostatním</target>
       </segment>
     </unit>
     <unit id="hDksqGC" name="part_association.table.from">
@@ -11900,7 +11900,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="tgOSN9E" name="part_association.table.to_this_part">
       <segment state="translated">
         <source>part_association.table.to_this_part</source>
-        <target>Asociace k tomuto dílu od ostatních</target>
+        <target>Přidružení k tomuto dílu od ostatních</target>
       </segment>
     </unit>
     <unit id="J2hj9bY" name="part_association.type.other">
@@ -11924,7 +11924,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
       <segment state="translated">
         <source>part_association.edit.delete.confirm</source>
-        <target>Opravdu chcete tuto asociaci smazat? To nelze zrušit.</target>
+        <target>Opravdu chcete toto přidružení smazat? To nelze vrátit zpět.</target>
       </segment>
     </unit>
     <unit id="o3HcwZn" name="part_lot.edit.advanced">
@@ -12026,7 +12026,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="n6_Ec0h" name="info_providers.update_part.title">
       <segment state="translated">
         <source>info_providers.update_part.title</source>
-        <target>Aktualizace stávajícího dílu od poskytovatele informací</target>
+        <target>Aktualizace stávajícího dílu ze zdroje informací</target>
       </segment>
     </unit>
     <unit id="lkIVIWr" name="part.merge.flash.please_review">
@@ -12074,7 +12074,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
       <segment state="translated">
         <source>info_providers.search.error.client_exception</source>
-        <target>Při komunikaci s poskytovatelem informací došlo k chybě. Zkontrolujte konfiguraci tohoto poskytovatele a pokud možno obnovte tokeny OAuth.</target>
+        <target>Při komunikaci se zdrojem informací došlo k chybě. Zkontrolujte konfiguraci tohoto zdroje a pokud možno obnovte tokeny OAuth.</target>
       </segment>
     </unit>
     <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
