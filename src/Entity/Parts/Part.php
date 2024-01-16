@@ -27,41 +27,35 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
-use App\ApiPlatform\DocumentedAPIProperty;
 use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
-use App\Entity\Attachments\AttachmentTypeAttachment;
-use App\Entity\EDA\EDAPartInfo;
-use App\Entity\Parts\PartTraits\AssociationTrait;
-use App\Entity\Parts\PartTraits\EDATrait;
-use App\Repository\PartRepository;
-use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Parts\PartTraits\ProjectTrait;
+use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
+use App\Entity\Parts\PartTraits\AssociationTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
+use App\Entity\Parts\PartTraits\EDATrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
-use DateTime;
+use App\Entity\Parts\PartTraits\ProjectTrait;
+use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Repository\PartRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Jfcherng\Diff\Utility\Arr;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -78,6 +72,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 #[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
 #[ORM\Entity(repositoryClass: PartRepository::class)]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`parts`')]
 #[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
 #[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
