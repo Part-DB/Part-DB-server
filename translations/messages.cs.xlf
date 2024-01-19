@@ -1594,7 +1594,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>label_scanner.title</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
@@ -3900,7 +3900,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>navbar.scanner.link</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
@@ -6135,7 +6135,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.tools.label_scanner</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -7280,7 +7280,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>okud je tato možnost aktivována, není možné přidávat nové díly do tohoto skladového umístění, ale množství stávajících dílů lze zvýšit.</target>
+        <target>Pokud je tato možnost aktivována, není možné přidávat nové díly do tohoto umístění, ale množství stávajících dílů lze navýšit.</target>
       </segment>
     </unit>
     <unit id="1DWk7ny" name="storelocation.only_single_part.label">
@@ -11486,7 +11486,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="nNKOyNM" name="part.info_provider_reference.badge">
       <segment state="translated">
         <source>part.info_provider_reference.badge</source>
-        <target>Poskytovatel informací použitý k vytvoření tohoto dílu.</target>
+        <target>Zdroj informací použitý k vytvoření tohoto dílu.</target>
       </segment>
     </unit>
     <unit id="WTB_AKQ" name="part.info_provider_reference">
@@ -11528,7 +11528,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="nvk25qA" name="info_providers.search.providers">
       <segment state="translated">
         <source>info_providers.search.providers</source>
-        <target>Poskytovatelé</target>
+        <target>Zdroje</target>
       </segment>
     </unit>
     <unit id="5kSES8M" name="info_providers.search.info_providers_list">
@@ -12068,7 +12068,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Vymazat tento inventář, pokud se vyprázdní</target>
+        <target>Vymazat tento inventář, až se vyprázdní</target>
       </segment>
     </unit>
     <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
