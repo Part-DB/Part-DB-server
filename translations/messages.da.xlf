@@ -7292,6 +7292,416 @@ Element 3</target>
         <target>Kun en komponent</target>
       </segment>
     </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>Hvis denne option er aktiveret, kan denne lagerplads kun indeholde en enkelt komponent, men i en hvilken som helst mængde. Nyttigt til små SMD-rum eller fødere.</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>Lagertype</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>Her kan du vælge en måleenhed, som en komponent skal have, så den kan opbevares på denne lagerplads.</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>Standardvaluta</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>Forsendelsesomkostninger</target>
+      </segment>
+    </unit>
+    <unit id="sG3lwwH" name="user.username.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.placeholder</source>
+        <target>f.eks. j.doe</target>
+      </segment>
+    </unit>
+    <unit id="birjZUl" name="user.firstName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.placeholder</source>
+        <target>f.eks. John</target>
+      </segment>
+    </unit>
+    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.placeholder</source>
+        <target>f.eks. Doe</target>
+      </segment>
+    </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>j.doe@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>f.eks. Udvikling</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>Nyt pasword</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>bekræft nyt password</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>Bruger skal ændre password</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>Bruger deaktiveret (login ikke muligt)</target>
+      </segment>
+    </unit>
+    <unit id="zPJhxi6" name="user.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.create</source>
+        <target>Opret bruger</target>
+      </segment>
+    </unit>
+    <unit id="SxI0Jji" name="user.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.save</source>
+        <target>Gem</target>
+      </segment>
+    </unit>
+    <unit id="oGnU8Jt" name="entity.edit.reset">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.reset</source>
+        <target>Fortryd ændringer</target>
+      </segment>
+    </unit>
+    <unit id="7TiUzGF" name="part.withdraw.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.btn</source>
+        <target>Fjern</target>
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>Kommentar/formål</target>
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>Tilføj komponent</target>
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>Tilføj</target>
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>Kommentar/formål</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>Producentlink</target>
+      </segment>
+    </unit>
+    <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>f.eks. NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>f.eks. 10</target>
+      </segment>
+    </unit>
+    <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>f.eks. 12</target>
+      </segment>
+    </unit>
+    <unit id="cpRdMwo" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>Stykpris</target>
+      </segment>
+    </unit>
+    <unit id="1n22zD9" name="part.withdraw.caption">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption</source>
+        <target>Fjern komponenter</target>
+      </segment>
+    </unit>
+    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
+    <unit id="P.GFwjI" name="perm.group.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.parts</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="WLb5wES" name="perm.group.structures">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.structures</source>
+        <target>Datastrukturer</target>
+      </segment>
+    </unit>
+    <unit id="ziA7M4Z" name="perm.group.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="qPM1wy5" name="perm.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.parts</source>
+        <target>Generelt</target>
+      </segment>
+    </unit>
+    <unit id="eeUmOBN" name="perm.read">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.read</source>
+        <target>Vis</target>
+      </segment>
+    </unit>
+    <unit id="lMypPBw" name="perm.edit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit</source>
+        <target>Ret</target>
+      </segment>
+    </unit>
+    <unit id="d8mILUm" name="perm.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.create</source>
+        <target>Opret</target>
+      </segment>
+    </unit>
+    <unit id="cPI6oKn" name="perm.part.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.move</source>
+        <target>Skift kategori</target>
+      </segment>
+    </unit>
+    <unit id="oCKKcDZ" name="perm.delete">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="blHcQm6" name="perm.part.search">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.search</source>
+        <target>Søg</target>
+      </segment>
+    </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
       <notes>
         <note priority="1">obsolete</note>
