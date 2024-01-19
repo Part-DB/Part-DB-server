@@ -545,7 +545,7 @@
       </notes>
       <segment state="translated">
         <source>measurement_unit.caption</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
@@ -4027,7 +4027,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>Reg.Ex. Shoda</target>
+        <target>RegEx. shoda</target>
       </segment>
     </unit>
     <unit id="N66qZeD" name="search.submit">
@@ -4836,7 +4836,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.partUnit</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="pw75u4x" name="part.table.addedDate">
@@ -6230,7 +6230,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="YAalchf" name="tree.tools.edit.label_profile">
@@ -11088,7 +11088,7 @@ Element 3</target>
     <unit id="WKzr7h0" name="measurement_unit.edit">
       <segment state="translated">
         <source>measurement_unit.edit</source>
-        <target>Upravit jednotku měření</target>
+        <target>Upravit měrnou jednotku</target>
       </segment>
     </unit>
     <unit id="gRatnCn" name="user.aboutMe.label">
@@ -11576,7 +11576,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="TRmIjDN" name="info_providers.form.help_prefix">
       <segment state="translated">
         <source>info_providers.form.help_prefix</source>
-        <target>Poskytovatel</target>
+        <target>Zdroj</target>
       </segment>
     </unit>
     <unit id="21tIbM2" name="update_manager.new_version_available.title">
@@ -12020,7 +12020,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
       <segment state="translated">
         <source>part.update_part_from_info_provider.btn</source>
-        <target>Aktualizovat díl od poskytovatelů informací</target>
+        <target>Aktualizovat díl ze zdroje informací</target>
       </segment>
     </unit>
     <unit id="n6_Ec0h" name="info_providers.update_part.title">
