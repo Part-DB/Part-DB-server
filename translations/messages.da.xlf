@@ -7192,6 +7192,106 @@ Element 3</target>
         <target>er heltal</target>
       </segment>
     </unit>
+    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target>Når denne option er aktiveret, vil alle mængder i denne enhed blive afrundet til hele tal.</target>
+      </segment>
+    </unit>
+    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target>Benyt SI prefix</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>Når denne option er aktiveret, bruges SI-præfikser, når tallene udlæses (f.eks. 1,2 kg i stedet for 1200 g)</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>Enhedssymbol</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>f.eks. m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>Lagerlokation er fyldt op</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>Når denne option er aktiveret, er det hverken muligt at tilføje nye komponenter til denne lagerplads eller at øge antallet af eksisterende komponenter.</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>Kun eksisterende komponenter</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>Når denne option er aktiveret, er det ikke muligt at tilføje nye komponenter til denne lagerplads, men det er muligt at øge antallet af eksisterende komponenter.</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>Kun en komponent</target>
+      </segment>
+    </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
       <notes>
         <note priority="1">obsolete</note>
