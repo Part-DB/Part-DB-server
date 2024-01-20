@@ -9104,6 +9104,18 @@ Element 3</target>
         <target>Komponenter per meter</target>
       </segment>
     </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Tapelængde</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Omtrentligt antal komponenter</target>
+      </segment>
+    </unit>
     <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
