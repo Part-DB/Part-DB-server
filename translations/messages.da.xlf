@@ -7762,5 +7762,375 @@ Element 3</target>
         <target>Vis favoritkomponenter</target>
       </segment>
     </unit>
+    <unit id="GMNxlDb" name="perm.part.show_last_edit_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_last_edit_parts</source>
+        <target>Vis nyligt redigerede/tilføjede komponenter</target>
+      </segment>
+    </unit>
+    <unit id="7C4wYps" name="perm.part.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_users</source>
+        <target>Vis den sidste bruger, der redigerede</target>
+      </segment>
+    </unit>
+    <unit id="IOXC4wr" name="perm.part.show_history">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_history</source>
+        <target>Se historik</target>
+      </segment>
+    </unit>
+    <unit id="JnfedoQ" name="perm.part.name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="5a.KkeU" name="perm.part.description">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="zLUHVDn" name="perm.part.instock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.instock</source>
+        <target>På lager</target>
+      </segment>
+    </unit>
+    <unit id="0woqdF9" name="perm.part.mininstock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mininstock</source>
+        <target>mindste lager</target>
+      </segment>
+    </unit>
+    <unit id="IXHxTEP" name="perm.part.comment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="B_OF7Kn" name="perm.part.storelocation">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.storelocation</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="yPQiYsi" name="perm.part.manufacturer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="L2pl0H1" name="perm.part.orderdetails">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.orderdetails</source>
+        <target>Ordreinformation</target>
+      </segment>
+    </unit>
+    <unit id="4CedmDv" name="perm.part.prices">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.prices</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="3.LGmWy" name="perm.part.attachments">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="VkclZwf" name="perm.part.order">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.order</source>
+        <target>Ordrer</target>
+      </segment>
+    </unit>
+    <unit id="XPba.S5" name="perm.storelocations">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.storelocations</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="1MkJQeq" name="perm.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.move</source>
+        <target>Flyt</target>
+      </segment>
+    </unit>
+    <unit id="IRFIEMr" name="perm.list_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.list_parts</source>
+        <target>Vis komponentliste</target>
+      </segment>
+    </unit>
+    <unit id="h6Bzdt0" name="perm.part.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="f6E.ER4" name="perm.part.categories">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.categories</source>
+        <target>Kategorier</target>
+      </segment>
+    </unit>
+    <unit id="yYWackl" name="perm.part.supplier">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.supplier</source>
+        <target>Leverandører</target>
+      </segment>
+    </unit>
+    <unit id="_dwi_1Y" name="perm.part.manufacturers">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturers</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="1AtDlX." name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="hgZrqP_" name="perm.part.attachment_types">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachment_types</source>
+        <target>bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="BEdSmOu" name="perm.tools.import">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.import</source>
+        <target>Import</target>
+      </segment>
+    </unit>
+    <unit id="PEyfknN" name="perm.tools.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="fWusD07" name="perm.tools.calculator">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.calculator</source>
+        <target>Modstandsberegner</target>
+      </segment>
+    </unit>
+    <unit id="ripLPj1" name="perm.tools.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="1bNm4cw" name="perm.tools.ic_logos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.ic_logos</source>
+        <target>IC logoer</target>
+      </segment>
+    </unit>
+    <unit id="soh_cnt" name="perm.tools.statistics">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.statistics</source>
+        <target>Statistik</target>
+      </segment>
+    </unit>
+    <unit id="2r3a5MK" name="perm.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit_permissions</source>
+        <target>Ret tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="dURrIXD" name="perm.users.edit_user_name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_user_name</source>
+        <target>Ret brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="w4ujxml" name="perm.users.edit_change_group">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_change_group</source>
+        <target>Skift gruppe</target>
+      </segment>
+    </unit>
+    <unit id="BBOEDsQ" name="perm.users.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_infos</source>
+        <target>Ret information</target>
+      </segment>
+    </unit>
+    <unit id="Q1NDQfs" name="perm.users.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_permissions</source>
+        <target>Ret tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="d6eo3tF" name="perm.users.set_password">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.set_password</source>
+        <target>Skift password</target>
+      </segment>
+    </unit>
+    <unit id="tJ6RatH" name="perm.users.change_user_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.change_user_settings</source>
+        <target>Ret brugerindstillinger</target>
+      </segment>
+    </unit>
+    <unit id="X58DtVF" name="perm.database.see_status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.see_status</source>
+        <target>Vis status</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
