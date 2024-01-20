@@ -9116,6 +9116,282 @@ Element 3</target>
         <target>Omtrentligt antal komponenter</target>
       </segment>
     </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Fejl: Den ydre diameter skal være større end den indvendige diameter!</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Angiv venligst alle værdier!</target>
+      </segment>
+    </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Indlæs preset</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Denne kalkulator giver dig mulighed for at estimere hvor mange komponenter der er tilbage på en SMD-rulle. Mål de angivne dimensioner på rullen (eller brug specifikationerne) og tryk på "Opdater".</target>
+      </segment>
+    </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>SMD-rulle kalkulator</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>SMD-rullle kalkulator</target>
+      </segment>
+    </unit>
+    <unit id="7FpEp24" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Ændring af password påkrævet! Venligst vælg et nyt password.</target>
+      </segment>
+    </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Rod</target>
+      </segment>
+    </unit>
+    <unit id="EieqscF" name="part_list.action.select_null">
+      <segment state="translated">
+        <source>part_list.action.select_null</source>
+        <target>Ingen elementer tilstede!</target>
+      </segment>
+    </unit>
+    <unit id="4IH1qgL" name="part_list.action.delete-title">
+      <segment state="translated">
+        <source>part_list.action.delete-title</source>
+        <target>Vil du virkelig slette disse komponenter?</target>
+      </segment>
+    </unit>
+    <unit id="te3YmqA" name="part_list.action.delete-message">
+      <segment state="translated">
+        <source>part_list.action.delete-message</source>
+        <target>Disse komponenter og alle tilknyttede oplysninger (bilag, vedhæftede filer, prisoplysninger osv.) slettes. Dette kan ikke fortrydes!</target>
+      </segment>
+    </unit>
+    <unit id="xd6OiPE" name="part.table.actions.success">
+      <segment state="translated">
+        <source>part.table.actions.success</source>
+        <target>Handling lykkedes med succes.</target>
+      </segment>
+    </unit>
+    <unit id="_3l6FO_" name="attachment.edit.delete.confirm">
+      <segment state="translated">
+        <source>attachment.edit.delete.confirm</source>
+        <target>Er du sikker på, at du vil slette dette bilag?</target>
+      </segment>
+    </unit>
+    <unit id="JtGEdQP" name="filter.text_constraint.value.operator.EQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.EQ</source>
+        <target>Lig med</target>
+      </segment>
+    </unit>
+    <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Forskellig fra</target>
+      </segment>
+    </unit>
+    <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Begynder med</target>
+      </segment>
+    </unit>
+    <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Indeholder</target>
+      </segment>
+    </unit>
+    <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Slutter med</target>
+      </segment>
+    </unit>
+    <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>LIKE udtryk</target>
+      </segment>
+    </unit>
+    <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.REGEX</source>
+        <target>Almindelig udtryk</target>
+      </segment>
+    </unit>
+    <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Mellem</target>
+      </segment>
+    </unit>
+    <unit id="Pho_nY5" name="filter.number_constraint.AND">
+      <segment state="translated">
+        <source>filter.number_constraint.AND</source>
+        <target>og</target>
+      </segment>
+    </unit>
+    <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Lig med (uden underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Forskellig fra (uden underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Lig med (inklusiv underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Forskellig fra (inklusiv underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="7.bq.cZ" name="part.filter.dbId">
+      <segment state="translated">
+        <source>part.filter.dbId</source>
+        <target>Database ID</target>
+      </segment>
+    </unit>
+    <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Alle tags</target>
+      </segment>
+    </unit>
+    <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>Alle tags</target>
+      </segment>
+    </unit>
+    <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>Ingen tags</target>
+      </segment>
+    </unit>
+    <unit id="wgXINWq" name="part.filter.lot_count">
+      <segment state="translated">
+        <source>part.filter.lot_count</source>
+        <target>Antal partier</target>
+      </segment>
+    </unit>
+    <unit id="tjfJAIq" name="part.filter.attachments_count">
+      <segment state="translated">
+        <source>part.filter.attachments_count</source>
+        <target>Antal bilag</target>
+      </segment>
+    </unit>
+    <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
+      <segment state="translated">
+        <source>part.filter.orderdetails_count</source>
+        <target>Antal bestillingsinformationer</target>
+      </segment>
+    </unit>
+    <unit id="QnS490v" name="part.filter.lotExpirationDate">
+      <segment state="translated">
+        <source>part.filter.lotExpirationDate</source>
+        <target>Udløbsdato for komponentbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
+      <segment state="translated">
+        <source>part.filter.lotNeedsRefill</source>
+        <target>Lagerbeholdning skal genopfyldes</target>
+      </segment>
+    </unit>
+    <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
+      <segment state="translated">
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>Lagerbestand med ukendt antal</target>
+      </segment>
+    </unit>
+    <unit id="lRKoTj_" name="part.filter.attachmentName">
+      <segment state="translated">
+        <source>part.filter.attachmentName</source>
+        <target>Bilagsnavn</target>
+      </segment>
+    </unit>
+    <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>En af de udvalgte</target>
+      </segment>
+    </unit>
+    <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>Ingen af de udvalgte</target>
+      </segment>
+    </unit>
+    <unit id="ZnYcxRf" name="part.filter.amount_sum">
+      <segment state="translated">
+        <source>part.filter.amount_sum</source>
+        <target>Samlet mængde</target>
+      </segment>
+    </unit>
+    <unit id="FGuEete" name="filter.submit">
+      <segment state="translated">
+        <source>filter.submit</source>
+        <target>Updatér</target>
+      </segment>
+    </unit>
+    <unit id="4jJXUNM" name="filter.discard">
+      <segment state="translated">
+        <source>filter.discard</source>
+        <target>Fortryd ændringer</target>
+      </segment>
+    </unit>
+    <unit id="uVrP0no" name="filter.clear_filters">
+      <segment state="translated">
+        <source>filter.clear_filters</source>
+        <target>Slet alle filtre</target>
+      </segment>
+    </unit>
+    <unit id="Rd0n9wc" name="filter.title">
+      <segment state="translated">
+        <source>filter.title</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Typ. Værdi =</target>
+      </segment>
+    </unit>
+    <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Typ. Værdi !=</target>
+      </segment>
+    </unit>
     <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
@@ -9330,6 +9606,456 @@ Element 3</target>
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
         <target>Komponenter med dette element eller dets underelementer</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Serverinfo</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Read-only</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Tillad kun read-only for data</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Alle nedarvede</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Indstil alle tilladelser til at kunne arve</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment state="translated">
+        <source>permission.preset.all_forbid</source>
+        <target>Forbyd alle</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment state="translated">
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Indstil alle tilladelser til Ikke tilladt</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment state="translated">
+        <source>permission.preset.all_allow</source>
+        <target>Tillad alle</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment state="translated">
+        <source>permission.preset.all_allow.desc</source>
+        <target>Indstill alle tilladelser til Tilladt</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment state="translated">
+        <source>perm.server_infos</source>
+        <target>Serverinfo</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment state="translated">
+        <source>permission.preset.editor</source>
+        <target>Redaktør</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Tillad at komponenter og datastrukturer kan redigeres</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment state="translated">
+        <source>permission.preset.admin.desc</source>
+        <target>Tillad administrative handlinger</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Anvend skabelon</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Vis private bilag</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment state="translated">
+        <source>perm.attachments.list_attachments</source>
+        <target>Se liste over alle bilag</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment state="translated">
+        <source>user.edit.permission_success</source>
+        <target>Tilladelsesskabelon blev anvendt. Tjek, at de nye tilladelser lever op til dine forventninger.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment state="translated">
+        <source>perm.group.data</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Gennemsyn nødvendigt</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Sæt status til Gennemgang nødvændig</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Fjern Gennemganng nødvendig status</target>
+      </segment>
+    </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment state="translated">
+        <source>part.edit.ipn</source>
+        <target>Internt Partnummer (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment state="translated">
+        <source>part.ipn.not_defined</source>
+        <target>Ikke defineret</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment state="translated">
+        <source>part.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Hent valutakurs</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Valutaen understøttes ikke af valutakursudbyderen. Tjek venligst konfigurationen af ​​valutakursudbyderne.</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Valutakursen kan kke hentes. Tjek venligst konfigurationen af ​​valutakursudbyderne.</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Valutakurs hentet med succes</target>
+      </segment>
+    </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment state="translated">
+        <source>project.bom.quantity</source>
+        <target>BOM mængde</target>
+      </segment>
+    </unit>
+    <unit id="gqYIO6x" name="project.bom.mountnames">
+      <segment state="translated">
+        <source>project.bom.mountnames</source>
+        <target>Bestykningsnavn</target>
+      </segment>
+    </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment state="translated">
+        <source>project.bom.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment state="translated">
+        <source>project.bom.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment state="translated">
+        <source>project.bom.part</source>
+        <target>Komponent</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment state="translated">
+        <source>project.bom.add_entry</source>
+        <target>Tilføj post</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment state="translated">
+        <source>part_list.action.group.projects</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment state="translated">
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Tilføj komponent til projekt</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment state="translated">
+        <source>project.bom.delete.confirm</source>
+        <target>Vil du virkeligt slette denne stykliste (BOM)?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment state="translated">
+        <source>project.add_parts_to_project</source>
+        <target>Tilføj komponenter til stykliste (BOM)</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment state="translated">
+        <source>part.info.add_part_to_project</source>
+        <target>Føj denne komponent til et projekt</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment state="translated">
+        <source>project_bom_entry.label</source>
+        <target>Registrering af BOM</target>
+      </segment>
+    </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment state="translated">
+        <source>project.edit.status</source>
+        <target>Projektstatus</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment state="translated">
+        <source>project.status.draft</source>
+        <target>Kladde</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment state="translated">
+        <source>project.status.planning</source>
+        <target>Under planlægning</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment state="translated">
+        <source>project.status.in_production</source>
+        <target>I produktion</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment state="translated">
+        <source>project.status.finished</source>
+        <target>Ophørt</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment state="translated">
+        <source>project.status.archived</source>
+        <target>Arkiveret</target>
+      </segment>
+    </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment state="translated">
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>Dette projekt har allerede en linket komponent</target>
+      </segment>
+    </unit>
+    <unit id="usGnetL" name="project.edit.associated_build_part">
+      <segment state="translated">
+        <source>project.edit.associated_build_part</source>
+        <target>Tilhørende bygge komponent</target>
+      </segment>
+    </unit>
+    <unit id="xXpskqU" name="project.edit.associated_build_part.add">
+      <segment state="translated">
+        <source>project.edit.associated_build_part.add</source>
+        <target>Tilføj bygge komponent</target>
+      </segment>
+    </unit>
+    <unit id="5rnE1fK" name="project.edit.associated_build.hint">
+      <segment state="translated">
+        <source>project.edit.associated_build.hint</source>
+        <target>Denne komponent repræsenterer de færdigbyggede forekomster af projektet, der er gemt et sted</target>
+      </segment>
+    </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment state="translated">
+        <source>part.info.projectBuildPart.hint</source>
+        <target>Denne komponent repræsenterer de byggede forekomster af det følgende projekt og er knyttet til det</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment state="translated">
+        <source>part.is_build_part</source>
+        <target>Er produktkomponent</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Projektinfo</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>Styklisteposter</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Underprojekt</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment state="translated">
+        <source>project.info.bom_add_parts</source>
+        <target>Tilføj nye styklisteposter</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment state="translated">
+        <source>project.info.sub_projects.label</source>
+        <target>Underprojekter</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment state="translated">
+        <source>project.bom.price</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Fjern komponenter fra lot</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Tilføj komponenter til lot</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Flyt komponenter til et andet lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Mængde</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Flyt til</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Du kan indtaste en kommentar her, der beskriver, hvorfor denne handling blev udført (f.eks. hvorfor denne komponent var nødvendig). Disse oplysninger gemmes i loggen.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Luk</target>
+      </segment>
+    </unit>
+    <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
+      <segment state="translated">
+        <source>project.build.buildsPartLot.new_lot</source>
+        <target>Opret ny beholdning</target>
+      </segment>
+    </unit>
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Tilføj byg til projekt-byg-dele</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment state="translated">
+        <source>project.build.builds_part_lot</source>
+        <target>Mål mængde</target>
+      </segment>
+    </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment state="translated">
+        <source>project.builds.number_of_builds</source>
+        <target>Byg antal</target>
+      </segment>
+    </unit>
+    <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
+      <segment state="translated">
+        <source>project.builds.no_stocked_builds</source>
+        <target>Antal gemte byg-instanser</target>
+      </segment>
+    </unit>
+    <unit id="Mken7uv" name="user.change_avatar.label">
+      <segment state="translated">
+        <source>user.change_avatar.label</source>
+        <target>Ændr profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="QFNPD0_" name="user_settings.change_avatar.label">
+      <segment state="translated">
+        <source>user_settings.change_avatar.label</source>
+        <target>Ændre profilbillede</target>
       </segment>
     </unit>
   </file>
