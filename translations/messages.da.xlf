@@ -10076,6 +10076,150 @@ Element 3</target>
         <target>Komponenter tilføjet til lager</target>
       </segment>
     </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment state="translated">
+        <source>log.part_stock_changed.move</source>
+        <target>Komponenter flyttet</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment state="translated">
+        <source>log.part_stock_changed.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment state="translated">
+        <source>log.part_stock_changed.change</source>
+        <target>Ændring</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment state="translated">
+        <source>log.part_stock_changed.move_target</source>
+        <target>Flyttet til</target>
+      </segment>
+    </unit>
+    <unit id="e2xzHIo" name="tools.builtin_footprints_viewer.title">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.title</source>
+        <target>Indbyggede Footprint billeder</target>
+      </segment>
+    </unit>
+    <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.hint</source>
+        <target>Dette galleri viser alle de inkluderede footprint-billeder. Hvis du vil bruge det i et bilag, skal du skrive navnet (eller et nøgleord) i bilagets URL-felt og vælge det ønskede billede fra rullemenuen.</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment state="translated">
+        <source>tools.ic_logos.title</source>
+        <target>IC logoer</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment state="translated">
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label</source>
+        <target>Opret labels (til komponenter)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Opret labels (til komponentbeholdning)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment state="translated">
+        <source>part_list.action.generate_label.empty</source>
+        <target>Tom label</target>
+      </segment>
+    </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment state="translated">
+        <source>project.info.builds.label</source>
+        <target>Byg</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment state="translated">
+        <source>project.builds.build_not_possible</source>
+        <target>Byg ikke mulig: Der er ikke nok komponenter tilsted for dette byg</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>Følgende komponenter har ikke nok lagerbeholdning til at bygge dette projekt mindst én gang:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment state="translated">
+        <source>project.builds.stocked</source>
+        <target>På lager</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment state="translated">
+        <source>project.builds.needed</source>
+        <target>Nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment state="translated">
+        <source>project.builds.build_possible</source>
+        <target>Der kan laves et byg</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment state="translated">
+        <source>project.builds.number_of_builds_possible</source>
+        <target>Du har nok komponenter på lager til at bygge &lt;b&gt;%max_builds%&lt;/b&gt; kopier af dette projekt.</target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment state="translated">
+        <source>project.builds.check_project_status</source>
+        <target>Den aktuelle projektstatus er &lt;b&gt;"%project_status%"&lt;/b&gt;. Du bør tjekke, om du virkelig vil bygge projektet med denne status!</target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>Der er ikke nok komponenter på lager til at bygge dette projekt %number_of_builds% gange. Der er ikke nok af følgende komponenter på lager.</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment state="translated">
+        <source>project.build.flash.invalid_input</source>
+        <target>Projektet kan ikke bygges. Tjek venligst dine input</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment state="translated">
+        <source>project.build.required_qty</source>
+        <target>Nødvendigt antal</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment state="translated">
+        <source>project.build.btn_build</source>
+        <target>Byg</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment state="translated">
+        <source>project.build.help</source>
+        <target>Vælg fra hvilke lagre de komponenter, der kræves til bygget skal tages (og i hvilken mængde). Marker afkrydsningsfeltet for hver styklistepost, når du har fjernet komponenterne, eller brug det øverste afkrydsningsfelt til at markere alle felterne på én gang.</target>
+      </segment>
+    </unit>
     <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
       <segment state="translated">
         <source>project.build.buildsPartLot.new_lot</source>
@@ -10116,6 +10260,540 @@ Element 3</target>
       <segment state="translated">
         <source>user_settings.change_avatar.label</source>
         <target>Ændre profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
+      <segment state="translated">
+        <source>user_settings.remove_avatar.label</source>
+        <target>Fjern profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="Y1Aes28" name="part.edit.name.category_hint">
+      <segment state="translated">
+        <source>part.edit.name.category_hint</source>
+        <target>tip fra kategori</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment state="translated">
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>f.eks. "/Kondensator \d+ nF/i"</target>
+      </segment>
+    </unit>
+    <unit id="QFgP__5" name="category.edit.partname_regex.help">
+      <segment state="translated">
+        <source>category.edit.partname_regex.help</source>
+        <target>Et PCRE-kompatibelt regulært udtryk, som delnavnet skal opfylde.</target>
+      </segment>
+    </unit>
+    <unit id="vr7oZKL" name="entity.select.add_hint">
+      <segment state="translated">
+        <source>entity.select.add_hint</source>
+        <target>Brug -&gt; for at oprette under-strukturer, f.eks. "Element 1-&gt;Element 1.1"</target>
+      </segment>
+    </unit>
+    <unit id="_cXCaLo" name="entity.select.group.new_not_added_to_DB">
+      <segment state="translated">
+        <source>entity.select.group.new_not_added_to_DB</source>
+        <target>Ny (endnu ikke tilføjet til database)</target>
+      </segment>
+    </unit>
+    <unit id="i6.vjBW" name="part.edit.save_and_new">
+      <segment state="translated">
+        <source>part.edit.save_and_new</source>
+        <target>Gem og opret en ny tom komponent</target>
+      </segment>
+    </unit>
+    <unit id="q2IWd9b" name="homepage.first_steps.title">
+      <segment state="translated">
+        <source>homepage.first_steps.title</source>
+        <target>Første skridt</target>
+      </segment>
+    </unit>
+    <unit id="qoK8lss" name="homepage.first_steps.introduction">
+      <segment state="translated">
+        <source>homepage.first_steps.introduction</source>
+        <target>Databasen er i øjeblikket tom. Du vil måske læse &lt;a href="%url%"&gt;dokumentationen&lt;/a&gt; eller begynde at oprette følgende datastrukturer.</target>
+      </segment>
+    </unit>
+    <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
+      <segment state="translated">
+        <source>homepage.first_steps.create_part</source>
+        <target>Eller du kan direkte oprette en &lt;a href="%url%"&gt;ny komponent&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment state="translated">
+        <source>homepage.first_steps.hide_hint</source>
+        <target>Denne meddelelse vil blive skjult, når du har oprettet den første komponent.</target>
+      </segment>
+    </unit>
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>For spørgsmål om Part-DB, brug &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;diskussionsforummet&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="qmnrptL" name="log.element_edited.changed_fields.category">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.category</source>
+        <target>Kategori</target>
+      </segment>
+    </unit>
+    <unit id="h2yNq58" name="log.element_edited.changed_fields.footprint">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="TYrqEhh" name="log.element_edited.changed_fields.manufacturer">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="gD7hYx2" name="log.element_edited.changed_fields.value_typical">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_typical</source>
+        <target>typ. værdi</target>
+      </segment>
+    </unit>
+    <unit id="0I9yC96" name="log.element_edited.changed_fields.pw_reset_expires">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.pw_reset_expires</source>
+        <target>Nulstil password</target>
+      </segment>
+    </unit>
+    <unit id="0yxA3bg" name="log.element_edited.changed_fields.comment">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="ZX180Uu" name="log.element_edited.changed_fields.supplierpartnr">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplierpartnr</source>
+        <target>Leverandør part-nummer</target>
+      </segment>
+    </unit>
+    <unit id="Bzp4a3p" name="log.element_edited.changed_fields.supplier_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplier_product_url</source>
+        <target>Produkt URL</target>
+      </segment>
+    </unit>
+    <unit id="X2KjgsJ" name="log.element_edited.changed_fields.price">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.price</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="zlKYtvI" name="log.element_edited.changed_fields.min_discount_quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.min_discount_quantity</source>
+        <target>Minimum ordremængde</target>
+      </segment>
+    </unit>
+    <unit id="IrL23Tw" name="log.element_edited.changed_fields.original_filename">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.original_filename</source>
+        <target>Originalt bilagsnavn, filnavn</target>
+      </segment>
+    </unit>
+    <unit id="qvgIER7" name="log.element_edited.changed_fields.path">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.path</source>
+        <target>Sti</target>
+      </segment>
+    </unit>
+    <unit id="B7rbOAi" name="log.element_edited.changed_fields.description">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="iRpQ.r4" name="log.element_edited.changed_fields.manufacturing_status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturing_status</source>
+        <target>Fabrikantstatus</target>
+      </segment>
+    </unit>
+    <unit id="aQlVtZN" name="log.element_edited.changed_fields.options.barcode_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.barcode_type</source>
+        <target>Barcode type</target>
+      </segment>
+    </unit>
+    <unit id="GrbTB8Q" name="log.element_edited.changed_fields.status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="2MH9WjL" name="log.element_edited.changed_fields.quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.quantity</source>
+        <target>BOM antal</target>
+      </segment>
+    </unit>
+    <unit id="XRhN7QN" name="log.element_edited.changed_fields.mountnames">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mountnames</source>
+        <target>Montagenavne</target>
+      </segment>
+    </unit>
+    <unit id="j5npGa6" name="log.element_edited.changed_fields.name">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="EippsOk" name="log.element_edited.changed_fields.iso_code">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.iso_code</source>
+        <target>ISO-kode</target>
+      </segment>
+    </unit>
+    <unit id="JPVZRzH" name="log.element_edited.changed_fields.unit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.unit</source>
+        <target>Enhedssymbol</target>
+      </segment>
+    </unit>
+    <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.is_integer</source>
+        <target>Er heltal</target>
+      </segment>
+    </unit>
+    <unit id="XkLHxqf" name="log.element_edited.changed_fields.use_si_prefix">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.use_si_prefix</source>
+        <target>Benyt SI-præfiks</target>
+      </segment>
+    </unit>
+    <unit id="bgeqM2B" name="log.element_edited.changed_fields.options.width">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.width</source>
+        <target>Bredde</target>
+      </segment>
+    </unit>
+    <unit id="UJNmG3d" name="log.element_edited.changed_fields.options.height">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.height</source>
+        <target>Højde</target>
+      </segment>
+    </unit>
+    <unit id="M7z_SCq" name="log.element_edited.changed_fields.options.supported_element">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.supported_element</source>
+        <target>Elementtype</target>
+      </segment>
+    </unit>
+    <unit id="fjo2JY_" name="log.element_edited.changed_fields.mass">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mass</source>
+        <target>Masse</target>
+      </segment>
+    </unit>
+    <unit id="f7YI8uk" name="log.element_edited.changed_fields.ipn">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="vAHGo60" name="log.element_edited.changed_fields.favorite">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="TUBvDxJ" name="log.element_edited.changed_fields.minamount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.minamount</source>
+        <target>Minimum lagerbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="pVJ9vgg" name="log.element_edited.changed_fields.manufacturer_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_url</source>
+        <target>Link til produktside</target>
+      </segment>
+    </unit>
+    <unit id="JW.PgxU" name="log.element_edited.changed_fields.manufacturer_product_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_number</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="tV.PNy_" name="log.element_edited.changed_fields.partUnit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partUnit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.expiration_date</source>
+        <target>Udløbsdato</target>
+      </segment>
+    </unit>
+    <unit id="cPY3MD7" name="log.element_edited.changed_fields.amount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.amount</source>
+        <target>Mængde</target>
+      </segment>
+    </unit>
+    <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_location</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="Qt585vm" name="attachment.max_file_size">
+      <segment state="translated">
+        <source>attachment.max_file_size</source>
+        <target>Maksimum bilagsstørrelse</target>
+      </segment>
+    </unit>
+    <unit id="tkkbiag" name="user.saml_user">
+      <segment state="translated">
+        <source>user.saml_user</source>
+        <target>SSO / SAML Bruger</target>
+      </segment>
+    </unit>
+    <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
+      <segment state="translated">
+        <source>user.saml_user.pw_change_hint</source>
+        <target>Du bruger Single Sign-On (SSO) til at logge ind. Du kan derfor ikke konfigurere dit password og to-faktor godkendelse her. Brug i stedet det centrale websted for din SSO-udbyder!</target>
+      </segment>
+    </unit>
+    <unit id="32beTBH" name="login.sso_saml_login">
+      <segment state="translated">
+        <source>login.sso_saml_login</source>
+        <target>Single Sign-On Login (SSO)</target>
+      </segment>
+    </unit>
+    <unit id="wnMLanX" name="login.local_login_hint">
+      <segment state="translated">
+        <source>login.local_login_hint</source>
+        <target>Nedenstående formular kan kun bruges til at logge ind med en lokal bruger. Ønsker du i stedet at logge ind via single sign-on, skal du bruge knappen ovenfor.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment state="translated">
+        <source>part_list.action.action.export</source>
+        <target>Eksporter komponenter</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment state="translated">
+        <source>part_list.action.export_json</source>
+        <target>Eksporter som JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment state="translated">
+        <source>part_list.action.export_csv</source>
+        <target>Eksporter som CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment state="translated">
+        <source>part_list.action.export_yaml</source>
+        <target>Esporter som YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment state="translated">
+        <source>part_list.action.export_xml</source>
+        <target>Eksporter som XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment state="translated">
+        <source>parts.import.title</source>
+        <target>Importer kompenter</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment state="translated">
+        <source>parts.import.errors.title</source>
+        <target>Problemer ved import</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment state="translated">
+        <source>parts.import.flash.error</source>
+        <target>Der opstod fejl under eksport. Dette skyldes sandsynligvis fejlbehæftede data.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment state="translated">
+        <source>parts.import.format.auto</source>
+        <target>Automatisk (baseret på endelsen på bilagsnavnet)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment state="translated">
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Formatet kunne ikke bestemmes automatisk. Vælg venligst det korrekte format manuelt!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment state="translated">
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>Bilaget er beskadiget/forkert formateret. Tjek, at du har valgt det rigtige format.</target>
+      </segment>
+    </unit>
+    <unit id="ih.wsVn" name="parts.import.part_category.label">
+      <segment state="translated">
+        <source>parts.import.part_category.label</source>
+        <target>Gennemtving kategori</target>
+      </segment>
+    </unit>
+    <unit id="mLczcax" name="parts.import.part_category.help">
+      <segment state="translated">
+        <source>parts.import.part_category.help</source>
+        <target>Hvis du vælger en kategori her, vil alle importerede komponenter blive tildelt denne kategori, uanset hvad der er i importdataene.</target>
+      </segment>
+    </unit>
+    <unit id="W09n3nV" name="import.create_unknown_datastructures">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures</source>
+        <target>Opret ukendte datastrukturer</target>
+      </segment>
+    </unit>
+    <unit id="QkzTk.8" name="import.create_unknown_datastructures.help">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures.help</source>
+        <target>Hvis denne mulighed er valgt, oprettes automatisk datastrukturer (f.eks. kategorier, footprints osv.), som endnu ikke findes i databasen. Hvis denne mulighed ikke er valgt, vil kun datastrukturer, der allerede findes i databasen, blive brugt. Og hvis der ikke findes en passende struktur, vil det tilsvarende felt for komponenten stå tomt.</target>
+      </segment>
+    </unit>
+    <unit id="p6fTkCQ" name="import.path_delimiter">
+      <segment state="translated">
+        <source>import.path_delimiter</source>
+        <target>Stibegrænser</target>
+      </segment>
+    </unit>
+    <unit id="gSn6XRk" name="import.path_delimiter.help">
+      <segment state="translated">
+        <source>import.path_delimiter.help</source>
+        <target>Afgrænseren bruges til at adskille de forskellige niveauer af datastrukturer (såsom kategorier, footprint osv.) i stispecifikationer.</target>
+      </segment>
+    </unit>
+    <unit id="aNR2tK9" name="parts.import.help_documentation">
+      <segment state="translated">
+        <source>parts.import.help_documentation</source>
+        <target>Se &lt;a href="%link%"&gt;dokumentationen&lt;/a&gt; for mere information om bilagsformatet.</target>
+      </segment>
+    </unit>
+    <unit id="bOHORjK" name="parts.import.help">
+      <segment state="translated">
+        <source>parts.import.help</source>
+        <target>Med dette værktøj kan du importere komponenter fra eksisterende bilag. Komponenterne gemmes direkte i databasen (uden mulighed for at kontrollere dem igen på forhånd). Tjek venligst din importfil her, før du uploader!</target>
+      </segment>
+    </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment state="translated">
+        <source>parts.import.flash.success</source>
+        <target>Komponentimport lykkedes</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment state="translated">
+        <source>parts.import.errors.imported_entities</source>
+        <target>Importerde komponenter</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment state="translated">
+        <source>perm.import</source>
+        <target>Importer data</target>
+      </segment>
+    </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.label</source>
+        <target>Marker alle komponenter som "Gennnemgang nødvendig"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Hvis denne mulighed er valgt, vil alle dele blive markeret som "Kræver gennemgang", uanset hvad der blev angivet i dataene.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>%count% BOM Einträge erfolgreich importiert.
+​
+Oversæt med stemmen
+44 / 5.000
+Oversættelsesresultater
+Oversættelsen
+%count% styklisteposter blev importeret.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV fil)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>let eksisterende styklisteposter før import</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Hvis denne mulighed er valgt, vil alle styklisteposter, der allerede findes i projektet, blive slettet og overskrevet med de importerede styklistedata.</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>Filen kunne ikke importeres. Tjek, at du har valgt den korrekte bilagstype. Fejlmeddelelse: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Valideringsfejl! Tjek venligst den importerede fil!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment state="translated">
+        <source>project.import_bom</source>
+        <target>Importer stykliste til projekt</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment state="translated">
+        <source>project.edit.bom.import_bom</source>
+        <target>Importer BOM</target>
+      </segment>
+    </unit>
+    <unit id="qDVJg2i" name="measurement_unit.new">
+      <segment state="translated">
+        <source>measurement_unit.new</source>
+        <target>Ny måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="WKzr7h0" name="measurement_unit.edit">
+      <segment state="translated">
+        <source>measurement_unit.edit</source>
+        <target>Ret måleenhed</target>
       </segment>
     </unit>
   </file>
