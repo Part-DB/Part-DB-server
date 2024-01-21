@@ -10016,6 +10016,66 @@ Element 3</target>
         <target>Luk</target>
       </segment>
     </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Indsend</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Komponenter blev fjernet/tilføjet/flyttet.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Komponentbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Fjern komponenter fra lageret</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Tilføj komponenter til lager</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Flyt komponenter mellem lagerbeholdninger</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment state="translated">
+        <source>user.permissions_schema_updated</source>
+        <target>Din brugerkontos tilladelsesliste er blevet opdateret til den seneste version.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment state="translated">
+        <source>log.type.part_stock_changed</source>
+        <target>Komponentbeholdning ændret</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment state="translated">
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Komponenter fjernet</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment state="translated">
+        <source>log.part_stock_changed.add</source>
+        <target>Komponenter tilføjet til lager</target>
+      </segment>
+    </unit>
     <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
       <segment state="translated">
         <source>project.build.buildsPartLot.new_lot</source>
