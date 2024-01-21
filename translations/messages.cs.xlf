@@ -7590,7 +7590,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>part.withdraw.caption</source>
-        <target>Stažení dílů</target>
+        <target>Odebrání dílů</target>
       </segment>
     </unit>
     <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
@@ -9972,7 +9972,7 @@ Element 3</target>
     <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Stažení dílů z inventáře</target>
+        <target>Odebrání dílů z inventáře</target>
       </segment>
     </unit>
     <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
@@ -10068,7 +10068,7 @@ Element 3</target>
     <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
       <segment state="translated">
         <source>log.part_stock_changed.withdraw</source>
-        <target>Stažení zásob</target>
+        <target>Odebrání zásob</target>
       </segment>
     </unit>
     <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
