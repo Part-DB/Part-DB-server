@@ -545,7 +545,7 @@
       </notes>
       <segment state="translated">
         <source>measurement_unit.caption</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
@@ -1594,7 +1594,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>label_scanner.title</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
@@ -3900,7 +3900,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>navbar.scanner.link</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
@@ -4027,7 +4027,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>Reg.Ex. Shoda</target>
+        <target>RegEx. shoda</target>
       </segment>
     </unit>
     <unit id="N66qZeD" name="search.submit">
@@ -4836,7 +4836,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.partUnit</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="pw75u4x" name="part.table.addedDate">
@@ -6135,7 +6135,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.tools.label_scanner</source>
-        <target>Čtečka</target>
+        <target>Čtečka štítků</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -6230,7 +6230,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>Jednotka měření</target>
+        <target>Měrné jednotky</target>
       </segment>
     </unit>
     <unit id="YAalchf" name="tree.tools.edit.label_profile">
@@ -7280,7 +7280,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>okud je tato možnost aktivována, není možné přidávat nové díly do tohoto skladového umístění, ale množství stávajících dílů lze zvýšit.</target>
+        <target>Pokud je tato možnost aktivována, není možné přidávat nové díly do tohoto umístění, ale množství stávajících dílů lze navýšit.</target>
       </segment>
     </unit>
     <unit id="1DWk7ny" name="storelocation.only_single_part.label">
@@ -7590,7 +7590,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>part.withdraw.caption</source>
-        <target>Stažení dílů</target>
+        <target>Odebrání dílů</target>
       </segment>
     </unit>
     <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
@@ -9972,7 +9972,7 @@ Element 3</target>
     <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Stažení dílů z inventáře</target>
+        <target>Odebrání dílů z inventáře</target>
       </segment>
     </unit>
     <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
@@ -10068,7 +10068,7 @@ Element 3</target>
     <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
       <segment state="translated">
         <source>log.part_stock_changed.withdraw</source>
-        <target>Stažení zásob</target>
+        <target>Odebrání zásob</target>
       </segment>
     </unit>
     <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
@@ -11088,7 +11088,7 @@ Element 3</target>
     <unit id="WKzr7h0" name="measurement_unit.edit">
       <segment state="translated">
         <source>measurement_unit.edit</source>
-        <target>Upravit jednotku měření</target>
+        <target>Upravit měrnou jednotku</target>
       </segment>
     </unit>
     <unit id="gRatnCn" name="user.aboutMe.label">
@@ -11486,7 +11486,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="nNKOyNM" name="part.info_provider_reference.badge">
       <segment state="translated">
         <source>part.info_provider_reference.badge</source>
-        <target>Poskytovatel informací použitý k vytvoření tohoto dílu.</target>
+        <target>Zdroj informací použitý k vytvoření tohoto dílu.</target>
       </segment>
     </unit>
     <unit id="WTB_AKQ" name="part.info_provider_reference">
@@ -11528,7 +11528,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="nvk25qA" name="info_providers.search.providers">
       <segment state="translated">
         <source>info_providers.search.providers</source>
-        <target>Poskytovatelé</target>
+        <target>Zdroje</target>
       </segment>
     </unit>
     <unit id="5kSES8M" name="info_providers.search.info_providers_list">
@@ -11576,7 +11576,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="TRmIjDN" name="info_providers.form.help_prefix">
       <segment state="translated">
         <source>info_providers.form.help_prefix</source>
-        <target>Poskytovatel</target>
+        <target>Zdroj</target>
       </segment>
     </unit>
     <unit id="21tIbM2" name="update_manager.new_version_available.title">
@@ -12020,7 +12020,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
       <segment state="translated">
         <source>part.update_part_from_info_provider.btn</source>
-        <target>Aktualizovat díl od poskytovatelů informací</target>
+        <target>Aktualizovat díl ze zdroje informací</target>
       </segment>
     </unit>
     <unit id="n6_Ec0h" name="info_providers.update_part.title">
@@ -12068,7 +12068,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Vymazat tento inventář, pokud se vyprázdní</target>
+        <target>Vymazat tento inventář, až se vyprázdní</target>
       </segment>
     </unit>
     <unit id="g_xxjdS" name="info_providers.search.error.client_exception">

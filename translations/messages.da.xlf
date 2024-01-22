@@ -7192,6 +7192,516 @@ Element 3</target>
         <target>er heltal</target>
       </segment>
     </unit>
+    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target>Når denne option er aktiveret, vil alle mængder i denne enhed blive afrundet til hele tal.</target>
+      </segment>
+    </unit>
+    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target>Benyt SI prefix</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>Når denne option er aktiveret, bruges SI-præfikser, når tallene udlæses (f.eks. 1,2 kg i stedet for 1200 g)</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>Enhedssymbol</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>f.eks. m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>Lagerlokation er fyldt op</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>Når denne option er aktiveret, er det hverken muligt at tilføje nye komponenter til denne lagerplads eller at øge antallet af eksisterende komponenter.</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>Kun eksisterende komponenter</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>Når denne option er aktiveret, er det ikke muligt at tilføje nye komponenter til denne lagerplads, men det er muligt at øge antallet af eksisterende komponenter.</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>Kun en komponent</target>
+      </segment>
+    </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>Hvis denne option er aktiveret, kan denne lagerplads kun indeholde en enkelt komponent, men i en hvilken som helst mængde. Nyttigt til små SMD-rum eller fødere.</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>Lagertype</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>Her kan du vælge en måleenhed, som en komponent skal have, så den kan opbevares på denne lagerplads.</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>Standardvaluta</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>Forsendelsesomkostninger</target>
+      </segment>
+    </unit>
+    <unit id="sG3lwwH" name="user.username.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.placeholder</source>
+        <target>f.eks. j.doe</target>
+      </segment>
+    </unit>
+    <unit id="birjZUl" name="user.firstName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.placeholder</source>
+        <target>f.eks. John</target>
+      </segment>
+    </unit>
+    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.placeholder</source>
+        <target>f.eks. Doe</target>
+      </segment>
+    </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>j.doe@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>f.eks. Udvikling</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>Nyt pasword</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>bekræft nyt password</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>Bruger skal ændre password</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>Bruger deaktiveret (login ikke muligt)</target>
+      </segment>
+    </unit>
+    <unit id="zPJhxi6" name="user.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.create</source>
+        <target>Opret bruger</target>
+      </segment>
+    </unit>
+    <unit id="SxI0Jji" name="user.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.save</source>
+        <target>Gem</target>
+      </segment>
+    </unit>
+    <unit id="oGnU8Jt" name="entity.edit.reset">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.reset</source>
+        <target>Fortryd ændringer</target>
+      </segment>
+    </unit>
+    <unit id="7TiUzGF" name="part.withdraw.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.btn</source>
+        <target>Fjern</target>
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>Kommentar/formål</target>
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>Tilføj komponent</target>
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>Tilføj</target>
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>Kommentar/formål</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>Producentlink</target>
+      </segment>
+    </unit>
+    <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>f.eks. NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>f.eks. 10</target>
+      </segment>
+    </unit>
+    <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>f.eks. 12</target>
+      </segment>
+    </unit>
+    <unit id="cpRdMwo" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>Stykpris</target>
+      </segment>
+    </unit>
+    <unit id="1n22zD9" name="part.withdraw.caption">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption</source>
+        <target>Fjern komponenter</target>
+      </segment>
+    </unit>
+    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
+    <unit id="P.GFwjI" name="perm.group.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.parts</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="WLb5wES" name="perm.group.structures">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.structures</source>
+        <target>Datastrukturer</target>
+      </segment>
+    </unit>
+    <unit id="ziA7M4Z" name="perm.group.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="qPM1wy5" name="perm.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.parts</source>
+        <target>Generelt</target>
+      </segment>
+    </unit>
+    <unit id="eeUmOBN" name="perm.read">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.read</source>
+        <target>Vis</target>
+      </segment>
+    </unit>
+    <unit id="lMypPBw" name="perm.edit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit</source>
+        <target>Ret</target>
+      </segment>
+    </unit>
+    <unit id="d8mILUm" name="perm.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.create</source>
+        <target>Opret</target>
+      </segment>
+    </unit>
+    <unit id="cPI6oKn" name="perm.part.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.move</source>
+        <target>Skift kategori</target>
+      </segment>
+    </unit>
+    <unit id="oCKKcDZ" name="perm.delete">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="blHcQm6" name="perm.part.search">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.search</source>
+        <target>Søg</target>
+      </segment>
+    </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
       <notes>
         <note priority="1">obsolete</note>
@@ -7250,6 +7760,3040 @@ Element 3</target>
       <segment state="translated">
         <source>perm.part.show_favorite</source>
         <target>Vis favoritkomponenter</target>
+      </segment>
+    </unit>
+    <unit id="GMNxlDb" name="perm.part.show_last_edit_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_last_edit_parts</source>
+        <target>Vis nyligt redigerede/tilføjede komponenter</target>
+      </segment>
+    </unit>
+    <unit id="7C4wYps" name="perm.part.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_users</source>
+        <target>Vis den sidste bruger, der redigerede</target>
+      </segment>
+    </unit>
+    <unit id="IOXC4wr" name="perm.part.show_history">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_history</source>
+        <target>Se historik</target>
+      </segment>
+    </unit>
+    <unit id="JnfedoQ" name="perm.part.name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="5a.KkeU" name="perm.part.description">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="zLUHVDn" name="perm.part.instock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.instock</source>
+        <target>På lager</target>
+      </segment>
+    </unit>
+    <unit id="0woqdF9" name="perm.part.mininstock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mininstock</source>
+        <target>mindste lager</target>
+      </segment>
+    </unit>
+    <unit id="IXHxTEP" name="perm.part.comment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="B_OF7Kn" name="perm.part.storelocation">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.storelocation</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="yPQiYsi" name="perm.part.manufacturer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="L2pl0H1" name="perm.part.orderdetails">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.orderdetails</source>
+        <target>Ordreinformation</target>
+      </segment>
+    </unit>
+    <unit id="4CedmDv" name="perm.part.prices">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.prices</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="3.LGmWy" name="perm.part.attachments">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="VkclZwf" name="perm.part.order">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.order</source>
+        <target>Ordrer</target>
+      </segment>
+    </unit>
+    <unit id="XPba.S5" name="perm.storelocations">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.storelocations</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="1MkJQeq" name="perm.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.move</source>
+        <target>Flyt</target>
+      </segment>
+    </unit>
+    <unit id="IRFIEMr" name="perm.list_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.list_parts</source>
+        <target>Vis komponentliste</target>
+      </segment>
+    </unit>
+    <unit id="h6Bzdt0" name="perm.part.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="f6E.ER4" name="perm.part.categories">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.categories</source>
+        <target>Kategorier</target>
+      </segment>
+    </unit>
+    <unit id="yYWackl" name="perm.part.supplier">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.supplier</source>
+        <target>Leverandører</target>
+      </segment>
+    </unit>
+    <unit id="_dwi_1Y" name="perm.part.manufacturers">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturers</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="1AtDlX." name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="hgZrqP_" name="perm.part.attachment_types">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachment_types</source>
+        <target>bilagstype</target>
+      </segment>
+    </unit>
+    <unit id="BEdSmOu" name="perm.tools.import">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.import</source>
+        <target>Import</target>
+      </segment>
+    </unit>
+    <unit id="PEyfknN" name="perm.tools.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="fWusD07" name="perm.tools.calculator">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.calculator</source>
+        <target>Modstandsberegner</target>
+      </segment>
+    </unit>
+    <unit id="ripLPj1" name="perm.tools.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="1bNm4cw" name="perm.tools.ic_logos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.ic_logos</source>
+        <target>IC logoer</target>
+      </segment>
+    </unit>
+    <unit id="soh_cnt" name="perm.tools.statistics">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.statistics</source>
+        <target>Statistik</target>
+      </segment>
+    </unit>
+    <unit id="2r3a5MK" name="perm.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit_permissions</source>
+        <target>Ret tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="dURrIXD" name="perm.users.edit_user_name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_user_name</source>
+        <target>Ret brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="w4ujxml" name="perm.users.edit_change_group">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_change_group</source>
+        <target>Skift gruppe</target>
+      </segment>
+    </unit>
+    <unit id="BBOEDsQ" name="perm.users.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_infos</source>
+        <target>Ret information</target>
+      </segment>
+    </unit>
+    <unit id="Q1NDQfs" name="perm.users.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_permissions</source>
+        <target>Ret tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="d6eo3tF" name="perm.users.set_password">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.set_password</source>
+        <target>Skift password</target>
+      </segment>
+    </unit>
+    <unit id="tJ6RatH" name="perm.users.change_user_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.change_user_settings</source>
+        <target>Ret brugerindstillinger</target>
+      </segment>
+    </unit>
+    <unit id="X58DtVF" name="perm.database.see_status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.see_status</source>
+        <target>Vis status</target>
+      </segment>
+    </unit>
+    <unit id="1KSFyeg" name="perm.database.update_db">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.update_db</source>
+        <target>Opdater database</target>
+      </segment>
+    </unit>
+    <unit id="7FNNcYZ" name="perm.database.read_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.read_db_settings</source>
+        <target>Vis indstillinger</target>
+      </segment>
+    </unit>
+    <unit id="ppPTck0" name="perm.database.write_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.write_db_settings</source>
+        <target>Ret indstillinger</target>
+      </segment>
+    </unit>
+    <unit id="h1iQLeD" name="perm.config.read_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.read_config</source>
+        <target>Vis konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="xnOnBUH" name="perm.config.edit_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.edit_config</source>
+        <target>Ret konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="soLL1gr" name="perm.config.server_info">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.server_info</source>
+        <target>Server info</target>
+      </segment>
+    </unit>
+    <unit id="P5OVHh2" name="perm.config.use_debug">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.use_debug</source>
+        <target>Brug fejlfindingsværktøjer</target>
+      </segment>
+    </unit>
+    <unit id="WsTnNCU" name="perm.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_logs</source>
+        <target>Vis logs</target>
+      </segment>
+    </unit>
+    <unit id="zvV9XS2" name="perm.delete_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete_logs</source>
+        <target>Slet log</target>
+      </segment>
+    </unit>
+    <unit id="aU9OJs5" name="perm.self.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_infos</source>
+        <target>Ret info</target>
+      </segment>
+    </unit>
+    <unit id="tn675bY" name="perm.self.edit_username">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_username</source>
+        <target>Ret brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="ON0SOmi" name="perm.self.show_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_permissions</source>
+        <target>Vis tilladelser</target>
+      </segment>
+    </unit>
+    <unit id="7pWmKCP" name="perm.self.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_logs</source>
+        <target>Se log</target>
+      </segment>
+    </unit>
+    <unit id="zgTB8dK" name="perm.self.create_labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_labels</source>
+        <target>Opret labels</target>
+      </segment>
+    </unit>
+    <unit id="grMFlqb" name="perm.self.edit_options">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_options</source>
+        <target>Ret indstillinger</target>
+      </segment>
+    </unit>
+    <unit id="aWY5kzX" name="perm.self.delete_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.delete_profiles</source>
+        <target>Slet profiler</target>
+      </segment>
+    </unit>
+    <unit id="Qh9_teh" name="perm.self.edit_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_profiles</source>
+        <target>Ret profiler</target>
+      </segment>
+    </unit>
+    <unit id="riADuzS" name="perm.part.tools">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tools</source>
+        <target>Værktøjer</target>
+      </segment>
+    </unit>
+    <unit id="1TJffiQ" name="perm.groups">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.groups</source>
+        <target>Grupper</target>
+      </segment>
+    </unit>
+    <unit id="Ot4Pe7g" name="perm.users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users</source>
+        <target>Brugere</target>
+      </segment>
+    </unit>
+    <unit id="hcV.ILa" name="perm.database">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database</source>
+        <target>Database</target>
+      </segment>
+    </unit>
+    <unit id="9XMk.TY" name="perm.config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config</source>
+        <target>Instilinger</target>
+      </segment>
+    </unit>
+    <unit id="YLLSA2T" name="perm.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="LG3jpJo" name="perm.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self</source>
+        <target>Ret din egen bruger</target>
+      </segment>
+    </unit>
+    <unit id="VoHEScr" name="perm.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="zf2PGmg" name="perm.part.category">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.category</source>
+        <target>Kategori</target>
+      </segment>
+    </unit>
+    <unit id="Ngq0_8b" name="perm.part.minamount">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.minamount</source>
+        <target>Mindstebeholdning</target>
+      </segment>
+    </unit>
+    <unit id="vZwyFdD" name="perm.part.footprint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="cdrtuto" name="perm.part.mpn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="CjAJxQj" name="perm.part.status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.status</source>
+        <target>Fremstillingsstatus</target>
+      </segment>
+    </unit>
+    <unit id="8vcZLOf" name="perm.part.tags">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="5PcGRLN" name="perm.part.unit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="64iRHQF" name="perm.part.mass">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mass</source>
+        <target>Vægt</target>
+      </segment>
+    </unit>
+    <unit id="IWWN6u0" name="perm.part.lots">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.lots</source>
+        <target>Lagerlokationer</target>
+      </segment>
+    </unit>
+    <unit id="cnJtmGW" name="perm.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_users</source>
+        <target>Vis den sidste bruger, der redigerede</target>
+      </segment>
+    </unit>
+    <unit id="nThiSBd" name="perm.currencies">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.currencies</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="Pa4k4ZQ" name="perm.measurement_units">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.measurement_units</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="ZrVNh2o" name="user.settings.pw_old.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_old.label</source>
+        <target>Gammelt password</target>
+      </segment>
+    </unit>
+    <unit id="Ed3ydow" name="pw_reset.submit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.submit</source>
+        <target>Nulstil password</target>
+      </segment>
+    </unit>
+    <unit id="E8uyrqE" name="u2f_two_factor">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>u2f_two_factor</source>
+        <target>Sikkerhedsnøgle (U2F)</target>
+      </segment>
+    </unit>
+    <unit id="u976KVD" name="google">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>google</source>
+        <target>Google</target>
+      </segment>
+    </unit>
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Sikkerhedsnøgle</target>
+      </segment>
+    </unit>
+    <unit id="XTe6pUU" name="tfa.provider.google">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.provider.google</source>
+        <target>Godkendelses-app</target>
+      </segment>
+    </unit>
+    <unit id="iGSYnmL" name="Login successful">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Login successful</source>
+        <target>Logget ind med succes</target>
+      </segment>
+    </unit>
+    <unit id="r7Q.Vrm" name="log.type.exception">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.exception</source>
+        <target>Ubehandlet undtagelse (udfaset)</target>
+      </segment>
+    </unit>
+    <unit id="l5qNskF" name="log.type.user_login">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_login</source>
+        <target>Bruger logget ind</target>
+      </segment>
+    </unit>
+    <unit id="6suiYvP" name="log.type.user_logout">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_logout</source>
+        <target>Bruger logget ud</target>
+      </segment>
+    </unit>
+    <unit id="Jjl8edA" name="log.type.unknown">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.unknown</source>
+        <target>Ukendt</target>
+      </segment>
+    </unit>
+    <unit id="n8VtTfW" name="log.type.element_created">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_created</source>
+        <target>Element oprettet</target>
+      </segment>
+    </unit>
+    <unit id="O9Iw2cd" name="log.type.element_edited">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_edited</source>
+        <target>Element rettet</target>
+      </segment>
+    </unit>
+    <unit id="WQkp3yE" name="log.type.element_deleted">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_deleted</source>
+        <target>Element slettet</target>
+      </segment>
+    </unit>
+    <unit id="pjRvOZm" name="log.type.database_updated">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.database_updated</source>
+        <target>Database er opdateret</target>
+      </segment>
+    </unit>
+    <unit id="j0QJLb_" name="perm.revert_elements">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.revert_elements</source>
+        <target>Nulstil element</target>
+      </segment>
+    </unit>
+    <unit id="xernTe5" name="perm.show_history">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_history</source>
+        <target>Vis historik</target>
+      </segment>
+    </unit>
+    <unit id="Ay52w3." name="perm.tools.lastActivity">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.lastActivity</source>
+        <target>Vis sidste aktivitet</target>
+      </segment>
+    </unit>
+    <unit id="m3PTL2e" name="perm.tools.timeTravel">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.timeTravel</source>
+        <target>Vis tidligere versioner (tidsrejser)</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Sikkerhedsnøgle tilføjet</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Username</source>
+        <target>Brugernavn</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Godkendelses-app deaktiveret</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Sikkerhedsnøgle slettet</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Sikkerhedsnøgle tilføjet</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Backupnøgler regenereret</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Godkendelses-app aktiveret</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Password ændret</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Godkendte enheder nulstillet</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Hovedelement slettet</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Nulstil password</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>To-faktor-godkendelse nulstillet af administrator</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Forsøg på uautoriseret adgang</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Succes</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Parametre</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Vis private bilag</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Labelscannner</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Vis profiler</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Opret profil</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Brug Twig tilstand</target>
+      </segment>
+    </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>Vis hurtigvalg i barcode</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Forlang to-faktor-godkendelse (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Hvis denne option er valgt, skal hvert direkte medlem af denne gruppe konfigurere mindst en anden faktor til godkendelse. Anbefales f.eks. til administrative grupper med omfattende autorisationer.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Ingenting valgt</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Ingenting valgt</target>
+      </segment>
+    </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Elementet "%PATH%" indeholder stadig komponenter. Rediger komponenterne for at kunne slette dette element.</target>
+      </segment>
+    </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Filtypen indeholder stadig komponenter. Skift deres filtype for at kunne slette denne filtype.</target>
+      </segment>
+    </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Valuta indeholder stadig komponenter. Skift deres valuta for at kunne slette denne valuta.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Der er stadigvæk brugere i denne gruppe. Vælg en anden gruppe for disse brugere for at kunne slette denne gruppe.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Ret</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Ret komponent</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Vælg handling</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Gør denne til favorit</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Fjern favorit</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Ret felt</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Skift kategori</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Ret footprint</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Ret fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Ret måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% komponenter valgt</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Åbn webside</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>send e-mail</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Ring op</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Send fax</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>f.eks. +45 1234 5678</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Gem og dupliker</target>
+      </segment>
+    </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>Filtypenavnet er ikke tilladt for denne bilagstype.</target>
+      </segment>
+    </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>SMD-rulle beregner</target>
+      </segment>
+    </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Indre diameter</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Ydre diameter</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Tape tykkelse</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Komponentafstand</target>
+      </segment>
+    </unit>
+    <unit id="Ysn3sXm" name="tools.reel_calc.update">
+      <segment state="translated">
+        <source>tools.reel_calc.update</source>
+        <target>Opdater</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Komponenter per meter</target>
+      </segment>
+    </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Tapelængde</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Omtrentligt antal komponenter</target>
+      </segment>
+    </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Fejl: Den ydre diameter skal være større end den indvendige diameter!</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Angiv venligst alle værdier!</target>
+      </segment>
+    </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Indlæs preset</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Denne kalkulator giver dig mulighed for at estimere hvor mange komponenter der er tilbage på en SMD-rulle. Mål de angivne dimensioner på rullen (eller brug specifikationerne) og tryk på "Opdater".</target>
+      </segment>
+    </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>SMD-rulle kalkulator</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>SMD-rullle kalkulator</target>
+      </segment>
+    </unit>
+    <unit id="7FpEp24" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Ændring af password påkrævet! Venligst vælg et nyt password.</target>
+      </segment>
+    </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Rod</target>
+      </segment>
+    </unit>
+    <unit id="EieqscF" name="part_list.action.select_null">
+      <segment state="translated">
+        <source>part_list.action.select_null</source>
+        <target>Ingen elementer tilstede!</target>
+      </segment>
+    </unit>
+    <unit id="4IH1qgL" name="part_list.action.delete-title">
+      <segment state="translated">
+        <source>part_list.action.delete-title</source>
+        <target>Vil du virkelig slette disse komponenter?</target>
+      </segment>
+    </unit>
+    <unit id="te3YmqA" name="part_list.action.delete-message">
+      <segment state="translated">
+        <source>part_list.action.delete-message</source>
+        <target>Disse komponenter og alle tilknyttede oplysninger (bilag, vedhæftede filer, prisoplysninger osv.) slettes. Dette kan ikke fortrydes!</target>
+      </segment>
+    </unit>
+    <unit id="xd6OiPE" name="part.table.actions.success">
+      <segment state="translated">
+        <source>part.table.actions.success</source>
+        <target>Handling lykkedes med succes.</target>
+      </segment>
+    </unit>
+    <unit id="_3l6FO_" name="attachment.edit.delete.confirm">
+      <segment state="translated">
+        <source>attachment.edit.delete.confirm</source>
+        <target>Er du sikker på, at du vil slette dette bilag?</target>
+      </segment>
+    </unit>
+    <unit id="JtGEdQP" name="filter.text_constraint.value.operator.EQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.EQ</source>
+        <target>Lig med</target>
+      </segment>
+    </unit>
+    <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Forskellig fra</target>
+      </segment>
+    </unit>
+    <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Begynder med</target>
+      </segment>
+    </unit>
+    <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Indeholder</target>
+      </segment>
+    </unit>
+    <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Slutter med</target>
+      </segment>
+    </unit>
+    <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>LIKE udtryk</target>
+      </segment>
+    </unit>
+    <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.REGEX</source>
+        <target>Almindelig udtryk</target>
+      </segment>
+    </unit>
+    <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Mellem</target>
+      </segment>
+    </unit>
+    <unit id="Pho_nY5" name="filter.number_constraint.AND">
+      <segment state="translated">
+        <source>filter.number_constraint.AND</source>
+        <target>og</target>
+      </segment>
+    </unit>
+    <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Lig med (uden underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Forskellig fra (uden underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Lig med (inklusiv underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Forskellig fra (inklusiv underelementer)</target>
+      </segment>
+    </unit>
+    <unit id="7.bq.cZ" name="part.filter.dbId">
+      <segment state="translated">
+        <source>part.filter.dbId</source>
+        <target>Database ID</target>
+      </segment>
+    </unit>
+    <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Alle tags</target>
+      </segment>
+    </unit>
+    <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>Alle tags</target>
+      </segment>
+    </unit>
+    <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>Ingen tags</target>
+      </segment>
+    </unit>
+    <unit id="wgXINWq" name="part.filter.lot_count">
+      <segment state="translated">
+        <source>part.filter.lot_count</source>
+        <target>Antal partier</target>
+      </segment>
+    </unit>
+    <unit id="tjfJAIq" name="part.filter.attachments_count">
+      <segment state="translated">
+        <source>part.filter.attachments_count</source>
+        <target>Antal bilag</target>
+      </segment>
+    </unit>
+    <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
+      <segment state="translated">
+        <source>part.filter.orderdetails_count</source>
+        <target>Antal bestillingsinformationer</target>
+      </segment>
+    </unit>
+    <unit id="QnS490v" name="part.filter.lotExpirationDate">
+      <segment state="translated">
+        <source>part.filter.lotExpirationDate</source>
+        <target>Udløbsdato for komponentbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
+      <segment state="translated">
+        <source>part.filter.lotNeedsRefill</source>
+        <target>Lagerbeholdning skal genopfyldes</target>
+      </segment>
+    </unit>
+    <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
+      <segment state="translated">
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>Lagerbestand med ukendt antal</target>
+      </segment>
+    </unit>
+    <unit id="lRKoTj_" name="part.filter.attachmentName">
+      <segment state="translated">
+        <source>part.filter.attachmentName</source>
+        <target>Bilagsnavn</target>
+      </segment>
+    </unit>
+    <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>En af de udvalgte</target>
+      </segment>
+    </unit>
+    <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>Ingen af de udvalgte</target>
+      </segment>
+    </unit>
+    <unit id="ZnYcxRf" name="part.filter.amount_sum">
+      <segment state="translated">
+        <source>part.filter.amount_sum</source>
+        <target>Samlet mængde</target>
+      </segment>
+    </unit>
+    <unit id="FGuEete" name="filter.submit">
+      <segment state="translated">
+        <source>filter.submit</source>
+        <target>Updatér</target>
+      </segment>
+    </unit>
+    <unit id="4jJXUNM" name="filter.discard">
+      <segment state="translated">
+        <source>filter.discard</source>
+        <target>Fortryd ændringer</target>
+      </segment>
+    </unit>
+    <unit id="uVrP0no" name="filter.clear_filters">
+      <segment state="translated">
+        <source>filter.clear_filters</source>
+        <target>Slet alle filtre</target>
+      </segment>
+    </unit>
+    <unit id="Rd0n9wc" name="filter.title">
+      <segment state="translated">
+        <source>filter.title</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Typ. Værdi =</target>
+      </segment>
+    </unit>
+    <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Typ. Værdi !=</target>
+      </segment>
+    </unit>
+    <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;</source>
+        <target>Typ. værdi &lt;</target>
+      </segment>
+    </unit>
+    <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&gt;</source>
+        <target>Typ. værdi &gt;</target>
+      </segment>
+    </unit>
+    <unit id="O4x0opb" name="filter.parameter_value_constraint.operator.&lt;=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;=</source>
+        <target>Typ. værdi &lt;=</target>
+      </segment>
+    </unit>
+    <unit id="ituiTs9" name="filter.parameter_value_constraint.operator.&gt;=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&gt;=</source>
+        <target>Typ. værdi &gt;=</target>
+      </segment>
+    </unit>
+    <unit id="Y8B3A9X" name="filter.parameter_value_constraint.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.BETWEEN</source>
+        <target>Typ. værdi imellem</target>
+      </segment>
+    </unit>
+    <unit id="FqUoIEy" name="filter.parameter_value_constraint.operator.IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.IN_RANGE</source>
+        <target>I værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="v_1AWPE" name="filter.parameter_value_constraint.operator.NOT_IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.NOT_IN_RANGE</source>
+        <target>Ikke i værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="X4hI3kL" name="filter.parameter_value_constraint.operator.GREATER_THAN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.GREATER_THAN_RANGE</source>
+        <target>Større end værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="yQO92R2" name="filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE</source>
+        <target>Større end eller lig med værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="h8zJtL5" name="filter.parameter_value_constraint.operator.LESS_THAN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.LESS_THAN_RANGE</source>
+        <target>Mindre end værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="sxSjUOg" name="filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE</source>
+        <target>Mindre end lig med værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="fqRL5fp" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.RANGE_IN_RANGE</source>
+        <target>helt indenfor værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="PJgHP5E" name="filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE</source>
+        <target>Skærer værdiområdet</target>
+      </segment>
+    </unit>
+    <unit id="5Svrc5E" name="filter.text_constraint.value">
+      <segment state="translated">
+        <source>filter.text_constraint.value</source>
+        <target>Ingen værdi angivet</target>
+      </segment>
+    </unit>
+    <unit id="EIwFuHJ" name="filter.number_constraint.value1">
+      <segment state="translated">
+        <source>filter.number_constraint.value1</source>
+        <target>Ingen værdi angivet</target>
+      </segment>
+    </unit>
+    <unit id="nb9L_bM" name="filter.number_constraint.value2">
+      <segment state="translated">
+        <source>filter.number_constraint.value2</source>
+        <target>Maksimalværdi</target>
+      </segment>
+    </unit>
+    <unit id="Chr6I.s" name="filter.datetime_constraint.value1">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value1</source>
+        <target>Ingen dato/tid indstillet</target>
+      </segment>
+    </unit>
+    <unit id="OX2SbVT" name="filter.datetime_constraint.value2">
+      <segment state="translated">
+        <source>filter.datetime_constraint.value2</source>
+        <target>Maksimal dato/tid</target>
+      </segment>
+    </unit>
+    <unit id="HsxzALM" name="filter.constraint.add">
+      <segment state="translated">
+        <source>filter.constraint.add</source>
+        <target>Tilføj filter</target>
+      </segment>
+    </unit>
+    <unit id=".CuxL5L" name="part.filter.parameters_count">
+      <segment state="translated">
+        <source>part.filter.parameters_count</source>
+        <target>Antal parametre</target>
+      </segment>
+    </unit>
+    <unit id="Dn0SKIi" name="part.filter.lotDescription">
+      <segment state="translated">
+        <source>part.filter.lotDescription</source>
+        <target>Beskrivelse af komponentbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="W1rWF5g" name="parts_list.search.searching_for">
+      <segment state="translated">
+        <source>parts_list.search.searching_for</source>
+        <target>Søg i dele med søgeordet &lt;b&gt;%søgeord%&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="lkQ2zTi" name="parts_list.search_options.caption">
+      <segment state="translated">
+        <source>parts_list.search_options.caption</source>
+        <target>Aktiverede søgemuligheder</target>
+      </segment>
+    </unit>
+    <unit id="biszSr8" name="attachment.table.element_type">
+      <segment state="translated">
+        <source>attachment.table.element_type</source>
+        <target>Aktiverede søgemuligheder</target>
+      </segment>
+    </unit>
+    <unit id="nUZamS5" name="log.level.debug">
+      <segment state="translated">
+        <source>log.level.debug</source>
+        <target>Debug</target>
+      </segment>
+    </unit>
+    <unit id="ZPxm2Ee" name="log.level.info">
+      <segment state="translated">
+        <source>log.level.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="NVXjDhG" name="log.level.notice">
+      <segment state="translated">
+        <source>log.level.notice</source>
+        <target>Meddelele</target>
+      </segment>
+    </unit>
+    <unit id="9ObjWuR" name="log.level.warning">
+      <segment state="translated">
+        <source>log.level.warning</source>
+        <target>Advarsel</target>
+      </segment>
+    </unit>
+    <unit id="WxMwuLP" name="log.level.error">
+      <segment state="translated">
+        <source>log.level.error</source>
+        <target>Fejl</target>
+      </segment>
+    </unit>
+    <unit id="idch78J" name="log.level.critical">
+      <segment state="translated">
+        <source>log.level.critical</source>
+        <target>Kritisk</target>
+      </segment>
+    </unit>
+    <unit id="jehoQTd" name="log.level.alert">
+      <segment state="translated">
+        <source>log.level.alert</source>
+        <target>Alarm</target>
+      </segment>
+    </unit>
+    <unit id="XvKEDM0" name="log.level.emergency">
+      <segment state="translated">
+        <source>log.level.emergency</source>
+        <target>Nødsituation</target>
+      </segment>
+    </unit>
+    <unit id="sEvRe10" name="log.type.security">
+      <segment state="translated">
+        <source>log.type.security</source>
+        <target>Sikkerhedsbegivenhed</target>
+      </segment>
+    </unit>
+    <unit id="gJDmvym" name="log.type.instock_changed">
+      <segment state="translated">
+        <source>log.type.instock_changed</source>
+        <target>[ALT] Beholdning ændret</target>
+      </segment>
+    </unit>
+    <unit id="lJZCHHM" name="log.target_id">
+      <segment state="translated">
+        <source>log.target_id</source>
+        <target>ID for målelementet</target>
+      </segment>
+    </unit>
+    <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
+      <segment state="translated">
+        <source>entity.info.parts_count_recursive</source>
+        <target>Komponenter med dette element eller dets underelementer</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Serverinfo</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Read-only</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Tillad kun read-only for data</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Alle nedarvede</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Indstil alle tilladelser til at kunne arve</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment state="translated">
+        <source>permission.preset.all_forbid</source>
+        <target>Forbyd alle</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment state="translated">
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Indstil alle tilladelser til Ikke tilladt</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment state="translated">
+        <source>permission.preset.all_allow</source>
+        <target>Tillad alle</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment state="translated">
+        <source>permission.preset.all_allow.desc</source>
+        <target>Indstill alle tilladelser til Tilladt</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment state="translated">
+        <source>perm.server_infos</source>
+        <target>Serverinfo</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment state="translated">
+        <source>permission.preset.editor</source>
+        <target>Redaktør</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Tillad at komponenter og datastrukturer kan redigeres</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment state="translated">
+        <source>permission.preset.admin.desc</source>
+        <target>Tillad administrative handlinger</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Anvend skabelon</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Vis private bilag</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment state="translated">
+        <source>perm.attachments.list_attachments</source>
+        <target>Se liste over alle bilag</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment state="translated">
+        <source>user.edit.permission_success</source>
+        <target>Tilladelsesskabelon blev anvendt. Tjek, at de nye tilladelser lever op til dine forventninger.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment state="translated">
+        <source>perm.group.data</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Gennemsyn nødvendigt</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Sæt status til Gennemgang nødvændig</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Fjern Gennemganng nødvendig status</target>
+      </segment>
+    </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment state="translated">
+        <source>part.edit.ipn</source>
+        <target>Internt Partnummer (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment state="translated">
+        <source>part.ipn.not_defined</source>
+        <target>Ikke defineret</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment state="translated">
+        <source>part.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Hent valutakurs</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Valutaen understøttes ikke af valutakursudbyderen. Tjek venligst konfigurationen af ​​valutakursudbyderne.</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Valutakursen kan kke hentes. Tjek venligst konfigurationen af ​​valutakursudbyderne.</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Valutakurs hentet med succes</target>
+      </segment>
+    </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment state="translated">
+        <source>project.bom.quantity</source>
+        <target>BOM mængde</target>
+      </segment>
+    </unit>
+    <unit id="gqYIO6x" name="project.bom.mountnames">
+      <segment state="translated">
+        <source>project.bom.mountnames</source>
+        <target>Bestykningsnavn</target>
+      </segment>
+    </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment state="translated">
+        <source>project.bom.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment state="translated">
+        <source>project.bom.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment state="translated">
+        <source>project.bom.part</source>
+        <target>Komponent</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment state="translated">
+        <source>project.bom.add_entry</source>
+        <target>Tilføj post</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment state="translated">
+        <source>part_list.action.group.projects</source>
+        <target>Projekter</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment state="translated">
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Tilføj komponent til projekt</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment state="translated">
+        <source>project.bom.delete.confirm</source>
+        <target>Vil du virkeligt slette denne stykliste (BOM)?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment state="translated">
+        <source>project.add_parts_to_project</source>
+        <target>Tilføj komponenter til stykliste (BOM)</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment state="translated">
+        <source>part.info.add_part_to_project</source>
+        <target>Føj denne komponent til et projekt</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment state="translated">
+        <source>project_bom_entry.label</source>
+        <target>Registrering af BOM</target>
+      </segment>
+    </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment state="translated">
+        <source>project.edit.status</source>
+        <target>Projektstatus</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment state="translated">
+        <source>project.status.draft</source>
+        <target>Kladde</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment state="translated">
+        <source>project.status.planning</source>
+        <target>Under planlægning</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment state="translated">
+        <source>project.status.in_production</source>
+        <target>I produktion</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment state="translated">
+        <source>project.status.finished</source>
+        <target>Ophørt</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment state="translated">
+        <source>project.status.archived</source>
+        <target>Arkiveret</target>
+      </segment>
+    </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment state="translated">
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>Dette projekt har allerede en linket komponent</target>
+      </segment>
+    </unit>
+    <unit id="usGnetL" name="project.edit.associated_build_part">
+      <segment state="translated">
+        <source>project.edit.associated_build_part</source>
+        <target>Tilhørende bygge komponent</target>
+      </segment>
+    </unit>
+    <unit id="xXpskqU" name="project.edit.associated_build_part.add">
+      <segment state="translated">
+        <source>project.edit.associated_build_part.add</source>
+        <target>Tilføj bygge komponent</target>
+      </segment>
+    </unit>
+    <unit id="5rnE1fK" name="project.edit.associated_build.hint">
+      <segment state="translated">
+        <source>project.edit.associated_build.hint</source>
+        <target>Denne komponent repræsenterer de færdigbyggede forekomster af projektet, der er gemt et sted</target>
+      </segment>
+    </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment state="translated">
+        <source>part.info.projectBuildPart.hint</source>
+        <target>Denne komponent repræsenterer de byggede forekomster af det følgende projekt og er knyttet til det</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment state="translated">
+        <source>part.is_build_part</source>
+        <target>Er produktkomponent</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Projektinfo</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>Styklisteposter</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Underprojekt</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment state="translated">
+        <source>project.info.bom_add_parts</source>
+        <target>Tilføj nye styklisteposter</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment state="translated">
+        <source>project.info.sub_projects.label</source>
+        <target>Underprojekter</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment state="translated">
+        <source>project.bom.price</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Fjern komponenter fra lot</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Tilføj komponenter til lot</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Flyt komponenter til et andet lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Mængde</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Flyt til</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Du kan indtaste en kommentar her, der beskriver, hvorfor denne handling blev udført (f.eks. hvorfor denne komponent var nødvendig). Disse oplysninger gemmes i loggen.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Luk</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Indsend</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Komponenter blev fjernet/tilføjet/flyttet.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Komponentbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Fjern komponenter fra lageret</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Tilføj komponenter til lager</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Flyt komponenter mellem lagerbeholdninger</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment state="translated">
+        <source>user.permissions_schema_updated</source>
+        <target>Din brugerkontos tilladelsesliste er blevet opdateret til den seneste version.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment state="translated">
+        <source>log.type.part_stock_changed</source>
+        <target>Komponentbeholdning ændret</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment state="translated">
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Komponenter fjernet</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment state="translated">
+        <source>log.part_stock_changed.add</source>
+        <target>Komponenter tilføjet til lager</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment state="translated">
+        <source>log.part_stock_changed.move</source>
+        <target>Komponenter flyttet</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment state="translated">
+        <source>log.part_stock_changed.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment state="translated">
+        <source>log.part_stock_changed.change</source>
+        <target>Ændring</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment state="translated">
+        <source>log.part_stock_changed.move_target</source>
+        <target>Flyttet til</target>
+      </segment>
+    </unit>
+    <unit id="e2xzHIo" name="tools.builtin_footprints_viewer.title">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.title</source>
+        <target>Indbyggede Footprint billeder</target>
+      </segment>
+    </unit>
+    <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.hint</source>
+        <target>Dette galleri viser alle de inkluderede footprint-billeder. Hvis du vil bruge det i et bilag, skal du skrive navnet (eller et nøgleord) i bilagets URL-felt og vælge det ønskede billede fra rullemenuen.</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment state="translated">
+        <source>tools.ic_logos.title</source>
+        <target>IC logoer</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment state="translated">
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label</source>
+        <target>Opret labels (til komponenter)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Opret labels (til komponentbeholdning)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment state="translated">
+        <source>part_list.action.generate_label.empty</source>
+        <target>Tom label</target>
+      </segment>
+    </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment state="translated">
+        <source>project.info.builds.label</source>
+        <target>Byg</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment state="translated">
+        <source>project.builds.build_not_possible</source>
+        <target>Byg ikke mulig: Der er ikke nok komponenter tilsted for dette byg</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>Følgende komponenter har ikke nok lagerbeholdning til at bygge dette projekt mindst én gang:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment state="translated">
+        <source>project.builds.stocked</source>
+        <target>På lager</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment state="translated">
+        <source>project.builds.needed</source>
+        <target>Nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment state="translated">
+        <source>project.builds.build_possible</source>
+        <target>Der kan laves et byg</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment state="translated">
+        <source>project.builds.number_of_builds_possible</source>
+        <target>Du har nok komponenter på lager til at bygge &lt;b&gt;%max_builds%&lt;/b&gt; kopier af dette projekt.</target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment state="translated">
+        <source>project.builds.check_project_status</source>
+        <target>Den aktuelle projektstatus er &lt;b&gt;"%project_status%"&lt;/b&gt;. Du bør tjekke, om du virkelig vil bygge projektet med denne status!</target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>Der er ikke nok komponenter på lager til at bygge dette projekt %number_of_builds% gange. Der er ikke nok af følgende komponenter på lager.</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment state="translated">
+        <source>project.build.flash.invalid_input</source>
+        <target>Projektet kan ikke bygges. Tjek venligst dine input</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment state="translated">
+        <source>project.build.required_qty</source>
+        <target>Nødvendigt antal</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment state="translated">
+        <source>project.build.btn_build</source>
+        <target>Byg</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment state="translated">
+        <source>project.build.help</source>
+        <target>Vælg fra hvilke lagre de komponenter, der kræves til bygget skal tages (og i hvilken mængde). Marker afkrydsningsfeltet for hver styklistepost, når du har fjernet komponenterne, eller brug det øverste afkrydsningsfelt til at markere alle felterne på én gang.</target>
+      </segment>
+    </unit>
+    <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
+      <segment state="translated">
+        <source>project.build.buildsPartLot.new_lot</source>
+        <target>Opret ny beholdning</target>
+      </segment>
+    </unit>
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Tilføj byg til projekt-byg-dele</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment state="translated">
+        <source>project.build.builds_part_lot</source>
+        <target>Mål mængde</target>
+      </segment>
+    </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment state="translated">
+        <source>project.builds.number_of_builds</source>
+        <target>Byg antal</target>
+      </segment>
+    </unit>
+    <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
+      <segment state="translated">
+        <source>project.builds.no_stocked_builds</source>
+        <target>Antal gemte byg-instanser</target>
+      </segment>
+    </unit>
+    <unit id="Mken7uv" name="user.change_avatar.label">
+      <segment state="translated">
+        <source>user.change_avatar.label</source>
+        <target>Ændr profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="QFNPD0_" name="user_settings.change_avatar.label">
+      <segment state="translated">
+        <source>user_settings.change_avatar.label</source>
+        <target>Ændre profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
+      <segment state="translated">
+        <source>user_settings.remove_avatar.label</source>
+        <target>Fjern profilbillede</target>
+      </segment>
+    </unit>
+    <unit id="Y1Aes28" name="part.edit.name.category_hint">
+      <segment state="translated">
+        <source>part.edit.name.category_hint</source>
+        <target>tip fra kategori</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment state="translated">
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>f.eks. "/Kondensator \d+ nF/i"</target>
+      </segment>
+    </unit>
+    <unit id="QFgP__5" name="category.edit.partname_regex.help">
+      <segment state="translated">
+        <source>category.edit.partname_regex.help</source>
+        <target>Et PCRE-kompatibelt regulært udtryk, som delnavnet skal opfylde.</target>
+      </segment>
+    </unit>
+    <unit id="vr7oZKL" name="entity.select.add_hint">
+      <segment state="translated">
+        <source>entity.select.add_hint</source>
+        <target>Brug -&gt; for at oprette under-strukturer, f.eks. "Element 1-&gt;Element 1.1"</target>
+      </segment>
+    </unit>
+    <unit id="_cXCaLo" name="entity.select.group.new_not_added_to_DB">
+      <segment state="translated">
+        <source>entity.select.group.new_not_added_to_DB</source>
+        <target>Ny (endnu ikke tilføjet til database)</target>
+      </segment>
+    </unit>
+    <unit id="i6.vjBW" name="part.edit.save_and_new">
+      <segment state="translated">
+        <source>part.edit.save_and_new</source>
+        <target>Gem og opret en ny tom komponent</target>
+      </segment>
+    </unit>
+    <unit id="q2IWd9b" name="homepage.first_steps.title">
+      <segment state="translated">
+        <source>homepage.first_steps.title</source>
+        <target>Første skridt</target>
+      </segment>
+    </unit>
+    <unit id="qoK8lss" name="homepage.first_steps.introduction">
+      <segment state="translated">
+        <source>homepage.first_steps.introduction</source>
+        <target>Databasen er i øjeblikket tom. Du vil måske læse &lt;a href="%url%"&gt;dokumentationen&lt;/a&gt; eller begynde at oprette følgende datastrukturer.</target>
+      </segment>
+    </unit>
+    <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
+      <segment state="translated">
+        <source>homepage.first_steps.create_part</source>
+        <target>Eller du kan direkte oprette en &lt;a href="%url%"&gt;ny komponent&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment state="translated">
+        <source>homepage.first_steps.hide_hint</source>
+        <target>Denne meddelelse vil blive skjult, når du har oprettet den første komponent.</target>
+      </segment>
+    </unit>
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>For spørgsmål om Part-DB, brug &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;diskussionsforummet&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="qmnrptL" name="log.element_edited.changed_fields.category">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.category</source>
+        <target>Kategori</target>
+      </segment>
+    </unit>
+    <unit id="h2yNq58" name="log.element_edited.changed_fields.footprint">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="TYrqEhh" name="log.element_edited.changed_fields.manufacturer">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="gD7hYx2" name="log.element_edited.changed_fields.value_typical">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_typical</source>
+        <target>typ. værdi</target>
+      </segment>
+    </unit>
+    <unit id="0I9yC96" name="log.element_edited.changed_fields.pw_reset_expires">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.pw_reset_expires</source>
+        <target>Nulstil password</target>
+      </segment>
+    </unit>
+    <unit id="0yxA3bg" name="log.element_edited.changed_fields.comment">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="ZX180Uu" name="log.element_edited.changed_fields.supplierpartnr">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplierpartnr</source>
+        <target>Leverandør part-nummer</target>
+      </segment>
+    </unit>
+    <unit id="Bzp4a3p" name="log.element_edited.changed_fields.supplier_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.supplier_product_url</source>
+        <target>Produkt URL</target>
+      </segment>
+    </unit>
+    <unit id="X2KjgsJ" name="log.element_edited.changed_fields.price">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.price</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="zlKYtvI" name="log.element_edited.changed_fields.min_discount_quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.min_discount_quantity</source>
+        <target>Minimum ordremængde</target>
+      </segment>
+    </unit>
+    <unit id="IrL23Tw" name="log.element_edited.changed_fields.original_filename">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.original_filename</source>
+        <target>Originalt bilagsnavn, filnavn</target>
+      </segment>
+    </unit>
+    <unit id="qvgIER7" name="log.element_edited.changed_fields.path">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.path</source>
+        <target>Sti</target>
+      </segment>
+    </unit>
+    <unit id="B7rbOAi" name="log.element_edited.changed_fields.description">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.description</source>
+        <target>Beskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="iRpQ.r4" name="log.element_edited.changed_fields.manufacturing_status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturing_status</source>
+        <target>Fabrikantstatus</target>
+      </segment>
+    </unit>
+    <unit id="aQlVtZN" name="log.element_edited.changed_fields.options.barcode_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.barcode_type</source>
+        <target>Barcode type</target>
+      </segment>
+    </unit>
+    <unit id="GrbTB8Q" name="log.element_edited.changed_fields.status">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="2MH9WjL" name="log.element_edited.changed_fields.quantity">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.quantity</source>
+        <target>BOM antal</target>
+      </segment>
+    </unit>
+    <unit id="XRhN7QN" name="log.element_edited.changed_fields.mountnames">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mountnames</source>
+        <target>Montagenavne</target>
+      </segment>
+    </unit>
+    <unit id="j5npGa6" name="log.element_edited.changed_fields.name">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="EippsOk" name="log.element_edited.changed_fields.iso_code">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.iso_code</source>
+        <target>ISO-kode</target>
+      </segment>
+    </unit>
+    <unit id="JPVZRzH" name="log.element_edited.changed_fields.unit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.unit</source>
+        <target>Enhedssymbol</target>
+      </segment>
+    </unit>
+    <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.is_integer</source>
+        <target>Er heltal</target>
+      </segment>
+    </unit>
+    <unit id="XkLHxqf" name="log.element_edited.changed_fields.use_si_prefix">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.use_si_prefix</source>
+        <target>Benyt SI-præfiks</target>
+      </segment>
+    </unit>
+    <unit id="bgeqM2B" name="log.element_edited.changed_fields.options.width">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.width</source>
+        <target>Bredde</target>
+      </segment>
+    </unit>
+    <unit id="UJNmG3d" name="log.element_edited.changed_fields.options.height">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.height</source>
+        <target>Højde</target>
+      </segment>
+    </unit>
+    <unit id="M7z_SCq" name="log.element_edited.changed_fields.options.supported_element">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.options.supported_element</source>
+        <target>Elementtype</target>
+      </segment>
+    </unit>
+    <unit id="fjo2JY_" name="log.element_edited.changed_fields.mass">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mass</source>
+        <target>Masse</target>
+      </segment>
+    </unit>
+    <unit id="f7YI8uk" name="log.element_edited.changed_fields.ipn">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="vAHGo60" name="log.element_edited.changed_fields.favorite">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="TUBvDxJ" name="log.element_edited.changed_fields.minamount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.minamount</source>
+        <target>Minimum lagerbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="pVJ9vgg" name="log.element_edited.changed_fields.manufacturer_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_url</source>
+        <target>Link til produktside</target>
+      </segment>
+    </unit>
+    <unit id="JW.PgxU" name="log.element_edited.changed_fields.manufacturer_product_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_number</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="tV.PNy_" name="log.element_edited.changed_fields.partUnit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partUnit</source>
+        <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.expiration_date</source>
+        <target>Udløbsdato</target>
+      </segment>
+    </unit>
+    <unit id="cPY3MD7" name="log.element_edited.changed_fields.amount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.amount</source>
+        <target>Mængde</target>
+      </segment>
+    </unit>
+    <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_location</source>
+        <target>Lagerlokation</target>
+      </segment>
+    </unit>
+    <unit id="Qt585vm" name="attachment.max_file_size">
+      <segment state="translated">
+        <source>attachment.max_file_size</source>
+        <target>Maksimum bilagsstørrelse</target>
+      </segment>
+    </unit>
+    <unit id="tkkbiag" name="user.saml_user">
+      <segment state="translated">
+        <source>user.saml_user</source>
+        <target>SSO / SAML Bruger</target>
+      </segment>
+    </unit>
+    <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
+      <segment state="translated">
+        <source>user.saml_user.pw_change_hint</source>
+        <target>Du bruger Single Sign-On (SSO) til at logge ind. Du kan derfor ikke konfigurere dit password og to-faktor godkendelse her. Brug i stedet det centrale websted for din SSO-udbyder!</target>
+      </segment>
+    </unit>
+    <unit id="32beTBH" name="login.sso_saml_login">
+      <segment state="translated">
+        <source>login.sso_saml_login</source>
+        <target>Single Sign-On Login (SSO)</target>
+      </segment>
+    </unit>
+    <unit id="wnMLanX" name="login.local_login_hint">
+      <segment state="translated">
+        <source>login.local_login_hint</source>
+        <target>Nedenstående formular kan kun bruges til at logge ind med en lokal bruger. Ønsker du i stedet at logge ind via single sign-on, skal du bruge knappen ovenfor.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment state="translated">
+        <source>part_list.action.action.export</source>
+        <target>Eksporter komponenter</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment state="translated">
+        <source>part_list.action.export_json</source>
+        <target>Eksporter som JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment state="translated">
+        <source>part_list.action.export_csv</source>
+        <target>Eksporter som CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment state="translated">
+        <source>part_list.action.export_yaml</source>
+        <target>Esporter som YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment state="translated">
+        <source>part_list.action.export_xml</source>
+        <target>Eksporter som XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment state="translated">
+        <source>parts.import.title</source>
+        <target>Importer kompenter</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment state="translated">
+        <source>parts.import.errors.title</source>
+        <target>Problemer ved import</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment state="translated">
+        <source>parts.import.flash.error</source>
+        <target>Der opstod fejl under eksport. Dette skyldes sandsynligvis fejlbehæftede data.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment state="translated">
+        <source>parts.import.format.auto</source>
+        <target>Automatisk (baseret på endelsen på bilagsnavnet)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment state="translated">
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Formatet kunne ikke bestemmes automatisk. Vælg venligst det korrekte format manuelt!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment state="translated">
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>Bilaget er beskadiget/forkert formateret. Tjek, at du har valgt det rigtige format.</target>
+      </segment>
+    </unit>
+    <unit id="ih.wsVn" name="parts.import.part_category.label">
+      <segment state="translated">
+        <source>parts.import.part_category.label</source>
+        <target>Gennemtving kategori</target>
+      </segment>
+    </unit>
+    <unit id="mLczcax" name="parts.import.part_category.help">
+      <segment state="translated">
+        <source>parts.import.part_category.help</source>
+        <target>Hvis du vælger en kategori her, vil alle importerede komponenter blive tildelt denne kategori, uanset hvad der er i importdataene.</target>
+      </segment>
+    </unit>
+    <unit id="W09n3nV" name="import.create_unknown_datastructures">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures</source>
+        <target>Opret ukendte datastrukturer</target>
+      </segment>
+    </unit>
+    <unit id="QkzTk.8" name="import.create_unknown_datastructures.help">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures.help</source>
+        <target>Hvis denne mulighed er valgt, oprettes automatisk datastrukturer (f.eks. kategorier, footprints osv.), som endnu ikke findes i databasen. Hvis denne mulighed ikke er valgt, vil kun datastrukturer, der allerede findes i databasen, blive brugt. Og hvis der ikke findes en passende struktur, vil det tilsvarende felt for komponenten stå tomt.</target>
+      </segment>
+    </unit>
+    <unit id="p6fTkCQ" name="import.path_delimiter">
+      <segment state="translated">
+        <source>import.path_delimiter</source>
+        <target>Stibegrænser</target>
+      </segment>
+    </unit>
+    <unit id="gSn6XRk" name="import.path_delimiter.help">
+      <segment state="translated">
+        <source>import.path_delimiter.help</source>
+        <target>Afgrænseren bruges til at adskille de forskellige niveauer af datastrukturer (såsom kategorier, footprint osv.) i stispecifikationer.</target>
+      </segment>
+    </unit>
+    <unit id="aNR2tK9" name="parts.import.help_documentation">
+      <segment state="translated">
+        <source>parts.import.help_documentation</source>
+        <target>Se &lt;a href="%link%"&gt;dokumentationen&lt;/a&gt; for mere information om bilagsformatet.</target>
+      </segment>
+    </unit>
+    <unit id="bOHORjK" name="parts.import.help">
+      <segment state="translated">
+        <source>parts.import.help</source>
+        <target>Med dette værktøj kan du importere komponenter fra eksisterende bilag. Komponenterne gemmes direkte i databasen (uden mulighed for at kontrollere dem igen på forhånd). Tjek venligst din importfil her, før du uploader!</target>
+      </segment>
+    </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment state="translated">
+        <source>parts.import.flash.success</source>
+        <target>Komponentimport lykkedes</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment state="translated">
+        <source>parts.import.errors.imported_entities</source>
+        <target>Importerde komponenter</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment state="translated">
+        <source>perm.import</source>
+        <target>Importer data</target>
+      </segment>
+    </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.label</source>
+        <target>Marker alle komponenter som "Gennnemgang nødvendig"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Hvis denne mulighed er valgt, vil alle dele blive markeret som "Kræver gennemgang", uanset hvad der blev angivet i dataene.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>%count% BOM Einträge erfolgreich importiert.
+​
+Oversæt med stemmen
+44 / 5.000
+Oversættelsesresultater
+Oversættelsen
+%count% styklisteposter blev importeret.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV fil)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>let eksisterende styklisteposter før import</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Hvis denne mulighed er valgt, vil alle styklisteposter, der allerede findes i projektet, blive slettet og overskrevet med de importerede styklistedata.</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>Filen kunne ikke importeres. Tjek, at du har valgt den korrekte bilagstype. Fejlmeddelelse: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Valideringsfejl! Tjek venligst den importerede fil!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment state="translated">
+        <source>project.import_bom</source>
+        <target>Importer stykliste til projekt</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment state="translated">
+        <source>project.edit.bom.import_bom</source>
+        <target>Importer BOM</target>
+      </segment>
+    </unit>
+    <unit id="qDVJg2i" name="measurement_unit.new">
+      <segment state="translated">
+        <source>measurement_unit.new</source>
+        <target>Ny måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="WKzr7h0" name="measurement_unit.edit">
+      <segment state="translated">
+        <source>measurement_unit.edit</source>
+        <target>Ret måleenhed</target>
       </segment>
     </unit>
   </file>
