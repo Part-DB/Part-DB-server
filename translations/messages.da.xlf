@@ -10448,6 +10448,18 @@ Element 3</target>
         <target>Navn</target>
       </segment>
     </unit>
+    <unit id="NjHccov" name="log.element_edited.changed_fields.part">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.part</source>
+        <target>Komponent</target>
+      </segment>
+    </unit>
+    <unit id="SCBolPs" name="log.element_edited.changed_fields.price_currency">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.price_currency</source>
+        <target>prisens valuta</target>
+      </segment>
+    </unit>
     <unit id="EippsOk" name="log.element_edited.changed_fields.iso_code">
       <segment state="translated">
         <source>log.element_edited.changed_fields.iso_code</source>
