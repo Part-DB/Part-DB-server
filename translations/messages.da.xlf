@@ -9,7 +9,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Forespørgsel</target>
+        <target>Bilags datatyper</target>
       </segment>
     </unit>
     <unit id="5cpaOO8" name="attachment_type.edit">
@@ -19,7 +19,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.edit</source>
-        <target>Ret filtype</target>
+        <target>Ret bilags filtype</target>
       </segment>
     </unit>
     <unit id="v83r0Yh" name="attachment_type.new">
@@ -11264,6 +11264,138 @@ Oversættelsen
         <target>Fortryd</target>
       </segment>
     </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment state="translated">
+        <source>log.undo.revert.short</source>
+        <target>Vend tilbage til version</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment state="translated">
+        <source>log.view_version</source>
+        <target>Vis version</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment state="translated">
+        <source>log.undo.undelete.short</source>
+        <target>Gendan</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Ejer</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Overordnet element</target>
+      </segment>
+    </unit>
+    <unit id="GUthgcU" name="log.details.delete_entry">
+      <segment state="translated">
+        <source>log.details.delete_entry</source>
+        <target>Slet logpost</target>
+      </segment>
+    </unit>
+    <unit id="Wv0WAmO" name="log.delete.message.title">
+      <segment state="translated">
+        <source>log.delete.message.title</source>
+        <target>Vil du virkelig slette denne logpost?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment state="translated">
+        <source>log.delete.message</source>
+        <target>Hvis dette er en historikindgang for et element, vil sletning af det resultere i tab af historikdata! Dette kan give uventede resultater, når du bruger tidsrejsefunktionen.</target>
+      </segment>
+    </unit>
+    <unit id="P.c4WmY" name="log.collection_deleted.on_collection">
+      <segment state="translated">
+        <source>log.collection_deleted.on_collection</source>
+        <target>i samling</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Bilag</target>
+      </segment>
+    </unit>
+    <unit id="DGczoY6" name="tfa_u2f.add_key.registration_error">
+      <segment state="translated">
+        <source>tfa_u2f.add_key.registration_error</source>
+        <target>Der opstod en fejl under registrering af sikkerhedsnøgle. Prøv igen, eller brug en anden nøgle!</target>
+      </segment>
+    </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment state="translated">
+        <source>log.target_type.none</source>
+        <target>Ingen</target>
+      </segment>
+    </unit>
+    <unit id="R2nX4ip" name="ui.darkmode.light">
+      <segment state="translated">
+        <source>ui.darkmode.light</source>
+        <target>Lys</target>
+      </segment>
+    </unit>
+    <unit id="3NHpuW3" name="ui.darkmode.dark">
+      <segment state="translated">
+        <source>ui.darkmode.dark</source>
+        <target>Mørk</target>
+      </segment>
+    </unit>
+    <unit id="4TGOK5_" name="ui.darkmode.auto">
+      <segment state="translated">
+        <source>ui.darkmode.auto</source>
+        <target>Auto (baseret på systemindstillinger)</target>
+      </segment>
+    </unit>
+    <unit id="9N0N8aL" name="label_generator.no_lines_given">
+      <segment state="translated">
+        <source>label_generator.no_lines_given</source>
+        <target>Intet tekstindhold angivet! De oprettede etiketter vil være tomme.</target>
+      </segment>
+    </unit>
+    <unit id="RdFvZsb" name="user.password_strength.very_weak">
+      <segment state="translated">
+        <source>user.password_strength.very_weak</source>
+        <target>Meget svag</target>
+      </segment>
+    </unit>
+    <unit id="IBjmblZ" name="user.password_strength.weak">
+      <segment state="translated">
+        <source>user.password_strength.weak</source>
+        <target>Svag</target>
+      </segment>
+    </unit>
+    <unit id="qSm_ID0" name="user.password_strength.medium">
+      <segment state="translated">
+        <source>user.password_strength.medium</source>
+        <target>Middel</target>
+      </segment>
+    </unit>
+    <unit id="aWAaADS" name="user.password_strength.strong">
+      <segment state="translated">
+        <source>user.password_strength.strong</source>
+        <target>Stærk</target>
+      </segment>
+    </unit>
+    <unit id="Wa9CStW" name="user.password_strength.very_strong">
+      <segment state="translated">
+        <source>user.password_strength.very_strong</source>
+        <target>Meget stærk</target>
+      </segment>
+    </unit>
     <unit id="6OHd5fv" name="perm.users.impersonate">
       <segment state="translated">
         <source>perm.users.impersonate</source>
@@ -11462,6 +11594,606 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>update_manager.new_version_available.text</source>
         <target>En ny version af Part-DB er tilgængelig. Her finder du mere information</target>
+      </segment>
+    </unit>
+    <unit id="KOFGqJw" name="update_manager.new_version_available.only_administrators_can_see">
+      <segment state="translated">
+        <source>update_manager.new_version_available.only_administrators_can_see</source>
+        <target>Kun administratorer kan se denne meddelelse</target>
+      </segment>
+    </unit>
+    <unit id="IFkvJpC" name="perm.system.show_available_updates">
+      <segment state="translated">
+        <source>perm.system.show_available_updates</source>
+        <target>Vis tilgængelige Part-DB opdateringer</target>
+      </segment>
+    </unit>
+    <unit id="bItnXAm" name="user.settings.api_tokens">
+      <segment state="translated">
+        <source>user.settings.api_tokens</source>
+        <target>API token</target>
+      </segment>
+    </unit>
+    <unit id="stkMDET" name="user.settings.api_tokens.description">
+      <segment state="translated">
+        <source>user.settings.api_tokens.description</source>
+        <target>Ved at bruge et API-token kan andre applikationer få adgang til Part-DB med deres brugerrettigheder til at udføre forskellige handlinger ved hjælp af Part-DB REST API. Hvis du sletter et API-token, kan det program, der bruger token'et, ikke længere få adgang til Part-DB på dets vegne.</target>
+      </segment>
+    </unit>
+    <unit id="pd794fq" name="api_tokens.name">
+      <segment state="translated">
+        <source>api_tokens.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="XodVxQi" name="api_tokens.access_level">
+      <segment state="translated">
+        <source>api_tokens.access_level</source>
+        <target>Adgangsniveau</target>
+      </segment>
+    </unit>
+    <unit id="kHaDSpK" name="api_tokens.expiration_date">
+      <segment state="translated">
+        <source>api_tokens.expiration_date</source>
+        <target>Udløbsdato</target>
+      </segment>
+    </unit>
+    <unit id="b5uLOjr" name="api_tokens.added_date">
+      <segment state="translated">
+        <source>api_tokens.added_date</source>
+        <target>Oprettet den</target>
+      </segment>
+    </unit>
+    <unit id="QPwuYKl" name="api_tokens.last_time_used">
+      <segment state="translated">
+        <source>api_tokens.last_time_used</source>
+        <target>Sidste anvendelse</target>
+      </segment>
+    </unit>
+    <unit id="G91glEH" name="datetime.never">
+      <segment state="translated">
+        <source>datetime.never</source>
+        <target>Aldrig</target>
+      </segment>
+    </unit>
+    <unit id="xPeKpJU" name="api_token.valid">
+      <segment state="translated">
+        <source>api_token.valid</source>
+        <target>Gyldig</target>
+      </segment>
+    </unit>
+    <unit id="jlBlmje" name="api_token.expired">
+      <segment state="translated">
+        <source>api_token.expired</source>
+        <target>Udløbet</target>
+      </segment>
+    </unit>
+    <unit id="Kmdx4SB" name="user.settings.show_api_documentation">
+      <segment state="translated">
+        <source>user.settings.show_api_documentation</source>
+        <target>Vis API dokumentation</target>
+      </segment>
+    </unit>
+    <unit id="hAUCZVo" name="api_token.create_new">
+      <segment state="translated">
+        <source>api_token.create_new</source>
+        <target>Opret nyt API token</target>
+      </segment>
+    </unit>
+    <unit id="eX17pK8" name="api_token.level.read_only">
+      <segment state="translated">
+        <source>api_token.level.read_only</source>
+        <target>Read-only</target>
+      </segment>
+    </unit>
+    <unit id="PMVjK5p" name="api_token.level.edit">
+      <segment state="translated">
+        <source>api_token.level.edit</source>
+        <target>Ret</target>
+      </segment>
+    </unit>
+    <unit id="1dVnGpy" name="api_token.level.admin">
+      <segment state="translated">
+        <source>api_token.level.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="gY4wVwS" name="api_token.level.full">
+      <segment state="translated">
+        <source>api_token.level.full</source>
+        <target>Fuld</target>
+      </segment>
+    </unit>
+    <unit id="OAFErYa" name="api_tokens.access_level.help">
+      <segment state="translated">
+        <source>api_tokens.access_level.help</source>
+        <target>Dette giver dig mulighed for at begrænse, hvad API-tokenet giver adgang til. Adgang er altid begrænset af brugerens tilladelser.</target>
+      </segment>
+    </unit>
+    <unit id="Xjs_v91" name="api_tokens.expiration_date.help">
+      <segment state="translated">
+        <source>api_tokens.expiration_date.help</source>
+        <target>Efter denne dato vil tokenet ikke længere være brugbart. Hvis dette felt efterlades tomt, vil tokenet aldrig udløbe.</target>
+      </segment>
+    </unit>
+    <unit id="0e7mD8q" name="api_tokens.your_token_is">
+      <segment state="translated">
+        <source>api_tokens.your_token_is</source>
+        <target>Dit API token er</target>
+      </segment>
+    </unit>
+    <unit id="nre_kP_" name="api_tokens.please_save_it">
+      <segment state="translated">
+        <source>api_tokens.please_save_it</source>
+        <target>Gem venligst dette. Du vil ikke kunne se det igen!</target>
+      </segment>
+    </unit>
+    <unit id="b17FeDX" name="api_tokens.create_new.back_to_user_settings">
+      <segment state="translated">
+        <source>api_tokens.create_new.back_to_user_settings</source>
+        <target>Tilbage til brugerindstillinger</target>
+      </segment>
+    </unit>
+    <unit id="VVpmfIj" name="project.build.dont_check_quantity">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity</source>
+        <target>Kontrollerer ikke mængder</target>
+      </segment>
+    </unit>
+    <unit id="AzYSIiX" name="project.build.dont_check_quantity.help">
+      <segment state="translated">
+        <source>project.build.dont_check_quantity.help</source>
+        <target>Hvis denne mulighed er valgt, vil de valgte mængder blive fjernet fra lageret, uanset om der er flere eller færre komponenter, end der reelt er nødvendige for at bygge projektet.</target>
+      </segment>
+    </unit>
+    <unit id="tfOeMsC" name="part_list.action.invert_selection">
+      <segment state="translated">
+        <source>part_list.action.invert_selection</source>
+        <target>Inverter valg</target>
+      </segment>
+    </unit>
+    <unit id="vvmdRvD" name="perm.api">
+      <segment state="translated">
+        <source>perm.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="VrWd7Fb" name="perm.api.access_api">
+      <segment state="translated">
+        <source>perm.api.access_api</source>
+        <target>API adgang</target>
+      </segment>
+    </unit>
+    <unit id="hLOM1pt" name="perm.api.manage_tokens">
+      <segment state="translated">
+        <source>perm.api.manage_tokens</source>
+        <target>Administrer API-tokens</target>
+      </segment>
+    </unit>
+    <unit id="dH8PTLd" name="user.settings.api_tokens.delete.title">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.title</source>
+        <target>Er du sikker på, at du vil slette dette API-token?</target>
+      </segment>
+    </unit>
+    <unit id="1QAaz2a" name="user.settings.api_tokens.delete">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="bE8wV70" name="user.settings.api_tokens.delete.message">
+      <segment state="translated">
+        <source>user.settings.api_tokens.delete.message</source>
+        <target>Den applikation, der bruger dette token, vil ikke længere have adgang til Part-DB. Dette kan ikke fortrydes!</target>
+      </segment>
+    </unit>
+    <unit id="sLAzIhh" name="api_tokens.deleted">
+      <segment state="translated">
+        <source>api_tokens.deleted</source>
+        <target>API-token blev fjernet!</target>
+      </segment>
+    </unit>
+    <unit id="TFTBy25" name="user.settings.api_tokens.no_api_tokens_yet">
+      <segment state="translated">
+        <source>user.settings.api_tokens.no_api_tokens_yet</source>
+        <target>Ingen API-tokens er blevet oprettet endnu.</target>
+      </segment>
+    </unit>
+    <unit id="8EdFeb6" name="api_token.ends_with">
+      <segment state="translated">
+        <source>api_token.ends_with</source>
+        <target>Ender med</target>
+      </segment>
+    </unit>
+    <unit id="SgLdhCl" name="entity.select.creating_new_entities_not_allowed">
+      <segment state="translated">
+        <source>entity.select.creating_new_entities_not_allowed</source>
+        <target>Du er ikke autoriseret til at oprette nye elementer af denne type! Vælg venligst et givet element.</target>
+      </segment>
+    </unit>
+    <unit id="eUQd7dA" name="scan_dialog.mode">
+      <segment state="translated">
+        <source>scan_dialog.mode</source>
+        <target>Barcode type</target>
+      </segment>
+    </unit>
+    <unit id="7lPD8GF" name="scan_dialog.mode.auto">
+      <segment state="translated">
+        <source>scan_dialog.mode.auto</source>
+        <target>Automatisk genkendelse</target>
+      </segment>
+    </unit>
+    <unit id=".q3g3eL" name="scan_dialog.mode.ipn">
+      <segment state="translated">
+        <source>scan_dialog.mode.ipn</source>
+        <target>IPN barcode</target>
+      </segment>
+    </unit>
+    <unit id="jvHD3DB" name="scan_dialog.mode.internal">
+      <segment state="translated">
+        <source>scan_dialog.mode.internal</source>
+        <target>Part-DB barcode</target>
+      </segment>
+    </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment state="translated">
+        <source>part_association.label</source>
+        <target>Komponentforbindelse</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment state="translated">
+        <source>part.edit.tab.associations</source>
+        <target>Forbundne komponenter</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment state="translated">
+        <source>part_association.edit.other_part</source>
+        <target>Forbunden komponent</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment state="translated">
+        <source>part_association.edit.type</source>
+        <target>type relation</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment state="translated">
+        <source>part_association.edit.comment</source>
+        <target>Noter</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment state="translated">
+        <source>part_association.edit.type.help</source>
+        <target>Her kan du vælge hvilken type forbindelse komponenterne har.</target>
+      </segment>
+    </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment state="translated">
+        <source>part_association.table.from_this_part</source>
+        <target>Links fra denne komponent til andre</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment state="translated">
+        <source>part_association.table.from</source>
+        <target>Fra</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment state="translated">
+        <source>part_association.table.type</source>
+        <target>Relation</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment state="translated">
+        <source>part_association.table.to</source>
+        <target>Til</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment state="translated">
+        <source>part_association.type.compatible</source>
+        <target>Er kompatibel med</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment state="translated">
+        <source>part_association.table.to_this_part</source>
+        <target>Links til denne komponent fra andre</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment state="translated">
+        <source>part_association.type.other</source>
+        <target>Andet (egen værdi)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment state="translated">
+        <source>part_association.type.supersedes</source>
+        <target>Erstatter</target>
+      </segment>
+    </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment state="translated">
+        <source>part_association.edit.other_type</source>
+        <target>brugerdefineret type</target>
+      </segment>
+    </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment state="translated">
+        <source>part_association.edit.delete.confirm</source>
+        <target>Er du sikker på, at du vil slette denne genvej? Dette kan ikke fortrydes.</target>
+      </segment>
+    </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment state="translated">
+        <source>part_lot.edit.advanced</source>
+        <target>Vis avancerede muligheder</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Leverandør barcode</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment state="translated">
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>Hvis denne beholdning allerede har en stregkode (f.eks. påført af leverandøren), kan du indtaste stregkodens indhold her, så du kan finde denne beholdning ved at scanne stregkoden.</target>
+      </segment>
+    </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment state="translated">
+        <source>scan_dialog.mode.vendor</source>
+        <target>Leverandørstregkode (konfigureret i komponentbeholdning)</target>
+      </segment>
+    </unit>
+    <unit id="ilCTQni" name="project.bom.instockAmount">
+      <segment state="translated">
+        <source>project.bom.instockAmount</source>
+        <target>Lagerantal</target>
+      </segment>
+    </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment state="translated">
+        <source>collection_type.new_element.tooltip</source>
+        <target>Dette element er nyoprettet og er endnu ikke gemt i databasen.</target>
+      </segment>
+    </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment state="translated">
+        <source>part.merge.title</source>
+        <target>Sammenflæt komponent</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment state="translated">
+        <source>part.merge.title.into</source>
+        <target>sammen til</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment state="translated">
+        <source>part.merge.confirm.title</source>
+        <target>Er du sikker på at du vil sammenflætte &lt;b&gt;%other%&lt;/b&gt; til &lt;b&gt;%target%&lt;/b&gt;?</target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment state="translated">
+        <source>part.merge.confirm.message</source>
+        <target>&lt;b&gt;%other%&lt;/b&gt; vil blive slettet, og komponenten vil blive gemt med den viste informaton.</target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment state="translated">
+        <source>part.info.merge_modal.title</source>
+        <target>Sammenflæt kompontenter</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_part</source>
+        <target>Andet komponent</target>
+      </segment>
+    </unit>
+    <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
+      <segment state="translated">
+        <source>part.info.merge_modal.other_into_this</source>
+        <target>Sammenflet anden komponent ind i denne (slet anden komponent, behold denne)</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment state="translated">
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Flet denne komponent til en anden (slet denne komponent, behold en anden)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment state="translated">
+        <source>part.info.merge_btn</source>
+        <target>Sammenflæt komponent</target>
+      </segment>
+    </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Opdater komponent fra informationskilden</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment state="translated">
+        <source>info_providers.update_part.title</source>
+        <target>Opdater komponent fra informationskilden</target>
+      </segment>
+    </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment state="translated">
+        <source>part.merge.flash.please_review</source>
+        <target>Data er endnu ikke blevet gemt. Gennemgå ændringerne, og klik på Gem for at gemme dataene.</target>
+      </segment>
+    </unit>
+    <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
+      <segment state="translated">
+        <source>user.edit.flash.permissions_fixed</source>
+        <target>De nødvendige tilladelser til andre tilladelser manglede. Dette er blevet rettet. Tjek venligst, om tilladelserne svarer til dine krav.</target>
+      </segment>
+    </unit>
+    <unit id="gjo2ZK7" name="permission.legend.dependency_note">
+      <segment state="translated">
+        <source>permission.legend.dependency_note</source>
+        <target>Bemærk venligst, at nogle autorisationsoperationer afhænger af hinanden. Hvis du modtager en advarsel om, at manglende tilladelser er blevet rettet, og en tilladelse er blevet sat tilbage til tilladt, skal du også indstille den afhængige handling til forbudt. Afhængighederne er normalt placeret til højre for en operation.</target>
+      </segment>
+    </unit>
+    <unit id="VFdWqOX" name="log.part_stock_changed.timestamp">
+      <segment state="translated">
+        <source>log.part_stock_changed.timestamp</source>
+        <target>Tidspunkt</target>
+      </segment>
+    </unit>
+    <unit id="Hj7NX8C" name="part.info.withdraw_modal.timestamp">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp</source>
+        <target>Handlingstidspunkt</target>
+      </segment>
+    </unit>
+    <unit id="USYGK0J" name="part.info.withdraw_modal.timestamp.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.timestamp.hint</source>
+        <target>Dette felt giver dig mulighed for at angive den faktiske dato, da lageroperationen rent faktisk blev udført, ikke kun datoen, hvor den blev logget. Denne værdi gemmes i det ekstra felt i logposten.</target>
+      </segment>
+    </unit>
+    <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.delete_lot_if_empty</source>
+        <target>Slet denne beholdning, når den bliver tom under drift</target>
+      </segment>
+    </unit>
+    <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.client_exception</source>
+        <target>Der opstod en fejl under kommunikationen med informationsudbyderen. Gennemgå konfigurationen for denne udbyder, og forny OAuth-token'erne, hvis det er muligt.</target>
+      </segment>
+    </unit>
+    <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
+      <segment state="translated">
+        <source>eda_info.reference_prefix.placeholder</source>
+        <target>f.eks. R</target>
+      </segment>
+    </unit>
+    <unit id="3nLUWrL" name="eda_info.reference_prefix">
+      <segment state="translated">
+        <source>eda_info.reference_prefix</source>
+        <target>Referencepræfiks</target>
+      </segment>
+    </unit>
+    <unit id="OTQU79e" name="eda_info.kicad_section.title">
+      <segment state="translated">
+        <source>eda_info.kicad_section.title</source>
+        <target>KiCad specifikke indstillinger</target>
+      </segment>
+    </unit>
+    <unit id="_Z4ARu6" name="eda_info.value">
+      <segment state="translated">
+        <source>eda_info.value</source>
+        <target>Værdi</target>
+      </segment>
+    </unit>
+    <unit id="k5gOKhU" name="eda_info.value.placeholder">
+      <segment state="translated">
+        <source>eda_info.value.placeholder</source>
+        <target>f.eks. 100n</target>
+      </segment>
+    </unit>
+    <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
+      <segment state="translated">
+        <source>eda_info.exclude_from_bom</source>
+        <target>Udelad komponent fra stykliste (BOM)</target>
+      </segment>
+    </unit>
+    <unit id="jDHzKDL" name="eda_info.exclude_from_board">
+      <segment state="translated">
+        <source>eda_info.exclude_from_board</source>
+        <target>Udelad komponent fra PCB/Print</target>
+      </segment>
+    </unit>
+    <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
+      <segment state="translated">
+        <source>eda_info.exclude_from_sim</source>
+        <target>Udelad komponent fra simulering</target>
+      </segment>
+    </unit>
+    <unit id="P6keLR_" name="eda_info.kicad_symbol">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol</source>
+        <target>KiCad diagramsymbol</target>
+      </segment>
+    </unit>
+    <unit id="k_xjHgN" name="eda_info.kicad_symbol.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_symbol.placeholder</source>
+        <target>f.eks. transistor_BJT:BC547</target>
+      </segment>
+    </unit>
+    <unit id="TAm88A8" name="eda_info.kicad_footprint">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint</source>
+        <target>KiCad footprint</target>
+      </segment>
+    </unit>
+    <unit id="y2hGwZr" name="eda_info.kicad_footprint.placeholder">
+      <segment state="translated">
+        <source>eda_info.kicad_footprint.placeholder</source>
+        <target>f.eks. Package_TO_SOT_THT:TO-92</target>
+      </segment>
+    </unit>
+    <unit id="2kt7qP7" name="part.edit.tab.eda">
+      <segment state="translated">
+        <source>part.edit.tab.eda</source>
+        <target>EDA information</target>
+      </segment>
+    </unit>
+    <unit id="G0dSeRY" name="api.api_endpoints.title">
+      <segment state="translated">
+        <source>api.api_endpoints.title</source>
+        <target>API endpoint</target>
+      </segment>
+    </unit>
+    <unit id="yFYyK5u" name="api.api_endpoints.partdb">
+      <segment state="translated">
+        <source>api.api_endpoints.partdb</source>
+        <target>Part-DB API</target>
+      </segment>
+    </unit>
+    <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
+      <segment state="translated">
+        <source>api.api_endpoints.kicad_root_url</source>
+        <target>KiCad API root URL</target>
+      </segment>
+    </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment state="translated">
+        <source>eda_info.visibility</source>
+        <target>Gennemtving synlighed</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment state="translated">
+        <source>eda_info.visibility.help</source>
+        <target>Som standard bestemmes synlighed automatisk i EDA-softwaren. Ved at bruge dette afkrydsningsfelt kan du tvinge komponenten til at være synlig eller usynlig.</target>
+      </segment>
+    </unit>
+    <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
+      <segment state="translated">
+        <source>part.withdraw.zero_amount</source>
+        <target>Du forsøgte at fjerne/tilføje en mængde sat til nul! Der blev ikke foretaget nogen handling.</target>
       </segment>
     </unit>
   </file>
