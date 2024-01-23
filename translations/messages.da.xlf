@@ -11198,6 +11198,72 @@ Oversættelsen
         <target>Login fra IP-Adresse</target>
       </segment>
     </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment state="translated">
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>Hvis de sidste cifre i IP-adressen mangler, aktiveres DSGV-tilstanden, hvor IP-adresserne anonymiseres.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment state="translated">
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Uautoriseret adgang forsøg på side</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment state="translated">
+        <source>log.user_not_allowed.hint</source>
+        <target>Anmodningen blev blokeret. Der skulle ikke være behov for yderligere handling.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment state="translated">
+        <source>log.no_comment</source>
+        <target>Ingen kommentarer</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment state="translated">
+        <source>log.element_changed.field</source>
+        <target>Felt</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment state="translated">
+        <source>log.element_changed.data_before</source>
+        <target>Data før ændring</target>
+      </segment>
+    </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment state="translated">
+        <source>error_table.error</source>
+        <target>Der opstod en fejl under anmodningen.</target>
+      </segment>
+    </unit>
+    <unit id="tLXzED2" name="part.table.invalid_regex">
+      <segment state="translated">
+        <source>part.table.invalid_regex</source>
+        <target>Ugyldigt regulært udtryk (regex)</target>
+      </segment>
+    </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment state="translated">
+        <source>log.element_changed.data_after</source>
+        <target>Data efter ændring</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment state="translated">
+        <source>log.element_changed.diff</source>
+        <target>Forskel</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment state="translated">
+        <source>log.undo.undo.short</source>
+        <target>Fortryd</target>
+      </segment>
+    </unit>
     <unit id="6OHd5fv" name="perm.users.impersonate">
       <segment state="translated">
         <source>perm.users.impersonate</source>
