@@ -4,13 +4,13 @@
     <unit id="aazoCks" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
-        <target>Din konto er deaktiveret! Kontakt en administrator hvis du mener dette er forkert.</target>
+        <target>Din konto er deaktiveret! Kontakt en administrator, hvis du mener, at dette er en fejl.</target>
       </segment>
     </unit>
     <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
-        <target>Du kan ikke logge ind som lokalbruger via SSO! Brug dit lokale bruger-password i stedet for.</target>
+        <target>Du kan ikke logge ind som lokal bruger via SSO! Brug dit lokale password i stedet.</target>
       </segment>
     </unit>
   </file>
