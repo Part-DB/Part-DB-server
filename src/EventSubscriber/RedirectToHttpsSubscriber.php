@@ -36,7 +36,7 @@ final class RedirectToHttpsSubscriber implements EventSubscriberInterface
 {
 
     public function __construct(
-        #[Autowire('env(bool:REDIRECT_TO_HTTPS)')]
+        #[Autowire('%env(bool:REDIRECT_TO_HTTPS)%')]
         private readonly bool $enabled,
         private readonly HttpUtils $httpUtils)
     {
@@ -45,7 +45,7 @@ final class RedirectToHttpsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => ['onKernelRequest', 0],
+            KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
 
