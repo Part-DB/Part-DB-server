@@ -74,6 +74,16 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
         $contentType = $request->headers->get('Content-Type');
         $accept = $request->headers->get('Accept');
 
-        return str_contains($contentType, 'json') || str_contains($accept, 'json');
+        $tmp = false;
+
+        if ($contentType !== null) {
+            $tmp = str_contains($contentType, 'json');
+        }
+
+        if ($accept !== null) {
+            $tmp = $tmp || str_contains($accept, 'json');
+        }
+
+        return $tmp;
     }
 }
