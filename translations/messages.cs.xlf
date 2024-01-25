@@ -4141,7 +4141,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>entity.edit_flash.invalid</source>
-        <target>Nelze uložit změnit. Zkontrolujte prosím svůj vstup!</target>
+        <target>Nelze uložit změnit. Zkontrolujte prosím své zadání!</target>
       </segment>
     </unit>
     <unit id="8MJvWmd" name="entity.created_flash">
@@ -4317,7 +4317,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edited_flash.invalid</source>
-        <target>Chyba při ukládání: Zkontrolujte prosím své vstupy!</target>
+        <target>Chyba při ukládání: Zkontrolujte prosím své zadání!</target>
       </segment>
     </unit>
     <unit id="suYw2UL" name="part.deleted">
@@ -4350,7 +4350,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.created_flash.invalid</source>
-        <target>Chyba při vytváření: Zkontrolujte prosím své vstupy!</target>
+        <target>Chyba při vytváření: Zkontrolujte prosím své zadání!</target>
       </segment>
     </unit>
     <unit id="6T8GmmR" name="scan.qr_not_found">
@@ -4428,7 +4428,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>pw_reset.new_pw.error</source>
-        <target>Uživatelské jméno nebo token je neplatný! Zkontrolujte prosím svůj vstup.</target>
+        <target>Uživatelské jméno nebo token je neplatný! Zkontrolujte prosím své zadání.</target>
       </segment>
     </unit>
     <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
@@ -5429,7 +5429,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>scan_dialog.input</source>
-        <target>Vstup</target>
+        <target>Zadání</target>
       </segment>
     </unit>
     <unit id="xENLE_d" name="scan_dialog.submit">
@@ -7155,7 +7155,7 @@ Město</target>
       </notes>
       <segment state="translated">
         <source>mass_creation.lines</source>
-        <target>Vstup</target>
+        <target>Zadání</target>
       </segment>
     </unit>
     <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
