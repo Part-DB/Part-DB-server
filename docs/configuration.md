@@ -196,6 +196,9 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`): Set this value to true, if your webserver does not
   support rewrite. In this case, all URL paths will contain index.php/, which is needed then. Normally this setting do
   not need to be changed.
+* `REDIRECT_TO_HTTPS`: If this is set to true, all requests to http will be redirected to https. This is useful, if your
+  webserver does not already do this (like the one used in the demo instance). If your webserver already redirects to
+  https, you don't need to set this. Ensure that Part-DB is accessible via https, before you enable this setting.
 * `FIXER_API_KEY`: If you want to automatically retrieve exchange rates for base currencies other than euros, you have to
   configure an exchange rate provider API. [Fixer.io](https://fixer.io/) is preconfigured, and you just have to register
   there and set the retrieved API key in this environment variable.

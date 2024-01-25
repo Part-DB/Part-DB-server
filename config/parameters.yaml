@@ -115,6 +115,8 @@ parameters:
   env(USE_GRAVATAR): '0'
   env(MAX_ATTACHMENT_FILE_SIZE): '100M'
 
+  env(REDIRECT_TO_HTTPS): 0
+
   env(ENFORCE_CHANGE_COMMENTS_FOR): ''
 
   env(ERROR_PAGE_ADMIN_EMAIL): ''
