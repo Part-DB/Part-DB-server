@@ -317,5 +317,23 @@
         <target>块所有者不能是匿名用户！</target>
       </segment>
     </unit>
+    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>A part can not be associated with itself!</target>
+      </segment>
+    </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>The association with this part already exists!</target>
+      </segment>
+    </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>This vendor barcode value was already used in another lot. The barcode must be unique!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
