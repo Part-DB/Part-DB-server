@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
@@ -60,7 +61,9 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
         //Otherwise we redirect to the login page
 
         //Add a nice flash message to make it clear what happened
-        $request->getSession()->getFlashBag()->add('error', t('login.flash.access_denied_please_login'));
+        if ($request->getSession() instanceof Session) {
+            $request->getSession()->getFlashBag()->add('error', t('login.flash.access_denied_please_login'));
+        }
 
         return new RedirectResponse($this->urlGenerator->generate('login'));
     }
