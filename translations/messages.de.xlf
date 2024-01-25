@@ -12187,5 +12187,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Sie haben versucht eine Menge von Null zu entnehmen/hinzuzufügen! Es wurde keine Aktion durchgeführt.</target>
       </segment>
     </unit>
+    <unit id="j_fy6Ur" name="login.flash.access_denied_please_login">
+      <segment state="translated">
+        <source>login.flash.access_denied_please_login</source>
+        <target>Zugriff verweigert! Bitte melden Sie sich an, um fortzufahren.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
