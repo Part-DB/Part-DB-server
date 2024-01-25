@@ -11139,16 +11139,1056 @@
         <target>Необходимо пополнить</target>
       </segment>
     </unit>
+    <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
+      <segment>
+        <source>part.info.amount.less_than_desired</source>
+        <target>Less than desired</target>
+      </segment>
+    </unit>
+    <unit id="cdnsW4q" name="log.cli_user">
+      <segment>
+        <source>log.cli_user</source>
+        <target>CLI user</target>
+      </segment>
+    </unit>
+    <unit id="4GTAJ9E" name="log.element_edited.changed_fields.part_owner_must_match">
+      <segment>
+        <source>log.element_edited.changed_fields.part_owner_must_match</source>
+        <target>Part owner must match storage location owner</target>
+      </segment>
+    </unit>
+    <unit id="u6qFa_j" name="part.filter.lessThanDesired">
+      <segment>
+        <source>part.filter.lessThanDesired</source>
+        <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
+      </segment>
+    </unit>
+    <unit id="lHTN.a1" name="part.filter.lotOwner">
+      <segment>
+        <source>part.filter.lotOwner</source>
+        <target>Lot owner</target>
+      </segment>
+    </unit>
+    <unit id="47OCK_W" name="user.show_email_on_profile.label">
+      <segment>
+        <source>user.show_email_on_profile.label</source>
+        <target>Show email on public profile page</target>
+      </segment>
+    </unit>
+    <unit id="4rkjIk2" name="log.details.title">
+      <segment>
+        <source>log.details.title</source>
+        <target>Log details</target>
+      </segment>
+    </unit>
+    <unit id="aeYMkHS" name="log.user_login.login_from_ip">
+      <segment>
+        <source>log.user_login.login_from_ip</source>
+        <target>Login from IP address</target>
+      </segment>
+    </unit>
+    <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
+      <segment>
+        <source>log.user_login.ip_anonymize_hint</source>
+        <target>If the last digits of the IP address are missing, then the GPDR mode is enabled, in which IP addresses are anynomized.</target>
+      </segment>
+    </unit>
+    <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
+      <segment>
+        <source>log.user_not_allowed.unauthorized_access_attempt_to</source>
+        <target>Unauthorized access attempt to page</target>
+      </segment>
+    </unit>
+    <unit id="EibB1Wh" name="log.user_not_allowed.hint">
+      <segment>
+        <source>log.user_not_allowed.hint</source>
+        <target>The request was blocked. No action should be required.</target>
+      </segment>
+    </unit>
+    <unit id="JVE17kW" name="log.no_comment">
+      <segment>
+        <source>log.no_comment</source>
+        <target>No comment</target>
+      </segment>
+    </unit>
+    <unit id="5xvPvME" name="log.element_changed.field">
+      <segment>
+        <source>log.element_changed.field</source>
+        <target>Field</target>
+      </segment>
+    </unit>
+    <unit id="vufWYhV" name="log.element_changed.data_before">
+      <segment>
+        <source>log.element_changed.data_before</source>
+        <target>Data before change</target>
+      </segment>
+    </unit>
+    <unit id="qk2u9Qg" name="error_table.error">
+      <segment>
+        <source>error_table.error</source>
+        <target>An error occured during your request.</target>
+      </segment>
+    </unit>
+    <unit id="tLXzED2" name="part.table.invalid_regex">
+      <segment>
+        <source>part.table.invalid_regex</source>
+        <target>Invalid regular expression (regex)</target>
+      </segment>
+    </unit>
+    <unit id="VKPOkNO" name="log.element_changed.data_after">
+      <segment>
+        <source>log.element_changed.data_after</source>
+        <target>Data after change</target>
+      </segment>
+    </unit>
+    <unit id="DiNGTl8" name="log.element_changed.diff">
+      <segment>
+        <source>log.element_changed.diff</source>
+        <target>Difference</target>
+      </segment>
+    </unit>
+    <unit id="OB_fVDI" name="log.undo.undo.short">
+      <segment>
+        <source>log.undo.undo.short</source>
+        <target>Undo</target>
+      </segment>
+    </unit>
+    <unit id="AvoT6DL" name="log.undo.revert.short">
+      <segment>
+        <source>log.undo.revert.short</source>
+        <target>Revert to this timestamp</target>
+      </segment>
+    </unit>
+    <unit id="YdXQd2_" name="log.view_version">
+      <segment>
+        <source>log.view_version</source>
+        <target>View version</target>
+      </segment>
+    </unit>
+    <unit id="l47W4kt" name="log.undo.undelete.short">
+      <segment>
+        <source>log.undo.undelete.short</source>
+        <target>Undelete</target>
+      </segment>
+    </unit>
+    <unit id="PDJYeqj" name="log.element_edited.changed_fields.id">
+      <segment>
+        <source>log.element_edited.changed_fields.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cQTNNI7" name="log.element_edited.changed_fields.id_owner">
+      <segment>
+        <source>log.element_edited.changed_fields.id_owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="h1eBlp8" name="log.element_edited.changed_fields.parent_id">
+      <segment>
+        <source>log.element_edited.changed_fields.parent_id</source>
+        <target>Parent</target>
+      </segment>
+    </unit>
     <unit id="GUthgcU" name="log.details.delete_entry">
-      <segment state="translated">
+      <segment>
         <source>log.details.delete_entry</source>
-        <target>Удалить запись журнала</target>
+        <target>Delete log entry</target>
       </segment>
     </unit>
     <unit id="Wv0WAmO" name="log.delete.message.title">
-      <segment state="translated">
+      <segment>
         <source>log.delete.message.title</source>
-        <target>Вы уверены, что хотите удалить эту запись из журнала ?</target>
+        <target>Do you really want to delete the log entry?</target>
+      </segment>
+    </unit>
+    <unit id="5tbpaLR" name="log.delete.message">
+      <segment>
+        <source>log.delete.message</source>
+        <target>If this is an element history entry, this breaks the element history! This can lead to unexpected results when using the time travel function.</target>
+      </segment>
+    </unit>
+    <unit id="P.c4WmY" name="log.collection_deleted.on_collection">
+      <segment>
+        <source>log.collection_deleted.on_collection</source>
+        <target>on Collection</target>
+      </segment>
+    </unit>
+    <unit id=".wiLJk6" name="log.element_edited.changed_fields.attachments">
+      <segment>
+        <source>log.element_edited.changed_fields.attachments</source>
+        <target>Attachments</target>
+      </segment>
+    </unit>
+    <unit id="DGczoY6" name="tfa_u2f.add_key.registration_error">
+      <segment>
+        <source>tfa_u2f.add_key.registration_error</source>
+        <target>An error occurred during the registration of the security key. Try again or use another security key!</target>
+      </segment>
+    </unit>
+    <unit id="ie0Ca0l" name="log.target_type.none">
+      <segment>
+        <source>log.target_type.none</source>
+        <target>None</target>
+      </segment>
+    </unit>
+    <unit id="R2nX4ip" name="ui.darkmode.light">
+      <segment>
+        <source>ui.darkmode.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="3NHpuW3" name="ui.darkmode.dark">
+      <segment>
+        <source>ui.darkmode.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
+    <unit id="4TGOK5_" name="ui.darkmode.auto">
+      <segment>
+        <source>ui.darkmode.auto</source>
+        <target>Auto (decide based on system settings)</target>
+      </segment>
+    </unit>
+    <unit id="9N0N8aL" name="label_generator.no_lines_given">
+      <segment>
+        <source>label_generator.no_lines_given</source>
+        <target>No text content given! The labels will remain empty.</target>
+      </segment>
+    </unit>
+    <unit id="RdFvZsb" name="user.password_strength.very_weak">
+      <segment>
+        <source>user.password_strength.very_weak</source>
+        <target>Very weak</target>
+      </segment>
+    </unit>
+    <unit id="IBjmblZ" name="user.password_strength.weak">
+      <segment>
+        <source>user.password_strength.weak</source>
+        <target>Weak</target>
+      </segment>
+    </unit>
+    <unit id="qSm_ID0" name="user.password_strength.medium">
+      <segment>
+        <source>user.password_strength.medium</source>
+        <target>Medium</target>
+      </segment>
+    </unit>
+    <unit id="aWAaADS" name="user.password_strength.strong">
+      <segment>
+        <source>user.password_strength.strong</source>
+        <target>Strong</target>
+      </segment>
+    </unit>
+    <unit id="Wa9CStW" name="user.password_strength.very_strong">
+      <segment>
+        <source>user.password_strength.very_strong</source>
+        <target>Very strong</target>
+      </segment>
+    </unit>
+    <unit id="6OHd5fv" name="perm.users.impersonate">
+      <segment>
+        <source>perm.users.impersonate</source>
+        <target>Impersonate other users</target>
+      </segment>
+    </unit>
+    <unit id="ssn1H1A" name="user.impersonated_by.label">
+      <segment>
+        <source>user.impersonated_by.label</source>
+        <target>Impersonated by</target>
+      </segment>
+    </unit>
+    <unit id="inTlSge" name="user.stop_impersonation">
+      <segment>
+        <source>user.stop_impersonation</source>
+        <target>Stop impersonation</target>
+      </segment>
+    </unit>
+    <unit id="T3yB7KF" name="user.impersonate.btn">
+      <segment>
+        <source>user.impersonate.btn</source>
+        <target>Impersonate</target>
+      </segment>
+    </unit>
+    <unit id="sFE8diE" name="user.impersonate.confirm.title">
+      <segment>
+        <source>user.impersonate.confirm.title</source>
+        <target>Do you really want to impersonate this user?</target>
+      </segment>
+    </unit>
+    <unit id="MlJJSEo" name="user.impersonate.confirm.message">
+      <segment>
+        <source>user.impersonate.confirm.message</source>
+        <target>This will be logged. You should only do this with a good reason.
+
+Please note, that you can not impersonate a disabled user. If you try you will get an "Access Denied" message.</target>
+      </segment>
+    </unit>
+    <unit id="df2ac87" name="log.type.security.user_impersonated">
+      <segment>
+        <source>log.type.security.user_impersonated</source>
+        <target>User impersonated</target>
+      </segment>
+    </unit>
+    <unit id="08SKwoy" name="info_providers.providers_list.title">
+      <segment>
+        <source>info_providers.providers_list.title</source>
+        <target>Information providers</target>
+      </segment>
+    </unit>
+    <unit id="BnbVOSD" name="info_providers.providers_list.active">
+      <segment>
+        <source>info_providers.providers_list.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="adJnJGT" name="info_providers.providers_list.disabled">
+      <segment>
+        <source>info_providers.providers_list.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
+    <unit id="1M7yaPw" name="info_providers.capabilities.basic">
+      <segment>
+        <source>info_providers.capabilities.basic</source>
+        <target>Basic</target>
+      </segment>
+    </unit>
+    <unit id="PSu1VtZ" name="info_providers.capabilities.footprint">
+      <segment>
+        <source>info_providers.capabilities.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="NGbCaWh" name="info_providers.capabilities.picture">
+      <segment>
+        <source>info_providers.capabilities.picture</source>
+        <target>Picture</target>
+      </segment>
+    </unit>
+    <unit id="a5JK5hi" name="info_providers.capabilities.datasheet">
+      <segment>
+        <source>info_providers.capabilities.datasheet</source>
+        <target>Datasheets</target>
+      </segment>
+    </unit>
+    <unit id="60AvDOv" name="info_providers.capabilities.price">
+      <segment>
+        <source>info_providers.capabilities.price</source>
+        <target>Prices</target>
+      </segment>
+    </unit>
+    <unit id="nNKOyNM" name="part.info_provider_reference.badge">
+      <segment>
+        <source>part.info_provider_reference.badge</source>
+        <target>The information provider used to create this part.</target>
+      </segment>
+    </unit>
+    <unit id="WTB_AKQ" name="part.info_provider_reference">
+      <segment>
+        <source>part.info_provider_reference</source>
+        <target>Created by Information provider</target>
+      </segment>
+    </unit>
+    <unit id="Qhaj.j4" name="oauth_client.connect.btn">
+      <segment>
+        <source>oauth_client.connect.btn</source>
+        <target>Connect OAuth</target>
+      </segment>
+    </unit>
+    <unit id="5_Z_m9s" name="info_providers.table.provider.label">
+      <segment>
+        <source>info_providers.table.provider.label</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="Cj5csML" name="info_providers.search.keyword">
+      <segment>
+        <source>info_providers.search.keyword</source>
+        <target>Keyword</target>
+      </segment>
+    </unit>
+    <unit id="rvTOWHb" name="info_providers.search.submit">
+      <segment>
+        <source>info_providers.search.submit</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="Mwq891Y" name="info_providers.search.providers.help">
+      <segment>
+        <source>info_providers.search.providers.help</source>
+        <target>Select the providers in which should be searched.</target>
+      </segment>
+    </unit>
+    <unit id="nvk25qA" name="info_providers.search.providers">
+      <segment>
+        <source>info_providers.search.providers</source>
+        <target>Providers</target>
+      </segment>
+    </unit>
+    <unit id="5kSES8M" name="info_providers.search.info_providers_list">
+      <segment>
+        <source>info_providers.search.info_providers_list</source>
+        <target>Show all available info providers</target>
+      </segment>
+    </unit>
+    <unit id="Y2gg4WI" name="info_providers.search.title">
+      <segment>
+        <source>info_providers.search.title</source>
+        <target>Create parts from info provider</target>
+      </segment>
+    </unit>
+    <unit id="8w3P1gW" name="oauth_client.flash.connection_successful">
+      <segment>
+        <source>oauth_client.flash.connection_successful</source>
+        <target>Connected to OAuth application successfully!</target>
+      </segment>
+    </unit>
+    <unit id="9ULD.eH" name="perm.part.info_providers">
+      <segment>
+        <source>perm.part.info_providers</source>
+        <target>Info providers</target>
+      </segment>
+    </unit>
+    <unit id="En713bs" name="perm.part.info_providers.create_parts">
+      <segment>
+        <source>perm.part.info_providers.create_parts</source>
+        <target>Create parts from info provider</target>
+      </segment>
+    </unit>
+    <unit id="9BvJ32n" name="entity.edit.alternative_names.label">
+      <segment>
+        <source>entity.edit.alternative_names.label</source>
+        <target>Alternative names</target>
+      </segment>
+    </unit>
+    <unit id="GgN2HwP" name="entity.edit.alternative_names.help">
+      <segment>
+        <source>entity.edit.alternative_names.help</source>
+        <target>The alternative names given here, are used to find this element based on the results of the information providers.</target>
+      </segment>
+    </unit>
+    <unit id="TRmIjDN" name="info_providers.form.help_prefix">
+      <segment>
+        <source>info_providers.form.help_prefix</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="21tIbM2" name="update_manager.new_version_available.title">
+      <segment>
+        <source>update_manager.new_version_available.title</source>
+        <target>New version available</target>
+      </segment>
+    </unit>
+    <unit id=".c.eoDV" name="update_manager.new_version_available.text">
+      <segment>
+        <source>update_manager.new_version_available.text</source>
+        <target>A new version of Part-DB is available. Check it out here</target>
+      </segment>
+    </unit>
+    <unit id="KOFGqJw" name="update_manager.new_version_available.only_administrators_can_see">
+      <segment>
+        <source>update_manager.new_version_available.only_administrators_can_see</source>
+        <target>Only administrators can see this message.</target>
+      </segment>
+    </unit>
+    <unit id="IFkvJpC" name="perm.system.show_available_updates">
+      <segment>
+        <source>perm.system.show_available_updates</source>
+        <target>Show available Part-DB updates</target>
+      </segment>
+    </unit>
+    <unit id="bItnXAm" name="user.settings.api_tokens">
+      <segment>
+        <source>user.settings.api_tokens</source>
+        <target>API tokens</target>
+      </segment>
+    </unit>
+    <unit id="stkMDET" name="user.settings.api_tokens.description">
+      <segment>
+        <source>user.settings.api_tokens.description</source>
+        <target>Using an API token, other applications can access Part-DB with your user rights, to perform various actions using the Part-DB REST API. If you delete an API token here, the application, which uses the token, will no longer be able to access Part-DB on your behalf.</target>
+      </segment>
+    </unit>
+    <unit id="pd794fq" name="api_tokens.name">
+      <segment>
+        <source>api_tokens.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="XodVxQi" name="api_tokens.access_level">
+      <segment>
+        <source>api_tokens.access_level</source>
+        <target>Access level</target>
+      </segment>
+    </unit>
+    <unit id="kHaDSpK" name="api_tokens.expiration_date">
+      <segment>
+        <source>api_tokens.expiration_date</source>
+        <target>Expiration date</target>
+      </segment>
+    </unit>
+    <unit id="b5uLOjr" name="api_tokens.added_date">
+      <segment>
+        <source>api_tokens.added_date</source>
+        <target>Added at</target>
+      </segment>
+    </unit>
+    <unit id="QPwuYKl" name="api_tokens.last_time_used">
+      <segment>
+        <source>api_tokens.last_time_used</source>
+        <target>Last time used</target>
+      </segment>
+    </unit>
+    <unit id="G91glEH" name="datetime.never">
+      <segment>
+        <source>datetime.never</source>
+        <target>Never</target>
+      </segment>
+    </unit>
+    <unit id="xPeKpJU" name="api_token.valid">
+      <segment>
+        <source>api_token.valid</source>
+        <target>Valid</target>
+      </segment>
+    </unit>
+    <unit id="jlBlmje" name="api_token.expired">
+      <segment>
+        <source>api_token.expired</source>
+        <target>Expired</target>
+      </segment>
+    </unit>
+    <unit id="Kmdx4SB" name="user.settings.show_api_documentation">
+      <segment>
+        <source>user.settings.show_api_documentation</source>
+        <target>Show API documentation</target>
+      </segment>
+    </unit>
+    <unit id="hAUCZVo" name="api_token.create_new">
+      <segment>
+        <source>api_token.create_new</source>
+        <target>Create new API token</target>
+      </segment>
+    </unit>
+    <unit id="eX17pK8" name="api_token.level.read_only">
+      <segment>
+        <source>api_token.level.read_only</source>
+        <target>Read-Only</target>
+      </segment>
+    </unit>
+    <unit id="PMVjK5p" name="api_token.level.edit">
+      <segment>
+        <source>api_token.level.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="1dVnGpy" name="api_token.level.admin">
+      <segment>
+        <source>api_token.level.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="gY4wVwS" name="api_token.level.full">
+      <segment>
+        <source>api_token.level.full</source>
+        <target>Full</target>
+      </segment>
+    </unit>
+    <unit id="OAFErYa" name="api_tokens.access_level.help">
+      <segment>
+        <source>api_tokens.access_level.help</source>
+        <target>You can restrict, what the API token can access. The access is always limited by the permissions of your user.</target>
+      </segment>
+    </unit>
+    <unit id="Xjs_v91" name="api_tokens.expiration_date.help">
+      <segment>
+        <source>api_tokens.expiration_date.help</source>
+        <target>After this date, the token is not usable anymore. Leave empty if the token should never expire.</target>
+      </segment>
+    </unit>
+    <unit id="0e7mD8q" name="api_tokens.your_token_is">
+      <segment>
+        <source>api_tokens.your_token_is</source>
+        <target>Your API token is</target>
+      </segment>
+    </unit>
+    <unit id="nre_kP_" name="api_tokens.please_save_it">
+      <segment>
+        <source>api_tokens.please_save_it</source>
+        <target>Please save it. You will not be able to see it again!</target>
+      </segment>
+    </unit>
+    <unit id="b17FeDX" name="api_tokens.create_new.back_to_user_settings">
+      <segment>
+        <source>api_tokens.create_new.back_to_user_settings</source>
+        <target>Back to user settings</target>
+      </segment>
+    </unit>
+    <unit id="VVpmfIj" name="project.build.dont_check_quantity">
+      <segment>
+        <source>project.build.dont_check_quantity</source>
+        <target>Do not check quantities</target>
+      </segment>
+    </unit>
+    <unit id="AzYSIiX" name="project.build.dont_check_quantity.help">
+      <segment>
+        <source>project.build.dont_check_quantity.help</source>
+        <target>If this option is selected, the given withdraw quantities are used as given, no matter if more or less parts are actually required to build this project.</target>
+      </segment>
+    </unit>
+    <unit id="tfOeMsC" name="part_list.action.invert_selection">
+      <segment>
+        <source>part_list.action.invert_selection</source>
+        <target>Invert selection</target>
+      </segment>
+    </unit>
+    <unit id="vvmdRvD" name="perm.api">
+      <segment>
+        <source>perm.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="VrWd7Fb" name="perm.api.access_api">
+      <segment>
+        <source>perm.api.access_api</source>
+        <target>Access API</target>
+      </segment>
+    </unit>
+    <unit id="hLOM1pt" name="perm.api.manage_tokens">
+      <segment>
+        <source>perm.api.manage_tokens</source>
+        <target>Manage API tokens</target>
+      </segment>
+    </unit>
+    <unit id="dH8PTLd" name="user.settings.api_tokens.delete.title">
+      <segment>
+        <source>user.settings.api_tokens.delete.title</source>
+        <target>Do you really want to delete this API token?</target>
+      </segment>
+    </unit>
+    <unit id="1QAaz2a" name="user.settings.api_tokens.delete">
+      <segment>
+        <source>user.settings.api_tokens.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="bE8wV70" name="user.settings.api_tokens.delete.message">
+      <segment>
+        <source>user.settings.api_tokens.delete.message</source>
+        <target>The application, which uses this API token, will no longer have access to Part-DB. This action can not be undone!</target>
+      </segment>
+    </unit>
+    <unit id="sLAzIhh" name="api_tokens.deleted">
+      <segment>
+        <source>api_tokens.deleted</source>
+        <target>API token deleted successfully!</target>
+      </segment>
+    </unit>
+    <unit id="TFTBy25" name="user.settings.api_tokens.no_api_tokens_yet">
+      <segment>
+        <source>user.settings.api_tokens.no_api_tokens_yet</source>
+        <target>No API tokens configured yet.</target>
+      </segment>
+    </unit>
+    <unit id="8EdFeb6" name="api_token.ends_with">
+      <segment>
+        <source>api_token.ends_with</source>
+        <target>Ends with</target>
+      </segment>
+    </unit>
+    <unit id="SgLdhCl" name="entity.select.creating_new_entities_not_allowed">
+      <segment>
+        <source>entity.select.creating_new_entities_not_allowed</source>
+        <target>You are not allowed to create new entities of this type! Please choose a pre-existing one.</target>
+      </segment>
+    </unit>
+    <unit id="eUQd7dA" name="scan_dialog.mode">
+      <segment>
+        <source>scan_dialog.mode</source>
+        <target>Barcode type</target>
+      </segment>
+    </unit>
+    <unit id="7lPD8GF" name="scan_dialog.mode.auto">
+      <segment>
+        <source>scan_dialog.mode.auto</source>
+        <target>Auto detect</target>
+      </segment>
+    </unit>
+    <unit id=".q3g3eL" name="scan_dialog.mode.ipn">
+      <segment>
+        <source>scan_dialog.mode.ipn</source>
+        <target>IPN barcode</target>
+      </segment>
+    </unit>
+    <unit id="jvHD3DB" name="scan_dialog.mode.internal">
+      <segment>
+        <source>scan_dialog.mode.internal</source>
+        <target>Part-DB barcode</target>
+      </segment>
+    </unit>
+    <unit id="hrPuOzr" name="part_association.label">
+      <segment>
+        <source>part_association.label</source>
+        <target>Part association</target>
+      </segment>
+    </unit>
+    <unit id="BntFEyV" name="part.edit.tab.associations">
+      <segment>
+        <source>part.edit.tab.associations</source>
+        <target>Associated parts</target>
+      </segment>
+    </unit>
+    <unit id="J8xCiOb" name="part_association.edit.other_part">
+      <segment>
+        <source>part_association.edit.other_part</source>
+        <target>Associated part</target>
+      </segment>
+    </unit>
+    <unit id="ov0J5BG" name="part_association.edit.type">
+      <segment>
+        <source>part_association.edit.type</source>
+        <target>Relation Type</target>
+      </segment>
+    </unit>
+    <unit id="Rdl3E1f" name="part_association.edit.comment">
+      <segment>
+        <source>part_association.edit.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="rL3sVOB" name="part_association.edit.type.help">
+      <segment>
+        <source>part_association.edit.type.help</source>
+        <target>You can select here, how the chosen part is related to this part.</target>
+      </segment>
+    </unit>
+    <unit id="ulXO3uA" name="part_association.table.from_this_part">
+      <segment>
+        <source>part_association.table.from_this_part</source>
+        <target>Associations from this part to others</target>
+      </segment>
+    </unit>
+    <unit id="hDksqGC" name="part_association.table.from">
+      <segment>
+        <source>part_association.table.from</source>
+        <target>From</target>
+      </segment>
+    </unit>
+    <unit id="QyRxFA7" name="part_association.table.type">
+      <segment>
+        <source>part_association.table.type</source>
+        <target>Relation</target>
+      </segment>
+    </unit>
+    <unit id="6ZyXTCs" name="part_association.table.to">
+      <segment>
+        <source>part_association.table.to</source>
+        <target>To</target>
+      </segment>
+    </unit>
+    <unit id="Lwwff7k" name="part_association.type.compatible">
+      <segment>
+        <source>part_association.type.compatible</source>
+        <target>Is compatible with</target>
+      </segment>
+    </unit>
+    <unit id="tgOSN9E" name="part_association.table.to_this_part">
+      <segment>
+        <source>part_association.table.to_this_part</source>
+        <target>Associations to this part from others</target>
+      </segment>
+    </unit>
+    <unit id="J2hj9bY" name="part_association.type.other">
+      <segment>
+        <source>part_association.type.other</source>
+        <target>Other (custom value)</target>
+      </segment>
+    </unit>
+    <unit id="Sy57UAe" name="part_association.type.supersedes">
+      <segment>
+        <source>part_association.type.supersedes</source>
+        <target>Supersedes</target>
+      </segment>
+    </unit>
+    <unit id="bpmECSR" name="part_association.edit.other_type">
+      <segment>
+        <source>part_association.edit.other_type</source>
+        <target>Custom type</target>
+      </segment>
+    </unit>
+    <unit id="JDsNNm8" name="part_association.edit.delete.confirm">
+      <segment>
+        <source>part_association.edit.delete.confirm</source>
+        <target>Do you really want to delete this association? This can not be undone.</target>
+      </segment>
+    </unit>
+    <unit id="o3HcwZn" name="part_lot.edit.advanced">
+      <segment>
+        <source>part_lot.edit.advanced</source>
+        <target>Expand advanced options</target>
+      </segment>
+    </unit>
+    <unit id="f9LyaPM" name="part_lot.edit.vendor_barcode">
+      <segment>
+        <source>part_lot.edit.vendor_barcode</source>
+        <target>Vendor barcode</target>
+      </segment>
+    </unit>
+    <unit id="wSvbQyH" name="part_lot.edit.vendor_barcode.help">
+      <segment>
+        <source>part_lot.edit.vendor_barcode.help</source>
+        <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
+      </segment>
+    </unit>
+    <unit id="2d3cSdD" name="scan_dialog.mode.vendor">
+      <segment>
+        <source>scan_dialog.mode.vendor</source>
+        <target>Vendor barcode (configured in part lot)</target>
+      </segment>
+    </unit>
+    <unit id="ilCTQni" name="project.bom.instockAmount">
+      <segment>
+        <source>project.bom.instockAmount</source>
+        <target>Stocked amount</target>
+      </segment>
+    </unit>
+    <unit id="2NZFail" name="collection_type.new_element.tooltip">
+      <segment>
+        <source>collection_type.new_element.tooltip</source>
+        <target>This element was newly created and was not persisted to the database yet.</target>
+      </segment>
+    </unit>
+    <unit id="USUaBZ0" name="part.merge.title">
+      <segment>
+        <source>part.merge.title</source>
+        <target>Merge part</target>
+      </segment>
+    </unit>
+    <unit id="sCLZTwA" name="part.merge.title.into">
+      <segment>
+        <source>part.merge.title.into</source>
+        <target>into</target>
+      </segment>
+    </unit>
+    <unit id="nISUoQl" name="part.merge.confirm.title">
+      <segment>
+        <source>part.merge.confirm.title</source>
+        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
+      </segment>
+    </unit>
+    <unit id="qxHNYfX" name="part.merge.confirm.message">
+      <segment>
+        <source>part.merge.confirm.message</source>
+        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
+      </segment>
+    </unit>
+    <unit id="BY9.T4F" name="part.info.merge_modal.title">
+      <segment>
+        <source>part.info.merge_modal.title</source>
+        <target>Merge parts</target>
+      </segment>
+    </unit>
+    <unit id="CasQeyD" name="part.info.merge_modal.other_part">
+      <segment>
+        <source>part.info.merge_modal.other_part</source>
+        <target>Other part</target>
+      </segment>
+    </unit>
+    <unit id="96Qzc6H" name="part.info.merge_modal.other_into_this">
+      <segment>
+        <source>part.info.merge_modal.other_into_this</source>
+        <target>Merge other part into this one (delete other part, keep this one)</target>
+      </segment>
+    </unit>
+    <unit id="Oe4cpRH" name="part.info.merge_modal.this_into_other">
+      <segment>
+        <source>part.info.merge_modal.this_into_other</source>
+        <target>Merge this part into other one (delete this part, keep other one)</target>
+      </segment>
+    </unit>
+    <unit id="pO3q5CN" name="part.info.merge_btn">
+      <segment>
+        <source>part.info.merge_btn</source>
+        <target>Merge part</target>
+      </segment>
+    </unit>
+    <unit id="efgWRwB" name="part.update_part_from_info_provider.btn">
+      <segment>
+        <source>part.update_part_from_info_provider.btn</source>
+        <target>Update part from info providers</target>
+      </segment>
+    </unit>
+    <unit id="n6_Ec0h" name="info_providers.update_part.title">
+      <segment>
+        <source>info_providers.update_part.title</source>
+        <target>Update existing part from info provider</target>
+      </segment>
+    </unit>
+    <unit id="lkIVIWr" name="part.merge.flash.please_review">
+      <segment>
+        <source>part.merge.flash.please_review</source>
+        <target>Data not saved yet. Review the changes and click save to persist the new data.</target>
+      </segment>
+    </unit>
+    <unit id="0nL5IhK" name="user.edit.flash.permissions_fixed">
+      <segment>
+        <source>user.edit.flash.permissions_fixed</source>
+        <target>Permissions required by other permissions were missing. This was corrected. Please check if the permissions are as you intended.</target>
+      </segment>
+    </unit>
+    <unit id="gjo2ZK7" name="permission.legend.dependency_note">
+      <segment>
+        <source>permission.legend.dependency_note</source>
+        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally found right of an operation.</target>
+      </segment>
+    </unit>
+    <unit id="VFdWqOX" name="log.part_stock_changed.timestamp">
+      <segment>
+        <source>log.part_stock_changed.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="Hj7NX8C" name="part.info.withdraw_modal.timestamp">
+      <segment>
+        <source>part.info.withdraw_modal.timestamp</source>
+        <target>Action timestamp</target>
+      </segment>
+    </unit>
+    <unit id="USYGK0J" name="part.info.withdraw_modal.timestamp.hint">
+      <segment>
+        <source>part.info.withdraw_modal.timestamp.hint</source>
+        <target>This field allows you to specify the real date, when the stock operation actually was performed, and not just when it was logged. This value is saved in the extra field of the log entry.</target>
+      </segment>
+    </unit>
+    <unit id="GIR36qJ" name="part.info.withdraw_modal.delete_lot_if_empty">
+      <segment>
+        <source>part.info.withdraw_modal.delete_lot_if_empty</source>
+        <target>Delete this lot, if it becomes empty</target>
+      </segment>
+    </unit>
+    <unit id="g_xxjdS" name="info_providers.search.error.client_exception">
+      <segment>
+        <source>info_providers.search.error.client_exception</source>
+        <target>An error occurred while communicating with the information provider. Check the configuration for this provider and refresh the OAuth tokens if possible.</target>
+      </segment>
+    </unit>
+    <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
+      <segment>
+        <source>eda_info.reference_prefix.placeholder</source>
+        <target>e.g. R</target>
+      </segment>
+    </unit>
+    <unit id="3nLUWrL" name="eda_info.reference_prefix">
+      <segment>
+        <source>eda_info.reference_prefix</source>
+        <target>Reference prefix</target>
+      </segment>
+    </unit>
+    <unit id="OTQU79e" name="eda_info.kicad_section.title">
+      <segment>
+        <source>eda_info.kicad_section.title</source>
+        <target>KiCad specific settings</target>
+      </segment>
+    </unit>
+    <unit id="_Z4ARu6" name="eda_info.value">
+      <segment>
+        <source>eda_info.value</source>
+        <target>Value</target>
+      </segment>
+    </unit>
+    <unit id="k5gOKhU" name="eda_info.value.placeholder">
+      <segment>
+        <source>eda_info.value.placeholder</source>
+        <target>e.g. 100n</target>
+      </segment>
+    </unit>
+    <unit id="VphdbQ9" name="eda_info.exclude_from_bom">
+      <segment>
+        <source>eda_info.exclude_from_bom</source>
+        <target>Exclude part from BOM</target>
+      </segment>
+    </unit>
+    <unit id="jDHzKDL" name="eda_info.exclude_from_board">
+      <segment>
+        <source>eda_info.exclude_from_board</source>
+        <target>Exclude part from PCB/Board</target>
+      </segment>
+    </unit>
+    <unit id="t3P3j0i" name="eda_info.exclude_from_sim">
+      <segment>
+        <source>eda_info.exclude_from_sim</source>
+        <target>Exclude part from simulation</target>
+      </segment>
+    </unit>
+    <unit id="P6keLR_" name="eda_info.kicad_symbol">
+      <segment>
+        <source>eda_info.kicad_symbol</source>
+        <target>KiCad schematic symbol</target>
+      </segment>
+    </unit>
+    <unit id="k_xjHgN" name="eda_info.kicad_symbol.placeholder">
+      <segment>
+        <source>eda_info.kicad_symbol.placeholder</source>
+        <target>e.g. Transistor_BJT:BC547</target>
+      </segment>
+    </unit>
+    <unit id="TAm88A8" name="eda_info.kicad_footprint">
+      <segment>
+        <source>eda_info.kicad_footprint</source>
+        <target>KiCad footprint</target>
+      </segment>
+    </unit>
+    <unit id="y2hGwZr" name="eda_info.kicad_footprint.placeholder">
+      <segment>
+        <source>eda_info.kicad_footprint.placeholder</source>
+        <target>e.g. Package_TO_SOT_THT:TO-92</target>
+      </segment>
+    </unit>
+    <unit id="2kt7qP7" name="part.edit.tab.eda">
+      <segment>
+        <source>part.edit.tab.eda</source>
+        <target>EDA information</target>
+      </segment>
+    </unit>
+    <unit id="G0dSeRY" name="api.api_endpoints.title">
+      <segment>
+        <source>api.api_endpoints.title</source>
+        <target>API endpoints</target>
+      </segment>
+    </unit>
+    <unit id="yFYyK5u" name="api.api_endpoints.partdb">
+      <segment>
+        <source>api.api_endpoints.partdb</source>
+        <target>Part-DB API</target>
+      </segment>
+    </unit>
+    <unit id="sb8URUl" name="api.api_endpoints.kicad_root_url">
+      <segment>
+        <source>api.api_endpoints.kicad_root_url</source>
+        <target>KiCad API root URL</target>
+      </segment>
+    </unit>
+    <unit id="UXT_MIM" name="eda_info.visibility">
+      <segment>
+        <source>eda_info.visibility</source>
+        <target>Force visibility</target>
+      </segment>
+    </unit>
+    <unit id="NN5DZ4F" name="eda_info.visibility.help">
+      <segment>
+        <source>eda_info.visibility.help</source>
+        <target>By default, the visibility to the EDA software is automatically determined. With this checkbox, you can force the part to be visible or invisible.</target>
+      </segment>
+    </unit>
+    <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
+      <segment>
+        <source>part.withdraw.zero_amount</source>
+        <target>You tried to withdraw/add an amount of zero! No action was performed.</target>
+      </segment>
+    </unit>
+    <unit id="j_fy6Ur" name="login.flash.access_denied_please_login">
+      <segment>
+        <source>login.flash.access_denied_please_login</source>
+        <target>Access denied! Please log in to continue.</target>
       </segment>
     </unit>
   </file>
