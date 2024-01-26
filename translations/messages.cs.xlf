@@ -12191,5 +12191,11 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Pokusili jste se vybrat/přidat nulové množství! Nebyla provedena žádná akce.</target>
       </segment>
     </unit>
+    <unit id="j_fy6Ur" name="login.flash.access_denied_please_login">
+      <segment state="translated">
+        <source>login.flash.access_denied_please_login</source>
+        <target>Přístup odepřen! Pro pokračování se prosím přihlaste.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
