@@ -1534,9 +1534,9 @@
   integrity sha512-Dcu+NaSvHLT7EjrDrkEmH4qET2ZJZ5IcCWmNXxNQTBwlnE5tBZfN6WxZ842n5cHV52DH/AKNirbPBtcEXDLW4g==
 
 "@jbtronics/bs-treeview@^1.0.1":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@jbtronics/bs-treeview/-/bs-treeview-1.0.4.tgz#aecd128c295ebd1af904d9a77f17dbf77a772b8f"
-  integrity sha512-ofhMY+4w0xYHcMPyw53EzWABzrzX2ecm50hhD9Kbb6h1/XsmLzVvHLIG9FYJ3eaIR0nTYF9a5L7mS14Qr/JChQ==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@jbtronics/bs-treeview/-/bs-treeview-1.0.5.tgz#3267138a47624c492e3fa6c94888e5dce78809ab"
+  integrity sha512-f+IRGnSGa21P7CGmvv5g3cqjC589hDhyc6AHdLj5VXKVqD1EYw5nXdOudgQmTOlqhZa+JGdsfQx8TlFIp313KA==
 
 "@jest/schemas@^29.6.3":
   version "29.6.3"

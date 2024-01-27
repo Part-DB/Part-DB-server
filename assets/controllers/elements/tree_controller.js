@@ -132,7 +132,8 @@ export default class extends Controller {
 
             //We only compare the pathname, because the hash and parameters should not matter
             if(window.location.pathname !== desired.pathname) {
-                node.setSelected(false);
+                //The ignore parameter is important here, otherwise the node will not be unselected
+                node.setSelected(false, {silent: true, ignorePreventUnselect: true});
 
                 //Unregister the watcher
                 document.removeEventListener('turbo:visit', unselectNode);
