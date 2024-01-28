@@ -94,6 +94,8 @@ export default class extends Controller {
             showTags: this._showTags,
             data: data,
             showIcon: true,
+            preventUnselect: true,
+            allowReselect: true,
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
