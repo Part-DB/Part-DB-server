@@ -72,7 +72,7 @@ use LogicException;
     operations: [
         new Get(security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@attachments.list_attachments")'),
-        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        //new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
