@@ -8,10 +8,22 @@ parent: Usage
 
 Part-DB provides some console commands to display various information or perform some tasks.
 The commands are invoked from the main directory of Part-DB with the command `php bin/console [command]` in the context
-of the database user (so usually the webserver user), so you maybe have to use `sudo` or `su` to execute the commands.
+of the database user (so usually the webserver user), so you maybe have to use `sudo` or `su` to execute the commands: 
+  
+```bash
+sudo -u www-data php bin/console [command]
+```
 
 You can get help for every command with the parameter `--help`. See `php bin/console` for a list of all available
 commands.
+
+If you are running Part-DB in a docker container, you must either execute the commands from a shell inside a container,
+or use the `docker exec` command to execute the command directly inside the container. For example if you docker container
+is named `partdb`, you can execute the command `php bin/console cache:clear` with the following command:
+
+```bash
+docker exec --user=www-data partdb php bin/console cache:clear
+```
 
 ## User management commands
 
