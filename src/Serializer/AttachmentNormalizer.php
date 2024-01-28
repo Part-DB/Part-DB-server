@@ -26,18 +26,22 @@ namespace App\Serializer;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentURLGenerator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class AttachmentNormalizer implements NormalizerInterface
+class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+
+    use NormalizerAwareTrait;
+
+    private const ALREADY_CALLED = 'ATTACHMENT_NORMALIZER_ALREADY_CALLED';
+
     public function __construct(
-        #[Autowire(service: ObjectNormalizer::class)]
-        private readonly NormalizerInterface $normalizer,
         private readonly AttachmentURLGenerator $attachmentURLGenerator,
     )
     {
-
     }
 
     public function normalize(mixed $object, string $format = null, array $context = []): array|null
@@ -45,6 +49,9 @@ class AttachmentNormalizer implements NormalizerInterface
         if (!$object instanceof Attachment) {
             throw new \InvalidArgumentException('This normalizer only supports Attachment objects!');
         }
+
+        //Prevent loops, by adding a flag to the context
+        $context[self::ALREADY_CALLED] = true;
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
@@ -57,6 +64,11 @@ class AttachmentNormalizer implements NormalizerInterface
 
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
+        // avoid recursion: only call once per object
+        if (isset($context[self::ALREADY_CALLED])) {
+            return false;
+        }
+
         return $data instanceof Attachment;
     }
 
@@ -64,7 +76,7 @@ class AttachmentNormalizer implements NormalizerInterface
     {
         return [
             //We depend on the context to determine if we should normalize or not
-            Attachment::class => true,
+            Attachment::class => false,
         ];
     }
 }
