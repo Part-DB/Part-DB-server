@@ -103,7 +103,6 @@ export default class extends Controller {
                     this._registerURLWatcher(node);
                 }
             },
-            //onNodeContextmenu: contextmenu_handler,
         }, [BS5Theme, BS53Theme, FAIconTheme]);
 
         this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
@@ -138,12 +137,13 @@ export default class extends Controller {
                 node.setSelected(false, {silent: true, ignorePreventUnselect: true});
 
                 //Unregister the watcher
-                document.removeEventListener('turbo:visit', unselectNode);
+                document.removeEventListener('turbo:load', unselectNode);
             }
         };
 
         //Register the watcher via hotwire turbo
-        document.addEventListener('turbo:visit', unselectNode);
+        //We must just load to have the new url in window.location
+        document.addEventListener('turbo:load', unselectNode);
     }
 
     _onContextMenu(event)
