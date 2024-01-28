@@ -72,7 +72,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['footprint:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['footprint:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['footprint:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/footprints/{id}/children.{_format}',

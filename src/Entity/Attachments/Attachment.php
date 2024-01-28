@@ -153,7 +153,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     #[Selectable()]
-    #[Groups(['attachment:read', 'attachment_write'])]
+    #[Groups(['attachment:read', 'attachment:write'])]
     protected ?AttachmentType $attachment_type = null;
 
     #[Groups(['attachment:read'])]

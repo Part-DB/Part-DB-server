@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['currency:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['currency:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['currency:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/currencies/{id}/children.{_format}',

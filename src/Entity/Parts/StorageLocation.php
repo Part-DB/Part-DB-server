@@ -67,7 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['location:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['location:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/storage_locations/{id}/children.{_format}',
