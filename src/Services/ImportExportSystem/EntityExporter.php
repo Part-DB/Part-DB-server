@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Helpers\FilenameSanatizer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use InvalidArgumentException;
 use function is_array;
@@ -165,6 +166,9 @@ class EntityExporter
             $level = $options['level'];
 
             $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;
+
+            //Sanitize the filename
+            $filename = FilenameSanatizer::sanitizeFilename($filename);
 
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
