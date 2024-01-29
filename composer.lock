@@ -1739,16 +1739,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.17.3",
+            "version": "2.17.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "398ab0547aaf90bdb352b560a94c24f44ff00670"
+                "reference": "ccfc97c32f63aaa0988ac6aa42e71c5590bb794d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/398ab0547aaf90bdb352b560a94c24f44ff00670",
-                "reference": "398ab0547aaf90bdb352b560a94c24f44ff00670",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/ccfc97c32f63aaa0988ac6aa42e71c5590bb794d",
+                "reference": "ccfc97c32f63aaa0988ac6aa42e71c5590bb794d",
                 "shasum": ""
             },
             "require": {
@@ -1834,9 +1834,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.17.3"
+                "source": "https://github.com/doctrine/orm/tree/2.17.4"
             },
-            "time": "2024-01-16T21:32:04+00:00"
+            "time": "2024-01-26T19:41:16+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -5268,25 +5268,26 @@
         },
         {
             "name": "php-translation/common",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-translation/common.git",
-                "reference": "986ddf4e3b2b3458d2a7353658bd40764d8ca1d1"
+                "reference": "f5e0e36222bcf400310d089646f8cde1648ca974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-translation/common/zipball/986ddf4e3b2b3458d2a7353658bd40764d8ca1d1",
-                "reference": "986ddf4e3b2b3458d2a7353658bd40764d8ca1d1",
+                "url": "https://api.github.com/repos/php-translation/common/zipball/f5e0e36222bcf400310d089646f8cde1648ca974",
+                "reference": "f5e0e36222bcf400310d089646f8cde1648ca974",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2",
-                "symfony/translation": " ^3.4 || ^4.3 || ^5.0 || ^6.0"
+                "symfony/translation": " ^3.4 || ^4.3 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.4",
-                "symfony/phpunit-bridge": "^4.3 || ^5.0 || ^6.0"
+                "phpspec/prophecy-phpunit": "^2.1",
+                "phpunit/phpunit": ">=8.5.23",
+                "symfony/framework-bundle": " ^3.4 || ^4.3 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
             "autoload": {
@@ -5307,9 +5308,9 @@
             "description": "Common translation stuff",
             "support": {
                 "issues": "https://github.com/php-translation/common/issues",
-                "source": "https://github.com/php-translation/common/tree/3.2.0"
+                "source": "https://github.com/php-translation/common/tree/3.3.0"
             },
-            "time": "2022-02-04T11:49:38+00:00"
+            "time": "2024-01-29T16:29:12+00:00"
         },
         {
             "name": "php-translation/extractor",
@@ -5446,26 +5447,26 @@
         },
         {
             "name": "php-translation/symfony-storage",
-            "version": "2.3.1",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-translation/symfony-storage.git",
-                "reference": "95d52dd86d41fe0ec2c75e1469b5003956044cc8"
+                "reference": "0f4702c5837802507231ee6649c49b57b6d7ab89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-translation/symfony-storage/zipball/95d52dd86d41fe0ec2c75e1469b5003956044cc8",
-                "reference": "95d52dd86d41fe0ec2c75e1469b5003956044cc8",
+                "url": "https://api.github.com/repos/php-translation/symfony-storage/zipball/0f4702c5837802507231ee6649c49b57b6d7ab89",
+                "reference": "0f4702c5837802507231ee6649c49b57b6d7ab89",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
                 "php-translation/common": "^3.0",
-                "symfony/translation": "^3.4 || ^4.2 || ^5.0 || ^6.0"
+                "symfony/translation": "^3.4 || ^4.2 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": ">=8.5.20",
-                "symfony/framework-bundle": " ^3.4 || ^4.2 || ^5.0 || ^6.0"
+                "symfony/framework-bundle": " ^3.4 || ^4.2 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
             "extra": {
@@ -5491,9 +5492,9 @@
             "description": "A translation file storage using Symfony translation component.",
             "support": {
                 "issues": "https://github.com/php-translation/symfony-storage/issues",
-                "source": "https://github.com/php-translation/symfony-storage/tree/2.3.1"
+                "source": "https://github.com/php-translation/symfony-storage/tree/2.4.0"
             },
-            "time": "2022-02-14T11:36:15+00:00"
+            "time": "2024-01-29T16:41:31+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -15346,16 +15347,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v4.3.0",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "f94839946c3bd19bdeb9c7d81f6b4fe7e378ddc3"
+                "reference": "18133a2d8c24e10e58e02b700308ed3a4a60c97f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/f94839946c3bd19bdeb9c7d81f6b4fe7e378ddc3",
-                "reference": "f94839946c3bd19bdeb9c7d81f6b4fe7e378ddc3",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/18133a2d8c24e10e58e02b700308ed3a4a60c97f",
+                "reference": "18133a2d8c24e10e58e02b700308ed3a4a60c97f",
                 "shasum": ""
             },
             "require": {
@@ -15391,9 +15392,9 @@
             "support": {
                 "email": "cweiske@cweiske.de",
                 "issues": "https://github.com/cweiske/jsonmapper/issues",
-                "source": "https://github.com/cweiske/jsonmapper/tree/v4.3.0"
+                "source": "https://github.com/cweiske/jsonmapper/tree/v4.4.0"
             },
-            "time": "2024-01-27T14:56:43+00:00"
+            "time": "2024-01-28T07:31:37+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -16352,12 +16353,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "cea5a32b418b44dc5a480049f531f53563c26210"
+                "reference": "896285f443311a8ce7e936baced47705b9bc4cfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/cea5a32b418b44dc5a480049f531f53563c26210",
-                "reference": "cea5a32b418b44dc5a480049f531f53563c26210",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/896285f443311a8ce7e936baced47705b9bc4cfc",
+                "reference": "896285f443311a8ce7e936baced47705b9bc4cfc",
                 "shasum": ""
             },
             "conflict": {
@@ -17075,7 +17076,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-24T22:04:16+00:00"
+            "time": "2024-01-29T20:04:38+00:00"
         },
         {
             "name": "sebastian/cli-parser",
