@@ -6386,7 +6386,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>log.user_login.ip</source>
-        <target>IP:</target>
+        <target>IP</target>
       </segment>
     </unit>
     <unit id="JEAFg3_" name="log.undo_mode.undo">
