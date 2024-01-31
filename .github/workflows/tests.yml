@@ -13,12 +13,11 @@ on:
 jobs:
   phpunit:
     name: PHPUnit and coverage Test (PHP ${{ matrix.php-versions }}, ${{ matrix.db-type }})
-    # Ubuntu 20.04 ships MySQL 8.0 which causes problems with login, so we just use ubuntu 18.04 for now...
     runs-on: ubuntu-22.04
 
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2' ]
+        php-versions: [ '8.1', '8.2', '8.3' ]
         db-type: [ 'mysql', 'sqlite' ]
 
     env:
@@ -27,6 +26,7 @@ jobs:
       SYMFONY_DEPRECATIONS_HELPER: disabled
       PHP_VERSION: ${{ matrix.php-versions }}
       DB_TYPE: ${{ matrix.db-type }}
+      CHECK_FOR_UPDATES: false  # Disable update checks for tests
 
     steps:
       - name: Set Database env for MySQL
@@ -46,7 +46,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           coverage: pcov
           ini-values: xdebug.max_nesting_level=1000
-          extensions: mbstring, intl, gd, xsl, gmp, bcmath        
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
     
       - name: Start MySQL
         run: sudo systemctl start mysql.service
@@ -64,7 +64,7 @@ jobs:
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -75,7 +75,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -108,9 +108,10 @@ jobs:
     
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
-    
+
+      # Use our own custom fixtures loading command to circumvent some problems with reset the autoincrement values
       - name: Load fixtures
-        run: php bin/console --env test doctrine:fixtures:load -n
+        run: php bin/console --env test partdb:fixtures:load -n
     
       - name: Run PHPunit and generate coverage
         run: ./bin/phpunit --coverage-clover=coverage.xml

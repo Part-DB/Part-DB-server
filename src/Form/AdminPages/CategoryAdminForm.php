@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Form\Part\EDA\EDACategoryInfoType;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -103,6 +104,12 @@ class CategoryAdminForm extends BaseEntityAdminForm
                 'placeholder' => 'category.edit.default_comment.placeholder',
             ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+
+        //EDA info
+        $builder->add('eda_info', EDACategoryInfoType::class, [
+            'label' => false,
+            'required' => false,
         ]);
     }
 }

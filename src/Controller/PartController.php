@@ -36,6 +36,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -233,6 +234,48 @@ class PartController extends AbstractController
         ]);
     }
 
+    #[Route('/{target}/merge/{other}', name: 'part_merge')]
+    public function merge(Request $request, Part $target, Part $other, PartMerger $partMerger): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $target);
+        $this->denyAccessUnlessGranted('delete', $other);
+
+        //Save the old name of the target part for the template
+        $target_name = $target->getName();
+
+        $this->addFlash('notice', t('part.merge.flash.please_review'));
+
+        $merged = $partMerger->merge($target, $other);
+        return $this->renderPartForm('merge', $request, $merged, [], [
+            'tname_before' => $target_name,
+            'other_part' => $other,
+        ]);
+    }
+
+    #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', name: 'info_providers_update_part', requirements: ['providerId' => '.+'])]
+    public function updateFromInfoProvider(Part $part, Request $request, string $providerKey, string $providerId,
+        PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        //Save the old name of the target part for the template
+        $old_name = $part->getName();
+
+        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        $provider_part = $infoRetriever->dtoToPart($dto);
+
+        $part = $partMerger->merge($part, $provider_part);
+
+        $this->addFlash('notice', t('part.merge.flash.please_review'));
+
+        return $this->renderPartForm('update_from_ip', $request, $part, [
+            'info_provider_dto' => $dto,
+        ], [
+            'tname_before' => $old_name
+        ]);
+    }
+
     /**
      * This function provides a common implementation for methods, which use the part form.
      * @param  Request  $request
@@ -240,10 +283,10 @@ class PartController extends AbstractController
      * @param  array  $form_options
      * @return Response
      */
-    private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = []): Response
+    private function renderPartForm(string $mode, Request $request, Part $data, array $form_options = [], array $merge_infos = []): Response
     {
         //Ensure that mode is either 'new' or 'edit
-        if (!in_array($mode, ['new', 'edit'], true)) {
+        if (!in_array($mode, ['new', 'edit', 'merge', 'update_from_ip'], true)) {
             throw new \InvalidArgumentException('Invalid mode given');
         }
 
@@ -276,6 +319,12 @@ class PartController extends AbstractController
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $this->em->persist($new_part);
+
+            //When we are in merge mode, we have to remove the other part
+            if ($mode === 'merge') {
+                $this->em->remove($merge_infos['other_part']);
+            }
+
             $this->em->flush();
             if ($mode === 'new') {
                 $this->addFlash('success', 'part.created_flash');
@@ -310,12 +359,18 @@ class PartController extends AbstractController
             $template = 'parts/edit/new_part.html.twig';
         } else if ($mode === 'edit') {
             $template = 'parts/edit/edit_part_info.html.twig';
+        } else if ($mode === 'merge') {
+            $template = 'parts/edit/merge_parts.html.twig';
+        } else if ($mode === 'update_from_ip') {
+            $template = 'parts/edit/update_from_ip.html.twig';
         }
 
         return $this->render($template,
             [
                 'part' => $new_part,
                 'form' => $form,
+                'merge_old_name' => $merge_infos['tname_before'] ?? null,
+                'merge_other' => $merge_infos['other_part'] ?? null
             ]);
     }
 
@@ -345,23 +400,41 @@ class PartController extends AbstractController
             $amount = (float) $request->request->get('amount');
             $comment = $request->request->get('comment');
             $action = $request->request->get('action');
+            $delete_lot_if_empty = $request->request->getBoolean('delete_lot_if_empty', false);
 
+            $timestamp = null;
+            $timestamp_str = $request->request->getString('timestamp', '');
+            //Try to parse the timestamp
+            if($timestamp_str !== '') {
+                $timestamp = new DateTime($timestamp_str);
+            }
+
+            //Ensure that the timestamp is not in the future
+            if($timestamp !== null && $timestamp > new DateTime("+20min")) {
+                throw new \LogicException("The timestamp must not be in the future!");
+            }
+
+            //Ensure that the amount is not null or negative
+            if ($amount <= 0) {
+                $this->addFlash('warning', 'part.withdraw.zero_amount');
+                goto err;
+            }
 
             try {
                 switch ($action) {
                     case "withdraw":
                     case "remove":
                         $this->denyAccessUnlessGranted('withdraw', $partLot);
-                        $withdrawAddHelper->withdraw($partLot, $amount, $comment);
+                        $withdrawAddHelper->withdraw($partLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     case "add":
                         $this->denyAccessUnlessGranted('add', $partLot);
-                        $withdrawAddHelper->add($partLot, $amount, $comment);
+                        $withdrawAddHelper->add($partLot, $amount, $comment, $timestamp);
                         break;
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
                         $this->denyAccessUnlessGranted('move', $targetLot);
-                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
+                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     default:
                         throw new \RuntimeException("Unknown action!");

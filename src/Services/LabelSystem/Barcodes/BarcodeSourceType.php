@@ -32,4 +32,9 @@ enum BarcodeSourceType
     case INTERNAL;
     /** This barcode is containing an internal part number (IPN) */
     case IPN;
+    /**
+     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
+     * field of a part lot.
+     */
+    case VENDOR;
 }

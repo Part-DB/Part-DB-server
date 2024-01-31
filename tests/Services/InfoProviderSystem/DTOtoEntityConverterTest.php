@@ -146,11 +146,11 @@ class DTOtoEntityConverterTest extends WebTestCase
         $this->assertEquals($type, $entity->getAttachmentType());
     }
 
-    public function testConvertPart()
+    public function testConvertPart(): void
     {
         $parameters = [new ParameterDTO('Test', 'Test')];
-        $datasheets = [new FileDTO('https://invalid.invalid/file.pdf')];
-        $images = [new FileDTO('https://invalid.invalid/image.png')];
+        $datasheets = [new FileDTO('https://invalid.invalid/file.pdf'), new FileDTO('https://invalid.invalid/file.pdf', name: 'TestFile')];
+        $images = [new FileDTO('https://invalid.invalid/image.png'), new FileDTO('https://invalid.invalid/image2.png', name: 'TestImage2'), new FileDTO('https://invalid.invalid/image2.png')];
         $shopping_infos = [new  PurchaseInfoDTO('TestDistributor', 'TestOrderNumber', [new PriceDTO(1, "10.0", 'EUR')])];
 
         $dto = new PartDetailDTO(
@@ -179,5 +179,16 @@ class DTOtoEntityConverterTest extends WebTestCase
         //The actual content is tested in the corresponding tests
         $this->assertCount(count($parameters), $entity->getParameters());
         $this->assertCount(count($shopping_infos), $entity->getOrderdetails());
+
+        //Datasheets and images are stored as attachments and the duplicates, should be filtered out
+        $this->assertCount(3, $entity->getAttachments());
+        //The attachments should have the name of the named duplicate file
+        $image1 = $entity->getAttachments()[0];
+        $this->assertEquals('Main image', $image1->getName());
+
+        $image1 = $entity->getAttachments()[1];
+
+        $datasheet = $entity->getAttachments()[2];
+        $this->assertEquals('TestFile', $datasheet->getName());
     }
 }

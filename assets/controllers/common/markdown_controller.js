@@ -20,18 +20,26 @@
 'use strict';
 
 import { Controller } from '@hotwired/stimulus';
-import { marked } from "marked";
+import { Marked } from "marked";
 import { mangle } from "marked-mangle";
 import { gfmHeadingId } from "marked-gfm-heading-id";
 import DOMPurify from 'dompurify';
 
 import "../../css/app/markdown.css";
 
-export default class extends Controller {
+export default class MarkdownController extends Controller {
+
+    static _marked = new Marked([
+        {
+            gfm: true,
+        },
+        gfmHeadingId(),
+        mangle(),
+    ])
+    ;
 
     connect()
     {
-        this.configureMarked();
         this.render();
 
         //Dispatch an event that we are now finished
@@ -45,7 +53,7 @@ export default class extends Controller {
         let raw = this.element.dataset['markdown'];
 
         //Apply purified parsed markdown
-        this.element.innerHTML = DOMPurify.sanitize(marked(this.unescapeHTML(raw)));
+        this.element.innerHTML = DOMPurify.sanitize(MarkdownController._marked.parse(this.unescapeHTML(raw)));
 
         for(let a of this.element.querySelectorAll('a')) {
             //Mark all links as external
@@ -81,8 +89,17 @@ export default class extends Controller {
     /**
      * Configure the marked parser
      */
-    configureMarked()
+    /*static newMarked()
     {
+        const marked = new Marked([
+            {
+                gfm: true,
+            },
+            gfmHeadingId(),
+            mangle(),
+            ])
+        ;
+
         marked.use(mangle());
         marked.use(gfmHeadingId({
         }));
@@ -90,5 +107,5 @@ export default class extends Controller {
         marked.setOptions({
             gfm: true,
         });
-    }
+    }*/
 }

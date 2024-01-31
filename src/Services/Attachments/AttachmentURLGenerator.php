@@ -135,7 +135,10 @@ class AttachmentURLGenerator
         }
 
         //GD can not work with SVG, so serve it directly...
-        if ('svg' === $attachment->getExtension()) {
+        //We can not use getExtension here, because it uses the original filename and not the real extension
+        //Instead we use the logic, which is also used to determine if the attachment is a picture
+        $extension = pathinfo(parse_url($attachment->getPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
+        if ('svg' === $extension) {
             return $this->assets->getUrl($asset_path);
         }
 

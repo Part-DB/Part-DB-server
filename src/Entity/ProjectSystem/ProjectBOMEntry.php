@@ -35,6 +35,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -84,7 +85,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", 'mountnames'])]
 #[ApiFilter(RangeFilter::class, properties: ['quantity'])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified', 'quantity'])]
-class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInterface
+class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInterface, TimeStampableInterface
 {
     use TimestampTrait;
 

@@ -89,6 +89,10 @@
         {% endif %}
     </div>
 
+    {% if show_dependency_notice %}
+        <small class="text-muted mb-1 d-inline-block">{% trans %}permission.legend.dependency_note{% endtrans %}</small>
+    {% endif %}
+
     <ul class="nav nav-tabs">
         {% for group in form %}
             <li class="nav-item">

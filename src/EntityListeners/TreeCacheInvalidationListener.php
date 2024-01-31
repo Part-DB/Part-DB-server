@@ -24,49 +24,52 @@ namespace App\EntityListeners;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\UserSystem\UserCacheKeyGenerator;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\Cache\UserCacheKeyGenerator;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use function get_class;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class TreeCacheInvalidationListener
 {
-    public function __construct(protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator)
+    public function __construct(
+        protected TagAwareCacheInterface $cache,
+        protected UserCacheKeyGenerator $keyGenerator,
+        protected ElementCacheTagGenerator $tagGenerator
+    )
     {
     }
 
     #[ORM\PostUpdate]
     #[ORM\PostPersist]
     #[ORM\PostRemove]
-    public function invalidate(AbstractDBElement $element, LifecycleEventArgs $event): void
+    public function invalidate(AbstractDBElement $element, PostUpdateEventArgs|PostPersistEventArgs|PostRemoveEventArgs $event): void
     {
-        //If an element was changed, then invalidate all cached trees with this element class
-        if ($element instanceof AbstractStructuralDBElement || $element instanceof LabelProfile) {
-            $secure_class_name = str_replace('\\', '_', $element::class);
-            $this->cache->invalidateTags([$secure_class_name]);
+        //For all changes, we invalidate the cache for all elements of this class
+        $tags = [$this->tagGenerator->getElementTypeCacheTag($element)];
 
-            //Trigger a sidebar reload for all users (see SidebarTreeUpdater service)
-            if(!$element instanceof LabelProfile) {
-                $this->cache->invalidateTags(['sidebar_tree_update']);
-            }
+
+        //For changes on structural elements, we also invalidate the sidebar tree
+        if ($element instanceof AbstractStructuralDBElement) {
+            $tags[] = 'sidebar_tree_update';
         }
 
-        //If a user change, then invalidate all cached trees for him
+        //For user changes, we invalidate the cache for this user
         if ($element instanceof User) {
-            $secure_class_name = str_replace('\\', '_', $element::class);
-            $tag = $this->keyGenerator->generateKey($element);
-            $this->cache->invalidateTags([$tag, $secure_class_name]);
+            $tags[] = $this->keyGenerator->generateKey($element);
         }
 
         /* If any group change, then invalidate all cached trees. Users Permissions can be inherited from groups,
             so a change in any group can cause big permisssion changes for users. So to be sure, invalidate all trees */
         if ($element instanceof Group) {
-            $tag = 'groups';
-            $this->cache->invalidateTags([$tag]);
+            $tags[] = 'groups';
         }
+
+        //Invalidate the cache for the given tags
+        $this->cache->invalidateTags($tags);
     }
 }

@@ -83,9 +83,12 @@ final class Version20221114193325 extends AbstractMultiPlatformMigration impleme
         //Reset the permissions of the admin user, to allow admin permissions (like the admins group)
         $this->addSql("UPDATE `users` SET permissions_data = '$admin' WHERE id = 2;");
 
+        //This warning should not be needed, anymore, as almost everybody should have updated to the new version by now, and this warning would just irritate new users of the software
+        /*
         $this->logger->warning('<bg=cyan;fg=black>!!! All permissions were reset! Please change them to the desired state, immediately !!!</>');
         $this->logger->warning('<bg=cyan;fg=black>!!! For security reasons all users (except the admin user) were disabled. Login with admin user and reenable other users after checking their permissions !!!</>');
         $this->logger->warning('<bg=cyan;fg=black>!!! For more infos see: https://github.com/Part-DB/Part-DB-symfony/discussions/193 !!!</>');
+        */
     }
 
     public function mySQLUp(Schema $schema): void

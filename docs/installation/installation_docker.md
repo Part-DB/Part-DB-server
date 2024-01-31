@@ -47,8 +47,9 @@ services:
 
       # You can configure Part-DB using environment variables
       # Below you can find the most essential ones predefined
-      # However you can add add any other environment configuration you want here
+      # However you can add any other environment configuration you want here
       # See .env file for all available options or https://docs.part-db.de/configuration.html
+      # !!! Do not use quotes around the values, as they will be interpreted as part of the value and this will lead to errors !!!
 
       # The language to use serverwide as default (en, de, ru, etc.)
       - DEFAULT_LANG=en
@@ -65,9 +66,12 @@ services:
       # Use gravatars for user avatars, when user has no own avatar defined
       - USE_GRAVATAR=0
 
-      # Override value if you want to show to show a given text on homepage.
+      # Override value if you want to show a given text on homepage.
       # When this is empty the content of config/banner.md is used as banner
       #- BANNER=This is a test banner<br>with a line break
+    
+      # If you use a reverse proxy in front of Part-DB, you must configure the trusted proxies IP addresses here (see reverse proxy documentation for more information):
+      # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16  
 ```
 
 4. Customize the settings by changing the environment variables (or add new ones). See [Configuration]({% link

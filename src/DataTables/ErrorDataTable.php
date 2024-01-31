@@ -67,8 +67,10 @@ class ErrorDataTable implements DataTableTypeInterface
 
         //Build the array containing data
         $data = [];
+        $n = 0;
         foreach ($options['errors'] as $error) {
-            $data[] = ['error' => $error];
+            $data['error_' . $n] = ['error' => $error];
+            $n++;
         }
 
         $dataTable->createAdapter(ArrayAdapter::class, $data);

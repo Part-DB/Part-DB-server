@@ -224,7 +224,7 @@ trait PKImportHelperTrait
      */
     protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str)
     {
-        if ($datetime_str) {
+        if ($datetime_str !== null && $datetime_str !== '' && $datetime_str !== '0000-00-00 00:00:00') {
             $date = new \DateTime($datetime_str);
         } else {
             $date = null; //Null means "now" at persist time
@@ -234,5 +234,28 @@ trait PKImportHelperTrait
         $property = $reflectionClass->getProperty('addedDate');
         $property->setAccessible(true);
         $property->setValue($entity, $date);
+    }
+
+    /**
+     * Gets the SI prefix factor for the given prefix ID.
+     * Used to convert a value from the PartKeepr database to the PartDB database.
+     * @param  array $data
+     * @param  int  $prefix_id
+     * @return float
+     */
+    protected function getSIPrefixFactor(array $data, int $prefix_id): float
+    {
+        if ($prefix_id === 0) {
+            return 1.0;
+        }
+
+        $prefixes = $data['siprefix'];
+        foreach ($prefixes as $prefix) {
+            if ((int) $prefix['id'] === $prefix_id) {
+                return pow((int) $prefix['base'], (int) $prefix['exponent']);
+            }
+        }
+
+        throw new \RuntimeException(sprintf('Could not find SI prefix with ID %s', $prefix_id));
     }
 }

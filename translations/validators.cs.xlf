@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
+  <file id="validators.en">
+    <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\LabelSystem\LabelProfile.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>part.master_attachment.must_be_picture</source>
+        <target>Příloha náhledu musí být platný obrázek!</target>
+      </segment>
+    </unit>
+    <unit id="VJHTkxx" name="structural.entity.unique_name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">src\Entity\AttachmentType.php:0</note>
+        <note priority="1">src\Entity\Category.php:0</note>
+        <note priority="1">src\Entity\Company.php:0</note>
+        <note priority="1">src\Entity\Device.php:0</note>
+        <note priority="1">src\Entity\Footprint.php:0</note>
+        <note priority="1">src\Entity\Group.php:0</note>
+        <note priority="1">src\Entity\Manufacturer.php:0</note>
+        <note priority="1">src\Entity\PartsContainingDBElement.php:0</note>
+        <note priority="1">src\Entity\Storelocation.php:0</note>
+        <note priority="1">src\Entity\StructuralDBElement.php:0</note>
+        <note priority="1">src\Entity\Supplier.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>structural.entity.unique_name</source>
+        <target>Prvek s tímto názvem již na této úrovni existuje!</target>
+      </segment>
+    </unit>
+    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_typical</source>
+        <target>Hodnota musí být menší nebo rovna typické hodnotě ({{ compared_value }}).</target>
+      </segment>
+    </unit>
+    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_max</source>
+        <target>Hodnota musí být menší než maximální hodnota ({{ compared_value }}).</target>
+      </segment>
+    </unit>
+    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.max_greater_typical</source>
+        <target>Hodnota musí být větší nebo rovna typické hodnotě ({{ compared_value }}).</target>
+      </segment>
+    </unit>
+    <unit id="isXL.ie" name="validator.user.username_already_used">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.user.username_already_used</source>
+        <target>Uživatel s tímto jménem již existuje</target>
+      </segment>
+    </unit>
+    <unit id="NcM463r" name="user.invalid_username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>user.invalid_username</source>
+        <target>Uživatelské jméno musí obsahovat pouze písmena, číslice, podtržítka, tečky, plusy nebo mínusy!</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.self</source>
+        <target>Prvek nemůže být svým vlastním rodičem!</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.children</source>
+        <target>Podřízený prvek nemůže být nadřazeným prvkem!</target>
+      </segment>
+    </unit>
+    <unit id="ayNr6QK" name="validator.select_valid_category">
+      <segment state="translated">
+        <source>validator.select_valid_category</source>
+        <target>Vyberte prosím platnou kategorii!</target>
+      </segment>
+    </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <segment state="translated">
+        <source>validator.part_lot.only_existing</source>
+        <target>Do tohoto umístění nelze přidávat nové díly, protože je označeno jako "Pouze existující".</target>
+      </segment>
+    </unit>
+    <unit id="3xoKOIS" name="validator.part_lot.location_full.no_increase">
+      <segment state="translated">
+        <source>validator.part_lot.location_full.no_increase</source>
+        <target>Místo je obsazeno. Množství nelze navýšit (nová hodnota musí být menší než {{ old_amount }}).</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <segment state="translated">
+        <source>validator.part_lot.location_full</source>
+        <target>Místo je obsazeno. Nelze do něj přidávat nové díly.</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <segment state="translated">
+        <source>validator.part_lot.single_part</source>
+        <target>Toto umístění může obsahovat pouze jeden díl, takže do něj nelze přídávat další!</target>
+      </segment>
+    </unit>
+    <unit id="4gPskOG" name="validator.attachment.must_not_be_null">
+      <segment state="translated">
+        <source>validator.attachment.must_not_be_null</source>
+        <target>Musíte vybrat typ přílohy!</target>
+      </segment>
+    </unit>
+    <unit id="cDDVrWT" name="validator.orderdetail.supplier_must_not_be_null">
+      <segment state="translated">
+        <source>validator.orderdetail.supplier_must_not_be_null</source>
+        <target>Musíte si vybrat dodavatele!</target>
+      </segment>
+    </unit>
+    <unit id="k5DDdB4" name="validator.measurement_unit.use_si_prefix_needs_unit">
+      <segment state="translated">
+        <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
+        <target>Chcete-li povolit předpony SI, musíte nastavit symbol jednotky!</target>
+      </segment>
+    </unit>
+    <unit id="DuzIOCr" name="part.ipn.must_be_unique">
+      <segment state="translated">
+        <source>part.ipn.must_be_unique</source>
+        <target>Interní číslo dílu musí být jedinečné. {{ value }} se již používá!</target>
+      </segment>
+    </unit>
+    <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.name_or_part_needed</source>
+        <target>Musíte vybrat díl pro položku BOM dílu nebo nastavit název pro položku BOM bez dílu.</target>
+      </segment>
+    </unit>
+    <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
+      <segment state="translated">
+        <source>project.bom_entry.name_already_in_bom</source>
+        <target>Již existuje položka BOM s tímto názvem!</target>
+      </segment>
+    </unit>
+    <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
+      <segment state="translated">
+        <source>project.bom_entry.part_already_in_bom</source>
+        <target>Tento díl již existuje v tomto BOM!</target>
+      </segment>
+    </unit>
+    <unit id="3lM32Tw" name="project.bom_entry.mountnames_quantity_mismatch">
+      <segment state="translated">
+        <source>project.bom_entry.mountnames_quantity_mismatch</source>
+        <target>Počet názvů sestav musí odpovídat počtu komponent v BOM!</target>
+      </segment>
+    </unit>
+    <unit id="x47D5WT" name="project.bom_entry.can_not_add_own_builds_part">
+      <segment state="translated">
+        <source>project.bom_entry.can_not_add_own_builds_part</source>
+        <target>Seznam BOM projektu nelze přidat do BOM.</target>
+      </segment>
+    </unit>
+    <unit id="2x2XDI_" name="project.bom_has_to_include_all_subelement_parts">
+      <segment state="translated">
+        <source>project.bom_has_to_include_all_subelement_parts</source>
+        <target>BOM projektu musí obsahovat všechny výrobní díly dílčích projektů. Díl %part_name% projektu %project_name% chybí!</target>
+      </segment>
+    </unit>
+    <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
+      <segment state="translated">
+        <source>project.bom_entry.price_not_allowed_on_parts</source>
+        <target>U položek komponent BOM nelze nastavit cenu. Zadejte cenu samotného dílu.</target>
+      </segment>
+    </unit>
+    <unit id="ID056SR" name="validator.project_build.lot_bigger_than_needed">
+      <segment state="translated">
+        <source>validator.project_build.lot_bigger_than_needed</source>
+        <target>Zvolili jste větší množství pro vychystávání, než je nutné. Odstraňte přebytečné množství</target>
+      </segment>
+    </unit>
+    <unit id="6hV5UqD" name="validator.project_build.lot_smaller_than_needed">
+      <segment state="translated">
+        <source>validator.project_build.lot_smaller_than_needed</source>
+        <target>Zvolili jste menší množství k odebrání, než je potřeba pro sestavení! Přidejte další množství.</target>
+      </segment>
+    </unit>
+    <unit id="G9ZKt.4" name="part.name.must_match_category_regex">
+      <segment state="translated">
+        <source>part.name.must_match_category_regex</source>
+        <target>Název komponenty neodpovídá regulárnímu výrazu zadanému pro kategorii: %regex%</target>
+      </segment>
+    </unit>
+    <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
+      <segment state="translated">
+        <source>validator.attachment.name_not_blank</source>
+        <target>Vyberte hodnotu nebo nahrajte soubor, aby se jeho název automaticky použil jako název této přílohy.</target>
+      </segment>
+    </unit>
+    <unit id="nwGaNBW" name="validator.part_lot.owner_must_match_storage_location_owner">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_match_storage_location_owner</source>
+        <target>Vlastník inventáře této komponenty a vybrané umístění se musí shodovat (%owner_name%)!</target>
+      </segment>
+    </unit>
+    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>Vlastníkem nemůže být anonymní uživatel!</target>
+      </segment>
+    </unit>
+    <unit id="N8aA0Uh" name="validator.part_association.must_set_an_value_if_type_is_other">
+      <segment state="translated">
+        <source>validator.part_association.must_set_an_value_if_type_is_other</source>
+        <target>Pokud nastavíte typ na "jiný", musíte pro něj nastavit popisnou hodnotu!</target>
+      </segment>
+    </unit>
+    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>Díl nemůže být spojen sám se sebou!</target>
+      </segment>
+    </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>Asociace s tímto dílem již existuje!</target>
+      </segment>
+    </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>Tato hodnota čárového kódu dodavatele již byla použita v jiném inventáře. Čárový kód musí být jedinečný!</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

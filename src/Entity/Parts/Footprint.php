@@ -39,6 +39,9 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\EDA\EDACategoryInfo;
+use App\Entity\EDA\EDAFootprintInfo;
+use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\FootprintRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,6 +50,7 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -68,7 +72,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['footprint:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['footprint:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['footprint:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/footprints/{id}/children.{_format}',
@@ -137,6 +141,19 @@ class Footprint extends AbstractPartsContainingDBElement
     #[Groups(['footprint:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
+    #[Assert\Valid]
+    #[ORM\Embedded(class: EDAFootprintInfo::class)]
+    #[Groups(['full', 'footprint:read', 'footprint:write'])]
+    protected EDAFootprintInfo $eda_info;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->eda_info = new EDAFootprintInfo();
+    }
 
     /****************************************
      * Getters
@@ -166,11 +183,15 @@ class Footprint extends AbstractPartsContainingDBElement
 
         return $this;
     }
-    public function __construct()
+
+    public function getEdaInfo(): EDAFootprintInfo
     {
-        parent::__construct();
-        $this->children = new ArrayCollection();
-        $this->attachments = new ArrayCollection();
-        $this->parameters = new ArrayCollection();
+        return $this->eda_info;
+    }
+
+    public function setEdaInfo(EDAFootprintInfo $eda_info): Footprint
+    {
+        $this->eda_info = $eda_info;
+        return $this;
     }
 }

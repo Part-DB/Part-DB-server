@@ -27,14 +27,14 @@ jobs:
           php-version: '8.2'
           coverage: none
           ini-values: xdebug.max_nesting_level=1000
-          extensions: mbstring, intl, gd, xsl, gmp, bcmath
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
 
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -48,7 +48,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -77,13 +77,13 @@ jobs:
         run: zip -r /tmp/partdb_assets.zip public/build/ vendor/
 
       - name: Upload assets artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Only dependencies and built assets
           path: /tmp/partdb_assets.zip
 
       - name: Upload full artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Full Part-DB including dependencies and built assets
           path: /tmp/partdb_with_assets.zip

@@ -72,7 +72,7 @@ use LogicException;
     operations: [
         new Get(security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@attachments.list_attachments")'),
-        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        //new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
@@ -153,7 +153,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     #[Selectable()]
-    #[Groups(['attachment:read', 'attachment_write'])]
+    #[Groups(['attachment:read', 'attachment:write'])]
     protected ?AttachmentType $attachment_type = null;
 
     #[Groups(['attachment:read'])]

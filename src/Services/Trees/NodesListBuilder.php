@@ -22,14 +22,13 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
-use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\AttachmentContainingDBElementRepository;
 use App\Repository\DBElementRepository;
 use App\Repository\StructuralDBElementRepository;
-use App\Services\UserSystem\UserCacheKeyGenerator;
+use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\Cache\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
@@ -40,8 +39,12 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
  */
 class NodesListBuilder
 {
-    public function __construct(protected EntityManagerInterface $em, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator)
-    {
+    public function __construct(
+        protected EntityManagerInterface $em,
+        protected TagAwareCacheInterface $cache,
+        protected UserCacheKeyGenerator $keyGenerator,
+        protected ElementCacheTagGenerator $tagGenerator,
+    ) {
     }
 
     /**
@@ -50,9 +53,9 @@ class NodesListBuilder
      *
      * @template T of AbstractDBElement
      *
-     * @param string                           $class_name the class name of the entity you want to retrieve
+     * @param  string  $class_name  the class name of the entity you want to retrieve
      * @phpstan-param class-string<T> $class_name
-     * @param AbstractStructuralDBElement|null $parent     This entity will be used as root element. Set to null, to use global root
+     * @param  AbstractStructuralDBElement|null  $parent  This entity will be used as root element. Set to null, to use global root
      *
      * @return AbstractDBElement[] a flattened list containing the tree elements
      * @phpstan-return list<T>
@@ -86,7 +89,7 @@ class NodesListBuilder
     {
         $parent_id = $parent instanceof AbstractStructuralDBElement ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
-        $secure_class_name = str_replace('\\', '_', $class_name);
+        $secure_class_name = $this->tagGenerator->getElementTypeCacheTag($class_name);
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;
 
         return $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
@@ -105,7 +108,7 @@ class NodesListBuilder
      *  The value is cached for performance reasons.
      *
      * @template T of AbstractStructuralDBElement
-     * @param T $element
+     * @param  T  $element
      * @return AbstractStructuralDBElement[]
      *
      * @phpstan-return list<T>

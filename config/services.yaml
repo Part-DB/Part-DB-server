@@ -93,6 +93,7 @@ services:
         arguments:
             $allow_attachments_download: '%partdb.attachments.allow_downloads%'
             $max_file_size: '%partdb.attachments.max_file_size%'
+            $download_by_default: '%partdb.attachments.download_by_default%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:
@@ -139,6 +140,19 @@ services:
         arguments:
             $saml_role_mapping: '%env(json:SAML_ROLE_MAPPING)%'
             $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
+
+
+    security.access_token_extractor.header.token:
+        class: Symfony\Component\Security\Http\AccessToken\HeaderAccessTokenExtractor
+        arguments:
+            $tokenType: 'Token'
+
+    security.access_token_extractor.main:
+        class: Symfony\Component\Security\Http\AccessToken\ChainAccessTokenExtractor
+        arguments:
+            $accessTokenExtractors:
+                - '@security.access_token_extractor.header'
+                - '@security.access_token_extractor.header.token'
 
     ####################################################################################################################
     # Cache
@@ -303,6 +317,13 @@ services:
             $global_timezone: '%partdb.timezone%'
 
     ####################################################################################################################
+    # EDA system
+    ####################################################################################################################
+    App\Services\EDA\KiCadHelper:
+        arguments:
+            $category_depth: '%env(int:EDA_KICAD_CATEGORY_DEPTH)%'
+
+    ####################################################################################################################
     # Symfony overrides
     ####################################################################################################################
 
@@ -349,6 +370,10 @@ services:
             $partdb_banner: '%partdb.banner%'
             $project_dir: '%kernel.project_dir%'
 
+    App\Doctrine\Middleware\MySQLSSLConnectionMiddlewareWrapper:
+        arguments:
+            $enabled: '%env(bool:DATABASE_MYSQL_USE_SSL_CA)%'
+            $verify: '%env(bool:DATABASE_MYSQL_SSL_VERIFY_CERT)%'
 
     ####################################################################################################################
     # Monolog
@@ -376,4 +401,4 @@ when@test:
             arguments:
                 - '@doctrine.fixtures.loader'
                 - '@doctrine'
-                - { default: '@App\Doctrine\Purger\ResetAutoIncrementPurgerFactory' }
+                - { default: '@App\Doctrine\Purger\DoNotUsePurgerFactory' }

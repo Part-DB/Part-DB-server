@@ -6,7 +6,7 @@ scheb_two_factor:
         server_name: '$$DOMAIN$$'       # This field is replaced by the domain name of the server in DecoratedGoogleAuthenticator
         issuer: '%partdb.title%'        # Issuer name used in QR code
         digits: 6                       # Number of digits in authentication code
-        window: 1                       # How many codes before/after the current one would be accepted as valid
+        leeway: 5                       # Acceptable time drift in seconds
         template: security/2fa_form.html.twig
 
     backup_codes:

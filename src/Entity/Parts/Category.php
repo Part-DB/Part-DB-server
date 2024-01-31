@@ -38,6 +38,8 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\EDA\EDACategoryInfo;
+use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,6 +49,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -68,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['category:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['category:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['category:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
     uriTemplate: '/categories/{id}/children.{_format}',
@@ -185,6 +188,19 @@ class Category extends AbstractPartsContainingDBElement
     #[Groups(['category:read'])]
     protected ?\DateTimeInterface $lastModified = null;
 
+    #[Assert\Valid]
+    #[ORM\Embedded(class: EDACategoryInfo::class)]
+    #[Groups(['full', 'category:read', 'category:write'])]
+    protected EDACategoryInfo $eda_info;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->children = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->eda_info = new EDACategoryInfo();
+    }
 
     public function getPartnameHint(): string
     {
@@ -278,14 +294,17 @@ class Category extends AbstractPartsContainingDBElement
     public function setDefaultComment(string $default_comment): self
     {
         $this->default_comment = $default_comment;
-
         return $this;
     }
-    public function __construct()
+
+    public function getEdaInfo(): EDACategoryInfo
     {
-        parent::__construct();
-        $this->children = new ArrayCollection();
-        $this->attachments = new ArrayCollection();
-        $this->parameters = new ArrayCollection();
+        return $this->eda_info;
+    }
+
+    public function setEdaInfo(EDACategoryInfo $eda_info): Category
+    {
+        $this->eda_info = $eda_info;
+        return $this;
     }
 }

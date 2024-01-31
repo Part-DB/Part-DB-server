@@ -85,5 +85,25 @@
         </td>
     </tr>
 
+    <tr>
+        <td>{% trans %}part.edit.tab.eda{% endtrans %}</td>
+        <td>
+            <b>{% trans %}eda_info.reference_prefix{% endtrans %}:</b> {{ part.edaInfo.referencePrefix ?? part.category.edaInfo.referencePrefix ?? "" }}
+            <br>
+            <b>{% trans %}eda_info.value{% endtrans %}:</b> {{ part.edaInfo.value }}
+            <br>
+            <b>{% trans %}eda_info.visibility{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.visibility ?? part.category.edaInfo.visibility) }}
+            <br>
+            <b>{% trans %}eda_info.exclude_from_bom{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.excludeFromBom ?? part.category.edaInfo.excludeFromBom ?? false) }}
+            <br>
+            <b>{% trans %}eda_info.exclude_from_board{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.excludeFromBoard ?? part.category.edaInfo.excludeFromBoard ?? false) }}
+            <br>
+            <b>{% trans %}eda_info.exclude_from_sim{% endtrans %}:</b> {{ helper.boolean_badge( part.edaInfo.excludeFromSim ?? part.category.edaInfo.excludeFromSim ?? false) }}
+            <br>
+            <b>{% trans %}eda_info.kicad_symbol{% endtrans %}:</b> {{ part.edaInfo.kicadSymbol ?? part.category.edaInfo.kicadSymbol ?? "" }}
+            <br>
+            <b>{% trans %}eda_info.kicad_footprint{% endtrans %}:</b> {{ part.edaInfo.kicadFootprint ?? part.footprint.edaInfo.kicadFootprint ?? "" }}
+        </td>
+    </tr>
     </tbody>
 </table>

@@ -1,0 +1,18 @@
+{% form_theme form with ['parts/edit/edit_form_styles.html.twig'] %}
+{% import 'components/collection_type.macro.html.twig' as collection %}
+
+<div {{ collection.controller(form.associated_parts_as_owner, 'part_association.edit.delete.confirm') }}>
+    <table class="table table-striped table-sm" id="association_table" {{ collection.target() }}>
+        <tbody>
+        {% for assoc in form.associated_parts_as_owner %}
+            {{ form_widget(assoc) }}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-success" {{ collection.create_btn() }}
+            {% if not is_granted('edit', part) %}disabled{% endif %}>
+        <i class="fas fa-plus-square fa-fw"></i>
+        {% trans %}part_lot.create{% endtrans %}
+    </button>
+</div>

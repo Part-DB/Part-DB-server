@@ -41,6 +41,12 @@ Encore
     // only needed for CDN's or subdirectory deploy (this should not be needeed, as we use auto public path)
     //.setManifestKeyPrefix('build/')
 
+    //Use build/ as public path inisde the manifest.json (instead of "auto")
+    //Without this all webpack managed stuff which is loaded via the assets() twig function will not work
+    .configureManifestPlugin(options => {
+        options.publicPath = 'build/';
+    })
+
     /*
      * ENTRY CONFIG
      *

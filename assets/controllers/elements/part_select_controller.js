@@ -27,7 +27,7 @@ export default class extends Controller {
                     }
 
                     let tmp = '<div class="row m-0">' +
-                        "<div class='col-2 p-0 d-flex align-items-center'>" +
+                        "<div class='col-2 p-0 d-flex align-items-center' style='max-width: 80px;'>" +
                         (data.image ? "<img class='typeahead-image' src='" + data.image + "'/>" : "") +
                         "</div>" +
                         "<div class='col-10'>" +

@@ -7,62 +7,62 @@
         <div class="dropdown-menu" aria-labelledby="navbar-search-options">
             <div class="px-2" style="width: max-content;">
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_name"  name="name" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_name" name="name" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_category" name="category" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_category" name="category" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_category" class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_description" name="description" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_description" name="description" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_mpn" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_tags" class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_storelocation" class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1" checked>
+                    <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="search_ipn" class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
                 </div>
                 {% if true %}
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_supplierpartnr" name="ordernr" value="1" checked>
+                        <input type="checkbox" class="form-check-input" id="search_supplierpartnr" name="ordernr" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
                         <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1">
+                        <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
                         <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
                     </div>
                 {% endif %}
                 {% if true %}
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_manufacturer" name="manufacturer" value="1">
+                        <input type="checkbox" class="form-check-input" id="search_manufacturer" name="manufacturer" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
                         <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
                     </div>
                 {% endif %}
                 {% if true %}
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_footprint" name="footprint" value="1">
+                        <input type="checkbox" class="form-check-input" id="search_footprint" name="footprint" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
                         <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
                     </div>
                 {% endif %}
                 <hr>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1">
+                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
                     <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
                 </div>
             </div>

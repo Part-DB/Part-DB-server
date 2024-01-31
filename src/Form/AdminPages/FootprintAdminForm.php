@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\EDA\EDAFootprintInfo;
+use App\Form\Part\EDA\EDAFootprintInfoType;
 use App\Form\Type\MasterPictureAttachmentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -36,6 +38,12 @@ class FootprintAdminForm extends BaseEntityAdminForm
             'label' => 'footprint.edit.3d_model',
             'filter' => '3d_model',
             'entity' => $entity,
+        ]);
+
+        //EDA info
+        $builder->add('eda_info', EDAFootprintInfoType::class, [
+            'label' => false,
+            'required' => false,
         ]);
     }
 }

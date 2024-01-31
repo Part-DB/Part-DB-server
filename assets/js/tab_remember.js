@@ -19,7 +19,7 @@
 
 "use strict";
 
-import {Tab, Dropdown} from "bootstrap";
+import {Tab, Dropdown, Collapse} from "bootstrap";
 import tab from "bootstrap/js/src/tab";
 
 /**
@@ -54,6 +54,7 @@ class TabRememberHelper {
         const first_element = merged[0] ?? null;
         if(first_element) {
             this.revealElementOnTab(first_element);
+            this.revealElementInCollapse(first_element);
         }
     }
 
@@ -62,8 +63,18 @@ class TabRememberHelper {
      * @param event
      */
     onInvalid(event) {
+        this.revealElementInCollapse(event.target);
         this.revealElementOnTab(event.target);
         this.revealElementInDropdown(event.target);
+    }
+
+    revealElementInCollapse(element) {
+        let collapse = element.closest('.collapse');
+
+        if(collapse) {
+            let bs_collapse = Collapse.getOrCreateInstance(collapse);
+            bs_collapse.show();
+        }
     }
 
     revealElementInDropdown(element) {

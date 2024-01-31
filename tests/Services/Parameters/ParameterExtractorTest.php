@@ -67,6 +67,7 @@ class ParameterExtractorTest extends WebTestCase
             ['=BC547 rewr'],
             ['<i>For good</i>, [b]bad[/b], evil'],
             ['Param:; Test'],
+            ['A [link](https://demo.part-db.de) should not be matched']
         ];
     }
 

@@ -30,7 +30,10 @@ automatically
 
 However, SQLite does not support certain operations like regex search, which has to be emulated by PHP and therefore are
 pretty slow compared to the same operation at MySQL. In future there might be features that may only be available, when
-using MySQL.
+using MySQL. Also SQLite has limitations in comparisons and sorting of unicode characters, which might lead to unexpected
+behavior when using non-ASCII characters in your data. For example `µ` (micro sign) is not seen as equal to `μ`(greek minuscle mu),
+therefore searching for `µ` (micro sign) will not find parts containing `μ` (mu) and vice versa. In MySQL identical
+looking characters are seen as equal, which is more intuitive in most cases.
 
 In general MySQL might perform better for big Part-DB instances with many entries, lots of users and high activity, than
 SQLite.

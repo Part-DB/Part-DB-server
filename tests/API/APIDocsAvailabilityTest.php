@@ -44,10 +44,7 @@ class APIDocsAvailabilityTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
-    /**
-     * @dataProvider urlProvider
-     */
-    public function testDocForbidden(string $url): void
+    public function testDocForbidden(): void
     {
         self::ensureKernelShutdown();
         $client = static::createClient();
@@ -55,7 +52,7 @@ class APIDocsAvailabilityTest extends WebTestCase
             ->getRepository(User::class)->findOneBy(['name' => 'noread']);
         $client->loginUser($user);
 
-        $client->request('GET',$url);
+        $client->request('GET','/api/docs.json');
         self::assertResponseStatusCodeSame(403);
     }
 

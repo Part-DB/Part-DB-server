@@ -20,12 +20,12 @@
 
 declare(strict_types=1);
 
-namespace App\Services\UserSystem;
+namespace App\Services\Cache;
 
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\UserSystem\User;
 use Locale;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -60,7 +60,7 @@ class UserCacheKeyGenerator
             return 'user$_'.User::ID_ANONYMOUS;
         }
 
-        //In the most cases we can just use the username (its unique)
-        return 'user_'.$user->getUsername().'_'.$locale;
+        //Use the unique user id and the locale to generate the key
+        return 'user_'.$user->getID().'_'.$locale;
     }
 }

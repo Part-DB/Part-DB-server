@@ -96,6 +96,24 @@ class APITokenAuthenticationTest  extends ApiTestCase
         self::assertResponseIsSuccessful();
     }
 
+    public function testWithAuthorizationToken(): void
+    {
+        //For the KICAD API it should also work with Authorization: Token header instead of Bearer
+        self::ensureKernelShutdown();
+        $client = static::createClient([], ['headers' => ['authorization' => 'Token '.APITokenFixtures::TOKEN_ADMIN]]);;
+
+        //Read should be possible
+        $client->request('GET', '/api/parts');
+        self::assertResponseIsSuccessful();
+
+        //Trying to list all users
+        $client->request('GET', '/api/users');
+        self::assertResponseIsSuccessful();
+
+        $client->request('POST', '/api/footprints', ['json' => ['name' => 'post test']]);
+        self::assertResponseIsSuccessful();
+    }
+
     protected function createClientWithCredentials(string $token): Client
     {
         return static::createClient([], ['headers' => ['authorization' => 'Bearer '.$token]]);

@@ -1,0 +1,40 @@
+{% import "helper.twig" as helper %}
+
+{% macro assoc_row(assoc) %}
+    {# @var assoc \App\Entity\Parts\PartAssociation #}
+    <tr>
+        <td>{{ helper.part_icon_link(assoc.owner) }}</td>
+        <td>{{ assoc.typeTranslationKey | trans }}</td>
+        <td>{{ helper.part_icon_link(assoc.other) }}</td>
+        <td>{{ assoc.comment }}</td>
+    </tr>
+{% endmacro %}
+
+{% macro assoc_table(assocs, caption) %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover caption-top">
+            <caption>{{ caption | trans }}:</caption>
+            <thead>
+                <tr>
+                    <th>{% trans %}part_association.table.from{% endtrans %}</th>
+                    <th>{% trans %}part_association.table.type{% endtrans %}</th>
+                    <th>{% trans %}part_association.table.to{% endtrans %}</th>
+                    <th>{% trans %}part_association.edit.comment{% endtrans %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for assoc in assocs %}
+                {{ _self.assoc_row(assoc) }}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
+
+{% if part.associatedPartsAsOwner is not empty %}
+    {{ _self.assoc_table(part.associatedPartsAsOwner, 'part_association.table.from_this_part') }}
+{% endif %}
+
+{% if part.associatedPartsAsOther is not empty %}
+    {{ _self.assoc_table(part.associatedPartsAsOther, 'part_association.table.to_this_part') }}
+{% endif %}

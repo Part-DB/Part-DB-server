@@ -176,3 +176,28 @@ visible in the log of the entity.
 
 You can pass the text for this via the `_comment` query parameter (beware the proper encoding). For
 example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
+
+## Creating attachments and parameters
+
+{: .warning }
+> The way described below is more a workaround than a proper solution. This might break in future versions of Part-DB!
+
+Currently it is not possible to create attachments or parameters via a `POST` operation on the entity endpoint.
+The workaround for this is to send a patch request to the owning entity endpoint (e.g. parts `/api/parts/123`):
+
+```
+PATCH /api/parts/123
+
+{	
+"attachments": [
+  {"name": "front68", "attachment_type": "/api/attachment_types/1", "url": "https://invalid.invalid/test.url"}
+],
+"parameters": [
+  {"name": "value", "unit": "Ohm", "value": 100}
+]
+}
+```
+
+The limitation of this is, that this will override/delete all existing attachments/parameters of the entity.
+
+See [issue #502](https://github.com/Part-DB/Part-DB-server/issues/502) for more details on this topic.

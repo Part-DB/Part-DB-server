@@ -20,9 +20,9 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 namespace App\Services\UserSystem;
 
-use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
@@ -30,16 +30,23 @@ use App\Entity\UserSystem\User;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
-use Liip\ImagineBundle\Service\FilterService;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserAvatarHelper
 {
-    public const IMG_DEFAULT_AVATAR_PATH = '/img/default_avatar.png';
+    /**
+     * Path to the default avatar image (must not start with a slash, or the asset package will not work)
+     */
+    public const IMG_DEFAULT_AVATAR_PATH = 'img/default_avatar.svg';
 
-    public function __construct(private readonly bool $use_gravatar, private readonly Packages $packages, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly FilterService $filterService, private readonly EntityManagerInterface $entityManager, private readonly AttachmentSubmitHandler $submitHandler)
-    {
+    public function __construct(
+        private readonly bool $use_gravatar,
+        private readonly Packages $packages,
+        private readonly AttachmentURLGenerator $attachmentURLGenerator,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly AttachmentSubmitHandler $submitHandler
+    ) {
     }
 
 
@@ -78,13 +85,8 @@ class UserAvatarHelper
             return $this->getGravatar($user, 50); //50px wide picture
         }
 
-        try {
-            //Otherwise we can serve the relative path via Asset component
-            return $this->filterService->getUrlOfFilteredImage(self::IMG_DEFAULT_AVATAR_PATH, 'thumbnail_xs');
-        } catch (RuntimeException) {
-            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
-            return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
-        }
+        //Otherwise serve the default image (its an SVG, so we dont need to thumbnail it)
+        return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
     }
 
     public function getAvatarMdURL(User $user): string
@@ -100,20 +102,15 @@ class UserAvatarHelper
             return $this->getGravatar($user, 150);
         }
 
-        try {
-            //Otherwise we can serve the relative path via Asset component
-            return $this->filterService->getUrlOfFilteredImage(self::IMG_DEFAULT_AVATAR_PATH, 'thumbnail_xs');
-        } catch (RuntimeException) {
-            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
-            return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
-        }
+        //Otherwise serve the default image (its an SVG, so we dont need to thumbnail it)
+        return $this->packages->getUrl(self::IMG_DEFAULT_AVATAR_PATH);
     }
 
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.
      *
-     * @param  User $user The user for which the gravator should be generated
+     * @param  User  $user  The user for which the gravator should be generated
      * @param  int  $s  Size in pixels, defaults to 80px [ 1 - 2048 ]
      * @param  string  $d  Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
      * @param  string  $r  Maximum rating (inclusive) [ g | pg | r | x ]
@@ -131,7 +128,7 @@ class UserAvatarHelper
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
 
-        return $url . "?s=$s&d=$d&r=$r";
+        return $url."?s=$s&d=$d&r=$r";
     }
 
     /**

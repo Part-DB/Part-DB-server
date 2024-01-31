@@ -103,6 +103,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $partLot2->setComment('Test');
         $partLot2->setNeedsRefill(true);
         $partLot2->setStorageLocation($manager->find(StorageLocation::class, 3));
+        $partLot2->setVendorBarcode('lot2_vendor_barcode');
         $part->addPartLot($partLot2);
 
         $orderdetail = new Orderdetail();

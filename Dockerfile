@@ -5,7 +5,7 @@ FROM debian:bullseye-slim
 #    libpng-dev libjpeg-dev libfreetype6-dev gnupg zip libzip-dev libjpeg62-turbo-dev libonig-dev libxslt-dev libwebp-dev vim \
 #    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-certificates curl zip \
+RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-certificates curl zip mariadb-client \
     && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg  \
     && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
     && apt-get update && apt-get upgrade -y \

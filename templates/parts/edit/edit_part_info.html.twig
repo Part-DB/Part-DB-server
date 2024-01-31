@@ -59,6 +59,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#associations">
+                <i class="fas fa-circle-nodes fa-fw"></i>
+                {% trans %}part.edit.tab.associations{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#eda">
+                <i class="fas fa-compass-drafting fa-fw"></i>
+                {% trans %}part.edit.tab.eda{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" role="tab" href="#comment">
                 <i class="fas fa-sticky-note fa-fw"></i>
                 {% trans %}part.edit.tab.comment{% endtrans %}
@@ -89,6 +101,12 @@
         </div>
         <div class="tab-pane fade p-2" id="specifications" role="tabpanel">
             {% include "parts/edit/_specifications.html.twig" %}
+        </div>
+        <div class="tab-pane fade p-2" id="associations" role="tabpanel">
+            {% include "parts/edit/_associated_parts.html.twig" %}
+        </div>
+        <div class="tab-pane fade p-2" id="eda" role="tabpanel">
+            {% include "parts/edit/_eda.html.twig" %}
         </div>
         <div class="tab-pane fade p-2" id="comment" role="tabpanel">
             {{ form_widget(form.comment)}}

@@ -28,11 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RowClassColumn extends AbstractColumn
 {
-
-    /**
-     * @return $this
-     */
-    public function configureOptions(OptionsResolver $resolver): self
+    public function configureOptions(OptionsResolver $resolver): static
     {
         parent::configureOptions($resolver);
 
@@ -56,7 +52,7 @@ class RowClassColumn extends AbstractColumn
     /**
      * @return mixed
      */
-    public function normalize($value)
+    public function normalize($value): mixed
     {
         return $value;
     }

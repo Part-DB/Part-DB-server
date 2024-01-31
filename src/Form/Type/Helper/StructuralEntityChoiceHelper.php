@@ -75,7 +75,8 @@ class StructuralEntityChoiceHelper
         }
 
         if ($choice instanceof HasMasterAttachmentInterface) {
-            $tmp['data-image'] = $choice->getMasterPictureAttachment() instanceof Attachment ?
+            $tmp['data-image'] = ($choice->getMasterPictureAttachment() instanceof Attachment
+                && $choice->getMasterPictureAttachment()->isPicture()) ?
                 $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(),
                     'thumbnail_xs')
                 : null

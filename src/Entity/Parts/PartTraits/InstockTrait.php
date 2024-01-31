@@ -28,6 +28,7 @@ use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -181,6 +182,8 @@ trait InstockTrait
      *
      * @return float The amount of parts given in partUnit
      */
+    #[Groups(['simple', 'extended', 'full', 'part:read'])]
+    #[SerializedName('total_instock')]
     public function getAmountSum(): float
     {
         //TODO: Find a method to do this natively in SQL, the current method could be a bit slow

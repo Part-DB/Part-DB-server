@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,24 +17,34 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Doctrine\SetSQLMode;
 
+declare(strict_types=1);
+
+
+namespace App\Doctrine\Middleware;
+
+use Composer\CaBundle\CaBundle;
+use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
 /**
- * This command sets the initial command parameter for MySQL connections, so we can set the SQL mode
- * We use this to disable the ONLY_FULL_GROUP_BY mode, which is enabled by default in MySQL 5.7.5 and higher and causes problems with our filters
+ * This middleware sets SSL options for MySQL connections
  */
-class SetSQLModeMiddlewareDriver extends AbstractDriverMiddleware
+class MySQLSSLConnectionMiddlewareDriver extends AbstractDriverMiddleware
 {
+    public function __construct(Driver $wrappedDriver, private readonly bool $enabled, private readonly bool $verify = true)
+    {
+        parent::__construct($wrappedDriver);
+    }
+
     public function connect(array $params): Connection
     {
         //Only set this on MySQL connections, as other databases don't support this parameter
-        if($this->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
-            //1002 is \PDO::MYSQL_ATTR_INIT_COMMAND constant value
-            $params['driverOptions'][1002] = 'SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode, \'ONLY_FULL_GROUP_BY\', \'\'))';
+        if($this->enabled && $this->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
+            $params['driverOptions'][\PDO::MYSQL_ATTR_SSL_CA] = CaBundle::getSystemCaRootBundlePath();
+            $params['driverOptions'][\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = $this->verify;
         }
 
         return parent::connect($params);

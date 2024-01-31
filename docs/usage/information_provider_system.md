@@ -37,6 +37,10 @@ filled in.
 
 ![image]({% link assets/usage/information_provider_system/animation.gif %})
 
+If you want to update an existing part, go to the parts info page and click on the "Update from info provider" button in
+the tools tab. You will be redirected to a search page, where you can search the info providers to automatically update this
+part.
+
 ## Alternative names
 
 Part-DB tries to automatically find existing elements from your database for the information it got from the providers
@@ -182,6 +186,10 @@ You have to create an account at Mouser and register for an API key for the Sear
 the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
 At the registration you choose a country, language and currency in which you want to get the results.
+
+*Attention*: Currently (January 2024) the mouser API seems to be somewhat broken, in the way that it does not return any
+information about datasheets and part specifications. Therefore Part-DB can not retrieve them, even if they are shown
+at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more infos.
 
 Following env configuration options are available:
 

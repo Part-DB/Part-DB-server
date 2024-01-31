@@ -20,8 +20,8 @@ The only method currently available for authentication is to use API tokens:
 
 An API token is a long alphanumeric string, which is bound to a specific user and can be used to authenticate as this
 user, when accessing the API.
-The API token is passed via the `Authentication` HTTP header during the API request, like the
-following: `Authentication: Bearer tcp_sdjfks....`.
+The API token is passed via the `Authorization` HTTP header during the API request, like the
+following: `Authorization: Bearer tcp_sdjfks....`.
 
 {: .important }
 > Everybody who knows the API token can access the API as the user, which is bound to the token. So you should treat the

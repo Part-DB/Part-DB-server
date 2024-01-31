@@ -317,5 +317,29 @@
         <target>Der Eigentümer darf nicht der anonymous Benutzer sein!</target>
       </segment>
     </unit>
+    <unit id="N8aA0Uh" name="validator.part_association.must_set_an_value_if_type_is_other">
+      <segment state="translated">
+        <source>validator.part_association.must_set_an_value_if_type_is_other</source>
+        <target>Wenn die Art der Verknüpfung auf "Andere" gesetzt wurde, müssen Sie einen beschreibenden Wert setzen!</target>
+      </segment>
+    </unit>
+    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>Ein Bauteil kann nicht mit sich selbst verknüpft werden!</target>
+      </segment>
+    </unit>
+    <unit id="csc1PNn" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>Eine Verknüpfung mit diesem Bauteil existiert bereits!</target>
+      </segment>
+    </unit>
+    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>Dieser Lieferanten Barcode Wert wird bereits bei einem anderen Bestand verwendet. Der Barcode muss eindeutig sein!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -44,15 +44,20 @@ namespace App\Services\LabelSystem;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Repository\LabelProfileRepository;
-use App\Services\UserSystem\UserCacheKeyGenerator;
+use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\Cache\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class LabelProfileDropdownHelper
 {
-    public function __construct(private readonly TagAwareCacheInterface $cache, private readonly EntityManagerInterface $entityManager, private readonly UserCacheKeyGenerator $keyGenerator)
-    {
+    public function __construct(
+        private readonly TagAwareCacheInterface $cache,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserCacheKeyGenerator $keyGenerator,
+        private readonly ElementCacheTagGenerator $tagGenerator,
+    ) {
     }
 
     /**
@@ -67,7 +72,7 @@ final class LabelProfileDropdownHelper
             $type = LabelSupportedElement::from($type);
         }
 
-        $secure_class_name = str_replace('\\', '_', LabelProfile::class);
+        $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(LabelProfile::class);
         $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.'_'.$type->value;
 
         /** @var LabelProfileRepository $repo */

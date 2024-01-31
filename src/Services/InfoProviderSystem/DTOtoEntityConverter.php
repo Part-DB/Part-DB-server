@@ -186,7 +186,8 @@ final class DTOtoEntityConverter
         }
 
         //Add other images
-        foreach ($dto->images ?? [] as $image) {
+        $images = $this->files_unique($dto->images ?? []);
+        foreach ($images as $image) {
             //Ensure that the image is not the same as the preview image
             if ($image->url === $dto->preview_image_url) {
                 continue;
@@ -195,10 +196,10 @@ final class DTOtoEntityConverter
             $entity->addAttachment($this->convertFile($image, $image_type));
         }
 
-
         //Add datasheets
         $datasheet_type = $this->getDatasheetType();
-        foreach ($dto->datasheets ?? [] as $datasheet) {
+        $datasheets = $this->files_unique($dto->datasheets ?? []);
+        foreach ($datasheets as $datasheet) {
             $entity->addAttachment($this->convertFile($datasheet, $datasheet_type));
         }
 
@@ -208,6 +209,27 @@ final class DTOtoEntityConverter
         }
 
         return $entity;
+    }
+
+    /**
+     * Returns the given array of files with all duplicates removed.
+     * @param  FileDTO[]  $files
+     * @return FileDTO[]
+     */
+    private function files_unique(array $files): array
+    {
+        $unique = [];
+        //We use the URL and name as unique identifier. If two file DTO have the same URL and name, they are considered equal
+        //and get filtered out, if it already exists in the array
+        foreach ($files as $file) {
+            //Skip already existing files, to preserve the order. The second condition ensure that we keep the version with a name over the one without a name
+            if (isset($unique[$file->url]) && $unique[$file->url]->name !== null) {
+                continue;
+            }
+            $unique[$file->url] = $file;
+        }
+
+        return array_values($unique);
     }
 
     /**

@@ -71,6 +71,7 @@ class ScanDialogType extends AbstractType
                 null => 'scan_dialog.mode.auto',
                 BarcodeSourceType::INTERNAL => 'scan_dialog.mode.internal',
                 BarcodeSourceType::IPN => 'scan_dialog.mode.ipn',
+                BarcodeSourceType::VENDOR => 'scan_dialog.mode.vendor',
             },
 
         ]);

@@ -41,6 +41,20 @@ class TinyIntType extends Type
         return 'tinyint';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param T $value
+     *
+     * @return (T is null ? null : int)
+          *
+     * @template T
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?int
+    {
+        return $value === null ? null : (int) $value;
+    }
+
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         //We use the comment, so that doctrine migrations can properly detect, that nothing has changed and no migration is needed.

@@ -1,11 +1,7 @@
-<?php
-
-declare(strict_types=1);
-
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,19 +16,29 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Doctrine\SetSQLMode;
 
-use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Driver\Middleware;
+import {Controller} from "@hotwired/stimulus";
 
-/**
- * This class wraps the Doctrine DBAL driver and wraps it into a Midleware driver, so we can change the SQL mode
- */
-class SetSQLModeMiddlewareWrapper implements Middleware
-{
+export default class extends Controller {
 
-    public function wrap(Driver $driver): Driver
+    static targets = [ "display", "select" ]
+
+    connect()
     {
-        return new SetSQLModeMiddlewareDriver($driver);
+        this.update();
+        this.selectTarget.addEventListener('change', this.update.bind(this));
+    }
+
+    update()
+    {
+        //If the select value is 0, then we show the input field
+        if( this.selectTarget.value === '0')
+        {
+            this.displayTarget.classList.remove('d-none');
+        }
+        else
+        {
+            this.displayTarget.classList.add('d-none');
+        }
     }
 }

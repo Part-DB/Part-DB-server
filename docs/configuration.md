@@ -37,6 +37,9 @@ options listed, see `.env` file for full list of possible env variables.
   (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`). For sqlite use the following format to specify the
   absolute path where it should be located `sqlite:///path/part/app.db`. You can use `%kernel.project_dir%` as
   placeholder for the Part-DB root folder (e.g. `sqlite:///%kernel.project_dir%/var/app.db`)
+* `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
+ is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
+bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
 * `DEFAULT_LANG`: The default language to use server wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something
@@ -53,6 +56,9 @@ options listed, see `.env` file for full list of possible env variables.
   download a file specified as a URL and create it as local file. Please note that this allows users access to all
   resources publicly available to the server (so full access to other servers in the same local network), which could
   be a security risk.
+* `ATTACHMENT_DOWNLOAD_BY_DEFAULT`: When this is set to 1, the "download external file" checkbox is checked by default
+  when adding a new attachment. Otherwise, it is unchecked by default. Use this if you wanna download all attachments
+  locally by default. Attachment download is only possible, when `ALLOW_ATTACHMENT_DOWNLOADS` is set to 1.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](https://gravatar.com/) images for user avatars (as long as they have
   not set their own picture). The users browsers have to download the pictures from a third-party (gravatar) server, so
   this might be a privacy risk.
@@ -125,6 +131,14 @@ then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAV
 * `ERROR_PAGE_SHOW_HELP`: Set this 0, to disable the solution hints shown on an error page. These hints should not
   contain sensitive information, but could confuse end-users.
 
+### EDA related settings
+
+* `EDA_KICAD_CATEGORY_DEPTH`: A number, which determines how many levels of Part-DB categories should be shown inside KiCad.
+   All parts in the selected category and all subcategories are shown in KiCad.
+   For performance reason this value should not be too high. The default is 0, which means that only the top level categories are shown in KiCad.
+   All parts in the selected category and all subcategories are shown in KiCad. Set this to a higher value, if you want to show more categories in KiCad.
+   When you set this value to -1, all parts are shown inside a single category in KiCad.
+
 ### SAML SSO settings
 
 The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to log in to
@@ -137,6 +151,8 @@ want to edit it on docker, you have to map the file to a volume.
 
 * `SAML_ENABLED`: When this is set to 1, SAML SSO is enabled and the SSO Login button is shown in the login form. You
   have to configure the SAML settings below, before you can use this feature.
+* `SAML_BEHIND_PROXY`: Set this to 1, if Part-DB is behind a reverse proxy. See [here]({% link installation/reverse-proxy.md %})
+  for more information. Otherwise, leave it to 0 (default.)
 * `SAML_ROLE_MAPPING`: A [JSON](https://en.wikipedia.org/wiki/JSON) encoded map which specifies how Part-DB should
   convert the user roles given by SAML attribute `group` should be converted to a Part-DB group (specified by ID). You
   can use a wildcard `*` to map all otherwise unmapped roles to a certain group.
@@ -180,6 +196,9 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`): Set this value to true, if your webserver does not
   support rewrite. In this case, all URL paths will contain index.php/, which is needed then. Normally this setting do
   not need to be changed.
+* `REDIRECT_TO_HTTPS`: If this is set to true, all requests to http will be redirected to https. This is useful, if your
+  webserver does not already do this (like the one used in the demo instance). If your webserver already redirects to
+  https, you don't need to set this. Ensure that Part-DB is accessible via https, before you enable this setting.
 * `FIXER_API_KEY`: If you want to automatically retrieve exchange rates for base currencies other than euros, you have to
   configure an exchange rate provider API. [Fixer.io](https://fixer.io/) is preconfigured, and you just have to register
   there and set the retrieved API key in this environment variable.

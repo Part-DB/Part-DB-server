@@ -30,3 +30,12 @@
 {% macro delete_btn() %}
     {{ stimulus_action('elements/collection_type', 'deleteElement') }}
 {% endmacro %}
+
+{% macro new_element_indicator(value) %}
+    {% if value.id is not defined or value.id is null %}
+        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-primary border border-light rounded-circle"
+              title="{% trans %}collection_type.new_element.tooltip{% endtrans %}">
+            <span class="visually-hidden">New alerts</span>
+        </span>
+    {% endif %}
+{% endmacro %}

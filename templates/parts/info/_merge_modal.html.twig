@@ -1,0 +1,65 @@
+{# Merge modal #}
+
+{% if is_granted('edit', part) %}
+    <br>
+    <button type="button" class="btn btn-info mt-2" data-bs-toggle="modal" data-bs-target="#merge-modal">
+        <i class="fas fa-code-merge" aria-hidden="true"></i> {% trans %}part.info.merge_btn{% endtrans %}
+    </button>
+{% endif %}
+
+<div class="modal fade" id="merge-modal" tabindex="-1" aria-labelledby="merge-modal-title" tabindex="-1" aria-hidden="true" {{ stimulus_controller('pages/part_withdraw_modal') }}>
+    <div class="modal-dialog">
+        <div class="modal-content" {{ stimulus_controller('pages/part_merge_modal', {'targetId': part.iD }) }}>
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="merge-modal-title">{% trans %}part.info.merge_modal.title{% endtrans %}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {# non visible form elements #}
+                <input type="hidden" name="lot_id" value="">
+                <input type="hidden" name="_redirect" value="{{  app.request.baseUrl ~ app.request.requestUri }}">
+
+                <div class="row mb-2">
+                    <label class="form-label">
+                        {% trans %}part.info.merge_modal.other_part{% endtrans %}:
+                    </label>
+                    <select class="form-select" {{ stimulus_controller('elements/part_select') }}
+                            data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}"
+                            {{ stimulus_target('pages/part_merge_modal', 'otherSelect') }}
+                            {{ stimulus_action('pages/part_merge_modal', 'update', 'change') }}
+                    >
+                        {# Filled by stimulus controller #}
+                    </select>
+                </div>
+
+                <div class="mb2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="mergeModalMode" id="mergeModalMode_1"
+                                {{ stimulus_target('pages/part_merge_modal', 'mode') }}
+                                {{ stimulus_action('pages/part_merge_modal', 'update', 'change') }}
+                               value="1">
+                        <label class="form-check-label" for="mergeModalMode_1">
+                            {% trans %}part.info.merge_modal.other_into_this{% endtrans %}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="mergeModalMode" id="mergeModalMode_2"
+                                {{ stimulus_target('pages/part_merge_modal', 'mode') }}
+                                {{ stimulus_action('pages/part_merge_modal', 'update', 'change') }}
+                               value="2" checked>
+                        <label class="form-check-label" for="mergeModalMode_2">
+                            {% trans %}part.info.merge_modal.this_into_other{% endtrans %}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>
+                <a class="btn btn-primary disabled" {{ stimulus_target('pages/part_merge_modal', 'link') }}
+                   data-href-template="{{ path('part_merge', {'target': '__target__', 'other': '__other__'}) }}"
+                >{% trans %}modal.submit{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+

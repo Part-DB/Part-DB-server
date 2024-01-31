@@ -39,6 +39,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\PartNormalizerTest
+ * TODO: Properly rewrite this class to use the SerializerAware interface and dont use the ObjectNormalizer directly
  */
 class PartNormalizer implements NormalizerInterface, DenormalizerInterface
 {
@@ -65,7 +66,8 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Part;
+        //We only remove the type field for CSV export
+        return $format === 'csv' && $data instanceof Part ;
     }
 
     /**
@@ -85,8 +87,6 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface
         if ($format === 'csv') {
             unset($data['type']);
         }
-
-        $data['total_instock'] = $object->getAmountSum();
 
         return $data;
     }

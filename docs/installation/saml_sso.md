@@ -230,3 +230,8 @@ Normally you don't have to change anything here.
 Please note that this file is not saved by the Part-DB backup tool, so you have to save it manually if you want to keep
 your changes. On docker containers you have to configure a volume mapping for it.
 
+## SAML behind a reverse proxy
+
+If you are running Part-DB behind a reverse proxy, configure the `TRUSTED_PROXIES` environment and other reverse proxy
+settings as described in the [reverse proxy guide]({% link installation/reverse-proxy.md %}).
+If you want to use SAML you also need to set `SAML_BEHIND_PROXY` to `true` to enable the SAML proxy mode.

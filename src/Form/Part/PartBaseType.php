@@ -22,27 +22,28 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
-use App\Entity\Parts\ManufacturingStatus;
-use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
-use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
+use App\Form\Part\EDA\EDAPartInfoType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -52,7 +53,6 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartBaseType extends AbstractType
 {
@@ -243,6 +243,22 @@ class PartBaseType extends AbstractType
             'entry_options' => [
                 'data_class' => PartParameter::class,
             ],
+        ]);
+
+        //Part associations
+        $builder->add('associated_parts_as_owner', CollectionType::class, [
+            'entry_type' => PartAssociationType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'reindex_enable' => true,
+            'label' => false,
+            'by_reference' => false,
+        ]);
+
+        //EDA info
+        $builder->add('eda_info', EDAPartInfoType::class, [
+            'label' => false,
+            'required' => false,
         ]);
 
         $builder->add('log_comment', TextType::class, [
