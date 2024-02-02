@@ -18,7 +18,8 @@
 {# Insert info about when the sidebar trees were updated last time, so the sidebar_tree_controller can decide if it needs to reload the tree #}
 <span id="sidebar-last-time-updated" style="display: none;" data-last-update="{{ sidebar_tree_updater.lastTreeUpdate.format("Y-m-d\\TH:i:sP") }}"></span>
 
-<div class="d-none" data-title="{% apply trim %}{{ current_page_title }}{% endapply %}" {{ stimulus_controller('turbo/title') }}></div>
+{# The title block is already escaped, therefore we dont require any additional escaping here #}
+<div class="d-none" data-title="{{ current_page_title|trim|raw }}" {{ stimulus_controller('turbo/title') }}></div>
 
 <div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
     {% for locale in locale_menu %}
