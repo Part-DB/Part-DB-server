@@ -42,7 +42,7 @@ for the first time.
 * Inventory management of your electronic parts. Each part can be assigned to a category, footprint, manufacturer
   and multiple store locations and price information. Parts can be grouped using tags. You can associate various files
   like datasheets or pictures with the parts.
-* Multi-Language support (currently German, English, Russian, Japanese and French (experimental))
+* Multi-Language support (currently German, English, Russian, Japanese, French, Czech and Danish)
 * Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the builtin barcode scanner
 * User system with groups and detailed (fine granular) permissions.
   Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups.
