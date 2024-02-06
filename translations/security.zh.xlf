@@ -4,7 +4,7 @@
     <unit id="aazoCks" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
-        <target>帐户已被禁用。请联系管理员</target>
+        <target>账户已被禁用。请联系管理员</target>
       </segment>
     </unit>
     <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
