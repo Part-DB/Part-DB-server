@@ -731,10 +731,10 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target>这将禁用 &lt;b&gt;用户的所有活动2FA身份验证方法&lt;/b&gt; 并删除 &lt;b&gt;备份代码&lt;/b&gt;!
+        <target>这将禁用 &lt;b&gt;账号的所有活动2FA身份验证方法&lt;/b&gt; 并删除 &lt;b&gt;备份代码&lt;/b&gt;!
 &lt;br&gt;
-该用户将必须重新设置所有2FA身份验证方法并获取新的备份代码。 &lt;br&gt;&lt;br&gt;
-&lt;b&gt;应当在完全确定用户的身份时才执行此操作，否则该用户的帐户可能会受到攻击。&lt;/b&gt;</target>
+该账号将必须重新设置所有2FA身份验证方法并获取新的备份代码。 &lt;br&gt;&lt;br&gt;
+&lt;b&gt;应在完全确定 申请者身份 时才执行此操作，否则该账号可能会受到攻击。&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
