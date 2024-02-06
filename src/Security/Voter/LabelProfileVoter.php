@@ -68,7 +68,7 @@ final class LabelProfileVoter extends Voter
 
     protected function supports($attribute, $subject): bool
     {
-        if ($subject instanceof LabelProfile) {
+        if (is_a($subject, LabelProfile::class, true)) {
             if (!isset(self::MAPPING[$attribute])) {
                 return false;
             }
@@ -86,6 +86,6 @@ final class LabelProfileVoter extends Voter
 
     public function supportsType(string $subjectType): bool
     {
-        return is_a($subjectType, LabelProfile::class, true);
+        return $subjectType === 'string' || is_a($subjectType, LabelProfile::class, true);
     }
 }
