@@ -8915,7 +8915,7 @@ Element 3</target>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target> "%PATH%" 仍然包含部件。所有移除所有关联才能删除</target>
+        <target>"%PATH%" 仍然包含部件。所有移除所有关联才能删除</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
@@ -12079,7 +12079,7 @@ Element 3</target>
     <unit id="9O_yLQy" name="eda_info.reference_prefix.placeholder">
       <segment state="translated">
         <source>eda_info.reference_prefix.placeholder</source>
-        <target>e </target>
+        <target>e</target>
       </segment>
     </unit>
     <unit id="3nLUWrL" name="eda_info.reference_prefix">
@@ -12181,7 +12181,7 @@ Element 3</target>
     <unit id="NN5DZ4F" name="eda_info.visibility.help">
       <segment state="translated">
         <source>eda_info.visibility.help</source>
-        <target> 强制零件可见。默认情况下，EDA软件将自动确定可见性。</target>
+        <target>强制零件可见。默认情况下，EDA软件将自动确定可见性。</target>
       </segment>
     </unit>
     <unit id="rBWy8Ol" name="part.withdraw.zero_amount">
