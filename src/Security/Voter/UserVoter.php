@@ -62,7 +62,7 @@ final class UserVoter extends Voter
 
     public function supportsAttribute(string $attribute): bool
     {
-        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute);
+        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute) || $attribute === 'info';
     }
 
     public function supportsType(string $subjectType): bool
