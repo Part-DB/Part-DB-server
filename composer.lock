@@ -4956,16 +4956,16 @@
         },
         {
             "name": "part-db/label-fonts",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/label-fonts.git",
-                "reference": "65f4a47d877f45e39804cd86a4fc65789b49ee2f"
+                "reference": "77c84b70ed3bb005df15f30ff835ddec490394b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/65f4a47d877f45e39804cd86a4fc65789b49ee2f",
-                "reference": "65f4a47d877f45e39804cd86a4fc65789b49ee2f",
+                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/77c84b70ed3bb005df15f30ff835ddec490394b9",
+                "reference": "77c84b70ed3bb005df15f30ff835ddec490394b9",
                 "shasum": ""
             },
             "type": "library",
@@ -4988,9 +4988,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Part-DB/label-fonts/issues",
-                "source": "https://github.com/Part-DB/label-fonts/tree/v1.0.0"
+                "source": "https://github.com/Part-DB/label-fonts/tree/v1.1.0"
             },
-            "time": "2023-07-02T01:01:20+00:00"
+            "time": "2024-02-08T21:44:38+00:00"
         },
         {
             "name": "phenx/php-font-lib",
