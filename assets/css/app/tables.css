@@ -84,7 +84,7 @@ th.select-checkbox {
  * Datatables definitions/overrides
  ********************************************************************/
 
-.dataTables_length {
+.dt-length {
     display: inline-flex;
 }
 
@@ -92,6 +92,11 @@ th.select-checkbox {
 table.dataTable tr.selected td.select-checkbox:after
 {
     margin-top: -20px !important;
+}
+
+/** Show pagination right aligned */
+.dt-paging .pagination {
+    justify-content: flex-end;
 }
 
 
@@ -132,6 +137,7 @@ table.dataTable > thead > tr > th.select-checkbox:before {
 
 table.dataTable > tbody > tr > td.select-checkbox:before, table.dataTable > tbody > tr > th.select-checkbox:before {
     border: 2px solid var(--bs-tertiary-color) !important;
+    font-weight: bold;
 }
 
 table.dataTable > tbody > tr > td.select-checkbox:before, table.dataTable > tbody > tr > td.select-checkbox:after, table.dataTable > tbody > tr > th.select-checkbox:before, table.dataTable > tbody > tr > th.select-checkbox:after {
@@ -142,6 +148,7 @@ table.dataTable > tbody > tr > td.select-checkbox:before, table.dataTable > tbod
 table.dataTable > thead > tr.selected > th.select-checkbox:after {
     content: "✓";
     font-size: 20px;
+    font-weight: bold;
     margin-top: -20px;
     margin-left: -6px;
     text-align: center;
