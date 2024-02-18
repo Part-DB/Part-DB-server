@@ -145,6 +145,12 @@ export default class extends Controller {
 
         //Fix height of the length selector
         promise.then((dt) => {
+
+            //Draw the rows to make sure the correct status text is displayed ("No matching records found" instead of "Loading...")
+            if (dt.data().length === 0) {
+                dt.rows().draw()
+            }
+
             //Find all length selectors (select with name dt_length), which are inside a label
             const lengthSelectors = document.querySelectorAll('label select[name="dt_length"]');
             //And remove the surrounding label, while keeping the select with all event handlers
