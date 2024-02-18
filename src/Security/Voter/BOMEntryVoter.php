@@ -29,6 +29,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, ProjectBOMEntry|class-string>
+ */
 class BOMEntryVoter extends Voter
 {
 

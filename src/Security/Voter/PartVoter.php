@@ -32,6 +32,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  * A Voter that votes on Part entities.
  *
  * See parts permissions for valid operations.
+ *
+ * @phpstan-extends Voter<non-empty-string, Part|class-string>
  */
 final class PartVoter extends Voter
 {

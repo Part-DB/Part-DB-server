@@ -31,6 +31,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, AbstractLogEntry>
+ */
 final class LogEntryVoter extends Voter
 {
     final public const ALLOWED_OPS = ['read', 'show_details', 'delete'];
