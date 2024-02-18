@@ -99,6 +99,11 @@ table.dataTable tr.selected td.select-checkbox:after
     justify-content: flex-end;
 }
 
+/** Fix table row coloring */
+table.table.dataTable > :not(caption) > * > * {
+    background-color: var(--bs-table-bg);
+}
+
 
 /******************************************************
 Classes for Datatables export
