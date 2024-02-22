@@ -307,6 +307,10 @@ services:
             $options: '%env(string:PROVIDER_MOUSER_SEARCH_OPTION)%'
             $search_limit: '%env(int:PROVIDER_MOUSER_SEARCH_LIMIT)%'
 
+    App\Services\InfoProviderSystem\Providers\LCSCProvider:
+        arguments:
+            $enabled: '%env(bool:PROVIDER_LCSC_ENABLED)%'
+
     ####################################################################################################################
     # API system
     ####################################################################################################################

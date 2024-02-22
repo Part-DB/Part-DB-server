@@ -38,7 +38,7 @@ class LCSCProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
-    public function __construct(private readonly HttpClientInterface $lcscClient)
+    public function __construct(private readonly HttpClientInterface $lcscClient, private bool $enabled = true)
     {
 
     }
@@ -47,9 +47,9 @@ class LCSCProvider implements InfoProviderInterface
     {
         return [
             'name' => 'LCSC',
-            'description' => 'This provider uses the LCSC API to search for parts.',
+            'description' => 'This provider uses the (unofficial) LCSC API to search for parts.',
             'url' => 'https://www.lcsc.com/',
-            'disabled_help' => 'This provider is enabled by default'
+            'disabled_help' => 'Set PROVIDER_LCSC_ENABLED to 1 (or true) in your environment variable config.'
         ];
     }
 
@@ -61,7 +61,7 @@ class LCSCProvider implements InfoProviderInterface
     // This provider is always active
     public function isActive(): bool
     {
-        return true;
+        return $this->enabled;
     }
 
     /**
