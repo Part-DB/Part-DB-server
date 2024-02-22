@@ -249,7 +249,24 @@ class LCSCProvider implements InfoProviderInterface
         $result = [];
 
         foreach ($attributes as $attribute) {
-            $result[] = ParameterDTO::parseValueField(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], unit: null, group: null);
+
+            //If the attribute contains a tilde we assume it is a range
+            if (str_contains($attribute['paramValueEn'], '~')) {
+                $parts = explode('~', $attribute['paramValueEn']);
+                if (count($parts) === 2) {
+                    //Try to extract number and unit from value (allow leading +)
+                    [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
+                    [$number2, $unit2] = ParameterDTO::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
+
+                    //If both parts have the same unit and both values are numerical, we assume it is a range
+                    if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
+                        $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: (float) $number, value_max: (float) $number2, unit: $unit, group: null);
+                        continue;
+                    }
+                }
+            }
+
+            $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], group: null);
         }
 
         return $result;
