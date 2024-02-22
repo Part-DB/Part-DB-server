@@ -24,13 +24,10 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
-use App\Entity\Parts\ManufacturingStatus;
-use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -60,7 +57,7 @@ class LCSCProvider implements InfoProviderInterface
     {
         return 'lcsc';
     }
-    
+
     // This provider is always active
     public function isActive(): bool
     {
@@ -82,14 +79,11 @@ class LCSCProvider implements InfoProviderInterface
         $arr = $response->toArray();
         $product = $arr['result'] ?? null;
 
-        if ($product == null)
-        {
+        if ($product === null) {
             throw new \RuntimeException('Could not find product code: ' . $id);
         }
 
-        $dto = $this->getPartDetail($product);
-
-        return $dto;
+        return $this->getPartDetail($product);
     }
 
     /**
@@ -105,7 +99,7 @@ class LCSCProvider implements InfoProviderInterface
         ]);
 
         $arr = $response->toArray();
-        
+
         // Get products list
         $products = $arr['result']['productSearchResultVO']['productList'] ?? [];
         // Get product tip
@@ -116,7 +110,7 @@ class LCSCProvider implements InfoProviderInterface
         // LCSC does not display LCSC codes in the search, instead taking you directly to the
         // detailed product listing. It does so utilizing a product tip field.
         // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) == 0 && !($tipProductCode == null)) {
+        if (count($products) === 0 && !($tipProductCode === null)) {
             $result[] = $this->queryDetail($tipProductCode);
         }
 
@@ -132,7 +126,7 @@ class LCSCProvider implements InfoProviderInterface
      * @param  array  $product
      * @return PartDetailDTO
      */
-    function getPartDetail($product): PartDetailDTO
+    private function getPartDetail(array $product): PartDetailDTO
     {
         // Get product images in advance
         $product_images = $this->getProductImages($product['productImages'] ?? null);
@@ -145,29 +139,27 @@ class LCSCProvider implements InfoProviderInterface
 
         // LCSC puts HTML in footprints and descriptions sometimes randomly
         $footprint = $product["encapStandard"] ?? null;
-        if ($footprint != null) {
+        if ($footprint !== null) {
             $footprint = strip_tags($footprint);
         }
 
-        $part_detail = new PartDetailDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: $product['productCode'],
-                name: $product['productModel'],
-                description: strip_tags($product['productIntroEn']),
-                manufacturer: $product['brandNameEn'],
-                mpn: $product['productModel'] ?? null,
-                preview_image_url: $product['productImageUrl'],
-                manufacturing_status: null,
-                provider_url: $this->getProductShortURL($product['productCode']),
-                datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
-                parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
-                vendor_infos: $this->pricesToVendorInfo($product['productCode'], $this->getProductShortURL($product['productCode']), $product['productPriceList'] ?? []),
-                footprint: $footprint,
-                images: $product_images,
-                mass: $product['weight'] ?? null,
-            );
-
-        return $part_detail;
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $product['productCode'],
+            name: $product['productModel'],
+            description: strip_tags($product['productIntroEn']),
+            manufacturer: $product['brandNameEn'],
+            mpn: $product['productModel'] ?? null,
+            preview_image_url: $product['productImageUrl'],
+            manufacturing_status: null,
+            provider_url: $this->getProductShortURL($product['productCode']),
+            footprint: $footprint,
+            datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
+            images: $product_images,
+            parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
+            vendor_infos: $this->pricesToVendorInfo($product['productCode'], $this->getProductShortURL($product['productCode']), $product['productPriceList'] ?? []),
+            mass: $product['weight'] ?? null,
+        );
     }
 
     /**
@@ -199,7 +191,7 @@ class LCSCProvider implements InfoProviderInterface
             )
         ];
     }
-    
+
     /**
      * Converts LCSC currency symbol to an ISO code. Have not seen LCSC provide other currencies other than USD yet.
      * @param  string  $currency
@@ -219,19 +211,19 @@ class LCSCProvider implements InfoProviderInterface
      * @param  string  $product_code
      * @return string
      */
-    private function getProductShortURL($product_code): string
+    private function getProductShortURL(string $product_code): string
     {
         return 'https://www.lcsc.com/product-detail/' . $product_code .'.html';
     }
-  
+
     /**
      * Returns a product datasheet FileDTO array from a single pdf url
      * @param  string  $url
      * @return FileDTO[]
      */
-    private function getProductDatasheets($url): array
+    private function getProductDatasheets(?string $url): array
     {
-        if ($url == null) {
+        if ($url === null) {
             return [];
         }
 
@@ -240,17 +232,12 @@ class LCSCProvider implements InfoProviderInterface
 
     /**
      * Returns a FileDTO array with a list of product images
-     * @param  array  $images
+     * @param  array|null  $images
      * @return FileDTO[]
      */
-    private function getProductImages($images): array
+    private function getProductImages(?array $images): array
     {
-        $result = [];
-        foreach ($images as $image) {
-            $result[] = new FileDTO($image);
-        }
-
-        return $result;
+        return array_map(static fn($image) => new FileDTO($image), $images ?? []);
     }
 
     /**
@@ -262,7 +249,6 @@ class LCSCProvider implements InfoProviderInterface
         $result = [];
 
         foreach ($attributes as $attribute) {
-
             $result[] = ParameterDTO::parseValueField(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], unit: null, group: null);
         }
 
