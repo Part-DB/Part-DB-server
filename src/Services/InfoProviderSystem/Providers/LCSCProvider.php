@@ -29,6 +29,8 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\Intl\Currencies;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LCSCProvider implements InfoProviderInterface
@@ -38,7 +40,7 @@ class LCSCProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
-    public function __construct(private readonly HttpClientInterface $lcscClient, private bool $enabled = true)
+    public function __construct(private readonly HttpClientInterface $lcscClient, private string $currency, private bool $enabled = true)
     {
 
     }
@@ -71,6 +73,9 @@ class LCSCProvider implements InfoProviderInterface
     private function queryDetail(string $id): PartDetailDTO
     {
         $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/product/detail", [
+            'headers' => [
+                'Cookie' => new Cookie('currencyCode', $this->currency)
+            ],
             'query' => [
                 'productCode' => $id,
             ],
@@ -93,6 +98,9 @@ class LCSCProvider implements InfoProviderInterface
     private function queryByTerm(string $term): array
     {
         $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+            'headers' => [
+                'Cookie' => new Cookie('currencyCode', $this->currency)
+            ],
             'query' => [
                 'keyword' => $term,
             ],
@@ -193,7 +201,7 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
-     * Converts LCSC currency symbol to an ISO code. Have not seen LCSC provide other currencies other than USD yet.
+     * Converts LCSC currency symbol to an ISO code.
      * @param  string  $currency
      * @return string
      */
@@ -202,6 +210,18 @@ class LCSCProvider implements InfoProviderInterface
         //Decide based on the currency symbol
         return match ($currency) {
             'US$' => 'USD',
+            '€' => 'EUR',
+            'A$' => 'AUD',
+            'C$' => 'CAD',
+            '£' => 'GBP',
+            'HK$' => 'HKD',
+            'JP¥' => 'JPY',
+            'RM' => 'MYR',
+            'S$' => 'SGD',
+            '₽' => 'RUB',
+            'kr' => 'SEK',
+            'kr.' => 'DKK',
+            '₹' => 'INR',
             default => throw new \RuntimeException('Unknown currency: ' . $currency)
         };
     }

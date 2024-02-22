@@ -310,6 +310,7 @@ services:
     App\Services\InfoProviderSystem\Providers\LCSCProvider:
         arguments:
             $enabled: '%env(bool:PROVIDER_LCSC_ENABLED)%'
+            $currency: '%env(string:PROVIDER_LCSC_CURRENCY)%'
 
     ####################################################################################################################
     # API system
