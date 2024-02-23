@@ -24,16 +24,15 @@ To use **MySQL/MariaDB** as database, you have to install and configure the MySQ
 database and user for Part-DB, which needs some additional work. When using docker you need an additional docker
 container, and volume for the data
 
-When using **SQLite** The database can be backuped easily by just copying the SQLite file to a safe place. Ideally the *
+When using **SQLite** The database can be backuped easily by just copying the SQLite file to a safe place. Ideally, the *
 *MySQL** database has to be dumped to a SQL file (using `mysqldump`). The `console partdb:backup` command can do this
 automatically
 
-However, SQLite does not support certain operations like regex search, which has to be emulated by PHP and therefore are
-pretty slow compared to the same operation at MySQL. In future there might be features that may only be available, when
-using MySQL. Also SQLite has limitations in comparisons and sorting of unicode characters, which might lead to unexpected
-behavior when using non-ASCII characters in your data. For example `µ` (micro sign) is not seen as equal to `μ`(greek minuscle mu),
-therefore searching for `µ` (micro sign) will not find parts containing `μ` (mu) and vice versa. In MySQL identical
-looking characters are seen as equal, which is more intuitive in most cases.
+However, SQLite does not support certain operations like regex search, which has to be emulated by PHP and therefore is
+pretty slow compared to the same operation at MySQL. In the future, there might be features that may only be available, when
+using MySQL. Also, SQLite has limitations in comparisons and sorting of Unicode characters, which might lead to unexpected
+behavior when using non-ASCII characters in your data. For example `µ` (micro sign) is not seen as equal to `μ(greek minuscule mu),
+therefore searching for `µ` (micro sign) will not find parts containing `μ` (mu) and vice versa. In MySQL identical-looking characters are seen as equal, which is more intuitive in most cases.
 
 In general MySQL might perform better for big Part-DB instances with many entries, lots of users and high activity, than
 SQLite.

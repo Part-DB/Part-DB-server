@@ -65,11 +65,11 @@ you need to define at least a symbol, footprint, reference prefix, or value on a
 
 You can use the "Force visibility" checkbox on a part or category to override this behavior and force parts to be visible or hidden in KiCad.
 
-*Please note that KiCad caches the library categories. So if you change something, which would change the visibile categories in KiCad, you have to reload EEschema to see the changes.*
+*Please note that KiCad caches the library categories. So if you change something, which would change the visible categories in KiCad, you have to reload EEschema to see the changes.*
 
 ### Category depth in KiCad
 
-For performance reasons, only the mmost top-level categories of Part-DB are shown as categories in KiCad. All parts in the subcategories are shown in the top-level category.
+For performance reasons, only the most top-level categories of Part-DB are shown as categories in KiCad. All parts in the subcategories are shown in the top-level category.
 
 You can configure the depth of the categories shown in KiCad, via the `EDA_KICAD_CATEGORY_DEPTH` env option. The default value is 0, which means only the top-level categories are shown.
 To show more levels of categories, you can set this value to a higher number.

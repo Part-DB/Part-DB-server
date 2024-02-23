@@ -13,7 +13,7 @@ configured.
 
 ## Setup
 
-1. Install composer and yarn like described in the [apache guide]({% link installation/installation_guide-debian.md
+1. Install composer and yarn as described in the [apache guide]({% link installation/installation_guide-debian.md
    %}#install-composer).
 2. Create a folder for Part-DB and install and configure it as described
 3. Instead of creating the config for apache, add the following snippet to your nginx config:
