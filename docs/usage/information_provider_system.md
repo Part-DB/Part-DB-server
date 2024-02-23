@@ -6,11 +6,11 @@ parent: Usage
 
 # Information provider system
 
-Part-DB can create parts based on information from external sources: For example with the right setup you can just
+Part-DB can create parts based on information from external sources: For example, with the right setup you can just
 search for a part number
 and Part-DB will query selected distributors and manufacturers for the part and create a part with the information it
 found.
-This way your Part-DB parts automatically get datasheet links, prices, parameters and more, with just a few clicks.
+This way your Part-DB parts automatically get datasheet links, prices, parameters, and more, with just a few clicks.
 
 ## Usage
 
@@ -45,13 +45,13 @@ part.
 
 Part-DB tries to automatically find existing elements from your database for the information it got from the providers
 for fields like manufacturer, footprint, etc.
-For this it searches for an element with the same name (case-insensitive) as the information it got from the provider. So
-e.g. if the provider returns "EXAMPLE CORP" as manufacturer,
+For this, it searches for an element with the same name (case-insensitive) as the information it got from the provider. So
+e.g. if the provider returns "EXAMPLE CORP" as the manufacturer,
 Part-DB will automatically select the element with the name "Example Corp" from your database.
 
 As the names of these fields differ from provider to provider (and maybe not even normalized for the same provider), you
 can define multiple alternative names for an element (on their editing page).
-For example if define a manufacturer "Example Corp" with the alternative names "Example Corp.", "Example Corp", "Example
+For example, if you define a manufacturer "Example Corp" with the alternative names "Example Corp.", "Example Corp", "Example
 Corp. Inc." and "Example Corporation",
 then the provider can return any of these names and Part-DB will still automatically select the right element.
 
@@ -72,12 +72,12 @@ add the alternative names "Datasheet" and "Image" to the alternative names field
 
 The system tries to be as flexible as possible, so many different information sources can be used.
 Each information source is called am "info provider" and handles the communication with the external source.
-The providers are just a driver which handles the communication with the different external sources and converts them
+The providers are just a driver that handles the communication with the different external sources and converts them
 into a common format Part-DB understands.
 That way it is pretty easy to create new providers as they just need to do very little work.
 
 Normally the providers utilize an API of a service, and you need to create an account at the provider and get an API key.
-Also, there are limits on how many requests you can do per day or months, depending on the provider and your contract
+Also, there are limits on how many requests you can do per day or month, depending on the provider and your contract
 with them.
 
 The following providers are currently available and shipped with Part-DB:
@@ -86,8 +86,7 @@ The following providers are currently available and shipped with Part-DB:
 
 ### Octopart
 
-The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and getting
-information.
+The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.
 To use it you have to create an account at Nexar and create a new application on
 the [Nexar Portal](https://portal.nexar.com/).
 The name does not matter, but it is important that the application has access to the "Supply" scope.
@@ -100,7 +99,7 @@ can see your current usage on the Nexar portal.
 Part-DB caches the search results internally, so if you have searched for a part before, it will not count against your
 monthly limit again, when you create it from the search results.
 
-Following env configuration options are available:
+The following env configuration options are available:
 
 * `PROVIDER_OCTOPART_CLIENT_ID`: The client ID you got from Nexar (mandatory)
 * `PROVIDER_OCTOPART_SECRET`: The client secret you got from Nexar (mandatory)
@@ -109,18 +108,18 @@ Following env configuration options are available:
   Part-DB will save the prices in their native currency, and you can use Part-DB currency conversion feature to convert
   it to your preferred currency.
 * `PROVIDER_OCOTPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code,
-  default: `DE`). To get correct prices, you have to set this and the currency setting to the correct value.
+  default: `DE`). To get the correct prices, you have to set this and the currency setting to the correct value.
 * `PROVIDER_OCTOPART_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `10`). This
   affects how quickly your monthly limit is used up.
 * `PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS`: If set to `true`, only offers
   from [authorized sellers](https://octopart.com/authorized) will be returned (optional, default: `false`).
 
-**Attention**: If you change the octopart clientID after you have already used the provider, you have to remove the
+**Attention**: If you change the Octopart clientID after you have already used the provider, you have to remove the
 OAuth token in the Part-DB database. Remove the entry in the table `oauth_tokens` with the name `ip_octopart_oauth`.
 
 ### Digi-Key
 
-The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and getting shopping
+The Digi-Key provider uses the [Digi-Key API](https://developer.digikey.com/) to search for parts and get shopping
 information from [Digi-Key](https://www.digikey.com/).
 To use it you have to create an account at Digi-Key and get an API key on
 the [Digi-Key API page](https://developer.digikey.com/).
@@ -128,7 +127,7 @@ You must create an organization there and create a "Production app". Most settin
 grant access to the "Product Information" API.
 You will get a Client ID and a Client Secret, which you have to put in the Part-DB env configuration (see below).
 
-Following env configuration options are available:
+The following env configuration options are available:
 
 * `PROVIDER_DIGIKEY_CLIENT_ID`: The client ID you got from Digi-Key (mandatory)
 * `PROVIDER_DIGIKEY_SECRET`: The client secret you got from Digi-Key (mandatory)
@@ -138,7 +137,7 @@ Following env configuration options are available:
 
 The Digi-Key provider needs an additional OAuth connection. To do this, go to the information provider
 list (`https://your-partdb-instance.tld/tools/info_providers/providers`),
-go the Digi-Key provider (in the disabled page) and click on the "Connect OAuth" button. You will be redirected to
+go to Digi-Key provider (in the disabled page), and click on the "Connect OAuth" button. You will be redirected to
 Digi-Key, where you have to log in and grant access to the app.
 To do this your user needs the "Manage OAuth tokens" permission from the "System" section in the "System" tab.
 The OAuth connection should only be needed once, but if you have any problems with the provider, just click the button
@@ -146,13 +145,13 @@ again, to establish a new connection.
 
 ### TME
 
-The TME provider use the API of [TME](https://www.tme.eu/) to search for parts and getting shopping information from
+The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and getting shopping information from
 them.
 To use it you have to create an account at TME and get an API key on the [TME API page](https://developers.tme.eu/en/).
 You have to generate a new anonymous key there and enter the key and secret in the Part-DB env configuration (see
 below).
 
-Following env configuration options are available:
+The following env configuration options are available:
 
 * `PROVIDER_TME_KEY`: The API key you got from TME (mandatory)
 * `PROVIDER_TME_SECRET`: The API secret you got from TME (mandatory)
@@ -171,7 +170,7 @@ You have to create an account at Farnell and get an API key on the [Farnell API 
 Register a new application there (settings does not matter, as long as you select the "Product Search API") and you will
 get an API key.
 
-Following env configuration options are available:
+The following env configuration options are available:
 
 * `PROVIDER_ELEMENT14_KEY`: The API key you got from Farnell (mandatory)
 * `PROVIDER_ELEMENT14_STORE_ID`: The store ID you want to use. This decides the language of results, currency and
@@ -185,11 +184,11 @@ information from [Mouser](https://www.mouser.com/).
 You have to create an account at Mouser and register for an API key for the Search API on
 the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
-At the registration you choose a country, language and currency in which you want to get the results.
+At the registration you choose a country, language, and currency in which you want to get the results.
 
 *Attention*: Currently (January 2024) the mouser API seems to be somewhat broken, in the way that it does not return any
 information about datasheets and part specifications. Therefore Part-DB can not retrieve them, even if they are shown
-at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more infos.
+at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more info.
 
 Following env configuration options are available:
 

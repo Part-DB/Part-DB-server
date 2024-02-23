@@ -16,7 +16,7 @@ on how to fix the problem. If you have a problem that is not listed here, please
 
 If you encounter an error, try the following steps:
 
-* Clear cache of Part-DB with the console command:
+* Clear the cache of Part-DB with the console command:
 
 ```bash
 php bin/console cache:clear
@@ -30,7 +30,7 @@ php bin/console doctrine:migrations:migrate
 
 If this does not help, please [open an issue on GitHub](https://github.com/Part-DB/Part-DB-symfony).
 
-## Search for user and reset password:
+## Search for the user and reset the password:
 
 You can list all users with the following command: `php bin/console partdb:users:list`
 To reset the password of a user you can use the following

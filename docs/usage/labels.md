@@ -7,12 +7,12 @@ parent: Usage
 # Labels
 
 Part-DB support the generation and printing of labels for parts, part lots and storage locations.
-You can use the "Tools -> Label generator" menu entry to create labels, or click the label generation link on the part.
+You can use the "Tools -> Label generator" menu entry to create labels or click the label generation link on the part.
 
-You can define label templates by creating Label profiles. This way you can create many similar looking labels with for
+You can define label templates by creating Label profiles. This way you can create many similar-looking labels with for
 many parts.
 
-The content of the labels is defined by the templates content field. You can use the WYSIWYG editor to create and style
+The content of the labels is defined by the template's content field. You can use the WYSIWYG editor to create and style
 the content (or write HTML code).
 Using the "Label placeholder" menu in the editor, you can insert placeholders for the data of the parts.
 It will be replaced by the concrete data when the label is generated.
@@ -20,7 +20,7 @@ It will be replaced by the concrete data when the label is generated.
 ## Label placeholders
 
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.
-You can use the "Placeholders" dropdown in content editor, to automatically insert the placeholders.
+You can use the "Placeholders" dropdown in the content editor, to automatically insert the placeholders.
 
 ### Common
 
@@ -124,12 +124,12 @@ the label generator settings:
 
 The default used font (DejaVu) does not support all characters. Especially characters from non-latin languages like
 Chinese, Japanese, Korean, Arabic, Hebrew, Cyrillic, etc. are not supported.
-For this we use [Unifont](http://unifoundry.com/unifont.html) as fallback font. This font supports all (or most) unicode
-characters, but is not as beautiful as DejaVu.
+For this, we use [Unifont](http://unifoundry.com/unifont.html) as fallback font. This font supports all (or most) Unicode
+characters but is not as beautiful as DejaVu.
 
 If you want to use a different (more beautiful) font, you can use the [custom fonts](#use-custom-fonts-for-pdf-labels)
 feature.
 There is the [Noto](https://www.google.com/get/noto/) font family from Google, which supports a lot of languages and is
 available in different styles (regular, bold, italic, bold-italic).
-For example, you can use [Noto CJK](https://github.com/notofonts/noto-cjk) for more beautiful Chinese, Japanese 
+For example, you can use [Noto CJK](https://github.com/notofonts/noto-cjk) for more beautiful Chinese, Japanese, 
 and Korean characters.
