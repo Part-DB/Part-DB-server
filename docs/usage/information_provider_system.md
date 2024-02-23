@@ -199,6 +199,19 @@ Following env configuration options are available:
 * `PROVIDER_MOUSER_SEARCH_WITH_SIGNUP_LANGUAGE`: A bit of an obscure option. The original description of Mouser is: Used
   when searching for keywords in the language specified when you signed up for Search API.
 
+### LCSC
+
+[LCSC](https://www.lcsc.com/) is a Chinese distributor of electronic parts. It does not offer a public API, but the LCSC
+webshop uses an internal JSON based API to render the page. Part-DB can use this inofficial API to get part information
+from LCSC. 
+
+**Please note, that the use of this internal API is not intended or endorsed by LCS and it could break at any time. So use it at your own risk.**
+
+An API key is not required, it is enough to enable the provider using the following env configuration options:
+
+* `PROVIDER_LCSC_ENABLED`: Set this to `1` to enable the LCSC provider
+* `PROVIDER_LCSC_CURRENCY`: The currency you want to get prices in (see LCSC webshop for available currencies, default: `EUR`)
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
