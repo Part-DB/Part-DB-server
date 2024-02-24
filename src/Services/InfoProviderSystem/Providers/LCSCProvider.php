@@ -286,7 +286,7 @@ class LCSCProvider implements InfoProviderInterface
                 }
             //If it's a plus/minus value, we'll also it like a range
             } elseif (str_starts_with($attribute['paramValueEn'], '±')) {
-              [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($parts[0], " ±")) ?? [$attribute['paramValueEn'], null];
+              [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($attribute['paramValueEn'], " ±")) ?? [$attribute['paramValueEn'], null];
               if (is_numeric($number)) {
                 $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: (float) $number, value_max: (float) $number, unit: $unit, group: null);
                 continue;
