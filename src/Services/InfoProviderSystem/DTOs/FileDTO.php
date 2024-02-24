@@ -45,7 +45,7 @@ class FileDTO
         //Find all occurrences of non URL safe characters and replace them with their URL encoded version.
         //We only want to replace characters which can not have a valid meaning in a URL (what would break the URL).
         //Digikey provided some wrong URLs with a ^ in them, which is not a valid URL character. (https://github.com/Part-DB/Part-DB-server/issues/521)
-        $this->url = preg_replace_callback('/[^a-zA-Z0-9_\-.$+!*();\/?:@=&#%]/', fn($matches) => urlencode($matches[0]), $url);
+        $this->url = preg_replace_callback('/[^a-zA-Z0-9_\-.$+!*();\/?:@=&#%]/', fn($matches) => rawurlencode($matches[0]), $url);
     }
 
 

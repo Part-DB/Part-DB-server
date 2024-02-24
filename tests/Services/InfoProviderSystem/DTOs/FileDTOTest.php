@@ -36,7 +36,7 @@ class FileDTOTest extends TestCase
 
             //Remaining URL unsafe characters must be escaped
             ["test%5Ese", "test^se"],
-            ["test+se", "test se"],
+            ["test%20se", "test se"],
             ["test%7Cse", "test|se"],
         ];
     }
