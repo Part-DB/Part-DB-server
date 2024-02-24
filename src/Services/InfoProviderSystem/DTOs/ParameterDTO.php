@@ -106,7 +106,7 @@ class ParameterDTO
      */
     public static function splitIntoValueAndUnit(string $value): ?array
     {
-       if (preg_match('/^(?<value>[0-9.]+)\s*(?<unit>[°℃a-zA-Z_]+\s?\w{0,4})$/u', $value, $matches)) {
+       if (preg_match('/^(?<value>-?[0-9\.]+)\s*(?<unit>[%Ω°℃a-z_\/]+\s?\w{0,4})$/iu', $value, $matches)) {
            $value = $matches['value'];
            $unit = $matches['unit'];
 
