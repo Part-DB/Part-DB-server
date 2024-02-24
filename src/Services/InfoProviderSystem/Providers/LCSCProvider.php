@@ -270,8 +270,11 @@ class LCSCProvider implements InfoProviderInterface
 
         foreach ($attributes as $attribute) {
 
+            //Skip this attribute if it's empty
+            if (in_array(trim($attribute['paramValueEn']), array('', '-'))) {
+              continue;
             //If the attribute contains a tilde we assume it is a range
-            if (str_contains($attribute['paramValueEn'], '~')) {
+            } elseif (str_contains($attribute['paramValueEn'], '~')) {
                 $parts = explode('~', $attribute['paramValueEn']);
                 if (count($parts) === 2) {
                     //Try to extract number and unit from value (allow leading +)
