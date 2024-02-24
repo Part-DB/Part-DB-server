@@ -151,11 +151,24 @@ class LCSCProvider implements InfoProviderInterface
             $footprint = strip_tags($footprint);
         }
 
+        //Build category by concatenating the catalogName and parentCatalogName
+        $category = null;
+        if (isset($product['parentCatalogName'])) {
+            $category = $product['parentCatalogName'];
+        }
+        if (isset($product['catalogName'])) {
+            $category = ($category ?? '') . ' -> ' . $product['catalogName'];
+
+            // Replace the / with a -> for better readability
+            $category = str_replace('/', ' -> ', $category);
+        }
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['productCode'],
             name: $product['productModel'],
             description: strip_tags($product['productIntroEn']),
+            category: $category,
             manufacturer: $product['brandNameEn'],
             mpn: $product['productModel'] ?? null,
             preview_image_url: $product['productImageUrl'],
