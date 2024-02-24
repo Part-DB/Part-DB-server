@@ -288,7 +288,7 @@ class LCSCProvider implements InfoProviderInterface
             } elseif (str_starts_with($attribute['paramValueEn'], '±')) {
               [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($attribute['paramValueEn'], " ±")) ?? [$attribute['paramValueEn'], null];
               if (is_numeric($number)) {
-                $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: (float) $number, value_max: (float) $number, unit: $unit, group: null);
+                $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, group: null);
                 continue;
               }
             }
