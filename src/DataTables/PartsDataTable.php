@@ -208,6 +208,9 @@ final class PartsDataTable implements DataTableTypeInterface
                 'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
                 'hydrate' => Query::HYDRATE_OBJECT,
+                //Use the simple total query, as we just want to get the total number of parts without any conditions
+                //For this the normal query would be pretty slow
+                'simple_total_query' => true,
                 'criteria' => [
                     function (QueryBuilder $builder) use ($options): void {
                         $this->buildCriteria($builder, $options);
