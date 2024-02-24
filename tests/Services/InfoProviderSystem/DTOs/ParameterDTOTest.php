@@ -174,6 +174,8 @@ class ParameterDTOTest extends TestCase
         $this->assertEquals(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
         $this->assertEquals(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
 
+        $this->assertEquals(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
+
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('kg'));
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('Test'));
     }
