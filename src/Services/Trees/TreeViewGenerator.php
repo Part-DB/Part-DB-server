@@ -68,6 +68,7 @@ class TreeViewGenerator
 
     /**
      * Gets a TreeView list for the entities of the given class.
+     * The result is cached, if the full tree should be shown and no element should be selected.
      *
      * @param  string  $class  The class for which the treeView should be generated
      * @param  AbstractStructuralDBElement|null  $parent  The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
@@ -78,6 +79,40 @@ class TreeViewGenerator
      * @return TreeViewNode[] an array of TreeViewNode[] elements of the root elements
      */
     public function getTreeView(
+        string $class,
+        ?AbstractStructuralDBElement $parent = null,
+        string $mode = 'list_parts',
+        ?AbstractDBElement $selectedElement = null
+    ): array
+    {
+        //If we just want a part of a tree, don't cache it or select a specific element, don't cache it
+        if ($parent instanceof AbstractStructuralDBElement || $selectedElement instanceof AbstractDBElement) {
+            return $this->getTreeViewUncached($class, $parent, $mode, $selectedElement);
+        }
+
+        $secure_class_name = $this->tagGenerator->getElementTypeCacheTag($class);
+        $key = 'sidebar_treeview_'.$this->keyGenerator->generateKey().'_'.$secure_class_name;
+        $key .= $mode;
+
+        return $this->cache->get($key, function (ItemInterface $item) use ($class, $parent, $mode, $selectedElement, $secure_class_name) {
+            // Invalidate when groups, an element with the class or the user changes
+            $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
+            return $this->getTreeViewUncached($class, $parent, $mode, $selectedElement);
+        });
+    }
+
+    /**
+     * Gets a TreeView list for the entities of the given class.
+     *
+     * @param  string  $class  The class for which the treeView should be generated
+     * @param  AbstractStructuralDBElement|null  $parent  The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
+     * @param  string  $mode  The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
+     *                                                          Set to empty string, to disable href field.
+     * @param  AbstractDBElement|null  $selectedElement  The element that should be selected. If set to null, no element will be selected.
+     *
+     * @return TreeViewNode[] an array of TreeViewNode[] elements of the root elements
+     */
+    private function getTreeViewUncached(
         string $class,
         ?AbstractStructuralDBElement $parent = null,
         string $mode = 'list_parts',
