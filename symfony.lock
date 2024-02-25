@@ -453,9 +453,6 @@
     "shivas/versioning-bundle": {
         "version": "3.1.3"
     },
-    "spomky-labs/cbor-bundle": {
-        "version": "v2.0.3"
-    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

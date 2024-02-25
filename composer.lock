@@ -4670,16 +4670,16 @@
         },
         {
             "name": "omines/datatables-bundle",
-            "version": "0.8.0",
+            "version": "0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/omines/datatables-bundle.git",
-                "reference": "d0503e8bd56f5c4b379e930f51f499d0a04d07c1"
+                "reference": "3d31d1cddac5635803f59b3f7905feb0d4209c80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/d0503e8bd56f5c4b379e930f51f499d0a04d07c1",
-                "reference": "d0503e8bd56f5c4b379e930f51f499d0a04d07c1",
+                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/3d31d1cddac5635803f59b3f7905feb0d4209c80",
+                "reference": "3d31d1cddac5635803f59b3f7905feb0d4209c80",
                 "shasum": ""
             },
             "require": {
@@ -4691,36 +4691,36 @@
                 "symfony/translation": "^6.3|^7.0"
             },
             "require-dev": {
-                "doctrine/common": "^2.6|^3.3",
+                "doctrine/common": "^3.4.3",
                 "doctrine/doctrine-bundle": "^2.11.1",
-                "doctrine/orm": "^2.13.1",
-                "doctrine/persistence": "^3.0.3",
+                "doctrine/orm": "^2.17.2",
+                "doctrine/persistence": "^3.2.0",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mongodb": "*",
                 "ext-pdo_sqlite": "*",
                 "ext-zip": "*",
                 "friendsofphp/php-cs-fixer": "^v3.40.0",
-                "mongodb/mongodb": "^1.12",
+                "mongodb/mongodb": "^1.17",
                 "ocramius/package-versions": "^2.8",
-                "phpoffice/phpspreadsheet": "^1.24.1",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^1.8.2",
-                "phpstan/phpstan-doctrine": "^1.3.12",
-                "phpstan/phpstan-phpunit": "^1.1",
-                "phpstan/phpstan-symfony": "^1.2.9",
-                "phpunit/phpunit": "^10.5.1",
-                "ruflin/elastica": "^6.0|^7.2",
-                "symfony/browser-kit": "^6.1.3|^7.0",
-                "symfony/css-selector": "^6.1.3|^7.0",
-                "symfony/doctrine-bridge": "^6.3|^7.0",
-                "symfony/dom-crawler": "^6.1.3|^7.0",
-                "symfony/intl": "^6.1|^7.0",
-                "symfony/mime": "^6.1.3|^7.0",
-                "symfony/phpunit-bridge": "^6.3|^7.0",
-                "symfony/twig-bundle": "^6.1.1|^7.0",
-                "symfony/var-dumper": "^6.1.3|^7.0",
-                "symfony/yaml": "^6.1.3|^7.0"
+                "phpoffice/phpspreadsheet": "^1.29.0 || ^2.0",
+                "phpstan/extension-installer": "^1.3.1",
+                "phpstan/phpstan": "^1.10.55",
+                "phpstan/phpstan-doctrine": "^1.3.54",
+                "phpstan/phpstan-phpunit": "^1.3.15",
+                "phpstan/phpstan-symfony": "^1.3.6",
+                "phpunit/phpunit": "^11.0.3",
+                "ruflin/elastica": "^6.2|^7.3.1",
+                "symfony/browser-kit": "^6.3|^7.0",
+                "symfony/css-selector": "^6.3|^7.0",
+                "symfony/doctrine-bridge": "^6.3|^7.0.2",
+                "symfony/dom-crawler": "^6.3|^7.0",
+                "symfony/intl": "^6.3|^7.0.2",
+                "symfony/mime": "^6.3|^7.0",
+                "symfony/phpunit-bridge": "^6.3|^7.0.2",
+                "symfony/twig-bundle": "^6.3|^7.0",
+                "symfony/var-dumper": "^6.3|^7.0.2",
+                "symfony/yaml": "^6.3|^7.0"
             },
             "suggest": {
                 "doctrine/doctrine-bundle": "For integrated access to Doctrine object managers",
@@ -4771,7 +4771,7 @@
             ],
             "support": {
                 "issues": "https://github.com/omines/datatables-bundle/issues",
-                "source": "https://github.com/omines/datatables-bundle/tree/0.8.0"
+                "source": "https://github.com/omines/datatables-bundle/tree/0.8.1"
             },
             "funding": [
                 {
@@ -4779,7 +4779,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-05T08:18:04+00:00"
+            "time": "2024-02-24T22:55:33+00:00"
         },
         {
             "name": "onelogin/php-saml",
@@ -6970,86 +6970,6 @@
                 }
             ],
             "time": "2023-12-25T11:42:15+00:00"
-        },
-        {
-            "name": "spomky-labs/cbor-bundle",
-            "version": "v3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Spomky-Labs/cbor-bundle.git",
-                "reference": "157ca6ed2f6e957f9e95d71ca86bc67bf42ee79c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/cbor-bundle/zipball/157ca6ed2f6e957f9e95d71ca86bc67bf42ee79c",
-                "reference": "157ca6ed2f6e957f9e95d71ca86bc67bf42ee79c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0",
-                "spomky-labs/cbor-php": "^3.0",
-                "symfony/config": "^5.3|^6.0",
-                "symfony/dependency-injection": "^5.3|^6.0",
-                "symfony/http-kernel": "^5.3|^6.0"
-            },
-            "require-dev": {
-                "infection/infection": "^0.25.3",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-beberlei-assert": "^1.0",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.0",
-                "phpunit/phpunit": "^9.0",
-                "rector/rector": "^0.12.5",
-                "symfony/framework-bundle": "^5.3|^6.0",
-                "symfony/phpunit-bridge": "^5.3|^6.0",
-                "symplify/easy-coding-standard": "^9.4"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "SpomkyLabs\\CborBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florent Morselli",
-                    "homepage": "https://github.com/Spomky"
-                },
-                {
-                    "name": "All contributors",
-                    "homepage": "https://github.com/spomky-labs/cbor-bundle/contributors"
-                }
-            ],
-            "description": "CBOR Encoder/Decoder Bundle for Symfony.",
-            "homepage": "https://github.com/spomky-labs",
-            "keywords": [
-                "Concise Binary Object Representation",
-                "RFC7049",
-                "bundle",
-                "cbor",
-                "symfony"
-            ],
-            "support": {
-                "issues": "https://github.com/Spomky-Labs/cbor-bundle/issues",
-                "source": "https://github.com/Spomky-Labs/cbor-bundle/tree/v3.0.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Spomky",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/FlorentMorselli",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2021-11-23T21:41:00+00:00"
         },
         {
             "name": "spomky-labs/cbor-php",
@@ -14037,16 +13957,16 @@
         },
         {
             "name": "web-auth/metadata-service",
-            "version": "4.7.9",
+            "version": "4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-metadata-service.git",
-                "reference": "1da1fc6d8055c75af4e46cde169d7b920b8af90a"
+                "reference": "039e3ce40a06ab12f0090ac410da8e7a07fc2c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-metadata-service/zipball/1da1fc6d8055c75af4e46cde169d7b920b8af90a",
-                "reference": "1da1fc6d8055c75af4e46cde169d7b920b8af90a",
+                "url": "https://api.github.com/repos/web-auth/webauthn-metadata-service/zipball/039e3ce40a06ab12f0090ac410da8e7a07fc2c2b",
+                "reference": "039e3ce40a06ab12f0090ac410da8e7a07fc2c2b",
                 "shasum": ""
             },
             "require": {
@@ -14063,10 +13983,11 @@
                 "symfony/deprecation-contracts": "^3.2"
             },
             "suggest": {
+                "phpdocumentor/reflection-docblock": "As of 4.5.x, the phpdocumentor/reflection-docblock component will become mandatory for converting objects such as the Metadata Statement",
                 "psr/clock-implementation": "As of 4.5.x, the PSR Clock implementation will replace lcobucci/clock",
                 "psr/log-implementation": "Recommended to receive logs from the library",
-                "web-token/jwt-key-mgmt": "Mandatory for fetching Metadata Statement from distant sources",
-                "web-token/jwt-signature-algorithm-ecdsa": "Mandatory for fetching Metadata Statement from distant sources"
+                "symfony/serializer": "As of 4.5.x, the symfony/serializer component will become mandatory for converting objects such as the Metadata Statement",
+                "web-token/jwt-library": "Mandatory for fetching Metadata Statement from distant sources"
             },
             "type": "library",
             "extra": {
@@ -14102,7 +14023,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.7.9"
+                "source": "https://github.com/web-auth/webauthn-metadata-service/tree/4.8.0"
             },
             "funding": [
                 {
@@ -14114,20 +14035,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-10-07T13:59:48+00:00"
+            "time": "2024-02-24T09:40:29+00:00"
         },
         {
             "name": "web-auth/webauthn-lib",
-            "version": "4.7.9",
+            "version": "4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-lib.git",
-                "reference": "03a652042d7b5e919e449954d729ced26ee3c3c2"
+                "reference": "dee648c4a0971633c9434391c710bd3f244d6aed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/03a652042d7b5e919e449954d729ced26ee3c3c2",
-                "reference": "03a652042d7b5e919e449954d729ced26ee3c3c2",
+                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/dee648c4a0971633c9434391c710bd3f244d6aed",
+                "reference": "dee648c4a0971633c9434391c710bd3f244d6aed",
                 "shasum": ""
             },
             "require": {
@@ -14148,10 +14069,7 @@
             "suggest": {
                 "psr/log-implementation": "Recommended to receive logs from the library",
                 "symfony/event-dispatcher": "Recommended to use dispatched events",
-                "web-token/jwt-key-mgmt": "Mandatory for the AndroidSafetyNet Attestation Statement support",
-                "web-token/jwt-signature-algorithm-ecdsa": "Recommended for the AndroidSafetyNet Attestation Statement support",
-                "web-token/jwt-signature-algorithm-eddsa": "Recommended for the AndroidSafetyNet Attestation Statement support",
-                "web-token/jwt-signature-algorithm-rsa": "Mandatory for the AndroidSafetyNet Attestation Statement support"
+                "web-token/jwt-library": "Mandatory for the AndroidSafetyNet Attestation Statement support"
             },
             "type": "library",
             "extra": {
@@ -14187,7 +14105,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-lib/tree/4.7.9"
+                "source": "https://github.com/web-auth/webauthn-lib/tree/4.8.0"
             },
             "funding": [
                 {
@@ -14199,39 +14117,38 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-02-05T17:20:58+00:00"
+            "time": "2024-02-23T11:09:26+00:00"
         },
         {
             "name": "web-auth/webauthn-symfony-bundle",
-            "version": "4.7.9",
+            "version": "4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-symfony-bundle.git",
-                "reference": "f7a677c4063d1266d66dd4ef26833985a6afb4b9"
+                "reference": "d72050d6ce8cf6d7bd6180de7eb9204d1e4233a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/f7a677c4063d1266d66dd4ef26833985a6afb4b9",
-                "reference": "f7a677c4063d1266d66dd4ef26833985a6afb4b9",
+                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/d72050d6ce8cf6d7bd6180de7eb9204d1e4233a2",
+                "reference": "d72050d6ce8cf6d7bd6180de7eb9204d1e4233a2",
                 "shasum": ""
             },
             "require": {
                 "nyholm/psr7": "^1.5",
                 "php": ">=8.1",
                 "psr/event-dispatcher": "^1.0",
-                "spomky-labs/cbor-bundle": "^3.0",
                 "symfony/config": "^6.1|^7.0",
                 "symfony/dependency-injection": "^6.1|^7.0",
                 "symfony/framework-bundle": "^6.1|^7.0",
                 "symfony/http-client": "^6.1|^7.0",
-                "symfony/psr-http-message-bridge": "^2.1",
+                "symfony/psr-http-message-bridge": "^2.1|^6.1|^7.0",
                 "symfony/security-bundle": "^6.1|^7.0",
                 "symfony/security-core": "^6.1|^7.0",
                 "symfony/security-http": "^6.1|^7.0",
                 "symfony/serializer": "^6.1|^7.0",
                 "symfony/validator": "^6.1|^7.0",
                 "web-auth/webauthn-lib": "self.version",
-                "web-token/jwt-signature": "^3.1"
+                "web-token/jwt-library": "^3.3"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -14270,7 +14187,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.7.9"
+                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.8.0"
             },
             "funding": [
                 {
@@ -14282,7 +14199,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-12-08T13:02:43+00:00"
+            "time": "2024-02-23T11:09:26+00:00"
         },
         {
             "name": "web-token/jwt-library",
@@ -14380,71 +14297,6 @@
                 }
             ],
             "time": "2024-02-22T08:15:45+00:00"
-        },
-        {
-            "name": "web-token/jwt-signature",
-            "version": "3.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/web-token/jwt-signature.git",
-                "reference": "eccfd59e658d4118414cf6d14229aa52eec387e7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-signature/zipball/eccfd59e658d4118414cf6d14229aa52eec387e7",
-                "reference": "eccfd59e658d4118414cf6d14229aa52eec387e7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "web-token/jwt-library": "^3.3"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florent Morselli",
-                    "homepage": "https://github.com/Spomky"
-                },
-                {
-                    "name": "All contributors",
-                    "homepage": "https://github.com/web-token/jwt-framework/contributors"
-                }
-            ],
-            "description": "[DEPRECATED] Please use web-token/jwt-library instead.",
-            "homepage": "https://github.com/web-token",
-            "keywords": [
-                "JOSE",
-                "JWE",
-                "JWK",
-                "JWKSet",
-                "JWS",
-                "Jot",
-                "RFC7515",
-                "RFC7516",
-                "RFC7517",
-                "RFC7518",
-                "RFC7519",
-                "RFC7520",
-                "bundle",
-                "jwa",
-                "jwt",
-                "symfony"
-            ],
-            "support": {
-                "source": "https://github.com/web-token/jwt-signature/tree/3.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.patreon.com/FlorentMorselli",
-                    "type": "patreon"
-                }
-            ],
-            "abandoned": "web-token/jwt-library",
-            "time": "2024-02-22T07:19:34+00:00"
         },
         {
             "name": "webmozart/assert",
