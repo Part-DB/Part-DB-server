@@ -268,6 +268,8 @@ final class PartsDataTable implements DataTableTypeInterface
          * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
          * The only condition should be for the IDs.
          * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
+         *
+         * We do not require the subqueries like amountSum here, as it is not used to render the table (and only for sorting)
          */
         $builder
             ->select('part')
@@ -281,16 +283,6 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
-            //Calculate amount sum using a subquery, so we can filter and sort by it
-            ->addSelect(
-                '(
-                    SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '.PartLot::class.' partLot
-                    WHERE partLot.part = part.id
-                    AND partLot.instock_unknown = false
-                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
-                ) AS HIDDEN amountSum'
-            )
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
