@@ -115,31 +115,31 @@ class PartFilter implements FilterInterface
          */
         //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
         $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
-        $this->lotCount = new IntConstraint('COUNT(partLots)');
+        $this->lotCount = new IntConstraint('COUNT(_partLots)');
         $this->lessThanDesired = new LessThanDesiredConstraint();
 
-        $this->storelocation = new EntityConstraint($nodesListBuilder, StorageLocation::class, 'partLots.storage_location');
-        $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
-        $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
-        $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');
-        $this->lotDescription = new TextConstraint('partLots.description');
-        $this->lotOwner = new EntityConstraint($nodesListBuilder, User::class, 'partLots.owner');
+        $this->storelocation = new EntityConstraint($nodesListBuilder, StorageLocation::class, '_partLots.storage_location');
+        $this->lotNeedsRefill = new BooleanConstraint('_partLots.needs_refill');
+        $this->lotUnknownAmount = new BooleanConstraint('_partLots.instock_unknown');
+        $this->lotExpirationDate = new DateTimeConstraint('_partLots.expiration_date');
+        $this->lotDescription = new TextConstraint('_partLots.description');
+        $this->lotOwner = new EntityConstraint($nodesListBuilder, User::class, '_partLots.owner');
 
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
         $this->manufacturer_product_url = new TextConstraint('part.manufacturer_product_url');
         $this->manufacturing_status = new ChoiceConstraint('part.manufacturing_status');
 
-        $this->attachmentsCount = new IntConstraint('COUNT(attachments)');
-        $this->attachmentType = new EntityConstraint($nodesListBuilder, AttachmentType::class, 'attachments.attachment_type');
-        $this->attachmentName = new TextConstraint('attachments.name');
+        $this->attachmentsCount = new IntConstraint('COUNT(_attachments)');
+        $this->attachmentType = new EntityConstraint($nodesListBuilder, AttachmentType::class, '_attachments.attachment_type');
+        $this->attachmentName = new TextConstraint('_attachments.name');
 
-        $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, 'orderdetails.supplier');
-        $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
-        $this->obsolete = new BooleanConstraint('orderdetails.obsolete');
+        $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, '_orderdetails.supplier');
+        $this->orderdetailsCount = new IntConstraint('COUNT(_orderdetails)');
+        $this->obsolete = new BooleanConstraint('_orderdetails.obsolete');
 
         $this->parameters = new ArrayCollection();
-        $this->parametersCount = new IntConstraint('COUNT(parameters)');
+        $this->parametersCount = new IntConstraint('COUNT(_parameters)');
     }
 
     public function apply(QueryBuilder $queryBuilder): void

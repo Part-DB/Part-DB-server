@@ -241,7 +241,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 ) AS HIDDEN amountSum'
             )
             ->from(Part::class, 'part')
-            ->leftJoin('part.category', 'category')
+            /*->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
             ->leftJoin('part.partLots', 'partLots')
             ->leftJoin('partLots.storage_location', 'storelocations')
@@ -252,7 +252,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
-            ->leftJoin('part.parameters', 'parameters')
+            ->leftJoin('part.parameters', 'parameters')*/
 
             //This must be the only group by, or the paginator will not work correctly
             ->addGroupBy('part.id');
@@ -339,5 +339,40 @@ final class PartsDataTable implements DataTableTypeInterface
             $filter = $options['filter'];
             $filter->apply($builder);
         }
+
+        //Check if the query contains certain conditions, for which we need to add additional joins
+        //The join fields get prefixed with an underscore, so we can check if they are used in the query easy without confusing them for a part subfield
+        $dql = $builder->getDQL();
+
+        if (str_contains($dql, '_category')) {
+            $builder->leftJoin('part.category', '_category');
+        }
+        if (str_contains($dql, '_master_picture_attachment')) {
+            $builder->leftJoin('part.master_picture_attachment', '_master_picture_attachment');
+        }
+        if (str_contains($dql, '_partLots') || str_contains($dql, '_storelocations')) {
+            $builder->leftJoin('part.partLots', '_partLots');
+            $builder->leftJoin('_partLots.storage_location', '_storelocations');
+        }
+        if (str_contains($dql, '_footprint')) {
+            $builder->leftJoin('part.footprint', '_footprint');
+        }
+        if (str_contains($dql, '_manufacturer')) {
+            $builder->leftJoin('part.manufacturer', '_manufacturer');
+        }
+        if (str_contains($dql, '_orderdetails') || str_contains($dql, '_suppliers')) {
+            $builder->leftJoin('part.orderdetails', '_orderdetails');
+            $builder->leftJoin('_orderdetails.supplier', '_suppliers');
+        }
+        if (str_contains($dql, '_attachments')) {
+            $builder->leftJoin('part.attachments', '_attachments');
+        }
+        if (str_contains($dql, '_partUnit')) {
+            $builder->leftJoin('part.partUnit', '_partUnit');
+        }
+        if (str_contains($dql, '_parameters')) {
+            $builder->leftJoin('part.parameters', '_parameters');
+        }
+
     }
 }

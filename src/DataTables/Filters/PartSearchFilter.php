@@ -82,7 +82,7 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'part.name';
         }
         if($this->category) {
-            $fields_to_search[] = 'category.name';
+            $fields_to_search[] = '_category.name';
         }
         if($this->description) {
             $fields_to_search[] = 'part.description';
@@ -94,22 +94,22 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'part.tags';
         }
         if($this->storelocation) {
-            $fields_to_search[] = 'storelocations.name';
+            $fields_to_search[] = '_storelocations.name';
         }
         if($this->ordernr) {
-            $fields_to_search[] = 'orderdetails.supplierpartnr';
+            $fields_to_search[] = '_orderdetails.supplierpartnr';
         }
         if($this->mpn) {
             $fields_to_search[] = 'part.manufacturer_product_number';
         }
         if($this->supplier) {
-            $fields_to_search[] = 'suppliers.name';
+            $fields_to_search[] = '_suppliers.name';
         }
         if($this->manufacturer) {
-            $fields_to_search[] = 'manufacturer.name';
+            $fields_to_search[] = '_manufacturer.name';
         }
         if($this->footprint) {
-            $fields_to_search[] = 'footprint.name';
+            $fields_to_search[] = '_footprint.name';
         }
         if ($this->ipn) {
             $fields_to_search[] = 'part.ipn';
