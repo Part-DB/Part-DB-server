@@ -89,7 +89,8 @@
 
 
 
-                            <a class="dropdown-item" href="{{ path("user_settings") }}">
+                            {# Dont prefetch settings page, as it might require additional authentication #}
+                            <a class="dropdown-item" href="{{ path("user_settings") }}" data-turbo-prefetch="false">
                                 <i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}
                             </a>
                             <a class="dropdown-item" href="{{ path("user_info_self") }}">

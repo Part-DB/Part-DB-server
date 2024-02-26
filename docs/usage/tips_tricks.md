@@ -8,35 +8,35 @@ parent: Usage
 
 Following you can find miscellaneous tips and tricks for using Part-DB.
 
-## Create datastructures directly from part edit page
+## Create data structures directly from part edit page
 
-Instead of first creating a category, manufacturer, footprint, etc. and then creating the part, you can create the
-datastructures directly from the part edit page: Just type the name of the datastructure you want to create into the
-select field on the part edit page and press "Create new ...". The new datastructure will be created, when you save
+Instead of first creating a category, manufacturer, footprint, etc., and then creating the part, you can create the
+data structures directly from the part edit page: Just type the name of the data structure you want to create into the
+select field on the part edit page and press "Create new ...". The new data structure will be created when you save
 the part changes.
 
-You can create also create nested datastructures this way. For example, if you want to create a new category "AVRs",
+You can create also create nested data structures this way. For example, if you want to create a new category "AVRs",
 as a subcategory of "MCUs", you can just type "MCUs->AVRs" into the category select field and press "Create new".
 The new category "AVRs" will be created as a subcategory of "MCUs". If the category "MCUs" does not exist, it will
 be created too.
 
-## Builtin footprint images
+## Built-in footprint images
 
-Part-DB includes several builtin images for common footprints. You can use these images in your footprint
-datastructures,
-by creating an attachment on the datastructure and selecting it as preview image.
+Part-DB includes several built-in images for common footprints. You can use these images in your footprint
+data structures,
+by creating an attachment on the data structure and selecting it as the preview image.
 Type the name of the footprint image you want to use into the URL field of the attachment and select it from the
 dropdown menu. You can find a gallery of all builtin footprint images and their names in the "Builtin footprint image
 gallery",
-which you can find in the "Tools" menu (you maybe need to give your user the permission to access this tool).
+which you can find in the "Tools" menu (you may need to give your user the permission to access this tool).
 
 ## Parametric search
 
-In the "parameters" tab of the filter panel on parts list page, you can define constraints, which parameter values
-have to fulfill. This allows you to search for parts with specific parameters (or parameter ranges), for example you
+In the "parameters" tab of the filter panel on parts list page, you can define constraints, and which parameter values
+have to fulfill. This allows you to search for parts with specific parameters (or parameter ranges), for example, you
 can search for all parts with a voltage rating of greater than 5 V.
 
-## View own users permissions
+## View own user's permissions
 
 If you want to see which permissions your user has, you can find a list of the permissions in the "Permissions" panel
 on the user info page.
@@ -49,10 +49,8 @@ part).
 You can find a list of supported features in the [KaTeX documentation](https://katex.org/docs/supported.html).
 
 To input a LaTeX equation, you have to wrap it in a pair of dollar signs (`$`). Single dollar signs mark inline
-equations,
-double dollar signs mark displayed equations (which will be its own line and centered). For example, the following
-equation
-will be rendered as an inline equation:
+equations, double dollar signs mark displayed equations (which will be their own line and centered). 
+For example, the following equation will be rendered as an inline equation:
 
 ```
 $E=mc^2$
@@ -77,16 +75,16 @@ free API used by default only supports the Euro as base currency.
 ## Enforce log comments
 
 On almost any editing operation it is possible to add a comment describing, what or why you changed something.
-This comment will be written to change log and can be viewed later.
-If you want to enforce your users to add comments to certain operations, you can do this by setting
+This comment will be written to changelog and can be viewed later.
+If you want to force your users to add comments to certain operations, you can do this by setting
 the `ENFORCE_CHANGE_COMMENTS_FOR` option.
 See the configuration reference for more information.
 
 ## Personal stocks and stock locations
 
-For makerspaces and universities with a lot of users, where each user can have his own stock, which only he should be
+For maker spaces and universities with a lot of users, where each user can have his own stock, which only he should be
 able to access, you can assign
-the user as "owner" of a part lot. This way, only him is allowed to add or remove parts from this lot.
+the user as "owner" of a part lot. This way, only he is allowed to add or remove parts from this lot.
 
 ## Update notifications
 

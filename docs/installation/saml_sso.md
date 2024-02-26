@@ -48,7 +48,7 @@ the [Keycloak Getting Started Guide](https://www.keycloak.org/docs/latest/gettin
    *It is recommended to set this value to the domain name of your Part-DB installation, with an attached `/sp` (
    e.g. `https://partdb.yourdomain.invalid/sp`)*.
    The name field should be set to something human-readable, like `Part-DB`.
-3. Click on `Save` to create the new client.
+3. Click on `Save` to create a new client.
 
 ### Configure the SAML client
 
@@ -56,7 +56,7 @@ the [Keycloak Getting Started Guide](https://www.keycloak.org/docs/latest/gettin
     * Set `Home URL` to the homepage of your Part-DB installation (e.g. `https://partdb.yourdomain.invalid/`).
     * Set `Valid redirect URIs` to your homepage with a wildcard at the end (
       e.g. `https://partdb.yourdomain.invalid/*`).
-    * Set `Valid post logout redirect URIs` to `+` to allow all urls from the `Valid redirect URIs`.
+    * Set `Valid post logout redirect URIs` to `+` to allow all URLs from the `Valid redirect URIs`.
     * Set `Name ID format` to `username`
     * Ensure `Force POST binding` is enabled.
     * Ensure `Sign documents` is enabled.
@@ -135,8 +135,8 @@ On the first login of a SAML user, Part-DB will create a new user in the databas
 as the SAML user, but no password set. The user will be marked as a SAML user, so he can only log in via SAML in the
 future. However, in other aspects the user is a normal user, so Part-DB admins can set permissions for SAML users like
 for any other user and override permissions assigned via groups.
- 
-For large organizations you maybe want to automatically assign permissions to SAML users based on the roles or
+
+For large organizations, you maybe want to automatically assign permissions to SAML users based on the roles or
 groups configured in the identity provider. For this purpose Part-DB allows you to map SAML roles or groups to Part-DB
 groups. See the next section for details.
 
@@ -144,11 +144,11 @@ groups. See the next section for details.
 
 Part-DB allows you to configure a mapping between SAML roles or groups and Part-DB groups. This allows you to
 automatically assign permissions to SAML users based on the roles or groups configured in the identity provider. For
-example if a user at your SAML provider has the role `admin`, you can configure Part-DB to assign the `admin` group to
+example, if a user at your SAML provider has the role `admin`, you can configure Part-DB to assign the `admin` group to
 this user. This will give the user all permissions of the `admin` group.
 
-For this you need first have to create the groups in Part-DB, to which you want to assign the users and configure their
-permissions. You will need the IDs of the groups, which you can find in the `System->Group` page of Part-DB in the Info
+For this, you need first have to create the groups in Part-DB, to which you want to assign the users and configure their
+permissions. You will need the IDs of the groups, which you can find on the `System->Group` page of Part-DB in the Info
 tab.
 
 The map is provided as [JSON](https://en.wikipedia.org/wiki/JSON) encoded map between the SAML role and the group ID,
@@ -158,7 +158,7 @@ you can configure via the `.env.local` or `docker-compose.yml` file. Please note
 string in single quotes here, as JSON itself uses double quotes (
 e.g. `SAML_ROLE_MAPPING='{ "*": 2, "editor": 3, "admin": 1 }`).
 
-For example if you want to assign the group with ID 1 (by default admin) to every SAML user which has the role `admin`,
+For example, if you want to assign the group with ID 1 (by default admin) to every SAML user which has the role `admin`,
 the role with ID 3 (by default editor) to every SAML user with the role `editor` and everybody else to the group with ID
 2 (by default readonly), you can configure the following map:
 
@@ -176,9 +176,9 @@ If you want to assign users with a certain role to an empty group, provide the g
 valid group ID, so the user will not be assigned to any group.
 
 The SAML roles (or groups depending on your configuration), have to be supplied via a SAML attribute `group`. You have
-to configure your SAML identity provider to provide this attribute. For example in Keycloak you can configure this
-attribute in the `Client scopes` page. Select the `sp-dedicated` client scope (or create a new one) and click
-on `Add mappers`. Select `Role mapping` or `Group membership`, change the field name and click `Add`. Now Part-DB will
+to configure your SAML identity provider to provide this attribute. For example, in Keycloak you can configure this
+attribute on the `Client scopes` page. Select the `sp-dedicated` client scope (or create a new one) and click
+on `Add mappers`. Select `Role mapping` or `Group membership`, change the field name, and click `Add`. Now Part-DB will
 be provided with the groups of the user based on the Keycloak user database.
 
 By default, the group is assigned to the user on the first login and updated on every login based on the SAML
@@ -203,12 +203,12 @@ provide these attributes, you can use to automatically fill the corresponding fi
 
 ## Use SAML Login for existing users
 
-Part-DB distinguishes between local users and SAML users. Local users are users, which can log in via Part-DB login form
-and which use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are
+Part-DB distinguishes between local users and SAML users. Local users are users, that can log in via the Part-DB login form
+and use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are
 created on the first login of the user via SAML), but they use the SAML identity provider to authenticate the user and
 have no password stored in the database. When you try you will get an error message.
 
-For security reasons it is not possible to authenticate via SAML as a local user (and vice versa). So if you have
+For security reasons, it is not possible to authenticate via SAML as a local user (and vice versa). So if you have
 existing users in your Part-DB database and want them to be able to log in via SAML in the future, you can use
 the `php bin/console partdb:user:convert-to-saml-user username` command to convert them to SAML users. This will remove
 the password hash from the database and mark them as SAML users, so they can log in via SAML in the future.

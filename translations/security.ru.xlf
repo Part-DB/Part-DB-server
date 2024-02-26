@@ -7,5 +7,11 @@
         <target>Ваша учетная запись отключена! Свяжитесь с администратором, если вы считаете, что это неправильно.</target>
       </segment>
     </unit>
+    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>Вы не можете войти в систему как локальный пользователь через SSO! Используйте локального пользователя и его пароль.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

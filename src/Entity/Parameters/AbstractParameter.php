@@ -87,7 +87,7 @@ use function sprintf;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['parameter:read', 'parameter:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['parameter:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['parameter:write', 'parameter:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(LikeFilter::class, properties: ["name", "symbol", "unit", "group", "value_text"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
@@ -161,7 +161,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
      */
-    #[Groups(['parameter:read:standalone', 'parameter:write'])]
+    #[Groups(['parameter:read:standalone', 'parameter:write:standalone'])]
     protected ?AbstractDBElement $element = null;
 
     public function __construct()

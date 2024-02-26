@@ -32,6 +32,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 /**
  * This voter implements a virtual role, which can be used if the user has any permission set to allowed.
  * We use this to restrict access to the homepage.
+ * @phpstan-extends Voter<non-empty-string, null>
  */
 final class HasAccessPermissionsVoter extends Voter
 {

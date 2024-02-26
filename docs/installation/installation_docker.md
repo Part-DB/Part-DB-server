@@ -20,7 +20,7 @@ where docker is available (especially recommended for Windows and macOS).
 
 Docker-compose configures the needed images and automatically creates the needed containers and volumes.
 
-1. Install docker and docker-compose like described under https://docs.docker.com/compose/install/
+1. Install docker and docker-compose as described under https://docs.docker.com/compose/install/
 2. Create a folder where the Part-DB data should live
 3. Create a file named docker-compose.yaml with the following content:
 
@@ -74,7 +74,7 @@ services:
       # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16  
 ```
 
-4. Customize the settings by changing the environment variables (or add new ones). See [Configuration]({% link
+4. Customize the settings by changing the environment variables (or adding new ones). See [Configuration]({% link
    configuration.md %}) for more information.
 5. Inside the folder, run
 
@@ -90,10 +90,10 @@ docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 
 and watch for the password output
 
-6. Part-DB is available under `http://localhost:8080` and you can log in with username `admin` and the password shown
+6. Part-DB is available under `http://localhost:8080` and you can log in with the username `admin` and the password shown
    before
 
-The docker image uses a SQLite database and all data (database, uploads and other media) is put into folders relative to
+The docker image uses a SQLite database and all data (database, uploads, and other media) is put into folders relative to
 the docker-compose.yml.
 
 ### MySQL
@@ -183,15 +183,15 @@ docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 
 ## Direct use of docker image
 
-You can use the `jbtronics/part-db1:master` image directly. You have to expose the port 80 to a host port and configure
+You can use the `jbtronics/part-db1:master` image directly. You have to expose port 80 to a host port and configure
 volumes for `/var/www/html/uploads` and `/var/www/html/public/media`.
 
 If you want to use SQLite database (which is default), you have to configure Part-DB to put the database file in a
 mapped volume via the `DATABASE_URL` environment variable.
-For example if you set `DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db` then you will have to map
+For example, if you set `DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db` then you will have to map
 the `/var/www/html/var/db/` folder to the docker container (see docker-compose.yaml for example).
 
-You also have to create the database like described above in step 4.
+You also have to create the database as described above in step 4.
 
 ## Running console commands
 
@@ -200,8 +200,8 @@ executing `docker exec --user=www-data -it partdb bin/console [command]`
 
 ## Troubleshooting
 
-*Login not possible. Login page is just reloading and no error message is shown or something like "CSFR token invalid"*:
+*Login is not possible. Login page is just reloading and no error message is shown or something like "CSFR token invalid"*:
 
-Clear all cookies in your browser or use an inkognito tab for Part-DB.
-This related to the fact that Part-DB can not set cookies via HTTP, after some webpage has set cookies before under
-localhost via https. This is a security mechanism of the browser and can not be bypassed by Part-DB.
+Clear all cookies in your browser or use an incognito tab for Part-DB.
+This is related to the fact that Part-DB can not set cookies via HTTP after some webpages have set cookies before under
+localhost via HTTPS. This is a security mechanism of the browser and can not be bypassed by Part-DB.

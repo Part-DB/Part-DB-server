@@ -39,6 +39,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use function get_class;
 use function is_object;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, AttachmentType|Category|Project|Footprint|Manufacturer|StorageLocation|Supplier|Currency|MeasurementUnit|class-string>
+ */
 final class StructureVoter extends Voter
 {
     protected const OBJ_PERM_MAP = [

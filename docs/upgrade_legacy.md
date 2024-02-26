@@ -18,33 +18,32 @@ sections carefully before proceeding to upgrade.
 
 * PHP 8.1 or higher is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0).
   Releases are available for Windows too, so almost everybody should be able to use PHP 8.1
-* **Console access highly required.** The installation of composer and frontend dependencies require console access,
-  also more sensitive stuff like database migration work via CLI now, so you should have console access on your server.
+* **Console access is highly recommended.** The installation of composer and frontend dependencies require console access,
+  also more sensitive stuff like database migration works via CLI now, so you should have console access on your server.
 * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.
   It is possible to migrate your existing BBCode to Markdown
   via `php bin/console php bin/console partdb:migrations:convert-bbcode`.
-* Server exceptions are not logged to event log anymore. For security reasons (exceptions can contain sensitive
-  information)
-  exceptions are only logged to server log (by default under './var/log'), so only the server admins can access it.
-* Profile labels are now saved in Database (before they were saved in a separate JSON file). **The profiles of legacy
+* Server exceptions are not logged into event log anymore. For security reasons (exceptions can contain sensitive
+  information) exceptions are only logged to server log (by default under './var/log'), so only the server admins can access it.
+* Profile labels are now saved in the database (before they were saved in a separate JSON file). **The profiles of legacy
   Part-DB versions can not be imported into new Part-DB 1.0**
-* Label placeholders now use the `[[PLACEHOLDER]]` format instead of `%PLACEHOLDER%`. Also, some placeholders has
+* Label placeholders now use the `[[PLACEHOLDER]]` format instead of `%PLACEHOLDER%`. Also, some placeholders have
   changed.
-* Configuration is now done via configuration files / environment variables instead of the WebUI (this maybe change in
+* Configuration is now done via configuration files/environment variables instead of the WebUI (this may change in
   the future).
-* Database updated are now done via console instead of the WebUI
+* Database updates are now done via console instead of the WebUI
 * Permission system changed: **You will have to newly set the permissions of all users and groups!**
-* Import / Export file format changed. Fields must be english now (unlike in legacy Part-DB versions, where german
+* Import / Export file format changed. Fields must be English now (unlike in legacy Part-DB versions, where German
   fields in CSV were possible)
-  and you maybe have to change the header line/field names of your CSV files.
+  and you may have to change the header line/field names of your CSV files.
 
 ## Missing features
 
-* No possibility to mark parts for ordering (yet)
+* No possibility of marking parts for ordering (yet)
 * No support for 3D models of footprints (yet)
-* No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact,
+* No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact
   when you forbid users to edit/create them.
-* No resistor calculator or SMD labels tools
+* No resistor calculator or SMD label tools
 
 ## Upgrade process
 
@@ -56,12 +55,12 @@ sections carefully before proceeding to upgrade.
 > Beware that all user and group permissions will be reset, and you have to set the permissions again
 > the new Part-DB as many permissions changed, and automatic migration is not possible.
 
-1. Upgrade your existing Part-DB version the newest Part-DB 0.5.* version (at the moment Part-DB 0.5.8), like described
+1. Upgrade your existing Part-DB version the newest Part-DB 0.5.* version (at the moment Part-DB 0.5.8), as described
    in the old Part-DB's repository.
 2. Make a backup of your database and attachments. If something goes wrong during migration, you can use this backup to
    start over. If you have some more complex permission configuration, you maybe want to do screenshots of it, so you
    can redo it again later.
-3. Set up the new Part-DB like described in installation section. You will need to do the setup for a MySQL instance (
+3. Set up the new Part-DB as described in the installation section. You will need to do the setup for a MySQL instance (
    either via docker or direct installation). Set the `DATABASE_URL` environment variable in your `.env.local` (
    or `docker-compose.yaml`) to your existing database. (
    e.g. `DATABASE_URL=mysql://PARTDB_USER:PASSWORD@localhost:3306/DATABASE_NAME`)

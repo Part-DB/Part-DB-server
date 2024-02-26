@@ -51,6 +51,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, PartLot|class-string>
+ */
 final class PartLotVoter extends Voter
 {
     public function __construct(private readonly Security $security, private readonly VoterHelper $helper)

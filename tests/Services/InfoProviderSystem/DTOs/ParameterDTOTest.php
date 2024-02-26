@@ -161,4 +161,22 @@ class ParameterDTOTest extends TestCase
     {
         $this->assertEquals($expected, ParameterDTO::parseValueIncludingUnit($name, $value, $symbol, $group));
     }
+
+    public function testSplitIntoValueAndUnit(): void
+    {
+        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0 kg'));
+        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0kg'));
+        $this->assertEquals(['1', 'kg'], ParameterDTO::splitIntoValueAndUnit('1 kg'));
+
+        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0°C'));
+        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0 °C'));
+
+        $this->assertEquals(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
+        $this->assertEquals(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
+
+        $this->assertEquals(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
+
+        $this->assertNull(ParameterDTO::splitIntoValueAndUnit('kg'));
+        $this->assertNull(ParameterDTO::splitIntoValueAndUnit('Test'));
+    }
 }

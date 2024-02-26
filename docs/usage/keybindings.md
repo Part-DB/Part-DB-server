@@ -93,7 +93,7 @@ all text and search fields in Part-DB.
 
 ### Currency symbols
 
-Please not the following keybindings are bound to a specific keycode. The key character is not the same on all
+Please note, the following keybindings are bound to a specific keycode. The key character is not the same on all
 keyboards.
 It is given here for a US keyboard layout.
 
@@ -108,7 +108,7 @@ For a German keyboard layout, replace ; with ö, and ' with ä.
 
 ### Others
 
-Please not the following keybindings are bound to a specific keycode. The key character is not the same on all
+Please note the following keybindings are bound to a specific keycode. The key character is not the same on all
 keyboards.
 It is given here for a US keyboard layout.
 

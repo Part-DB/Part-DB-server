@@ -25,10 +25,10 @@ It is installed on a web server and so can be accessed with any browser without 
 
 ## Features
 
-* Inventory management of your electronic parts. Each part can be assigned to a category, footprint, manufacturer
+* Inventory management of your electronic parts. Each part can be assigned to a category, footprint, manufacturer,
   and multiple store locations and price information. Parts can be grouped using tags. You can associate various files
   like datasheets or pictures with the parts.
-* Multi-Language support (currently German, English, Russian, Japanese and French (experimental))
+* Multi-language support (currently German, English, Russian, Japanese and French (experimental))
 * Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the builtin barcode scanner
 * User system with groups and detailed (fine granular) permissions.
   Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups.
@@ -46,7 +46,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
 * Easy migration from an existing PartKeepr instance (see [here]({%link partkeepr_migration.md %}))
-* Use cloud providers (like Octopart, Digikey, farnell or TME) to automatically get part information, datasheets and
+* Use cloud providers (like Octopart, Digikey, Farnell or TME) to automatically get part information, datasheets and
   prices for parts (see [here]({% link usage/information_provider_system.md %}))
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad]({%link usage/eda_integration.md %}): Use Part-DB as central datasource for your

@@ -8,9 +8,9 @@ nav_order: 4
 # Part-DB installation guide for Debian 11 (Bullseye)
 
 This guide shows you how to install Part-DB directly on Debian 11 using apache2 and SQLite. This guide should work with
-recent Ubuntu and other Debian based distributions with little to no changes.
+recent Ubuntu and other Debian-based distributions with little to no changes.
 Depending on what you want to do, using the prebuilt docker images may be a better choice, as you don't need to install
-this many dependencies. See [here]({% link installation/installation_docker.md %}) for more information of the docker
+this many dependencies. See [here]({% link installation/installation_docker.md %}) for more information on the docker
 installation.
 
 {: .warning }
@@ -30,8 +30,8 @@ sudo apt install git curl zip ca-certificates software-properties-common apt-tra
 
 ### Install PHP and apache2
 
-Part-DB is written in [PHP](https://php.net) and therefore needs an PHP interpreter to run. Part-DB needs PHP 8.1 or
-higher, however it is recommended to use the most recent version of PHP for performance reasons and future
+Part-DB is written in [PHP](https://php.net) and therefore needs a PHP interpreter to run. Part-DB needs PHP 8.1 or
+higher. However, it is recommended to use the most recent version of PHP for performance reasons and future
 compatibility.
 
 As Debian 11 does not ship PHP 8.1 in its default repositories, we have to add a repository for it. You can skip this
@@ -46,7 +46,7 @@ sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
 sudo apt update && sudo apt upgrade
 ```
 
-Now you can install PHP 8.1 and required packages (change the 8.1 in the package version according to the version you
+Now you can install PHP 8.1 and the required packages (change the 8.1 in the package version according to the version you
 want to use):
 
 ```bash
@@ -57,8 +57,8 @@ The apache2 webserver should be already installed with this command and configur
 
 ### Install composer
 
-Part-DB uses [composer](https://getcomposer.org/) to install required PHP libraries. As the versions shipped in the
-repositories is pretty old we install it manually:
+Part-DB uses [composer](https://getcomposer.org/) to install required PHP libraries. As the version shipped in the
+repositories is pretty old, we will install it manually:
 
 ```bash
 # Download composer installer script
@@ -71,8 +71,8 @@ chmod +x /usr/local/bin/composer
 
 ### Install yarn and nodejs
 
-To build the frontend (the user interface) Part-DB uses [yarn](https://yarnpkg.com/). As it depends on Node.js and the
-shipped versions are pretty old, we install new versions from official Node.js repository:
+To build the front end (the user interface) Part-DB uses [yarn](https://yarnpkg.com/). As it depends on Node.js and the
+shipped versions are pretty old, we install new versions from the official Node.js repository:
 
 ```bash
 # Add recent node repository (nodejs 18 is supported until 2025)
@@ -102,7 +102,7 @@ later.
 git clone https://github.com/Part-DB/Part-DB-symfony.git /var/www/partdb
 ```
 
-By default, you are now on the latest development version. In most cases you want to use the latest stable version. You
+By default, you are now on the latest development version. In most cases, you want to use the latest stable version. You
 can switch to the latest stable version (tagged) by running the following command:
 
 ```bash
@@ -110,7 +110,7 @@ can switch to the latest stable version (tagged) by running the following comman
 git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
 ```
 
-Alternatively you can check out a specific version by running (
+Alternatively, you can check out a specific version by running (
 see [GitHub Releases page](https://github.com/Part-DB/Part-DB-server/releases) for a list of available versions):
 
 ```bash
@@ -176,12 +176,12 @@ To check if everything is installed, run the following command:
 sudo -u www-data php bin/console partdb:check-requirements
 ```
 
-The most things should be green, and no red ones. Yellow messages means optional dependencies which are not important
+Most things should be green, and no red ones. Yellow messages mean optional dependencies which are not important
 but can improve performance and functionality.
 
 ### Create a database for Part-DB
 
-Part-DB by default uses a file based sqlite database to store the data. Use the following command to create the
+Part-DB by default uses a file-based SQLite database to store the data. Use the following command to create the
 database. The database will normally be created at `/var/www/partdb/var/app.db`.
 
 ```bash
@@ -191,8 +191,7 @@ sudo -u www-data php bin/console doctrine:migrations:migrate
 The command will warn you about schema changes and potential data loss. Continue with typing `yes`.
 
 The command will output several lines of information. Somewhere should be a yellow background message
-like `The initial password for the "admin" user is: f502481134`. Write down this password as you will need it later for
-initial login.
+like `The initial password for the "admin" user is: f502481134`. Write down this password as you will need it later for the initial login.
 
 ### Configure apache2 to show Part-DB
 
@@ -248,7 +247,7 @@ sudo service apache2 restart
 ```
 
 and Part-DB should now be available under `http://YourServerIP` (or `http://partdb.lan` if you configured DNS in your
-network to point on the server).
+network to point to the server).
 
 ### Login to Part-DB
 
@@ -288,7 +287,7 @@ sudo -u www-data php bin/console cache:clear
 
 ## MySQL/MariaDB database
 
-To use a MySQL database, follow the steps from above (except the creation of database, we will do this later).
+To use a MySQL database, follow the steps from above (except the creation of the database, we will do this later).
 Debian 11 does not ship MySQL in its repositories anymore, so we use the compatible MariaDB instead:
 
 1. Install maria-db with:

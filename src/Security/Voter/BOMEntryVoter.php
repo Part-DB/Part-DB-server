@@ -23,15 +23,19 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, ProjectBOMEntry|class-string>
+ */
 class BOMEntryVoter extends Voter
 {
 
-    private const ALLOWED_ATTRIBUTES = ['read', 'view', 'edit', 'delete', 'create'];
+    private const ALLOWED_ATTRIBUTES = ['read', 'view', 'edit', 'delete', 'create', 'show_history'];
 
     public function __construct(private readonly Security $security)
     {
@@ -39,25 +43,35 @@ class BOMEntryVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $this->supportsAttribute($attribute) && is_a($subject, ProjectBOMEntry::class);
+        return $this->supportsAttribute($attribute) && is_a($subject, ProjectBOMEntry::class, true);
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-        if (!$subject instanceof ProjectBOMEntry) {
+        if (!is_a($subject, ProjectBOMEntry::class, true)) {
             return false;
         }
 
-        $project = $subject->getProject();
+        if (is_object($subject)) {
+            $project = $subject->getProject();
 
-        //Allow everything if the project was not set yet
-        if ($project === null) {
-            return true;
+            //Allow everything if the project was not set yet
+            if ($project === null) {
+                return true;
+            }
+        } else {
+            //If a string was given, use the general project permissions to resolve permissions
+            $project = Project::class;
         }
 
         //Entry can be read if the user has read access to the project
         if ($attribute === 'read') {
             return $this->security->isGranted('read', $project);
+        }
+
+        //History can be shown if the user has show_history access to the project
+        if ($attribute === 'show_history') {
+            return $this->security->isGranted('show_history', $project);
         }
 
         //Everything else can be done if the user has edit access to the project
@@ -71,6 +85,6 @@ class BOMEntryVoter extends Voter
 
     public function supportsType(string $subjectType): bool
     {
-        return is_a($subjectType, ProjectBOMEntry::class, true);
+        return $subjectType === 'string' || is_a($subjectType, ProjectBOMEntry::class, true);
     }
 }

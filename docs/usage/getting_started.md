@@ -18,22 +18,22 @@ Before you start creating data structures, you should configure Part-DB to your 
 options.
 This is done either via changing the `.env.local` file in a direct installation or by changing the env variables in
 your `docker-compose.yaml` file.
-A list of possible configuration options, can be found [here]({% link configuration.md %}).
+A list of possible configuration options can be found [here]({% link configuration.md %}).
 
 ## Change password, Set up Two-Factor-Authentication & Customize User settings
 
-If you have not already done, you should change your user password. You can do this in the user settings (available in
-the navigation bar drop down with the user symbol).
+If you have not already done so, you should change your user password. You can do this in the user settings (available in
+the navigation bar drop-down with the user symbol).
 
 ![image]({% link assets/getting_started/change_password.png %})
 
 There you can also find the option, to set up Two-Factor Authentication methods like Google Authenticator. Using this is
-highly recommended (especially if you have admin permissions) to increase the security of your account. (Two-Factor
-Authentication even can be enforced for all members of a user group)
+highly recommended (especially if you have admin permissions) to increase the security of your account. (Two-factor authentication 
+even can be enforced for all members of a user group)
 
-In the user settings panel you can change account infos like your username, your first and last name (which will be
-shown alongside your username to identify you better), department information and your email address. The email address
-is used to send password reset mails, if your system is configured to use this.
+In the user settings panel, you can change account info like your username, your first and last name (which will be
+shown alongside your username to identify you better), department information, and your email address. The email address
+is used to send password reset mails if your system is configured to use this.
 
 ![image]({% link assets/getting_started/user_settings.png %})
 
@@ -46,7 +46,7 @@ used.
 
 The banner which is shown on the homepage, can be customized/changed by changing the `config/banner.md` file with a text
 editor. You can use markdown and (safe) HTML here, to style and customize the banner.
-You can even use Latex style equations by wrapping the expressions into `$` (like `$E=mc^2$`, which is rendered inline:
+You can even use LaTeX-style equations by wrapping the expressions into `$` (like `$E=mc^2$`, which is rendered inline:
 $E=mc^2$) or `$$` (like `$$E=mc^2$$`) which will be rendered as a block, like so: $$E=mc^2$$
 
 ## Create groups, users and customize permissions
@@ -55,14 +55,14 @@ $E=mc^2$) or `$$` (like `$$E=mc^2$$`) which will be rendered as a block, like so
 
 When logged in as administrator, you can open the users menu in the `Tools` section of the sidebar
 under `System -> Users`.
-At this page you can create new users, change their passwords and settings and change their permissions.
-For each user which should use Part-DB you should set up an own account, so that tracking of what user did what works
+On this page you can create new users, change their passwords and settings, and change their permissions.
+For each user who should use Part-DB you should set up their own account so that tracking of what user did works
 properly.
 ![image]({% link assets/getting_started/user_admin.png %})
 
 You should check the permissions for every user and ensure that they are in the intended way, and no user has more
 permissions than he needs.
-For each capability you can choose between allow, forbid and inherit. In the last case, the permission is determined by
+For each capability, you can choose between allow, forbid, and inherit. In the last case, the permission is determined by
 the group a user has (if no group is chosen, it equals forbid)
 
 ![image]({% link assets/getting_started/user_permissions.png %})
@@ -75,35 +75,34 @@ to restrict the permissions.
 
 ### Groups
 
-If you have many users which should share the same permissions, it is useful to define the permissions using user
+If you have many users who should share the same permissions, it is useful to define the permissions using user
 groups, which you can create and edit in the `System -> Groups` menu.
 
-By default 3 groups are defined:
+By default, 3 groups are defined:
 
 * `readonly` which users only have read permissions (like viewing, searching parts, attachments, etc.)
 * `users` which users also have rights to edit/delete/create elements
-* `admin` which users can do administrative operations (like creating new users, show global system log, etc.)
+* `admin` which users can do administrative operations (like creating new users, showing global system log, etc.)
 
 Users only use the setting of a capability from a group, if the user has a group associated and the capability on the
 user is set to `inherit` (which is the default if creating a new user). You can override the permissions settings of a
-group per user by explicitly settings the permission at the user.
+group per user by explicitly setting the permission of the user.
 
 Groups are organized as trees, meaning a group can have parent and child permissions and child groups can inherit
 permissions from their parents.
-To inherit the permissions from a parent group set the capability to inherit, otherwise set it explicitly to override
+To inherit the permissions from a parent group set the capability to inherit, otherwise, set it explicitly to override
 the parents' permission.
 
 ## Create Attachment types
 
 Every attachment (that is a file associated with a part, data structure, etc.) must have an attachment type. They can
-be used to group attachments logically, like differentiating between datasheets, pictures and other documents.
+be used to group attachments logically, like differentiating between datasheets, pictures, and other documents.
 
 You can create/edit attachment types in the tools sidebar under "Edit -> Attachment types":
 
 ![image]({% link assets/getting_started/attachment_type_admin.png %})
 
-Depending on your use case different entries here make sense. For part management the following (additional) entries
-maybe make sense:
+Depending on your use case different entries here make sense. For part management the following (additional) entries may make sense:
 
 * Datasheets (restricted to pdfs, Allowed filetypes: `application/pdf`)
 * Pictures (for generic pictures of components, storage locations, etc., Allowed filetypes: `image/*`
@@ -111,34 +110,34 @@ maybe make sense:
 For every attachment type a list of allowed file types, which can be uploaded to an attachment with this attachment
 type, can be defined. You can either pass a list of allowed file extensions (e.g. `.pdf, .zip, .docx`) and/or a list
 of [Mime Types](https://en.wikipedia.org/wiki/Media_type) (e.g. `application/pdf, image/jpeg`) or a combination of both
-here. To allow all browser supported images, you can use `image/*` wildcard here.
+here. To allow all browser-supported images, you can use `image/*` wildcard here.
 
 ## (Optional) Create Currencies
 
-If you want to save price information for parts in a currency different to your global currency (by default Euro), you
+If you want to save price information for parts in a currency different from your global currency (by default Euro), you
 have to define the additional currencies you want to use under `Edit -> Currencies`:
 
 ![image]({% link assets/getting_started/currencies_admin.png %})
 
-You create a new currency, name it however you want (it is recommended to use the official name of the currency) and
-select the currency ISO code from the list and save it. The currency symbol is determined automatically from chose ISO
+You create a new currency, name it however you want (it is recommended to use the official name of the currency),
+select the currency ISO code from the list, and save it. The currency symbol is determined automatically from the chosen ISO
 code.
 You can define an exchange rate in terms of your base currency (e.g. how many euros is one unit of your currency worth)
-to convert the currencies values in your preferred display currency automatically.
+to convert the currency values in your preferred display currency automatically.
 
 ## (Optional) Create Measurement Units
 
 By default, Part-DB assumes that the parts in inventory can be counted by individual indivisible pieces, like LEDs in a
-box or books in a shelf.
+box or books on a shelf.
 However, if you want to manage things, that are divisible and the stock is described by a physical quantity, like
-length for cables, or volumina of a liquid, you have to define additional measurement units.
+length for cables, or volumes of a liquid, you have to define additional measurement units.
 
 This is possible under `Edit -> Measurement Units`:
 ![image]({% link assets/getting_started/units_admin.png %})
 
 You can give the measurement unit a name and an optional unit symbol (like `m` for meters) which is shown when
 quantities in this unit are displayed. The option `Use SI prefix` is useful for almost all physical quantities, as big
-and small numbers are automatically formatted with SI-prefixes (like 1.5kg instead 1500 grams).
+and small numbers are automatically formatted with SI prefixes (like 1.5kg instead 1500 grams).
 
 The measurement unit can be selected for each part individually, by setting the option in the advanced tab of a part`s
 edit menu.
@@ -157,16 +156,16 @@ Every part has to be assigned to a category, so you should create at least one c
 ## (Optional) Create Footprints
 
 Footprints are used to describe the physical shape of a part, like a resistor or a capacitor.
-They can be used to group parts by their physical shape and to find parts with in the same package.
+They can be used to group parts by their physical shape and to find parts within the same package.
 
 You can create/edit footprints in the tools sidebar under "Edit -> Footprints".
 
 It is useful to create footprints for the most common packages, like SMD resistors, capacitors, etc. to make it easier
 to find parts with the same footprint.
-You should create these as a tree structure, so that you can group footprints by their type.
+You should create these as a tree structure so that you can group footprints by their type.
 See [Concepts]({% link concepts.md %}) for an example tree structure.
 
-You can define attachments here which are associated with the footprint. The attachment set as preview image, will be
+You can define attachments here which are associated with the footprint. The attachment set as the preview image, will be
 used whenever a visual representation of the footprint is needed (e.g. in the part list).
 
 For many common footprints, you can use the built-in footprints, which can be found in the "Builtin footprint image

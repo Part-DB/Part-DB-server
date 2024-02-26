@@ -30,6 +30,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function in_array;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, User|class-string>
+ */
 final class UserVoter extends Voter
 {
     public function __construct(private readonly VoterHelper $helper, private readonly PermissionManager $resolver)
@@ -62,7 +65,7 @@ final class UserVoter extends Voter
 
     public function supportsAttribute(string $attribute): bool
     {
-        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute);
+        return $this->helper->isValidOperation('users', $attribute) || $this->helper->isValidOperation('self', $attribute) || $attribute === 'info';
     }
 
     public function supportsType(string $subjectType): bool

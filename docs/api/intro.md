@@ -29,15 +29,14 @@ features and how to use them.
 
 The API is available under the `/api` path, but not reachable without proper permissions.
 You have to give the users, which should be able to access the API the proper permissions (Miscellaneous -> API).
-Please note that there are two relevant permissions, the first one allows users to access the `/api/` path at all and
-showing the documentation,
-and the second one allows them to create API tokens which is needed for authentication of external applications.
+Please note that there are two relevant permissions, the first one allows users to access the `/api/` path at all and show the documentation,
+and the second one allows them to create API tokens which are needed for the authentication of external applications.
 
 ## Authentication
 
 To use API endpoints, the external application has to authenticate itself, so that Part-DB knows which user is accessing
 the data and
-which permissions the application should have. Basically this is done by creating an API token for a user and then
+which permissions the application should have. Basically, this is done by creating an API token for a user and then
 passing it on every request
 with the `Authorization` header as bearer token, so you add a header `Authorization: Bearer <your token>`.
 
@@ -46,11 +45,10 @@ See [Authentication chapter]({% link api/authentication.md %}) for more details.
 ## API endpoints
 
 The API is split into different endpoints, which are reachable under the `/api/` path of your Part-DB instance (
-so `https://your-part-db.local/api/`).
-There are various endpoints for each entity type (like `part`, `manufacturer`, etc.), which allow you to read and write
-data and some special endpoints like `search` or `statistics`.
+e.g. `https://your-part-db.local/api/`).
+There are various endpoints for each entity type (like `part`, `manufacturer`, etc.), which allow you to read and write data, and some special endpoints like `search` or `statistics`.
 
-For example all API endpoints for managing categories are available under `/api/categories/`. Depending on the exact
+For example, all API endpoints for managing categories are available under `/api/categories/`. Depending on the exact
 path and the HTTP method used, you can read, create, update or delete categories.
 For most entities, there are endpoints like this:
 
@@ -66,29 +64,28 @@ For most entities, there are endpoints like this:
 A full (interactive) list of endpoints can be displayed when visiting the `/api/` path in your browser, when you are
 logged in with a user, which is allowed to access the API.
 There is also a link to this page, on the user settings page in the API token section.
-This documentation also list all available fields for each entity type and the allowed operations.
+This documentation also lists all available fields for each entity type and the allowed operations.
 
 ## Formats
 
 The API supports different formats for the request and response data, which you can control via the `Accept`
 and `Content-Type` headers.
 You should use [JSON-LD](https://json-ld.org/) as format, which is basically JSON with some additional metadata, which
-allows
-to describe the data in a more structured way and also allows to link between different entities. You can achieve this
+allows you to describe the data in a more structured way and also allows to link between different entities. You can achieve this
 by setting `Accept: application/ld+json` header to the API requests.
 
 To get plain JSON without any metadata or links, use the `Accept: application/json` header.
 
 Without an `Accept` header (e.g. when you call the endpoint in a browser), the API will return an HTML page with the
 documentation, so be sure to include the desired `Accept` header in your API requests.
-If you can not control the `Accept` header, you can add an `.json` or `.jsonld` suffix to the URL to enforce a JSON or
+If you can not control the `Accept` header, you can add a `.json` or `.jsonld` suffix to the URL to enforce a JSON or
 JSON-LD response (e.g. `/api/parts.jsonld`).
 
 ## OpenAPI schema
 
 Part-DB provides a [OpenAPI](https://swagger.io/specification/) (formally Swagger) schema for the API
 under `/api/docs.json` (so `https://your-part-db.local/api/docs.json`).
-This schema is a machine-readable description of the API, which can be imported in software to test the API or even
+This schema is a machine-readable description of the API, which can be imported into software to test the API or even
 automatically generate client libraries for the API.
 
 API generators which can generate a client library for the API from the schema are available for many programming
@@ -120,14 +117,10 @@ See [API Platform docs](https://api-platform.com/docs/core/pagination) for more 
 ## Filtering results / Searching
 
 When retrieving a list of entities, you can restrict the results by various filters. Almost all entities have a search
-filter,
-which allows you to only include entities, which (text) fields match the given search term: For example if you only want
-to
-get parts, with the Name "BC547", you can use `/api/parts.jsonld?name=BC547`. You can use `%` as wildcard for multiple
-characters
-in the search term (Be sure to properly encode the search term, if you use special characters). For example if you want
-to get all parts,
-whose name starts with "BC", you can use `/api/parts.jsonld?name=BC%25` (the `%25` is the url encoded version of `%`).
+filter, which allows you to only include entities, which (text) fields match the given search term: For example, if you only want
+to get parts, with the Name "BC547", you can use `/api/parts.jsonld?name=BC547`. You can use `%` as a wildcard for multiple
+characters in the search term (Be sure to properly encode the search term, if you use special characters). For example, if you want
+to get all parts, whose name starts with "BC", you can use `/api/parts.jsonld?name=BC%25` (the `%25` is the url encoded version of `%`).
 
 There are other filters available for some entities, allowing you to search on other fields, or restricting the results
 by numeric values or dates. See the endpoint documentation for the available filters.
@@ -136,8 +129,8 @@ by numeric values or dates. See the endpoint documentation for the available fil
 
 To get all parts with a certain category, manufacturer, etc. you can use the `category`, `manufacturer`, etc. query
 parameters of the `/api/parts` endpoint.
-They are so-called entity filters and accept a comma separated list of IDs of the entities you want to filter by.
-For example if you want to get all parts with the category "Resistor" (Category ID 1) and "Capacitor" (Category ID 2),
+They are so-called entity filters and accept a comma-separated list of IDs of the entities you want to filter by.
+For example, if you want to get all parts with the category "Resistor" (Category ID 1) and "Capacitor" (Category ID 2),
 you can use `/api/parts.jsonld?category=1,2`.
 
 Suffix an id with `+` to suffix, to include all direct children categories of the given category. Use the `++` suffix to
@@ -150,7 +143,7 @@ See the endpoint documentation for the available entity filters.
 ## Ordering results
 
 When retrieving a list of entities, you can order the results by various fields using the `order` query parameter.
-For example if you want to get all parts ordered by their name, you can use `/api/parts/?order[name]=asc`. You can use
+For example, if you want to get all parts ordered by their name, you can use `/api/parts/?order[name]=asc`. You can use
 this parameter multiple times to order by multiple fields.
 
 See the endpoint documentation for the available fields to order by.
@@ -161,12 +154,12 @@ Sometimes you only want to get a subset of the properties of an entity, for exam
 part, but not all the other properties.
 You can achieve this using the `properties[]` query parameter with the name of the field you want to get. You can use
 this parameter multiple times to get multiple fields.
-For example if you only want to get the name and the description of a part, you can
+For example, if you only want to get the name and the description of a part, you can
 use `/api/parts/123?properties[]=name&properties[]=description`.
-It is also possible to use this filters on list endpoints (get collection), to only get a subset of the properties of
+It is also possible to use these filters on list endpoints (get collection), to only get a subset of the properties of
 all entities in the collection.
 
-See [API Platform docs](https://api-platform.com/docs/core/filters/#property-filter) for more infos.
+See [API Platform docs](https://api-platform.com/docs/core/filters/#property-filter) for more info.
 
 ## Change comment
 
@@ -174,7 +167,7 @@ Similar to the changes using Part-DB web interface, you can add a change comment
 which will be
 visible in the log of the entity.
 
-You can pass the text for this via the `_comment` query parameter (beware the proper encoding). For
+You can pass the text for this via the `_comment` query parameter (beware of the proper encoding). For
 example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
 
 ## Creating attachments and parameters
@@ -182,7 +175,7 @@ example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
 {: .warning }
 > The way described below is more a workaround than a proper solution. This might break in future versions of Part-DB!
 
-Currently it is not possible to create attachments or parameters via a `POST` operation on the entity endpoint.
+Currently, it is not possible to create attachments or parameters via a `POST` operation on the entity endpoint.
 The workaround for this is to send a patch request to the owning entity endpoint (e.g. parts `/api/parts/123`):
 
 ```

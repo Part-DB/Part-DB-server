@@ -31,6 +31,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  * This voter allows you to directly check permissions from the permission structure, without passing an object.
  * This use the syntax like "@permission.op"
  * However you should use the "normal" object based voters if possible, because they are needed for a future ACL system.
+ * @phpstan-extends Voter<non-empty-string, null>
  */
 final class PermissionVoter extends Voter
 {

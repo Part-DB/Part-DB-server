@@ -51,6 +51,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 /**
  * This voter handles permissions for part associations.
  * The permissions are inherited from the part.
+ * @phpstan-extends Voter<non-empty-string, PartAssociation|class-string>
  */
 final class PartAssociationVoter extends Voter
 {

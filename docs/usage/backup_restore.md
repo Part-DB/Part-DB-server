@@ -7,8 +7,8 @@ parent: Usage
 # Backup and Restore Data
 
 When working productively you should back up the data and configuration of Part-DB regularly to prevent data loss. This
-is also useful, if you want to migrate your Part-DB instance from one server to another. In that case you just have to
-back up the data on server 1, move the backup to server 2, install Part-DB on server 2 and restore the backup.
+is also useful if you want to migrate your Part-DB instance from one server to another. In that case, you just have to
+back up the data on server 1, move the backup to server 2, install Part-DB on server 2, and restore the backup.
 
 ## Backup (automatic / Part-DB supported)
 
@@ -23,11 +23,11 @@ To back up all possible data, run the following
 command: `php bin/console partdb:backup --full /path/to/backup/partdb_backup.zip`.
 
 It is possible to do only partial backups (config, attachments, or database). See `php bin/console partdb:backup --help`
-for more infos about these options.
+for more info about these options.
 
 ## Backup (manual)
 
-There are 3 parts which have to be backup-ed: The configuration files, which contains the instance specific options, the
+3 parts have to be backup-ed: The configuration files, which contain the instance-specific options, the
 uploaded files of attachments, and the database containing the most data of Part-DB.
 Everything else like thumbnails and cache files, are recreated automatically when needed.
 
@@ -42,7 +42,7 @@ You have to recursively copy the `uploads/` folder and the `public/media` folder
 
 ### Database
 
-#### Sqlite
+#### SQLite
 
 If you are using sqlite, it is sufficient to just copy your `app.db` from your database location (normally `var/app.db`)
 to your backup location.
@@ -55,8 +55,8 @@ interface (`mysqldump -uBACKUP -pPASSWORD DATABASE`)
 
 ## Restore
 
-Install Part-DB as usual as described in the installation section, except the database creation / migration part. You
-have to use the same database type (sqlite or mysql) as on the back-up server instance.
+Install Part-DB as usual as described in the installation section, except for the database creation/migration part. You
+have to use the same database type (SQLite or MySQL) as on the backuped server instance.
 
 ### Restore configuration
 
@@ -69,7 +69,7 @@ Copy the `uploads/` and the `public/media/` folder from your backup into your ne
 
 ### Restore database
 
-#### Sqlite
+#### SQLite
 
 Copy the backup-ed `app.db` into the database folder normally `var/app.db` in Part-DB root folder.
 

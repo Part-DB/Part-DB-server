@@ -28,6 +28,9 @@ use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @phpstan-extends Voter<non-empty-string, Group|class-string>
+ */
 final class GroupVoter extends Voter
 {
 

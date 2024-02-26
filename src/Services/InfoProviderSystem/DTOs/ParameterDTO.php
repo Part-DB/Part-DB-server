@@ -87,14 +87,32 @@ class ParameterDTO
     {
         //Try to extract unit from value
         $unit = null;
-        if (is_string($value) && preg_match('/^(?<value>[0-9.]+)\s*(?<unit>[°a-zA-Z_]+\s?\w{0,4})$/u', $value, $matches)) {
-            $value = $matches['value'];
-            $unit = $matches['unit'];
+        if (is_string($value)) {
+            [$number, $unit] = self::splitIntoValueAndUnit($value) ?? [$value, null];
 
-            return self::parseValueField(name: $name, value: $value, unit: $unit, symbol: $symbol, group: $group);
+            return self::parseValueField(name: $name, value: $number, unit: $unit, symbol: $symbol, group: $group);
         }
 
         //Otherwise we assume that no unit is given
         return self::parseValueField(name: $name, value: $value, unit: null, symbol: $symbol, group: $group);
+    }
+
+    /**
+     * Splits the given value into a value and a unit part if possible.
+     * If the value is not in the expected format, null is returned.
+     * @param  string  $value The value to split
+     * @return array|null An array with the value and the unit part or null if the value is not in the expected format
+     * @phpstan-return array{0: string, 1: string}|null
+     */
+    public static function splitIntoValueAndUnit(string $value): ?array
+    {
+       if (preg_match('/^(?<value>-?[0-9\.]+)\s*(?<unit>[%Ω°℃a-z_\/]+\s?\w{0,4})$/iu', $value, $matches)) {
+           $value = $matches['value'];
+           $unit = $matches['unit'];
+
+           return [$value, $unit];
+       }
+
+         return null;
     }
 }

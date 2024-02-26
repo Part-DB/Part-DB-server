@@ -77,7 +77,7 @@ use LogicException;
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
-    denormalizationContext: ['groups' => ['attachment:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    denormalizationContext: ['groups' => ['attachment:write', 'attachment:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'media_url', type: 'string', nullable: true,
     description: 'The URL to the file, where the attachment file can be downloaded. This can be an internal or external URL.',
@@ -142,7 +142,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * ORM mapping is done in subclasses (like PartAttachment).
      * @phpstan-param T|null $element
      */
-    #[Groups(['attachment:read:standalone', 'attachment:write'])]
+    #[Groups(['attachment:read:standalone', 'attachment:write:standalone'])]
     protected ?AttachmentContainingDBElement $element = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
