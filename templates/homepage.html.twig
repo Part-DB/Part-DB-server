@@ -4,6 +4,12 @@
 
 {% block content %}
 
+
+    <div id="tessdgjds" {{ stimulus_controller('elements/part_livesearch') }} class="mb-2"
+           data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}" data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
+    </div>
+
+
     {% if is_granted('@system.show_updates') %}
         {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
     {% endif %}

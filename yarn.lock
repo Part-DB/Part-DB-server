@@ -2,6 +2,59 @@
 # yarn lockfile v1
 
 
+"@algolia/autocomplete-core@1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.17.0.tgz#b9e62d9677dc0ee818bb59d917ff58908356a9a0"
+  integrity sha512-6E4sVb5+fGtSQs9mULlxUH84OWFUVZPMapa5dMCtUc7KyDRLY6+X/dA8xbDA8CX5phdBn1plLUET1B6NZnrZuw==
+  dependencies:
+    "@algolia/autocomplete-plugin-algolia-insights" "1.17.0"
+    "@algolia/autocomplete-shared" "1.17.0"
+
+"@algolia/autocomplete-js@1.17.0", "@algolia/autocomplete-js@^1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.17.0.tgz#91f0ef2232646316a26c79dadbeb2e7791de623c"
+  integrity sha512-RbD98hXtZOl6VohSAo7kMOFWQHR1x4wWaJFadJradFQ1TAA9hFEyirSIM+yT96UpKkdi08V2EBI+YwZ3/VETvw==
+  dependencies:
+    "@algolia/autocomplete-core" "1.17.0"
+    "@algolia/autocomplete-preset-algolia" "1.17.0"
+    "@algolia/autocomplete-shared" "1.17.0"
+    htm "^3.1.1"
+    preact "^10.13.2"
+
+"@algolia/autocomplete-plugin-algolia-insights@1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-algolia-insights/-/autocomplete-plugin-algolia-insights-1.17.0.tgz#dcec9b03a47375860a9f927816a1275d885ebdff"
+  integrity sha512-zbWImu+VxBDzUQONEhQXq3OzlipHLEtWbL4Nf/VOb1p1qHG/f96jCegOzzEZVPiQvZpRJnmhCUmsYNHlIBxKWw==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.17.0"
+
+"@algolia/autocomplete-plugin-redirect-url@^1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-redirect-url/-/autocomplete-plugin-redirect-url-1.17.0.tgz#843a7af551a29e6c5d2a6585c17b7dcff50bee12"
+  integrity sha512-C/xvPKKM0+uHRvKDi7sE/P8qEtlo9lhDEB2YQJRY9X90osqlqwY4HqRZbauz4wGnHckrG0iqIN+xcCNEFN3Jxg==
+  dependencies:
+    "@algolia/autocomplete-core" "1.17.0"
+    "@algolia/autocomplete-js" "1.17.0"
+    "@algolia/autocomplete-preset-algolia" "1.17.0"
+    "@algolia/autocomplete-shared" "1.17.0"
+
+"@algolia/autocomplete-preset-algolia@1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.17.0.tgz#9d7d9673a922d75dfbedd3119e7ffa76f4c118c6"
+  integrity sha512-DhTkMs/9BzThhTU2nSTpQxVxHLzaRDZLid4Tf56D8s9IhEGfmzbNuLRmJNzgAOPv1smHtUErndmC+S9QNMDEJA==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.17.0"
+
+"@algolia/autocomplete-shared@1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.17.0.tgz#7d0a8e504fe555c48df7ae6854d3d6633b0b32f5"
+  integrity sha512-7su4KH/2q2Fhud2VujUNhCMbIh7yp6wqWR3UuVje5P3kDRhTotPRmg3iRQi48YRYkk9o+airsrLl+rxJ/9FWng==
+
+"@algolia/autocomplete-theme-classic@^1.17.0":
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.17.0.tgz#bbd79df8f5240b3ddd3f9cdc9b8273753f15cd25"
+  integrity sha512-FsW/J/mG1YIPv93/QQ7KxMVNXAiVi9accGgoK2y3zDz58WpVgUug97SUoQzP4I9EMZAZAHQo0QbWXxpqTWkcOA==
+
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.1.tgz#99e8e11851128b8702cd57c33684f1d0f260b630"
@@ -4268,6 +4321,11 @@ hpack.js@^2.1.6:
     readable-stream "^2.0.1"
     wbuf "^1.1.0"
 
+htm@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/htm/-/htm-3.1.1.tgz#49266582be0dc66ed2235d5ea892307cc0c24b78"
+  integrity sha512-983Vyg8NwUE7JkZ6NmOqpCZ+sh1bKv2iYTlUkzlWmA5JD2acKoxd4KVxbMmxX/85mtfdnDmTFoNKcg5DGAvxNQ==
+
 html-encoding-sniffer@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/html-encoding-sniffer/-/html-encoding-sniffer-2.0.1.tgz#42a6dc4fd33f00281176e8b23759ca4e4fa185f3"
@@ -5996,6 +6054,11 @@ postcss@^8.2.14, postcss@^8.2.15, postcss@^8.4.12, postcss@^8.4.24, postcss@^8.4
     nanoid "^3.3.7"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+preact@^10.13.2:
+  version "10.19.6"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.19.6.tgz#66007b67aad4d11899f583df1b0116d94a89b8f5"
+  integrity sha512-gympg+T2Z1fG1unB8NH29yHJwnEaCH37Z32diPDku316OTnRPeMbiRV9kTrfZpocXjdfnWuFUl/Mj4BHaf6gnw==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
