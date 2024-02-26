@@ -28,10 +28,10 @@
   dependencies:
     "@algolia/autocomplete-shared" "1.17.0"
 
-"@algolia/autocomplete-plugin-redirect-url@^1.17.0":
+"@algolia/autocomplete-plugin-recent-searches@^1.17.0":
   version "1.17.0"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-redirect-url/-/autocomplete-plugin-redirect-url-1.17.0.tgz#843a7af551a29e6c5d2a6585c17b7dcff50bee12"
-  integrity sha512-C/xvPKKM0+uHRvKDi7sE/P8qEtlo9lhDEB2YQJRY9X90osqlqwY4HqRZbauz4wGnHckrG0iqIN+xcCNEFN3Jxg==
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-recent-searches/-/autocomplete-plugin-recent-searches-1.17.0.tgz#ed340649481398feee12a9e7f1bfd66f90e1fbab"
+  integrity sha512-di5ZEFx0UgK7sR5pxon9NKiFrLL26J5xwL7ihhK4rHrSdRhSvRATr9d8uaShAZIveEUTMd/cZd6C+95Y1YrcdQ==
   dependencies:
     "@algolia/autocomplete-core" "1.17.0"
     "@algolia/autocomplete-js" "1.17.0"

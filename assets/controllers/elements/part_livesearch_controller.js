@@ -20,6 +20,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { autocomplete } from '@algolia/autocomplete-js';
 import "@algolia/autocomplete-theme-classic/dist/theme.css";
+import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
 import {marked} from "marked";
 
 export default class extends Controller {
@@ -36,10 +37,17 @@ export default class extends Controller {
 
         const that = this;
 
+        const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
+            key: 'RECENT_SEARCH',
+            limit: 5,
+        });
+
         this._autocomplete = autocomplete({
             container: this.element,
             panelContainer: document.body,
             panelPlacement: 'end',
+            plugins: [recentSearchesPlugin],
+            openOnFocus: true,
             placeholder: "Search for parts",
             onSubmit({state, event, ...setters}) {
                 //Put the current text into each target input field
