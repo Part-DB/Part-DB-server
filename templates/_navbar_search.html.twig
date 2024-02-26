@@ -69,6 +69,8 @@
         </div>
     </div>
 
-    <input type="search" class="form-control me-sm-2 my-2" placeholder="{% trans %}search.placeholder{% endtrans %}" name="keyword" required>
-    <button type="submit" class="form btn btn-outline-secondary my-2 text-nowrap">{% trans %}search.submit{% endtrans %}</button>
+    <div {{ stimulus_controller('elements/part_livesearch') }} class="mt-auto mb-auto"
+         data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}" data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
+        <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_livesearch', 'input') }}>
+    </div>
 </form>

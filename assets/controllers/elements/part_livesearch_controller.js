@@ -24,6 +24,8 @@ import {marked} from "marked";
 
 export default class extends Controller {
 
+    static targets = ["input"];
+
     _autocomplete;
 
     connect() {
@@ -32,9 +34,24 @@ export default class extends Controller {
         // The URL template for the part detail pages
         const part_detail_uri_template = this.element.dataset.detailUrl;
 
+        const that = this;
+
         this._autocomplete = autocomplete({
             container: this.element,
+            panelContainer: document.body,
+            panelPlacement: 'end',
             placeholder: "Search for parts",
+            onSubmit({state, event, ...setters}) {
+                //Put the current text into each target input field
+                const input = that.inputTarget;
+
+                if (!input) {
+                    return;
+                }
+
+                input.value = state.query;
+                input.form.requestSubmit();
+            },
             getSources({ query }) {
                 return [
                     {
