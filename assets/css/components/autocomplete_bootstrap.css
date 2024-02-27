@@ -25,3 +25,82 @@
 .aa-Panel {
     z-index: 1000;
 }
+
+/** Use a form definition similar to bootstraps form-control */
+.aa-Form {
+    background-color: var(--bs-body-bg);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    color: var(--bs-body-color);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+.aa-Form:focus-within {
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    color: var(--bs-body-color);
+    outline: 0;
+}
+
+/** Use a panel definition similar to bootstraps dropdown */
+.aa-Panel {
+    --bs-dropdown-zindex: 1000;
+    --bs-dropdown-min-width: 10rem;
+    --bs-dropdown-padding-x: 0;
+    --bs-dropdown-padding-y: 0.5rem;
+    --bs-dropdown-spacer: 0.125rem;
+    --bs-dropdown-font-size: 1rem;
+    --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-bg: var(--bs-body-bg);
+    --bs-dropdown-border-color: var(--bs-border-color-translucent);
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    --bs-dropdown-border-width: var(--bs-border-width);
+    --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
+    --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
+    --bs-dropdown-divider-margin-y: 0.5rem;
+    --bs-dropdown-box-shadow: var(--bs-box-shadow);
+    --bs-dropdown-link-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-active-bg: #0d6efd;
+    --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
+    --bs-dropdown-item-padding-x: 1rem;
+    --bs-dropdown-item-padding-y: 0.25rem;
+    --bs-dropdown-header-color: #6c757d;
+    --bs-dropdown-header-padding-x: 1rem;
+    --bs-dropdown-header-padding-y: 0.5rem;
+
+    padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
+    margin: 0;
+    font-size: var(--bs-dropdown-font-size);
+    color: var(--bs-dropdown-color);
+    background-color: var(--bs-dropdown-bg);
+    background-clip: padding-box;
+    border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+    border-radius: var(--bs-dropdown-border-radius);
+}
+
+:root {
+    /** Font colors */
+    --aa-text-color-rgb: var(--bs-body-color-rgb);
+    --aa-primary-color-rgb: var(--bs-primary-text-emphasis);
+    --aa-muted-color-rgb: var(--bs-secondary-text-emphasis);
+
+    /** Border colors */
+    --aa-panel-border-color-rgb: var(--bs-dropdown-border-color);
+    --aa-input-border-color-rgb: var(--bs-border-color);
+    --aa-input-border-color-alpha: 1.0;
+
+    /* Background colors */
+    --aa-background-color-rgb: var(--bs-dropdown-bg);
+    --aa-input-background-color-rgb: var(--bs-body-color);
+    --aa-selected-color-rgb: var(--bs-dropdown-link-hover-bg);
+    --aa-description-highlight-background-color-rgb: var(--bs-secondary-bg);
+
+    /** Shadow colors */
+    --aa-panel-shadow: var(--bs-dropdown-box-shadow)
+
+}

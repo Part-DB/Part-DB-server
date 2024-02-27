@@ -91,9 +91,6 @@ export default class extends Controller {
     _enableDarkmode() {
         //Add data-bs-theme="dark" to the html tag
         document.documentElement.setAttribute('data-bs-theme', 'dark');
-
-        //Add data-theme="dark" to the body tag for algolia autocomplete
-        document.body.setAttribute('data-theme', 'dark');
     }
 
     /**
@@ -103,9 +100,6 @@ export default class extends Controller {
     _disableDarkmode() {
         //Set data-bs-theme to light
         document.documentElement.setAttribute('data-bs-theme', 'light');
-
-        //Add data-theme="dark" to the body tag for algolia autocomplete
-        document.body.setAttribute('data-theme', 'light');
     }
 
 
