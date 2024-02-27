@@ -71,6 +71,10 @@ export default class extends Controller {
                                 .then((response) => response.json());
                         },
                         templates: {
+                            header({ html }) {
+                                return html`<span class="aa-SourceHeaderTitle">Parts</span>
+                                    <div class="aa-SourceHeaderLine" />`;
+                            },
                             item({item, components, html}) {
                                 const details_url = part_detail_uri_template.replace('__ID__', item.id);
 
