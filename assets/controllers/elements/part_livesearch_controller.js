@@ -50,6 +50,25 @@ export default class extends Controller {
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
             placeholder: "Search for parts",
+
+            // Use a navigator compatible with turbo:
+            navigator: {
+                navigate({ itemUrl }) {
+                    window.Turbo.visit(itemUrl, { action: "advance" });
+                },
+                navigateNewTab({ itemUrl }) {
+                    const windowReference = window.open(itemUrl, '_blank', 'noopener');
+
+                    if (windowReference) {
+                        windowReference.focus();
+                    }
+                },
+                navigateNewWindow({ itemUrl }) {
+                    window.open(itemUrl, '_blank', 'noopener');
+                },
+            },
+
+            // If the form is submitted, forward the term to the form
             onSubmit({state, event, ...setters}) {
                 //Put the current text into each target input field
                 const input = that.inputTarget;
@@ -61,6 +80,8 @@ export default class extends Controller {
                 input.value = state.query;
                 input.form.requestSubmit();
             },
+
+
             getSources({ query }) {
                 return [
                     {
@@ -70,6 +91,9 @@ export default class extends Controller {
 
                             return fetch(url)
                                 .then((response) => response.json());
+                        },
+                        getItemUrl({ item }) {
+                            return part_detail_uri_template.replace('__ID__', item.id);
                         },
                         templates: {
                             header({ html }) {
