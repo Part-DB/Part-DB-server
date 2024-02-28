@@ -30,7 +30,7 @@ export default class extends Controller {
 
     _autocomplete;
 
-    connect() {
+    initialize() {
         // The endpoint for searching parts
         const base_url = this.element.dataset.autocomplete;
         // The URL template for the part detail pages
@@ -45,7 +45,7 @@ export default class extends Controller {
 
         this._autocomplete = autocomplete({
             container: this.element,
-            panelContainer: document.body,
+            panelContainer: document.getElementById("navbar-frame"),
             panelPlacement: 'end',
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
