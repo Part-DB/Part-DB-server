@@ -9323,7 +9323,7 @@ Element 3</target>
     <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
       <segment state="translated">
         <source>part.filter.lotNeedsRefill</source>
-        <target>需要补充</target>
+        <target>任何需要补充的批次</target>
       </segment>
     </unit>
     <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
@@ -9785,7 +9785,7 @@ Element 3</target>
     <unit id="HbPND5j" name="project.bom.quantity">
       <segment state="translated">
         <source>project.bom.quantity</source>
-        <target>BOM 数量</target>
+        <target>数量</target>
       </segment>
     </unit>
     <unit id="gqYIO6x" name="project.bom.mountnames">
@@ -9893,19 +9893,19 @@ Element 3</target>
     <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
       <segment state="translated">
         <source>part.new_build_part.error.build_part_already_exists</source>
-        <target>该项目已映射到部件。</target>
+        <target>已映射到部件</target>
       </segment>
     </unit>
     <unit id="usGnetL" name="project.edit.associated_build_part">
       <segment state="translated">
         <source>project.edit.associated_build_part</source>
-        <target>该项目已映射到部件。</target>
+        <target>映射到部件</target>
       </segment>
     </unit>
     <unit id="xXpskqU" name="project.edit.associated_build_part.add">
       <segment state="translated">
         <source>project.edit.associated_build_part.add</source>
-        <target>该项目已映射到部件。</target>
+        <target>创建生产成果部件</target>
       </segment>
     </unit>
     <unit id="5rnE1fK" name="project.edit.associated_build.hint">
@@ -10163,13 +10163,13 @@ Element 3</target>
     <unit id="VHUY79k" name="project.builds.stocked">
       <segment state="translated">
         <source>project.builds.stocked</source>
-        <target>库存充足</target>
+        <target>在库</target>
       </segment>
     </unit>
     <unit id="mwL3d70" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
-        <target>需要补充</target>
+        <target>所需</target>
       </segment>
     </unit>
     <unit id="jZKw98F" name="project.builds.build_possible">
@@ -10193,7 +10193,7 @@ Element 3</target>
     <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock_n</source>
-        <target>您没有足够的库存部件生产该项目 %number_of_builds% 次。 以下部件需要补充：</target>
+        <target>没有足够的部件生产该项目 %number_of_builds% 次。 以下部件需要补充：</target>
       </segment>
     </unit>
     <unit id="dB.JmYm" name="project.build.flash.invalid_input">
@@ -10433,7 +10433,7 @@ Element 3</target>
     <unit id="2MH9WjL" name="log.element_edited.changed_fields.quantity">
       <segment state="translated">
         <source>log.element_edited.changed_fields.quantity</source>
-        <target>BOM 数量</target>
+        <target>数量</target>
       </segment>
     </unit>
     <unit id="XRhN7QN" name="log.element_edited.changed_fields.mountnames">
