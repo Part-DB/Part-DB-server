@@ -186,7 +186,7 @@ body {
 }
 .aa-Label svg,
 .aa-LoadingIndicator svg {
-    color: var(--bs-primary-text-emphasis);
+    color: rgba(var(--bs-primary-rgb), 1.0);
     height: auto;
     max-height: 20px;
     max-height: var(--aa-input-icon-size);
@@ -475,7 +475,7 @@ body {
 }
 .aa-SourceHeaderTitle {
     background: var(--bs-body-bg);
-    color: var(--bs-primary-text-emphasis);
+    color: rgba(var(--bs-primary-rgb), 1.0);
     display: inline-block;
     font-size: 0.8em;
     font-weight: 600;
@@ -490,7 +490,7 @@ body {
 }
 
 .aa-SourceHeaderLine {
-    border-bottom: solid 1px var(--bs-primary-text-emphasis);
+    border-bottom: solid 1px rgba(var(--bs-primary-rgb), 1.0);
     display: block;
     height: 2px;
     left: 0;
@@ -520,9 +520,9 @@ body {
 }
 .aa-SourceFooterSeeAll:focus, .aa-SourceFooterSeeAll:hover {
     border: 1px solid rgba(62, 52, 211, 1);
-    border: 1px solid rgba(var(--aa-primary-color-rgb), 1);
+    border: 1px solid rgba(var(--bs-primary-rgb), 1);
     color: rgba(62, 52, 211, 1);
-    color: rgba(var(--aa-primary-color-rgb), 1);
+    color: rgba(var(--bs-primary-rgb), 1);
 }
 
 /* ----------------*/
@@ -754,7 +754,7 @@ body {
 }
 
 .aa-ItemContentTag {
-    color: var(--bs-primary-text-emphasis);
+    color: rgba(var(--bs-primary-rgb), 1.0);;
     border-radius: 3px;
     margin: 0 0.4em 0 0;
     padding: 0.08em 0.3em;
@@ -1025,7 +1025,7 @@ body {
 }
 .aa-DetachedSearchButtonIcon {
     align-items: center;
-    color: var(--bs-primary-text-emphasis);
+    color: rgba(var(--bs-primary-rgb), 1.0);
     cursor: auto;
     cursor: initial;
     display: flex;
