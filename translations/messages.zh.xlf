@@ -9323,7 +9323,7 @@ Element 3</target>
     <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
       <segment state="translated">
         <source>part.filter.lotNeedsRefill</source>
-        <target>需要补充</target>
+        <target>任何需要补充的批次</target>
       </segment>
     </unit>
     <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
@@ -10169,7 +10169,7 @@ Element 3</target>
     <unit id="mwL3d70" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
-        <target>需要补充</target>
+        <target>所需</target>
       </segment>
     </unit>
     <unit id="jZKw98F" name="project.builds.build_possible">
