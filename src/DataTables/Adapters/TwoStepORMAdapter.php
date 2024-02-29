@@ -135,6 +135,10 @@ class TwoStepORMAdapter extends ORMAdapter
 
     protected function getCount(QueryBuilder $queryBuilder, $identifier): int
     {
+        if ($this->query_modifier !== null) {
+            $queryBuilder = $this->query_modifier->__invoke(clone $queryBuilder);
+        }
+
         //Check if the queryBuilder is having a HAVING clause, which would make the count query invalid
         if (empty($queryBuilder->getDQLPart('having'))) {
             //If not, we can use the simple count query

@@ -231,20 +231,13 @@ final class PartsDataTable implements DataTableTypeInterface
         /* In the filter query we only select the IDs. The fetching of the full entities is done in the detail query.
          * We only need to join the entities here, so we can filter by them.
          * The filter conditions are added to this QB in the buildCriteria method.
+         *
+         * The amountSum field and the joins are dynmically added by the addJoins method, if the fields are used in the query.
+         * This improves the performance, as we do not need to join all tables, if we do not need them.
          */
         $builder
             ->select('part.id')
             ->addSelect('part.minamount AS HIDDEN minamount')
-            //Calculate amount sum using a subquery, so we can filter and sort by it
-            ->addSelect(
-                '(
-                    SELECT IFNULL(SUM(partLot.amount), 0.0)
-                    FROM '.PartLot::class.' partLot
-                    WHERE partLot.part = part.id
-                    AND partLot.instock_unknown = false
-                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
-                ) AS HIDDEN amountSum'
-            )
             ->from(Part::class, 'part')
 
             //This must be the only group by, or the paginator will not work correctly
@@ -322,6 +315,20 @@ final class PartsDataTable implements DataTableTypeInterface
         //Check if the query contains certain conditions, for which we need to add additional joins
         //The join fields get prefixed with an underscore, so we can check if they are used in the query easy without confusing them for a part subfield
         $dql = $builder->getDQL();
+
+        //Add the amountSum field, if it is used in the query
+        if (str_contains($dql, 'amountSum')) {
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            $builder->addSelect(
+                '(
+                    SELECT IFNULL(SUM(partLot.amount), 0.0)
+                    FROM '.PartLot::class.' partLot
+                    WHERE partLot.part = part.id
+                    AND partLot.instock_unknown = false
+                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
+                ) AS HIDDEN amountSum'
+            );
+        }
 
         if (str_contains($dql, '_category')) {
             $builder->leftJoin('part.category', '_category');
