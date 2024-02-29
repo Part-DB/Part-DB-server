@@ -30,6 +30,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@algolia/autocomplete-js": "^1.17.0",
+        "@algolia/autocomplete-plugin-recent-searches": "^1.17.0",
+        "@algolia/autocomplete-theme-classic": "^1.17.0",
         "@ckeditor/ckeditor5-alignment": "^41.0.0",
         "@ckeditor/ckeditor5-autoformat": "^41.0.0",
         "@ckeditor/ckeditor5-basic-styles": "^41.0.0",
