@@ -127,18 +127,21 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'category',
+                'orderField' => '_category.name'
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
+                'orderField' => '_footprint.name'
             ])
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
+                'orderField' => '_manufacturer.name'
             ])
             ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
-                'orderField' => 'storelocations.name',
+                'orderField' => '_storelocations.name',
                 'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
             ->add('amount', TextColumn::class, [
@@ -154,6 +157,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
+                'orderField' => '_partUnit.name'
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
@@ -217,6 +221,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     },
                     new SearchCriteriaProvider(),
                 ],
+                'query_modifier' => $this->addJoins(...),
             ]);
     }
 
@@ -241,18 +246,6 @@ final class PartsDataTable implements DataTableTypeInterface
                 ) AS HIDDEN amountSum'
             )
             ->from(Part::class, 'part')
-            /*->leftJoin('part.category', 'category')
-            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-            ->leftJoin('part.partLots', 'partLots')
-            ->leftJoin('partLots.storage_location', 'storelocations')
-            ->leftJoin('part.footprint', 'footprint')
-            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
-            ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('part.orderdetails', 'orderdetails')
-            ->leftJoin('orderdetails.supplier', 'suppliers')
-            ->leftJoin('part.attachments', 'attachments')
-            ->leftJoin('part.partUnit', 'partUnit')
-            ->leftJoin('part.parameters', 'parameters')*/
 
             //This must be the only group by, or the paginator will not work correctly
             ->addGroupBy('part.id');
@@ -318,20 +311,14 @@ final class PartsDataTable implements DataTableTypeInterface
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
     }
 
-    private function buildCriteria(QueryBuilder $builder, array $options): void
+    /**
+     * This function is called right before the filter query is executed.
+     * We use it to dynamically add joins to the query, if the fields are used in the query.
+     * @param  QueryBuilder  $builder
+     * @return QueryBuilder
+     */
+    private function addJoins(QueryBuilder $builder): QueryBuilder
     {
-        //Apply the search criterias first
-        if ($options['search'] instanceof PartSearchFilter) {
-            $search = $options['search'];
-            $search->apply($builder);
-        }
-
-        //We do the most stuff here in the filter class
-        if ($options['filter'] instanceof PartFilter) {
-            $filter = $options['filter'];
-            $filter->apply($builder);
-        }
-
         //Check if the query contains certain conditions, for which we need to add additional joins
         //The join fields get prefixed with an underscore, so we can check if they are used in the query easy without confusing them for a part subfield
         $dql = $builder->getDQL();
@@ -366,5 +353,21 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->leftJoin('part.parameters', '_parameters');
         }
 
+        return $builder;
+    }
+
+    private function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        //Apply the search criterias first
+        if ($options['search'] instanceof PartSearchFilter) {
+            $search = $options['search'];
+            $search->apply($builder);
+        }
+
+        //We do the most stuff here in the filter class
+        if ($options['filter'] instanceof PartFilter) {
+            $filter = $options['filter'];
+            $filter->apply($builder);
+        }
     }
 }

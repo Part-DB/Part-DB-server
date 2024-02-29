@@ -55,6 +55,8 @@ class TwoStepORMAdapter extends ORMAdapter
 
     private bool $use_simple_total = false;
 
+    private \Closure|null $query_modifier;
+
     public function __construct(ManagerRegistry $registry = null)
     {
         parent::__construct($registry);
@@ -81,6 +83,10 @@ class TwoStepORMAdapter extends ORMAdapter
          */
         $resolver->setDefault('simple_total_query', false);
 
+        //Add the possibility of a closure to modify the query builder before the query is executed
+        $resolver->setDefault('query_modifier', null);
+        $resolver->setAllowedTypes('query_modifier', ['null', \Closure::class]);
+
     }
 
     protected function afterConfiguration(array $options): void
@@ -88,6 +94,7 @@ class TwoStepORMAdapter extends ORMAdapter
         parent::afterConfiguration($options);
         $this->detailQueryCallable = $options['detail_query'];
         $this->use_simple_total = $options['simple_total_query'];
+        $this->query_modifier = $options['query_modifier'];
     }
 
     protected function prepareQuery(AdapterQuery $query): void
@@ -157,6 +164,11 @@ class TwoStepORMAdapter extends ORMAdapter
                 ->setFirstResult($state->getStart())
                 ->setMaxResults($state->getLength())
             ;
+        }
+
+        //Apply the query modifier, if set
+        if ($this->query_modifier !== null) {
+            $builder = $this->query_modifier->__invoke($builder);
         }
 
         $id_query = $builder->getQuery();
