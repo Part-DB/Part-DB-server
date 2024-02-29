@@ -42,6 +42,7 @@ export default class extends Controller {
 
     _autocomplete;
 
+    // Highlight the search query in the results
     _highlight = (text, query) => {
         if (!text) return text;
         if (!query) return text;
@@ -77,7 +78,7 @@ export default class extends Controller {
         this._autocomplete = autocomplete({
             container: this.element,
             //Place the panel in the navbar, if the element is in navbar mode
-            panelContainer: navbar_mode ? document.getElementById("navbar-frame") : document.body,
+            panelContainer: navbar_mode ? document.getElementById("navbar-search-form") : document.body,
             panelPlacement: this.element.dataset.panelPlacement,
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
