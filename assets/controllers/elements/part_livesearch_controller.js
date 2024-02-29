@@ -27,7 +27,8 @@ import {marked} from "marked";
 import {
     trans,
     SEARCH_PLACEHOLDER,
-    SEARCH_SUBMIT
+    SEARCH_SUBMIT,
+    STATISTICS_PARTS
 } from '../../translator';
 
 export default class extends Controller {
@@ -41,6 +42,9 @@ export default class extends Controller {
         const base_url = this.element.dataset.autocomplete;
         // The URL template for the part detail pages
         const part_detail_uri_template = this.element.dataset.detailUrl;
+
+        //The URL of the placeholder picture
+        const placeholder_image = this.element.dataset.placeholderImage;
 
         const that = this;
 
@@ -106,25 +110,28 @@ export default class extends Controller {
                         },
                         templates: {
                             header({ html }) {
-                                return html`<span class="aa-SourceHeaderTitle">Parts</span>
+                                return html`<span class="aa-SourceHeaderTitle">${trans(STATISTICS_PARTS)}</span>
                                     <div class="aa-SourceHeaderLine" />`;
                             },
                             item({item, components, html}) {
                                 const details_url = part_detail_uri_template.replace('__ID__', item.id);
 
-
                                 return html`
                                     <a class="aa-ItemLink" href="${details_url}">
                                         <div class="aa-ItemContent">
                                             <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
-                                                <img src="${item.image}" alt="${item.name}" width="40" height="40"/>
+                                                <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
                                             </div>
                                             <div class="aa-ItemContentBody">
                                                 <div class="aa-ItemContentTitle">
-                                                    ${components.Highlight({hit: item, attribute: 'name'})}
+                                                    <b>
+                                                        ${components.Highlight({hit: item, attribute: 'name'})}
+                                                    </b>
                                                 </div>
                                                 <div class="aa-ItemContentDescription">
                                                     ${components.Snippet({hit: item, attribute: 'description'})}
+                                                    ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${item.category}</p>` : ""}
+                                                    ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${item.footprint}</p>` : ""}
                                                 </div>
                                             </div>
                                         </div>

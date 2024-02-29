@@ -71,6 +71,7 @@
 
     {# It is important that this element has an id field. Otherwise the dropdown panel wont appear after some link clicks #}
     <div {{ stimulus_controller('elements/part_livesearch') }} class="mt-auto mb-auto" id="navbar-quicksearch-container"
+                                                               data-placeholder-image="{{ asset('img/part_placeholder.svg') }}"
          data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}" data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
         <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_livesearch', 'input') }}>
     </div>
