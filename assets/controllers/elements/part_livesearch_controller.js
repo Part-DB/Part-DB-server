@@ -37,6 +37,19 @@ export default class extends Controller {
 
     _autocomplete;
 
+    _highlight = (text, query) => {
+        if (!text) return text;
+        if (!query) return text;
+
+        const HIGHLIGHT_PRE_TAG = '__aa-highlight__'
+        const HIGHLIGHT_POST_TAG = '__/aa-highlight__'
+
+        const escaped = query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const regex = new RegExp(escaped, 'gi');
+
+        return text.replace(regex, (match) => `${HIGHLIGHT_PRE_TAG}${match}${HIGHLIGHT_POST_TAG}`);
+    }
+
     initialize() {
         // The endpoint for searching parts
         const base_url = this.element.dataset.autocomplete;
@@ -97,13 +110,28 @@ export default class extends Controller {
 
             getSources({ query }) {
                 return [
+                    // The parts source
                     {
                         sourceId: 'parts',
                         getItems() {
                             const url = base_url.replace('__QUERY__', encodeURIComponent(query));
 
-                            return fetch(url)
-                                .then((response) => response.json());
+                            const data = fetch(url)
+                                .then((response) => response.json())
+                                ;
+
+                            //Iterate over all fields besides the id and highlight them
+                            const fields = ["name", "description", "category", "footprint"];
+
+                            data.then((items) => {
+                                items.forEach((item) => {
+                                    for (const field of fields) {
+                                        item[field] = that._highlight(item[field], query);
+                                    }
+                                });
+                            });
+
+                            return data;
                         },
                         getItemUrl({ item }) {
                             return part_detail_uri_template.replace('__ID__', item.id);
@@ -129,9 +157,9 @@ export default class extends Controller {
                                                     </b>
                                                 </div>
                                                 <div class="aa-ItemContentDescription">
-                                                    ${components.Snippet({hit: item, attribute: 'description'})}
-                                                    ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${item.category}</p>` : ""}
-                                                    ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${item.footprint}</p>` : ""}
+                                                    ${components.Highlight({hit: item, attribute: 'description'})}
+                                                    ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${components.Highlight({hit: item, attribute: 'category'})}</p>` : ""}
+                                                    ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${components.Highlight({hit: item, attribute: 'footprint'})}</p>` : ""}
                                                 </div>
                                             </div>
                                         </div>

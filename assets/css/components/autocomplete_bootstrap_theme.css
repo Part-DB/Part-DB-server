@@ -629,9 +629,10 @@ body {
     display: none;
 }
 .aa-ItemContent mark {
-    background: none;
+    background: var(--bs-highlight-bg);
     color: var(--bs-body-color);
     font-style: normal;
+    padding: 0;
     font-weight: 700;
     font-weight: var(--aa-font-weight-bold);
 }
