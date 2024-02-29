@@ -59,6 +59,9 @@ export default class extends Controller {
         //The URL of the placeholder picture
         const placeholder_image = this.element.dataset.placeholderImage;
 
+        //If the element is in navbar mode, or not
+        const navbar_mode = this.element.dataset.navbarMode === "true";
+
         const that = this;
 
         const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
@@ -68,8 +71,9 @@ export default class extends Controller {
 
         this._autocomplete = autocomplete({
             container: this.element,
-            panelContainer: document.getElementById("navbar-frame"),
-            panelPlacement: 'end',
+            //Place the panel in the navbar, if the element is in navbar mode
+            panelContainer: navbar_mode ? document.getElementById("navbar-frame") : document.body,
+            panelPlacement: this.element.dataset.panelPlacement,
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
             placeholder: trans(SEARCH_PLACEHOLDER),

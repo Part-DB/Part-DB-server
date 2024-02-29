@@ -1,18 +1,18 @@
 {% extends "base.html.twig" %}
 
 {% import "components/new_version.macro.html.twig" as nv %}
+{% import "components/search.macro.html.twig" as search %}
 
 {% block content %}
-
-
-    <div id="tessdgjds" {{ stimulus_controller('elements/part_livesearch') }} class="mb-2"
-           data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}" data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
-    </div>
-
 
     {% if is_granted('@system.show_updates') %}
         {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
     {% endif %}
+
+    {% if is_granted('@parts.read') %}
+        {{ search.search_form("standalone") }}
+    {% endif %}
+
 
     <div class="rounded p-4 bg-body-secondary">
         <h1 class="display-3">{{ partdb_title }}</h1>

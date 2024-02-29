@@ -1,4 +1,5 @@
 {% import "helper.twig" as helper %}
+{% import "components/search.macro.html.twig" as search %}
 
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
@@ -58,7 +59,9 @@
             </ul>
 
             {% if is_granted('@parts.read') %}
-                {% include "_navbar_search.html.twig" %}
+                {{ search.search_form("navbar") }}
+
+            {# {% include "_navbar_search.html.twig" %} #}
             {% endif %}
 
 

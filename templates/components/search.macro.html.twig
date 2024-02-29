@@ -1,7 +1,8 @@
-<form id="navbar-search-form" action="{{ path('parts_search') }}" class="d-flex my-lg-0 ms-auto" method="get" data-turbo-permanent>
+{% macro settings_drodown(show_label_instead_icon = true) %}
+
     <div class="dropdown">
         <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="false">
-            {% trans %}search.options.label{% endtrans %}
+            {% if show_label_instead_icon %}{% trans %}search.options.label{% endtrans %}{% else %}<i class="fa-solid fa-gear"></i>{% endif %}
             <span class="caret"></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="navbar-search-options">
@@ -68,11 +69,37 @@
             </div>
         </div>
     </div>
+{% endmacro %}
 
-    {# It is important that this element has an id field. Otherwise the dropdown panel wont appear after some link clicks #}
-    <div {{ stimulus_controller('elements/part_livesearch') }} class="mt-auto mb-auto" id="navbar-quicksearch-container"
-                                                               data-placeholder-image="{{ asset('img/part_placeholder.svg') }}"
-         data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}" data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
-        <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_livesearch', 'input') }}>
-    </div>
-</form>
+{# Render a complete usable search form including the form tags. mode can be "standalone" or "navbar" #}
+{% macro search_form(mode = "standalone") %}
+    {% set is_navbar = (mode == "navbar") %}
+
+    <form action="{{ path('parts_search') }}" class="d-flex {% if is_navbar %}my-lg-0{% endif%} ms-auto" method="get"
+            {# Navbar element needs to be persistent #}
+            {% if is_navbar %}id="navbar-search-form" data-turbo-permanent{% endif %}>
+
+        {# Show the options left in navbar #}
+        {% if is_navbar %}
+            {{ _self.settings_drodown(is_navbar) }}
+        {% endif %}
+
+        <div {{ stimulus_controller('elements/part_livesearch') }}
+                class="mt-auto mb-auto {% if not is_navbar %}w-100{% endif %}"
+                {% if is_navbar %}id="navbar-quicksearch-container"{% endif %}
+
+                data-panel-placement="{% if is_navbar %}end{% else %}input-wrapper-width{% endif %}"
+                data-mode-navbar="{% if is_navbar %}true{% else %}false{% endif %}"
+                data-placeholder-image="{{ asset('img/part_placeholder.svg') }}"
+                data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}"
+                data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
+
+            <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_livesearch', 'input') }}>
+        </div>
+
+        {# And right in the standalone mode #}
+        {% if not is_navbar %}
+            {{ _self.settings_drodown(is_navbar) }}
+        {% endif %}
+    </form>
+{% endmacro %}
