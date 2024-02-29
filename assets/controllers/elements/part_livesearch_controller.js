@@ -24,6 +24,12 @@ import "../../css/components/autocomplete_bootstrap_theme.css";
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
 import {marked} from "marked";
 
+import {
+    trans,
+    SEARCH_PLACEHOLDER,
+    SEARCH_SUBMIT
+} from '../../translator';
+
 export default class extends Controller {
 
     static targets = ["input"];
@@ -49,7 +55,10 @@ export default class extends Controller {
             panelPlacement: 'end',
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
-            placeholder: "Search for parts",
+            placeholder: trans(SEARCH_PLACEHOLDER),
+            translations: {
+                submitButtonTitle: trans(SEARCH_SUBMIT)
+            },
 
             // Use a navigator compatible with turbo:
             navigator: {
