@@ -31,6 +31,11 @@ import {
     STATISTICS_PARTS
 } from '../../translator';
 
+
+/**
+ * This controller is responsible for the search fields in the navbar and the homepage.
+ * It uses the Algolia Autocomplete library to provide a fast and responsive search.
+ */
 export default class extends Controller {
 
     static targets = ["input"];

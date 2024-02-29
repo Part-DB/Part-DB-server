@@ -84,7 +84,7 @@
             {{ _self.settings_drodown(is_navbar) }}
         {% endif %}
 
-        <div {{ stimulus_controller('elements/part_livesearch') }}
+        <div {{ stimulus_controller('elements/part_search') }}
                 class="mt-auto mb-auto {% if not is_navbar %}w-100{% endif %}"
                 {% if is_navbar %}id="navbar-quicksearch-container"{% endif %}
 
