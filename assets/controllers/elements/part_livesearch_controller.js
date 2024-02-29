@@ -107,6 +107,11 @@ export default class extends Controller {
                     return;
                 }
 
+                //Do not submit the form, if the input is empty
+                if (state.query === "") {
+                    return;
+                }
+
                 input.value = state.query;
                 input.form.requestSubmit();
             },
