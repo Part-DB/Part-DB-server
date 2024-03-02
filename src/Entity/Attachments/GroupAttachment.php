@@ -23,8 +23,10 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\UserSystem\Group;
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a Group element.
@@ -41,5 +43,6 @@ class GroupAttachment extends Attachment
      */
     #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AttachmentContainingDBElement $element = null;
 }

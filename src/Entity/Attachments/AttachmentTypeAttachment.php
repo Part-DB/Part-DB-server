@@ -22,8 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * A attachment attached to an attachmentType element.
@@ -39,5 +41,6 @@ class AttachmentTypeAttachment extends Attachment
      */
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AttachmentContainingDBElement $element = null;
 }

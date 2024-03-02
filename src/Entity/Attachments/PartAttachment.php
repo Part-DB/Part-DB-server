@@ -46,7 +46,6 @@ class PartAttachment extends Attachment
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
-    // Set the correct type for the element property to use
-    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => Part::class])]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AttachmentContainingDBElement $element = null;
 }

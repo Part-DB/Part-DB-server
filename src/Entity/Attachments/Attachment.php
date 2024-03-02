@@ -57,12 +57,7 @@ use LogicException;
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'class_name', type: 'string')]
-#[ORM\DiscriminatorMap(['PartDB\Part' => PartAttachment::class, 'Part' => PartAttachment::class,
-    'PartDB\Device' => ProjectAttachment::class, 'Device' => ProjectAttachment::class, 'AttachmentType' => AttachmentTypeAttachment::class,
-    'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
-    'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
-    'Storelocation' => StorageLocationAttachment::class, 'Supplier' => SupplierAttachment::class,
-    'User' => UserAttachment::class, 'LabelProfile' => LabelAttachment::class])]
+#[ORM\DiscriminatorMap(self::DISCRIMINATOR_MAP)]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
 #[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
@@ -89,9 +84,17 @@ use LogicException;
 #[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-#[DiscriminatorMap(typeProperty: '_type', mapping: ['part' => PartAttachment::class])]
+//This discriminator map is required for API platform to know which class to use for deserialization, when creating a new attachment.
+#[DiscriminatorMap(typeProperty: '_type', mapping: self::DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
+    private const DISCRIMINATOR_MAP = ['PartDB\Part' => PartAttachment::class, 'Part' => PartAttachment::class,
+        'PartDB\Device' => ProjectAttachment::class, 'Device' => ProjectAttachment::class, 'AttachmentType' => AttachmentTypeAttachment::class,
+        'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
+        'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
+        'Storelocation' => StorageLocationAttachment::class, 'Supplier' => SupplierAttachment::class,
+        'User' => UserAttachment::class, 'LabelProfile' => LabelAttachment::class];
+
     /**
      * A list of file extensions, that browsers can show directly as image.
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
