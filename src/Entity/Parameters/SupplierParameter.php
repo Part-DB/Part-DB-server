@@ -44,8 +44,10 @@ namespace App\Entity\Parameters;
 use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Supplier;
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
@@ -54,9 +56,10 @@ class SupplierParameter extends AbstractParameter
     final public const ALLOWED_ELEMENT_CLASS = Supplier::class;
 
     /**
-     * @var Supplier the element this para is associated with
+     * @var Supplier the element this parameter is associated with
      */
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AbstractDBElement $element = null;
 }

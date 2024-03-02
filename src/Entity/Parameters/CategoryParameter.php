@@ -44,8 +44,10 @@ namespace App\Entity\Parameters;
 use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Category;
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
@@ -57,5 +59,6 @@ class CategoryParameter extends AbstractParameter
      */
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AbstractDBElement $element = null;
 }

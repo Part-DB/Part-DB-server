@@ -44,8 +44,10 @@ namespace App\Entity\Parameters;
 use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * @see \App\Tests\Entity\Parameters\PartParameterTest
@@ -61,5 +63,6 @@ class PartParameter extends AbstractParameter
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AbstractDBElement $element = null;
 }

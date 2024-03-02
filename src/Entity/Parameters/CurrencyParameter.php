@@ -44,8 +44,10 @@ namespace App\Entity\Parameters;
 use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\PriceInformations\Currency;
+use App\Serializer\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a category element.
@@ -61,5 +63,6 @@ class CurrencyParameter extends AbstractParameter
      */
     #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AbstractDBElement $element = null;
 }

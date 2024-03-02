@@ -63,6 +63,7 @@ use LogicException;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
@@ -82,7 +83,7 @@ use function sprintf;
     shortName: 'Parameter',
     operations: [
         new Get(security: 'is_granted("read", object)'),
-        //new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
@@ -93,8 +94,20 @@ use function sprintf;
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(RangeFilter::class, properties: ["value_min", "value_typical", "value_max"])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
+//This discriminator map is required for API platform to know which class to use for deserialization, when creating a new parameter.
+#[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class AbstractParameter extends AbstractNamedDBElement
 {
+
+    /*
+     * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
+     */
+    private const API_DISCRIMINATOR_MAP = ["Part" => PartParameter::class,
+        "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
+        "Project" => ProjectParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
+        "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
+        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class];
+
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      */
