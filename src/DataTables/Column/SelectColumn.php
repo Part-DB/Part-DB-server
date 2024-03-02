@@ -38,7 +38,7 @@ class SelectColumn extends AbstractColumn
             'label' => '',
             'orderable' => false,
             'searchable' => false,
-            'className' => 'select-checkbox no-colvis',
+            'className' => 'dt-select no-colvis',
             'visible' => true,
         ]);
 
