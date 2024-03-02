@@ -43,6 +43,7 @@ use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 use function in_array;
 use InvalidArgumentException;
@@ -72,7 +73,7 @@ use LogicException;
     operations: [
         new Get(security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@attachments.list_attachments")'),
-        //new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
@@ -88,6 +89,7 @@ use LogicException;
 #[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
+#[DiscriminatorMap(typeProperty: '_type', mapping: ['part' => PartAttachment::class])]
 abstract class Attachment extends AbstractNamedDBElement
 {
     /**
@@ -143,6 +145,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @phpstan-param T|null $element
      */
     #[Groups(['attachment:read:standalone', 'attachment:write:standalone'])]
+    #[ApiProperty(writableLink: false)]
     protected ?AttachmentContainingDBElement $element = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]

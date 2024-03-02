@@ -23,8 +23,14 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Part;
+use App\Serializer\OverrideClassDenormalizer;
+use App\Serializer\TypeOverride\TypeOverridableSerializer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 /**
  * A attachment attached to a part element.
@@ -40,5 +46,7 @@ class PartAttachment extends Attachment
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    // Set the correct type for the element property to use
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => Part::class])]
     protected ?AttachmentContainingDBElement $element = null;
 }
