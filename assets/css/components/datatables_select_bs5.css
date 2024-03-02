@@ -1,0 +1,69 @@
+/******************************************************************************************
+* This styles the checkboxes of the select extension exactly like the ones in bootstrap 5
+******************************************************************************************/
+
+table.dataTable > tbody > tr > .selected {
+    background-color: var(--bs-primary-bg-subtle) !important;
+    color: white;
+}
+table.dataTable > tbody > tr > .dt-select {
+    text-align: center;
+    vertical-align: middle;
+}
+table.dataTable > thead > tr > .dt-select {
+    text-align: center;
+}
+table.dataTable input.dt-select-checkbox {
+    --bs-form-check-bg: var(--bs-body-bg);
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-form-check-bg);
+    background-image: var(--bs-form-check-bg-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    print-color-adjust: exact;
+    border-radius: 0.25em;
+}
+
+table.dataTable input.dt-select-checkbox:checked {
+    background-color: rgb(var(--bs-secondary-rgb));
+    border-color: rgb(var(--bs-secondary-rgb));
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+table.dataTable input.dt-select-checkbox:indeterminate {
+    background-color: rgb(var(--bs-secondary-rgb));
+    border-color: rgb(var(--bs-secondary-rgb));
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+}
+
+
+
+
+div.dt-container span.select-info,
+div.dt-container span.select-item {
+    margin-left: 0.5em;
+}
+
+
+@media screen and (max-width: 640px) {
+    div.dt-container span.select-info,
+    div.dt-container span.select-item {
+        margin-left: 0;
+        display: block;
+    }
+}
+table.dataTable.table-sm tbody td.select-checkbox::before {
+    margin-top: -9px;
+}
+
