@@ -184,8 +184,8 @@ class PartFilterType extends AbstractType
 
         $builder->add('orderdetailsCount', NumberConstraintType::class, [
             'label' => 'part.filter.orderdetails_count',
-           'step' => 1,
-           'min' => 0,
+            'step' => 1,
+            'min' => 0,
         ]);
 
         $builder->add('obsolete', BooleanConstraintType::class, [
@@ -281,10 +281,24 @@ class PartFilterType extends AbstractType
          * Project tab
          **************************************************************************/
         if ($this->security->isGranted('read', Project::class)) {
-            $builder->add('project', StructuralEntityConstraintType::class, [
-                'label' => 'project.label',
-                'entity_class' => Project::class
-            ]);
+            $builder
+                ->add('project', StructuralEntityConstraintType::class, [
+                    'label' => 'project.label',
+                    'entity_class' => Project::class
+                ])
+                ->add('bomQuantity', NumberConstraintType::class, [
+                    'label' => 'project.bom.quantity',
+                    'min' => 0,
+                    'step' => "any",
+                ])
+                ->add('bomName', TextConstraintType::class, [
+                    'label' => 'project.bom.name',
+                ])
+                ->add('bomComment', TextConstraintType::class, [
+                    'label' => 'project.bom.comment',
+                ])
+            ;
+
         }
 
 

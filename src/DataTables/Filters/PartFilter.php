@@ -91,7 +91,14 @@ class PartFilter implements FilterInterface
     public readonly ArrayCollection $parameters;
     public readonly IntConstraint $parametersCount;
 
+    /*************************************************
+     * Project tab
+     *************************************************/
+
     public readonly EntityConstraint $project;
+    public readonly NumberConstraint $bomQuantity;
+    public readonly TextConstraint $bomName;
+    public readonly TextConstraint $bomComment;
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
@@ -145,6 +152,10 @@ class PartFilter implements FilterInterface
         $this->parametersCount = new IntConstraint('COUNT(_parameters)');
 
         $this->project = new EntityConstraint($nodesListBuilder, Project::class, '_projectBomEntries.project');
+        $this->bomQuantity = new NumberConstraint('_projectBomEntries.quantity');
+        $this->bomName = new TextConstraint('_projectBomEntries.name');
+        $this->bomComment = new TextConstraint('_projectBomEntries.comment');
+
     }
 
     public function apply(QueryBuilder $queryBuilder): void
