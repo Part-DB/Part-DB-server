@@ -16,6 +16,11 @@
             <i class="fas fa-plus-square fa-fw"></i>
             {% trans %}attachment.create{% endtrans %}
         </button>
+
+        <button type="button" class="btn btn-outline-success" {{ stimulus_action('elements/collection_type', 'uploadMultipleFiles') }} {% if part_mode and not is_granted('edit', part) %}disabled{% endif %}>
+            <i class="fas fa-upload fa-fw"></i>
+            {% trans %}attachment.upload_multiple_files{% endtrans %}
+        </button>
     </div>
 {% endmacro %}
 

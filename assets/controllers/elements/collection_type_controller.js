@@ -75,11 +75,47 @@ export default class extends Controller {
 
         //Insert new html after the last child element
         //If the table has a tbody, insert it there
+        //Afterwards return the newly created row
         if(targetTable.tBodies[0]) {
             targetTable.tBodies[0].insertAdjacentHTML('beforeend', newElementStr);
+            return targetTable.tBodies[0].lastElementChild;
         } else { //Otherwise just insert it
             targetTable.insertAdjacentHTML('beforeend', newElementStr);
+            return targetTable.lastElementChild;
         }
+    }
+
+    /**
+     * This action opens a file dialog to select multiple files and then creates a new element for each file, where
+     * the file is assigned to the input field.
+     * This should only be used for attachments collection types
+     * @param event
+     */
+    uploadMultipleFiles(event) {
+        //Open a file dialog to select multiple files
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.multiple = true;
+        input.click();
+
+        input.addEventListener('change', (event) => {
+            //Create a element for each file
+
+            for (let i = 0; i < input.files.length; i++) {
+                const file = input.files[i];
+
+                const newElement = this.createElement(event);
+                const rowInput = newElement.querySelector("input[type='file']");
+
+                //We can not directly assign the file to the input, so we have to create a new DataTransfer object
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+
+                rowInput.files = dataTransfer.files;
+            }
+
+        });
+
     }
 
     /**
