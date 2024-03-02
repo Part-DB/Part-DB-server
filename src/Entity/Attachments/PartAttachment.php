@@ -23,14 +23,11 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Part;
-use App\Serializer\OverrideClassDenormalizer;
+use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use App\Serializer\TypeOverride\TypeOverridableSerializer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Attribute\Context;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 /**
  * A attachment attached to a part element.

@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace App\Serializer;
+namespace App\Serializer\APIPlatform;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;

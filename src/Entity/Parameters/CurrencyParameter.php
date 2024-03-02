@@ -41,10 +41,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
-use App\Repository\ParameterRepository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\PriceInformations\Currency;
-use App\Serializer\OverrideClassDenormalizer;
+use App\Repository\ParameterRepository;
+use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
