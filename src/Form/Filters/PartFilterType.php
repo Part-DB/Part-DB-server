@@ -31,6 +31,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
 use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
@@ -41,6 +42,7 @@ use App\Form\Filters\Constraints\TagsConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
 use Svg\Tag\Text;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -53,6 +55,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartFilterType extends AbstractType
 {
+    public function __construct(private readonly Security $security)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -270,6 +276,17 @@ class PartFilterType extends AbstractType
             'step' => 1,
             'min' => 0,
         ]);
+
+        /**************************************************************************
+         * Project tab
+         **************************************************************************/
+        if ($this->security->isGranted('read', Project::class)) {
+            $builder->add('project', StructuralEntityConstraintType::class, [
+                'label' => 'project.label',
+                'entity_class' => Project::class
+            ]);
+        }
+
 
         $builder->add('submit', SubmitType::class, [
             'label' => 'filter.submit',

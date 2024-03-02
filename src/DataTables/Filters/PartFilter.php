@@ -39,6 +39,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -90,6 +91,8 @@ class PartFilter implements FilterInterface
     public readonly ArrayCollection $parameters;
     public readonly IntConstraint $parametersCount;
 
+    public readonly EntityConstraint $project;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -140,6 +143,8 @@ class PartFilter implements FilterInterface
 
         $this->parameters = new ArrayCollection();
         $this->parametersCount = new IntConstraint('COUNT(_parameters)');
+
+        $this->project = new EntityConstraint($nodesListBuilder, Project::class, '_projectBomEntries.project');
     }
 
     public function apply(QueryBuilder $queryBuilder): void

@@ -383,6 +383,9 @@ final class PartsDataTable implements DataTableTypeInterface
         if (str_contains($dql, '_parameters')) {
             $builder->leftJoin('part.parameters', '_parameters');
         }
+        if (str_contains($dql, '_projectBomEntries')) {
+            $builder->leftJoin('part.project_bom_entries', '_projectBomEntries');
+        }
 
         return $builder;
     }
