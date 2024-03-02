@@ -22,21 +22,9 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
-use App\DataTables\Adapters\FetchResultsAtOnceORMAdapter;
 use App\DataTables\Adapters\TwoStepORMAdapter;
-use App\DataTables\Column\EnumColumn;
-use App\DataTables\Helpers\ColumnSortHelper;
-use App\Doctrine\Helpers\FieldHelper;
-use App\Entity\Parts\ManufacturingStatus;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
-use Symfony\Bundle\SecurityBundle\Security;
-use App\Entity\Parts\StorageLocation;
 use App\DataTables\Column\EntityColumn;
+use App\DataTables\Column\EnumColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
@@ -48,16 +36,22 @@ use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
+use App\Doctrine\Helpers\FieldHelper;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Services\Formatters\AmountFormatter;
+use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
+use App\Services\Formatters\AmountFormatter;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -194,7 +188,37 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
-            ])
+            ]);
+
+        //Add a column to list the projects where the part is used, when the user has the permission to see the projects
+        if ($this->security->isGranted('read', Project::class)) {
+            $this->csh->add('projects', TextColumn::class, [
+                'label' => $this->translator->trans('project.labelp'),
+                'render' => function ($value, Part $context): string {
+                    //Only show the first 5 projects names
+                    $projects = $context->getProjects();
+                    $tmp = "";
+
+                    $max = 5;
+
+                    for ($i = 0; $i < min($max, count($projects)); $i++) {
+                        $url = $this->urlGenerator->infoURL($projects[$i]);
+                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($projects[$i]->getName()));
+                        if ($i < count($projects) - 1) {
+                            $tmp .= ", ";
+                        }
+                    }
+
+                    if (count($projects) > $max) {
+                        $tmp .= ", + ".(count($projects) - $max);
+                    }
+
+                    return $tmp;
+                }
+            ]);
+        }
+
+        $this->csh
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
                 'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
