@@ -172,25 +172,21 @@ example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
 
 ## Creating attachments and parameters
 
-{: .warning }
-> The way described below is more a workaround than a proper solution. This might break in future versions of Part-DB!
+To create attachments and parameters, use the POST endpoint. Internally there are different types of attachments and
+parameters, for each entity type, where the attachments or parameters are used (e.g. PartAttachment for parts, etc.).
+The type of the attachment or parameter is automatically determined by the `element` property of the request data if a
+IRI is passed. You can use the `_type` property to explicitly set the type of the attachment or parameter (the value must
+be the value of the `@type` property of the owning entity. e.g. `Part` for parts).
 
-Currently, it is not possible to create attachments or parameters via a `POST` operation on the entity endpoint.
-The workaround for this is to send a patch request to the owning entity endpoint (e.g. parts `/api/parts/123`):
+For example, to create an attachment on a part, you can use the following request:  
 
 ```
-PATCH /api/parts/123
+POST /api/attachments
 
-{	
-"attachments": [
-  {"name": "front68", "attachment_type": "/api/attachment_types/1", "url": "https://invalid.invalid/test.url"}
-],
-"parameters": [
-  {"name": "value", "unit": "Ohm", "value": 100}
-]
+{
+    "name": "front68",
+    "attachment_type": "/api/attachment_types/1",
+    "url": "https://invalid.invalid/test.url",
+    "element": "/api/parts/123"
 }
 ```
-
-The limitation of this is, that this will override/delete all existing attachments/parameters of the entity.
-
-See [issue #502](https://github.com/Part-DB/Part-DB-server/issues/502) for more details on this topic.
