@@ -26,6 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Attachments\LabelAttachment;
@@ -39,6 +40,8 @@ use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
+use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
 use const DIRECTORY_SEPARATOR;
 use function get_class;
 use InvalidArgumentException;
@@ -179,27 +182,39 @@ class AttachmentSubmitHandler
      * This function will move the uploaded file or download the URL file to server, if needed.
      *
      * @param Attachment        $attachment the attachment that should be used for handling
-     * @param UploadedFile|null $file       If given, that file will be moved to the right location
-     * @param array             $options    The options to use with the upload. Here you can specify that a URL should be downloaded,
-     *                                      or an file should be moved to a secure location.
+     * @param AttachmentUpload|null  $upload     The upload options DTO. If it is null, it will be tried to get from the attachment option
      *
      * @return Attachment The attachment with the new filename (same instance as passed $attachment)
      */
-    public function handleFormSubmit(Attachment $attachment, ?UploadedFile $file, array $options = []): Attachment
+    public function handleUpload(Attachment $attachment, ?AttachmentUpload $upload): Attachment
     {
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-        $options = $resolver->resolve($options);
+        if ($upload === null) {
+            $upload = $attachment->getUpload();
+            if ($upload === null) {
+                throw new InvalidArgumentException('No upload options given and no upload options set in attachment!');
+            }
+        }
+
+        $file = $upload->file;
+
+        //If no file was uploaded, but we have base64 encoded data, create a file from it
+        if (!$file && $upload->data !== null) {
+            $file = new UploadedBase64EncodedFile(new Base64EncodedFile($upload->data), $upload->filename ?? 'base64');
+        }
+
+        //By default we assume a public upload
+        $secure_attachment = $upload->private ?? false;
 
         //When a file is given then upload it, otherwise check if we need to download the URL
         if ($file instanceof UploadedFile) {
-            $this->upload($attachment, $file, $options);
-        } elseif ($options['download_url'] && $attachment->isExternal()) {
-            $this->downloadURL($attachment, $options);
+
+            $this->upload($attachment, $file, $secure_attachment);
+        } elseif ($upload->downloadUrl && $attachment->isExternal()) {
+            $this->downloadURL($attachment, $secure_attachment);
         }
 
         //Move the attachment files to secure location (and back) if needed
-        $this->moveFile($attachment, $options['secure_attachment']);
+        $this->moveFile($attachment, $secure_attachment);
 
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
@@ -208,7 +223,7 @@ class AttachmentSubmitHandler
         $element = $attachment->getElement();
         if ($element instanceof AttachmentContainingDBElement) {
             //Make this attachment the master picture if needed and this was requested
-            if ($options['become_preview_if_empty']
+            if ($upload->becomePreviewIfEmpty
                 && $element->getMasterPictureAttachment() === null  //Element must not have an preview image yet
                 && null === $attachment->getID()                    //Attachment must be null
                 && $attachment->isPicture()                         //Attachment must be a picture
@@ -259,17 +274,6 @@ class AttachmentSubmitHandler
 
 
         return $attachment;
-    }
-
-    protected function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            //If no preview image was set yet, the new uploaded file will become the preview image
-            'become_preview_if_empty' => true,
-            //When a URL is given download the URL
-            'download_url' => false,
-            'secure_attachment' => false,
-        ]);
     }
 
     /**
@@ -325,11 +329,11 @@ class AttachmentSubmitHandler
     /**
      * Download the URL set in the attachment and save it on the server.
      *
-     * @param array $options The options from the handleFormSubmit function
+     * @param bool $secureAttachment True if the file should be moved to the secure attachment storage
      *
      * @return Attachment The attachment with the new filepath
      */
-    protected function downloadURL(Attachment $attachment, array $options): Attachment
+    protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
         //Check if we are allowed to download files
         if (!$this->allow_attachments_downloads) {
@@ -339,7 +343,7 @@ class AttachmentSubmitHandler
         $url = $attachment->getURL();
 
         $fs = new Filesystem();
-        $attachment_folder = $this->generateAttachmentPath($attachment, $options['secure_attachment']);
+        $attachment_folder = $this->generateAttachmentPath($attachment, $secureAttachment);
         $tmp_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
@@ -408,15 +412,15 @@ class AttachmentSubmitHandler
      *
      * @param Attachment   $attachment The attachment in which the file should be saved
      * @param UploadedFile $file       The file which was uploaded
-     * @param array        $options    The options from the handleFormSubmit function
+     * @param bool         $secureAttachment True if the file should be moved to the secure attachment storage
      *
      * @return Attachment The attachment with the new filepath
      */
-    protected function upload(Attachment $attachment, UploadedFile $file, array $options): Attachment
+    protected function upload(Attachment $attachment, UploadedFile $file, bool $secureAttachment): Attachment
     {
-        //Move our temporay attachment to its final location
+        //Move our temporary attachment to its final location
         $file_path = $file->move(
-            $this->generateAttachmentPath($attachment, $options['secure_attachment']),
+            $this->generateAttachmentPath($attachment, $secureAttachment),
             $this->generateAttachmentFilename($attachment, $file->getClientOriginalExtension())
         )->getRealPath();
 

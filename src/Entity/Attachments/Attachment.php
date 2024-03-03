@@ -35,6 +35,7 @@ use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\DocumentedAPIProperty;
 use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\ApiPlatform\HandleAttachmentsUploadsProcessor;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;
@@ -68,12 +69,13 @@ use LogicException;
     operations: [
         new Get(security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@attachments.list_attachments")'),
-        new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)', ),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
     normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment:write', 'attachment:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    processor: HandleAttachmentsUploadsProcessor::class,
 )]
 #[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'media_url', type: 'string', nullable: true,
     description: 'The URL to the file, where the attachment file can be downloaded. This can be an internal or external URL.',
@@ -131,6 +133,14 @@ abstract class Attachment extends AbstractNamedDBElement
      * @phpstan-var class-string<T>
      */
     protected const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
+
+    /**
+     * @var AttachmentUpload|null The options used for uploading a file to this attachment or modify it.
+     * This value is not persisted in the database, but is just used to pass options to the upload manager.
+     * If it is null, no upload process is started.
+     */
+    #[Groups(['attachment:write'])]
+    protected ?AttachmentUpload $upload = null;
 
     /**
      * @var string|null the original filename the file had, when the user uploaded it
@@ -191,6 +201,31 @@ abstract class Attachment extends AbstractNamedDBElement
             $this->element->updateTimestamps();
         }
     }
+
+    /**
+     * Gets the upload currently associated with this attachment.
+     * This is only temporary and not persisted directly in the database.
+     * @internal This function should only be used by the Attachment Submit handler service
+     * @return AttachmentUpload|null
+     */
+    public function getUpload(): ?AttachmentUpload
+    {
+        return $this->upload;
+    }
+
+    /**
+     * Sets the current upload for this attachment.
+     * It will be processed as the attachment is persisted/flushed.
+     * @param  AttachmentUpload|null  $upload
+     * @return $this
+     */
+    public function setUpload(?AttachmentUpload $upload): Attachment
+    {
+        $this->upload = $upload;
+        return $this;
+    }
+
+
 
     /***********************************************************
      * Various function

@@ -26,6 +26,7 @@
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
         "gregwar/captcha-bundle": "^2.1.0",
+        "hshn/base64-encoded-file": "^5.0",
         "jbtronics/2fa-webauthn": "^v2.2.0",
         "jbtronics/dompdf-font-loader-bundle": "^1.0.0",
         "jfcherng/php-diff": "^6.14",

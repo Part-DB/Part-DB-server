@@ -38,7 +38,7 @@ class OverrideClassDenormalizer implements DenormalizerInterface, DenormalizerAw
 
     public const CONTEXT_KEY = '__override_type__';
 
-    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         //Deserialize the data with the overridden type
         $overrideType = $context[self::CONTEXT_KEY];
