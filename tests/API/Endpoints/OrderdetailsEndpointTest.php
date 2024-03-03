@@ -25,52 +25,52 @@ namespace App\Tests\API\Endpoints;
 
 use App\Tests\API\Endpoints\CrudEndpointTestCase;
 
-class CategoryEndpointTest extends CrudEndpointTestCase
+class OrderdetailsEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string
     {
-        return '/api/categories';
+        return '/api/orderdetails';
     }
 
     public function testGetCollection(): void
     {
         $this->_testGetCollection();
         self::assertJsonContains([
-            'hydra:totalItems' => 7,
+            'hydra:totalItems' => 2,
         ]);
-    }
-
-    public function testGetChildrenCollection(): void
-    {
-        $this->_testGetChildrenCollection(1);
     }
 
     public function testGetItem(): void
     {
         $this->_testGetItem(1);
         $this->_testGetItem(2);
-        $this->_testGetItem(3);
     }
 
     public function testCreateItem(): void
     {
         $this->_testPostItem([
-            'name' => 'Test API',
-            'parent' => '/api/categories/1',
+            'supplier' => '/api/suppliers/1',
+            'part' => '/api/parts/2',
         ]);
     }
 
     public function testUpdateItem(): void
     {
-        $this->_testPatchItem(1, [
-            'name' => 'Updated',
-            'parent' => '/api/categories/2',
+        $response = $this->_testPostItem([
+            'supplier' => '/api/suppliers/1',
+            'part' => '/api/parts/2',
+        ]);
+
+        $id = $this->getIdOfCreatedElement($response);
+
+        $this->_testPatchItem($id, [
+            'supplierpartnr' => 'API test',
         ]);
     }
 
     public function testDeleteItem(): void
     {
-        $this->_testDeleteItem(5);
+        $this->_testDeleteItem(2);
     }
 }

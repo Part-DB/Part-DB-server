@@ -44,6 +44,16 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
         return $basePath . $id;
     }
 
+    /**
+     * Returns the id of the created element from the response.
+     * @param  ResponseInterface  $response
+     * @return int
+     */
+    protected function getIdOfCreatedElement(ResponseInterface $response): int
+    {
+        return $response->toArray(true)['id'];
+    }
+
     protected function _testGetCollection(): ResponseInterface
     {
         $response = self::createAuthenticatedClient()->request('GET', $this->getBasePath());

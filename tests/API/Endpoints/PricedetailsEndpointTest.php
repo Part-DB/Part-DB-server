@@ -25,25 +25,20 @@ namespace App\Tests\API\Endpoints;
 
 use App\Tests\API\Endpoints\CrudEndpointTestCase;
 
-class CategoryEndpointTest extends CrudEndpointTestCase
+class PricedetailsEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string
     {
-        return '/api/categories';
+        return '/api/pricedetails';
     }
 
     public function testGetCollection(): void
     {
         $this->_testGetCollection();
         self::assertJsonContains([
-            'hydra:totalItems' => 7,
+            'hydra:totalItems' => 4,
         ]);
-    }
-
-    public function testGetChildrenCollection(): void
-    {
-        $this->_testGetChildrenCollection(1);
     }
 
     public function testGetItem(): void
@@ -56,21 +51,22 @@ class CategoryEndpointTest extends CrudEndpointTestCase
     public function testCreateItem(): void
     {
         $this->_testPostItem([
-            'name' => 'Test API',
-            'parent' => '/api/categories/1',
+            'price' => '2.0',
+            'orderdetail' => '/api/orderdetails/1',
+            'min_discount_quantity' => 1000,
         ]);
     }
 
     public function testUpdateItem(): void
     {
         $this->_testPatchItem(1, [
-            'name' => 'Updated',
-            'parent' => '/api/categories/2',
+           'price' => '3.5',
+            'min_discount_quantity' => 10,
         ]);
     }
 
     public function testDeleteItem(): void
     {
-        $this->_testDeleteItem(5);
+        $this->_testDeleteItem(1);
     }
 }

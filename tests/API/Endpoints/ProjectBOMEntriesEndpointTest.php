@@ -23,54 +23,44 @@ declare(strict_types=1);
 
 namespace App\Tests\API\Endpoints;
 
-use App\Tests\API\Endpoints\CrudEndpointTestCase;
-
-class CategoryEndpointTest extends CrudEndpointTestCase
+class ProjectBOMEntriesEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string
     {
-        return '/api/categories';
+        return '/api/project_bom_entries';
     }
 
     public function testGetCollection(): void
     {
         $this->_testGetCollection();
-        self::assertJsonContains([
-            'hydra:totalItems' => 7,
+    }
+
+    public function testItemLifecycle(): void
+    {
+        $response = $this->_testPostItem([
+            'project' => '/api/projects/1',
+            'part' => '/api/parts/1',
+            'quantity' => 1,
         ]);
-    }
 
-    public function testGetChildrenCollection(): void
-    {
-        $this->_testGetChildrenCollection(1);
-    }
+        $new_id = $this->getIdOfCreatedElement($response);
 
-    public function testGetItem(): void
-    {
-        $this->_testGetItem(1);
-        $this->_testGetItem(2);
-        $this->_testGetItem(3);
-    }
+        //Check if the new item is in the database
+        $this->_testGetItem($new_id);
 
-    public function testCreateItem(): void
-    {
-        $this->_testPostItem([
-            'name' => 'Test API',
-            'parent' => '/api/categories/1',
+        //Check if we can change the item
+        $this->_testPatchItem($new_id, [
+            'quantity' => 2,
         ]);
+
+        //Check if we can delete the item
+        $this->_testDeleteItem($new_id);
     }
 
-    public function testUpdateItem(): void
+    public function testGetBomOfProject(): void
     {
-        $this->_testPatchItem(1, [
-            'name' => 'Updated',
-            'parent' => '/api/categories/2',
-        ]);
-    }
-
-    public function testDeleteItem(): void
-    {
-        $this->_testDeleteItem(5);
+        $response = self::createAuthenticatedClient()->request('GET', '/api/projects/1/bom');
+        self::assertResponseIsSuccessful();
     }
 }

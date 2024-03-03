@@ -23,54 +23,40 @@ declare(strict_types=1);
 
 namespace App\Tests\API\Endpoints;
 
-use App\Tests\API\Endpoints\CrudEndpointTestCase;
-
-class CategoryEndpointTest extends CrudEndpointTestCase
+class ParametersEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string
     {
-        return '/api/categories';
+        return '/api/parameters';
     }
 
-    public function testGetCollection(): void
+    public function testElementLifecycle(): void
     {
-        $this->_testGetCollection();
-        self::assertJsonContains([
-            'hydra:totalItems' => 7,
-        ]);
-    }
-
-    public function testGetChildrenCollection(): void
-    {
-        $this->_testGetChildrenCollection(1);
-    }
-
-    public function testGetItem(): void
-    {
-        $this->_testGetItem(1);
-        $this->_testGetItem(2);
-        $this->_testGetItem(3);
-    }
-
-    public function testCreateItem(): void
-    {
+        //Type should be automatically guessed from the element
         $this->_testPostItem([
-            'name' => 'Test API',
-            'parent' => '/api/categories/1',
+            'name' => 'test',
+            'element' => '/api/parts/1',
         ]);
-    }
 
-    public function testUpdateItem(): void
-    {
-        $this->_testPatchItem(1, [
-            'name' => 'Updated',
-            'parent' => '/api/categories/2',
+        //Or manually set
+        $response = $this->_testPostItem([
+            'name' => 'test',
+            'element' => '/api/footprints/1',
+            '_type' => 'Footprint'
         ]);
-    }
 
-    public function testDeleteItem(): void
-    {
-        $this->_testDeleteItem(5);
+        $id = $this->getIdOfCreatedElement($response);
+
+        //Check if the new item is in the database
+        $this->_testGetItem($id);
+
+        //Check if we can change the item
+        $this->_testPatchItem($id, [
+            'name' => 'test2',
+        ]);
+
+        //Check if we can delete the item
+        $this->_testDeleteItem($id);
     }
 }
