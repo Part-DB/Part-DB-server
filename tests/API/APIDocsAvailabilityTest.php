@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace API;
+namespace App\Tests\API;
 
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;

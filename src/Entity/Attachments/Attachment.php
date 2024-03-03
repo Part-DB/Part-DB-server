@@ -147,6 +147,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string|null the original filename the file had, when the user uploaded it
      */
     #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(['full', 'attachment:read'])]
     protected ?string $original_filename = null;
 
     /**

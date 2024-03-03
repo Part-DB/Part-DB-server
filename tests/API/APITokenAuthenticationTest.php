@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace API;
+namespace App\Tests\API;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\DataFixtures\APITokenFixtures;
