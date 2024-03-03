@@ -27,7 +27,6 @@ use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\InstanceOfConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
-use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\QueryBuilder;
 

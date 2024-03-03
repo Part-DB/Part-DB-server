@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Form\Type\Helper;
 
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;

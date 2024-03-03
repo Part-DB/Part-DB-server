@@ -22,25 +22,9 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use App\Entity\Attachments\Attachment;
-use App\Entity\Base\AbstractDBElement;
-use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\LogSystem\AbstractLogEntry;
-use App\Entity\LogSystem\UserNotAllowedLogEntry;
-use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parts\PartLot;
-use App\Entity\PriceInformations\Orderdetail;
-use App\Entity\PriceInformations\Pricedetail;
-use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Exceptions\EntityNotSupportedException;
-use App\Repository\LogEntryRepository;
-use App\Services\ElementTypeNameGenerator;
-use App\Services\EntityURLGenerator;
 use App\Services\LogSystem\LogTargetHelper;
-use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryTargetColumn extends AbstractColumn
 {

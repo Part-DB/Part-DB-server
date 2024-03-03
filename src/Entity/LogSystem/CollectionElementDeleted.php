@@ -82,7 +82,6 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface

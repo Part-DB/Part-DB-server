@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
-use FontLib\Table\Type\maxp;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Component\Filesystem\Filesystem;
 

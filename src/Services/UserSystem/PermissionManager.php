@@ -22,13 +22,11 @@ declare(strict_types=1);
 
 namespace App\Services\UserSystem;
 
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 use InvalidArgumentException;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;

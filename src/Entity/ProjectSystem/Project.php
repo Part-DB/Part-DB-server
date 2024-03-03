@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
-use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -37,8 +36,6 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
-use App\Entity\Parts\Category;
 use App\Repository\Parts\DeviceRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;

@@ -22,18 +22,15 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Misc\GitVersionInfo;
 use App\Services\Misc\DBInfoHelper;
 use App\Services\System\UpdateAvailableManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController

@@ -42,12 +42,10 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\BarcodeType;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeHelper;
-use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
 
 /**

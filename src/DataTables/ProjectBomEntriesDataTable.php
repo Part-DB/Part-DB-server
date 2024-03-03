@@ -25,7 +25,6 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
-use App\DataTables\Column\SelectColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;

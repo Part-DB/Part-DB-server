@@ -24,23 +24,16 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Parts\Part;
-use App\Exceptions\AttachmentDownloadException;
 use App\Form\InfoProviderSystem\PartSearchType;
-use App\Form\Part\PartBaseType;
-use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
-use App\Services\LogSystem\EventCommentHelper;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
 

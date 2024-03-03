@@ -29,7 +29,6 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Repository\DBElementRepository;
 use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;

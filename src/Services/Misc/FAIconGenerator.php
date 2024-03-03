@@ -24,7 +24,6 @@ namespace App\Services\Misc;
 
 use App\Entity\Attachments\Attachment;
 use function in_array;
-use InvalidArgumentException;
 
 /**
  * @see \App\Tests\Services\Misc\FAIconGeneratorTest

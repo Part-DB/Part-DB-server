@@ -23,10 +23,7 @@ declare(strict_types=1);
 
 namespace App\Repository\UserSystem;
 
-use App\Entity\UserSystem\ApiToken;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
 class ApiTokenRepository extends EntityRepository
 {

@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Doctrine\Functions;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
-use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\TokenType;
 
 /**

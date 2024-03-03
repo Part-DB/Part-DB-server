@@ -43,7 +43,6 @@ namespace App\Repository;
 
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Base\AbstractDBElement;
-use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 

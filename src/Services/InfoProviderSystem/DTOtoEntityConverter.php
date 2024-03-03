@@ -26,7 +26,6 @@ namespace App\Services\InfoProviderSystem;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\InfoProviderReference;
@@ -42,7 +41,6 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**

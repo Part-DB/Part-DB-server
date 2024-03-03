@@ -22,24 +22,16 @@ declare(strict_types=1);
  */
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
-use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\StorageLocationAttachment;
-use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Contracts\TimeStampableInterface;
-use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 use function count;

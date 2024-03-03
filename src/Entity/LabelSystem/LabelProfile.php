@@ -42,7 +42,6 @@ declare(strict_types=1);
 namespace App\Entity\LabelSystem;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\LabelProfileRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use Doctrine\DBAL\Types\Types;

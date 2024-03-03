@@ -38,7 +38,6 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\SupplierRepository;
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;

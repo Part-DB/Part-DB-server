@@ -23,30 +23,10 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use Doctrine\DBAL\Types\Types;
-use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
-use App\Entity\Parts\StorageLocation;
-use App\Entity\Parts\Supplier;
-use App\Entity\PriceInformations\Currency;
-use App\Entity\PriceInformations\Orderdetail;
-use App\Entity\PriceInformations\Pricedetail;
-use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
-use Psr\Log\LogLevel as PsrLogLevel;
 use App\Repository\LogEntryRepository;
 
 /**

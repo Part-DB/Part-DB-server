@@ -44,7 +44,6 @@ namespace App\Services\LogSystem;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 

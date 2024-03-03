@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Form\Part;
 
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\EDA\EDAPartInfo;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;

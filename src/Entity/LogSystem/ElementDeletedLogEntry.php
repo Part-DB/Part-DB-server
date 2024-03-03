@@ -29,9 +29,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\LogSystem\EventUndoMode;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface

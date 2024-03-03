@@ -30,7 +30,6 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\Intl\Currencies;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LCSCProvider implements InfoProviderInterface

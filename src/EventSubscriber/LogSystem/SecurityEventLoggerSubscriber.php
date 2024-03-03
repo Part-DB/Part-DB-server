@@ -48,7 +48,6 @@ use App\Events\SecurityEvents;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 
 /**
  * This subscriber writes entries to log if a security related event happens (e.g. the user changes its password).

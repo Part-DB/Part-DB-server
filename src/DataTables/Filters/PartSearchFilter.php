@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class PartSearchFilter implements FilterInterface

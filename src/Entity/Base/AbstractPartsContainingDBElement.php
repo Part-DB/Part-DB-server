@@ -23,9 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parameters\ParametersTrait;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

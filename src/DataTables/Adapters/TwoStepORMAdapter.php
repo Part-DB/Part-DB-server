@@ -23,12 +23,8 @@ declare(strict_types=1);
 
 namespace App\DataTables\Adapters;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr\Select;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\CountOutputWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;

@@ -27,9 +27,7 @@ use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
-use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
-use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
  * This class merges two parts together.

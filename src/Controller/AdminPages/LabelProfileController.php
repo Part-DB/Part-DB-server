@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parameters\AbstractParameter;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;

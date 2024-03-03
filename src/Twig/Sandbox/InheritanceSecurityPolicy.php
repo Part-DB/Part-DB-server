@@ -22,7 +22,6 @@ use Twig\Sandbox\SecurityNotAllowedTagError;
 use Twig\Sandbox\SecurityPolicyInterface;
 use Twig\Template;
 
-use function get_class;
 use function in_array;
 use function is_array;
 

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

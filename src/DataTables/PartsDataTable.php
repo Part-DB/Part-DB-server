@@ -46,7 +46,6 @@ use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;

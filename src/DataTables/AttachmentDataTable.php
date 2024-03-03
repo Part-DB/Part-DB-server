@@ -27,7 +27,6 @@ use App\DataTables\Column\PrettyBoolColumn;
 use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
-use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

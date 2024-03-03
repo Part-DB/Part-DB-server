@@ -45,7 +45,6 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Helpers\Trees\TreeViewNode;
-use InvalidArgumentException;
 
 /**
  * @template TEntityClass of LabelProfile

@@ -38,7 +38,6 @@ use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Exchanger\Exception\ChainException;
 use Exchanger\Exception\Exception;
 use Exchanger\Exception\UnsupportedCurrencyPairException;
 use Omines\DataTablesBundle\DataTableFactory;

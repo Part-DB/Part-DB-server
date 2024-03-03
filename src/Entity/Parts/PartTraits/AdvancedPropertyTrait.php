@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Parts\InfoProviderReference;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;

@@ -20,10 +20,7 @@
 
 namespace App\Validator\Constraints;
 
-use App\Entity\Base\AbstractDBElement;
 use App\Validator\UniqueValidatableInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -26,7 +26,6 @@ use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\ProjectSystem\Project;
@@ -47,8 +46,6 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
-use Doctrine\ORM\Mapping\Entity;
-use function get_class;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
