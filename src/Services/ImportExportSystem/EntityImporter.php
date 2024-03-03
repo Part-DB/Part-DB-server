@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Composer\Semver\Constraint\Constraint;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -157,6 +158,8 @@ class EntityImporter
                 'create_unknown_datastructures' => $options['create_unknown_datastructures'],
                 'path_delimiter' => $options['path_delimiter'],
                 'partdb_import' => true,
+                //Disable API Platform normalizer, as we don't want to use it here
+                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
             ]);
 
         //Ensure we have an array of entity elements.
