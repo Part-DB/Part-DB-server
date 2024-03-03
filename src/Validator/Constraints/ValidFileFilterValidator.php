@@ -42,7 +42,7 @@ class ValidFileFilterValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof ValidFileFilter) {
             throw new UnexpectedTypeException($constraint, ValidFileFilter::class);

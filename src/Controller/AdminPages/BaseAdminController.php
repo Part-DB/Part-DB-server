@@ -74,10 +74,11 @@ abstract class BaseAdminController extends AbstractController
     protected string $route_base = '';
     protected string $attachment_class = '';
     protected ?string $parameter_class = '';
+
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    protected EventDispatcher|EventDispatcherInterface $eventDispatcher;
 
     public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
         protected AttachmentSubmitHandler $attachmentSubmitHandler,

@@ -60,10 +60,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    /**
-     * @var EventDispatcher|EventDispatcherInterface
-     */
-    protected $eventDispatcher;
+    protected EventDispatcher|EventDispatcherInterface $eventDispatcher;
 
     public function __construct(protected bool $demo_mode, EventDispatcherInterface $eventDispatcher)
     {

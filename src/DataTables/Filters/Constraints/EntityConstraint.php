@@ -40,14 +40,14 @@ class EntityConstraint extends AbstractConstraint
      * @param  class-string<T>  $class
      * @param  string  $property
      * @param  string|null  $identifier
-     * @param  null|T  $value
+     * @param  T|null  $value
      * @param  string|null  $operator
      */
     public function __construct(protected ?NodesListBuilder $nodesListBuilder,
         protected string $class,
         string $property,
         string $identifier = null,
-        protected $value = null,
+        protected ?AbstractDBElement $value = null,
         protected ?string $operator = null)
     {
         if (!$nodesListBuilder instanceof NodesListBuilder && $this->isStructural()) {

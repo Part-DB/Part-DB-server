@@ -162,10 +162,10 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Gets the last log entries ordered by timestamp.
      *
-     * @param int|null   $limit
-     * @param int|null   $offset
+     * @param  int|null  $limit
+     * @param  int|null  $offset
      */
-    public function getLogsOrderedByTimestamp(string $order = 'DESC', $limit = null, $offset = null): array
+    public function getLogsOrderedByTimestamp(string $order = 'DESC', int $limit = null, int $offset = null): array
     {
         return $this->findBy([], ['timestamp' => $order], $limit, $offset);
     }

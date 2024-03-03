@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\DataTables\Adapters;
 
-use App\DataTables\Events\ORMPostQueryEvent;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
@@ -45,7 +44,7 @@ class FetchResultsAtOnceORMAdapter extends ORMAdapter
         $state = $query->getState();
 
         // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
+        foreach ($state->getOrderBy() as [$column, $direction]) {
             /** @var AbstractColumn $column */
             if ($column->isOrderable()) {
                 $builder->addOrderBy($column->getOrderField(), $direction);

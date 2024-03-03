@@ -57,7 +57,7 @@ final class GroupVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         if (is_a($subject, Group::class, true)) {
             return $this->helper->isValidOperation('groups', $attribute);

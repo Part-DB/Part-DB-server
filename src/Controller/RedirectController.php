@@ -73,6 +73,7 @@ class RedirectController extends AbstractController
      * Check if mod_rewrite is available (URL rewriting is possible).
      * If this is true, we can redirect to /en, otherwise we have to redirect to index.php/en.
      * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available.
+     * @noinspection PhpUndefinedFunctionInspection
      */
     public function checkIfModRewriteAvailable(): bool
     {

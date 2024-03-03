@@ -69,6 +69,7 @@ final class TwigCoreExtension extends AbstractExtension
             throw new \InvalidArgumentException(sprintf('The given class "%s" is not an enum!', $enum_class));
         }
 
+        /** @noinspection PhpUndefinedMethodInspection */
         return ($enum_class)::cases();
     }
 

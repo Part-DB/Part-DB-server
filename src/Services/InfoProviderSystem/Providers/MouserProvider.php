@@ -296,9 +296,8 @@ class MouserProvider implements InfoProviderInterface
             null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
-            "Factory Special Order" => ManufacturingStatus::DISCONTINUED,
+            "Factory Special Order", "Obsolete" => ManufacturingStatus::DISCONTINUED,
             "End of Life" => ManufacturingStatus::EOL,
-            "Obsolete" => ManufacturingStatus::DISCONTINUED,
             default => ManufacturingStatus::ACTIVE,
         };
     }

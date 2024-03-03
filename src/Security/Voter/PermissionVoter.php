@@ -62,7 +62,7 @@ final class PermissionVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         //Check if the attribute has the form @permission.operation
         if (preg_match('#^@\\w+\\.\\w+$#', $attribute)) {

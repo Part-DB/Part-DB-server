@@ -31,7 +31,6 @@ use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\LogSystem\EventCommentHelper;
-use App\Services\Parts\PartFormHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;

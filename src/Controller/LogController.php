@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Filters\LogFilter;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractDBElement;
@@ -48,7 +47,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/log')]
 class LogController extends AbstractController

@@ -157,7 +157,7 @@ class TwoStepORMAdapter extends ORMAdapter
         $state = $query->getState();
 
         // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
+        foreach ($state->getOrderBy() as [$column, $direction]) {
             /** @var AbstractColumn $column */
             if ($column->isOrderable()) {
                 $builder->addOrderBy($column->getOrderField(), $direction);

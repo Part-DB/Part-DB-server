@@ -153,7 +153,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
-    public function mapDataToForms($viewData, \Traversable $forms): void
+    public function mapDataToForms(mixed $viewData, \Traversable $forms): void
     {
         $forms = iterator_to_array($forms);
 
@@ -204,7 +204,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
-    public function mapFormsToData(\Traversable $forms, &$viewData): void
+    public function mapFormsToData(\Traversable $forms, mixed &$viewData): void
     {
         //Convert both fields to a single float value.
 

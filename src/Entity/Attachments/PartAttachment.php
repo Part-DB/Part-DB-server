@@ -24,7 +24,6 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Part;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
-use App\Serializer\TypeOverride\TypeOverridableSerializer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
