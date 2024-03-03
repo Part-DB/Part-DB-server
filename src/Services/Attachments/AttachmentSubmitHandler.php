@@ -186,7 +186,7 @@ class AttachmentSubmitHandler
      *
      * @return Attachment The attachment with the new filename (same instance as passed $attachment)
      */
-    public function handleFormSubmit(Attachment $attachment, ?AttachmentUpload $upload): Attachment
+    public function handleUpload(Attachment $attachment, ?AttachmentUpload $upload): Attachment
     {
         if ($upload === null) {
             $upload = $attachment->getUpload();
@@ -333,7 +333,7 @@ class AttachmentSubmitHandler
      *
      * @return Attachment The attachment with the new filepath
      */
-    protected function downloadURL(Attachment $attachment, array $secureAttachment): Attachment
+    protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
         //Check if we are allowed to download files
         if (!$this->allow_attachments_downloads) {

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
+use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -301,13 +302,9 @@ class PartController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var FormInterface $attachment */
-                $options = [
-                    'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData(),
-                ];
 
                 try {
-                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                    $this->attachmentSubmitHandler->handleUpload($attachment->getData(), AttachmentUpload::fromAttachmentForm($attachment));
                 } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',

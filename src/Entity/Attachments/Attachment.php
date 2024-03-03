@@ -36,7 +36,6 @@ use App\ApiPlatform\DocumentedAPIProperty;
 use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\HandleAttachmentsUploadsProcessor;
-use App\EntityListeners\AttachmentUploadListener;
 use App\Repository\AttachmentRepository;
 use App\EntityListeners\AttachmentDeleteListener;
 use Doctrine\DBAL\Types\Types;

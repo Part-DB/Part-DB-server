@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -53,5 +54,24 @@ class AttachmentUpload
         #[Groups(['attachment:write'])]
         public readonly ?bool $becomePreviewIfEmpty = true,
     ) {
+    }
+
+    /**
+     * Creates an AttachmentUpload object from an Attachment FormInterface
+     * @param  FormInterface  $form
+     * @return AttachmentUpload
+     */
+    public static function fromAttachmentForm(FormInterface $form): AttachmentUpload
+    {
+        if (!$form->has('file')) {
+            throw new \InvalidArgumentException('The form does not have a file field. Is it an attachment form?');
+        }
+
+        return new self(
+            file: $form->get('file')->getData(),
+            downloadUrl: $form->get('downloadURL')->getData(),
+            private: $form->get('secureFile')->getData()
+        );
+
     }
 }

@@ -59,7 +59,7 @@ final class HandleAttachmentsUploadsProcessor implements ProcessorInterface
             //Reset the upload data
             $data->setUpload(null);
 
-            $this->attachmentSubmitHandler->handleFormSubmit($data, $upload);
+            $this->attachmentSubmitHandler->handleUpload($data, $upload);
         }
 
         $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);

@@ -24,6 +24,7 @@ namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
@@ -175,16 +176,10 @@ abstract class BaseAdminController extends AbstractController
                 $attachments = $form['attachments'];
                 foreach ($attachments as $attachment) {
                     /** @var FormInterface $attachment */
-                    $options = [
-                        'secure_attachment' => $attachment['secureFile']->getData(),
-                        'download_url' => $attachment['downloadURL']->getData(),
-                    ];
-
                     try {
-                        $this->attachmentSubmitHandler->handleFormSubmit(
+                        $this->attachmentSubmitHandler->handleUpload(
                             $attachment->getData(),
-                            $attachment['file']->getData(),
-                            $options
+                            AttachmentUpload::fromAttachmentForm($attachment)
                         );
                     } catch (AttachmentDownloadException $attachmentDownloadException) {
                         $this->addFlash(
@@ -270,10 +265,9 @@ abstract class BaseAdminController extends AbstractController
                 ];
 
                 try {
-                    $this->attachmentSubmitHandler->handleFormSubmit(
+                    $this->attachmentSubmitHandler->handleUpload(
                         $attachment->getData(),
-                        $attachment['file']->getData(),
-                        $options
+                        AttachmentUpload::fromAttachmentForm($attachment)
                     );
                 } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
