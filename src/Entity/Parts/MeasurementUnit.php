@@ -74,7 +74,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['measurement_unit:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiResource(
-    uriTemplate: '/footprints/{id}/children.{_format}',
+    uriTemplate: '/measurement_units/{id}/children.{_format}',
     operations: [
         new GetCollection(
             openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),

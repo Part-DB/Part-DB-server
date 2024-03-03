@@ -21,21 +21,44 @@
 declare(strict_types=1);
 
 
-namespace App\Tests\API;
+namespace App\Tests\API\Endpoints;
 
-use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use ApiPlatform\Symfony\Bundle\Test\Client;
-use App\DataFixtures\APITokenFixtures;
 
-abstract class AuthenticatedApiTestCase extends ApiTestCase
+class CurrencyEndpointTest extends CrudEndpointTestCase
 {
-    /**
-     * Creates an API client with authentication.
-     * @param  string  $token
-     * @return Client
-     */
-    protected static function createAuthenticatedClient(string $token = APITokenFixtures::TOKEN_ADMIN): Client
+
+    protected function getBasePath(): string
     {
-        return static::createClient(defaultOptions: ['headers' => ['authorization' => 'Token '.$token]]);
+        return '/api/currencies';
     }
+
+    public function testGetCollection(): void
+    {
+        $this->_testGetCollection();
+        self::assertJsonContains([
+            'hydra:totalItems' => 0,
+        ]);
+    }
+
+
+    public function testCreateItem(): void
+    {
+        $this->_testPostItem([
+            'name' => 'Test API',
+            'iso_code' => 'USD',
+        ]);
+    }
+
+    /*public function testUpdateItem(): void
+    {
+        $this->_testPatchItem(1, [
+            'name' => 'Updated',
+
+        ]);
+    }
+
+    public function testDeleteItem(): void
+    {
+        $this->_testDeleteItem(5);
+    }*/
 }

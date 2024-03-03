@@ -21,21 +21,20 @@
 declare(strict_types=1);
 
 
-namespace App\Tests\API;
+namespace API\Endpoints;
 
-use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use ApiPlatform\Symfony\Bundle\Test\Client;
-use App\DataFixtures\APITokenFixtures;
+use App\Tests\API\AuthenticatedApiTestCase;
 
-abstract class AuthenticatedApiTestCase extends ApiTestCase
+class InfoEndpointTest extends AuthenticatedApiTestCase
 {
-    /**
-     * Creates an API client with authentication.
-     * @param  string  $token
-     * @return Client
-     */
-    protected static function createAuthenticatedClient(string $token = APITokenFixtures::TOKEN_ADMIN): Client
+    public function testGetInfo(): void
     {
-        return static::createClient(defaultOptions: ['headers' => ['authorization' => 'Token '.$token]]);
+        $response = self::createAuthenticatedClient()->request('GET', '/api/info');
+
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            '@id' => '/api/info',
+            'title' => 'Part-DB',
+        ]);
     }
 }

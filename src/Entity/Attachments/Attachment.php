@@ -180,6 +180,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     #[Selectable]
     #[Groups(['attachment:read', 'attachment:write'])]
+    #[ApiProperty(readableLink: false)]
     protected ?AttachmentType $attachment_type = null;
 
     #[Groups(['attachment:read'])]

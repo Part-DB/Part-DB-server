@@ -92,7 +92,7 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['attachment_type:read', 'attachment_type:write'])]
-    #[ApiProperty(readableLink: false, writableLink: false)]
+    #[ApiProperty(readableLink: true, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
