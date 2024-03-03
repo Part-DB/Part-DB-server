@@ -86,11 +86,7 @@ class UniqueObjectCollectionValidator extends ConstraintValidator
 
     private function getNormalizer(UniqueObjectCollection $unique): callable
     {
-        if (null === $unique->normalizer) {
-            return static fn ($value) => $value;
-        }
-
-        return $unique->normalizer;
+        return $unique->normalizer ?? static fn($value) => $value;
     }
 
     private function reduceElementKeys(array $fields, array $element, UniqueObjectCollection $constraint): array

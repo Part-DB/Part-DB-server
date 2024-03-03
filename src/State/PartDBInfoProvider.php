@@ -15,7 +15,7 @@ class PartDBInfoProvider implements ProviderInterface
     public function __construct(private readonly VersionManagerInterface $versionManager,
         private readonly GitVersionInfo $gitVersionInfo,
         private readonly string $partdb_title,
-        private string $base_currency,
+        private readonly string $base_currency,
         private readonly BannerHelper $bannerHelper,
         private readonly string $default_uri,
         private readonly string $global_timezone,

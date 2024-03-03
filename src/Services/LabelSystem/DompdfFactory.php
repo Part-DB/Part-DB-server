@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 #[AsDecorator(decorates: DompdfFactoryInterface::class)]
 class DompdfFactory implements DompdfFactoryInterface
 {
-    public function __construct(private string $fontDirectory, private string $tmpDirectory)
+    public function __construct(private readonly string $fontDirectory, private readonly string $tmpDirectory)
     {
         //Create folder if it does not exist
         $this->createDirectoryIfNotExisting($this->fontDirectory);

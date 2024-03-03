@@ -105,7 +105,7 @@ class DBInfoHelper
      */
     public function getDatabaseName(): ?string
     {
-        return $this->connection->getDatabase() ?? null;
+        return $this->connection->getDatabase();
     }
 
     /**

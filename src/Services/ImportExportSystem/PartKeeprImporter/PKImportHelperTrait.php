@@ -222,7 +222,7 @@ trait PKImportHelperTrait
      * @return void
      * @throws \Exception
      */
-    protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str)
+    protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str): void
     {
         if ($datetime_str !== null && $datetime_str !== '' && $datetime_str !== '0000-00-00 00:00:00') {
             $date = new \DateTime($datetime_str);
@@ -252,7 +252,7 @@ trait PKImportHelperTrait
         $prefixes = $data['siprefix'];
         foreach ($prefixes as $prefix) {
             if ((int) $prefix['id'] === $prefix_id) {
-                return pow((int) $prefix['base'], (int) $prefix['exponent']);
+                return (int)$prefix['base'] ** (int)$prefix['exponent'];
             }
         }
 

@@ -42,7 +42,7 @@ trait ManufacturerTrait
     #[Groups(['simple', 'extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class)]
     #[ORM\JoinColumn(name: 'id_manufacturer')]
-    #[Selectable()]
+    #[Selectable]
     protected ?Manufacturer $manufacturer = null;
 
     /**

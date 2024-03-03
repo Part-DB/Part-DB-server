@@ -47,8 +47,8 @@ class ProviderSelectType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => $this->providerRegistry->getActiveProviders(),
-            'choice_label' => ChoiceList::label($this, fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']),
-            'choice_value' => ChoiceList::value($this, fn(?InfoProviderInterface $choice) => $choice?->getProviderKey()),
+            'choice_label' => ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']),
+            'choice_value' => ChoiceList::value($this, static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey()),
 
             'multiple' => true,
         ]);

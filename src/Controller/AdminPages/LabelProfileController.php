@@ -55,7 +55,7 @@ class LabelProfileController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'label_profile_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'label_profile_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(LabelProfile $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

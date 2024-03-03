@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -60,8 +61,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
-#[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'unit_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'unit_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -88,7 +89,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "unit"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class MeasurementUnit extends AbstractPartsContainingDBElement
 {
@@ -98,7 +99,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Length(max: 10)]
     #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
-    #[ORM\Column(type: Types::STRING, name: 'unit', nullable: true)]
+    #[ORM\Column(name: 'unit', type: Types::STRING, nullable: true)]
     protected ?string $unit = null;
 
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
@@ -109,7 +110,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *           Set to false, to measure continuous sizes likes masses or lengths.
      */
     #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
-    #[ORM\Column(type: Types::BOOLEAN, name: 'is_integer')]
+    #[ORM\Column(name: 'is_integer', type: Types::BOOLEAN)]
     protected bool $is_integer = false;
 
     /**
@@ -118,10 +119,10 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
     #[Groups(['full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
-    #[ORM\Column(type: Types::BOOLEAN, name: 'use_si_prefix')]
+    #[ORM\Column(name: 'use_si_prefix', type: Types::BOOLEAN)]
     protected bool $use_si_prefix = false;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
@@ -135,7 +136,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var Collection<int, MeasurementUnitAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
@@ -148,7 +149,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;

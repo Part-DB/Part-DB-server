@@ -59,7 +59,7 @@ class TreeViewGenerator
         protected ElementCacheTagGenerator $tagGenerator,
         protected UserCacheKeyGenerator $keyGenerator,
         protected TranslatorInterface $translator,
-        private UrlGeneratorInterface $router,
+        private readonly UrlGeneratorInterface $router,
         protected bool $rootNodeExpandedByDefault,
         protected bool $rootNodeEnabled,
 

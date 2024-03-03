@@ -55,7 +55,7 @@ class FootprintController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'footprint_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'footprint_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Footprint $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

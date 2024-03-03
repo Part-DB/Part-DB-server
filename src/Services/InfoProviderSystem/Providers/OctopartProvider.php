@@ -210,7 +210,7 @@ class OctopartProvider implements InfoProviderInterface
 
         $item = $this->partInfoCache->getItem($key);
         $item->set($part);
-        $item->expiresAfter(3600 * 24 * 1); //Cache for 1 day
+        $item->expiresAfter(3600 * 24); //Cache for 1 day
         $this->partInfoCache->save($item);
     }
 
@@ -295,7 +295,7 @@ class OctopartProvider implements InfoProviderInterface
         //Built the category full path
         $category = null;
         if (!empty($part['category']['name'])) {
-            $category = implode(' -> ', array_map(fn($c) => $c['name'], $part['category']['ancestors'] ?? []));
+            $category = implode(' -> ', array_map(static fn($c) => $c['name'], $part['category']['ancestors'] ?? []));
             if (!empty($category)) {
                 $category .= ' -> ';
             }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -80,7 +81,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["description", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(BooleanFilter::class, properties: ['instock_unknown', 'needs_refill'])]
 #[ApiFilter(RangeFilter::class, properties: ['amount'])]
 #[ApiFilter(OrderFilter::class, properties: ['description', 'comment', 'addedDate', 'lastModified'])]
@@ -107,7 +108,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      *                Set to null, if the lot can be used indefinitely.
      */
     #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'expiration_date', nullable: true)]
+    #[ORM\Column(name: 'expiration_date', type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?\DateTimeInterface $expiration_date = null;
 
     /**
@@ -116,7 +117,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[Groups(['simple', 'extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\ManyToOne(targetEntity: StorageLocation::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'id_store_location')]
-    #[Selectable()]
+    #[Selectable]
     protected ?StorageLocation $storage_location = null;
 
     /**

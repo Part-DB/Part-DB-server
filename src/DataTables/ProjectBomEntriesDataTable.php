@@ -97,7 +97,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     }
 
                     //@phpstan-ignore-next-line
-                    throw new \Exception('This should never happen!');
+                    throw new \RuntimeException('This should never happen!');
                 },
             ])
             ->add('ipn', TextColumn::class, [

@@ -49,13 +49,15 @@ class ProjectAddPartsType extends AbstractType
         $builder->add('bom_entries', ProjectBOMEntryCollectionType::class, [
             'entry_options' => [
                 'constraints' => [
-                    new UniqueEntity(fields: ['part', 'project'], entityClass: ProjectBOMEntry::class, message: 'project.bom_entry.part_already_in_bom'),
-                    new UniqueEntity(fields: ['name', 'project'], entityClass: ProjectBOMEntry::class, message: 'project.bom_entry.name_already_in_bom', ignoreNull: true),
+                    new UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom',
+                        entityClass: ProjectBOMEntry::class),
+                    new UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom',
+                        entityClass: ProjectBOMEntry::class, ignoreNull: true),
                 ]
             ],
             'constraints' => [
-                new UniqueObjectCollection(fields: ['part'], message: 'project.bom_entry.part_already_in_bom'),
-                new UniqueObjectCollection(fields: ['name'], message: 'project.bom_entry.name_already_in_bom'),
+                new UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part']),
+                new UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name']),
             ]
         ]);
         $builder->add('submit', SubmitType::class, ['label' => 'save']);

@@ -54,7 +54,7 @@ class SupplierController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'supplier_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'supplier_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

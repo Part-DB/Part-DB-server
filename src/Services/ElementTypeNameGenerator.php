@@ -133,7 +133,7 @@ class ElementTypeNameGenerator
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>'.$type.':</i> '.htmlspecialchars((string) $entity->getName());
+            return '<i>'.$type.':</i> '.htmlspecialchars($entity->getName());
         }
 
         return $type.': '.$entity->getName();

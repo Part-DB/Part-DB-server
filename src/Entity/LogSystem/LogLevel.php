@@ -20,7 +20,7 @@
 
 namespace App\Entity\LogSystem;
 
-use \Psr\Log\LogLevel as PSRLogLevel;
+use Psr\Log\LogLevel as PSRLogLevel;
 
 enum LogLevel: int
 {

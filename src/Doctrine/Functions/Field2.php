@@ -25,6 +25,7 @@ namespace App\Doctrine\Functions;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\TokenType;
 
 /**
  * Basically the same as the original Field function, but uses FIELD2 for the SQL query.
@@ -38,8 +39,8 @@ class Field2 extends FunctionNode
 
     public function parse(\Doctrine\ORM\Query\Parser $parser): void
     {
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
 
         // Do the field.
         $this->field = $parser->ArithmeticPrimary();
@@ -50,12 +51,12 @@ class Field2 extends FunctionNode
         $lexer = $parser->getLexer();
 
         while (count($this->values) < 1 ||
-            $lexer->lookahead['type'] != Lexer::T_CLOSE_PARENTHESIS) {
-            $parser->match(Lexer::T_COMMA);
+            $lexer->lookahead['type'] != TokenType::T_CLOSE_PARENTHESIS) {
+            $parser->match(TokenType::T_COMMA);
             $this->values[] = $parser->ArithmeticPrimary();
         }
 
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker): string

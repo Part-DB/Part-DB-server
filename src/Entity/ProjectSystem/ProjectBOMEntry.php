@@ -59,11 +59,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Table('project_bom_entries')]
 #[ApiResource(
     operations: [
-        new Get(security: 'is_granted("read", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
-        new GetCollection(security: 'is_granted("@projects.read")', uriTemplate: '/project_bom_entries.{_format}',),
-        new Post(securityPostDenormalize: 'is_granted("create", object)', uriTemplate: '/project_bom_entries.{_format}',),
-        new Patch(security: 'is_granted("edit", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
-        new Delete(security: 'is_granted("delete", object)', uriTemplate: '/project_bom_entries/{id}.{_format}',),
+        new Get(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("read", object)',),
+        new GetCollection(uriTemplate: '/project_bom_entries.{_format}', security: 'is_granted("@projects.read")',),
+        new Post(uriTemplate: '/project_bom_entries.{_format}', securityPostDenormalize: 'is_granted("create", object)',),
+        new Patch(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("edit", object)',),
+        new Delete(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("delete", object)',),
     ],
     normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['bom_entry:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
@@ -90,14 +90,14 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     use TimestampTrait;
 
     #[Assert\Positive]
-    #[ORM\Column(type: Types::FLOAT, name: 'quantity')]
+    #[ORM\Column(name: 'quantity', type: Types::FLOAT)]
     #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
      */
-    #[ORM\Column(type: Types::TEXT, name: 'mountnames')]
+    #[ORM\Column(name: 'mountnames', type: Types::TEXT)]
     #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected string $mountnames = '';
 

@@ -41,7 +41,7 @@ trait InstockTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'part', targetEntity: PartLot::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['amount' => 'DESC'])]
     protected Collection $partLots;
 

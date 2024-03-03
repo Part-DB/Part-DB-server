@@ -221,7 +221,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         //We do the most stuff here in the filter class
         if (isset($options['filter'])) {
             if(!$options['filter'] instanceof AttachmentFilter) {
-                throw new \Exception('filter must be an instance of AttachmentFilter!');
+                throw new \RuntimeException('filter must be an instance of AttachmentFilter!');
             }
 
             $filter = $options['filter'];

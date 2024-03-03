@@ -33,8 +33,8 @@ class DecoratedGoogleAuthenticator implements GoogleAuthenticatorInterface
 
     public function __construct(
         #[AutowireDecorated]
-        private GoogleAuthenticatorInterface $inner,
-        private RequestStack $requestStack)
+        private readonly GoogleAuthenticatorInterface $inner,
+        private readonly RequestStack $requestStack)
     {
 
     }

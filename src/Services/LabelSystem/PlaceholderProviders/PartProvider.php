@@ -119,7 +119,7 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[DESCRIPTION_T]]' === $placeholder) {
-            return strip_tags((string) $parsedown->line($part->getDescription()));
+            return strip_tags($parsedown->line($part->getDescription()));
         }
 
         if ('[[COMMENT]]' === $placeholder) {
@@ -127,7 +127,7 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[COMMENT_T]]' === $placeholder) {
-            return strip_tags((string) $parsedown->line($part->getComment()));
+            return strip_tags($parsedown->line($part->getComment()));
         }
 
         return null;

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -56,8 +57,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
-#[ORM\Index(name: 'location_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'location_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'location_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -84,11 +85,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class StorageLocation extends AbstractPartsContainingDBElement
 {
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
@@ -112,7 +113,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /** @var Collection<int, StorageLocationParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: StorageLocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: StorageLocationParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
@@ -158,7 +159,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
      * @var Collection<int, StorageLocationAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: StorageLocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: StorageLocationAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $attachments;
 

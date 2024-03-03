@@ -49,7 +49,7 @@ class GroupController extends BaseAdminController
     protected string $attachment_class = GroupAttachment::class;
     protected ?string $parameter_class = GroupParameter::class;
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'group_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'group_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
     public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {

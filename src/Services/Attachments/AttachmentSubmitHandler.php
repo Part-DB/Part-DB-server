@@ -448,7 +448,7 @@ class AttachmentSubmitHandler
             'g' => 1000 * 1000 * 1000,
             'gi' => 1 << 30,
         ];
-        if (ctype_digit((string) $maxSize)) {
+        if (ctype_digit($maxSize)) {
             return (int) $maxSize;
         }
 

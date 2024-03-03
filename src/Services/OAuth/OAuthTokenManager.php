@@ -98,7 +98,7 @@ final class OAuthTokenManager
         $token = $this->getToken($app_name);
 
         if (!$token) {
-            throw new \Exception('No token was saved yet for '.$app_name);
+            throw new \RuntimeException('No token was saved yet for '.$app_name);
         }
 
         $client = $this->clientRegistry->getClient($app_name);

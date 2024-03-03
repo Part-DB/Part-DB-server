@@ -30,8 +30,9 @@ use Symfony\Component\PropertyInfo\Type;
 
 class EntityFilterHelper
 {
-    public function __construct(private NodesListBuilder $nodesListBuilder,
-        private EntityManagerInterface $entityManager)
+    public function __construct(
+        private readonly NodesListBuilder $nodesListBuilder,
+        private readonly EntityManagerInterface $entityManager)
     {
 
     }
@@ -86,7 +87,7 @@ class EntityFilterHelper
 
         $description = [];
         foreach ($properties as $property => $strategy) {
-            $description["$property"] = [
+            $description[(string)$property] = [
                 'property' => $property,
                 'type' => Type::BUILTIN_TYPE_STRING,
                 'required' => false,

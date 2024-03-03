@@ -45,6 +45,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -235,7 +236,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
                 'entity' => Part::class,
-                'hydrate' => Query::HYDRATE_OBJECT,
+                'hydrate' => AbstractQuery::HYDRATE_OBJECT,
                 //Use the simple total query, as we just want to get the total number of parts without any conditions
                 //For this the normal query would be pretty slow
                 'simple_total_query' => true,
@@ -270,7 +271,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
     {
-        $ids = array_map(fn($row) => $row['id'], $filter_results);
+        $ids = array_map(static fn($row) => $row['id'], $filter_results);
 
         /*
          * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the

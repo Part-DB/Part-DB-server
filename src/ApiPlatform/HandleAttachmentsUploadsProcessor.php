@@ -62,8 +62,6 @@ final class HandleAttachmentsUploadsProcessor implements ProcessorInterface
             $this->attachmentSubmitHandler->handleUpload($data, $upload);
         }
 
-        $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
-
-        return $result;
+        return $this->persistProcessor->process($data, $operation, $uriVariables, $context);
     }
 }

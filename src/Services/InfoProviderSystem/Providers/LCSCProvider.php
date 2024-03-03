@@ -40,7 +40,7 @@ class LCSCProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
-    public function __construct(private readonly HttpClientInterface $lcscClient, private string $currency, private bool $enabled = true)
+    public function __construct(private readonly HttpClientInterface $lcscClient, private readonly string $currency, private readonly bool $enabled = true)
     {
 
     }
@@ -152,10 +152,7 @@ class LCSCProvider implements InfoProviderInterface
         }
 
         //Build category by concatenating the catalogName and parentCatalogName
-        $category = null;
-        if (isset($product['parentCatalogName'])) {
-            $category = $product['parentCatalogName'];
-        }
+        $category = $product['parentCatalogName'] ?? null;
         if (isset($product['catalogName'])) {
             $category = ($category ?? '') . ' -> ' . $product['catalogName'];
 

@@ -32,7 +32,7 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 /**
  * This entity represents a OAuth token pair (access and refresh token), for an application
  */
-#[ORM\Entity()]
+#[ORM\Entity]
 #[ORM\Table(name: 'oauth_tokens')]
 #[ORM\UniqueConstraint(name: 'oauth_tokens_unique_name', columns: ['name'])]
 #[ORM\Index(columns: ['name'], name: 'oauth_tokens_name_idx')]

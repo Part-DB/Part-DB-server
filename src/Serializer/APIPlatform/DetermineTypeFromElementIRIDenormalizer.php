@@ -41,7 +41,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
  */
 class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, DenormalizerAwareInterface
 {
-    const SUPPORTED_CLASSES = [
+    private const SUPPORTED_CLASSES = [
         Attachment::class,
         AbstractParameter::class
     ];

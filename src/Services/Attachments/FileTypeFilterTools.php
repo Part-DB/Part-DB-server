@@ -119,6 +119,9 @@ class FileTypeFilterTools
                 //Convert jpg to .jpg
                 $element = '.'.$element;
             }
+
+            //Prevent weird side effects
+            unset($element);
         }
 
         $elements = array_unique($elements);

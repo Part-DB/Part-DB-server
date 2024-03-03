@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -61,10 +62,10 @@ use LogicException;
 #[ORM\DiscriminatorMap(self::ORM_DISCRIMINATOR_MAP)]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
-#[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
-#[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
-#[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
-#[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
+#[ORM\Index(columns: ['id', 'element_id', 'class_name'], name: 'attachments_idx_id_element_id_class_name')]
+#[ORM\Index(columns: ['class_name', 'id'], name: 'attachments_idx_class_name_id')]
+#[ORM\Index(columns: ['name'], name: 'attachment_name_idx')]
+#[ORM\Index(columns: ['class_name', 'element_id'], name: 'attachment_element_idx')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -84,7 +85,7 @@ use LogicException;
     description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
 #[ApiFilter(LikeFilter::class, properties: ["name"])]
 #[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new attachment.
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
@@ -151,7 +152,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
      */
-    #[ORM\Column(type: Types::STRING, name: 'path')]
+    #[ORM\Column(name: 'path', type: Types::STRING)]
     protected string $path = '';
 
     /**
@@ -176,7 +177,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
-    #[Selectable()]
+    #[Selectable]
     #[Groups(['attachment:read', 'attachment:write'])]
     protected ?AttachmentType $attachment_type = null;
 
@@ -246,12 +247,7 @@ abstract class Attachment extends AbstractNamedDBElement
             $extension = pathinfo(parse_url($this->path, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
 
             //If no extension is found or it is known picture extension, we assume that this is a picture extension
-            if ($extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true)) {
-                return true;
-            }
-
-            //Otherwise we assume that the file is not a picture
-            return false;
+            return $extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true);
         }
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
@@ -521,6 +517,11 @@ abstract class Attachment extends AbstractNamedDBElement
     #[SerializedName('url')]
     public function setURL(?string $url): self
     {
+        //Do nothing if the URL is empty
+        if ($url === null || $url === '') {
+            return $this;
+        }
+
         $url = trim($url);
         //Escape spaces in URL
         $url = str_replace(' ', '%20', $url);

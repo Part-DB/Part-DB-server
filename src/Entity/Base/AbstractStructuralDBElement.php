@@ -62,7 +62,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @extends AttachmentContainingDBElement<AT>
  * @uses ParametersTrait<PT>
  */
-#[UniqueEntity(fields: ['name', 'parent'], ignoreNull: false, message: 'structural.entity.unique_name')]
+#[UniqueEntity(fields: ['name', 'parent'], message: 'structural.entity.unique_name', ignoreNull: false)]
 #[ORM\MappedSuperclass(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
@@ -118,7 +118,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @var Collection<int, AbstractParameter>
      * @phpstan-var Collection<int, PT>
      */
-    #[Assert\Valid()]
+    #[Assert\Valid]
     protected Collection $parameters;
 
     /** @var string[] all names of all parent elements as an array of strings,
@@ -176,7 +176,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             throw new InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
-        if (!$this->getParent() instanceof \App\Entity\Base\AbstractStructuralDBElement) { // this is the root node
+        if (!$this->getParent() instanceof self) { // this is the root node
             return false;
         }
 
@@ -244,9 +244,9 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         /*
          * Only check for nodes that have a parent. In the other cases zero is correct.
          */
-        if (0 === $this->level && $this->parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+        if (0 === $this->level && $this->parent instanceof self) {
             $element = $this->parent;
-            while ($element instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+            while ($element instanceof self) {
                 /** @var AbstractStructuralDBElement $element */
                 $element = $element->parent;
                 ++$this->level;
@@ -274,7 +274,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
             $overflow = 20; //We only allow 20 levels depth
 
-            while ($element->parent instanceof \App\Entity\Base\AbstractStructuralDBElement && $overflow >= 0) {
+            while ($element->parent instanceof self && $overflow >= 0) {
                 $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
                 //Decrement to prevent mem overflow.
@@ -360,7 +360,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         $this->parent = $new_parent;
 
         //Add this element as child to the new parent
-        if ($new_parent instanceof \App\Entity\Base\AbstractStructuralDBElement) {
+        if ($new_parent instanceof self) {
             $new_parent->getChildren()->add($this);
         }
 
@@ -445,7 +445,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     public function setAlternativeNames(?string $new_value): self
     {
         //Add a trailing comma, if not already there (makes it easier to find in the database)
-        if (is_string($new_value) && substr($new_value, -1) !== ',') {
+        if (is_string($new_value) && !str_ends_with($new_value, ',')) {
             $new_value .= ',';
         }
 

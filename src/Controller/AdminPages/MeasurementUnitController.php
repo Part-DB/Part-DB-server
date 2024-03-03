@@ -55,7 +55,7 @@ class MeasurementUnitController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'measurement_unit_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'measurement_unit_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

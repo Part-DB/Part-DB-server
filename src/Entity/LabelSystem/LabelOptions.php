@@ -85,7 +85,7 @@ class LabelOptions
 
     /** @var LabelProcessMode The mode that will be used to interpret the lines
      */
-    #[ORM\Column(type: Types::STRING, enumType: LabelProcessMode::class, name: 'lines_mode')]
+    #[ORM\Column(name: 'lines_mode', type: Types::STRING, enumType: LabelProcessMode::class)]
     protected LabelProcessMode $process_mode = LabelProcessMode::PLACEHOLDER;
 
     /**

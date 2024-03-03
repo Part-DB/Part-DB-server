@@ -49,11 +49,7 @@ class TMEClient
 
     public function isUsable(): bool
     {
-        if ($this->token === '' || $this->secret === '') {
-            return false;
-        }
-
-        return true;
+        return !($this->token === '' || $this->secret === '');
     }
 
 

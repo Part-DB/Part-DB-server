@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
@@ -76,9 +77,9 @@ use function sprintf;
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
     9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class])]
 #[ORM\Table('parameters')]
-#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
-#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
-#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
+#[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
+#[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
+#[ORM\Index(columns: ['type', 'element_id'], name: 'parameter_type_element_idx')]
 #[ApiResource(
     shortName: 'Parameter',
     operations: [
@@ -91,7 +92,7 @@ use function sprintf;
     denormalizationContext: ['groups' => ['parameter:write', 'parameter:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(LikeFilter::class, properties: ["name", "symbol", "unit", "group", "value_text"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(RangeFilter::class, properties: ["value_min", "value_typical", "value_max"])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new parameter.
@@ -166,7 +167,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var string the group this parameter belongs to
      */
     #[Groups(['full', 'parameter:read', 'parameter:write'])]
-    #[ORM\Column(type: Types::STRING, name: 'param_group')]
+    #[ORM\Column(name: 'param_group', type: Types::STRING)]
     protected string $group = '';
 
     /**

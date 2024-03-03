@@ -51,7 +51,7 @@ class ProjectAdminController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'project_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'project_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}/edit', requirements: ['id' => '\d+'])]
     public function edit(Project $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

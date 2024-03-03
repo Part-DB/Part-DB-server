@@ -35,6 +35,9 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     final public const ADMIN_PW_LENGTH = 10;
     protected string $admin_pw = '';
 
+    /** @noinspection SenselessProxyMethodInspection
+     * This method is required to redefine the logger type hint to protected
+     */
     public function __construct(Connection $connection, protected LoggerInterface $logger)
     {
         parent::__construct($connection, $logger);

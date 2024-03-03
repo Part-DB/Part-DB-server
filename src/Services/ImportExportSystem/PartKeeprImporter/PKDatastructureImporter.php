@@ -42,7 +42,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
-use function \count;
+use function count;
 
 /**
  * This service is used to import the datastructures (categories, manufacturers, etc.) from a PartKeepr export.

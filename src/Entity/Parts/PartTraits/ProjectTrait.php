@@ -16,13 +16,13 @@ trait ProjectTrait
     /**
      * @var Collection<ProjectBOMEntry> $project_bom_entries
      */
-    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'part', targetEntity: ProjectBOMEntry::class, cascade: ['remove'], orphanRemoval: true)]
     protected Collection $project_bom_entries;
 
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
      */
-    #[ORM\OneToOne(targetEntity: Project::class, inversedBy: 'build_part')]
+    #[ORM\OneToOne(inversedBy: 'build_part', targetEntity: Project::class)]
     #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 

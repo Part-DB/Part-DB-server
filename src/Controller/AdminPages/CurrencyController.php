@@ -124,7 +124,7 @@ class CurrencyController extends BaseAdminController
         return true;
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'currency_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'currency_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

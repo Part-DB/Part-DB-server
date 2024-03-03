@@ -54,7 +54,7 @@ class StructuralElementNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');

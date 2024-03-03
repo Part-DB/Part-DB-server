@@ -125,7 +125,7 @@ class Element14Provider implements InfoProviderInterface
     }
 
     /**
-     * @param  mixed[]|null  $datasheets
+     * @param  array|null  $datasheets
      * @return FileDTO[]|null Array of FileDTOs
      */
     private function parseDataSheets(?array $datasheets): ?array

@@ -57,7 +57,7 @@ final class PermissionData implements \JsonSerializable
          *     operation => value,
          * ]
          */
-        #[ORM\Column(type: Types::JSON, name: 'data')]
+        #[ORM\Column(name: 'data', type: Types::JSON)]
         protected array $data = []
     )
     {

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -74,9 +75,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: PartRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`parts`')]
-#[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
-#[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
+#[ORM\Index(columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'], name: 'parts_idx_datet_name_last_id_needs')]
+#[ORM\Index(columns: ['name'], name: 'parts_idx_name')]
+#[ORM\Index(columns: ['ipn'], name: 'parts_idx_ipn')]
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
@@ -97,7 +98,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Part extends AttachmentContainingDBElement
 {
@@ -116,7 +117,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
@@ -136,7 +137,7 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
