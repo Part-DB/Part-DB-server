@@ -28,17 +28,24 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Serializer\PartNormalizer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PartNormalizerTest extends WebTestCase
 {
     /** @var PartNormalizer */
-    protected $service;
+    protected DenormalizerInterface&NormalizerInterface $service;
 
     protected function setUp(): void
     {
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(PartNormalizer::class);
+
+        //We need to inject the serializer into the normalizer, as we use it directly
+        $serializer = self::getContainer()->get('serializer');
+        $this->service->setNormalizer($serializer);
+        $this->service->setDenormalizer($serializer);
     }
 
     public function testSupportsNormalization(): void
