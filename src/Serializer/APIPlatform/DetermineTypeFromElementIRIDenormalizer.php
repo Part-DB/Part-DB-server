@@ -48,6 +48,8 @@ class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, 
 
     use DenormalizerAwareTrait;
 
+    private const ALREADY_CALLED = self::class . '::ALREADY_CALLED';
+
     public function __construct(private readonly IriConverterInterface $iriConverter, private readonly ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory)
     {
     }
@@ -94,13 +96,18 @@ class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, 
             $data = $this->addTypeDiscriminatorIfNecessary($data, $context['operation']);
         }
 
+        $context[self::ALREADY_CALLED] = true;
+
         return $this->denormalizer->denormalize($data, $type, $format, $context);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, ?string $format = null)
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = [])
     {
-        //Only denormalize if the _type discriminator is not set and the class is supported
-        return is_array($data) && !isset($data['_type']) && in_array($type, self::SUPPORTED_CLASSES, true);
+        //Only denormalize if the _type discriminator is not set and the class is supported and we not have already called this function
+        return !isset($context[self::ALREADY_CALLED])
+            && is_array($data)
+            && !isset($data['_type'])
+            && in_array($type, self::SUPPORTED_CLASSES, true);
     }
 
     public function getSupportedTypes(?string $format): array
