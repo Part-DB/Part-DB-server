@@ -30,7 +30,7 @@ use App\Services\Misc\DBInfoHelper;
 use App\Services\System\UpdateAvailableManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController

@@ -33,7 +33,7 @@ use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\TreeViewGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * This controller has the purpose to provide the data for all treeviews.
