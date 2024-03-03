@@ -12197,5 +12197,11 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Přístup odepřen! Pro pokračování se prosím přihlaste.</target>
       </segment>
     </unit>
+    <unit id="ZY3REby" name="attachment.upload_multiple_files">
+      <segment state="translated">
+        <source>attachment.upload_multiple_files</source>
+        <target>Nahrát soubory</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

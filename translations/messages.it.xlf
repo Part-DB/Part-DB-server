@@ -12192,5 +12192,17 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Si è provato a prelevare/aggiungere una quantità pari a zero! Non è stata eseguita alcuna azione.</target>
       </segment>
     </unit>
+    <unit id="j_fy6Ur" name="login.flash.access_denied_please_login">
+      <segment state="translated">
+        <source>login.flash.access_denied_please_login</source>
+        <target>Accesso negato! Si prega di effettuare l'accesso per continuare.</target>
+      </segment>
+    </unit>
+    <unit id="ZY3REby" name="attachment.upload_multiple_files">
+      <segment state="translated">
+        <source>attachment.upload_multiple_files</source>
+        <target>Carica file</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
