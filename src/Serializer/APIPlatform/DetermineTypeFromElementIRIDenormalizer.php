@@ -101,7 +101,7 @@ class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, 
         return $this->denormalizer->denormalize($data, $type, $format, $context);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = [])
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         //Only denormalize if the _type discriminator is not set and the class is supported and we not have already called this function
         return !isset($context[self::ALREADY_CALLED])
