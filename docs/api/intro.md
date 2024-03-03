@@ -190,3 +190,40 @@ POST /api/attachments
     "element": "/api/parts/123"
 }
 ```
+
+## Uploading files to attachments
+
+To upload files to the attachments you can use the special `upload` property of the attachment entity during write operations (POST, PUT, PATCH).
+Under `data` you can pass a base64 encoded string of the file content, and under `filename` the name of the file.
+Using the `private` property you can control if the file is the attachment should be stored privately or public.
+
+For example, to upload a file to an attachment, you can use the following request:
+
+```
+PATCH /api/attachments/123
+
+{
+  "upload": {
+    "data": "data:@file/octet-stream;base64,LS0gcGhwTXlB[...]",
+    "filename": "test.csv",
+    "private": false
+  },
+  "name": "Rename attachment"
+}
+```
+
+This also works for creating new attachments, by including the `upload` property in the request data along with the other properties.
+
+Using the `downloadUrl` property of `upload` you can say Part-DB to upload the file specified at the URL set on the attachment.
+
+```
+PATCH /api/attachments/123
+
+{
+  "upload": {
+    "downloadUrl": true
+  },
+  "url": "https://host.invalid/myfile.pdf"
+}
+
+```
