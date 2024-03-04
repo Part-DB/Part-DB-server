@@ -207,6 +207,7 @@ class MouserProvider implements InfoProviderInterface
         } else {
             throw new \RuntimeException('Unknown response format');
         }
+
         $result = [];
         foreach ($products as $product) {
             $result[] = new PartDetailDTO(
@@ -218,7 +219,10 @@ class MouserProvider implements InfoProviderInterface
                 manufacturer: $product['Manufacturer'],
                 mpn: $product['ManufacturerPartNumber'],
                 preview_image_url: $product['ImagePath'],
-                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['LifecycleStatus'] ?? null),
+                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus(
+                    $product['LifecycleStatus'] ?? null,
+                        (int) ($product['AvailabilityInStock'] ?? 0)
+                ),
                 provider_url: $product['ProductDetailUrl'],
                 datasheets: $this->parseDataSheets($product['DataSheetUrl'] ?? null,
                     $product['MouserPartNumber'] ?? null),
@@ -287,9 +291,15 @@ class MouserProvider implements InfoProviderInterface
 
         TODO: Probably need to review the values of field Lifecyclestatus
     */
-    private function releaseStatusCodeToManufacturingStatus(?string $productStatus): ?ManufacturingStatus
+    /**
+     * Converts the lifecycle status from the Mouser API to a ManufacturingStatus
+     * @param  string|null  $productStatus The lifecycle status from the Mouser API
+     * @param  int  $availableInStock The number of parts available in stock
+     * @return ManufacturingStatus|null
+     */
+    private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
-        return match ($productStatus) {
+        $tmp = match ($productStatus) {
             null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
@@ -297,5 +307,10 @@ class MouserProvider implements InfoProviderInterface
             "End of Life" => ManufacturingStatus::EOL,
             default => ManufacturingStatus::ACTIVE,
         };
+
+        //If the part would be assumed to be announced, check if it is in stock, then it is active
+        if ($tmp === ManufacturingStatus::ANNOUNCED && $availableInStock > 0) {
+            return ManufacturingStatus::ACTIVE;
+        }
     }
 }
