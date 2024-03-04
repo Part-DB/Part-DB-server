@@ -44,6 +44,11 @@ export default class extends Controller {
             maxOptions: null,
             create: allowAdd ? this.createItem.bind(this) : false,
 
+            // This three options allow us to paste element names with commas: (see issue #538)
+            maxItems: 1,
+            delimiter: "$$VERY_LONG_DELIMITER_THAT_SHOULD_NEVER_APPEAR$$",
+            splitOn: null,
+
             searchField: [
                 {field: "text", weight : 2},
                 {field: "parent", weight : 0.5},
