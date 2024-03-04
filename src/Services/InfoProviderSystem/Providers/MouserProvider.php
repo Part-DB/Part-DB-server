@@ -247,10 +247,19 @@ class MouserProvider implements InfoProviderInterface
     /*
     * Mouser API price is a string in the form "n[.,]nnn[.,] currency"
     * then this convert it to a number
+    * Austria has a format like "€ 2,10"
     */
     private function priceStrToFloat($val): float
     {
+        //Remove any character that is not a number, dot or comma (like currency symbols)
+        $val = preg_replace('/[^0-9.,]/', '', $val);
+
+        //Trim the string
+        $val = trim($val);
+
+        //Convert commas to dots
         $val = str_replace(",", ".", $val);
+        //Remove any dot that is not the last one (to avoid problems with thousands separators)
         $val = preg_replace('/\.(?=.*\.)/', '', $val);
         return (float)$val;
     }
