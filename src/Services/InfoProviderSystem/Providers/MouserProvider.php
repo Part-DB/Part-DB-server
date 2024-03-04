@@ -319,7 +319,9 @@ class MouserProvider implements InfoProviderInterface
 
         //If the part would be assumed to be announced, check if it is in stock, then it is active
         if ($tmp === ManufacturingStatus::ANNOUNCED && $availableInStock > 0) {
-            return ManufacturingStatus::ACTIVE;
+            $tmp = ManufacturingStatus::ACTIVE;
         }
+
+        return $tmp;
     }
 }
