@@ -156,5 +156,20 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         return $this;
     }
 
+    protected function doLoadChoicesForValues(array $values, ?callable $value): array
+    {
+        // Normalize the data (remove whitespaces around the arrow sign) and leading/trailing whitespaces
+        // This is required so that the value that is generated for an new entity based on its name structure is
+        // the same as the value that is generated for the same entity after it is persisted.
+        // Otherwise, errors occurs that the element could not be found.
+        foreach ($values as &$data) {
+            $data = trim($data);
+            $data = preg_replace('/\s*->\s*/', '->', $data);
+        }
+        unset ($data);
+
+        return $this->loadChoiceList($value)->getChoicesForValues($values);
+    }
+
 
 }
