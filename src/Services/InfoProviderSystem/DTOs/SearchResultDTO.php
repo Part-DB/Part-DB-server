@@ -30,6 +30,11 @@ use App\Entity\Parts\ManufacturingStatus;
  */
 class SearchResultDTO
 {
+    /** @var string|null An URL to a preview image */
+    public readonly ?string $preview_image_url;
+    /** @var FileDTO|null The preview image as FileDTO object */
+    public readonly ?FileDTO $preview_image_file;
+
     public function __construct(
         /** @var string The provider key (e.g. "digikey") */
         public readonly string $provider_key,
@@ -46,7 +51,7 @@ class SearchResultDTO
         /** @var string|null The manufacturer part number */
         public readonly ?string $mpn = null,
         /** @var string|null An URL to a preview image */
-        public readonly ?string $preview_image_url = null,
+        ?string $preview_image_url = null,
         /** @var ManufacturingStatus|null The manufacturing status of the part */
         public readonly ?ManufacturingStatus $manufacturing_status = null,
         /** @var string|null A link to the part on the providers page */
@@ -55,5 +60,14 @@ class SearchResultDTO
         public readonly ?string $footprint = null,
     ) {
 
+        if ($preview_image_url !== null) {
+            //Utilize the escaping mechanism of FileDTO to ensure that the preview image URL is correctly encoded
+            //See issue #521: https://github.com/Part-DB/Part-DB-server/issues/521
+            $this->preview_image_file = new FileDTO($preview_image_url);
+            $this->preview_image_url = $this->preview_image_file->url;
+        } else {
+            $this->preview_image_file = null;
+            $this->preview_image_url = null;
+        }
     }
 }
