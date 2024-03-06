@@ -66,6 +66,8 @@ use InvalidArgumentException;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Extra\Intl\IntlExtension;
+use Twig\Extra\Markdown\MarkdownExtension;
+use Twig\Extra\String\StringExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
@@ -76,15 +78,20 @@ final class SandboxedTwigProvider
 {
     private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
     private const ALLOWED_FILTERS = ['abs', 'batch', 'capitalize', 'column', 'country_name',
-        'currency_name', 'currency_symbol', 'date', 'date_modify', 'default', 'escape', 'filter', 'first', 'format',
-        'format_currency', 'format_date', 'format_datetime', 'format_number', 'format_time', 'join', 'keys',
-        'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'merge', 'nl2br', 'raw', 'number_format',
-        'reduce', 'replace', 'reverse', 'slice', 'sort', 'spaceless', 'split', 'striptags', 'timezone_name', 'title',
-        'trim', 'upper', 'url_encode',
+        'currency_name', 'currency_symbol', 'date', 'date_modify', 'data_uri', 'default', 'escape', 'filter', 'first', 'format',
+        'format_currency', 'format_date', 'format_datetime', 'format_number', 'format_time', 'html_to_markdown', 'join', 'keys',
+        'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'markdown_to_html', 'merge', 'nl2br', 'raw', 'number_format',
+        'reduce', 'replace', 'reverse', 'round', 'slice', 'slug', 'sort', 'spaceless', 'split', 'striptags', 'timezone_name', 'title',
+        'trim', 'u', 'upper', 'url_encode',
         //Part-DB specific filters:
-        'moneyFormat', 'siFormat', 'amountFormat', ];
+        'moneyFormat', 'siFormat', 'amountFormat',
 
-    private const ALLOWED_FUNCTIONS = ['date', 'html_classes', 'max', 'min', 'random', 'range'];
+
+        ];
+
+    private const ALLOWED_FUNCTIONS = ['country_names', 'country_timezones', 'currency_names', 'cycle',
+        'date', 'html_classes', 'language_names', 'locale_names', 'max', 'min', 'random', 'range', 'script_names',
+        'template_from_string', 'timezone_names'];
 
     private const ALLOWED_METHODS = [
         NamedElementInterface::class => ['getName'],
@@ -139,6 +146,8 @@ final class SandboxedTwigProvider
 
         //Add IntlExtension
         $twig->addExtension(new IntlExtension());
+        $twig->addExtension(new MarkdownExtension());
+        $twig->addExtension(new StringExtension());
 
         //Add Part-DB specific extension
         $twig->addExtension($this->appExtension);
