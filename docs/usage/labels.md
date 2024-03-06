@@ -102,6 +102,31 @@ or `{% raw %}{{ variable.property }}{% endraw %}`):
 | `{% raw %}{{ paper_width }}{% endraw %}`   | The width of the label paper in mm                                                   |
 | `{% raw %}{{ paper_height }}{% endraw %}`  | The height of the label paper in mm                                                  |
 
+### Use the placeholders in twig mode
+
+You can use the placeholders described above in the twig mode on `element` using the `{% raw %}{{ placeholder('PLACEHOLDER', element) }}{% endraw %}`
+function or the ``{{ "[[PLACEHOLDER]]"|placeholders(element) }}`` filter:
+
+```twig
+{% raw %}
+{# The function can be used to get the a single placeholder value of an element, if the placeholder does not exist, null is returned #}
+{{ placeholder('[[NAME]]', element) }}
+
+{# The filter can be used to replace all placeholders in a string with the values of the element #}
+{{ "[[NAME]]: [[DESCRIPTION]]"|placeholders(element) }}
+
+{# Using the apply environment every placeholder in the apply block will be replaced automatically #}
+{% apply placeholders(element) %}
+    [[NAME]]: [[DESCRIPTION]]
+{% endapply %}
+
+{# If the block contains HTML use placeholders(element)|raw to prevent escaping of the HTML #}
+{% apply placeholders(element)|raw %}
+    <b>[[NAME]]</b>: [[DESCRIPTION]]
+{% endapply %}
+
+{% endraw %}
+```
 
 ## Use custom fonts for PDF labels
 
