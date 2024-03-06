@@ -53,7 +53,7 @@ use Twig\Error\Error;
 
 final class LabelHTMLGenerator
 {
-    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator, private readonly LabelTextReplacer $replacer, private readonly Environment $twig, private readonly LabelBarcodeGenerator $barcodeGenerator, private readonly SandboxedTwigProvider $sandboxedTwigProvider, private readonly Security $security, private readonly string $partdb_title)
+    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator, private readonly LabelTextReplacer $replacer, private readonly Environment $twig, private readonly LabelBarcodeGenerator $barcodeGenerator, private readonly SandboxedTwigFactory $sandboxedTwigProvider, private readonly Security $security, private readonly string $partdb_title)
     {
     }
 
@@ -66,7 +66,7 @@ final class LabelHTMLGenerator
         $twig_elements = [];
 
         if (LabelProcessMode::TWIG === $options->getProcessMode()) {
-            $sandboxed_twig = $this->sandboxedTwigProvider->getTwig($options);
+            $sandboxed_twig = $this->sandboxedTwigProvider->createTwig($options);
             $current_user = $this->security->getUser();
         }
 

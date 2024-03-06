@@ -47,18 +47,18 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
-use App\Services\LabelSystem\SandboxedTwigProvider;
+use App\Services\LabelSystem\SandboxedTwigFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Twig\Sandbox\SecurityError;
 
-class SandboxedTwigProviderTest extends WebTestCase
+class SandboxedTwigFactoryTest extends WebTestCase
 {
     private ?object $service = null;
 
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::getContainer()->get(SandboxedTwigProvider::class);
+        $this->service = self::getContainer()->get(SandboxedTwigFactory::class);
     }
 
     public function twigDataProvider(): array

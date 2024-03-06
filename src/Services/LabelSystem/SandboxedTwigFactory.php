@@ -72,9 +72,10 @@ use Twig\Loader\ArrayLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 /**
+ * This service creates a sandboxed twig environment for the label system.
  * @see \App\Tests\Services\LabelSystem\SandboxedTwigProviderTest
  */
-final class SandboxedTwigProvider
+final class SandboxedTwigFactory
 {
     private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
     private const ALLOWED_FILTERS = ['abs', 'batch', 'capitalize', 'column', 'country_name',
@@ -129,7 +130,7 @@ final class SandboxedTwigProvider
     {
     }
 
-    public function getTwig(LabelOptions $options): Environment
+    public function createTwig(LabelOptions $options): Environment
     {
         if (LabelProcessMode::TWIG !== $options->getProcessMode()) {
             throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
