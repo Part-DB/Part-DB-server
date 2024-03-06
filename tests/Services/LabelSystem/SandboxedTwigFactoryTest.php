@@ -53,7 +53,7 @@ use Twig\Sandbox\SecurityError;
 
 class SandboxedTwigFactoryTest extends WebTestCase
 {
-    private ?object $service = null;
+    private ?SandboxedTwigFactory $service = null;
 
     protected function setUp(): void
     {
@@ -86,6 +86,9 @@ class SandboxedTwigFactoryTest extends WebTestCase
             ['
                 {{ part.reviewNeeded }} {{ part.tags }} {{ part.mass }}
             '],
+            ['
+                {{ entity_type(part) is object }}
+            ']
         ];
     }
 
@@ -110,7 +113,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->getTwig($options);
+        $twig = $this->service->createTwig($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),
@@ -132,7 +135,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->getTwig($options);
+        $twig = $this->service->createTwig($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),

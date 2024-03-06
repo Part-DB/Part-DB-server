@@ -60,8 +60,11 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
+use App\Twig\BarcodeExtension;
+use App\Twig\EntityExtension;
 use App\Twig\FormatExtension;
 use App\Twig\Sandbox\InheritanceSecurityPolicy;
+use App\Twig\TwigCoreExtension;
 use InvalidArgumentException;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
@@ -73,7 +76,7 @@ use Twig\Sandbox\SecurityPolicyInterface;
 
 /**
  * This service creates a sandboxed twig environment for the label system.
- * @see \App\Tests\Services\LabelSystem\SandboxedTwigProviderTest
+ * @see \App\Tests\Services\LabelSystem\SandboxedTwigFactoryTest
  */
 final class SandboxedTwigFactory
 {
@@ -84,15 +87,24 @@ final class SandboxedTwigFactory
         'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'markdown_to_html', 'merge', 'nl2br', 'raw', 'number_format',
         'reduce', 'replace', 'reverse', 'round', 'slice', 'slug', 'sort', 'spaceless', 'split', 'striptags', 'timezone_name', 'title',
         'trim', 'u', 'upper', 'url_encode',
+
         //Part-DB specific filters:
-        'moneyFormat', 'siFormat', 'amountFormat',
 
-
+        //FormatExtension:
+        'format_money', 'format_si', 'format_amount', 'format_bytes',
         ];
 
     private const ALLOWED_FUNCTIONS = ['country_names', 'country_timezones', 'currency_names', 'cycle',
         'date', 'html_classes', 'language_names', 'locale_names', 'max', 'min', 'random', 'range', 'script_names',
-        'template_from_string', 'timezone_names'];
+        'template_from_string', 'timezone_names',
+
+        //Part-DB specific extensions:
+        //EntityExtension:
+        'entity_type', 'entity_url',
+        //BarcodeExtension:
+        'barcode_svg',
+
+        ];
 
     private const ALLOWED_METHODS = [
         NamedElementInterface::class => ['getName'],
@@ -126,7 +138,12 @@ final class SandboxedTwigFactory
     ];
     private const ALLOWED_PROPERTIES = [];
 
-    public function __construct(private readonly FormatExtension $appExtension)
+    public function __construct(
+        private readonly FormatExtension $formatExtension,
+        private readonly BarcodeExtension $barcodeExtension,
+        private readonly EntityExtension $entityExtension,
+        private readonly TwigCoreExtension $twigCoreExtension,
+    )
     {
     }
 
@@ -151,7 +168,10 @@ final class SandboxedTwigFactory
         $twig->addExtension(new StringExtension());
 
         //Add Part-DB specific extension
-        $twig->addExtension($this->appExtension);
+        $twig->addExtension($this->formatExtension);
+        $twig->addExtension($this->barcodeExtension);
+        $twig->addExtension($this->entityExtension);
+        $twig->addExtension($this->twigCoreExtension);
 
         return $twig;
     }
