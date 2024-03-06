@@ -26,6 +26,7 @@ use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Webauthn\PublicKeyCredentialSource as BasePublicKeyCredentialSource;
 
@@ -43,6 +44,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
 
     #[ORM\Column(type: Types::STRING)]
     #[NotBlank]
+    #[Length(max: 255)]
     protected string $name = '';
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'webauthn_keys')]

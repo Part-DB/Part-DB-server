@@ -151,6 +151,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 50)]
     protected string $unit = '';
 
     /**
@@ -158,6 +159,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $value_text = '';
 
     /**
@@ -165,6 +167,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(name: 'param_group', type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $group = '';
 
     /**

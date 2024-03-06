@@ -27,6 +27,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Embeddable]
 class EDACategoryInfo
@@ -36,6 +37,7 @@ class EDACategoryInfo
      */
     #[Column(type: Types::STRING, nullable: true)]
     #[Groups(['full', 'category:read', 'category:write'])]
+    #[Length(max: 255)]
     private ?string $reference_prefix = null;
 
     /** @var bool|null Visibility of this part to EDA software in trinary logic. True=Visible, False=Invisible, Null=Auto */
@@ -61,6 +63,7 @@ class EDACategoryInfo
     /** @var string|null The KiCAD schematic symbol, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
     #[Groups(['full', 'category:read', 'category:write'])]
+    #[Length(max: 255)]
     private ?string $kicad_symbol = null;
 
     public function getReferencePrefix(): ?string

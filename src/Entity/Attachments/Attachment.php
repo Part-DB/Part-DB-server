@@ -148,6 +148,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['full', 'attachment:read'])]
+    #[Assert\Length(max: 255)]
     protected ?string $original_filename = null;
 
     /**

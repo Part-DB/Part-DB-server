@@ -51,6 +51,7 @@ use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -165,6 +166,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['part_lot:read', 'part_lot:write'])]
+    #[Length(max: 255)]
     protected ?string $vendor_barcode = null;
 
     public function __clone()

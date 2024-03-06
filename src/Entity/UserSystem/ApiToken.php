@@ -36,6 +36,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
@@ -64,6 +65,7 @@ class ApiToken implements TimeStampableInterface
     protected int $id;
 
     #[ORM\Column(type: Types::STRING)]
+    #[Length(max: 255)]
     #[NotBlank]
     #[Groups('token:read')]
     protected string $name = '';

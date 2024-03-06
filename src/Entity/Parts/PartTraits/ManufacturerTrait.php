@@ -30,6 +30,7 @@ use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * In this trait all manufacturer related properties of a part are collected (like MPN, manufacturer URL).
@@ -58,6 +59,7 @@ trait ManufacturerTrait
      */
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Length(max: 255)]
     protected string $manufacturer_product_number = '';
 
     /**

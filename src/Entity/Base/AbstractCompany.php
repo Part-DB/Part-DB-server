@@ -50,6 +50,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $address = '';
 
     /**
@@ -57,6 +58,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $phone_number = '';
 
     /**
@@ -64,6 +66,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $fax_number = '';
 
     /**
@@ -72,6 +75,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     #[Assert\Email]
     #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $email_address = '';
 
     /**
@@ -80,6 +84,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     #[Assert\Url]
     #[Groups(['full', 'company:read', 'company:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $website = '';
 
     #[Groups(['company:read', 'company:write'])]
@@ -89,6 +94,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The link to the website of an article. Use %PARTNUMBER% as placeholder for the part number.
      */
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $auto_product_url = '';
 
     /********************************************************************************

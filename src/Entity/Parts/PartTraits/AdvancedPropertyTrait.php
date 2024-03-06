@@ -28,6 +28,7 @@ use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Advanced properties of a part, not related to a more specific group.
@@ -62,6 +63,7 @@ trait AdvancedPropertyTrait
     #[Assert\Length(max: 100)]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
+    #[Length(max: 100)]
     protected ?string $ipn = null;
 
     /**

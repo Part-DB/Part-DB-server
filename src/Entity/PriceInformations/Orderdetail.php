@@ -52,6 +52,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Class Orderdetail.
@@ -106,6 +107,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Length(max: 255)]
     protected string $supplierpartnr = '';
 
     /**

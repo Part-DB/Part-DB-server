@@ -50,6 +50,7 @@ use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
 use DateTime;
@@ -204,6 +205,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[Assert\Email]
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $email = '';
 
     /**
@@ -218,6 +220,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $department = '';
 
     /**
@@ -225,6 +228,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $last_name = '';
 
     /**
@@ -232,6 +236,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $first_name = '';
 
     /**
