@@ -64,6 +64,7 @@ use App\Twig\BarcodeExtension;
 use App\Twig\EntityExtension;
 use App\Twig\FormatExtension;
 use App\Twig\Sandbox\InheritanceSecurityPolicy;
+use App\Twig\Sandbox\SandboxedLabelExtension;
 use App\Twig\TwigCoreExtension;
 use InvalidArgumentException;
 use Twig\Environment;
@@ -92,6 +93,9 @@ final class SandboxedTwigFactory
 
         //FormatExtension:
         'format_money', 'format_si', 'format_amount', 'format_bytes',
+
+        //SandboxedLabelExtension
+        'placeholders',
         ];
 
     private const ALLOWED_FUNCTIONS = ['country_names', 'country_timezones', 'currency_names', 'cycle',
@@ -103,7 +107,8 @@ final class SandboxedTwigFactory
         'entity_type', 'entity_url',
         //BarcodeExtension:
         'barcode_svg',
-
+        //SandboxedLabelExtension
+        'placeholder',
         ];
 
     private const ALLOWED_METHODS = [
@@ -143,6 +148,7 @@ final class SandboxedTwigFactory
         private readonly BarcodeExtension $barcodeExtension,
         private readonly EntityExtension $entityExtension,
         private readonly TwigCoreExtension $twigCoreExtension,
+        private readonly SandboxedLabelExtension $sandboxedLabelExtension,
     )
     {
     }
@@ -172,6 +178,7 @@ final class SandboxedTwigFactory
         $twig->addExtension($this->barcodeExtension);
         $twig->addExtension($this->entityExtension);
         $twig->addExtension($this->twigCoreExtension);
+        $twig->addExtension($this->sandboxedLabelExtension);
 
         return $twig;
     }

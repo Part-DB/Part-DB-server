@@ -65,6 +65,17 @@ final class LabelTextReplacer
      */
     public function handlePlaceholder(string $placeholder, object $target): string
     {
+        return $this->handlePlaceholderOrReturnNull($placeholder, $target) ?? $placeholder;
+    }
+
+    /**
+     * Similar to handlePlaceholder, but returns null if the placeholder is not known (instead of the original string)
+     * @param  string  $placeholder
+     * @param  object  $target
+     * @return string|null
+     */
+    public function handlePlaceholderOrReturnNull(string $placeholder, object $target): ?string
+    {
         foreach ($this->providers as $provider) {
             /** @var PlaceholderProviderInterface $provider */
             $ret = $provider->replace($placeholder, $target);
@@ -73,7 +84,7 @@ final class LabelTextReplacer
             }
         }
 
-        return $placeholder;
+        return null;
     }
 
     /**

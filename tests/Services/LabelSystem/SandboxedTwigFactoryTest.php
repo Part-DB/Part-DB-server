@@ -88,6 +88,10 @@ class SandboxedTwigFactoryTest extends WebTestCase
             '],
             ['
                 {{ entity_type(part) is object }}
+            '],
+            ['
+                {% apply placeholders(part) %}[[NAME]]{% endapply %}</br>
+                {{ placeholder("[[NAME]]", part) }}
             ']
         ];
     }
