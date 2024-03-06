@@ -86,8 +86,11 @@ final class LabelHTMLGenerator
                         [
                             'element' => $element,
                             'page' => $page,
+                            'last_page' => count($elements),
                             'user' => $current_user,
                             'install_title' => $this->partdb_title,
+                            'paper_width' => $options->getWidth(),
+                            'paper_height' => $options->getHeight(),
                         ]
                     );
                 } catch (Error $exception) {

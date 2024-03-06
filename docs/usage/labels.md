@@ -89,15 +89,19 @@ If you select "Twig" in parser mode under advanced settings, you can input a twi
 source mode). You can use most of the twig tags and filters listed
 in [official documentation](https://twig.symfony.com/doc/3.x/).
 
-The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}` (
+The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}{% endraw %}` (
 or `{% raw %}{{ variable.property }}{% endraw %}`):
 
-| Variable name                              | Description                                                                         |
-|--------------------------------------------|-------------------------------------------------------------------------------------|
-| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog                                        |
-| `{% raw %}{{ user }}{% endraw %}`          | The current logged in user. Null if you are not logged in                           |
-| `{% raw %}{{ install_title }}{% endraw %}` | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder). |
-| `{% raw %}{{ page }}{% endraw %}`          | The page number (the nth-element for which the label is generated                   |
+| Variable name                              | Description                                                                          |
+|--------------------------------------------|--------------------------------------------------------------------------------------|
+| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog                                         |
+| `{% raw %}{{ user }}{% endraw %}`          | The current logged in user. Null if you are not logged in                            |
+| `{% raw %}{{ install_title }}{% endraw %}` | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder).  |
+| `{% raw %}{{ page }}{% endraw %}`          | The page number (the nth-element for which the label is generated                    |
+| `{% raw %}{{ last_page }}{% endraw %}`     | The page number of the last element. Equals the number of all pages / element labels |
+| `{% raw %}{{ paper_width }}{% endraw %}`   | The width of the label paper in mm                                                   |
+| `{% raw %}{{ paper_height }}{% endraw %}`  | The height of the label paper in mm                                                  |
+
 
 ## Use custom fonts for PDF labels
 
