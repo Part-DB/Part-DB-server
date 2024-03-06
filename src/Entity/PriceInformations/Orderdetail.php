@@ -229,6 +229,11 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         return $this->obsolete;
     }
 
+    public function isObsolete(): bool
+    {
+        return $this->getObsolete();
+    }
+
     /**
      * Get the link to the website of the article on the supplier's website.
      *

@@ -51,8 +51,10 @@ use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -116,27 +118,36 @@ final class SandboxedTwigFactory
         AbstractDBElement::class => ['getID', '__toString'],
         TimeStampableInterface::class => ['getLastModified', 'getAddedDate'],
         AbstractStructuralDBElement::class => ['isChildOf', 'isRoot', 'getParent', 'getComment', 'getLevel',
-            'getFullPath', 'getPathArray', 'getChildren', 'isNotSelectable', ],
-        AbstractCompany::class => ['getAddress', 'getPhoneNumber', 'getFaxNumber', 'getEmailAddress', 'getWebsite'],
+            'getFullPath', 'getPathArray', 'getSubelements', 'getChildren', 'isNotSelectable', ],
+        AbstractCompany::class => ['getAddress', 'getPhoneNumber', 'getFaxNumber', 'getEmailAddress', 'getWebsite', 'getAutoProductUrl'],
         AttachmentContainingDBElement::class => ['getAttachments', 'getMasterPictureAttachment'],
         Attachment::class => ['isPicture', 'is3DModel', 'isExternal', 'isSecure', 'isBuiltIn', 'getExtension',
-            'getElement', 'getURL', 'getFilename', 'getAttachmentType', 'getShowInTable', ],
+            'getElement', 'getURL', 'getHost', 'getFilename', 'getAttachmentType', 'getShowInTable', ],
         AbstractParameter::class => ['getFormattedValue', 'getGroup', 'getSymbol', 'getValueMin', 'getValueMax',
             'getValueTypical', 'getUnit', 'getValueText', ],
         MeasurementUnit::class => ['getUnit', 'isInteger', 'useSIPrefix'],
         PartLot::class => ['isExpired', 'getDescription', 'getComment', 'getExpirationDate', 'getStorageLocation',
-            'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill', ],
+            'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill', 'getVendorBarcode'],
         StorageLocation::class => ['isFull', 'isOnlySinglePart', 'isLimitToExistingParts', 'getStorageType'],
         Supplier::class => ['getShippingCosts', 'getDefaultCurrency'],
-        Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getDescription', 'isFavorite', 'getCategory',
-            'getFootprint', 'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getAmountSum',
+        Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getIpn', 'getProviderReference',
+            'getDescription', 'getComment', 'isFavorite', 'getCategory', 'getFootprint',
+            'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getAmountSum', 'isNotEnoughInstock', 'isAmountUnknown', 'getExpiredAmountSum',
             'getManufacturerProductUrl', 'getCustomProductURL', 'getManufacturingStatus', 'getManufacturer',
-            'getManufacturerProductNumber', 'getOrderdetails', 'isObsolete', ],
+            'getManufacturerProductNumber', 'getOrderdetails', 'isObsolete',
+            'getParameters', 'getGroupedParameters',
+            'isProjectBuildPart', 'getBuiltProject',
+            'getAssociatedPartsAsOwner', 'getAssociatedPartsAsOther', 'getAssociatedPartsAll',
+            'getEdaInfo'
+            ],
         Currency::class => ['getIsoCode', 'getInverseExchangeRate', 'getExchangeRate'],
         Orderdetail::class => ['getPart', 'getSupplier', 'getSupplierPartNr', 'getObsolete',
-            'getPricedetails', 'findPriceForQty', ],
+            'getPricedetails', 'findPriceForQty', 'isObsolete', 'getSupplierProductUrl'],
         Pricedetail::class => ['getOrderdetail', 'getPrice', 'getPricePerUnit', 'getPriceRelatedQuantity',
-            'getMinDiscountQuantity', 'getCurrency', ],
+            'getMinDiscountQuantity', 'getCurrency', 'getCurrencyISOCode'],
+        InfoProviderReference:: class => ['getProviderKey', 'getProviderId', 'getProviderUrl', 'getLastUpdated', 'isProviderCreated'],
+        PartAssociation::class => ['getType', 'getComment', 'getOwner', 'getOther', 'getOtherType'],
+
         //Only allow very little information about users...
         User::class => ['isAnonymousUser', 'getUsername', 'getFullName', 'getFirstName', 'getLastName',
             'getDepartment', 'getEmail', ],
