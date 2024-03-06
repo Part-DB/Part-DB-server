@@ -87,8 +87,10 @@ final class LabelHTMLGenerator
                     throw new TwigModeException($exception);
                 }
             } else {
-                $lines = $this->replacer->replace($options->getLines(), $element);
+                $lines = $options->getLines();
             }
+
+            $lines = $this->replacer->replace($lines, $element);
 
             $twig_elements[] = [
                 'element' => $element,
