@@ -133,6 +133,102 @@ function or the ``{{ "[[PLACEHOLDER]]"|placeholders(element) }}`` filter:
 {% endraw %}
 ```
 
+### Important entity fields in twig mode
+
+In twig mode you have access to many fields of the entity you are generating the label for and their associated entities.
+Following are some important fields of the entities listed. See the [SandboxedTwigFactory service](https://github.com/Part-DB/Part-DB-server/blob/master/src/Services/LabelSystem/SandboxedTwigFactory.php) for the full list of allowed class methods.
+
+Please not that the field names might change in the future.
+
+#### Part
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the part                                                                   |
+| `name`              | The name of the part                                                                          |
+| `category`          | The category of the part                                                                      |
+| `manufacturer`      | The manufacturer of the part                                                                  |
+| `footprint`         | The footprint of the part                                                                     |
+| `mass`              | The mass of the part                                                                          |
+| `ManufacturerProductNumber` | The manufacturer product number of the part                                           |           
+| `tags`              | The tags of the part                                                                          |
+| `description`       | The rich text (markdown) description of the part                                              |
+| `comment`           | The rich text (markdown) comment of the part                                                  |
+| `lastModified`      | The datetime object when the part was last modified                                           |
+| `creationDate`      | The datetime object when the part was created                                                 |
+| `ipn`               | The internal part number of the part                                                          |
+| `partUnit`          | The unit of the part                                                                          |
+| `amountSum`         | The sum of the amount of all part lots of this part                                           |
+| `amountUnknwon`     | Bool: True if there is at least one part lot with unknown amount                              |
+| `partLots`          | The part lots of the part                                                                     |
+| `parameters`        | The parameters of the part                                                                    |
+| `orderdetails`      | The order details of the part as array of Orderdetails                                        |
+
+#### Part lot
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the part lot                                                               |
+| `name`              | The name of the part lot                                                                      |
+| `comment`           | The rich text (markdown) comment of the part lot                                              |
+| `expirationDate`    | The expiration date of the part lot (as Datetime object)                                      |
+| `amount`            | The amount of parts in this lot                                                               |
+| `storageLocation`   | The storage location of this part lot                                                         |
+| `part`              | The part of this part lot                                                                     |
+| `needsRefill`       | Bool: True if the part lot needs a refill                                                     |
+| `expired`           | Bool: True if the part lot is expired                                                         |
+| `vendorBarcode`     | The vendor barcode field of the lot                                                           |
+
+#### Structural entities like categories, manufacturers, footprints, and storage locations
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the entity                                                                 |
+| `name`              | The name of the entity                                                                        |
+| `comment`           | The rich text (markdown) comment of the entity                                                |
+| `parent`            | The parent entity of the entity                                                               |
+| `children`          | The children entities of the entity                                                           |
+| `lastModified`      | The datetime object when the entity was last modified                                         |
+| `creationDate`      | The datetime object when the entity was created                                               |
+| `level`             | The level of the entity in the hierarchy                                                      |
+| `fullPath`          | The full path of the entity (you can pass the delimiter as parameter)                         |
+| `pathArray`         | The path of the entity as array of strings                                                    |
+
+#### Orderdetails
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the order detail                                                           |
+| `part`              | The part of the order detail                                                                  |
+| `supplier`          | The supplier/distributor of the order detail                                                  |
+| `obsolete`          | Bool: True if the order detail is obsolete                                                    |
+| `pricedetails`      | The price details of the order detail as array of Pricedetails                                |
+
+#### Pricedetails
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the price detail                                                           |
+| `price`             | The price of the price detail                                                                 |
+| `currency`          | The currency of the price detail                                                              |
+| `currencyIsoCode`   | The ISO code of the used currency                                                             |
+| `pricePerUnit`      | The price per unit of the price detail                                                        |
+| `priceRelatedQuantity` | The related quantity of the price detail                                                   |
+| `minDiscountQuantity` | The minimum discount quantity of the price detail                                           |
+
+#### User
+
+| Field name          | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+| `id`                | The internal ID of the user                                                                   |
+| `username`          | The username of the user                                                                      |
+| `email`             | The email of the user                                                                         |
+| `fullName`          | The full name of the user                                                                     |
+| `lastName`          | The last name of the user                                                                     |	
+| `firstName`         | The first name of the user                                                                    |
+| `department`        | The department of the user                                                                    |
+
+
 ## Use custom fonts for PDF labels
 
 You can use your own fonts for label generation. To do this, put the TTF files of the fonts you want to use into
