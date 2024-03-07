@@ -89,12 +89,17 @@ If you select "Twig" in parser mode under advanced settings, you can input a twi
 source mode). You can use most of the twig tags and filters listed
 in [official documentation](https://twig.symfony.com/doc/3.x/).
 
+Twig allows you for much more complex and dynamic label generation. You can use loops, conditions, and functions to create
+the label content and you can access almost all data Part-DB offers. The label templates are evaluated in a special sandboxed environment,
+where only certain operations are allowed. Only read access to entities is allowed. However as it circumvents Part-DB normal permission system, 
+the twig mode is only available to users with the "Twig mode" permission.
+
 The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}{% endraw %}` (
 or `{% raw %}{{ variable.property }}{% endraw %}`):
 
 | Variable name                              | Description                                                                          |
 |--------------------------------------------|--------------------------------------------------------------------------------------|
-| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog                                         |
+| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog.                                         |
 | `{% raw %}{{ user }}{% endraw %}`          | The current logged in user. Null if you are not logged in                            |
 | `{% raw %}{{ install_title }}{% endraw %}` | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder).  |
 | `{% raw %}{{ page }}{% endraw %}`          | The page number (the nth-element for which the label is generated                    |
