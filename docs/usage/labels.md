@@ -229,6 +229,30 @@ Please not that the field names might change in the future.
 | `department`        | The department of the user                                                                    |
 
 
+### Part-DB specific twig functions and filters
+
+Part-DB offers some custom twig functions and filters, which can be used in the twig mode and ease the rendering of
+certain data:
+
+#### Functions
+
+| Function name                                | Description                                                                                   |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `placeholder(placeholder, element)`          | Get the value of a placeholder of an element                                                  |
+| `entity_type(element)`                       | Get the type of an entity as string                                                           |
+| `entity_url(element, type)`                  | Get the URL to a specific entity type page (e.g. `info`, `edit`, etc.)                        |
+| `barcode_svg(content, type)`                 | Generate a barcode SVG from the content and type (e.g. `QRCODE`, `CODE128` etc.). A svg string is returned, which you need to data uri encode to inline it.       |
+
+### Filters
+
+| Filter name                                  | Description                                                                                   |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `format_bytes`                              | Format a byte count to a human readable string                                               |
+| `format_money(price, currency)`             | Format a price to a human readable string with the currency                                  |
+| `format_amount(amount, unit)`               | Format an amount to a human readable string with the unit  object                            |
+| `format_si(value, unit_str)`                | Format a value using SI prefixes and the given unit string                                   |
+| `placeholders(element)`                     | Replace all placeholders in a string with the values of the element                          |
+
 ## Use custom fonts for PDF labels
 
 You can use your own fonts for label generation. To do this, put the TTF files of the fonts you want to use into
