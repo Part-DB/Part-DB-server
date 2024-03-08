@@ -76,6 +76,17 @@ class CheckRequirementsCommand extends Command
             $io->success('PHP version is sufficient.');
         }
 
+        //Checking 32-bit system
+        if (PHP_INT_SIZE === 4) {
+            $io->warning('You are using a 32-bit system. You will have problems with working with dates after the year 2038, therefore a 64-bit system is recommended.');
+        } elseif (PHP_INT_SIZE === 8) {
+            if (!$only_issues) {
+                $io->success('You are using a 64-bit system.');
+            }
+        } else {
+            $io->warning('You are using a system with an unknown bit size. That is interesting xD');
+        }
+
         //Check if opcache is enabled
         if ($io->isVerbose()) {
             $io->comment('Checking Opcache...');

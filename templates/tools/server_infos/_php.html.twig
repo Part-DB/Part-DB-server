@@ -10,6 +10,12 @@
         <td>{{ php_uname }}</td>
     </tr>
     <tr>
+        <td>PHP Bit Size</td>
+        <td>{{ php_bit_size }}-bit
+            {% if php_bit_size < 64 %}<span class="text-warning">(32-bit PHP is affected by Year 2038 problem, and can not work with dates after 2038!)</span>{% endif %}
+        </td>
+    </tr>
+    <tr>
         <td>Opcache enabled</td>
         <td>{{ helper.boolean_badge(php_opcache_enabled) }}</td>
     </tr>
