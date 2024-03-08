@@ -37,6 +37,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Validator\Constraints\Year2038BugWorkaround;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -109,6 +110,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
     #[ORM\Column(name: 'expiration_date', type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Year2038BugWorkaround]
     protected ?\DateTimeInterface $expiration_date = null;
 
     /**

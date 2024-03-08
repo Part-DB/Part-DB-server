@@ -32,6 +32,7 @@ use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Repository\UserSystem\ApiTokenRepository;
 use App\State\CurrentApiTokenProvider;
+use App\Validator\Constraints\Year2038BugWorkaround;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -76,6 +77,7 @@ class ApiToken implements TimeStampableInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups('token:read')]
+    #[Year2038BugWorkaround]
     private ?\DateTimeInterface $valid_until;
 
     #[ORM\Column(length: 68, unique: true)]

@@ -206,6 +206,10 @@ See the [information providers]({% link usage/information_provider_system.md %})
   mode. (**You should not do this on a publicly accessible server, as it will leak sensitive information!**)
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker
   containers. In all other applications you can just change the `config/banner.md` file.
+* `DISABLE_YEAR2038_BUG_CHECK`: If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
+2038 are no longer forbidden. However this will lead to 500 error messages when rendering dates after 2038 as all current
+32-bit PHP versions can not format these dates correctly. This setting is for the case that future PHP versions will
+handle this correctly on 32-bit systems. 64-bit systems are not affected by this bug, and the check is always disabled.
 
 ## Banner
 
