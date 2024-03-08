@@ -18,6 +18,9 @@ installation.
 > network.
 > If you want to expose Part-DB to the internet, you HAVE to configure an SSL connection!
 
+It is recommended to install Part-DB on a 64-bit system, as the 32-bit version of PHP is affected by the 
+[Year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem) and can not handle dates after 2038 correctly.
+
 ## Installation with SQLite database
 
 ### Install prerequisites

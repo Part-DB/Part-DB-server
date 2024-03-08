@@ -16,6 +16,9 @@ where docker is available (especially recommended for Windows and macOS).
 > network.
 > If you want to expose Part-DB to the internet, you have to configure a reverse proxy with an SSL certificate!
 
+It is recommended to install Part-DB on a 64-bit system, as the 32-bit version of PHP is affected by the
+[Year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem) and can not handle dates after 2038 correctly.
+
 ## Docker-compose
 
 Docker-compose configures the needed images and automatically creates the needed containers and volumes.
