@@ -341,5 +341,11 @@
         <target>Dieser Lieferanten Barcode Wert wird bereits bei einem anderen Bestand verwendet. Der Barcode muss eindeutig sein!</target>
       </segment>
     </unit>
+    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>Aufgrund technischer Beschränkungen ist es nicht möglich, ein Datum nach dem 19.01.2038 auf 32-Bit Systemen auszuwählen!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
