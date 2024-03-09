@@ -129,6 +129,21 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
+     * Sanitizes a field by removing any HTML tags and other unwanted characters
+     * @param  string|null  $field
+     * @return string|null
+     */
+    private function sanitizeField(?string $field): ?string
+    {
+        if ($field === null) {
+            return null;
+        }
+
+        return strip_tags($field);
+    }
+
+
+    /**
      * Takes a deserialized json object of the product and returns a PartDetailDTO
      * @param  array  $product
      * @return PartDetailDTO
@@ -146,8 +161,9 @@ class LCSCProvider implements InfoProviderInterface
 
         // LCSC puts HTML in footprints and descriptions sometimes randomly
         $footprint = $product["encapStandard"] ?? null;
-        if ($footprint !== null) {
-            $footprint = strip_tags($footprint);
+        //If the footprint just consists of a dash, we'll assume it's empty
+        if ($footprint === '-') {
+            $footprint = null;
         }
 
         //Build category by concatenating the catalogName and parentCatalogName
@@ -163,14 +179,14 @@ class LCSCProvider implements InfoProviderInterface
             provider_key: $this->getProviderKey(),
             provider_id: $product['productCode'],
             name: $product['productModel'],
-            description: strip_tags($product['productIntroEn']),
-            category: $category,
-            manufacturer: $product['brandNameEn'],
-            mpn: $product['productModel'] ?? null,
+            description: $this->sanitizeField($product['productIntroEn']),
+            category: $this->sanitizeField($category ?? null),
+            manufacturer: $this->sanitizeField($product['brandNameEn'] ?? null),
+            mpn: $this->sanitizeField($product['productModel'] ?? null),
             preview_image_url: $product['productImageUrl'],
             manufacturing_status: null,
             provider_url: $this->getProductShortURL($product['productCode']),
-            footprint: $footprint,
+            footprint: $this->sanitizeField($footprint),
             datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
             images: $product_images,
             parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
