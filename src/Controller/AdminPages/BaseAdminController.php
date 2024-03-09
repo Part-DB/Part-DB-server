@@ -353,6 +353,10 @@ abstract class BaseAdminController extends AbstractController
                 $em->persist($result);
             }
             $em->flush();
+
+            if (count($results) > 0) {
+            	$this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
+            }
         }
 
         ret:
