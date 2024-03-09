@@ -218,7 +218,7 @@ class LCSCProvider implements InfoProviderInterface
     {
         //Decide based on the currency symbol
         return match ($currency) {
-            'US$' => 'USD',
+            'US$', '$' => 'USD',
             '€' => 'EUR',
             'A$' => 'AUD',
             'C$' => 'CAD',
@@ -231,7 +231,8 @@ class LCSCProvider implements InfoProviderInterface
             'kr' => 'SEK',
             'kr.' => 'DKK',
             '₹' => 'INR',
-            default => throw new \RuntimeException('Unknown currency: ' . $currency)
+            //Fallback to the configured currency
+            default => $this->currency,
         };
     }
 
