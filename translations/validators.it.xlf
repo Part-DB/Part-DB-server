@@ -341,5 +341,11 @@
         <target>Il valore del codice a barre di questo fornitore è già stato utilizzato in un altro lotto. Il codice a barre deve essere unico.</target>
       </segment>
     </unit>
+    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>A causa di limitazioni tecniche, non è possibile selezionare date successive al 19-01-2038 su sistemi a 32 bit!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
