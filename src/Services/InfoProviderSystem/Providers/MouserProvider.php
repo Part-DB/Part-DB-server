@@ -210,6 +210,16 @@ class MouserProvider implements InfoProviderInterface
 
         $result = [];
         foreach ($products as $product) {
+
+            //Check if we have a mass field available
+            $mass = null;
+            if (isset($product['UnitWeightKg']['UnitWeight'])) {
+                $mass = (float) $product['UnitWeightKg']['UnitWeight'];
+                //The mass is given in kg, we want it in g
+                $mass *= 1000;
+            }
+
+
             $result[] = new PartDetailDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['MouserPartNumber'],
@@ -221,13 +231,14 @@ class MouserProvider implements InfoProviderInterface
                 preview_image_url: $product['ImagePath'],
                 manufacturing_status: $this->releaseStatusCodeToManufacturingStatus(
                     $product['LifecycleStatus'] ?? null,
-                        (int) ($product['AvailabilityInStock'] ?? 0)
+                    (int) ($product['AvailabilityInStock'] ?? 0)
                 ),
                 provider_url: $product['ProductDetailUrl'],
                 datasheets: $this->parseDataSheets($product['DataSheetUrl'] ?? null,
                     $product['MouserPartNumber'] ?? null),
                 vendor_infos: $this->pricingToDTOs($product['PriceBreaks'] ?? [], $product['MouserPartNumber'],
                     $product['ProductDetailUrl']),
+                mass: $mass,
             );
         }
         return $result;
