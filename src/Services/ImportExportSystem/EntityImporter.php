@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Repository\StructuralDBElementRepository;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\Validator\ConstraintViolationList;
 use function count;
@@ -50,12 +51,15 @@ class EntityImporter
      * Creates many entries at once, based on a (text) list of name.
      * The created entities are not persisted to database yet, so you have to do it yourself.
      *
+     * @template T of AbstractNamedDBElement
      * @param string                           $lines      The list of names seperated by \n
      * @param string                           $class_name The name of the class for which the entities should be created
+     * @phpstan-param class-string<T> $class_name
      * @param AbstractStructuralDBElement|null $parent     the element which will be used as parent element for new elements
      * @param array                            $errors     an associative array containing all validation errors
      *
-     * @return AbstractStructuralDBElement[] An array containing all valid imported entities (with the type $class_name)
+     * @return AbstractNamedDBElement[] An array containing all valid imported entities (with the type $class_name)
+     * @return T[]
      */
     public function massCreation(string $lines, string $class_name, ?AbstractStructuralDBElement $parent = null, array &$errors = []): array
     {
@@ -69,6 +73,13 @@ class EntityImporter
             throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
+        //Ensure that parent is already persisted. Otherwise the getNewEntityFromPath function will not work.
+        if ($parent !== null && $parent->getID() === null) {
+            throw new InvalidArgumentException('The parent must persisted to database!');
+        }
+
+        $repo = $this->em->getRepository($class_name);
+
         $errors = [];
         $valid_entities = [];
 
@@ -78,10 +89,10 @@ class EntityImporter
         $indentations = [0];
 
         foreach ($names as $name) {
-            //Count intendation level (whitespace characters at the beginning of the line)
+            //Count indentation level (whitespace characters at the beginning of the line)
             $identSize = strlen($name)-strlen(ltrim($name));
 
-            //If the line is intendet more than the last line, we have a new parent element
+            //If the line is intended more than the last line, we have a new parent element
             if ($identSize > end($indentations)) {
                 $current_parent = $last_element;
                 //Add the new indentation level to the stack
@@ -98,14 +109,25 @@ class EntityImporter
                 //Skip empty lines (StrucuralDBElements must have a name)
                 continue;
             }
+
             /** @var AbstractStructuralDBElement $entity */
-            //Create new element with given name
-            $entity = new $class_name();
-            $entity->setName($name);
-            //Only set the parent if the entity is a StructuralDBElement
-            if ($entity instanceof AbstractStructuralDBElement) {
-                $entity->setParent($current_parent);
+            //Create new element with given name. Using the function from the repository, to correctly reuse existing elements
+
+            if ($current_parent instanceof AbstractStructuralDBElement) {
+                $new_path = $current_parent->getFullPath("->") . '->' . $name;
+            } else {
+                $new_path = $name;
             }
+            //We can only use the getNewEntityFromPath function, if the repository is a StructuralDBElementRepository
+            if ($repo instanceof StructuralDBElementRepository) {
+                $entities = $repo->getNewEntityFromPath($new_path);
+                $entity = end($entities);
+            } else { //Otherwise just create a new entity
+                $entity = new $class_name;
+                $entity->setName($name);
+            }
+
+
 
             //Validate entity
             $tmp = $this->validator->validate($entity);
