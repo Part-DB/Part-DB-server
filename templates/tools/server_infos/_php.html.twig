@@ -31,5 +31,19 @@
         <td>Server time</td>
         <td>{{ "now" | format_datetime("long", "long") }}</td>
     </tr>
+    <tr>
+        <td>Symfony Kernel Runtime</td>
+        <td>{{ kernel_runtime }}</td>
+    </tr>
+    <tr>
+        <td>Symfony Kernel Runtime Environment</td>
+        <td>{{ kernel_runtime_environment }}</td>
+    </tr>
+    <tr>
+        <td>Symfony Kernel Runtime mode</td>
+        <td>{% for key, value in kernel_runtime_mode %}
+                {{ key }}: {{ value }}<br>
+            {% endfor %}</td>
+    </tr>
     </tbody>
 </table>
