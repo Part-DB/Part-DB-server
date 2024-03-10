@@ -47,7 +47,6 @@ yarn-error.log
 ### From frankenphp
 
 **/*.log
-**/*.md
 **/*.php~
 **/*.dist.php
 **/*.dist
