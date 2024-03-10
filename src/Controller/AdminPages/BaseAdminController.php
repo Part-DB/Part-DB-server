@@ -24,6 +24,7 @@ namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -190,6 +191,13 @@ abstract class BaseAdminController extends AbstractController
                     }
                 }
 
+                //Ensure that the master picture is still part of the attachments
+                if ($entity instanceof AttachmentContainingDBElement) {
+                    if ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment())) {
+                        $entity->setMasterPictureAttachment(null);
+                    }
+                }
+
                 $this->commentHelper->setMessage($form['log_comment']->getData());
 
                 $em->persist($entity);
@@ -273,6 +281,14 @@ abstract class BaseAdminController extends AbstractController
                     );
                 }
             }
+
+            //Ensure that the master picture is still part of the attachments
+            if ($new_entity instanceof AttachmentContainingDBElement) {
+                if ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment())) {
+                    $new_entity->setMasterPictureAttachment(null);
+                }
+            }
+
             $this->commentHelper->setMessage($form['log_comment']->getData());
             $em->persist($new_entity);
             $em->flush();

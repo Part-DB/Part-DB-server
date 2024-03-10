@@ -312,6 +312,11 @@ class PartController extends AbstractController
                 }
             }
 
+            //Ensure that the master picture is still part of the attachments
+            if ($new_part->getMasterPictureAttachment() !== null && !$new_part->getAttachments()->contains($new_part->getMasterPictureAttachment())) {
+                $new_part->setMasterPictureAttachment(null);
+            }
+
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $this->em->persist($new_part);
