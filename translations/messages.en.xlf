@@ -12203,5 +12203,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Upload files</target>
       </segment>
     </unit>
+    <unit id="OBO.21_" name="entity.mass_creation_flash">
+      <segment state="translated">
+        <source>entity.mass_creation_flash</source>
+        <target>Created %COUNT% entities successfully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
