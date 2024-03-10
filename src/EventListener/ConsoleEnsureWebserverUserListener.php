@@ -55,6 +55,11 @@ class ConsoleEnsureWebserverUserListener
 
         //Check if we are trying to run as root
         if ($this->isRunningAsRoot()) {
+            //If the COMPOSER_ALLOW_SUPERUSER environment variable is set, we allow running as root
+            if ($_SERVER['COMPOSER_ALLOW_SUPERUSER'] ?? false) {
+                return;
+            }
+
             $io->warning('You are running this command as root. This is not recommended, as it can cause permission problems. Please run this command as the webserver user "'. ($webserver_user ?? '??') . '" instead.');
             $io->info('You might have already caused permission problems by running this command as wrong user. If you encounter issues with Part-DB, delete the var/cache directory completely and let it be recreated by Part-DB.');
             if ($input->isInteractive() && !$io->confirm('Do you want to continue?', false)) {
