@@ -44,15 +44,15 @@
         "version": "1.3.3"
     },
     "dama/doctrine-test-bundle": {
-        "version": "7.2",
+        "version": "8.0",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
-            "version": "4.0",
-            "ref": "2c920f73a217f30bd4a37833c91071f4d3dc1ecd"
+            "version": "7.2",
+            "ref": "896306d79d4ee143af9eadf9b09fd34a8c391b70"
         },
         "files": [
-            "config/packages/test/dama_doctrine_test_bundle.yaml"
+            "./config/packages/dama_doctrine_test_bundle.yaml"
         ]
     },
     "dnoegel/php-xdg-base-dir": {
@@ -92,12 +92,12 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.10",
-            "ref": "0db4b12b5df45f5122213b4ecd18733ab7fa7d53"
+            "ref": "c170ded8fc587d6bd670550c43dafcf093762245"
         },
         "files": [
-            "config/packages/doctrine.yaml",
-            "src/Entity/.gitignore",
-            "src/Repository/.gitignore"
+            "./config/packages/doctrine.yaml",
+            "./src/Entity/.gitignore",
+            "./src/Repository/.gitignore"
         ]
     },
     "doctrine/doctrine-fixtures-bundle": {
@@ -174,7 +174,7 @@
         "version": "3.5.0"
     },
     "florianv/swap-bundle": {
-        "version": "5.0.0"
+        "version": "5.0.x-dev"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
@@ -183,16 +183,16 @@
         "version": "v1.1.7"
     },
     "gregwar/captcha-bundle": {
-        "version": "v2.0.6"
+        "version": "v2.2.0"
     },
     "imagine/imagine": {
         "version": "1.2.2"
     },
     "jbtronics/2fa-webauthn": {
-        "version": "dev-master"
+        "version": "v2.2.1"
     },
     "jbtronics/dompdf-font-loader-bundle": {
-        "version": "dev-main"
+        "version": "v1.1.1"
     },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.15",
@@ -232,7 +232,7 @@
         "version": "1.24.0"
     },
     "nbgrp/onelogin-saml-bundle": {
-        "version": "v1.3.2"
+        "version": "v1.4.0"
     },
     "nelmio/cors-bundle": {
         "version": "2.3",
@@ -451,7 +451,7 @@
         "version": "3.0.2"
     },
     "shivas/versioning-bundle": {
-        "version": "3.1.3"
+        "version": "4.0.3"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -459,10 +459,10 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "1.0",
-            "ref": "efb318193e48384eb5c5aadff15396ed698f8ffc"
+            "ref": "0f18b4decdf5695d692c1d0dfd65516a07a6adf1"
         },
         "files": [
-            "public/.htaccess"
+            "./public/.htaccess"
         ]
     },
     "symfony/asset": {
@@ -590,15 +590,15 @@
         "version": "v4.2.3"
     },
     "symfony/mailer": {
-        "version": "5.4",
+        "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "4.3",
-            "ref": "2bf89438209656b85b9a49238c4467bff1b1f939"
+            "ref": "df66ee1f226c46f01e85c29c2f7acce0596ba35a"
         },
         "files": [
-            "config/packages/mailer.yaml"
+            "./config/packages/mailer.yaml"
         ]
     },
     "symfony/maker-bundle": {
@@ -617,12 +617,12 @@
         "version": "v4.4.2"
     },
     "symfony/monolog-bundle": {
-        "version": "3.7",
+        "version": "3.10",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "3.7",
-            "ref": "213676c4ec929f046dfde5ea8e97625b81bc0578"
+            "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
         },
         "files": [
             "./config/packages/monolog.yaml"
@@ -640,13 +640,13 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.3",
-            "ref": "1f5830c331065b6e4c9d5fa2105e322d29fcd573"
+            "ref": "a411a0480041243d97382cac7984f7dce7813c08"
         },
         "files": [
-            ".env.test",
-            "bin/phpunit",
-            "phpunit.xml.dist",
-            "tests/bootstrap.php"
+            "./.env.test",
+            "./bin/phpunit",
+            "./phpunit.xml.dist",
+            "./tests/bootstrap.php"
         ]
     },
     "symfony/polyfill-ctype": {
@@ -730,12 +730,12 @@
         "version": "v1.1.5"
     },
     "symfony/stimulus-bundle": {
-        "version": "2.9",
+        "version": "2.16",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "2.9",
-            "ref": "05c45071c7ecacc1e48f94bc43c1f8d4405fb2b2"
+            "version": "2.13",
+            "ref": "6acd9ff4f7fd5626d2962109bd4ebab351d43c43"
         },
         "files": [
             "./assets/bootstrap.js",
@@ -755,11 +755,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.3",
-            "ref": "64fe617084223633e1dedf9112935d8c95410d3e"
+            "ref": "e28e27f53663cc34f0be2837aba18e3a1bef8e7b"
         },
         "files": [
-            "config/packages/translation.yaml",
-            "translations/.gitignore"
+            "./config/packages/translation.yaml",
+            "./translations/.gitignore"
         ]
     },
     "symfony/translation-contracts": {
@@ -769,16 +769,16 @@
         "version": "v4.2.3"
     },
     "symfony/twig-bundle": {
-        "version": "6.3",
+        "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "6.3",
-            "ref": "b7772eb20e92f3fb4d4fe756e7505b4ba2ca1a2c"
+            "version": "6.4",
+            "ref": "cab5fd2a13a45c266d45a7d9337e28dee6272877"
         },
         "files": [
-            "config/packages/twig.yaml",
-            "templates/base.html.twig"
+            "./config/packages/twig.yaml",
+            "./templates/base.html.twig"
         ]
     },
     "symfony/uid": {
@@ -809,7 +809,7 @@
         ]
     },
     "symfony/ux-turbo": {
-        "version": "v2.0.1"
+        "version": "v2.16.0"
     },
     "symfony/validator": {
         "version": "5.4",
@@ -880,7 +880,7 @@
         "version": "v3.0.0"
     },
     "twig/extra-bundle": {
-        "version": "v3.0.0"
+        "version": "v3.8.0"
     },
     "twig/html-extra": {
         "version": "v3.0.3"
