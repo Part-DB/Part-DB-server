@@ -12199,5 +12199,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Dateien hochladen</target>
       </segment>
     </unit>
+    <unit id="OBO.21_" name="entity.mass_creation_flash">
+      <segment state="translated">
+        <source>entity.mass_creation_flash</source>
+        <target>%COUNT% Elemente erfolgreich erstellt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
