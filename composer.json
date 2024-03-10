@@ -45,6 +45,7 @@
         "php-translation/symfony-bundle": "^0.14.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpstan/phpdoc-parser": "^1.23",
+        "runtime/frankenphp-symfony": "^0.2.0",
         "s9e/text-formatter": "^2.1",
         "scheb/2fa-backup-code": "^6.8.0",
         "scheb/2fa-bundle": "^6.8.0",
