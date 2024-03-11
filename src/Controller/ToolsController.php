@@ -82,6 +82,9 @@ class ToolsController extends AbstractController
             'php_opcache_enabled' => ini_get('opcache.enable'),
             'php_upload_max_filesize' => ini_get('upload_max_filesize'),
             'php_post_max_size' => ini_get('post_max_size'),
+            'kernel_runtime_environment' => $this->getParameter('kernel.runtime_environment'),
+            'kernel_runtime_mode' => $this->getParameter('kernel.runtime_mode'),
+            'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? 'Symfony\\Component\\Runtime\\SymfonyRuntime',
 
             //DB section
             'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',
