@@ -370,8 +370,10 @@ class AttachmentSubmitHandler
             //If a content disposition header was set try to extract the filename out of it
             if (isset($headers['content-disposition'])) {
                 $tmp = [];
-                if (preg_match('/[^;\\n=]*=([\'\"])*(.*)(?(1)\1|)/', $headers['content-disposition'][0], $tmp))
+                //Only use the filename if the regex matches properly
+                if (preg_match('/[^;\\n=]*=([\'\"])*(.*)(?(1)\1|)/', $headers['content-disposition'][0], $tmp)) {
                     $filename = $tmp[2];
+                }
             }
 
             //If we don't know filename yet, try to determine it out of url
