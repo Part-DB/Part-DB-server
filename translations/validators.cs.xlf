@@ -341,5 +341,11 @@
         <target>Tato hodnota čárového kódu dodavatele již byla použita v jiném inventáře. Čárový kód musí být jedinečný!</target>
       </segment>
     </unit>
+    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>Kvůli technickým omezením není možné na 32bitových systémech vybrat datumpo 19.1.2038!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
