@@ -182,7 +182,7 @@ class KiCadHelper
         ];
 
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
-        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
