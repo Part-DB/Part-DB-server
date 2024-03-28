@@ -3443,7 +3443,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>user.username.label</source>
-        <target>User name</target>
+        <target>Username</target>
       </segment>
     </unit>
     <unit id="QK5x4IY" name="group.label">
