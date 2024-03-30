@@ -91,7 +91,7 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
-     * @param  string  $pdfURL
+     * @param  string  url
      * @return String
      */
     private function getRealDatasheetUrl(?string $url): string
