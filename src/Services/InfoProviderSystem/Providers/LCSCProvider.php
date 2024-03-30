@@ -91,6 +91,27 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
+     * @param  string  $pdfURL
+     * @return String
+     */
+    private function getRealDatasheetUrl(?string $url): string
+    {
+        if (!empty($url) && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+          $response = $this->lcscClient->request('GET', $url, [
+              'headers' => [
+                  'User-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
+                  'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
+              ],
+          ]);
+          if (preg_match('/(pdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+            $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
+            $url = $jsonObj->pdfUrl;
+          }
+        }
+        return $url;
+    }
+
+    /**
      * @param  string  $term
      * @return PartDetailDTO[]
      */
@@ -273,7 +294,9 @@ class LCSCProvider implements InfoProviderInterface
             return [];
         }
 
-        return [new FileDTO($url, null)];
+        $realUrl = $this->getRealDatasheetUrl($url);
+
+        return [new FileDTO($realUrl, null)];
     }
 
     /**
