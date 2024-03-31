@@ -210,6 +210,10 @@ class DigikeyProvider implements InfoProviderInterface
                 $footprint_name = $parameter['Value'];
             }
 
+            if (in_array(trim($parameter['Value']), array('', '-'), true)) {
+                continue;
+            }
+
             $results[] = ParameterDTO::parseValueIncludingUnit($parameter['Parameter'], $parameter['Value']);
         }
 
