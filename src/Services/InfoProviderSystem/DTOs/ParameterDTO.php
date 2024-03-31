@@ -75,6 +75,8 @@ class ParameterDTO
                 if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit) . ')\s*(.+)$/', $parts[1], $matches) > 0) {
                     $parts[1] = $matches[1];
                     $value_text2 = $matches[2];
+                } else {
+                    $value_text2 = null;
                 }
                 [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
 
