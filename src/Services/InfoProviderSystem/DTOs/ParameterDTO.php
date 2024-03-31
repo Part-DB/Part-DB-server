@@ -72,9 +72,8 @@ class ParameterDTO
                 //Try to extract number and unit from value (allow leading +)
                 if (empty($unit)) {
                     [$number, $unit] = self::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
-                    $unit2 = null;
                 } else {
-                    $unit2 = $unit;
+                    $number = $parts[0];
                 }
                 // If the second part has some extra info, we'll save that into value_text
                 if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit) . ')\s*(.+)$/', $parts[1], $matches) > 0) {
@@ -83,9 +82,7 @@ class ParameterDTO
                 } else {
                     $value_text2 = null;
                 }
-                if (empty($unit2)) {
-                    [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
-                }
+                [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], $unit];
 
                 //If both parts have the same unit and both values are numerical, we assume it is a range
                 if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
