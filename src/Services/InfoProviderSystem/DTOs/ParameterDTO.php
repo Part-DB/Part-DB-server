@@ -70,7 +70,12 @@ class ParameterDTO
             $parts = preg_split('/\s*(\.{3}|~)\s*/', $value);
             if (count($parts) === 2) {
                 //Try to extract number and unit from value (allow leading +)
-                [$number, $unit] = self::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
+                if (empty($unit)) {
+                    [$number, $unit] = self::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
+                    $unit2 = null;
+                } else {
+                    $unit2 = $unit;
+                }
                 // If the second part has some extra info, we'll save that into value_text
                 if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit) . ')\s*(.+)$/', $parts[1], $matches) > 0) {
                     $parts[1] = $matches[1];
@@ -78,18 +83,20 @@ class ParameterDTO
                 } else {
                     $value_text2 = null;
                 }
-                [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
+                if (empty($unit2)) {
+                    [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
+                }
 
                 //If both parts have the same unit and both values are numerical, we assume it is a range
                 if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
-                    return new self(name: $name, value_min: (float) $number, value_max: (float) $number2, value_text: $value_text2, unit: $unit, group: null);
+                    return new self(name: $name, value_min: (float) $number, value_max: (float) $number2, value_text: $value_text2, unit: $unit, symbol: $symbol, group: $group);
                 }
             }
         //If it's a plus/minus value, we'll also treat it as a range
         } elseif (str_starts_with($value, '±')) {
           [$number, $unit] = self::splitIntoValueAndUnit(ltrim($value, " ±")) ?? [$value, null];
           if (is_numeric($number)) {
-            return new self(name: $name, value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, group: null);
+            return new self(name: $name, value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, symbol: $symbol, group: $group);
           }
         }
 
