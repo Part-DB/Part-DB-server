@@ -99,7 +99,6 @@ class LCSCProvider implements InfoProviderInterface
         if (!empty($url) && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
           $response = $this->lcscClient->request('GET', $url, [
               'headers' => [
-                  'User-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
                   'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
               ],
           ]);
