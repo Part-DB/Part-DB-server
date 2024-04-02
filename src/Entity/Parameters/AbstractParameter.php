@@ -125,7 +125,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     #[Assert\Type(['float', null])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
-    #[Groups(['full', 'parameter:read', 'parameter_write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
@@ -142,7 +142,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Assert\Type(['float', null])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
