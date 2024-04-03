@@ -65,7 +65,7 @@ class ParameterDTO
             return new self($name, value_typ: (float) $value, value_text: $value_text, unit: $unit, symbol: $symbol, group: $group);
         }
 
-        //If the attribute contains a tilde we assume it is a range
+        //If the attribute contains "..." or a tilde we assume it is a range
         if (preg_match('/(\.{3}|~)/', $value) === 1) {
             $parts = preg_split('/\s*(\.{3}|~)\s*/', $value);
             if (count($parts) === 2) {
@@ -84,7 +84,7 @@ class ParameterDTO
                 }
                 [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], $unit];
 
-                //If both parts have the same unit and both values are numerical, we assume it is a range
+                //If both parts have the same unit and both values are numerical, we'll save it as range
                 if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
                     return new self(name: $name, value_min: (float) $number, value_max: (float) $number2, value_text: $value_text2, unit: $unit, symbol: $symbol, group: $group);
                 }
