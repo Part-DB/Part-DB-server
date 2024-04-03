@@ -91,6 +91,28 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
+     * @param  string  $url
+     * @return String
+     */
+    private function getRealDatasheetUrl(?string $url): string
+    {
+        if (!empty($url) && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+          $response = $this->lcscClient->request('GET', $url, [
+              'headers' => [
+                  'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
+              ],
+          ]);
+          if (preg_match('/(pdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+            //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
+            //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
+            $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
+            $url = $jsonObj->pdfUrl;
+          }
+        }
+        return $url;
+    }
+
+    /**
      * @param  string  $term
      * @return PartDetailDTO[]
      */
@@ -273,7 +295,9 @@ class LCSCProvider implements InfoProviderInterface
             return [];
         }
 
-        return [new FileDTO($url, null)];
+        $realUrl = $this->getRealDatasheetUrl($url);
+
+        return [new FileDTO($realUrl, null)];
     }
 
     /**
