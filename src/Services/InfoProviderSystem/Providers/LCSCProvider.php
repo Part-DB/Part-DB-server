@@ -103,6 +103,8 @@ class LCSCProvider implements InfoProviderInterface
               ],
           ]);
           if (preg_match('/(pdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+            //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
+            //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
             $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
             $url = $jsonObj->pdfUrl;
           }
