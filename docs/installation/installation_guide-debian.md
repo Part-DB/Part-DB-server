@@ -342,7 +342,7 @@ exit
    Change it to the following (you have to replace `YOUR_SECRET_PASSWORD` with the password you have chosen in step 3):
 
 ```
-DATABASE_URL=DATABASE_URL=mysql://partdb:YOUR_SECRET_PASSWORD@127.0.0.1:3306/partdb
+DATABASE_URL=mysql://partdb:YOUR_SECRET_PASSWORD@127.0.0.1:3306/partdb
 ```
 
 5. Create the database schema with:
