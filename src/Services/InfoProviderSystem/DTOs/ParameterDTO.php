@@ -44,7 +44,10 @@ class ParameterDTO
 
     /**
      * This function tries to decide on the value, if it is a numerical value (which is then stored in one of the value_*) fields) or a text value (which is stored in value_text).
-     * It is possible to give ranges like 1...2 here, which will be parsed as value_min: 1.0, value_max: 2.0.
+     * It is possible to give ranges like 1...2 (or 1~2) here, which will be parsed as value_min: 1.0, value_max: 2.0.
+     *
+     * For certain expressions (like ranges) the unit is automatically extracted from the value, if no unit is given
+     * @TODO Rework that, so that the difference between parseValueField and parseValueIncludingUnit is clearer or merge them
      * @param  string  $name
      * @param  string|float  $value
      * @param  string|null  $unit
@@ -54,23 +57,66 @@ class ParameterDTO
      */
     public static function parseValueField(string $name, string|float $value, ?string $unit = null, ?string $symbol = null, ?string $group = null): self
     {
-        if (is_float($value) || is_numeric($value)) {
-            return new self($name, value_typ: (float) $value, unit: $unit, symbol: $symbol, group: $group);
+        //If we encounter something like 2.5@text, then put the "@text" into text_value and continue with the number parsing
+        if (is_string($value) && preg_match('/^(.+)(@.+)$/', $value, $matches) === 1) {
+            $value = $matches[1];
+            $value_text = $matches[2];
+        } else {
+            $value_text = null;
         }
 
-        //Try to parse as range
-        if (str_contains($value, '...')) {
-            $parts = explode('...', $value);
-            if (count($parts) === 2) {
+        //If the value is just a number, we assume thats the typical value
+        if (is_float($value) || is_numeric($value)) {
+            return new self($name, value_text: $value_text, value_typ: (float) $value, unit: $unit, symbol: $symbol,
+                group: $group);
+        }
 
-                //Ensure that both parts are numerical
-                if (is_numeric($parts[0]) && is_numeric($parts[1])) {
-                    return new self($name, value_min: (float) $parts[0], value_max: (float) $parts[1], unit: $unit, symbol: $symbol, group: $group);
+        //If the attribute contains "..." or a tilde we assume it is a range
+        if (preg_match('/(\.{3}|~)/', $value) === 1) {
+            $parts = preg_split('/\s*(\.{3}|~)\s*/', $value);
+            if (count($parts) === 2) {
+                //Try to extract number and unit from value (allow leading +)
+                if (empty($unit)) {
+                    [$number, $unit] = self::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
+                } else {
+                    $number = $parts[0];
+                }
+
+                // If the second part has some extra info, we'll save that into value_text
+                if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit, '/') . ')\s*(.+)$/', $parts[1], $matches) > 0) {
+                    $parts[1] = $matches[1];
+                    $value_text2 = $matches[2];
+                } else {
+                    $value_text2 = null;
+                }
+                [$number2, $unit2] = self::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], $unit];
+
+                //If both parts have the same unit and both values are numerical, we'll save it as range
+                if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
+                    return new self(name: $name, value_text: $value_text2, value_min: (float) $number,
+                        value_max: (float) $number2, unit: $unit, symbol: $symbol, group: $group);
                 }
             }
+        //If it's a plus/minus value, we'll also treat it as a range
+        } elseif (str_starts_with($value, '±')) {
+          [$number, $unit] = self::splitIntoValueAndUnit(ltrim($value, " ±")) ?? [ltrim($value, ' ±'), $unit];
+          if (is_numeric($number)) {
+            return new self(name: $name, value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, symbol: $symbol, group: $group);
+          }
         }
 
-        return new self($name, value_text: $value, unit: $unit, symbol: $symbol, group: $group);
+        //If no unit was passed to us, try to extract it from the value
+        if (empty($unit)) {
+            [$value, $unit] = self::splitIntoValueAndUnit($value) ?? [$value, null];
+        }
+
+        //Were we successful in trying to reduce the value to a number?
+        if ($value_text !== null && is_numeric($value)) {
+            return new self($name, value_text: $value_text, value_typ: (float) $value, unit: $unit, symbol: $symbol,
+                group: $group);
+        }
+
+        return new self($name, value_text: $value.$value_text, unit: $unit, symbol: $symbol, group: $group);
     }
 
     /**
@@ -106,7 +152,7 @@ class ParameterDTO
      */
     public static function splitIntoValueAndUnit(string $value): ?array
     {
-       if (preg_match('/^(?<value>-?[0-9\.]+)\s*(?<unit>[%Ω°℃a-z_\/]+\s?\w{0,4})$/iu', $value, $matches)) {
+       if (preg_match('/^(?<value>-?[0-9\.]+)\s*(?<unit>[%Ωµ°℃a-z_\/]+\s?\w{0,4})$/iu', $value, $matches)) {
            $value = $matches['value'];
            $unit = $matches['unit'];
 
