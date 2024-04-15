@@ -192,6 +192,33 @@ class ParameterDTOTest extends TestCase
             'm',
             'test'
         ];
+
+        //Test ranges with tilde
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '-1.0kg~+2.0kg', //Leading signs are parsed correctly
+            'm',
+            'test'
+        ];
+
+        //Test @comment
+        yield [
+            new ParameterDTO('test', value_text: "@comment", value_typ: 1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '1.0 kg@comment',
+            'm',
+            'test'
+        ];
+
+        //Test plus minus range (without unit)
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: +1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '±1.0 kg',
+            'm',
+            'test'
+        ];
     }
 
     /**

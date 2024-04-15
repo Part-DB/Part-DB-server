@@ -45,6 +45,9 @@ class ParameterDTO
     /**
      * This function tries to decide on the value, if it is a numerical value (which is then stored in one of the value_*) fields) or a text value (which is stored in value_text).
      * It is possible to give ranges like 1...2 (or 1~2) here, which will be parsed as value_min: 1.0, value_max: 2.0.
+     *
+     * For certain expressions (like ranges) the unit is automatically extracted from the value, if no unit is given
+     * @TODO Rework that, so that the difference between parseValueField and parseValueIncludingUnit is clearer or merge them
      * @param  string  $name
      * @param  string|float  $value
      * @param  string|null  $unit
