@@ -44,7 +44,7 @@ class ParameterDTO
 
     /**
      * This function tries to decide on the value, if it is a numerical value (which is then stored in one of the value_*) fields) or a text value (which is stored in value_text).
-     * It is possible to give ranges like 1...2 here, which will be parsed as value_min: 1.0, value_max: 2.0.
+     * It is possible to give ranges like 1...2 (or 1~2) here, which will be parsed as value_min: 1.0, value_max: 2.0.
      * @param  string  $name
      * @param  string|float  $value
      * @param  string|null  $unit
@@ -54,6 +54,7 @@ class ParameterDTO
      */
     public static function parseValueField(string $name, string|float $value, ?string $unit = null, ?string $symbol = null, ?string $group = null): self
     {
+        //If we encounter something like 2.5@text, then put the "@text" into text_value and continue with the number parsing
         if (is_string($value) && preg_match('/^(.+)(@.+)$/', $value, $matches) === 1) {
             $value = $matches[1];
             $value_text = $matches[2];
@@ -61,8 +62,10 @@ class ParameterDTO
             $value_text = null;
         }
 
+        //If the value is just a number, we assume thats the typical value
         if (is_float($value) || is_numeric($value)) {
-            return new self($name, value_typ: (float) $value, value_text: $value_text, unit: $unit, symbol: $symbol, group: $group);
+            return new self($name, value_text: $value_text, value_typ: (float) $value, unit: $unit, symbol: $symbol,
+                group: $group);
         }
 
         //If the attribute contains "..." or a tilde we assume it is a range
@@ -75,8 +78,9 @@ class ParameterDTO
                 } else {
                     $number = $parts[0];
                 }
+
                 // If the second part has some extra info, we'll save that into value_text
-                if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit) . ')\s*(.+)$/', $parts[1], $matches) > 0) {
+                if (!empty($unit) && preg_match('/^(.+' . preg_quote($unit, '/') . ')\s*(.+)$/', $parts[1], $matches) > 0) {
                     $parts[1] = $matches[1];
                     $value_text2 = $matches[2];
                 } else {
@@ -86,12 +90,13 @@ class ParameterDTO
 
                 //If both parts have the same unit and both values are numerical, we'll save it as range
                 if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
-                    return new self(name: $name, value_min: (float) $number, value_max: (float) $number2, value_text: $value_text2, unit: $unit, symbol: $symbol, group: $group);
+                    return new self(name: $name, value_text: $value_text2, value_min: (float) $number,
+                        value_max: (float) $number2, unit: $unit, symbol: $symbol, group: $group);
                 }
             }
         //If it's a plus/minus value, we'll also treat it as a range
         } elseif (str_starts_with($value, '±')) {
-          [$number, $unit] = self::splitIntoValueAndUnit(ltrim($value, " ±")) ?? [$value, null];
+          [$number, $unit] = self::splitIntoValueAndUnit(ltrim($value, " ±")) ?? [ltrim($value, ' ±'), $unit];
           if (is_numeric($number)) {
             return new self(name: $name, value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, symbol: $symbol, group: $group);
           }
@@ -104,7 +109,8 @@ class ParameterDTO
 
         //Were we successful in trying to reduce the value to a number?
         if ($value_text !== null && is_numeric($value)) {
-            return new self($name, value_typ: (float) $value, value_text: $value_text, unit: $unit, symbol: $symbol, group: $group);
+            return new self($name, value_text: $value_text, value_typ: (float) $value, unit: $unit, symbol: $symbol,
+                group: $group);
         }
 
         return new self($name, value_text: $value.$value_text, unit: $unit, symbol: $symbol, group: $group);
