@@ -12204,5 +12204,11 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Carica file</target>
       </segment>
     </unit>
+    <unit id="OBO.21_" name="entity.mass_creation_flash">
+      <segment state="translated">
+        <source>entity.mass_creation_flash</source>
+        <target>%COUNT% elementi creati correttamente.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
