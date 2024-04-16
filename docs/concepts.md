@@ -152,13 +152,16 @@ Footprints are hierarchically which allows you to build logically sorted trees. 
 
 ### Measurement Unit
 
-By default, part instock is counted in number of individual parts, which is fine for things like electronic components,
+By default, part in stock is counted in number of individual parts, which is fine for things like electronic components,
 which exist only in integer quantities. However, if you have things with fractional units like the length of a wire or
 the volume of a liquid, you have to define a measurement unit.
 The measurement unit represents a physical quantity like mass, volume, or length.
 
 You can define a short unit for it (like m for Meters, or g for grams) which will be shown when a quantity of a part
 with this unit is shown.
+
+In order to cover wider use cases and allow you to define measurement units further, it is possible to define parameters
+associated to a measurement unit. These parameters are distinct from a part's parameters and are not inherited.
 
 ### Currency
 
