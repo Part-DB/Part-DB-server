@@ -8040,7 +8040,7 @@
       </notes>
       <segment state="translated">
         <source>perm.tools.ic_logos</source>
-        <target>логотипы ИС</target>
+        <target>Логотипы производителей</target>
       </segment>
     </unit>
     <unit id="soh_cnt" name="perm.tools.statistics">
@@ -10116,7 +10116,7 @@
     <unit id="Dw4KG4Y" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>
-        <target>Логотипы IC</target>
+        <target>Логотипы производителей</target>
       </segment>
     </unit>
     <unit id="9a9Yu9u" name="part_list.action.group.labels">
