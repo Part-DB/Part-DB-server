@@ -3130,7 +3130,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>Sum of all part instocks</target>
+        <target>Sum of all parts stocks</target>
       </segment>
     </unit>
     <unit id="OUVlqDZ" name="statistics.parts_with_price">
