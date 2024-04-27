@@ -52,13 +52,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     protected ?\DateTimeInterface $last_time_used = null;
-
-    //Fix compatibility with webauthn-library >= 4.8 which would fail with an "failed to access uvInitialized before initialization" error otherwise
-    //TODO: Make these fields persistent, so that users can view these status infos in the UI
-    public ?bool $uvInitialized = null;
-    public ?bool $backupEligible = null;
-    public ?bool $backupStatus = null;
-
+    
     public function getName(): string
     {
         return $this->name;
