@@ -50,6 +50,9 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'webauthn_keys')]
     protected ?User $user = null;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeInterface $last_time_used = null;
+
     //Fix compatibility with webauthn-library >= 4.8 which would fail with an "failed to access uvInitialized before initialization" error otherwise
     //TODO: Make these fields persistent, so that users can view these status infos in the UI
     public ?bool $uvInitialized = null;
@@ -83,9 +86,23 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
         return $this->id;
     }
 
+    /**
+     * Retrieve the last time when the key was used.
+     * @return \DateTimeInterface|null
+     */
+    public function getLastTimeUsed(): ?\DateTimeInterface
+    {
+        return $this->last_time_used;
+    }
 
-
-
+    /**
+     * Update the last time when the key was used.
+     * @return void
+     */
+    public function updateLastTimeUsed(): void
+    {
+        $this->last_time_used = new \DateTimeImmutable('now');
+    }
 
     public static function fromRegistration(BasePublicKeyCredentialSource $registration): self
     {
