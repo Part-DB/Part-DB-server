@@ -341,5 +341,11 @@
         <target>该供应商条码已在另一批次中使用。条形码必须是唯一的</target>
       </segment>
     </unit>
+    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>由于技术限制，在32位系统中无法选择2038年1月19日之后的日期！</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
