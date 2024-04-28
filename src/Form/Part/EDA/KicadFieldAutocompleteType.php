@@ -36,8 +36,9 @@ class KicadFieldAutocompleteType extends AbstractType
     public const TYPE_FOOTPRINT = 'footprint';
     public const TYPE_SYMBOL = 'symbol';
 
-    public const FOOTPRINT_PATH = '/kicad/footprints.txt';
-    public const SYMBOL_PATH = '/kicad/symbols.txt';
+    //Do not use a leading slash here! otherwise it will not work under prefixed reverse proxies
+    public const FOOTPRINT_PATH = 'kicad/footprints.txt';
+    public const SYMBOL_PATH = 'kicad/symbols.txt';
 
     public function configureOptions(OptionsResolver $resolver): void
     {
