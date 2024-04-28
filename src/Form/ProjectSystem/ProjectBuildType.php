@@ -155,7 +155,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             $matches = [];
             if (preg_match('/^lot_(\d+)$/', $key, $matches)) {
                 $lot_id = (int) $matches[1];
-                $data->setLotWithdrawAmount($lot_id, $form->getData());
+                $data->setLotWithdrawAmount($lot_id, (float) $form->getData());
             }
         }
 
