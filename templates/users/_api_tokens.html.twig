@@ -1,12 +1,6 @@
 {# @var user \App\Entity\UserSystem\User #}
 
-{% macro format_date(datetime) %}
-    {% if datetime is null %}
-        <i>{% trans %}datetime.never{% endtrans %}</i>
-    {% else %}
-        {{ datetime|format_datetime }}
-    {% endif %}
-{% endmacro %}
+{% import "helper.twig" as helper %}
 
 <div class="card mt-4">
     <div class="card-header">
@@ -48,15 +42,15 @@
                                 <small class="text-muted">{% trans%}api_token.ends_with{% endtrans%} ...<i>{{ api_token.lastTokenChars }}</i></small></td>
                             <td>{{ api_token.level.translationKey|trans }}</td>
                             <td>
-                                {{ _self.format_date(api_token.validUntil) }}
+                                {{ helper.format_date_nullable(api_token.validUntil) }}
                                 {% if api_token.valid %}
                                     <span class="badge bg-success badge-success">{% trans %}api_token.valid{% endtrans %}</span>
                                 {% else %}
                                     <span class="badge bg-warning badge-warning">{% trans %}api_token.expired{% endtrans %}</span>
                                 {% endif %}
                             </td>
-                            <td>{{ _self.format_date(api_token.addedDate) }}</td>
-                            <td>{{ _self.format_date(api_token.lastTimeUsed) }}</td>
+                            <td>{{ helper.format_date_nullable(api_token.addedDate) }}</td>
+                            <td>{{ helper.format_date_nullable(api_token.lastTimeUsed) }}</td>
                             <td>
                                 <button type="submit" class="btn btn-danger btn-sm" name="token_id"
                                         value="{{ api_token.id }}" {% if not is_granted('@api.manage_tokens') %}disabled="disabled"{% endif %}>

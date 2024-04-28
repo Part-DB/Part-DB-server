@@ -1,5 +1,7 @@
 {# @var user \App\Entity\UserSystem\User #}
 
+{% import "helper.twig" as helper %}
+
 <div class="card mt-4">
     <div class="card-header">
         <i class="fa fa-shield-alt fa-fw" aria-hidden="true"></i>
@@ -124,6 +126,7 @@
                                 <th>#</th>
                                 <th>{% trans %}tfa_u2f.keys.name{% endtrans %}</th>
                                 <th>{% trans %}tfa_u2f.keys.added_date{% endtrans %}</th>
+                                <th>{% trans %}api_tokens.last_time_used{% endtrans %}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -133,6 +136,7 @@
                                     <td>{{ loop.index }} <b>(U2F)</b></td>
                                     <td>{{ key.name }}</td>
                                     <td>{{ key.addedDate | format_datetime }}</td>
+                                    <td></td> {# For legacy keys no last time use date is saved #}
                                     <td><button type="submit" class="btn btn-danger btn-sm" name="key_id" value="{{ key.id }}"><i class="fas fa-trash-alt fa-fw"></i> {% trans %}tfa_u2f.key_delete{% endtrans %}</button></td>
                                 </tr>
                             {% endfor %}
@@ -141,6 +145,7 @@
                                     <td>{{ loop.index }} <b>(WebAuthn)</b></td>
                                     <td>{{ key.name }}</td>
                                     <td>{{ key.addedDate | format_datetime }}</td>
+                                    <td>{{ helper.format_date_nullable(key.lastTimeUsed) }}</td>
                                     <td><button type="submit" class="btn btn-danger btn-sm" name="webauthn_key_id" value="{{ key.id }}"><i class="fas fa-trash-alt fa-fw"></i> {% trans %}tfa_u2f.key_delete{% endtrans %}</button></td>
                                 </tr>
                             {% endfor %}
