@@ -84,7 +84,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection());
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].a')
@@ -100,7 +100,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b']));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].b')
@@ -116,7 +116,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b', 'a']));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].b')
@@ -145,7 +145,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b'], allowNull: false));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[2].b')
