@@ -90,7 +90,7 @@
                 <button class="btn btn-outline-dark d-print-none btn-sm" data-clipboard-text="{{ absolute_url('/en/kicad-api/') }}">
                     <i class="fas fa-copy"></i>
                 </button>
-                <span>{{ absolute_url('/en/kicad-api/') }}</span>
+                <span>{{ url("kicad_api_root") | replace({"v1/": ""}) }}</span>
             </div>
         </div>
 
