@@ -36,12 +36,12 @@ class BOMImporter
 {
 
     private const MAP_KICAD_PCB_FIELDS = [
-        'ID' => 'Id',
-        'Bezeichner' => 'Designator',
-        'Footprint' => 'Package',
-        'Stückzahl' => 'Quantity',
-        'Bezeichnung' => 'Designation',
-        'Anbieter und Referenz' => 'Supplier and ref',
+        0 => 'Id',
+        1 => 'Designator',
+        2 => 'Package',
+        3 => 'Quantity',
+        4 => 'Designation',
+        5 => 'Supplier and ref',
     ];
 
     public function __construct()
@@ -110,7 +110,7 @@ class BOMImporter
 
         foreach ($csv->getRecords() as $offset => $entry) {
             //Translate the german field names to english
-            $entry = array_combine(array_map(static fn($key) => self::MAP_KICAD_PCB_FIELDS[$key] ?? $key, array_keys($entry)), $entry);
+            $entry = $this->normalizeColumnNames($entry);
 
             //Ensure that the entry has all required fields
             if (!isset ($entry['Designator'])) {
@@ -136,5 +136,27 @@ class BOMImporter
         }
 
         return $bom_entries;
+    }
+
+    /**
+     * This function uses the order of the fields in the CSV files to make them locale independent.
+     * @param  array  $entry
+     * @return array
+     */
+    private function normalizeColumnNames(array $entry): array
+    {
+        $out = [];
+
+        //Map the entry order to the correct column names
+        foreach (array_values($entry) as $index => $field) {
+            if ($index > 5) {
+                break;
+            }
+
+            $new_index = self::MAP_KICAD_PCB_FIELDS[$index] ?? throw new \UnexpectedValueException('Invalid field index!');
+            $out[$new_index] = $field;
+        }
+
+        return $out;
     }
 }
