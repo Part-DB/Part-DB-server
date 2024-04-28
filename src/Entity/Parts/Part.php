@@ -54,6 +54,7 @@ use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Repository\PartRepository;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -119,6 +120,7 @@ class Part extends AttachmentContainingDBElement
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
 

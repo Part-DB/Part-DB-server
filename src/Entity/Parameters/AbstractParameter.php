@@ -53,6 +53,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\ParameterRepository;
+use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -94,7 +95,7 @@ use function sprintf;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new parameter.
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
-abstract class AbstractParameter extends AbstractNamedDBElement
+abstract class AbstractParameter extends AbstractNamedDBElement implements UniqueValidatableInterface
 {
 
     /*
@@ -457,5 +458,10 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     public function getElementClass(): string
     {
         return static::ALLOWED_ELEMENT_CLASS;
+    }
+
+    public function getComparableFields(): array
+    {
+        return ['name' => $this->name, 'group' => $this->group, 'element' => $this->element?->getId()];
     }
 }

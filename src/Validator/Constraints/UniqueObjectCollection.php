@@ -34,7 +34,7 @@ class UniqueObjectCollection extends Constraint
         self::IS_NOT_UNIQUE => 'IS_NOT_UNIQUE',
     ];
 
-    public string $message = 'This collection should contain only unique elements.';
+    public string $message = 'This value is already used.';
     public $normalizer;
 
     /**

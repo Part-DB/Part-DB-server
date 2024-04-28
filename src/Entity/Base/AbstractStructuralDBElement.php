@@ -26,6 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Repository\StructuralDBElementRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Parameters\ParametersTrait;
@@ -115,6 +116,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @phpstan-var Collection<int, PT>
      */
     #[Assert\Valid]
+    #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
     /** @var string[] all names of all parent elements as an array of strings,
