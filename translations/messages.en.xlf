@@ -9270,7 +9270,7 @@ Element 3</target>
     <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
       <segment state="translated">
         <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
-        <target>Is not (excluding children)</target>
+        <target>Is not (including children)</target>
       </segment>
     </unit>
     <unit id="7.bq.cZ" name="part.filter.dbId">
