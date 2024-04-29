@@ -1,0 +1,2 @@
+jbtronics_settings:
+  default_storage_adapter: Jbtronics\SettingsBundle\Storage\PHPFileStorageAdapter

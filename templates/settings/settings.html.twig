@@ -1,0 +1,7 @@
+{% extends "main_card.html.twig" %}
+
+{% block card_content %}
+    {{ form_start(form) }}
+         {{ form_widget(form.infoProviders) }}
+    {{ form_end(form) }}
+{% endblock %}

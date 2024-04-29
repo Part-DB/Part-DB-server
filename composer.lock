@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19c280b6d5021cb69af33476174dfc1e",
+    "content-hash": "047dbea97d20f32d8b1fd175e3891941",
     "packages": [
         {
             "name": "api-platform/core",
@@ -2128,6 +2128,74 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
+            "name": "ergebnis/classy",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/classy.git",
+                "reference": "e8da19634d7d7d7e293e916b1419395224658d5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/classy/zipball/e8da19634d7d7d7e293e916b1419395224658d5a",
+                "reference": "e8da19634d7d7d7e293e916b1419395224658d5a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.39.0",
+                "ergebnis/license": "^2.3.0",
+                "ergebnis/php-cs-fixer-config": "~6.12.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.4.0",
+                "fakerphp/faker": "^1.23.0",
+                "infection/infection": "~0.27.8",
+                "phpunit/phpunit": "^10.4.2",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "rector/rector": "~0.18.11",
+                "vimeo/psalm": "^5.16.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Classy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com",
+                    "homepage": "https://localheinz.com"
+                }
+            ],
+            "description": "Provides a finder for classy constructs (classes, enums, interfaces, and traits).",
+            "homepage": "https://github.com/ergebnis/classy",
+            "keywords": [
+                "classes",
+                "classy",
+                "constructs",
+                "finder",
+                "interfaces",
+                "traits"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/classy/issues",
+                "source": "https://github.com/ergebnis/classy"
+            },
+            "time": "2023-11-27T16:46:22+00:00"
+        },
+        {
             "name": "erusev/parsedown",
             "version": "1.7.4",
             "source": {
@@ -3146,6 +3214,91 @@
                 "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.1"
             },
             "time": "2023-12-24T14:11:31+00:00"
+        },
+        {
+            "name": "jbtronics/settings-bundle",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbtronics/settings-bundle.git",
+                "reference": "c8a54ab5517e42e22c00b65f04ffe308a2b0e69b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/c8a54ab5517e42e22c00b65f04ffe308a2b0e69b",
+                "reference": "c8a54ab5517e42e22c00b65f04ffe308a2b0e69b",
+                "shasum": ""
+            },
+            "require": {
+                "ergebnis/classy": "^1.6",
+                "ext-json": "*",
+                "php": "^8.1",
+                "symfony/deprecation-contracts": "^3.4",
+                "symfony/form": "^6.4|^7.0",
+                "symfony/framework-bundle": "^6.4|^7.0",
+                "symfony/translation": "^7.0|^6.4",
+                "symfony/translation-contracts": "^2.5|^3.0",
+                "symfony/validator": "^6.4|^7.0",
+                "symfony/var-exporter": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^2.11",
+                "doctrine/doctrine-fixtures-bundle": "^3.5",
+                "doctrine/orm": "^3.0",
+                "ekino/phpstan-banned-code": "^1.0",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpstan/phpstan-symfony": "^1.3",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest",
+                "symfony/phpunit-bridge": "^6.4|^7.0",
+                "symfony/security-csrf": "^7.0|^6.4",
+                "symfony/twig-bridge": "^6.4|^7.0"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "To use the doctrine ORM storage",
+                "symfony/twig-bridge": "Allows to access settings in twig templates"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Jbtronics\\SettingsBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Böhmer",
+                    "email": "mail@jan-boehmer.de"
+                }
+            ],
+            "description": "A symfony bundle to easily create typesafe, user-configurable settings for symfony applications",
+            "keywords": [
+                "Settings",
+                "config",
+                "symfony",
+                "symfony-bundle",
+                "user-configurable"
+            ],
+            "support": {
+                "issues": "https://github.com/jbtronics/settings-bundle/issues",
+                "source": "https://github.com/jbtronics/settings-bundle/tree/2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/do9jhb",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/jbtronics",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-04-28T20:49:45+00:00"
         },
         {
             "name": "jfcherng/php-color-output",

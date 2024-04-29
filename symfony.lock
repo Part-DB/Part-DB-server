@@ -194,6 +194,9 @@
     "jbtronics/dompdf-font-loader-bundle": {
         "version": "v1.1.1"
     },
+    "jbtronics/settings-bundle": {
+        "version": "2.0.1"
+    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.15",
         "recipe": {
