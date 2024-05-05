@@ -279,18 +279,6 @@ services:
             $language: '%env(string:PROVIDER_DIGIKEY_LANGUAGE)%'
             $country: '%env(string:PROVIDER_DIGIKEY_COUNTRY)%'
 
-    App\Services\InfoProviderSystem\Providers\TMEClient:
-        arguments:
-            $secret: '%env(string:PROVIDER_TME_SECRET)%'
-            $token: '%env(string:PROVIDER_TME_KEY)%'
-
-    App\Services\InfoProviderSystem\Providers\TMEProvider:
-        arguments:
-            $currency: '%env(string:PROVIDER_TME_CURRENCY)%'
-            $country: '%env(string:PROVIDER_TME_COUNTRY)%'
-            $language: '%env(string:PROVIDER_TME_LANGUAGE)%'
-            $get_gross_prices: '%env(bool:PROVIDER_TME_GET_GROSS_PRICES)%'
-
     App\Services\InfoProviderSystem\Providers\OctopartProvider:
         arguments:
             $clientId: '&env(string:PROVIDER_OCTOPART_CLIENT_ID)%'

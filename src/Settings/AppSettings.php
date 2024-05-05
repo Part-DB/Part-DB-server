@@ -34,5 +34,5 @@ class AppSettings
     use SettingsTrait;
 
     #[EmbeddedSettings]
-    public InfoProviderSettings $infoProviders;
+    public ?InfoProviderSettings $infoProviders = null;
 }

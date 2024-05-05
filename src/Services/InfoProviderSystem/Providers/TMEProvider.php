@@ -30,16 +30,14 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Settings\InfoProviderSystem\TMESettings;
 
 class TMEProvider implements InfoProviderInterface
 {
 
     private const VENDOR_NAME = 'TME';
 
-    public function __construct(private readonly TMEClient $tmeClient, private readonly string $country,
-        private readonly string $language, private readonly string $currency,
-        /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
-        private readonly bool $get_gross_prices)
+    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings)
     {
 
     }
@@ -67,8 +65,8 @@ class TMEProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         $response = $this->tmeClient->makeRequest('Products/Search', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SearchPlain' => $keyword,
         ]);
 
@@ -97,8 +95,8 @@ class TMEProvider implements InfoProviderInterface
     public function getDetails(string $id): PartDetailDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetProducts', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 
@@ -142,8 +140,8 @@ class TMEProvider implements InfoProviderInterface
     public function getFiles(string $id): array
     {
         $response = $this->tmeClient->makeRequest('Products/GetProductsFiles', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 
@@ -184,10 +182,10 @@ class TMEProvider implements InfoProviderInterface
     public function getVendorInfo(string $id, ?string $productURL = null): PurchaseInfoDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetPricesAndStocks', [
-            'Country' => $this->country,
-            'Language' => $this->language,
-            'Currency' => $this->currency,
-            'GrossPrices' => $this->get_gross_prices,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
+            'Currency' => $this->settings->currency,
+            'GrossPrices' => $this->settings->grossPrices,
             'SymbolList' => [$id],
         ]);
 
@@ -227,8 +225,8 @@ class TMEProvider implements InfoProviderInterface
     public function getParameters(string $id, string|null &$footprint_name = null): array
     {
         $response = $this->tmeClient->makeRequest('Products/GetParameters', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 

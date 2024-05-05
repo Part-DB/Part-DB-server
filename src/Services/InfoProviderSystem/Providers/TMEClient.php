@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Settings\InfoProviderSystem\TMESettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -30,15 +31,15 @@ class TMEClient
 {
     public const BASE_URI = 'https://api.tme.eu';
 
-    public function __construct(private readonly HttpClientInterface $tmeClient, private readonly string $token, private readonly string $secret)
+    public function __construct(private readonly HttpClientInterface $tmeClient, private readonly TMESettings $settings)
     {
 
     }
 
     public function makeRequest(string $action, array $parameters): ResponseInterface
     {
-        $parameters['Token'] = $this->token;
-        $parameters['ApiSignature'] = $this->getSignature($action, $parameters, $this->secret);
+        $parameters['Token'] = $this->settings->apiToken;
+        $parameters['ApiSignature'] = $this->getSignature($action, $parameters, $this->settings->apiSecret);
 
         return $this->tmeClient->request('POST', $this->getUrlForAction($action), [
             'body' => $parameters,
@@ -47,7 +48,7 @@ class TMEClient
 
     public function isUsable(): bool
     {
-        return !($this->token === '' || $this->secret === '');
+        return !($this->settings->apiToken === '' || $this->settings->apiSecret === '');
     }
 
 
