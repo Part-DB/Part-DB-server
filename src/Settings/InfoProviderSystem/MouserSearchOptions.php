@@ -23,18 +23,10 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
-use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
-
-#[Settings]
-class InfoProviderSettings
+enum MouserSearchOptions: string
 {
-    use SettingsTrait;
-
-    #[EmbeddedSettings]
-    public LCSCSettings $lcsc;
-
-    #[EmbeddedSettings]
-    public MouserSettings $mouser;
+    case NONE = "None";
+    case ROHS = "Rohs";
+    case IN_STOCK = "InStock";
+    case ROHS_AND_INSTOCK = "RohsAndInStock";
 }

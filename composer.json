@@ -29,7 +29,7 @@
         "hshn/base64-encoded-file": "^5.0",
         "jbtronics/2fa-webauthn": "^v2.2.0",
         "jbtronics/dompdf-font-loader-bundle": "^1.0.0",
-        "jbtronics/settings-bundle": "^2.0",
+        "jbtronics/settings-bundle": "dev-master",
         "jfcherng/php-diff": "^6.14",
         "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/csv": "^9.8.0",
