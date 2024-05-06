@@ -3617,7 +3617,7 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_google.step.scan</source>
-        <target>Scan the adjoining QR Code with the app or enter the data manually</target>
+        <target>Scan the adjacent QR Code with the app or enter the data manually</target>
       </segment>
     </unit>
     <unit id="A9Ex8CO" name="tfa_google.step.input_code">
