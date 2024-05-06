@@ -267,11 +267,6 @@ services:
         arguments:
             $providers: !tagged_iterator 'app.info_provider'
 
-    App\Services\InfoProviderSystem\Providers\Element14Provider:
-        arguments:
-            $api_key: '%env(string:PROVIDER_ELEMENT14_KEY)%'
-            $store_id: '%env(string:PROVIDER_ELEMENT14_STORE_ID)%'
-
     App\Services\InfoProviderSystem\Providers\DigikeyProvider:
         arguments:
             $clientId: '%env(string:PROVIDER_DIGIKEY_CLIENT_ID)%'

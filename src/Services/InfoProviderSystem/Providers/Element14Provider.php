@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\Element14Settings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface
@@ -43,7 +44,7 @@ class Element14Provider implements InfoProviderInterface
     private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
-    public function __construct(private readonly HttpClientInterface $element14Client, private readonly string $api_key, private readonly string $store_id)
+    public function __construct(private readonly HttpClientInterface $element14Client, private readonly Element14Settings $settings)
     {
 
     }
@@ -65,7 +66,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->api_key);
+        return !empty($this->settings->apiKey);
     }
 
     /**
@@ -77,11 +78,11 @@ class Element14Provider implements InfoProviderInterface
         $response = $this->element14Client->request('GET', self::ENDPOINT_URL, [
             'query' => [
                 'term' => $term,
-                'storeInfo.id' => $this->store_id,
+                'storeInfo.id' => $this->settings->storeId,
                 'resultsSettings.offset' => 0,
                 'resultsSettings.numberOfResults' => self::NUMBER_OF_RESULTS,
                 'resultsSettings.responseGroup' => 'large',
-                'callInfo.apiKey' => $this->api_key,
+                'callInfo.apiKey' => $this->settings->apiKey,
                 'callInfo.responseDataFormat' => 'json',
                 'callInfo.version' => self::API_VERSION_NUMBER,
             ],
@@ -119,7 +120,7 @@ class Element14Provider implements InfoProviderInterface
 
     private function generateProductURL($sku): string
     {
-        return 'https://' . $this->store_id . '/' . $sku;
+        return 'https://' . $this->settings->storeId . '/' . $sku;
     }
 
     /**
@@ -152,7 +153,7 @@ class Element14Provider implements InfoProviderInterface
             $locale = 'en_US';
         }
 
-        return 'https://' . $this->store_id . '/productimages/standard/' . $locale . $image['baseName'];
+        return 'https://' . $this->settings->storeId . '/productimages/standard/' . $locale . $image['baseName'];
     }
 
     /**
@@ -187,7 +188,7 @@ class Element14Provider implements InfoProviderInterface
     public function getUsedCurrency(): string
     {
         //Decide based on the shop ID
-        return match ($this->store_id) {
+        return match ($this->settings->storeId) {
             'bg.farnell.com', 'at.farnell.com', 'si.farnell.com', 'sk.farnell.com', 'ro.farnell.com', 'pt.farnell.com', 'nl.farnell.com', 'be.farnell.com', 'lv.farnell.com', 'lt.farnell.com', 'it.farnell.com', 'fr.farnell.com', 'fi.farnell.com', 'ee.farnell.com', 'es.farnell.com', 'ie.farnell.com', 'cpcireland.farnell.com', 'de.farnell.com' => 'EUR',
             'cz.farnell.com' => 'CZK',
             'dk.farnell.com' => 'DKK',
@@ -214,7 +215,7 @@ class Element14Provider implements InfoProviderInterface
             'tw.element14.com' => 'TWD',
             'kr.element14.com' => 'KRW',
             'vn.element14.com' => 'VND',
-            default => throw new \RuntimeException('Unknown store ID: ' . $this->store_id)
+            default => throw new \RuntimeException('Unknown store ID: ' . $this->settings->storeId)
         };
     }
 

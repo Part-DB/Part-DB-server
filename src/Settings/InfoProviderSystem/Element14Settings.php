@@ -23,24 +23,18 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 
-#[Settings()]
-class InfoProviderSettings
+#[Settings]
+class Element14Settings
 {
     use SettingsTrait;
 
-    #[EmbeddedSettings]
-    public ?LCSCSettings $lcsc = null;
+    #[SettingsParameter(envVar: "PROVIDER_ELEMENT14_KEY")]
+    public ?string $apiKey = null;
 
-    #[EmbeddedSettings]
-    public ?MouserSettings $mouser = null;
-
-    #[EmbeddedSettings]
-    public ?TMESettings $tme = null;
-
-    #[EmbeddedSettings]
-    public ?Element14Settings $element14 = null;
+    #[SettingsParameter(envVar: "PROVIDER_ELEMENT14_STORE_ID")]
+    public string $storeId = "de.farnell.com";
 }
