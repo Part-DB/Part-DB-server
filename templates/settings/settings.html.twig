@@ -1,7 +1,54 @@
 {% extends "main_card.html.twig" %}
 
+{% macro genId(widget) %}{{ widget.vars.full_name }}{% endmacro %}
+
 {% block card_content %}
     {{ form_start(form) }}
-         {{ form_widget(form.infoProviders) }}
+
+    {# Tabs #}
+    <ul class="nav nav-tabs">
+        {% for tab_widget in form %}
+            {# Create a tab for each compound form #}
+            {% if tab_widget.vars.compound ?? false %}
+                <li class="nav-item">
+                    <button type="button" class="nav-link {% if loop.first %}active{% endif %}" aria-current="page" data-bs-toggle="tab"
+                            id="settings-{{ _self.genId(tab_widget) }}-tab" data-bs-target="#settings-{{ _self.genId(tab_widget) }}-pane"
+                    >{{ (tab_widget.vars.label ?? tab_widget.vars.name|humanize)|trans }}</button>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    {# Panes #}
+    <div class="tab-content">
+        {% for tab_widget in form %}
+            {# Create a tab for each compound form #}
+            {% if tab_widget.vars.compound ?? false %}
+                <div class="tab-pane fade pt-2 {% if loop.first %}show active{% endif %}" id="settings-{{ _self.genId(tab_widget) }}-pane">
+                    {{ form_help(tab_widget) }}
+                    {{ form_errors(tab_widget) }}
+
+                    {% for section_widget in tab_widget %}
+                        {% if section_widget.vars.compound ?? false %}
+                            <fieldset>
+                                <legend>
+                                    {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
+                                </legend>
+                                {{ form_help(section_widget) }}
+                                {{ form_errors(section_widget) }}
+                                {{ form_widget(section_widget) }}
+                            </fieldset>
+                            {% if not loop.last %}
+                                <hr class="m-0">
+                            {% endif %}
+                        {% else %} {# If not a compound render as normal row #}
+                            {{ form_row(section_widget) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
     {{ form_end(form) }}
 {% endblock %}

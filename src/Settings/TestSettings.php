@@ -23,19 +23,18 @@ declare(strict_types=1);
 
 namespace App\Settings;
 
-use App\Settings\InfoProviderSystem\InfoProviderSettings;
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 
 #[Settings]
-class AppSettings
+class TestSettings
 {
-    use SettingsTrait;
+    #[SettingsParameter()]
+    public bool $bool = false;
 
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
+    #[SettingsParameter()]
+    public int $int = 0;
 
-    #[EmbeddedSettings()]
-    public ?TestSettings $test = null;
+    #[SettingsParameter()]
+    public float $float = 0.0;
 }

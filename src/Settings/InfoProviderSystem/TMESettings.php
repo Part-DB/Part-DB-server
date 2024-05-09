@@ -31,7 +31,7 @@ use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings]
+#[Settings(label: "TME settings", description: "Settings for the TME API")]
 class TMESettings
 {
     use SettingsTrait;
