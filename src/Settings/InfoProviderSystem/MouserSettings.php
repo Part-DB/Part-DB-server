@@ -26,24 +26,26 @@ namespace App\Settings\InfoProviderSystem;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.ips.mouser"))]
 class MouserSettings
 {
-    #[SettingsParameter(envVar: "PROVIDER_MOUSER_KEY")]
+    #[SettingsParameter(label: new TM("settings.ips.mouser.apiKey"), description: new TM("settings.ips.mouser.apiKey.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_MOUSER_KEY")]
     public ?string $apiKey = null;
 
     /** @var int The number of results to get from Mouser while searching (please note that this value is max 50) */
-    #[SettingsParameter(envVar: "int:PROVIDER_MOUSER_SEARCH_LIMIT")]
+    #[SettingsParameter(label: new TM("settings.ips.mouser.searchLimit"), description: new TM("settings.ips.mouser.searchLimit.help"), envVar: "int:PROVIDER_MOUSER_SEARCH_LIMIT")]
     #[Assert\Range(min: 1, max: 50)]
     public int $searchLimit = 50;
 
     /** @var MouserSearchOptions Filter search results by RoHS compliance and stock availability */
-    #[SettingsParameter(envVar: "PROVIDER_MOUSER_SEARCH_OPTION", envVarMapper: [self::class, "mapSearchOptionEnvVar"])]
+    #[SettingsParameter(label: new TM("settings.ips.mouser.searchOptions"), description: new TM("settings.ips.mouser.searchOptions.help"), envVar: "PROVIDER_MOUSER_SEARCH_OPTION", envVarMapper: [self::class, "mapSearchOptionEnvVar"])]
     public MouserSearchOptions $searchOption = MouserSearchOptions::NONE;
 
     /** @var bool It is recommended to leave this set to 'true'. The option is not really documented by Mouser:
      * Used when searching for keywords in the language specified when you signed up for Search API. */
+    //TODO: Put this into some expert mode only
     #[SettingsParameter(envVar: "bool:PROVIDER_MOUSER_SEARCH_WITH_SIGNUP_LANGUAGE")]
     public bool $searchWithSignUpLanguage = true;
 

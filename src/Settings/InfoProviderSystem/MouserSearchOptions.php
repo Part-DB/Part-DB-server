@@ -23,10 +23,25 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
-enum MouserSearchOptions: string
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum MouserSearchOptions: string implements TranslatableInterface
 {
     case NONE = "None";
     case ROHS = "Rohs";
     case IN_STOCK = "InStock";
     case ROHS_AND_INSTOCK = "RohsAndInStock";
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        $key = match($this) {
+            self::NONE => "settings.ips.mouser.searchOptions.none",
+            self::ROHS => "settings.ips.mouser.searchOptions.rohs",
+            self::IN_STOCK => "settings.ips.mouser.searchOptions.inStock",
+            self::ROHS_AND_INSTOCK => "settings.ips.mouser.searchOptions.rohsAndInStock",
+        };
+
+        return $translator->trans($key, locale: $locale);
+    }
 }

@@ -26,15 +26,16 @@ namespace App\Settings\InfoProviderSystem;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.ips.element14"))]
 class Element14Settings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(envVar: "PROVIDER_ELEMENT14_KEY")]
+    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), description: new TM("settings.ips.element14.apiKey.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_KEY")]
     public ?string $apiKey = null;
 
-    #[SettingsParameter(envVar: "PROVIDER_ELEMENT14_STORE_ID")]
+    #[SettingsParameter(label: new TM("settings.ips.element14.storeId"), description: new TM("settings.ips.element14.storeId.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_STORE_ID")]
     public string $storeId = "de.farnell.com";
 }

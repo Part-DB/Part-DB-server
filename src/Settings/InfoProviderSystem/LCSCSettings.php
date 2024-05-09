@@ -28,16 +28,17 @@ use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.ips.lcsc"), description: new TM("settings.ips.lcsc.help"))]
 class LCSCSettings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(label: "Enable LCSC provider", envVar: "bool:PROVIDER_LCSC_ENABLED")]
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"), envVar: "bool:PROVIDER_LCSC_ENABLED")]
     public bool $enabled = false;
 
-    #[SettingsParameter(label: "LCSC Currency", description: "The currency to retrieve prices from LCSC", formType: CurrencyType::class, envVar: "string:PROVIDER_LCSC_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.currency"), formType: CurrencyType::class, envVar: "string:PROVIDER_LCSC_CURRENCY")]
     #[Assert\Currency()]
     public string $currency = 'EUR';
 }

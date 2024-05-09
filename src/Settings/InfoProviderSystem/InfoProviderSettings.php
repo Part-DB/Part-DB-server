@@ -33,9 +33,6 @@ class InfoProviderSettings
     use SettingsTrait;
 
     #[EmbeddedSettings]
-    public ?LCSCSettings $lcsc = null;
-
-    #[EmbeddedSettings]
     public ?MouserSettings $mouser = null;
 
     #[EmbeddedSettings]
@@ -43,4 +40,7 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?Element14Settings $element14 = null;
+
+    #[EmbeddedSettings]
+    public ?LCSCSettings $lcsc = null;
 }

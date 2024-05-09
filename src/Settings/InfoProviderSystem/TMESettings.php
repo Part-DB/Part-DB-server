@@ -30,32 +30,34 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(label: "TME settings", description: "Settings for the TME API")]
+#[Settings(label: new TM("settings.ips.tme"))]
 class TMESettings
 {
     use SettingsTrait;
 
     private const SUPPORTED_CURRENCIES = ["EUR", "USD", "PLN", "GBP"];
 
-    #[SettingsParameter(envVar: "PROVIDER_TME_KEY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.token"),
+        description: new TM("settings.ips.tme.token.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_TME_KEY")]
     public ?string $apiToken = null;
 
-    #[SettingsParameter(envVar: "PROVIDER_TME_SECRET")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.secret"), envVar: "PROVIDER_TME_SECRET")]
     public ?string $apiSecret = null;
 
-    #[SettingsParameter(formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES], envVar: "PROVIDER_TME_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES], envVar: "PROVIDER_TME_CURRENCY")]
     #[Assert\Choice(choices: self::SUPPORTED_CURRENCIES)]
     public string $currency = "EUR";
 
-    #[SettingsParameter(formType: LanguageType::class, formOptions: ["preferred_choices" => ["en", "de", "fr", "pl"]], envVar: "PROVIDER_TME_LANGUAGE")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => ["en", "de", "fr", "pl"]], envVar: "PROVIDER_TME_LANGUAGE")]
     #[Assert\Language]
     public string $language = "en";
 
-    #[SettingsParameter(envVar: "PROVIDER_TME_COUNTRY", formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]])]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), envVar: "PROVIDER_TME_COUNTRY", formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]])]
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.grossPrices"), envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES")]
     public bool $grossPrices = true;
 }
