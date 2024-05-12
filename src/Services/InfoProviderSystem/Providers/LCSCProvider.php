@@ -35,7 +35,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class LCSCProvider implements InfoProviderInterface
 {
 
-    private const ENDPOINT_URL = 'https://wmsc.lcsc.com/wmsc';
+    private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
