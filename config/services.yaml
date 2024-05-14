@@ -89,17 +89,9 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    App\Form\AttachmentFormType:
-        arguments:
-            $allow_attachments_download: '%partdb.attachments.allow_downloads%'
-            $max_file_size: '%partdb.attachments.max_file_size%'
-            $download_by_default: '%partdb.attachments.download_by_default%'
-
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:
-            $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
             $mimeTypes: '@mime_types'
-            $max_upload_size: '%partdb.attachments.max_file_size%'
 
     App\Services\LogSystem\EventCommentNeededHelper:
         arguments:

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings;
 
 use App\Settings\InfoProviderSystem\InfoProviderSettings;
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -33,9 +34,11 @@ class AppSettings
 {
     use SettingsTrait;
 
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
 
     #[EmbeddedSettings()]
-    public ?TestSettings $test = null;
+    public ?SystemSettings $system;
+
+
+    #[EmbeddedSettings()]
+    public ?InfoProviderSettings $infoProviders = null;
 }

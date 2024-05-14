@@ -23,18 +23,13 @@ declare(strict_types=1);
 
 namespace App\Settings;
 
+use App\Settings\SystemSettings\AttachmentsSettings;
+use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 
 #[Settings]
-class TestSettings
+class SystemSettings
 {
-    #[SettingsParameter()]
-    public bool $bool = false;
-
-    #[SettingsParameter()]
-    public int $int = 0;
-
-    #[SettingsParameter()]
-    public float $float = 0.0;
+    #[EmbeddedSettings()]
+    public ?AttachmentsSettings $attachments = null;
 }

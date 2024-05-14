@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
@@ -54,9 +55,7 @@ class AttachmentFormType extends AbstractType
         protected Security $security,
         protected AttachmentSubmitHandler $submitHandler,
         protected TranslatorInterface $translator,
-        protected bool $allow_attachments_download,
-        protected bool $download_by_default,
-        protected string $max_file_size
+        protected AttachmentsSettings $settings,
     ) {
     }
 
@@ -108,7 +107,7 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
-            'disabled' => !$this->allow_attachments_download,
+            'disabled' => !$this->settings->allowDownloads,
         ]);
 
         $builder->add('file', FileType::class, [
@@ -177,7 +176,7 @@ class AttachmentFormType extends AbstractType
 
         //If the attachment should be downloaded by default (and is download allowed at all), register a listener,
         // which sets the downloadURL checkbox to true for new attachments
-        if ($this->download_by_default && $this->allow_attachments_download) {
+        if ($this->settings->downloadByDefault && $this->settings->allowDownloads) {
             $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
                 $form = $event->getForm();
                 $attachment = $form->getData();
@@ -204,7 +203,7 @@ class AttachmentFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Attachment::class,
-            'max_file_size' => $this->max_file_size,
+            'max_file_size' => $this->settings->maxFileSize,
             'allow_builtins' => true,
         ]);
     }

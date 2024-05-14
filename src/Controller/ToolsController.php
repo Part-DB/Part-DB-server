@@ -28,6 +28,7 @@ use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Misc\GitVersionInfo;
 use App\Services\Misc\DBInfoHelper;
 use App\Services\System\UpdateAvailableManager;
+use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -45,7 +46,8 @@ class ToolsController extends AbstractController
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
+        AppSettings $settings): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
@@ -66,10 +68,10 @@ class ToolsController extends AbstractController
             'is_debug' => $this->getParameter('kernel.debug'),
             'email_sender' => $this->getParameter('partdb.mail.sender_email'),
             'email_sender_name' => $this->getParameter('partdb.mail.sender_name'),
-            'allow_attachments_downloads' => $this->getParameter('partdb.attachments.allow_downloads'),
+            'allow_attachments_downloads' => $settings->system->attachments->allowDownloads,
             'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
-            'configured_max_file_size' => $this->getParameter('partdb.attachments.max_file_size'),
+            'configured_max_file_size' => $settings->system->attachments->maxFileSize,
             'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
             'saml_enabled' => $this->getParameter('partdb.saml.enabled'),
 

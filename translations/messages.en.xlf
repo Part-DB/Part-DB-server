@@ -12377,5 +12377,41 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Currency</target>
       </segment>
     </unit>
+    <unit id="g0AgaAf" name="settings.system.attachments">
+      <segment>
+        <source>settings.system.attachments</source>
+        <target><![CDATA[Attachments & Files]]></target>
+      </segment>
+    </unit>
+    <unit id="1wsDvqz" name="settings.system.attachments.maxFileSize">
+      <segment>
+        <source>settings.system.attachments.maxFileSize</source>
+        <target>Maximum file size</target>
+      </segment>
+    </unit>
+    <unit id="Gn0P1Bv" name="settings.system.attachments.maxFileSize.help">
+      <segment>
+        <source>settings.system.attachments.maxFileSize.help</source>
+        <target>The maximum size of files that can be uploaded. Please note that this is also limited by PHP configuration.</target>
+      </segment>
+    </unit>
+    <unit id="DyIfVYH" name="settings.system.attachments.allowDownloads">
+      <segment>
+        <source>settings.system.attachments.allowDownloads</source>
+        <target>Allow downloading of external files</target>
+      </segment>
+    </unit>
+    <unit id="jD.pgZL" name="settings.system.attachments.allowDownloads.help">
+      <segment>
+        <source>settings.system.attachments.allowDownloads.help</source>
+        <target><![CDATA[With this option users can download external files into Part-DB by providing an URL. <b>Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!</b>]]></target>
+      </segment>
+    </unit>
+    <unit id="HRxjf.u" name="settings.system.attachments.downloadByDefault">
+      <segment>
+        <source>settings.system.attachments.downloadByDefault</source>
+        <target>Download new attachment URLs by default</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
