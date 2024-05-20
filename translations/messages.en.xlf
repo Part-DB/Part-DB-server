@@ -12437,5 +12437,35 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Homepage banner</target>
       </segment>
     </unit>
+    <unit id="6RRRPKg" name="settings.system.history">
+      <segment>
+        <source>settings.system.history</source>
+        <target>History log</target>
+      </segment>
+    </unit>
+    <unit id="hsfPL4R" name="settings.system.history.saveChangedFields">
+      <segment>
+        <source>settings.system.history.saveChangedFields</source>
+        <target>Save which fields of an element were changed in log entries</target>
+      </segment>
+    </unit>
+    <unit id="jaT3DJ3" name="settings.system.history.saveOldData">
+      <segment>
+        <source>settings.system.history.saveOldData</source>
+        <target>Save the old data in log entries on element changes</target>
+      </segment>
+    </unit>
+    <unit id="058VALj" name="settings.system.history.saveNewData">
+      <segment>
+        <source>settings.system.history.saveNewData</source>
+        <target>Save the new data in log entries on element change/creation</target>
+      </segment>
+    </unit>
+    <unit id="jEvc3t." name="settings.system.history.saveRemovedData">
+      <segment>
+        <source>settings.system.history.saveRemovedData</source>
+        <target>Save removed data in log entries on element deletion</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

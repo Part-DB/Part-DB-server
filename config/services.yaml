@@ -76,11 +76,6 @@ services:
             $whitelist: []
 
     App\EventSubscriber\LogSystem\EventLoggerSubscriber:
-        arguments:
-            $save_changed_fields: '%env(bool:HISTORY_SAVE_CHANGED_FIELDS)%'
-            $save_changed_data: '%env(bool:HISTORY_SAVE_CHANGED_DATA)%'
-            $save_removed_data: '%env(bool:HISTORY_SAVE_REMOVED_DATA)%'
-            $save_new_data: '%env(bool:HISTORY_SAVE_NEW_DATA)%'
         tags:
             - { name: 'doctrine.event_subscriber' }
 

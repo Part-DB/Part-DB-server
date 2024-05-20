@@ -25,6 +25,7 @@ namespace App\Settings;
 
 use App\Settings\SystemSettings\AttachmentsSettings;
 use App\Settings\SystemSettings\CustomizationSettings;
+use App\Settings\SystemSettings\HistorySettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 
@@ -36,4 +37,7 @@ class SystemSettings
 
     #[EmbeddedSettings()]
     public ?AttachmentsSettings $attachments = null;
+
+    #[EmbeddedSettings()]
+    public ?HistorySettings $history = null;
 }

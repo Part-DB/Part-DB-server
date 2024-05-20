@@ -38,6 +38,7 @@ use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 use App\Services\LogSystem\EventUndoHelper;
+use App\Settings\SystemSettings\HistorySettings;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -71,14 +72,15 @@ class EventLoggerSubscriber implements EventSubscriber
     ];
 
     protected const MAX_STRING_LENGTH = 2000;
-    protected bool $save_new_data;
 
-    public function __construct(protected EventLogger $logger, protected SerializerInterface $serializer, protected EventCommentHelper $eventCommentHelper,
-        protected bool $save_changed_fields, protected bool $save_changed_data, protected bool $save_removed_data, bool $save_new_data,
-        protected PropertyAccessorInterface $propertyAccessor, protected EventUndoHelper $eventUndoHelper)
+    public function __construct(
+        protected EventLogger $logger,
+        protected SerializerInterface $serializer,
+        protected EventCommentHelper $eventCommentHelper,
+        private readonly HistorySettings $settings,
+        protected PropertyAccessorInterface $propertyAccessor,
+        protected EventUndoHelper $eventUndoHelper)
     {
-        //This option only makes sense if save_changed_data is true
-        $this->save_new_data = $save_new_data && $save_changed_data;
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs): void
@@ -206,14 +208,14 @@ class EventLoggerSubscriber implements EventSubscriber
         if ($this->eventUndoHelper->isUndo()) {
             $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
         }
-        if ($this->save_removed_data) {
+        if ($this->settings->saveRemovedData) {
             //The 4th param is important here, as we delete the element...
             $this->saveChangeSet($entity, $log, $em, true);
         }
         $this->logger->logFromOnFlush($log);
 
         //Check if we have to log CollectionElementDeleted entries
-        if ($this->save_changed_data) {
+        if ($this->settings->saveOldData) {
             $metadata = $em->getClassMetadata($entity::class);
             $mappings = $metadata->getAssociationMappings();
             //Check if class is whitelisted for CollectionElementDeleted entry
@@ -249,9 +251,9 @@ class EventLoggerSubscriber implements EventSubscriber
         }
 
         $log = new ElementEditedLogEntry($entity);
-        if ($this->save_changed_data) {
+        if ($this->settings->saveOldData) {
             $this->saveChangeSet($entity, $log, $em);
-        } elseif ($this->save_changed_fields) {
+        } elseif ($this->settings->saveChangedFields) {
             $changed_fields = array_keys($uow->getEntityChangeSet($entity));
             //Remove lastModified field, as this is always changed (gives us no additional info)
             $changed_fields = array_diff($changed_fields, ['lastModified']);
@@ -319,7 +321,7 @@ class EventLoggerSubscriber implements EventSubscriber
             $changeSet = $uow->getEntityChangeSet($entity);
             $old_data = array_combine(array_keys($changeSet), array_column($changeSet, 0));
             //If save_new_data is enabled, we extract it from the change set
-            if ($this->save_new_data) {
+            if ($this->settings->saveNewData && $this->settings->saveOldData) { //Only useful if we save old data too
                 $new_data = array_combine(array_keys($changeSet), array_column($changeSet, 1));
             }
         }
