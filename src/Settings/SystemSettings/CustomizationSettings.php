@@ -21,24 +21,31 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Settings\SystemSettings;
 
-use App\Settings\InfoProviderSystem\InfoProviderSettings;
-use App\Settings\SystemSettings\AttachmentsSettings;
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Form\Type\RichTextEditorType;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
-class AppSettings
+#[Settings(name: "customization", label: new TM("settings.system.customization"))]
+class CustomizationSettings
 {
     use SettingsTrait;
 
+    #[SettingsParameter(
+        label: new TM("settings.system.customization.instanceName"),
+        description: new TM("settings.system.customization.instanceName.help"),
+        envVar: "INSTANCE_NAME", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public string $instanceName = "Part-DB";
 
-    #[EmbeddedSettings()]
-    public ?SystemSettings $system = null;
+    #[SettingsParameter(
+        label: new TM("settings.system.customization.banner"),
+        formType: RichTextEditorType::class, formOptions: ['mode' => 'markdown-full'],
+    )]
+    public ?string $banner = null;
 
-
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
 }

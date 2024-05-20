@@ -7,8 +7,9 @@ parameters:
   ######################################################################################################################
   partdb.locale: '%env(string:DEFAULT_LANG)%'                 # The default language to use serverwide
   partdb.timezone: '%env(string:DEFAULT_TIMEZONE)%'           # The default timezone
-  partdb.title: '%env(trim:string:INSTANCE_NAME)%'            # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-  partdb.banner: '%env(trim:string:BANNER)%'                  # The info text shown in the homepage, if empty config/banner.md is used
+
+  # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
+  partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
   partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh']    # The languages that are shown in user drop down menu

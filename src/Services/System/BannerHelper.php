@@ -23,12 +23,14 @@ declare(strict_types=1);
 
 namespace App\Services\System;
 
+use App\Settings\SystemSettings\CustomizationSettings;
+
 /**
  * Helper service to retrieve the banner of this Part-DB installation
  */
 class BannerHelper
 {
-    public function __construct(private readonly string $project_dir, private readonly string $partdb_banner)
+    public function __construct(private CustomizationSettings $customizationSettings)
     {
 
     }
@@ -39,21 +41,6 @@ class BannerHelper
      */
     public function getBanner(): string
     {
-        $banner = $this->partdb_banner;
-        if (!is_string($banner)) {
-            throw new \RuntimeException('The parameter "partdb.banner" must be a string.');
-        }
-        if (empty($banner)) {
-            $banner_path = $this->project_dir
-                .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';
-
-            $tmp = file_get_contents($banner_path);
-            if (false === $tmp) {
-                throw new \RuntimeException('The banner file could not be read.');
-            }
-            $banner = $tmp;
-        }
-
-        return $banner;
+        return $this->customizationSettings->banner ?? "";
     }
 }

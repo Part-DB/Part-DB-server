@@ -12413,5 +12413,29 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Download new attachment URLs by default</target>
       </segment>
     </unit>
+    <unit id="O84puRa" name="settings.system.customization">
+      <segment>
+        <source>settings.system.customization</source>
+        <target>Customization</target>
+      </segment>
+    </unit>
+    <unit id="poWBszc" name="settings.system.customization.instanceName">
+      <segment>
+        <source>settings.system.customization.instanceName</source>
+        <target>Instance name</target>
+      </segment>
+    </unit>
+    <unit id="4FCCA4p" name="settings.system.customization.instanceName.help">
+      <segment>
+        <source>settings.system.customization.instanceName.help</source>
+        <target>Name of this Part-DB installation. The value is shown in nav bar and titles.</target>
+      </segment>
+    </unit>
+    <unit id="oXG7h6X" name="settings.system.customization.banner">
+      <segment>
+        <source>settings.system.customization.banner</source>
+        <target>Homepage banner</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

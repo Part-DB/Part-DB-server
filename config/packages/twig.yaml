@@ -6,7 +6,6 @@ twig:
         '%kernel.project_dir%/assets/css': css
 
     globals:
-        partdb_title: '%partdb.title%'
         default_currency: '%partdb.default_currency%'
         global_theme: '%partdb.global_theme%'
         allow_email_pw_reset: '%partdb.users.email_pw_reset%'

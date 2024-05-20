@@ -24,12 +24,16 @@ declare(strict_types=1);
 namespace App\Settings;
 
 use App\Settings\SystemSettings\AttachmentsSettings;
+use App\Settings\SystemSettings\CustomizationSettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 
 #[Settings]
 class SystemSettings
 {
+    #[EmbeddedSettings()]
+    public ?CustomizationSettings $customization = null;
+
     #[EmbeddedSettings()]
     public ?AttachmentsSettings $attachments = null;
 }

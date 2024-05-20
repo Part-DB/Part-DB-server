@@ -26,12 +26,15 @@ namespace App\Settings\SystemSettings;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.system.attachments"))]
 class AttachmentsSettings
 {
+    use SettingsTrait;
+
     #[SettingsParameter(
         label: new TM("settings.system.attachments.maxFileSize"),
         description: new TM("settings.system.attachments.maxFileSize.help"),

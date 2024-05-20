@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
 use DateTime;
@@ -54,14 +55,18 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly string $partdb_title, private readonly Security $security, private readonly UrlGeneratorInterface $url_generator)
+    public function __construct(
+        private readonly Security $security,
+        private readonly UrlGeneratorInterface $url_generator,
+        private CustomizationSettings $customizationSettings,
+    )
     {
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ('[[INSTALL_NAME]]' === $placeholder) {
-            return $this->partdb_title;
+            return $this->customizationSettings->instanceName;
         }
 
         $user = $this->security->getUser();
