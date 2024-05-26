@@ -18,8 +18,8 @@
  */
 
 .hoverpic {
-    min-width: 10px;
-    max-width: 30px;
+    min-width: 30px;
+    max-width: 80px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -49,7 +49,7 @@
 }
 
 .part-table-image {
-    max-height: 40px;
+    max-height: 80px;
     object-fit: contain;
     width: 100%;
 }
