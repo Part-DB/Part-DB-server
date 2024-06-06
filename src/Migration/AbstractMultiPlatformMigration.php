@@ -25,6 +25,7 @@ namespace App\Migration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -50,6 +51,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         match ($db_type) {
             'mysql' => $this->mySQLUp($schema),
             'sqlite' => $this->sqLiteUp($schema),
+            'postgresql' => $this->postgreSQLUp($schema),
             default => $this->abortIf(true, "Database type '$db_type' is not supported!"),
         };
     }
@@ -61,6 +63,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         match ($db_type) {
             'mysql' => $this->mySQLDown($schema),
             'sqlite' => $this->sqLiteDown($schema),
+            'postgresql' => $this->postgreSQLDown($schema),
             default => $this->abortIf(true, "Database type is not supported!"),
         };
     }
@@ -167,6 +170,10 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
             return 'sqlite';
         }
 
+        if ($this->connection->getDatabasePlatform() instanceof PostgreSqlPlatform) {
+            return 'postgresql';
+        }
+
         return null;
     }
 
@@ -177,4 +184,8 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     abstract public function sqLiteUp(Schema $schema): void;
 
     abstract public function sqLiteDown(Schema $schema): void;
+
+    abstract public function postgreSQLUp(Schema $schema): void;
+
+    abstract public function postgreSQLDown(Schema $schema): void;
 }

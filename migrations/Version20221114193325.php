@@ -171,4 +171,14 @@ final class Version20221114193325 extends AbstractMultiPlatformMigration impleme
             $this->permission_presets_helper = $container->get(PermissionPresetsHelper::class);
         }
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

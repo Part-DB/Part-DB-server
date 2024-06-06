@@ -320,4 +320,14 @@ final class Version20230108165410 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE projects RENAME TO devices');
         $this->addSql('ALTER TABLE project_bom_entries RENAME TO device_parts');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }
