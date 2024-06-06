@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19c280b6d5021cb69af33476174dfc1e",
+    "content-hash": "97361e6ad226561d1407dbafd8303465",
     "packages": [
         {
             "name": "api-platform/core",
@@ -2022,16 +2022,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "dev-master",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "c9cf4be933e2406a51990bd4eb9e70612e790cc0"
+                "reference": "fbc7c5ee5d94f7a910b78b43feb7931b7f971b59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/c9cf4be933e2406a51990bd4eb9e70612e790cc0",
-                "reference": "c9cf4be933e2406a51990bd4eb9e70612e790cc0",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/fbc7c5ee5d94f7a910b78b43feb7931b7f971b59",
+                "reference": "fbc7c5ee5d94f7a910b78b43feb7931b7f971b59",
                 "shasum": ""
             },
             "require": {
@@ -2057,7 +2057,6 @@
                 "ext-imagick": "Improves image processing performance",
                 "ext-zlib": "Needed for pdf stream compression"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -2081,9 +2080,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/master"
+                "source": "https://github.com/dompdf/dompdf/tree/v3.0.0"
             },
-            "time": "2024-05-27T13:52:05+00:00"
+            "time": "2024-04-29T14:01:28+00:00"
         },
         {
             "name": "dompdf/php-font-lib",
@@ -3211,20 +3210,20 @@
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/dompdf-font-loader-bundle.git",
-                "reference": "aa5e1665e323ffa86cd81052e11e35e10594c35c"
+                "reference": "de3a2982e626144bc543119585ed46dc4c884bea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/aa5e1665e323ffa86cd81052e11e35e10594c35c",
-                "reference": "aa5e1665e323ffa86cd81052e11e35e10594c35c",
+                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/de3a2982e626144bc543119585ed46dc4c884bea",
+                "reference": "de3a2982e626144bc543119585ed46dc4c884bea",
                 "shasum": ""
             },
             "require": {
-                "dompdf/dompdf": "^1.0.0|^2.0.0",
+                "dompdf/dompdf": "^1.0.0|^2.0.0|^3.0.0",
                 "ext-json": "*",
                 "php": "^8.1",
                 "symfony/finder": "^6.0|^7.0",
@@ -3260,9 +3259,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/dompdf-font-loader-bundle/issues",
-                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.1"
+                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.2"
             },
-            "time": "2023-12-24T14:11:31+00:00"
+            "time": "2024-06-06T17:42:51+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -19076,17 +19075,10 @@
             "version": "0.12.1.0",
             "alias": "0.11.0",
             "alias_normalized": "0.11.0.0"
-        },
-        {
-            "package": "dompdf/dompdf",
-            "version": "9999999-dev",
-            "alias": "v2.0.4",
-            "alias_normalized": "2.0.4.0"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dompdf/dompdf": 20,
         "florianv/swap-bundle": 20,
         "roave/security-advisories": 20
     },
