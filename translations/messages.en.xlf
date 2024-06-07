@@ -3587,7 +3587,7 @@ Sub elements will be moved upwards.</target>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
         <target>If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.&lt;br&gt;
-Also note that without two-factor authentication your account is not as well protected against attackers!</target>
+Also note that without two-factor authentication, your account is no longer as well protected against attackers!</target>
       </segment>
     </unit>
     <unit id="VYOAO2c" name="tfa_google.disabled_message">
@@ -3617,7 +3617,7 @@ Also note that without two-factor authentication your account is not as well pro
       </notes>
       <segment state="translated">
         <source>tfa_google.step.scan</source>
-        <target>Scan the adjoining QR Code with the app or enter the data manually</target>
+        <target>Scan the adjacent QR Code with the app or enter the data manually</target>
       </segment>
     </unit>
     <unit id="A9Ex8CO" name="tfa_google.step.input_code">
