@@ -25,6 +25,7 @@ namespace App\Services\Misc;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -54,6 +55,10 @@ class DBInfoHelper
             return 'sqlite';
         }
 
+        if ($this->connection->getDatabasePlatform() instanceof PostgreSqlPlatform) {
+            return 'postgresql';
+        }
+
         return null;
     }
 
@@ -69,6 +74,10 @@ class DBInfoHelper
 
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             return $this->connection->fetchOne('SELECT sqlite_version()');
+        }
+
+        if ($this->connection->getDatabasePlatform() instanceof PostgreSqlPlatform) {
+            return $this->connection->fetchOne('SELECT version()');
         }
 
         return null;
@@ -92,6 +101,14 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             try {
                 return (int) $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
+            } catch (Exception) {
+                return null;
+            }
+        }
+
+        if ($this->connection->getDatabasePlatform() instanceof PostgreSqlPlatform) {
+            try {
+                return (int) $this->connection->fetchOne('SELECT pg_database_size(current_database())');
             } catch (Exception) {
                 return null;
             }
@@ -123,6 +140,14 @@ class DBInfoHelper
 
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             return 'sqlite';
+        }
+
+        if ($this->connection->getDatabasePlatform() instanceof PostgreSqlPlatform) {
+            try {
+                return $this->connection->fetchOne('SELECT current_user');
+            } catch (Exception) {
+                return null;
+            }
         }
         
         return null;
