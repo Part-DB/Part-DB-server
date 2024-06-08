@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace DoctrineMigrations;
 
 use App\Migration\AbstractMultiPlatformMigration;
+use App\Migration\WithPermPresetsTrait;
+use App\Services\UserSystem\PermissionPresetsHelper;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240606203053 extends AbstractMultiPlatformMigration
+final class Version20240606203053 extends AbstractMultiPlatformMigration implements ContainerAwareInterface
 {
+    use WithPermPresetsTrait;
+
     public function getDescription(): string
     {
         return 'Initial schema for Postgres';
@@ -233,6 +237,35 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE "users" ADD CONSTRAINT FK_1483A5E9EA7100A1 FOREIGN KEY (id_preview_attachment) REFERENCES "attachments" (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE "users" ADD CONSTRAINT FK_1483A5E938248176 FOREIGN KEY (currency_id) REFERENCES currencies (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE webauthn_keys ADD CONSTRAINT FK_799FD143A76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+
+        //Create the initial groups and users
+        //Retrieve the json representations of the presets
+        $admin = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_ADMIN);
+        $editor = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_EDITOR);
+        $read_only = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_READ_ONLY);
+
+
+        $sql = <<<EOD
+        INSERT INTO "groups" ("id", "parent_id", "comment", "not_selectable", "name", "permissions_data", "enforce_2fa") VALUES
+            (1, NULL, 'Users of this group can do everything: Read, Write and Administrative actions.', FALSE, 'admins', '$admin', FALSE),
+            (2, NULL, 'Users of this group can only read informations, use tools, and do not have access to administrative tools.', FALSE, 'readonly', '$read_only', FALSE),
+            (3, NULL, 'Users of this group, can edit part informations, create new ones, etc. but are not allowed to use administrative tools. (But can read current configuration, and see Server status)', FALSE, 'users', '$editor', FALSE);
+        
+        EOD;
+        $this->addSql($sql);
+
+        $admin_pw = $this->getInitalAdminPW();
+
+        $sql = <<<EOD
+        INSERT INTO "users" ("id", "group_id", "name", "password", "need_pw_change", "first_name", "last_name", "department", "email", 
+                             "config_language", "config_timezone", "config_theme", "config_instock_comment_w", "config_instock_comment_a", 
+                             "currency_id", "settings", "disabled", "backup_codes", "trusted_device_cookie_version",
+                            "permissions_data", "saml_user", "about_me"
+                             ) VALUES
+            (1, 2, 'anonymous', '', FALSE, '', '', '', '', NULL, NULL, NULL, '', '', NULL, '{}', FALSE, 'null', 0, 'null', FALSE, ''),
+            (2, 1, 'admin', '{$admin_pw}', TRUE, '', '', '', '', NULL, NULL, NULL, '', '', NULL, '{}', FALSE, 'null', 0, '{$admin}', FALSE, '')
+        EOD;
+        $this->addSql($sql);
     }
 
     public function postgreSQLDown(Schema $schema): void
