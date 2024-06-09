@@ -219,7 +219,7 @@ class TimeTravel
                 $target_class = $mapping['targetEntity'];
                 //Try to extract the old ID:
                 if (is_array($data) && isset($data['@id'])) {
-                    $entity = $this->em->getPartialReference($target_class, $data['@id']);
+                    $entity = $this->em->getReference($target_class, $data['@id']);
                     $this->setField($element, $field, $entity);
                 }
             }
