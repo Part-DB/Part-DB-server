@@ -30,7 +30,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -212,7 +212,7 @@ trait PKImportHelperTrait
         $id = (int) $id;
 
         $metadata = $this->em->getClassMetadata($element::class);
-        $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_NONE);
+        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
         $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdentifierValues($element, ['id' => $id]);
     }
