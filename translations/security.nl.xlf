@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
+  <file id="security.en">
+    <unit id="aazoCks" name="user.login_error.user_disabled">
+      <segment state="translated">
+        <source>user.login_error.user_disabled</source>
+        <target>Uw account is gedeactiveerd! Neem contact op met een beheerder indien dit incorrect is.</target>
+      </segment>
+    </unit>
+    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>U kunt niet inloggen als lokale gebruiker met SSO! Gebruik uw lokale wachtwoord.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

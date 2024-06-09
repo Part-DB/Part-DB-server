@@ -21,7 +21,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.16",
-        "dompdf/dompdf": "dev-master#c9cf4be933e2406a51990bd4eb9e70612e790cc0 as v2.0.4",
+        "dompdf/dompdf": "^v3.0.0",
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
