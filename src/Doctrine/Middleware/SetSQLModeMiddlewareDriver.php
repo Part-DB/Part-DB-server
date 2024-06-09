@@ -24,7 +24,6 @@ namespace App\Doctrine\Middleware;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
-use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
 /**
  * This command sets the initial command parameter for MySQL connections, so we can set the SQL mode

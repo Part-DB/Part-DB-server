@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpZip\Constants\ZipCompressionMethod;
@@ -157,7 +157,7 @@ class BackupCommand extends Command
                 $io->error('Could not dump database: '.$e->getMessage());
                 $io->error('This can maybe be fixed by installing the mysqldump binary and adding it to the PATH variable!');
             }
-        } elseif ($connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        } elseif ($connection->getDatabasePlatform() instanceof SQLitePlatform) {
             $io->note('SQLite database detected. Copy DB file to ZIP...');
             $params = $connection->getParams();
             $zip->addFile($params['path'], 'var/app.db');

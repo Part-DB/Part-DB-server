@@ -26,7 +26,7 @@ use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -51,7 +51,7 @@ class DBInfoHelper
             return 'mysql';
         }
 
-        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if ($this->connection->getDatabasePlatform() instanceof SQLitePlatform) {
             return 'sqlite';
         }
 
@@ -72,7 +72,7 @@ class DBInfoHelper
             return $this->connection->fetchOne('SELECT VERSION()');
         }
 
-        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if ($this->connection->getDatabasePlatform() instanceof SQLitePlatform) {
             return $this->connection->fetchOne('SELECT sqlite_version()');
         }
 
@@ -98,7 +98,7 @@ class DBInfoHelper
             }
         }
 
-        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if ($this->connection->getDatabasePlatform() instanceof SQLitePlatform) {
             try {
                 return (int) $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
             } catch (Exception) {
@@ -138,7 +138,7 @@ class DBInfoHelper
             }
         }
 
-        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if ($this->connection->getDatabasePlatform() instanceof SQLitePlatform) {
             return 'sqlite';
         }
 

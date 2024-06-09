@@ -27,7 +27,6 @@ use Composer\CaBundle\CaBundle;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
-use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
 /**
  * This middleware sets SSL options for MySQL connections

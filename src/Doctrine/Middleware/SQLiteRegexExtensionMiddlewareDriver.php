@@ -26,7 +26,6 @@ namespace App\Doctrine\Middleware;
 use App\Exceptions\InvalidRegexException;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
 
 /**
  * This middleware is used to add the regexp operator to the SQLite platform.
