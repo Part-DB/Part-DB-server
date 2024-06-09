@@ -19,7 +19,7 @@
 
 .hoverpic {
     min-width: 30px;
-    max-width: 80px;
+    max-width: 30px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -49,7 +49,7 @@
 }
 
 .part-table-image {
-    max-height: 80px;
+    max-height: 40px;
     object-fit: contain;
     width: 100%;
 }
