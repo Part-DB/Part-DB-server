@@ -64,8 +64,6 @@ class UTCDateTimeType extends DateTimeType
      *
      * @param T $value
      *
-     * @return DateTime|(T is null ? null : DateTimeInterface)
-          *
      * @template T
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
