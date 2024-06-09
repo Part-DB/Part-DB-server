@@ -30,6 +30,7 @@ use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\LogTargetType;
 use App\Entity\UserSystem\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use RuntimeException;
 
 /**
@@ -85,10 +86,10 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC')
             ->setMaxResults(1);
 
-        $qb->setParameters([
+        $qb->setParameters(new ArrayCollection([
             'target_type' => LogTargetType::fromElementClass($class),
             'target_id' => $id,
-        ]);
+        ]));
 
         $query = $qb->getQuery();
 
@@ -121,11 +122,11 @@ class LogEntryRepository extends DBElementRepository
             ->andWhere('log.timestamp >= :until')
             ->orderBy('log.timestamp', 'DESC');
 
-        $qb->setParameters([
+        $qb->setParameters(new ArrayCollection([
             'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
             'until' => $until,
-        ]);
+        ]));
 
         $query = $qb->getQuery();
 
@@ -147,11 +148,11 @@ class LogEntryRepository extends DBElementRepository
             ->andWhere('log.timestamp >= :until')
             ->orderBy('log.timestamp', 'DESC');
 
-        $qb->setParameters([
+        $qb->setParameters(new ArrayCollection([
             'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
             'until' => $timestamp,
-        ]);
+        ]));
 
         $query = $qb->getQuery();
         $count = $query->getSingleScalarResult();
@@ -232,10 +233,10 @@ class LogEntryRepository extends DBElementRepository
             ->andWhere('log.target_id = :target_id')
             ->orderBy('log.timestamp', 'DESC');
 
-        $qb->setParameters([
+        $qb->setParameters(new ArrayCollection([
             'target_type' => LogTargetType::fromElementClass($element),
             'target_id' => $element->getID(),
-        ]);
+        ]));
 
         $query = $qb->getQuery();
         $query->setMaxResults(1);
