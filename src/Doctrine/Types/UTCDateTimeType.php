@@ -64,11 +64,11 @@ class UTCDateTimeType extends DateTimeType
      *
      * @param T $value
      *
-     * @return (T is null ? null : DateTimeInterface)
-     *
+     * @return DateTime|(T is null ? null : DateTimeInterface)
+          *
      * @template T
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?\DateTimeInterface
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
         if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
@@ -85,7 +85,7 @@ class UTCDateTimeType extends DateTimeType
         );
 
         if (!$converted) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
+            throw new ConversionException("Failed to convert PHP value to a DateTime object.");
         }
 
         return $converted;
