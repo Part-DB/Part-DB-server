@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\UserSystem\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -98,10 +97,10 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
             ->where('u.name = (:name)')
             ->orWhere('u.email = (:email)');
 
-        $qb->setParameters(new ArrayCollection([
+        $qb->setParameters([
             'email' => $name_or_password,
             'name' => $name_or_password,
-        ]));
+        ]);
 
         try {
             return $qb->getQuery()->getOneOrNullResult();
