@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Set Database env for MySQL
-        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/partdb" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/partdb?serverVersion=8.0" >> $GITHUB_ENV
         if: matrix.db-type == 'mysql'
 
       - name: Set Database env for SQLite
@@ -153,10 +153,6 @@ jobs:
         if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ failure() }}
 
 
       
