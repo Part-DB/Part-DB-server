@@ -25,7 +25,7 @@ namespace App\Repository;
 
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Attachments\AttachmentContainingDBElement;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * @template TEntityClass of AttachmentContainingDBElement
@@ -70,7 +70,7 @@ class AttachmentContainingDBElementRepository extends NamedDBElementRepository
 
         $q = $qb->getQuery();
 
-        $q->setFetchMode($this->getEntityName(), 'master_picture_attachment', ClassMetadataInfo::FETCH_EAGER);
+        $q->setFetchMode($this->getEntityName(), 'master_picture_attachment', ClassMetadata::FETCH_EAGER);
 
         $result = $q->getResult();
 

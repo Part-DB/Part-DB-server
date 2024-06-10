@@ -57,10 +57,6 @@ class NoneOfItsChildrenValidatorTest extends ConstraintValidatorTestCase
         $this->child1_2->setName('child1_2')->setParent($this->child1);
     }
 
-    private function getDummyObjects(): array
-    {
-        $obj1 = new AttachmentType();
-    }
 
     protected function createValidator(): NoneOfItsChildrenValidator
     {

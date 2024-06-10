@@ -24,7 +24,7 @@ namespace App\Doctrine\Types;
 
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Types\Type;
 
 /**
@@ -36,7 +36,7 @@ class TinyIntType extends Type
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         //MySQL and SQLite know the TINYINT type directly
-        if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SqlitePlatform) {
+        if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SQLitePlatform) {
             return 'TINYINT';
         }
 

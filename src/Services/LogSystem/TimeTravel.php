@@ -35,7 +35,7 @@ use Brick\Math\BigDecimal;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Exception;
 use InvalidArgumentException;
@@ -136,16 +136,16 @@ class TimeTravel
 
             //Revert many-to-one association (one element in property)
             if (
-                ClassMetadataInfo::MANY_TO_ONE === $mapping['type']
-                || ClassMetadataInfo::ONE_TO_ONE === $mapping['type']
+                ClassMetadata::MANY_TO_ONE === $mapping['type']
+                || ClassMetadata::ONE_TO_ONE === $mapping['type']
             ) {
                 $target_element = $this->getField($element, $field);
                 if (null !== $target_element && $element->getLastModified() > $timestamp) {
                     $this->revertEntityToTimestamp($target_element, $timestamp, $reverted_elements);
                 }
             } elseif ( //Revert *_TO_MANY associations (collection properties)
-                (ClassMetadataInfo::MANY_TO_MANY === $mapping['type']
-                    || ClassMetadataInfo::ONE_TO_MANY === $mapping['type'])
+                (ClassMetadata::MANY_TO_MANY === $mapping['type']
+                    || ClassMetadata::ONE_TO_MANY === $mapping['type'])
                 && !$mapping['isOwningSide']
             ) {
                 $target_elements = $this->getField($element, $field);
@@ -219,7 +219,7 @@ class TimeTravel
                 $target_class = $mapping['targetEntity'];
                 //Try to extract the old ID:
                 if (is_array($data) && isset($data['@id'])) {
-                    $entity = $this->em->getPartialReference($target_class, $data['@id']);
+                    $entity = $this->em->getReference($target_class, $data['@id']);
                     $this->setField($element, $field, $entity);
                 }
             }
