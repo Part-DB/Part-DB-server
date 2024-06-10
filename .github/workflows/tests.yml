@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Set Database env for MySQL
-        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/partdb?serverVersion=8.0" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/partdb?serverVersion=8.0.35" >> $GITHUB_ENV
         if: matrix.db-type == 'mysql'
 
       - name: Set Database env for SQLite
