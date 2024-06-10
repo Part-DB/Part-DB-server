@@ -207,6 +207,8 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             return 'ALTER TABLE '.$tableIdentifier->getQuotedName($platform).' AUTO_INCREMENT = 1;';
         }
 
+        throw new \RuntimeException("Resetting autoincrement is not supported on this platform!");
+
         //This seems to cause problems somehow
         /*if ($platform instanceof SqlitePlatform) {
             return 'DELETE FROM `sqlite_sequence` WHERE name = \''.$tableIdentifier->getQuotedName($platform).'\';';
