@@ -64,7 +64,7 @@ jobs:
           sudo -u postgres createuser -s -d -r -w runner
         if: matrix.db-type == 'postgres'
 
-      #- name: Setup MySQL
+        #- name: Setup MySQL
       #  uses: mirromutth/mysql-action@v1.1
       #  with:
       #    mysql version: 5.7
@@ -153,6 +153,10 @@ jobs:
         if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
 
 
       
