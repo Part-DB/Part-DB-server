@@ -19,7 +19,7 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
 
     public function getDescription(): string
     {
-        return 'Initial schema for Postgres';
+        return 'Initial schema for Postgres and apply changes to MySQL and SQLite caused by the doctrine upgrade';
     }
 
     public function postgreSQLUp(Schema $schema): void
@@ -378,12 +378,40 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
 
     public function mySQLUp(Schema $schema): void
     {
-        $this->warnIf(true, "Migration not needed for MySQL");
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE currencies CHANGE exchange_rate exchange_rate NUMERIC(11, 5) DEFAULT NULL');
+        //Set empty JSON fields to "{}" to avoid issues with failing JSON validation
+        $this->addSql('UPDATE `groups` SET permissions_data = "{}" WHERE permissions_data = ""');
+        $this->addSql('ALTER TABLE `groups` CHANGE permissions_data permissions_data JSON NOT NULL');
+        //Set the empty JSON fields to "{}" to avoid issues with failing JSON validation
+        $this->addSql('UPDATE `log` SET extra = "{}" WHERE extra = ""');
+        $this->addSql('ALTER TABLE `log` CHANGE level level TINYINT NOT NULL, CHANGE extra extra JSON NOT NULL');
+        $this->addSql('ALTER TABLE oauth_tokens CHANGE expires_at expires_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE pricedetails CHANGE price price NUMERIC(11, 5) NOT NULL');
+        $this->addSql('ALTER TABLE project_bom_entries CHANGE price price NUMERIC(11, 5) DEFAULT NULL');
+        $this->addSql('ALTER TABLE suppliers CHANGE shipping_costs shipping_costs NUMERIC(11, 5) DEFAULT NULL');
+        //Set the empty JSON fields to "{}" to avoid issues with failing JSON validation
+        $this->addSql('UPDATE `users` SET settings = "{}" WHERE settings = ""');
+        $this->addSql('UPDATE `users` SET backup_codes = "{}" WHERE backup_codes = ""');
+        $this->addSql('UPDATE `users` SET permissions_data = "{}" WHERE permissions_data = ""');
+        $this->addSql('ALTER TABLE `users` CHANGE settings settings JSON NOT NULL, CHANGE backup_codes backup_codes JSON NOT NULL, CHANGE permissions_data permissions_data JSON NOT NULL');
+        $this->addSql('ALTER TABLE webauthn_keys CHANGE public_key_credential_id public_key_credential_id LONGTEXT NOT NULL, CHANGE transports transports LONGTEXT NOT NULL, CHANGE trust_path trust_path JSON NOT NULL, CHANGE aaguid aaguid TINYTEXT NOT NULL, CHANGE credential_public_key credential_public_key LONGTEXT NOT NULL, CHANGE other_ui other_ui LONGTEXT DEFAULT NULL, CHANGE last_time_used last_time_used DATETIME DEFAULT NULL');
+
     }
 
     public function mySQLDown(Schema $schema): void
     {
-        $this->warnIf(true, "Migration not needed for MySQL");
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE currencies CHANGE exchange_rate exchange_rate NUMERIC(11, 5) DEFAULT NULL COMMENT \'(DC2Type:big_decimal)\'');
+        $this->addSql('ALTER TABLE `groups` CHANGE permissions_data permissions_data LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\'');
+        $this->addSql('ALTER TABLE log CHANGE level level TINYINT(1) NOT NULL COMMENT \'(DC2Type:tinyint)\', CHANGE extra extra LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\'');
+        $this->addSql('ALTER TABLE oauth_tokens CHANGE expires_at expires_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('ALTER TABLE `pricedetails` CHANGE price price NUMERIC(11, 5) NOT NULL COMMENT \'(DC2Type:big_decimal)\'');
+        $this->addSql('ALTER TABLE project_bom_entries CHANGE price price NUMERIC(11, 5) DEFAULT NULL COMMENT \'(DC2Type:big_decimal)\'');
+        $this->addSql('ALTER TABLE `suppliers` CHANGE shipping_costs shipping_costs NUMERIC(11, 5) DEFAULT NULL COMMENT \'(DC2Type:big_decimal)\'');
+        $this->addSql('ALTER TABLE `users` CHANGE backup_codes backup_codes LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', CHANGE settings settings LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', CHANGE permissions_data permissions_data LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\'');
+        $this->addSql('ALTER TABLE webauthn_keys CHANGE public_key_credential_id public_key_credential_id LONGTEXT NOT NULL COMMENT \'(DC2Type:base64)\', CHANGE transports transports LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', CHANGE trust_path trust_path LONGTEXT NOT NULL COMMENT \'(DC2Type:trust_path)\', CHANGE aaguid aaguid TINYTEXT NOT NULL COMMENT \'(DC2Type:aaguid)\', CHANGE credential_public_key credential_public_key LONGTEXT NOT NULL COMMENT \'(DC2Type:base64)\', CHANGE other_ui other_ui LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', CHANGE last_time_used last_time_used DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+
     }
 
     public function sqLiteUp(Schema $schema): void

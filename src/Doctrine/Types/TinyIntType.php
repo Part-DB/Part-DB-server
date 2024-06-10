@@ -37,7 +37,7 @@ class TinyIntType extends Type
     {
         //MySQL and SQLite know the TINYINT type directly
         if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SQLitePlatform) {
-            return 'TINYINT';
+            return 'TINYINT(1)';
         }
 
         //For other platforms, we use the smallest integer type available
