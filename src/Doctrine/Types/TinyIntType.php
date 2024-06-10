@@ -35,8 +35,10 @@ class TinyIntType extends Type
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        //MySQL and SQLite know the TINYINT type directly
-        if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SQLitePlatform) {
+        //MySQL knows the TINYINT type directly
+        //We do not use the TINYINT for sqlite, as it will be resolved to a BOOL type and bring problems with migrations
+        if ($platform instanceof AbstractMySQLPlatform ) {
+            //Use TINYINT(1) to allow for proper migration diffs
             return 'TINYINT(1)';
         }
 
