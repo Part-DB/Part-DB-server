@@ -75,7 +75,7 @@ class APITokenFixtures extends Fixture implements DependentFixtureInterface
         $expired_token->setUser($admin_user);
         $expired_token->setLevel(ApiTokenLevel::FULL);
         $expired_token->setName('expired');
-        $expired_token->setValidUntil(new \DateTimeImmutable('-1 day'));
+        $expired_token->setValidUntil(new \DateTime('-1 day'));
         $this->setTokenSecret($expired_token, self::TOKEN_EXPIRED);
         $manager->persist($expired_token);
 

@@ -75,7 +75,7 @@ class ApiTokenAuthenticator implements AuthenticatorInterface
 
         $old_time = $token->getLastTimeUsed();
         //Set the last used date of the token
-        $token->setLastTimeUsed(new \DateTimeImmutable());
+        $token->setLastTimeUsed(new \DateTime());
         //Only flush the token if the last used date change is more than 10 minutes
         //For performance reasons we don't want to flush the token every time it is used, but only if it is used more than 10 minutes after the last time it was used
         //If a flush is later in the code we don't want to flush the token again

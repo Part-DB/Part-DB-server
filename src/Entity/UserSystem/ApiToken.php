@@ -78,7 +78,7 @@ class ApiToken implements TimeStampableInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups('token:read')]
     #[Year2038BugWorkaround]
-    private ?\DateTimeInterface $valid_until;
+    private ?\DateTime $valid_until;
 
     #[ORM\Column(length: 68, unique: true)]
     private string $token;
@@ -89,7 +89,7 @@ class ApiToken implements TimeStampableInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups('token:read')]
-    private ?\DateTimeInterface $last_time_used = null;
+    private ?\DateTime $last_time_used = null;
 
     public function __construct(ApiTokenType $tokenType = ApiTokenType::PERSONAL_ACCESS_TOKEN)
     {
@@ -130,7 +130,7 @@ class ApiToken implements TimeStampableInterface
         return $this->valid_until === null || $this->valid_until > new \DateTime();
     }
 
-    public function setValidUntil(?\DateTimeInterface $valid_until): ApiToken
+    public function setValidUntil(?\DateTime $valid_until): ApiToken
     {
         $this->valid_until = $valid_until;
         return $this;
@@ -168,10 +168,10 @@ class ApiToken implements TimeStampableInterface
 
     /**
      * Sets the last time the token was used to authenticate.
-     * @param \DateTimeInterface|null $last_time_used
+     * @param \DateTime|null $last_time_used
      * @return ApiToken
      */
-    public function setLastTimeUsed(?\DateTimeInterface $last_time_used): ApiToken
+    public function setLastTimeUsed(?\DateTime $last_time_used): ApiToken
     {
         $this->last_time_used = $last_time_used;
         return $this;
