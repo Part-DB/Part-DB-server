@@ -28,6 +28,7 @@ use DateTimeZone;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\Exception\InvalidFormat;
 
 /**
  * This DateTimeType all dates to UTC, so it can be later used with the timezones.
@@ -83,7 +84,11 @@ class UTCDateTimeType extends DateTimeType
         );
 
         if (!$converted) {
-            throw new ConversionException("Failed to convert PHP value to a DateTime object.");
+            throw InvalidFormat::new(
+                $value,
+                static::class,
+                $platform->getDateTimeFormatString(),
+            );
         }
 
         return $converted;
