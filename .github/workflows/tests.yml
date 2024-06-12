@@ -39,7 +39,7 @@ jobs:
         if: matrix.db-type == 'sqlite'
 
       - name: Set Database env for PostgreSQL
-        run: echo "DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/partdb?serverVersion=14&charset=utf8" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=postgresql://postgres:postgres @127.0.0.1:5432/partdb?serverVersion=14&charset=utf8" >> $GITHUB_ENV
         if: matrix.db-type == 'postgres'
 
       - name: Checkout
