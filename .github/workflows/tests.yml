@@ -149,5 +149,6 @@ jobs:
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
 
-
-      
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() }}
