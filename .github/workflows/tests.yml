@@ -60,6 +60,7 @@ jobs:
       - name: Start PostgreSQL
         run: |
           sudo systemctl start postgresql.service
+          sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
         if: matrix.db-type == 'postgres'
 
         #- name: Setup MySQL
