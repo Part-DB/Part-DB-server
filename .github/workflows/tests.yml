@@ -59,6 +59,7 @@ jobs:
 
       - name: Start PostgreSQL
         run: |
+          sudo "echo 'host all all" >> /etc/postgresql/16/main/pg_hba.conf" 
           sudo systemctl start postgresql.service
           sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
         if: matrix.db-type == 'postgres'
