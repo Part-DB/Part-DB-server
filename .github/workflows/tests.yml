@@ -57,9 +57,10 @@ jobs:
         run: sudo systemctl start mysql.service
         if: matrix.db-type == 'mysql'
 
+        # Replace the scram-sha-256 with trust for host connections, to avoid password authentication
       - name: Start PostgreSQL
         run: |
-          sudo "echo 'host all all" >> /etc/postgresql/16/main/pg_hba.conf" 
+          sudo sed -i 's/^\(host.*all.*all.*\)scram-sha-256/\1trust/' /etc/postgresql/14/main/pg_hba.conf
           sudo systemctl start postgresql.service
           sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
         if: matrix.db-type == 'postgres'
@@ -148,7 +149,3 @@ jobs:
         if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ failure() }}
