@@ -39,7 +39,7 @@ jobs:
         if: matrix.db-type == 'sqlite'
 
       - name: Set Database env for PostgreSQL
-        run: echo "DATABASE_URL=postgresql://runner:@127.0.0.1:5432/partdb?serverVersion=14&charset=utf8" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/partdb?serverVersion=14&charset=utf8" >> $GITHUB_ENV
         if: matrix.db-type == 'postgres'
 
       - name: Checkout
@@ -60,8 +60,6 @@ jobs:
       - name: Start PostgreSQL
         run: |
           sudo systemctl start postgresql.service
-          pg_isready
-          sudo -u postgres createuser -s -d -r -w runner
         if: matrix.db-type == 'postgres'
 
         #- name: Setup MySQL
