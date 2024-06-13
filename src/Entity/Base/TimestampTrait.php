@@ -34,20 +34,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait TimestampTrait
 {
     /**
-     * @var \DateTimeInterface|null the date when this element was modified the last time
+     * @var \DateTime|null the date when this element was modified the last time
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
     #[ORM\Column(name: 'last_modified', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
     /**
-     * @var \DateTimeInterface|null the date when this element was created
+     * @var \DateTime|null the date when this element was created
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
     #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
 
     /**
      * Returns the last time when the element was modified.

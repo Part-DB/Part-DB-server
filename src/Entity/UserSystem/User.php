@@ -116,10 +116,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?int $id = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
@@ -317,10 +317,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var \DateTimeInterface|null the time until the password reset token is valid
+     * @var \DateTime|null the time until the password reset token is valid
      */
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $pw_reset_expires = null;
+    protected ?\DateTime $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
@@ -535,7 +535,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the datetime when the password reset token expires.
      */
-    public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
+    public function setPwResetExpires(\DateTime $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
