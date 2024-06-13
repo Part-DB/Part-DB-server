@@ -48,7 +48,7 @@ class DatatablesAvailabilityTest extends WebTestCase
     /**
      * @dataProvider urlProvider
      */
-    public function testDataTable(string $url): void
+    public function testDataTable(string $url, ?array $ordering = null): void
     {
         //We have localized routes
         $url = '/en'.$url;
@@ -68,7 +68,14 @@ class DatatablesAvailabilityTest extends WebTestCase
             'PHP_AUTH_PW' => 'test',
         ]);
         $client->catchExceptions(false);
-        $client->request('POST', $url, ['_dt' => 'dt']);
+
+        $post = ['_dt' => 'dt'];
+
+        if ($ordering) {
+            $post['order'] = $ordering;
+        }
+
+        $client->request('POST', $url, $post);
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertJson($client->getResponse()->getContent());
     }
@@ -92,5 +99,11 @@ class DatatablesAvailabilityTest extends WebTestCase
         //Test using filters
         yield ['/category/1/parts?part_filter%5Bname%5D%5Boperator%5D=%3D&part_filter%5Bname%5D%5Bvalue%5D=BC547&part_filter%5Bcategory%5D%5Boperator%5D=INCLUDING_CHILDREN&part_filter%5Btags%5D%5Boperator%5D=ANY&part_filter%5Btags%5D%5Bvalue%5D=Test&part_filter%5Bsubmit%5D='];
         yield ['/category/1/parts?part_filter%5Bcategory%5D%5Boperator%5D=INCLUDING_CHILDREN&part_filter%5Bstorelocation%5D%5Boperator%5D=%3D&part_filter%5Bstorelocation%5D%5Bvalue%5D=1&part_filter%5BattachmentsCount%5D%5Boperator%5D=%3D&part_filter%5BattachmentsCount%5D%5Bvalue1%5D=3&part_filter%5Bsubmit%5D='];
+    }
+
+    public function testOrdering(): void
+    {
+        //Amount ordering (which uses the dynamic amount calculation)
+        $this->testDataTable('/parts', [['column' => 9, 'dir' => 'asc']]);
     }
 }

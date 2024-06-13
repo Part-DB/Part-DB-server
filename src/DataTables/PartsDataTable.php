@@ -345,7 +345,7 @@ final class PartsDataTable implements DataTableTypeInterface
             //Calculate amount sum using a subquery, so we can filter and sort by it
             $builder->addSelect(
                 '(
-                    SELECT IFNULL(SUM(partLot.amount), 0.0)
+                    SELECT COALESCE(SUM(partLot.amount), 0.0)
                     FROM '.PartLot::class.' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
