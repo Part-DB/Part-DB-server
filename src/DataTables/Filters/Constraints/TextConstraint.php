@@ -113,7 +113,7 @@ class TextConstraint extends AbstractConstraint
 
         //Regex is only supported on MySQL and needs a special function
         if ($this->operator === 'REGEX') {
-            $queryBuilder->andWhere(sprintf('REGEXP(%s, :%s) = 1', $this->property, $this->identifier));
+            $queryBuilder->andWhere(sprintf('REGEXP(%s, :%s) = TRUE', $this->property, $this->identifier));
             $queryBuilder->setParameter($this->identifier, $this->value);
         }
     }

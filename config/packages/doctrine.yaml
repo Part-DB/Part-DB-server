@@ -43,7 +43,7 @@ doctrine:
 
         dql:
             string_functions:
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
+                regexp: App\Doctrine\Functions\Regexp
                 field:  DoctrineExtensions\Query\Mysql\Field
                 field2: App\Doctrine\Functions\Field2
 
