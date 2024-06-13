@@ -79,7 +79,7 @@ class DBElementRepository extends EntityRepository
 
     /**
      * Find all elements that match a list of IDs.
-     *
+     * They are ordered by IDs in an ascending order.
      * @return AbstractDBElement[]
      * @phpstan-return list<TEntityClass>
      */
@@ -89,6 +89,7 @@ class DBElementRepository extends EntityRepository
         $q = $qb->select('element')
             ->where('element.id IN (?1)')
             ->setParameter(1, $ids)
+            ->orderBy('element.id', 'ASC')
             ->getQuery();
 
         return $q->getResult();
