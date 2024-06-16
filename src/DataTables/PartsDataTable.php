@@ -264,8 +264,8 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('part.minamount AS HIDDEN minamount')
             ->from(Part::class, 'part')
 
-            //This must be the only group by, or the paginator will not work correctly
-            ->addGroupBy('part.id');
+            //The other group by fields, are dynamically added by the addJoins method
+            ->addGroupBy('part');
     }
 
     private function getDetailQuery(QueryBuilder $builder, array $filter_results): void
@@ -356,35 +356,52 @@ final class PartsDataTable implements DataTableTypeInterface
 
         if (str_contains($dql, '_category')) {
             $builder->leftJoin('part.category', '_category');
+            $builder->addGroupBy('_category');
         }
         if (str_contains($dql, '_master_picture_attachment')) {
             $builder->leftJoin('part.master_picture_attachment', '_master_picture_attachment');
+            $builder->addGroupBy('_master_picture_attachment');
         }
         if (str_contains($dql, '_partLots') || str_contains($dql, '_storelocations')) {
             $builder->leftJoin('part.partLots', '_partLots');
             $builder->leftJoin('_partLots.storage_location', '_storelocations');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_partLots');
+            //$builder->addGroupBy('_storelocations');
         }
         if (str_contains($dql, '_footprint')) {
             $builder->leftJoin('part.footprint', '_footprint');
+            $builder->addGroupBy('_footprint');
         }
         if (str_contains($dql, '_manufacturer')) {
             $builder->leftJoin('part.manufacturer', '_manufacturer');
+            $builder->addGroupBy('_manufacturer');
         }
         if (str_contains($dql, '_orderdetails') || str_contains($dql, '_suppliers')) {
             $builder->leftJoin('part.orderdetails', '_orderdetails');
             $builder->leftJoin('_orderdetails.supplier', '_suppliers');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_orderdetails');
+            //$builder->addGroupBy('_suppliers');
         }
         if (str_contains($dql, '_attachments')) {
             $builder->leftJoin('part.attachments', '_attachments');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_attachments');
         }
         if (str_contains($dql, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');
+            $builder->addGroupBy('_partUnit');
         }
         if (str_contains($dql, '_parameters')) {
             $builder->leftJoin('part.parameters', '_parameters');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_parameters');
         }
         if (str_contains($dql, '_projectBomEntries')) {
             $builder->leftJoin('part.project_bom_entries', '_projectBomEntries');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_projectBomEntries');
         }
 
         return $builder;
