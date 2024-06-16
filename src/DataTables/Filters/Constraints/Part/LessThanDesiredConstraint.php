@@ -23,13 +23,20 @@ declare(strict_types=1);
 namespace App\DataTables\Filters\Constraints\Part;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
+use App\Entity\Parts\PartLot;
 use Doctrine\ORM\QueryBuilder;
 
 class LessThanDesiredConstraint extends BooleanConstraint
 {
     public function __construct(string $property = null, string $identifier = null, ?bool $default_value = null)
     {
-        parent::__construct($property ?? 'amountSum', $identifier, $default_value);
+        parent::__construct($property ?? '(
+                    SELECT COALESCE(SUM(ld_partLot.amount), 0.0)
+                    FROM '.PartLot::class.' ld_partLot
+                    WHERE ld_partLot.part = part.id
+                    AND ld_partLot.instock_unknown = false
+                    AND (ld_partLot.expiration_date IS NULL OR ld_partLot.expiration_date > CURRENT_DATE())
+                )', $identifier ?? 'amountSumLessThanDesired', $default_value);
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -41,9 +48,9 @@ class LessThanDesiredConstraint extends BooleanConstraint
 
         //If value is true, we want to filter for parts with stock < desired stock
         if ($this->value) {
-            $queryBuilder->andHaving('amountSum < minamount');
+            $queryBuilder->andHaving( $this->property . ' < minamount');
         } else {
-            $queryBuilder->andHaving('amountSum >= minamount');
+            $queryBuilder->andHaving($this->property . ' >= minamount');
         }
     }
 }
