@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Doctrine\Helpers;
 
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -44,11 +45,11 @@ final class FieldHelper
     {
         $db_platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
-        //If we are on MySQL, we can just use the FIELD function
-        if ($db_platform instanceof AbstractMySQLPlatform) {
+        //If we are on MySQL, we can just use the FIELD function, for PostgreSQL we can use our custom defined one
+        if ($db_platform instanceof AbstractMySQLPlatform || $db_platform instanceof PostgreSQLPlatform) {
             $param = (is_numeric($bound_param) ? '?' : ":") . (string) $bound_param;
             $qb->orderBy("FIELD($field_expr, $param)", $order);
-        } else {
+        } else { //Use the sqlite/portable version
             //Retrieve the values from the bound parameter
             $param = $qb->getParameter($bound_param);
             if ($param === null) {
