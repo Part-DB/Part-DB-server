@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Functions;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
@@ -35,6 +36,29 @@ use Doctrine\ORM\Query\TokenType;
 class Natsort extends FunctionNode
 {
     private ?Node $field = null;
+
+    private static ?bool $supportsNaturalSort = null;
+
+    /**
+     * Check if the MariaDB version which is connected to supports the natural sort (meaning it has a version of 10.7.0 or higher)
+     * The result is cached in memory.
+     * @param  Connection  $connection
+     * @return bool
+     * @throws \Doctrine\DBAL\Exception
+     */
+    private static function mariaDBSupportsNaturalSort(Connection $connection): bool
+    {
+        if (self::$supportsNaturalSort !== null) {
+            return self::$supportsNaturalSort;
+        }
+
+        $version = $connection->getServerVersion();
+        //Remove the -MariaDB suffix
+        $version = str_replace('-MariaDB', '', $version);
+        //We need at least MariaDB 10.7.0 to support the natural sort
+        self::$supportsNaturalSort = version_compare($version, '10.7.0', '>=');
+        return self::$supportsNaturalSort;
+    }
 
     public function parse(Parser $parser): void
     {
@@ -56,9 +80,9 @@ class Natsort extends FunctionNode
             return $this->field->dispatch($sqlWalker) . ' COLLATE numeric';
         }
 
-        /*if ($platform instanceof MariaDBPlatform && $sqlWalker->getConnection()->getServerVersion()) {
-
-        }*/
+        if ($platform instanceof MariaDBPlatform && self::mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
+            return 'NATURAL_SORT_KEY(' . $this->field->dispatch($sqlWalker) . ')';
+        }
 
          //For every other platform, return the field as is
         return $this->field->dispatch($sqlWalker);
