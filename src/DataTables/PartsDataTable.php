@@ -108,36 +108,40 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
+                'orderField' => 'NATSORT(part.name)'
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
             ])
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
+                'orderField' => 'NATSORT(part.ipn)'
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
+                'orderField' => 'NATSORT(part.description)'
             ])
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'category',
-                'orderField' => '_category.name'
+                'orderField' => 'NATSORT(_category.name)'
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-                'orderField' => '_footprint.name'
+                'orderField' => 'NATSORT(_footprint.name)'
             ])
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-                'orderField' => '_manufacturer.name'
+                'orderField' => 'NATSORT(_manufacturer.name)'
             ])
             ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
-                'orderField' => '_storelocations.name',
+                'orderField' => 'NATSORT(_storelocations.name)',
                 'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
+
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
                 'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderAmount($context),
@@ -151,7 +155,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-                'orderField' => '_partUnit.name'
+                'orderField' => 'NATSORT(_partUnit.name)'
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),

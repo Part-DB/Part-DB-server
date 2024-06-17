@@ -46,6 +46,7 @@ doctrine:
                 regexp: App\Doctrine\Functions\Regexp
                 field:  DoctrineExtensions\Query\Mysql\Field
                 field2: App\Doctrine\Functions\Field2
+                natsort: App\Doctrine\Functions\Natsort
 
 when@test:
     doctrine:

@@ -154,7 +154,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('user', TextColumn::class, [
             'label' => 'log.user',
-            'orderField' => 'user.name',
+            'orderField' => 'NATSORT(user.name)',
             'render' => function ($value, AbstractLogEntry $context): string {
                 $user = $context->getUser();
 

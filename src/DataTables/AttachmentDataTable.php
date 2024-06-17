@@ -86,6 +86,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
 
         $dataTable->add('name', TextColumn::class, [
             'label' => 'attachment.edit.name',
+            'orderField' => 'NATSORT(attachment.name)',
             'render' => function ($value, Attachment $context) {
                 //Link to external source
                 if ($context->isExternal()) {
@@ -111,6 +112,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('attachment_type', TextColumn::class, [
             'label' => 'attachment.table.type',
             'field' => 'attachment_type.name',
+            'orderField' => 'NATSORT(attachment_type.name)',
             'render' => fn($value, Attachment $context): string => sprintf(
                 '<a href="%s">%s</a>',
                 $this->entityURLGenerator->editURL($context->getAttachmentType()),
