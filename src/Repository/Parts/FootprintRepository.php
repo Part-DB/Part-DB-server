@@ -28,13 +28,13 @@ use InvalidArgumentException;
 
 class FootprintRepository extends AbstractPartsContainingRepository
 {
-    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
+    public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof Footprint) {
             throw new InvalidArgumentException('$element must be an Footprint!');
         }
 
-        return $this->getPartsByField($element, $order_by, 'footprint');
+        return $this->getPartsByField($element, $nameOrderDirection, 'footprint');
     }
 
     public function getPartsCount(object $element): int

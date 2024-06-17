@@ -25,6 +25,7 @@ namespace App\Doctrine\Functions;
 
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Parser;
@@ -33,7 +34,7 @@ use Doctrine\ORM\Query\TokenType;
 
 class Natsort extends FunctionNode
 {
-    private Node $field;
+    private ?Node $field = null;
 
     public function parse(Parser $parser): void
     {
@@ -47,15 +48,17 @@ class Natsort extends FunctionNode
 
     public function getSql(SqlWalker $sqlWalker): string
     {
+        assert($this->field !== null, 'Field is not set');
+
         $platform = $sqlWalker->getConnection()->getDatabasePlatform();
 
-        if ($platform instanceof AbstractPostgreSQLDriver) {
+        if ($platform instanceof PostgreSQLPlatform) {
             return $this->field->dispatch($sqlWalker) . ' COLLATE numeric';
         }
 
-        if ($platform instanceof MariaDBPlatform && $sqlWalker->getConnection()->getServerVersion()) {
+        /*if ($platform instanceof MariaDBPlatform && $sqlWalker->getConnection()->getServerVersion()) {
 
-        }
+        }*/
 
          //For every other platform, return the field as is
         return $this->field->dispatch($sqlWalker);

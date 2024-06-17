@@ -90,7 +90,7 @@ class PartRepository extends NamedDBElementRepository
         $qb->setParameter('query', '%'.$query.'%');
 
         $qb->setMaxResults($max_limits);
-        $qb->orderBy('part.name', 'ASC');
+        $qb->orderBy('NATSORT(part.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
