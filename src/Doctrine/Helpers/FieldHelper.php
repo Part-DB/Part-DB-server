@@ -87,13 +87,11 @@ final class FieldHelper
 
         $key = 'field2_' . md5($field_expr);
 
-        //If we are on MySQL, we can just use the FIELD function
-        if ($db_platform instanceof AbstractMySQLPlatform) {
+        //If we are on MySQL, we can just use the FIELD function, for postgres we can use our custom defined one
+        if ($db_platform instanceof AbstractMySQLPlatform || $db_platform instanceof PostgreSQLPlatform) {
             $qb->orderBy("FIELD($field_expr, :field_arr)", $order);
         } else {
-            //Generate a unique key from the field_expr
-
-            //Otherwise we have to it using the FIELD2 function
+            //Otherwise use the portable version using string concatenation
             self::addSqliteOrderBy($qb, $field_expr, $key, $values, $order);
         }
 
