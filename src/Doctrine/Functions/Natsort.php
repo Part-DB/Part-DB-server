@@ -27,6 +27,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Parser;
@@ -38,6 +39,19 @@ class Natsort extends FunctionNode
     private ?Node $field = null;
 
     private static ?bool $supportsNaturalSort = null;
+
+    private static bool $allowSlowNaturalSort = false;
+
+    /**
+     * As we can not inject parameters into the function, we use an event listener, to call the value on the static function.
+     * This is the only way to inject the value into the function.
+     * @param  bool  $allow
+     * @return void
+     */
+    public static function allowSlowNaturalSort(bool $allow = true): void
+    {
+        self::$allowSlowNaturalSort = $allow;
+    }
 
     /**
      * Check if the MariaDB version which is connected to supports the natural sort (meaning it has a version of 10.7.0 or higher)
@@ -82,6 +96,14 @@ class Natsort extends FunctionNode
 
         if ($platform instanceof MariaDBPlatform && self::mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
             return 'NATURAL_SORT_KEY(' . $this->field->dispatch($sqlWalker) . ')';
+        }
+
+        //Do the following operations only if we allow slow natural sort
+        if (self::$allowSlowNaturalSort) {
+
+            if ($platform instanceof SQLitePlatform) {
+                return $this->field->dispatch($sqlWalker).' COLLATE NATURAL_CMP';
+            }
         }
 
          //For every other platform, return the field as is
