@@ -45,11 +45,11 @@ final class FieldHelper
     {
         $db_platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
-        //If we are on MySQL, we can just use the FIELD function, for PostgreSQL we can use our custom defined one
-        if ($db_platform instanceof AbstractMySQLPlatform || $db_platform instanceof PostgreSQLPlatform) {
-            $param = (is_numeric($bound_param) ? '?' : ":") . (string) $bound_param;
+        //If we are on MySQL, we can just use the FIELD function
+        if ($db_platform instanceof AbstractMySQLPlatform ) {
+            $param = (is_numeric($bound_param) ? '?' : ":").(string)$bound_param;
             $qb->orderBy("FIELD($field_expr, $param)", $order);
-        } else { //Use the sqlite/portable version
+        } else { //Use the sqlite/portable version or postgresql
             //Retrieve the values from the bound parameter
             $param = $qb->getParameter($bound_param);
             if ($param === null) {
@@ -58,10 +58,29 @@ final class FieldHelper
 
             //Generate a unique key from the field_expr
             $key = 'field2_' . (string) $bound_param;
-            self::addSqliteOrderBy($qb, $field_expr, $key, $param->getValue(), $order);
+
+            if ($db_platform instanceof PostgreSQLPlatform) {
+                self::addPostgresOrderBy($qb, $field_expr, $key, $param->getValue(), $order);
+            } else {
+                self::addSqliteOrderBy($qb, $field_expr, $key, $param->getValue(), $order);
+            }
         }
 
         return $qb;
+    }
+
+
+    private static function addPostgresOrderBy(QueryBuilder $qb, string $field_expr, string $key, array $values, ?string $order = null): void
+    {
+        //Use postgres native array_position function, to get the index of the value in the array
+        //In the end it gives a similar result as the FIELD function
+        $qb->orderBy("array_position(:$key, $field_expr)", $order);
+
+        //Convert the values to a literal array, to overcome the problem of passing more than 100 parameters
+        $values = array_map(fn($value) => is_string($value) ? "'$value'" : $value, $values);
+        $literalArray = '{' . implode(',', $values) . '}';
+
+        $qb->setParameter($key, $literalArray);
     }
 
     private static function addSqliteOrderBy(QueryBuilder $qb, string $field_expr, string $key, array $values, ?string $order = null): void
@@ -87,9 +106,12 @@ final class FieldHelper
 
         $key = 'field2_' . md5($field_expr);
 
-        //If we are on MySQL, we can just use the FIELD function, for postgres we can use our custom defined one
-        if ($db_platform instanceof AbstractMySQLPlatform || $db_platform instanceof PostgreSQLPlatform) {
-            $qb->orderBy("FIELD($field_expr, :field_arr)", $order);
+        //If we are on MySQL, we can just use the FIELD function
+        if ($db_platform instanceof AbstractMySQLPlatform) {
+            $qb->orderBy("FIELD2($field_expr, :field_arr)", $order);
+        } else if ($db_platform instanceof PostgreSQLPlatform) {
+            //Use the postgres native array_position function
+            self::addPostgresOrderBy($qb, $field_expr, $key, $values, $order);
         } else {
             //Otherwise use the portable version using string concatenation
             self::addSqliteOrderBy($qb, $field_expr, $key, $values, $order);

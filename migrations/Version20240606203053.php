@@ -202,15 +202,6 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
         $this->addSql('ALTER TABLE "users" ADD CONSTRAINT FK_1483A5E938248176 FOREIGN KEY (currency_id) REFERENCES currencies (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE webauthn_keys ADD CONSTRAINT FK_799FD143A76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
 
-        //Create the FIELD() function for PostgreSQL
-        $this->addSql(<<<SQL
-        CREATE OR REPLACE FUNCTION FIELD(anyelement, VARIADIC anyarray) RETURNS bigint AS $$
-            SELECT n FROM (
-                SELECT row_number() OVER () AS n, x FROM unnest($2) x)
-                    numbered WHERE numbered.x = $1;
-            $$ LANGUAGE SQL IMMUTABLE STRICT;
-        SQL);
-
         //Create the initial groups and users
         //Retrieve the json representations of the presets
         $admin = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_ADMIN);
