@@ -17,6 +17,10 @@ doctrine:
                 class: App\Doctrine\Types\BigDecimalType
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
+
+            # This was removed in doctrine/orm 4.0 but we need it for the WebauthnKey entity
+            array:
+                class: App\Doctrine\Types\ArrayType
         
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
@@ -39,10 +43,11 @@ doctrine:
 
         dql:
             string_functions:
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
-                ifnull: DoctrineExtensions\Query\Mysql\IfNull
+                regexp: App\Doctrine\Functions\Regexp
                 field:  DoctrineExtensions\Query\Mysql\Field
                 field2: App\Doctrine\Functions\Field2
+                natsort: App\Doctrine\Functions\Natsort
+                array_position: App\Doctrine\Functions\ArrayPosition
 
 when@test:
     doctrine:

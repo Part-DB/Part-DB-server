@@ -45,4 +45,14 @@ final class Version20230417211732 extends AbstractMultiPlatformMigration
     {
         //As we done nothing, we don't need to implement this method.
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

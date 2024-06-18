@@ -154,9 +154,9 @@ class Project extends AbstractStructuralDBElement
     protected Collection $parameters;
 
     #[Groups(['project:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
     #[Groups(['project:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
 
     /********************************************************************************

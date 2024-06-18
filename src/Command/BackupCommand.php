@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+use Spatie\DbDumper\Databases\PostgreSql;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpZip\Constants\ZipCompressionMethod;
@@ -136,30 +138,42 @@ class BackupCommand extends Command
         }
     }
 
+    private function runSQLDumper(DbDumper $dumper, ZipFile $zip, array $connectionParams): void
+    {
+        $this->configureDumper($connectionParams, $dumper);
+
+        $tmp_file = tempnam(sys_get_temp_dir(), 'partdb_sql_dump');
+
+        $dumper->dumpToFile($tmp_file);
+        $zip->addFile($tmp_file, 'database.sql');
+    }
+
     protected function backupDatabase(ZipFile $zip, SymfonyStyle $io): void
     {
         $io->note('Backup database...');
 
         //Determine if we use MySQL or SQLite
         $connection = $this->entityManager->getConnection();
-        if ($connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
+        $params = $connection->getParams();
+        $platform = $connection->getDatabasePlatform();
+        if ($platform instanceof AbstractMySQLPlatform) {
             try {
                 $io->note('MySQL database detected. Dump DB to SQL using mysqldump...');
-                $params = $connection->getParams();
-                $dumper = MySql::create();
-                $this->configureDumper($params, $dumper);
-
-                $tmp_file = tempnam(sys_get_temp_dir(), 'partdb_sql_dump');
-
-                $dumper->dumpToFile($tmp_file);
-                $zip->addFile($tmp_file, 'mysql_dump.sql');
+                $this->runSQLDumper(MySql::create(), $zip, $params);
             } catch (\Exception $e) {
                 $io->error('Could not dump database: '.$e->getMessage());
                 $io->error('This can maybe be fixed by installing the mysqldump binary and adding it to the PATH variable!');
             }
-        } elseif ($connection->getDatabasePlatform() instanceof SqlitePlatform) {
+        } elseif ($platform instanceof PostgreSQLPlatform) {
+            try {
+                $io->note('PostgreSQL database detected. Dump DB to SQL using pg_dump...');
+                $this->runSQLDumper(PostgreSql::create(), $zip, $params);
+            } catch (\Exception $e) {
+                $io->error('Could not dump database: '.$e->getMessage());
+                $io->error('This can maybe be fixed by installing the pg_dump binary and adding it to the PATH variable!');
+            }
+        } elseif ($platform instanceof SQLitePlatform) {
             $io->note('SQLite database detected. Copy DB file to ZIP...');
-            $params = $connection->getParams();
             $zip->addFile($params['path'], 'var/app.db');
         } else {
             $io->error('Unknown database platform. Could not backup database!');

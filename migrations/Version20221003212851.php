@@ -47,4 +47,14 @@ final class Version20221003212851 extends AbstractMultiPlatformMigration
     {
         $this->addSql('DROP TABLE webauthn_keys');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

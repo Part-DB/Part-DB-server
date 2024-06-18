@@ -129,6 +129,12 @@ class TwoStepORMAdapter extends ORMAdapter
         $query->setIdentifierPropertyPath($this->mapFieldToPropertyPath($identifier, $aliases));
     }
 
+    protected function hasGroupByPart(string $identifier, array $gbList): bool
+    {
+        //Always return true, to fix the issue with the count query, when having mutliple group by parts
+        return true;
+    }
+
     protected function getCount(QueryBuilder $queryBuilder, $identifier): int
     {
         if ($this->query_modifier !== null) {

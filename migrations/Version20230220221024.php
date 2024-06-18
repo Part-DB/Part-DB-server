@@ -37,4 +37,14 @@ final class Version20230220221024 extends AbstractMultiPlatformMigration
     {
         $this->addSql('ALTER TABLE `users` DROP saml_user');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

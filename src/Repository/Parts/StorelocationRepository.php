@@ -30,12 +30,7 @@ use InvalidArgumentException;
 
 class StorelocationRepository extends AbstractPartsContainingRepository
 {
-    /**
-     * @param  object  $element
-     * @param  array  $order_by
-     * @return array
-     */
-    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
+    public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof StorageLocation) {
             throw new InvalidArgumentException('$element must be an Storelocation!');
@@ -47,11 +42,9 @@ class StorelocationRepository extends AbstractPartsContainingRepository
             ->from(Part::class, 'part')
             ->leftJoin('part.partLots', 'lots')
             ->where('lots.storage_location = ?1')
-            ->setParameter(1, $element);
-
-        foreach ($order_by as $field => $order) {
-            $qb->addOrderBy('part.'.$field, $order);
-        }
+            ->setParameter(1, $element)
+            ->orderBy('NATSORT(part.name)', $nameOrderDirection)
+        ;
 
         return $qb->getQuery()->getResult();
     }

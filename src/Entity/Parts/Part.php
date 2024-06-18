@@ -153,9 +153,9 @@ class Part extends AttachmentContainingDBElement
     protected ?Attachment $master_picture_attachment = null;
 
     #[Groups(['part:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
     #[Groups(['part:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
 
     public function __construct()

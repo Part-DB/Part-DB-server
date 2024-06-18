@@ -50,7 +50,7 @@ class Field2 extends FunctionNode
         $lexer = $parser->getLexer();
 
         while (count($this->values) < 1 ||
-            $lexer->lookahead['type'] != TokenType::T_CLOSE_PARENTHESIS) {
+            $lexer->lookahead->type !== TokenType::T_CLOSE_PARENTHESIS) {
             $parser->match(TokenType::T_COMMA);
             $this->values[] = $parser->ArithmeticPrimary();
         }

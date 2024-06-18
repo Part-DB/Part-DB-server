@@ -41,9 +41,9 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $token = null;
 
-    /** @var \DateTimeInterface The date when the token expires */
+    /** @var \DateTimeImmutable|null The date when the token expires */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeInterface $expires_at = null;
+    private ?\DateTimeImmutable $expires_at = null;
 
     /** @var string|null The refresh token for the OAuth2 auth */
     #[ORM\Column(type: 'text', nullable: true)]
@@ -54,7 +54,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
      */
     private const DEFAULT_EXPIRATION_TIME = 3600;
 
-    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeInterface $expires_at = null)
+    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeImmutable $expires_at = null)
     {
         //If token is given, you also have to give the expires_at date
         if ($token !== null && $expires_at === null) {
@@ -82,7 +82,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         );
     }
 
-    private static function unixTimestampToDatetime(int $timestamp): \DateTimeInterface
+    private static function unixTimestampToDatetime(int $timestamp): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromFormat('U', (string)$timestamp);
     }

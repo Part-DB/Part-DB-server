@@ -50,8 +50,7 @@ final class OAuthTokenManager
         if ($tokenEntity) {
             $tokenEntity->replaceWithNewToken($token);
 
-            //@phpstan-ignore-next-line
-            $this->entityManager->flush($tokenEntity);
+            $this->entityManager->flush();
 
             //We are done
             return $tokenEntity;
@@ -60,8 +59,8 @@ final class OAuthTokenManager
         //If the token was not existing, we create a new one
         $tokenEntity = OAuthToken::fromAccessToken($token, $app_name);
         $this->entityManager->persist($tokenEntity);
-        //@phpstan-ignore-next-line
-        $this->entityManager->flush($tokenEntity);
+
+        $this->entityManager->flush();
 
         return $tokenEntity;
     }
@@ -113,9 +112,7 @@ final class OAuthTokenManager
 
         //Persist the token
         $token->replaceWithNewToken($new_token);
-
-        //@phpstan-ignore-next-line
-        $this->entityManager->flush($token);
+        $this->entityManager->flush();
 
         return $token;
     }

@@ -28,6 +28,7 @@ use DateTimeZone;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\Exception\InvalidFormat;
 
 /**
  * This DateTimeType all dates to UTC, so it can be later used with the timezones.
@@ -64,11 +65,9 @@ class UTCDateTimeType extends DateTimeType
      *
      * @param T $value
      *
-     * @return (T is null ? null : DateTimeInterface)
-     *
      * @template T
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?\DateTimeInterface
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTime
     {
         if (!self::$utc_timezone instanceof \DateTimeZone) {
             self::$utc_timezone = new DateTimeZone('UTC');
@@ -85,7 +84,11 @@ class UTCDateTimeType extends DateTimeType
         );
 
         if (!$converted) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
+            throw InvalidFormat::new(
+                $value,
+                static::class,
+                $platform->getDateTimeFormatString(),
+            );
         }
 
         return $converted;

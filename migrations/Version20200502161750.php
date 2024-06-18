@@ -163,4 +163,14 @@ EOD;
         $this->addSql('DROP TABLE u2f_keys');
         $this->addSql('DROP TABLE "users"');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

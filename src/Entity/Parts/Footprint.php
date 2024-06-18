@@ -133,9 +133,9 @@ class Footprint extends AbstractPartsContainingDBElement
     protected Collection $parameters;
 
     #[Groups(['footprint:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
     #[Groups(['footprint:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDAFootprintInfo::class)]

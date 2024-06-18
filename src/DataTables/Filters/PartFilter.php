@@ -37,6 +37,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
@@ -123,8 +124,13 @@ class PartFilter implements FilterInterface
            This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
            TODO: Find a better solution here
          */
-        //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
-        $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
+        $this->amountSum = (new IntConstraint('(
+                    SELECT COALESCE(SUM(__partLot.amount), 0.0)
+                    FROM '.PartLot::class.' __partLot
+                    WHERE __partLot.part = part.id
+                    AND __partLot.instock_unknown = false
+                    AND (__partLot.expiration_date IS NULL OR __partLot.expiration_date > CURRENT_DATE())
+                )', identifier: "amountSumWhere"));
         $this->lotCount = new IntConstraint('COUNT(_partLots)');
         $this->lessThanDesired = new LessThanDesiredConstraint();
 

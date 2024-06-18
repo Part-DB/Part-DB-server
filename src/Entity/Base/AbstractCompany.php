@@ -41,9 +41,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class AbstractCompany extends AbstractPartsContainingDBElement
 {
     #[Groups(['company:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTime $addedDate = null;
     #[Groups(['company:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTime $lastModified = null;
 
     /**
      * @var string The address of the company
