@@ -144,6 +144,9 @@ jobs:
       - name: Test check-requirements command
         run: php bin/console partdb:check-requirements -n
 
+      - name: Test partdb:backup command
+        run: php bin/console partdb:backup -n --full /tmp/test_backup.zip
+
       - name: Test legacy Part-DB import
         run: bash .github/assets/legacy_import/test_legacy_import.sh
         if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
