@@ -25,6 +25,7 @@ namespace App\Doctrine\Functions;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
@@ -100,9 +101,12 @@ class Natsort extends FunctionNode
 
         //Do the following operations only if we allow slow natural sort
         if (self::$allowSlowNaturalSort) {
-
             if ($platform instanceof SQLitePlatform) {
                 return $this->field->dispatch($sqlWalker).' COLLATE NATURAL_CMP';
+            }
+
+            if ($platform instanceof AbstractMySQLPlatform) {
+                return 'NatSortKey(' . $this->field->dispatch($sqlWalker) . ', 0)';
             }
         }
 
