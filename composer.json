@@ -10,6 +10,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "amphp/http-client": "^5.1",
         "api-platform/core": "^3.1",
         "beberlei/doctrineextensions": "^1.2",
         "brick/math": "0.12.1 as 0.11.0",
