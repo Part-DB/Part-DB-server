@@ -344,7 +344,6 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
 
         // Add the natural sort emulation function to the database (based on this stackoverflow: https://stackoverflow.com/questions/153633/natural-sort-in-mysql/58154535#58154535)
         $this->addSql(<<<EOD
-            DELIMITER $$
             CREATE DEFINER=CURRENT_USER FUNCTION `NatSortKey`(`s` VARCHAR(1000) CHARSET utf8mb4, `n` INT) RETURNS varchar(3500) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci
             DETERMINISTIC
             SQL SECURITY INVOKER
@@ -451,8 +450,7 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
               SET r := CONCAT(r,y,suf);
             END IF;
           END LOOP;
-        END$$
-        DELIMITER ;
+        END
         EOD
         );
 
