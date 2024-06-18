@@ -181,6 +181,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),
+                'orderField' => 'NATSORT(part.manufacturer_product_number)'
             ])
             ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
