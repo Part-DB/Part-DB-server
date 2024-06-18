@@ -119,7 +119,6 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
-                'orderField' => 'NATSORT(part.description)'
             ])
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
