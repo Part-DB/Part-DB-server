@@ -152,9 +152,21 @@ final class PartsDataTable implements DataTableTypeInterface
                     $context->getPartUnit())),
             ])
             ->add('partUnit', TextColumn::class, [
-                'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-                'orderField' => 'NATSORT(_partUnit.name)'
+                'orderField' => 'NATSORT(_partUnit.name)',
+                'render' => function($value, Part $context): string {
+                    $partUnit = $context->getPartUnit();
+                    if (!$partUnit) {
+                        return '';
+                    }
+
+                    $tmp = htmlspecialchars($partUnit->getName());
+
+                    if ($partUnit->getUnit()) {
+                        $tmp .= ' ('.htmlspecialchars($partUnit->getUnit()).')';
+                    }
+                    return $tmp;
+                }
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
