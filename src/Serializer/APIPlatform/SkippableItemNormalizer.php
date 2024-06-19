@@ -37,7 +37,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * Platform subsystem should not be used.
  */
 #[AsDecorator("api_platform.serializer.normalizer.item")]
-class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface, CacheableSupportsMethodInterface
+class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
 
     public const DISABLE_ITEM_NORMALIZER = 'DISABLE_ITEM_NORMALIZER';
@@ -45,11 +45,6 @@ class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterf
     public function __construct(private readonly ItemNormalizer $inner)
     {
 
-    }
-
-    public function hasCacheableSupportsMethod(): bool
-    {
-        return $this->inner->hasCacheableSupportsMethod();
     }
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
