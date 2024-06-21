@@ -50,18 +50,16 @@ class RedirectControllerTest extends WebTestCase
         $this->userRepo = $this->em->getRepository(User::class);
     }
 
-    public function urlMatchDataProvider(): array
+    public function urlMatchDataProvider(): \Iterator
     {
-        return [
-            ['/', true],
-            ['/part/2/info', true],
-            ['/part/de/2', true],
-            ['/part/en/', true],
-            ['/de/', false],
-            ['/de_DE/', false],
-            ['/en/', false],
-            ['/en_US/', false],
-        ];
+        yield ['/', true];
+        yield ['/part/2/info', true];
+        yield ['/part/de/2', true];
+        yield ['/part/en/', true];
+        yield ['/de/', false];
+        yield ['/de_DE/', false];
+        yield ['/en/', false];
+        yield ['/en_US/', false];
     }
 
     /**
@@ -81,22 +79,20 @@ class RedirectControllerTest extends WebTestCase
         $this->assertSame($expect_redirect, $response->isRedirect());
     }
 
-    public function urlAddLocaleDataProvider(): array
+    public function urlAddLocaleDataProvider(): \Iterator
     {
-        return [
-            //User locale, original target, redirect target
-            ['de', '/', '/de/'],
-            ['de', '/part/3', '/de/part/3'],
-            ['en', '/', '/en/'],
-            ['en', '/category/new', '/en/category/new'],
-            ['en_US', '/part/3', '/en_US/part/3'],
-            //Without an explicit set value, the user should be redirected to english version
-            [null, '/', '/en/'],
-            ['en_US', '/part/3', '/en_US/part/3'],
-            //Test that query parameters work
-            ['de', '/dialog?target_id=133&target_type=part', '/de/dialog?target_id=133&target_type=part'],
-            ['en', '/dialog?storelocation=1', '/en/dialog?storelocation=1'],
-        ];
+        //User locale, original target, redirect target
+        yield ['de', '/', '/de/'];
+        yield ['de', '/part/3', '/de/part/3'];
+        yield ['en', '/', '/en/'];
+        yield ['en', '/category/new', '/en/category/new'];
+        yield ['en_US', '/part/3', '/en_US/part/3'];
+        //Without an explicit set value, the user should be redirected to english version
+        yield [null, '/', '/en/'];
+        yield ['en_US', '/part/3', '/en_US/part/3'];
+        //Test that query parameters work
+        yield ['de', '/dialog?target_id=133&target_type=part', '/de/dialog?target_id=133&target_type=part'];
+        yield ['en', '/dialog?storelocation=1', '/en/dialog?storelocation=1'];
     }
 
     /**

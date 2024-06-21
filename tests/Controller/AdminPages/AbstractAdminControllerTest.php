@@ -34,14 +34,12 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     protected static string $base_path = 'not_valid';
     protected static string $entity_class = 'not valid';
 
-    public function readDataProvider(): array
+    public function readDataProvider(): \Iterator
     {
-        return [
-            ['noread', false],
-            ['anonymous', true],
-            ['user', true],
-            ['admin', true],
-        ];
+        yield ['noread', false];
+        yield ['anonymous', true];
+        yield ['user', true];
+        yield ['admin', true];
     }
 
     /**
@@ -98,14 +96,12 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $this->assertSame($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
-    public function deleteDataProvider(): array
+    public function deleteDataProvider(): \Iterator
     {
-        return [
-            ['noread', false],
-            ['anonymous', false],
-            ['user', true],
-            ['admin', true],
-        ];
+        yield ['noread', false];
+        yield ['anonymous', false];
+        yield ['user', true];
+        yield ['admin', true];
     }
 
     /**
