@@ -477,7 +477,8 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (!$element instanceof AttachmentContainingDBElement) {
+        //Do not allow Rector to replace this check with a instanceof. It will not work!!
+        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS, true)) {
             throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 

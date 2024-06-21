@@ -38,7 +38,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -59,7 +58,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    public function __construct(protected bool $demo_mode, protected EventDispatcher|EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected bool $demo_mode, protected EventDispatcherInterface $eventDispatcher)
     {
     }
 

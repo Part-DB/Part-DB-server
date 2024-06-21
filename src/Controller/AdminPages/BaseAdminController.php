@@ -52,7 +52,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -77,7 +76,7 @@ abstract class BaseAdminController extends AbstractController
     public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
         protected AttachmentSubmitHandler $attachmentSubmitHandler,
         protected EventCommentHelper $commentHelper, protected HistoryHelper $historyHelper, protected TimeTravel $timeTravel,
-        protected DataTableFactory $dataTableFactory, protected EventDispatcher|EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
+        protected DataTableFactory $dataTableFactory, protected EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
         protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
