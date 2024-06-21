@@ -154,3 +154,29 @@ If you want to use a unix socket for the connection instead of a TCP connnection
 ```shell
 DATABASE_URL="postgresql://db_user:db_password@localhost/db_name?serverVersion=12.19&charset=utf8&unix_socket=/var/run/postgresql/.s.PGSQL.5432"
 ```
+
+
+## Natural Sorting
+
+Natural sorting is the sorting of strings in a way that numbers are sorted by their numerical value, not by their ASCII value.
+
+For example in the classical binary sorting the string `DIP-4`, `DIP-8`, `DIP-16`, `DIP-28` would be sorted as following:
+
+* `DIP-16`
+* `DIP-28`
+* `DIP-4`
+* `DIP-8`
+
+In natural sorting, it would be sorted as:
+
+* `DIP-4`
+* `DIP-8`
+* `DIP-16`
+* `DIP-28`
+
+Part-DB can sort names in part tables and tree views naturally. PostgreSQL and MariaDB 10.7+ support natural sorting natively,
+and it is automatically used if available.
+
+For SQLite and MySQL < 10.7 it has to be emulated if wanted, which is pretty slow. Therefore it has to be explicity enabled by setting the
+`DATABASE_EMULATE_NATURAL_SORT` environment variable to `1`. If it is 0 the classical binary sorting is used, on these databases. The emulations
+might have some quirks and issues, so it is recommended to use a database which supports natural sorting natively, if you want to use it.
