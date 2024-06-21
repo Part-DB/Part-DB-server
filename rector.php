@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
@@ -55,6 +56,8 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->skip([
         CountArrayToEmptyArrayComparisonRector::class,
+        //Leave our !== null checks alone
+        FlipTypeControlToUseExclusiveTypeRector::class,
     ]);
 
     //Do not apply rules to Symfony own files
