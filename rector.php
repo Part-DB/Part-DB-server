@@ -12,6 +12,7 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\CodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
 use Rector\Symfony\CodeQuality\Rector\ClassMethod\ActionSuffixRemoverRector;
+use Rector\Symfony\CodeQuality\Rector\MethodCall\LiteralGetToRequestClassConstantRector;
 use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
@@ -66,6 +67,8 @@ return static function (RectorConfig $rectorConfig): void {
         //We declare event listeners via attributes, therefore no need to migrate them to subscribers
         EventListenerToEventSubscriberRector::class,
         PreferPHPUnitThisCallRector::class,
+        //Do not replace 'GET' with class constant,
+        LiteralGetToRequestClassConstantRector::class,
     ]);
 
     //Do not apply rules to Symfony own files
