@@ -41,7 +41,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older
   versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
-* MySQL and SQLite supported as database backends
+* MySQL, SQLite and PostgreSQL are supported as database backends
 * Support for rich text descriptions and comments in parts
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
