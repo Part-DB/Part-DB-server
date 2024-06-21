@@ -100,3 +100,57 @@ When you are planning to have a very big database, with a lot of entries and man
 use MariaDB or PostgreSQL, as they will perform better in that situation and allow for more advanced features.
 If you should use MariaDB or PostgreSQL depends on your personal preference and what you already have installed on your servers and 
 what you are familiar with.
+
+## Using the different databases
+
+The only difference in using the different databases, is a different value in the `DATABASE_URL` environment variable in the `.env.local` file
+or in the `DATABASE_URL` environment variable in your server or container configuration. It has the shape of a URL, where the scheme (the part before `://`)
+is the database type, and the rest is connection information.
+
+**The env var format below is for the `env.local` file. It might work differently for other env configuration. E.g. in a docker-compose file you have to remove the quotes!**
+
+### SQLite
+
+```shell
+DATABASE_URL="sqlite:///%kernel.project_dir%/var/app.db"
+```
+
+Here you just need to configure the path to the SQLite file, which is created by Part-DB when performing the database migrations.
+The `%kernel.project_dir%` is a placeholder for the path to the project directory, which is replaced by the actual path by Symfony, so that you do not
+need to specify the path manually. In the example the database will be created as `app.db` in the `var` directory of your Part-DB installation folder.
+
+### MySQL/MariaDB
+
+```shell
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/database?serverVersion=8.0.37"
+```
+
+Here you have to replace `user`, `password` and `database` with the credentials of the MySQL/MariaDB user and the database name you want to use.
+The host (here 127.0.0.1) and port should also be specified according to your MySQL/MariaDB server configuration.
+
+In the `serverVersion` parameter you can specify the version of the MySQL/MariaDB server you are using, in the way the server returns it 
+(e.g. `8.0.37` for MySQL and `10.4.14-MariaDB`). If you do not know it, you can leave the default value.
+
+If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `unix_socket` parameter.
+```shell
+DATABASE_URL="mysql://user:password@localhost/database?serverVersion=8.0.37&unix_socket=/var/run/mysqld/mysqld.sock"
+```
+
+### PostgreSQL
+
+```shell
+DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=12.19&charset=utf8"
+```
+
+Here you have to replace `db_user`, `db_password` and `db_name` with the credentials of the PostgreSQL user and the database name you want to use.
+The host (here 127.0.0.1) and port should also be specified according to your PostgreSQL server configuration.
+
+In the `serverVersion` parameter you can specify the version of the PostgreSQL server you are using, in the way the server returns it
+(e.g. `12.19 (Debian 12.19-1.pgdg120+1)`). If you do not know it, you can leave the default value.
+
+The `charset` parameter specify the character set of the database. It should be set to `utf8` to ensure that all characters are stored correctly.
+
+If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `unix_socket` parameter.
+```shell
+DATABASE_URL="postgresql://db_user:db_password@localhost/db_name?serverVersion=12.19&charset=utf8&unix_socket=/var/run/postgresql/.s.PGSQL.5432"
+```
