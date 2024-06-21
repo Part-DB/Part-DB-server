@@ -37,6 +37,10 @@ class StructuralElementDenormalizerTest extends WebTestCase
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementDenormalizer::class);
+
+        //We need to inject the serializer into the normalizer, as we use it directly
+        $serializer = self::getContainer()->get('serializer');
+        $this->service->setDenormalizer($serializer);
     }
 
     public function testSupportsDenormalization(): void

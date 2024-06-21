@@ -24,23 +24,26 @@ namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
+use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
  */
-class StructuralElementDenormalizer implements DenormalizerInterface
+class StructuralElementDenormalizer implements DenormalizerInterface, DenormalizerAwareInterface
 {
+
+    use DenormalizerAwareTrait;
 
     private array $object_cache = [];
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        #[Autowire(service: ObjectNormalizer::class)]
-        private readonly DenormalizerInterface $denormalizer)
+        private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -59,6 +62,9 @@ class StructuralElementDenormalizer implements DenormalizerInterface
 
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
+        //Do not use API Platform's denormalizer
+        $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
+
         /** @var AbstractStructuralDBElement $deserialized_entity */
         $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);
 
