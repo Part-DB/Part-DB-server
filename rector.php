@@ -9,6 +9,7 @@ use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\Symfony\CodeQuality\Rector\ClassMethod\ActionSuffixRemoverRector;
 use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
@@ -58,6 +59,8 @@ return static function (RectorConfig $rectorConfig): void {
         CountArrayToEmptyArrayComparisonRector::class,
         //Leave our !== null checks alone
         FlipTypeControlToUseExclusiveTypeRector::class,
+        //Leave our PartList TableAction alone
+        ActionSuffixRemoverRector::class,
     ]);
 
     //Do not apply rules to Symfony own files
