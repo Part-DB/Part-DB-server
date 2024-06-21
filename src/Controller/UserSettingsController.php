@@ -59,11 +59,8 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    protected EventDispatcher|EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(protected bool $demo_mode, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected bool $demo_mode, protected EventDispatcher|EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]

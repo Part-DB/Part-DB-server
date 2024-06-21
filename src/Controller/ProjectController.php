@@ -219,7 +219,7 @@ class ProjectController extends AbstractController
                     'project' => $project,
                     'part' => $part
                 ]);
-                if ($bom_entry) {
+                if ($bom_entry !== null) {
                     $preset_data->add($bom_entry);
                 } else { //Otherwise create an empty one
                     $entry = new ProjectBOMEntry();

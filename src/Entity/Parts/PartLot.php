@@ -105,7 +105,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected string $comment = '';
 
     /**
-     * @var \DateTime|null Set a time until when the lot must be used.
+     * @var \DateTimeInterface|null Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
      */
     #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]

@@ -218,7 +218,7 @@ class PKPartImporter
             'iso_code' => $currency_iso_code,
         ]);
 
-        if (!$currency) {
+        if ($currency === null) {
             $currency = new Currency();
             $currency->setIsoCode($currency_iso_code);
             $currency->setName(Currencies::getName($currency_iso_code));
@@ -265,7 +265,7 @@ class PKPartImporter
             ]);
 
             //When no orderdetail exists, create one
-            if (!$orderdetail) {
+            if ($orderdetail === null) {
                 $orderdetail = new Orderdetail();
                 $orderdetail->setSupplier($supplier);
                 $orderdetail->setSupplierpartnr($spn);

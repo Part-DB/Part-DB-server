@@ -47,9 +47,9 @@ class FilenameSanatizer
             '-', $filename);
 
         // avoids ".", ".." or ".hiddenFiles"
-        $filename = ltrim($filename, '.-');
+        $filename = ltrim((string) $filename, '.-');
         //Limit filename length to 255 bytes
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        return mb_strcut(pathinfo($filename, PATHINFO_FILENAME), 0, 255 - ($ext ? strlen($ext) + 1 : 0), mb_detect_encoding($filename)) . ($ext ? '.' . $ext : '');
+        return mb_strcut(pathinfo($filename, PATHINFO_FILENAME), 0, 255 - ($ext !== '' && $ext !== '0' ? strlen($ext) + 1 : 0), mb_detect_encoding($filename)) . ($ext !== '' && $ext !== '0' ? '.' . $ext : '');
     }
 }

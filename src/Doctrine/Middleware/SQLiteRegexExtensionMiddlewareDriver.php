@@ -98,10 +98,9 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
      * This function returns the index (position) of the first argument in the subsequent arguments.
      * If the first argument is not found or is NULL, 0 is returned.
      * @param  string|int|null  $value
-     * @param  mixed  ...$array
      * @return int
      */
-    final public static function field(string|int|null $value, ...$array): int
+    final public static function field(string|int|null $value, mixed ...$array): int
     {
         if ($value === null) {
             return 0;

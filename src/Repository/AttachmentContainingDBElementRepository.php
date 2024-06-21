@@ -30,6 +30,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 /**
  * @template TEntityClass of AttachmentContainingDBElement
  * @extends NamedDBElementRepository<TEntityClass>
+ * @see \App\Tests\Repository\AttachmentContainingDBElementRepositoryTest
  */
 class AttachmentContainingDBElementRepository extends NamedDBElementRepository
 {

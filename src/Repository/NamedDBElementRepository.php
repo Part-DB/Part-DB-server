@@ -29,6 +29,7 @@ use App\Helpers\Trees\TreeViewNode;
 /**
  * @template TEntityClass of AbstractNamedDBElement
  * @extends DBElementRepository<TEntityClass>
+ * @see \App\Tests\Repository\NamedDBElementRepositoryTest
  */
 class NamedDBElementRepository extends DBElementRepository
 {

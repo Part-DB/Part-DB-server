@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -96,10 +97,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 {
     use TimestampTrait;
 
+    /**
+     * @var Collection<int, Pricedetail>
+     */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\OneToMany(mappedBy: 'orderdetail', targetEntity: Pricedetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
+    #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
     protected Collection $pricedetails;
 
     /**

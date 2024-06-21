@@ -30,9 +30,9 @@ class ApiTokenEnpointTest extends AuthenticatedApiTestCase
     public function testGetCurrentToken(): void
     {
         $response = self::createAuthenticatedClient()->request('GET', '/api/tokens/current');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
-        self::assertJsonContains([
+        $this->assertJsonContains([
             'name' => 'admin',
             'level' => 3,
         ]);

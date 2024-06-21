@@ -161,7 +161,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         if (isset($data['supplier']) && $data['supplier'] !== "") {
             $supplier = $this->locationDenormalizer->denormalize($data['supplier'], Supplier::class, $format, $context);
 
-            if ($supplier) {
+            if ($supplier !== null) {
                 $orderdetail = new Orderdetail();
                 $orderdetail->setSupplier($supplier);
 

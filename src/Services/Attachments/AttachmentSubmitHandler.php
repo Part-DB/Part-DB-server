@@ -300,7 +300,7 @@ class AttachmentSubmitHandler
             return $attachment;
         }
 
-        $filename = basename($old_path);
+        $filename = basename((string) $old_path);
         //If the basename is not one of the new unique on, we have to save the old filename
         if (!preg_match('#\w+-\w{13}\.#', $filename)) {
             //Save filename to attachment field
@@ -378,7 +378,7 @@ class AttachmentSubmitHandler
 
             //If we don't know filename yet, try to determine it out of url
             if ('' === $filename) {
-                $filename = basename(parse_url($url, PHP_URL_PATH));
+                $filename = basename(parse_url((string) $url, PHP_URL_PATH));
             }
 
             //Set original file

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -92,7 +93,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Supplier extends AbstractCompany
 {
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -129,7 +130,7 @@ class Supplier extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: SupplierAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -144,7 +145,7 @@ class Supplier extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: SupplierParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;

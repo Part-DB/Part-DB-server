@@ -45,13 +45,11 @@ class UserTest extends TestCase
         $this->assertSame('John (@username)', $user->getFullName(true));
     }
 
-    public function googleAuthenticatorEnabledDataProvider(): array
+    public function googleAuthenticatorEnabledDataProvider(): \Iterator
     {
-        return [
-            [null, false],
-            ['', false],
-            ['SSSk38498', true],
-        ];
+        yield [null, false];
+        yield ['', false];
+        yield ['SSSk38498', true];
     }
 
     /**

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\ProjectSystem;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -88,7 +89,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class Project extends AbstractStructuralDBElement
 {
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -100,6 +101,9 @@ class Project extends AbstractStructuralDBElement
     #[Groups(['project:read', 'project:write'])]
     protected string $comment = '';
 
+    /**
+     * @var Collection<int, ProjectBOMEntry>
+     */
     #[Assert\Valid]
     #[Groups(['extended', 'full'])]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
@@ -137,7 +141,7 @@ class Project extends AbstractStructuralDBElement
      * @var Collection<int, ProjectAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
 
@@ -149,7 +153,7 @@ class Project extends AbstractStructuralDBElement
     /** @var Collection<int, ProjectParameter>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;
 

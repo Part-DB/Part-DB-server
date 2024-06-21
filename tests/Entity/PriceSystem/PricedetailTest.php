@@ -60,18 +60,18 @@ class PricedetailTest extends TestCase
         $orderdetail2->method('getPart')->willReturn($part2);
 
         //By default a price detail returns 1
-        $this->assertSame(1.0, $pricedetail->getPriceRelatedQuantity());
+        $this->assertEqualsWithDelta(1.0, $pricedetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
 
         $pricedetail->setOrderdetail($orderdetail);
         $pricedetail->setPriceRelatedQuantity(10.23);
-        $this->assertSame(10.0, $pricedetail->getPriceRelatedQuantity());
+        $this->assertEqualsWithDelta(10.0, $pricedetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
         //Price related quantity must not be zero!
         $pricedetail->setPriceRelatedQuantity(0.23);
-        $this->assertSame(1.0, $pricedetail->getPriceRelatedQuantity());
+        $this->assertEqualsWithDelta(1.0, $pricedetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
 
         //With a part that has a float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
-        $this->assertSame(0.23, $pricedetail->getPriceRelatedQuantity());
+        $this->assertEqualsWithDelta(0.23, $pricedetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
     }
 
     public function testGetMinDiscountQuantity(): void
@@ -88,17 +88,17 @@ class PricedetailTest extends TestCase
         $orderdetail2->method('getPart')->willReturn($part2);
 
         //By default a price detail returns 1
-        $this->assertSame(1.0, $pricedetail->getMinDiscountQuantity());
+        $this->assertEqualsWithDelta(1.0, $pricedetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
 
         $pricedetail->setOrderdetail($orderdetail);
         $pricedetail->setMinDiscountQuantity(10.23);
-        $this->assertSame(10.0, $pricedetail->getMinDiscountQuantity());
+        $this->assertEqualsWithDelta(10.0, $pricedetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
         //Price related quantity must not be zero!
         $pricedetail->setMinDiscountQuantity(0.23);
-        $this->assertSame(1.0, $pricedetail->getMinDiscountQuantity());
+        $this->assertEqualsWithDelta(1.0, $pricedetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
 
         //With a part that has a float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
-        $this->assertSame(0.23, $pricedetail->getMinDiscountQuantity());
+        $this->assertEqualsWithDelta(0.23, $pricedetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
     }
 }

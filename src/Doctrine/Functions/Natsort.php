@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Functions;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
@@ -59,9 +60,9 @@ class Natsort extends FunctionNode
      * The result is cached in memory.
      * @param  Connection  $connection
      * @return bool
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
-    private static function mariaDBSupportsNaturalSort(Connection $connection): bool
+    private function mariaDBSupportsNaturalSort(Connection $connection): bool
     {
         if (self::$supportsNaturalSort !== null) {
             return self::$supportsNaturalSort;
@@ -95,7 +96,7 @@ class Natsort extends FunctionNode
             return $this->field->dispatch($sqlWalker) . ' COLLATE numeric';
         }
 
-        if ($platform instanceof MariaDBPlatform && self::mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
+        if ($platform instanceof MariaDBPlatform && $this->mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
             return 'NATURAL_SORT_KEY(' . $this->field->dispatch($sqlWalker) . ')';
         }
 

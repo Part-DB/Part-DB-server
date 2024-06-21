@@ -92,7 +92,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 if ($context->isExternal()) {
                     return sprintf(
                         '<a href="%s" class="link-external">%s</a>',
-                        htmlspecialchars($context->getURL()),
+                        htmlspecialchars((string) $context->getURL()),
                         htmlspecialchars($value)
                     );
                 }

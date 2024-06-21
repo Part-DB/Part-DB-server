@@ -70,32 +70,28 @@ class LabelTextReplacerTest extends WebTestCase
         $this->target->setComment('P Comment');
     }
 
-    public function handlePlaceholderDataProvider(): array
+    public function handlePlaceholderDataProvider(): \Iterator
     {
-        return [
-            ['Part 1', '[[NAME]]'],
-            ['P Description', '[[DESCRIPTION]]'],
-            ['[[UNKNOWN]]', '[[UNKNOWN]]', '[[UNKNOWN]]'],
-            ['[[INVALID', '[[INVALID'],
-            ['[[', '[['],
-            ['NAME', 'NAME'],
-            ['[[NAME', '[[NAME'],
-            ['Test [[NAME]]', 'Test [[NAME]]', 'Test [[NAME]]'],
-        ];
+        yield ['Part 1', '[[NAME]]'];
+        yield ['P Description', '[[DESCRIPTION]]'];
+        yield ['[[UNKNOWN]]', '[[UNKNOWN]]', '[[UNKNOWN]]'];
+        yield ['[[INVALID', '[[INVALID'];
+        yield ['[[', '[['];
+        yield ['NAME', 'NAME'];
+        yield ['[[NAME', '[[NAME'];
+        yield ['Test [[NAME]]', 'Test [[NAME]]', 'Test [[NAME]]'];
     }
 
-    public function replaceDataProvider(): array
+    public function replaceDataProvider(): \Iterator
     {
-        return [
-            ['Part 1', '[[NAME]]'],
-            ['TestPart 1', 'Test[[NAME]]'],
-            ["P Description\nPart 1", "[[DESCRIPTION_T]]\n[[NAME]]"],
-            ['Part 1 Part 1', '[[NAME]] [[NAME]]'],
-            ['[[UNKNOWN]] Test', '[[UNKNOWN]] Test'],
-            ["[[NAME\n]] [[NAME ]]", "[[NAME\n]] [[NAME ]]"],
-            ['[[]]', '[[]]'],
-            ['TEST[[ ]]TEST', 'TEST[[ ]]TEST'],
-        ];
+        yield ['Part 1', '[[NAME]]'];
+        yield ['TestPart 1', 'Test[[NAME]]'];
+        yield ["P Description\nPart 1", "[[DESCRIPTION_T]]\n[[NAME]]"];
+        yield ['Part 1 Part 1', '[[NAME]] [[NAME]]'];
+        yield ['[[UNKNOWN]] Test', '[[UNKNOWN]] Test'];
+        yield ["[[NAME\n]] [[NAME ]]", "[[NAME\n]] [[NAME ]]"];
+        yield ['[[]]', '[[]]'];
+        yield ['TEST[[ ]]TEST', 'TEST[[ ]]TEST'];
     }
 
     /**

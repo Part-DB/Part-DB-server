@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Entity\LogSystem;
 
 use App\Entity\Attachments\Attachment;
@@ -120,7 +122,7 @@ enum LogTargetType: int
             }
         }
 
-        $elementClass = is_object($element) ? get_class($element) : $element;
+        $elementClass = is_object($element) ? $element::class : $element;
         //If no matching type was found, throw an exception
         throw new \InvalidArgumentException("The given class $elementClass is not a valid log target type.");
     }

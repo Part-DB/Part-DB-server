@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -267,7 +268,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Collection<int, UserAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
@@ -317,7 +318,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var \DateTime|null the time until the password reset token is valid
+     * @var \DateTimeInterface|null the time until the password reset token is valid
      */
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?\DateTime $pw_reset_expires = null;

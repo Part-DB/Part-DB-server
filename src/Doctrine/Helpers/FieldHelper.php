@@ -109,7 +109,7 @@ final class FieldHelper
         //If we are on MySQL, we can just use the FIELD function
         if ($db_platform instanceof AbstractMySQLPlatform) {
             $qb->orderBy("FIELD2($field_expr, :field_arr)", $order);
-        } else if ($db_platform instanceof PostgreSQLPlatform) {
+        } elseif ($db_platform instanceof PostgreSQLPlatform) {
             //Use the postgres native array_position function
             self::addPostgresOrderBy($qb, $field_expr, $key, $values, $order);
         } else {

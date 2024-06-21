@@ -85,7 +85,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if(!$context->getPart() instanceof Part) {
-                        return htmlspecialchars($context->getName());
+                        return htmlspecialchars((string) $context->getName());
                     }
                     if($context->getPart() instanceof Part) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
@@ -154,7 +154,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'project.bom.instockAmount',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if ($context->getPart()) {
+                    if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderAmount($context->getPart());
                     }
 
@@ -165,7 +165,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'part.table.storeLocations',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if ($context->getPart()) {
+                    if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderStorageLocations($context->getPart());
                     }
 

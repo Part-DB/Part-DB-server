@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -85,8 +86,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
+    /**
+     * @var Collection<int, \App\Entity\Attachments\AttachmentType>
+     */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
@@ -110,7 +114,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected Collection $attachments;
 
@@ -123,7 +127,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write'])]
     protected Collection $parameters;
 

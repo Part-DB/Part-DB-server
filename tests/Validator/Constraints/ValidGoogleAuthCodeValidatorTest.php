@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Validator\Constraints;
 
 use App\Entity\UserSystem\User;
@@ -61,7 +63,7 @@ class ValidGoogleAuthCodeValidatorTest extends ConstraintValidatorTestCase
             {
                 //Leave empty
             }
-            public function getUser(): ?\Symfony\Component\Security\Core\User\UserInterface
+            public function getUser(): ?UserInterface
             {
                 return new class implements TwoFactorInterface, UserInterface {
 

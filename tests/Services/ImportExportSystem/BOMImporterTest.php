@@ -84,7 +84,7 @@ class BOMImporterTest extends WebTestCase
         $this->assertCount(4, $bom);
 
         $this->assertSame('R19,R17', $bom[0]->getMountnames());
-        $this->assertSame(2.0, $bom[0]->getQuantity());
+        $this->assertEqualsWithDelta(2.0, $bom[0]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertSame('4.7k (R_0805_2012Metric_Pad1.20x1.40mm_HandSolder)', $bom[0]->getName());
         $this->assertSame('Test', $bom[0]->getComment());
 
@@ -103,7 +103,7 @@ class BOMImporterTest extends WebTestCase
         $this->assertCount(4, $bom);
 
         $this->assertSame('R19,R17', $bom[0]->getMountnames());
-        $this->assertSame(2.0, $bom[0]->getQuantity());
+        $this->assertEqualsWithDelta(2.0, $bom[0]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertSame('4.7k (R_0805_2012Metric_Pad1.20x1.40mm_HandSolder)', $bom[0]->getName());
         $this->assertSame('Test', $bom[0]->getComment());
     }

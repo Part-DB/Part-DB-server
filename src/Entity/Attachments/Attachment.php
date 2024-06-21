@@ -385,7 +385,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return null;
         }
 
-        return parse_url($this->getURL(), PHP_URL_HOST);
+        return parse_url((string) $this->getURL(), PHP_URL_HOST);
     }
 
     /**
@@ -477,7 +477,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+        if (!$element instanceof AttachmentContainingDBElement) {
             throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 

@@ -69,7 +69,7 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertNull($this->service->parameterToAbsolutePath('/./this/one/too'));
     }
 
-    public function placeholderDataProvider(): array
+    public function placeholderDataProvider(): \Iterator
     {
         //We need to do initialization (again), as dataprovider is called before setUp()
         self::bootKernel();
@@ -77,28 +77,28 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
         $this->media_path = $this->projectDir.'/public/media';
         $this->footprint_path = $this->projectDir.'/public/img/footprints';
-
-        return [
-            ['%FOOTPRINTS%/test/test.jpg', $this->footprint_path.'/test/test.jpg'],
-            ['%FOOTPRINTS%/test/', $this->footprint_path.'/test/'],
-            ['%MEDIA%/test', $this->media_path.'/test'],
-            ['%MEDIA%', $this->media_path],
-            ['%FOOTPRINTS%', $this->footprint_path],
-            //Footprints 3D are disabled
-            ['%FOOTPRINTS_3D%', null],
-            //Check that invalid pathes return null
-            ['/no/placeholder', null],
-            ['%INVALID_PLACEHOLDER%', null],
-            ['%FOOTPRINTS/test/', null], //Malformed placeholder
-            ['/wrong/%FOOTRPINTS%/', null], //Placeholder not at beginning
-            ['%FOOTPRINTS%/%MEDIA%', null], //No more than one placholder
-            ['%FOOTPRINTS%/%FOOTPRINTS%', null],
-            ['%FOOTPRINTS%/../../etc/passwd', null],
-            ['%FOOTPRINTS%/0\..\test', null],
-        ];
+        yield ['%FOOTPRINTS%/test/test.jpg', $this->footprint_path.'/test/test.jpg'];
+        yield ['%FOOTPRINTS%/test/', $this->footprint_path.'/test/'];
+        yield ['%MEDIA%/test', $this->media_path.'/test'];
+        yield ['%MEDIA%', $this->media_path];
+        yield ['%FOOTPRINTS%', $this->footprint_path];
+        //Footprints 3D are disabled
+        yield ['%FOOTPRINTS_3D%', null];
+        //Check that invalid pathes return null
+        yield ['/no/placeholder', null];
+        yield ['%INVALID_PLACEHOLDER%', null];
+        yield ['%FOOTPRINTS/test/', null];
+        //Malformed placeholder
+        yield ['/wrong/%FOOTRPINTS%/', null];
+        //Placeholder not at beginning
+        yield ['%FOOTPRINTS%/%MEDIA%', null];
+        //No more than one placholder
+        yield ['%FOOTPRINTS%/%FOOTPRINTS%', null];
+        yield ['%FOOTPRINTS%/../../etc/passwd', null];
+        yield ['%FOOTPRINTS%/0\..\test', null];
     }
 
-    public function realPathDataProvider(): array
+    public function realPathDataProvider(): \Iterator
     {
         //We need to do initialization (again), as dataprovider is called before setUp()
         self::bootKernel();
@@ -106,20 +106,17 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
         $this->media_path = $this->projectDir.'/public/media';
         $this->footprint_path = $this->projectDir.'/public/img/footprints';
-
-        return [
-            [$this->media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'],
-            [$this->media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true],
-            [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'],
-            [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true],
-            //Every kind of absolute path, that is not based with our placeholder dirs must be invald
-            ['/etc/passwd', null],
-            ['C:\\not\\existing.txt', null],
-            //More than one placeholder is not allowed
-            [$this->footprint_path.'/test/'.$this->footprint_path, null],
-            //Path must begin with path
-            ['/not/root'.$this->footprint_path, null],
-        ];
+        yield [$this->media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'];
+        yield [$this->media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true];
+        yield [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'];
+        yield [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true];
+        //Every kind of absolute path, that is not based with our placeholder dirs must be invald
+        yield ['/etc/passwd', null];
+        yield ['C:\\not\\existing.txt', null];
+        //More than one placeholder is not allowed
+        yield [$this->footprint_path.'/test/'.$this->footprint_path, null];
+        //Path must begin with path
+        yield ['/not/root'.$this->footprint_path, null];
     }
 
     /**

@@ -27,6 +27,7 @@ use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 
 /**
  * This class keeps track of all registered info providers and allows to find them by their key
+ * @see \App\Tests\Services\InfoProviderSystem\ProviderRegistryTest
  */
 final class ProviderRegistry
 {

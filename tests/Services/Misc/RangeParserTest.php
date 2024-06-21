@@ -81,21 +81,19 @@ class RangeParserTest extends WebTestCase
         yield [[], '1, 2, test', true];
     }
 
-    public function validDataProvider(): array
+    public function validDataProvider(): \Iterator
     {
-        return [
-            [true, ''],
-            [true, '    '],
-            [true, '1, 2, 3'],
-            [true, '1-2,3, 4- 5'],
-            [true, '1 -2, 3- 4, 6'],
-            [true, '1--2'],
-            [true, '1- -2'],
-            [true, ',,12,33'],
-            [false, 'test'],
-            [false, '1-2-3'],
-            [false, '1, 2 test'],
-        ];
+        yield [true, ''];
+        yield [true, '    '];
+        yield [true, '1, 2, 3'];
+        yield [true, '1-2,3, 4- 5'];
+        yield [true, '1 -2, 3- 4, 6'];
+        yield [true, '1--2'];
+        yield [true, '1- -2'];
+        yield [true, ',,12,33'];
+        yield [false, 'test'];
+        yield [false, '1-2-3'];
+        yield [false, '1, 2 test'];
     }
 
     /**

@@ -172,16 +172,14 @@ EOT;
         $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): array
+    public function formatDataProvider(): \Iterator
     {
-        return [
-            ['csv', 'csv'],
-            ['csv', 'CSV'],
-            ['xml', 'Xml'],
-            ['json', 'json'],
-            ['yaml', 'yml'],
-            ['yaml', 'YAML'],
-        ];
+        yield ['csv', 'csv'];
+        yield ['csv', 'CSV'];
+        yield ['xml', 'Xml'];
+        yield ['json', 'json'];
+        yield ['yaml', 'yml'];
+        yield ['yaml', 'YAML'];
     }
 
     /**

@@ -55,7 +55,8 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
-    /** @var \DateTime The datetime the event associated with this log entry has occured
+    /**
+     * @var \DateTimeInterface The datetime the event associated with this log entry has occured
      */
     #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
     protected \DateTime $timestamp;
