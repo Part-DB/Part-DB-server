@@ -56,4 +56,12 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         CountArrayToEmptyArrayComparisonRector::class,
     ]);
+
+    //Do not apply rules to Symfony own files
+    $rectorConfig->skip([
+        __DIR__ . '/public/index.php',
+        __DIR__ . '/src/Kernel.php',
+        __DIR__ . '/config/preload.php',
+        __DIR__ . '/config/bundles.php',
+    ]);
 };
