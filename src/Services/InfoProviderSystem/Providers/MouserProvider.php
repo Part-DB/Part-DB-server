@@ -177,7 +177,7 @@ class MouserProvider implements InfoProviderInterface
         }
 
         if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID '.$id);
+            throw new \RuntimeException('Multiple parts found with ID '.$id . ' ('.count($tmp).' found). This is basically a bug in Mousers API response. See issue #616.');
         }
 
         return $tmp[0];
@@ -210,6 +210,12 @@ class MouserProvider implements InfoProviderInterface
 
         $result = [];
         foreach ($products as $product) {
+
+            //Check if we have a valid product number. We assume that a product number, must have at least 4 characters
+            //Otherwise filter it out
+            if (strlen($product['MouserPartNumber']) < 4) {
+                continue;
+            }
 
             //Check if we have a mass field available
             $mass = null;
