@@ -183,9 +183,9 @@ class Category extends AbstractPartsContainingDBElement
     protected Collection $parameters;
 
     #[Groups(['category:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['category:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDACategoryInfo::class)]

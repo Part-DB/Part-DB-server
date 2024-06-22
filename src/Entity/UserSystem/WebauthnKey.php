@@ -82,9 +82,8 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
 
     /**
      * Retrieve the last time when the key was used.
-     * @return \DateTimeInterface|null
      */
-    public function getLastTimeUsed(): ?\DateTimeInterface
+    public function getLastTimeUsed(): ?\DateTimeImmutable
     {
         return $this->last_time_used;
     }

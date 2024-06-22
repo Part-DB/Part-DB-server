@@ -84,7 +84,7 @@ class LabelResponse extends Response
      */
     public function setAutoLastModified(): LabelResponse
     {
-        $this->setLastModified(new DateTime());
+        $this->setLastModified(new \DateTimeImmutable());
 
         return $this;
     }

@@ -54,9 +54,9 @@ class InfoProviderReference
     #[Groups(['provider_reference:read'])]
     private ?string $provider_url = null;
 
-    #[Column(type: Types::DATETIME_MUTABLE, nullable: true,  options: ['default' => null])]
+    #[Column(type: Types::DATETIME_IMMUTABLE, nullable: true,  options: ['default' => null])]
     #[Groups(['provider_reference:read'])]
-    private ?\DateTime $last_updated = null;
+    private ?\DateTimeImmutable $last_updated = null;
 
     /**
      * Constructing is forbidden from outside.
@@ -95,9 +95,8 @@ class InfoProviderReference
 
     /**
      * Gets the time, when the part was last time updated by the provider.
-     * @return \DateTimeInterface|null
      */
-    public function getLastUpdated(): ?\DateTimeInterface
+    public function getLastUpdated(): ?\DateTimeImmutable
     {
         return $this->last_updated;
     }
@@ -140,7 +139,7 @@ class InfoProviderReference
         $ref->provider_key = $provider_key;
         $ref->provider_id = $provider_id;
         $ref->provider_url = $provider_url;
-        $ref->last_updated = new \DateTime();
+        $ref->last_updated = new \DateTimeImmutable();
         return $ref;
     }
 
@@ -155,7 +154,7 @@ class InfoProviderReference
         $ref->provider_key = $dto->provider_key;
         $ref->provider_id = $dto->provider_id;
         $ref->provider_url = $dto->provider_url;
-        $ref->last_updated = new \DateTime();
+        $ref->last_updated = new \DateTimeImmutable();
         return $ref;
     }
 }

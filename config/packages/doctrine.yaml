@@ -9,10 +9,17 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
 
         types:
+            # UTC datetimes
             datetime:
                 class: App\Doctrine\Types\UTCDateTimeType
             date:
                 class: App\Doctrine\Types\UTCDateTimeType
+
+            datetime_immutable:
+                class: App\Doctrine\Types\UTCDateTimeImmutableType
+            date_immutable:
+                class: App\Doctrine\Types\UTCDateTimeImmutableType
+
             big_decimal:
                 class: App\Doctrine\Types\BigDecimalType
             tinyint:

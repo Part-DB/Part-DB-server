@@ -170,9 +170,9 @@ class StorageLocation extends AbstractPartsContainingDBElement
     protected ?Attachment $master_picture_attachment = null;
 
     #[Groups(['location:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['location:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     /********************************************************************************

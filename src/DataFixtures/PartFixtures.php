@@ -99,7 +99,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part->addPartLot($partLot1);
 
         $partLot2 = new PartLot();
-        $partLot2->setExpirationDate(new DateTime());
+        $partLot2->setExpirationDate(new \DateTimeImmutable());
         $partLot2->setComment('Test');
         $partLot2->setNeedsRefill(true);
         $partLot2->setStorageLocation($manager->find(StorageLocation::class, 3));

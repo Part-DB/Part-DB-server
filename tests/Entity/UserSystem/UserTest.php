@@ -73,7 +73,7 @@ class UserTest extends TestCase
         $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
-        $this->assertInstanceOf(\DateTime::class, $user->getBackupCodesGenerationDate());
+        $this->assertNotNull($user->getBackupCodesGenerationDate());
         $this->assertSame($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys

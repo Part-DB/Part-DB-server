@@ -65,7 +65,7 @@ class PartLotProviderTest extends WebTestCase
         $this->target = new PartLot();
         $this->target->setDescription('Lot description');
         $this->target->setComment('Lot comment');
-        $this->target->setExpirationDate(new \DateTime('1999-04-13'));
+        $this->target->setExpirationDate(new \DateTimeImmutable('1999-04-13'));
         $this->target->setInstockUnknown(true);
 
         $location = new StorageLocation();

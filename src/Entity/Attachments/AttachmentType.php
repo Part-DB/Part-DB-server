@@ -135,9 +135,9 @@ class AttachmentType extends AbstractStructuralDBElement
     protected Collection $attachments_with_type;
 
     #[Groups(['attachment_type:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['attachment_type:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

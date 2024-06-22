@@ -95,7 +95,7 @@ class PartTest extends TestCase
         $part->addPartLot(
             (new PartLot())
                 ->setAmount(6)
-                ->setExpirationDate($datetime->setTimestamp(strtotime('now -1 hour')))
+                ->setExpirationDate(new \DateTimeImmutable('-1 hour'))
         );
 
         $this->assertEqualsWithDelta(13.0, $part->getAmountSum(), PHP_FLOAT_EPSILON);

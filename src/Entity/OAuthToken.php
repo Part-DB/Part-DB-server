@@ -92,7 +92,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         return $this->token;
     }
 
-    public function getExpirationDate(): ?\DateTimeInterface
+    public function getExpirationDate(): ?\DateTimeImmutable
     {
         return $this->expires_at;
     }

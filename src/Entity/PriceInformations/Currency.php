@@ -156,9 +156,9 @@ class Currency extends AbstractStructuralDBElement
     protected Collection $pricedetails;
 
     #[Groups(['currency:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['currency:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

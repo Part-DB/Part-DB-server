@@ -136,7 +136,7 @@ class LogDataFormatter
         }
 
         try {
-            $dateTime = new \DateTime($date, new \DateTimeZone($timezone));
+            $dateTime = new \DateTimeImmutable($date, new \DateTimeZone($timezone));
         } catch (\Exception) {
             return '<i>unknown DateTime format</i>';
         }

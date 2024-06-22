@@ -156,9 +156,9 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     protected Collection $parameters;
 
     #[Groups(['measurement_unit:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['measurement_unit:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     /**

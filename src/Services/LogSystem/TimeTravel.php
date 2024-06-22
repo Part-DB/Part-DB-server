@@ -34,11 +34,13 @@ use App\Repository\LogEntryRepository;
 use Brick\Math\BigDecimal;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Exception;
 use InvalidArgumentException;
+use PHPUnit\Util\Type;
 use ReflectionClass;
 
 class TimeTravel
@@ -171,17 +173,26 @@ class TimeTravel
     /**
      * This function decodes the array which is created during the json_encode of a datetime object and returns a DateTime object.
      * @param  array  $input
-     * @return DateTime
+     * @return \DateTimeInterface
      * @throws Exception
      */
-    private function dateTimeDecode(?array $input): ?\DateTime
+    private function dateTimeDecode(?array $input, string $doctrineType): ?\DateTimeInterface
     {
         //Allow null values
         if ($input === null) {
             return null;
         }
 
-        return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
+        //Mutable types
+        if (in_array($doctrineType, [Types::DATETIME_MUTABLE, Types::DATE_MUTABLE], true)) {
+            return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
+        }
+        //Immutable types
+        if (in_array($doctrineType, [Types::DATETIME_IMMUTABLE, Types::DATE_IMMUTABLE], true)) {
+            return new \DateTimeImmutable($input['date'], new \DateTimeZone($input['timezone']));
+        }
+
+        throw new InvalidArgumentException('The given doctrine type is not a datetime type!');
     }
 
     /**
@@ -208,8 +219,10 @@ class TimeTravel
                     $data = BigDecimal::of($data);
                 }
 
-                if (!$data instanceof DateTime && ('datetime' === $metadata->getFieldMapping($field)['type'])) {
-                    $data = $this->dateTimeDecode($data);
+                if (!$data instanceof \DateTimeInterface
+                    && (in_array($metadata->getFieldMapping($field)['type'],
+                        [Types::DATETIME_IMMUTABLE, Types::DATETIME_IMMUTABLE, Types::DATE_MUTABLE, Types::DATETIME_IMMUTABLE], true))) {
+                    $data = $this->dateTimeDecode($data, $metadata->getFieldMapping($field)['type']);
                 }
 
                 $this->setField($element, $field, $data);

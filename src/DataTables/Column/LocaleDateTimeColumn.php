@@ -47,7 +47,7 @@ class LocaleDateTimeColumn extends AbstractColumn
         }
 
         if (!$value instanceof DateTimeInterface) {
-            $value = new DateTime((string) $value);
+            $value = new \DateTimeImmutable((string) $value);
         }
 
         $formatValues = [
