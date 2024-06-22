@@ -29,12 +29,28 @@ class NumberConstraint extends AbstractConstraint
 {
     protected const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
 
-    public function getValue1(): float|int|null|\DateTimeInterface
+    public function __construct(
+        string $property,
+        string $identifier = null,
+        /**
+         * The value1 used for comparison (this is the main one used for all mono-value comparisons)
+         */
+        protected float|int|null $value1 = null,
+        protected ?string $operator = null,
+        /**
+         * The second value used when operator is RANGE; this is the upper bound of the range
+         */
+        protected float|int|null $value2 = null)
+    {
+        parent::__construct($property, $identifier);
+    }
+
+    public function getValue1(): float|int|null
     {
         return $this->value1;
     }
 
-    public function setValue1(float|int|\DateTimeInterface|null $value1): void
+    public function setValue1(float|int|null $value1): void
     {
         $this->value1 = $value1;
     }
@@ -62,22 +78,6 @@ class NumberConstraint extends AbstractConstraint
         $this->operator = $operator;
     }
 
-
-    public function __construct(
-        string $property,
-        string $identifier = null,
-        /**
-         * The value1 used for comparison (this is the main one used for all mono-value comparisons)
-         */
-        protected float|int|\DateTimeInterface|null $value1 = null,
-        protected ?string $operator = null,
-        /**
-         * The second value used when operator is RANGE; this is the upper bound of the range
-         */
-        protected float|int|\DateTimeInterface|null $value2 = null)
-    {
-        parent::__construct($property, $identifier);
-    }
 
     public function isEnabled(): bool
     {
