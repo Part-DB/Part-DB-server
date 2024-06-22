@@ -30,16 +30,9 @@ class TagsConstraint extends AbstractConstraint
 {
     final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
 
-    /**
-     * @param string $value
-     */
-    public function __construct(string $property, string $identifier = null, /**
-     * @var string The value to compare to
-     */
-    protected $value = null, /**
-     * @var string|null The operator to use
-     */
-    protected ?string $operator = '')
+    public function __construct(string $property, string $identifier = null,
+        protected ?string $value = null,
+        protected ?string $operator = '')
     {
         parent::__construct($property, $identifier);
     }
@@ -61,12 +54,12 @@ class TagsConstraint extends AbstractConstraint
         return $this;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;

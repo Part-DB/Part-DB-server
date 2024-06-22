@@ -33,9 +33,9 @@ class TextConstraint extends AbstractConstraint
      * @param string $value
      */
     public function __construct(string $property, string $identifier = null, /**
-     * @var string The value to compare to
+     * @var string|null The value to compare to
      */
-    protected $value = null, /**
+    protected ?string $value = null, /**
      * @var string|null The operator to use
      */
     protected ?string $operator = '')
@@ -60,12 +60,12 @@ class TextConstraint extends AbstractConstraint
         return $this;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;
