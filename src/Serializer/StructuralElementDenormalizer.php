@@ -40,6 +40,8 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
 
     use DenormalizerAwareTrait;
 
+    private const ALREADY_CALLED = 'STRUCTURAL_DENORMALIZER_ALREADY_CALLED';
+
     private array $object_cache = [];
 
     public function __construct(
@@ -54,6 +56,13 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
             return false;
         }
 
+        //If we already handled this object, skip it
+        if (isset($context[self::ALREADY_CALLED])
+            && is_array($context[self::ALREADY_CALLED])
+            && in_array($data, $context[self::ALREADY_CALLED], true)) {
+            return false;
+        }
+
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
             //Only denormalize if we are doing a file import operation
@@ -64,6 +73,13 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
     {
         //Do not use API Platform's denormalizer
         $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
+
+        if (!isset($context[self::ALREADY_CALLED])) {
+            $context[self::ALREADY_CALLED] = [];
+        }
+
+        $context[self::ALREADY_CALLED][] = $data;
+
 
         /** @var AbstractStructuralDBElement $deserialized_entity */
         $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);

@@ -60,6 +60,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -322,8 +324,8 @@ abstract class BaseAdminController extends AbstractController
             try {
                 $errors = $importer->importFileAndPersistToDB($file, $options);
 
-                foreach ($errors as $name => $error) {
-                    foreach ($error as $violation) {
+                foreach ($errors as $name => ['violations' => $violations]) {
+                    foreach ($violations as $violation) {
                         $this->addFlash('error', $name.': '.$violation->getMessage());
                     }
                 }
@@ -333,6 +335,7 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
+        ret:
         //Mass creation form
         $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
         $mass_creation_form->handleRequest($request);
@@ -345,11 +348,14 @@ abstract class BaseAdminController extends AbstractController
             $results = $importer->massCreation($data['lines'], $this->entity_class, $data['parent'] ?? null, $errors);
 
             //Show errors to user:
-            foreach ($errors as $error) {
-                if ($error['entity'] instanceof AbstractStructuralDBElement) {
-                    $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
-                } else { //When we don't have a structural element, we can only show the name
-                    $this->addFlash('error', $error['entity']->getName().':'.$error['violations']);
+            foreach ($errors as ['entity' => $new_entity, 'violations' => $violations]) {
+                /** @var ConstraintViolationInterface $violation */
+                foreach ($violations as $violation) {
+                    if ($new_entity instanceof AbstractStructuralDBElement) {
+                        $this->addFlash('error', $new_entity->getFullPath().':'.$violation->getMessage());
+                    } else { //When we don't have a structural element, we can only show the name
+                        $this->addFlash('error', $new_entity->getName().':'.$violation->getMessage());
+                    }
                 }
             }
 
@@ -360,11 +366,10 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
 
             if (count($results) > 0) {
-            	$this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
+                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
             }
         }
 
-        ret:
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
