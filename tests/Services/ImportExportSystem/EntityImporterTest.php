@@ -309,7 +309,7 @@ EOT;
         $this->assertSame('', $error['entity']->getName());
         $this->assertContainsOnlyInstancesOf(ConstraintViolation::class, $error['violations']);
         //Element name must be element name
-        $this->assertArrayHasKey('', $errors);
+        $this->assertArrayHasKey('Row 1', $errors);
 
         //Check the valid element
         $this->assertSame('Test 1', $results[0]->getName());
