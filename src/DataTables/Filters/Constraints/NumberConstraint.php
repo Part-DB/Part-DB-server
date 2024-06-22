@@ -105,7 +105,13 @@ class NumberConstraint extends AbstractConstraint
             }
 
             $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier . '1', '>=', $this->value1);
-            $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier . '2', '<=', $this->value2);
+
+            //Workaround for the amountSum which we need to add twice on postgres. Replace one of the __ with __2 to make it work
+            //Otherwise we get an error, that __partLot was already defined
+
+            $property2 = str_replace('__', '__2', $this->property);
+
+            $this->addSimpleAndConstraint($queryBuilder, $property2, $this->identifier . '2', '<=', $this->value2);
         }
     }
 }
