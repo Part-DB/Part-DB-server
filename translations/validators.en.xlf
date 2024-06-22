@@ -347,5 +347,11 @@
         <target>Due to technical limitations, it is not possible to select dates after the 2038-01-19 on 32-bit systems!</target>
       </segment>
     </unit>
+    <unit id="iXcU7ce" name="validator.invalid_range">
+      <segment state="translated">
+        <source>validator.invalid_range</source>
+        <target>The given range is not valid!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
