@@ -52,6 +52,7 @@ class BackupCommand extends Command
         $backup_attachments = $input->getOption('attachments');
         $backup_config = $input->getOption('config');
         $backup_full = $input->getOption('full');
+        $overwrite = $input->getOption('overwrite');
 
         if ($backup_full) {
             $backup_database = true;
@@ -70,7 +71,9 @@ class BackupCommand extends Command
 
         //Check if the file already exists
         //Then ask the user, if he wants to overwrite the file
-        if (file_exists($output_filepath) && !$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
+        if (!$overwrite
+            && file_exists($output_filepath)
+            && !$io->confirm('The file '.realpath($output_filepath).' already exists. Do you want to overwrite it?', false)) {
             $io->error('Backup aborted!');
             return Command::FAILURE;
         }
