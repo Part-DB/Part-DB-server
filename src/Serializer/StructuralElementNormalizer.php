@@ -48,9 +48,6 @@ class StructuralElementNormalizer implements NormalizerInterface
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function normalize($object, string $format = null, array $context = []): mixed
     {
         if (!$object instanceof AbstractStructuralDBElement) {
@@ -59,6 +56,7 @@ class StructuralElementNormalizer implements NormalizerInterface
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
+        //If the data is not an array, we can't do anything with it
         if (!is_array($data)) {
             return $data;
         }
