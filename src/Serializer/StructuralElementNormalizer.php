@@ -51,13 +51,17 @@ class StructuralElementNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): mixed
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');
         }
 
         $data = $this->normalizer->normalize($object, $format, $context);
+
+        if (!is_array($data)) {
+            return $data;
+        }
 
         //Remove type field for CSV export
         if ($format === 'csv') {
