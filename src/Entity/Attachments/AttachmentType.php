@@ -86,9 +86,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    /**
-     * @var Collection<int, \App\Entity\Attachments\AttachmentType>
-     */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;

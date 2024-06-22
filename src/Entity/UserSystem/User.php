@@ -318,7 +318,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var \DateTimeInterface|null the time until the password reset token is valid
+     * @var \DateTime|null the time until the password reset token is valid
      */
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?\DateTime $pw_reset_expires = null;
