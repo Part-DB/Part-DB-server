@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="hr">
+  <file id="security.en">
+    <unit id="aazoCks" name="user.login_error.user_disabled">
+      <segment state="translated">
+        <source>user.login_error.user_disabled</source>
+        <target>Vaš račun je onemogućen. Molimo kontaktirajte administratora ako mislite da je ovo pogrešno.</target>
+      </segment>
+    </unit>
+    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>Ne možete se prijaviti kao lokalni koristnik preko SSO! Molimo koristite vašu lokalnu zaporku.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
