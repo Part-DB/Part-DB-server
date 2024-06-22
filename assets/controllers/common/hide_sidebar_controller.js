@@ -88,5 +88,8 @@ export default class extends Controller {
         } else {
             this.hideSidebar();
         }
+
+        //Hide the tootip on the button
+        this._toggle_button.blur();
     }
 }
