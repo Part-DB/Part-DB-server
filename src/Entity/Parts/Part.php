@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -119,7 +120,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
@@ -140,7 +141,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     /**

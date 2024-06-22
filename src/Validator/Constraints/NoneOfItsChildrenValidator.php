@@ -30,6 +30,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * The validator for the NoneOfItsChildren annotation.
+ * @see \App\Tests\Validator\Constraints\NoneOfItsChildrenValidatorTest
  */
 class NoneOfItsChildrenValidator extends ConstraintValidator
 {

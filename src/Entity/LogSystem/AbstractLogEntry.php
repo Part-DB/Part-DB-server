@@ -55,10 +55,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
-    /** @var \DateTime The datetime the event associated with this log entry has occured
+    /**
+     * @var \DateTimeInterface The datetime the event associated with this log entry has occured
      */
     #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
-    protected \DateTime $timestamp;
+    protected \DateTimeInterface $timestamp;
 
     /**
      * @var LogLevel The priority level of the associated level. 0 is highest, 7 lowest

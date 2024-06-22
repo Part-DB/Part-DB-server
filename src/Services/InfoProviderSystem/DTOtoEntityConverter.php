@@ -45,6 +45,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * This class converts DTOs to entities which can be persisted in the DB
+ * @see \App\Tests\Services\InfoProviderSystem\DTOtoEntityConverterTest
  */
 final class DTOtoEntityConverter
 {
@@ -127,7 +128,7 @@ final class DTOtoEntityConverter
         $entity->setAttachmentType($type);
 
         //If no name is given, try to extract the name from the URL
-        if (empty($dto->name)) {
+        if ($dto->name === null || $dto->name === '' || $dto->name === '0') {
             $entity->setName($this->getAttachmentNameFromURL($dto->url));
         } else {
             $entity->setName($dto->name);

@@ -49,6 +49,7 @@ use ReflectionClass;
 /**
  * @template TEntityClass of AbstractDBElement
  * @extends EntityRepository<TEntityClass>
+ * @see \App\Tests\Repository\DBElementRepositoryTest
  */
 class DBElementRepository extends EntityRepository
 {
@@ -143,9 +144,7 @@ class DBElementRepository extends EntityRepository
      */
     protected function sortResultArrayByIDArray(array &$result_array, array $ids): void
     {
-        usort($result_array, static function (AbstractDBElement $a, AbstractDBElement $b) use ($ids) {
-            return array_search($a->getID(), $ids, true) <=> array_search($b->getID(), $ids, true);
-        });
+        usort($result_array, static fn(AbstractDBElement $a, AbstractDBElement $b) => array_search($a->getID(), $ids, true) <=> array_search($b->getID(), $ids, true));
     }
 
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void

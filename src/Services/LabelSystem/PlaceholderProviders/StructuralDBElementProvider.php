@@ -52,7 +52,7 @@ final class StructuralDBElementProvider implements PlaceholderProviderInterface
                 return $label_target->getComment();
             }
             if ('[[COMMENT_T]]' === $placeholder) {
-                return strip_tags($label_target->getComment());
+                return strip_tags((string) $label_target->getComment());
             }
             if ('[[FULL_PATH]]' === $placeholder) {
                 return $label_target->getFullPath();

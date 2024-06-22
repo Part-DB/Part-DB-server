@@ -162,7 +162,7 @@ class LogDataTable implements DataTableTypeInterface
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
-                            htmlentities($context->getCLIUsername()),
+                            htmlentities((string) $context->getCLIUsername()),
                             $this->translator->trans('log.cli_user')
                         );
                     }

@@ -80,7 +80,7 @@ class TMEProvider implements InfoProviderInterface
             $result[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['Symbol'],
-                name: !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
+                name: empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
                 description: $product['Description'],
                 category: $product['Category'],
                 manufacturer: $product['Producer'],
@@ -116,7 +116,7 @@ class TMEProvider implements InfoProviderInterface
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['Symbol'],
-            name:  !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
+            name:  empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
             description: $product['Description'],
             category: $product['Category'],
             manufacturer: $product['Producer'],

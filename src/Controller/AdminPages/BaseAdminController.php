@@ -52,7 +52,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -74,15 +73,10 @@ abstract class BaseAdminController extends AbstractController
     protected string $attachment_class = '';
     protected ?string $parameter_class = '';
 
-    /**
-     * @var EventDispatcher|EventDispatcherInterface
-     */
-    protected EventDispatcher|EventDispatcherInterface $eventDispatcher;
-
     public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
         protected AttachmentSubmitHandler $attachmentSubmitHandler,
         protected EventCommentHelper $commentHelper, protected HistoryHelper $historyHelper, protected TimeTravel $timeTravel,
-        protected DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
+        protected DataTableFactory $dataTableFactory, protected EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
         protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
@@ -96,7 +90,6 @@ abstract class BaseAdminController extends AbstractController
         if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
             throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
         }
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
@@ -192,10 +185,8 @@ abstract class BaseAdminController extends AbstractController
                 }
 
                 //Ensure that the master picture is still part of the attachments
-                if ($entity instanceof AttachmentContainingDBElement) {
-                    if ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment())) {
-                        $entity->setMasterPictureAttachment(null);
-                    }
+                if ($entity instanceof AttachmentContainingDBElement && ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment()))) {
+                    $entity->setMasterPictureAttachment(null);
                 }
 
                 $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -283,10 +274,8 @@ abstract class BaseAdminController extends AbstractController
             }
 
             //Ensure that the master picture is still part of the attachments
-            if ($new_entity instanceof AttachmentContainingDBElement) {
-                if ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment())) {
-                    $new_entity->setMasterPictureAttachment(null);
-                }
+            if ($new_entity instanceof AttachmentContainingDBElement && ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment()))) {
+                $new_entity->setMasterPictureAttachment(null);
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());

@@ -26,6 +26,7 @@ namespace App\Helpers;
 /**
  * Helper functions for logic operations with trinary logic.
  * True and false are represented as classical boolean values, undefined is represented as null.
+ * @see \App\Tests\Helpers\TrinaryLogicHelperTest
  */
 class TrinaryLogicHelper
 {

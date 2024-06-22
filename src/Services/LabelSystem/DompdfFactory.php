@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\LabelSystem;
 
 use Dompdf\Dompdf;
@@ -36,10 +38,8 @@ class DompdfFactory implements DompdfFactoryInterface
 
     private function createDirectoryIfNotExisting(string $path): void
     {
-        if (!is_dir($path)) {
-            if (!mkdir($concurrentDirectory = $path, 0777, true) && !is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
-            }
+        if (!is_dir($path) && (!mkdir($concurrentDirectory = $path, 0777, true) && !is_dir($concurrentDirectory))) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
         }
     }
 

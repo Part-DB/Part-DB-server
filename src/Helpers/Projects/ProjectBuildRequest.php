@@ -174,11 +174,7 @@ final class ProjectBuildRequest
      */
     public function getLotWithdrawAmount(PartLot|int $lot): float
     {
-        if ($lot instanceof PartLot) {
-            $lot_id = $lot->getID();
-        } else  { // Then it must be an int
-            $lot_id = $lot;
-        }
+        $lot_id = $lot instanceof PartLot ? $lot->getID() : $lot;
 
         if (! array_key_exists($lot_id, $this->withdraw_amounts)) {
             throw new \InvalidArgumentException('The given lot is not in the withdraw amounts array!');

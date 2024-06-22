@@ -51,7 +51,7 @@ class InfoProviderExtension extends AbstractExtension
     {
         try {
             return $this->providerRegistry->getProviderByKey($key);
-        }  catch (\InvalidArgumentException $exception) {
+        }  catch (\InvalidArgumentException) {
             return null;
         }
     }
@@ -65,7 +65,7 @@ class InfoProviderExtension extends AbstractExtension
     {
         try {
             return $this->providerRegistry->getProviderByKey($key)->getProviderInfo()['name'];
-        }  catch (\InvalidArgumentException $exception) {
+        }  catch (\InvalidArgumentException) {
             return null;
         }
     }

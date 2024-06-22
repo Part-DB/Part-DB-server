@@ -74,7 +74,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->api_key);
+        return $this->api_key !== '';
     }
 
     public function searchByKeyword(string $keyword): array
@@ -247,7 +247,7 @@ class MouserProvider implements InfoProviderInterface
 
     private function parseDataSheets(?string $sheetUrl, ?string $sheetName): ?array
     {
-        if (empty($sheetUrl)) {
+        if ($sheetUrl === null || $sheetUrl === '' || $sheetUrl === '0') {
             return null;
         }
         $result = [];

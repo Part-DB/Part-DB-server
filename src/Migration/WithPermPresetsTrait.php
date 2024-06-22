@@ -64,7 +64,7 @@ trait WithPermPresetsTrait
 
     public function setContainer(ContainerInterface $container = null): void
     {
-        if ($container) {
+        if ($container !== null) {
             $this->container = $container;
             $this->permission_presets_helper = $container->get(PermissionPresetsHelper::class);
         }

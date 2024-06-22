@@ -28,6 +28,7 @@ use Com\Tecnick\Barcode\Barcode;
 
 /**
  * This function is used to generate barcodes of various types using arbitrary (text) content.
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeHelperTest
  */
 class BarcodeHelper
 {
@@ -66,7 +67,7 @@ class BarcodeHelper
     {
         $svg = $this->barcodeAsSVG($content, $type);
         $base64 = $this->dataUri($svg, 'image/svg+xml');
-        $alt_text = $alt_text ?? $content;
+        $alt_text ??= $content;
         
         return '<img src="'.$base64.'" width="'.$width.'" style="min-height: 25px;" alt="'.$alt_text.'"/>';
     }

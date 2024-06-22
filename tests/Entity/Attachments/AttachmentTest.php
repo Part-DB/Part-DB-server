@@ -72,22 +72,20 @@ class AttachmentTest extends TestCase
         $this->assertEmpty($attachment->getFilename());
     }
 
-    public function subClassesDataProvider(): array
+    public function subClassesDataProvider(): \Iterator
     {
-        return [
-            [AttachmentTypeAttachment::class, AttachmentType::class],
-            [CategoryAttachment::class, Category::class],
-            [CurrencyAttachment::class, Currency::class],
-            [ProjectAttachment::class, Project::class],
-            [FootprintAttachment::class, Footprint::class],
-            [GroupAttachment::class, Group::class],
-            [ManufacturerAttachment::class, Manufacturer::class],
-            [MeasurementUnitAttachment::class, MeasurementUnit::class],
-            [PartAttachment::class, Part::class],
-            [StorageLocationAttachment::class, StorageLocation::class],
-            [SupplierAttachment::class, Supplier::class],
-            [UserAttachment::class, User::class],
-        ];
+        yield [AttachmentTypeAttachment::class, AttachmentType::class];
+        yield [CategoryAttachment::class, Category::class];
+        yield [CurrencyAttachment::class, Currency::class];
+        yield [ProjectAttachment::class, Project::class];
+        yield [FootprintAttachment::class, Footprint::class];
+        yield [GroupAttachment::class, Group::class];
+        yield [ManufacturerAttachment::class, Manufacturer::class];
+        yield [MeasurementUnitAttachment::class, MeasurementUnit::class];
+        yield [PartAttachment::class, Part::class];
+        yield [StorageLocationAttachment::class, StorageLocation::class];
+        yield [SupplierAttachment::class, Supplier::class];
+        yield [UserAttachment::class, User::class];
     }
 
     /**
@@ -117,27 +115,21 @@ class AttachmentTest extends TestCase
 
         /** @var Attachment $attachment */
         $attachment = new $attachment_class();
-        if (Project::class !== $allowed_class) {
-            $element = new Project();
-        } else {
-            $element = new Category();
-        }
+        $element = Project::class !== $allowed_class ? new Project() : new Category();
         $attachment->setElement($element);
     }
 
-    public function externalDataProvider(): array
+    public function externalDataProvider(): \Iterator
     {
-        return [
-            ['', false],
-            ['%MEDIA%/foo/bar.txt', false],
-            ['%BASE%/foo/bar.jpg', false],
-            ['%FOOTPRINTS%/foo/bar.jpg', false],
-            ['%FOOTPRINTS3D%/foo/bar.jpg', false],
-            ['%SECURE%/test.txt', false],
-            ['%test%/foo/bar.ghp', true],
-            ['foo%MEDIA%/foo.jpg', true],
-            ['foo%MEDIA%/%BASE%foo.jpg', true],
-        ];
+        yield ['', false];
+        yield ['%MEDIA%/foo/bar.txt', false];
+        yield ['%BASE%/foo/bar.jpg', false];
+        yield ['%FOOTPRINTS%/foo/bar.jpg', false];
+        yield ['%FOOTPRINTS3D%/foo/bar.jpg', false];
+        yield ['%SECURE%/test.txt', false];
+        yield ['%test%/foo/bar.ghp', true];
+        yield ['foo%MEDIA%/foo.jpg', true];
+        yield ['foo%MEDIA%/%BASE%foo.jpg', true];
     }
 
     /**
@@ -150,20 +142,18 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isExternal());
     }
 
-    public function extensionDataProvider(): array
+    public function extensionDataProvider(): \Iterator
     {
-        return [
-            ['%MEDIA%/foo/bar.txt', null, 'txt'],
-            ['%MEDIA%/foo/bar.JPeg', null, 'jpeg'],
-            ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'txt'],
-            ['%MEDIA%/foo/bar', null, ''],
-            ['%MEDIA%/foo.bar', 'bar', ''],
-            ['http://google.de', null, null],
-            ['https://foo.bar', null, null],
-            ['https://foo.bar/test.jpeg', null, null],
-            ['test', null, null],
-            ['test.txt', null, null],
-        ];
+        yield ['%MEDIA%/foo/bar.txt', null, 'txt'];
+        yield ['%MEDIA%/foo/bar.JPeg', null, 'jpeg'];
+        yield ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'txt'];
+        yield ['%MEDIA%/foo/bar', null, ''];
+        yield ['%MEDIA%/foo.bar', 'bar', ''];
+        yield ['http://google.de', null, null];
+        yield ['https://foo.bar', null, null];
+        yield ['https://foo.bar/test.jpeg', null, null];
+        yield ['test', null, null];
+        yield ['test.txt', null, null];
     }
 
     /**
@@ -177,21 +167,19 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->getExtension());
     }
 
-    public function pictureDataProvider(): array
+    public function pictureDataProvider(): \Iterator
     {
-        return [
-            ['%MEDIA%/foo/bar.txt', false],
-            ['https://test.de/picture.jpeg', true],
-            ['https://test.de/picture.png?test=fdsj&width=34', true],
-            ['https://invalid.invalid/file.txt', false],
-            ['http://infsf.inda/file.zip?test', false],
-            ['https://test.de', true],
-            ['https://invalid.com/invalid/pic', true],
-            ['%MEDIA%/foo/bar.jpeg', true],
-            ['%MEDIA%/foo/bar.webp', true],
-            ['%MEDIA%/foo', false],
-            ['%SECURE%/foo.txt/test', false],
-        ];
+        yield ['%MEDIA%/foo/bar.txt', false];
+        yield ['https://test.de/picture.jpeg', true];
+        yield ['https://test.de/picture.png?test=fdsj&width=34', true];
+        yield ['https://invalid.invalid/file.txt', false];
+        yield ['http://infsf.inda/file.zip?test', false];
+        yield ['https://test.de', true];
+        yield ['https://invalid.com/invalid/pic', true];
+        yield ['%MEDIA%/foo/bar.jpeg', true];
+        yield ['%MEDIA%/foo/bar.webp', true];
+        yield ['%MEDIA%/foo', false];
+        yield ['%SECURE%/foo.txt/test', false];
     }
 
     /**
@@ -204,16 +192,14 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isPicture());
     }
 
-    public function builtinDataProvider(): array
+    public function builtinDataProvider(): \Iterator
     {
-        return [
-            ['', false],
-            ['%MEDIA%/foo/bar.txt', false],
-            ['%BASE%/foo/bar.txt', false],
-            ['/', false],
-            ['https://google.de', false],
-            ['%FOOTPRINTS%/foo/bar.txt', true],
-        ];
+        yield ['', false];
+        yield ['%MEDIA%/foo/bar.txt', false];
+        yield ['%BASE%/foo/bar.txt', false];
+        yield ['/', false];
+        yield ['https://google.de', false];
+        yield ['%FOOTPRINTS%/foo/bar.txt', true];
     }
 
     /**
@@ -226,13 +212,11 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isBuiltIn());
     }
 
-    public function hostDataProvider(): array
+    public function hostDataProvider(): \Iterator
     {
-        return [
-            ['%MEDIA%/foo/bar.txt', null],
-            ['https://www.google.de/test.txt', 'www.google.de'],
-            ['https://foo.bar/test?txt=test', 'foo.bar'],
-        ];
+        yield ['%MEDIA%/foo/bar.txt', null];
+        yield ['https://www.google.de/test.txt', 'www.google.de'];
+        yield ['https://foo.bar/test?txt=test', 'foo.bar'];
     }
 
     /**
@@ -245,13 +229,11 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->getHost());
     }
 
-    public function filenameProvider(): array
+    public function filenameProvider(): \Iterator
     {
-        return [
-            ['%MEDIA%/foo/bar.txt', null, 'bar.txt'],
-            ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'test.txt'],
-            ['https://www.google.de/test.txt', null, null],
-        ];
+        yield ['%MEDIA%/foo/bar.txt', null, 'bar.txt'];
+        yield ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'test.txt'];
+        yield ['https://www.google.de/test.txt', null, null];
     }
 
     /**

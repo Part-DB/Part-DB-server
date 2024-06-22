@@ -26,6 +26,7 @@ namespace App\Services\InfoProviderSystem\DTOs;
 /**
  * This DTO represents a file that can be downloaded from a URL.
  * This could be a datasheet, a 3D model, a picture or similar.
+ * @see \App\Tests\Services\InfoProviderSystem\DTOs\FileDTOTest
  */
 class FileDTO
 {

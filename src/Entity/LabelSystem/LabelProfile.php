@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\LabelSystem;
 
+use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Repository\LabelProfileRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
@@ -66,7 +67,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @var Collection<int, LabelAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: LabelAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: LabelAttachment::class)]

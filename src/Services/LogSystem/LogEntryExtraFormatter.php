@@ -135,7 +135,7 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof LogWithCommentInterface && $context->hasComment()) {
-            $array[] = htmlspecialchars($context->getComment());
+            $array[] = htmlspecialchars((string) $context->getComment());
         }
 
         if ($context instanceof ElementCreatedLogEntry && $context->hasCreationInstockValue()) {
@@ -193,7 +193,7 @@ class LogEntryExtraFormatter
                     htmlspecialchars($this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class))
                     .' ' . $context->getMoveToTargetID();
             }
-            if ($context->getActionTimestamp()) {
+            if ($context->getActionTimestamp() !== null) {
                 $formatter = new \IntlDateFormatter($this->translator->getLocale(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
                 $array['log.part_stock_changed.timestamp'] = $formatter->format($context->getActionTimestamp());
             }

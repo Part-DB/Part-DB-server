@@ -156,7 +156,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'orderField' => 'NATSORT(_partUnit.name)',
                 'render' => function($value, Part $context): string {
                     $partUnit = $context->getPartUnit();
-                    if (!$partUnit) {
+                    if ($partUnit === null) {
                         return '';
                     }
 
@@ -184,7 +184,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'class' => ManufacturingStatus::class,
                 'render' => function (?ManufacturingStatus $status, Part $context): string {
-                    if (!$status) {
+                    if ($status === null) {
                         return '';
                     }
 

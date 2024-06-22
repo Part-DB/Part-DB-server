@@ -69,7 +69,7 @@ class EntityMerger
     {
         $merger = $this->findMergerForObject($target, $other, $context);
         if ($merger === null) {
-            throw new \RuntimeException('No merger found for merging '.get_class($other).' into '.get_class($target));
+            throw new \RuntimeException('No merger found for merging '.$other::class.' into '.$target::class);
         }
         return $merger->merge($target, $other, $context);
     }

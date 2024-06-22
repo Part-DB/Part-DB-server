@@ -52,11 +52,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     protected function loadChoices(): iterable
     {
         //If the starting_element is set and not persisted yet, add it to the list
-        if ($this->starting_element !== null && $this->starting_element->getID() === null) {
-            $tmp = [$this->starting_element];
-        } else {
-            $tmp = [];
-        }
+        $tmp = $this->starting_element !== null && $this->starting_element->getID() === null ? [$this->starting_element] : [];
 
         if ($this->additional_element) {
             $tmp = $this->createNewEntitiesFromValue($this->additional_element);
@@ -163,7 +159,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         // the same as the value that is generated for the same entity after it is persisted.
         // Otherwise, errors occurs that the element could not be found.
         foreach ($values as &$data) {
-            $data = trim($data);
+            $data = trim((string) $data);
             $data = preg_replace('/\s*->\s*/', '->', $data);
         }
         unset ($data);

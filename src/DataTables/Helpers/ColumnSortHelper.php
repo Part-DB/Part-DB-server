@@ -109,7 +109,7 @@ class ColumnSortHelper
         }
 
         //and the remaining non-visible columns
-        foreach ($this->columns as $col_id => $col_data) {
+        foreach (array_keys($this->columns) as $col_id) {
             if (in_array($col_id, $processed_columns, true)) {
                 // column already processed
                 continue;
