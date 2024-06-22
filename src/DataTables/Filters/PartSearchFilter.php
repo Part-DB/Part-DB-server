@@ -129,7 +129,7 @@ class PartSearchFilter implements FilterInterface
         //Convert the fields to search to a list of expressions
         $expressions = array_map(function (string $field): string {
             if ($this->regex) {
-                return sprintf("REGEXP(%s, :search_query) = 1", $field);
+                return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
             }
 
             return sprintf("%s LIKE :search_query", $field);

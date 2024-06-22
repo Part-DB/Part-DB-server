@@ -35,7 +35,7 @@ class SandboxedLabelExtension extends AbstractExtension
 
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('placeholder', fn(string $text, object $label_target) => $this->labelTextReplacer->handlePlaceholderOrReturnNull($text, $label_target)),

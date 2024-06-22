@@ -55,7 +55,7 @@ for the first time.
 * Event log: Track what changes happen to your inventory, track which user does what. Revert your parts to older
   versions.
 * Responsive design: You can use Part-DB on your PC, your tablet, and your smartphone using the same interface.
-* MySQL and SQLite are supported as database backends
+* MySQL, SQLite and PostgreSQL are supported as database backends
 * Support for rich text descriptions and comments in parts
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
@@ -74,10 +74,10 @@ Part-DB is also used by small companies and universities for managing their inve
 ## Requirements
 
 * A **web server** (like Apache2 or nginx) that is capable of
-  running [Symfony 5](https://symfony.com/doc/current/reference/requirements.html),
+  running [Symfony 6](https://symfony.com/doc/current/reference/requirements.html),
   this includes a minimum PHP version of **PHP 8.1**
-* A **MySQL** (at least 5.7) /**MariaDB** (at least 10.2.2) database server if you do not want to use SQLite.
-* Shell access to your server is highly suggested!
+* A **MySQL** (at least 5.7) /**MariaDB** (at least 10.4) database server, or **PostgreSQL** 10+ if you do not want to use SQLite.
+* Shell access to your server is highly recommended!
 * For building the client-side assets **yarn** and **nodejs** (>= 18.0) is needed.
 
 ## Installation

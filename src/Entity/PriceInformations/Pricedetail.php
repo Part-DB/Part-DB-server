@@ -38,7 +38,7 @@ use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
-use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -141,9 +141,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
-        $this->lastModified = new DateTime('now');
+        $this->lastModified = new DateTimeImmutable('now');
         if (!$this->addedDate instanceof \DateTimeInterface) {
-            $this->addedDate = new DateTime('now');
+            $this->addedDate = new DateTimeImmutable('now');
         }
 
         if ($this->orderdetail instanceof Orderdetail) {

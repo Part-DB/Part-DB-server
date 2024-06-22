@@ -41,4 +41,14 @@ final class Version20230816213201 extends AbstractMultiPlatformMigration
     {
         $this->addSql('DROP TABLE api_tokens');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

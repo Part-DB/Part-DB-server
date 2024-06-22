@@ -49,6 +49,7 @@ use Symfony\Component\Validator\Constraints\Length;
 /**
  * This entity describes a part association, which is a semantic connection between two parts.
  * For example, a part association can be used to describe that a part is a replacement for another part.
+ * @see \App\Tests\Entity\Parts\PartAssociationTest
  */
 #[ORM\Entity(repositoryClass: DBElementRepository::class)]
 #[ORM\HasLifecycleCallbacks]

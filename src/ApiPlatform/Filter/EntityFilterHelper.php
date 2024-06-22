@@ -81,12 +81,12 @@ class EntityFilterHelper
 
     public function getDescription(array $properties): array
     {
-        if (!$properties) {
+        if ($properties === []) {
             return [];
         }
 
         $description = [];
-        foreach ($properties as $property => $strategy) {
+        foreach (array_keys($properties) as $property) {
             $description[(string)$property] = [
                 'property' => $property,
                 'type' => Type::BUILTIN_TYPE_STRING,

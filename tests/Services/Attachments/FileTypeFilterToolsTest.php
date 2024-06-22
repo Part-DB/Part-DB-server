@@ -35,56 +35,52 @@ class FileTypeFilterToolsTest extends WebTestCase
         self::$service = self::getContainer()->get(FileTypeFilterTools::class);
     }
 
-    public function validateDataProvider(): array
+    public function validateDataProvider(): \Iterator
     {
-        return [
-            ['', true], //Empty string is valid
-            ['.jpeg,.png, .gif', true], //Only extensions are valid
-            ['image/*, video/*, .mp4, video/x-msvideo, application/vnd.amazon.ebook', true],
-            ['application/vnd.amazon.ebook, audio/opus', true],
-
-            ['*.notvalid, .png', false], //No stars in extension
-            ['test.png', false], //No full filename
-            ['application/*', false], //Only certain placeholders are allowed
-            ['.png;.png,.jpg', false], //Wrong separator
-            ['.png .jpg .gif', false],
-        ];
+        yield ['', true];
+        //Empty string is valid
+        yield ['.jpeg,.png, .gif', true];
+        //Only extensions are valid
+        yield ['image/*, video/*, .mp4, video/x-msvideo, application/vnd.amazon.ebook', true];
+        yield ['application/vnd.amazon.ebook, audio/opus', true];
+        yield ['*.notvalid, .png', false];
+        //No stars in extension
+        yield ['test.png', false];
+        //No full filename
+        yield ['application/*', false];
+        //Only certain placeholders are allowed
+        yield ['.png;.png,.jpg', false];
+        //Wrong separator
+        yield ['.png .jpg .gif', false];
     }
 
-    public function normalizeDataProvider(): array
+    public function normalizeDataProvider(): \Iterator
     {
-        return [
-            ['', ''],
-            ['.jpeg,.png,.gif', '.jpeg,.png,.gif'],
-            ['.jpeg, .png,    .gif,', '.jpeg,.png,.gif'],
-            ['jpg, *.gif', '.jpg,.gif'],
-            ['video, image/', 'video/*,image/*'],
-            ['video/*', 'video/*'],
-            ['video/x-msvideo,.jpeg', 'video/x-msvideo,.jpeg'],
-            ['.video', '.video'],
-            //Remove duplicate entries
-            ['png, .gif, .png,', '.png,.gif'],
-        ];
+        yield ['', ''];
+        yield ['.jpeg,.png,.gif', '.jpeg,.png,.gif'];
+        yield ['.jpeg, .png,    .gif,', '.jpeg,.png,.gif'];
+        yield ['jpg, *.gif', '.jpg,.gif'];
+        yield ['video, image/', 'video/*,image/*'];
+        yield ['video/*', 'video/*'];
+        yield ['video/x-msvideo,.jpeg', 'video/x-msvideo,.jpeg'];
+        yield ['.video', '.video'];
+        //Remove duplicate entries
+        yield ['png, .gif, .png,', '.png,.gif'];
     }
 
-    public function extensionAllowedDataProvider(): array
+    public function extensionAllowedDataProvider(): \Iterator
     {
-        return [
-            ['', 'txt', true],
-            ['', 'everything_should_match', true],
-
-            ['.jpg,.png', 'jpg', true],
-            ['.jpg,.png', 'png', true],
-            ['.jpg,.png', 'txt', false],
-
-            ['image/*', 'jpeg', true],
-            ['image/*', 'png', true],
-            ['image/*', 'txt', false],
-
-            ['application/pdf,.txt', 'pdf', true],
-            ['application/pdf,.txt', 'txt', true],
-            ['application/pdf,.txt', 'jpg', false],
-        ];
+        yield ['', 'txt', true];
+        yield ['', 'everything_should_match', true];
+        yield ['.jpg,.png', 'jpg', true];
+        yield ['.jpg,.png', 'png', true];
+        yield ['.jpg,.png', 'txt', false];
+        yield ['image/*', 'jpeg', true];
+        yield ['image/*', 'png', true];
+        yield ['image/*', 'txt', false];
+        yield ['application/pdf,.txt', 'pdf', true];
+        yield ['application/pdf,.txt', 'txt', true];
+        yield ['application/pdf,.txt', 'jpg', false];
     }
 
     /**

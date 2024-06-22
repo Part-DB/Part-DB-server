@@ -40,11 +40,11 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
      * Returns all parts associated with this element.
      *
      * @param  object  $element  the element for which the parts should be determined
-     * @param  array  $order_by  The order of the parts. Format ['name' => 'ASC']
+     * @param string $nameOrderDirection  the direction in which the parts should be ordered by name, either ASC or DESC
      *
      * @return Part[]
      */
-    abstract public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
+    abstract public function getParts(object $element, string $nameOrderDirection = "ASC"): array;
 
     /**
      * Gets the count of the parts associated with this element.
@@ -113,7 +113,7 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
         return $parts;
     }
 
-    protected function getPartsByField(object $element, array $order_by, string $field_name): array
+    protected function getPartsByField(object $element, string $nameOrderDirection, string $field_name): array
     {
         if (!$element instanceof AbstractPartsContainingDBElement) {
             throw new InvalidArgumentException('$element must be an instance of AbstractPartContainingDBElement!');
@@ -121,7 +121,14 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
 
         $repo = $this->getEntityManager()->getRepository(Part::class);
 
-        return $repo->findBy([$field_name => $element], $order_by);
+        //Build a query builder to get the parts with a custom order by
+
+        $qb = $repo->createQueryBuilder('part')
+            ->where('part.'.$field_name.' = :element')
+            ->setParameter('element', $element)
+            ->orderBy('NATSORT(part.name)', $nameOrderDirection);
+
+        return $qb->getQuery()->getResult();
     }
 
     protected function getPartsCountByField(object $element, string $field_name): int

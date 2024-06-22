@@ -105,13 +105,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected string $comment = '';
 
     /**
-     * @var \DateTimeInterface|null Set a time until when the lot must be used.
+     * @var \DateTimeImmutable|null Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
      */
     #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
-    #[ORM\Column(name: 'expiration_date', type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(name: 'expiration_date', type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Year2038BugWorkaround]
-    protected ?\DateTimeInterface $expiration_date = null;
+    protected ?\DateTimeImmutable $expiration_date = null;
 
     /**
      * @var StorageLocation|null The storelocation of this lot
@@ -194,7 +194,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         }
 
         //Check if the expiration date is bigger then current time
-        return $this->expiration_date < new DateTime('now');
+        return $this->expiration_date < new \DateTimeImmutable('now');
     }
 
     /**
@@ -236,7 +236,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
      */
-    public function getExpirationDate(): ?\DateTimeInterface
+    public function getExpirationDate(): ?\DateTimeImmutable
     {
         return $this->expiration_date;
     }
@@ -246,7 +246,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      *
      *
      */
-    public function setExpirationDate(?\DateTimeInterface $expiration_date): self
+    public function setExpirationDate(?\DateTimeImmutable $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
 

@@ -82,10 +82,10 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
-                'orderField' => 'part.name',
+                'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if(!$context->getPart() instanceof Part) {
-                        return htmlspecialchars($context->getName());
+                        return htmlspecialchars((string) $context->getName());
                     }
                     if($context->getPart() instanceof Part) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
@@ -101,7 +101,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
-                'orderField' => 'part.ipn',
+                'orderField' => 'NATSORT(part.ipn)',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if($context->getPart() instanceof Part) {
@@ -124,18 +124,18 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'part.category',
-                'orderField' => 'category.name',
+                'orderField' => 'NATSORT(category.name)',
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'part.footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-                'orderField' => 'footprint.name',
+                'orderField' => 'NATSORT(footprint.name)',
             ])
 
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'part.manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-                'orderField' => 'manufacturer.name',
+                'orderField' => 'NATSORT(manufacturer.name)',
             ])
 
             ->add('mountnames', TextColumn::class, [
@@ -154,7 +154,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'project.bom.instockAmount',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if ($context->getPart()) {
+                    if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderAmount($context->getPart());
                     }
 
@@ -165,7 +165,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'part.table.storeLocations',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if ($context->getPart()) {
+                    if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderStorageLocations($context->getPart());
                     }
 

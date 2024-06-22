@@ -183,7 +183,7 @@ class OctopartProvider implements InfoProviderInterface
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
         //return /*!empty($this->clientId) && */ $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
-        return !empty($this->clientId) && !empty($this->secret);
+        return $this->clientId !== '' && $this->secret !== '';
     }
 
     private function mapLifeCycleStatus(?string $value): ?ManufacturingStatus
@@ -243,11 +243,14 @@ class OctopartProvider implements InfoProviderInterface
             //If we encounter the mass spec, we save it for later
             if ($spec['attribute']['shortname'] === "weight") {
                 $mass = (float) $spec['siValue'];
-            } else if ($spec['attribute']['shortname'] === "case_package") { //Package
+            } elseif ($spec['attribute']['shortname'] === "case_package") {
+                //Package
                 $package = $spec['value'];
-            } else if ($spec['attribute']['shortname'] === "numberofpins") { //Pin Count
+            } elseif ($spec['attribute']['shortname'] === "numberofpins") {
+                //Pin Count
                 $pinCount = $spec['value'];
-            } else if ($spec['attribute']['shortname'] === "lifecyclestatus") { //LifeCycleStatus
+            } elseif ($spec['attribute']['shortname'] === "lifecyclestatus") {
+                //LifeCycleStatus
                 $mStatus = $this->mapLifeCycleStatus($spec['value']);
             }
 
@@ -295,7 +298,7 @@ class OctopartProvider implements InfoProviderInterface
         $category = null;
         if (!empty($part['category']['name'])) {
             $category = implode(' -> ', array_map(static fn($c) => $c['name'], $part['category']['ancestors'] ?? []));
-            if (!empty($category)) {
+            if ($category !== '' && $category !== '0') {
                 $category .= ' -> ';
             }
             $category .= $part['category']['name'];

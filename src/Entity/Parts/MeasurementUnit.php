@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -123,7 +124,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     protected bool $use_si_prefix = false;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -137,7 +138,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
 
@@ -150,14 +151,14 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 
     #[Groups(['measurement_unit:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['measurement_unit:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     /**

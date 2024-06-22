@@ -9,14 +9,25 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
 
         types:
+            # UTC datetimes
             datetime:
                 class: App\Doctrine\Types\UTCDateTimeType
             date:
                 class: App\Doctrine\Types\UTCDateTimeType
+
+            datetime_immutable:
+                class: App\Doctrine\Types\UTCDateTimeImmutableType
+            date_immutable:
+                class: App\Doctrine\Types\UTCDateTimeImmutableType
+
             big_decimal:
                 class: App\Doctrine\Types\BigDecimalType
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
+
+            # This was removed in doctrine/orm 4.0 but we need it for the WebauthnKey entity
+            array:
+                class: App\Doctrine\Types\ArrayType
         
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
@@ -29,6 +40,8 @@ doctrine:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
+        controller_resolver:
+            auto_mapping: true
         mappings:
             App:
                 type: attribute
@@ -39,10 +52,11 @@ doctrine:
 
         dql:
             string_functions:
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
-                ifnull: DoctrineExtensions\Query\Mysql\IfNull
+                regexp: App\Doctrine\Functions\Regexp
                 field:  DoctrineExtensions\Query\Mysql\Field
                 field2: App\Doctrine\Functions\Field2
+                natsort: App\Doctrine\Functions\Natsort
+                array_position: App\Doctrine\Functions\ArrayPosition
 
 when@test:
     doctrine:

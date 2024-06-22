@@ -235,4 +235,14 @@ EOD;
     {
         $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

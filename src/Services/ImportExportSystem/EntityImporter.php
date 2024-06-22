@@ -29,6 +29,7 @@ use App\Entity\Parts\Part;
 use App\Repository\StructuralDBElementRepository;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -57,6 +58,7 @@ class EntityImporter
      * @phpstan-param class-string<T> $class_name
      * @param AbstractStructuralDBElement|null $parent     the element which will be used as parent element for new elements
      * @param array                            $errors     an associative array containing all validation errors
+     * @param-out  array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}>  $errors
      *
      * @return AbstractNamedDBElement[] An array containing all valid imported entities (with the type $class_name)
      * @return T[]
@@ -152,6 +154,7 @@ class EntityImporter
      * @param  string  $data The serialized data which should be imported
      * @param  array  $options The options for the import process
      * @param  array  $errors An array which will be filled with the validation errors, if any occurs during import
+     * @param-out array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}> $errors
      * @return array An array containing all valid imported entities
      */
     public function importString(string $data, array $options = [], array &$errors = []): array
@@ -218,6 +221,10 @@ class EntityImporter
             if (count($tmp) > 0) { //Log validation errors to global log.
                 $name = $entity instanceof AbstractStructuralDBElement ? $entity->getFullPath() : $entity->getName();
 
+                if (trim($name) === '') {
+                    $name = 'Row ' . (string) $key;
+                }
+
                 $errors[$name] = [
                     'violations' => $tmp,
                     'entity' => $entity,
@@ -264,7 +271,7 @@ class EntityImporter
      * @param array  $options    options for the import process
      * @param AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
      *
-     * @return array<string, ConstraintViolationList> An associative array containing an ConstraintViolationList and the entity name as key are returned,
+     * @return array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}> An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfully, the array should be empty.
      */
     public function importFileAndPersistToDB(File $file, array $options = [], array &$entities = []): array
@@ -296,6 +303,7 @@ class EntityImporter
      *
      * @param File   $file       the file that should be used for importing
      * @param array  $options    options for the import process
+     * @param-out  array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}>  $errors
      *
      * @return array an array containing the deserialized elements
      */

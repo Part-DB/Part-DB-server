@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -118,7 +119,7 @@ class Currency extends AbstractStructuralDBElement
     protected string $iso_code = "";
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -132,7 +133,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: CurrencyAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $attachments;
 
@@ -145,7 +146,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: CurrencyParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 
@@ -155,9 +156,9 @@ class Currency extends AbstractStructuralDBElement
     protected Collection $pricedetails;
 
     #[Groups(['currency:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['currency:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

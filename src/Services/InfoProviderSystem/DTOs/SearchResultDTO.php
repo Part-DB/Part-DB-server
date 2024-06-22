@@ -27,6 +27,7 @@ use App\Entity\Parts\ManufacturingStatus;
 
 /**
  * This DTO represents a search result for a part.
+ * @see \App\Tests\Services\InfoProviderSystem\DTOs\SearchResultDTOTest
  */
 class SearchResultDTO
 {

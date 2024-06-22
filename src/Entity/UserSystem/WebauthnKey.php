@@ -51,7 +51,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
     protected ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $last_time_used = null;
+    protected ?\DateTimeImmutable $last_time_used = null;
 
     public function getName(): string
     {
@@ -82,9 +82,8 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
 
     /**
      * Retrieve the last time when the key was used.
-     * @return \DateTimeInterface|null
      */
-    public function getLastTimeUsed(): ?\DateTimeInterface
+    public function getLastTimeUsed(): ?\DateTimeImmutable
     {
         return $this->last_time_used;
     }

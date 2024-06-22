@@ -113,16 +113,19 @@ class BarcodeScanHelperTest extends WebTestCase
             'lot2_vendor_barcode'];
     }
 
-    public static function invalidDataProvider(): array
+    public static function invalidDataProvider(): \Iterator
     {
-        return [
-            ['https://localhost/part/1'], //Without scan
-            ['L-'], //Without number
-            ['L-123'], //Too short
-            ['X-123456'], //Unknown prefix
-            ['XXXWADSDF sdf'], //Garbage
-            [''], //Empty
-        ];
+        yield ['https://localhost/part/1'];
+        //Without scan
+        yield ['L-'];
+        //Without number
+        yield ['L-123'];
+        //Too short
+        yield ['X-123456'];
+        //Unknown prefix
+        yield ['XXXWADSDF sdf'];
+        //Garbage
+        yield [''];
     }
 
     /**

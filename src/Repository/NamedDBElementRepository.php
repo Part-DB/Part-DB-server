@@ -29,6 +29,7 @@ use App\Helpers\Trees\TreeViewNode;
 /**
  * @template TEntityClass of AbstractNamedDBElement
  * @extends DBElementRepository<TEntityClass>
+ * @see \App\Tests\Repository\NamedDBElementRepositoryTest
  */
 class NamedDBElementRepository extends DBElementRepository
 {
@@ -42,7 +43,7 @@ class NamedDBElementRepository extends DBElementRepository
     {
         $result = [];
 
-        $entities = $this->findBy([], ['name' => 'ASC']);
+        $entities = $this->getFlatList();
         foreach ($entities as $entity) {
             /** @var AbstractNamedDBElement $entity */
             $node = new TreeViewNode($entity->getName(), null, null);
@@ -65,13 +66,17 @@ class NamedDBElementRepository extends DBElementRepository
     }
 
     /**
-     * Returns a flattened list of all nodes.
+     * Returns a flattened list of all nodes, sorted by name in natural order.
      * @return AbstractNamedDBElement[]
      * @phpstan-return array<int, AbstractNamedDBElement>
      */
     public function getFlatList(): array
     {
-        //All nodes are sorted by name
-        return $this->findBy([], ['name' => 'ASC']);
+        $qb = $this->createQueryBuilder('e');
+        $q = $qb->select('e')
+            ->orderBy('NATSORT(e.name)', 'ASC')
+            ->getQuery();
+
+        return $q->getResult();
     }
 }

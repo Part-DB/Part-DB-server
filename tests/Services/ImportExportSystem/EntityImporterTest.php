@@ -27,11 +27,13 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
 use App\Services\ImportExportSystem\EntityImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @group DB
@@ -172,16 +174,14 @@ EOT;
         $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): array
+    public function formatDataProvider(): \Iterator
     {
-        return [
-            ['csv', 'csv'],
-            ['csv', 'CSV'],
-            ['xml', 'Xml'],
-            ['json', 'json'],
-            ['yaml', 'yml'],
-            ['yaml', 'YAML'],
-        ];
+        yield ['csv', 'csv'];
+        yield ['csv', 'CSV'];
+        yield ['xml', 'Xml'];
+        yield ['json', 'json'];
+        yield ['yaml', 'yml'];
+        yield ['yaml', 'YAML'];
     }
 
     /**
@@ -190,6 +190,63 @@ EOT;
     public function testDetermineFormat(string $expected, string $extension): void
     {
         $this->assertSame($expected, $this->service->determineFormat($extension));
+    }
+
+    public function testImportStringProjects(): void
+    {
+        $input = <<<EOT
+        name;comment
+        Test 1;Test 1 notes
+        Test 2;Test 2 notes
+        EOT;
+
+        $errors = [];
+
+        $results = $this->service->importString($input, [
+            'class' => Project::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(2, $results);
+
+        //No errors must be present
+        $this->assertEmpty($errors);
+
+
+        $this->assertContainsOnlyInstancesOf(Project::class, $results);
+
+        $this->assertSame('Test 1', $results[0]->getName());
+        $this->assertSame('Test 1 notes', $results[0]->getComment());
+    }
+
+    public function testImportStringProjectWithErrors(): void
+    {
+        $input = <<<EOT
+        name;comment
+        ;Test 1 notes
+        Test 2;Test 2 notes
+        EOT;
+
+        $errors = [];
+
+        $results = $this->service->importString($input, [
+            'class' => Project::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(1, $results);
+        $this->assertCount(1, $errors);
+
+        //Validate shape of error output
+
+        $this->assertArrayHasKey('Row 0', $errors);
+        $this->assertArrayHasKey('entity', $errors['Row 0']);
+        $this->assertArrayHasKey('violations', $errors['Row 0']);
+
+        $this->assertInstanceOf(ConstraintViolationListInterface::class, $errors['Row 0']['violations']);
+        $this->assertInstanceOf(Project::class, $errors['Row 0']['entity']);
     }
 
     public function testImportStringParts(): void
@@ -252,7 +309,7 @@ EOT;
         $this->assertSame('', $error['entity']->getName());
         $this->assertContainsOnlyInstancesOf(ConstraintViolation::class, $error['violations']);
         //Element name must be element name
-        $this->assertArrayHasKey('', $errors);
+        $this->assertArrayHasKey('Row 1', $errors);
 
         //Check the valid element
         $this->assertSame('Test 1', $results[0]->getName());

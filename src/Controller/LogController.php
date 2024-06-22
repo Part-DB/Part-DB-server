@@ -151,7 +151,7 @@ class LogController extends AbstractController
 
         if (EventUndoMode::UNDO === $mode) {
             $this->undoLog($log_element);
-        } elseif (EventUndoMode::REVERT === $mode) {
+        } else {
             $this->revertLog($log_element);
         }
 

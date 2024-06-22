@@ -63,13 +63,11 @@ class LabelGeneratorTest extends WebTestCase
         $this->service = self::getContainer()->get(LabelGenerator::class);
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): \Iterator
     {
-        return [
-            [LabelSupportedElement::PART, Part::class],
-            [LabelSupportedElement::PART_LOT, PartLot::class],
-            [LabelSupportedElement::STORELOCATION, StorageLocation::class],
-        ];
+        yield [LabelSupportedElement::PART, Part::class];
+        yield [LabelSupportedElement::PART_LOT, PartLot::class];
+        yield [LabelSupportedElement::STORELOCATION, StorageLocation::class];
     }
 
     /**

@@ -52,8 +52,6 @@ class PartStockChangedLogEntry extends AbstractLogEntry
         $this->level = LogLevel::INFO;
 
         $this->setTargetElement($lot);
-
-        $this->typeString = 'part_stock_changed';
         $this->extra = array_merge($this->extra, [
             't' => $type->toExtraShortType(),
             'o' => $old_stock,

@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     strategy:
+      fail-fast: false
       matrix:
         php-versions: [ '8.1', '8.2', '8.3' ]
-        db-type: [ 'mysql', 'sqlite' ]
+        db-type: [ 'mysql', 'sqlite', 'postgres' ]
 
     env:
       # Note that we set DATABASE URL later based on our db-type matrix value
@@ -30,12 +31,16 @@ jobs:
 
     steps:
       - name: Set Database env for MySQL
-        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/test" >> $GITHUB_ENV
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/partdb?serverVersion=8.0.35" >> $GITHUB_ENV
         if: matrix.db-type == 'mysql'
 
       - name: Set Database env for SQLite
         run: echo "DATABASE_URL="sqlite:///%kernel.project_dir%/var/app_test.db"" >> $GITHUB_ENV
         if: matrix.db-type == 'sqlite'
+
+      - name: Set Database env for PostgreSQL
+        run: echo "DATABASE_URL=postgresql://postgres:postgres @127.0.0.1:5432/partdb?serverVersion=14&charset=utf8" >> $GITHUB_ENV
+        if: matrix.db-type == 'postgres'
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,8 +55,17 @@ jobs:
     
       - name: Start MySQL
         run: sudo systemctl start mysql.service
+        if: matrix.db-type == 'mysql'
 
-      #- name: Setup MySQL
+        # Replace the scram-sha-256 with trust for host connections, to avoid password authentication
+      - name: Start PostgreSQL
+        run: |
+          sudo sed -i 's/^\(host.*all.*all.*\)scram-sha-256/\1trust/' /etc/postgresql/14/main/pg_hba.conf
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
+        if: matrix.db-type == 'postgres'
+
+        #- name: Setup MySQL
       #  uses: mirromutth/mysql-action@v1.1
       #  with:
       #    mysql version: 5.7
@@ -99,12 +113,7 @@ jobs:
     
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
-        if: matrix.db-type == 'mysql'
-
-      # Checkinf for existance is not supported for sqlite, so do it without it
-      - name: Create DB
-        run: php bin/console --env test doctrine:database:create -n
-        if: matrix.db-type == 'sqlite'
+        if: matrix.db-type == 'mysql' || matrix.db-type == 'postgres'
     
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
@@ -135,11 +144,11 @@ jobs:
       - name: Test check-requirements command
         run: php bin/console partdb:check-requirements -n
 
+      - name: Test partdb:backup command
+        run: php bin/console partdb:backup -n --full /tmp/test_backup.zip
+
       - name: Test legacy Part-DB import
         run: bash .github/assets/legacy_import/test_legacy_import.sh
         if: matrix.db-type == 'mysql' && matrix.php-versions == '8.2'
         env:
           DATABASE_URL: mysql://root:root@localhost:3306/legacy_db
-
-
-      

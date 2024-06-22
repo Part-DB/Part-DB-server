@@ -26,6 +26,7 @@ namespace App\Services\InfoProviderSystem\DTOs;
 /**
  * This DTO represents a parameter of a part (similar to the AbstractParameter entity).
  * This could be a voltage, a current, a temperature or similar.
+ * @see \App\Tests\Services\InfoProviderSystem\DTOs\ParameterDTOTest
  */
 class ParameterDTO
 {
@@ -76,7 +77,7 @@ class ParameterDTO
             $parts = preg_split('/\s*(\.{3}|~)\s*/', $value);
             if (count($parts) === 2) {
                 //Try to extract number and unit from value (allow leading +)
-                if (empty($unit)) {
+                if ($unit === null || trim($unit) === '') {
                     [$number, $unit] = self::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
                 } else {
                     $number = $parts[0];

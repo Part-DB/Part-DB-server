@@ -59,8 +59,7 @@ class PasswordResetManager
         $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token));
 
         //Determine the expiration datetime of
-        $expiration_date = new DateTime();
-        $expiration_date->add(date_interval_create_from_date_string('1 day'));
+        $expiration_date = new \DateTimeImmutable("+1 day");
         $user->setPwResetExpires($expiration_date);
 
         if ($user->getEmail() !== null && $user->getEmail() !== '') {
@@ -105,7 +104,7 @@ class PasswordResetManager
         }
 
         //Check if token is expired yet
-        if ($user->getPwResetExpires() < new DateTime()) {
+        if ($user->getPwResetExpires() < new \DateTimeImmutable()) {
             return false;
         }
 
@@ -119,7 +118,7 @@ class PasswordResetManager
 
         //Remove token
         $user->setPwResetToken(null);
-        $user->setPwResetExpires(new DateTime());
+        $user->setPwResetExpires(new \DateTimeImmutable());
 
         //Save to DB
         $this->em->flush();

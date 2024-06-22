@@ -44,12 +44,12 @@ class WebauthnKeyLastUseTwoFactorProvider implements TwoFactorProviderInterface
 
     public function __construct(
         #[AutowireDecorated]
-        private TwoFactorProviderInterface $decorated,
-        private EntityManagerInterface $entityManager,
+        private readonly TwoFactorProviderInterface $decorated,
+        private readonly EntityManagerInterface $entityManager,
         #[Autowire(service: 'jbtronics_webauthn_tfa.user_public_key_source_repo')]
-        private UserPublicKeyCredentialSourceRepository $publicKeyCredentialSourceRepository,
+        private readonly UserPublicKeyCredentialSourceRepository $publicKeyCredentialSourceRepository,
         #[Autowire(service: 'jbtronics_webauthn_tfa.webauthn_provider')]
-        private WebauthnProvider $webauthnProvider,
+        private readonly WebauthnProvider $webauthnProvider,
     )
     {
     }

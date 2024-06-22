@@ -96,7 +96,7 @@ class LCSCProvider implements InfoProviderInterface
      */
     private function getRealDatasheetUrl(?string $url): string
     {
-        if (!empty($url) && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+        if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
           $response = $this->lcscClient->request('GET', $url, [
               'headers' => [
                   'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
@@ -139,7 +139,7 @@ class LCSCProvider implements InfoProviderInterface
         // LCSC does not display LCSC codes in the search, instead taking you directly to the
         // detailed product listing. It does so utilizing a product tip field.
         // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) === 0 && !($tipProductCode === null)) {
+        if (count($products) === 0 && $tipProductCode !== null) {
             $result[] = $this->queryDetail($tipProductCode);
         }
 
@@ -174,11 +174,11 @@ class LCSCProvider implements InfoProviderInterface
     {
         // Get product images in advance
         $product_images = $this->getProductImages($product['productImages'] ?? null);
-        $product['productImageUrl'] = $product['productImageUrl'] ?? null;
+        $product['productImageUrl'] ??= null;
 
         // If the product does not have a product image but otherwise has attached images, use the first one.
         if (count($product_images) > 0) {
-            $product['productImageUrl'] = $product['productImageUrl'] ?? $product_images[0]->url;
+            $product['productImageUrl'] ??= $product_images[0]->url;
         }
 
         // LCSC puts HTML in footprints and descriptions sometimes randomly
@@ -321,7 +321,7 @@ class LCSCProvider implements InfoProviderInterface
         foreach ($attributes as $attribute) {
 
             //Skip this attribute if it's empty
-            if (in_array(trim($attribute['paramValueEn']), array('', '-'), true)) {
+            if (in_array(trim((string) $attribute['paramValueEn']), ['', '-'], true)) {
               continue;
             }
 

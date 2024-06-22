@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
@@ -27,18 +29,15 @@ class FileDTOTest extends TestCase
 {
 
 
-    public static function escapingDataProvider(): array
+    public static function escapingDataProvider(): \Iterator
     {
-        return [
-            //Normal URLs must be unchanged, even if they contain special characters
-            ["https://localhost:8000/en/part/1335/edit#attachments", "https://localhost:8000/en/part/1335/edit#attachments"],
-            ["https://localhost:8000/en/part/1335/edit?test=%20%20&sfee_aswer=test-223!*()", "https://localhost:8000/en/part/1335/edit?test=%20%20&sfee_aswer=test-223!*()"],
-
-            //Remaining URL unsafe characters must be escaped
-            ["test%5Ese", "test^se"],
-            ["test%20se", "test se"],
-            ["test%7Cse", "test|se"],
-        ];
+        //Normal URLs must be unchanged, even if they contain special characters
+        yield ["https://localhost:8000/en/part/1335/edit#attachments", "https://localhost:8000/en/part/1335/edit#attachments"];
+        yield ["https://localhost:8000/en/part/1335/edit?test=%20%20&sfee_aswer=test-223!*()", "https://localhost:8000/en/part/1335/edit?test=%20%20&sfee_aswer=test-223!*()"];
+        //Remaining URL unsafe characters must be escaped
+        yield ["test%5Ese", "test^se"];
+        yield ["test%20se", "test se"];
+        yield ["test%7Cse", "test|se"];
     }
 
     /**

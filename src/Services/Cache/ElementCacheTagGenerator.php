@@ -46,11 +46,10 @@ class ElementCacheTagGenerator
     {
         //Ensure that the given element is a class name
         if (is_object($element)) {
-            $element = get_class($element);
-        } else { //And that the class exists
-            if (!class_exists($element)) {
-                throw new \InvalidArgumentException("The given class '$element' does not exist!");
-            }
+            $element = $element::class;
+        } elseif (!class_exists($element)) {
+            //And that the class exists
+            throw new \InvalidArgumentException("The given class '$element' does not exist!");
         }
 
         //Check if the tag is already cached

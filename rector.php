@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector;
-use Rector\PHPUnit\Set\PHPUnitLevelSetList;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Symfony\Set\SymfonyLevelSetList;
+use Rector\Symfony\CodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
+use Rector\Symfony\CodeQuality\Rector\ClassMethod\ActionSuffixRemoverRector;
+use Rector\Symfony\CodeQuality\Rector\MethodCall\LiteralGetToRequestClassConstantRector;
 use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
@@ -44,20 +46,36 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_81,
 
         //Symfony rules
-        SymfonyLevelSetList::UP_TO_SYMFONY_62,
         SymfonySetList::SYMFONY_CODE_QUALITY,
+        SymfonySetList::SYMFONY_64,
 
         //Doctrine rules
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
         DoctrineSetList::DOCTRINE_CODE_QUALITY,
 
         //PHPUnit rules
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+        PHPUnitSetList::PHPUNIT_90,
     ]);
 
     $rectorConfig->skip([
-        AddDoesNotPerformAssertionToNonAssertingTestRector::class,
         CountArrayToEmptyArrayComparisonRector::class,
+        //Leave our !== null checks alone
+        FlipTypeControlToUseExclusiveTypeRector::class,
+        //Leave our PartList TableAction alone
+        ActionSuffixRemoverRector::class,
+        //We declare event listeners via attributes, therefore no need to migrate them to subscribers
+        EventListenerToEventSubscriberRector::class,
+        PreferPHPUnitThisCallRector::class,
+        //Do not replace 'GET' with class constant,
+        LiteralGetToRequestClassConstantRector::class,
+    ]);
+
+    //Do not apply rules to Symfony own files
+    $rectorConfig->skip([
+        __DIR__ . '/public/index.php',
+        __DIR__ . '/src/Kernel.php',
+        __DIR__ . '/config/preload.php',
+        __DIR__ . '/config/bundles.php',
     ]);
 };

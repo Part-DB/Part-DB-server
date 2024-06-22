@@ -55,15 +55,15 @@ class PartTest extends TestCase
 
         //Without a set measurement unit the part must return an int
         $part->setMinAmount(1.345);
-        $this->assertSame(1.0, $part->getMinAmount());
+        $this->assertEqualsWithDelta(1.0, $part->getMinAmount(), PHP_FLOAT_EPSILON);
 
         //If a non-int-based unit is assigned, a float is returned
         $part->setPartUnit($measurement_unit);
-        $this->assertSame(1.345, $part->getMinAmount());
+        $this->assertEqualsWithDelta(1.345, $part->getMinAmount(), PHP_FLOAT_EPSILON);
 
         //If an int-based unit is assigned an int is returned
         $measurement_unit->setIsInteger(true);
-        $this->assertSame(1.0, $part->getMinAmount());
+        $this->assertEqualsWithDelta(1.0, $part->getMinAmount(), PHP_FLOAT_EPSILON);
     }
 
     public function testUseFloatAmount(): void
@@ -87,7 +87,7 @@ class PartTest extends TestCase
         $measurement_unit = new MeasurementUnit();
         $datetime = new DateTime();
 
-        $this->assertSame(0.0, $part->getAmountSum());
+        $this->assertEqualsWithDelta(0.0, $part->getAmountSum(), PHP_FLOAT_EPSILON);
 
         $part->addPartLot((new PartLot())->setAmount(3.141));
         $part->addPartLot((new PartLot())->setAmount(10.0));
@@ -95,18 +95,18 @@ class PartTest extends TestCase
         $part->addPartLot(
             (new PartLot())
                 ->setAmount(6)
-                ->setExpirationDate($datetime->setTimestamp(strtotime('now -1 hour')))
+                ->setExpirationDate(new \DateTimeImmutable('-1 hour'))
         );
 
-        $this->assertSame(13.0, $part->getAmountSum());
+        $this->assertEqualsWithDelta(13.0, $part->getAmountSum(), PHP_FLOAT_EPSILON);
 
         $part->setPartUnit($measurement_unit);
-        $this->assertSame(13.141, $part->getAmountSum());
+        $this->assertEqualsWithDelta(13.141, $part->getAmountSum(), PHP_FLOAT_EPSILON);
 
         //1 billion part lot
         $part->addPartLot((new PartLot())->setAmount(1_000_000_000));
-        $this->assertSame(1_000_000_013.141, $part->getAmountSum());
+        $this->assertEqualsWithDelta(1_000_000_013.141, $part->getAmountSum(), PHP_FLOAT_EPSILON);
         $measurement_unit->setIsInteger(true);
-        $this->assertSame(1_000_000_013.0, $part->getAmountSum());
+        $this->assertEqualsWithDelta(1_000_000_013.0, $part->getAmountSum(), PHP_FLOAT_EPSILON);
     }
 }
