@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale | replace({"_": "-"}) }}"
+      {#  For the UX translator, just use the language part (before the _. should be 2 chars), otherwise it finds no translations #}
+      data-symfony-ux-translator-locale="{{ app.request.locale|u.truncate(2)  }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
