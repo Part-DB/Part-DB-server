@@ -105,7 +105,7 @@ class Project extends AbstractStructuralDBElement
      * @var Collection<int, ProjectBOMEntry>
      */
     #[Assert\Valid]
-    #[Groups(['extended', 'full'])]
+    #[Groups(['extended', 'full', 'import'])]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
     #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]
@@ -118,7 +118,7 @@ class Project extends AbstractStructuralDBElement
      * @var string|null The current status of the project
      */
     #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
-    #[Groups(['extended', 'full', 'project:read', 'project:write'])]
+    #[Groups(['extended', 'full', 'project:read', 'project:write', 'import'])]
     #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 

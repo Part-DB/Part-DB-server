@@ -144,9 +144,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?string $pw_reset_token = null;
 
     #[ORM\Column(name: 'config_instock_comment_a', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_a = '';
 
     #[ORM\Column(name: 'config_instock_comment_w', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_w = '';
 
     /**

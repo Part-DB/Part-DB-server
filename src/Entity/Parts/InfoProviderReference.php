@@ -39,23 +39,23 @@ class InfoProviderReference
 
     /** @var string|null The key referencing the provider used to get this part, or null if it was not provided by a data provider */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['provider_reference:read'])]
+    #[Groups(['provider_reference:read', 'full'])]
     private ?string $provider_key = null;
 
     /** @var string|null The id of this part inside the provider system or null if the part was not provided by a data provider */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['provider_reference:read'])]
+    #[Groups(['provider_reference:read', 'full'])]
     private ?string $provider_id = null;
 
     /**
      * @var string|null The url of this part inside the provider system or null if this info is not existing
      */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['provider_reference:read'])]
+    #[Groups(['provider_reference:read', 'full'])]
     private ?string $provider_url = null;
 
     #[Column(type: Types::DATETIME_IMMUTABLE, nullable: true,  options: ['default' => null])]
-    #[Groups(['provider_reference:read'])]
+    #[Groups(['provider_reference:read', 'full'])]
     private ?\DateTimeImmutable $last_updated = null;
 
     /**

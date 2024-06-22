@@ -103,7 +103,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[ORM\Column(type: Types::TEXT)]
     #[ValidFileFilter]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'extended'])]
     protected string $filetype_filter = '';
 
     /**
@@ -112,12 +112,12 @@ class AttachmentType extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: AttachmentTypeAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'full'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, AttachmentTypeParameter>
@@ -125,7 +125,7 @@ class AttachmentType extends AbstractStructuralDBElement
     #[Assert\Valid]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 
     /**

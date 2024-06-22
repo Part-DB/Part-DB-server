@@ -99,7 +99,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *             or m (for meters).
      */
     #[Assert\Length(max: 10)]
-    #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(name: 'unit', type: Types::STRING, nullable: true)]
     protected ?string $unit = null;
 
@@ -110,7 +110,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
      */
-    #[Groups(['extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(name: 'is_integer', type: Types::BOOLEAN)]
     protected bool $is_integer = false;
 
@@ -119,7 +119,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *           Useful for sizes like meters. For this the unit must be set
      */
     #[Assert\Expression('this.isUseSIPrefix() == false or this.getUnit() != null', message: 'validator.measurement_unit.use_si_prefix_needs_unit')]
-    #[Groups(['full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
+    #[Groups(['simple', 'full', 'import', 'measurement_unit:read', 'measurement_unit:write'])]
     #[ORM\Column(name: 'use_si_prefix', type: Types::BOOLEAN)]
     protected bool $use_si_prefix = false;
 

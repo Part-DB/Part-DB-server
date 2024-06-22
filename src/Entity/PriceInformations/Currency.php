@@ -102,7 +102,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
     #[BigDecimalPositive]
-    #[Groups(['currency:read', 'currency:write'])]
+    #[Groups(['currency:read', 'currency:write', 'simple', 'extended', 'full', 'import'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?BigDecimal $exchange_rate = null;
 
@@ -114,7 +114,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Currency]
     #[Assert\NotBlank]
-    #[Groups(['extended', 'full', 'import', 'currency:read', 'currency:write'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'currency:read', 'currency:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
 
