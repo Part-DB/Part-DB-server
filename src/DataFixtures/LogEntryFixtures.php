@@ -46,11 +46,13 @@ class LogEntryFixtures extends Fixture implements DependentFixtureInterface
         $category = $this->getReference(Category::class . '_1', Category::class);
 
         $logEntry = new ElementCreatedLogEntry($category);
+        $logEntry->setTimestamp(new \DateTimeImmutable("+1 second"));
         $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
         $logEntry->setComment('Test');
         $manager->persist($logEntry);
 
         $logEntry = new ElementEditedLogEntry($category);
+        $logEntry->setTimestamp(new \DateTimeImmutable("+2 second"));
         $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
         $logEntry->setComment('Test');
 
@@ -78,6 +80,7 @@ class LogEntryFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($logEntry);
 
         $logEntry = new ElementEditedLogEntry($category);
+        $logEntry->setTimestamp(new \DateTimeImmutable("+1 second"));
         $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
         $logEntry->setComment('Edit');
         $logEntry->setOldData(['name' => 'Test']);
@@ -85,6 +88,7 @@ class LogEntryFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($logEntry);
 
         $logEntry = new ElementDeletedLogEntry($category);
+        $logEntry->setTimestamp(new \DateTimeImmutable("+2 second"));
         $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
         $logEntry->setOldData(['name' => 'Node 100', 'id' => 100, 'comment' => 'Test comment']);
         $manager->persist($logEntry);

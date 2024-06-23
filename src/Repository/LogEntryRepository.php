@@ -225,7 +225,10 @@ class LogEntryRepository extends DBElementRepository
             ->leftJoin('log.user', 'user')
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
-            ->orderBy('log.timestamp', 'DESC');
+            ->orderBy('log.timestamp', 'DESC')
+            //Use id as fallback, if timestamp is the same (higher id means newer entry)
+            ->addOrderBy('log.id', 'DESC')
+        ;
 
         $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
         $qb->setParameter('target_id', $element->getID());
