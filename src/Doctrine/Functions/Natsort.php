@@ -69,11 +69,34 @@ class Natsort extends FunctionNode
         }
 
         $version = $connection->getServerVersion();
-        //Remove the -MariaDB suffix
-        $version = str_replace('-MariaDB', '', $version);
+
+        //Get the effective MariaDB version number
+        $version = $this->getMariaDbMysqlVersionNumber($version);
+
         //We need at least MariaDB 10.7.0 to support the natural sort
         self::$supportsNaturalSort = version_compare($version, '10.7.0', '>=');
         return self::$supportsNaturalSort;
+    }
+
+    /**
+     * Taken from Doctrine\DBAL\Driver\AbstractMySQLDriver
+     *
+     * Detect MariaDB server version, including hack for some mariadb distributions
+     * that starts with the prefix '5.5.5-'
+     *
+     * @param string $versionString Version string as returned by mariadb server, i.e. '5.5.5-Mariadb-10.0.8-xenial'
+     */
+    private function getMariaDbMysqlVersionNumber(string $versionString) : string
+    {
+        if ( ! preg_match(
+            '/^(?:5\.5\.5-)?(mariadb-)?(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)/i',
+            $versionString,
+            $versionParts
+        )) {
+            throw new \RuntimeException('Could not detect MariaDB version from version string ' . $versionString);
+        }
+
+        return $versionParts['major'] . '.' . $versionParts['minor'] . '.' . $versionParts['patch'];
     }
 
     public function parse(Parser $parser): void
