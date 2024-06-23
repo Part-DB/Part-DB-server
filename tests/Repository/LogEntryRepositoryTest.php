@@ -21,6 +21,7 @@
 namespace App\Tests\Repository;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
@@ -123,15 +124,34 @@ class LogEntryRepositoryTest extends KernelTestCase
         $this->assertFalse($this->repo->getElementExistedAtTimestamp($part, new \DateTimeImmutable('2000-01-01')));
     }
 
-    public function testGetTimetravelDataForElement(): void
-    {
-    }
-
     public function testGetElementHistory(): void
     {
+        $category = $this->entityManager->find(Category::class, 1);
+
+        $history = $this->repo->getElementHistory($category);
+
+        //We have 4 log entries for the category
+        $this->assertCount(4, $history);
     }
+
+
+    public function testGetTimetravelDataForElement(): void
+    {
+        $category = $this->entityManager->find(Category::class, 1);
+        $data = $this->repo->getTimetravelDataForElement($category, new \DateTimeImmutable('2020-01-01'));
+
+        //The data must contain only ElementChangedLogEntry
+        $this->assertCount(2, $data);
+        $this->assertInstanceOf(ElementEditedLogEntry::class, $data[0]);
+        $this->assertInstanceOf(ElementEditedLogEntry::class, $data[1]);
+    }
+
 
     public function testGetUndeleteDataForElement(): void
     {
+        $undeleteData = $this->repo->getUndeleteDataForElement(Category::class, 100);
+
+        //This must be the delete log entry we created in the fixtures
+        $this->assertSame('Node 100', $undeleteData->getOldName());
     }
 }

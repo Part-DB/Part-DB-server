@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\UserSystem\User;
@@ -37,6 +38,7 @@ class LogEntryFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $this->createCategoryEntries($manager);
+        $this->createDeletedCategory($manager);
     }
 
     public function createCategoryEntries(ObjectManager $manager): void
@@ -57,8 +59,37 @@ class LogEntryFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($logEntry);
         $manager->flush();
+    }
 
+    public function createDeletedCategory(ObjectManager $manager): void
+    {
+        //We create a fictive category to test the deletion
+        $category = new Category();
+        $category->setName('Node 100');
 
+        //Assume a category with id 100 was deleted
+        $reflClass = new \ReflectionClass($category);
+        $reflClass->getProperty('id')->setValue($category, 100);
+
+        //The whole lifecycle from creation to deletion
+        $logEntry = new ElementCreatedLogEntry($category);
+        $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
+        $logEntry->setComment('Creation');
+        $manager->persist($logEntry);
+
+        $logEntry = new ElementEditedLogEntry($category);
+        $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
+        $logEntry->setComment('Edit');
+        $logEntry->setOldData(['name' => 'Test']);
+        $logEntry->setNewData(['name' => 'Node 100']);
+        $manager->persist($logEntry);
+
+        $logEntry = new ElementDeletedLogEntry($category);
+        $logEntry->setUser($this->getReference(UserFixtures::ADMIN, User::class));
+        $logEntry->setOldData(['name' => 'Node 100', 'id' => 100, 'comment' => 'Test comment']);
+        $manager->persist($logEntry);
+
+        $manager->flush();
     }
 
     public function getDependencies(): array

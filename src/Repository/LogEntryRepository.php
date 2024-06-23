@@ -111,7 +111,6 @@ class LogEntryRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
-            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
             ->where('log INSTANCE OF '.ElementEditedLogEntry::class)
             ->orWhere('log INSTANCE OF '.CollectionElementDeleted::class)
             ->andWhere('log.target_type = :target_type')
