@@ -40,8 +40,8 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Exception;
 use InvalidArgumentException;
-use PHPUnit\Util\Type;
 use ReflectionClass;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class TimeTravel
 {
@@ -56,8 +56,11 @@ class TimeTravel
     /**
      * Undeletes the element with the given ID.
      *
+     * @template T of AbstractDBElement
      * @param string $class The class name of the element that should be undeleted
+     * @phpstan-param class-string<T> $class
      * @param int    $id    the ID of the element that should be undeleted
+     * @phpstan-return T
      */
     public function undeleteEntity(string $class, int $id): AbstractDBElement
     {
@@ -215,14 +218,14 @@ class TimeTravel
         foreach ($old_data as $field => $data) {
             if ($metadata->hasField($field)) {
                 //We need to convert the string to a BigDecimal first
-                if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)['type'])) {
+                if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)->type)) {
                     $data = BigDecimal::of($data);
                 }
 
                 if (!$data instanceof \DateTimeInterface
-                    && (in_array($metadata->getFieldMapping($field)['type'],
+                    && (in_array($metadata->getFieldMapping($field)->type,
                         [Types::DATETIME_IMMUTABLE, Types::DATETIME_IMMUTABLE, Types::DATE_MUTABLE, Types::DATETIME_IMMUTABLE], true))) {
-                    $data = $this->dateTimeDecode($data, $metadata->getFieldMapping($field)['type']);
+                    $data = $this->dateTimeDecode($data, $metadata->getFieldMapping($field)->type);
                 }
 
                 $this->setField($element, $field, $data);
@@ -254,8 +257,20 @@ class TimeTravel
      */
     protected function setField(AbstractDBElement $element, string $field, mixed $new_value): void
     {
-        $reflection = new ReflectionClass($element::class);
-        $property = $reflection->getProperty($field);
+        //If the field name contains a dot, it is a embeddedable object and we need to split the field name
+        if (str_contains($field, '.')) {
+            [$embedded, $embedded_field] = explode('.', $field);
+
+            $elementClass = new ReflectionClass($element::class);
+            $property = $elementClass->getProperty($embedded);
+            $embeddedClass = $property->getValue($element);
+
+            $embeddedReflection = new ReflectionClass($embeddedClass::class);
+            $property = $embeddedReflection->getProperty($embedded_field);
+        } else {
+            $reflection = new ReflectionClass($element::class);
+            $property = $reflection->getProperty($field);
+        }
 
         //Check if the property is an BackedEnum, then convert the int or float value to an enum instance
         if ((is_string($new_value) || is_int($new_value))

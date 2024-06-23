@@ -73,6 +73,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part = new Part();
         $part->setName('Part 1');
         $part->setCategory($manager->find(Category::class, 1));
+        $this->addReference(Part::class . '_1', $part);
         $manager->persist($part);
 
         /** More complex part */
@@ -86,6 +87,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $part->setIpn('IPN123');
         $part->setNeedsReview(true);
         $part->setManufacturingStatus(ManufacturingStatus::ACTIVE);
+        $this->addReference(Part::class . '_2', $part);
         $manager->persist($part);
 
         /** Part with orderdetails, storelocations and Attachments */
@@ -97,6 +99,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $partLot1->setAmount(1.0);
         $partLot1->setStorageLocation($manager->find(StorageLocation::class, 1));
         $part->addPartLot($partLot1);
+
 
         $partLot2 = new PartLot();
         $partLot2->setExpirationDate(new \DateTimeImmutable());
@@ -132,6 +135,8 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
         $attachment->setShowInTable(true);
         $attachment->setAttachmentType($manager->find(AttachmentType::class, 1));
         $part->addAttachment($attachment);
+
+        $this->addReference(Part::class . '_3', $part);
 
         $manager->persist($part);
         $manager->flush();
