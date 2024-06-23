@@ -114,6 +114,13 @@ class LogEntryRepositoryTest extends KernelTestCase
 
     public function testGetElementExistedAtTimestamp(): void
     {
+        $part = $this->entityManager->find(Part::class, 3);
+
+        //Assume that the part is existing now
+        $this->assertTrue($this->repo->getElementExistedAtTimestamp($part, new \DateTimeImmutable()));
+
+        //Assume that the part was not existing long time ago
+        $this->assertFalse($this->repo->getElementExistedAtTimestamp($part, new \DateTimeImmutable('2000-01-01')));
     }
 
     public function testGetTimetravelDataForElement(): void
