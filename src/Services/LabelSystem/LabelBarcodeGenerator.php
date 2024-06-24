@@ -49,7 +49,7 @@ use App\Services\LabelSystem\Barcodes\BarcodeHelper;
 use InvalidArgumentException;
 
 /**
- * @see \App\Tests\Services\LabelSystem\BarcodeGeneratorTest
+ * @see \App\Tests\Services\LabelSystem\LabelBarcodeGeneratorTest
  */
 final class LabelBarcodeGenerator
 {

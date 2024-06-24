@@ -1,7 +1,9 @@
 {% import "vars.macro.twig" as vars %}
 
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale | replace({"_": "-"}) }}"
+      {#  For the UX translator, just use the language part (before the _. should be 2 chars), otherwise it finds no translations #}
+      data-symfony-ux-translator-locale="{{ app.request.locale|u.truncate(2)  }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -117,7 +119,7 @@
     </button>
 
     {# Must be outside of the sidebar or it will be hidden too #}
-    <button class="btn btn-outline-dark btn-sm p-0 d-md-block d-none" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
+    <button class="btn btn-outline-secondary btn-sm p-0 d-md-block d-none" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
             {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
         <i class="fas fa-angle-left"></i>
     </button>

@@ -207,6 +207,11 @@ class ProjectController extends AbstractController
         //Preset the BOM entries with the selected parts, when the form was not submitted yet
         $preset_data = new ArrayCollection();
         foreach (explode(',', (string) $request->get('parts', '')) as $part_id) {
+            //Skip empty part IDs. Postgres seems to be especially sensitive to empty strings, as it does not allow them in integer columns
+            if ($part_id === '') {
+                continue;
+            }
+
             $part = $entityManager->getRepository(Part::class)->find($part_id);
             if (null !== $part) {
                 //If there is already a BOM entry for this part, we use this one (we edit it then)
@@ -214,7 +219,7 @@ class ProjectController extends AbstractController
                     'project' => $project,
                     'part' => $part
                 ]);
-                if ($bom_entry) {
+                if ($bom_entry !== null) {
                     $preset_data->add($bom_entry);
                 } else { //Otherwise create an empty one
                     $entry = new ProjectBOMEntry();

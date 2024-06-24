@@ -36,45 +36,45 @@ class EDAPartInfo
      * @var string|null The reference prefix of the Part in the schematic. E.g. "R" for resistors, or "C" for capacitors.
      */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     #[Length(max: 255)]
     private ?string $reference_prefix = null;
 
     /** @var string|null The value, which should be shown together with the part (e.g. 470 for a 470 Ohm resistor) */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     #[Length(max: 255)]
     private ?string $value = null;
 
     /** @var bool|null Visibility of this part to EDA software in trinary logic. True=Visible, False=Invisible, Null=Auto */
     #[Column(name: 'invisible', type: Types::BOOLEAN, nullable: true)] //TODO: Rename column to visibility
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     private ?bool $visibility = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded from the BOM */
     #[Column(type: Types::BOOLEAN, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     private ?bool $exclude_from_bom = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded from the board/the PCB */
     #[Column(type: Types::BOOLEAN, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     private ?bool $exclude_from_board = null;
 
     /** @var bool|null If this is set to true, then this part will be excluded in the simulation */
     #[Column(type: Types::BOOLEAN, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     private ?bool $exclude_from_sim = null;
 
     /** @var string|null The KiCAD schematic symbol, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     #[Length(max: 255)]
     private ?string $kicad_symbol = null;
 
     /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'eda_info:read', 'eda_info:write'])]
+    #[Groups(['full', 'eda_info:read', 'eda_info:write', 'import'])]
     #[Length(max: 255)]
     private ?string $kicad_footprint = null;
 

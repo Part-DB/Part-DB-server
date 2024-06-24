@@ -147,7 +147,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string|null the original filename the file had, when the user uploaded it
      */
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'attachment:read'])]
+    #[Groups(['attachment:read', 'import'])]
     #[Assert\Length(max: 255)]
     protected ?string $original_filename = null;
 
@@ -161,7 +161,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string the name of this element
      */
     #[Assert\NotBlank(message: 'validator.attachment.name_not_blank')]
-    #[Groups(['simple', 'extended', 'full', 'attachment:read', 'attachment:write'])]
+    #[Groups(['simple', 'extended', 'full', 'attachment:read', 'attachment:write', 'import'])]
     protected string $name = '';
 
     /**
@@ -173,21 +173,21 @@ abstract class Attachment extends AbstractNamedDBElement
     protected ?AttachmentContainingDBElement $element = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    #[Groups(['attachment:read', 'attachment_write'])]
+    #[Groups(['attachment:read', 'attachment_write', 'full', 'import'])]
     protected bool $show_in_table = false;
 
     #[Assert\NotNull(message: 'validator.attachment.must_not_be_null')]
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'attachments_with_type')]
     #[ORM\JoinColumn(name: 'type_id', nullable: false)]
     #[Selectable]
-    #[Groups(['attachment:read', 'attachment:write'])]
+    #[Groups(['attachment:read', 'attachment:write', 'import', 'full'])]
     #[ApiProperty(readableLink: false)]
     protected ?AttachmentType $attachment_type = null;
 
     #[Groups(['attachment:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['attachment:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()
@@ -385,7 +385,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return null;
         }
 
-        return parse_url($this->getURL(), PHP_URL_HOST);
+        return parse_url((string) $this->getURL(), PHP_URL_HOST);
     }
 
     /**
@@ -477,7 +477,8 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+        //Do not allow Rector to replace this check with a instanceof. It will not work!!
+        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS, true)) {
             throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 

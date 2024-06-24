@@ -17,6 +17,8 @@ parameters:
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
 
+  partdb.db.emulate_natural_sort: '%env(bool:DATABASE_EMULATE_NATURAL_SORT)%' # If this is set to true, natural sorting is emulated on platforms that do not support it natively. This can be slow on large datasets.
+
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################
@@ -137,3 +139,5 @@ parameters:
   env(SAML_ROLE_MAPPING): '{}'
 
   env(EDA_KICAD_CATEGORY_DEPTH): 0
+
+  env(DATABASE_EMULATE_NATURAL_SORT): 0

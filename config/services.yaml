@@ -75,14 +75,6 @@ services:
             # Only the event classes specified here are saved to DB (set to []) to log all events
             $whitelist: []
 
-    App\EventSubscriber\LogSystem\EventLoggerSubscriber:
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
-    App\EventSubscriber\LogSystem\LogDBMigrationSubscriber:
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:
             $mimeTypes: '@mime_types'

@@ -353,5 +353,11 @@
         <target>Invalid file size format. Use an integer number plus K, M, G as suffix for Kilo, Mega or Gigabytes.</target>
       </segment>
     </unit>
+    <unit id="iXcU7ce" name="validator.invalid_range">
+      <segment>
+        <source>validator.invalid_range</source>
+        <target>The given range is not valid!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

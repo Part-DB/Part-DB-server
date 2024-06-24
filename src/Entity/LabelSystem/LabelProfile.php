@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\LabelSystem;
 
+use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Repository\LabelProfileRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
@@ -51,6 +52,7 @@ use App\Entity\Attachments\LabelAttachment;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -66,7 +68,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @var Collection<int, LabelAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: LabelAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: LabelAttachment::class)]
@@ -78,6 +80,7 @@ class LabelProfile extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\Embedded(class: 'LabelOptions')]
+    #[Groups(["extended", "full", "import"])]
     protected LabelOptions $options;
 
     /**
@@ -90,6 +93,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
      */
     #[ORM\Column(type: Types::BOOLEAN)]
+    #[Groups(["extended", "full", "import"])]
     protected bool $show_in_dropdown = true;
 
     public function __construct()

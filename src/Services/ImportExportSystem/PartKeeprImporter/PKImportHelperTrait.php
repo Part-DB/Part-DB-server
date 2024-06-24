@@ -30,7 +30,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -212,7 +212,7 @@ trait PKImportHelperTrait
         $id = (int) $id;
 
         $metadata = $this->em->getClassMetadata($element::class);
-        $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_NONE);
+        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
         $metadata->setIdGenerator(new AssignedGenerator());
         $metadata->setIdentifierValues($element, ['id' => $id]);
     }
@@ -225,7 +225,7 @@ trait PKImportHelperTrait
     protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str): void
     {
         if ($datetime_str !== null && $datetime_str !== '' && $datetime_str !== '0000-00-00 00:00:00') {
-            $date = new \DateTime($datetime_str);
+            $date = new \DateTimeImmutable($datetime_str);
         } else {
             $date = null; //Null means "now" at persist time
         }

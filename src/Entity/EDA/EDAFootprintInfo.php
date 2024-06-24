@@ -34,7 +34,7 @@ class EDAFootprintInfo
 {
     /** @var string|null The KiCAD footprint, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
-    #[Groups(['full', 'footprint:read', 'footprint:write'])]
+    #[Groups(['full', 'footprint:read', 'footprint:write', 'import'])]
     #[Length(max: 255)]
     private ?string $kicad_footprint = null;
 

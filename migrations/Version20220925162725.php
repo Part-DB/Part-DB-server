@@ -535,4 +535,14 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_1483A5E938248176 ON "users" (currency_id)');
         $this->addSql('CREATE INDEX IDX_1483A5E96DEDCEC2 ON "users" (id_preview_attachement)');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

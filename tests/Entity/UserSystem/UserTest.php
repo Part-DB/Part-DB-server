@@ -45,13 +45,11 @@ class UserTest extends TestCase
         $this->assertSame('John (@username)', $user->getFullName(true));
     }
 
-    public function googleAuthenticatorEnabledDataProvider(): array
+    public function googleAuthenticatorEnabledDataProvider(): \Iterator
     {
-        return [
-            [null, false],
-            ['', false],
-            ['SSSk38498', true],
-        ];
+        yield [null, false];
+        yield ['', false];
+        yield ['SSSk38498', true];
     }
 
     /**
@@ -75,7 +73,7 @@ class UserTest extends TestCase
         $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
-        $this->assertInstanceOf(\DateTime::class, $user->getBackupCodesGenerationDate());
+        $this->assertNotNull($user->getBackupCodesGenerationDate());
         $this->assertSame($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys

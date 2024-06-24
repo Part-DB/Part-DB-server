@@ -38,7 +38,7 @@ trait AssociationTrait
     #[Valid]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: PartAssociation::class,
         cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[Groups(['part:read', 'part:write'])]
+    #[Groups(['part:read', 'part:write', 'full'])]
     protected Collection $associated_parts_as_owner;
 
     /**

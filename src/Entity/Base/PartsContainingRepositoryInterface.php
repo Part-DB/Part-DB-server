@@ -30,11 +30,11 @@ interface PartsContainingRepositoryInterface
      * Returns all parts associated with this element.
      *
      * @param object $element  the element for which the parts should be determined
-     * @param array  $order_by The order of the parts. Format ['name' => 'ASC']
+     * @param string $nameOrderDirection  the direction in which the parts should be ordered by name, either ASC or DESC
      *
      * @return Part[]
      */
-    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
+    public function getParts(object $element, string $nameOrderDirection = "ASC"): array;
 
     /**
      * Gets the count of the parts associated with this element.

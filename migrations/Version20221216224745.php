@@ -67,6 +67,15 @@ final class Version20221216224745 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX log_idx_type ON log (type)');
         $this->addSql('CREATE INDEX log_idx_type_target ON log (type, target_type, target_id)');
         $this->addSql('CREATE INDEX log_idx_datetime ON log (datetime)');
+    }
 
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
     }
 }

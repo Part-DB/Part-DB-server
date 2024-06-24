@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use Symfony\Component\Runtime\SymfonyRuntime;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
@@ -86,7 +87,7 @@ class ToolsController extends AbstractController
             'php_post_max_size' => ini_get('post_max_size'),
             'kernel_runtime_environment' => $this->getParameter('kernel.runtime_environment'),
             'kernel_runtime_mode' => $this->getParameter('kernel.runtime_mode'),
-            'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? 'Symfony\\Component\\Runtime\\SymfonyRuntime',
+            'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? SymfonyRuntime::class,
 
             //DB section
             'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',

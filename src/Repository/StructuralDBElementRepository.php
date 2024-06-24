@@ -41,13 +41,35 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
     private array $new_entity_cache = [];
 
     /**
+     * Finds all nodes for the given parent node, ordered by name in a natural sort way
+     * @param  AbstractStructuralDBElement|null  $parent
+     * @param  string  $nameOrdering  The ordering of the names. Either ASC or DESC
+     * @return array
+     */
+    public function findNodesForParent(?AbstractStructuralDBElement $parent, string $nameOrdering = "ASC"): array
+    {
+        $qb = $this->createQueryBuilder('e');
+        $qb->select('e')
+            ->orderBy('NATSORT(e.name)', $nameOrdering);
+
+        if ($parent !== null) {
+            $qb->where('e.parent = :parent')
+                ->setParameter('parent', $parent);
+        } else {
+            $qb->where('e.parent IS NULL');
+        }
+        //@phpstan-ignore-next-line [parent is only defined by the sub classes]
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * Finds all nodes without a parent node. They are our root nodes.
      *
      * @return AbstractStructuralDBElement[]
      */
     public function findRootNodes(): array
     {
-        return $this->findBy(['parent' => null], ['name' => 'ASC']);
+        return $this->findNodesForParent(null);
     }
 
     /**
@@ -63,7 +85,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
     {
         $result = [];
 
-        $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
+        $entities = $this->findNodesForParent($parent);
         foreach ($entities as $entity) {
             /** @var AbstractStructuralDBElement $entity */
             //Make a recursive call to find all children nodes
@@ -89,7 +111,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
     {
         $result = [];
 
-        $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
+        $entities = $this->findNodesForParent($parent);
 
         $elementIterator = new StructuralDBElementIterator($entities);
         $recursiveIterator = new RecursiveIteratorIterator($elementIterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -238,7 +260,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
 
             //Try to find if we already have an element cached for this name
             $entity = $this->getNewEntityFromCache($name, null);
-            if ($entity) {
+            if ($entity !== null) {
                 return $entity;
             }
 

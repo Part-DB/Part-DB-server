@@ -66,7 +66,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->settings->apiKey);
+        return $this->settings->storeId !== null && $this->settings->apiKey !== '';
     }
 
     /**

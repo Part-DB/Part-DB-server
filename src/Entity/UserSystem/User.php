@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -116,10 +117,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?int $id = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
@@ -143,9 +144,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?string $pw_reset_token = null;
 
     #[ORM\Column(name: 'config_instock_comment_a', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_a = '';
 
     #[ORM\Column(name: 'config_instock_comment_w', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_w = '';
 
     /**
@@ -267,7 +270,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Collection<int, UserAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
@@ -276,11 +279,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[Groups(['user:read', 'user:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
-    /** @var \DateTimeInterface|null The time when the backup codes were generated
+    /** @var \DateTimeImmutable|null The time when the backup codes were generated
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $backupCodesGenerationDate = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
@@ -317,10 +320,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var \DateTimeInterface|null the time until the password reset token is valid
+     * @var \DateTimeImmutable|null the time until the password reset token is valid
      */
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $pw_reset_expires = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
@@ -527,7 +530,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      *  Gets the datetime when the password reset token expires.
      */
-    public function getPwResetExpires(): \DateTimeInterface|null
+    public function getPwResetExpires(): \DateTimeImmutable|null
     {
         return $this->pw_reset_expires;
     }
@@ -535,7 +538,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the datetime when the password reset token expires.
      */
-    public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
+    public function setPwResetExpires(\DateTimeImmutable $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
@@ -896,7 +899,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function setBackupCodes(array $codes): self
     {
         $this->backupCodes = $codes;
-        $this->backupCodesGenerationDate = $codes === [] ? null : new DateTime();
+        $this->backupCodesGenerationDate = $codes === [] ? null : new \DateTimeImmutable();
 
         return $this;
     }
@@ -904,7 +907,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the date when the backup codes were generated.
      */
-    public function getBackupCodesGenerationDate(): ?\DateTimeInterface
+    public function getBackupCodesGenerationDate(): ?\DateTimeImmutable
     {
         return $this->backupCodesGenerationDate;
     }

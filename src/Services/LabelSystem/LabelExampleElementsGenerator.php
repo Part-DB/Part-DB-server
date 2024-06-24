@@ -97,7 +97,7 @@ final class LabelExampleElementsGenerator
 
         $lot->setDescription('Example Lot');
         $lot->setComment('Lot comment');
-        $lot->setExpirationDate(new DateTime('+1 days'));
+        $lot->setExpirationDate(new \DateTimeImmutable('+1 day'));
         $lot->setStorageLocation($this->getStructuralData(StorageLocation::class));
         $lot->setAmount(123);
         $lot->setOwner($this->getUser());

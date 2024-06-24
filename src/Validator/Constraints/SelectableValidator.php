@@ -30,6 +30,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * The validator for the Selectable constraint.
+ * @see \App\Tests\Validator\Constraints\SelectableValidatorTest
  */
 class SelectableValidator extends ConstraintValidator
 {

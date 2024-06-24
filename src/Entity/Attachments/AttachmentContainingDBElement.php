@@ -45,7 +45,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
      * @phpstan-var Collection<int, AT>
      * ORM Mapping is done in subclasses (e.g. Part)
      */
-    #[Groups(['full'])]
+    #[Groups(['full', 'import'])]
     protected Collection $attachments;
 
     public function __construct()

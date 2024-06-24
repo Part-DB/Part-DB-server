@@ -61,7 +61,7 @@ final class LikeFilter extends AbstractFilter
         }
 
         $description = [];
-        foreach ($this->properties as $property => $strategy) {
+        foreach (array_keys($this->properties) as $property) {
             $description[(string)$property] = [
                 'property' => $property,
                 'type' => Type::BUILTIN_TYPE_STRING,

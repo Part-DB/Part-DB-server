@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -45,7 +46,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
-use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,10 +97,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
 {
     use TimestampTrait;
 
+    /**
+     * @var Collection<int, Pricedetail>
+     */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\OneToMany(mappedBy: 'orderdetail', targetEntity: Pricedetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
+    #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
     protected Collection $pricedetails;
 
     /**
@@ -169,9 +173,9 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
-        $this->lastModified = new DateTime('now');
+        $this->lastModified = new DateTimeImmutable('now');
         if (!$this->addedDate instanceof \DateTimeInterface) {
-            $this->addedDate = new DateTime('now');
+            $this->addedDate = new DateTimeImmutable('now');
         }
 
         if ($this->part instanceof Part) {

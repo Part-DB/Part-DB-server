@@ -154,7 +154,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('user', TextColumn::class, [
             'label' => 'log.user',
-            'orderField' => 'user.name',
+            'orderField' => 'NATSORT(user.name)',
             'render' => function ($value, AbstractLogEntry $context): string {
                 $user = $context->getUser();
 
@@ -162,7 +162,7 @@ class LogDataTable implements DataTableTypeInterface
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
-                            htmlentities($context->getCLIUsername()),
+                            htmlentities((string) $context->getCLIUsername()),
                             $this->translator->trans('log.cli_user')
                         );
                     }

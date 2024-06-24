@@ -49,7 +49,7 @@ final class SidebarTreeUpdater
             //This tag and therfore this whole cache gets cleared by TreeCacheInvalidationListener when a structural element is changed
             $item->tag('sidebar_tree_update');
 
-            return new \DateTime();
+            return new \DateTimeImmutable();
         });
     }
 }

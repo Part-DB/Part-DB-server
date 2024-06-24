@@ -93,7 +93,7 @@ class DigikeyProvider implements InfoProviderInterface
     public function isActive(): bool
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
-        return !empty($this->clientId) && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
+        return $this->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
     }
 
     public function searchByKeyword(string $keyword): array
@@ -210,7 +210,7 @@ class DigikeyProvider implements InfoProviderInterface
                 $footprint_name = $parameter['Value'];
             }
 
-            if (in_array(trim($parameter['Value']), array('', '-'), true)) {
+            if (in_array(trim((string) $parameter['Value']), ['', '-'], true)) {
                 continue;
             }
 

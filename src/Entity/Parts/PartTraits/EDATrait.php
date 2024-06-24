@@ -32,7 +32,7 @@ trait EDATrait
 {
     #[Valid]
     #[Embedded(class: EDAPartInfo::class)]
-    #[Groups(['full', 'part:read', 'part:write'])]
+    #[Groups(['full', 'part:read', 'part:write', 'import'])]
     protected EDAPartInfo $eda_info;
 
     public function getEdaInfo(): EDAPartInfo

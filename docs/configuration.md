@@ -40,6 +40,9 @@ options listed, see `.env` file for the full list of possible env variables.
 * `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
  is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
 bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
+* `DATABASE_EMULATE_NATURAL_SORT` (default 0): If set to 1, Part-DB will emulate natural sorting, even if the database 
+  does not support it natively. However this is much slower than the native sorting, and contain bugs or quirks, so use
+  it only, if you have to.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something
