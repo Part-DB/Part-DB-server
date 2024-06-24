@@ -12467,5 +12467,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Save removed data in log entries on element deletion</target>
       </segment>
     </unit>
+    <unit id="8665ItM" name="settings.system.customization.theme">
+      <segment>
+        <source>settings.system.customization.theme</source>
+        <target>Global theme</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

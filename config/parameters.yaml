@@ -11,7 +11,6 @@ parameters:
   # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
   partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
-  partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh']    # The languages that are shown in user drop down menu
   partdb.enforce_change_comments_for: '%env(csv:ENFORCE_CHANGE_COMMENTS_FOR)%' # The actions for which a change comment is required (e.g. "part_edit", "part_create", etc.). If this is empty, change comments are not required at all.
 

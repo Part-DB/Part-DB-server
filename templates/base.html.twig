@@ -40,13 +40,11 @@
 
 
 
-        {% if not app.user.theme is defined %}
-            {% set theme = global_theme %}
+        {% if app.user.theme is not defined or app.user.theme is null  %}
+            {% set theme = settings_instance('customization').theme %}
         {% else %}
             {% set theme = app.user.theme %}
         {% endif %}
-
-
 
         {% if theme and theme in available_themes and encore_entry_exists('theme_' ~ theme) %}
             {{ encore_entry_link_tags('theme_' ~ theme) }}

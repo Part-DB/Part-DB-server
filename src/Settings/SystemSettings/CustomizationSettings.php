@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Settings\SystemSettings;
 
 use App\Form\Type\RichTextEditorType;
+use App\Form\Type\ThemeChoiceType;
+use App\Validator\Constraints\ValidTheme;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
@@ -48,4 +50,10 @@ class CustomizationSettings
     )]
     public ?string $banner = null;
 
+    #[SettingsParameter(
+        label: new TM("settings.system.customization.theme"),
+        formType: ThemeChoiceType::class, formOptions: ['placeholder' => false]
+    )]
+    #[ValidTheme]
+    public string $theme = 'bootstrap';
 }
