@@ -12473,5 +12473,59 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Global theme</target>
       </segment>
     </unit>
+    <unit id="4hNoijr" name="settings.system.history.enforceComments">
+      <segment>
+        <source>settings.system.history.enforceComments</source>
+        <target>Enforce comments for action types</target>
+      </segment>
+    </unit>
+    <unit id="zeiSg.P" name="settings.system.history.enforceComments.description">
+      <segment>
+        <source>settings.system.history.enforceComments.description</source>
+        <target>With this option, you can specify for which actions, users are enforced to give a reason, which will be logged in history.</target>
+      </segment>
+    </unit>
+    <unit id="iEq8463" name="settings.system.history.enforceComments.type.part_edit">
+      <segment>
+        <source>settings.system.history.enforceComments.type.part_edit</source>
+        <target>Part edit</target>
+      </segment>
+    </unit>
+    <unit id="Ns_O1ZC" name="settings.system.history.enforceComments.type.part_create">
+      <segment>
+        <source>settings.system.history.enforceComments.type.part_create</source>
+        <target>Part creation</target>
+      </segment>
+    </unit>
+    <unit id="bkYgIFK" name="settings.system.history.enforceComments.type.part_delete">
+      <segment>
+        <source>settings.system.history.enforceComments.type.part_delete</source>
+        <target>Part deletion</target>
+      </segment>
+    </unit>
+    <unit id="SKOeTBp" name="settings.system.history.enforceComments.type.part_stock_operation">
+      <segment>
+        <source>settings.system.history.enforceComments.type.part_stock_operation</source>
+        <target>Part stock operation</target>
+      </segment>
+    </unit>
+    <unit id="SvD2GFR" name="settings.system.history.enforceComments.type.datastructure_edit">
+      <segment>
+        <source>settings.system.history.enforceComments.type.datastructure_edit</source>
+        <target>Data structure edit</target>
+      </segment>
+    </unit>
+    <unit id="YGcoYaK" name="settings.system.history.enforceComments.type.datastructure_create">
+      <segment>
+        <source>settings.system.history.enforceComments.type.datastructure_create</source>
+        <target>Data structure creation</target>
+      </segment>
+    </unit>
+    <unit id="Xt6S9iR" name="settings.system.history.enforceComments.type.datastructure_delete">
+      <segment>
+        <source>settings.system.history.enforceComments.type.datastructure_delete</source>
+        <target>Data structure deletion</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

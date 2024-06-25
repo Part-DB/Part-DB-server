@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,27 +17,33 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Services\LogSystem;
 
-use App\Settings\SystemSettings\HistorySettings;
+declare(strict_types=1);
+
+
+namespace App\Form\History;
+
+use App\Services\LogSystem\EventCommentType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * This service is used to check if a log change comment is needed for a given operation type.
- * It is configured using the "enforce_change_comments_for" config parameter.
- * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
+ * The type for the "enforceComments" setting in the HistorySettings.
  */
-final class EventCommentNeededHelper
+class EnforceEventCommentTypesType extends AbstractType
 {
-    public function __construct(private readonly HistorySettings $settings)
+    public function getParent(): string
     {
-
+        return EnumType::class;
     }
 
-    /**
-     * Checks if a log change comment is needed for the given operation type
-     */
-    public function isCommentNeeded(EventCommentType $comment_type): bool
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return in_array($comment_type, $this->settings->enforceComments, true);
+        $resolver->setDefaults([
+            'multiple' => true,
+            'class' => EventCommentType::class,
+            'empty_data' => [],
+        ]);
     }
 }

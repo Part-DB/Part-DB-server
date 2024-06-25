@@ -23,11 +23,14 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * This enum represents the different types of event comments that could be required, by the system.
  * They are almost only useful when working with the EventCommentNeededHelper service.
  */
-enum EventCommentType: string
+enum EventCommentType: string implements TranslatableInterface
 {
     case PART_EDIT = 'part_edit';
     case PART_CREATE = 'part_create';
@@ -36,4 +39,9 @@ enum EventCommentType: string
     case DATASTRUCTURE_EDIT = 'datastructure_edit';
     case DATASTRUCTURE_CREATE = 'datastructure_create';
     case DATASTRUCTURE_DELETE = 'datastructure_delete';
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        return $translator->trans('settings.system.history.enforceComments.type.' . $this->value, locale: $locale);
+    }
 }

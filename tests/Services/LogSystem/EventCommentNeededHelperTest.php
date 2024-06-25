@@ -24,13 +24,17 @@ namespace App\Tests\Services\LogSystem;
 
 use App\Services\LogSystem\EventCommentNeededHelper;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\SystemSettings\HistorySettings;
 use PHPUnit\Framework\TestCase;
 
 class EventCommentNeededHelperTest extends TestCase
 {
     public function testIsCommentNeeded(): void
     {
-        $service = new EventCommentNeededHelper([EventCommentType::PART_CREATE, EventCommentType::PART_EDIT]);
+        $settings = new HistorySettings();
+        $settings->enforceComments = [EventCommentType::PART_CREATE, EventCommentType::PART_EDIT];
+
+        $service = new EventCommentNeededHelper($settings);
         $this->assertTrue($service->isCommentNeeded(EventCommentType::PART_CREATE));
         $this->assertTrue($service->isCommentNeeded(EventCommentType::PART_EDIT));
         $this->assertFalse($service->isCommentNeeded(EventCommentType::DATASTRUCTURE_EDIT));

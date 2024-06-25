@@ -23,7 +23,11 @@ declare(strict_types=1);
 
 namespace App\Settings\SystemSettings;
 
+use App\Form\History\EnforceEventCommentTypesType;
+use App\Services\LogSystem\EventCommentType;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
@@ -53,4 +57,25 @@ class HistorySettings
         envVar: "bool:HISTORY_SAVE_REMOVED_DATA", envVarMode: EnvVarMode::OVERWRITE
     )]
     public bool $saveRemovedData = true;
+
+    /** @var EventCommentType[] */
+    #[SettingsParameter(
+        type: ArrayType::class,
+        label: new TM("settings.system.history.enforceComments"),
+        description: new TM("settings.system.history.enforceComments.description"),
+        options: ['type' => EnumType::class, 'nullable' => false, 'options' => ['class' => EventCommentType::class]],
+        formType: EnforceEventCommentTypesType::class,
+        envVar: "ENFORCE_CHANGE_COMMENTS_FOR", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapEnforceComments']
+    )]
+    public array $enforceComments = [];
+
+    public static function mapEnforceComments(string $value): array
+    {
+        if (trim($value) === '') {
+            return [];
+        }
+
+        $explode = explode(',', $value);
+        return array_map(fn(string $type) => EventCommentType::from($type), $explode);
+    }
 }

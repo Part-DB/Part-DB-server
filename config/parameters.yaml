@@ -12,7 +12,6 @@ parameters:
   partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh']    # The languages that are shown in user drop down menu
-  partdb.enforce_change_comments_for: '%env(csv:ENFORCE_CHANGE_COMMENTS_FOR)%' # The actions for which a change comment is required (e.g. "part_edit", "part_create", etc.). If this is empty, change comments are not required at all.
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
 
@@ -114,8 +113,6 @@ parameters:
   env(USE_GRAVATAR): '0'
 
   env(REDIRECT_TO_HTTPS): 0
-
-  env(ENFORCE_CHANGE_COMMENTS_FOR): ''
 
   env(ERROR_PAGE_ADMIN_EMAIL): ''
   env(ERROR_PAGE_SHOW_HELP): 1
