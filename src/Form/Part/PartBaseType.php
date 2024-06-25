@@ -40,6 +40,7 @@ use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -263,7 +264,7 @@ class PartBaseType extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? 'part_create' : 'part_edit'),
+            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? EventCommentType::PART_CREATE : EventCommentType::PART_EDIT),
             'empty_data' => null,
         ]);
 

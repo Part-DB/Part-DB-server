@@ -23,23 +23,17 @@ declare(strict_types=1);
 namespace App\Tests\Services\LogSystem;
 
 use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Services\LogSystem\EventCommentType;
 use PHPUnit\Framework\TestCase;
 
 class EventCommentNeededHelperTest extends TestCase
 {
     public function testIsCommentNeeded(): void
     {
-        $service = new EventCommentNeededHelper(['part_edit', 'part_create']);
-        $this->assertTrue($service->isCommentNeeded('part_edit'));
-        $this->assertTrue($service->isCommentNeeded('part_create'));
-        $this->assertFalse($service->isCommentNeeded('part_delete'));
-        $this->assertFalse($service->isCommentNeeded('part_stock_operation'));
-    }
-
-    public function testIsCommentNeededInvalidTypeException(): void
-    {
-        $service = new EventCommentNeededHelper(['part_edit', 'part_create']);
-        $this->expectException(\InvalidArgumentException::class);
-        $service->isCommentNeeded('this_is_not_valid');
+        $service = new EventCommentNeededHelper([EventCommentType::PART_CREATE, EventCommentType::PART_EDIT]);
+        $this->assertTrue($service->isCommentNeeded(EventCommentType::PART_CREATE));
+        $this->assertTrue($service->isCommentNeeded(EventCommentType::PART_EDIT));
+        $this->assertFalse($service->isCommentNeeded(EventCommentType::DATASTRUCTURE_EDIT));
+        $this->assertFalse($service->isCommentNeeded(EventCommentType::PART_STOCK_OPERATION));
     }
 }

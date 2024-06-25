@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Services\LogSystem\EventCommentType;
 use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
@@ -35,9 +36,16 @@ final class MiscExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('event_comment_needed',
-                fn(string $operation_type) => $this->eventCommentNeededHelper->isCommentNeeded($operation_type)
-            ),
+            new TwigFunction('event_comment_needed', $this->evenCommentNeeded(...)),
         ];
+    }
+
+    private function evenCommentNeeded(string|EventCommentType $operation_type): bool
+    {
+        if (is_string($operation_type)) {
+            $operation_type = EventCommentType::from($operation_type);
+        }
+
+        return $this->eventCommentNeededHelper->isCommentNeeded($operation_type);
     }
 }

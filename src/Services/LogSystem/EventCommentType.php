@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,25 +17,23 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+declare(strict_types=1);
+
+
 namespace App\Services\LogSystem;
 
 /**
- * This service is used to check if a log change comment is needed for a given operation type.
- * It is configured using the "enforce_change_comments_for" config parameter.
- * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
+ * This enum represents the different types of event comments that could be required, by the system.
+ * They are almost only useful when working with the EventCommentNeededHelper service.
  */
-class EventCommentNeededHelper
+enum EventCommentType: string
 {
-    public function __construct(protected array $enforce_change_comments_for)
-    {
-
-    }
-
-    /**
-     * Checks if a log change comment is needed for the given operation type
-     */
-    public function isCommentNeeded(EventCommentType $comment_type): bool
-    {
-        return in_array($comment_type, $this->enforce_change_comments_for, true);
-    }
+    case PART_EDIT = 'part_edit';
+    case PART_CREATE = 'part_create';
+    case PART_DELETE = 'part_delete';
+    case PART_STOCK_OPERATION = 'part_stock_operation';
+    case DATASTRUCTURE_EDIT = 'datastructure_edit';
+    case DATASTRUCTURE_CREATE = 'datastructure_create';
+    case DATASTRUCTURE_DELETE = 'datastructure_delete';
 }
