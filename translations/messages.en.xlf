@@ -12527,5 +12527,29 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Data structure deletion</target>
       </segment>
     </unit>
+    <unit id="Zq5CzmY" name="settings.system.privacy.useGravatar">
+      <segment>
+        <source>settings.system.privacy.useGravatar</source>
+        <target>Use Gravatar avatars</target>
+      </segment>
+    </unit>
+    <unit id="sEoU2wK" name="settings.system.privacy.useGravatar.description">
+      <segment>
+        <source>settings.system.privacy.useGravatar.description</source>
+        <target>If a user does not have an avatar image specified, use the avatar from Gravatar based on the user email. This causes the browser to load pictures from a third-party!</target>
+      </segment>
+    </unit>
+    <unit id="BDvK0bP" name="settings.system.privacy.checkForUpdates">
+      <segment>
+        <source>settings.system.privacy.checkForUpdates</source>
+        <target>Check for Part-DB updates</target>
+      </segment>
+    </unit>
+    <unit id="lAbjHIw" name="settings.system.privacy.checkForUpdates.description">
+      <segment>
+        <source>settings.system.privacy.checkForUpdates.description</source>
+        <target>Part-DB regularly checks if a new version is available on GitHub. Disable this here, if you do not want this or if your server can not connect to the internet.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

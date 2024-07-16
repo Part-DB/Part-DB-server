@@ -21,10 +21,7 @@ parameters:
   # Users and Privacy
   ######################################################################################################################
   partdb.gdpr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GDPR compliant
-  partdb.users.use_gravatar: '%env(bool:USE_GRAVATAR)%'         # Set to false, if no Gravatar images should be used for user profiles.
   partdb.users.email_pw_reset: '%env(bool:ALLOW_EMAIL_PW_RESET)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
-
-  partdb.check_for_updates: '%env(bool:CHECK_FOR_UPDATES)' # Set to false, if Part-DB should not contact the GitHub API to check for updates
 
   ######################################################################################################################
   # Mail settings
@@ -110,7 +107,6 @@ parameters:
   env(DEFAULT_TIMEZONE): 'Europe/Berlin'
   env(INSTANCE_NAME): 'Part-DB'
   env(BASE_CURRENCY): 'EUR'
-  env(USE_GRAVATAR): '0'
 
   env(REDIRECT_TO_HTTPS): 0
 

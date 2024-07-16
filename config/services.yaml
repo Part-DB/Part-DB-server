@@ -184,10 +184,6 @@ services:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}
 
-    App\Services\UserSystem\UserAvatarHelper:
-        arguments:
-            $use_gravatar: '%partdb.users.use_gravatar%'
-
     App\Form\Type\ThemeChoiceType:
         arguments:
             $available_themes: '%partdb.available_themes%'
@@ -312,10 +308,6 @@ services:
     App\Command\BackupCommand:
         arguments:
             $project_dir: '%kernel.project_dir%'
-
-    App\Services\System\UpdateAvailableManager:
-        arguments:
-            $check_for_updates: '%partdb.check_for_updates%'
 
 
     App\Doctrine\Middleware\MySQLSSLConnectionMiddlewareWrapper:
