@@ -56,6 +56,15 @@ class Natsort extends FunctionNode
     }
 
     /**
+     * Check if the slow natural sort is allowed
+     * @return bool
+     */
+    public static function isSlowNaturalSortAllowed(): bool
+    {
+        return self::$allowSlowNaturalSort;
+    }
+
+    /**
      * Check if the MariaDB version which is connected to supports the natural sort (meaning it has a version of 10.7.0 or higher)
      * The result is cached in memory.
      * @param  Connection  $connection
