@@ -343,6 +343,7 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
         $this->addSql('ALTER TABLE webauthn_keys CHANGE public_key_credential_id public_key_credential_id LONGTEXT NOT NULL, CHANGE transports transports LONGTEXT NOT NULL, CHANGE trust_path trust_path JSON NOT NULL, CHANGE aaguid aaguid TINYTEXT NOT NULL, CHANGE credential_public_key credential_public_key LONGTEXT NOT NULL, CHANGE other_ui other_ui LONGTEXT DEFAULT NULL, CHANGE last_time_used last_time_used DATETIME DEFAULT NULL');
 
         // Add the natural sort emulation function to the database (based on this stackoverflow: https://stackoverflow.com/questions/153633/natural-sort-in-mysql/58154535#58154535)
+        //This version here is wrong, and will be replaced by the correct version in the next migration (we need to use nowdoc instead of heredoc, otherwise the slashes will be wrongly escaped!!)
         $this->addSql(<<<EOD
             CREATE DEFINER=CURRENT_USER FUNCTION `NatSortKey`(`s` VARCHAR(1000) CHARSET utf8mb4, `n` INT) RETURNS varchar(3500) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci
             DETERMINISTIC
@@ -411,7 +412,7 @@ final class Version20240606203053 extends AbstractMultiPlatformMigration impleme
                 
           DECLARE x,y varchar(1000);            # need to be same length as input s
           DECLARE r varchar(3500) DEFAULT '';   # return value:  needs to be same length as return type
-          DECLARE suf varchar(101);   # suffix for a number or version string. Must be (((inputlength+1) DIV 2)*2 + 1) chars to support version strings (e.g. '1.2.33.5'), though it's usually just 3 chars. (Max version string e.g. 1.2. ... .5 has ((length of input + 1) DIV 2) numeric components)
+          DECLARE suf varchar(1001);   # suffix for a number or version string. Must be (((inputlength+1) DIV 2)*2 + 1) chars to support version strings (e.g. '1.2.33.5'), though it's usually just 3 chars. (Max version string e.g. 1.2. ... .5 has ((length of input + 1) DIV 2) numeric components)
           DECLARE i,j,k int UNSIGNED;
           IF n<=0 THEN SET n := -1; END IF;   # n<=0 means "process all numbers"
           LOOP
