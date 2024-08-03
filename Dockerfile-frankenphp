@@ -1,6 +1,6 @@
 FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 
-RUN apt-get update && apt-get -y install curl zip mariadb-client file acl git gettext ca-certificates gnupg \
+RUN apt-get update && apt-get -y install curl zip mariadb-client postgresql-client file acl git gettext ca-certificates gnupg \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
 # Create workdir and set permissions if directory does not exists
@@ -17,6 +17,7 @@ RUN set -eux; \
 		zip \
         pdo_mysql \
         pdo_sqlite \
+        pdo_pgsql \
         gd \
         bcmath \
         xsl \

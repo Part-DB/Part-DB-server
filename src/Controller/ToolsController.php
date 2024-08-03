@@ -22,17 +22,18 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use Symfony\Component\Runtime\SymfonyRuntime;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
+use App\Services\Doctrine\DBInfoHelper;
+use App\Services\Doctrine\NatsortDebugHelper;
 use App\Services\Misc\GitVersionInfo;
-use App\Services\Misc\DBInfoHelper;
 use App\Services\System\UpdateAvailableManager;
 use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Runtime\SymfonyRuntime;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController
@@ -46,7 +47,7 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
-    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
+    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
         AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
         AppSettings $settings): Response
     {
@@ -95,6 +96,8 @@ class ToolsController extends AbstractController
             'db_size' => $DBInfoHelper->getDatabaseSize(),
             'db_name' => $DBInfoHelper->getDatabaseName() ?? 'Unknown',
             'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
+            'db_natsort_method' => $natsortDebugHelper->getNaturalSortMethod(),
+            'db_natsort_slow_allowed' => $natsortDebugHelper->isSlowNaturalSortAllowed(),
 
             //New version section
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),

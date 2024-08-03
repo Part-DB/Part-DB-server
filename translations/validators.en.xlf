@@ -354,7 +354,7 @@
       </segment>
     </unit>
     <unit id="iXcU7ce" name="validator.invalid_range">
-      <segment>
+      <segment state="translated">
         <source>validator.invalid_range</source>
         <target>The given range is not valid!</target>
       </segment>

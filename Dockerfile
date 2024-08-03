@@ -5,11 +5,11 @@ FROM debian:bullseye-slim
 #    libpng-dev libjpeg-dev libfreetype6-dev gnupg zip libzip-dev libjpeg62-turbo-dev libonig-dev libxslt-dev libwebp-dev vim \
 #    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-certificates curl zip mariadb-client \
+RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-certificates curl zip mariadb-client postgresql-client \
     && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg  \
     && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
     && apt-get update && apt-get upgrade -y \
-    && apt-get install -y apache2 php8.1 php8.1-fpm php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql gpg sudo \
+    && apt-get install -y apache2 php8.1 php8.1-fpm php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql php8.1-pgsql gpg sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
 ENV APACHE_CONFDIR /etc/apache2

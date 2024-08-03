@@ -42,6 +42,7 @@
         "nyholm/psr7": "^1.1",
         "ocramius/proxy-manager": "2.2.*",
         "omines/datatables-bundle": "^0.8.0",
+        "paragonie/sodium_compat": "^1.21",
         "part-db/label-fonts": "^1.0",
         "php-translation/symfony-bundle": "^0.14.0",
         "phpdocumentor/reflection-docblock": "^5.2",
