@@ -32,9 +32,12 @@
                     {{ form_errors(tab_widget) }}
 
                     {% for section_widget in tab_widget %}
+                        {% set settings_object = section_widget.vars.value %}
+
                         {% if section_widget.vars.compound ?? false %}
                             <fieldset>
-                                <legend>
+                                <legend class="offset-3">
+                                    <i class="fa-solid {{ settings_icon(settings_object)|default('fa-sliders') }} fa-fw"></i>
                                     {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
                                 </legend>
                                 {{ form_help(section_widget) }}
@@ -42,7 +45,7 @@
                                 {{ form_widget(section_widget) }}
                             </fieldset>
                             {% if not loop.last %}
-                                <hr class="m-0">
+                                <hr class="mx-0 mb-2 mt-2">
                             {% endif %}
                         {% else %} {# If not a compound render as normal row #}
                             {{ form_row(section_widget) }}

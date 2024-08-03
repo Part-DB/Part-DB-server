@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Services\LogSystem\EventCommentType;
+use Jbtronics\SettingsBundle\Proxy\SettingsProxyInterface;
+use ReflectionClass;
 use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
@@ -37,6 +39,8 @@ final class MiscExtension extends AbstractExtension
     {
         return [
             new TwigFunction('event_comment_needed', $this->evenCommentNeeded(...)),
+
+            new TwigFunction('settings_icon', $this->settingsIcon(...)),
         ];
     }
 
@@ -47,5 +51,26 @@ final class MiscExtension extends AbstractExtension
         }
 
         return $this->eventCommentNeededHelper->isCommentNeeded($operation_type);
+    }
+
+    /**
+     * Returns the value of the icon attribute of the SettingsIcon attribute of the given class.
+     * If the class does not have a SettingsIcon attribute, then null is returned.
+     * @param  string|object  $objectOrClass
+     * @return string|null
+     * @throws \ReflectionException
+     */
+    private function settingsIcon(string|object $objectOrClass): ?string
+    {
+        //If the given object is a proxy, then get the real object
+        if (is_a($objectOrClass, SettingsProxyInterface::class)) {
+            $objectOrClass = get_parent_class($objectOrClass);
+        }
+
+        $reflection = new ReflectionClass($objectOrClass);
+
+        $attribute = $reflection->getAttributes(\App\Settings\SettingsIcon::class)[0] ?? null;
+
+        return $attribute?->newInstance()->icon;
     }
 }

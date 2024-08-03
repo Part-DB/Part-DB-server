@@ -25,6 +25,7 @@ namespace App\Settings\SystemSettings;
 
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\ThemeChoiceType;
+use App\Settings\SettingsIcon;
 use App\Validator\Constraints\ValidTheme;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -33,6 +34,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(name: "customization", label: new TM("settings.system.customization"))]
+#[SettingsIcon("fa-paint-roller")]
 class CustomizationSettings
 {
     use SettingsTrait;

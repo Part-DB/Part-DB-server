@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\SystemSettings;
 
 use App\Form\Type\LocaleSelectType;
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
@@ -34,6 +35,7 @@ use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.system.localization"))]
+#[SettingsIcon("fa-globe")]
 class LocalizationSettings
 {
     use SettingsTrait;

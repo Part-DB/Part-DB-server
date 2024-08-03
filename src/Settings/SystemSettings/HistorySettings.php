@@ -25,6 +25,7 @@ namespace App\Settings\SystemSettings;
 
 use App\Form\History\EnforceEventCommentTypesType;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
 use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
@@ -34,6 +35,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.system.history"))]
+#[SettingsIcon("fa-binoculars")]
 class HistorySettings
 {
     use SettingsTrait;
