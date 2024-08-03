@@ -57,9 +57,9 @@ class ToolsController extends AbstractController
             //Part-DB section
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
-            'default_locale' => $this->getParameter('partdb.locale'),
-            'default_timezone' => $this->getParameter('partdb.timezone'),
-            'default_currency' => $this->getParameter('partdb.default_currency'),
+            'default_locale' => $settings->system->localization->locale,
+            'default_timezone' => $settings->system->localization->timezone,
+            'default_currency' => $settings->system->localization->baseCurrency,
             'default_theme' => $settings->system->customization->theme,
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
