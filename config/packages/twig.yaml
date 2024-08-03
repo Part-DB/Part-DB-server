@@ -6,7 +6,6 @@ twig:
         '%kernel.project_dir%/assets/css': css
 
     globals:
-        default_currency: '%partdb.default_currency%'
         allow_email_pw_reset: '%partdb.users.email_pw_reset%'
         locale_menu: '%partdb.locale_menu%'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'

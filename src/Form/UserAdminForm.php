@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\Type\LocaleSelectType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\UserSystem\Group;
@@ -35,7 +36,6 @@ use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -138,11 +138,10 @@ class UserAdminForm extends AbstractType
             ])
 
             //Config section
-            ->add('language', LanguageType::class, [
+            ->add('language', LocaleSelectType::class, [
                 'required' => false,
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
-                'preferred_choices' => ['en', 'de'],
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('timezone', TimezoneType::class, [

@@ -29,7 +29,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.system.privacy"))]
 class PrivacySettings
 {
     use SettingsTrait;

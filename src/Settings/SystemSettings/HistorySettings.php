@@ -30,11 +30,14 @@ use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
 use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.system.history"))]
 class HistorySettings
 {
+    use SettingsTrait;
+
     #[SettingsParameter(
         label: new TM("settings.system.history.saveChangedFields"),
         envVar: "bool:HISTORY_SAVE_CHANGED_FIELDS", envVarMode: EnvVarMode::OVERWRITE)]

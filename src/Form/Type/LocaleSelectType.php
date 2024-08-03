@@ -21,31 +21,33 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Form\Type;
 
-use App\Settings\SystemSettings\AttachmentsSettings;
-use App\Settings\SystemSettings\CustomizationSettings;
-use App\Settings\SystemSettings\HistorySettings;
-use App\Settings\SystemSettings\LocalizationSettings;
-use App\Settings\SystemSettings\PrivacySettings;
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
-use Jbtronics\SettingsBundle\Settings\Settings;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-#[Settings]
-class SystemSettings
+/**
+ * A locale select field that uses the preferred languages from the configuration.
+
+ */
+class LocaleSelectType extends AbstractType
 {
-    #[EmbeddedSettings()]
-    public ?LocalizationSettings $localization = null;
 
-    #[EmbeddedSettings()]
-    public ?CustomizationSettings $customization = null;
+    public function __construct(#[Autowire(param: 'partdb.locale_menu')] private readonly array $preferred_languages)
+    {
 
-    #[EmbeddedSettings()]
-    public ?PrivacySettings $privacy = null;
+    }
+    public function getParent(): string
+    {
+        return LocaleType::class;
+    }
 
-    #[EmbeddedSettings()]
-    public ?AttachmentsSettings $attachments = null;
-
-    #[EmbeddedSettings()]
-    public ?HistorySettings $history = null;
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'preferred_choices' => $this->preferred_languages,
+        ]);
+    }
 }

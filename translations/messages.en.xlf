@@ -12551,5 +12551,42 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part-DB regularly checks if a new version is available on GitHub. Disable this here, if you do not want this or if your server can not connect to the internet.</target>
       </segment>
     </unit>
+    <unit id="_wYDoEy" name="settings.system.localization.locale">
+      <segment>
+        <source>settings.system.localization.locale</source>
+        <target>Default language / locale</target>
+      </segment>
+    </unit>
+    <unit id="K8mVEEQ" name="settings.system.localization">
+      <segment>
+        <source>settings.system.localization</source>
+        <target>Localization</target>
+      </segment>
+    </unit>
+    <unit id="fLOdzsf" name="settings.system.localization.timezone">
+      <segment>
+        <source>settings.system.localization.timezone</source>
+        <target>Default timezone</target>
+      </segment>
+    </unit>
+    <unit id="gdx8h1U" name="settings.system.localization.base_currency">
+      <segment>
+        <source>settings.system.localization.base_currency</source>
+        <target>Base currency</target>
+      </segment>
+    </unit>
+    <unit id="DhNnWlg" name="settings.system.localization.base_currency_description">
+      <segment>
+        <source>settings.system.localization.base_currency_description</source>
+        <target><![CDATA[The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
+<b>Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!</b>]]></target>
+      </segment>
+    </unit>
+    <unit id="7BwmKFC" name="settings.system.privacy">
+      <segment>
+        <source>settings.system.privacy</source>
+        <target>Privacy</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

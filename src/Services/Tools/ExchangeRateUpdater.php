@@ -23,13 +23,14 @@ declare(strict_types=1);
 namespace App\Services\Tools;
 
 use App\Entity\PriceInformations\Currency;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Swap\Swap;
 
 class ExchangeRateUpdater
 {
-    public function __construct(private readonly string $base_currency, private readonly Swap $swap)
+    public function __construct(private LocalizationSettings $localizationSettings, private readonly Swap $swap)
     {
     }
 
@@ -39,7 +40,7 @@ class ExchangeRateUpdater
     public function update(Currency $currency): Currency
     {
         //Currency pairs are always in the format "BASE/QUOTE"
-        $rate = $this->swap->latest($this->base_currency.'/'.$currency->getIsoCode());
+        $rate = $this->swap->latest($this->localizationSettings->baseCurrency.'/'.$currency->getIsoCode());
         //The rate says how many quote units are worth one base unit
         //So we need to invert it to get the exchange rate
 

@@ -17,7 +17,6 @@ services:
             bool $gdpr_compliance: '%partdb.gdpr_compliance%'
             bool $kernel_debug_enabled: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
-            string $base_currency: '%partdb.default_currency%'
 
     _instanceof:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
@@ -137,39 +136,12 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
 
-    ####################################################################################################################
-    # Price system
-    ####################################################################################################################
-    App\Command\Currencies\UpdateExchangeRatesCommand:
-        arguments:
-            $base_current: '%partdb.default_currency%'
-
-    App\Form\Type\CurrencyEntityType:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
-    App\Services\Parts\PricedetailHelper:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
-    App\Services\Formatters\MoneyFormatter:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
-    App\Services\Tools\ExchangeRateUpdater:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
     ###################################################################################################################
     # User system
     ####################################################################################################################
     App\Form\UserSettingsType:
         arguments:
             $demo_mode: '%partdb.demo_mode%'
-
-    App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
-        arguments:
-            $default_timezone: '%partdb.timezone%'
 
     App\Controller\SecurityController:
         arguments:
@@ -261,8 +233,6 @@ services:
     App\State\PartDBInfoProvider:
         arguments:
             $default_uri: '%partdb.default_uri%'
-            $global_locale: '%partdb.locale%'
-            $global_timezone: '%partdb.timezone%'
 
     ####################################################################################################################
     # EDA system
@@ -294,7 +264,6 @@ services:
     ####################################################################################################################
     App\Controller\RedirectController:
         arguments:
-            $default_locale: '%partdb.locale%'
             $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
 
     App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:

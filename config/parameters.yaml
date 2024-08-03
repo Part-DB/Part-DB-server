@@ -5,12 +5,9 @@ parameters:
   ######################################################################################################################
   # Common
   ######################################################################################################################
-  partdb.locale: '%env(string:DEFAULT_LANG)%'                 # The default language to use serverwide
-  partdb.timezone: '%env(string:DEFAULT_TIMEZONE)%'           # The default timezone
 
   # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
   partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-  partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh']    # The languages that are shown in user drop down menu
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
@@ -102,11 +99,6 @@ parameters:
   ######################################################################################################################
   # Env default values
   ######################################################################################################################
-
-  env(DEFAULT_LANG): 'en'
-  env(DEFAULT_TIMEZONE): 'Europe/Berlin'
-  env(INSTANCE_NAME): 'Part-DB'
-  env(BASE_CURRENCY): 'EUR'
 
   env(REDIRECT_TO_HTTPS): 0
 
