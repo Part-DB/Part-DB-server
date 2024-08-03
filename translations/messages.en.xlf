@@ -12588,5 +12588,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Privacy</target>
       </segment>
     </unit>
+    <unit id="W.225Bj" name="settings.title">
+      <segment>
+        <source>settings.title</source>
+        <target>Server settings</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
