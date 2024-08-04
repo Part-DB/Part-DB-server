@@ -21,27 +21,26 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Settings\MiscSettings;
 
-use App\Settings\InfoProviderSystem\InfoProviderSettings;
-use App\Settings\MiscSettings\MiscSettings;
-use App\Settings\SystemSettings\AttachmentsSettings;
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings]
-class AppSettings
+#[Settings(label: new TM("settings.misc.kicad_eda"))]
+#[SettingsIcon("fa-bolt-lightning")]
+class KiCadEDASettings
 {
     use SettingsTrait;
 
 
-    #[EmbeddedSettings()]
-    public ?SystemSettings $system = null;
-
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
-
-    #[EmbeddedSettings()]
-    public ?MiscSettings $miscSettings = null;
+    #[SettingsParameter(label: new TM("settings.misc.kicad_eda.category_depth"),
+        description: new TM("settings.misc.kicad_eda.category_depth.help"),
+        envVar: "int:EDA_KICAD_CATEGORY_DEPTH", envVarMode: EnvVarMode::OVERWRITE)]
+    #[Assert\Range(min: -1)]
+    public int $categoryDepth = 0;
 }

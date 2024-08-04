@@ -21,27 +21,14 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Settings\MiscSettings;
 
-use App\Settings\InfoProviderSystem\InfoProviderSettings;
-use App\Settings\MiscSettings\MiscSettings;
-use App\Settings\SystemSettings\AttachmentsSettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 
 #[Settings]
-class AppSettings
+class MiscSettings
 {
-    use SettingsTrait;
-
-
-    #[EmbeddedSettings()]
-    public ?SystemSettings $system = null;
-
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
-
-    #[EmbeddedSettings()]
-    public ?MiscSettings $miscSettings = null;
+    #[EmbeddedSettings]
+    public ?KiCadEDASettings $kicadEDA = null;
 }

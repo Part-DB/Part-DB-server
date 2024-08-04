@@ -122,6 +122,4 @@ parameters:
 
   env(SAML_ROLE_MAPPING): '{}'
 
-  env(EDA_KICAD_CATEGORY_DEPTH): 0
-
   env(DATABASE_EMULATE_NATURAL_SORT): 0
