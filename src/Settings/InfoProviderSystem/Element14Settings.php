@@ -23,12 +23,14 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.ips.element14"))]
+#[SettingsIcon("fa-plug")]
 class Element14Settings
 {
     use SettingsTrait;

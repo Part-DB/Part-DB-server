@@ -23,12 +23,14 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.ips.mouser"))]
+#[SettingsIcon("fa-plug")]
 class MouserSettings
 {
     #[SettingsParameter(label: new TM("settings.ips.mouser.apiKey"), description: new TM("settings.ips.mouser.apiKey.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_MOUSER_KEY")]

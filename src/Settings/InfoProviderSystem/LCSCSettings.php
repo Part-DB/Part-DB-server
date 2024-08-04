@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -31,6 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.ips.lcsc"), description: new TM("settings.ips.lcsc.help"))]
+#[SettingsIcon("fa-plug")]
 class LCSCSettings
 {
     use SettingsTrait;
