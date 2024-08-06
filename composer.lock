@@ -889,16 +889,16 @@
         },
         {
             "name": "amphp/sync",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/sync.git",
-                "reference": "375ef5b54a0d12c38e12728dde05a55e30f2fbec"
+                "reference": "217097b785130d77cfcc58ff583cf26cd1770bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/sync/zipball/375ef5b54a0d12c38e12728dde05a55e30f2fbec",
-                "reference": "375ef5b54a0d12c38e12728dde05a55e30f2fbec",
+                "url": "https://api.github.com/repos/amphp/sync/zipball/217097b785130d77cfcc58ff583cf26cd1770bf1",
+                "reference": "217097b785130d77cfcc58ff583cf26cd1770bf1",
                 "shasum": ""
             },
             "require": {
@@ -952,7 +952,7 @@
             ],
             "support": {
                 "issues": "https://github.com/amphp/sync/issues",
-                "source": "https://github.com/amphp/sync/tree/v2.2.0"
+                "source": "https://github.com/amphp/sync/tree/v2.3.0"
             },
             "funding": [
                 {
@@ -960,7 +960,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-12T01:00:01+00:00"
+            "time": "2024-08-03T19:31:26+00:00"
         },
         {
             "name": "amphp/windows-registry",
@@ -2908,16 +2908,16 @@
         },
         {
             "name": "doctrine/sql-formatter",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/sql-formatter.git",
-                "reference": "d1ac84aef745c69ea034929eb6d65a6908b675cc"
+                "reference": "7f83911cc5eba870de7ebb11283972483f7e2891"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/d1ac84aef745c69ea034929eb6d65a6908b675cc",
-                "reference": "d1ac84aef745c69ea034929eb6d65a6908b675cc",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/7f83911cc5eba870de7ebb11283972483f7e2891",
+                "reference": "7f83911cc5eba870de7ebb11283972483f7e2891",
                 "shasum": ""
             },
             "require": {
@@ -2957,9 +2957,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/sql-formatter/issues",
-                "source": "https://github.com/doctrine/sql-formatter/tree/1.4.0"
+                "source": "https://github.com/doctrine/sql-formatter/tree/1.4.1"
             },
-            "time": "2024-05-08T08:12:09+00:00"
+            "time": "2024-08-05T20:32:22+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -4278,12 +4278,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "c1de2c5f47bcb92568f0cc80ea2af5421aaa2234"
+                "reference": "deb51a945cc6c7a2004584e2ac0c92e3841b22f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/c1de2c5f47bcb92568f0cc80ea2af5421aaa2234",
-                "reference": "c1de2c5f47bcb92568f0cc80ea2af5421aaa2234",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/deb51a945cc6c7a2004584e2ac0c92e3841b22f6",
+                "reference": "deb51a945cc6c7a2004584e2ac0c92e3841b22f6",
                 "shasum": ""
             },
             "require": {
@@ -4356,7 +4356,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-07-17T07:38:54+00:00"
+            "time": "2024-08-06T22:36:40+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -16591,16 +16591,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "1.4.8",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "fa497c5cf8a3f9cd3db8cb4033daf5244793d3e1"
+                "reference": "caa046bd6152818e781260fb3a7a96d6b0fadeed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/fa497c5cf8a3f9cd3db8cb4033daf5244793d3e1",
-                "reference": "fa497c5cf8a3f9cd3db8cb4033daf5244793d3e1",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/caa046bd6152818e781260fb3a7a96d6b0fadeed",
+                "reference": "caa046bd6152818e781260fb3a7a96d6b0fadeed",
                 "shasum": ""
             },
             "require": {
@@ -16657,9 +16657,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.4.8"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.5.0"
             },
-            "time": "2024-07-16T11:31:01+00:00"
+            "time": "2024-08-05T13:47:07+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -17269,12 +17269,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "25b3df97450d4b8ae46ab6c6a2441db776b3e00d"
+                "reference": "176422aa2c339a0f4e56b92862c67a94e2b584fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/25b3df97450d4b8ae46ab6c6a2441db776b3e00d",
-                "reference": "25b3df97450d4b8ae46ab6c6a2441db776b3e00d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/176422aa2c339a0f4e56b92862c67a94e2b584fb",
+                "reference": "176422aa2c339a0f4e56b92862c67a94e2b584fb",
                 "shasum": ""
             },
             "conflict": {
@@ -17392,7 +17392,7 @@
                 "datatables/datatables": "<1.10.10",
                 "david-garcia/phpwhois": "<=4.3.1",
                 "dbrisinajumi/d2files": "<1",
-                "dcat/laravel-admin": "<=2.1.3.0-beta",
+                "dcat/laravel-admin": "<=2.1.3",
                 "derhansen/fe_change_pwd": "<2.0.5|>=3,<3.0.3",
                 "derhansen/sf_event_mgt": "<4.3.1|>=5,<5.1.1|>=7,<7.4",
                 "desperado/xml-bundle": "<=0.1.7",
@@ -17542,6 +17542,7 @@
                 "innologi/typo3-appointments": "<2.0.6",
                 "intelliants/subrion": "<4.2.2",
                 "inter-mediator/inter-mediator": "==5.5",
+                "ipl/web": "<0.10.1",
                 "islandora/islandora": ">=2,<2.4.1",
                 "ivankristianto/phpwhois": "<=4.3",
                 "jackalope/jackalope-doctrine-dbal": "<1.7.4",
@@ -17624,7 +17625,7 @@
                 "microsoft/microsoft-graph": ">=1.16,<1.109.1|>=2,<2.0.1",
                 "microsoft/microsoft-graph-beta": "<2.0.1",
                 "microsoft/microsoft-graph-core": "<2.0.2",
-                "microweber/microweber": "<=2.0.4",
+                "microweber/microweber": "<=2.0.16",
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
@@ -18075,7 +18076,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-02T16:05:08+00:00"
+            "time": "2024-08-05T22:04:39+00:00"
         },
         {
             "name": "sebastian/cli-parser",

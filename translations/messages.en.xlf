@@ -12612,5 +12612,41 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target><![CDATA[This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value > 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.]]></target>
       </segment>
     </unit>
+    <unit id="dEEqctR" name="settings.behavior.sidebar">
+      <segment>
+        <source>settings.behavior.sidebar</source>
+        <target>Sidebar</target>
+      </segment>
+    </unit>
+    <unit id="UIyQNrT" name="settings.behavior.sidebar.items">
+      <segment>
+        <source>settings.behavior.sidebar.items</source>
+        <target>Sidebar items</target>
+      </segment>
+    </unit>
+    <unit id="EGUFIOg" name="settings.behavior.sidebar.items.help">
+      <segment>
+        <source>settings.behavior.sidebar.items.help</source>
+        <target><![CDATA[The menus which appear at the sidebar by default. Order of items can be changed via drag & drop.]]></target>
+      </segment>
+    </unit>
+    <unit id="uH3qE5u" name="settings.behavior.sidebar.rootNodeEnabled">
+      <segment>
+        <source>settings.behavior.sidebar.rootNodeEnabled</source>
+        <target>Use root node</target>
+      </segment>
+    </unit>
+    <unit id="dsOoG62" name="settings.behavior.sidebar.rootNodeEnabled.help">
+      <segment>
+        <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
+        <target>If this is enabled, all top-level categories, footprints, etc. will be put under a single root node. If disabled, the top-level categories will be put directly into the menu.</target>
+      </segment>
+    </unit>
+    <unit id="VF.wf7O" name="settings.behavior.sidebar.rootNodeExpanded">
+      <segment>
+        <source>settings.behavior.sidebar.rootNodeExpanded</source>
+        <target>Expand root node by default</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

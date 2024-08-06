@@ -37,6 +37,7 @@ use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\EntityURLGenerator;
+use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use RecursiveIteratorIterator;
@@ -52,6 +53,10 @@ use function count;
  */
 class TreeViewGenerator
 {
+
+    private readonly bool $rootNodeExpandedByDefault;
+    private readonly bool $rootNodeEnabled;
+
     public function __construct(
         protected EntityURLGenerator $urlGenerator,
         protected EntityManagerInterface $em,
@@ -60,10 +65,10 @@ class TreeViewGenerator
         protected UserCacheKeyGenerator $keyGenerator,
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
-        protected bool $rootNodeExpandedByDefault,
-        protected bool $rootNodeEnabled,
-
+        private readonly SidebarSettings $sidebarSettings,
     ) {
+        $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
+        $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
     }
 
     /**

@@ -196,14 +196,6 @@ services:
             $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
 
     ####################################################################################################################
-    # Trees
-    ####################################################################################################################
-    App\Services\Trees\TreeViewGenerator:
-        arguments:
-            $rootNodeExpandedByDefault: '%partdb.sidebar.root_expanded%'
-            $rootNodeEnabled: '%partdb.sidebar.root_node_enable%'
-
-    ####################################################################################################################
     # Part info provider system
     ####################################################################################################################
     App\Services\InfoProviderSystem\ProviderRegistry:

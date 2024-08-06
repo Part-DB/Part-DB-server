@@ -12,7 +12,6 @@ twig:
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'
         error_page_admin_email: '%partdb.error_pages.admin_email%'
         error_page_show_help: '%partdb.error_pages.show_help%'
-        sidebar_items: '%partdb.sidebar.items%'
         sidebar_tree_updater: '@App\Services\Trees\SidebarTreeUpdater'
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
         available_themes: '%partdb.available_themes%'

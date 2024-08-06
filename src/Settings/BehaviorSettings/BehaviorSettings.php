@@ -21,32 +21,17 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Settings\BehaviorSettings;
 
-use App\Settings\BehaviorSettings\BehaviorSettings;
-use App\Settings\InfoProviderSystem\InfoProviderSettings;
-use App\Settings\MiscSettings\MiscSettings;
-use App\Settings\SystemSettings\AttachmentsSettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 
 #[Settings]
-#[SettingsIcon('folder-tree')]
-class AppSettings
+class BehaviorSettings
 {
     use SettingsTrait;
 
-
-    #[EmbeddedSettings()]
-    public ?SystemSettings $system = null;
-
-    #[EmbeddedSettings()]
-    public ?BehaviorSettings $behavior = null;
-
-    #[EmbeddedSettings()]
-    public ?InfoProviderSettings $infoProviders = null;
-
-    #[EmbeddedSettings()]
-    public ?MiscSettings $miscSettings = null;
+    #[EmbeddedSettings]
+    public ?SidebarSettings $sidebar = null;
 }

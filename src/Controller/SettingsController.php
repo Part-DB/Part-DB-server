@@ -30,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class SettingsController extends AbstractController
 {
@@ -37,7 +38,7 @@ class SettingsController extends AbstractController
     {}
 
     #[Route("/settings", name: "system_settings")]
-    public function systemSettings(Request $request): Response
+    public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
     {
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy(AppSettings::class);
@@ -56,7 +57,13 @@ class SettingsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->settingsManager->mergeTemporaryCopy($settings);
             $this->settingsManager->save($settings);
+
+            //It might be possible, that the tree settings have changed, so clear the cache
+            $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
         }
+
+
+
 
         //Render the form
         return $this->render('settings/settings.html.twig', [
