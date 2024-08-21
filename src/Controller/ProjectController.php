@@ -31,6 +31,7 @@ use App\Form\ProjectSystem\ProjectBuildType;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\SyntaxError;
@@ -55,11 +56,12 @@ class ProjectController extends AbstractController
     }
 
     #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
-    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper, TableSettings $tableSettings): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
 
-        $table = $this->dataTableFactory->createFromType(ProjectBomEntriesDataTable::class, ['project' => $project])
+        $table = $this->dataTableFactory->createFromType(ProjectBomEntriesDataTable::class, ['project' => $project],
+            ['pageLength' => $tableSettings->fullDefaultPageSize])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
