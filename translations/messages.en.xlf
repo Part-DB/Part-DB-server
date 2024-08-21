@@ -12648,5 +12648,35 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Expand root node by default</target>
       </segment>
     </unit>
+    <unit id="5BAiTbM" name="settings.behavior.table">
+      <segment>
+        <source>settings.behavior.table</source>
+        <target>Tables</target>
+      </segment>
+    </unit>
+    <unit id="a6D6BgV" name="settings.behavior.table.default_page_size">
+      <segment>
+        <source>settings.behavior.table.default_page_size</source>
+        <target>Default page size</target>
+      </segment>
+    </unit>
+    <unit id="glHJBvM" name="settings.behavior.table.default_page_size.help">
+      <segment>
+        <source>settings.behavior.table.default_page_size.help</source>
+        <target>The default page size on full page tables. Set to -1 to show all items by default without pagination.</target>
+      </segment>
+    </unit>
+    <unit id="N0VA7gG" name="settings.behavior.table.parts_default_columns">
+      <segment>
+        <source>settings.behavior.table.parts_default_columns</source>
+        <target>Default columns for part tables</target>
+      </segment>
+    </unit>
+    <unit id="AkXwf2W" name="settings.behavior.table.parts_default_columns.help">
+      <segment>
+        <source>settings.behavior.table.parts_default_columns.help</source>
+        <target><![CDATA[The columns to show by default in part tables. Order of items can be changed via drag & drop.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
