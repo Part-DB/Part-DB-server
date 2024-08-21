@@ -171,9 +171,6 @@ services:
     ####################################################################################################################
     # Table settings
     ####################################################################################################################
-    App\DataTables\PartsDataTable:
-        arguments:
-            $visible_columns: '%partdb.table.parts.default_columns%'
 
     App\DataTables\Helpers\ColumnSortHelper:
         shared: false   # Service has a state so not share it between different tables

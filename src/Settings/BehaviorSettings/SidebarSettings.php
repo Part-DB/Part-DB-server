@@ -50,6 +50,7 @@ class SidebarSettings
         formOptions: ['class' => SidebarItems::class, 'multiple' => true, 'ordered' => true]
     )]
     #[Assert\NotBlank()]
+    #[Assert\Unique()]
     public array $items = [SidebarItems::CATEGORIES, SidebarItems::PROJECTS, SidebarItems::TOOLS];
 
     /**

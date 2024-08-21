@@ -34,4 +34,7 @@ class BehaviorSettings
 
     #[EmbeddedSettings]
     public ?SidebarSettings $sidebar = null;
+
+    #[EmbeddedSettings]
+    public ?TableSettings $table = null;
 }
