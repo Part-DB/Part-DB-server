@@ -217,7 +217,7 @@ abstract class BaseAdminController extends AbstractController
             try {
                 $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
             } catch (TwigModeException $exception) {
-                $form->get('options')->get('lines')->addError(new FormError($exception->getMessage()));
+                $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
             }
         }
 

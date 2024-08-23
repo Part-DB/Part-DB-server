@@ -117,7 +117,7 @@ class LabelController extends AbstractController
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
                     $filename = $this->getLabelName($targets[0], $profile);
                 } catch (TwigModeException $exception) {
-                    $form->get('options')->get('lines')->addError(new FormError($exception->getMessage()));
+                    $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
                 }
             } else {
                 //$this->addFlash('warning', 'label_generator.no_entities_found');
