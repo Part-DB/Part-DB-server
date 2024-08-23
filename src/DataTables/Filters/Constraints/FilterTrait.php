@@ -56,13 +56,23 @@ trait FilterTrait
 
     /**
      * Adds a simple constraint in the form of (property OPERATOR value) (e.g. "part.name = :name") to the given query builder.
+     * @param  QueryBuilder  $queryBuilder The query builder to add the constraint to
+     * @param  string  $property The property to compare
+     * @param  string  $parameterIdentifier The identifier for the parameter
+     * @param  string  $comparison_operator The comparison operator to use
+     * @param  mixed  $value The value to compare to
+     * @param  bool  $include_null If true, the result of this constraint will also include null values of this property (useful for exclusion filters)
      */
-    protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, mixed $value): void
+    protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, mixed $value, bool $include_null = false): void
     {
         if ($comparison_operator === 'IN' || $comparison_operator === 'NOT IN') {
             $expression = sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier);
         } else {
             $expression = sprintf("%s %s :%s", $property, $comparison_operator, $parameterIdentifier);
+        }
+
+        if ($include_null) {
+            $expression = sprintf("(%s OR %s IS NULL)", $expression, $property);
         }
 
         if($this->useHaving || $this->isAggregateFunctionString($property)) { //If the property is an aggregate function, we have to use the "having" instead of the "where"
