@@ -66,6 +66,9 @@ export default class extends Controller {
                         //Prepend it to the input
                         if (current) {
                             data.input = current + " " + data.input;
+                        } else {
+                            //If there is no current value, we remove the "->"
+                            data.input = data.input.substring(2);
                         }
                     }
 
@@ -96,6 +99,9 @@ export default class extends Controller {
             //Prepend it to the input
             if (current) {
                 input = current + " " + input;
+            } else {
+                //If there is no current value, we remove the "->"
+                input = input.substring(2);
             }
         }
 
