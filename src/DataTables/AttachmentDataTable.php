@@ -34,6 +34,7 @@ use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -82,6 +83,11 @@ final class AttachmentDataTable implements DataTableTypeInterface
 
                 return '';
             },
+        ]);
+
+        $dataTable->add('id', NumberColumn::class, [
+            'label' => $this->translator->trans('part.table.id'),
+            'visible' => false,
         ]);
 
         $dataTable->add('name', TextColumn::class, [
