@@ -24,7 +24,6 @@ import {Controller} from "@hotwired/stimulus";
 
 import {trans, ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB} from '../../translator.js'
 
-
 export default class extends Controller {
     _tomSelect;
 
@@ -58,7 +57,18 @@ export default class extends Controller {
             render: {
                 item: this.renderItem.bind(this),
                 option: this.renderOption.bind(this),
-                option_create: function(data, escape) {
+                option_create: (data, escape)  => {
+                    //If the input starts with "->", we prepend the current selected value, for easier extension of existing values
+                    //This here handles the display part, while the createItem function handles the actual creation
+                    if (data.input.startsWith("->")) {
+                        //Get current selected value
+                        const current = this._tomSelect.getItem(this._tomSelect.getValue()).textContent.replaceAll("→", "->").trim();
+                        //Prepend it to the input
+                        if (current) {
+                            data.input = current + " " + data.input;
+                        }
+                    }
+
                     return '<div class="create"><i class="fa-solid fa-plus fa-fw"></i>&nbsp;<strong>' + escape(data.input) + '</strong>&hellip;&nbsp;' +
                         '<small class="text-muted float-end">(' + addHint +')</small>' +
                         '</div>';
@@ -76,6 +86,19 @@ export default class extends Controller {
     }
 
     createItem(input, callback) {
+
+        //If the input starts with "->", we prepend the current selected value, for easier extension of existing values
+        if (input.startsWith("->")) {
+            //Get current selected value
+            let current = this._tomSelect.getItem(this._tomSelect.getValue()).textContent.replaceAll("→", "->").trim();
+            //Replace no break spaces with normal spaces
+            current = current.replaceAll("\u00A0", " ");
+            //Prepend it to the input
+            if (current) {
+                input = current + " " + input;
+            }
+        }
+
         callback({
             //$%$ is a special value prefix, that is used to identify items, that are not yet in the DB
             value: '$%$' + input,
