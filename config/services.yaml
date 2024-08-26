@@ -306,6 +306,13 @@ services:
             $enabled: '%env(bool:PROVIDER_LCSC_ENABLED)%'
             $currency: '%env(string:PROVIDER_LCSC_CURRENCY)%'
 
+    App\Services\InfoProviderSystem\Providers\OEMSecretsProvider:
+        arguments:
+            $api_key: '%env(string:PROVIDER_OEMSECRETS_KEY)%'
+            $country_code: '%env(string:PROVIDER_OEMSECRETS_COUNTRY_CODE)%'
+            $currency: '%env(PROVIDER_OEMSECRETS_CURRENCY)%'
+            $zero_price: '%env(PROVIDER_OEMSECRETS_ZERO_PRICE)%'
+
     ####################################################################################################################
     # API system
     ####################################################################################################################
