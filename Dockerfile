@@ -5,12 +5,48 @@ FROM debian:bullseye-slim
 #    libpng-dev libjpeg-dev libfreetype6-dev gnupg zip libzip-dev libjpeg62-turbo-dev libonig-dev libxslt-dev libwebp-dev vim \
 #    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-certificates curl zip mariadb-client postgresql-client \
+RUN apt-get update && apt-get -y install \
+      apt-transport-https \
+      lsb-release \
+      ca-certificates \
+      curl \
+      zip \
+      mariadb-client \
+      postgresql-client \
     && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg  \
     && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
     && apt-get update && apt-get upgrade -y \
-    && apt-get install -y apache2 php8.1 php8.1-fpm php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql php8.1-pgsql gpg sudo \
+    && apt-get install -y \
+      apache2 \
+      php8.1 \
+      php8.1-fpm \
+      php8.1-opcache \
+      php8.1-curl \
+      php8.1-gd \
+      php8.1-mbstring \
+      php8.1-xml \
+      php8.1-bcmath \
+      php8.1-intl \
+      php8.1-zip \
+      php8.1-xsl \
+      php8.1-sqlite3 \
+      php8.1-mysql \
+      php8.1-pgsql \
+      gpg \
+      sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
+
+# Install node and yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get update && apt-get install -y \
+      nodejs \
+      yarn \
+    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
+
+# Install composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ENV APACHE_CONFDIR /etc/apache2
 ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
@@ -37,7 +73,8 @@ RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"
         chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
 
 # Enable php-fpm
-RUN a2enmod proxy_fcgi setenvif && a2enconf php8.1-fpm
+RUN a2enmod proxy_fcgi setenvif && \
+    a2enconf php8.1-fpm
 
 # Configure php-fpm to log to stdout of the container (stdout of PID 1)
 # We have to use /proc/1/fd/1 because /dev/stdout or /proc/self/fd/1 does not point to the container stdout (because we use apache as entrypoint)
@@ -89,14 +126,6 @@ RUN  \
         echo 'opcache.preload=/var/www/html/config/preload.php'; \
     } > /etc/php/8.1/fpm/conf.d/partdb.ini
 
-# Install node and yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get update && apt-get install -y nodejs yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
-
-# Install composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 
 # Set working dir
 WORKDIR /var/www/html
@@ -110,8 +139,12 @@ RUN a2enmod rewrite
 
 # Install composer and yarn dependencies for Part-DB
 USER www-data
-RUN composer install -a --no-dev && composer clear-cache
-RUN yarn install --network-timeout 600000 && yarn build && yarn cache clean && rm -rf node_modules/
+RUN composer install -a --no-dev && \
+    composer clear-cache
+RUN yarn install --network-timeout 600000 && \
+    yarn build && \
+    yarn cache clean && \
+    rm -rf node_modules/
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker
