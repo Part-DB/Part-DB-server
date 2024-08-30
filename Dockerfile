@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim
+ARG BASE_IMAGE=debian:bullseye-slim
+FROM ${BASE_IMAGE}
 
 # Install needed dependencies for PHP build
 #RUN apt-get update &&  apt-get install -y pkg-config curl libcurl4-openssl-dev libicu-dev \
@@ -34,7 +35,12 @@ RUN apt-get update && apt-get -y install \
       php8.1-pgsql \
       gpg \
       sudo \
-    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
+    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* \
+# Create workdir and set permissions if directory does not exists
+    && mkdir -p /var/www/html \
+    && chown -R www-data:www-data /var/www/html \
+# delete the "index.html" that installing Apache drops in here
+    && rm -rvf /var/www/html/*
 
 # Install node and yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -51,9 +57,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 ENV APACHE_CONFDIR /etc/apache2
 ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
 
-# Create workdir and set permissions if directory does not exists
-RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
-
 # Configure apache 2 (taken from https://github.com/docker-library/php/blob/master/8.2/bullseye/apache/Dockerfile)
 # generically convert lines like
 #   export APACHE_RUN_USER=www-data
@@ -63,18 +66,12 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 # so that they can be overridden at runtime ("-e APACHE_RUN_USER=...")
 RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"; \
       set -eux; . "$APACHE_ENVVARS";  \
-    # delete the "index.html" that installing Apache drops in here
-    	rm -rvf /var/www/html/*; \
     	\
     # logs should go to stdout / stderr
     	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
         chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
-
-# Enable php-fpm
-RUN a2enmod proxy_fcgi setenvif && \
-    a2enconf php8.1-fpm
 
 # Configure php-fpm to log to stdout of the container (stdout of PID 1)
 # We have to use /proc/1/fd/1 because /dev/stdout or /proc/self/fd/1 does not point to the container stdout (because we use apache as entrypoint)
@@ -103,8 +100,7 @@ RUN { \
 		echo '\tOptions -Indexes'; \
 		echo '\tAllowOverride All'; \
 		echo '</Directory>'; \
-	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
-	&& a2enconf docker-php
+	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf"
 
 # Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
 RUN  \
@@ -126,16 +122,19 @@ RUN  \
         echo 'opcache.preload=/var/www/html/config/preload.php'; \
     } > /etc/php/8.1/fpm/conf.d/partdb.ini
 
-
 # Set working dir
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data . .
 
 # Setup apache2
-RUN a2dissite 000-default.conf
 COPY ./.docker/symfony.conf /etc/apache2/sites-available/symfony.conf
-RUN a2ensite symfony.conf
-RUN a2enmod rewrite
+RUN a2dissite 000-default.conf && \
+    a2ensite symfony.conf && \
+# Enable php-fpm
+    a2enmod proxy_fcgi setenvif && \
+    a2enconf php8.1-fpm && \
+    a2enconf docker-php && \
+    a2enmod rewrite
 
 # Install composer and yarn dependencies for Part-DB
 USER www-data
@@ -152,10 +151,9 @@ ENV DATABASE_URL="sqlite:///%kernel.project_dir%/uploads/app.db"
 
 USER root
 
-# Copy entrypoint to /usr/local/bin and make it executable
-RUN cp ./.docker/partdb-entrypoint.sh /usr/local/bin/partdb-entrypoint.sh && chmod +x /usr/local/bin/partdb-entrypoint.sh
-# Copy apache2-foreground to /usr/local/bin and make it executable
-RUN cp ./.docker/apache2-foreground /usr/local/bin/apache2-foreground && chmod +x /usr/local/bin/apache2-foreground
+# Copy entrypoint and apache2-foreground to /usr/local/bin and make it executable
+RUN install ./.docker/partdb-entrypoint.sh /usr/local/bin && \
+    install ./.docker/apache2-foreground /usr/local/bin
 ENTRYPOINT ["partdb-entrypoint.sh"]
 CMD ["apache2-foreground"]
 
