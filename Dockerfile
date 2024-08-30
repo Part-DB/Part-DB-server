@@ -1,5 +1,8 @@
 ARG BASE_IMAGE=debian:bullseye-slim
+ARG PHP_VERSION=8.1
+
 FROM ${BASE_IMAGE} AS base
+ARG PHP_VERSION
 
 # Install needed dependencies for PHP build
 #RUN apt-get update &&  apt-get install -y pkg-config curl libcurl4-openssl-dev libicu-dev \
@@ -19,20 +22,20 @@ RUN apt-get update && apt-get -y install \
     && apt-get update && apt-get upgrade -y \
     && apt-get install -y \
       apache2 \
-      php8.1 \
-      php8.1-fpm \
-      php8.1-opcache \
-      php8.1-curl \
-      php8.1-gd \
-      php8.1-mbstring \
-      php8.1-xml \
-      php8.1-bcmath \
-      php8.1-intl \
-      php8.1-zip \
-      php8.1-xsl \
-      php8.1-sqlite3 \
-      php8.1-mysql \
-      php8.1-pgsql \
+      php${PHP_VERSION} \
+      php${PHP_VERSION}-fpm \
+      php${PHP_VERSION}-opcache \
+      php${PHP_VERSION}-curl \
+      php${PHP_VERSION}-gd \
+      php${PHP_VERSION}-mbstring \
+      php${PHP_VERSION}-xml \
+      php${PHP_VERSION}-bcmath \
+      php${PHP_VERSION}-intl \
+      php${PHP_VERSION}-zip \
+      php${PHP_VERSION}-xsl \
+      php${PHP_VERSION}-sqlite3 \
+      php${PHP_VERSION}-mysql \
+      php${PHP_VERSION}-pgsql \
       gpg \
       sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* \
@@ -76,10 +79,11 @@ RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"
 # ---
 
 FROM scratch AS apache-config
+ARG PHP_VERSION
 # Configure php-fpm to log to stdout of the container (stdout of PID 1)
 # We have to use /proc/1/fd/1 because /dev/stdout or /proc/self/fd/1 does not point to the container stdout (because we use apache as entrypoint)
 # We also disable the clear_env option to allow the use of environment variables in php-fpm
-COPY <<EOF /etc/php/8.1/fpm/pool.d/zz-docker.conf
+COPY <<EOF /etc/php/${PHP_VERSION}/fpm/pool.d/zz-docker.conf
 [global]
 error_log = /proc/1/fd/1
 
@@ -106,7 +110,7 @@ DirectoryIndex index.php index.html
 EOF
 
 # Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
-COPY <<EOF /etc/php/8.1/fpm/conf.d/symfony-recommended.ini
+COPY <<EOF /etc/php/${PHP_VERSION}/fpm/conf.d/symfony-recommended.ini
 opcache.memory_consumption=256
 opcache.max_accelerated_files=20000
 opcache.validate_timestamp=0
@@ -116,7 +120,7 @@ realpath_cache_ttl=600
 EOF
 
 # Increase upload limit and enable preloading
-COPY <<EOF /etc/php/8.1/fpm/conf.d/partdb.ini
+COPY <<EOF /etc/php/${PHP_VERSION}/fpm/conf.d/partdb.ini
 upload_max_filesize=256M
 post_max_size=300M
 opcache.preload_user=www-data
@@ -128,6 +132,7 @@ COPY ./.docker/symfony.conf /etc/apache2/sites-available/symfony.conf
 # ---
 
 FROM base
+ARG PHP_VERSION
 
 # Set working dir
 WORKDIR /var/www/html
@@ -139,7 +144,7 @@ RUN a2dissite 000-default.conf && \
     a2ensite symfony.conf && \
 # Enable php-fpm
     a2enmod proxy_fcgi setenvif && \
-    a2enconf php8.1-fpm && \
+    a2enconf php${PHP_VERSION}-fpm && \
     a2enconf docker-php && \
     a2enmod rewrite
 
