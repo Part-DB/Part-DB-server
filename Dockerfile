@@ -54,8 +54,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-ENV APACHE_CONFDIR /etc/apache2
-ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
+ENV APACHE_CONFDIR=/etc/apache2
+ENV APACHE_ENVVARS=$APACHE_CONFDIR/envvars
 
 # Configure apache 2 (taken from https://github.com/docker-library/php/blob/master/8.2/bullseye/apache/Dockerfile)
 # generically convert lines like
