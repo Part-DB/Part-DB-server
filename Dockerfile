@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=debian:bullseye-slim
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS base
 
 # Install needed dependencies for PHP build
 #RUN apt-get update &&  apt-get install -y pkg-config curl libcurl4-openssl-dev libicu-dev \
@@ -73,61 +73,68 @@ RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
         chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
 
+# ---
+
+FROM scratch AS apache-config
 # Configure php-fpm to log to stdout of the container (stdout of PID 1)
 # We have to use /proc/1/fd/1 because /dev/stdout or /proc/self/fd/1 does not point to the container stdout (because we use apache as entrypoint)
 # We also disable the clear_env option to allow the use of environment variables in php-fpm
-RUN { \
-    echo '[global]'; \
-    echo 'error_log = /proc/1/fd/1'; \
-    echo; \
-    echo '[www]'; \
-    echo 'access.log = /proc/1/fd/1'; \
-    echo 'catch_workers_output = yes'; \
-    echo 'decorate_workers_output = no'; \
-    echo 'clear_env = no'; \
-   } | tee "/etc/php/8.1/fpm/pool.d/zz-docker.conf"
+COPY <<EOF /etc/php/8.1/fpm/pool.d/zz-docker.conf
+[global]
+error_log = /proc/1/fd/1
+
+[www]
+access.log = /proc/1/fd/1
+catch_workers_output = yes
+decorate_workers_output = no
+clear_env = no
+EOF
 
 # PHP files should be handled by PHP, and should be preferred over any other file type
-RUN { \
-		echo '<FilesMatch \.php$>'; \
-		echo '\tSetHandler application/x-httpd-php'; \
-		echo '</FilesMatch>'; \
-		echo; \
-		echo 'DirectoryIndex disabled'; \
-		echo 'DirectoryIndex index.php index.html'; \
-		echo; \
-		echo '<Directory /var/www/>'; \
-		echo '\tOptions -Indexes'; \
-		echo '\tAllowOverride All'; \
-		echo '</Directory>'; \
-	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf"
+COPY <<EOF /etc/apache2/conf-available/docker-php.conf
+<FilesMatch \\.php$>
+	SetHandler application/x-httpd-php
+</FilesMatch>
+
+DirectoryIndex disabled
+DirectoryIndex index.php index.html
+
+<Directory /var/www/>
+	Options -Indexes
+	AllowOverride All
+</Directory>
+EOF
 
 # Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
-RUN  \
-	{ \
-		echo 'opcache.memory_consumption=256'; \
-		echo 'opcache.max_accelerated_files=20000'; \
-		echo 'opcache.validate_timestamp=0'; \
-        # Configure Realpath cache for performance
-        echo 'realpath_cache_size=4096K'; \
-        echo 'realpath_cache_ttl=600'; \
-    } > /etc/php/8.1/fpm/conf.d/symfony-recommended.ini
+COPY <<EOF /etc/php/8.1/fpm/conf.d/symfony-recommended.ini
+opcache.memory_consumption=256
+opcache.max_accelerated_files=20000
+opcache.validate_timestamp=0
+# Configure Realpath cache for performance
+realpath_cache_size=4096K
+realpath_cache_ttl=600
+EOF
 
 # Increase upload limit and enable preloading
-RUN  \
-	{ \
-		echo 'upload_max_filesize=256M'; \
-		echo 'post_max_size=300M'; \
-        echo 'opcache.preload_user=www-data'; \
-        echo 'opcache.preload=/var/www/html/config/preload.php'; \
-    } > /etc/php/8.1/fpm/conf.d/partdb.ini
+COPY <<EOF /etc/php/8.1/fpm/conf.d/partdb.ini
+upload_max_filesize=256M
+post_max_size=300M
+opcache.preload_user=www-data
+opcache.preload=/var/www/html/config/preload.php
+EOF
+
+COPY ./.docker/symfony.conf /etc/apache2/sites-available/symfony.conf
+
+# ---
+
+FROM base
 
 # Set working dir
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data . .
+COPY --from=apache-config / /
 
 # Setup apache2
-COPY ./.docker/symfony.conf /etc/apache2/sites-available/symfony.conf
 RUN a2dissite 000-default.conf && \
     a2ensite symfony.conf && \
 # Enable php-fpm
