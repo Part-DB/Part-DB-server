@@ -136,8 +136,8 @@ ARG PHP_VERSION
 
 # Set working dir
 WORKDIR /var/www/html
-COPY --chown=www-data:www-data . .
 COPY --from=apache-config / /
+COPY --chown=www-data:www-data . .
 
 # Setup apache2
 RUN a2dissite 000-default.conf && \
