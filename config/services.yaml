@@ -312,6 +312,9 @@ services:
             $country_code: '%env(string:PROVIDER_OEMSECRETS_COUNTRY_CODE)%'
             $currency: '%env(PROVIDER_OEMSECRETS_CURRENCY)%'
             $zero_price: '%env(PROVIDER_OEMSECRETS_ZERO_PRICE)%'
+            $set_param: '%env(PROVIDER_OEMSECRETS_SET_PARAM)%'
+            $sort_criteria: '%env(PROVIDER_OEMSECRETS_SORT_CRITERIA)%'
+
 
     ####################################################################################################################
     # API system

@@ -25,22 +25,35 @@
  * about electronic components. Since the API does not provide a unique identifier for each part, the class aggregates
  * results based on "part_number" and "manufacturer_id". It also transforms unstructured descriptions into structured 
  * parameters and aggregates datasheets and images provided by multiple distributors.
+ * The OEMSecrets API returns results by matching the provided part number not only with the original part number 
+ * but also with the distributor-assigned part number and/or the part description.
  * 
  * Key functionalities:
  * - Aggregation of results based on part_number and manufacturer_id to ensure unique identification of parts.
  * - Conversion of component descriptions into structured parameters (ParameterDTO) for better clarity and searchability.
  * - Aggregation of datasheets and images from multiple distributors, ensuring that all available resources are collected.
  * - Price handling, including filtering of distributors that offer zero prices, controlled by the `zero_price` configuration variable.
+ * - A sorting algorithm that first prioritizes exact matches with the keyword, followed by alphabetical sorting of items 
+ *   with the same prefix (e.g., "BC546", "BC546A", "BC546B"), and finally, sorts by either manufacturer or completeness 
+ *   based on the specified criteria.
+ * - Sorting the distributors: 
+ *   1. Environment's country_code first.
+ *   2. Region matching environment's country_code, prioritizing "Global" ('XX').
+ *   3. Distributors with null country_code/region are placed last.
+ *   4. Final fallback is alphabetical sorting by region and country_code.
  * 
  * Configuration:
- * - The `zero_price` variable must be set in the `.env.local` file. If `zero_price` is set to 0, the class will skip 
- *   distributors that do not offer valid prices for the components.
+ * - The ZERO_PRICE variable must be set in the `.env.local` file. If is set to 0, the class will skip distributors 
+ *   that do not offer valid prices for the components.
  * - Currency and country settings can also be specified for localized pricing and distributor filtering.
- * 
- * Example Usage:
- * - `searchByKeyword`: This method takes a keyword and searches the OEMSecrets database for matching electronic components,
- *   aggregating results by part_number and manufacturer, and storing them in session for later retrieval.
- * - `getDetails`: Returns detailed information about a specific part, including parameters, images, and purchase information.
+ * - Generation of parameters: if SET_PARAM is set to 1 the parameters for the part are generated from the description 
+ *   transforming unstructured descriptions into structured parameters; each parameter in description should have the form:
+ *   "...;name1:value1;name2:value2"
+ * - Sorting is guided by SORT_CRITERIA variable. The sorting process first arranges items based on the provided keyword. 
+ *   Then, if set to 'C', it further sorts by completeness (prioritizing items with the most detailed information). 
+ *   If set to 'M', it further sorts by manufacturer name. If unset or set to any other value, no sorting is performed.
+ *   Distributors within each item are further sorted based on country_code and region, following the rules explained 
+ *   in the previous comment.
  * 
  * Data Handling:
  * - The class divides and stores component information across multiple session arrays:
@@ -55,14 +68,12 @@
  * 
  * Technical Details:
  * - Uses OEMSecrets API (version 3.0.1) to retrieve component data.
- * - Supports memory optimization techniques by clearing unused data from memory after processing batches of products.
- * - The class uses the session to store data temporarily for retrieval across multiple API requests and user actions.
  * - Data processing includes sanitizing input, avoiding duplicates, and dynamically adjusting information as new distributor 
  *   data becomes available (e.g., adding missing datasheets or parameters from subsequent API responses).
  * 
  * @package App\Services\InfoProviderSystem\Providers
  * @author Pasquale D'Orsi (https://github.com/pdo59)
- * @version 1.0.0
+ * @version 1.2.0
  * @since 2024 August
  */
 
@@ -79,8 +90,7 @@ use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-
-use Symfony\Component\HttpFoundation\RequestStack;
+use Psr\Cache\CacheItemPoolInterface;
 
 
 class OEMSecretsProvider implements InfoProviderInterface
@@ -96,18 +106,151 @@ class OEMSecretsProvider implements InfoProviderInterface
         private readonly string $country_code,
         private readonly string $currency,
         private readonly string $zero_price,
-        private readonly RequestStack $requestStack  
-    ) {
+        private readonly string $set_param,
+        private readonly string $sort_criteria,
+        private readonly CacheItemPoolInterface $partInfoCache
+    ) 
+    {
     }
 
-    // Store each data category in separate arrays in the session
+    // Store each data category in separate arrays
+    // PHPStan is currently flagging these arrays with the message "is never read, only written," 
+    // which is unnecessary. The arrays in question are indeed being read, but on a per-element basis 
+    // rather than as whole arrays. To avoid cluttering the code with redundant checks that do not improve 
+    // functionality or performance, it's best to ignore this specific warning.
+    //
+    // @phpstan-ignore-next-line
     private array $basicInfoResults = [];
+    // @phpstan-ignore-next-line
     private array $datasheetsResults = [];
+    // @phpstan-ignore-next-line
     private array $imagesResults = [];
+    // @phpstan-ignore-next-line
     private array $parametersResults = [];
+    // @phpstan-ignore-next-line
     private array $purchaseInfoResults = [];
+    
+    private array $resultsData = [];
+    
+    private array $countryNameToCodeMap = [
+        'Andorra' => 'AD',
+        'United Arab Emirates' => 'AE',
+        'Antarctica' => 'AQ',
+        'Argentina' => 'AR',
+        'Austria' => 'AT',
+        'Australia' => 'AU',
+        'Belgium' => 'BE',
+        'Bolivia' => 'BO',
+        'Brazil' => 'BR',
+        'Bouvet Island' => 'BV',
+        'Belarus' => 'BY',
+        'Canada' => 'CA',
+        'Switzerland' => 'CH',
+        'Chile' => 'CL',
+        'China' => 'CN',
+        'Colombia' => 'CO',
+        'Czech Republic' => 'CZ',
+        'Germany' => 'DE',
+        'Denmark' => 'DK',
+        'Ecuador' => 'EC',
+        'Estonia' => 'EE',
+        'Western Sahara' => 'EH',
+        'Spain' => 'ES',
+        'Finland' => 'FI',
+        'Falkland Islands' => 'FK',
+        'Faroe Islands' => 'FO',
+        'France' => 'FR',
+        'United Kingdom' => 'GB',
+        'Georgia' => 'GE',
+        'French Guiana' => 'GF',
+        'Guernsey' => 'GG',
+        'Gibraltar' => 'GI',
+        'Greenland' => 'GL',
+        'Greece' => 'GR',
+        'South Georgia and the South Sandwich Islands' => 'GS',
+        'Guyana' => 'GY',
+        'Hong Kong' => 'HK',
+        'Heard Island and McDonald Islands' => 'HM',
+        'Croatia' => 'HR',
+        'Hungary' => 'HU',
+        'Ireland' => 'IE',
+        'Isle of Man' => 'IM',
+        'India' => 'IN',
+        'Iceland' => 'IS',
+        'Italy' => 'IT',
+        'Jamaica' => 'JM',
+        'Japan' => 'JP',
+        'North Korea' => 'KP',
+        'South Korea' => 'KR',
+        'Kazakhstan' => 'KZ',
+        'Liechtenstein' => 'LI',
+        'Sri Lanka' => 'LK',
+        'Lithuania' => 'LT',
+        'Luxembourg' => 'LU',
+        'Monaco' => 'MC',
+        'Moldova' => 'MD',
+        'Montenegro' => 'ME',
+        'North Macedonia' => 'MK',
+        'Malta' => 'MT',
+        'Netherlands' => 'NL',
+        'Norway' => 'NO',
+        'New Zealand' => 'NZ',
+        'Peru' => 'PE',
+        'Philippines' => 'PH',
+        'Poland' => 'PL',
+        'Portugal' => 'PT',
+        'Paraguay' => 'PY',
+        'Romania' => 'RO',
+        'Serbia' => 'RS',
+        'Russia' => 'RU',
+        'Solomon Islands' => 'SB',
+        'Sudan' => 'SD',
+        'Sweden' => 'SE',
+        'Singapore' => 'SG',
+        'Slovenia' => 'SI',
+        'Svalbard and Jan Mayen' => 'SJ',
+        'Slovakia' => 'SK',
+        'San Marino' => 'SM',
+        'Somalia' => 'SO',
+        'Suriname' => 'SR',
+        'Syria' => 'SY',
+        'Eswatini' => 'SZ',
+        'Turks and Caicos Islands' => 'TC',
+        'French Southern Territories' => 'TF',
+        'Togo' => 'TG',
+        'Thailand' => 'TH',
+        'Tajikistan' => 'TJ',
+        'Tokelau' => 'TK',
+        'Turkmenistan' => 'TM',
+        'Tunisia' => 'TN',
+        'Tonga' => 'TO',
+        'Turkey' => 'TR',
+        'Trinidad and Tobago' => 'TT',
+        'Tuvalu' => 'TV',
+        'Taiwan' => 'TW',
+        'Tanzania' => 'TZ',
+        'Ukraine' => 'UA',
+        'Uganda' => 'UG',
+        'United States Minor Outlying Islands' => 'UM',
+        'United States' => 'US',
+        'Uruguay' => 'UY',
+        'Uzbekistan' => 'UZ',
+        'Vatican City' => 'VA',
+        'Venezuela' => 'VE',
+        'British Virgin Islands' => 'VG',
+        'U.S. Virgin Islands' => 'VI',
+        'Vietnam' => 'VN',
+        'Vanuatu' => 'VU',
+        'Wallis and Futuna' => 'WF',
+        'Yemen' => 'YE',
+        'South Africa' => 'ZA',
+        'Zambia' => 'ZM',
+        'Zimbabwe' => 'ZW',
+        'Global' => 'XX'
+    ];
 
-
+    private array $distributorCountryCodes = [];
+    private array $countryCodeToRegionMap = [];
 
     /**
      * Get information about this provider
@@ -152,9 +295,17 @@ class OEMSecretsProvider implements InfoProviderInterface
     
 
     /**
-     * Searches for a keyword and returns a list of search results
-     * @param  string  $keyword The keyword to search for
-     * @return SearchResultDTO[] A list of search results
+     * Searches for products based on a given keyword using the OEMsecrets Part Search API.
+     * 
+     * This method queries the OEMsecrets API to retrieve distributor data for the provided part number,
+     * including details such as pricing, compliance, and inventory. It supports both direct API queries
+     * and debugging with local JSON files. The results are processed, cached, and then sorted based 
+     * on the keyword and specified criteria.
+     * 
+     * @param  string  $keyword The part number to search for
+     * @return array An array of processed product details, sorted by relevance and additional criteria.
+     * 
+     * @throws \Exception If the JSON file used for debugging is not found or contains errors.
      */
     public function searchByKeyword(string $keyword): array
     {
@@ -185,20 +336,13 @@ class OEMSecretsProvider implements InfoProviderInterface
         
         To view prices in both USD and GBP add [ currency[]=USD&currency[]=GBP ]
         oemsecretsapi.com/partsearch?searchTerm=bd04&apiKey=abcexampleapikey123&currency[]=USD&currency[]=GBP
-
+        
         */           
 
-    
-        $session = $this->requestStack->getCurrentRequest()->getSession();
-        $session->remove('basic_info_results');
-        $session->remove('datasheets_results');
-        $session->remove('images_results');
-        $session->remove('parameters_results');
-        $session->remove('purchase_info_results');
-        //throw new \Exception("Session purged.");
 
         // Activate this block when querying the real APIs
         //------------------
+        
         $response = $this->oemsecretsClient->request('GET', self::ENDPOINT_URL, [
             'query' => [
                 'searchTerm' => $keyword,
@@ -207,30 +351,26 @@ class OEMSecretsProvider implements InfoProviderInterface
                 'countryCode' => $this->country_code,
             ],
         ]);
+
         $response_array = $response->toArray();
-        //------------------
+        //------------------*/
 
         // Or activate this block when we use json file for debugging
-        //------------------
-        /*
-        $jsonFilePath = 'response_1724678208985.json'; // 'response_1724245205141.json'; //'response_44-elem.json'; //'response_1724245205141.json'; //;  //'response_44-elem.json'; // 'mock_data.json';
-
+        /*/------------------
+        $jsonFilePath = '';
         if (!file_exists($jsonFilePath)) {
-            throw new \Exception("Il file JSON non è stato trovato.");
+            throw new \Exception("JSON file not found.");
         }
         $jsonContent = file_get_contents($jsonFilePath);
         $response_array = json_decode($jsonContent, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception("Errore nella decodifica del JSON: " . json_last_error_msg());
+            throw new \Exception("JSON file decode failed: " . json_last_error_msg());
         }
-        //------------------
-        */
-
+        //------------------*/
+        
         $products = $response_array['stock'] ?? [];
-        //dump($products);
-        //throw new \Exception("Products");
-
+        
         $basicInfoResults = [];
         $datasheetsResults = [];
         $imagesResults = [];
@@ -238,82 +378,78 @@ class OEMSecretsProvider implements InfoProviderInterface
         $purchaseInfoResults = [];
 
         foreach ($products as $product) {
-            $this->processBatch($product, $basicInfoResults, $datasheetsResults, $imagesResults, $parametersResults, $purchaseInfoResults);
+            if (!isset($product['part_number'], $product['manufacturer'])) {
+                continue; // Skip invalid product entries
+            }
+            $provider_id = $this->generateProviderId($product['part_number'], $product['manufacturer']);
+
+            $partDetailDTO = $this->processBatch(
+                $product, 
+                $provider_id, 
+                $basicInfoResults, 
+                $datasheetsResults, 
+                $imagesResults, 
+                $parametersResults, 
+                $purchaseInfoResults
+            );
+
+            if ($partDetailDTO !== null) {
+                $this->resultsData[$provider_id] = $partDetailDTO;
+                $cacheKey = $this->getCacheKey($provider_id);
+                $cacheItem = $this->partInfoCache->getItem($cacheKey);
+                $cacheItem->set($partDetailDTO);
+                $cacheItem->expiresAfter(3600 * 24); 
+                $this->partInfoCache->save($cacheItem);
+            }
         }
 
-        $session->set('basic_info_results', $basicInfoResults);
-        $session->set('datasheets_results', $datasheetsResults);
-        $session->set('images_results', $imagesResults);
-        $session->set('parameters_results', $parametersResults);
-        $session->set('purchase_info_results', $purchaseInfoResults);
-        
-        //throw new \Exception("Session created.");
+        // Sort of the results
+        $this->sortResultsData($this->resultsData, $keyword); 
+        return $this->resultsData;
 
-        $this->sortBasicInfoByKeywordSimilarity($basicInfoResults, $keyword);
-
-        return $basicInfoResults; 
     }
 
     /**
-     * Returns detailed information about the part with the given id
-     * @param  string  $id
-     * @return PartDetailDTO
+     * Generates a cache key for storing part details based on the provided provider ID.
+     * 
+     * This method creates a unique cache key by prefixing the provider ID with 'part_details_' 
+     * and hashing the provider ID using MD5 to ensure a consistent and compact key format.
+     * 
+     * @param string $provider_id The unique identifier of the provider or part.
+     * @return string The generated cache key.
+     */
+    private function getCacheKey(string $provider_id): string {
+        return 'part_details_' . md5($provider_id);
+    }
+
+
+    /**
+     * Retrieves detailed information about the part with the given provider ID from the cache.
+     *
+     * This method checks the cache for the details of the specified part. If the details are
+     * found in the cache, they are returned. If not, an exception is thrown indicating that 
+     * the details could not be found.
+     *
+     * @param string $provider_id The unique identifier of the provider or part.
+     * @return PartDetailDTO The detailed information about the part.
+     *
+     * @throws \Exception If no details are found for the given provider ID.
      */
     public function getDetails(string $provider_id): PartDetailDTO
     {
-        // Get the session from the current request via RequestStack
-        $session = $this->requestStack->getCurrentRequest()->getSession();
+        $cacheKey = $this->getCacheKey($provider_id);
+        $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
-        // Retrieve the data related to provider_id from the various arrays saved in the session directly
-        $basicInfo = $session->get('basic_info_results')[$provider_id] ?? null;
-        $datasheets = $session->get('datasheets_results')[$provider_id] ?? [];
-        $images = $session->get('images_results')[$provider_id] ?? [];
-        $parameters = $session->get('parameters_results')[$provider_id] ?? [];
-        $purchaseInfos = $session->get('purchase_info_results')[$provider_id] ?? [];
-
-        // If the basicInfo does not exist, return a default PartDetailDTO to indicate that the product was not found
-        if ($basicInfo === null) {
-            return new PartDetailDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: 'unknown',
-                name: 'Product not found',
-                description: 'No description available',
-                category: null,
-                manufacturer: null,
-                mpn: null,
-                preview_image_url: null,
-                manufacturing_status: null,
-                provider_url: null,
-                datasheets: [],
-                images: [],
-                parameters: [],
-                vendor_infos: [],
-                notes: null,
-                footprint: null
-            );
+        if ($cacheItem->isHit()) {
+            $details = $cacheItem->get();
+        } else {
+            // If the details are not found in the cache, throw an exception
+            throw new \Exception("Details not found for provider_id $provider_id");
         }
 
-        // Rebuild and return the PartDetailDTO object with all aggregated data
-        return new PartDetailDTO(
-            provider_key: $basicInfo['provider_key'] ?? $this->getProviderKey(),
-            provider_id: $basicInfo['provider_id'] ?? $provider_id,
-            name: $basicInfo['name'] ?? 'Unknown',
-            description: $basicInfo['description'] ?? 'No description available',
-            category: $basicInfo['category'] ?? null,
-            manufacturer: $basicInfo['manufacturer'] ?? null,
-            mpn: $basicInfo['mpn'] ?? null,
-            preview_image_url: $basicInfo['preview_image_url'] ?? null,
-            manufacturing_status: $basicInfo['manufacturing_status'] ?? null,
-            provider_url: $basicInfo['provider_url'] ?? null,
-            datasheets: $datasheets,
-            images: $images,
-            parameters: $parameters,
-            vendor_infos: $purchaseInfos,
-            notes: $basicInfo['notes'] ?? null, 
-            footprint: null
-        );
-
+        return $details;
     }
+
     
     /**
      * A list of capabilities this provider supports (which kind of data it can provide).
@@ -331,18 +467,23 @@ class OEMSecretsProvider implements InfoProviderInterface
         ];
     }
 
+
     /**
      * Processes a single product and updates arrays for basic information, datasheets, images, parameters,
      * and purchase information. Aggregates and organizes data received for a specific `part_number` and `manufacturer_id`.
+     * Distributors within the product are also sorted based on country_code and region.
      *
      * @param array $product The product data received from the OEMSecrets API.
+     * @param string $provider_id A string that contains the unique key created for the part
      * @param array &$basicInfoResults Array containing the basic product information (e.g., name, description, category).
      * @param array &$datasheetsResults Array containing datasheets collected from various distributors for the product.
      * @param array &$imagesResults Array containing images of the product collected from various distributors.
      * @param array &$parametersResults Array containing technical parameters extracted from the product descriptions.
      * @param array &$purchaseInfoResults Array containing purchase information, including distributors and pricing details.
      *
-     * @return void
+     * @return PartDetailDTO|null Returns a PartDetailDTO object if the product is processed successfully, otherwise null.
+     * 
+     * @throws \Exception If a required key in the product data is missing or if there is an issue creating the DTO.
      * 
      * @see createOrUpdateBasicInfo() Creates or updates the basic product information.
      * @see getPrices() Extracts the pricing information for the product.
@@ -351,24 +492,46 @@ class OEMSecretsProvider implements InfoProviderInterface
      * @see getParameters() Extracts technical parameters from the product description.
      * @see createPurchaseInfoDTO() Creates a PurchaseInfoDTO containing distributor and price information.
      *
+     * @note Distributors within the product are sorted by country_code and region:
+     *       1. Distributors with the environment's country_code come first.
+     *       2. Distributors in the same region as the environment's country_code are next, 
+     *          with "Global" ('XX') prioritized within this region.
+     *       3. Distributors with null country_code or region are placed last.
+     *       4. Remaining distributors are sorted alphabetically by region and country_code.
+ 
      */
-    private function processBatch(
+     private function processBatch( 
         array $product, 
+        string $provider_id,
         array &$basicInfoResults, 
         array &$datasheetsResults, 
         array &$imagesResults, 
         array &$parametersResults, 
-        array &$purchaseInfoResults
-    ): void {
+        array &$purchaseInfoResults 
+     ): ?PartDetailDTO
+    {   
+        if (!isset($product['manufacturer'], $product['part_number'])) {
+            throw new \Exception("Missing required product data: 'manufacturer' or 'part_number'");
+        }
+
         $manufacturer = $product['manufacturer'];
         $part_number = $product['part_number'];
-    
-        if (is_null($manufacturer) || is_null($part_number)) {
-            return;
+
+        // Retrieve the country_code associated with the distributor and store it in the $distributorCountryCodes array.
+        $distributorCountry = $product['distributor']['distributor_country'] ?? null;
+        $distributorName = $product['distributor']['distributor_name'] ?? null;
+        $distributorRegion = $product['distributor']['distributor_region'] ?? null;
+
+        if ($distributorCountry && $distributorName) {
+            $countryCode = $this->mapCountryNameToCode($distributorCountry);
+            if ($countryCode) {
+                $this->distributorCountryCodes[$distributorName] = $countryCode;
+            }
+            if ($distributorRegion) {
+                $this->countryCodeToRegionMap[$countryCode] = $distributorRegion;
+            }
         }
-    
-        $provider_id = trim($part_number) . '|' . trim($manufacturer);
-    
+
         // Truncate the description and handle notes
         $thenotes = '';
         $description = $product['description'] ?? '';
@@ -380,78 +543,195 @@ class OEMSecretsProvider implements InfoProviderInterface
         // Extract prices
         $priceDTOs = $this->getPrices($product);
         if (empty($priceDTOs) && (int)$this->zero_price === 0) {
-            return; // Skip products without valid prices
+            return null; // Skip products without valid prices
         }
 
         $existingBasicInfo = isset($basicInfoResults[$provider_id]) && is_array($basicInfoResults[$provider_id]) 
         ? $basicInfoResults[$provider_id] 
         : [];
 
-        // Ensure $existingBasicInfo is an array, otherwise initialize it as an empty array
-        if (!is_array($existingBasicInfo)) {
-            $existingBasicInfo = [];
-        }
-        
         $basicInfoResults[$provider_id] = $this->createOrUpdateBasicInfo(
             $provider_id, 
             $product, 
             $description, 
             $thenotes, 
-            $existingBasicInfo);
-    
+            $existingBasicInfo
+        );
     
         // Update images, datasheets, and parameters
         
         $newDatasheets = $this->parseDataSheets($product['datasheet_url'] ?? null, null, $datasheetsResults[$provider_id] ?? []);
         if ($newDatasheets !== null) {
             $datasheetsResults[$provider_id] = array_merge($datasheetsResults[$provider_id] ?? [], $newDatasheets);
-            //dump("Provider: " . $provider_id);
-            //dump($datasheetsResults[$provider_id]);
         }
         
         $imagesResults[$provider_id] = $this->getImages($product, $imagesResults[$provider_id] ?? []);
+        if ($this->set_param == 1) {
+            $parametersResults[$provider_id] = $this->getParameters($product, $parametersResults[$provider_id] ?? []);
+        } else {
+            $parametersResults[$provider_id] = [];
+        }
 
-        $parametersResults[$provider_id] = $this->getParameters($product, $parametersResults[$provider_id] ?? []);
-    
         // Handle purchase information
         $currentDistributor = $this->createPurchaseInfoDTO($product, $priceDTOs, $purchaseInfoResults[$provider_id] ?? []);
-    
-        // Update purchaseInfoResults only if the distributor is valid
         if ($currentDistributor !== null) {
             $purchaseInfoResults[$provider_id][] = $currentDistributor;
         }
 
-        // Force garbage collection to deallocate unused memory cycles
-        gc_collect_cycles();
-    }
+        // If there is data in $purchaseInfoResults, sort it before creating the PartDetailDTO
+        if (!empty($purchaseInfoResults[$provider_id])) {
+            usort($purchaseInfoResults[$provider_id], function ($a, $b) {
+                $nameA = $a->distributor_name;
+                $nameB = $b->distributor_name;
+
+                $countryCodeA = $this->distributorCountryCodes[$nameA] ?? null;
+                $countryCodeB = $this->distributorCountryCodes[$nameB] ?? null;
+                
+                $regionA = $this->countryCodeToRegionMap[$countryCodeA] ?? '';
+                $regionB = $this->countryCodeToRegionMap[$countryCodeB] ?? '';
+
+                // If the map is empty or doesn't contain the key for $this->country_code, assign a placeholder region.
+                $regionForEnvCountry = $this->countryCodeToRegionMap[$this->country_code] ?? '';
+                
+                // Convert to string before comparison to avoid mixed types
+                $countryCodeA = (string) $countryCodeA;
+                $countryCodeB = (string) $countryCodeB;
+                $regionA = (string) $regionA;
+                $regionB = (string) $regionB;
+
+
+                // Step 0: If either country code is null, place it at the end
+                if ($countryCodeA === '' || $regionA === '') {
+                    return 1; // Metti A dopo B
+                } elseif ($countryCodeB === '' || $regionB === '') {
+                    return -1; // Metti B dopo A
+                }
+
+                // Step 1: country_code from the environment
+                if ($countryCodeA === $this->country_code && $countryCodeB !== $this->country_code) {
+                    return -1; 
+                } elseif ($countryCodeA !== $this->country_code && $countryCodeB === $this->country_code) {
+                    return 1;  
+                }
+
+                // Step 2: Sort by environment's region, prioritizing "Global" (XX)
+                if ($regionA === $regionForEnvCountry && $regionB !== $regionForEnvCountry) {
+                    return -1;
+                } elseif ($regionA !== $regionForEnvCountry && $regionB === $regionForEnvCountry) {
+                    return 1;
+                }
+
+                // Step 3: If regions are the same, prioritize "Global" (XX)
+                if ($regionA === $regionB) {
+                    if ($countryCodeA === 'XX' && $countryCodeB !== 'XX') {
+                        return -1;
+                    } elseif ($countryCodeA !== 'XX' && $countryCodeB === 'XX') {
+                        return 1;
+                    }
+                }
+                
+                // Step 4: Alphabetical sorting by region and country_code
+                $regionComparison = strcasecmp($regionA , $regionB);
+                if ($regionComparison !== 0) {
+                    return $regionComparison;
+                }
+
+                // Alphabetical sorting as a fallback
+                return strcasecmp($countryCodeA, $countryCodeB);
+            });
+        }
+        // Convert the gathered data into a PartDetailDTO
         
-    /**
+        $partDetailDTO = new PartDetailDTO(
+            provider_key: $basicInfoResults[$provider_id]['provider_key'],
+            provider_id: $provider_id,
+            name: $basicInfoResults[$provider_id]['name'],
+            description: $basicInfoResults[$provider_id]['description'],
+            category: $basicInfoResults[$provider_id]['category'],
+            manufacturer: $basicInfoResults[$provider_id]['manufacturer'],
+            mpn: $basicInfoResults[$provider_id]['mpn'],
+            preview_image_url: $basicInfoResults[$provider_id]['preview_image_url'],
+            manufacturing_status: $basicInfoResults[$provider_id]['manufacturing_status'],
+            provider_url: $basicInfoResults[$provider_id]['provider_url'],
+            vendor_infos: $purchaseInfoResults[$provider_id] ?? [],
+            datasheets: $datasheetsResults[$provider_id] ?? [],
+            images: $imagesResults[$provider_id] ?? [],
+            parameters: $parametersResults[$provider_id] ?? [],
+            notes: $basicInfoResults[$provider_id]['notes'] ?? null,
+            footprint: $basicInfoResults[$provider_id]['footprint'] ?? null
+        );
+
+        // Force garbage collection to deallocate unused memory cycles
+        // Without this instruction, when in dev mode, after the first or second call to getDetails, 
+        // a memory error occurs due to memory not being freed properly, leading to memory exhaustion.
+        gc_collect_cycles();
+        
+        return $partDetailDTO;
+    }
+
+
+   /**
      * Extracts pricing information from the product data, converts it to PriceDTO objects,
      * and returns them as an array.
      *
-     * @param array $product The product data from the OEMSecrets API containing price details.
+     * @param array{
+     *     prices?: array<string, array<array{
+     *         unit_break: mixed,
+     *         unit_price: mixed
+     *     }>>,
+     *     source_currency?: string
+     * } $product The product data from the OEMSecrets API containing price details.
      *
      * @return PriceDTO[] Array of PriceDTO objects representing different price tiers for the product.
      */
     private function getPrices(array $product): array
     {
         $prices = $product['prices'] ?? [];
+        $sourceCurrency = $product['source_currency'] ?? null;
         $priceDTOs = [];
 
-        if (isset($prices[$this->currency])) {
-            $priceDetails = $prices[$this->currency];
+        // Flag to check if we have added prices in the preferred currency
+        $foundPreferredCurrency = false;
 
-            if (is_array($priceDetails)) {
+        if (is_array($prices)) {
+            // Step 1: Check if prices exist in the preferred currency
+            if (isset($prices[$this->currency]) && is_array($prices[$this->currency])) {
+                $priceDetails = $prices[$this->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&
                         isset($priceDetail['unit_break'], $priceDetail['unit_price']) &&
+                        is_numeric($priceDetail['unit_break']) &&
+                        is_string($priceDetail['unit_price']) &&
                         $priceDetail['unit_price'] !== "0.0000"
                     ) {
                         $priceDTOs[] = new PriceDTO(
                             minimum_discount_amount: (float)$priceDetail['unit_break'],
                             price: (string)$priceDetail['unit_price'],
                             currency_iso_code: $this->currency,
+                            includes_tax: false,
+                            price_related_quantity: 1.0
+                        );
+                        $foundPreferredCurrency = true;
+                    }
+                }
+            }
+
+            // Step 2: If no prices in the preferred currency, use source currency
+            if (!$foundPreferredCurrency && $sourceCurrency && isset($prices[$sourceCurrency]) && is_array($prices[$sourceCurrency])) {
+                $priceDetails = $prices[$sourceCurrency];
+                foreach ($priceDetails as $priceDetail) {
+                    if (
+                        is_array($priceDetail) &&
+                        isset($priceDetail['unit_break'], $priceDetail['unit_price']) &&
+                        is_numeric($priceDetail['unit_break']) &&
+                        is_string($priceDetail['unit_price']) &&
+                        $priceDetail['unit_price'] !== "0.0000"
+                    ) {
+                        $priceDTOs[] = new PriceDTO(
+                            minimum_discount_amount: (float)$priceDetail['unit_break'],
+                            price: (string)$priceDetail['unit_price'],
+                            currency_iso_code: $sourceCurrency,
                             includes_tax: false,
                             price_related_quantity: 1.0
                         );
@@ -463,11 +743,13 @@ class OEMSecretsProvider implements InfoProviderInterface
         return $priceDTOs;
     }
 
+
     /**
      * Retrieves product images provided by the distributor. Prevents duplicates based on the image name.
-     *
-     * @param array $product The product data from the OEMSecrets API containing image URLs.
-     * @param array|null $existingImages Optional. Existing images for the product to avoid duplicates.
+     * @param array{
+     *     image_url?: string
+     * } $product The product data from the OEMSecrets API containing image URLs.
+     * @param FileDTO[] $existingImages Optional. Existing images for the product to avoid duplicates.
      *
      * @return FileDTO[] Array of FileDTO objects representing the product images.
      */
@@ -478,19 +760,20 @@ class OEMSecretsProvider implements InfoProviderInterface
     
         if ($imageUrl) {
             $imageName = basename(parse_url($imageUrl, PHP_URL_PATH));
-            if (!in_array($imageName, array_column($images, 'name'))) {
+            if (!in_array($imageName, array_column($images, 'name'), true)) {
                 $images[] = new FileDTO(url: $imageUrl, name: $imageName);
             }
         }
-    
         return $images;
     }
     
     /**
      * Extracts technical parameters from the product description, ensures no duplicates, and returns them as an array.
      *
-     * @param array $product The product data from the OEMSecrets API containing product descriptions.
-     * @param array|null $existingParameters Optional. Existing parameters for the product to avoid duplicates.
+     * @param array{
+     *     description?: string
+     * } $product The product data from the OEMSecrets API containing product descriptions.
+     * @param ParameterDTO[] $existingParameters Optional. Existing parameters for the product to avoid duplicates.
      *
      * @return ParameterDTO[] Array of ParameterDTO objects representing technical parameters extracted from the product description.
      */
@@ -523,11 +806,19 @@ class OEMSecretsProvider implements InfoProviderInterface
         return $parameters;
     }
 
-    /**
+   /**
      * Creates a PurchaseInfoDTO object containing distributor and pricing information for a product.
      * Ensures that the distributor name is valid and prices are available.
      *
-     * @param array $product The product data from the OEMSecrets API.
+     * @param array{
+     *     distributor?: array{
+     *         distributor_name?: string
+     *     },
+     *     sku?: string,
+     *     source_part_number: string,
+     *     buy_now_url?: string,
+     *     lead_time_weeks?: mixed
+     * } $product The product data from the OEMSecrets API.
      * @param PriceDTO[] $priceDTOs Array of PriceDTO objects representing pricing tiers.
      * @param PurchaseInfoDTO[] $existingPurchaseInfos Optional. Existing purchase information for the product to avoid duplicates.
      *
@@ -538,12 +829,27 @@ class OEMSecretsProvider implements InfoProviderInterface
         $distributor_name = $product['distributor']['distributor_name'] ?? null;
         if ($distributor_name && !empty($priceDTOs)) {
             $sku = isset($product['sku']) ? (string)$product['sku'] : null;
-            $order_number = $sku ?: (string)$product['source_part_number'];
+            $order_number_base = $sku ?: (string)$product['source_part_number'];
+            $order_number = $order_number_base;
 
-            // Check if this distributor is already present
-            foreach ($existingPurchaseInfos as $purchaseInfo) {
-                if ($purchaseInfo->distributor_name === $distributor_name && $purchaseInfo->order_number === $order_number) {
-                    return null; // Evitiamo di duplicare i distributori
+            // Remove duplicates from the quantity/price tiers
+            $uniquePriceDTOs = [];
+            foreach ($priceDTOs as $priceDTO) {
+                $key = $priceDTO->minimum_discount_amount . '-' . $priceDTO->price;
+                $uniquePriceDTOs[$key] = $priceDTO;
+            }
+            $priceDTOs = array_values($uniquePriceDTOs);
+
+            // Differentiate $order_number if duplicated
+            if ($this->isDuplicateOrderNumber($order_number, $distributor_name, $existingPurchaseInfos)) {
+                $lead_time_weeks = isset($product['lead_time_weeks']) ? (string)$product['lead_time_weeks'] : '';
+                $order_number = $order_number_base . '-' . $lead_time_weeks;
+
+                // If there is still a duplicate after adding lead_time_weeks
+                $counter = 1;
+                while ($this->isDuplicateOrderNumber($order_number, $distributor_name, $existingPurchaseInfos)) {
+                    $order_number = $order_number_base . '-' . $lead_time_weeks . '-' . $counter;
+                    $counter++;
                 }
             }
 
@@ -558,16 +864,41 @@ class OEMSecretsProvider implements InfoProviderInterface
     }
 
     /**
+     * Checks if an order number already exists for a given distributor in the existing purchase infos.
+     *
+     * @param string $order_number The order number to check.
+     * @param string $distributor_name The name of the distributor.
+     * @param PurchaseInfoDTO[] $existingPurchaseInfos The existing purchase information to check against.
+     * @return bool True if a duplicate order number is found, otherwise false.
+     */
+    private function isDuplicateOrderNumber(string $order_number, string $distributor_name, array $existingPurchaseInfos): bool
+    {
+        foreach ($existingPurchaseInfos as $purchaseInfo) {
+            if ($purchaseInfo->distributor_name === $distributor_name && $purchaseInfo->order_number === $order_number) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Creates or updates the basic information of a product, including the description, category, manufacturer,
      * and other metadata. This function manages the PartDetailDTO creation or update.
      *
      * @param string $provider_id The unique identifier for the product based on part_number and manufacturer.
-     * @param array $product The product data from the OEMSecrets API.
+     *  * @param array{
+     *     part_number: string,
+     *     category: string,
+     *     manufacturer: string,
+     *     source_part_number: string,
+     *     image_url?: string,
+     *     life_cycle?: string,
+     *     quantity_in_stock?: int
+     * } $product The product data from the OEMSecrets API.
      * @param string $description The truncated description for the product.
      * @param string $thenotes The full description saved as notes for the product.
-     * @param PartDetailDTO|null $existingPartDetail Optional. The existing PartDetailDTO to update if the product already exists.
-     *
-     * @return PartDetailDTO The updated or newly created PartDetailDTO containing basic product information.
+     * 
+     * @return array The updated or newly created PartDetailDTO containing basic product information.
      */
     private function createOrUpdateBasicInfo(
             string $provider_id,
@@ -591,7 +922,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                     $product['life_cycle'] ?? null,
                     (int)($product['quantity_in_stock'] ?? 0)
                 ),
-                'provider_url' => $this->generateInquiryUrl($product['part_number']), //$product['buy_now_url'],
+                'provider_url' => $this->generateInquiryUrl($product['part_number']),
                 'notes' => $thenotes, 
                 'footprint' => null
             ];
@@ -602,26 +933,19 @@ class OEMSecretsProvider implements InfoProviderInterface
             'provider_key' => $existingBasicInfo['provider_key'] ?? $this->getProviderKey(),
             'provider_id' => $existingBasicInfo['provider_id'] ?? $provider_id,
             'name' => $existingBasicInfo['name'] ?? $product['part_number'],
-            //'description' => $existingBasicInfo['description'] ?? $description,
              // Update description if it's null/empty
             'description' => !empty($existingBasicInfo['description']) 
                 ? $existingBasicInfo['description'] 
                 : $description,
-            //'category' => $existingBasicInfo['category'] ?? $product['category'],
             // Update category if it's null/empty
             'category' => !empty($existingBasicInfo['category']) 
                 ? $existingBasicInfo['category'] 
                 : $product['category'],
             'manufacturer' => $existingBasicInfo['manufacturer'] ?? $product['manufacturer'],
             'mpn' => $existingBasicInfo['mpn'] ?? $product['source_part_number'],
-            //'preview_image_url' => $existingBasicInfo['preview_image_url'] ?? ($product['image_url'] ?? null),
             'preview_image_url' => !empty($existingBasicInfo['preview_image_url']) 
                 ? $existingBasicInfo['preview_image_url'] 
                 : ($product['image_url'] ?? null),
-            //'manufacturing_status' => $existingBasicInfo['manufacturing_status'] ?? $this->releaseStatusCodeToManufacturingStatus(
-            //    $product['life_cycle'] ?? null,
-            //    (int)($product['quantity_in_stock'] ?? 0)
-            //),
             'manufacturing_status' => !empty($existingBasicInfo['manufacturing_status']) 
                 ? $existingBasicInfo['manufacturing_status'] 
                 : $this->releaseStatusCodeToManufacturingStatus(
@@ -664,15 +988,14 @@ class OEMSecretsProvider implements InfoProviderInterface
      * @param string|null $sheetUrl The URL of the datasheet.
      * @param string|null $sheetName The optional name of the datasheet. If null, the name is extracted from the URL.
      * @param array $existingDatasheets The array of existing datasheets to check for duplicates.
+     * @param string $eventLinkParam The query parameter used to extract the event link. Default is 'event_link'.
      *
-     * @return array|null Returns an array containing the new datasheet if unique, or null if the datasheet is a duplicate or invalid.
+     * @return FileDTO[]|null Returns an array containing the new datasheet if unique, or null if the datasheet is a duplicate or invalid.
      *
      * @see FileDTO Used to create datasheet objects with a URL and name.
      */
     private function parseDataSheets(?string $sheetUrl, ?string $sheetName, array $existingDatasheets = [], string $eventLinkParam = 'event_link'): ?array
     {
-        //dump($sheetUrl);
-
         if ($sheetUrl === null || $sheetUrl === '' || $sheetUrl === '0') {
             return null;
         }
@@ -694,7 +1017,6 @@ class OEMSecretsProvider implements InfoProviderInterface
                 $sheetName = basename($urlComponents['path']);
                 if (strpos($sheetName, '.') === false || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
                     // If the name does not have a valid extension, assign a default name
-                    //$sheetName = 'datasheet.pdf';
                     $sheetName = 'datasheet_' . uniqid() . '.pdf';
                 }
             }
@@ -706,25 +1028,10 @@ class OEMSecretsProvider implements InfoProviderInterface
         }, $existingDatasheets);
 
         // Check if the name already exists
-        if (in_array($sheetName, $existingNames)) {
+        if (in_array($sheetName, $existingNames, true)) {
             // The name already exists, so do not add the datasheet
             return null;
         }
-        
-        /*
-        $originalSheetName = $sheetName;
-        $counter = 1;
-        while (in_array($sheetName, $existingNames)) {
-            // If the name already exists, append a counter to the default name
-            if ($originalSheetName === 'datasheet.pdf') {
-                $sheetName = 'datasheet(' . $counter . ').pdf';
-            } else {
-                // If it's not the default name, just keep it as is
-                return null;
-            }
-            $counter++;
-        }
-        */
 
         // Create an array with the datasheet data if it does not already exist
         $result = [];
@@ -734,17 +1041,22 @@ class OEMSecretsProvider implements InfoProviderInterface
 
     /**
      * Converts the lifecycle status from the API to a ManufacturingStatus
-     *  - Factory Special Order / Ordine speciale in fabbrica
-     *  - Not Recommended for New Designs / Non raccomandato per nuovi progetti
-     *  - New Product / Nuovo prodotto (if availableInStock > 0 else ANNOUNCED)
-     *  - End of Life / Fine vita
-     *  - vuoto / Attivo 
+     *  - "Factory Special Order" / "Ordine speciale in fabbrica"
+     *  - "Not Recommended for New Designs" / "Non raccomandato per nuovi progetti"
+     *  - "New Product" / "Nuovo prodotto" (if availableInStock > 0 else ANNOUNCED)
+     *  - "End of Life" / "Fine vita"
+     *  - vuoto / "Attivo" 
      *  
-     * @param  string|null  $productStatus The lifecycle status from the Mouser API
-     * @param  int  $availableInStock The number of parts available in stock
-     * @return ManufacturingStatus|null
+     * @param  string|null  $productStatus The lifecycle status from the Mouser API. Expected values are:
+     *     - "Factory Special Order"
+     *     - "Not Recommended for New Designs"
+     *     - "New Product"
+     *     - "End of Life"
+     *     - "Obsolete"
+     * @param  int  $availableInStock The number of parts available in stock.
+     * @return ManufacturingStatus|null Returns the corresponding ManufacturingStatus or null if the status is unknown.
      * 
-     * @todo Probably need to review the values of field Lifecyclestatus
+     * @todo Probably need to review the values of field Lifecyclestatus.
      */
     private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
@@ -767,20 +1079,18 @@ class OEMSecretsProvider implements InfoProviderInterface
 
     /**
      * Parses the given product description to extract parameters and convert them into `ParameterDTO` objects.
-     * The function processes the description by splitting it using the `;` character to identify key-value pairs,
-     * and assigns appropriate values, such as name, value, unit, and symbol to the parameters. 
-     * If the description is empty or cannot be processed, the function returns null.
-     *
+     * If the description contains only a single `:`, it is considered unstructured and ignored.
+     * The function processes the description by searching for key-value pairs in the format `name: value`,
+     * ignoring any parts of the description that do not follow this format. Parameters are split using either
+     * `;` or `,` as separators. 
+     * 
      * The extraction logic handles typical values, ranges, units, and textual information from the description.
-     * It tries to account for various formats, such as numerical ranges, values with units, and other textual information.
+     * If the description is empty or cannot be processed into valid parameters, the function returns null.
      *
      * @param string|null $description The description text from which parameters are to be extracted.
-     *                                 The description should have key-value pairs separated by `;`.
-     *
-     * @return array|null Returns an array of `ParameterDTO` objects if parameters are successfully extracted,
-     *                    or null if no valid parameters can be extracted from the description.
-     *
-     * @see ParameterDTO Used to create parameter objects with name, value, unit, and additional information.
+     * 
+     * @return ParameterDTO[]|null Returns an array of `ParameterDTO` objects if parameters are successfully extracted,
+     *                             or null if no valid parameters can be extracted from the description.
      */
     private function parseDescriptionToParameters(?string $description): ?array
     {
@@ -789,11 +1099,16 @@ class OEMSecretsProvider implements InfoProviderInterface
             return null;
         }
 
+        // If the description contains only a single ':', return null
+        if (substr_count($description, ':') === 1) {
+            return null;
+        }
+
          // Array to store parsed parameters
         $parameters = [];
 
         // Split the description using the ';' separator
-        $parts = explode(';', $description);
+        $parts = preg_split('/[;,]/', $description); //explode(';', $description);
 
         // Process each part of the description
         foreach ($parts as $part) {
@@ -844,18 +1159,18 @@ class OEMSecretsProvider implements InfoProviderInterface
      * - "2.5 @text"
      * - "~100 Ohm"
      *
-     * @param string|null $value The value string to be parsed, which may contain a number, unit, or both.
-     * @param string|null $defaultUnit The default unit to use if no unit is found in the value string.
-     *
-     * @return array|null An associative array with parsed components: 
+     * @param string $value The value string to be parsed, which may contain a number, unit, or both.
+     * 
+     * @return array An associative array with parsed components:  
+     *                    - 'name' => string (the name of the parameter)    
      *                    - 'value_typ' => float|null (the typical or parsed value)
      *                    - 'range_min' => float|null (the minimum value if it's a range)
      *                    - 'range_max' => float|null (the maximum value if it's a range)
+     *                    - 'value_text' => string|null (any additional text or symbol)
      *                    - 'unit' => string|null (the detected or default unit)
-     *                    - 'symbol' => string|null (any special symbol or additional text)
-     *                    Returns null if parsing fails or if the input is empty.
+     *                    - 'symbol' => string|null (any special symbol or additional text)             
      */
-    private function customParseValueIncludingUnit(string $name, string $value): ?array
+    private function customParseValueIncludingUnit(string $name, string $value): array
     {
         // Parse using logic for units, ranges, and other elements
         $result = [
@@ -874,13 +1189,22 @@ class OEMSecretsProvider implements InfoProviderInterface
         // Handle ranges and plus/minus signs
         if (strpos($value, '...') !== false || strpos($value, '~') !== false || strpos($value, '±') !== false) {
             // Handle ranges
-            $value = str_replace(['...', '~'], '...', $value); // Uniformiamo i separatori di range
+            $value = str_replace(['...', '~'], '...', $value); // Normalize range separators
             $rangeParts = preg_split('/\s*[\.\~]\s*/', $value);
 
             if (count($rangeParts) === 2) {
-                [$result['value_min'], $result['value_max']] = $this->customSplitIntoValueAndUnit($rangeParts[0], $rangeParts[1]);
-                $result['unit'] = $rangeParts[1]['unit'] ?? $rangeParts[0]['unit'];
+                // Splitting the values and units
+                $parsedMin = $this->customSplitIntoValueAndUnit($rangeParts[0]);
+                $parsedMax = $this->customSplitIntoValueAndUnit($rangeParts[1]);
+            
+                // Assigning the parsed values
+                $result['value_min'] = $parsedMin['value_typ'];
+                $result['value_max'] = $parsedMax['value_typ'];
+            
+                // Determine the unit
+                $result['unit'] = $parsedMax['unit'] ?? $parsedMin['unit'];
             }
+            
         } elseif (strpos($value, '@') !== false) {
             // If we find "@", we treat it as additional textual information
             [$numericValue, $textValue] = explode('@', $value);
@@ -912,11 +1236,14 @@ class OEMSecretsProvider implements InfoProviderInterface
      * - "5kV"
      * - "±5%"
      *
-     * @param string $input The input string containing both a numerical value and a unit.
+     * @param string $value1 The input string containing both a numerical value and a unit.
+     * @param string|null $value2 Optional. A second value string, typically used for ranges (e.g., "10-20A").
      *
-     * @return array An associative array with two elements:
-     *               - 'value' => string The numerical part of the string.
+     * @return array An associative array with the following elements:
+     *               - 'value_typ' => string|null The first numerical part of the string.
      *               - 'unit' => string|null The unit part of the string, or null if no unit is detected.
+     *               - 'value_min' => string|null The minimum value in a range, if applicable.
+     *               - 'value_max' => string|null The maximum value in a range, if applicable.
      */
     private function customSplitIntoValueAndUnit(string $value1, string $value2 = null): array
     {
@@ -950,9 +1277,9 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Generates the API URL to fetch product information for the specified part number from OEMSecrets.
      * Ensures that the base API URL and any query parameters are properly formatted.
      *
-     *
      * @param string $partNumber The part number to include in the URL.
      * @param string $oemInquiry The inquiry path for the OEMSecrets API, with a default value of 'compare/'.
+     *                           This parameter represents the specific API endpoint to query.
      * 
      * @return string The complete provider URL including the base provider URL, the inquiry path, and the part number.
      * 
@@ -965,92 +1292,174 @@ class OEMSecretsProvider implements InfoProviderInterface
         $baseUrl = rtrim($this->getProviderInfo()['url'], '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
         $encodedPartNumber = urlencode(trim($partNumber));
-        $inquiryUrl = $baseUrl . $oemInquiry . $encodedPartNumber;
+        $inquiryUrl = $baseUrl . $inquiryPath . $encodedPartNumber;
         return $inquiryUrl;
     }
 
     /**
-     * Sorts the $basicInfoResults array by the similarity of the 'name' field to the search keyword.
-     * The comparison is case-insensitive and trims any extra spaces before calculating the similarity.
-     * The comparison is based on the Levenshtein distance, which measures the number of single-character 
-     * edits required to change one word into another. The element with the smallest distance to the search
-     * keyword will appear first in the sorted list.
+     * Sorts the results data array based on the specified search keyword and sorting criteria.
+     * The sorting process involves multiple phases:
+     * 1. Exact match with the search keyword.
+     * 2. Prefix match with the search keyword.
+     * 3. Alphabetical order of the suffix following the keyword.
+     * 4. Optional sorting by completeness or manufacturer based on the sort criteria.
      *
-     * @param array $basicInfoResults The array of results to be sorted. Each element must have a 'name' key.
-     * @param string $searchKeyword The keyword to compare each 'name' against for similarity.
+     * The sorting criteria (`sort_criteria`) is an environment variable configured in the `.env.local` file:
+     * PROVIDER_OEMSECRETS_SORT_CRITERIA 
+     * It determines the final sorting phase:
+     * - 'C': Sort by completeness.
+     * - 'M': Sort by manufacturer.
      *
-     * @return void The function sorts the $basicInfoResults array in place.
+     * @param array $resultsData The array of result objects to be sorted. Each object should have 'name' and 'manufacturer' properties.
+     * @param string $searchKeyword The search keyword used for sorting the results.
+     *
+     * @return void
      */
-    private function sortBasicInfoByKeywordSimilarity(array &$basicInfoResults, string $searchKeyword): void
+    private function sortResultsData(array &$resultsData, string $searchKeyword): void
     {
-        usort($basicInfoResults, function ($a, $b) use ($searchKeyword) {
-            // Trim whitespace from the strings to avoid issues with spaces
-            $nameA = trim($a['name']);
-            $nameB = trim($b['name']);
-    
-            // Primary sort: exact match with the search keyword
-            $isExactMatchA = strcasecmp($nameA, $searchKeyword) === 0;
-            $isExactMatchB = strcasecmp($nameB, $searchKeyword) === 0;
-            if ($isExactMatchA && !$isExactMatchB) {
+        // If the SORT_CRITERIA is not 'C' or 'M', do not sort
+        if ($this->sort_criteria !== 'C' && $this->sort_criteria !== 'M') {
+            return;
+        }
+        usort($resultsData, function ($a, $b) use ($searchKeyword) {
+            $nameA = trim($a->name);
+            $nameB = trim($b->name);
+
+            // First phase: Sorting by exact match with the keyword
+            $exactMatchA = strcasecmp($nameA, $searchKeyword) === 0;
+            $exactMatchB = strcasecmp($nameB, $searchKeyword) === 0;
+
+            if ($exactMatchA && !$exactMatchB) {
                 return -1;
-            } elseif (!$isExactMatchA && $isExactMatchB) {
+            } elseif (!$exactMatchA && $exactMatchB) {
                 return 1;
             }
-    
-            // Secondary sort: names that start with the search keyword
+
+            // Second phase: Sorting by prefix (name starting with the keyword)
             $startsWithKeywordA = stripos($nameA, $searchKeyword) === 0;
             $startsWithKeywordB = stripos($nameB, $searchKeyword) === 0;
+
             if ($startsWithKeywordA && !$startsWithKeywordB) {
                 return -1;
             } elseif (!$startsWithKeywordA && $startsWithKeywordB) {
                 return 1;
             }
-    
-            // If both names start with the keyword, compare numeric parts followed by alphabetic characters
+
             if ($startsWithKeywordA && $startsWithKeywordB) {
+                // Alphabetical sorting of suffixes
                 $suffixA = substr($nameA, strlen($searchKeyword));
                 $suffixB = substr($nameB, strlen($searchKeyword));
+                $suffixComparison = strcasecmp($suffixA, $suffixB);
     
-                // Extract numeric part and alphabetic part using regex
-                preg_match('/^(\d+)([a-zA-Z]*)/', $suffixA, $matchesA);
-                preg_match('/^(\d+)([a-zA-Z]*)/', $suffixB, $matchesB);
-    
-                $numericPartA = isset($matchesA[1]) ? (int)$matchesA[1] : 0;
-                $numericPartB = isset($matchesB[1]) ? (int)$matchesB[1] : 0;
-    
-                // Compare numeric parts first
-                if ($numericPartA !== $numericPartB) {
-                    return $numericPartA - $numericPartB;
-                }
-    
-                // If numeric parts are equal, compare the alphabetic parts
-                $alphaPartA = $matchesA[2] ?? '';
-                $alphaPartB = $matchesB[2] ?? '';
-                $alphaComparison = strcmp($alphaPartA, $alphaPartB);
-    
-                if ($alphaComparison !== 0) {
-                    return $alphaComparison;
+                if ($suffixComparison !== 0) {
+                    return $suffixComparison;
                 }
             }
-    
-            // Tertiary sort: general similarity between name and search keyword
-            $similarityA = 0;
-            $similarityB = 0;
-            similar_text($searchKeyword, $nameA, $similarityA);
-            similar_text($searchKeyword, $nameB, $similarityB);
-    
-            if ($similarityA > $similarityB) {
-                return -1;
-            } elseif ($similarityB > $similarityA) {
-                return 1;
+
+            // Final sorting: by completeness or manufacturer, if necessary
+            if ($this->sort_criteria === 'C') {
+                return $this->compareByCompleteness($a, $b);
+            } elseif ($this->sort_criteria === 'M') {
+                return strcasecmp($a->manufacturer, $b->manufacturer);
             }
-    
-            // Final sort by manufacturer name when the names are identical
-            return strcasecmp($a['manufacturer'], $b['manufacturer']);
-        }); 
-       
+
+        });
+    }
+
+    /**
+     * Compares two objects based on their "completeness" score.
+     * The completeness score is calculated by the `calculateCompleteness` method, which assigns a numeric score
+     * based on the amount of information (such as parameters, datasheets, images, etc.) available for each object.
+     * The comparison is done in descending order, giving priority to the objects with higher completeness.
+     *
+     * @param object $a The first object to compare.
+     * @param object $b The second object to compare.
+     *
+     * @return int A negative value if $b is more complete than $a, zero if they are equally complete,
+     *             or a positive value if $a is more complete than $b.
+     */
+    private function compareByCompleteness(object $a, object $b): int
+    {
+        // Calculate the completeness score for each object
+        $completenessA = (int)$this->calculateCompleteness($a);
+        $completenessB = (int)$this->calculateCompleteness($b);
+        
+        // Sort in descending order by completeness (higher score is better)
+        return $completenessB - $completenessA;
     }
 
 
-   
+    /**
+     * Calculates a "completeness" score for a given part object based on the presence and count of various attributes.
+     * The completeness score is used to prioritize parts that have more detailed information.
+     *
+     * The score is calculated as follows:
+     * - Counts the number of elements in the `parameters`, `datasheets`, `images`, and `vendor_infos` arrays.
+     * - Adds 1 point for the presence of `category`, `description`, `mpn`, `preview_image_url`, and `footprint`.
+     * - Adds 1 or 2 points based on the presence or absence of `manufacturing_status` (higher score if `null`).
+     *
+     * @param object $part The part object for which the completeness score is calculated. The object is expected
+     *                     to have properties like `parameters`, `datasheets`, `images`, `vendor_infos`, `category`,
+     *                     `description`, `mpn`, `preview_image_url`, `footprint`, and `manufacturing_status`.
+     *
+     * @return int The calculated completeness score, with a higher score indicating more complete information.
+     */
+    private function calculateCompleteness(object $part): int
+    {
+        // Counts the number of elements in each field that can have multiple values
+        $paramsCount = is_array($part->parameters) ? count($part->parameters) : 0;
+        $datasheetsCount = is_array($part->datasheets) ? count($part->datasheets) : 0;
+        $imagesCount = is_array($part->images) ? count($part->images) : 0;
+        $vendorInfosCount = is_array($part->vendor_infos) ? count($part->vendor_infos) : 0;
+
+        // Check for the presence of single fields and assign a score
+        $categoryScore = !empty($part->category) ? 1 : 0;
+        $descriptionScore = !empty($part->description) ? 1 : 0;
+        $mpnScore = !empty($part->mpn) ? 1 : 0;
+        $previewImageScore = !empty($part->preview_image_url) ? 1 : 0;
+        $footprintScore = !empty($part->footprint) ? 1 : 0;
+
+        // Weight for manufacturing_status: higher if null
+        $manufacturingStatusScore = is_null($part->manufacturing_status) ? 2 : 1;
+
+        // Sum the counts and scores to obtain a completeness score
+        return $paramsCount
+            + $datasheetsCount
+            + $imagesCount
+            + $vendorInfosCount
+            + $categoryScore
+            + $descriptionScore
+            + $mpnScore
+            + $previewImageScore
+            + $footprintScore
+            + $manufacturingStatusScore;
+    }
+
+    
+    /**
+     * Generates a unique provider ID by concatenating the part number and manufacturer name,
+     * separated by a pipe (`|`). The generated ID is typically used to uniquely identify
+     * a specific part from a particular manufacturer.
+     *
+     * @param string $partNumber The part number of the product.
+     * @param string $manufacturer The name of the manufacturer.
+     *
+     * @return string The generated provider ID, in the format "partNumber|manufacturer".
+     */
+    private function generateProviderId(string $partNumber, string $manufacturer): string
+    {
+        return trim($partNumber) . '|' . trim($manufacturer);
+    }
+
+    /**
+     * Maps the name of a country to its corresponding ISO 3166-1 alpha-2 code.
+     *
+     * @param string|null $countryName The name of the country to map.
+     * @return string|null The ISO code for the country, or null if not found.
+     */
+    private function mapCountryNameToCode(?string $countryName): ?string
+    {
+        return $this->countryNameToCodeMap[$countryName] ?? null;
+    }
+
 }
