@@ -133,7 +133,7 @@ final class SandboxedTwigFactory
         Supplier::class => ['getShippingCosts', 'getDefaultCurrency'],
         Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getIpn', 'getProviderReference',
             'getDescription', 'getComment', 'isFavorite', 'getCategory', 'getFootprint',
-            'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getOrderAmount', 'getOrderDate', 'getAmountSum', 'isNotEnoughInstock', 'isAmountUnknown', 'getExpiredAmountSum',
+            'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getOrderAmount', 'getOrderDelivery', 'getAmountSum', 'isNotEnoughInstock', 'isAmountUnknown', 'getExpiredAmountSum',
             'getManufacturerProductUrl', 'getCustomProductURL', 'getManufacturingStatus', 'getManufacturer',
             'getManufacturerProductNumber', 'getOrderdetails', 'isObsolete',
             'getParameters', 'getGroupedParameters',
