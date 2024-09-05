@@ -45,6 +45,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -95,6 +96,21 @@ class PartBaseType extends AbstractType
                 ],
                 'label' => 'part.edit.mininstock',
                 'measurement_unit' => $part->getPartUnit(),
+            ])
+            ->add('orderAmount', SIUnitType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'placeholder' => 'part.editmininstock.placeholder',
+                ],
+                'label' => 'part.edit.orderstock',
+                'measurement_unit' => $part->getPartUnit(),
+            ])
+            ->add('orderDelivery', DateType::class, [
+                'label' => 'part.edit.orderDelivery',
+                'attr' => [],
+                'widget' => 'single_text',
+                'model_timezone' => 'UTC',
+                'required' => false,
             ])
             ->add('category', StructuralEntityType::class, [
                 'class' => Category::class,

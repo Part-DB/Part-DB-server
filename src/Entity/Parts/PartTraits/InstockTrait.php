@@ -56,6 +56,14 @@ trait InstockTrait
     protected float $minamount = 0;
 
     /**
+     * @var float The number of already ordered units
+     */
+    #[Assert\PositiveOrZero]
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\Column(type: Types::FLOAT)]
+    protected float $orderamount = 0;
+
+    /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      */
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
@@ -138,6 +146,21 @@ trait InstockTrait
     }
 
     /**
+     *  Get the count of parts which are already ordered.
+     * If an integer-based part unit is selected, the value will be rounded to integers.
+     *
+     * @return float count of parts which are already ordered
+     */
+    public function getOrderAmount(): float
+    {
+        if ($this->useFloatAmount()) {
+            return $this->orderamount;
+        }
+
+        return round($this->orderamount);
+    }
+
+    /**
      * Checks if this part uses the float amount .
      * This setting is based on the part unit (see MeasurementUnit->isInteger()).
      *
@@ -158,7 +181,7 @@ trait InstockTrait
      */
     public function isNotEnoughInstock(): bool
     {
-        return $this->getAmountSum() < $this->getMinAmount();
+        return ($this->getAmountSum() + $this->getOrderAmount()) < $this->getMinAmount();
     }
 
     /**
@@ -235,6 +258,21 @@ trait InstockTrait
     public function setMinAmount(float $new_minamount): self
     {
         $this->minamount = $new_minamount;
+
+        return $this;
+    }
+
+    /**
+     * Set the amount of already ordered parts.
+     * See getPartUnit() for the associated unit.
+     *
+     * @param float $new_orderamount the new count of parts are already ordered
+     *
+     * @return $this
+     */
+    public function setOrderAmount(float $new_orderamount): self
+    {
+        $this->orderamount = $new_orderamount;
 
         return $this;
     }

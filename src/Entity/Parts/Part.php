@@ -60,6 +60,7 @@ use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -101,9 +102,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
 #[ApiFilter(TagFilter::class, properties: ["tags"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
-#[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
+#[ApiFilter(RangeFilter::class, properties: ["mass", "minamount", "orderamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
-#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'orderDelivery', 'addedDate', 'lastModified'])]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
@@ -125,6 +126,15 @@ class Part extends AttachmentContainingDBElement
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
+
+    /**
+     * @var \DateTimeInterface|null Set a time when the new order will arive.
+     *                Set to null, if there is no known date or no order.
+     */
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
+    #[ORM\Column(name: 'orderDelivery', type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Year2038BugWorkaround]
+    protected ?\DateTimeInterface $orderDelivery = null;
 
 
     /** *************************************************************
@@ -214,6 +224,26 @@ class Part extends AttachmentContainingDBElement
             $this->eda_info = clone $this->eda_info;
         }
         parent::__clone();
+    }
+
+    /**
+     * Gets the expected delivery date of the part. Returns null, if no delivery is due.
+     */
+    public function getOrderDelivery(): ?\DateTimeInterface
+    {
+        return $this->orderDelivery;
+    }
+
+    /**
+     * Sets the expected delivery date of the part. Set to null, if no delivery is due.
+     *
+     *
+     */
+    public function setOrderDelivery(?\DateTimeInterface $orderDelivery): self
+    {
+        $this->orderDelivery = $orderDelivery;
+
+        return $this;
     }
 
     #[Assert\Callback]

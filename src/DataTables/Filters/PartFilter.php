@@ -59,6 +59,8 @@ class PartFilter implements FilterInterface
     public readonly TextConstraint $comment;
     public readonly TagsConstraint $tags;
     public readonly NumberConstraint $minAmount;
+    public readonly NumberConstraint $orderAmount;
+    public readonly DateTimeConstraint $orderDelivery;
     public readonly BooleanConstraint $favorite;
     public readonly BooleanConstraint $needsReview;
     public readonly NumberConstraint $mass;
@@ -124,6 +126,8 @@ class PartFilter implements FilterInterface
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
         $this->minAmount = new NumberConstraint('part.minamount');
+        $this->orderAmount = new NumberConstraint('part.orderamount');
+        $this->orderDelivery = new DateTimeConstraint('part.orderDelivery');
         /* We have to use an IntConstraint here because otherwise we get just an empty result list when applying the filter
            This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
            TODO: Find a better solution here

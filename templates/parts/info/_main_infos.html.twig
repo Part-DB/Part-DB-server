@@ -76,6 +76,17 @@
             {% if part.expiredAmountSum > 0 %}
                 <span title="{% trans %}part_lots.is_expired{% endtrans %}" class="text-muted">(+{{ part.expiredAmountSum }})</span>
             {% endif %}
+            {% if part.orderAmount > 0 %}
+                (+
+                <span title="{% trans %}orderstock.label{% endtrans %}">{{ part.orderAmount | format_amount(part.partUnit) }}</span>
+                {% if part.orderDate %}
+                    @
+                    <span class="badge bg-info mb-1" title="{% trans %}part.filter.orderDate{% endtrans %}">
+                    <i class="fas fa-calendar-alt fa-fw"></i> {{ part.orderDate | format_date() }}<br>
+                    </span>
+                {% endif %}
+                )
+            {% endif %}
             /
             <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
         </span>
