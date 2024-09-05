@@ -347,5 +347,11 @@
         <target>A causa di limitazioni tecniche, non è possibile selezionare date successive al 19-01-2038 su sistemi a 32 bit!</target>
       </segment>
     </unit>
+    <unit id="iXcU7ce" name="validator.invalid_range">
+      <segment state="translated">
+        <source>validator.invalid_range</source>
+        <target>L'intervallo indicato non è valido!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
