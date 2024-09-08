@@ -420,16 +420,24 @@ class OEMSecretsProvider implements InfoProviderInterface
         $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
         if ($cacheItem->isHit()) {
-            $details = $cacheItem->get();
-        } else {
-            // If the details are not found in the cache, throw an exception
-            throw new \RuntimeException("Details not found for provider_id $id");
+            return $cacheItem->get();
+        }
+        //If we have no cached result yet, we extract the part number (first part of our ID) and search for it
+        $partNumber = explode('|', $id)[0];
+
+        //The searchByKeyword method will write the results to cache, so we can just try it again afterwards
+        $this->searchByKeyword($partNumber);
+
+        $cacheItem = $this->partInfoCache->getItem($cacheKey);
+        if ($cacheItem->isHit()) {
+            return $cacheItem->get();
         }
 
-        return $details;
+        // If the details still are not found in the cache, throw an exception
+        throw new \RuntimeException("Details not found for provider_id $id");
     }
 
-    
+
     /**
      * A list of capabilities this provider supports (which kind of data it can provide).
      * Not every part have to contain all of these data, but the provider should be able to provide them in general.
