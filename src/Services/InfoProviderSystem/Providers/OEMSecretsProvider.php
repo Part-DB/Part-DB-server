@@ -89,7 +89,6 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 
@@ -97,8 +96,6 @@ class OEMSecretsProvider implements InfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://oemsecretsapi.com/partsearch';
-
-    public const DISTRIBUTOR_NAME = 'OEMSecrets';
 
     public function __construct(
         private readonly HttpClientInterface $oemsecretsClient,
@@ -426,7 +423,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             $details = $cacheItem->get();
         } else {
             // If the details are not found in the cache, throw an exception
-            throw new \Exception("Details not found for provider_id $id");
+            throw new \RuntimeException("Details not found for provider_id $id");
         }
 
         return $details;
@@ -493,11 +490,8 @@ class OEMSecretsProvider implements InfoProviderInterface
      ): ?PartDetailDTO
     {   
         if (!isset($product['manufacturer'], $product['part_number'])) {
-            throw new \Exception("Missing required product data: 'manufacturer' or 'part_number'");
+            throw new \InvalidArgumentException("Missing required product data: 'manufacturer' or 'part_number'");
         }
-
-        $manufacturer = $product['manufacturer'];
-        $part_number = $product['part_number'];
 
         // Retrieve the country_code associated with the distributor and store it in the $distributorCountryCodes array.
         $distributorCountry = $product['distributor']['distributor_country'] ?? null;
@@ -635,12 +629,12 @@ class OEMSecretsProvider implements InfoProviderInterface
             preview_image_url: $basicInfoResults[$provider_id]['preview_image_url'],
             manufacturing_status: $basicInfoResults[$provider_id]['manufacturing_status'],
             provider_url: $basicInfoResults[$provider_id]['provider_url'],
-            vendor_infos: $purchaseInfoResults[$provider_id] ?? [],
+            footprint: $basicInfoResults[$provider_id]['footprint'] ?? null,
+            notes: $basicInfoResults[$provider_id]['notes'] ?? null,
             datasheets: $datasheetsResults[$provider_id] ?? [],
             images: $imagesResults[$provider_id] ?? [],
             parameters: $parametersResults[$provider_id] ?? [],
-            notes: $basicInfoResults[$provider_id]['notes'] ?? null,
-            footprint: $basicInfoResults[$provider_id]['footprint'] ?? null
+            vendor_infos: $purchaseInfoResults[$provider_id] ?? []
         );
 
         // Force garbage collection to deallocate unused memory cycles
@@ -997,7 +991,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             } else {
                 // If "event_link" does not exist, try to extract the name from the main URL path
                 $sheetName = basename($urlComponents['path']);
-                if (strpos($sheetName, '.') === false || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
+                if (!str_contains($sheetName, '.') || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
                     // If the name does not have a valid extension, assign a default name
                     $sheetName = 'datasheet_' . uniqid('', true) . '.pdf';
                 }
@@ -1005,7 +999,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         }
 
         // Create an array of existing file names
-        $existingNames = array_map(function ($existingDatasheet) {
+        $existingNames = array_map(static function ($existingDatasheet) {
             return $existingDatasheet->name;
         }, $existingDatasheets);
 
@@ -1097,7 +1091,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             $part = trim($part);
 
             // Check if the part contains a key-value structure
-            if (strpos($part, ':') !== false) {
+            if (str_contains($part, ':')) {
                 [$name, $value] = explode(':', $part, 2);
                 $name = trim($name);
                 $value = trim($value);
@@ -1114,10 +1108,10 @@ class OEMSecretsProvider implements InfoProviderInterface
 
                     $parameters[] = new ParameterDTO(
                         name: $parsedValue['name'],
+                        value_text: $parsedValue['value_text'] ?? null,
                         value_typ: $value_typ,
                         value_min: $value_min,
                         value_max: $value_max,
-                        value_text: $parsedValue['value_text'] ?? null,
                         unit: $parsedValue['unit'] ?? null,     // Add extracted unit
                         symbol: $parsedValue['symbol'] ?? null  // Add extracted symbol
                     );
@@ -1169,7 +1163,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         $value = trim($value);
 
         // Handle ranges and plus/minus signs
-        if (strpos($value, '...') !== false || strpos($value, '~') !== false || strpos($value, '±') !== false) {
+        if (str_contains($value, '...') || str_contains($value, '~') || str_contains($value, '±')) {
             // Handle ranges
             $value = str_replace(['...', '~'], '...', $value); // Normalize range separators
             $rangeParts = preg_split('/\s*[\.\~]\s*/', $value);
@@ -1187,7 +1181,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 $result['unit'] = $parsedMax['unit'] ?? $parsedMin['unit'];
             }
             
-        } elseif (strpos($value, '@') !== false) {
+        } elseif (str_contains($value, '@')) {
             // If we find "@", we treat it as additional textual information
             [$numericValue, $textValue] = explode('@', $value);
             $result['value_typ'] = (float) $numericValue;
@@ -1274,8 +1268,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         $baseUrl = rtrim($this->getProviderInfo()['url'], '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
         $encodedPartNumber = urlencode(trim($partNumber));
-        $inquiryUrl = $baseUrl . $inquiryPath . $encodedPartNumber;
-        return $inquiryUrl;
+        return $baseUrl . $inquiryPath . $encodedPartNumber;
     }
 
     /**
@@ -1363,8 +1356,8 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function compareByCompleteness(object $a, object $b): int
     {
         // Calculate the completeness score for each object
-        $completenessA = (int)$this->calculateCompleteness($a);
-        $completenessB = (int)$this->calculateCompleteness($b);
+        $completenessA = $this->calculateCompleteness($a);
+        $completenessB = $this->calculateCompleteness($b);
         
         // Sort in descending order by completeness (higher score is better)
         return $completenessB - $completenessA;
