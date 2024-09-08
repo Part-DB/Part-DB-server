@@ -1017,7 +1017,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 $sheetName = basename($urlComponents['path']);
                 if (strpos($sheetName, '.') === false || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
                     // If the name does not have a valid extension, assign a default name
-                    $sheetName = 'datasheet_' . uniqid() . '.pdf';
+                    $sheetName = 'datasheet_' . uniqid('', true) . '.pdf';
                 }
             }
         }
