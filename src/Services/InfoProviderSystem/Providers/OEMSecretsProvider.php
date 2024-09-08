@@ -382,8 +382,15 @@ class OEMSecretsProvider implements InfoProviderInterface
             }
         }
 
+        //Force garbage collection to free up memory
+        gc_collect_cycles();
+
         // Sort of the results
         $this->sortResultsData($results, $keyword);
+
+        //Force garbage collection to free up memory
+        gc_collect_cycles();
+        
         return $results;
 
     }
@@ -644,11 +651,6 @@ class OEMSecretsProvider implements InfoProviderInterface
             parameters: $parametersResults[$provider_id] ?? [],
             vendor_infos: $purchaseInfoResults[$provider_id] ?? []
         );
-
-        // Force garbage collection to deallocate unused memory cycles
-        // Without this instruction, when in dev mode, after the first or second call to getDetails, 
-        // a memory error occurs due to memory not being freed properly, leading to memory exhaustion.
-        gc_collect_cycles();
 
         return $partDetailDTO;
     }
