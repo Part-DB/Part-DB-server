@@ -412,21 +412,21 @@ class OEMSecretsProvider implements InfoProviderInterface
      * found in the cache, they are returned. If not, an exception is thrown indicating that 
      * the details could not be found.
      *
-     * @param string $provider_id The unique identifier of the provider or part.
+     * @param string $id The unique identifier of the provider or part.
      * @return PartDetailDTO The detailed information about the part.
      *
      * @throws \Exception If no details are found for the given provider ID.
      */
-    public function getDetails(string $provider_id): PartDetailDTO
+    public function getDetails(string $id): PartDetailDTO
     {
-        $cacheKey = $this->getCacheKey($provider_id);
+        $cacheKey = $this->getCacheKey($id);
         $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
         if ($cacheItem->isHit()) {
             $details = $cacheItem->get();
         } else {
             // If the details are not found in the cache, throw an exception
-            throw new \Exception("Details not found for provider_id $provider_id");
+            throw new \Exception("Details not found for provider_id $id");
         }
 
         return $details;
