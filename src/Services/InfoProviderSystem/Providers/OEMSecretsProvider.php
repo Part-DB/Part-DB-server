@@ -112,25 +112,6 @@ class OEMSecretsProvider implements InfoProviderInterface
     ) 
     {
     }
-
-    // Store each data category in separate arrays
-    // PHPStan is currently flagging these arrays with the message "is never read, only written," 
-    // which is unnecessary. The arrays in question are indeed being read, but on a per-element basis 
-    // rather than as whole arrays. To avoid cluttering the code with redundant checks that do not improve 
-    // functionality or performance, it's best to ignore this specific warning.
-    //
-    // @phpstan-ignore-next-line
-    private array $basicInfoResults = [];
-    // @phpstan-ignore-next-line
-    private array $datasheetsResults = [];
-    // @phpstan-ignore-next-line
-    private array $imagesResults = [];
-    // @phpstan-ignore-next-line
-    private array $parametersResults = [];
-    // @phpstan-ignore-next-line
-    private array $purchaseInfoResults = [];
-    
-    private array $resultsData = [];
     
     private array $countryNameToCodeMap = [
         'Andorra' => 'AD',
@@ -370,7 +351,8 @@ class OEMSecretsProvider implements InfoProviderInterface
         //------------------*/
         
         $products = $response_array['stock'] ?? [];
-        
+
+        $results = [];
         $basicInfoResults = [];
         $datasheetsResults = [];
         $imagesResults = [];
@@ -394,7 +376,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             );
 
             if ($partDetailDTO !== null) {
-                $this->resultsData[$provider_id] = $partDetailDTO;
+                $results[$provider_id] = $partDetailDTO;
                 $cacheKey = $this->getCacheKey($provider_id);
                 $cacheItem = $this->partInfoCache->getItem($cacheKey);
                 $cacheItem->set($partDetailDTO);
@@ -404,8 +386,8 @@ class OEMSecretsProvider implements InfoProviderInterface
         }
 
         // Sort of the results
-        $this->sortResultsData($this->resultsData, $keyword); 
-        return $this->resultsData;
+        $this->sortResultsData($results, $keyword);
+        return $results;
 
     }
 
