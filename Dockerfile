@@ -163,6 +163,9 @@ ENV DATABASE_URL="sqlite:///%kernel.project_dir%/uploads/app.db"
 
 USER root
 
+# Replace the php version placeholder in the entry point, with our php version
+RUN sed -i "s/PHP_VERSION/${PHP_VERSION}/g" ./.docker/partdb-entrypoint.sh
+
 # Copy entrypoint and apache2-foreground to /usr/local/bin and make it executable
 RUN install ./.docker/partdb-entrypoint.sh /usr/local/bin && \
     install ./.docker/apache2-foreground /usr/local/bin
