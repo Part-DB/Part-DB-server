@@ -419,7 +419,7 @@ class OEMSecretsProvider implements InfoProviderInterface
      * @return string The generated cache key.
      */
     private function getCacheKey(string $provider_id): string {
-        return 'part_details_' . md5($provider_id);
+        return 'oemsecrets_part_' . md5($provider_id);
     }
 
 
