@@ -1194,7 +1194,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             $result['value_text'] = trim($textValue);
         } else {
             // Check if the value is numeric with a unit
-            if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/', $value, $matches)) {
+            if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/u', $value, $matches)) {
                 // It is a number with or without a unit
                 $result['value_typ'] = isset($matches[1]) ? (float)$matches[1] : null;
                 $result['unit'] = $matches[3] ?? null;
@@ -1234,7 +1234,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         $value_typ = null;
 
         // Search for the number + unit pattern
-        if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/', $value1, $matches)) {
+        if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/u', $value1, $matches)) {
             $value_typ = $matches[1];
             $unit = $matches[3] ?? null;
         }
@@ -1245,7 +1245,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         ];
 
         if ($value2 !== null) {
-            if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/', $value2, $matches2)) {
+            if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/u', $value2, $matches2)) {
                 $result['value_min'] = $value_typ;
                 $result['value_max'] = $matches2[1];
                 $result['unit'] = $matches2[3] ?? $unit; // If both values have the same unit, we keep it
