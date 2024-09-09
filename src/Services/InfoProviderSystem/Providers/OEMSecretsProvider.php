@@ -1462,7 +1462,10 @@ class OEMSecretsProvider implements InfoProviderInterface
 
             //The real URL is stored in the 'event_link' query parameter
             if (isset($queryParams['event_link']) && trim($queryParams['event_link']) !== '') {
-                return $queryParams['event_link'];
+                $url = $queryParams['event_link'];
+
+                //Replace any spaces in the URL by %20 to avoid invalid URLs
+                return str_replace(' ', '%20', $url);
             }
         }
 
