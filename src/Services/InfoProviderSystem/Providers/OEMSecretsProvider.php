@@ -1195,7 +1195,7 @@ class OEMSecretsProvider implements InfoProviderInterface
             // Check if the value is numeric with a unit
             if (preg_match('/^([\+\-]?\d+(\.\d+)?)([a-zA-Z%°]+)?$/u', $value, $matches)) {
                 // It is a number with or without a unit
-                $result['value_typ'] = isset($matches[1]) ? (float)$matches[1] : null;
+                $result['value_typ'] = (float) $matches[1];
                 $result['unit'] = $matches[3] ?? null;
             } else {
                 // It's not a number, so we treat it as text
