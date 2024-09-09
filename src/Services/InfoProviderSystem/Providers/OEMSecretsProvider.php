@@ -390,7 +390,7 @@ class OEMSecretsProvider implements InfoProviderInterface
 
         //Force garbage collection to free up memory
         gc_collect_cycles();
-        
+
         return $results;
 
     }
@@ -843,7 +843,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 distributor_name: $distributor_name,
                 order_number: $order_number,
                 prices: $priceDTOs,
-                product_url: $product['buy_now_url'] ?? ''
+                product_url: $this->unwrapURL($product['buy_now_url'] ?? null)
             );
         }
         return null; // Return null if no valid distributor exists
@@ -974,37 +974,32 @@ class OEMSecretsProvider implements InfoProviderInterface
      * @param string|null $sheetUrl The URL of the datasheet.
      * @param string|null $sheetName The optional name of the datasheet. If null, the name is extracted from the URL.
      * @param array $existingDatasheets The array of existing datasheets to check for duplicates.
-     * @param string $eventLinkParam The query parameter used to extract the event link. Default is 'event_link'.
      *
      * @return FileDTO[]|null Returns an array containing the new datasheet if unique, or null if the datasheet is a duplicate or invalid.
      *
      * @see FileDTO Used to create datasheet objects with a URL and name.
      */
-    private function parseDataSheets(?string $sheetUrl, ?string $sheetName, array $existingDatasheets = [], string $eventLinkParam = 'event_link'): ?array
+    private function parseDataSheets(?string $sheetUrl, ?string $sheetName, array $existingDatasheets = []): ?array
     {
         if ($sheetUrl === null || $sheetUrl === '' || $sheetUrl === '0') {
             return null;
         }
 
+        //Unwrap the URL (remove analytics part)
+        $sheetUrl = $this->unwrapURL($sheetUrl);
+
         // If the datasheet name is not provided, extract it from the URL
         if ($sheetName === null) {
-            // Extract parameters from the query string of the URL
-            $queryParams = [];
-            $urlComponents = parse_url($sheetUrl);
-            if (isset($urlComponents['query'])) {
-                parse_str($urlComponents['query'], $queryParams);
+            $urlPath = parse_url($sheetUrl, PHP_URL_PATH);
+            if ($urlPath === false) {
+                throw new \RuntimeException("Invalid URL path: $sheetUrl");
             }
-            // If the "event_link" parameter exists, use it to extract the PDF file name
-            if (isset($queryParams[$eventLinkParam])) {
-                $eventLink = $queryParams[$eventLinkParam];
-                $sheetName = basename(parse_url($eventLink, PHP_URL_PATH));
-            } else {
-                // If "event_link" does not exist, try to extract the name from the main URL path
-                $sheetName = basename($urlComponents['path']);
-                if (!str_contains($sheetName, '.') || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
-                    // If the name does not have a valid extension, assign a default name
-                    $sheetName = 'datasheet_' . uniqid('', true) . '.pdf';
-                }
+
+            // If "event_link" does not exist, try to extract the name from the main URL path
+            $sheetName = basename($urlPath);
+            if (!str_contains($sheetName, '.') || !preg_match('/\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$/i', $sheetName)) {
+                // If the name does not have a valid extension, assign a default name
+                $sheetName = 'datasheet_' . uniqid('', true) . '.pdf';
             }
         }
 
@@ -1445,6 +1440,34 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function mapCountryNameToCode(?string $countryName): ?string
     {
         return $this->countryNameToCodeMap[$countryName] ?? null;
+    }
+
+    /**
+     * Removes the analytics tracking parts from the URLs returned by the API.
+     *
+     * @param  string|null  $url
+     * @return string|null
+     */
+    private function unwrapURL(?string $url): ?string
+    {
+        if ($url === null) {
+            return null;
+        }
+
+        //Check if the URL is a one redirected via analytics
+        if (str_contains($url, 'analytics.oemsecrets.com/main.php')) {
+            //Extract the URL from the analytics URL
+            $queryParams = [];
+            parse_str(parse_url($url, PHP_URL_QUERY), $queryParams);
+
+            //The real URL is stored in the 'event_link' query parameter
+            if (isset($queryParams['event_link']) && trim($queryParams['event_link']) !== '') {
+                return $queryParams['event_link'];
+            }
+        }
+
+        //Otherwise return the URL as it is
+        return $url;
     }
 
 }
