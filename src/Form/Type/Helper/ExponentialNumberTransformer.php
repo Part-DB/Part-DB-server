@@ -23,14 +23,14 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Helper;
 
-use App\Form\Fixes\FixedNumberToLocalizedStringTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
 
 /**
  * This transformer formats small values in scienfitic notation instead of rounding it to 0, like the default
  * NumberFormatter.
  */
-class ExponentialNumberTransformer extends FixedNumberToLocalizedStringTransformer
+class ExponentialNumberTransformer extends NumberToLocalizedStringTransformer
 {
     public function __construct(
         protected ?int $scale = null,
