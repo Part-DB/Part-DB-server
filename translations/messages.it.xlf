@@ -12210,5 +12210,17 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>%COUNT% elementi creati correttamente.</target>
       </segment>
     </unit>
+    <unit id="ha5njhB" name="info_providers.search.number_of_results">
+      <segment state="translated">
+        <source>info_providers.search.number_of_results</source>
+        <target>%number% risultati</target>
+      </segment>
+    </unit>
+    <unit id="q.kLIYr" name="info_providers.search.no_results">
+      <segment state="translated">
+        <source>info_providers.search.no_results</source>
+        <target>Nessun risultato trovato per i provider selezionati! Controlla il termine di ricerca o prova a scegliere provider aggiuntivi.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

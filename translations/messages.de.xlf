@@ -12205,5 +12205,17 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>%COUNT% Elemente erfolgreich erstellt.</target>
       </segment>
     </unit>
+    <unit id="ha5njhB" name="info_providers.search.number_of_results">
+      <segment state="translated">
+        <source>info_providers.search.number_of_results</source>
+        <target>%number% Ergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="q.kLIYr" name="info_providers.search.no_results">
+      <segment state="translated">
+        <source>info_providers.search.no_results</source>
+        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -242,7 +242,7 @@
       </notes>
       <segment state="final">
         <source>part.info.timetravel_hint</source>
-        <target><![CDATA[This is how the part appeared before %timestamp%. <i>Please note that this feature is experimental, so the info may not be correct.</i>]]></target>
+        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the info may not be correct.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
@@ -731,10 +731,10 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target><![CDATA[This will disable <b>all active two-factor authentication methods of the user</b> and delete the <b>backup codes</b>!
-<br>
-The user will have to set up all two-factor authentication methods again and print new backup codes! <br><br>
-<b>Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!</b>]]></target>
+        <target>This will disable &lt;b&gt;all active two-factor authentication methods of the user&lt;/b&gt; and delete the &lt;b&gt;backup codes&lt;/b&gt;!
+&lt;br&gt;
+The user will have to set up all two-factor authentication methods again and print new backup codes! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
@@ -893,9 +893,9 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment state="translated">
         <source>entity.delete.message</source>
-        <target><![CDATA[This can not be undone!
-<br>
-Sub elements will be moved upwards.]]></target>
+        <target>This can not be undone!
+&lt;br&gt;
+Sub elements will be moved upwards.</target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
@@ -1449,7 +1449,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="final">
         <source>homepage.github.text</source>
-        <target><![CDATA[Source, downloads, bug reports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+        <target>Source, downloads, bug reports, to-do-list etc. can be found on &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="9pp.6vF" name="homepage.help.caption">
@@ -1471,7 +1471,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a>]]></target>
+        <target>Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="R2g.45a" name="homepage.forum.caption">
@@ -1713,7 +1713,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.fallback</source>
-        <target><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
+        <target>If this does not work for you, go to &lt;a href="%url%"&gt;%url%&lt;/a&gt; and enter the following info</target>
       </segment>
     </unit>
     <unit id="QBTV5KP" name="email.pw_reset.username">
@@ -1743,7 +1743,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
+        <target>The reset token will be valid until &lt;i&gt;%date%&lt;/i&gt;.</target>
       </segment>
     </unit>
     <unit id="ItQbhLs" name="orderdetail.delete">
@@ -3586,8 +3586,8 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
-        <target><![CDATA[If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.<br>
-Also note that without two-factor authentication, your account is no longer as well protected against attackers!]]></target>
+        <target>If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.&lt;br&gt;
+Also note that without two-factor authentication, your account is no longer as well protected against attackers!</target>
       </segment>
     </unit>
     <unit id="VYOAO2c" name="tfa_google.disabled_message">
@@ -3607,7 +3607,7 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target><![CDATA[Download an authenticator app (e.g. <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator</a> oder <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp">FreeOTP Authenticator</a>)]]></target>
+        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="TXv.pXw" name="tfa_google.step.scan">
@@ -3849,8 +3849,8 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target><![CDATA[When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
-If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of <i>all </i>computers here.]]></target>
+        <target>When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
+If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of &lt;i&gt;all &lt;/i&gt;computers here.</target>
       </segment>
     </unit>
     <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
@@ -5321,7 +5321,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target><![CDATA[If you select Twig here, the content field is interpreted as Twig template. See <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig documentation</a> and <a href="https://docs.part-db.de/usage/labels.html#twig-mode">Wiki</a> for more information.]]></target>
+        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; for more information.</target>
       </segment>
     </unit>
     <unit id="2d9g1o5" name="label_options.page_size.label">
@@ -9396,25 +9396,25 @@ Element 3</target>
     <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
-        <target><![CDATA[Typ. Value <]]></target>
+        <target>Typ. Value &lt;</target>
       </segment>
     </unit>
     <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;</source>
-        <target><![CDATA[Typ. Value >]]></target>
+        <target>Typ. Value &gt;</target>
       </segment>
     </unit>
     <unit id="O4x0opb" name="filter.parameter_value_constraint.operator.&lt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;=</source>
-        <target><![CDATA[Typ. Value <=]]></target>
+        <target>Typ. Value &lt;=</target>
       </segment>
     </unit>
     <unit id="ituiTs9" name="filter.parameter_value_constraint.operator.&gt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;=</source>
-        <target><![CDATA[Typ. Value >=]]></target>
+        <target>Typ. Value &gt;=</target>
       </segment>
     </unit>
     <unit id="Y8B3A9X" name="filter.parameter_value_constraint.operator.BETWEEN">
@@ -9522,7 +9522,7 @@ Element 3</target>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target><![CDATA[Searching parts with keyword <b>%keyword%</b>]]></target>
+        <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="lkQ2zTi" name="parts_list.search_options.caption">
@@ -10182,13 +10182,13 @@ Element 3</target>
     <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this project.]]></target>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
       </segment>
     </unit>
     <unit id="fZhqvmk" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
+        <target>The current project status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the project with this status!</target>
       </segment>
     </unit>
     <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
@@ -10290,7 +10290,7 @@ Element 3</target>
     <unit id="vr7oZKL" name="entity.select.add_hint">
       <segment state="translated">
         <source>entity.select.add_hint</source>
-        <target><![CDATA[Use -> to create nested structures, e.g. "Node 1->Node 1.1"]]></target>
+        <target>Use -&gt; to create nested structures, e.g. "Node 1-&gt;Node 1.1"</target>
       </segment>
     </unit>
     <unit id="_cXCaLo" name="entity.select.group.new_not_added_to_DB">
@@ -10314,13 +10314,13 @@ Element 3</target>
     <unit id="qoK8lss" name="homepage.first_steps.introduction">
       <segment state="translated">
         <source>homepage.first_steps.introduction</source>
-        <target><![CDATA[Your database is still empty. You might want to read the <a href="%url%">documentation</a> or start to creating the following data structures:]]></target>
+        <target>Your database is still empty. You might want to read the &lt;a href="%url%"&gt;documentation&lt;/a&gt; or start to creating the following data structures:</target>
       </segment>
     </unit>
     <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target><![CDATA[Or you can directly <a href="%url%">create a new part</a>.]]></target>
+        <target>Or you can directly &lt;a href="%url%"&gt;create a new part&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
@@ -10332,7 +10332,7 @@ Element 3</target>
     <unit id="nfBdkzp" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target><![CDATA[For questions about Part-DB use the <a href="%href%" class="link-external" target="_blank">discussion forum</a>]]></target>
+        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="qmnrptL" name="log.element_edited.changed_fields.category">
@@ -10986,7 +10986,7 @@ Element 3</target>
     <unit id="aNR2tK9" name="parts.import.help_documentation">
       <segment state="translated">
         <source>parts.import.help_documentation</source>
-        <target><![CDATA[See the <a href="%link%">documentation</a> for more information on the file format.]]></target>
+        <target>See the &lt;a href="%link%"&gt;documentation&lt;/a&gt; for more information on the file format.</target>
       </segment>
     </unit>
     <unit id="bOHORjK" name="parts.import.help">
@@ -11166,7 +11166,7 @@ Element 3</target>
     <unit id="u6qFa_j" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
+        <target>In stock less than desired (total amount &lt; min. amount)</target>
       </segment>
     </unit>
     <unit id="lHTN.a1" name="part.filter.lotOwner">
@@ -11978,13 +11978,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="nISUoQl" name="part.merge.confirm.title">
       <segment state="translated">
         <source>part.merge.confirm.title</source>
-        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
+        <target>Do you really want to merge &lt;b&gt;%other%&lt;/b&gt; into &lt;b&gt;%target%&lt;/b&gt;?</target>
       </segment>
     </unit>
     <unit id="qxHNYfX" name="part.merge.confirm.message">
       <segment state="translated">
         <source>part.merge.confirm.message</source>
-        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
+        <target>&lt;b&gt;%other%&lt;/b&gt; will be deleted, and the part will be saved with the shown information.</target>
       </segment>
     </unit>
     <unit id="BY9.T4F" name="part.info.merge_modal.title">
@@ -12210,13 +12210,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="ha5njhB" name="info_providers.search.number_of_results">
-      <segment>
+      <segment state="translated">
         <source>info_providers.search.number_of_results</source>
         <target>%number% results</target>
       </segment>
     </unit>
     <unit id="q.kLIYr" name="info_providers.search.no_results">
-      <segment>
+      <segment state="translated">
         <source>info_providers.search.no_results</source>
         <target>No results found at the selected providers! Check your search term or try to choose additional providers.</target>
       </segment>
