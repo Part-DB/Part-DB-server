@@ -33,11 +33,12 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStrin
 class ExponentialNumberTransformer extends NumberToLocalizedStringTransformer
 {
     public function __construct(
-        protected ?int $scale = null,
+        private ?int $scale = null,
         ?bool $grouping = false,
         ?int $roundingMode = \NumberFormatter::ROUND_HALFUP,
         protected ?string $locale = null
     ) {
+        //Set scale to null, to disable rounding of values
         parent::__construct($scale, $grouping, $roundingMode, $locale);
     }
 
@@ -85,11 +86,27 @@ class ExponentialNumberTransformer extends NumberToLocalizedStringTransformer
         $formatter = new \NumberFormatter($this->locale ?? \Locale::getDefault(), \NumberFormatter::SCIENTIFIC);
 
         if (null !== $this->scale) {
-            $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $this->scale);
+            $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $this->scale);
             $formatter->setAttribute(\NumberFormatter::ROUNDING_MODE, $this->roundingMode);
         }
 
         $formatter->setAttribute(\NumberFormatter::GROUPING_USED, (int) $this->grouping);
+
+        return $formatter;
+    }
+
+    protected function getNumberFormatter(): \NumberFormatter
+    {
+        $formatter = parent::getNumberFormatter();
+
+        //Unset the fraction digits, as we don't want to round the number
+        $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, 0);
+        if (null !== $this->scale) {
+            $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $this->scale);
+        } else {
+            $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 100);
+        }
+
 
         return $formatter;
     }
