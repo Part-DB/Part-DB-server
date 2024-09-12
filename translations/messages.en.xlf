@@ -4948,7 +4948,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>m_status.eol</source>
-        <target>Coated</target>
+        <target>End of life</target>
       </segment>
     </unit>
     <unit id="5jxVP1H" name="m_status.discontinued">
