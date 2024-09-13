@@ -202,6 +202,16 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
+        $builder->add('orderAmount', NumberConstraintType::class, [
+            'label' => 'part.edit.orderstock',
+            'min' => 0,
+        ]);
+
+        $builder->add('orderDelivery', DateTimeConstraintType::class, [
+            'label' => 'part.edit.orderDelivery',
+            'input_type' => DateType::class,
+        ]);
+
         $builder->add('lotCount', NumberConstraintType::class, [
             'label' => 'part.filter.lot_count',
             'min' => 0,
