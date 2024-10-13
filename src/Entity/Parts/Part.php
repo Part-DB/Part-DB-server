@@ -118,7 +118,7 @@ class Part extends AttachmentContainingDBElement
     /** @var Collection<int, PartParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full', 'part:read', 'part:write'])]
+    #[Groups(['full', 'part:read', 'part:write', 'import'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
