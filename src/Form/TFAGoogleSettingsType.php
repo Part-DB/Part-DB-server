@@ -53,6 +53,7 @@ class TFAGoogleSettingsType extends AbstractType
                     'google_confirmation',
                     TextType::class,
                     [
+                        'label' => 'tfa.check.code.confirmation',
                         'mapped' => false,
                         'attr' => [
                             'maxlength' => '6',
