@@ -15,7 +15,7 @@
                     <input type="hidden" name="lot_id" value="">
                     <input type="hidden" name="action" value="">
                     <input type="hidden" name="_csfr" value="{{ csrf_token('part_withraw' ~ part.iD) }}">
-                    <input type="hidden" name="_redirect" value="{{  app.request.baseUrl ~ app.request.requestUri }}">
+                    <input type="hidden" name="_redirect" value="{{  app.request.baseUrl ~ app.request.pathInfo }}">
 
                     <div class="row mb-2">
                         <label class="col-form-label col-sm-3">
