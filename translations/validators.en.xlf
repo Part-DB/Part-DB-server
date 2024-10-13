@@ -354,7 +354,7 @@
       </segment>
     </unit>
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
-      <segment>
+      <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device has the time set correctly.</target>
       </segment>
