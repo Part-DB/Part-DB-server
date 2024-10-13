@@ -186,5 +186,15 @@ export default class extends Controller {
                 ];
             },
         });
+
+        //Try to find the input field and register a defocus handler. This is necessarry, as by default the autocomplete
+        //lib has problems when multiple inputs are present on the page. (see https://github.com/algolia/autocomplete/issues/1216)
+        const inputs = this.element.getElementsByClassName('aa-Input');
+        for (const input of inputs) {
+            input.addEventListener('blur', () => {
+                this._autocomplete.setIsOpen(false);
+            });
+        }
+
     }
 }
