@@ -102,7 +102,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ApiFilter(LikeFilter::class, properties: ["name", "aboutMe"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-#[NoLockout]
+#[NoLockout(groups: ['permissions:edit'])]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
