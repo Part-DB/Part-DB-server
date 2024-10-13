@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
   <file id="validators.en">
-    <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
+    <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
@@ -42,7 +42,7 @@
         <target>Der Vorschauanhang muss ein gültiges Bild sein!</target>
       </segment>
     </unit>
-    <unit id="VJHTkxx" name="structural.entity.unique_name">
+    <unit id="v8HkcJB" name="structural.entity.unique_name">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
@@ -87,7 +87,7 @@
         <target>Es kann auf jeder Ebene nur ein Objekt mit dem gleichem Namen geben!</target>
       </segment>
     </unit>
-    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+    <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
@@ -107,7 +107,7 @@
         <target>Wert muss kleiner oder gleich als der typische Wert sein ({{ compared_value }}).</target>
       </segment>
     </unit>
-    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+    <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
@@ -127,7 +127,7 @@
         <target>Wert muss kleiner als der Maximalwert sein ({{ compared_value }}).</target>
       </segment>
     </unit>
-    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+    <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
@@ -147,7 +147,7 @@
         <target>Wert muss größer oder gleich dem typischen Wert sein ({{ compared_value }}).</target>
       </segment>
     </unit>
-    <unit id="isXL.ie" name="validator.user.username_already_used">
+    <unit id="P41193Y" name="validator.user.username_already_used">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
@@ -157,7 +157,7 @@
         <target>Es existiert bereits ein Benutzer mit diesem Namen.</target>
       </segment>
     </unit>
-    <unit id="NcM463r" name="user.invalid_username">
+    <unit id="EKPQiyf" name="user.invalid_username">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
@@ -167,7 +167,7 @@
         <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten.</target>
       </segment>
     </unit>
-    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+    <unit id="_v.DMg." name="validator.noneofitschild.self">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
@@ -176,181 +176,187 @@
         <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein!</target>
       </segment>
     </unit>
-    <unit id="pr07aV4" name="validator.noneofitschild.children">
+    <unit id="W90LyFQ" name="validator.noneofitschild.children">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="final">
+      <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Ein Kindelement kann nicht das übergeordnete Element sein!</target>
       </segment>
     </unit>
-    <unit id="ayNr6QK" name="validator.select_valid_category">
+    <unit id="GAUS.LK" name="validator.select_valid_category">
       <segment state="translated">
         <source>validator.select_valid_category</source>
         <target>Bitte wählen Sie eine gültige Kategorie.</target>
       </segment>
     </unit>
-    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+    <unit id="h6qELde" name="validator.part_lot.only_existing">
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
         <target>Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
       </segment>
     </unit>
-    <unit id="3xoKOIS" name="validator.part_lot.location_full.no_increase">
+    <unit id="Prriyy0" name="validator.part_lot.location_full.no_increase">
       <segment state="translated">
         <source>validator.part_lot.location_full.no_increase</source>
         <target>Lagerort ist voll. Bestand kann nicht erhöht werden (neuer Wert muss kleiner sein als {{old_amount}}).</target>
       </segment>
     </unit>
-    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment state="final">
+    <unit id="eeEjB4s" name="validator.part_lot.location_full">
+      <segment state="translated">
         <source>validator.part_lot.location_full</source>
         <target>Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
       </segment>
     </unit>
-    <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment state="final">
+    <unit id="2yWi8eP" name="validator.part_lot.single_part">
+      <segment state="translated">
         <source>validator.part_lot.single_part</source>
         <target>Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
       </segment>
     </unit>
-    <unit id="4gPskOG" name="validator.attachment.must_not_be_null">
+    <unit id="A.TFhbb" name="validator.attachment.must_not_be_null">
       <segment state="translated">
         <source>validator.attachment.must_not_be_null</source>
         <target>Sie müssen ein Dateitypen auswählen!</target>
       </segment>
     </unit>
-    <unit id="cDDVrWT" name="validator.orderdetail.supplier_must_not_be_null">
+    <unit id=".lqKoij" name="validator.orderdetail.supplier_must_not_be_null">
       <segment state="translated">
         <source>validator.orderdetail.supplier_must_not_be_null</source>
         <target>Sie müssen einen Lieferanten auswählen!</target>
       </segment>
     </unit>
-    <unit id="k5DDdB4" name="validator.measurement_unit.use_si_prefix_needs_unit">
+    <unit id="bcNZzK." name="validator.measurement_unit.use_si_prefix_needs_unit">
       <segment state="translated">
         <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
         <target>Um SI-Prefixe zu aktivieren, müssen Sie einen Einheitensymbol setzen!</target>
       </segment>
     </unit>
-    <unit id="DuzIOCr" name="part.ipn.must_be_unique">
+    <unit id="gZ5FFL1" name="part.ipn.must_be_unique">
       <segment state="translated">
         <source>part.ipn.must_be_unique</source>
         <target>Die Internal Part Number (IPN) muss einzigartig sein. Der Wert {{value}} wird bereits benutzt!</target>
       </segment>
     </unit>
-    <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
+    <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
         <target>Sie müssen ein Bauteil auswählen, oder einen Namen für ein nicht-Bauteil BOM-Eintrag setzen!</target>
       </segment>
     </unit>
-    <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
+    <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
         <target>Es gibt bereits einen BOM Eintrag mit diesem Namen!</target>
       </segment>
     </unit>
-    <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
+    <unit id="jB3B50E" name="project.bom_entry.part_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.part_already_in_bom</source>
         <target>Dieses Bauteil existiert bereits in der BOM!</target>
       </segment>
     </unit>
-    <unit id="3lM32Tw" name="project.bom_entry.mountnames_quantity_mismatch">
+    <unit id="NdkzP1n" name="project.bom_entry.mountnames_quantity_mismatch">
       <segment state="translated">
         <source>project.bom_entry.mountnames_quantity_mismatch</source>
         <target>Die Anzahl der Bestückungsnamen muss mit der Menge der zu bestückenden Bauteile übereinstimmen!</target>
       </segment>
     </unit>
-    <unit id="x47D5WT" name="project.bom_entry.can_not_add_own_builds_part">
+    <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
       <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
         <target>Die BOM eines Projektes kann nicht das eigene Produktionsbauteil enthalten!</target>
       </segment>
     </unit>
-    <unit id="2x2XDI_" name="project.bom_has_to_include_all_subelement_parts">
+    <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
         <target>Die Projekt-BOM muss alle Produktionsbauteile der Unterprojekte enthalten. Bauteil %part_name% des Projektes %project_name% fehlt!</target>
       </segment>
     </unit>
-    <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
+    <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
       <segment state="translated">
         <source>project.bom_entry.price_not_allowed_on_parts</source>
         <target>Sie können keinen Preis für Bauteil-BOM-Einträge definieren. Definieren Sie die Preise stattdessen auf dem Bauteil.</target>
       </segment>
     </unit>
-    <unit id="ID056SR" name="validator.project_build.lot_bigger_than_needed">
+    <unit id="xZ68Nzl" name="validator.project_build.lot_bigger_than_needed">
       <segment state="translated">
         <source>validator.project_build.lot_bigger_than_needed</source>
         <target>Sie haben mehr zur Entnahme ausgewählt als notwendig. Entfernen Sie die überflüssige Anzahl.</target>
       </segment>
     </unit>
-    <unit id="6hV5UqD" name="validator.project_build.lot_smaller_than_needed">
+    <unit id="68_.V_X" name="validator.project_build.lot_smaller_than_needed">
       <segment state="translated">
         <source>validator.project_build.lot_smaller_than_needed</source>
         <target>Sie haben weniger zur Entnahme ausgewählt, als zum Bau notwendig ist! Fügen Sie mehr hinzu.</target>
       </segment>
     </unit>
-    <unit id="G9ZKt.4" name="part.name.must_match_category_regex">
+    <unit id="yZGS8uZ" name="part.name.must_match_category_regex">
       <segment state="translated">
         <source>part.name.must_match_category_regex</source>
         <target>Der Bauteilename entspricht nicht dem regulären Ausdruck, der von der Kategorie vorgegeben wurde: %regex%</target>
       </segment>
     </unit>
-    <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
+    <unit id="Q8wP5Jd" name="validator.attachment.name_not_blank">
       <segment state="translated">
         <source>validator.attachment.name_not_blank</source>
         <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
       </segment>
     </unit>
-    <unit id="nwGaNBW" name="validator.part_lot.owner_must_match_storage_location_owner">
+    <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">
       <segment state="translated">
         <source>validator.part_lot.owner_must_match_storage_location_owner</source>
         <target>Der Besitzer dieses Bauteilebestandes und des gewählten Lagerortes müssen übereinstimmen (%owner_name%)!</target>
       </segment>
     </unit>
-    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+    <unit id="TzySicw" name="validator.part_lot.owner_must_not_be_anonymous">
       <segment state="translated">
         <source>validator.part_lot.owner_must_not_be_anonymous</source>
         <target>Der Eigentümer darf nicht der anonymous Benutzer sein!</target>
       </segment>
     </unit>
-    <unit id="N8aA0Uh" name="validator.part_association.must_set_an_value_if_type_is_other">
+    <unit id="GthNWUb" name="validator.part_association.must_set_an_value_if_type_is_other">
       <segment state="translated">
         <source>validator.part_association.must_set_an_value_if_type_is_other</source>
         <target>Wenn die Art der Verknüpfung auf "Andere" gesetzt wurde, müssen Sie einen beschreibenden Wert setzen!</target>
       </segment>
     </unit>
-    <unit id="9VYNZ4v" name="validator.part_association.part_cannot_be_associated_with_itself">
+    <unit id="Be4Im81" name="validator.part_association.part_cannot_be_associated_with_itself">
       <segment state="translated">
         <source>validator.part_association.part_cannot_be_associated_with_itself</source>
         <target>Ein Bauteil kann nicht mit sich selbst verknüpft werden!</target>
       </segment>
     </unit>
-    <unit id="csc1PNn" name="validator.part_association.already_exists">
+    <unit id="q5Ej6Xm" name="validator.part_association.already_exists">
       <segment state="translated">
         <source>validator.part_association.already_exists</source>
         <target>Eine Verknüpfung mit diesem Bauteil existiert bereits!</target>
       </segment>
     </unit>
-    <unit id="sfW4NYE" name="validator.part_lot.vendor_barcode_must_be_unique">
+    <unit id="HbI5bga" name="validator.part_lot.vendor_barcode_must_be_unique">
       <segment state="translated">
         <source>validator.part_lot.vendor_barcode_must_be_unique</source>
         <target>Dieser Lieferanten Barcode Wert wird bereits bei einem anderen Bestand verwendet. Der Barcode muss eindeutig sein!</target>
       </segment>
     </unit>
-    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+    <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>
         <target>Aufgrund technischer Beschränkungen ist es nicht möglich, ein Datum nach dem 19.01.2038 auf 32-Bit Systemen auszuwählen!</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>Der gegebene Bereich ist nicht gültig!</target>
+      </segment>
+    </unit>
+    <unit id="m4gp2P_" name="validator.google_code.wrong_code">
+      <segment state="translated">
+        <source>validator.google_code.wrong_code</source>
+        <target>Ungültiger Code. Überprüfen Sie, dass die Authenticator App korrekt eingerichtet ist und dass der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
       </segment>
     </unit>
   </file>
