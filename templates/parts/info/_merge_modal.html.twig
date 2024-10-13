@@ -7,7 +7,7 @@
     </button>
 {% endif %}
 
-<div class="modal fade" id="merge-modal" tabindex="-1" aria-labelledby="merge-modal-title" tabindex="-1" aria-hidden="true" {{ stimulus_controller('pages/part_withdraw_modal') }}>
+<div class="modal fade" id="merge-modal" tabindex="-1" aria-labelledby="merge-modal-title" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" {{ stimulus_controller('pages/part_merge_modal', {'targetId': part.iD }) }}>
             <div class="modal-header">
