@@ -60,7 +60,7 @@ class TFAGoogleSettingsType extends AbstractType
                             'pattern' => '\d*',
                             'autocomplete' => 'off',
                         ],
-                        'constraints' => [new ValidGoogleAuthCode()],
+                        'constraints' => [new ValidGoogleAuthCode(groups: ["google_authenticator"])],
                     ]
                 );
 
@@ -92,6 +92,7 @@ class TFAGoogleSettingsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['google_authenticator'],
         ]);
     }
 }

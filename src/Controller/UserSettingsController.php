@@ -331,7 +331,7 @@ class UserSettingsController extends AbstractController
         $google_form->handleRequest($request);
 
         //We do not need to check for validity of the google form here, because we do not care if the other fields are valid
-        if (!$this->demo_mode && !$user->isSamlUser() && $google_form->isSubmitted()) {
+        if (!$this->demo_mode && !$user->isSamlUser() && $google_form->isSubmitted() && $google_form->isValid()) {
             if (!$google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
