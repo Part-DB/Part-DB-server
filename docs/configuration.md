@@ -86,6 +86,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
 * `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
   versions, or if your server can not connect to the internet.
+* `APP_SECRET`: This variable is a configuration parameter used for various security-related purposes,
+  particularly for securing and protecting various aspects of your application. It's a secret key that is used for
+  cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
+  value should be handled as confidential data and not shared publicly.
 
 ### E-Mail settings
 
