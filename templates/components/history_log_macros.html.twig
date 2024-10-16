@@ -17,7 +17,7 @@
             {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
           data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
           data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
-        <input type="hidden" name="redirect_back" value="{{  app.request.baseUrl ~ app.request.pathInfo }}">
+        <input type="hidden" name="redirect_back" value="{{  uri_without_host(app.request) }}">
 
         {{ datatables.logDataTable(datatable, tag) }}
     </form>

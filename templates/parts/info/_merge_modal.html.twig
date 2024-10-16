@@ -17,7 +17,7 @@
             <div class="modal-body">
                 {# non visible form elements #}
                 <input type="hidden" name="lot_id" value="">
-                <input type="hidden" name="_redirect" value="{{  app.request.baseUrl ~ app.request.pathInfo }}">
+                <input type="hidden" name="_redirect" value="{{ uri_without_host(app.request) }}">
 
                 <div class="row mb-2">
                     <label class="form-label">
