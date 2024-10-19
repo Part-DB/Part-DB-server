@@ -9,7 +9,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Typy plików dla załączników</target>
+        <target>Typy plików dla załącznikówRegPrzerwanie w przypadku nieprawidłowych danychport</target>
       </segment>
     </unit>
     <unit id="f_CALXB" name="attachment_type.edit">
@@ -242,7 +242,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>Tak wyglądał komponent przed %timestamp%. &lt;i&gt;Należy pamiętać, że ta funkcja jest eksperymentalna, a wyświetlane informacje niekoniecznie są poprawne.&lt;/i&gt;</target>
+        <target>Tak wyglądał komponent przed %timestamp%. &lt;i&gt;Należy pamiętać, że ta funkcja jest eksperymentalna, a wyświetlane informacje niekoniecznie są poprawne.&lt;/i&gt;or</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -297,7 +297,7 @@
       </notes>
       <segment state="translated">
         <source>import_export.label</source>
-        <target>Import / Eksport</target>
+        <target>Importuj / Eksportuj</target>
       </segment>
     </unit>
     <unit id="tAWaLUV" name="mass_creation.label">
@@ -974,7 +974,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>export.level.simple</source>
-        <target>Prosty</target>
+        <target>Podstawowa</target>
       </segment>
     </unit>
     <unit id="8woeX3w" name="export.level.extended">
@@ -985,7 +985,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>export.level.extended</source>
-        <target>Rozszerzony</target>
+        <target>Rozszerzona</target>
       </segment>
     </unit>
     <unit id="IvCZSCM" name="export.level.full">
@@ -996,7 +996,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>export.level.full</source>
-        <target>Pełny</target>
+        <target>Pełna</target>
       </segment>
     </unit>
     <unit id="u3Rka3L" name="export.include_children">
@@ -4023,7 +4023,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>Dopasowywanie wyrażeń regularnych Reg.Ex.</target>
+        <target>Dopasowywanie Reg.Ex.</target>
       </segment>
     </unit>
     <unit id="U5IhkwB" name="search.submit">
@@ -5104,7 +5104,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>import.preserve_children</source>
-        <target>Zachowanie elementów podrzędnych podczas importu</target>
+        <target>Zachowaj elementy podrzędne podczas importu</target>
       </segment>
     </unit>
     <unit id="4qFTQft" name="import.abort_on_validation">
@@ -5115,7 +5115,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>import.abort_on_validation</source>
-        <target>Przerwanie w przypadku nieprawidłowych danych</target>
+        <target>Przerwij w przypadku nieprawidłowych danych</target>
       </segment>
     </unit>
     <unit id="QrS4_CU" name="import.btn">
@@ -5126,7 +5126,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>import.btn</source>
-        <target>Import</target>
+        <target>Importuj</target>
       </segment>
     </unit>
     <unit id="kuVdzho" name="attachment.edit.secure_file.help">
@@ -7151,7 +7151,7 @@ PrzykładowaMiejscowość</target>
       </notes>
       <segment state="translated">
         <source>mass_creation.lines</source>
-        <target>Wejście</target>
+        <target>Dane wejściowe</target>
       </segment>
     </unit>
     <unit id="nYlVgsL" name="mass_creation.lines.placeholder">
