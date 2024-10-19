@@ -8552,7 +8552,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>tfa.provider.google</source>
-        <target>Aplikacja Authenticator </target>
+        <target>Aplikacja Authenticator</target>
       </segment>
     </unit>
     <unit id="fGkpjYW" name="Login successful">
