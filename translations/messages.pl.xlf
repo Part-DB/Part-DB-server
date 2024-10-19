@@ -405,7 +405,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.edit</source>
-        <target>Edytuj pole lutownicze</target>
+        <target>Edytuj układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="9RgpRoK" name="footprint.new">
@@ -415,7 +415,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Utwórz pole lutownicze</target>
+        <target>Utwórz układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="tvm4F9e" name="group.edit.caption">
@@ -2304,7 +2304,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>footprint.label</source>
-        <target>Pole lutownicze</target>
+        <target>Układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="uk190YF" name="part.avg_price.label">
@@ -4023,7 +4023,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>Dopasowanie Reg.Ex.</target>
+        <target>Dopasowywanie wyrażeń regularnych Reg.Ex.</target>
       </segment>
     </unit>
     <unit id="U5IhkwB" name="search.submit">
@@ -5646,7 +5646,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>part.edit.mpn</source>
-        <target>Numer części producenta</target>
+        <target>Numer katalogowy producenta</target>
       </segment>
     </unit>
     <unit id="Pu8B.GB" name="part.edit.manufacturing_status">
@@ -7746,7 +7746,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.change_favorite</source>
-        <target>Zmiana statusu ulubionych</target>
+        <target>Zmiana statusu ulubiony</target>
       </segment>
     </unit>
     <unit id="uSlD_4R" name="perm.part.show_favorite">
@@ -7756,7 +7756,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.show_favorite</source>
-        <target>Części ulubione</target>
+        <target>Ulubione komponenty</target>
       </segment>
     </unit>
     <unit id="a6_M8G2" name="perm.part.show_last_edit_parts">
@@ -8406,7 +8406,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.footprint</source>
-        <target>Pole lutownicze</target>
+        <target>Układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="u80GbdM" name="perm.part.mpn">
@@ -8954,19 +8954,19 @@ Element 3</target>
     <unit id="Fc.1rpX" name="part_list.action.action.group.favorite">
       <segment state="translated">
         <source>part_list.action.action.group.favorite</source>
-        <target>Ulubiony</target>
+        <target>Ulubione</target>
       </segment>
     </unit>
     <unit id="s2Dybnd" name="part_list.action.action.favorite">
       <segment state="translated">
         <source>part_list.action.action.favorite</source>
-        <target>Preferuj komponenty</target>
+        <target>Dodaj do ulubionych</target>
       </segment>
     </unit>
     <unit id="oRXo8cB" name="part_list.action.action.unfavorite">
       <segment state="translated">
         <source>part_list.action.action.unfavorite</source>
-        <target>Nieulubiony</target>
+        <target>Usuń z ulubionych</target>
       </segment>
     </unit>
     <unit id="sbuGwh6" name="part_list.action.action.group.change_field">
@@ -8984,7 +8984,7 @@ Element 3</target>
     <unit id="1013DFk" name="part_list.action.action.change_footprint">
       <segment state="translated">
         <source>part_list.action.action.change_footprint</source>
-        <target>Zmień pole lutownicze</target>
+        <target>Zmień Układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="CPEbRo." name="part_list.action.action.change_manufacturer">
@@ -10340,7 +10340,7 @@ Element 3</target>
     <unit id="zCziDS4" name="log.element_edited.changed_fields.footprint">
       <segment state="translated">
         <source>log.element_edited.changed_fields.footprint</source>
-        <target>Pole lutownicze</target>
+        <target>Układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="xT2Ayws" name="log.element_edited.changed_fields.manufacturer">
@@ -11458,7 +11458,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="01DJxrf" name="info_providers.capabilities.footprint">
       <segment state="translated">
         <source>info_providers.capabilities.footprint</source>
-        <target>Pole lutownicze</target>
+        <target>Układ padów (footprint)</target>
       </segment>
     </unit>
     <unit id="L9jFaHE" name="info_providers.capabilities.picture">
@@ -12136,7 +12136,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="Af5tvOr" name="eda_info.kicad_footprint">
       <segment state="translated">
         <source>eda_info.kicad_footprint</source>
-        <target>Pole lutownicze KiCad</target>
+        <target>Układ padów (footprint) KiCad</target>
       </segment>
     </unit>
     <unit id="PmYqhWI" name="eda_info.kicad_footprint.placeholder">
