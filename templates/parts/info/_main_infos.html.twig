@@ -1,96 +1,130 @@
 {% import "helper.twig" as helper %}
 
-<div class="row">
-    <div class="col-md-3 col-lg-4 col-3 mt-auto mb-auto">
-        {% include "parts/info/_picture.html.twig" %}
-    </div>
-    <div class="col-md-9 col-lg-8 col-7">
-        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">
-            {% if part.manufacturer %}
-                {% if part.manufacturer.id is not null %}
-                    <a href="{{ entity_url(part.manufacturer, 'list_parts') }}">{{ part.manufacturer.name}}</a>
+{% if part.manufacturer or part.manufacturerProductUrl or part.manufacturerProductNumber %}
+<h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">
+    {% if part.manufacturer %}
+        {% if part.manufacturer.id is not null %}
+            <a href="{{ entity_url(part.manufacturer, 'list_parts') }}">{{ part.manufacturer.name}}</a>
+        {% else %}
+            {{ part.manufacturer.name }}
+        {% endif %}
+    {% endif %}
+    {% if part.manufacturerProductUrl %}
+        <small>
+            <a class="link-external" href="{{ part.manufacturerProductUrl }}" rel="noopener" target="_blank">
+                {% if part.manufacturerProductNumber is not empty %}
+                    {{ part.manufacturerProductNumber }}
                 {% else %}
-                    {{ part.manufacturer.name }}
+                    <i>{{ part.name }}</i>
                 {% endif %}
-            {% endif %}
-            {% if part.manufacturerProductUrl %}
-                <small>
-                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" rel="noopener" target="_blank">
-                        {% if part.manufacturerProductNumber is not empty %}
-                            {{ part.manufacturerProductNumber }}
-                        {% else %}
-                            <i>{{ part.name }}</i>
-                        {% endif %}
-                    </a>
-                </small>
-            {% else %}
-                <small>{{ part.manufacturerProductNumber }}</small>
-            {% endif %}
-        </h5>
-        <h3 class="w-fit" title="{% trans %}name.label{% endtrans %}">{{ part.name }}
-            {# You need edit permission to use the edit button #}
-            {% if timeTravel is not null %}
-                <a href="{{ entity_url(part, 'info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
-            {% elseif is_granted('edit', part) %}
-                <a href="{{ entity_url(part, 'edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
-            {% endif %}
-        </h3>
-        <h6 class="text-muted w-fit" title="{% trans %}description.label{% endtrans %}"><span>{{ part.description|format_markdown(true) }}</span></h6>
-        <h6 class="">
-            <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
-            <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
-        </h6>
-        <h6><i class="fas fa-shapes fa-fw"></i>
-            <span class="{% if part.notEnoughInstock and not part.amountUnknown %}text-danger font-weight-bold{% else %}text-muted{% endif %}">
-                {% if not part.amountUnknown %}
-                    {# For known instock we can just show the label as normal #}
-                    <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | format_amount(part.partUnit) }}</span>
-                {% else %}
-                    {% if part.amountSum == 0.0 %}
-                        <b title="{% trans %}part_lots.instock_unknown{% endtrans %}">?</b>
-                    {% else %}
-                        <span title="{% trans %}part_lots.instock_unknown{% endtrans %}">≥{{ part.amountSum | format_amount(part.partUnit) }}</span>
-                    {% endif %}
-                {% endif %}
-                {% if part.expiredAmountSum > 0 %}
-                    <span title="{% trans %}part_lots.is_expired{% endtrans %}" class="text-muted">(+{{ part.expiredAmountSum }})</span>
-                {% endif %}
-                /
-                <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
-            </span>
-            {% if part.notEnoughInstock %}
-                <span class="badge badge-warning bg-warning rounded-pill"><i class="fa-solid fa-less-than-equal"></i>&nbsp;{% trans %}part.info.amount.less_than_desired{% endtrans %}</span>
-            {% endif %}
-        </h6>
-        <h6 class="">
-            <i class="fas fa-microchip fa-fw" title="{% trans %}footprint.label{% endtrans %}"></i>
-            <span class="text-muted">{{ helper.structural_entity_link(part.footprint) }}</span>
-        </h6>
+            </a>
+        </small>
+    {% elseif part.manufacturerProductNumber %}
+        <small>{{ part.manufacturerProductNumber }}</small>
+    {% endif %}
+</h5>
+{% endif %}
 
-        {% set min_order_amount = pricedetail_helper.minOrderAmount(part) %}
-        {% set max_order_amount = pricedetail_helper.maxDiscountAmount(part) %}
-        {% set max_order_price = pricedetail_helper.calculateAvgPrice(part, max_order_amount, app.user.currency ?? null) %}
-        {% set min_order_price = pricedetail_helper.calculateAvgPrice(part, min_order_amount, app.user.currency ?? null ) %}
-        {% if max_order_price is not null %}
-            <h6>
+<h3 class="w-fit" title="{% trans %}name.label{% endtrans %}">
+    {{ part.name }}
+    {# You need edit permission to use the edit button #}
+    {% if timeTravel is not null %}
+        <a href="{{ entity_url(part, 'info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
+    {% elseif is_granted('edit', part) %}
+        <a href="{{ entity_url(part, 'edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
+    {% endif %}
+</h3>
+
+<dl>
+    <div>
+        <dt>
+            <span class="visually-hidden">{% trans %}description.label{% endtrans %}</span>
+        </dt>
+        <dd class="d-inline">
+            <span class="text-muted w-fit" title="{% trans %}description.label{% endtrans %}">{{ part.description|format_markdown(true) }}</span>
+        </dd>
+    </div>
+
+    <div>
+        <dt class="d-inline-block">
+            <span class="visually-hidden">{% trans %}category.label{% endtrans %}</span>
+            <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
+        </dt>
+        <dd class="d-inline">
+            <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
+        </dd>
+    </div>
+
+    <div>
+        <dt class="d-inline-block">
+            <span class="visually-hidden">{% trans %}part.part_lots.label{% endtrans %}</span>
+            <i class="fas fa-shapes fa-fw"></i>
+        </dt>
+        <dd class="d-inline">
+            <span class="{% if part.notEnoughInstock and not part.amountUnknown %}text-danger font-weight-bold{% else %}text-muted{% endif %}">
+            {% if not part.amountUnknown %}
+                {# For known instock we can just show the label as normal #}
+                <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | format_amount(part.partUnit) }}</span>
+            {% else %}
+                {% if part.amountSum == 0.0 %}
+                    <b title="{% trans %}part_lots.instock_unknown{% endtrans %}">?</b>
+                {% else %}
+                    <span title="{% trans %}part_lots.instock_unknown{% endtrans %}">≥{{ part.amountSum | format_amount(part.partUnit) }}</span>
+                {% endif %}
+            {% endif %}
+            {% if part.expiredAmountSum > 0 %}
+                <span title="{% trans %}part_lots.is_expired{% endtrans %}" class="text-muted">(+{{ part.expiredAmountSum }})</span>
+            {% endif %}
+            /
+            <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
+        </span>
+        {% if part.notEnoughInstock %}
+            <span class="badge badge-warning bg-warning rounded-pill"><i class="fa-solid fa-less-than-equal"></i>&nbsp;{% trans %}part.info.amount.less_than_desired{% endtrans %}</span>
+        {% endif %}
+        </dd>
+    </div>
+
+    <div>
+        <dt class="d-inline-block">
+            <span class="visually-hidden">{% trans %}footprint.label{% endtrans %}</span>
+            <i class="fas fa-microchip fa-fw" title="{% trans %}footprint.label{% endtrans %}"></i>
+        </dt>
+        <dd class="d-inline">
+            <span class="text-muted">{{ helper.structural_entity_link(part.footprint) }}</span>
+        </dd>
+    </div>
+
+    {% set min_order_amount = pricedetail_helper.minOrderAmount(part) %}
+    {% set max_order_amount = pricedetail_helper.maxDiscountAmount(part) %}
+    {% set max_order_price = pricedetail_helper.calculateAvgPrice(part, max_order_amount, app.user.currency ?? null) %}
+    {% set min_order_price = pricedetail_helper.calculateAvgPrice(part, min_order_amount, app.user.currency ?? null ) %}
+    {% if max_order_price is not null %}
+        <div>
+            <dt class="d-inline-block">
                 <i class="fas fa-money-bill-alt fa-fw"></i>
+            </dt>
+            <dd class="d-inline">
                 <span class="text-muted">
                     <span title="{% trans %}part.avg_price.label{% endtrans %} {{ max_order_amount | format_amount(part.partUnit) }}">{{ max_order_price | format_money(app.user.currency ?? null) }}</span>
                     {% if min_order_price is not null and min_order_amount < max_order_amount %}
                         <span> - </span>
                         <span title="{% trans %}part.avg_price.label{% endtrans %} {{ min_order_amount | format_amount(part.partUnit) }}">{% if max_order_price is not null %}{{ min_order_price | format_money(app.user.currency ?? null) }}{% else %}???{% endif %}</span>
                     {% endif %}
-            </span>
-            </h6>
-        {% endif %}
-        {#
-        {% if part.comment != "" %}
-            <h6 title="{% trans %}comment.label{% endtrans %}">
-                <i class="fas fa-comment-alt fa-fw"></i>
-                <div class="d-inline-flex">
-                    <span class="text-muted">{{ part.comment|nl2br }}</span>
-                </div>
-            </h6>
-        {% endif %} #}
-    </div>
-</div>
+                </span>
+            </dd>
+        </div>
+    {% endif %}
+
+    {# {% if part.comment != "" %}
+        <div>
+            <dt class="d-inline-block">
+                <span class="visually-hidden">{% trans %}comment.label{% endtrans %}</span>
+                <i class="fas fa-comment-alt fa-fw" title="{% trans %}comment.label{% endtrans %}"></i>
+            </dt>
+            <dd class="d-inline">
+                <span class="text-muted">>{{ part.comment|nl2br }}</span>
+            </dd>
+        </div>
+    {% endif %} #}
+</dl>
+
