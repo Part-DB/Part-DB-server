@@ -44,6 +44,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class EntityImporter
 {
+
+    /**
+     * The encodings that are supported by the importer, and that should be autodeceted.
+     */
+    private const ENCODINGS = ["ASCII", "UTF-8", "ISO-8859-1", "ISO-8859-15", "Windows-1252", "UTF-16", "UTF-32"];
+
     public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator)
     {
     }
@@ -65,6 +71,9 @@ class EntityImporter
      */
     public function massCreation(string $lines, string $class_name, ?AbstractStructuralDBElement $parent = null, array &$errors = []): array
     {
+        //Try to detect the text encoding of the data and convert it to UTF-8
+        $lines = mb_convert_encoding($lines, 'UTF-8', mb_detect_encoding($lines, self::ENCODINGS));
+
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
@@ -159,6 +168,9 @@ class EntityImporter
      */
     public function importString(string $data, array $options = [], array &$errors = []): array
     {
+        //Try to detect the text encoding of the data and convert it to UTF-8
+        $data = mb_convert_encoding($data, 'UTF-8', mb_detect_encoding($data, self::ENCODINGS));
+
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
