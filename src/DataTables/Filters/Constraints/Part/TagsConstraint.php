@@ -85,6 +85,9 @@ class TagsConstraint extends AbstractConstraint
      */
     protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Orx
     {
+        //Escape any %, _ or \ in the tag
+        $tag = addcslashes($tag, '%_\\');
+
         $tag_identifier_prefix = uniqid($this->identifier . '_', false);
 
         $expr = $queryBuilder->expr();

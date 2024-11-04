@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\ApiPlatform\Filter\TagFilter;
 use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
@@ -97,7 +98,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
 #[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
-#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
+#[ApiFilter(TagFilter::class, properties: ["tags"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
