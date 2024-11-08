@@ -11192,7 +11192,7 @@ Element 3</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Jeśli brakuje ostatnich cyfr adresu IP, włączony jest tryb GPDR, w którym adresy IP są anonimowe.</target>
+        <target>Jeśli brakuje ostatnich cyfr adresu IP, włączony jest tryb GDPR, w którym adresy IP są anonimowe.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
