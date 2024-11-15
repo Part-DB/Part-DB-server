@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="security.en">
     <unit id="aazoCks" name="user.login_error.user_disabled">
-      <segment>
+      <segment state="translated">
         <source>user.login_error.user_disabled</source>
         <target>Your account is disabled! Contact an administrator if you think this is wrong.</target>
       </segment>
     </unit>
     <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
-      <segment>
+      <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
         <target>You cannot login as local user via SSO! Use your local user password instead.</target>
       </segment>

@@ -39,8 +39,8 @@ if [ -d /var/www/html/var/db ]; then
     fi
 fi
 
-# Start PHP-FPM
-service php8.1-fpm start
+# Start PHP-FPM (the PHP_VERSION is replaced by the configured version in the Dockerfile)
+service phpPHP_VERSION-fpm start
 
 # first arg is `-f` or `--some-option` (taken from https://github.com/docker-library/php/blob/master/8.2/bullseye/apache/docker-php-entrypoint)
 if [ "${1#-}" != "$1" ]; then

@@ -1,0 +1,3 @@
+when@dev:
+  translation_editor:
+    resource: '@JbtronicsTranslationEditorBundle/config/routes.php'

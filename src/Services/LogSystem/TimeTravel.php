@@ -216,7 +216,10 @@ class TimeTravel
         $old_data = $logEntry->getOldData();
 
         foreach ($old_data as $field => $data) {
-            if ($metadata->hasField($field)) {
+
+            //We use the fieldMappings property directly instead of the hasField method, as we do not want to match the embedded field itself
+            //The sub fields are handled in the setField method
+            if (isset($metadata->fieldMappings[$field])) {
                 //We need to convert the string to a BigDecimal first
                 if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)->type)) {
                     $data = BigDecimal::of($data);
@@ -224,7 +227,12 @@ class TimeTravel
 
                 if (!$data instanceof \DateTimeInterface
                     && (in_array($metadata->getFieldMapping($field)->type,
-                        [Types::DATETIME_IMMUTABLE, Types::DATETIME_IMMUTABLE, Types::DATE_MUTABLE, Types::DATETIME_IMMUTABLE], true))) {
+                        [
+                            Types::DATETIME_IMMUTABLE,
+                            Types::DATETIME_IMMUTABLE,
+                            Types::DATE_MUTABLE,
+                            Types::DATETIME_IMMUTABLE
+                        ], true))) {
                     $data = $this->dateTimeDecode($data, $metadata->getFieldMapping($field)->type);
                 }
 
@@ -267,9 +275,11 @@ class TimeTravel
 
             $embeddedReflection = new ReflectionClass($embeddedClass::class);
             $property = $embeddedReflection->getProperty($embedded_field);
+            $target_element = $embeddedClass;
         } else {
             $reflection = new ReflectionClass($element::class);
             $property = $reflection->getProperty($field);
+            $target_element = $element;
         }
 
         //Check if the property is an BackedEnum, then convert the int or float value to an enum instance
@@ -281,6 +291,6 @@ class TimeTravel
             $new_value = $enum_class::from($new_value);
         }
 
-        $property->setValue($element, $new_value);
+        $property->setValue($target_element, $new_value);
     }
 }

@@ -1,11 +1,25 @@
 FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 
-RUN apt-get update && apt-get -y install curl zip mariadb-client postgresql-client file acl git gettext ca-certificates gnupg \
+RUN apt-get update && apt-get -y install \
+      curl \
+      ca-certificates \
+      mariadb-client \
+      postgresql-client \
+      file \
+      acl \
+      git \
+      gettext \
+      gnupg \
+      zip \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
-# Create workdir and set permissions if directory does not exists
-RUN mkdir -p /app
-WORKDIR /app
+# Install node and yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get update && apt-get install -y \
+      nodejs yarn \
+    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP
 RUN set -eux; \
@@ -33,14 +47,12 @@ ENV FRANKENPHP_CONFIG="import worker.Caddyfile"
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Install node and yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && apt-get update && apt-get install -y nodejs yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
-
 # Install composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 #COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Create workdir and set permissions if directory does not exists
+WORKDIR /app
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY --link composer.* symfony.* ./
@@ -58,7 +70,10 @@ RUN set -eux; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync;
 
-RUN yarn install --network-timeout 600000 && yarn build && yarn cache clean && rm -rf node_modules/
+RUN yarn install --network-timeout 600000 && \
+    yarn build && \
+    yarn cache clean && \
+    rm -rf node_modules/
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker

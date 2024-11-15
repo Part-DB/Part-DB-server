@@ -212,6 +212,26 @@ An API key is not required, it is enough to enable the provider using the follow
 * `PROVIDER_LCSC_ENABLED`: Set this to `1` to enable the LCSC provider
 * `PROVIDER_LCSC_CURRENCY`: The currency you want to get prices in (see LCSC webshop for available currencies, default: `EUR`)
 
+### OEMsecrets
+
+The oemsecrets provider uses the [oemsecrets API](https://www.oemsecrets.com/) to search for parts and getting shopping
+information from them. Similar to octopart it aggregates offers from different distributors.
+
+You can apply for a free API key on the [oemsecrets API page](https://www.oemsecrets.com/api/) and put the key you get
+in the Part-DB env configuration (see below).
+
+The following env configuration options are available:
+
+* `PROVIDER_OEMSECRETS_KEY`: The API key you got from oemsecrets (mandatory)
+* `PROVIDER_OEMSECRETS_COUNTRY_CODE`: The two-letter code of the country you want to get the prices for
+* `PROVIDER_OEMSECRETS_CURRENCY`: The currency you want to get prices in (optional, default: `EUR`)
+* `PROVIDER_OEMSECRETS_ZERO_PRICE`: If set to `1`, parts with a price of 0 will be included in the search results, otherwise
+  they will be excluded (optional, default: `0`)
+* `PROVIDER_OEMSECRETS_SET_PARAM`: If set to `1`, the provider will try to extract parameters from the part description
+* `PROVIDER_OEMSECRETS_SORT_CRITERIA`: The criteria to sort the search results by. If set to 'C', it further sorts by 
+completeness (prioritizing items with the most detailed information). If set to 'M', it further sorts by manufacturer name.
+If set to any other value, no sorting is performed.
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long

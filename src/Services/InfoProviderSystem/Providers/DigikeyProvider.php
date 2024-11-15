@@ -45,6 +45,14 @@ class DigikeyProvider implements InfoProviderInterface
 
     private readonly HttpClientInterface $digikeyClient;
 
+    /**
+     * A list of parameter IDs, that are always assumed as text only and will never be converted to a numerical value.
+     * This allows to fix issues like #682, where the "Supplier Device Package" was parsed as a numerical value.
+     */
+    private const TEXT_ONLY_PARAMETERS = [
+        1291, //Supplier Device Package
+        39246, //Package / Case
+    ];
 
     public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
         private readonly string $currency, private readonly string $clientId,
@@ -214,7 +222,12 @@ class DigikeyProvider implements InfoProviderInterface
                 continue;
             }
 
-            $results[] = ParameterDTO::parseValueIncludingUnit($parameter['Parameter'], $parameter['Value']);
+            //If the parameter was marked as text only, then we do not try to parse it as a numerical value
+            if (in_array($parameter['ParameterId'], self::TEXT_ONLY_PARAMETERS, true)) {
+                $results[] = new ParameterDTO(name: $parameter['Parameter'], value_text: $parameter['Value']);
+            } else { //Otherwise try to parse it as a numerical value
+                $results[] = ParameterDTO::parseValueIncludingUnit($parameter['Parameter'], $parameter['Value']);
+            }
         }
 
         return $results;
