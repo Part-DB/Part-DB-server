@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Functions;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
@@ -55,24 +56,56 @@ class Natsort extends FunctionNode
     }
 
     /**
+     * Check if the slow natural sort is allowed
+     * @return bool
+     */
+    public static function isSlowNaturalSortAllowed(): bool
+    {
+        return self::$allowSlowNaturalSort;
+    }
+
+    /**
      * Check if the MariaDB version which is connected to supports the natural sort (meaning it has a version of 10.7.0 or higher)
      * The result is cached in memory.
      * @param  Connection  $connection
      * @return bool
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
-    private static function mariaDBSupportsNaturalSort(Connection $connection): bool
+    private function mariaDBSupportsNaturalSort(Connection $connection): bool
     {
         if (self::$supportsNaturalSort !== null) {
             return self::$supportsNaturalSort;
         }
 
         $version = $connection->getServerVersion();
-        //Remove the -MariaDB suffix
-        $version = str_replace('-MariaDB', '', $version);
+
+        //Get the effective MariaDB version number
+        $version = $this->getMariaDbMysqlVersionNumber($version);
+
         //We need at least MariaDB 10.7.0 to support the natural sort
         self::$supportsNaturalSort = version_compare($version, '10.7.0', '>=');
         return self::$supportsNaturalSort;
+    }
+
+    /**
+     * Taken from Doctrine\DBAL\Driver\AbstractMySQLDriver
+     *
+     * Detect MariaDB server version, including hack for some mariadb distributions
+     * that starts with the prefix '5.5.5-'
+     *
+     * @param string $versionString Version string as returned by mariadb server, i.e. '5.5.5-Mariadb-10.0.8-xenial'
+     */
+    private function getMariaDbMysqlVersionNumber(string $versionString) : string
+    {
+        if ( ! preg_match(
+            '/^(?:5\.5\.5-)?(mariadb-)?(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)/i',
+            $versionString,
+            $versionParts
+        )) {
+            throw new \RuntimeException('Could not detect MariaDB version from version string ' . $versionString);
+        }
+
+        return $versionParts['major'] . '.' . $versionParts['minor'] . '.' . $versionParts['patch'];
     }
 
     public function parse(Parser $parser): void
@@ -95,7 +128,7 @@ class Natsort extends FunctionNode
             return $this->field->dispatch($sqlWalker) . ' COLLATE numeric';
         }
 
-        if ($platform instanceof MariaDBPlatform && self::mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
+        if ($platform instanceof MariaDBPlatform && $this->mariaDBSupportsNaturalSort($sqlWalker->getConnection())) {
             return 'NATURAL_SORT_KEY(' . $this->field->dispatch($sqlWalker) . ')';
         }
 

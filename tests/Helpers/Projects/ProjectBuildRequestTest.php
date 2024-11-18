@@ -120,11 +120,11 @@ class ProjectBuildRequestTest extends TestCase
         //The values should be already prefilled correctly
         $request = new ProjectBuildRequest($this->project1, 10);
         //We need totally 20: Take 10 from the first (maximum 10) and 10 from the second (maximum 20)
-        $this->assertSame(10.0, $request->getLotWithdrawAmount($this->lot1a));
-        $this->assertSame(10.0, $request->getLotWithdrawAmount($this->lot1b));
+        $this->assertEqualsWithDelta(10.0, $request->getLotWithdrawAmount($this->lot1a), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(10.0, $request->getLotWithdrawAmount($this->lot1b), PHP_FLOAT_EPSILON);
 
         //If the needed amount is higher than the maximum, we should get the maximum
-        $this->assertSame(2.5, $request->getLotWithdrawAmount($this->lot2));
+        $this->assertEqualsWithDelta(2.5, $request->getLotWithdrawAmount($this->lot2), PHP_FLOAT_EPSILON);
     }
 
     public function testGetNumberOfBuilds(): void
@@ -142,9 +142,9 @@ class ProjectBuildRequestTest extends TestCase
     public function testGetNeededAmountForBOMEntry(): void
     {
         $build_request = new ProjectBuildRequest($this->project1, 5);
-        $this->assertSame(10.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1a));
-        $this->assertSame(7.5, $build_request->getNeededAmountForBOMEntry($this->bom_entry1b));
-        $this->assertSame(20.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1c));
+        $this->assertEqualsWithDelta(10.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1a), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(7.5, $build_request->getNeededAmountForBOMEntry($this->bom_entry1b), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(20.0, $build_request->getNeededAmountForBOMEntry($this->bom_entry1c), PHP_FLOAT_EPSILON);
     }
 
     public function testGetSetLotWithdrawAmount(): void
@@ -156,8 +156,8 @@ class ProjectBuildRequestTest extends TestCase
         $build_request->setLotWithdrawAmount($this->lot1b->getID(), 3);
 
         //And it should be possible to get the amount via the lot object or via the ID
-        $this->assertSame(2.0, $build_request->getLotWithdrawAmount($this->lot1a->getID()));
-        $this->assertSame(3.0, $build_request->getLotWithdrawAmount($this->lot1b));
+        $this->assertEqualsWithDelta(2.0, $build_request->getLotWithdrawAmount($this->lot1a->getID()), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(3.0, $build_request->getLotWithdrawAmount($this->lot1b), PHP_FLOAT_EPSILON);
     }
 
     public function testGetWithdrawAmountSum(): void
@@ -168,9 +168,9 @@ class ProjectBuildRequestTest extends TestCase
         $build_request->setLotWithdrawAmount($this->lot1a, 2);
         $build_request->setLotWithdrawAmount($this->lot1b, 3);
 
-        $this->assertSame(5.0, $build_request->getWithdrawAmountSum($this->bom_entry1a));
+        $this->assertEqualsWithDelta(5.0, $build_request->getWithdrawAmountSum($this->bom_entry1a), PHP_FLOAT_EPSILON);
         $build_request->setLotWithdrawAmount($this->lot2, 1.5);
-        $this->assertSame(1.5, $build_request->getWithdrawAmountSum($this->bom_entry1b));
+        $this->assertEqualsWithDelta(1.5, $build_request->getWithdrawAmountSum($this->bom_entry1b), PHP_FLOAT_EPSILON);
     }
 
 

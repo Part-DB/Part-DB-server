@@ -52,7 +52,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
         $qb->select('e')
             ->orderBy('NATSORT(e.name)', $nameOrdering);
 
-        if ($parent) {
+        if ($parent !== null) {
             $qb->where('e.parent = :parent')
                 ->setParameter('parent', $parent);
         } else {
@@ -260,7 +260,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
 
             //Try to find if we already have an element cached for this name
             $entity = $this->getNewEntityFromCache($name, null);
-            if ($entity) {
+            if ($entity !== null) {
                 return $entity;
             }
 

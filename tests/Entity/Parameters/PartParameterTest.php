@@ -46,29 +46,25 @@ use PHPUnit\Framework\TestCase;
 
 class PartParameterTest extends TestCase
 {
-    public function valueWithUnitDataProvider(): array
+    public function valueWithUnitDataProvider(): \Iterator
     {
-        return [
-            ['1', 1.0, ''],
-            ['1 V', 1.0, 'V'],
-            ['1.23', 1.23, ''],
-            ['1.23 V', 1.23, 'V'],
-        ];
+        yield ['1', 1.0, ''];
+        yield ['1 V', 1.0, 'V'];
+        yield ['1.23', 1.23, ''];
+        yield ['1.23 V', 1.23, 'V'];
     }
 
-    public function formattedValueDataProvider(): array
+    public function formattedValueDataProvider(): \Iterator
     {
-        return [
-            ['Text Test', null, null, null, 'V', 'Text Test'],
-            ['10.23 V', null, 10.23, null, 'V', ''],
-            ['10.23 V [Text]', null, 10.23, null, 'V', 'Text'],
-            ['max. 10.23 V', null, null, 10.23, 'V', ''],
-            ['max. 10.23 [Text]', null, null, 10.23, '', 'Text'],
-            ['min. 10.23 V', 10.23, null, null, 'V', ''],
-            ['10.23 V ... 11 V', 10.23, null, 11, 'V', ''],
-            ['10.23 V (9 V ... 11 V)', 9, 10.23, 11, 'V', ''],
-            ['10.23 V (9 V ... 11 V) [Test]', 9, 10.23, 11, 'V', 'Test'],
-        ];
+        yield ['Text Test', null, null, null, 'V', 'Text Test'];
+        yield ['10.23 V', null, 10.23, null, 'V', ''];
+        yield ['10.23 V [Text]', null, 10.23, null, 'V', 'Text'];
+        yield ['max. 10.23 V', null, null, 10.23, 'V', ''];
+        yield ['max. 10.23 [Text]', null, null, 10.23, '', 'Text'];
+        yield ['min. 10.23 V', 10.23, null, null, 'V', ''];
+        yield ['10.23 V ... 11 V', 10.23, null, 11, 'V', ''];
+        yield ['10.23 V (9 V ... 11 V)', 9, 10.23, 11, 'V', ''];
+        yield ['10.23 V (9 V ... 11 V) [Test]', 9, 10.23, 11, 'V', 'Test'];
     }
 
     /**

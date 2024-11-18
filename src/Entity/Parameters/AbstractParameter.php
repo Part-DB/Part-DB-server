@@ -116,7 +116,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      */
     #[Assert\Length(max: 20)]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';
 
@@ -126,7 +126,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     #[Assert\Type(['float', null])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
@@ -134,7 +134,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      * @var float|null the typical value of this property
      */
     #[Assert\Type([null, 'float'])]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
@@ -143,14 +143,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      */
     #[Assert\Type(['float', null])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 50)]
     protected string $unit = '';
@@ -158,7 +158,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var string a text value for the given property
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $value_text = '';
@@ -166,7 +166,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var string the group this parameter belongs to
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(name: 'param_group', type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $group = '';

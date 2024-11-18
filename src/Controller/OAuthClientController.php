@@ -51,7 +51,7 @@ class OAuthClientController extends AbstractController
     }
 
     #[Route('/{name}/check', name: 'oauth_client_check')]
-    public function check(string $name, Request $request): Response
+    public function check(string $name): Response
     {
         $this->denyAccessUnlessGranted('@system.manage_oauth_tokens');
 

@@ -22,7 +22,7 @@
           data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
           data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
 
-        <input type="hidden" name="redirect_back" value="{{ app.request.baseUrl ~ app.request.requestUri }}">
+        <input type="hidden" name="redirect_back" value="{{ uri_without_host(app.request) }}">
 
         <div class="btn-group btn-group-sm" role="group">
             <button type="submit" class="btn btn-outline-secondary" name="undo" value="{{ entry.id }}" {% if disabled %}disabled{% endif %}>

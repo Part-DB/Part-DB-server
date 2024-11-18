@@ -329,7 +329,7 @@ class PartController extends AbstractController
             $this->em->flush();
             if ($mode === 'new') {
                 $this->addFlash('success', 'part.created_flash');
-            } else if ($mode === 'edit') {
+            } elseif ($mode === 'edit') {
                 $this->addFlash('success', 'part.edited_flash');
             }
 
@@ -358,11 +358,11 @@ class PartController extends AbstractController
         $template = '';
         if ($mode === 'new') {
             $template = 'parts/edit/new_part.html.twig';
-        } else if ($mode === 'edit') {
+        } elseif ($mode === 'edit') {
             $template = 'parts/edit/edit_part_info.html.twig';
-        } else if ($mode === 'merge') {
+        } elseif ($mode === 'merge') {
             $template = 'parts/edit/merge_parts.html.twig';
-        } else if ($mode === 'update_from_ip') {
+        } elseif ($mode === 'update_from_ip') {
             $template = 'parts/edit/update_from_ip.html.twig';
         }
 

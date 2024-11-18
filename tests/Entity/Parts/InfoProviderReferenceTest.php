@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Entity\Parts;
 
 use App\Entity\Parts\InfoProviderReference;
@@ -46,9 +48,9 @@ class InfoProviderReferenceTest extends TestCase
         //The provider reference instance should return true for the providerCreated method
         $this->assertTrue($provider->isProviderCreated());
         //And the correct values for all other methods
-        $this->assertEquals('test', $provider->getProviderKey());
-        $this->assertEquals('id', $provider->getProviderId());
-        $this->assertEquals('url', $provider->getProviderUrl());
+        $this->assertSame('test', $provider->getProviderKey());
+        $this->assertSame('id', $provider->getProviderId());
+        $this->assertSame('url', $provider->getProviderUrl());
         $this->assertNotNull($provider->getLastUpdated());
     }
 
@@ -60,9 +62,9 @@ class InfoProviderReferenceTest extends TestCase
         //The provider reference instance should return true for the providerCreated method
         $this->assertTrue($reference->isProviderCreated());
         //And the correct values for all other methods
-        $this->assertEquals('test', $reference->getProviderKey());
-        $this->assertEquals('id', $reference->getProviderId());
-        $this->assertEquals('url', $reference->getProviderUrl());
+        $this->assertSame('test', $reference->getProviderKey());
+        $this->assertSame('id', $reference->getProviderId());
+        $this->assertSame('url', $reference->getProviderUrl());
         $this->assertNotNull($reference->getLastUpdated());
     }
 }

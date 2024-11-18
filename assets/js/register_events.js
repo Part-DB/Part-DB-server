@@ -21,6 +21,7 @@
 
 import {Dropdown} from "bootstrap";
 import ClipboardJS from "clipboard";
+import {Modal} from "bootstrap";
 
 class RegisterEventHelper {
     constructor() {
@@ -31,9 +32,11 @@ class RegisterEventHelper {
         //Initialize ClipboardJS
         this.registerLoadHandler(() => {
             new ClipboardJS('.btn');
-        })
+        });
 
         this.registerModalDropRemovalOnFormSubmit();
+
+
     }
 
     registerModalDropRemovalOnFormSubmit() {
@@ -42,6 +45,15 @@ class RegisterEventHelper {
             const back_drop = document.querySelector('.modal-backdrop');
             if (back_drop) {
                 back_drop.remove();
+            }
+
+            //Remove scroll-lock if it is still active
+            if (document.body.classList.contains('modal-open')) {
+                document.body.classList.remove('modal-open');
+
+                //Remove the padding-right and overflow:hidden from the body
+                document.body.style.paddingRight = '';
+                document.body.style.overflow = '';
             }
         });
     }

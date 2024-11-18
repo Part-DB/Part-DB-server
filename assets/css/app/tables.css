@@ -63,10 +63,6 @@ table.dataTable > tbody > tr.selected > td > a {
     margin-block-end: 0;
 }
 
-.card-footer-table {
-    padding-top: 0;
-}
-
 table.dataTable {
     margin-top: 0 !important;
 }

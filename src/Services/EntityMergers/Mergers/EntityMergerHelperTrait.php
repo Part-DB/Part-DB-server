@@ -85,9 +85,7 @@ trait EntityMergerHelperTrait
     protected function useOtherValueIfNotNull(object $target, object $other, string $field): object
     {
         return $this->useCallback(
-            function ($target_value, $other_value) {
-                return $target_value ?? $other_value;
-            },
+            fn($target_value, $other_value) => $target_value ?? $other_value,
             $target,
             $other,
             $field
@@ -106,9 +104,7 @@ trait EntityMergerHelperTrait
     protected function useOtherValueIfNotEmtpy(object $target, object $other, string $field): object
     {
         return $this->useCallback(
-            function ($target_value, $other_value) {
-                return empty($target_value) ? $other_value : $target_value;
-            },
+            fn($target_value, $other_value) => empty($target_value) ? $other_value : $target_value,
             $target,
             $other,
             $field
@@ -126,9 +122,7 @@ trait EntityMergerHelperTrait
     protected function useLargerValue(object $target, object $other, string $field): object
     {
         return $this->useCallback(
-            function ($target_value, $other_value) {
-                return max($target_value, $other_value);
-            },
+            fn($target_value, $other_value) => max($target_value, $other_value),
             $target,
             $other,
             $field
@@ -146,9 +140,7 @@ trait EntityMergerHelperTrait
     protected function useSmallerValue(object $target, object $other, string $field): object
     {
         return $this->useCallback(
-            function ($target_value, $other_value) {
-                return min($target_value, $other_value);
-            },
+            fn($target_value, $other_value) => min($target_value, $other_value),
             $target,
             $other,
             $field
@@ -166,9 +158,7 @@ trait EntityMergerHelperTrait
     protected function useTrueValue(object $target, object $other, string $field): object
     {
         return $this->useCallback(
-            function (bool $target_value, bool $other_value): bool {
-                return $target_value || $other_value;
-            },
+            fn(bool $target_value, bool $other_value): bool => $target_value || $other_value,
             $target,
             $other,
             $field
@@ -232,10 +222,8 @@ trait EntityMergerHelperTrait
                         continue 2;
                     }
                 }
-            } else {
-                if ($target_collection->contains($item)) {
-                    continue;
-                }
+            } elseif ($target_collection->contains($item)) {
+                continue;
             }
 
             $clones[] = clone $item;
@@ -257,11 +245,9 @@ trait EntityMergerHelperTrait
      */
     protected function mergeAttachments(AttachmentContainingDBElement $target, AttachmentContainingDBElement $other): object
     {
-        return $this->mergeCollections($target, $other, 'attachments', function (Attachment $t, Attachment $o): bool {
-            return $t->getName() === $o->getName()
-                && $t->getAttachmentType() === $o->getAttachmentType()
-                && $t->getPath() === $o->getPath();
-        });
+        return $this->mergeCollections($target, $other, 'attachments', fn(Attachment $t, Attachment $o): bool => $t->getName() === $o->getName()
+            && $t->getAttachmentType() === $o->getAttachmentType()
+            && $t->getPath() === $o->getPath());
     }
 
     /**
@@ -272,16 +258,14 @@ trait EntityMergerHelperTrait
      */
     protected function mergeParameters(AbstractStructuralDBElement|Part $target, AbstractStructuralDBElement|Part $other): object
     {
-        return $this->mergeCollections($target, $other, 'parameters', function (AbstractParameter $t, AbstractParameter $o): bool {
-            return $t->getName() === $o->getName()
-                && $t->getSymbol() === $o->getSymbol()
-                && $t->getUnit() === $o->getUnit()
-                && $t->getValueMax() === $o->getValueMax()
-                && $t->getValueMin() === $o->getValueMin()
-                && $t->getValueTypical() === $o->getValueTypical()
-                && $t->getValueText() === $o->getValueText()
-                && $t->getGroup() === $o->getGroup();
-        });
+        return $this->mergeCollections($target, $other, 'parameters', fn(AbstractParameter $t, AbstractParameter $o): bool => $t->getName() === $o->getName()
+            && $t->getSymbol() === $o->getSymbol()
+            && $t->getUnit() === $o->getUnit()
+            && $t->getValueMax() === $o->getValueMax()
+            && $t->getValueMin() === $o->getValueMin()
+            && $t->getValueTypical() === $o->getValueTypical()
+            && $t->getValueText() === $o->getValueText()
+            && $t->getGroup() === $o->getGroup());
     }
 
     /**

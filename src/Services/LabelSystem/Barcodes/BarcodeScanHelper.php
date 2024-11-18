@@ -48,7 +48,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 
 /**
- * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeNormalizerTest
+ * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeScanHelperTest
  */
 final class BarcodeScanHelper
 {

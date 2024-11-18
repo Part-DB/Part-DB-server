@@ -11,6 +11,8 @@ parameters:
             - src/Configuration/*
             - src/Doctrine/Purger/*
             - src/DataTables/Adapters/TwoStepORMAdapter.php
+            - src/Form/Fixes/*
+            - src/Translation/Fixes/*
 
 
 

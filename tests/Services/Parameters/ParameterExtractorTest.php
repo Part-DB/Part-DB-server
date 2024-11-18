@@ -56,19 +56,17 @@ class ParameterExtractorTest extends WebTestCase
         $this->service = self::getContainer()->get(ParameterExtractor::class);
     }
 
-    public function emptyDataProvider(): array
+    public function emptyDataProvider(): \Iterator
     {
-        return [
-            [''],
-            ['      '],
-            ["\t\n"],
-            [':;'],
-            ['NPN Transistor'],
-            ['=BC547 rewr'],
-            ['<i>For good</i>, [b]bad[/b], evil'],
-            ['Param:; Test'],
-            ['A [link](https://demo.part-db.de) should not be matched']
-        ];
+        yield [''];
+        yield ['      '];
+        yield ["\t\n"];
+        yield [':;'];
+        yield ['NPN Transistor'];
+        yield ['=BC547 rewr'];
+        yield ['<i>For good</i>, [b]bad[/b], evil'];
+        yield ['Param:; Test'];
+        yield ['A [link](https://demo.part-db.de) should not be matched'];
     }
 
     /**

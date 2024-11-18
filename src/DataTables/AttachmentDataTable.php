@@ -34,6 +34,7 @@ use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -84,6 +85,11 @@ final class AttachmentDataTable implements DataTableTypeInterface
             },
         ]);
 
+        $dataTable->add('id', NumberColumn::class, [
+            'label' => $this->translator->trans('part.table.id'),
+            'visible' => false,
+        ]);
+
         $dataTable->add('name', TextColumn::class, [
             'label' => 'attachment.edit.name',
             'orderField' => 'NATSORT(attachment.name)',
@@ -92,7 +98,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 if ($context->isExternal()) {
                     return sprintf(
                         '<a href="%s" class="link-external">%s</a>',
-                        htmlspecialchars($context->getURL()),
+                        htmlspecialchars((string) $context->getURL()),
                         htmlspecialchars($value)
                     );
                 }

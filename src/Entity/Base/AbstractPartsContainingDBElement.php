@@ -38,7 +38,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
-    #[Groups(['full'])]
+    #[Groups(['full', 'import'])]
     protected Collection $parameters;
 
     public function __construct()

@@ -116,7 +116,7 @@ class PKOptionalImporter
         //All imported users get assigned to the "PartKeepr Users" group
         $group_users = $this->em->find(Group::class, 3);
         $group = $this->em->getRepository(Group::class)->findOneBy(['name' => 'PartKeepr Users', 'parent' => $group_users]);
-        if (!$group) {
+        if ($group === null) {
             $group = new Group();
             $group->setName('PartKeepr Users');
             $group->setParent($group_users);

@@ -49,7 +49,7 @@ class UserLogoutLogEntry extends AbstractLogEntry
      * Sets the IP address used to log in the user.
      *
      * @param string $ip        the IP address used to log in the user
-     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GDPR compliant
      *
      * @return $this
      */

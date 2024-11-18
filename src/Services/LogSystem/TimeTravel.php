@@ -34,12 +34,14 @@ use App\Repository\LogEntryRepository;
 use Brick\Math\BigDecimal;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class TimeTravel
 {
@@ -54,8 +56,11 @@ class TimeTravel
     /**
      * Undeletes the element with the given ID.
      *
+     * @template T of AbstractDBElement
      * @param string $class The class name of the element that should be undeleted
+     * @phpstan-param class-string<T> $class
      * @param int    $id    the ID of the element that should be undeleted
+     * @phpstan-return T
      */
     public function undeleteEntity(string $class, int $id): AbstractDBElement
     {
@@ -171,17 +176,26 @@ class TimeTravel
     /**
      * This function decodes the array which is created during the json_encode of a datetime object and returns a DateTime object.
      * @param  array  $input
-     * @return DateTime
+     * @return \DateTimeInterface
      * @throws Exception
      */
-    private function dateTimeDecode(?array $input): ?\DateTime
+    private function dateTimeDecode(?array $input, string $doctrineType): ?\DateTimeInterface
     {
         //Allow null values
         if ($input === null) {
             return null;
         }
 
-        return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
+        //Mutable types
+        if (in_array($doctrineType, [Types::DATETIME_MUTABLE, Types::DATE_MUTABLE], true)) {
+            return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
+        }
+        //Immutable types
+        if (in_array($doctrineType, [Types::DATETIME_IMMUTABLE, Types::DATE_IMMUTABLE], true)) {
+            return new \DateTimeImmutable($input['date'], new \DateTimeZone($input['timezone']));
+        }
+
+        throw new InvalidArgumentException('The given doctrine type is not a datetime type!');
     }
 
     /**
@@ -202,14 +216,24 @@ class TimeTravel
         $old_data = $logEntry->getOldData();
 
         foreach ($old_data as $field => $data) {
-            if ($metadata->hasField($field)) {
+
+            //We use the fieldMappings property directly instead of the hasField method, as we do not want to match the embedded field itself
+            //The sub fields are handled in the setField method
+            if (isset($metadata->fieldMappings[$field])) {
                 //We need to convert the string to a BigDecimal first
-                if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)['type'])) {
+                if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)->type)) {
                     $data = BigDecimal::of($data);
                 }
 
-                if (!$data instanceof DateTime && ('datetime' === $metadata->getFieldMapping($field)['type'])) {
-                    $data = $this->dateTimeDecode($data);
+                if (!$data instanceof \DateTimeInterface
+                    && (in_array($metadata->getFieldMapping($field)->type,
+                        [
+                            Types::DATETIME_IMMUTABLE,
+                            Types::DATETIME_IMMUTABLE,
+                            Types::DATE_MUTABLE,
+                            Types::DATETIME_IMMUTABLE
+                        ], true))) {
+                    $data = $this->dateTimeDecode($data, $metadata->getFieldMapping($field)->type);
                 }
 
                 $this->setField($element, $field, $data);
@@ -241,8 +265,22 @@ class TimeTravel
      */
     protected function setField(AbstractDBElement $element, string $field, mixed $new_value): void
     {
-        $reflection = new ReflectionClass($element::class);
-        $property = $reflection->getProperty($field);
+        //If the field name contains a dot, it is a embeddedable object and we need to split the field name
+        if (str_contains($field, '.')) {
+            [$embedded, $embedded_field] = explode('.', $field);
+
+            $elementClass = new ReflectionClass($element::class);
+            $property = $elementClass->getProperty($embedded);
+            $embeddedClass = $property->getValue($element);
+
+            $embeddedReflection = new ReflectionClass($embeddedClass::class);
+            $property = $embeddedReflection->getProperty($embedded_field);
+            $target_element = $embeddedClass;
+        } else {
+            $reflection = new ReflectionClass($element::class);
+            $property = $reflection->getProperty($field);
+            $target_element = $element;
+        }
 
         //Check if the property is an BackedEnum, then convert the int or float value to an enum instance
         if ((is_string($new_value) || is_int($new_value))
@@ -253,6 +291,6 @@ class TimeTravel
             $new_value = $enum_class::from($new_value);
         }
 
-        $property->setValue($element, $new_value);
+        $property->setValue($target_element, $new_value);
     }
 }

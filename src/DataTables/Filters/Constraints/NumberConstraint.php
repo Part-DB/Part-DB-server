@@ -29,12 +29,28 @@ class NumberConstraint extends AbstractConstraint
 {
     protected const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
 
-    public function getValue1(): float|int|null|\DateTimeInterface
+    public function __construct(
+        string $property,
+        string $identifier = null,
+        /**
+         * The value1 used for comparison (this is the main one used for all mono-value comparisons)
+         */
+        protected float|int|null $value1 = null,
+        protected ?string $operator = null,
+        /**
+         * The second value used when operator is RANGE; this is the upper bound of the range
+         */
+        protected float|int|null $value2 = null)
+    {
+        parent::__construct($property, $identifier);
+    }
+
+    public function getValue1(): float|int|null
     {
         return $this->value1;
     }
 
-    public function setValue1(float|int|\DateTimeInterface|null $value1): void
+    public function setValue1(float|int|null $value1): void
     {
         $this->value1 = $value1;
     }
@@ -63,22 +79,6 @@ class NumberConstraint extends AbstractConstraint
     }
 
 
-    public function __construct(
-        string $property,
-        string $identifier = null,
-        /**
-         * The value1 used for comparison (this is the main one used for all mono-value comparisons)
-         */
-        protected float|int|\DateTimeInterface|null $value1 = null,
-        protected ?string $operator = null,
-        /**
-         * The second value used when operator is RANGE; this is the upper bound of the range
-         */
-        protected float|int|\DateTimeInterface|null $value2 = null)
-    {
-        parent::__construct($property, $identifier);
-    }
-
     public function isEnabled(): bool
     {
         return $this->value1 !== null
@@ -105,7 +105,13 @@ class NumberConstraint extends AbstractConstraint
             }
 
             $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier . '1', '>=', $this->value1);
-            $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier . '2', '<=', $this->value2);
+
+            //Workaround for the amountSum which we need to add twice on postgres. Replace one of the __ with __2 to make it work
+            //Otherwise we get an error, that __partLot was already defined
+
+            $property2 = str_replace('__', '__2', $this->property);
+
+            $this->addSimpleAndConstraint($queryBuilder, $property2, $this->identifier . '2', '<=', $this->value2);
         }
     }
 }

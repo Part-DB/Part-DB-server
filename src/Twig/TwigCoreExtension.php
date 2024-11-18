@@ -42,7 +42,7 @@ final class TwigCoreExtension extends AbstractExtension
     {
         return [
             /* Returns the enum cases as values */
-            new TwigFunction('enum_cases', [$this, 'getEnumCases']),
+            new TwigFunction('enum_cases', $this->getEnumCases(...)),
         ];
     }
 

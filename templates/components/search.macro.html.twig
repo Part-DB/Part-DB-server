@@ -1,7 +1,7 @@
 {% macro settings_drodown(show_label_instead_icon = true) %}
 
     <div class="dropdown">
-        <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="false">
+        <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="true">
             {% if show_label_instead_icon %}{% trans %}search.options.label{% endtrans %}{% else %}<i class="fa-solid fa-gear"></i>{% endif %}
             <span class="caret"></span>
         </button>

@@ -52,11 +52,11 @@ class AttachmentFileController extends AbstractController
         }
 
         if ($attachment->isExternal()) {
-            throw new RuntimeException('You can not download external attachments!');
+            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new RuntimeException('The file associated with the attachment is not existing!');
+            throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);
@@ -81,11 +81,11 @@ class AttachmentFileController extends AbstractController
         }
 
         if ($attachment->isExternal()) {
-            throw new RuntimeException('You can not download external attachments!');
+            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new RuntimeException('The file associated with the attachment is not existing!');
+            throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);

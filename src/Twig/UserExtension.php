@@ -127,7 +127,7 @@ final class UserExtension extends AbstractExtension
     public function removeLocaleFromPath(string $path): string
     {
         //Ensure the path has the correct format
-        if (!preg_match('/^\/\w{2}\//', $path)) {
+        if (!preg_match('/^\/\w{2}(?:_\w{2})?\//', $path)) {
             throw new \InvalidArgumentException('The given path is not a localized path!');
         }
 

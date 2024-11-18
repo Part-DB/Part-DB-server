@@ -7,7 +7,7 @@
     </button>
 {% endif %}
 
-<div class="modal fade" id="merge-modal" tabindex="-1" aria-labelledby="merge-modal-title" tabindex="-1" aria-hidden="true" {{ stimulus_controller('pages/part_withdraw_modal') }}>
+<div class="modal fade" id="merge-modal" tabindex="-1" aria-labelledby="merge-modal-title" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" {{ stimulus_controller('pages/part_merge_modal', {'targetId': part.iD }) }}>
             <div class="modal-header">
@@ -17,7 +17,7 @@
             <div class="modal-body">
                 {# non visible form elements #}
                 <input type="hidden" name="lot_id" value="">
-                <input type="hidden" name="_redirect" value="{{  app.request.baseUrl ~ app.request.requestUri }}">
+                <input type="hidden" name="_redirect" value="{{ uri_without_host(app.request) }}">
 
                 <div class="row mb-2">
                     <label class="form-label">

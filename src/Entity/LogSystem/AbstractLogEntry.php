@@ -25,7 +25,7 @@ namespace App\Entity\LogSystem;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
-use DateTime;
+
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\LogEntryRepository;
 
@@ -55,10 +55,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
-    /** @var \DateTime The datetime the event associated with this log entry has occured
+    /**
+     * @var \DateTimeImmutable The datetime the event associated with this log entry has occured
      */
-    #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
-    protected \DateTime $timestamp;
+    #[ORM\Column(name: 'datetime', type: Types::DATETIME_IMMUTABLE)]
+    protected \DateTimeImmutable $timestamp;
 
     /**
      * @var LogLevel The priority level of the associated level. 0 is highest, 7 lowest
@@ -89,7 +90,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     public function __construct()
     {
-        $this->timestamp = new DateTime();
+        $this->timestamp = new \DateTimeImmutable();
     }
 
     /**
@@ -164,7 +165,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      *  Returns the timestamp when the event that caused this log entry happened.
      */
-    public function getTimestamp(): \DateTimeInterface
+    public function getTimestamp(): \DateTimeImmutable
     {
         return $this->timestamp;
     }
@@ -174,7 +175,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      *
      * @return $this
      */
-    public function setTimestamp(\DateTime $timestamp): self
+    public function setTimestamp(\DateTimeImmutable $timestamp): self
     {
         $this->timestamp = $timestamp;
 

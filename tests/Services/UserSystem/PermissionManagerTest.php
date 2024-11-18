@@ -91,16 +91,14 @@ class PermissionManagerTest extends WebTestCase
         $this->group->method('getParent')->willReturn($parent_group);
     }
 
-    public function getPermissionNames(): array
+    public function getPermissionNames(): \Iterator
     {
         //List some permission names
-        return [
-            ['parts'],
-            ['system'],
-            ['footprints'],
-            ['suppliers'],
-            ['tools']
-        ];
+        yield ['parts'];
+        yield ['system'];
+        yield ['footprints'];
+        yield ['suppliers'];
+        yield ['tools'];
     }
 
     /**

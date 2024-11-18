@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
@@ -45,8 +47,8 @@ class SearchResultDTOTest extends TestCase
             'description',
             preview_image_url: 'https://invalid.com/preview_image_url.jpg'
         );
-        $this->assertEquals('https://invalid.com/preview_image_url.jpg', $searchResultDTO->preview_image_url);
-        $this->assertEquals('https://invalid.com/preview_image_url.jpg', $searchResultDTO->preview_image_file->url);
+        $this->assertSame('https://invalid.com/preview_image_url.jpg', $searchResultDTO->preview_image_url);
+        $this->assertSame('https://invalid.com/preview_image_url.jpg', $searchResultDTO->preview_image_file->url);
 
         //Invalid url characters should be replaced with their URL encoded version (similar to FileDTO)
         $searchResultDTO = new SearchResultDTO(
@@ -56,7 +58,7 @@ class SearchResultDTOTest extends TestCase
             'description',
             preview_image_url: 'https://invalid.com/preview_image^url.jpg?param1=1&param2=2'
         );
-        $this->assertEquals('https://invalid.com/preview_image%5Eurl.jpg?param1=1&param2=2', $searchResultDTO->preview_image_url);
-        $this->assertEquals('https://invalid.com/preview_image%5Eurl.jpg?param1=1&param2=2', $searchResultDTO->preview_image_file->url);
+        $this->assertSame('https://invalid.com/preview_image%5Eurl.jpg?param1=1&param2=2', $searchResultDTO->preview_image_url);
+        $this->assertSame('https://invalid.com/preview_image%5Eurl.jpg?param1=1&param2=2', $searchResultDTO->preview_image_file->url);
     }
 }

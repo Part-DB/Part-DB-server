@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\ApiPlatform\Filter\TagFilter;
+use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -96,7 +98,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
 #[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
-#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "tags", "manufacturer_product_number"])]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
+#[ApiFilter(TagFilter::class, properties: ["tags"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
@@ -117,9 +120,9 @@ class Part extends AttachmentContainingDBElement
     /** @var Collection<int, PartParameter>
      */
     #[Assert\Valid]
-    #[Groups(['full', 'part:read', 'part:write'])]
+    #[Groups(['full', 'part:read', 'part:write', 'import'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
@@ -140,7 +143,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     /**
@@ -153,9 +156,9 @@ class Part extends AttachmentContainingDBElement
     protected ?Attachment $master_picture_attachment = null;
 
     #[Groups(['part:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['part:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

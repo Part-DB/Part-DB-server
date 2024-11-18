@@ -33,6 +33,9 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use function is_string;
 use function strlen;
 
+/**
+ * @see \App\Tests\Validator\Constraints\ValidGoogleAuthCodeValidatorTest
+ */
 class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
     public function __construct(private readonly GoogleAuthenticatorInterface $googleAuthenticator, private readonly Security $security)

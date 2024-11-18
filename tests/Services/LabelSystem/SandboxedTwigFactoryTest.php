@@ -61,50 +61,46 @@ class SandboxedTwigFactoryTest extends WebTestCase
         $this->service = self::getContainer()->get(SandboxedTwigFactory::class);
     }
 
-    public function twigDataProvider(): array
+    public function twigDataProvider(): \Iterator
     {
-        return [
-            [' {% for i in range(1, 3) %}
+        yield [' {% for i in range(1, 3) %}
                     {{ part.id }}
                     {{ part.name }}
                     {{ part.lastModified | format_datetime }}
                {% endfor %}
-            '],
-            [' {% if part.category %}
+            '];
+        yield [' {% if part.category %}
                    {{ part.category }}
                {% endif %}
-            '],
-            [' {% set a = random(1, 3) %}
+            '];
+        yield [' {% set a = random(1, 3) %}
                {{ 1 + 2 | abs }}
                {{ "test" | capitalize | escape | lower | raw }}
                {{ "\n"  | nl2br | trim | title | url_encode | reverse }}
-            '],
-            ['
+            '];
+        yield ['
                 {{ location.isRoot}} {{ location.isChildOf(location) }} {{ location.comment }} {{ location.level }}
-                {{ location.fullPath }} {% set arr =  location.pathArray %} {% set child = location.children %} {{location.childrenNotSelectable}}
-            '],
-            ['
-                {{ part.reviewNeeded }} {{ part.tags }} {{ part.mass }}
-            '],
-            ['
+                {{ location.fullPath }} {% set arr =  location.pathArray %} {% set child = location.children %} {{location.notSelectable}}
+            '];
+        yield ['
+                {{ part.needsReview }} {{ part.tags }} {{ part.mass }}
+            '];
+        yield ['
                 {{ entity_type(part) is object }}
-            '],
-            ['
+            '];
+        yield ['
                 {% apply placeholders(part) %}[[NAME]]{% endapply %}</br>
                 {{ placeholder("[[NAME]]", part) }}
-            ']
-        ];
+            '];
     }
 
-    public function twigNotAllowedDataProvider(): array
+    public function twigNotAllowedDataProvider(): \Iterator
     {
-        return [
-            ['{% block test %} {% endblock %}'],
-            ['{% deprecated test %}'],
-            ['{% flush %}'],
-            ["{{ part.setName('test') }}"],
-            ['{{ part.setCategory(null) }}'],
-        ];
+        yield ['{% block test %} {% endblock %}'];
+        yield ['{% deprecated test %}'];
+        yield ['{% flush %}'];
+        yield ["{{ part.setName('test') }}"];
+        yield ['{{ part.setCategory(null) }}'];
     }
 
     /**

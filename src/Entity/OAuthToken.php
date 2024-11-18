@@ -38,7 +38,7 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
 {
     /** @var string|null The short-term usable OAuth2 token */
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $token = null;
 
     /** @var \DateTimeImmutable|null The date when the token expires */
@@ -46,7 +46,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
     private ?\DateTimeImmutable $expires_at = null;
 
     /** @var string|null The refresh token for the OAuth2 auth */
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $refresh_token = null;
 
     /**
@@ -92,7 +92,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         return $this->token;
     }
 
-    public function getExpirationDate(): ?\DateTimeInterface
+    public function getExpirationDate(): ?\DateTimeImmutable
     {
         return $this->expires_at;
     }

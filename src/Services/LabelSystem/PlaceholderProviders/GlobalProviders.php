@@ -81,7 +81,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
             return 'anonymous';
         }
 
-        $now = new DateTime();
+        $now = new \DateTimeImmutable();
 
         if ('[[DATETIME]]' === $placeholder) {
             $formatter = IntlDateFormatter::create(

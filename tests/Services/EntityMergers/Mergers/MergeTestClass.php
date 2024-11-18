@@ -37,7 +37,7 @@ class MergeTestClass
 
     public Collection $collection;
 
-    public ?Category $category;
+    public ?Category $category = null;
 
     public function __construct()
     {

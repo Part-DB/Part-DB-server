@@ -58,14 +58,12 @@ final class BarcodeRedirectorTest extends KernelTestCase
         $this->service = self::getContainer()->get(BarcodeRedirector::class);
     }
 
-    public static function urlDataProvider(): array
+    public static function urlDataProvider(): \Iterator
     {
-        return [
-            [new BarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL), '/en/part/1'],
-            //Part lot redirects to Part info page (Part lot 1 is associated with part 3)
-            [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3'],
-            [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'],
-        ];
+        yield [new BarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL), '/en/part/1'];
+        //Part lot redirects to Part info page (Part lot 1 is associated with part 3)
+        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3'];
+        yield [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'];
     }
 
     /**

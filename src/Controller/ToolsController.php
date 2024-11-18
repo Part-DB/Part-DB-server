@@ -25,12 +25,14 @@ namespace App\Controller;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
+use App\Services\Doctrine\DBInfoHelper;
+use App\Services\Doctrine\NatsortDebugHelper;
 use App\Services\Misc\GitVersionInfo;
-use App\Services\Misc\DBInfoHelper;
 use App\Services\System\UpdateAvailableManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Runtime\SymfonyRuntime;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController
@@ -44,7 +46,7 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
-    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
+    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
         AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
@@ -59,10 +61,10 @@ class ToolsController extends AbstractController
             'default_theme' => $this->getParameter('partdb.global_theme'),
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
-            'gpdr_compliance' => $this->getParameter('partdb.gdpr_compliance'),
+            'gdpr_compliance' => $this->getParameter('partdb.gdpr_compliance'),
             'use_gravatar' => $this->getParameter('partdb.users.use_gravatar'),
             'email_password_reset' => $this->getParameter('partdb.users.email_pw_reset'),
-            'enviroment' => $this->getParameter('kernel.environment'),
+            'environment' => $this->getParameter('kernel.environment'),
             'is_debug' => $this->getParameter('kernel.debug'),
             'email_sender' => $this->getParameter('partdb.mail.sender_email'),
             'email_sender_name' => $this->getParameter('partdb.mail.sender_name'),
@@ -84,7 +86,7 @@ class ToolsController extends AbstractController
             'php_post_max_size' => ini_get('post_max_size'),
             'kernel_runtime_environment' => $this->getParameter('kernel.runtime_environment'),
             'kernel_runtime_mode' => $this->getParameter('kernel.runtime_mode'),
-            'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? 'Symfony\\Component\\Runtime\\SymfonyRuntime',
+            'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? SymfonyRuntime::class,
 
             //DB section
             'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',
@@ -92,6 +94,8 @@ class ToolsController extends AbstractController
             'db_size' => $DBInfoHelper->getDatabaseSize(),
             'db_name' => $DBInfoHelper->getDatabaseName() ?? 'Unknown',
             'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
+            'db_natsort_method' => $natsortDebugHelper->getNaturalSortMethod(),
+            'db_natsort_slow_allowed' => $natsortDebugHelper->isSlowNaturalSortAllowed(),
 
             //New version section
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),

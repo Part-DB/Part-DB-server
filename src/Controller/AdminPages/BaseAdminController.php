@@ -35,6 +35,7 @@ use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Exceptions\AttachmentDownloadException;
+use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Repository\AbstractPartsContainingRepository;
@@ -52,8 +53,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -61,6 +62,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -74,15 +77,10 @@ abstract class BaseAdminController extends AbstractController
     protected string $attachment_class = '';
     protected ?string $parameter_class = '';
 
-    /**
-     * @var EventDispatcher|EventDispatcherInterface
-     */
-    protected EventDispatcher|EventDispatcherInterface $eventDispatcher;
-
     public function __construct(protected TranslatorInterface $translator, protected UserPasswordHasherInterface $passwordEncoder,
         protected AttachmentSubmitHandler $attachmentSubmitHandler,
         protected EventCommentHelper $commentHelper, protected HistoryHelper $historyHelper, protected TimeTravel $timeTravel,
-        protected DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
+        protected DataTableFactory $dataTableFactory, protected EventDispatcherInterface $eventDispatcher, protected LabelExampleElementsGenerator $barcodeExampleGenerator,
         protected LabelGenerator $labelGenerator, protected EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
@@ -96,7 +94,6 @@ abstract class BaseAdminController extends AbstractController
         if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
             throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
         }
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
@@ -192,10 +189,8 @@ abstract class BaseAdminController extends AbstractController
                 }
 
                 //Ensure that the master picture is still part of the attachments
-                if ($entity instanceof AttachmentContainingDBElement) {
-                    if ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment())) {
-                        $entity->setMasterPictureAttachment(null);
-                    }
+                if ($entity instanceof AttachmentContainingDBElement && ($entity->getMasterPictureAttachment() !== null && !$entity->getAttachments()->contains($entity->getMasterPictureAttachment()))) {
+                    $entity->setMasterPictureAttachment(null);
                 }
 
                 $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -218,7 +213,12 @@ abstract class BaseAdminController extends AbstractController
         //Show preview for LabelProfile if needed.
         if ($entity instanceof LabelProfile) {
             $example = $this->barcodeExampleGenerator->getElement($entity->getOptions()->getSupportedElement());
-            $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+            $pdf_data = null;
+            try {
+                $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+            } catch (TwigModeException $exception) {
+                $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
+            }
         }
 
         /** @var AbstractPartsContainingRepository $repo */
@@ -283,10 +283,8 @@ abstract class BaseAdminController extends AbstractController
             }
 
             //Ensure that the master picture is still part of the attachments
-            if ($new_entity instanceof AttachmentContainingDBElement) {
-                if ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment())) {
-                    $new_entity->setMasterPictureAttachment(null);
-                }
+            if ($new_entity instanceof AttachmentContainingDBElement && ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment()))) {
+                $new_entity->setMasterPictureAttachment(null);
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -333,8 +331,8 @@ abstract class BaseAdminController extends AbstractController
             try {
                 $errors = $importer->importFileAndPersistToDB($file, $options);
 
-                foreach ($errors as $name => $error) {
-                    foreach ($error as $violation) {
+                foreach ($errors as $name => ['violations' => $violations]) {
+                    foreach ($violations as $violation) {
                         $this->addFlash('error', $name.': '.$violation->getMessage());
                     }
                 }
@@ -344,6 +342,7 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
+        ret:
         //Mass creation form
         $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
         $mass_creation_form->handleRequest($request);
@@ -356,11 +355,14 @@ abstract class BaseAdminController extends AbstractController
             $results = $importer->massCreation($data['lines'], $this->entity_class, $data['parent'] ?? null, $errors);
 
             //Show errors to user:
-            foreach ($errors as $error) {
-                if ($error['entity'] instanceof AbstractStructuralDBElement) {
-                    $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
-                } else { //When we don't have a structural element, we can only show the name
-                    $this->addFlash('error', $error['entity']->getName().':'.$error['violations']);
+            foreach ($errors as ['entity' => $new_entity, 'violations' => $violations]) {
+                /** @var ConstraintViolationInterface $violation */
+                foreach ($violations as $violation) {
+                    if ($new_entity instanceof AbstractStructuralDBElement) {
+                        $this->addFlash('error', $new_entity->getFullPath().':'.$violation->getMessage());
+                    } else { //When we don't have a structural element, we can only show the name
+                        $this->addFlash('error', $new_entity->getName().':'.$violation->getMessage());
+                    }
                 }
             }
 
@@ -371,11 +373,10 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
 
             if (count($results) > 0) {
-            	$this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
+                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
             }
         }
 
-        ret:
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,

@@ -41,14 +41,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class AbstractCompany extends AbstractPartsContainingDBElement
 {
     #[Groups(['company:read'])]
-    protected ?\DateTime $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['company:read'])]
-    protected ?\DateTime $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     /**
      * @var string The address of the company
      */
-    #[Groups(['full', 'company:read', 'company:write'])]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $address = '';
@@ -56,7 +56,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The phone number of the company
      */
-    #[Groups(['full', 'company:read', 'company:write'])]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $phone_number = '';
@@ -64,7 +64,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The fax number of the company
      */
-    #[Groups(['full', 'company:read', 'company:write'])]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $fax_number = '';
@@ -73,7 +73,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The email address of the company
      */
     #[Assert\Email]
-    #[Groups(['full', 'company:read', 'company:write'])]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $email_address = '';
@@ -82,12 +82,12 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The website of the company
      */
     #[Assert\Url]
-    #[Groups(['full', 'company:read', 'company:write'])]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $website = '';
 
-    #[Groups(['company:read', 'company:write'])]
+    #[Groups(['company:read', 'company:write', 'import', 'full', 'extended'])]
     protected string $comment = '';
 
     /**
@@ -95,6 +95,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]
+    #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     protected string $auto_product_url = '';
 
     /********************************************************************************

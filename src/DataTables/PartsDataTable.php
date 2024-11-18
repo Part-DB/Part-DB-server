@@ -137,7 +137,8 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
-                'orderField' => 'NATSORT(_storelocations.name)',
+                //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
+                'orderField' => 'NATSORT(MIN(_storelocations.name))',
                 'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
 
@@ -156,7 +157,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'orderField' => 'NATSORT(_partUnit.name)',
                 'render' => function($value, Part $context): string {
                     $partUnit = $context->getPartUnit();
-                    if (!$partUnit) {
+                    if ($partUnit === null) {
                         return '';
                     }
 
@@ -184,7 +185,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'class' => ManufacturingStatus::class,
                 'render' => function (?ManufacturingStatus $status, Part $context): string {
-                    if (!$status) {
+                    if ($status === null) {
                         return '';
                     }
 

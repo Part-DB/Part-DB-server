@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
@@ -241,18 +243,18 @@ class ParameterDTOTest extends TestCase
 
     public function testSplitIntoValueAndUnit(): void
     {
-        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0 kg'));
-        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0kg'));
-        $this->assertEquals(['1', 'kg'], ParameterDTO::splitIntoValueAndUnit('1 kg'));
+        $this->assertSame(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0 kg'));
+        $this->assertSame(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0kg'));
+        $this->assertSame(['1', 'kg'], ParameterDTO::splitIntoValueAndUnit('1 kg'));
 
-        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0°C'));
-        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0 °C'));
+        $this->assertSame(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0°C'));
+        $this->assertSame(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0 °C'));
 
-        $this->assertEquals(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
-        $this->assertEquals(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
+        $this->assertSame(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
+        $this->assertSame(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
 
-        $this->assertEquals(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
-        $this->assertEquals(["-5.0", "µg"], ParameterDTO::splitIntoValueAndUnit("-5.0 µg"));
+        $this->assertSame(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
+        $this->assertSame(["-5.0", "µg"], ParameterDTO::splitIntoValueAndUnit("-5.0 µg"));
 
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('kg'));
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('Test'));
