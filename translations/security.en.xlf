@@ -14,7 +14,7 @@
       </segment>
     </unit>
     <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
-      <segment>
+      <segment state="translated">
         <source>saml.error.cannot_login_saml_user_locally</source>
         <target>You cannot use local authentication to login as SAML user! Use SSO login instead.</target>
       </segment>
