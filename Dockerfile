@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=debian:bookworm-slim
-ARG PHP_VERSION=8.2
+ARG PHP_VERSION=8.3
 
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
@@ -125,6 +125,7 @@ upload_max_filesize=256M
 post_max_size=300M
 opcache.preload_user=www-data
 opcache.preload=/var/www/html/config/preload.php
+log_limit=8096
 EOF
 
 COPY ./.docker/symfony.conf /etc/apache2/sites-available/symfony.conf
