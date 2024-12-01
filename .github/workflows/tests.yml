@@ -126,7 +126,7 @@ jobs:
         run: ./bin/phpunit --coverage-clover=coverage.xml
       
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           env_vars: PHP_VERSION,DB_TYPE
           token: ${{ secrets.CODECOV_TOKEN }}
