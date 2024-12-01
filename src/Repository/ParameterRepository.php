@@ -44,7 +44,7 @@ class ParameterRepository extends DBElementRepository
             ->select('parameter.name')
             ->addSelect('parameter.symbol')
             ->addSelect('parameter.unit')
-            ->where('parameter.name LIKE :name');
+            ->where('ILIKE(parameter.name, :name) = TRUE');
         if ($exact) {
             $qb->setParameter('name', $name);
         } else {

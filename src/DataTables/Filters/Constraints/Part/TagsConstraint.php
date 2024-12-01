@@ -93,10 +93,10 @@ class TagsConstraint extends AbstractConstraint
         $expr = $queryBuilder->expr();
 
         $tmp = $expr->orX(
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_1'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_2'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_3'),
-            $expr->eq($this->property, ':' . $tag_identifier_prefix . '_4'),
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_1) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_2) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_3) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_4) = TRUE',
         );
 
         //Set the parameters for the LIKE expression, in each variation of the tag (so with a comma, at the end, at the beginning, and on both ends, and equaling the tag)
