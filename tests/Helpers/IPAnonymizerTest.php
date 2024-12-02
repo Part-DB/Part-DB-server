@@ -29,7 +29,7 @@ class IPAnonymizerTest extends TestCase
     public function anonymizeDataProvider(): \Generator
     {
         yield ['127.0.0.0', '127.0.0.23'];
-        yield ['2001:0db8:85a3::', '2001:0db8:85a3:0000:0000:8a2e:0370:7334'];
+        yield ['2001:db8:85a3::', '2001:0db8:85a3:0000:0000:8a2e:0370:7334'];
         //RFC 4007 format
         yield ['fe80::', 'fe80::1fc4:15d8:78db:2319%enp4s0'];
     }
