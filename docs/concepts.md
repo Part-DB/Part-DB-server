@@ -23,7 +23,7 @@ each other so that it does not matter which one of your 1000 things of Part you 
 A part entity has many fields, which can be used to describe it better. Most of the fields are optional:
 
 * **Name** (Required): The name of the part or how you want to call it. This could be a manufacturer-provided name, or a
-  name you thought of yourself. The name have to be unique in a single category.
+  name you thought of yourself. Each name needs to be unique and must exist in a single category.
 * **Description**: A short (single-line) description of what this part is/does. For longer information, you should use
   the comment field or the specifications
 * **Category** (Required): The category (see there) to which this part belongs to.
