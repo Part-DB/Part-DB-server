@@ -23,10 +23,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +45,8 @@ class InfoProviderController extends  AbstractController
 {
 
     public function __construct(private readonly ProviderRegistry $providerRegistry,
-        private readonly PartInfoRetriever $infoRetriever)
+        private readonly PartInfoRetriever $infoRetriever,
+        private readonly EntityManagerInterface $em)
     {
 
     }
@@ -56,6 +60,34 @@ class InfoProviderController extends  AbstractController
             'active_providers' => $this->providerRegistry->getActiveProviders(),
             'disabled_providers' => $this->providerRegistry->getDisabledProviders(),
         ]);
+    }
+
+    private function matchResultsToKnownParts(array $partsList): array
+    {
+        $manufacturerQb = $this->em->getRepository(Manufacturer::class)->createQueryBuilder("manufacturer");
+        $manufacturerQb->where($manufacturerQb->expr()->like("LOWER(manufacturer.name)", "LOWER(:manufacturer_name)"));
+
+
+        $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder("part");
+        $mpnQb->where($mpnQb->expr()->like("LOWER(part.manufacturer_product_number)", "LOWER(:mpn)"));
+        $mpnQb->andWhere($mpnQb->expr()->eq("part.manufacturer", ":manufacturer"));
+
+        foreach ($partsList as $index => $part) {
+            $manufacturerQb->setParameter("manufacturer_name", $part["dto"]->manufacturer);
+            $manufacturers = $manufacturerQb->getQuery()->getResult();
+            if(!$manufacturers) {
+                continue;
+            }
+
+            $mpnQb->setParameter("manufacturer", $manufacturers);
+            $mpnQb->setParameter("mpn", $part["dto"]->mpn);
+            $localParts = $mpnQb->getQuery()->getResult();
+            if(!$localParts) {
+                continue;
+            }
+            $partsList[$index]["localPart"] = $localParts[0];
+        }
+        return $partsList;
     }
 
     #[Route('/search', name: 'info_providers_search')]
@@ -86,6 +118,10 @@ class InfoProviderController extends  AbstractController
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            }
+            $results = array_map(function ($result) {return ["dto" => $result,"localPart" => null];}, $results);
+            if(!$update_target) {
+                $results = $this->matchResultsToKnownParts($results);
             }
         }
 
