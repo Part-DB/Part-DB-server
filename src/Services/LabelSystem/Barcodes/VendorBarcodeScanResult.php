@@ -24,19 +24,19 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\Barcodes;
 
 /**
- * This enum represents the different types, where a barcode/QR-code can be generated from
+ * This class represents the result of a scan of a barcode that was printed by a third party
+ * and contains useful information about an item, like a vendor id or the order quantity
  */
-enum BarcodeSourceType
-{
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
-    /**
-     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
-     * field of a part lot.
-     */
-    case USER_DEFINED;
 
-    case VENDOR;
+class VendorBarcodeScanResult
+{
+    public function __construct(
+        public readonly string  $vendor,
+        public readonly ?string $manufacturer_part_number = null,
+        public readonly ?string $vendor_part_number = null,
+        public readonly ?string $date_code = null,
+        public readonly ?string $quantity = null
+    )
+    {
+    }
 }

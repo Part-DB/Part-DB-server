@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -60,12 +61,22 @@ final class BarcodeRedirector
     /**
      * Determines the URL to which the user should be redirected, when scanning a QR code.
      *
-     * @param  BarcodeScanResult  $barcodeScan The result of the barcode scan
+     * @param  LocalBarcodeScanResult | VendorBarcodeScanResult  $barcodeScan The result of the barcode scan
      * @return string the URL to which should be redirected
      *
      * @throws EntityNotFoundException
      */
-    public function getRedirectURL(BarcodeScanResult $barcodeScan): string
+    public function getRedirectURL(LocalBarcodeScanResult | VendorBarcodeScanResult $barcodeScan): string
+    {
+        if($barcodeScan instanceof LocalBarcodeScanResult) {
+            return $this->getURLLocalBarcode($barcodeScan);
+        }
+        else{
+            return $this->getURLVendorBarcode($barcodeScan);
+        }
+    }
+
+    private function getURLLocalBarcode(LocalBarcodeScanResult $barcodeScan): string
     {
         switch ($barcodeScan->target_type) {
             case LabelSupportedElement::PART:
@@ -85,5 +96,47 @@ final class BarcodeRedirector
             default:
                 throw new InvalidArgumentException('Unknown $type: '.$barcodeScan->target_type->name);
         }
+    }
+
+    /**
+     * Gets the URL to a part from a scan of a Vendor Barcode
+     */
+    private function getURLVendorBarcode(VendorBarcodeScanResult $barcodeScan): string
+    {
+        $part = $this->getPartFromVendor($barcodeScan);
+        return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
+    }
+
+    /**
+     * Gets a part from a scan of a Vendor Barcode by filtering for parts
+     * with the same Info Provider Id or, if that fails, by looking for parts with the
+     * same manufacturer product number. Only returns the first matching part.
+     */
+    private function getPartFromVendor(VendorBarcodeScanResult $barcodeScan) : Part
+    {
+        // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
+        // the info provider system or if the part was bought from a different vendor than the data was retrieved
+        // from.
+        $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+        //Lower() to be case insensitive
+        $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
+        $qb->setParameter('vendor_id', $barcodeScan->vendor_part_number);
+        $results = $qb->getQuery()->getResult();
+        if($results){
+            return $results[0];
+        }
+
+        //Fallback to the manufacturer part number. This may return false positives, since it is common for
+        //multiple manufacturers to use the same part number for their version of a common product
+        //We assume the user is able to realize when this returns the wrong part
+        //If there's barcodes that contain the vendor we could make this more robust, but at least Digikey doesn't.
+        $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+        $qb->where($qb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
+        $qb->setParameter('mpn', $barcodeScan->manufacturer_part_number);
+        $results = $qb->getQuery()->getResult();
+        if($results){
+            return $results[0];
+        }
+        throw new EntityNotFoundException();
     }
 }
