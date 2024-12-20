@@ -43,7 +43,7 @@ namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
-use App\Services\LabelSystem\Barcodes\BarcodeScanResult;
+use App\Services\LabelSystem\Barcodes\LocalBarcodeScanResult;
 use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
 use Com\Tecnick\Barcode\Barcode;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -61,55 +61,55 @@ class BarcodeScanHelperTest extends WebTestCase
     public static function dataProvider(): \Iterator
     {
         //QR URL content:
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL),
             'https://localhost:8000/scan/lot/1'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
             'https://localhost:8000/scan/part/123'];
-        yield [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 4, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 4, BarcodeSourceType::INTERNAL),
             'http://foo.bar/part-db/scan/location/4'];
 
         //Current Code39 format:
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
             'L0010'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 123, BarcodeSourceType::INTERNAL),
             'L0123'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 123456, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 123456, BarcodeSourceType::INTERNAL),
             'L123456'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::INTERNAL),
             'P0002'];
 
         //Development phase Code39 barcodes:
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
             'L-000010'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 10, BarcodeSourceType::INTERNAL),
             'Lß000010'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
             'P-000123'];
-        yield [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 123, BarcodeSourceType::INTERNAL),
             'S-000123'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 12_345_678, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 12_345_678, BarcodeSourceType::INTERNAL),
             'L-12345678'];
 
         //Legacy storelocation format
-        yield [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 336, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 336, BarcodeSourceType::INTERNAL),
             '$L00336'];
-        yield [new BarcodeScanResult(LabelSupportedElement::STORELOCATION, 12_345_678, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 12_345_678, BarcodeSourceType::INTERNAL),
             '$L12345678'];
 
         //Legacy Part format
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
             '0000123'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 123, BarcodeSourceType::INTERNAL),
             '00001236'];
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 1_234_567, BarcodeSourceType::INTERNAL),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 1_234_567, BarcodeSourceType::INTERNAL),
             '12345678'];
 
         //Test IPN barcode
-        yield [new BarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::IPN),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 2, BarcodeSourceType::IPN),
             'IPN123'];
 
         //Test vendor barcode
-        yield [new BarcodeScanResult(LabelSupportedElement::PART_LOT, 2,BarcodeSourceType::VENDOR),
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 2,BarcodeSourceType::USER_DEFINED),
             'lot2_vendor_barcode'];
     }
 
@@ -131,7 +131,7 @@ class BarcodeScanHelperTest extends WebTestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testNormalizeBarcodeContent(BarcodeScanResult $expected, string $input): void
+    public function testNormalizeBarcodeContent(LocalBarcodeScanResult $expected, string $input): void
     {
         $this->assertEquals($expected, $this->service->scanBarcodeContent($input));
     }

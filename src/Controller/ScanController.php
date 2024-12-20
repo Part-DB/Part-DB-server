@@ -44,7 +44,7 @@ namespace App\Controller;
 use App\Form\LabelSystem\ScanDialogType;
 use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
 use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
-use App\Services\LabelSystem\Barcodes\BarcodeScanResult;
+use App\Services\LabelSystem\Barcodes\LocalBarcodeScanResult;
 use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
@@ -109,7 +109,7 @@ class ScanController extends AbstractController
                 throw new InvalidArgumentException('Unknown type: '.$type);
             }
             //Construct the scan result manually, as we don't have a barcode here
-            $scan_result = new BarcodeScanResult(
+            $scan_result = new LocalBarcodeScanResult(
                 target_type: BarcodeScanHelper::QR_TYPE_MAP[$type],
                 target_id: $id,
                 //The routes are only used on the internal generated QR codes
