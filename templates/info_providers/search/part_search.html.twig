@@ -53,6 +53,7 @@
                     <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,9 @@
                             {% if dto.mpn is not null %}
                                 <br>
                                 <small class="text-muted" title="{% trans %}part.table.mpn{% endtrans %}">{{ dto.mpn }}</small>
+                            {% endif %}
+                            {%  if result["localPart"] is not null %}
+
                             {% endif %}
                         </td>
                         <td>
@@ -100,6 +104,17 @@
                             {% endif %}
                             <br>
                             <small class="text-muted">{{ dto.provider_id }}</small>
+                        </td>
+                        <td>
+                            {# TODO: would like to have a sort of "part exists!" text here, but don't know how to style it
+                            also it would be nice to have these two buttons closer together, but when I put them in one cell
+                            they sometimes stack#}
+                            {% if result["localPart"] is not null %}
+                                <a class="btn btn-primary" href="{{ path('app_part_show', {'id': result['localPart'].id}) }}"
+                                   target="_blank" title="Show Existing Part"> {# TODO: Needs translation #}
+                                    <i class="fa-solid fa-search"></i>
+                                </a>
+                            {% endif %}
                         </td>
                         <td>
                             {% if result["localPart"] is not null %}
