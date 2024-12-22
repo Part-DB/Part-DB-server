@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
@@ -109,31 +110,51 @@ final class BarcodeRedirector
 
     /**
      * Gets a part from a scan of a Vendor Barcode by filtering for parts
-     * with the same Info Provider Id or, if that fails, by looking for parts with the
-     * same manufacturer product number. Only returns the first matching part.
+     * with the same Info Provider Id or, if that fails, by looking for parts with a
+     * matching manufacturer product number. Only returns the first matching part.
      */
     private function getPartFromVendor(VendorBarcodeScanResult $barcodeScan) : Part
     {
         // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
         // the info provider system or if the part was bought from a different vendor than the data was retrieved
         // from.
-        $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-        //Lower() to be case insensitive
-        $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
-        $qb->setParameter('vendor_id', $barcodeScan->vendor_part_number);
-        $results = $qb->getQuery()->getResult();
-        if($results){
-            return $results[0];
+        if($barcodeScan->vendor_part_number) {
+            $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+            //Lower() to be case insensitive
+            $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
+            $qb->setParameter('vendor_id', $barcodeScan->vendor_part_number);
+            $results = $qb->getQuery()->getResult();
+            if ($results) {
+                return $results[0];
+            }
+        }
+
+        if(!$barcodeScan->manufacturer_part_number){
+            throw new EntityNotFoundException();
         }
 
         //Fallback to the manufacturer part number. This may return false positives, since it is common for
         //multiple manufacturers to use the same part number for their version of a common product
         //We assume the user is able to realize when this returns the wrong part
-        //If there's barcodes that contain the vendor we could make this more robust, but at least Digikey doesn't.
-        $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-        $qb->where($qb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
-        $qb->setParameter('mpn', $barcodeScan->manufacturer_part_number);
-        $results = $qb->getQuery()->getResult();
+        //If the barcode specifies the manufacturer we try to use that as well
+        $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+        $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
+        $mpnQb->setParameter('mpn', $barcodeScan->manufacturer_part_number);
+
+        if($barcodeScan->manufacturer){
+            $manufacturerQb = $this->em->getRepository(Manufacturer::class)->createQueryBuilder("manufacturer");
+            $manufacturerQb->where($manufacturerQb->expr()->like("LOWER(manufacturer.name)", "LOWER(:manufacturer_name)"));
+            $manufacturerQb->setParameter("manufacturer_name", $barcodeScan->manufacturer);
+            $manufacturers = $manufacturerQb->getQuery()->getResult();
+
+            if($manufacturers) {
+                $mpnQb->andWhere($mpnQb->expr()->eq("part.manufacturer", ":manufacturer"));
+                $mpnQb->setParameter("manufacturer", $manufacturers);
+            }
+
+        }
+
+        $results = $mpnQb->getQuery()->getResult();
         if($results){
             return $results[0];
         }
