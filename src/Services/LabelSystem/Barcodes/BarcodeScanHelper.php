@@ -122,10 +122,10 @@ final class BarcodeScanHelper
 
     private function parseDigikeyBarcode(string $input): ?VendorBarcodeScanResult
     {
-        if(!str_starts_with($input, '[)>\u{1E}06\u{1D}')){
+        if(!str_starts_with($input, "[)>\u{1E}06\u{1D}")){
             return null;
         }
-        $barcodeParts = explode('\u{1D}',$input);
+        $barcodeParts = explode("\u{1D}",$input);
         if (count($barcodeParts) !== 16){
             return null;
         }
