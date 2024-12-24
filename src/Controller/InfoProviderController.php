@@ -23,10 +23,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +44,8 @@ class InfoProviderController extends  AbstractController
 {
 
     public function __construct(private readonly ProviderRegistry $providerRegistry,
-        private readonly PartInfoRetriever $infoRetriever)
+        private readonly PartInfoRetriever $infoRetriever,
+        private readonly EntityManagerInterface $em)
     {
 
     }
@@ -56,6 +59,49 @@ class InfoProviderController extends  AbstractController
             'active_providers' => $this->providerRegistry->getActiveProviders(),
             'disabled_providers' => $this->providerRegistry->getDisabledProviders(),
         ]);
+    }
+
+    /**
+     * Looks for parts in the local database that match the results from the info provider, so the user doesn't
+     * accidentally add a duplicate
+     *
+     * @param array $partsList Array of Arrays. Outer Array contains one entry per search result from the info Provider
+     * Inner array contains one entry "dto" for the dto from the info provider
+     * and one entry "localPart" where the local Part will be put if it exists
+     * Form: [["dto" => dto from provider, "localPart" => null]["dto" => dto from provider, "localPart" => null]]
+     * This function might modify the original array, not sure
+     * @return array Same format as the input array, but for parts that exist locally null will be replaced by a Part
+     */
+    private function matchResultsToKnownParts(array $partsList): array
+    {
+        //we need a manufacturer object to look for a manufacturer
+        $manufacturerQb = $this->em->getRepository(Manufacturer::class)->createQueryBuilder('manufacturer');
+        $manufacturerQb->where($manufacturerQb->expr()->like('LOWER(manufacturer.name)', 'LOWER(:manufacturer_name)'));
+
+
+        //check if both manufacturer and Manufacturer part namber matches. If so, it must be the same part
+        //use LOWER to make the search independent of case
+        $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+        $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
+        $mpnQb->andWhere($mpnQb->expr()->eq('part.manufacturer', ':manufacturer'));
+
+        foreach ($partsList as $index => $part) {
+            $manufacturerQb->setParameter('manufacturer_name', $part['dto']->manufacturer);
+            $manufacturers = $manufacturerQb->getQuery()->getResult();
+            if(!$manufacturers) {
+                continue;
+            }
+
+            $mpnQb->setParameter('manufacturer', $manufacturers);
+            $mpnQb->setParameter('mpn', $part['dto']->mpn);
+            $localParts = $mpnQb->getQuery()->getResult();
+            if(!$localParts) {
+                continue;
+            }
+            //We only use the first matching part. If a user already has duplicate parts they will get a random one
+            $partsList[$index]['localPart'] = $localParts[0];
+        }
+        return $partsList;
     }
 
     #[Route('/search', name: 'info_providers_search')]
@@ -86,6 +132,13 @@ class InfoProviderController extends  AbstractController
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            }
+            // modify the array to an array of arrays that has a field for a matching local Part
+            // the advantage to use that format even when we don't look for local parts is that we
+            // always work with the same interface
+            $results = array_map(function ($result) {return ['dto' => $result, 'localPart' => null];}, $results);
+            if(!$update_target) {
+                $results = $this->matchResultsToKnownParts($results);
             }
         }
 
