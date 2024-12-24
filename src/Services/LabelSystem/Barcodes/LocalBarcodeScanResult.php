@@ -26,9 +26,10 @@ namespace App\Services\LabelSystem\Barcodes;
 use App\Entity\LabelSystem\LabelSupportedElement;
 
 /**
- * This class represents the result of a barcode scan, with the target type and the ID of the element
+ * This class represents the result of a barcode scan of a barcode that uniquely identifies a local entity,
+ * like an internally generated barcode or a barcode that was added manually to the system by a user
  */
-class BarcodeScanResult
+class LocalBarcodeScanResult
 {
     public function __construct(
         public readonly LabelSupportedElement $target_type,

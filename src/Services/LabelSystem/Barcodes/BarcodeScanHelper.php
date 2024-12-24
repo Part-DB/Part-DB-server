@@ -75,19 +75,22 @@ final class BarcodeScanHelper
      * will try to guess the type.
      * @param  string  $input
      * @param BarcodeSourceType|null  $type
-     * @return BarcodeScanResult
+     * @return LocalBarcodeScanResult
      */
-    public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): BarcodeScanResult
+    public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): LocalBarcodeScanResult | VendorBarcodeScanResult
     {
         //Do specific parsing
         if ($type === BarcodeSourceType::INTERNAL) {
             return $this->parseInternalBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
-        if ($type === BarcodeSourceType::VENDOR) {
-            return $this->parseVendorBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        if ($type === BarcodeSourceType::USER_DEFINED) {
+            return $this->parseUserDefinedBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
         if ($type === BarcodeSourceType::IPN) {
             return $this->parseIPNBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        }
+        if ($type === BarcodeSourceType::VENDOR) {
+            return $this->parseFormat06Barcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
 
         //Null means auto and we try the different formats
@@ -97,8 +100,8 @@ final class BarcodeScanHelper
             return $result;
         }
 
-        //Try to parse as vendor barcode
-        $result = $this->parseVendorBarcode($input);
+        //Try to parse as User defined barcode
+        $result = $this->parseUserDefinedBarcode($input);
         if ($result !== null) {
             return $result;
         }
@@ -109,10 +112,111 @@ final class BarcodeScanHelper
             return $result;
         }
 
+        $result = $this->parseFormat06Barcode($input);
+        if ($result !== null) {
+            return $result;
+        }
+
         throw new InvalidArgumentException('Unknown barcode');
     }
 
-    private function parseVendorBarcode(string $input): ?BarcodeScanResult
+
+    /**
+     * Parses Format 06 Barcodes according to ISO/IEC 15434. That standard calls on ASC MH10 to specify
+     * the data identifiers, but these are way too many to incorporate here. EIGP 114.2018 is yet another standard
+     * based on Format 06 which specifies identifiers for the electronics industry. I've included the identifiers
+     * from that standard, plus the extra ones I found on Digikey and Mouser Bags.
+     * @param string $input what was read from the barcode
+     * @return ?array Array of the form ["Meaning" => "Value"]
+     */
+    private function decodeFormat06Barcode(string $input): ?array
+    {
+        if(!str_starts_with($input, "[)>\u{1E}06\u{1D}")){
+            return null;
+        }
+        if(str_ends_with($input, "\u{04}")){
+            $input = substr($input, 0, -1);
+        }
+
+        $barcodeParts = explode("\u{1D}",$input);
+        //get rid of the Format 06 identifier
+        array_shift($barcodeParts);
+        if (count($barcodeParts) < 2){
+            return null;
+        }
+
+        $fieldIds = [
+            //IDs per EIGP 114.2018
+            '6D' => 'Ship Date',
+            'P'  => 'Customer Part Number',
+            '1P' => 'Supplier Part Number',
+            'Q'  => 'Quantity',
+            'K'  => 'Purchase Order Part Number',
+            '4K' => 'Purchase Order Line Number',
+            '9D' => 'Date Code',
+            '10D' => 'Alternative Date Code',
+            '1T' => 'Lot Code',
+            '4L' => 'Country of Origin',
+            '3S' => 'Package ID 1',
+            '4S' => 'Package ID 2',
+            '5S' => 'Package ID 3',
+            '11K' => 'Packing List Number',
+            'S'  => 'Serial Number',
+            '33P' => 'BIN Code',
+            '13Q' => 'Package Count',
+            '2P' => 'Revision Number',
+            //IDs used by Digikey
+            '30P' => 'Digikey Part Number',
+            '1K' =>  'Sales Order Number',
+            '10K' => 'Invoice Number',
+            '11Z' => 'Label Type',
+            '12Z' => 'Part ID',
+            '13Z' => 'NA',
+            '20Z' => 'Padding',
+            //IDs used by Mouser
+            '14K' => 'Position in Order',
+            '1V'  => 'Manufacturer',
+        ];
+
+        $results = [];
+
+        foreach($barcodeParts as $part) {
+            //^                     0*                            ([1-9]?            \d*                           [A-Z])
+            //Start of the string   Leading zeros are discarded    Not a zero        Any number of digits          single uppercase Letter
+            //                      00                             1                 4                             K
+
+            if(!preg_match('/^0*([1-9]?\d*[A-Z])/', $part, $matches)) {
+                return null;
+            }
+            $meaning = $fieldIds[$matches[0]];
+            $fieldValue = substr($part, strlen($matches[0]));
+            $results[$meaning] = $fieldValue;
+
+        }
+        return $results;
+    }
+
+    /**
+     * Decodes a Format06 Barcode and puts it into a VendorBarcodeScanResult
+     * See decodeFormat06Barcode for details
+     */
+    private function parseFormat06Barcode(string $input): ?VendorBarcodeScanResult{
+        $results = $this->decodeFormat06Barcode($input);
+
+        if($results === null){
+            return null;
+        }
+
+        return new VendorBarcodeScanResult(
+            manufacturer_part_number: $results['Supplier Part Number'] ?? null,
+            vendor_part_number: $results['Digikey Part Number'] ?? null,
+            date_code: $results['Date Code'] ?? null,
+            quantity: $results['Quantity'] ?? null,
+            manufacturer: $results['Manufacturer'] ?? null,
+        );
+    }
+
+    private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult
     {
         $lot_repo = $this->entityManager->getRepository(PartLot::class);
         //Find only the first result
@@ -124,14 +228,14 @@ final class BarcodeScanHelper
         //We found a part, so use it to create the result
         $lot = $results[0];
 
-        return new BarcodeScanResult(
+        return new LocalBarcodeScanResult(
             target_type: LabelSupportedElement::PART_LOT,
             target_id: $lot->getID(),
-            source_type: BarcodeSourceType::VENDOR
+            source_type: BarcodeSourceType::USER_DEFINED
         );
     }
 
-    private function parseIPNBarcode(string $input): ?BarcodeScanResult
+    private function parseIPNBarcode(string $input): ?LocalBarcodeScanResult
     {
         $part_repo = $this->entityManager->getRepository(Part::class);
         //Find only the first result
@@ -143,7 +247,7 @@ final class BarcodeScanHelper
         //We found a part, so use it to create the result
         $part = $results[0];
 
-        return new BarcodeScanResult(
+        return new LocalBarcodeScanResult(
             target_type: LabelSupportedElement::PART,
             target_id: $part->getID(),
             source_type: BarcodeSourceType::IPN
@@ -155,9 +259,9 @@ final class BarcodeScanHelper
      * If the barcode could not be parsed at all, null is returned. If the barcode is a valid format, but could
      * not be found in the database, an exception is thrown.
      * @param  string  $input
-     * @return BarcodeScanResult|null
+     * @return LocalBarcodeScanResult|null
      */
-    private function parseInternalBarcode(string $input): ?BarcodeScanResult
+    private function parseInternalBarcode(string $input): ?LocalBarcodeScanResult
     {
         $input = trim($input);
         $matches = [];
@@ -167,7 +271,7 @@ final class BarcodeScanHelper
 
         //Extract parts from QR code's URL
         if (preg_match('#^https?://.*/scan/(\w+)/(\d+)/?$#', $input, $matches)) {
-            return new BarcodeScanResult(
+            return new LocalBarcodeScanResult(
                 target_type:  self::QR_TYPE_MAP[strtolower($matches[1])],
                 target_id: (int) $matches[2],
                 source_type: BarcodeSourceType::INTERNAL
@@ -183,7 +287,7 @@ final class BarcodeScanHelper
                 throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
-            return new BarcodeScanResult(
+            return new LocalBarcodeScanResult(
                 target_type:  self::PREFIX_TYPE_MAP[$prefix],
                 target_id: $id,
                 source_type: BarcodeSourceType::INTERNAL
@@ -199,7 +303,7 @@ final class BarcodeScanHelper
                 throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
-            return new BarcodeScanResult(
+            return new LocalBarcodeScanResult(
                 target_type:  self::PREFIX_TYPE_MAP[$prefix],
                 target_id: $id,
                 source_type: BarcodeSourceType::INTERNAL
@@ -208,7 +312,7 @@ final class BarcodeScanHelper
 
         //Legacy Part-DB location labels used $L00336 format
         if (preg_match('#^\$L(\d{5,})$#', $input, $matches)) {
-            return new BarcodeScanResult(
+            return new LocalBarcodeScanResult(
                 target_type: LabelSupportedElement::STORELOCATION,
                 target_id: (int) $matches[1],
                 source_type: BarcodeSourceType::INTERNAL
@@ -217,7 +321,7 @@ final class BarcodeScanHelper
 
         //Legacy Part-DB used EAN8 barcodes for part labels. Format 0000001(2) (note the optional 8th digit => checksum)
         if (preg_match('#^(\d{7})\d?$#', $input, $matches)) {
-            return new BarcodeScanResult(
+            return new LocalBarcodeScanResult(
                 target_type: LabelSupportedElement::PART,
                 target_id: (int) $matches[1],
                 source_type: BarcodeSourceType::INTERNAL
