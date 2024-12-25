@@ -1,5 +1,5 @@
 ---
-title: Installation using Kubernetes & Helm
+title: Kubernetes / Helm
 layout: default
 parent: Installation
 nav_order: 5
