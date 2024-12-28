@@ -104,7 +104,7 @@ class NodesListBuilder
             $repo = $this->em->getRepository($class_name);
 
             return array_map(static fn(AbstractDBElement $element) => $element->getID(),
-                $repo instanceof AbstractStructuralDBElement ? $repo->getFlatList($parent)  : $repo->getFlatList());
+                $repo instanceof StructuralDBElementRepository ? $repo->getFlatList($parent)  : $repo->getFlatList());
         });
     }
 
