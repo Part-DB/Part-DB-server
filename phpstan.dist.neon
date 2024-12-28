@@ -58,3 +58,6 @@ parameters:
 
         # Ignore doctrine type mapping mismatch
         - '#Property .* type mapping mismatch: property can contain .* but database expects .*#'
+
+        # Ignore error of unused WithPermPresetsTrait, as it is used in the migrations which are not analyzed by Phpstan
+        - '#Trait App\\Migration\\WithPermPresetsTrait is used zero times and is not analysed#'

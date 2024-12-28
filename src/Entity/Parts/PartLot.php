@@ -185,7 +185,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      *
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
      *
-     * @throws Exception If an error with the DateTime occurs
      */
     public function isExpired(): ?bool
     {

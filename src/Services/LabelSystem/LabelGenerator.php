@@ -62,10 +62,6 @@ final class LabelGenerator
      */
     public function generateLabel(LabelOptions $options, object|array $elements): string
     {
-        if (!is_array($elements) && !is_object($elements)) {
-            throw new InvalidArgumentException('$element must be an object or an array of objects!');
-        }
-
         if (!is_array($elements)) {
             $elements = [$elements];
         }

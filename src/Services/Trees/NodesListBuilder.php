@@ -23,9 +23,11 @@ declare(strict_types=1);
 namespace App\Services\Trees;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\AttachmentContainingDBElementRepository;
 use App\Repository\DBElementRepository;
+use App\Repository\NamedDBElementRepository;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
@@ -51,7 +53,7 @@ class NodesListBuilder
      * Gets a flattened hierarchical tree. Useful for generating option lists.
      * In difference to the Repository Function, the results here are cached.
      *
-     * @template T of AbstractDBElement
+     * @template T of AbstractNamedDBElement
      *
      * @param  string  $class_name  the class name of the entity you want to retrieve
      * @phpstan-param class-string<T> $class_name
@@ -69,7 +71,7 @@ class NodesListBuilder
         $ids = $this->getFlattenedIDs($class_name, $parent);
 
         //Retrieve the elements from the IDs, the order is the same as in the $ids array
-        /** @var DBElementRepository $repo */
+        /** @var NamedDBElementRepository<T> $repo */
         $repo = $this->em->getRepository($class_name);
 
         if ($repo instanceof AttachmentContainingDBElementRepository) {
@@ -81,7 +83,9 @@ class NodesListBuilder
 
     /**
      * This functions returns the (cached) list of the IDs of the elements for the flattened tree.
+     * @template T of AbstractNamedDBElement
      * @param  string  $class_name
+     * @phpstan-param class-string<T> $class_name
      * @param  AbstractStructuralDBElement|null  $parent
      * @return int[]
      */
@@ -96,10 +100,11 @@ class NodesListBuilder
             // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
 
-            /** @var StructuralDBElementRepository $repo */
+            /** @var NamedDBElementRepository<T> $repo */
             $repo = $this->em->getRepository($class_name);
 
-            return array_map(static fn(AbstractDBElement $element) => $element->getID(), $repo->getFlatList($parent));
+            return array_map(static fn(AbstractDBElement $element) => $element->getID(),
+                $repo instanceof AbstractStructuralDBElement ? $repo->getFlatList($parent)  : $repo->getFlatList());
         });
     }
 

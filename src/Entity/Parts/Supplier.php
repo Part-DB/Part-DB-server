@@ -103,7 +103,7 @@ class Supplier extends AbstractCompany
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
-     * @var Collection<int, Orderdetail>|Orderdetail[]
+     * @var Collection<int, Orderdetail>
      */
     #[ORM\OneToMany(mappedBy: 'supplier', targetEntity: Orderdetail::class)]
     protected Collection $orderdetails;

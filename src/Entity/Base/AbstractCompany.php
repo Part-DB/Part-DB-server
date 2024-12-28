@@ -33,8 +33,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This abstract class is used for companies like suppliers or manufacturers.
  *
- * @template-covariant AT of Attachment
- * @template-covariant PT of AbstractParameter
+ * @template AT of Attachment
+ * @template PT of AbstractParameter
  * @extends AbstractPartsContainingDBElement<AT, PT>
  */
 #[ORM\MappedSuperclass]

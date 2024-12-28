@@ -152,7 +152,7 @@ class LabelController extends AbstractController
     {
         $id_array = $this->rangeParser->parse($ids);
 
-        /** @var DBElementRepository $repo */
+        /** @var DBElementRepository<AbstractDBElement> $repo */
         $repo = $this->em->getRepository($type->getEntityClass());
 
         return $repo->getElementsFromIDArray($id_array);

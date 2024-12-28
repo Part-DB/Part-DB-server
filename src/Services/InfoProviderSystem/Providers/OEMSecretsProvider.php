@@ -771,11 +771,6 @@ class OEMSecretsProvider implements InfoProviderInterface
         // Logic to extract parameters from the description
         $extractedParameters = $this->parseDescriptionToParameters($description) ?? [];
 
-        // Ensure that $extractedParameters is an array
-        if (!is_array($extractedParameters)) {
-            $extractedParameters = [];
-        }
-
         foreach ($extractedParameters as $newParam) {
             $isDuplicate = false;
             foreach ($parameters as $existingParam) {

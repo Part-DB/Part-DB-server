@@ -206,12 +206,15 @@ class UsersPermissionsCommand extends Command
             return '<fg=green>Allow</>';
         } elseif ($permission_value === false) {
             return '<fg=red>Disallow</>';
-        } elseif ($permission_value === null && !$inherit) {
+        }
+        // Permission value is null by this point
+        elseif (!$inherit) {
             return '<fg=blue>Inherit</>';
-        } elseif ($permission_value === null && $inherit) {
+        } elseif ($inherit) {
             return '<fg=red>Disallow (Inherited)</>';
         }
 
+        //@phpstan-ignore-next-line This line is never reached, but PHPstorm complains otherwise
         return '???';
     }
 }

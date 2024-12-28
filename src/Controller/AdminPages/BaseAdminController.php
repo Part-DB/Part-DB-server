@@ -221,7 +221,6 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
-        /** @var AbstractPartsContainingRepository $repo */
         $repo = $this->entityManager->getRepository($this->entity_class);
 
         return $this->render($this->twig_template, [
@@ -397,7 +396,7 @@ abstract class BaseAdminController extends AbstractController
     {
         if ($entity instanceof AbstractPartsContainingDBElement) {
             /** @var AbstractPartsContainingRepository $repo */
-            $repo = $this->entityManager->getRepository($this->entity_class);
+            $repo = $this->entityManager->getRepository($this->entity_class); //@phpstan-ignore-line
             if ($repo->getPartsCount($entity) > 0) {
                 $this->addFlash('error', t('entity.delete.must_not_contain_parts', ['%PATH%' => $entity->getFullPath()]));
 

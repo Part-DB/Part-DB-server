@@ -240,7 +240,10 @@ class UserSettingsController extends AbstractController
                 $page_need_reload = true;
             }
 
-            /** @var Form $form We need a form implementation for the next calls */
+            if (!$form instanceof Form) {
+                throw new RuntimeException('Form is not an instance of Form, so we cannot retrieve the clicked button!');
+            }
+
             //Remove the avatar attachment from the user if requested
             if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof Attachment) {
                 $em->remove($user->getMasterPictureAttachment());

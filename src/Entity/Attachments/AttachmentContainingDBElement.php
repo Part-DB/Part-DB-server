@@ -33,7 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @template-covariant AT of Attachment
+ * @template AT of Attachment
  */
 #[ORM\MappedSuperclass(repositoryClass: AttachmentContainingDBElementRepository::class)]
 abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface, HasAttachmentsInterface

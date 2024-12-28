@@ -893,8 +893,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @param string[] $codes An array containing the backup codes
      *
      * @return $this
-     *
-     * @throws Exception If an error with the datetime occurs
      */
     public function setBackupCodes(array $codes): self
     {

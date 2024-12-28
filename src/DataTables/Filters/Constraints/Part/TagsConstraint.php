@@ -133,6 +133,7 @@ class TagsConstraint extends AbstractConstraint
             return;
         }
 
+        //@phpstan-ignore-next-line Keep this check to ensure that everything has the same structure even if we add a new operator
         if ($this->operator === 'NONE') {
             $queryBuilder->andWhere($queryBuilder->expr()->not($queryBuilder->expr()->orX(...$tagsExpressions)));
             return;
