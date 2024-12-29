@@ -139,9 +139,6 @@
     "florianv/swap-bundle": {
         "version": "5.0.x-dev"
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.5"
-    },
     "gregwar/captcha": {
         "version": "v1.1.7"
     },
@@ -171,9 +168,6 @@
         "files": [
             "./config/packages/knpu_oauth2_client.yaml"
         ]
-    },
-    "laminas/laminas-code": {
-        "version": "3.4.1"
     },
     "league/html-to-markdown": {
         "version": "4.8.2"
@@ -611,9 +605,6 @@
     },
     "symfony/property-info": {
         "version": "v4.2.3"
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v5.2.1"
     },
     "symfony/routing": {
         "version": "6.2",
