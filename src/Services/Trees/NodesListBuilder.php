@@ -104,7 +104,8 @@ class NodesListBuilder
             $repo = $this->em->getRepository($class_name);
 
             return array_map(static fn(AbstractDBElement $element) => $element->getID(),
-                $repo instanceof StructuralDBElementRepository ? $repo->getFlatList($parent)  : $repo->getFlatList());
+                //@phpstan-ignore-next-line For some reason phpstan does not understand that $repo is a StructuralDBElementRepository
+                $repo->getFlatList($parent));
         });
     }
 
