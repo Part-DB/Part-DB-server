@@ -53,6 +53,7 @@ export default class extends Controller {
 
         const config = {
             language: language,
+            licenseKey: "GPL",
         }
 
         const watchdog = new EditorWatchdog();
