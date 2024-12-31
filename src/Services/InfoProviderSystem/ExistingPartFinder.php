@@ -41,12 +41,22 @@ final class ExistingPartFinder
         $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
         $qb->select('part')
             ->leftJoin('part.manufacturer', 'manufacturer')
-            //The manufacturer name must match
-            ->where("ILIKE(manufacturer.name, :manufacturerName) = TRUE")
-            //And the manufacturer product number must match
-            ->andWhere(
-                "ILIKE(part.manufacturer_product_number, :mpn) = TRUE"
-            );
+            ->Orwhere($qb->expr()->andX(
+                'part.providerReference.provider_key = :providerKey',
+                'part.providerReference.provider_id = :providerId',
+            ))
+
+            //Or the manufacturer and the MPN must match
+            ->OrWhere(
+                $qb->expr()->andX(
+                    "ILIKE(manufacturer.name, :manufacturerName) = TRUE",
+                    "ILIKE(part.manufacturer_product_number, :mpn) = TRUE"
+                )
+            )
+        ;
+
+        $qb->setParameter('providerKey', $dto->provider_key);
+        $qb->setParameter('providerId', $dto->provider_id);
 
         $qb->setParameter('manufacturerName', $dto->manufacturer);
         $qb->setParameter('mpn', $dto->mpn);
