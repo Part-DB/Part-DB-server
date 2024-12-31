@@ -10,6 +10,10 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * This service assists in finding existing local parts for a SearchResultDTO, so that the user
  * does not accidentally add a duplicate.
+ *
+ * A part is considered to be a duplicate, if the provider reference matches, or if the manufacturer and the MPN of the
+ * DTO and the local part match. This checks also for alternative names of the manufacturer and the part name (as alternative
+ * for the MPN).
  */
 final class ExistingPartFinder
 {
@@ -46,11 +50,17 @@ final class ExistingPartFinder
                 'part.providerReference.provider_id = :providerId',
             ))
 
-            //Or the manufacturer and the MPN must match
+            //Or the manufacturer (allowing for alternative names) and the MPN (or part name) must match
             ->OrWhere(
                 $qb->expr()->andX(
+                    $qb->expr()->orX(
                     "ILIKE(manufacturer.name, :manufacturerName) = TRUE",
-                    "ILIKE(part.manufacturer_product_number, :mpn) = TRUE"
+                        "ILIKE(manufacturer.alternative_names, :manufacturerAltNames) = TRUE",
+                    ),
+                    $qb->expr()->orX(
+                    "ILIKE(part.manufacturer_product_number, :mpn) = TRUE",
+                        "ILIKE(part.name, :mpn) = TRUE",
+                    )
                 )
             )
         ;
@@ -59,6 +69,7 @@ final class ExistingPartFinder
         $qb->setParameter('providerId', $dto->provider_id);
 
         $qb->setParameter('manufacturerName', $dto->manufacturer);
+        $qb->setParameter('manufacturerAltNames', '%'.$dto->manufacturer.'%');
         $qb->setParameter('mpn', $dto->mpn);
 
         return $qb->getQuery()->getResult();
