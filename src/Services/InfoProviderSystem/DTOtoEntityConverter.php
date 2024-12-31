@@ -27,6 +27,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\Manufacturer;
@@ -155,6 +156,9 @@ final class DTOtoEntityConverter
         $entity->setComment($dto->notes ?? '');
 
         $entity->setMass($dto->mass);
+
+        //Try to map the category to an existing entity (but never create a new one)
+        $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
 
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
         $entity->setFootprint($this->getOrCreateEntity(Footprint::class, $dto->footprint));
