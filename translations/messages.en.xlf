@@ -12257,5 +12257,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update existing part from info provider</target>
       </segment>
     </unit>
+    <unit id="X5tEZJs" name="part.create_from_info_provider.no_category_yet">
+      <segment>
+        <source>part.create_from_info_provider.no_category_yet</source>
+        <target>Category could not be automatically determined by the info provider. Review the data and select the category manually.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
