@@ -133,14 +133,24 @@
                                        target="_blank" title="{% trans %}info_providers.search.show_existing_part{% endtrans %}">
                                         <i class="fa-solid fa-search"></i>
                                     </a>
-                                    <a class="btn btn-primary" href="{{ path('part_edit', {'id': localPart.id}) }}"
-                                       target="_blank" title="{% trans %}info_providers.search.edit_existing_part{% endtrans %}">
-                                        <i class="fa-solid fa-pencil"></i>
+                                    <a class="btn btn-primary" href="{{ path("info_providers_update_part", {'id': localPart.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) }}"
+                                       target="_blank" title="{% trans %}info_providers.search.update_existing_part{% endtrans %}">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
                                     </a>
-                                    <a class="btn btn-primary" href="{{ href }}"
-                                       target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
-                                        <i class="fa-solid fa-plus-square"></i>
-                                    </a>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{{ path('part_edit', {'id': localPart.id}) }}" target="_blank">
+                                                    <i class="fa-solid fa-pencil fa-fw"></i> {% trans %}info_providers.search.edit_existing_part{% endtrans %}
+                                                </a></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ href }}" target="_blank">
+                                                    <i class="fa-solid fa-plus-square fa-fw"></i> {% trans %}part.create.btn{% endtrans %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                             {% endif %}

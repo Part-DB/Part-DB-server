@@ -12251,5 +12251,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>This part (or a very similar one) was already found in the database. Please check if it is the same and if you want to create it again!</target>
       </segment>
     </unit>
+    <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
+      <segment>
+        <source>info_providers.search.update_existing_part</source>
+        <target>Update existing part from info provider</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
