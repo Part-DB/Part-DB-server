@@ -77,7 +77,23 @@ class InfoProviderController extends  AbstractController
         //When we are updating a part, use its name as keyword, to make searching easier
         //However we can only do this, if the form was not submitted yet
         if ($update_target !== null && !$form->isSubmitted()) {
-            $form->get('keyword')->setData($update_target->getName());
+            //Use the provider reference if available, otherwise use the manufacturer product number
+            $keyword = $update_target->getProviderReference()->getProviderId() ?? $update_target->getManufacturerProductNumber();
+            //Or the name if both are not available
+            if ($keyword === "") {
+                $keyword = $update_target->getName();
+            }
+
+            $form->get('keyword')->setData($keyword);
+
+            //If we are updating a part, which already has a provider, preselect that provider in the form
+            if ($update_target->getProviderReference()->getProviderKey() !== null) {
+                try {
+                    $form->get('providers')->setData([$this->providerRegistry->getProviderByKey($update_target->getProviderReference()->getProviderKey())]);
+                } catch (\InvalidArgumentException $e) {
+                    //If the provider is not found, just ignore it
+                }
+            }
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
