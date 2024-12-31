@@ -12227,5 +12227,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Generated code</target>
       </segment>
     </unit>
+    <unit id="5fgkpRc" name="info_providers.search.show_existing_part">
+      <segment>
+        <source>info_providers.search.show_existing_part</source>
+        <target>Show existing part</target>
+      </segment>
+    </unit>
+    <unit id="iPO8lit" name="info_providers.search.edit_existing_part">
+      <segment>
+        <source>info_providers.search.edit_existing_part</source>
+        <target>Edit existing part</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
