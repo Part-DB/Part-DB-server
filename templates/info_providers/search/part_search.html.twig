@@ -62,7 +62,7 @@
                     {# @var App\Entity\Parts\Part localPart #}
                     {% set localPart = result["localPart"] %}
 
-                    <tr >
+                    <tr {% if localPart is not null %}class="table-warning"{% endif %}>
                         <td>
                             <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
                                  class="hoverpic" style="max-width: 45px;" {{ stimulus_controller('elements/hoverpic') }}>
