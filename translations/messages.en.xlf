@@ -12239,5 +12239,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Edit existing part</target>
       </segment>
     </unit>
+    <unit id="gUMm8CJ" name="info_providers.search.existing_part_found.short">
+      <segment>
+        <source>info_providers.search.existing_part_found.short</source>
+        <target>Part already existing</target>
+      </segment>
+    </unit>
+    <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
+      <segment>
+        <source>info_providers.search.existing_part_found</source>
+        <target>This part (or a very similar one) was already found in the database. Please check if it is the same and if you want to create it again!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

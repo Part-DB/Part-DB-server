@@ -52,8 +52,6 @@
                     <th>{% trans %}part.table.manufacturingStatus{% endtrans %}</th>
                     <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -108,26 +106,7 @@
                             <br>
                             <small class="text-muted">{{ dto.provider_id }}</small>
                         </td>
-                        <td>
-                            {# TODO: would like to have a sort of "part exists!" text here, but don't know how to style it
-                            also it would be nice to have these two buttons closer together, but when I put them in one cell
-                            they sometimes stack#}
-                            {% if localPart is not null %}
-                                <a class="btn btn-primary" href="{{ path('app_part_show', {'id': localPart.id}) }}"
-                                   target="_blank" title="{% trans %}info_providers.search.show_existing_part{% endtrans %}">
-                                    <i class="fa-solid fa-search"></i>
-                                </a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if localPart is not null %}
-                                <a class="btn btn-primary" href="{{ path('part_edit', {'id': localPart.id}) }}"
-                                   target="_blank" title="{% trans %}info_providers.search.edit_existing_part{% endtrans %}">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </a>
-                            {% endif %}
-                        </td>
-                        <td>
+                        <td class="text-center">
 
                             {% if update_target %} {# We update an existing part #}
                                 {% set href = path('info_providers_update_part',
@@ -137,10 +116,34 @@
                                     {'providerKey': dto.provider_key, 'providerId': dto.provider_id}) %}
                             {% endif %}
 
-                            <a class="btn btn-primary" href="{{ href }}"
-                               target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
-                                <i class="fa-solid fa-plus-square"></i>
-                            </a>
+                            {# If we have no local part, then we can just show the create button #}
+                            {% if localPart is null %}
+                                <a class="btn btn-primary" href="{{ href }}"
+                                target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
+                                    <i class="fa-solid fa-plus-square"></i>
+                                </a>
+                            {% else %} {#  Otherwise add a button group with all three buttons #}
+                                <span class="badge text-bg-warning mb-1 d-block" title="{% trans %}info_providers.search.existing_part_found{% endtrans %}">
+                                    <i class="fa-solid fa-circle-info fa-fw"></i>
+                                    {% trans %}info_providers.search.existing_part_found.short{% endtrans %}
+                                </span>
+
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-primary" href="{{ path('app_part_show', {'id': localPart.id}) }}"
+                                       target="_blank" title="{% trans %}info_providers.search.show_existing_part{% endtrans %}">
+                                        <i class="fa-solid fa-search"></i>
+                                    </a>
+                                    <a class="btn btn-primary" href="{{ path('part_edit', {'id': localPart.id}) }}"
+                                       target="_blank" title="{% trans %}info_providers.search.edit_existing_part{% endtrans %}">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-primary" href="{{ href }}"
+                                       target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
+                                        <i class="fa-solid fa-plus-square"></i>
+                                    </a>
+                                </div>
+
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
