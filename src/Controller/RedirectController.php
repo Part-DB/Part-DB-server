@@ -58,7 +58,7 @@ class RedirectController extends AbstractController
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
         if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
-            && !str_contains((string) $new_url, 'index.php')) {
+            && !str_contains($new_url, 'index.php')) {
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
         }
@@ -73,6 +73,7 @@ class RedirectController extends AbstractController
      * Check if mod_rewrite is available (URL rewriting is possible).
      * If this is true, we can redirect to /en, otherwise we have to redirect to index.php/en.
      * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available.
+     * @noinspection PhpUndefinedFunctionInspection
      */
     public function checkIfModRewriteAvailable(): bool
     {

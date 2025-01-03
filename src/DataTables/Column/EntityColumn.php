@@ -42,7 +42,7 @@ class EntityColumn extends AbstractColumn
      * @param mixed $value The single value of the column
      * @return mixed
      */
-    public function normalize($value): mixed
+    public function normalize(mixed $value): mixed
     {
         /** @var AbstractNamedDBElement $value */
         return $value;

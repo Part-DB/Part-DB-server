@@ -1,0 +1,105 @@
+{% macro settings_drodown(show_label_instead_icon = true) %}
+
+    <div class="dropdown">
+        <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="true">
+            {% if show_label_instead_icon %}{% trans %}search.options.label{% endtrans %}{% else %}<i class="fa-solid fa-gear"></i>{% endif %}
+            <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="navbar-search-options">
+            <div class="px-2" style="width: max-content;">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_name" name="name" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_category" name="category" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_category" class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_description" name="description" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_mpn" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_tags" class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_storelocation" class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_ipn" class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
+                </div>
+                {% if true %}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="search_supplierpartnr" name="ordernr" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                        <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                {% if true %}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="search_manufacturer" name="manufacturer" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                        <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                {% if true %}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="search_footprint" name="footprint" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                        <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                <hr>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{# Render a complete usable search form including the form tags. mode can be "standalone" or "navbar" #}
+{% macro search_form(mode = "standalone") %}
+    {% set is_navbar = (mode == "navbar") %}
+
+    <form action="{{ path('parts_search') }}" class="d-flex {% if is_navbar %}my-lg-0{% endif%} ms-auto" method="get"
+            {# Navbar element needs to be persistent #}
+            {% if is_navbar %}id="navbar-search-form" data-turbo-permanent{% endif %}>
+
+        {# Show the options left in navbar #}
+        {% if is_navbar %}
+            {{ _self.settings_drodown(is_navbar) }}
+        {% endif %}
+
+        <div {{ stimulus_controller('elements/part_search') }}
+                class="mt-auto mb-auto {% if not is_navbar %}w-100{% endif %}"
+                {% if is_navbar %}id="navbar-quicksearch-container"{% endif %}
+
+                data-panel-placement="{% if is_navbar %}end{% else %}input-wrapper-width{% endif %}"
+                data-navbar-mode="{% if is_navbar %}true{% else %}false{% endif %}"
+                data-placeholder-image="{{ asset('img/part_placeholder.svg') }}"
+                data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}"
+                data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
+
+            <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }}>
+        </div>
+
+        {# And right in the standalone mode #}
+        {% if not is_navbar %}
+            {{ _self.settings_drodown(is_navbar) }}
+        {% endif %}
+    </form>
+{% endmacro %}

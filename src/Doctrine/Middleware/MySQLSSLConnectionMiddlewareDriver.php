@@ -27,7 +27,6 @@ use Composer\CaBundle\CaBundle;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
-use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 
 /**
  * This middleware sets SSL options for MySQL connections
@@ -42,7 +41,7 @@ class MySQLSSLConnectionMiddlewareDriver extends AbstractDriverMiddleware
     public function connect(array $params): Connection
     {
         //Only set this on MySQL connections, as other databases don't support this parameter
-        if($this->enabled && $this->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
+        if($this->enabled && $params['driver'] === 'pdo_mysql') {
             $params['driverOptions'][\PDO::MYSQL_ATTR_SSL_CA] = CaBundle::getSystemCaRootBundlePath();
             $params['driverOptions'][\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = $this->verify;
         }

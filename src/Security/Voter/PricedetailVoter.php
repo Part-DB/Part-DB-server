@@ -46,9 +46,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Entity\UserSystem\User;
-use App\Services\UserSystem\PermissionManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

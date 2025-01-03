@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Entity\Parts;
 
 use App\Entity\Parts\AssociationType;
@@ -34,7 +36,7 @@ class PartAssociationTest extends TestCase
         $assoc->setOtherType('Custom Type');
 
         //If the type is not OTHER the translation key should be the same as the type
-        $this->assertEquals($assoc->getType()->getTranslationKey(), $assoc->getTypeTranslationKey());
+        $this->assertSame($assoc->getType()->getTranslationKey(), $assoc->getTypeTranslationKey());
 
         //If the type is OTHER the translation key should be the other type
         $assoc->setType(AssociationType::OTHER);

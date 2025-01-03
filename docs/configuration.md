@@ -32,14 +32,22 @@ options listed, see `.env` file for the full list of possible env variables.
 
 ### General options
 
-* `DATABASE_URL`: Configures the database which Part-DB uses. For mysql use a string in the form
-  of `mysql://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<TABLE_NAME>` here
-  (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`). For SQLite use the following format to specify the
+* `DATABASE_URL`: Configures the database which Part-DB uses:
+   * For MySQL (or MariaDB) use a string in the form of `mysql://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<TABLE_NAME>` here
+  (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`).
+   * For SQLite use the following format to specify the
   absolute path where it should be located `sqlite:///path/part/app.db`. You can use `%kernel.project_dir%` as
   placeholder for the Part-DB root folder (e.g. `sqlite:///%kernel.project_dir%/var/app.db`)
+   * For Postgresql use a string in the form of `DATABASE_URL=postgresql://user:password@127.0.0.1:5432/part-db?serverVersion=x.y`.
+
+     Please note that **`serverVersion=x.y`** variable is required due to dependency of Symfony framework.
+
 * `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
  is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
 bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
+* `DATABASE_EMULATE_NATURAL_SORT` (default 0): If set to 1, Part-DB will emulate natural sorting, even if the database 
+  does not support it natively. However this is much slower than the native sorting, and contain bugs or quirks, so use
+  it only, if you have to.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something
@@ -83,6 +91,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
 * `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
   versions, or if your server can not connect to the internet.
+* `APP_SECRET`: This variable is a configuration parameter used for various security-related purposes,
+  particularly for securing and protecting various aspects of your application. It's a secret key that is used for
+  cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
+  value should be handled as confidential data and not shared publicly.
 
 ### E-Mail settings
 
@@ -206,6 +218,10 @@ See the [information providers]({% link usage/information_provider_system.md %})
   mode. (**You should not do this on a publicly accessible server, as it will leak sensitive information!**)
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker
   containers. In all other applications you can just change the `config/banner.md` file.
+* `DISABLE_YEAR2038_BUG_CHECK`: If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
+2038 are no longer forbidden. However this will lead to 500 error messages when rendering dates after 2038 as all current
+32-bit PHP versions can not format these dates correctly. This setting is for the case that future PHP versions will
+handle this correctly on 32-bit systems. 64-bit systems are not affected by this bug, and the check is always disabled.
 
 ## Banner
 

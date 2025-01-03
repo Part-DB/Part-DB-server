@@ -11196,7 +11196,7 @@ Element 3</target>
     <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Pokud poslední číslice IP adresy chybí, je povolen režim GPDR, ve kterém jsou IP adresy anynomizovány.</target>
+        <target>Pokud poslední číslice IP adresy chybí, je povolen režim GDPR, ve kterém jsou IP adresy anynomizovány.</target>
       </segment>
     </unit>
     <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -12195,6 +12195,18 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment state="translated">
         <source>login.flash.access_denied_please_login</source>
         <target>Přístup odepřen! Pro pokračování se prosím přihlaste.</target>
+      </segment>
+    </unit>
+    <unit id="ZY3REby" name="attachment.upload_multiple_files">
+      <segment state="translated">
+        <source>attachment.upload_multiple_files</source>
+        <target>Nahrát soubory</target>
+      </segment>
+    </unit>
+    <unit id="OBO.21_" name="entity.mass_creation_flash">
+      <segment state="translated">
+        <source>entity.mass_creation_flash</source>
+        <target>Úspěšně vytvořeno %COUNT% entit.</target>
       </segment>
     </unit>
   </file>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,9 +20,10 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Entity\LabelSystem;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -32,7 +36,7 @@ enum LabelSupportedElement: string
 
     /**
      * Returns the entity class for the given element type
-     * @return string
+     * @return class-string<AbstractDBElement>
      */
     public function getEntityClass(): string
     {

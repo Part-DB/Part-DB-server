@@ -31,5 +31,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Selectable extends Constraint
 {
-    public $message = 'validator.isSelectable';
+    public string $message = 'validator.isSelectable';
 }

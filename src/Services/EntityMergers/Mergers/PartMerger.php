@@ -27,14 +27,13 @@ use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
-use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
-use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
  * This class merges two parts together.
  *
  * @implements EntityMergerInterface<Part>
+ * @see \App\Tests\Services\EntityMergers\Mergers\PartMergerTest
  */
 class PartMerger implements EntityMergerInterface
 {
@@ -101,7 +100,7 @@ class PartMerger implements EntityMergerInterface
         return $target;
     }
 
-    private static function comparePartAssociations(PartAssociation $t, PartAssociation $o): bool {
+    private function comparePartAssociations(PartAssociation $t, PartAssociation $o): bool {
         //We compare the translation keys, as it contains info about the type and other type info
         return $t->getOther() === $o->getOther()
             && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
@@ -119,7 +118,7 @@ class PartMerger implements EntityMergerInterface
         $this->mergeParameters($target, $other);
 
         //Merge the associations
-        $this->mergeCollections($target, $other, 'associated_parts_as_owner', self::comparePartAssociations(...));
+        $this->mergeCollections($target, $other, 'associated_parts_as_owner', $this->comparePartAssociations(...));
 
         //We have to recreate the associations towards the other part, as they are not created by the merger
         foreach ($other->getAssociatedPartsAsOther() as $association) {
@@ -133,7 +132,7 @@ class PartMerger implements EntityMergerInterface
             }
             //Ensure that the association is not already present
             foreach ($owner->getAssociatedPartsAsOwner() as $existing_association) {
-                if (self::comparePartAssociations($existing_association, $clone)) {
+                if ($this->comparePartAssociations($existing_association, $clone)) {
                     continue 2;
                 }
             }

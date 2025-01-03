@@ -29,6 +29,9 @@ use App\Security\ApiTokenAuthenticatedToken;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
+/**
+ * @see \App\Tests\Services\UserSystem\VoterHelperTest
+ */
 final class VoterHelper
 {
     private readonly UserRepository $userRepository;

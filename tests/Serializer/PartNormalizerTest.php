@@ -28,17 +28,24 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Serializer\PartNormalizer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class PartNormalizerTest extends WebTestCase
 {
     /** @var PartNormalizer */
-    protected $service;
+    protected DenormalizerInterface&NormalizerInterface $service;
 
     protected function setUp(): void
     {
         //Get a service instance.
         self::bootKernel();
         $this->service = self::getContainer()->get(PartNormalizer::class);
+
+        //We need to inject the serializer into the normalizer, as we use it directly
+        $serializer = self::getContainer()->get('serializer');
+        $this->service->setNormalizer($serializer);
+        $this->service->setDenormalizer($serializer);
     }
 
     public function testSupportsNormalization(): void
@@ -103,7 +110,7 @@ class PartNormalizerTest extends WebTestCase
         $this->assertCount(1, $part->getPartLots());
         /** @var PartLot $partLot */
         $partLot = $part->getPartLots()->first();
-        $this->assertSame(5.0, $partLot->getAmount());
+        $this->assertEqualsWithDelta(5.0, $partLot->getAmount(), PHP_FLOAT_EPSILON);
         $this->assertNotNull($partLot->getStorageLocation());
         $this->assertSame('Test Storage Location', $partLot->getStorageLocation()->getName());
 
@@ -123,7 +130,7 @@ class PartNormalizerTest extends WebTestCase
         //Must be in base currency
         $this->assertNull($priceDetail->getCurrency());
         //Must be for 1 part and 1 minimum order quantity
-        $this->assertSame(1.0, $priceDetail->getPriceRelatedQuantity());
-        $this->assertSame(1.0, $priceDetail->getMinDiscountQuantity());
+        $this->assertEqualsWithDelta(1.0, $priceDetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(1.0, $priceDetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
     }
 }

@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 final class PartLotWithdrawAddHelper
 {
     public function __construct(private readonly EventLogger $eventLogger,
-        private readonly EventCommentHelper $eventCommentHelper, private EntityManagerInterface $entityManager)
+        private readonly EventCommentHelper $eventCommentHelper, private readonly EntityManagerInterface $entityManager)
     {
     }
 

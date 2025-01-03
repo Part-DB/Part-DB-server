@@ -43,7 +43,7 @@ class StructuralEntityChoiceHelper
 
     /**
      * Generates the choice attributes for the given AbstractStructuralDBElement.
-     * @return array|string[]
+     * @return array<string, mixed>
      */
     public function generateChoiceAttr(AbstractNamedDBElement $choice, Options|array $options): array
     {
@@ -100,7 +100,7 @@ class StructuralEntityChoiceHelper
     public function generateChoiceAttrCurrency(Currency $choice, Options|array $options): array
     {
         $tmp = $this->generateChoiceAttr($choice, $options);
-        $symbol = empty($choice->getIsoCode()) ? null : Currencies::getSymbol($choice->getIsoCode());
+        $symbol = $choice->getIsoCode() === '' ? null : Currencies::getSymbol($choice->getIsoCode());
         $tmp['data-short'] = $options['short'] ? $symbol : $choice->getName();
 
         //Show entities that are not added to DB yet separately from other entities

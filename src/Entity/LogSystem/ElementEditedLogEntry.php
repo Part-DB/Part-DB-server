@@ -28,7 +28,6 @@ use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\LogWithNewDataInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface, LogWithNewDataInterface

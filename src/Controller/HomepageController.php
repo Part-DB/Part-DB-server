@@ -28,14 +28,11 @@ use App\Services\Misc\GitVersionInfo;
 use App\Services\System\BannerHelper;
 use App\Services\System\UpdateAvailableManager;
 use Doctrine\ORM\EntityManagerInterface;
-use const DIRECTORY_SEPARATOR;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {

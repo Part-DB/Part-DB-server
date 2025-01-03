@@ -23,8 +23,10 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Functions;
 
+use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
-use Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\TokenType;
 
 /**
  * Basically the same as the original Field function, but uses FIELD2 for the SQL query.
@@ -36,10 +38,10 @@ class Field2 extends FunctionNode
 
     private $values = [];
 
-    public function parse(\Doctrine\ORM\Query\Parser $parser): void
+    public function parse(Parser $parser): void
     {
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
 
         // Do the field.
         $this->field = $parser->ArithmeticPrimary();
@@ -50,23 +52,24 @@ class Field2 extends FunctionNode
         $lexer = $parser->getLexer();
 
         while (count($this->values) < 1 ||
-            $lexer->lookahead['type'] != Lexer::T_CLOSE_PARENTHESIS) {
-            $parser->match(Lexer::T_COMMA);
+            $lexer->lookahead->type !== TokenType::T_CLOSE_PARENTHESIS) {
+            $parser->match(TokenType::T_COMMA);
             $this->values[] = $parser->ArithmeticPrimary();
         }
 
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 
-    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker): string
+    public function getSql(SqlWalker $sqlWalker): string
     {
         $query = 'FIELD2(';
 
         $query .= $this->field->dispatch($sqlWalker);
 
         $query .= ', ';
+        $counter = count($this->values);
 
-        for ($i = 0; $i < count($this->values); $i++) {
+        for ($i = 0; $i < $counter; $i++) {
             if ($i > 0) {
                 $query .= ', ';
             }
@@ -74,8 +77,6 @@ class Field2 extends FunctionNode
             $query .= $this->values[$i]->dispatch($sqlWalker);
         }
 
-        $query .= ')';
-
-        return $query;
+        return $query . ')';
     }
 }

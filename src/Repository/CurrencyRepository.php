@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use Symfony\Component\Intl\Currencies;
 

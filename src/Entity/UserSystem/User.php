@@ -22,20 +22,19 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\UserRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Validator\Constraints\NoLockout;
@@ -52,6 +51,7 @@ use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
 use DateTime;
@@ -80,7 +80,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
-#[ORM\Index(name: 'user_idx_username', columns: ['name'])]
+#[ORM\Index(columns: ['name'], name: 'user_idx_username')]
 #[ORM\AttributeOverrides([
     new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
 ])]
@@ -100,9 +100,9 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "aboutMe"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-#[NoLockout()]
+#[NoLockout(groups: ['permissions:edit'])]
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
                                                             BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
@@ -117,10 +117,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?int $id = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     #[Groups(['user:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
 
     /**
      * @var bool Determines if the user is disabled (user can not log in)
@@ -133,8 +133,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The theme
      */
     #[Groups(['full', 'import', 'user:read'])]
-    #[ORM\Column(type: Types::STRING, name: 'config_theme', nullable: true)]
-    #[ValidTheme()]
+    #[ORM\Column(name: 'config_theme', type: Types::STRING, nullable: true)]
+    #[ValidTheme]
     protected ?string $theme = null;
 
     /**
@@ -143,10 +143,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[ORM\Column(type: Types::STRING, nullable: true)]
     protected ?string $pw_reset_token = null;
 
-    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_a')]
+    #[ORM\Column(name: 'config_instock_comment_a', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_a = '';
 
-    #[ORM\Column(type: Types::TEXT, name: 'config_instock_comment_w')]
+    #[ORM\Column(name: 'config_instock_comment_w', type: Types::TEXT)]
+    #[Groups(['extended', 'full', 'import'])]
     protected string $instock_comment_w = '';
 
     /**
@@ -189,7 +191,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Assert\Timezone]
     #[Groups(['full', 'import', 'user:read'])]
-    #[ORM\Column(type: Types::STRING, name: 'config_timezone', nullable: true)]
+    #[ORM\Column(name: 'config_timezone', type: Types::STRING, nullable: true)]
     protected ?string $timezone = '';
 
     /**
@@ -197,7 +199,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Assert\Language]
     #[Groups(['full', 'import', 'user:read'])]
-    #[ORM\Column(type: Types::STRING, name: 'config_language', nullable: true)]
+    #[ORM\Column(name: 'config_language', type: Types::STRING, nullable: true)]
     protected ?string $language = '';
 
     /**
@@ -206,6 +208,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[Assert\Email]
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $email = '';
 
     /**
@@ -220,6 +223,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $department = '';
 
     /**
@@ -227,6 +231,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $last_name = '';
 
     /**
@@ -234,6 +239,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     #[Groups(['simple', 'extended', 'full', 'import', 'user:read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Length(max: 255)]
     protected ?string $first_name = '';
 
     /**
@@ -250,7 +256,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?string $password = null;
 
     #[Assert\NotBlank]
-    #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[Assert\Regex('/^[\w\.\+\-\$]+[\w\.\+\-\$\@]*$/', message: 'user.invalid_username')]
     #[Groups(['user:read'])]
     protected string $name = '';
 
@@ -264,7 +270,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Collection<int, UserAttachment>
      */
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
@@ -273,11 +279,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     #[Groups(['user:read', 'user:write'])]
     protected ?Attachment $master_picture_attachment = null;
 
-    /** @var \DateTimeInterface|null The time when the backup codes were generated
+    /** @var \DateTimeImmutable|null The time when the backup codes were generated
      */
     #[Groups(['full'])]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $backupCodesGenerationDate = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $backupCodesGenerationDate = null;
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
@@ -310,14 +316,14 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     #[Groups(['simple', 'extended', 'full', 'import'])]
     #[ORM\Embedded(class: 'PermissionData', columnPrefix: 'permissions_')]
-    #[ValidPermission()]
+    #[ValidPermission]
     protected ?PermissionData $permissions = null;
 
     /**
-     * @var \DateTimeInterface|null the time until the password reset token is valid
+     * @var \DateTimeImmutable|null the time until the password reset token is valid
      */
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $pw_reset_expires = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $pw_reset_expires = null;
 
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
@@ -524,7 +530,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      *  Gets the datetime when the password reset token expires.
      */
-    public function getPwResetExpires(): \DateTimeInterface|null
+    public function getPwResetExpires(): \DateTimeImmutable|null
     {
         return $this->pw_reset_expires;
     }
@@ -532,7 +538,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the datetime when the password reset token expires.
      */
-    public function setPwResetExpires(\DateTimeInterface $pw_reset_expires): self
+    public function setPwResetExpires(\DateTimeImmutable $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
@@ -887,13 +893,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @param string[] $codes An array containing the backup codes
      *
      * @return $this
-     *
-     * @throws Exception If an error with the datetime occurs
      */
     public function setBackupCodes(array $codes): self
     {
         $this->backupCodes = $codes;
-        $this->backupCodesGenerationDate = $codes === [] ? null : new DateTime();
+        $this->backupCodesGenerationDate = $codes === [] ? null : new \DateTimeImmutable();
 
         return $this;
     }
@@ -901,7 +905,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the date when the backup codes were generated.
      */
-    public function getBackupCodesGenerationDate(): ?\DateTimeInterface
+    public function getBackupCodesGenerationDate(): ?\DateTimeImmutable
     {
         return $this->backupCodesGenerationDate;
     }

@@ -34,6 +34,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @template T of AbstractStructuralDBElement
+ */
 class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
     private ?string $additional_element = null;
@@ -53,11 +56,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     protected function loadChoices(): iterable
     {
         //If the starting_element is set and not persisted yet, add it to the list
-        if ($this->starting_element !== null && $this->starting_element->getID() === null) {
-            $tmp = [$this->starting_element];
-        } else {
-            $tmp = [];
-        }
+        $tmp = $this->starting_element !== null && $this->starting_element->getID() === null ? [$this->starting_element] : [];
 
         if ($this->additional_element) {
             $tmp = $this->createNewEntitiesFromValue($this->additional_element);
@@ -95,9 +94,13 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
             }
         }
 
+
+        /** @var class-string<T> $class */
         $class = $this->options['class'];
-        /** @var StructuralDBElementRepository $repo */
+
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->entityManager->getRepository($class);
+
 
         $entities = $repo->getNewEntityFromPath($value, '->');
 
@@ -155,6 +158,21 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     {
         $this->starting_element = $starting_element;
         return $this;
+    }
+
+    protected function doLoadChoicesForValues(array $values, ?callable $value): array
+    {
+        // Normalize the data (remove whitespaces around the arrow sign) and leading/trailing whitespaces
+        // This is required so that the value that is generated for an new entity based on its name structure is
+        // the same as the value that is generated for the same entity after it is persisted.
+        // Otherwise, errors occurs that the element could not be found.
+        foreach ($values as &$data) {
+            $data = trim((string) $data);
+            $data = preg_replace('/\s*->\s*/', '->', $data);
+        }
+        unset ($data);
+
+        return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
 

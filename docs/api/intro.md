@@ -172,25 +172,58 @@ example `/api/parts/123?_comment=This%20is%20a%20change%20comment`.
 
 ## Creating attachments and parameters
 
-{: .warning }
-> The way described below is more a workaround than a proper solution. This might break in future versions of Part-DB!
+To create attachments and parameters, use the POST endpoint. Internally there are different types of attachments and
+parameters, for each entity type, where the attachments or parameters are used (e.g. PartAttachment for parts, etc.).
+The type of the attachment or parameter is automatically determined by the `element` property of the request data if a
+IRI is passed. You can use the `_type` property to explicitly set the type of the attachment or parameter (the value must
+be the value of the `@type` property of the owning entity. e.g. `Part` for parts).
 
-Currently, it is not possible to create attachments or parameters via a `POST` operation on the entity endpoint.
-The workaround for this is to send a patch request to the owning entity endpoint (e.g. parts `/api/parts/123`):
+For example, to create an attachment on a part, you can use the following request:  
 
 ```
-PATCH /api/parts/123
+POST /api/attachments
 
-{	
-"attachments": [
-  {"name": "front68", "attachment_type": "/api/attachment_types/1", "url": "https://invalid.invalid/test.url"}
-],
-"parameters": [
-  {"name": "value", "unit": "Ohm", "value": 100}
-]
+{
+    "name": "front68",
+    "attachment_type": "/api/attachment_types/1",
+    "url": "https://invalid.invalid/test.url",
+    "element": "/api/parts/123"
 }
 ```
 
-The limitation of this is, that this will override/delete all existing attachments/parameters of the entity.
+## Uploading files to attachments
 
-See [issue #502](https://github.com/Part-DB/Part-DB-server/issues/502) for more details on this topic.
+To upload files to the attachments you can use the special `upload` property of the attachment entity during write operations (POST, PUT, PATCH).
+Under `data` you can pass a base64 encoded string of the file content, and under `filename` the name of the file.
+Using the `private` property you can control if the file is the attachment should be stored privately or public.
+
+For example, to upload a file to an attachment, you can use the following request:
+
+```
+PATCH /api/attachments/123
+
+{
+  "upload": {
+    "data": "data:@file/octet-stream;base64,LS0gcGhwTXlB[...]",
+    "filename": "test.csv",
+    "private": false
+  },
+  "name": "Rename attachment"
+}
+```
+
+This also works for creating new attachments, by including the `upload` property in the request data along with the other properties.
+
+Using the `downloadUrl` property of `upload` you can say Part-DB to upload the file specified at the URL set on the attachment.
+
+```
+PATCH /api/attachments/123
+
+{
+  "upload": {
+    "downloadUrl": true
+  },
+  "url": "https://host.invalid/myfile.pdf"
+}
+
+```

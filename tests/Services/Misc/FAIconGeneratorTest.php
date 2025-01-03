@@ -41,60 +41,58 @@ class FAIconGeneratorTest extends WebTestCase
         $this->service = self::getContainer()->get(FAIconGenerator::class);
     }
 
-    public function fileExtensionDataProvider(): array
+    public function fileExtensionDataProvider(): \Iterator
     {
-        return [
-            ['pdf', 'fa-file-pdf'],
-            ['jpeg','fa-file-image'],
-            ['txt', 'fa-file-lines'],
-            ['doc', 'fa-file-word'],
-            ['zip', 'fa-file-zipper'],
-            ['png', 'fa-file-image'],
-            ['jpg', 'fa-file-image'],
-            ['gif', 'fa-file-image'],
-            ['svg', 'fa-file-image'],
-            ['xls', 'fa-file-excel'],
-            ['xlsx', 'fa-file-excel'],
-            ['ppt', 'fa-file-powerpoint'],
-            ['pptx', 'fa-file-powerpoint'],
-            ['docx', 'fa-file-word'],
-            ['odt', 'fa-file-word'],
-            ['ods', 'fa-file-excel'],
-            ['odp', 'fa-file-powerpoint'],
-            ['py', 'fa-file-code'],
-            ['js', 'fa-file-code'],
-            ['html', 'fa-file-code'],
-            ['css', 'fa-file-code'],
-            ['xml', 'fa-file-code'],
-            ['json', 'fa-file-code'],
-            ['yml', 'fa-file-code'],
-            ['yaml', 'fa-file-code'],
-            ['csv', 'fa-file-csv'],
-            ['sql', 'fa-file-code'],
-            ['sh', 'fa-file-code'],
-            ['bat', 'fa-file-code'],
-            ['exe', 'fa-file-code'],
-            ['dll', 'fa-file-code'],
-            ['lib', 'fa-file-code'],
-            ['so', 'fa-file-code'],
-            ['a', 'fa-file-code'],
-            ['o', 'fa-file-code'],
-            ['class', 'fa-file-code'],
-            ['jar', 'fa-file-code'],
-            ['rar', 'fa-file-zipper'],
-            ['7z', 'fa-file-zipper'],
-            ['tar', 'fa-file-zipper'],
-            ['gz', 'fa-file-zipper'],
-            ['tgz', 'fa-file-zipper'],
-            ['bz2', 'fa-file-zipper'],
-            ['tbz', 'fa-file-zipper'],
-            ['xz', 'fa-file-zipper'],
-            ['txz', 'fa-file-zipper'],
-            ['zip', 'fa-file-zipper'],
-            ['php', 'fa-file-code'],
-            ['tmp', 'fa-file'],
-            ['fgd', 'fa-file'],
-        ];
+        yield ['pdf', 'fa-file-pdf'];
+        yield ['jpeg','fa-file-image'];
+        yield ['txt', 'fa-file-lines'];
+        yield ['doc', 'fa-file-word'];
+        yield ['zip', 'fa-file-zipper'];
+        yield ['png', 'fa-file-image'];
+        yield ['jpg', 'fa-file-image'];
+        yield ['gif', 'fa-file-image'];
+        yield ['svg', 'fa-file-image'];
+        yield ['xls', 'fa-file-excel'];
+        yield ['xlsx', 'fa-file-excel'];
+        yield ['ppt', 'fa-file-powerpoint'];
+        yield ['pptx', 'fa-file-powerpoint'];
+        yield ['docx', 'fa-file-word'];
+        yield ['odt', 'fa-file-word'];
+        yield ['ods', 'fa-file-excel'];
+        yield ['odp', 'fa-file-powerpoint'];
+        yield ['py', 'fa-file-code'];
+        yield ['js', 'fa-file-code'];
+        yield ['html', 'fa-file-code'];
+        yield ['css', 'fa-file-code'];
+        yield ['xml', 'fa-file-code'];
+        yield ['json', 'fa-file-code'];
+        yield ['yml', 'fa-file-code'];
+        yield ['yaml', 'fa-file-code'];
+        yield ['csv', 'fa-file-csv'];
+        yield ['sql', 'fa-file-code'];
+        yield ['sh', 'fa-file-code'];
+        yield ['bat', 'fa-file-code'];
+        yield ['exe', 'fa-file-code'];
+        yield ['dll', 'fa-file-code'];
+        yield ['lib', 'fa-file-code'];
+        yield ['so', 'fa-file-code'];
+        yield ['a', 'fa-file-code'];
+        yield ['o', 'fa-file-code'];
+        yield ['class', 'fa-file-code'];
+        yield ['jar', 'fa-file-code'];
+        yield ['rar', 'fa-file-zipper'];
+        yield ['7z', 'fa-file-zipper'];
+        yield ['tar', 'fa-file-zipper'];
+        yield ['gz', 'fa-file-zipper'];
+        yield ['tgz', 'fa-file-zipper'];
+        yield ['bz2', 'fa-file-zipper'];
+        yield ['tbz', 'fa-file-zipper'];
+        yield ['xz', 'fa-file-zipper'];
+        yield ['txz', 'fa-file-zipper'];
+        yield ['zip', 'fa-file-zipper'];
+        yield ['php', 'fa-file-code'];
+        yield ['tmp', 'fa-file'];
+        yield ['fgd', 'fa-file'];
     }
 
     /**

@@ -15,173 +15,176 @@
 {% endblock %}
 
 {% block card_title %}
-    <i class="fa {{ part.favorite ? 'fa-star' : 'fa-info-circle'}} fa-fw" aria-hidden="true"></i>
-    {% trans %}part.info.title{% endtrans %} <b>"{{ part.name }}"</b>
-    {% if timeTravel != null %}
-        <i>({{ timeTravel | format_datetime('short') }})</i>
-    {% endif %}
-    {% if part.projectBuildPart %}
-        (<i>{{ entity_type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
-    {% endif %}
-    <div class="float-end">
+    <span>
+        <i class="fa {{ part.favorite ? 'fa-star' : 'fa-info-circle'}} fa-fw" aria-hidden="true"></i>
+        {% trans %}part.info.title{% endtrans %} <b>"{{ part.name }}"</b>
+        {% if timeTravel != null %}
+            <i>({{ timeTravel | format_datetime('short') }})</i>
+        {% endif %}
+        {% if part.projectBuildPart %}
+            (<i>{{ entity_type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
+        {% endif %}
+    </span>
+    <span class="float-end">
         {% trans %}id.label{% endtrans %}: {{ part.id }} {% if part.ipn is not empty %}(<i>{{ part.ipn }}</i>){% endif %}
-    </div>
+    </span>
 {% endblock %}
 
 {% block card_content %}
     <div class="row">
-        <div class="col-md-9">
+        <div class="col col-md-3 mt-auto mb-auto">
+            {% include "parts/info/_picture.html.twig" %}
+        </div>
+
+        <div class="col-12 col-md-9 col-lg-6">
             {% include "parts/info/_main_infos.html.twig" %}
         </div>
 
-        <div class="col-md-3 offset-md-0 col-9 offset-3">
+        <div class="col offset-md-3 offset-lg-0">
             {% include "parts/info/_sidebar.html.twig" %}
         </div>
-
     </div>
 
     <div class="">
-        <div class="">
-            <ul class="nav nav-tabs" id="partTab" role="tablist">
+        <ul class="nav nav-tabs" id="partTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-bs-toggle="tab"
+                    href="#part_lots" role="tab">
+                    <i class="fas fa-box fa-fw"></i>
+                    {% trans %}part.part_lots.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ part.partLots | length }}</span>
+                </a>
+            </li>
+            {% if part.comment is not empty %}
                 <li class="nav-item">
-                    <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-bs-toggle="tab"
-                       href="#part_lots" role="tab">
-                        <i class="fas fa-box fa-fw"></i>
-                        {% trans %}part.part_lots.label{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.partLots | length }}</span>
+                    <a class="nav-link" id="comment-tab" data-bs-toggle="tab"
+                        href="#comment" role="tab">
+                        <i class="fas fa-sticky-note fa-fw"></i>
+                        {% trans %}comment.label{% endtrans %}
                     </a>
                 </li>
-                {% if part.comment is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="comment-tab" data-bs-toggle="tab"
-                           href="#comment" role="tab">
-                            <i class="fas fa-sticky-note fa-fw"></i>
-                            {% trans %}comment.label{% endtrans %}
-                        </a>
-                    </li>
-                {% endif %}
-                {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#specifications">
-                            <i class="fas fa-atlas fa-fw"></i>
-                            {% trans %}part.info.specifications{% endtrans %}
-                            <span class="badge bg-secondary">{{ part.parameters | length }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if part.attachments is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="attachment-tab" data-bs-toggle="tab"
-                           href="#attachments" role="tab">
-                            <i class="fas fa-paperclip fa-fw"></i>
-                            {% trans %}attachment.labelp{% endtrans %}
-                            <span class="badge bg-secondary">{{ part.attachments | length }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if part.orderdetails is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="supplier-tab" data-bs-toggle="tab" href="#suppliers" role="tab">
-                            <i class="fas fa-shopping-cart fa-fw"></i>
-                            {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
-                            <span class="badge bg-secondary">{{ part.orderdetails | length }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-
-                {% if part.associatedPartsAll is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="associations-tab" data-bs-toggle="tab" href="#associations" role="tab">
-                            <i class="fas fas fa-circle-nodes fa-fw fa-fw"></i>
-                            {% trans %}part.edit.tab.associations{% endtrans %}
-                            <span class="badge bg-secondary">{{ part.associatedPartsAll | length }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-
-                <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
-                    <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-bs-toggle="tab" href="#history" role="tab">
-                        <i class="fas fa-history"></i>
-                        {% trans %}vendor.partinfo.history{% endtrans %}
-                    </a>
-                </li>
-                {% if part.projectBomEntries is not empty %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
-                            <i class="fas fa-archive fa-fw"></i>
-                            {% trans %}project.labelp{% endtrans %}
-                            <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
-                        </a>
-                    </li>
-                {% endif %}
+            {% endif %}
+            {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
                 <li class="nav-item">
-                    <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
-                        <i class="fas fa-tools"></i>
-                        {% trans %}tools.label{% endtrans %}
+                    <a class="nav-link" data-bs-toggle="tab" role="tab" href="#specifications">
+                        <i class="fas fa-atlas fa-fw"></i>
+                        {% trans %}part.info.specifications{% endtrans %}
+                        <span class="badge bg-secondary">{{ part.parameters | length }}</span>
                     </a>
                 </li>
+            {% endif %}
+            {% if part.attachments is not empty %}
                 <li class="nav-item">
-                    <a class="nav-link" id="extended_info-tab" data-bs-toggle="tab" href="#extended_info" role="tab">
-                        <i class="fas fa-clipboard-list"></i>
-                        {% trans %}extended_info.label{% endtrans %}
+                    <a class="nav-link" id="attachment-tab" data-bs-toggle="tab"
+                        href="#attachments" role="tab">
+                        <i class="fas fa-paperclip fa-fw"></i>
+                        {% trans %}attachment.labelp{% endtrans %}
+                        <span class="badge bg-secondary">{{ part.attachments | length }}</span>
                     </a>
                 </li>
+            {% endif %}
+            {% if part.orderdetails is not empty %}
+                <li class="nav-item">
+                    <a class="nav-link" id="supplier-tab" data-bs-toggle="tab" href="#suppliers" role="tab">
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                        {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
+                        <span class="badge bg-secondary">{{ part.orderdetails | length }}</span>
+                    </a>
+                </li>
+            {% endif %}
 
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                {% if part.comment is not empty %}
-                    <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="container-fluid mt-2 latex" data-controller="common--latex">
-                            {{ part.comment|format_markdown }}
-                        </div>
+            {% if part.associatedPartsAll is not empty %}
+                <li class="nav-item">
+                    <a class="nav-link" id="associations-tab" data-bs-toggle="tab" href="#associations" role="tab">
+                        <i class="fas fas fa-circle-nodes fa-fw fa-fw"></i>
+                        {% trans %}part.edit.tab.associations{% endtrans %}
+                        <span class="badge bg-secondary">{{ part.associatedPartsAll | length }}</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
+                <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-bs-toggle="tab" href="#history" role="tab">
+                    <i class="fas fa-history"></i>
+                    {% trans %}vendor.partinfo.history{% endtrans %}
+                </a>
+            </li>
+            {% if part.projectBomEntries is not empty %}
+                <li class="nav-item">
+                    <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
+                        <i class="fas fa-archive fa-fw"></i>
+                        {% trans %}project.labelp{% endtrans %}
+                        <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
+                    </a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
+                    <i class="fas fa-tools"></i>
+                    {% trans %}tools.label{% endtrans %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="extended_info-tab" data-bs-toggle="tab" href="#extended_info" role="tab">
+                    <i class="fas fa-clipboard-list"></i>
+                    {% trans %}extended_info.label{% endtrans %}
+                </a>
+            </li>
+
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            {% if part.comment is not empty %}
+                <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="container-fluid mt-2 latex" data-controller="common--latex">
+                        {{ part.comment|format_markdown }}
                     </div>
-                {% endif %}
-
-                <div class="tab-pane fade show active" id="part_lots" role="tabpanel" aria-labelledby="part_lots-tab">
-                    {% include "parts/info/_part_lots.html.twig" %}
                 </div>
+            {% endif %}
 
-                {% if part.attachments is not empty %}
-                    <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
-                        {% include "parts/info/_attachments_info.html.twig" %}
-                    </div>
-                {% endif %}
+            <div class="tab-pane fade show active" id="part_lots" role="tabpanel" aria-labelledby="part_lots-tab">
+                {% include "parts/info/_part_lots.html.twig" %}
+            </div>
 
-                {% if part.orderdetails is not empty %}
-                <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
-                    {%  include "parts/info/_order_infos.html.twig" %}
+            {% if part.attachments is not empty %}
+                <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
+                    {% include "parts/info/_attachments_info.html.twig" %}
                 </div>
-                {% endif %}
+            {% endif %}
 
-                {% if part.associatedPartsAll is not empty %}
-                    <div class="tab-pane fade" id="associations" role="tabpanel" aria-labelledby="associations-tab">
-                        {%  include "parts/info/_associations.html.twig" %}
-                    </div>
-                {% endif %}
+            {% if part.orderdetails is not empty %}
+            <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
+                {%  include "parts/info/_order_infos.html.twig" %}
+            </div>
+            {% endif %}
 
-                <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-                    {% include "parts/info/_projects.html.twig" %}
+            {% if part.associatedPartsAll is not empty %}
+                <div class="tab-pane fade" id="associations" role="tabpanel" aria-labelledby="associations-tab">
+                    {%  include "parts/info/_associations.html.twig" %}
                 </div>
+            {% endif %}
 
-                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                    {% include "parts/info/_history.html.twig" %}
+            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+                {% include "parts/info/_projects.html.twig" %}
+            </div>
+
+            <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                {% include "parts/info/_history.html.twig" %}
+            </div>
+
+            <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
+                {% include "parts/info/_tools.html.twig" %}
+            </div>
+
+            {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
+                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
+                    {% include "parts/info/_specifications.html.twig" %}
                 </div>
+            {% endif %}
 
-                <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
-                    {% include "parts/info/_tools.html.twig" %}
-                </div>
+            <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
 
-                {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
-                    <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
-                        {% include "parts/info/_specifications.html.twig" %}
-                    </div>
-                {% endif %}
+                {% include "parts/info/_extended_infos.html.twig" %}
 
-                <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
-
-                    {% include "parts/info/_extended_infos.html.twig" %}
-
-                </div>
             </div>
         </div>
     </div>

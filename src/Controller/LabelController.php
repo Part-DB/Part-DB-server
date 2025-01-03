@@ -53,12 +53,11 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
-use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route(path: '/label')]
@@ -118,7 +117,7 @@ class LabelController extends AbstractController
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
                     $filename = $this->getLabelName($targets[0], $profile);
                 } catch (TwigModeException $exception) {
-                    $form->get('options')->get('lines')->addError(new FormError($exception->getMessage()));
+                    $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
                 }
             } else {
                 //$this->addFlash('warning', 'label_generator.no_entities_found');
@@ -153,7 +152,7 @@ class LabelController extends AbstractController
     {
         $id_array = $this->rangeParser->parse($ids);
 
-        /** @var DBElementRepository $repo */
+        /** @var DBElementRepository<AbstractDBElement> $repo */
         $repo = $this->em->getRepository($type->getEntityClass());
 
         return $repo->getElementsFromIDArray($id_array);

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -41,7 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $anonymous = new User();
         $anonymous->setName('anonymous');
-        $anonymous->setGroup($this->getReference(GroupFixtures::READONLY));
+        $anonymous->setGroup($this->getReference(GroupFixtures::READONLY, Group::class));
         $anonymous->setNeedPwChange(false);
         $anonymous->setPassword($this->encoder->hashPassword($anonymous, 'test'));
         $manager->persist($anonymous);
@@ -50,7 +51,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setName('admin');
         $admin->setPassword($this->encoder->hashPassword($admin, 'test'));
         $admin->setNeedPwChange(false);
-        $admin->setGroup($this->getReference(GroupFixtures::ADMINS));
+        $admin->setGroup($this->getReference(GroupFixtures::ADMINS, Group::class));
         $manager->persist($admin);
         $this->addReference(self::ADMIN, $admin);
 
@@ -60,7 +61,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setEmail('user@invalid.invalid');
         $user->setFirstName('Test')->setLastName('User');
         $user->setPassword($this->encoder->hashPassword($user, 'test'));
-        $user->setGroup($this->getReference(GroupFixtures::USERS));
+        $user->setGroup($this->getReference(GroupFixtures::USERS, Group::class));
         $manager->persist($user);
 
         $noread = new User();

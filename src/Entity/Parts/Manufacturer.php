@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -37,7 +39,6 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\Parts\ManufacturerRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -56,8 +57,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
-#[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
-#[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'manufacturer_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'manufacturer_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -84,7 +85,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Manufacturer extends AbstractCompany
 {
@@ -94,16 +95,16 @@ class Manufacturer extends AbstractCompany
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     /**
      * @var Collection<int, ManufacturerAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ManufacturerAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -117,8 +118,8 @@ class Manufacturer extends AbstractCompany
     /** @var Collection<int, ManufacturerParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ManufacturerParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;

@@ -53,6 +53,7 @@ use App\Entity\Parameters\PartParameter;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
+use App\Form\Type\ExponentialNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -93,7 +94,7 @@ class ParameterType extends AbstractType
             ],
         ]);
 
-        $builder->add('value_max', NumberType::class, [
+        $builder->add('value_max', ExponentialNumberType::class, [
             'label' => false,
             'required' => false,
             'html5' => true,
@@ -101,10 +102,10 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.max.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
-        $builder->add('value_min', NumberType::class, [
+        $builder->add('value_min', ExponentialNumberType::class, [
             'label' => false,
             'required' => false,
             'html5' => true,
@@ -112,10 +113,10 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.min.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
-        $builder->add('value_typical', NumberType::class, [
+        $builder->add('value_typical', ExponentialNumberType::class, [
             'label' => false,
             'required' => false,
             'html5' => true,
@@ -123,7 +124,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.typical.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
         $builder->add('unit', TextType::class, [

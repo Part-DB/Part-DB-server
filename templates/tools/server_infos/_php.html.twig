@@ -10,6 +10,12 @@
         <td>{{ php_uname }}</td>
     </tr>
     <tr>
+        <td>PHP Bit Size</td>
+        <td>{{ php_bit_size }}-bit
+            {% if php_bit_size < 64 %}<span class="text-warning">(32-bit PHP is affected by Year 2038 problem, and can not work with dates after 2038!)</span>{% endif %}
+        </td>
+    </tr>
+    <tr>
         <td>Opcache enabled</td>
         <td>{{ helper.boolean_badge(php_opcache_enabled) }}</td>
     </tr>
@@ -24,6 +30,20 @@
     <tr>
         <td>Server time</td>
         <td>{{ "now" | format_datetime("long", "long") }}</td>
+    </tr>
+    <tr>
+        <td>Symfony Kernel Runtime</td>
+        <td>{{ kernel_runtime }}</td>
+    </tr>
+    <tr>
+        <td>Symfony Kernel Runtime Environment</td>
+        <td>{{ kernel_runtime_environment }}</td>
+    </tr>
+    <tr>
+        <td>Symfony Kernel Runtime mode</td>
+        <td>{% for key, value in kernel_runtime_mode %}
+                {{ key }}: {{ value }}<br>
+            {% endfor %}</td>
     </tr>
     </tbody>
 </table>

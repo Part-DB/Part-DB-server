@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -46,10 +44,12 @@ use App\Entity\Base\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * This entity describes a part association, which is a semantic connection between two parts.
  * For example, a part association can be used to describe that a part is a replacement for another part.
+ * @see \App\Tests\Entity\Parts\PartAssociationTest
  */
 #[ORM\Entity(repositoryClass: DBElementRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -67,7 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["other_type", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['comment', 'addedDate', 'lastModified'])]
 class PartAssociation extends AbstractDBElement implements TimeStampableInterface
 {
@@ -88,6 +88,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
     #[Assert\Expression("this.getType().value !== 0 or this.getOtherType() !== null",
         message: 'validator.part_association.must_set_an_value_if_type_is_other')]
     #[Groups(['part_assoc:read', 'part_assoc:write'])]
+    #[Length(max: 255)]
     protected ?string $other_type = null;
 
     /**

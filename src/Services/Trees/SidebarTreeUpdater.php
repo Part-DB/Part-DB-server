@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 namespace App\Services\Trees;
 
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
@@ -50,7 +49,7 @@ final class SidebarTreeUpdater
             //This tag and therfore this whole cache gets cleared by TreeCacheInvalidationListener when a structural element is changed
             $item->tag('sidebar_tree_update');
 
-            return new \DateTime();
+            return new \DateTimeImmutable();
         });
     }
 }

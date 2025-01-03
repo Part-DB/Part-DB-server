@@ -23,12 +23,9 @@ declare(strict_types=1);
 
 namespace App\DataTables\Adapters;
 
-use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query\Expr\From;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr\Select;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\CountOutputWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
@@ -55,10 +52,12 @@ class TwoStepORMAdapter extends ORMAdapter
 
     private bool $use_simple_total = false;
 
+    private \Closure|null $query_modifier = null;
+
     public function __construct(ManagerRegistry $registry = null)
     {
         parent::__construct($registry);
-        $this->detailQueryCallable = static function (QueryBuilder $qb, array $ids) {
+        $this->detailQueryCallable = static function (QueryBuilder $qb, array $ids): never {
             throw new \RuntimeException('You need to set the detail_query option to use the TwoStepORMAdapter');
         };
     }
@@ -68,9 +67,7 @@ class TwoStepORMAdapter extends ORMAdapter
         parent::configureOptions($resolver);
 
         $resolver->setRequired('filter_query');
-        $resolver->setDefault('query', function (Options $options) {
-            return $options['filter_query'];
-        });
+        $resolver->setDefault('query', fn(Options $options) => $options['filter_query']);
 
         $resolver->setRequired('detail_query');
         $resolver->setAllowedTypes('detail_query', \Closure::class);
@@ -81,6 +78,10 @@ class TwoStepORMAdapter extends ORMAdapter
          */
         $resolver->setDefault('simple_total_query', false);
 
+        //Add the possibility of a closure to modify the query builder before the query is executed
+        $resolver->setDefault('query_modifier', null);
+        $resolver->setAllowedTypes('query_modifier', ['null', \Closure::class]);
+
     }
 
     protected function afterConfiguration(array $options): void
@@ -88,6 +89,7 @@ class TwoStepORMAdapter extends ORMAdapter
         parent::afterConfiguration($options);
         $this->detailQueryCallable = $options['detail_query'];
         $this->use_simple_total = $options['simple_total_query'];
+        $this->query_modifier = $options['query_modifier'];
     }
 
     protected function prepareQuery(AdapterQuery $query): void
@@ -105,7 +107,7 @@ class TwoStepORMAdapter extends ORMAdapter
             }
         }
 
-        /** @var Query\Expr\From $fromClause */
+        /** @var From $fromClause */
         $fromClause = $builder->getDQLPart('from')[0];
         $identifier = "{$fromClause->getAlias()}.{$this->metadata->getSingleIdentifierFieldName()}";
 
@@ -126,8 +128,18 @@ class TwoStepORMAdapter extends ORMAdapter
         $query->setIdentifierPropertyPath($this->mapFieldToPropertyPath($identifier, $aliases));
     }
 
+    protected function hasGroupByPart(string $identifier, array $gbList): bool
+    {
+        //Always return true, to fix the issue with the count query, when having mutliple group by parts
+        return true;
+    }
+
     protected function getCount(QueryBuilder $queryBuilder, $identifier): int
     {
+        if ($this->query_modifier !== null) {
+            $queryBuilder = $this->query_modifier->__invoke(clone $queryBuilder);
+        }
+
         //Check if the queryBuilder is having a HAVING clause, which would make the count query invalid
         if (empty($queryBuilder->getDQLPart('having'))) {
             //If not, we can use the simple count query
@@ -146,7 +158,7 @@ class TwoStepORMAdapter extends ORMAdapter
         $state = $query->getState();
 
         // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
+        foreach ($state->getOrderBy() as [$column, $direction]) {
             /** @var AbstractColumn $column */
             if ($column->isOrderable()) {
                 $builder->addOrderBy($column->getOrderField(), $direction);
@@ -157,6 +169,11 @@ class TwoStepORMAdapter extends ORMAdapter
                 ->setFirstResult($state->getStart())
                 ->setMaxResults($state->getLength())
             ;
+        }
+
+        //Apply the query modifier, if set
+        if ($this->query_modifier !== null) {
+            $builder = $this->query_modifier->__invoke($builder);
         }
 
         $id_query = $builder->getQuery();
@@ -183,7 +200,7 @@ class TwoStepORMAdapter extends ORMAdapter
         /** The paginator count queries can be rather slow, so when query for total count (100ms or longer),
          * just return the entity count.
          */
-        /** @var Query\Expr\From $from_expr */
+        /** @var From $from_expr */
         $from_expr = $queryBuilder->getDQLPart('from')[0];
 
         return $this->manager->getRepository($from_expr->getFrom())->count([]);

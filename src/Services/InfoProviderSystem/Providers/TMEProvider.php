@@ -24,14 +24,12 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
-use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TMEProvider implements InfoProviderInterface
 {
@@ -82,7 +80,7 @@ class TMEProvider implements InfoProviderInterface
             $result[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['Symbol'],
-                name: !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
+                name: empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
                 description: $product['Description'],
                 category: $product['Category'],
                 manufacturer: $product['Producer'],
@@ -118,7 +116,7 @@ class TMEProvider implements InfoProviderInterface
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['Symbol'],
-            name:  !empty($product['OriginalSymbol']) ? $product['OriginalSymbol'] : $product['Symbol'],
+            name:  empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
             description: $product['Description'],
             category: $product['Category'],
             manufacturer: $product['Producer'],

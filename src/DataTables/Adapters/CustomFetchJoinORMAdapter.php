@@ -50,6 +50,6 @@ class CustomFetchJoinORMAdapter extends FetchJoinORMAdapter
 
         $paginator = new Paginator($qb_without_group_by);
 
-        return $paginator->count() ?? 0;
+        return $paginator->count();
     }
 }

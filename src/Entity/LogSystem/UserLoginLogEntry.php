@@ -22,8 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Helpers\IPAnonymizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\IpUtils;
+
 
 /**
  * This log entry is created when a user logs in.
@@ -52,14 +53,14 @@ class UserLoginLogEntry extends AbstractLogEntry
      * Sets the IP address used to log in the user.
      *
      * @param string $ip        the IP address used to log in the user
-     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GDPR compliant
      *
      * @return $this
      */
     public function setIPAddress(string $ip, bool $anonymize = true): self
     {
         if ($anonymize) {
-            $ip = IpUtils::anonymize($ip);
+            $ip = IPAnonymizer::anonymize($ip);
         }
 
         $this->extra['i'] = $ip;

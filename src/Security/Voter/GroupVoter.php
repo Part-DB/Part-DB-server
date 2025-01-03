@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\User;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -57,7 +56,7 @@ final class GroupVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         if (is_a($subject, Group::class, true)) {
             return $this->helper->isValidOperation('groups', $attribute);

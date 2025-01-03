@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace API;
+namespace App\Tests\API;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\DataFixtures\APITokenFixtures;
@@ -34,7 +34,7 @@ class APITokenAuthenticationTest  extends ApiTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
         $client->request('GET', '/api/parts');
-        self::assertResponseStatusCodeSame(401);
+        $this->assertResponseStatusCodeSame(401);
     }
 
     public function testExpiredToken(): void
@@ -42,7 +42,7 @@ class APITokenAuthenticationTest  extends ApiTestCase
         self::ensureKernelShutdown();
         $client = $this->createClientWithCredentials(APITokenFixtures::TOKEN_EXPIRED);
         $client->request('GET', '/api/parts');
-        self::assertResponseStatusCodeSame(401);
+        $this->assertResponseStatusCodeSame(401);
     }
 
     public function testReadOnlyToken(): void
@@ -52,14 +52,14 @@ class APITokenAuthenticationTest  extends ApiTestCase
 
         //Read should be possible
         $client->request('GET', '/api/parts');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         //Trying to list all users and create a new footprint should fail
         $client->request('GET', '/api/users');
-        self::assertResponseStatusCodeSame(403);
+        $this->assertResponseStatusCodeSame(403);
 
         $client->request('POST', '/api/footprints', ['json' => ['name' => 'post test']]);
-        self::assertResponseStatusCodeSame(403);
+        $this->assertResponseStatusCodeSame(403);
     }
 
     public function testEditToken(): void
@@ -69,14 +69,14 @@ class APITokenAuthenticationTest  extends ApiTestCase
 
         //Read should be possible
         $client->request('GET', '/api/parts');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         //Trying to list all users
         $client->request('GET', '/api/users');
-        self::assertResponseStatusCodeSame(403);
+        $this->assertResponseStatusCodeSame(403);
 
         $client->request('POST', '/api/footprints', ['json' => ['name' => 'post test']]);
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
     }
 
     public function testAdminToken(): void
@@ -86,14 +86,14 @@ class APITokenAuthenticationTest  extends ApiTestCase
 
         //Read should be possible
         $client->request('GET', '/api/parts');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         //Trying to list all users
         $client->request('GET', '/api/users');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         $client->request('POST', '/api/footprints', ['json' => ['name' => 'post test']]);
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
     }
 
     public function testWithAuthorizationToken(): void
@@ -104,14 +104,14 @@ class APITokenAuthenticationTest  extends ApiTestCase
 
         //Read should be possible
         $client->request('GET', '/api/parts');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         //Trying to list all users
         $client->request('GET', '/api/users');
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
         $client->request('POST', '/api/footprints', ['json' => ['name' => 'post test']]);
-        self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
     }
 
     protected function createClientWithCredentials(string $token): Client

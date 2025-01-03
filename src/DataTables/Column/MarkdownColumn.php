@@ -35,9 +35,9 @@ class MarkdownColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
-     * @return mixed
+     * @return string
      */
-    public function normalize($value): mixed
+    public function normalize(mixed $value): string
     {
         return $this->markdown->markForRendering($value, true);
     }

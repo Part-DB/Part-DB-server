@@ -341,5 +341,11 @@
         <target>Штрих-код этого поставщика уже используется в другом инвентаре. Штрих-код должен быть уникальным!</target>
       </segment>
     </unit>
+    <unit id="o1qmPUm" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>Из-за технических ограничений невозможно выбрать дату позднее чем 19 января 2038 года на 32-битных системах!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -34,6 +34,7 @@ use function is_object;
  * The validator for UrlOrBuiltin.
  * It checks if the value is either a builtin ressource or a valid url.
  * In both cases it is not checked, if the ressource is really existing.
+ * @see \App\Tests\Validator\Constraints\UrlOrBuiltinValidatorTest
  */
 class UrlOrBuiltinValidator extends UrlValidator
 {

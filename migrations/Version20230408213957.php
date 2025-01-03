@@ -434,4 +434,14 @@ final class Version20230408213957 extends AbstractMultiPlatformMigration
         $this->addSql('DROP TABLE __temp__webauthn_keys');
         $this->addSql('CREATE INDEX IDX_799FD143A76ED395 ON webauthn_keys (user_id)');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

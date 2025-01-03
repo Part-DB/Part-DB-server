@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace API;
+namespace App\Tests\API;
 
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,13 +56,11 @@ class APIDocsAvailabilityTest extends WebTestCase
         self::assertResponseStatusCodeSame(403);
     }
 
-    public static function urlProvider(): array
+    public static function urlProvider(): \Iterator
     {
-        return [
-            ['/api'],
-            ['/api/docs.html'],
-            ['/api/docs.json'],
-            ['/api/docs.jsonld'],
-        ];
+        yield ['/api'];
+        yield ['/api/docs.html'];
+        yield ['/api/docs.json'];
+        yield ['/api/docs.jsonld'];
     }
 }

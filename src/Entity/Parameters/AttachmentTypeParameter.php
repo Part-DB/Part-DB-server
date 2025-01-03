@@ -41,11 +41,13 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
-use App\Repository\ParameterRepository;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
+use App\Repository\ParameterRepository;
+use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 #[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
@@ -57,5 +59,6 @@ class AttachmentTypeParameter extends AbstractParameter
      */
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'parameters')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AbstractDBElement $element = null;
 }

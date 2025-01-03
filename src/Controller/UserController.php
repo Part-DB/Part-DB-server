@@ -45,7 +45,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: '/user')]
@@ -78,7 +78,7 @@ class UserController extends BaseAdminController
      *
      * @throws Exception
      */
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'user_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'user_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
     public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper,
         PermissionSchemaUpdater $permissionSchemaUpdater, ValidatorInterface $validator, ?string $timestamp = null): Response
@@ -166,7 +166,7 @@ class UserController extends BaseAdminController
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    #[Route(path: '/{id}', name: 'user_delete', methods: ['DELETE'], requirements: ['id' => '\d+'])]
+    #[Route(path: '/{id}', name: 'user_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         //Disallow deleting the anonymous user

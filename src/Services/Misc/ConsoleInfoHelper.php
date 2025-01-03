@@ -36,6 +36,7 @@ class ConsoleInfoHelper
     /**
      * Returns the username of the user who started the current script if possible.
      * @return string|null the username of the user who started the current script if possible, null otherwise
+     * @noinspection PhpUndefinedFunctionInspection
      */
     public function getCLIUser(): ?string
     {

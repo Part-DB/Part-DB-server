@@ -23,8 +23,10 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Category;
+use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a category element.
@@ -40,5 +42,6 @@ class CategoryAttachment extends Attachment
      */
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'attachments')]
     #[ORM\JoinColumn(name: 'element_id', nullable: false, onDelete: 'CASCADE')]
+    #[Context(denormalizationContext: [OverrideClassDenormalizer::CONTEXT_KEY => self::ALLOWED_ELEMENT_CLASS])]
     protected ?AttachmentContainingDBElement $element = null;
 }

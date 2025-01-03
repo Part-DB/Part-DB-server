@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Form\Part\EDA;
 
 use App\Entity\EDA\EDACategoryInfo;
-use App\Entity\EDA\EDAFootprintInfo;
 use App\Form\Type\TriStateCheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

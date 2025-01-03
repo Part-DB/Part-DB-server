@@ -81,16 +81,16 @@ class PartRepository extends NamedDBElementRepository
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.footprint', 'footprint')
 
-            ->where('part.name LIKE :query')
-            ->orWhere('part.description LIKE :query')
-            ->orWhere('category.name LIKE :query')
-            ->orWhere('footprint.name LIKE :query')
+            ->where('ILIKE(part.name, :query) = TRUE')
+            ->orWhere('ILIKE(part.description, :query) = TRUE')
+            ->orWhere('ILIKE(category.name, :query) = TRUE')
+            ->orWhere('ILIKE(footprint.name, :query) = TRUE')
             ;
 
         $qb->setParameter('query', '%'.$query.'%');
 
         $qb->setMaxResults($max_limits);
-        $qb->orderBy('part.name', 'ASC');
+        $qb->orderBy('NATSORT(part.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

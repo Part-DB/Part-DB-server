@@ -46,7 +46,7 @@ class ValidPermissionValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof ValidPermission) {
             throw new UnexpectedTypeException($constraint, ValidPermission::class);
@@ -63,11 +63,11 @@ class ValidPermissionValidator extends ConstraintValidator
         if ($changed) {
             //Check if this was called in context of UserController
             $request = $this->requestStack->getMainRequest();
-            if (!$request) {
+            if ($request === null) {
                 return;
             }
             //Determine the controller class (the part before the ::)
-            $controller_class = explode('::', $request->attributes->get('_controller'))[0];
+            $controller_class = explode('::', (string) $request->attributes->get('_controller'))[0];
 
             if (in_array($controller_class, [UserController::class, GroupController::class], true)) {
                 /** @var Session $session */

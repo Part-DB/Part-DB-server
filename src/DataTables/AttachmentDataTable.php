@@ -27,7 +27,6 @@ use App\DataTables\Column\PrettyBoolColumn;
 use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
@@ -35,6 +34,7 @@ use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -85,14 +85,20 @@ final class AttachmentDataTable implements DataTableTypeInterface
             },
         ]);
 
+        $dataTable->add('id', NumberColumn::class, [
+            'label' => $this->translator->trans('part.table.id'),
+            'visible' => false,
+        ]);
+
         $dataTable->add('name', TextColumn::class, [
             'label' => 'attachment.edit.name',
+            'orderField' => 'NATSORT(attachment.name)',
             'render' => function ($value, Attachment $context) {
                 //Link to external source
                 if ($context->isExternal()) {
                     return sprintf(
                         '<a href="%s" class="link-external">%s</a>',
-                        htmlspecialchars($context->getURL()),
+                        htmlspecialchars((string) $context->getURL()),
                         htmlspecialchars($value)
                     );
                 }
@@ -112,6 +118,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('attachment_type', TextColumn::class, [
             'label' => 'attachment.table.type',
             'field' => 'attachment_type.name',
+            'orderField' => 'NATSORT(attachment_type.name)',
             'render' => fn($value, Attachment $context): string => sprintf(
                 '<a href="%s">%s</a>',
                 $this->entityURLGenerator->editURL($context->getAttachmentType()),
@@ -221,7 +228,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         //We do the most stuff here in the filter class
         if (isset($options['filter'])) {
             if(!$options['filter'] instanceof AttachmentFilter) {
-                throw new \Exception('filter must be an instance of AttachmentFilter!');
+                throw new \RuntimeException('filter must be an instance of AttachmentFilter!');
             }
 
             $filter = $options['filter'];

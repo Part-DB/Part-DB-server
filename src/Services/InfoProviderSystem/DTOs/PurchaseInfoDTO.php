@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 /**
  * This DTO represents a purchase information for a part (supplier name, order number and prices).
+ * @see \App\Tests\Services\InfoProviderSystem\DTOs\PurchaseInfoDTOTest
  */
 class PurchaseInfoDTO
 {

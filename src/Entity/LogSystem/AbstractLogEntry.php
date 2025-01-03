@@ -23,30 +23,10 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use Doctrine\DBAL\Types\Types;
-use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
-use App\Entity\Parts\StorageLocation;
-use App\Entity\Parts\Supplier;
-use App\Entity\PriceInformations\Currency;
-use App\Entity\PriceInformations\Orderdetail;
-use App\Entity\PriceInformations\Pricedetail;
-use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use DateTime;
+
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
-use Psr\Log\LogLevel as PsrLogLevel;
 use App\Repository\LogEntryRepository;
 
 /**
@@ -75,10 +55,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
     #[ORM\Column(type: Types::STRING)]
     protected string $username = '';
 
-    /** @var \DateTimeInterface The datetime the event associated with this log entry has occured
+    /**
+     * @var \DateTimeImmutable The datetime the event associated with this log entry has occured
      */
-    #[ORM\Column(name: 'datetime', type: Types::DATETIME_MUTABLE)]
-    protected \DateTimeInterface $timestamp;
+    #[ORM\Column(name: 'datetime', type: Types::DATETIME_IMMUTABLE)]
+    protected \DateTimeImmutable $timestamp;
 
     /**
      * @var LogLevel The priority level of the associated level. 0 is highest, 7 lowest
@@ -109,7 +90,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     public function __construct()
     {
-        $this->timestamp = new DateTime();
+        $this->timestamp = new \DateTimeImmutable();
     }
 
     /**
@@ -184,7 +165,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      *  Returns the timestamp when the event that caused this log entry happened.
      */
-    public function getTimestamp(): \DateTimeInterface
+    public function getTimestamp(): \DateTimeImmutable
     {
         return $this->timestamp;
     }
@@ -194,7 +175,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      *
      * @return $this
      */
-    public function setTimestamp(\DateTimeInterface $timestamp): self
+    public function setTimestamp(\DateTimeImmutable $timestamp): self
     {
         $this->timestamp = $timestamp;
 

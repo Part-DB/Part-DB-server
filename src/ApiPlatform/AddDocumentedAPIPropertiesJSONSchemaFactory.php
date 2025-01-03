@@ -25,11 +25,8 @@ namespace App\ApiPlatform;
 
 use ApiPlatform\JsonSchema\Schema;
 use ApiPlatform\JsonSchema\SchemaFactoryInterface;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\Operation;
-use App\Entity\Attachments\Attachment;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
-use Symfony\Component\PropertyInfo\Type;
 
 /**
  * This decorator adds the properties given by DocumentedAPIProperty attributes on the classes to the schema.

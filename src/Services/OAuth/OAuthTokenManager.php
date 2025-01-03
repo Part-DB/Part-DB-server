@@ -47,11 +47,10 @@ final class OAuthTokenManager
         $tokenEntity = $this->entityManager->getRepository(OAuthToken::class)->findOneBy(['name' => $app_name]);
 
         //If the token was already existing, we just replace it with the new one
-        if ($tokenEntity) {
+        if ($tokenEntity !== null) {
             $tokenEntity->replaceWithNewToken($token);
 
-            //@phpstan-ignore-next-line
-            $this->entityManager->flush($tokenEntity);
+            $this->entityManager->flush();
 
             //We are done
             return $tokenEntity;
@@ -60,8 +59,8 @@ final class OAuthTokenManager
         //If the token was not existing, we create a new one
         $tokenEntity = OAuthToken::fromAccessToken($token, $app_name);
         $this->entityManager->persist($tokenEntity);
-        //@phpstan-ignore-next-line
-        $this->entityManager->flush($tokenEntity);
+
+        $this->entityManager->flush();
 
         return $tokenEntity;
     }
@@ -97,8 +96,8 @@ final class OAuthTokenManager
     {
         $token = $this->getToken($app_name);
 
-        if (!$token) {
-            throw new \Exception('No token was saved yet for '.$app_name);
+        if ($token === null) {
+            throw new \RuntimeException('No token was saved yet for '.$app_name);
         }
 
         $client = $this->clientRegistry->getClient($app_name);
@@ -113,9 +112,7 @@ final class OAuthTokenManager
 
         //Persist the token
         $token->replaceWithNewToken($new_token);
-
-        //@phpstan-ignore-next-line
-        $this->entityManager->flush($token);
+        $this->entityManager->flush();
 
         return $token;
     }
@@ -131,7 +128,7 @@ final class OAuthTokenManager
         $token = $this->getToken($app_name);
 
         //If the token is not existing, we return null
-        if (!$token) {
+        if ($token === null) {
             return null;
         }
 

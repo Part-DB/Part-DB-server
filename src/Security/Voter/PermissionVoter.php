@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
-use App\Entity\UserSystem\User;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -62,7 +61,7 @@ final class PermissionVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         //Check if the attribute has the form @permission.operation
         if (preg_match('#^@\\w+\\.\\w+$#', $attribute)) {

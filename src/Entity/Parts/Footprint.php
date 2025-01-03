@@ -22,9 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -38,10 +39,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
-use App\Entity\EDA\EDACategoryInfo;
 use App\Entity\EDA\EDAFootprintInfo;
-use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\FootprintRepository;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,7 +48,6 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,8 +58,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
-#[ORM\Index(name: 'footprint_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'footprint_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'footprint_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'footprint_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -89,7 +86,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Footprint extends AbstractPartsContainingDBElement
 {
@@ -99,8 +96,8 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[Groups(['footprint:read', 'footprint:write'])]
@@ -110,8 +107,8 @@ class Footprint extends AbstractPartsContainingDBElement
      * @var Collection<int, FootprintAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: FootprintAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: FootprintAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $attachments;
 
@@ -131,15 +128,15 @@ class Footprint extends AbstractPartsContainingDBElement
     /** @var Collection<int, FootprintParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: FootprintParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: FootprintParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
     #[Groups(['footprint:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['footprint:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDAFootprintInfo::class)]

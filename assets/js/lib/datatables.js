@@ -98,6 +98,15 @@
                     dtOpts = config.options(dtOpts);
                 }
 
+                //Choose the column where the className contains "select-column" and apply the select extension to its render field
+                //Added for Part-DB
+                for (let column of dtOpts.columns) {
+                    if (column.className && column.className.includes('dt-select')) {
+                        column.render = $.fn.dataTable.render.select();
+                    }
+                }
+
+
                 root.html(data.template);
                 dt = $('table', root).DataTable(dtOpts);
                 if (config.state !== 'none') {

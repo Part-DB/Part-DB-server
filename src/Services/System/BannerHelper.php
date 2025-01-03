@@ -40,10 +40,7 @@ class BannerHelper
     public function getBanner(): string
     {
         $banner = $this->partdb_banner;
-        if (!is_string($banner)) {
-            throw new \RuntimeException('The parameter "partdb.banner" must be a string.');
-        }
-        if (empty($banner)) {
+        if ($banner === '') {
             $banner_path = $this->project_dir
                 .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';
 

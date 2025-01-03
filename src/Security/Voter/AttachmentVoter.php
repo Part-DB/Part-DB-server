@@ -135,7 +135,7 @@ final class AttachmentVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         if (is_a($subject, Attachment::class, true)) {
             //These are the allowed attributes

@@ -22,12 +22,9 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Entity\UserSystem\User;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -36,9 +33,12 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use function is_string;
 use function strlen;
 
+/**
+ * @see \App\Tests\Validator\Constraints\ValidGoogleAuthCodeValidatorTest
+ */
 class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
-    public function __construct(private GoogleAuthenticatorInterface $googleAuthenticator, private Security $security)
+    public function __construct(private readonly GoogleAuthenticatorInterface $googleAuthenticator, private readonly Security $security)
     {
     }
 

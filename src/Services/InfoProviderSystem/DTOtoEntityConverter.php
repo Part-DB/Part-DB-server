@@ -26,8 +26,8 @@ namespace App\Services\InfoProviderSystem;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\Manufacturer;
@@ -42,11 +42,11 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * This class converts DTOs to entities which can be persisted in the DB
+ * @see \App\Tests\Services\InfoProviderSystem\DTOtoEntityConverterTest
  */
 final class DTOtoEntityConverter
 {
@@ -129,7 +129,7 @@ final class DTOtoEntityConverter
         $entity->setAttachmentType($type);
 
         //If no name is given, try to extract the name from the URL
-        if (empty($dto->name)) {
+        if ($dto->name === null || $dto->name === '' || $dto->name === '0') {
             $entity->setName($this->getAttachmentNameFromURL($dto->url));
         } else {
             $entity->setName($dto->name);
@@ -156,6 +156,9 @@ final class DTOtoEntityConverter
         $entity->setComment($dto->notes ?? '');
 
         $entity->setMass($dto->mass);
+
+        //Try to map the category to an existing entity (but never create a new one)
+        $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
 
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
         $entity->setFootprint($this->getOrCreateEntity(Footprint::class, $dto->footprint));

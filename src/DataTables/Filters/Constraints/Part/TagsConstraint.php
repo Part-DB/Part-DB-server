@@ -24,23 +24,15 @@ namespace App\DataTables\Filters\Constraints\Part;
 
 use Doctrine\ORM\Query\Expr\Orx;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class TagsConstraint extends AbstractConstraint
 {
     final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
 
-    /**
-     * @param string $value
-     */
-    public function __construct(string $property, string $identifier = null, /**
-     * @var string The value to compare to
-     */
-    protected $value = null, /**
-     * @var string|null The operator to use
-     */
-    protected ?string $operator = '')
+    public function __construct(string $property, string $identifier = null,
+        protected ?string $value = null,
+        protected ?string $operator = '')
     {
         parent::__construct($property, $identifier);
     }
@@ -62,12 +54,12 @@ class TagsConstraint extends AbstractConstraint
         return $this;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;
@@ -93,15 +85,18 @@ class TagsConstraint extends AbstractConstraint
      */
     protected function getExpressionForTag(QueryBuilder $queryBuilder, string $tag): Orx
     {
+        //Escape any %, _ or \ in the tag
+        $tag = addcslashes($tag, '%_\\');
+
         $tag_identifier_prefix = uniqid($this->identifier . '_', false);
 
         $expr = $queryBuilder->expr();
 
         $tmp = $expr->orX(
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_1'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_2'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_3'),
-            $expr->eq($this->property, ':' . $tag_identifier_prefix . '_4'),
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_1) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_2) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_3) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_4) = TRUE',
         );
 
         //Set the parameters for the LIKE expression, in each variation of the tag (so with a comma, at the end, at the beginning, and on both ends, and equaling the tag)
@@ -138,6 +133,7 @@ class TagsConstraint extends AbstractConstraint
             return;
         }
 
+        //@phpstan-ignore-next-line Keep this check to ensure that everything has the same structure even if we add a new operator
         if ($this->operator === 'NONE') {
             $queryBuilder->andWhere($queryBuilder->expr()->not($queryBuilder->expr()->orX(...$tagsExpressions)));
             return;

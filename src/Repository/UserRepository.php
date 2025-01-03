@@ -23,7 +23,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\UserSystem\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query\Parameter;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @extends NamedDBElementRepository<User>
+ * @see \App\Tests\Repository\UserRepositoryTest
  */
 final class UserRepository extends NamedDBElementRepository implements PasswordUpgraderInterface
 {
@@ -97,10 +100,8 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
             ->where('u.name = (:name)')
             ->orWhere('u.email = (:email)');
 
-        $qb->setParameters([
-            'email' => $name_or_password,
-            'name' => $name_or_password,
-        ]);
+        $qb->setParameter('email', $name_or_password);
+        $qb->setParameter('name', $name_or_password);
 
         try {
             return $qb->getQuery()->getOneOrNullResult();

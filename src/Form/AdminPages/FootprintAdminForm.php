@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\EDA\EDAFootprintInfo;
 use App\Form\Part\EDA\EDAFootprintInfoType;
 use App\Form\Type\MasterPictureAttachmentType;
 use Symfony\Component\Form\FormBuilderInterface;

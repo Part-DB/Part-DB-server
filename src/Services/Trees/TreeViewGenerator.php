@@ -33,6 +33,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
+use App\Repository\NamedDBElementRepository;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
@@ -59,7 +60,7 @@ class TreeViewGenerator
         protected ElementCacheTagGenerator $tagGenerator,
         protected UserCacheKeyGenerator $keyGenerator,
         protected TranslatorInterface $translator,
-        private UrlGeneratorInterface $router,
+        private readonly UrlGeneratorInterface $router,
         protected bool $rootNodeExpandedByDefault,
         protected bool $rootNodeEnabled,
 
@@ -219,6 +220,7 @@ class TreeViewGenerator
      * The treeview is generic, that means the href are null and ID values are set.
      *
      * @param  string  $class  The class for which the tree should be generated
+     * @phpstan-param class-string<AbstractNamedDBElement> $class
      * @param  AbstractStructuralDBElement|null  $parent  the parent the root elements should have
      *
      * @return TreeViewNode[]
@@ -232,12 +234,12 @@ class TreeViewGenerator
             throw new InvalidArgumentException('$parent must be of the type $class!');
         }
 
-        /** @var StructuralDBElementRepository $repo */
+        /** @var NamedDBElementRepository<AbstractNamedDBElement> $repo */
         $repo = $this->em->getRepository($class);
 
         //If we just want a part of a tree, don't cache it
         if ($parent instanceof AbstractStructuralDBElement) {
-            return $repo->getGenericNodeTree($parent);
+            return $repo->getGenericNodeTree($parent); //@phpstan-ignore-line PHPstan does not seem to recognize, that we have a StructuralDBElementRepository here, which have 1 argument
         }
 
         $secure_class_name = $this->tagGenerator->getElementTypeCacheTag($class);
@@ -246,7 +248,7 @@ class TreeViewGenerator
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $parent, $secure_class_name) {
             // Invalidate when groups, an element with the class or the user changes
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
-            return $repo->getGenericNodeTree($parent);
+            return $repo->getGenericNodeTree($parent); //@phpstan-ignore-line
         });
     }
 }

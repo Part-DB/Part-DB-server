@@ -25,9 +25,6 @@ namespace App\Security\Voter;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\AbstractLogEntry;
-use App\Entity\UserSystem\User;
-use App\Services\UserSystem\PermissionManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

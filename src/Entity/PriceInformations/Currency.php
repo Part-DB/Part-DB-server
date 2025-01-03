@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -60,8 +62,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('iso_code')]
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\Table(name: 'currencies')]
-#[ORM\Index(name: 'currency_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'currency_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'currency_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'currency_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -88,7 +90,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "iso_code"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Currency extends AbstractStructuralDBElement
 {
@@ -99,8 +101,8 @@ class Currency extends AbstractStructuralDBElement
      *                      (how many base units the current currency is worth)
      */
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
-    #[BigDecimalPositive()]
-    #[Groups(['currency:read', 'currency:write'])]
+    #[BigDecimalPositive]
+    #[Groups(['currency:read', 'currency:write', 'simple', 'extended', 'full', 'import'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?BigDecimal $exchange_rate = null;
 
@@ -112,12 +114,12 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Currency]
     #[Assert\NotBlank]
-    #[Groups(['extended', 'full', 'import', 'currency:read', 'currency:write'])]
+    #[Groups(['simple', 'extended', 'full', 'import', 'currency:read', 'currency:write'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $iso_code = "";
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -130,8 +132,8 @@ class Currency extends AbstractStructuralDBElement
      * @var Collection<int, CurrencyAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: CurrencyAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $attachments;
 
@@ -143,20 +145,20 @@ class Currency extends AbstractStructuralDBElement
     /** @var Collection<int, CurrencyParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: CurrencyParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 
     /** @var Collection<int, Pricedetail>
      */
-    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'currency')]
+    #[ORM\OneToMany(mappedBy: 'currency', targetEntity: Pricedetail::class)]
     protected Collection $pricedetails;
 
     #[Groups(['currency:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['currency:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

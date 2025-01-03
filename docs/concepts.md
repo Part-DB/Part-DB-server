@@ -23,7 +23,7 @@ each other so that it does not matter which one of your 1000 things of Part you 
 A part entity has many fields, which can be used to describe it better. Most of the fields are optional:
 
 * **Name** (Required): The name of the part or how you want to call it. This could be a manufacturer-provided name, or a
-  name you thought of yourself. The name have to be unique in a single category.
+  name you thought of yourself. Each name needs to be unique and must exist in a single category.
 * **Description**: A short (single-line) description of what this part is/does. For longer information, you should use
   the comment field or the specifications
 * **Category** (Required): The category (see there) to which this part belongs to.
@@ -152,13 +152,16 @@ Footprints are hierarchically which allows you to build logically sorted trees. 
 
 ### Measurement Unit
 
-By default, part instock is counted in number of individual parts, which is fine for things like electronic components,
+By default, part in stock is counted in number of individual parts, which is fine for things like electronic components,
 which exist only in integer quantities. However, if you have things with fractional units like the length of a wire or
 the volume of a liquid, you have to define a measurement unit.
 The measurement unit represents a physical quantity like mass, volume, or length.
 
 You can define a short unit for it (like m for Meters, or g for grams) which will be shown when a quantity of a part
 with this unit is shown.
+
+In order to cover wider use cases and allow you to define measurement units further, it is possible to define parameters
+associated to a measurement unit. These parameters are distinct from a part's parameters and are not inherited.
 
 ### Currency
 

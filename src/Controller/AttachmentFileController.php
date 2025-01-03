@@ -32,11 +32,10 @@ use Omines\DataTablesBundle\DataTableFactory;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AttachmentFileController extends AbstractController
 {
@@ -53,11 +52,11 @@ class AttachmentFileController extends AbstractController
         }
 
         if ($attachment->isExternal()) {
-            throw new RuntimeException('You can not download external attachments!');
+            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new RuntimeException('The file associated with the attachment is not existing!');
+            throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);
@@ -82,11 +81,11 @@ class AttachmentFileController extends AbstractController
         }
 
         if ($attachment->isExternal()) {
-            throw new RuntimeException('You can not download external attachments!');
+            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new RuntimeException('The file associated with the attachment is not existing!');
+            throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);

@@ -27,9 +27,7 @@ use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\LogSystem\EventUndoMode;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface, LogWithEventUndoInterface

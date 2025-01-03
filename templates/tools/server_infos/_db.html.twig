@@ -21,5 +21,13 @@
         <td>Database User</td>
         <td>{{ db_user }}</td>
     </tr>
+    <tr>
+        <td>Natural sort method</td>
+        <td>{{ db_natsort_method }}</td>
+    </tr>
+    <tr>
+        <td>Slow natural sort allowed</td>
+        <td>{{ helper.boolean_badge(db_natsort_slow_allowed) }}</td>
+    </tr>
     </tbody>
 </table>

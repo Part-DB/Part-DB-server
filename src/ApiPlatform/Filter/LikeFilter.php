@@ -50,7 +50,7 @@ final class LikeFilter extends AbstractFilter
         }
         $parameterName = $queryNameGenerator->generateParameterName($property); // Generate a unique parameter name to avoid collisions with other filters
         $queryBuilder
-            ->andWhere(sprintf('o.%s LIKE :%s', $property, $parameterName))
+            ->andWhere(sprintf('ILIKE(o.%s, :%s) = TRUE', $property, $parameterName))
             ->setParameter($parameterName, $value);
     }
 
@@ -61,8 +61,8 @@ final class LikeFilter extends AbstractFilter
         }
 
         $description = [];
-        foreach ($this->properties as $property => $strategy) {
-            $description["$property"] = [
+        foreach (array_keys($this->properties) as $property) {
+            $description[(string)$property] = [
                 'property' => $property,
                 'type' => Type::BUILTIN_TYPE_STRING,
                 'required' => false,

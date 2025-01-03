@@ -42,10 +42,6 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelOptions;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
-use App\Entity\Parts\StorageLocation;
-use Dompdf\Dompdf;
 use InvalidArgumentException;
 use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;
 
@@ -66,10 +62,6 @@ final class LabelGenerator
      */
     public function generateLabel(LabelOptions $options, object|array $elements): string
     {
-        if (!is_array($elements) && !is_object($elements)) {
-            throw new InvalidArgumentException('$element must be an object or an array of objects!');
-        }
-
         if (!is_array($elements)) {
             $elements = [$elements];
         }

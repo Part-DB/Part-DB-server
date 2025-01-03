@@ -40,7 +40,6 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
-use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Repository\LogEntryRepository;
@@ -55,7 +54,6 @@ use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
-use Psr\Log\LogLevel;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -156,7 +154,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('user', TextColumn::class, [
             'label' => 'log.user',
-            'orderField' => 'user.name',
+            'orderField' => 'NATSORT(user.name)',
             'render' => function ($value, AbstractLogEntry $context): string {
                 $user = $context->getUser();
 
@@ -164,7 +162,7 @@ class LogDataTable implements DataTableTypeInterface
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
-                            htmlentities($context->getCLIUsername()),
+                            htmlentities((string) $context->getCLIUsername()),
                             $this->translator->trans('log.cli_user')
                         );
                     }

@@ -28,16 +28,16 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Repository\UserSystem\ApiTokenRepository;
 use App\State\CurrentApiTokenProvider;
-use App\State\PartDBInfoProvider;
+use App\Validator\Constraints\Year2038BugWorkaround;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
@@ -66,6 +66,7 @@ class ApiToken implements TimeStampableInterface
     protected int $id;
 
     #[ORM\Column(type: Types::STRING)]
+    #[Length(max: 255)]
     #[NotBlank]
     #[Groups('token:read')]
     protected string $name = '';
@@ -74,9 +75,10 @@ class ApiToken implements TimeStampableInterface
     #[Groups('token:read')]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Groups('token:read')]
-    private ?\DateTimeInterface $valid_until;
+    #[Year2038BugWorkaround]
+    private ?\DateTimeImmutable $valid_until;
 
     #[ORM\Column(length: 68, unique: true)]
     private string $token;
@@ -85,9 +87,9 @@ class ApiToken implements TimeStampableInterface
     #[Groups('token:read')]
     private ApiTokenLevel $level = ApiTokenLevel::READ_ONLY;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Groups('token:read')]
-    private ?\DateTimeInterface $last_time_used = null;
+    private ?\DateTimeImmutable $last_time_used = null;
 
     public function __construct(ApiTokenType $tokenType = ApiTokenType::PERSONAL_ACCESS_TOKEN)
     {
@@ -95,7 +97,7 @@ class ApiToken implements TimeStampableInterface
         $this->token = $tokenType->getTokenPrefix() . bin2hex(random_bytes(32));
 
         //By default, tokens are valid for 1 year.
-        $this->valid_until = new \DateTime('+1 year');
+        $this->valid_until = new \DateTimeImmutable('+1 year');
     }
 
     public function getTokenType(): ApiTokenType
@@ -114,7 +116,7 @@ class ApiToken implements TimeStampableInterface
         return $this;
     }
 
-    public function getValidUntil(): ?\DateTimeInterface
+    public function getValidUntil(): ?\DateTimeImmutable
     {
         return $this->valid_until;
     }
@@ -125,10 +127,10 @@ class ApiToken implements TimeStampableInterface
      */
     public function isValid(): bool
     {
-        return $this->valid_until === null || $this->valid_until > new \DateTime();
+        return $this->valid_until === null || $this->valid_until > new \DateTimeImmutable();
     }
 
-    public function setValidUntil(?\DateTimeInterface $valid_until): ApiToken
+    public function setValidUntil(?\DateTimeImmutable $valid_until): ApiToken
     {
         $this->valid_until = $valid_until;
         return $this;
@@ -157,19 +159,17 @@ class ApiToken implements TimeStampableInterface
 
     /**
      * Gets the last time the token was used to authenticate or null if it was never used.
-     * @return \DateTimeInterface|null
      */
-    public function getLastTimeUsed(): ?\DateTimeInterface
+    public function getLastTimeUsed(): ?\DateTimeImmutable
     {
         return $this->last_time_used;
     }
 
     /**
      * Sets the last time the token was used to authenticate.
-     * @param \DateTimeInterface|null $last_time_used
      * @return ApiToken
      */
-    public function setLastTimeUsed(?\DateTimeInterface $last_time_used): ApiToken
+    public function setLastTimeUsed(?\DateTimeImmutable $last_time_used): ApiToken
     {
         $this->last_time_used = $last_time_used;
         return $this;

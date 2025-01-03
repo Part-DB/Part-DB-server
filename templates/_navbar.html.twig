@@ -1,12 +1,20 @@
 {% import "helper.twig" as helper %}
+{% import "components/search.macro.html.twig" as search %}
 
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
-            <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
-            <!-- <span class="navbar-toggler-icon"></span> -->
-            <i class="fas fa-folder-open fa-lg fa-fw"></i>
-        </button>
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
+                <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="fas fa-folder-open fa-lg fa-fw"></i>
+            </button>
+            {% if is_granted("@tools.label_scanner") %}        
+                <a href="{{ path('scan_dialog') }}" class="navbar-toggler nav-link ms-3">
+                       <i class="fas fa-camera-retro fa-fw"></i>
+                </a>
+            {% endif %}
+        </div>
 
         <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip"
                                                                  aria-hidden="true"></i> {{ partdb_title }}</a>
@@ -58,7 +66,9 @@
             </ul>
 
             {% if is_granted('@parts.read') %}
-                {% include "_navbar_search.html.twig" %}
+                {{ search.search_form("navbar") }}
+
+            {# {% include "_navbar_search.html.twig" %} #}
             {% endif %}
 
 

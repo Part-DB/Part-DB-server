@@ -25,7 +25,6 @@ namespace App\Form\InfoProviderSystem;
 
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
-use Hoa\Compiler\Llk\Rule\Choice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -47,8 +46,8 @@ class ProviderSelectType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => $this->providerRegistry->getActiveProviders(),
-            'choice_label' => ChoiceList::label($this, fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']),
-            'choice_value' => ChoiceList::value($this, fn(?InfoProviderInterface $choice) => $choice?->getProviderKey()),
+            'choice_label' => ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']),
+            'choice_value' => ChoiceList::value($this, static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey()),
 
             'multiple' => true,
         ]);

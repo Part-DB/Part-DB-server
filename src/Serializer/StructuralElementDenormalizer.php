@@ -24,9 +24,9 @@ namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
+use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -35,15 +35,17 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 /**
  * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
  */
-class StructuralElementDenormalizer implements DenormalizerInterface
+class StructuralElementDenormalizer implements DenormalizerInterface, DenormalizerAwareInterface
 {
+
+    use DenormalizerAwareTrait;
+
+    private const ALREADY_CALLED = 'STRUCTURAL_DENORMALIZER_ALREADY_CALLED';
 
     private array $object_cache = [];
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        #[Autowire(service: ObjectNormalizer::class)]
-        private readonly DenormalizerInterface $denormalizer)
+        private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -54,19 +56,45 @@ class StructuralElementDenormalizer implements DenormalizerInterface
             return false;
         }
 
+        //If we already handled this object, skip it
+        if (isset($context[self::ALREADY_CALLED])
+            && is_array($context[self::ALREADY_CALLED])
+            && in_array($data, $context[self::ALREADY_CALLED], true)) {
+            return false;
+        }
+
         return is_array($data)
             && is_subclass_of($type, AbstractStructuralDBElement::class)
             //Only denormalize if we are doing a file import operation
             && in_array('import', $context['groups'] ?? [], true);
     }
 
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param $data
+     * @phpstan-param class-string<T> $type
+     * @param string|null $format
+     * @param array $context
+     * @return AbstractStructuralDBElement|null
+     * @phpstan-return T|null
+     */
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
+        //Do not use API Platform's denormalizer
+        $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
+
+        if (!isset($context[self::ALREADY_CALLED])) {
+            $context[self::ALREADY_CALLED] = [];
+        }
+
+        $context[self::ALREADY_CALLED][] = $data;
+
+
         /** @var AbstractStructuralDBElement $deserialized_entity */
         $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         //Check if we already have the entity in the database (via path)
-        /** @var StructuralDBElementRepository $repo */
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->entityManager->getRepository($type);
 
         $path = $deserialized_entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);

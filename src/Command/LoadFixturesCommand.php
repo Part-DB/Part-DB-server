@@ -23,10 +23,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
-use App\Doctrine\Purger\DoNotUsePurgerFactory;
 use App\Doctrine\Purger\ResetAutoIncrementPurgerFactory;
-use Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

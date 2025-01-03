@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,7 +38,7 @@ trait AssociationTrait
     #[Valid]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: PartAssociation::class,
         cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[Groups(['part:read', 'part:write'])]
+    #[Groups(['part:read', 'part:write', 'full'])]
     protected Collection $associated_parts_as_owner;
 
     /**

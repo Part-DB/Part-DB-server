@@ -76,18 +76,12 @@ services:
             # Only the event classes specified here are saved to DB (set to []) to log all events
             $whitelist: []
 
-    App\EventSubscriber\LogSystem\EventLoggerSubscriber:
+    App\EventListener\LogSystem\EventLoggerListener:
         arguments:
             $save_changed_fields: '%env(bool:HISTORY_SAVE_CHANGED_FIELDS)%'
             $save_changed_data: '%env(bool:HISTORY_SAVE_CHANGED_DATA)%'
             $save_removed_data: '%env(bool:HISTORY_SAVE_REMOVED_DATA)%'
             $save_new_data: '%env(bool:HISTORY_SAVE_NEW_DATA)%'
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
-    App\EventSubscriber\LogSystem\LogDBMigrationSubscriber:
-        tags:
-            - { name: 'doctrine.event_subscriber' }
 
     App\Form\AttachmentFormType:
         arguments:
@@ -311,6 +305,16 @@ services:
         arguments:
             $enabled: '%env(bool:PROVIDER_LCSC_ENABLED)%'
             $currency: '%env(string:PROVIDER_LCSC_CURRENCY)%'
+
+    App\Services\InfoProviderSystem\Providers\OEMSecretsProvider:
+        arguments:
+            $api_key: '%env(string:PROVIDER_OEMSECRETS_KEY)%'
+            $country_code: '%env(string:PROVIDER_OEMSECRETS_COUNTRY_CODE)%'
+            $currency: '%env(PROVIDER_OEMSECRETS_CURRENCY)%'
+            $zero_price: '%env(PROVIDER_OEMSECRETS_ZERO_PRICE)%'
+            $set_param: '%env(PROVIDER_OEMSECRETS_SET_PARAM)%'
+            $sort_criteria: '%env(PROVIDER_OEMSECRETS_SORT_CRITERIA)%'
+
 
     ####################################################################################################################
     # API system

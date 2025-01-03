@@ -40,10 +40,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartListsController extends AbstractController
@@ -61,6 +60,7 @@ class PartListsController extends AbstractController
         $ids = $request->request->get('ids');
         $action = $request->request->get('action');
         $target = $request->request->get('target');
+        $redirectResponse = null;
 
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
@@ -81,7 +81,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        if (isset($redirectResponse) && $redirectResponse instanceof Response) {
+        if ($redirectResponse !== null) {
             return $redirectResponse;
         }
 

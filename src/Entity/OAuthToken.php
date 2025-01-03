@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,22 +31,22 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 /**
  * This entity represents a OAuth token pair (access and refresh token), for an application
  */
-#[ORM\Entity()]
+#[ORM\Entity]
 #[ORM\Table(name: 'oauth_tokens')]
 #[ORM\UniqueConstraint(name: 'oauth_tokens_unique_name', columns: ['name'])]
 #[ORM\Index(columns: ['name'], name: 'oauth_tokens_name_idx')]
 class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
 {
     /** @var string|null The short-term usable OAuth2 token */
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $token = null;
 
-    /** @var \DateTimeInterface The date when the token expires */
+    /** @var \DateTimeImmutable|null The date when the token expires */
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeInterface $expires_at = null;
+    private ?\DateTimeImmutable $expires_at = null;
 
     /** @var string|null The refresh token for the OAuth2 auth */
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $refresh_token = null;
 
     /**
@@ -55,7 +54,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
      */
     private const DEFAULT_EXPIRATION_TIME = 3600;
 
-    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeInterface $expires_at = null)
+    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeImmutable $expires_at = null)
     {
         //If token is given, you also have to give the expires_at date
         if ($token !== null && $expires_at === null) {
@@ -83,7 +82,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         );
     }
 
-    private static function unixTimestampToDatetime(int $timestamp): \DateTimeInterface
+    private static function unixTimestampToDatetime(int $timestamp): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromFormat('U', (string)$timestamp);
     }
@@ -93,7 +92,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
         return $this->token;
     }
 
-    public function getExpirationDate(): ?\DateTimeInterface
+    public function getExpirationDate(): ?\DateTimeImmutable
     {
         return $this->expires_at;
     }

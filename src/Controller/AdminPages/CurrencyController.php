@@ -38,7 +38,6 @@ use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Exchanger\Exception\ChainException;
 use Exchanger\Exception\Exception;
 use Exchanger\Exception\UnsupportedCurrencyPairException;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -48,7 +47,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -124,7 +123,7 @@ class CurrencyController extends BaseAdminController
         return true;
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'currency_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'currency_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

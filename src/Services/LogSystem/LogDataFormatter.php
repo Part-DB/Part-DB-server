@@ -41,7 +41,7 @@ class LogDataFormatter
     public function formatData(mixed $data, AbstractLogEntry $logEntry, string $fieldName): string
     {
         if (is_string($data)) {
-            $tmp = '<span class="text-muted user-select-none">"</span>' . mb_strimwidth(htmlspecialchars($data), 0, self::STRING_MAX_LENGTH, ) . '<span class="text-muted user-select-none">"</span>';
+            $tmp = '<span class="text-muted user-select-none">"</span>' . mb_strimwidth(htmlspecialchars($data), 0, self::STRING_MAX_LENGTH) . '<span class="text-muted user-select-none">"</span>';
 
             //Show special characters and line breaks
             $tmp = preg_replace('/\n/', '<span class="text-muted user-select-none">\\n</span><br>', $tmp);
@@ -87,7 +87,7 @@ class LogDataFormatter
 
     private function formatJSON(array $data): string
     {
-        $json = htmlspecialchars(json_encode($data, JSON_PRETTY_PRINT), ENT_QUOTES | ENT_SUBSTITUTE);
+        $json = htmlspecialchars(json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT), ENT_QUOTES | ENT_SUBSTITUTE);
 
         return sprintf(
             '<div data-controller="elements--json-formatter" data-json="%s"></div>',
@@ -136,7 +136,7 @@ class LogDataFormatter
         }
 
         try {
-            $dateTime = new \DateTime($date, new \DateTimeZone($timezone));
+            $dateTime = new \DateTimeImmutable($date, new \DateTimeZone($timezone));
         } catch (\Exception) {
             return '<i>unknown DateTime format</i>';
         }

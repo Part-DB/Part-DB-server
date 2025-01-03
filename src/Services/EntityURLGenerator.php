@@ -44,9 +44,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
-use DateTime;
 use function array_key_exists;
-use function get_class;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -362,11 +360,7 @@ class EntityURLGenerator
      */
     protected function mapToController(array $map, string|AbstractDBElement $entity): string
     {
-        if (is_string($entity)) { //If a class name was already passed, then use it directly
-            $class = $entity;
-        } else { //Otherwise get the class name from the entity
-            $class = $entity::class;
-        }
+        $class = is_string($entity) ? $entity : $entity::class;
 
         //Check if we have an direct mapping for the given class
         if (!array_key_exists($class, $map)) {

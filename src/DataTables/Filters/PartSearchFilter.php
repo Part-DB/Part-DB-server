@@ -21,8 +21,6 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
-
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 class PartSearchFilter implements FilterInterface
@@ -130,18 +128,18 @@ class PartSearchFilter implements FilterInterface
         //Convert the fields to search to a list of expressions
         $expressions = array_map(function (string $field): string {
             if ($this->regex) {
-                return sprintf("REGEXP(%s, :search_query) = 1", $field);
+                return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
             }
 
-            return sprintf("%s LIKE :search_query", $field);
+            return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
         }, $fields_to_search);
 
-        //Add Or concatation of the expressions to our query
+        //Add Or concatenation of the expressions to our query
         $queryBuilder->andWhere(
             $queryBuilder->expr()->orX(...$expressions)
         );
 
-        //For regex we pass the query as is, for like we add % to the start and end as wildcards
+        //For regex, we pass the query as is, for like we add % to the start and end as wildcards
         if ($this->regex) {
             $queryBuilder->setParameter('search_query', $this->keyword);
         } else {

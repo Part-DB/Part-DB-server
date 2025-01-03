@@ -23,9 +23,7 @@ declare(strict_types=1);
 
 namespace App\State;
 
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\Operation;
-use ApiPlatform\Serializer\Filter\PropertyFilter;
 use ApiPlatform\State\ProviderInterface;
 use App\Security\ApiTokenAuthenticatedToken;
 use Symfony\Bundle\SecurityBundle\Security;

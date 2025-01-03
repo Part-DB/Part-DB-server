@@ -40,14 +40,14 @@ class EntityConstraint extends AbstractConstraint
      * @param  class-string<T>  $class
      * @param  string  $property
      * @param  string|null  $identifier
-     * @param  null|T  $value
+     * @param  T|null  $value
      * @param  string|null  $operator
      */
     public function __construct(protected ?NodesListBuilder $nodesListBuilder,
         protected string $class,
         string $property,
         string $identifier = null,
-        protected $value = null,
+        protected ?AbstractDBElement $value = null,
         protected ?string $operator = null)
     {
         if (!$nodesListBuilder instanceof NodesListBuilder && $this->isStructural()) {
@@ -137,7 +137,7 @@ class EntityConstraint extends AbstractConstraint
         }
 
         //We need to handle null values differently, as they can not be compared with == or !=
-        if (!$this->value instanceof AbstractDBElement) {
+        if ($this->value === null) {
             if($this->operator === '=' || $this->operator === 'INCLUDING_CHILDREN') {
                 $queryBuilder->andWhere(sprintf("%s IS NULL", $this->property));
                 return;
@@ -152,8 +152,9 @@ class EntityConstraint extends AbstractConstraint
         }
 
         if($this->operator === '=' || $this->operator === '!=') {
-           $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier, $this->operator, $this->value);
-           return;
+            //Include null values on != operator, so that really all values are returned that are not equal to the given value
+            $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier, $this->operator, $this->value, $this->operator === '!=');
+            return;
         }
 
         //Otherwise retrieve the children list and apply the operator to it
@@ -168,7 +169,8 @@ class EntityConstraint extends AbstractConstraint
             }
 
             if ($this->operator === 'EXCLUDING_CHILDREN') {
-                $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier, 'NOT IN', $list);
+                //Include null values in the result, so that all elements that are not in the list are returned
+                $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier, 'NOT IN', $list, true);
                 return;
             }
         } else {

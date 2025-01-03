@@ -22,9 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
-use ApiPlatform\Metadata\ApiResource;
+use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
@@ -45,13 +44,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
-#[ORM\Index(name: 'group_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
-#[NoLockout()]
+#[ORM\Index(columns: ['name'], name: 'group_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'group_idx_parent_name')]
+#[NoLockout]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -61,22 +60,22 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
+    #[ORM\OneToMany(mappedBy: 'group', targetEntity: User::class)]
     protected Collection $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of two-factor authentication
      */
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\Column(type: Types::BOOLEAN, name: 'enforce_2fa')]
+    #[ORM\Column(name: 'enforce_2fa', type: Types::BOOLEAN)]
     protected bool $enforce2FA = false;
 
     /**
      * @var Collection<int, GroupAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: GroupAttachment::class)]
@@ -85,15 +84,15 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     #[Groups(['full'])]
     #[ORM\Embedded(class: PermissionData::class, columnPrefix: 'permissions_')]
-    #[ValidPermission()]
+    #[ValidPermission]
     protected ?PermissionData $permissions = null;
 
     /**
      * @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()

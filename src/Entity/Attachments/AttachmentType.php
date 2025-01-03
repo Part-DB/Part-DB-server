@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -36,7 +38,6 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
-use App\Entity\Parts\Footprint;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -55,8 +56,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
-#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'attachment_types_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'attachment_types_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -81,18 +82,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['attachment_type:read', 'attachment_type:write'])]
-    #[ApiProperty(readableLink: false, writableLink: false)]
+    #[ApiProperty(readableLink: true, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
@@ -102,41 +103,41 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[ORM\Column(type: Types::TEXT)]
     #[ValidFileFilter]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'extended'])]
     protected string $filetype_filter = '';
 
     /**
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: AttachmentTypeAttachment::class)]
     #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'full'])]
     protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
-    #[Groups(['attachment_type:read', 'attachment_type:write'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 
     /**
      * @var Collection<Attachment>
      */
-    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
+    #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
     protected Collection $attachments_with_type;
 
     #[Groups(['attachment_type:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['attachment_type:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
 
     public function __construct()

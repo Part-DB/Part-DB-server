@@ -33,12 +33,9 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
-use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
-use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -77,7 +74,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->api_key);
+        return $this->api_key !== '';
     }
 
     public function searchByKeyword(string $keyword): array
@@ -180,7 +177,7 @@ class MouserProvider implements InfoProviderInterface
         }
 
         if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID '.$id);
+            throw new \RuntimeException('Multiple parts found with ID '.$id . ' ('.count($tmp).' found). This is basically a bug in Mousers API response. See issue #616.');
         }
 
         return $tmp[0];
@@ -210,8 +207,25 @@ class MouserProvider implements InfoProviderInterface
         } else {
             throw new \RuntimeException('Unknown response format');
         }
+
         $result = [];
         foreach ($products as $product) {
+
+            //Check if we have a valid product number. We assume that a product number, must have at least 4 characters
+            //Otherwise filter it out
+            if (strlen($product['MouserPartNumber']) < 4) {
+                continue;
+            }
+
+            //Check if we have a mass field available
+            $mass = null;
+            if (isset($product['UnitWeightKg']['UnitWeight'])) {
+                $mass = (float) $product['UnitWeightKg']['UnitWeight'];
+                //The mass is given in kg, we want it in g
+                $mass *= 1000;
+            }
+
+
             $result[] = new PartDetailDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $product['MouserPartNumber'],
@@ -221,12 +235,16 @@ class MouserProvider implements InfoProviderInterface
                 manufacturer: $product['Manufacturer'],
                 mpn: $product['ManufacturerPartNumber'],
                 preview_image_url: $product['ImagePath'],
-                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['LifecycleStatus'] ?? null),
+                manufacturing_status: $this->releaseStatusCodeToManufacturingStatus(
+                    $product['LifecycleStatus'] ?? null,
+                    (int) ($product['AvailabilityInStock'] ?? 0)
+                ),
                 provider_url: $product['ProductDetailUrl'],
                 datasheets: $this->parseDataSheets($product['DataSheetUrl'] ?? null,
                     $product['MouserPartNumber'] ?? null),
                 vendor_infos: $this->pricingToDTOs($product['PriceBreaks'] ?? [], $product['MouserPartNumber'],
                     $product['ProductDetailUrl']),
+                mass: $mass,
             );
         }
         return $result;
@@ -235,7 +253,7 @@ class MouserProvider implements InfoProviderInterface
 
     private function parseDataSheets(?string $sheetUrl, ?string $sheetName): ?array
     {
-        if (empty($sheetUrl)) {
+        if ($sheetUrl === null || $sheetUrl === '' || $sheetUrl === '0') {
             return null;
         }
         $result = [];
@@ -246,10 +264,19 @@ class MouserProvider implements InfoProviderInterface
     /*
     * Mouser API price is a string in the form "n[.,]nnn[.,] currency"
     * then this convert it to a number
+    * Austria has a format like "€ 2,10"
     */
     private function priceStrToFloat($val): float
     {
+        //Remove any character that is not a number, dot or comma (like currency symbols)
+        $val = preg_replace('/[^0-9.,]/', '', $val);
+
+        //Trim the string
+        $val = trim($val);
+
+        //Convert commas to dots
         $val = str_replace(",", ".", $val);
+        //Remove any dot that is not the last one (to avoid problems with thousands separators)
         $val = preg_replace('/\.(?=.*\.)/', '', $val);
         return (float)$val;
     }
@@ -290,16 +317,28 @@ class MouserProvider implements InfoProviderInterface
 
         TODO: Probably need to review the values of field Lifecyclestatus
     */
-    private function releaseStatusCodeToManufacturingStatus(?string $productStatus): ?ManufacturingStatus
+    /**
+     * Converts the lifecycle status from the Mouser API to a ManufacturingStatus
+     * @param  string|null  $productStatus The lifecycle status from the Mouser API
+     * @param  int  $availableInStock The number of parts available in stock
+     * @return ManufacturingStatus|null
+     */
+    private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
-        return match ($productStatus) {
+        $tmp = match ($productStatus) {
             null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
-            "Factory Special Order" => ManufacturingStatus::DISCONTINUED,
+            "Factory Special Order", "Obsolete" => ManufacturingStatus::DISCONTINUED,
             "End of Life" => ManufacturingStatus::EOL,
-            "Obsolete" => ManufacturingStatus::DISCONTINUED,
             default => ManufacturingStatus::ACTIVE,
         };
+
+        //If the part would be assumed to be announced, check if it is in stock, then it is active
+        if ($tmp === ManufacturingStatus::ANNOUNCED && $availableInStock > 0) {
+            $tmp = ManufacturingStatus::ACTIVE;
+        }
+
+        return $tmp;
     }
 }

@@ -31,7 +31,6 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
-use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,30 +74,37 @@ class DataStructureFixtures extends Fixture implements DependentFixtureInterface
         /** @var AbstractStructuralDBElement $node1 */
         $node1 = new $class();
         $node1->setName('Node 1');
+        $this->addReference($class . '_1', $node1);
 
         /** @var AbstractStructuralDBElement $node2 */
         $node2 = new $class();
         $node2->setName('Node 2');
+        $this->addReference($class . '_2', $node2);
 
         /** @var AbstractStructuralDBElement $node3 */
         $node3 = new $class();
         $node3->setName('Node 3');
+        $this->addReference($class . '_3', $node3);
 
         $node1_1 = new $class();
         $node1_1->setName('Node 1.1');
         $node1_1->setParent($node1);
+        $this->addReference($class . '_4', $node1_1);
 
         $node1_2 = new $class();
         $node1_2->setName('Node 1.2');
         $node1_2->setParent($node1);
+        $this->addReference($class . '_5', $node1_2);
 
         $node2_1 = new $class();
         $node2_1->setName('Node 2.1');
         $node2_1->setParent($node2);
+        $this->addReference($class . '_6', $node2_1);
 
         $node1_1_1 = new $class();
         $node1_1_1->setName('Node 1.1.1');
         $node1_1_1->setParent($node1_1);
+        $this->addReference($class . '_7', $node1_1_1);
 
         $manager->persist($node1);
         $manager->persist($node2);

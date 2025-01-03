@@ -31,12 +31,10 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
-use App\Entity\UserSystem\User;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-use function get_class;
 use function is_object;
 
 /**
@@ -68,7 +66,7 @@ final class StructureVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         if (is_object($subject) || is_string($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
@@ -87,11 +85,11 @@ final class StructureVoter extends Voter
     /**
      * Maps an instance type to the permission name.
      *
-     * @param object|string $subject The subject for which the permission name should be generated
+     * @param  object|string  $subject The subject for which the permission name should be generated
      *
      * @return string|null the name of the permission for the subject's type or null, if the subject is not supported
      */
-    protected function instanceToPermissionName($subject): ?string
+    protected function instanceToPermissionName(object|string $subject): ?string
     {
         $class_name = is_string($subject) ? $subject : $subject::class;
 

@@ -68,4 +68,14 @@ final class Version20231114223101 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX part_lots_idx_instock_un_expiration_id_part ON part_lots (instock_unknown, expiration_date, id_part)');
         $this->addSql('CREATE INDEX part_lots_idx_needs_refill ON part_lots (needs_refill)');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

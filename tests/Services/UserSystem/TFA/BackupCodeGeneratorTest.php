@@ -46,9 +46,12 @@ class BackupCodeGeneratorTest extends TestCase
         new BackupCodeGenerator(4, 10);
     }
 
-    public function codeLengthDataProvider(): array
+    public function codeLengthDataProvider(): \Iterator
     {
-        return [[6], [8], [10], [16]];
+        yield [6];
+        yield [8];
+        yield [10];
+        yield [16];
     }
 
     /**
@@ -60,9 +63,11 @@ class BackupCodeGeneratorTest extends TestCase
         $this->assertMatchesRegularExpression("/^([a-f0-9]){{$code_length}}\$/", $generator->generateSingleCode());
     }
 
-    public function codeCountDataProvider(): array
+    public function codeCountDataProvider(): \Iterator
     {
-        return [[2], [8], [10]];
+        yield [2];
+        yield [8];
+        yield [10];
     }
 
     /**

@@ -231,3 +231,11 @@
         </tbody>
     </table>
 {% endmacro parameters_table %}
+
+{% macro format_date_nullable(datetime) %}
+    {% if datetime is null %}
+        <i>{% trans %}datetime.never{% endtrans %}</i>
+    {% else %}
+        {{ datetime|format_datetime }}
+    {% endif %}
+{% endmacro %}

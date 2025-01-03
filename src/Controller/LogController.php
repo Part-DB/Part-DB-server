@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Filters\LogFilter;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractDBElement;
@@ -40,15 +39,13 @@ use App\Services\LogSystem\LogLevelHelper;
 use App\Services\LogSystem\LogTargetHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/log')]
 class LogController extends AbstractController
@@ -154,7 +151,7 @@ class LogController extends AbstractController
 
         if (EventUndoMode::UNDO === $mode) {
             $this->undoLog($log_element);
-        } elseif (EventUndoMode::REVERT === $mode) {
+        } else {
             $this->revertLog($log_element);
         }
 

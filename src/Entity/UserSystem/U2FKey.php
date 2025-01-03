@@ -27,6 +27,7 @@ use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -44,6 +45,7 @@ class U2FKey implements LegacyU2FKeyInterface, TimeStampableInterface
      * @var string
      **/
     #[ORM\Column(type: Types::STRING, length: 128)]
+    #[Length(max: 128)]
     public string $keyHandle = '';
 
     /**

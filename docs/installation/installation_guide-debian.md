@@ -18,6 +18,9 @@ installation.
 > network.
 > If you want to expose Part-DB to the internet, you HAVE to configure an SSL connection!
 
+It is recommended to install Part-DB on a 64-bit system, as the 32-bit version of PHP is affected by the 
+[Year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem) and can not handle dates after 2038 correctly.
+
 ## Installation with SQLite database
 
 ### Install prerequisites
@@ -339,7 +342,7 @@ exit
    Change it to the following (you have to replace `YOUR_SECRET_PASSWORD` with the password you have chosen in step 3):
 
 ```
-DATABASE_URL=DATABASE_URL=mysql://partdb:YOUR_SECRET_PASSWORD@127.0.0.1:3306/partdb
+DATABASE_URL=mysql://partdb:YOUR_SECRET_PASSWORD@127.0.0.1:3306/partdb
 ```
 
 5. Create the database schema with:

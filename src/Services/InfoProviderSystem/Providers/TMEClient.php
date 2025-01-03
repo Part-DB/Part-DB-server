@@ -23,10 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
-use Symfony\Component\HttpClient\DecoratorTrait;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Symfony\Contracts\HttpClient\ResponseStreamInterface;
 
 class TMEClient
 {
@@ -49,11 +47,7 @@ class TMEClient
 
     public function isUsable(): bool
     {
-        if ($this->token === '' || $this->secret === '') {
-            return false;
-        }
-
-        return true;
+        return $this->token !== '' && $this->secret !== '';
     }
 
 

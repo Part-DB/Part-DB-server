@@ -22,9 +22,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -39,7 +40,6 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\EDA\EDACategoryInfo;
-use App\Entity\EDA\EDAPartInfo;
 use App\Repository\Parts\CategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,7 +49,6 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -60,8 +59,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: '`categories`')]
-#[ORM\Index(name: 'category_idx_name', columns: ['name'])]
-#[ORM\Index(name: 'category_idx_parent_name', columns: ['parent_id', 'name'])]
+#[ORM\Index(columns: ['name'], name: 'category_idx_name')]
+#[ORM\Index(columns: ['parent_id', 'name'], name: 'category_idx_parent_name')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -88,12 +87,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Category extends AbstractPartsContainingDBElement
 {
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -166,8 +165,8 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'category:read', 'category:write'])]
-    #[ORM\OneToMany(targetEntity: CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: CategoryAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: CategoryAttachment::class)]
@@ -179,14 +178,14 @@ class Category extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'category:read', 'category:write'])]
-    #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: CategoryParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     protected Collection $parameters;
 
     #[Groups(['category:read'])]
-    protected ?\DateTimeInterface $addedDate = null;
+    protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['category:read'])]
-    protected ?\DateTimeInterface $lastModified = null;
+    protected ?\DateTimeImmutable $lastModified = null;
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDACategoryInfo::class)]

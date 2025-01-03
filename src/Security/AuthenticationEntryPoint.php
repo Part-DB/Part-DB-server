@@ -43,7 +43,7 @@ use function Symfony\Component\Translation\t;
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 

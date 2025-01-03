@@ -24,12 +24,16 @@ namespace App\Tests\Services\ImportExportSystem;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
 use App\Services\ImportExportSystem\EntityImporter;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @group DB
@@ -68,10 +72,24 @@ class EntityImporterTest extends WebTestCase
         //Check parent
         $this->assertNull($results[0]->getMasterPictureAttachment());
 
-        $parent = new AttachmentType();
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $parent = $em->find(AttachmentType::class, 1);
         $results = $this->service->massCreation($lines, AttachmentType::class, $parent, $errors);
         $this->assertCount(3, $results);
         $this->assertSame($parent, $results[0]->getParent());
+
+        //Test for addition of existing elements
+        $errors = [];
+        $lines = "Node 3\n   Node 3.new";
+        $results = $this->service->massCreation($lines, AttachmentType::class, null, $errors);
+        $this->assertCount(2, $results);
+        $this->assertCount(0, $errors);
+        $this->assertSame('Node 3', $results[0]->getName());
+        //Node 3 must be an existing entity
+        $this->assertNotNull($results[0]->getId());
+        $this->assertSame('Node 3.new', $results[1]->getName());
+        //Parent must be Node 3
+        $this->assertSame($results[0], $results[1]->getParent());
     }
 
     public function testNonStructuralClass(): void
@@ -81,13 +99,9 @@ Test1
    Test1.1
 Test2
 EOT;
-
-        //Define a new anonymous class, which is not structural. We can not use User here, because it does some validation
-        $anonymous_object = new class extends AttachmentContainingDBElement {};
-        $anonymous_class = get_class($anonymous_object);
-
         $errors = [];
-        $results = $this->service->massCreation($input, $anonymous_class, null, $errors);
+
+        $results = $this->service->massCreation($input, LabelProfile::class, null, $errors);
 
         //Import must not fail, even with non-structural classes
         $this->assertCount(3, $results);
@@ -112,7 +126,8 @@ Test 2
 EOT;
 
         $errors = [];
-        $parent = new AttachmentType();
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $parent = $em->find(AttachmentType::class, 1);
         $results = $this->service->massCreation($input, AttachmentType::class, $parent, $errors);
 
         //We have 7 elements, and 0 errors
@@ -148,25 +163,25 @@ EOT;
     public function testMassCreationErrors(): void
     {
         $errors = [];
-        //Node 1 and Node 2 are created in datafixtures, so their attemp to create them again must fail.
-        $lines = "Test 1\nNode 1\nNode 2";
+        $longName = str_repeat('a', 256);
+
+        //The last node is too long, this must trigger a validation error
+        $lines = "Test 1\nNode 1\n   " . $longName;
         $results = $this->service->massCreation($lines, AttachmentType::class, null, $errors);
-        $this->assertCount(1, $results);
+        $this->assertCount(2, $results);
         $this->assertSame('Test 1', $results[0]->getName());
-        $this->assertCount(2, $errors);
-        $this->assertSame('Node 1', $errors[0]['entity']->getName());
+        $this->assertCount(1, $errors);
+        $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): array
+    public function formatDataProvider(): \Iterator
     {
-        return [
-            ['csv', 'csv'],
-            ['csv', 'CSV'],
-            ['xml', 'Xml'],
-            ['json', 'json'],
-            ['yaml', 'yml'],
-            ['yaml', 'YAML'],
-        ];
+        yield ['csv', 'csv'];
+        yield ['csv', 'CSV'];
+        yield ['xml', 'Xml'];
+        yield ['json', 'json'];
+        yield ['yaml', 'yml'];
+        yield ['yaml', 'YAML'];
     }
 
     /**
@@ -175,6 +190,63 @@ EOT;
     public function testDetermineFormat(string $expected, string $extension): void
     {
         $this->assertSame($expected, $this->service->determineFormat($extension));
+    }
+
+    public function testImportStringProjects(): void
+    {
+        $input = <<<EOT
+        name;comment
+        Test 1;Test 1 notes
+        Test 2;Test 2 notes
+        EOT;
+
+        $errors = [];
+
+        $results = $this->service->importString($input, [
+            'class' => Project::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(2, $results);
+
+        //No errors must be present
+        $this->assertEmpty($errors);
+
+
+        $this->assertContainsOnlyInstancesOf(Project::class, $results);
+
+        $this->assertSame('Test 1', $results[0]->getName());
+        $this->assertSame('Test 1 notes', $results[0]->getComment());
+    }
+
+    public function testImportStringProjectWithErrors(): void
+    {
+        $input = <<<EOT
+        name;comment
+        ;Test 1 notes
+        Test 2;Test 2 notes
+        EOT;
+
+        $errors = [];
+
+        $results = $this->service->importString($input, [
+            'class' => Project::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(1, $results);
+        $this->assertCount(1, $errors);
+
+        //Validate shape of error output
+
+        $this->assertArrayHasKey('Row 0', $errors);
+        $this->assertArrayHasKey('entity', $errors['Row 0']);
+        $this->assertArrayHasKey('violations', $errors['Row 0']);
+
+        $this->assertInstanceOf(ConstraintViolationListInterface::class, $errors['Row 0']['violations']);
+        $this->assertInstanceOf(Project::class, $errors['Row 0']['entity']);
     }
 
     public function testImportStringParts(): void
@@ -237,7 +309,7 @@ EOT;
         $this->assertSame('', $error['entity']->getName());
         $this->assertContainsOnlyInstancesOf(ConstraintViolation::class, $error['violations']);
         //Element name must be element name
-        $this->assertArrayHasKey('', $errors);
+        $this->assertArrayHasKey('Row 1', $errors);
 
         //Check the valid element
         $this->assertSame('Test 1', $results[0]->getName());

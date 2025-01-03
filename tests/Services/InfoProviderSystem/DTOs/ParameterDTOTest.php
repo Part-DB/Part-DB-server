@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
@@ -63,6 +65,56 @@ class ParameterDTOTest extends TestCase
             new ParameterDTO('test', value_min: 1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
             'test',
             '1.0...2.0',
+            'kg',
+            'm',
+            'test'
+        ];
+
+        //Test ranges with tilde
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '-1.0~+2.0', //Leading signs are parsed correctly
+            'kg',
+            'm',
+            'test'
+        ];
+
+        //Test ranges with comment
+        yield [
+            new ParameterDTO('test', value_text: "Test", value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm',
+                group: 'test'),
+            'test',
+            '-1.0~+2.0 kg Test', //Leading signs are parsed correctly
+            'kg',
+            'm',
+            'test'
+        ];
+
+        //Test @comment
+        yield [
+            new ParameterDTO('test', value_text: "@comment", value_typ: 1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '1.0@comment',
+            'kg',
+            'm',
+            'test'
+        ];
+
+        //Test plus minus range (without unit)
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: +1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '±1.0',
+            'kg',
+            'm',
+            'test'
+        ];
+
+        yield [ //And with unit
+            new ParameterDTO('test', value_min: -1.0, value_max: +1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '±1.0kg',
             'kg',
             'm',
             'test'
@@ -142,6 +194,33 @@ class ParameterDTOTest extends TestCase
             'm',
             'test'
         ];
+
+        //Test ranges with tilde
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '-1.0kg~+2.0kg', //Leading signs are parsed correctly
+            'm',
+            'test'
+        ];
+
+        //Test @comment
+        yield [
+            new ParameterDTO('test', value_text: "@comment", value_typ: 1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '1.0 kg@comment',
+            'm',
+            'test'
+        ];
+
+        //Test plus minus range (without unit)
+        yield [
+            new ParameterDTO('test', value_min: -1.0, value_max: +1.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '±1.0 kg',
+            'm',
+            'test'
+        ];
     }
 
     /**
@@ -164,17 +243,18 @@ class ParameterDTOTest extends TestCase
 
     public function testSplitIntoValueAndUnit(): void
     {
-        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0 kg'));
-        $this->assertEquals(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0kg'));
-        $this->assertEquals(['1', 'kg'], ParameterDTO::splitIntoValueAndUnit('1 kg'));
+        $this->assertSame(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0 kg'));
+        $this->assertSame(['1.0', 'kg'], ParameterDTO::splitIntoValueAndUnit('1.0kg'));
+        $this->assertSame(['1', 'kg'], ParameterDTO::splitIntoValueAndUnit('1 kg'));
 
-        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0°C'));
-        $this->assertEquals(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0 °C'));
+        $this->assertSame(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0°C'));
+        $this->assertSame(['1.0', '°C'], ParameterDTO::splitIntoValueAndUnit('1.0 °C'));
 
-        $this->assertEquals(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
-        $this->assertEquals(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
+        $this->assertSame(['1.0', 'C_m'], ParameterDTO::splitIntoValueAndUnit('1.0C_m'));
+        $this->assertSame(["70", "℃"], ParameterDTO::splitIntoValueAndUnit("70℃"));
 
-        $this->assertEquals(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
+        $this->assertSame(["-5.0", "kg"], ParameterDTO::splitIntoValueAndUnit("-5.0 kg"));
+        $this->assertSame(["-5.0", "µg"], ParameterDTO::splitIntoValueAndUnit("-5.0 µg"));
 
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('kg'));
         $this->assertNull(ParameterDTO::splitIntoValueAndUnit('Test'));

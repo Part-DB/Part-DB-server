@@ -24,12 +24,10 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
-use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -67,7 +65,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->api_key);
+        return $this->api_key !== '';
     }
 
     /**
@@ -125,7 +123,7 @@ class Element14Provider implements InfoProviderInterface
     }
 
     /**
-     * @param  mixed[]|null  $datasheets
+     * @param  array|null  $datasheets
      * @return FileDTO[]|null Array of FileDTOs
      */
     private function parseDataSheets(?array $datasheets): ?array
@@ -190,41 +188,20 @@ class Element14Provider implements InfoProviderInterface
     {
         //Decide based on the shop ID
         return match ($this->store_id) {
-            'bg.farnell.com' => 'EUR',
+            'bg.farnell.com', 'at.farnell.com', 'si.farnell.com', 'sk.farnell.com', 'ro.farnell.com', 'pt.farnell.com', 'nl.farnell.com', 'be.farnell.com', 'lv.farnell.com', 'lt.farnell.com', 'it.farnell.com', 'fr.farnell.com', 'fi.farnell.com', 'ee.farnell.com', 'es.farnell.com', 'ie.farnell.com', 'cpcireland.farnell.com', 'de.farnell.com' => 'EUR',
             'cz.farnell.com' => 'CZK',
             'dk.farnell.com' => 'DKK',
-            'at.farnell.com' => 'EUR',
             'ch.farnell.com' => 'CHF',
-            'de.farnell.com' => 'EUR',
-            'cpc.farnell.com' => 'GBP',
-            'cpcireland.farnell.com' => 'EUR',
-            'export.farnell.com' => 'GBP',
-            'onecall.farnell.com' => 'GBP',
-            'ie.farnell.com' => 'EUR',
-            'il.farnell.com' => 'USD',
-            'uk.farnell.com' => 'GBP',
-            'es.farnell.com' => 'EUR',
-            'ee.farnell.com' => 'EUR',
-            'fi.farnell.com' => 'EUR',
-            'fr.farnell.com' => 'EUR',
+            'cpc.farnell.com', 'uk.farnell.com', 'onecall.farnell.com', 'export.farnell.com' => 'GBP',
+            'il.farnell.com', 'www.newark.com' => 'USD',
             'hu.farnell.com' => 'HUF',
-            'it.farnell.com' => 'EUR',
-            'lt.farnell.com' => 'EUR',
-            'lv.farnell.com' => 'EUR',
-            'be.farnell.com' => 'EUR',
-            'nl.farnell.com' => 'EUR',
             'no.farnell.com' => 'NOK',
             'pl.farnell.com' => 'PLN',
-            'pt.farnell.com' => 'EUR',
-            'ro.farnell.com' => 'EUR',
             'ru.farnell.com' => 'RUB',
-            'sk.farnell.com' => 'EUR',
-            'si.farnell.com' => 'EUR',
             'se.farnell.com' => 'SEK',
             'tr.farnell.com' => 'TRY',
             'canada.newark.com' => 'CAD',
             'mexico.newark.com' => 'MXN',
-            'www.newark.com' => 'USD',
             'cn.element14.com' => 'CNY',
             'au.element14.com' => 'AUD',
             'nz.element14.com' => 'NZD',

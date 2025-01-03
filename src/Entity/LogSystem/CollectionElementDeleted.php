@@ -82,7 +82,6 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
 
 #[ORM\Entity]
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
@@ -147,65 +146,38 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     private function resolveAbstractClassToInstantiableClass(string $abstract_class): string
     {
         if (is_a($abstract_class, AbstractParameter::class, true)) {
-            switch ($this->getTargetClass()) {
-                case AttachmentType::class:
-                    return AttachmentTypeParameter::class;
-                case Category::class:
-                    return CategoryParameter::class;
-                case Currency::class:
-                    return CurrencyParameter::class;
-                case Project::class:
-                    return ProjectParameter::class;
-                case Footprint::class:
-                    return FootprintParameter::class;
-                case Group::class:
-                    return GroupParameter::class;
-                case Manufacturer::class:
-                    return ManufacturerParameter::class;
-                case MeasurementUnit::class:
-                    return MeasurementUnitParameter::class;
-                case Part::class:
-                    return PartParameter::class;
-                case StorageLocation::class:
-                    return StorageLocationParameter::class;
-                case Supplier::class:
-                    return SupplierParameter::class;
-
-                default:
-                    throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass());
-            }
+            return match ($this->getTargetClass()) {
+                AttachmentType::class => AttachmentTypeParameter::class,
+                Category::class => CategoryParameter::class,
+                Currency::class => CurrencyParameter::class,
+                Project::class => ProjectParameter::class,
+                Footprint::class => FootprintParameter::class,
+                Group::class => GroupParameter::class,
+                Manufacturer::class => ManufacturerParameter::class,
+                MeasurementUnit::class => MeasurementUnitParameter::class,
+                Part::class => PartParameter::class,
+                StorageLocation::class => StorageLocationParameter::class,
+                Supplier::class => SupplierParameter::class,
+                default => throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass()),
+            };
         }
 
         if (is_a($abstract_class, Attachment::class, true)) {
-            switch ($this->getTargetClass()) {
-                case AttachmentType::class:
-                    return AttachmentTypeAttachment::class;
-                case Category::class:
-                    return CategoryAttachment::class;
-                case Currency::class:
-                    return CurrencyAttachment::class;
-                case Project::class:
-                    return ProjectAttachment::class;
-                case Footprint::class:
-                    return FootprintAttachment::class;
-                case Group::class:
-                    return GroupAttachment::class;
-                case Manufacturer::class:
-                    return ManufacturerAttachment::class;
-                case MeasurementUnit::class:
-                    return MeasurementUnitAttachment::class;
-                case Part::class:
-                    return PartAttachment::class;
-                case StorageLocation::class:
-                    return StorageLocationAttachment::class;
-                case Supplier::class:
-                    return SupplierAttachment::class;
-                case User::class:
-                    return UserAttachment::class;
-
-                default:
-                    throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass());
-            }
+            return match ($this->getTargetClass()) {
+                AttachmentType::class => AttachmentTypeAttachment::class,
+                Category::class => CategoryAttachment::class,
+                Currency::class => CurrencyAttachment::class,
+                Project::class => ProjectAttachment::class,
+                Footprint::class => FootprintAttachment::class,
+                Group::class => GroupAttachment::class,
+                Manufacturer::class => ManufacturerAttachment::class,
+                MeasurementUnit::class => MeasurementUnitAttachment::class,
+                Part::class => PartAttachment::class,
+                StorageLocation::class => StorageLocationAttachment::class,
+                Supplier::class => SupplierAttachment::class,
+                User::class => UserAttachment::class,
+                default => throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass()),
+            };
         }
 
         throw new \RuntimeException('The class '.$abstract_class.' is abstract and no explicit resolving to an concrete type is defined!');

@@ -36,10 +36,8 @@ use App\Services\UserSystem\TFA\BackupCodeManager;
 use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -53,21 +51,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    /**
-     * @var EventDispatcher|EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
-    public function __construct(protected bool $demo_mode, EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected bool $demo_mode, protected EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
@@ -248,7 +240,10 @@ class UserSettingsController extends AbstractController
                 $page_need_reload = true;
             }
 
-            /** @var Form $form We need a form implementation for the next calls */
+            if (!$form instanceof Form) {
+                throw new RuntimeException('Form is not an instance of Form, so we cannot retrieve the clicked button!');
+            }
+
             //Remove the avatar attachment from the user if requested
             if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName() && $user->getMasterPictureAttachment() instanceof Attachment) {
                 $em->remove($user->getMasterPictureAttachment());

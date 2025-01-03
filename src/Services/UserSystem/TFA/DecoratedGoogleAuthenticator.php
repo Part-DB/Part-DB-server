@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,11 +20,9 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Services\UserSystem\TFA;
 
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
@@ -33,8 +34,8 @@ class DecoratedGoogleAuthenticator implements GoogleAuthenticatorInterface
 
     public function __construct(
         #[AutowireDecorated]
-        private GoogleAuthenticatorInterface $inner,
-        private RequestStack $requestStack)
+        private readonly GoogleAuthenticatorInterface $inner,
+        private readonly RequestStack $requestStack)
     {
 
     }

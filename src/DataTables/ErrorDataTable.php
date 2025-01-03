@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\RowClassColumn;
-use App\Entity\Parts\Part;
 use Omines\DataTablesBundle\Adapter\ArrayAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;

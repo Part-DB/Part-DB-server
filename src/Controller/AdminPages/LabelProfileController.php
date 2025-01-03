@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parameters\AbstractParameter;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
@@ -34,7 +32,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 /**
  * @see \App\Tests\Controller\AdminPages\LabelProfileControllerTest
  */
@@ -55,7 +53,7 @@ class LabelProfileController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'label_profile_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'label_profile_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(LabelProfile $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
-use FontLib\Table\Type\maxp;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -140,12 +139,12 @@ class AttachmentPathResolver
         }
 
         //If we have now have a placeholder left, the string is invalid:
-        if (preg_match('#%\w+%#', $placeholder_path)) {
+        if (preg_match('#%\w+%#', (string) $placeholder_path)) {
             return null;
         }
 
         //Path is invalid if path is directory traversal
-        if (str_contains($placeholder_path, '..')) {
+        if (str_contains((string) $placeholder_path, '..')) {
             return null;
         }
 
@@ -184,7 +183,7 @@ class AttachmentPathResolver
         }
 
         //If the new string does not begin with a placeholder, it is invalid
-        if (!preg_match('#^%\w+%#', $real_path)) {
+        if (!preg_match('#^%\w+%#', (string) $real_path)) {
             return null;
         }
 

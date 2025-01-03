@@ -25,6 +25,7 @@ namespace App\Services\UserSystem;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Services\Attachments\AttachmentSubmitHandler;
@@ -156,11 +157,10 @@ class UserAvatarHelper
             }
 
             $attachment->setAttachmentType($attachment_type);
-            //$user->setMasterPictureAttachment($attachment);
         }
 
         //Handle the upload
-        $this->submitHandler->handleFormSubmit($attachment, $file);
+        $this->submitHandler->handleUpload($attachment, new AttachmentUpload(file: $file));
 
         //Set attachment as master picture
         $user->setMasterPictureAttachment($attachment);

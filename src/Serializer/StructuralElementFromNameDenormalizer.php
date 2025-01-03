@@ -25,7 +25,6 @@ namespace App\Serializer;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -55,7 +54,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
     public function denormalize($data, string $type, string $format = null, array $context = []): AbstractStructuralDBElement|null
     {
         //Retrieve the repository for the given type
-        /** @var StructuralDBElementRepository $repo */
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->em->getRepository($type);
 
         $path_delimiter = $context['path_delimiter'] ?? '->';

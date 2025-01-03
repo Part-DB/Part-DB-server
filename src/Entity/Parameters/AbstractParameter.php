@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parameters;
 
+use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
@@ -48,21 +49,20 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\Filter\LikeFilter;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Repository\ParameterRepository;
+use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
-use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
@@ -75,14 +75,14 @@ use function sprintf;
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
     9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class])]
 #[ORM\Table('parameters')]
-#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
-#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
-#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
+#[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
+#[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
+#[ORM\Index(columns: ['type', 'element_id'], name: 'parameter_type_element_idx')]
 #[ApiResource(
     shortName: 'Parameter',
     operations: [
         new Get(security: 'is_granted("read", object)'),
-        //new Post(securityPostDenormalize: 'is_granted("create", object)'),
+        new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
@@ -90,11 +90,23 @@ use function sprintf;
     denormalizationContext: ['groups' => ['parameter:write', 'parameter:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(LikeFilter::class, properties: ["name", "symbol", "unit", "group", "value_text"])]
-#[ApiFilter(DateFilter::class, strategy: DateFilter::EXCLUDE_NULL)]
+#[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(RangeFilter::class, properties: ["value_min", "value_typical", "value_max"])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-abstract class AbstractParameter extends AbstractNamedDBElement
+//This discriminator map is required for API platform to know which class to use for deserialization, when creating a new parameter.
+#[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
+abstract class AbstractParameter extends AbstractNamedDBElement implements UniqueValidatableInterface
 {
+
+    /*
+     * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
+     */
+    private const API_DISCRIMINATOR_MAP = ["Part" => PartParameter::class,
+        "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
+        "Project" => ProjectParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
+        "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
+        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class];
+
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      */
@@ -104,7 +116,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      */
     #[Assert\Length(max: 20)]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';
 
@@ -114,7 +126,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     #[Assert\Type(['float', null])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
-    #[Groups(['full', 'parameter:read', 'parameter_write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_min = null;
 
@@ -122,7 +134,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var float|null the typical value of this property
      */
     #[Assert\Type([null, 'float'])]
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
 
@@ -131,29 +143,32 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     #[Assert\Type(['float', null])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
-    #[Groups(['full'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 50)]
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
      */
-    #[Groups(['full', 'parameter:read', 'parameter:write'])]
-    #[ORM\Column(type: Types::STRING, name: 'param_group')]
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
+    #[ORM\Column(name: 'param_group', type: Types::STRING)]
+    #[Assert\Length(max: 255)]
     protected string $group = '';
 
     /**
@@ -443,5 +458,10 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     public function getElementClass(): string
     {
         return static::ALLOWED_ELEMENT_CLASS;
+    }
+
+    public function getComparableFields(): array
+    {
+        return ['name' => $this->name, 'group' => $this->group, 'element' => $this->element?->getId()];
     }
 }

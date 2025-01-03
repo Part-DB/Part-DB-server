@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Validator\Constraints;
 
 use App\Tests\Validator\DummyUniqueValidatableObject;
@@ -84,7 +86,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection());
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].a')
@@ -100,7 +102,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b']));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].b')
@@ -116,7 +118,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b', 'a']));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[1].b')
@@ -145,7 +147,7 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             new UniqueObjectCollection(fields: ['b'], allowNull: false));
 
         $this
-            ->buildViolation('This collection should contain only unique elements.')
+            ->buildViolation('This value is already used.')
             ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
             ->setParameter('{{ object }}', 'objectString')
             ->atPath('property.path[2].b')

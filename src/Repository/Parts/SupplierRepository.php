@@ -30,7 +30,7 @@ use InvalidArgumentException;
 
 class SupplierRepository extends AbstractPartsContainingRepository
 {
-    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
+    public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof Supplier) {
             throw new InvalidArgumentException('$element must be an Supplier!');
@@ -42,11 +42,9 @@ class SupplierRepository extends AbstractPartsContainingRepository
             ->from(Part::class, 'part')
             ->leftJoin('part.orderdetails', 'orderdetail')
             ->where('orderdetail.supplier = ?1')
-            ->setParameter(1, $element);
-
-        foreach ($order_by as $field => $order) {
-            $qb->addOrderBy('part.'.$field, $order);
-        }
+            ->setParameter(1, $element)
+            ->orderBy('NATSORT(part.name)', $nameOrderDirection)
+        ;
 
         return $qb->getQuery()->getResult();
     }

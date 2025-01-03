@@ -24,17 +24,24 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.css'
 import 'datatables.net-buttons-bs5/css/buttons.bootstrap5.css'
 import 'datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.css'
 import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.css';
-import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+
+//Use our own styles for the select extension which fit the bootstrap theme better
+//import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+import '../../../css/components/datatables_select_bs5.css';
 
 //JS
 import 'datatables.net-bs5';
 import 'datatables.net-buttons-bs5';
 import 'datatables.net-buttons/js/buttons.colVis.js';
 import 'datatables.net-fixedheader-bs5';
-import 'datatables.net-select-bs5';
 import 'datatables.net-colreorder-bs5';
 import 'datatables.net-responsive-bs5';
 import '../../../js/lib/datatables';
+
+//import 'datatables.net-select-bs5';
+//Use the local version containing the fix for the select extension
+import '../../../js/lib/dataTables.select.mjs';
+
 
 const EVENT_DT_LOADED = 'dt:loaded';
 
@@ -132,7 +139,7 @@ export default class extends Controller {
         if(this.isSelectable()) {
             options.select = {
                 style:    'multi+shift',
-                selector: 'td.select-checkbox'
+                selector: 'td.dt-select',
             };
         }
 
@@ -185,27 +192,6 @@ export default class extends Controller {
             //Recalculate the fixed header offset, as the navbar should be rendered now
             dt.fixedHeader.headerOffset($("#navbar").outerHeight());
         });
-
-        //Register event handler to selectAllRows checkbox if available
-        if (this.isSelectable()) {
-            promise.then((dt) => {
-               const selectAllCheckbox = this.element.querySelector('thead th.select-checkbox');
-               selectAllCheckbox.addEventListener('click', () => {
-                   if(selectAllCheckbox.parentElement.classList.contains('selected')) {
-                       dt.rows().deselect();
-                       selectAllCheckbox.parentElement.classList.remove('selected');
-                   } else {
-                       dt.rows().select();
-                       selectAllCheckbox.parentElement.classList.add('selected');
-                   }
-               });
-
-                //When any row is deselected, also deselect the selectAll checkbox
-                dt.on('deselect.dt', () => {
-                    selectAllCheckbox.parentElement.classList.remove('selected');
-                });
-            });
-        }
 
         //Allow to further configure the datatable
         promise.then(this._afterLoaded.bind(this));

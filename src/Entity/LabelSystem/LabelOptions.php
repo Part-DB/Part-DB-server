@@ -43,6 +43,7 @@ namespace App\Entity\LabelSystem;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
@@ -53,6 +54,7 @@ class LabelOptions
      */
     #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT)]
+    #[Groups(["extended", "full", "import"])]
     protected float $width = 50.0;
 
     /**
@@ -60,38 +62,45 @@ class LabelOptions
      */
     #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT)]
+    #[Groups(["extended", "full", "import"])]
     protected float $height = 30.0;
 
     /**
      * @var BarcodeType The type of the barcode that should be used in the label (e.g. 'qr')
      */
     #[ORM\Column(type: Types::STRING, enumType: BarcodeType::class)]
+    #[Groups(["extended", "full", "import"])]
     protected BarcodeType $barcode_type = BarcodeType::NONE;
 
     /**
      * @var LabelPictureType What image should be shown along the label
      */
     #[ORM\Column(type: Types::STRING, enumType: LabelPictureType::class)]
+    #[Groups(["extended", "full", "import"])]
     protected LabelPictureType $picture_type = LabelPictureType::NONE;
 
     #[ORM\Column(type: Types::STRING, enumType: LabelSupportedElement::class)]
+    #[Groups(["extended", "full", "import"])]
     protected LabelSupportedElement $supported_element = LabelSupportedElement::PART;
 
     /**
      * @var string any additional CSS for the label
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups([ "full", "import"])]
     protected string $additional_css = '';
 
     /** @var LabelProcessMode The mode that will be used to interpret the lines
      */
-    #[ORM\Column(type: Types::STRING, enumType: LabelProcessMode::class, name: 'lines_mode')]
+    #[ORM\Column(name: 'lines_mode', type: Types::STRING, enumType: LabelProcessMode::class)]
+    #[Groups(["extended", "full", "import"])]
     protected LabelProcessMode $process_mode = LabelProcessMode::PLACEHOLDER;
 
     /**
      * @var string
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(["extended", "full", "import"])]
     protected string $lines = '';
 
     public function getWidth(): float

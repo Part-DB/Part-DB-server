@@ -42,7 +42,6 @@ declare(strict_types=1);
 namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
-use InvalidArgumentException;
 
 class EventUndoHelper
 {

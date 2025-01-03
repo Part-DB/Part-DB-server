@@ -52,8 +52,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * @see \App\Tests\Controller\ScanControllerTest
+ */
 #[Route(path: '/scan')]
 class ScanController extends AbstractController
 {

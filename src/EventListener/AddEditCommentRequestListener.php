@@ -27,7 +27,7 @@ use App\Services\LogSystem\EventCommentHelper;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
-#[AsEventListener()]
+#[AsEventListener]
 class AddEditCommentRequestListener
 {
     public function __construct(private readonly EventCommentHelper $helper)

@@ -85,10 +85,8 @@ class LogEntryRepository extends DBElementRepository
             ->orderBy('log.timestamp', 'DESC')
             ->setMaxResults(1);
 
-        $qb->setParameters([
-            'target_type' => LogTargetType::fromElementClass($class),
-            'target_id' => $id,
-        ]);
+        $qb->setParameter('target_type', LogTargetType::fromElementClass($class));
+        $qb->setParameter('target_id', $id);
 
         $query = $qb->getQuery();
 
@@ -113,19 +111,18 @@ class LogEntryRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
-            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
             ->where('log INSTANCE OF '.ElementEditedLogEntry::class)
             ->orWhere('log INSTANCE OF '.CollectionElementDeleted::class)
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
             ->andWhere('log.timestamp >= :until')
-            ->orderBy('log.timestamp', 'DESC');
+            ->orderBy('log.timestamp', 'DESC')
+            ;
 
-        $qb->setParameters([
-            'target_type' => LogTargetType::fromElementClass($element),
-            'target_id' => $element->getID(),
-            'until' => $until,
-        ]);
+        $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
+        $qb->setParameter('target_id', $element->getID());
+        $qb->setParameter('until', $until);
+
 
         $query = $qb->getQuery();
 
@@ -145,13 +142,11 @@ class LogEntryRepository extends DBElementRepository
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
             ->andWhere('log.timestamp >= :until')
-            ->orderBy('log.timestamp', 'DESC');
+        ;
 
-        $qb->setParameters([
-            'target_type' => LogTargetType::fromElementClass($element),
-            'target_id' => $element->getID(),
-            'until' => $timestamp,
-        ]);
+        $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
+        $qb->setParameter('target_id', $element->getID());
+        $qb->setParameter('until', $timestamp);
 
         $query = $qb->getQuery();
         $count = $query->getSingleScalarResult();
@@ -162,10 +157,10 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Gets the last log entries ordered by timestamp.
      *
-     * @param int|null   $limit
-     * @param int|null   $offset
+     * @param  int|null  $limit
+     * @param  int|null  $offset
      */
-    public function getLogsOrderedByTimestamp(string $order = 'DESC', $limit = null, $offset = null): array
+    public function getLogsOrderedByTimestamp(string $order = 'DESC', int $limit = null, int $offset = null): array
     {
         return $this->findBy([], ['timestamp' => $order], $limit, $offset);
     }
@@ -230,12 +225,13 @@ class LogEntryRepository extends DBElementRepository
             ->leftJoin('log.user', 'user')
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
-            ->orderBy('log.timestamp', 'DESC');
+            ->orderBy('log.timestamp', 'DESC')
+            //Use id as fallback, if timestamp is the same (higher id means newer entry)
+            ->addOrderBy('log.id', 'DESC')
+        ;
 
-        $qb->setParameters([
-            'target_type' => LogTargetType::fromElementClass($element),
-            'target_id' => $element->getID(),
-        ]);
+        $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
+        $qb->setParameter('target_id', $element->getID());
 
         $query = $qb->getQuery();
         $query->setMaxResults(1);

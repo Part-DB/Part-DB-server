@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Form\ProjectSystem;
 
 use App\Entity\ProjectSystem\Project;
@@ -49,13 +51,15 @@ class ProjectAddPartsType extends AbstractType
         $builder->add('bom_entries', ProjectBOMEntryCollectionType::class, [
             'entry_options' => [
                 'constraints' => [
-                    new UniqueEntity(fields: ['part', 'project'], entityClass: ProjectBOMEntry::class, message: 'project.bom_entry.part_already_in_bom'),
-                    new UniqueEntity(fields: ['name', 'project'], entityClass: ProjectBOMEntry::class, message: 'project.bom_entry.name_already_in_bom', ignoreNull: true),
+                    new UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom',
+                        entityClass: ProjectBOMEntry::class),
+                    new UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom',
+                        entityClass: ProjectBOMEntry::class, ignoreNull: true),
                 ]
             ],
             'constraints' => [
-                new UniqueObjectCollection(fields: ['part'], message: 'project.bom_entry.part_already_in_bom'),
-                new UniqueObjectCollection(fields: ['name'], message: 'project.bom_entry.name_already_in_bom'),
+                new UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part']),
+                new UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name']),
             ]
         ]);
         $builder->add('submit', SubmitType::class, ['label' => 'save']);

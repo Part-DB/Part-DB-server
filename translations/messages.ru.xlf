@@ -8040,7 +8040,7 @@
       </notes>
       <segment state="translated">
         <source>perm.tools.ic_logos</source>
-        <target>логотипы ИС</target>
+        <target>Логотипы производителей</target>
       </segment>
     </unit>
     <unit id="soh_cnt" name="perm.tools.statistics">
@@ -10116,7 +10116,7 @@
     <unit id="Dw4KG4Y" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>
-        <target>Логотипы IC</target>
+        <target>Логотипы производителей</target>
       </segment>
     </unit>
     <unit id="9a9Yu9u" name="part_list.action.group.labels">
@@ -12195,6 +12195,18 @@
       <segment state="translated">
         <source>login.flash.access_denied_please_login</source>
         <target>В доступе отказано! Пожалуйста, войдите, чтобы продолжить.</target>
+      </segment>
+    </unit>
+    <unit id="ZY3REby" name="attachment.upload_multiple_files">
+      <segment state="translated">
+        <source>attachment.upload_multiple_files</source>
+        <target>Загрузить файлы</target>
+      </segment>
+    </unit>
+    <unit id="OBO.21_" name="entity.mass_creation_flash">
+      <segment state="translated">
+        <source>entity.mass_creation_flash</source>
+        <target>Успешно создано %COUNT% элементов.</target>
       </segment>
     </unit>
   </file>

@@ -25,11 +25,9 @@ namespace App\Serializer;
 
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentURLGenerator;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {

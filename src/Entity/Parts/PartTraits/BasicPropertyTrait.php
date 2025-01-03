@@ -64,7 +64,7 @@ trait BasicPropertyTrait
      *               Every part must have a category.
      */
     #[Assert\NotNull(message: 'validator.select_valid_category')]
-    #[Selectable()]
+    #[Selectable]
     #[Groups(['simple', 'extended', 'full', 'import', "part:read", "part:write"])]
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'id_category', nullable: false)]
@@ -76,7 +76,7 @@ trait BasicPropertyTrait
     #[Groups(['simple', 'extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\ManyToOne(targetEntity: Footprint::class)]
     #[ORM\JoinColumn(name: 'id_footprint')]
-    #[Selectable()]
+    #[Selectable]
     protected ?Footprint $footprint = null;
 
     /**

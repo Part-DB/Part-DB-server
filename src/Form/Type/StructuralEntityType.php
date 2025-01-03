@@ -108,12 +108,8 @@ class StructuralEntityType extends AbstractType
         $resolver->setDefault('dto_value', null);
         $resolver->setAllowedTypes('dto_value', ['null', 'string']);
         //If no help text is explicitly set, we use the dto value as help text and show it as html
-        $resolver->setDefault('help', function (Options $options) {
-            return $this->dtoText($options['dto_value']);
-        });
-        $resolver->setDefault('help_html', function (Options $options) {
-            return $options['dto_value'] !== null;
-        });
+        $resolver->setDefault('help', fn(Options $options) => $this->dtoText($options['dto_value']));
+        $resolver->setDefault('help_html', fn(Options $options) => $options['dto_value'] !== null);
 
         $resolver->setDefault('attr', function (Options $options) {
             $tmp = [

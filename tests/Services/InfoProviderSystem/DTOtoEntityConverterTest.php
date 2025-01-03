@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem;
 
 use App\Entity\Attachments\AttachmentType;
@@ -53,7 +55,7 @@ class DTOtoEntityConverterTest extends WebTestCase
 
         $entity = $this->service->convertParameter($dto);
 
-        $this->assertEquals($dto->name, $entity->getName());
+        $this->assertSame($dto->name, $entity->getName());
         $this->assertEquals($dto->value_text, $entity->getValueText());
         $this->assertEquals($dto->value_typ, $entity->getValueTypical());
         $this->assertEquals($dto->value_min, $entity->getValueMin());
@@ -74,8 +76,8 @@ class DTOtoEntityConverterTest extends WebTestCase
         );
 
         $entity = $this->service->convertPrice($dto);
-        $this->assertEquals($dto->minimum_discount_amount, $entity->getMinDiscountQuantity());
-        $this->assertEquals((float) $dto->price, (float) (string) $entity->getPrice());
+        $this->assertSame($dto->minimum_discount_amount, $entity->getMinDiscountQuantity());
+        $this->assertSame((float) $dto->price, (float) (string) $entity->getPrice());
         $this->assertEquals($dto->price_related_quantity, $entity->getPriceRelatedQuantity());
 
         //For non-base currencies, a new currency entity is created
@@ -114,8 +116,8 @@ class DTOtoEntityConverterTest extends WebTestCase
 
         $entity = $this->service->convertPurchaseInfo($dto);
 
-        $this->assertEquals($dto->distributor_name, $entity->getSupplier()->getName());
-        $this->assertEquals($dto->order_number, $entity->getSupplierPartNr());
+        $this->assertSame($dto->distributor_name, $entity->getSupplier()->getName());
+        $this->assertSame($dto->order_number, $entity->getSupplierPartNr());
         $this->assertEquals($dto->product_url, $entity->getSupplierProductUrl());
     }
 
@@ -128,7 +130,7 @@ class DTOtoEntityConverterTest extends WebTestCase
         $entity = $this->service->convertFile($dto, $type);
 
         $this->assertEquals($dto->name, $entity->getName());
-        $this->assertEquals($dto->url, $entity->getUrl());
+        $this->assertSame($dto->url, $entity->getUrl());
         $this->assertEquals($type, $entity->getAttachmentType());
     }
 
@@ -141,8 +143,8 @@ class DTOtoEntityConverterTest extends WebTestCase
         $entity = $this->service->convertFile($dto, $type);
 
         //If no name is given, the name is derived from the url
-        $this->assertEquals('file.pdf', $entity->getName());
-        $this->assertEquals($dto->url, $entity->getUrl());
+        $this->assertSame('file.pdf', $entity->getName());
+        $this->assertSame($dto->url, $entity->getUrl());
         $this->assertEquals($type, $entity->getAttachmentType());
     }
 
@@ -184,11 +186,11 @@ class DTOtoEntityConverterTest extends WebTestCase
         $this->assertCount(3, $entity->getAttachments());
         //The attachments should have the name of the named duplicate file
         $image1 = $entity->getAttachments()[0];
-        $this->assertEquals('Main image', $image1->getName());
+        $this->assertSame('Main image', $image1->getName());
 
         $image1 = $entity->getAttachments()[1];
 
         $datasheet = $entity->getAttachments()[2];
-        $this->assertEquals('TestFile', $datasheet->getName());
+        $this->assertSame('TestFile', $datasheet->getName());
     }
 }

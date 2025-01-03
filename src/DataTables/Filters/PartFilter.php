@@ -37,8 +37,10 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -90,6 +92,15 @@ class PartFilter implements FilterInterface
     public readonly ArrayCollection $parameters;
     public readonly IntConstraint $parametersCount;
 
+    /*************************************************
+     * Project tab
+     *************************************************/
+
+    public readonly EntityConstraint $project;
+    public readonly NumberConstraint $bomQuantity;
+    public readonly TextConstraint $bomName;
+    public readonly TextConstraint $bomComment;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -113,8 +124,13 @@ class PartFilter implements FilterInterface
            This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
            TODO: Find a better solution here
          */
-        //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
-        $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
+        $this->amountSum = (new IntConstraint('(
+                    SELECT COALESCE(SUM(__partLot.amount), 0.0)
+                    FROM '.PartLot::class.' __partLot
+                    WHERE __partLot.part = part.id
+                    AND __partLot.instock_unknown = false
+                    AND (__partLot.expiration_date IS NULL OR __partLot.expiration_date > CURRENT_DATE())
+                )', identifier: "amountSumWhere"));
         $this->lotCount = new IntConstraint('COUNT(_partLots)');
         $this->lessThanDesired = new LessThanDesiredConstraint();
 
@@ -140,6 +156,12 @@ class PartFilter implements FilterInterface
 
         $this->parameters = new ArrayCollection();
         $this->parametersCount = new IntConstraint('COUNT(_parameters)');
+
+        $this->project = new EntityConstraint($nodesListBuilder, Project::class, '_projectBomEntries.project');
+        $this->bomQuantity = new NumberConstraint('_projectBomEntries.quantity');
+        $this->bomName = new TextConstraint('_projectBomEntries.name');
+        $this->bomComment = new TextConstraint('_projectBomEntries.comment');
+
     }
 
     public function apply(QueryBuilder $queryBuilder): void

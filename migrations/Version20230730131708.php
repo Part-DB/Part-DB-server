@@ -99,4 +99,14 @@ final class Version20230730131708 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX parts_idx_name ON "parts" (name)');
         $this->addSql('CREATE INDEX parts_idx_ipn ON "parts" (ipn)');
     }
+
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->warnIf(true, "Migration not needed for Postgres. Skipping...");
+    }
 }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
@@ -41,8 +42,8 @@ trait InstockTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['amount' => 'DESC'])]
+    #[ORM\OneToMany(mappedBy: 'part', targetEntity: PartLot::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['amount' => Criteria::DESC])]
     protected Collection $partLots;
 
     /**

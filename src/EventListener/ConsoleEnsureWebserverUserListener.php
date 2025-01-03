@@ -55,6 +55,11 @@ class ConsoleEnsureWebserverUserListener
 
         //Check if we are trying to run as root
         if ($this->isRunningAsRoot()) {
+            //If the COMPOSER_ALLOW_SUPERUSER environment variable is set, we allow running as root
+            if ($_SERVER['COMPOSER_ALLOW_SUPERUSER'] ?? false) {
+                return;
+            }
+
             $io->warning('You are running this command as root. This is not recommended, as it can cause permission problems. Please run this command as the webserver user "'. ($webserver_user ?? '??') . '" instead.');
             $io->info('You might have already caused permission problems by running this command as wrong user. If you encounter issues with Part-DB, delete the var/cache directory completely and let it be recreated by Part-DB.');
             if ($input->isInteractive() && !$io->confirm('Do you want to continue?', false)) {
@@ -75,6 +80,7 @@ class ConsoleEnsureWebserverUserListener
         }
     }
 
+    /** @noinspection PhpUndefinedFunctionInspection */
     private function isRunningAsRoot(): bool
     {
         //If we are on windows, we can't run as root
@@ -96,6 +102,7 @@ class ConsoleEnsureWebserverUserListener
      * Determines the username of the user who started the current script if possible.
      * Returns null if the username could not be determined.
      * @return string|null
+     * @noinspection PhpUndefinedFunctionInspection
      */
     private function getRunningUser(): ?string
     {
@@ -126,6 +133,7 @@ class ConsoleEnsureWebserverUserListener
         if (PHP_OS_FAMILY === 'Windows') {
             //If we have the COM extension available, we can use it to determine the owner
             if (extension_loaded('com_dotnet')) {
+                /** @noinspection PhpUndefinedClassInspection */
                 $su = new \COM("ADsSecurityUtility"); // Call interface
                 //@phpstan-ignore-next-line
                 $securityInfo = $su->GetSecurityDescriptor($path_to_check, 1, 1); // Call method

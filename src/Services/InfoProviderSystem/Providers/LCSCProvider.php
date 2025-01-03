@@ -30,17 +30,16 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\Intl\Currencies;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LCSCProvider implements InfoProviderInterface
 {
 
-    private const ENDPOINT_URL = 'https://wmsc.lcsc.com/wmsc';
+    private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
-    public function __construct(private readonly HttpClientInterface $lcscClient, private string $currency, private bool $enabled = true)
+    public function __construct(private readonly HttpClientInterface $lcscClient, private readonly string $currency, private readonly bool $enabled = true)
     {
 
     }
@@ -92,6 +91,31 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
+     * @param  string  $url
+     * @return String
+     */
+    private function getRealDatasheetUrl(?string $url): string
+    {
+        if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+          if (preg_match("/^https:\/\/datasheet\.lcsc\.com\/lcsc\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
+            $url = 'https://www.lcsc.com/datasheet/lcsc_datasheet_' . $rewriteMatches[1];
+          }
+          $response = $this->lcscClient->request('GET', $url, [
+              'headers' => [
+                  'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
+              ],
+          ]);
+          if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+            //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
+            //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
+            $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
+            $url = $jsonObj->previewPdfUrl;
+          }
+        }
+        return $url;
+    }
+
+    /**
      * @param  string  $term
      * @return PartDetailDTO[]
      */
@@ -118,7 +142,7 @@ class LCSCProvider implements InfoProviderInterface
         // LCSC does not display LCSC codes in the search, instead taking you directly to the
         // detailed product listing. It does so utilizing a product tip field.
         // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) === 0 && !($tipProductCode === null)) {
+        if (count($products) === 0 && $tipProductCode !== null) {
             $result[] = $this->queryDetail($tipProductCode);
         }
 
@@ -130,6 +154,21 @@ class LCSCProvider implements InfoProviderInterface
     }
 
     /**
+     * Sanitizes a field by removing any HTML tags and other unwanted characters
+     * @param  string|null  $field
+     * @return string|null
+     */
+    private function sanitizeField(?string $field): ?string
+    {
+        if ($field === null) {
+            return null;
+        }
+
+        return strip_tags($field);
+    }
+
+
+    /**
      * Takes a deserialized json object of the product and returns a PartDetailDTO
      * @param  array  $product
      * @return PartDetailDTO
@@ -138,24 +177,22 @@ class LCSCProvider implements InfoProviderInterface
     {
         // Get product images in advance
         $product_images = $this->getProductImages($product['productImages'] ?? null);
-        $product['productImageUrl'] = $product['productImageUrl'] ?? null;
+        $product['productImageUrl'] ??= null;
 
         // If the product does not have a product image but otherwise has attached images, use the first one.
         if (count($product_images) > 0) {
-            $product['productImageUrl'] = $product['productImageUrl'] ?? $product_images[0]->url;
+            $product['productImageUrl'] ??= $product_images[0]->url;
         }
 
         // LCSC puts HTML in footprints and descriptions sometimes randomly
         $footprint = $product["encapStandard"] ?? null;
-        if ($footprint !== null) {
-            $footprint = strip_tags($footprint);
+        //If the footprint just consists of a dash, we'll assume it's empty
+        if ($footprint === '-') {
+            $footprint = null;
         }
 
         //Build category by concatenating the catalogName and parentCatalogName
-        $category = null;
-        if (isset($product['parentCatalogName'])) {
-            $category = $product['parentCatalogName'];
-        }
+        $category = $product['parentCatalogName'] ?? null;
         if (isset($product['catalogName'])) {
             $category = ($category ?? '') . ' -> ' . $product['catalogName'];
 
@@ -167,14 +204,14 @@ class LCSCProvider implements InfoProviderInterface
             provider_key: $this->getProviderKey(),
             provider_id: $product['productCode'],
             name: $product['productModel'],
-            description: strip_tags($product['productIntroEn']),
-            category: $category,
-            manufacturer: $product['brandNameEn'],
-            mpn: $product['productModel'] ?? null,
+            description: $this->sanitizeField($product['productIntroEn']),
+            category: $this->sanitizeField($category ?? null),
+            manufacturer: $this->sanitizeField($product['brandNameEn'] ?? null),
+            mpn: $this->sanitizeField($product['productModel'] ?? null),
             preview_image_url: $product['productImageUrl'],
             manufacturing_status: null,
             provider_url: $this->getProductShortURL($product['productCode']),
-            footprint: $footprint,
+            footprint: $this->sanitizeField($footprint),
             datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
             images: $product_images,
             parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
@@ -222,7 +259,7 @@ class LCSCProvider implements InfoProviderInterface
     {
         //Decide based on the currency symbol
         return match ($currency) {
-            'US$' => 'USD',
+            'US$', '$' => 'USD',
             '€' => 'EUR',
             'A$' => 'AUD',
             'C$' => 'CAD',
@@ -235,7 +272,8 @@ class LCSCProvider implements InfoProviderInterface
             'kr' => 'SEK',
             'kr.' => 'DKK',
             '₹' => 'INR',
-            default => throw new \RuntimeException('Unknown currency: ' . $currency)
+            //Fallback to the configured currency
+            default => $this->currency,
         };
     }
 
@@ -260,7 +298,9 @@ class LCSCProvider implements InfoProviderInterface
             return [];
         }
 
-        return [new FileDTO($url, null)];
+        $realUrl = $this->getRealDatasheetUrl($url);
+
+        return [new FileDTO($realUrl, null)];
     }
 
     /**
@@ -284,29 +324,8 @@ class LCSCProvider implements InfoProviderInterface
         foreach ($attributes as $attribute) {
 
             //Skip this attribute if it's empty
-            if (in_array(trim($attribute['paramValueEn']), array('', '-'), true)) {
+            if (in_array(trim((string) $attribute['paramValueEn']), ['', '-'], true)) {
               continue;
-            //If the attribute contains a tilde we assume it is a range
-            } elseif (str_contains($attribute['paramValueEn'], '~')) {
-                $parts = explode('~', $attribute['paramValueEn']);
-                if (count($parts) === 2) {
-                    //Try to extract number and unit from value (allow leading +)
-                    [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($parts[0], " +")) ?? [$parts[0], null];
-                    [$number2, $unit2] = ParameterDTO::splitIntoValueAndUnit(ltrim($parts[1], " +")) ?? [$parts[1], null];
-
-                    //If both parts have the same unit and both values are numerical, we assume it is a range
-                    if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
-                        $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: (float) $number, value_max: (float) $number2, unit: $unit, group: null);
-                        continue;
-                    }
-                }
-            //If it's a plus/minus value, we'll also it like a range
-            } elseif (str_starts_with($attribute['paramValueEn'], '±')) {
-              [$number, $unit] = ParameterDTO::splitIntoValueAndUnit(ltrim($attribute['paramValueEn'], " ±")) ?? [$attribute['paramValueEn'], null];
-              if (is_numeric($number)) {
-                $result[] = new ParameterDTO(name: $attribute['paramNameEn'], value_min: -abs((float) $number), value_max: abs((float) $number), unit: $unit, group: null);
-                continue;
-              }
             }
 
             $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], group: null);

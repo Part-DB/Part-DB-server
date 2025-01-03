@@ -34,7 +34,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @see \App\Tests\Controller\AdminPages\MeasurementUnitControllerTest
@@ -55,7 +55,7 @@ class MeasurementUnitController extends BaseAdminController
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
-    #[Route(path: '/{id}/edit/{timestamp}', requirements: ['id' => '\d+'], name: 'measurement_unit_edit')]
+    #[Route(path: '/{id}/edit/{timestamp}', name: 'measurement_unit_edit', requirements: ['id' => '\d+'])]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

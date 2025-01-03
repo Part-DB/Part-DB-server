@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Contracts;
 
-use DateTime;
-
 interface TimeStampableInterface
 {
     /**

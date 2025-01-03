@@ -134,7 +134,7 @@ class KiCadHelper
 
                 if ($this->category_depth >= 0) {
                     //Ensure that the category is set
-                    if (!$category) {
+                    if ($category === null) {
                         throw new NotFoundHttpException('Category must be set, if category_depth is greater than 1!');
                     }
 
@@ -182,7 +182,7 @@ class KiCadHelper
         ];
 
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
-        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
@@ -196,25 +196,25 @@ class KiCadHelper
 
         //Add basic fields
         $result["fields"]["description"] = $this->createField($part->getDescription());
-        if ($part->getCategory()) {
+        if ($part->getCategory() !== null) {
             $result["fields"]["Category"] = $this->createField($part->getCategory()->getFullPath('/'));
         }
-        if ($part->getManufacturer()) {
+        if ($part->getManufacturer() !== null) {
             $result["fields"]["Manufacturer"] = $this->createField($part->getManufacturer()->getName());
         }
         if ($part->getManufacturerProductNumber() !== "") {
             $result['fields']["MPN"] = $this->createField($part->getManufacturerProductNumber());
         }
-        if ($part->getManufacturingStatus()) {
+        if ($part->getManufacturingStatus() !== null) {
             $result["fields"]["Manufacturing Status"] = $this->createField(
             //Always use the english translation
                 $this->translator->trans($part->getManufacturingStatus()->toTranslationKey(), locale: 'en')
             );
         }
-        if ($part->getFootprint()) {
+        if ($part->getFootprint() !== null) {
             $result["fields"]["Part-DB Footprint"] = $this->createField($part->getFootprint()->getName());
         }
-        if ($part->getPartUnit()) {
+        if ($part->getPartUnit() !== null) {
             $unit = $part->getPartUnit()->getName();
             if ($part->getPartUnit()->getUnit() !== "") {
                 $unit .= ' ('.$part->getPartUnit()->getUnit().')';
@@ -225,7 +225,7 @@ class KiCadHelper
             $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }
         $result["fields"]["Part-DB ID"] = $this->createField($part->getId());
-        if (!empty($part->getIpn())) {
+        if ($part->getIpn() !== null && $part->getIpn() !== '' && $part->getIpn() !== '0') {
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
@@ -308,14 +308,9 @@ class KiCadHelper
             )) {
             return true;
         }
-
         //And on the footprint
-        if ($part->getFootprint() && $part->getFootprint()->getEdaInfo()->getKicadFootprint() !== null) {
-            return true;
-        }
-
         //Otherwise the part should be not visible
-        return false;
+        return $part->getFootprint() && $part->getFootprint()->getEdaInfo()->getKicadFootprint() !== null;
     }
 
     /**

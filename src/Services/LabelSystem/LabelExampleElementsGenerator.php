@@ -97,7 +97,7 @@ final class LabelExampleElementsGenerator
 
         $lot->setDescription('Example Lot');
         $lot->setComment('Lot comment');
-        $lot->setExpirationDate(new DateTime('+1 days'));
+        $lot->setExpirationDate(new \DateTimeImmutable('+1 day'));
         $lot->setStorageLocation($this->getStructuralData(StorageLocation::class));
         $lot->setAmount(123);
         $lot->setOwner($this->getUser());
@@ -146,11 +146,11 @@ final class LabelExampleElementsGenerator
             throw new InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
         }
 
-        /** @var AbstractStructuralDBElement $parent */
+        /** @var T $parent */
         $parent = new $class();
         $parent->setName('Example');
 
-        /** @var AbstractStructuralDBElement $child */
+        /** @var T $child */
         $child = new $class();
         $child->setName((new ReflectionClass($class))->getShortName());
         $child->setParent($parent);

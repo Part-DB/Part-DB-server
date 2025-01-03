@@ -42,7 +42,7 @@ final class TwigCoreExtension extends AbstractExtension
     {
         return [
             /* Returns the enum cases as values */
-            new TwigFunction('enum_cases', [$this, 'getEnumCases']),
+            new TwigFunction('enum_cases', $this->getEnumCases(...)),
         ];
     }
 
@@ -69,6 +69,7 @@ final class TwigCoreExtension extends AbstractExtension
             throw new \InvalidArgumentException(sprintf('The given class "%s" is not an enum!', $enum_class));
         }
 
+        /** @noinspection PhpUndefinedMethodInspection */
         return ($enum_class)::cases();
     }
 
