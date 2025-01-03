@@ -77,13 +77,21 @@ class ScanController extends AbstractController
             $mode = $form['mode']->getData();
         }
 
+        $infoModeData = null;
+
         if ($input !== null) {
             try {
                 $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
-                try {
-                    return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
-                } catch (EntityNotFoundException) {
-                    $this->addFlash('success', 'scan.qr_not_found');
+                //Perform a redirect if the info mode is not enabled
+                if (!$form['info_mode']->getData()) {
+                    try {
+                        return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
+                    } catch (EntityNotFoundException) {
+                        $this->addFlash('success', 'scan.qr_not_found');
+                    }
+                } else { //Otherwise retrieve infoModeData
+                    $infoModeData = $scan_result->getDecodedForInfoMode();
+
                 }
             } catch (InvalidArgumentException) {
                 $this->addFlash('error', 'scan.format_unknown');
@@ -92,6 +100,7 @@ class ScanController extends AbstractController
 
         return $this->render('label_system/scanner/scanner.html.twig', [
             'form' => $form,
+            'infoModeData' => $infoModeData,
         ]);
     }
 

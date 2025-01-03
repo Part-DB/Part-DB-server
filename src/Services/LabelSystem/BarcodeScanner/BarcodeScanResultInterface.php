@@ -25,5 +25,12 @@ namespace App\Services\LabelSystem\BarcodeScanner;
 
 interface BarcodeScanResultInterface
 {
-
+    /**
+     * Returns all data that was decoded from the barcode in a format, that can be shown in a table to the user.
+     * The return values of this function are not meant to be parsed by code again, but should just give a information
+     * to the user.
+     * The keys of the returned array are the first column of the table and the values are the second column.
+     * @return array<string, string|int|float|null>
+     */
+    public function getDecodedForInfoMode(): array;
 }

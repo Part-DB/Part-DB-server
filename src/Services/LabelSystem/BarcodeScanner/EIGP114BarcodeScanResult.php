@@ -308,4 +308,25 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
 
         return new self($results);
     }
+
+    public function getDecodedForInfoMode(): array
+    {
+        $tmp = [
+            'Barcode type' => 'EIGP114',
+            'Guessed vendor from barcode' => $this->guessBarcodeVendor() ?? 'Unknown',
+        ];
+
+        //Iterate over all fields of this object and add them to the array if they are not null
+        foreach($this as $key => $value) {
+            //Skip data key
+            if ($key === 'data') {
+                continue;
+            }
+            if($value !== null) {
+                $tmp[$key] = $value;
+            }
+        }
+
+        return $tmp;
+    }
 }

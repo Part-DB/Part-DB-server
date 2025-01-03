@@ -37,4 +37,13 @@ class LocalBarcodeScanResult implements BarcodeScanResultInterface
         public readonly BarcodeSourceType $source_type,
     ) {
     }
+
+    public function getDecodedForInfoMode(): array
+    {
+        return [
+            'Barcode type' => $this->source_type->name,
+            'Target type' => $this->target_type->name,
+            'Target ID' => $this->target_id,
+        ];
+    }
 }

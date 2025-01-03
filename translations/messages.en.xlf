@@ -12281,5 +12281,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
       </segment>
     </unit>
+    <unit id="QSMS_Bd" name="scan_dialog.info_mode">
+      <segment>
+        <source>scan_dialog.info_mode</source>
+        <target>Info mode (Decode barcode and show its contents, but do not redirect to part)</target>
+      </segment>
+    </unit>
+    <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
+      <segment>
+        <source>label_scanner.decoded_info.title</source>
+        <target>Decoded information</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
