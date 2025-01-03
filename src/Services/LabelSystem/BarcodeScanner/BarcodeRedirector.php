@@ -62,19 +62,22 @@ final class BarcodeRedirector
     /**
      * Determines the URL to which the user should be redirected, when scanning a QR code.
      *
-     * @param  LocalBarcodeScanResult | EIGP114BarcodeScanResult  $barcodeScan The result of the barcode scan
+     * @param  BarcodeScanResultInterface  $barcodeScan The result of the barcode scan
      * @return string the URL to which should be redirected
      *
      * @throws EntityNotFoundException
      */
-    public function getRedirectURL(LocalBarcodeScanResult | EIGP114BarcodeScanResult $barcodeScan): string
+    public function getRedirectURL(BarcodeScanResultInterface $barcodeScan): string
     {
         if($barcodeScan instanceof LocalBarcodeScanResult) {
             return $this->getURLLocalBarcode($barcodeScan);
         }
-        else{
+
+        if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
             return $this->getURLVendorBarcode($barcodeScan);
         }
+
+        throw new InvalidArgumentException('Unknown $barcodeScan type: '.get_class($barcodeScan));
     }
 
     private function getURLLocalBarcode(LocalBarcodeScanResult $barcodeScan): string
@@ -118,18 +121,18 @@ final class BarcodeRedirector
         // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
         // the info provider system or if the part was bought from a different vendor than the data was retrieved
         // from.
-        if($barcodeScan->vendor_part_number) {
+        if($barcodeScan->digikeyPartNumber) {
             $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
             //Lower() to be case insensitive
             $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
-            $qb->setParameter('vendor_id', $barcodeScan->vendor_part_number);
+            $qb->setParameter('vendor_id', $barcodeScan->digikeyPartNumber);
             $results = $qb->getQuery()->getResult();
             if ($results) {
                 return $results[0];
             }
         }
 
-        if(!$barcodeScan->manufacturer_part_number){
+        if(!$barcodeScan->supplierPartNumber){
             throw new EntityNotFoundException();
         }
 
@@ -139,12 +142,12 @@ final class BarcodeRedirector
         //If the barcode specifies the manufacturer we try to use that as well
         $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
         $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
-        $mpnQb->setParameter('mpn', $barcodeScan->manufacturer_part_number);
+        $mpnQb->setParameter('mpn', $barcodeScan->supplierPartNumber);
 
-        if($barcodeScan->manufacturer){
+        if($barcodeScan->mouserManufacturer){
             $manufacturerQb = $this->em->getRepository(Manufacturer::class)->createQueryBuilder("manufacturer");
             $manufacturerQb->where($manufacturerQb->expr()->like("LOWER(manufacturer.name)", "LOWER(:manufacturer_name)"));
-            $manufacturerQb->setParameter("manufacturer_name", $barcodeScan->manufacturer);
+            $manufacturerQb->setParameter("manufacturer_name", $barcodeScan->mouserManufacturer);
             $manufacturers = $manufacturerQb->getQuery()->getResult();
 
             if($manufacturers) {
