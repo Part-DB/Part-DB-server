@@ -238,9 +238,9 @@ class EIGP114Barcode
             return 'mouser';
         }
 
-        //According to this thread (https://github.com/inventree/InvenTree/issues/853), Newark codes contains a "3P" field
+        //According to this thread (https://github.com/inventree/InvenTree/issues/853), Newark/element14 codes contains a "3P" field
         if (isset($this->data['3P'])) {
-            return 'newark';
+            return 'element14';
         }
 
         return null;
@@ -259,7 +259,7 @@ class EIGP114Barcode
         }
 
         //Code must end with <RS><EOT>
-        if(!str_ends_with($input, "\u{1D}\u{04}")){
+        if(!str_ends_with($input, "\u{1E}\u{04}")){
             return false;
         }
 
@@ -282,11 +282,30 @@ class EIGP114Barcode
         $input = substr($input, 5, -2);
 
         //Split the input into the different fields (using the <GS> separator)
-        $fields = explode("\u{1D}", $input);
+        $parts = explode("\u{1D}", $input);
 
         //The first field is the format identifier, which we do not need
-        array_shift($fields);
+        array_shift($parts);
 
-        return new self($fields);
+        //Split the fields into key-value pairs
+        $results = [];
+
+        foreach($parts as $part) {
+            //^                     0*                            ([1-9]?            \d*                           [A-Z])
+            //Start of the string   Leading zeros are discarded    Not a zero        Any number of digits          single uppercase Letter
+            //                      00                             1                 4                             K
+
+            if(!preg_match('/^0*([1-9]?\d*[A-Z])/', $part, $matches)) {
+                throw new \LogicException("Could not parse field: $part");
+            }
+            //Extract the key
+            $key = $matches[0];
+            //Extract the field value
+            $fieldValue = substr($part, strlen($matches[0]));
+
+            $results[$key] = $fieldValue;
+        }
+
+        return new self($results);
     }
 }
