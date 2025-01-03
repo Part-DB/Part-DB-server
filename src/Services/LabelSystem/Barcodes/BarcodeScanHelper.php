@@ -220,7 +220,7 @@ final class BarcodeScanHelper
     {
         $lot_repo = $this->entityManager->getRepository(PartLot::class);
         //Find only the first result
-        $results = $lot_repo->findBy(['vendor_barcode' => $input], limit: 1);
+        $results = $lot_repo->findBy(['user_barcode' => $input], limit: 1);
 
         if (count($results) === 0) {
             return null;
