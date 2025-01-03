@@ -42,10 +42,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
-use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
-use App\Services\LabelSystem\Barcodes\LocalBarcodeScanResult;
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

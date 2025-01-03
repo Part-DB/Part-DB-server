@@ -39,7 +39,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Manufacturer;
@@ -62,12 +62,12 @@ final class BarcodeRedirector
     /**
      * Determines the URL to which the user should be redirected, when scanning a QR code.
      *
-     * @param  LocalBarcodeScanResult | VendorBarcodeScanResult  $barcodeScan The result of the barcode scan
+     * @param  LocalBarcodeScanResult | EIGP114BarcodeScanResult  $barcodeScan The result of the barcode scan
      * @return string the URL to which should be redirected
      *
      * @throws EntityNotFoundException
      */
-    public function getRedirectURL(LocalBarcodeScanResult | VendorBarcodeScanResult $barcodeScan): string
+    public function getRedirectURL(LocalBarcodeScanResult | EIGP114BarcodeScanResult $barcodeScan): string
     {
         if($barcodeScan instanceof LocalBarcodeScanResult) {
             return $this->getURLLocalBarcode($barcodeScan);
@@ -102,7 +102,7 @@ final class BarcodeRedirector
     /**
      * Gets the URL to a part from a scan of a Vendor Barcode
      */
-    private function getURLVendorBarcode(VendorBarcodeScanResult $barcodeScan): string
+    private function getURLVendorBarcode(EIGP114BarcodeScanResult $barcodeScan): string
     {
         $part = $this->getPartFromVendor($barcodeScan);
         return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
@@ -113,7 +113,7 @@ final class BarcodeRedirector
      * with the same Info Provider Id or, if that fails, by looking for parts with a
      * matching manufacturer product number. Only returns the first matching part.
      */
-    private function getPartFromVendor(VendorBarcodeScanResult $barcodeScan) : Part
+    private function getPartFromVendor(EIGP114BarcodeScanResult $barcodeScan) : Part
     {
         // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
         // the info provider system or if the part was bought from a different vendor than the data was retrieved

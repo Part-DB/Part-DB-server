@@ -41,7 +41,7 @@ declare(strict_types=1);
 
 namespace App\Form\LabelSystem;
 
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -72,7 +72,7 @@ class ScanDialogType extends AbstractType
                 BarcodeSourceType::INTERNAL => 'scan_dialog.mode.internal',
                 BarcodeSourceType::IPN => 'scan_dialog.mode.ipn',
                 BarcodeSourceType::USER_DEFINED => 'scan_dialog.mode.user',
-                BarcodeSourceType::VENDOR => 'scan_dialog.mode.eigp'
+                BarcodeSourceType::EIGP114 => 'scan_dialog.mode.eigp'
             },
 
         ]);

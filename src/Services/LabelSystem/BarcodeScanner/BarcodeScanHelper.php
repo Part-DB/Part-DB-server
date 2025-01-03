@@ -39,7 +39,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
@@ -77,7 +77,7 @@ final class BarcodeScanHelper
      * @param BarcodeSourceType|null  $type
      * @return LocalBarcodeScanResult
      */
-    public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): LocalBarcodeScanResult | VendorBarcodeScanResult
+    public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): BarcodeScanResultInterface
     {
         //Do specific parsing
         if ($type === BarcodeSourceType::INTERNAL) {
@@ -89,11 +89,17 @@ final class BarcodeScanHelper
         if ($type === BarcodeSourceType::IPN) {
             return $this->parseIPNBarcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
         }
-        if ($type === BarcodeSourceType::VENDOR) {
-            return $this->parseFormat06Barcode($input) ?? throw new InvalidArgumentException('Could not parse barcode');
+        if ($type === BarcodeSourceType::EIGP114) {
+            return $this->parseEIGP114Barcode($input);
         }
 
         //Null means auto and we try the different formats
+
+        //If the barcode is formatted as EIGP114, we can parse it directly
+        if (EIGP114BarcodeScanResult::isFormat06Code($input)) {
+            return $this->parseEIGP114Barcode($input);
+        }
+
         $result = $this->parseInternalBarcode($input);
 
         if ($result !== null) {
@@ -112,108 +118,12 @@ final class BarcodeScanHelper
             return $result;
         }
 
-        $result = $this->parseFormat06Barcode($input);
-        if ($result !== null) {
-            return $result;
-        }
-
         throw new InvalidArgumentException('Unknown barcode');
     }
 
-
-    /**
-     * Parses Format 06 Barcodes according to ISO/IEC 15434. That standard calls on ASC MH10 to specify
-     * the data identifiers, but these are way too many to incorporate here. EIGP 114.2018 is yet another standard
-     * based on Format 06 which specifies identifiers for the electronics industry. I've included the identifiers
-     * from that standard, plus the extra ones I found on Digikey and Mouser Bags.
-     * @param string $input what was read from the barcode
-     * @return ?array Array of the form ["Meaning" => "Value"]
-     */
-    private function decodeFormat06Barcode(string $input): ?array
+    private function parseEIGP114Barcode(string $input): EIGP114BarcodeScanResult
     {
-        if(!str_starts_with($input, "[)>\u{1E}06\u{1D}")){
-            return null;
-        }
-        if(str_ends_with($input, "\u{04}")){
-            $input = substr($input, 0, -1);
-        }
-
-        $barcodeParts = explode("\u{1D}",$input);
-        //get rid of the Format 06 identifier
-        array_shift($barcodeParts);
-        if (count($barcodeParts) < 2){
-            return null;
-        }
-
-        $fieldIds = [
-            //IDs per EIGP 114.2018
-            '6D' => 'Ship Date',
-            'P'  => 'Customer Part Number',
-            '1P' => 'Supplier Part Number',
-            'Q'  => 'Quantity',
-            'K'  => 'Purchase Order Part Number',
-            '4K' => 'Purchase Order Line Number',
-            '9D' => 'Date Code',
-            '10D' => 'Alternative Date Code',
-            '1T' => 'Lot Code',
-            '4L' => 'Country of Origin',
-            '3S' => 'Package ID 1',
-            '4S' => 'Package ID 2',
-            '5S' => 'Package ID 3',
-            '11K' => 'Packing List Number',
-            'S'  => 'Serial Number',
-            '33P' => 'BIN Code',
-            '13Q' => 'Package Count',
-            '2P' => 'Revision Number',
-            //IDs used by Digikey
-            '30P' => 'Digikey Part Number',
-            '1K' =>  'Sales Order Number',
-            '10K' => 'Invoice Number',
-            '11Z' => 'Label Type',
-            '12Z' => 'Part ID',
-            '13Z' => 'NA',
-            '20Z' => 'Padding',
-            //IDs used by Mouser
-            '14K' => 'Position in Order',
-            '1V'  => 'Manufacturer',
-        ];
-
-        $results = [];
-
-        foreach($barcodeParts as $part) {
-            //^                     0*                            ([1-9]?            \d*                           [A-Z])
-            //Start of the string   Leading zeros are discarded    Not a zero        Any number of digits          single uppercase Letter
-            //                      00                             1                 4                             K
-
-            if(!preg_match('/^0*([1-9]?\d*[A-Z])/', $part, $matches)) {
-                return null;
-            }
-            $meaning = $fieldIds[$matches[0]];
-            $fieldValue = substr($part, strlen($matches[0]));
-            $results[$meaning] = $fieldValue;
-
-        }
-        return $results;
-    }
-
-    /**
-     * Decodes a Format06 Barcode and puts it into a VendorBarcodeScanResult
-     * See decodeFormat06Barcode for details
-     */
-    private function parseFormat06Barcode(string $input): ?VendorBarcodeScanResult{
-        $results = $this->decodeFormat06Barcode($input);
-
-        if($results === null){
-            return null;
-        }
-
-        return new VendorBarcodeScanResult(
-            manufacturer_part_number: $results['Supplier Part Number'] ?? null,
-            vendor_part_number: $results['Digikey Part Number'] ?? null,
-            date_code: $results['Date Code'] ?? null,
-            quantity: $results['Quantity'] ?? null,
-            manufacturer: $results['Manufacturer'] ?? null,
-        );
+        return EIGP114BarcodeScanResult::parseFormat06Code($input);
     }
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult

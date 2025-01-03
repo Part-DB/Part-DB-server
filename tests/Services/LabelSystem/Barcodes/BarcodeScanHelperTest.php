@@ -42,10 +42,9 @@ declare(strict_types=1);
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
-use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
-use App\Services\LabelSystem\Barcodes\LocalBarcodeScanResult;
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
-use Com\Tecnick\Barcode\Barcode;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BarcodeScanHelperTest extends WebTestCase

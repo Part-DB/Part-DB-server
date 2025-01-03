@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 
@@ -29,7 +29,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
  * This class represents the result of a barcode scan of a barcode that uniquely identifies a local entity,
  * like an internally generated barcode or a barcode that was added manually to the system by a user
  */
-class LocalBarcodeScanResult
+class LocalBarcodeScanResult implements BarcodeScanResultInterface
 {
     public function __construct(
         public readonly LabelSupportedElement $target_type,

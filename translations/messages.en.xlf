@@ -12275,5 +12275,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>User defined barcode (configured at part lot)</target>
       </segment>
     </unit>
+    <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
+      <segment>
+        <source>scan_dialog.mode.eigp</source>
+        <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

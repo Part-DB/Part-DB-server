@@ -42,9 +42,9 @@ declare(strict_types=1);
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
-use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
-use App\Services\LabelSystem\Barcodes\LocalBarcodeScanResult;
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

@@ -21,14 +21,14 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 /**
  * This class represents the content of a EIGP114 barcode.
  * Based on PR 811, EIGP 114.2018 (https://www.ecianow.org/assets/docs/GIPC/EIGP-114.2018%20ECIA%20Labeling%20Specification%20for%20Product%20and%20Shipment%20Identification%20in%20the%20Electronics%20Industry%20-%202D%20Barcode.pdf),
  * , https://forum.digikey.com/t/digikey-product-labels-decoding-digikey-barcodes/41097
  */
-class EIGP114Barcode
+class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
 {
 
     /**

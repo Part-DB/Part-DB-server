@@ -20,7 +20,7 @@
 
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
-use App\Services\LabelSystem\Barcodes\EIGP114Barcode;
+use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use PHPUnit\Framework\TestCase;
 
 class EIGP114BarcodeTest extends TestCase
@@ -30,7 +30,7 @@ class EIGP114BarcodeTest extends TestCase
     {
         //Generic barcode:
 
-        $barcode = new EIGP114Barcode([
+        $barcode = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',
@@ -42,7 +42,7 @@ class EIGP114BarcodeTest extends TestCase
         $this->assertNull($barcode->guessBarcodeVendor());
 
         //Digikey barcode:
-        $barcode = new EIGP114Barcode([
+        $barcode = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',
@@ -54,7 +54,7 @@ class EIGP114BarcodeTest extends TestCase
         $this->assertEquals('digikey', $barcode->guessBarcodeVendor());
 
         //Mouser barcode:
-        $barcode = new EIGP114Barcode([
+        $barcode = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',
@@ -67,7 +67,7 @@ class EIGP114BarcodeTest extends TestCase
         $this->assertEquals('mouser', $barcode->guessBarcodeVendor());
 
         //Farnell barcode:
-        $barcode = new EIGP114Barcode([
+        $barcode = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',
@@ -82,25 +82,25 @@ class EIGP114BarcodeTest extends TestCase
 
     public function testIsFormat06Code(): void
     {
-        $this->assertFalse(EIGP114Barcode::isFormat06Code(''));
-        $this->assertFalse(EIGP114Barcode::isFormat06Code('test'));
-        $this->assertFalse(EIGP114Barcode::isFormat06Code('12232435ew4rf'));
+        $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code(''));
+        $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code('test'));
+        $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code('12232435ew4rf'));
         //Missing trailer
-        $this->assertFalse(EIGP114Barcode::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS"));
+        $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS"));
 
         //Valid code
-        $this->assertTrue(EIGP114Barcode::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"));
+        $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"));
     }
 
     public function testParseFormat06CodeInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        EIGP114Barcode::parseFormat06Code('');
+        EIGP114BarcodeScanResult::parseFormat06Code('');
     }
 
     public function testParseFormat06Code(): void
     {
-        $barcode = EIGP114Barcode::parseFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04");
+        $barcode = EIGP114BarcodeScanResult::parseFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04");
         $this->assertEquals([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
@@ -113,7 +113,7 @@ class EIGP114BarcodeTest extends TestCase
 
     public function testDataParsing(): void
     {
-        $barcode = new EIGP114Barcode([
+        $barcode = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',

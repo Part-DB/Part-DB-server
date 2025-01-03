@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 /**
  * This enum represents the different types, where a barcode/QR-code can be generated from
@@ -38,5 +38,8 @@ enum BarcodeSourceType
      */
     case USER_DEFINED;
 
-    case VENDOR;
+    /**
+     * EIGP114 formatted barcodes like used by digikey, mouser, etc.
+     */
+    case EIGP114;
 }
