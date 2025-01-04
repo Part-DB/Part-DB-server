@@ -94,12 +94,6 @@ final class BarcodeScanHelper
         }
 
         //Null means auto and we try the different formats
-
-        //If the barcode is formatted as EIGP114, we can parse it directly
-        if (EIGP114BarcodeScanResult::isFormat06Code($input)) {
-            return $this->parseEIGP114Barcode($input);
-        }
-
         $result = $this->parseInternalBarcode($input);
 
         if ($result !== null) {
@@ -110,6 +104,11 @@ final class BarcodeScanHelper
         $result = $this->parseUserDefinedBarcode($input);
         if ($result !== null) {
             return $result;
+        }
+
+        //If the barcode is formatted as EIGP114, we can parse it directly
+        if (EIGP114BarcodeScanResult::isFormat06Code($input)) {
+            return $this->parseEIGP114Barcode($input);
         }
 
         //Try to parse as IPN barcode
