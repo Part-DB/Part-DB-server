@@ -75,7 +75,7 @@ final class BarcodeScanHelper
      * will try to guess the type.
      * @param  string  $input
      * @param BarcodeSourceType|null  $type
-     * @return LocalBarcodeScanResult
+     * @return BarcodeScanResultInterface
      */
     public function scanBarcodeContent(string $input, ?BarcodeSourceType $type = null): BarcodeScanResultInterface
     {

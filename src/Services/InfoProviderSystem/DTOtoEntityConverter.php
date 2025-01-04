@@ -160,9 +160,8 @@ final class DTOtoEntityConverter
 
         //Try to map the category to an existing entity (but never create a new one)
         if ($dto->category) {
-            /** @var CategoryRepository<Category> $categoryRepo */
-            $categoryRepo = $this->em->getRepository(Category::class);
-            $entity->setCategory($categoryRepo->findForInfoProvider($dto->category));
+            //@phpstan-ignore-next-line For some reason php does not recognize the repo returns a category
+            $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
         }
 
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));

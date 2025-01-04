@@ -53,7 +53,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
     public readonly ?int $quantity;
 
     /**
-     * @var string|mixed|null Customer assigned purchase order number
+     * @var string|null Customer assigned purchase order number
      */
     public readonly ?string $customerPO;
 
@@ -104,7 +104,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
     public readonly ?string $packageId1;
 
     /**
-     * @var string|mixed|null
+     * @var string|null
      * 4S - Package ID for Logistic Carton with like items
      */
     public readonly ?string $packageId2;
@@ -317,7 +317,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
         ];
 
         //Iterate over all fields of this object and add them to the array if they are not null
-        foreach($this as $key => $value) {
+        foreach((array) $this as $key => $value) {
             //Skip data key
             if ($key === 'data') {
                 continue;
