@@ -103,8 +103,8 @@ class PartLotType extends AbstractType
             'help' => 'part_lot.owner.help',
         ]);
 
-        $builder->add('vendor_barcode', TextType::class, [
-            'label' => 'part_lot.edit.vendor_barcode',
+        $builder->add('user_barcode', TextType::class, [
+            'label' => 'part_lot.edit.user_barcode',
             'help' => 'part_lot.edit.vendor_barcode.help',
             'required' => false,
         ]);

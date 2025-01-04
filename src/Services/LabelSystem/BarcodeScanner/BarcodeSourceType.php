@@ -21,19 +21,25 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
-
-use App\Entity\LabelSystem\LabelSupportedElement;
+namespace App\Services\LabelSystem\BarcodeScanner;
 
 /**
- * This class represents the result of a barcode scan, with the target type and the ID of the element
+ * This enum represents the different types, where a barcode/QR-code can be generated from
  */
-class BarcodeScanResult
+enum BarcodeSourceType
 {
-    public function __construct(
-        public readonly LabelSupportedElement $target_type,
-        public readonly int $target_id,
-        public readonly BarcodeSourceType $source_type,
-    ) {
-    }
+    /** This Barcode was generated using Part-DB internal recommended barcode generator */
+    case INTERNAL;
+    /** This barcode is containing an internal part number (IPN) */
+    case IPN;
+
+    /**
+     * This barcode is a user defined barcode defined on a part lot
+     */
+    case USER_DEFINED;
+
+    /**
+     * EIGP114 formatted barcodes like used by digikey, mouser, etc.
+     */
+    case EIGP114;
 }
