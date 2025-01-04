@@ -50,7 +50,7 @@ export default class extends Controller {
         });
 
         this._scanner = new Html5QrcodeScanner(this.element.id, {
-            fps: 2,
+            fps: 10,
             qrbox: qrboxFunction,
             experimentalFeatures: {
                 //This option improves reading quality on android chrome
