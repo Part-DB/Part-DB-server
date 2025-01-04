@@ -20,7 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
-import {Html5QrcodeScanner, Html5Qrcode} from "html5-qrcode";
+import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {

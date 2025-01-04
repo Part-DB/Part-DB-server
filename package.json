@@ -88,7 +88,7 @@
         "dompurify": "^3.0.3",
         "emoji.json": "^15.0.0",
         "exports-loader": "^5.0.0",
-        "html5-qrcode": "^2.2.1",
+        "@part-db/html5-qrcode": "^3.0.0",
         "json-formatter-js": "^2.3.4",
         "jszip": "^3.2.0",
         "katex": "^0.16.0",
