@@ -43,7 +43,9 @@ namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -110,6 +112,17 @@ class BarcodeScanHelperTest extends WebTestCase
         //Test vendor barcode
         yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 2,BarcodeSourceType::USER_DEFINED),
             'lot2_vendor_barcode'];
+
+        $eigp114Result = new EIGP114BarcodeScanResult([
+            'P' => '596-777A1-ND',
+            '1P' => 'XAF4444',
+            'Q' => '3',
+            '10D' => '1452',
+            '1T' => 'BF1103',
+            '4L' => 'US',
+        ]);
+
+        yield [$eigp114Result, "[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"];
     }
 
     public static function invalidDataProvider(): \Iterator
@@ -130,7 +143,7 @@ class BarcodeScanHelperTest extends WebTestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testNormalizeBarcodeContent(LocalBarcodeScanResult $expected, string $input): void
+    public function testNormalizeBarcodeContent(BarcodeScanResultInterface $expected, string $input): void
     {
         $this->assertEquals($expected, $this->service->scanBarcodeContent($input));
     }
