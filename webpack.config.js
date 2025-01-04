@@ -59,6 +59,12 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('webauthn_tfa', './assets/js/webauthn_tfa.js')
 
+    //Configure to just output the zxing wasm file, without parsing it
+    .addRule({
+        test: /zxing_reader\.wasm$/,
+        type: "asset/resource"
+    })
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -188,6 +194,10 @@ if (Encore.isDev()) {
 
 
 module.exports = Encore.getWebpackConfig();
+
+//Enable webassembly support
+module.exports.experiments = module.exports.experiments || {};
+module.exports.experiments.asyncWebAssembly = true;
 
 //Enable webpack auto public path (this only works in combination with WebpackAutoPathSubscriber!!)
 //We do it here to supress a warning caused by webpack Encore
