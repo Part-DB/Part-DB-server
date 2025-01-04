@@ -61,6 +61,11 @@ export default class extends Controller {
         this._scanner.render(this.onScanSuccess.bind(this));
     }
 
+    disconnect() {
+        this._scanner.pause();
+        this._scanner.clear();
+    }
+
     onScanSuccess(decodedText, decodedResult) {
         //Put our decoded Text into the input box
         document.getElementById('scan_dialog_input').value = decodedText;
