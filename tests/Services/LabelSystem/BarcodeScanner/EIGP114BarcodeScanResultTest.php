@@ -18,12 +18,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Tests\Services\LabelSystem\Barcodes;
+namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use PHPUnit\Framework\TestCase;
 
-class EIGP114BarcodeTest extends TestCase
+class EIGP114BarcodeScanResultTest extends TestCase
 {
 
     public function testGuessBarcodeVendor(): void
@@ -85,11 +85,12 @@ class EIGP114BarcodeTest extends TestCase
         $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code(''));
         $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code('test'));
         $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code('12232435ew4rf'));
-        //Missing trailer
-        $this->assertFalse(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS"));
 
-        //Valid code
+        //Valid code (with trailer)
         $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"));
+
+        //Valid code (digikey, without trailer)
+        $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1e06\x1dPQ1045-ND\x1d1P364019-01\x1d30PQ1045-ND\x1dK12432 TRAVIS FOSS P\x1d1K85732873\x1d10K103332956\x1d9D231013\x1d1TQJ13P\x1d11K1\x1d4LTW\x1dQ3\x1d11ZPICK\x1d12Z7360988\x1d13Z999999\x1d20Z0000000000000000000000000000000000000000000000000000000000000000000000000000000000000"));
     }
 
     public function testParseFormat06CodeInvalid(): void
@@ -128,5 +129,26 @@ class EIGP114BarcodeTest extends TestCase
         $this->assertEquals('1452', $barcode->alternativeDateCode);
         $this->assertEquals('BF1103', $barcode->lotCode);
         $this->assertEquals('US', $barcode->countryOfOrigin);
+    }
+
+    public function testDigikeyParsing(): void
+    {
+        $barcode = EIGP114BarcodeScanResult::parseFormat06Code("[)>\x1e06\x1dPQ1045-ND\x1d1P364019-01\x1d30PQ1045-ND\x1dK12432 TRAVIS FOSS P\x1d1K85732873\x1d10K103332956\x1d9D231013\x1d1TQJ13P\x1d11K1\x1d4LTW\x1dQ3\x1d11ZPICK\x1d12Z7360988\x1d13Z999999\x1d20Z0000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+
+        $this->assertEquals('digikey', $barcode->guessBarcodeVendor());
+
+        $this->assertEquals('Q1045-ND', $barcode->customerPartNumber);
+        $this->assertEquals('364019-01', $barcode->supplierPartNumber);
+        $this->assertEquals(3, $barcode->quantity);
+        $this->assertEquals('231013', $barcode->dateCode);
+        $this->assertEquals('QJ13P', $barcode->lotCode);
+        $this->assertEquals('TW', $barcode->countryOfOrigin);
+        $this->assertEquals('Q1045-ND', $barcode->digikeyPartNumber);
+        $this->assertEquals('85732873', $barcode->digikeySalesOrderNumber);
+        $this->assertEquals('103332956', $barcode->digikeyInvoiceNumber);
+        $this->assertEquals('PICK', $barcode->digikeyLabelType);
+        $this->assertEquals('7360988', $barcode->digikeyPartID);
+        $this->assertEquals('999999', $barcode->digikeyNA);
+        $this->assertEquals('0000000000000000000000000000000000000000000000000000000000000000000000000000000000000', $barcode->digikeyPadding);
     }
 }

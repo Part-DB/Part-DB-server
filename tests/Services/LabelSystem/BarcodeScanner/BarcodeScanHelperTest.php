@@ -39,7 +39,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Tests\Services\LabelSystem\Barcodes;
+namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;

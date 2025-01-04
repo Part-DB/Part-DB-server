@@ -247,7 +247,8 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
     }
 
     /**
-     * Checks if the given input is a valid format06 formatted data
+     * Checks if the given input is a valid format06 formatted data.
+     * This just perform a simple check for the header, the content might be malformed still.
      * @param  string  $input
      * @return bool
      */
@@ -258,10 +259,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
             return false;
         }
 
-        //Code must end with <RS><EOT>
-        if(!str_ends_with($input, "\u{1E}\u{04}")){
-            return false;
-        }
+        //Digikey does not put a trailer onto the barcode, so we just check for the header
 
         return true;
     }
@@ -278,8 +276,10 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
             throw new \InvalidArgumentException("The given input is not a valid format06 code");
         }
 
-        //Remove the trailer
-        $input = substr($input, 5, -2);
+        //Remove the trailer, if present
+        if (str_ends_with($input, "\u{1E}\u{04}")){
+            $input = substr($input, 5, -2);
+        }
 
         //Split the input into the different fields (using the <GS> separator)
         $parts = explode("\u{1D}", $input);
