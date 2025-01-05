@@ -14909,16 +14909,16 @@
         },
         {
             "name": "web-auth/webauthn-lib",
-            "version": "4.9.1",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-lib.git",
-                "reference": "fd7a0943c663b325e92ad562c2bcc943e77beeac"
+                "reference": "008b25171c27cf4813420d0de31cc059bcc71f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/fd7a0943c663b325e92ad562c2bcc943e77beeac",
-                "reference": "fd7a0943c663b325e92ad562c2bcc943e77beeac",
+                "url": "https://api.github.com/repos/web-auth/webauthn-lib/zipball/008b25171c27cf4813420d0de31cc059bcc71f1a",
+                "reference": "008b25171c27cf4813420d0de31cc059bcc71f1a",
                 "shasum": ""
             },
             "require": {
@@ -14983,7 +14983,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-lib/tree/4.9.1"
+                "source": "https://github.com/web-auth/webauthn-lib/tree/4.9.2"
             },
             "funding": [
                 {
@@ -14995,20 +14995,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-16T18:36:36+00:00"
+            "time": "2025-01-04T09:47:58+00:00"
         },
         {
             "name": "web-auth/webauthn-symfony-bundle",
-            "version": "4.9.1",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/webauthn-symfony-bundle.git",
-                "reference": "fa6dfa596db1cbf159079c0bb76d746ed84c4a26"
+                "reference": "80aa16fa6f16ab8f017a4108ffcd2ecc12264c07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/fa6dfa596db1cbf159079c0bb76d746ed84c4a26",
-                "reference": "fa6dfa596db1cbf159079c0bb76d746ed84c4a26",
+                "url": "https://api.github.com/repos/web-auth/webauthn-symfony-bundle/zipball/80aa16fa6f16ab8f017a4108ffcd2ecc12264c07",
+                "reference": "80aa16fa6f16ab8f017a4108ffcd2ecc12264c07",
                 "shasum": ""
             },
             "require": {
@@ -15068,7 +15068,7 @@
                 "webauthn"
             ],
             "support": {
-                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.9.1"
+                "source": "https://github.com/web-auth/webauthn-symfony-bundle/tree/4.9.2"
             },
             "funding": [
                 {
@@ -15080,11 +15080,11 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-11T09:06:25+00:00"
+            "time": "2025-01-04T09:38:56+00:00"
         },
         {
             "name": "web-token/jwt-library",
-            "version": "3.4.6",
+            "version": "3.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
@@ -15166,7 +15166,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/3.4.6"
+                "source": "https://github.com/web-token/jwt-library/tree/3.4.7"
             },
             "funding": [
                 {
@@ -16048,16 +16048,16 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "1ef4dce2baabd464c2dd3109d051bad94efa1e79"
+                "reference": "c08cd8e54a08d651bc402d304cfa161c3c3766c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/1ef4dce2baabd464c2dd3109d051bad94efa1e79",
-                "reference": "1ef4dce2baabd464c2dd3109d051bad94efa1e79",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/c08cd8e54a08d651bc402d304cfa161c3c3766c4",
+                "reference": "c08cd8e54a08d651bc402d304cfa161c3c3766c4",
                 "shasum": ""
             },
             "require": {
@@ -16113,9 +16113,9 @@
             "description": "Symfony Framework extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.0"
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.1"
             },
-            "time": "2024-11-06T10:13:40+00:00"
+            "time": "2025-01-04T13:58:15+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -16604,12 +16604,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "43628df4c324d77a9e4e6e5b7d0479586b5ee2b6"
+                "reference": "0739463889fe714daa685817789aef000c6774cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/43628df4c324d77a9e4e6e5b7d0479586b5ee2b6",
-                "reference": "43628df4c324d77a9e4e6e5b7d0479586b5ee2b6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0739463889fe714daa685817789aef000c6774cc",
+                "reference": "0739463889fe714daa685817789aef000c6774cc",
                 "shasum": ""
             },
             "conflict": {
@@ -17080,7 +17080,7 @@
                 "phpmyfaq/phpmyfaq": "<3.2.5|==3.2.5|>=3.2.10,<=4.0.1",
                 "phpoffice/common": "<0.2.9",
                 "phpoffice/phpexcel": "<1.8.1",
-                "phpoffice/phpspreadsheet": "<1.29.4|>=2,<2.1.3|>=2.2,<2.3.2|>=3.3,<3.4",
+                "phpoffice/phpspreadsheet": "<=1.29.6|>=2,<=2.1.5|>=2.2,<=2.3.4|>=3,<3.7",
                 "phpseclib/phpseclib": "<2.0.47|>=3,<3.0.36",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.4.3",
@@ -17451,7 +17451,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-02T23:04:41+00:00"
+            "time": "2025-01-03T17:04:48+00:00"
         },
         {
             "name": "sebastian/cli-parser",
