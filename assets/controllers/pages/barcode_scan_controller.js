@@ -33,17 +33,6 @@ export default class extends Controller {
     connect() {
         console.log('Init Scanner');
 
-        //This function ensures, that the qrbox is 70% of the total viewport
-        let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
-            let minEdgePercentage = 0.7; // 70%
-            let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
-            let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
-            return {
-                width: qrboxSize,
-                height: qrboxSize
-            };
-        }
-
         //Try to get the number of cameras. If the number is 0, then the promise will fail, and we show the warning dialog
         Html5Qrcode.getCameras().catch((devices) => {
                 document.getElementById('scanner-warning').classList.remove('d-none');
@@ -51,11 +40,6 @@ export default class extends Controller {
 
         this._scanner = new Html5QrcodeScanner(this.element.id, {
             fps: 10,
-            qrbox: qrboxFunction,
-            experimentalFeatures: {
-                //This option improves reading quality on android chrome
-                useBarCodeDetectorIfSupported: true
-            }
         }, false);
 
         this._scanner.render(this.onScanSuccess.bind(this));
