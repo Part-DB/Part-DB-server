@@ -111,7 +111,7 @@ class LabelController extends AbstractController
         if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile instanceof LabelProfile)) {
 
             //Check if the label should be saved as profile
-            if ($form->get('save_profile')->isClicked() && $this->isGranted('@labels.create_profiles')) {
+            if ($form->get('save_profile')->isClicked() && $this->isGranted('@labels.create_profiles')) { //@phpstan-ignore-line Phpstan does not recognize the isClicked method
                 //Retrieve the profile name from the form
                 $new_name = $form->get('save_profile_name')->getData();
                 //ensure that the name is not empty
