@@ -1874,10 +1874,12 @@
   resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.1.2.tgz#1fd71791a67fdd1591ebe0dcaadd3964537a824e"
   integrity sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==
 
-"@part-db/html5-qrcode@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@part-db/html5-qrcode/-/html5-qrcode-3.0.1.tgz#3eafb7b4cb24eab8a4b815800756814f1d10c8bb"
-  integrity sha512-NAbXfrW7pEyK3+ZkL14+pHHq3vjBPn7WWvd82OG0BHbiZ5P3XHJnx33WBUaoUAt2pRRAFYVwQNw8OyNUSE8aeg==
+"@part-db/html5-qrcode@^3.1.0":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@part-db/html5-qrcode/-/html5-qrcode-3.1.1.tgz#96bf5e57796f3ec72ee6191ac7b8604298c98dfa"
+  integrity sha512-6lH77mvu9ClwIfKHWSOW1+jz+SkCJnbm/8XTuzqlcUWUIW8NRHC5x1wU7svV4gtoirqvBlQvaz1MaopVmfOAqQ==
+  dependencies:
+    barcode-detector "^2.3.1"
 
 "@polka/url@^1.0.0-next.24":
   version "1.0.0-next.28"
@@ -3697,9 +3699,9 @@ fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-uri@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.3.tgz#892a1c91802d5d7860de728f18608a0573142241"
-  integrity sha512-aLrHthzCjH5He4Z2H9YZ+v6Ujb9ocRuW6ZzkJQOrTxleEijANq4v1TsaPaVG1PZcuurEzrLcWRyYBYXD5cEiaw==
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.4.tgz#bf2973f18465da231ef4b1e43a188c3bf580cf98"
+  integrity sha512-G3iTQw1DizJQ5eEqj1CbFCWhq+pzum7qepkxU7rS1FGZDqjYKcrguo9XDRbV7EgPnn8CgaPigTq+NEjyioeYZQ==
 
 fastest-levenshtein@1.0.16, fastest-levenshtein@^1.0.12, fastest-levenshtein@^1.0.16:
   version "1.0.16"

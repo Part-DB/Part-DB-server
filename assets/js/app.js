@@ -51,7 +51,6 @@ import {
     setZXingModuleOverrides,
 } from "barcode-detector/pure";
 import  wasmFile from "../../node_modules/zxing-wasm/dist/reader/zxing_reader.wasm";
-
 setZXingModuleOverrides({
     locateFile: (path, prefix) => {
         if (path.endsWith(".wasm")) {
@@ -60,5 +59,3 @@ setZXingModuleOverrides({
         return prefix + path;
     },
 });
-//Enable polyfill for the barcode detector. The WASM triggering is done when the barcode detector is used
-import "barcode-detector/side-effects";
