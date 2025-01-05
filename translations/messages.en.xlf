@@ -12293,5 +12293,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Decoded information</target>
       </segment>
     </unit>
+    <unit id="nmXQWcS" name="label_generator.edit_profiles">
+      <segment>
+        <source>label_generator.edit_profiles</source>
+        <target>Edit profiles</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

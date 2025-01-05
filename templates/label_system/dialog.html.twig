@@ -59,7 +59,7 @@
                 <label class="col-sm-3 col-form-label">{% trans %}label_generator.selected_profile{% endtrans %}</label>
                 <div class="col-sm-9">
                     <span class="form-control-plaintext">{{ profile.name ?? '-' }}
-                        {% if profile %}
+                        {% if profile and is_granted("edit", profile) %}
                             <a href="{{ entity_url(profile, 'edit') }}" title="{% trans %}label_generator.edit_profile{% endtrans %}"
                             ><i class="fas fa-edit"></i></a>
                         {% endif %}
@@ -91,6 +91,14 @@
                     </div>
                 </div>
             </div>
+
+            {% if is_granted("@labels.read_profiles") %}
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <a class="btn btn-link" href="{{ path('label_profile_new') }}">{% trans %}label_generator.edit_profiles{% endtrans %}</a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
