@@ -2,58 +2,58 @@
 # yarn lockfile v1
 
 
-"@algolia/autocomplete-core@1.17.8":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.17.8.tgz#769e365d0e24233658eeb15a0a8b4572016c0924"
-  integrity sha512-WKQS6+83DYB7bsCN7HUxPGzwR1ZtKy+E8WybnuxnsGzQG/zd4j96R4USqsjz0/tOQVAA4hnlqNn9LtcaOIjCyQ==
+"@algolia/autocomplete-core@1.17.9":
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.17.9.tgz#83374c47dc72482aa45d6b953e89377047f0dcdc"
+  integrity sha512-O7BxrpLDPJWWHv/DLA9DRFWs+iY1uOJZkqUwjS5HSZAGcl0hIVCQ97LTLewiZmZ402JYUrun+8NqFP+hCknlbQ==
   dependencies:
-    "@algolia/autocomplete-plugin-algolia-insights" "1.17.8"
-    "@algolia/autocomplete-shared" "1.17.8"
+    "@algolia/autocomplete-plugin-algolia-insights" "1.17.9"
+    "@algolia/autocomplete-shared" "1.17.9"
 
-"@algolia/autocomplete-js@1.17.8", "@algolia/autocomplete-js@^1.17.0":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.17.8.tgz#2d4a5928d12bd51e16d84388e893431526bd542f"
-  integrity sha512-WQ5xZ5sY16UH6V0+ACpe2NoKPWs9L/m5uQQn8eNiM7jsHShonEhwV3/kB897k1TovfHqhtH0gPXXMN95taZAqA==
+"@algolia/autocomplete-js@1.17.9", "@algolia/autocomplete-js@^1.17.0":
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.17.9.tgz#2f7e5599fdfe7d6c44b82ac5b64662b487615465"
+  integrity sha512-51xmsIfApj8LEceArnLe3UfS8HSgJJa70FUEYpnLryO6+KZL0pDPQHw1uVw6e5yJiKN0KelDmk2Sa2uJ+gVKJw==
   dependencies:
-    "@algolia/autocomplete-core" "1.17.8"
-    "@algolia/autocomplete-preset-algolia" "1.17.8"
-    "@algolia/autocomplete-shared" "1.17.8"
+    "@algolia/autocomplete-core" "1.17.9"
+    "@algolia/autocomplete-preset-algolia" "1.17.9"
+    "@algolia/autocomplete-shared" "1.17.9"
     htm "^3.1.1"
     preact "^10.13.2"
 
-"@algolia/autocomplete-plugin-algolia-insights@1.17.8":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-algolia-insights/-/autocomplete-plugin-algolia-insights-1.17.8.tgz#e16f56e4c023bf3776347b6382b4a19e2c0341a8"
-  integrity sha512-aNbLpDONZejsQKdozt0c6mFvUc8yINpv6WgHyJ9oZm4GFkwtbe0KWTlowyNIO/yRaoGC+Y0BkmSLMnGImy01eQ==
+"@algolia/autocomplete-plugin-algolia-insights@1.17.9":
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-algolia-insights/-/autocomplete-plugin-algolia-insights-1.17.9.tgz#74c86024d09d09e8bfa3dd90b844b77d9f9947b6"
+  integrity sha512-u1fEHkCbWF92DBeB/KHeMacsjsoI0wFhjZtlCq2ddZbAehshbZST6Hs0Avkc0s+4UyBGbMDnSuXHLuvRWK5iDQ==
   dependencies:
-    "@algolia/autocomplete-shared" "1.17.8"
+    "@algolia/autocomplete-shared" "1.17.9"
 
 "@algolia/autocomplete-plugin-recent-searches@^1.17.0":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-recent-searches/-/autocomplete-plugin-recent-searches-1.17.8.tgz#1e7c6459cb909e899d9933a8297ba35106e77f82"
-  integrity sha512-bwH/fus481LyRMFhM1BTaiWDkHgmJ1ojlRxUSIPEVauszZFd0cLtWUf4FEwkoQS3NOUpj9xMJr5zVFmq4AoXHA==
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-recent-searches/-/autocomplete-plugin-recent-searches-1.17.9.tgz#607c9317834d1bc2661f2e036dd7eb4e87e180f6"
+  integrity sha512-UWJoCFKprKwDEuzfXWt34+Yf01qlR5P1pWEfWeYTNnmV27P3prw6sZKy7anE8+yXVkmiDss6oMVNyYyYZ7+ZtQ==
   dependencies:
-    "@algolia/autocomplete-core" "1.17.8"
-    "@algolia/autocomplete-js" "1.17.8"
-    "@algolia/autocomplete-preset-algolia" "1.17.8"
-    "@algolia/autocomplete-shared" "1.17.8"
+    "@algolia/autocomplete-core" "1.17.9"
+    "@algolia/autocomplete-js" "1.17.9"
+    "@algolia/autocomplete-preset-algolia" "1.17.9"
+    "@algolia/autocomplete-shared" "1.17.9"
 
-"@algolia/autocomplete-preset-algolia@1.17.8":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.17.8.tgz#cdcc63993ee69a9e9fb6ed518e8039af33709db1"
-  integrity sha512-EHGmvfV9Y6HzDlTSt/AAdOthVTH8zgr6A4h9ehheDsAjqsyXj9uNvMAd4lq5bOJs+MZCWTcxpK+Btr9Tcihr3g==
+"@algolia/autocomplete-preset-algolia@1.17.9":
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.17.9.tgz#911f3250544eb8ea4096fcfb268f156b085321b5"
+  integrity sha512-Na1OuceSJeg8j7ZWn5ssMu/Ax3amtOwk76u4h5J4eK2Nx2KB5qt0Z4cOapCsxot9VcEN11ADV5aUSlQF4RhGjQ==
   dependencies:
-    "@algolia/autocomplete-shared" "1.17.8"
+    "@algolia/autocomplete-shared" "1.17.9"
 
-"@algolia/autocomplete-shared@1.17.8":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.17.8.tgz#aad70ec1bda2ae75f284c23b52295c2e6ada9493"
-  integrity sha512-2w26RGB9zlyrnPpT/TpB0pbtukmUVYrKVt9ydlHnpPU7FgoiblUBpzzQTVzqMqYASGGjURaKLu7FakmaTIkClg==
+"@algolia/autocomplete-shared@1.17.9":
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.17.9.tgz#5f38868f7cb1d54b014b17a10fc4f7e79d427fa8"
+  integrity sha512-iDf05JDQ7I0b7JEA/9IektxN/80a2MZ1ToohfmNS3rfeuQnIKI3IJlIafD0xu4StbtQTghx9T3Maa97ytkXenQ==
 
 "@algolia/autocomplete-theme-classic@^1.17.0":
-  version "1.17.8"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.17.8.tgz#cd635a6240da44dcd3aec72b0e5bea0382248710"
-  integrity sha512-70IJMktChk6mFTqegBYZk5MR0vquX+JEUG7rc4Jo75LTbe3BN4Lh6nUwaBXoLpx4v1zMID1vOsJ0Zv1M/3q3Jw==
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.17.9.tgz#df73d5f6a3c4674d46df9add3bb751bfb1bcf144"
+  integrity sha512-nCv0uv5J5r9riF1rJLfUY3AAJ11IbFifNocYINWG4cyOctHGoiK5ZDyYdQOLA98TCVR7hUywIYpvVCJBZnjGaw==
 
 "@ampproject/remapping@^2.2.0":
   version "2.3.0"
@@ -3135,11 +3135,11 @@ data-view-byte-offset@^1.0.1:
     is-data-view "^1.0.1"
 
 datatables.net-bs5@^2, datatables.net-bs5@^2.0.0:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.1.8.tgz#860717c4ee85ecb84812ba9a73fb1204aa2a68b6"
-  integrity sha512-YlGws8eI3iw/1AmKJH18+YMzm/UgGb6o9s14KAC24QT1/8anolm8GnVAgGcwUcvHm3hn1i8A5QXqgbqeMRINeg==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.2.0.tgz#ba80819825b96827d6361f8385b092c2a657a8af"
+  integrity sha512-klqdrghM0BkBWulaWiGdKwdZyPHK+8coBGjhSQAZe/eQBnr7OLC8wl7NqPfQuVXv4J74HgO6K1gIYHKHbHjrtA==
   dependencies:
-    datatables.net "2.1.8"
+    datatables.net "2.2.0"
     jquery ">=1.7"
 
 datatables.net-buttons-bs5@^3.0.0:
@@ -3227,10 +3227,10 @@ datatables.net-select@2.1.0:
     datatables.net "^2"
     jquery ">=1.7"
 
-datatables.net@2.1.8, datatables.net@^2, datatables.net@^2.0.0:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.1.8.tgz#9b020f18e927cc924d72411f62dc595cc688669b"
-  integrity sha512-47ULt+U4bcjbuGTpTlT6SnCuSFVRBxxdWa6X3NfvTObBJ2BZU0o+JUIl05wQ6cABNIavjbAV51gpgvFsMHL9zA==
+datatables.net@2.2.0, datatables.net@^2, datatables.net@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.2.0.tgz#d7e92ede9a3bf23ac4c360e475fbe6313f16fd56"
+  integrity sha512-q/G5ylL+AhMLFFHNYQAgvooCZtmbudc7wwzKkCZI4B1HnYec4SqnWtcTFjC7P6EtL1UGyx16FcjQ0U84S86mLg==
   dependencies:
     jquery ">=1.7"
 
@@ -3390,9 +3390,9 @@ domutils@^2.5.2, domutils@^2.8.0:
     domhandler "^4.2.0"
 
 domutils@^3.0.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/domutils/-/domutils-3.2.1.tgz#b39f4c390a1ae6f6a2c56a5f5a16d6438b6bce28"
-  integrity sha512-xWXmuRnN9OMP6ptPd2+H0cCbcYBULa5YDTbMm/2lvkWvNA3O4wcW+GvzooqBuNM8yy6pl3VIAeJTUUWUbfI5Fw==
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-3.2.2.tgz#edbfe2b668b0c1d97c24baf0f1062b132221bc78"
+  integrity sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==
   dependencies:
     dom-serializer "^2.0.0"
     domelementtype "^2.3.0"
@@ -3413,9 +3413,9 @@ duplexer@^0.1.2:
   integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
 
 electron-to-chromium@^1.5.73:
-  version "1.5.76"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.76.tgz#db20295c5061b68f07c8ea4dfcbd701485d94a3d"
-  integrity sha512-CjVQyG7n7Sr+eBXE86HIulnL5N8xZY1sgmOPGuq/F0Rr0FJq63lg0kEtOIDfZBk44FnDLf6FUJ+dsJcuiUDdDQ==
+  version "1.5.78"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.78.tgz#223cdc76a5d15ac731136e68430e92cb8d612d13"
+  integrity sha512-UmwIt7HRKN1rsJfddG5UG7rCTCTAKoS9JeOy/R0zSenAyaZ8SU3RuXlwcratxhdxGRNpk03iq8O7BA3W7ibLVw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3699,9 +3699,9 @@ fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-uri@^3.0.1:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.4.tgz#bf2973f18465da231ef4b1e43a188c3bf580cf98"
-  integrity sha512-G3iTQw1DizJQ5eEqj1CbFCWhq+pzum7qepkxU7rS1FGZDqjYKcrguo9XDRbV7EgPnn8CgaPigTq+NEjyioeYZQ==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.0.5.tgz#19f5f9691d0dab9b85861a7bb5d98fca961da9cd"
+  integrity sha512-5JnBCWpFlMo0a3ciDy/JckMzzv1U9coZrIhedq+HXxxUfDTAiS0LA8OKVao4G9BxmCVck/jtA5r3KAtRWEyD8Q==
 
 fastest-levenshtein@1.0.16, fastest-levenshtein@^1.0.12, fastest-levenshtein@^1.0.16:
   version "1.0.16"
@@ -4677,9 +4677,9 @@ marked@4.0.12:
   integrity sha512-hgibXWrEDNBWgGiK18j/4lkS6ihTe9sxtV4Q1OQppb/0zzyPSzoFANBa5MfsG/zgsWklmNnhm0XACZOH/0HBiQ==
 
 marked@^15.0.4:
-  version "15.0.5"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.5.tgz#1b5c58a2fb56afe57379f8cc721ab60e0450a5b5"
-  integrity sha512-xN+kSuqHjxWg+Q47yhhZMUP+kO1qHobvXkkm6FX+7N6lDvanLDd8H7AQ0jWDDyq+fDt/cSrJaBGyWYHXy0KQWA==
+  version "15.0.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.6.tgz#8165f16afb6f4b30a35bdcee657c3b8415820a8f"
+  integrity sha512-Y07CUOE+HQXbVDCGl3LXggqJDbXDP2pArc2C1N1RRMN0ONiShoSsIInMd5Gsxupe7fKLpgimTV+HOJ9r7bA+pg==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
@@ -5167,11 +5167,11 @@ possible-typed-array-names@^1.0.0:
   integrity sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==
 
 postcss-calc@^10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-10.0.2.tgz#15f01635a27b9d38913a98c4ef2877f5b715b439"
-  integrity sha512-DT/Wwm6fCKgpYVI7ZEWuPJ4az8hiEHtCUeYjZXqU7Ou4QqYh1Df2yCQ7Ca6N7xqKPFkxN3fhf+u9KSoOCJNAjg==
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-10.1.0.tgz#82548b9d52891b87cf6181a445bea4b78e2eedfb"
+  integrity sha512-uQ/LDGsf3mgsSUEXmAt3VsCSHR3aKqtEIkmB+4PhzYwRYOW5MZs/GhCCFpsOtJJkP6EC6uGipbrnaTjqaJZcJw==
   dependencies:
-    postcss-selector-parser "^6.1.2"
+    postcss-selector-parser "^7.0.0"
     postcss-value-parser "^4.2.0"
 
 postcss-calc@^9.0.1:
