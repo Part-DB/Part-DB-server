@@ -199,6 +199,6 @@ module.exports = Encore.getWebpackConfig();
 module.exports.experiments = module.exports.experiments || {};
 module.exports.experiments.asyncWebAssembly = true;
 
-//Enable webpack auto public path (this only works in combination with WebpackAutoPathSubscriber!!)
+//Enable webpack auto public path
 //We do it here to supress a warning caused by webpack Encore
 module.exports.output.publicPath = 'auto';
