@@ -36,8 +36,8 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
-    // This value doesn't matter, as the public path is set to auto later down. This is just to prevent a warning
-    .setPublicPath('/build')
+    // Do not use a / prefix, here as that would break asset loading when serving Part-DB under a prefix!
+    .setPublicPath('build')
     // only needed for CDN's or subdirectory deploy (this should not be needeed, as we use auto public path)
     //.setManifestKeyPrefix('build/')
 
