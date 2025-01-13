@@ -24,18 +24,16 @@
             <td class="align-middle">{{ attachment.name }}</td>
             <td class="align-middle">{{ attachment.attachmentType.fullPath }}</td>
             <td class="align-middle">
-                {% if attachment.external %}
-                    <a href="{{ attachment.uRL }}" rel="noopener" target="_blank" class="link-external">{{ attachment.host }}</a>
-                {% else %}
+                {% if attachment.hasInternal() %}
                     {{ attachment.filename }}
                 {% endif %}
             </td>
             <td class="align-middle h6">
-                {% if attachment.external %}
+                {% if not attachment.hasInternal() %}
                     <span class="badge bg-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
-                {% elseif attachment_manager.fileExisting(attachment) %}
+                {% elseif attachment_manager.internalFileExisting(attachment) %}
                     <span class="badge bg-secondary">
                         <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attachment) }}
                     </span>
@@ -58,13 +56,18 @@
             </td>
 
             <td><div class="btn-group" role="group" aria-label="">
-                    <a {% if attachment_manager.fileExisting(attachment) %}href="{{ entity_url(attachment, 'file_view') }}"{% endif %} target="_blank"
-                       class="btn btn-secondary {% if not attachment_manager.fileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment))  %}disabled{% endif %}"
+                    <a {% if attachment.hasExternal() %}href="{{ attachment.externalPath }}"{% endif %} target="_blank"
+                       class="btn btn-secondary {% if not attachment.hasExternal()  %}disabled{% endif %}"
+                       data-turbo="false" title="View at {{ attachment.host }}" rel="noopener"> {# TODO: translate #}
+                        <i class="fas fa-globe fa-fw"></i>
+                    </a>
+                    <a {% if attachment_manager.isInternalFileExisting(attachment) %}href="{{ entity_url(attachment, 'file_view') }}"{% endif %} target="_blank"
+                       class="btn btn-secondary {% if not attachment_manager.isInternalFileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment))  %}disabled{% endif %}"
                        data-turbo="false" title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
                         <i class="fas fa-eye fa-fw"></i>
                     </a>
-                    <a {% if attachment_manager.fileExisting(attachment)  %}href="{{ entity_url(attachment, 'file_download') }}"{% endif %} data-turbo="false"
-                       class="btn btn-secondary {% if not attachment_manager.fileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment)) %}disabled{% endif %}"
+                    <a {% if attachment_manager.isInternalFileExisting(attachment)  %}href="{{ entity_url(attachment, 'file_download') }}"{% endif %} data-turbo="false"
+                       class="btn btn-secondary {% if not attachment_manager.isInternalFileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment)) %}disabled{% endif %}"
                        title="{% trans %}attachment.download{% endtrans %}">
                         <i class="fas fa-download fa-fw"></i>
                     </a>
