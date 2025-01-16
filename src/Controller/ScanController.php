@@ -42,10 +42,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\LabelSystem\Barcodes\BarcodeScanHelper;
-use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
-use App\Services\LabelSystem\Barcodes\BarcodeScanResult;
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,13 +77,21 @@ class ScanController extends AbstractController
             $mode = $form['mode']->getData();
         }
 
+        $infoModeData = null;
+
         if ($input !== null) {
             try {
                 $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
-                try {
-                    return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
-                } catch (EntityNotFoundException) {
-                    $this->addFlash('success', 'scan.qr_not_found');
+                //Perform a redirect if the info mode is not enabled
+                if (!$form['info_mode']->getData()) {
+                    try {
+                        return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
+                    } catch (EntityNotFoundException) {
+                        $this->addFlash('success', 'scan.qr_not_found');
+                    }
+                } else { //Otherwise retrieve infoModeData
+                    $infoModeData = $scan_result->getDecodedForInfoMode();
+
                 }
             } catch (InvalidArgumentException) {
                 $this->addFlash('error', 'scan.format_unknown');
@@ -92,6 +100,7 @@ class ScanController extends AbstractController
 
         return $this->render('label_system/scanner/scanner.html.twig', [
             'form' => $form,
+            'infoModeData' => $infoModeData,
         ]);
     }
 
@@ -109,7 +118,7 @@ class ScanController extends AbstractController
                 throw new InvalidArgumentException('Unknown type: '.$type);
             }
             //Construct the scan result manually, as we don't have a barcode here
-            $scan_result = new BarcodeScanResult(
+            $scan_result = new LocalBarcodeScanResult(
                 target_type: BarcodeScanHelper::QR_TYPE_MAP[$type],
                 target_id: $id,
                 //The routes are only used on the internal generated QR codes

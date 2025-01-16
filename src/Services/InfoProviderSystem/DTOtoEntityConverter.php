@@ -37,6 +37,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Repository\Parts\CategoryRepository;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -158,7 +159,10 @@ final class DTOtoEntityConverter
         $entity->setMass($dto->mass);
 
         //Try to map the category to an existing entity (but never create a new one)
-        $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
+        if ($dto->category) {
+            //@phpstan-ignore-next-line For some reason php does not recognize the repo returns a category
+            $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
+        }
 
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
         $entity->setFootprint($this->getOrCreateEntity(Footprint::class, $dto->footprint));

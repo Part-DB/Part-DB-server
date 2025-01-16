@@ -68,7 +68,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(columns: ['needs_refill'], name: 'part_lots_idx_needs_refill')]
 #[ORM\Index(columns: ['vendor_barcode'], name: 'part_lots_idx_barcode')]
 #[ValidPartLot]
-#[UniqueEntity(['vendor_barcode'], message: 'validator.part_lot.vendor_barcode_must_be_unique')]
+#[UniqueEntity(['user_barcode'], message: 'validator.part_lot.vendor_barcode_must_be_unique')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -166,10 +166,10 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var string|null The content of the barcode of this part lot (e.g. a barcode on the package put by the vendor)
      */
-    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: "vendor_barcode", type: Types::STRING, nullable: true)]
     #[Groups(['part_lot:read', 'part_lot:write'])]
     #[Length(max: 255)]
-    protected ?string $vendor_barcode = null;
+    protected ?string $user_barcode = null;
 
     public function __clone()
     {
@@ -375,19 +375,19 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * null if no barcode is set.
      * @return string|null
      */
-    public function getVendorBarcode(): ?string
+    public function getUserBarcode(): ?string
     {
-        return $this->vendor_barcode;
+        return $this->user_barcode;
     }
 
     /**
      * Set the content of the barcode of this part lot (e.g. a barcode on the package put by the vendor).
-     * @param  string|null  $vendor_barcode
+     * @param  string|null  $user_barcode
      * @return $this
      */
-    public function setVendorBarcode(?string $vendor_barcode): PartLot
+    public function setUserBarcode(?string $user_barcode): PartLot
     {
-        $this->vendor_barcode = $vendor_barcode;
+        $this->user_barcode = $user_barcode;
         return $this;
     }
 
