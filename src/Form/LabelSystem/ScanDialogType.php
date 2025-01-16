@@ -41,8 +41,9 @@ declare(strict_types=1);
 
 namespace App\Form\LabelSystem;
 
-use App\Services\LabelSystem\Barcodes\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,6 +56,8 @@ class ScanDialogType extends AbstractType
     {
         $builder->add('input', TextType::class, [
             'label' => 'scan_dialog.input',
+            //Do not trim the input, otherwise this damages Format06 barcodes which end with non-printable characters
+            'trim' => false,
             'attr' => [
                 'autofocus' => true,
                 'id' => 'scan_dialog_input',
@@ -71,9 +74,14 @@ class ScanDialogType extends AbstractType
                 null => 'scan_dialog.mode.auto',
                 BarcodeSourceType::INTERNAL => 'scan_dialog.mode.internal',
                 BarcodeSourceType::IPN => 'scan_dialog.mode.ipn',
-                BarcodeSourceType::VENDOR => 'scan_dialog.mode.vendor',
+                BarcodeSourceType::USER_DEFINED => 'scan_dialog.mode.user',
+                BarcodeSourceType::EIGP114 => 'scan_dialog.mode.eigp'
             },
+        ]);
 
+        $builder->add('info_mode', CheckboxType::class, [
+            'label' => 'scan_dialog.info_mode',
+            'required' => false,
         ]);
 
         $builder->add('submit', SubmitType::class, [

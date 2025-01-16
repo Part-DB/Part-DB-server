@@ -21,20 +21,29 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem\BarcodeScanner;
+
+use App\Entity\LabelSystem\LabelSupportedElement;
 
 /**
- * This enum represents the different types, where a barcode/QR-code can be generated from
+ * This class represents the result of a barcode scan of a barcode that uniquely identifies a local entity,
+ * like an internally generated barcode or a barcode that was added manually to the system by a user
  */
-enum BarcodeSourceType
+class LocalBarcodeScanResult implements BarcodeScanResultInterface
 {
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
-    /**
-     * This barcode is a custom barcode from a third party like a vendor, which was set via the vendor_barcode
-     * field of a part lot.
-     */
-    case VENDOR;
+    public function __construct(
+        public readonly LabelSupportedElement $target_type,
+        public readonly int $target_id,
+        public readonly BarcodeSourceType $source_type,
+    ) {
+    }
+
+    public function getDecodedForInfoMode(): array
+    {
+        return [
+            'Barcode type' => $this->source_type->name,
+            'Target type' => $this->target_type->name,
+            'Target ID' => $this->target_id,
+        ];
+    }
 }

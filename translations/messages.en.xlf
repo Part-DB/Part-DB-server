@@ -12263,5 +12263,65 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Category could not be automatically determined by the info provider. Review the data and select the category manually.</target>
       </segment>
     </unit>
+    <unit id="v6oyTac" name="part_lot.edit.user_barcode">
+      <segment>
+        <source>part_lot.edit.user_barcode</source>
+        <target>User barcode</target>
+      </segment>
+    </unit>
+    <unit id="dXhegcm" name="scan_dialog.mode.user">
+      <segment>
+        <source>scan_dialog.mode.user</source>
+        <target>User defined barcode (configured at part lot)</target>
+      </segment>
+    </unit>
+    <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
+      <segment>
+        <source>scan_dialog.mode.eigp</source>
+        <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
+      </segment>
+    </unit>
+    <unit id="QSMS_Bd" name="scan_dialog.info_mode">
+      <segment>
+        <source>scan_dialog.info_mode</source>
+        <target>Info mode (Decode barcode and show its contents, but do not redirect to part)</target>
+      </segment>
+    </unit>
+    <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
+      <segment>
+        <source>label_scanner.decoded_info.title</source>
+        <target>Decoded information</target>
+      </segment>
+    </unit>
+    <unit id="nmXQWcS" name="label_generator.edit_profiles">
+      <segment>
+        <source>label_generator.edit_profiles</source>
+        <target>Edit profiles</target>
+      </segment>
+    </unit>
+    <unit id="JzfeFN6" name="label_generator.profile_name_empty">
+      <segment>
+        <source>label_generator.profile_name_empty</source>
+        <target>Profile name must not be empty!</target>
+      </segment>
+    </unit>
+    <unit id="0TP6The" name="label_generator.save_profile_name">
+      <segment>
+        <source>label_generator.save_profile_name</source>
+        <target>Profile name</target>
+      </segment>
+    </unit>
+    <unit id="OhUW6es" name="label_generator.save_profile">
+      <segment>
+        <source>label_generator.save_profile</source>
+        <target>Save as new profile</target>
+      </segment>
+    </unit>
+    <unit id="sqc4h7S" name="label_generator.profile_saved">
+      <segment>
+        <source>label_generator.profile_saved</source>
+        <target>Profile saved!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
