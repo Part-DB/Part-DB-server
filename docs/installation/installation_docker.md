@@ -158,7 +158,7 @@ services:
     container_name: partdb_database
     image: mysql:8.0
     restart: unless-stopped
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password --log-bin-trust-function-creators=1
     environment:
       # Change this Password
       MYSQL_ROOT_PASSWORD: SECRET_ROOT_PASSWORD

@@ -203,7 +203,7 @@ class MouserProvider implements InfoProviderInterface
         if (isset($arr['SearchResults'])) {
             $products = $arr['SearchResults']['Parts'] ?? [];
         } else {
-            throw new \RuntimeException('Unknown response format');
+            throw new \RuntimeException('Unknown response format: ' .json_encode($arr, JSON_THROW_ON_ERROR));
         }
 
         $result = [];

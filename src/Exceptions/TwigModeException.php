@@ -46,8 +46,23 @@ use Twig\Error\Error;
 
 class TwigModeException extends RuntimeException
 {
+    private const PROJECT_PATH = __DIR__ . '/../../';
+
     public function __construct(?Error $previous = null)
     {
         parent::__construct($previous->getMessage(), 0, $previous);
+    }
+
+    /**
+     * Returns the message of this exception, where it is tried to remove any sensitive information (like filepaths).
+     * @return string
+     */
+    public function getSafeMessage(): string
+    {
+        //Resolve project root path
+        $projectPath = realpath(self::PROJECT_PATH);
+
+        //Remove occurrences of the project path from the message
+        return str_replace($projectPath, '[Part-DB Root Folder]', $this->getMessage());
     }
 }

@@ -18,34 +18,32 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+namespace App\Tests\Exceptions;
 
+use App\Exceptions\TwigModeException;
+use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Twig\Error\Error;
 
-namespace App\Form\Fixes;
-
-use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\FormBuilderInterface;
-
-class FixNumberType extends AbstractTypeExtension
+class TwigModeExceptionTest extends KernelTestCase
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        //Remove existing view transformers
-        $builder->resetViewTransformers();
+    private string $projectPath;
 
-        //And add our fixed version
-        $builder->addViewTransformer(new FixedNumberToLocalizedStringTransformer(
-            $options['scale'],
-            $options['grouping'],
-            $options['rounding_mode'],
-            $options['html5'] ? 'en' : null
-        ));
+    public function setUp(): void
+    {
+        self::bootKernel();
+
+        $this->projectPath = self::getContainer()->getParameter('kernel.project_dir');
     }
 
-    public static function getExtendedTypes(): iterable
+    public function testGetSafeMessage(): void
     {
-        return [NumberType::class];
+        $testException = new Error("Error at : " . $this->projectPath . "/src/dir/path/file.php");
+
+        $twigModeException = new TwigModeException($testException);
+
+        $this->assertSame("Error at : " . $this->projectPath . "/src/dir/path/file.php", $testException->getMessage());
+        $this->assertSame("Error at : [Part-DB Root Folder]/src/dir/path/file.php", $twigModeException->getSafeMessage());
     }
 }

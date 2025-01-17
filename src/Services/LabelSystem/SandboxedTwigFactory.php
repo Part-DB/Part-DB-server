@@ -71,6 +71,7 @@ use App\Twig\TwigCoreExtension;
 use InvalidArgumentException;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
+use Twig\Extra\Html\HtmlExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\String\StringExtension;
@@ -183,6 +184,7 @@ final class SandboxedTwigFactory
         $twig->addExtension(new IntlExtension());
         $twig->addExtension(new MarkdownExtension());
         $twig->addExtension(new StringExtension());
+        $twig->addExtension(new HtmlExtension());
 
         //Add Part-DB specific extension
         $twig->addExtension($this->formatExtension);

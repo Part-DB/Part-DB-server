@@ -98,16 +98,19 @@ class LCSCProvider implements InfoProviderInterface
     private function getRealDatasheetUrl(?string $url): string
     {
         if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+          if (preg_match("/^https:\/\/datasheet\.lcsc\.com\/lcsc\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
+            $url = 'https://www.lcsc.com/datasheet/lcsc_datasheet_' . $rewriteMatches[1];
+          }
           $response = $this->lcscClient->request('GET', $url, [
               'headers' => [
                   'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
               ],
           ]);
-          if (preg_match('/(pdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+          if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
             //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
             //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
             $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
-            $url = $jsonObj->pdfUrl;
+            $url = $jsonObj->previewPdfUrl;
           }
         }
         return $url;

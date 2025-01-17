@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="security.en">
-    <unit id="aazoCks" name="user.login_error.user_disabled">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
         <target>Il tuo account è disabilitato! Contatta un amministratore se ritieni che non sia corretto.</target>
       </segment>
     </unit>
-    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
         <target>Non è possibile accedere come utente locale tramite SSO! Usare invece la password locale.</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>Non si può usare l'autenticazione locale per effettuare l'accesso come utente SAML! Usare l'accesso SSO.</target>
       </segment>
     </unit>
   </file>

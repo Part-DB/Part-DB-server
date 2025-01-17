@@ -36,6 +36,9 @@ class FilenameSanatizer
      */
     public static function sanitizeFilename(string $filename): string
     {
+        //Convert to ASCII
+        $filename = iconv('UTF-8', 'ASCII//TRANSLIT', $filename);
+
         $filename = preg_replace(
             '~
         [<>:"/\\\|?*]|            # file system reserved https://en.wikipedia.org/wiki/Filename#Reserved_characters_and_words

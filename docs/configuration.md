@@ -32,11 +32,16 @@ options listed, see `.env` file for the full list of possible env variables.
 
 ### General options
 
-* `DATABASE_URL`: Configures the database which Part-DB uses. For mysql use a string in the form
-  of `mysql://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<TABLE_NAME>` here
-  (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`). For SQLite use the following format to specify the
+* `DATABASE_URL`: Configures the database which Part-DB uses:
+   * For MySQL (or MariaDB) use a string in the form of `mysql://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<TABLE_NAME>` here
+  (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`).
+   * For SQLite use the following format to specify the
   absolute path where it should be located `sqlite:///path/part/app.db`. You can use `%kernel.project_dir%` as
   placeholder for the Part-DB root folder (e.g. `sqlite:///%kernel.project_dir%/var/app.db`)
+   * For Postgresql use a string in the form of `DATABASE_URL=postgresql://user:password@127.0.0.1:5432/part-db?serverVersion=x.y`.
+
+     Please note that **`serverVersion=x.y`** variable is required due to dependency of Symfony framework.
+
 * `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
  is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
 bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
@@ -86,6 +91,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
 * `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
   versions, or if your server can not connect to the internet.
+* `APP_SECRET`: This variable is a configuration parameter used for various security-related purposes,
+  particularly for securing and protecting various aspects of your application. It's a secret key that is used for
+  cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
+  value should be handled as confidential data and not shared publicly.
 
 ### E-Mail settings
 

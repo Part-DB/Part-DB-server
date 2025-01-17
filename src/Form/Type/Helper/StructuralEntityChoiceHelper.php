@@ -43,7 +43,7 @@ class StructuralEntityChoiceHelper
 
     /**
      * Generates the choice attributes for the given AbstractStructuralDBElement.
-     * @return array|string[]
+     * @return array<string, mixed>
      */
     public function generateChoiceAttr(AbstractNamedDBElement $choice, Options|array $options): array
     {

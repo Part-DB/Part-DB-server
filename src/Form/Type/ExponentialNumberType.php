@@ -27,6 +27,7 @@ use App\Form\Type\Helper\ExponentialNumberTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Similar to the NumberType, but formats small values in scienfitic notation instead of rounding it to 0, like NumberType
@@ -38,7 +39,15 @@ class ExponentialNumberType extends AbstractType
         return NumberType::class;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            //We want to allow the full precision of the number, so disable rounding
+            'scale' => null,
+        ]);
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->resetViewTransformers();
 

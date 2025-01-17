@@ -23,4 +23,22 @@
 
     {{ form_end(form) }}
 
+
+    {% if infoModeData %}
+        <hr>
+        <h4>{% trans %}label_scanner.decoded_info.title{% endtrans %}</h4>
+
+        <table class="table table-striped table-hover table-bordered table-sm">
+            <tbody>
+            {% for key, value in infoModeData %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td><code>{{ value }}</code></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
 {% endblock %}

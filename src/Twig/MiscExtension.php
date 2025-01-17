@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Services\LogSystem\EventCommentType;
 use Jbtronics\SettingsBundle\Proxy\SettingsProxyInterface;
 use ReflectionClass;
@@ -41,6 +42,7 @@ final class MiscExtension extends AbstractExtension
             new TwigFunction('event_comment_needed', $this->evenCommentNeeded(...)),
 
             new TwigFunction('settings_icon', $this->settingsIcon(...)),
+            new TwigFunction('uri_without_host', $this->uri_without_host(...))
         ];
     }
 
@@ -72,5 +74,19 @@ final class MiscExtension extends AbstractExtension
         $attribute = $reflection->getAttributes(\App\Settings\SettingsIcon::class)[0] ?? null;
 
         return $attribute?->newInstance()->icon;
+    }
+
+    /**
+     * Similar to the getUri function of the request, but does not contain protocol and host.
+     * @param  Request  $request
+     * @return string
+     */
+    public function uri_without_host(Request $request): string
+    {
+        if (null !== $qs = $request->getQueryString()) {
+            $qs = '?'.$qs;
+        }
+
+        return $request->getBaseUrl().$request->getPathInfo().$qs;
     }
 }

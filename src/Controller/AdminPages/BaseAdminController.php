@@ -35,6 +35,7 @@ use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Exceptions\AttachmentDownloadException;
+use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Repository\AbstractPartsContainingRepository;
@@ -53,6 +54,7 @@ use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -211,10 +213,14 @@ abstract class BaseAdminController extends AbstractController
         //Show preview for LabelProfile if needed.
         if ($entity instanceof LabelProfile) {
             $example = $this->barcodeExampleGenerator->getElement($entity->getOptions()->getSupportedElement());
-            $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+            $pdf_data = null;
+            try {
+                $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+            } catch (TwigModeException $exception) {
+                $form->get('options')->get('lines')->addError(new FormError($exception->getSafeMessage()));
+            }
         }
 
-        /** @var AbstractPartsContainingRepository $repo */
         $repo = $this->entityManager->getRepository($this->entity_class);
 
         return $this->render($this->twig_template, [
@@ -390,7 +396,7 @@ abstract class BaseAdminController extends AbstractController
     {
         if ($entity instanceof AbstractPartsContainingDBElement) {
             /** @var AbstractPartsContainingRepository $repo */
-            $repo = $this->entityManager->getRepository($this->entity_class);
+            $repo = $this->entityManager->getRepository($this->entity_class); //@phpstan-ignore-line
             if ($repo->getPartsCount($entity) > 0) {
                 $this->addFlash('error', t('entity.delete.must_not_contain_parts', ['%PATH%' => $entity->getFullPath()]));
 

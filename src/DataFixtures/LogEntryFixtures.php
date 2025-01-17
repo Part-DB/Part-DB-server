@@ -35,7 +35,7 @@ use Doctrine\Persistence\ObjectManager;
 class LogEntryFixtures extends Fixture implements DependentFixtureInterface
 {
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->createCategoryEntries($manager);
         $this->createDeletedCategory($manager);

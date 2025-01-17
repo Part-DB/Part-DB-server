@@ -53,8 +53,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @see \App\Tests\Entity\Base\AbstractStructuralDBElementTest
  *
- * @template-covariant AT of Attachment
- * @template-covariant PT of AbstractParameter
+ * @template AT of Attachment
+ * @template PT of AbstractParameter
  * @template-use ParametersTrait<PT>
  * @extends AttachmentContainingDBElement<AT>
  * @uses ParametersTrait<PT>

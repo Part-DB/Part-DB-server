@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Form\Type\Helper;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,6 +34,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @template T of AbstractStructuralDBElement
+ */
 class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
     private ?string $additional_element = null;
@@ -90,9 +94,13 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
             }
         }
 
+
+        /** @var class-string<T> $class */
         $class = $this->options['class'];
-        /** @var StructuralDBElementRepository $repo */
+
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->entityManager->getRepository($class);
+
 
         $entities = $repo->getNewEntityFromPath($value, '->');
 

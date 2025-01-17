@@ -4,6 +4,10 @@
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
+if (!is_dir(dirname(__DIR__).'/vendor')) {
+    throw new LogicException('Dependencies are missing. Try running "composer install".');
+}
+
 //Increase xdebug.max_nesting_level to 1000 if required (see issue #411)
 //Check if xdebug extension is active, and xdebug.max_nesting_level is set to 256 or lower
 if (extension_loaded('xdebug') && ((int) ini_get('xdebug.max_nesting_level')) <= 256) {

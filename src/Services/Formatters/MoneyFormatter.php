@@ -47,7 +47,7 @@ class MoneyFormatter
     public function format(string|float $value, ?Currency $currency = null, int $decimals = 5, bool $show_all_digits = false): string
     {
         $iso_code = $this->localizationSettings->baseCurrency;
-        if ($currency instanceof Currency && ($currency->getIsoCode() !== null && $currency->getIsoCode() !== '')) {
+        if ($currency instanceof Currency && ($currency->getIsoCode() !== '')) {
             $iso_code = $currency->getIsoCode();
         }
 

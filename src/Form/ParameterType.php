@@ -102,7 +102,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.max.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
         $builder->add('value_min', ExponentialNumberType::class, [
@@ -113,7 +113,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.min.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
         $builder->add('value_typical', ExponentialNumberType::class, [
@@ -124,7 +124,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.typical.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 12ch;',
+                'style' => 'max-width: 25ch;',
             ],
         ]);
         $builder->add('unit', TextType::class, [
