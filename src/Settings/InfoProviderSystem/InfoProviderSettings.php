@@ -43,4 +43,7 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?LCSCSettings $lcsc = null;
+
+    #[EmbeddedSettings]
+    public ?OEMSecretsSettings $oemsecrets = null;
 }
