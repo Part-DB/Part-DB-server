@@ -79,7 +79,7 @@ class CheckRequirementsCommand extends Command
         //Checking 32-bit system
         if (PHP_INT_SIZE === 4) {
             $io->warning('You are using a 32-bit system. You will have problems with working with dates after the year 2038, therefore a 64-bit system is recommended.');
-        } elseif (PHP_INT_SIZE === 8) {
+        } elseif (PHP_INT_SIZE === 8) { //@phpstan-ignore-line //PHP_INT_SIZE is always 4 or 8
             if (!$only_issues) {
                 $io->success('You are using a 64-bit system.');
             }

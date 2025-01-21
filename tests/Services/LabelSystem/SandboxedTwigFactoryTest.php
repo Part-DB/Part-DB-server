@@ -80,10 +80,10 @@ class SandboxedTwigFactoryTest extends WebTestCase
             '];
         yield ['
                 {{ location.isRoot}} {{ location.isChildOf(location) }} {{ location.comment }} {{ location.level }}
-                {{ location.fullPath }} {% set arr =  location.pathArray %} {% set child = location.children %} {{location.childrenNotSelectable}}
+                {{ location.fullPath }} {% set arr =  location.pathArray %} {% set child = location.children %} {{location.notSelectable}}
             '];
         yield ['
-                {{ part.reviewNeeded }} {{ part.tags }} {{ part.mass }}
+                {{ part.needsReview }} {{ part.tags }} {{ part.mass }}
             '];
         yield ['
                 {{ entity_type(part) is object }}

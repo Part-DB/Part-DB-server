@@ -80,7 +80,10 @@ class PartNormalizerTest extends WebTestCase
         $this->assertFalse($this->service->supportsDenormalization(new \stdClass(), Part::class));
         $this->assertFalse($this->service->supportsDenormalization('string', Part::class));
         $this->assertFalse($this->service->supportsDenormalization(['a' => 'b'], \stdClass::class));
-        $this->assertTrue($this->service->supportsDenormalization(['a' => 'b'], Part::class));
+
+        //Only support denormalization, if CSV import
+        $this->assertFalse($this->service->supportsDenormalization(['a' => 'b'], Part::class));
+        $this->assertTrue($this->service->supportsDenormalization(['a' => 'b'], Part::class, null, ['partdb_import' => true]));
     }
 
     public function testDenormalize(): void

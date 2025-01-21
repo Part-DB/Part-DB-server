@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use Symfony\Component\HttpFoundation\Request;
 use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
@@ -38,6 +39,22 @@ final class MiscExtension extends AbstractExtension
             new TwigFunction('event_comment_needed',
                 fn(string $operation_type) => $this->eventCommentNeededHelper->isCommentNeeded($operation_type)
             ),
+
+            new TwigFunction('uri_without_host', $this->uri_without_host(...))
         ];
+    }
+
+    /**
+     * Similar to the getUri function of the request, but does not contain protocol and host.
+     * @param  Request  $request
+     * @return string
+     */
+    public function uri_without_host(Request $request): string
+    {
+        if (null !== $qs = $request->getQueryString()) {
+            $qs = '?'.$qs;
+        }
+
+        return $request->getBaseUrl().$request->getPathInfo().$qs;
     }
 }

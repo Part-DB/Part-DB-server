@@ -205,10 +205,6 @@ trait PKImportHelperTrait
      */
     protected function setIDOfEntity(AbstractDBElement $element, int|string $id): void
     {
-        if (!is_int($id) && !is_string($id)) {
-            throw new \InvalidArgumentException('ID must be an integer or string');
-        }
-
         $id = (int) $id;
 
         $metadata = $this->em->getClassMetadata($element::class);

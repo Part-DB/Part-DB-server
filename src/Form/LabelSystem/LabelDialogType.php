@@ -71,6 +71,22 @@ class LabelDialogType extends AbstractType
             'label' => false,
             'disabled' => !$this->security->isGranted('@labels.edit_options') || $options['disable_options'],
         ]);
+
+        $builder->add('save_profile_name', TextType::class, [
+            'required' => false,
+            'attr' =>[
+                'placeholder' => 'label_generator.save_profile_name',
+            ]
+        ]);
+
+        $builder->add('save_profile', SubmitType::class, [
+            'label' => 'label_generator.save_profile',
+            'disabled' => !$this->security->isGranted('@labels.create_profiles'),
+            'attr' => [
+                'class' => 'btn btn-outline-success'
+            ]
+        ]);
+
         $builder->add('update', SubmitType::class, [
             'label' => 'label_generator.update',
         ]);

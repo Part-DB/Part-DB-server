@@ -60,6 +60,7 @@ class PartListsController extends AbstractController
         $ids = $request->request->get('ids');
         $action = $request->request->get('action');
         $target = $request->request->get('target');
+        $redirectResponse = null;
 
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
@@ -80,7 +81,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        if (isset($redirectResponse) && $redirectResponse instanceof Response) {
+        if ($redirectResponse !== null) {
             return $redirectResponse;
         }
 

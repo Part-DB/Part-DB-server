@@ -79,6 +79,7 @@ class ConvertBBCodeCommand extends Command
 
     /**
      * Returns a list which entities and which properties need to be checked.
+     * @return array<class-string<AbstractNamedDBElement>, string[]>
      */
     protected function getTargetsLists(): array
     {
@@ -109,7 +110,6 @@ class ConvertBBCodeCommand extends Command
                 $class
             ));
             //Determine which entities of this type we need to modify
-            /** @var EntityRepository $repo */
             $repo = $this->em->getRepository($class);
             $qb = $repo->createQueryBuilder('e')
                 ->select('e');

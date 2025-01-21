@@ -107,7 +107,7 @@ The following env configuration options are available:
   default: `EUR`). If an offer is only available in a certain currency,
   Part-DB will save the prices in their native currency, and you can use Part-DB currency conversion feature to convert
   it to your preferred currency.
-* `PROVIDER_OCOTPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code,
+* `PROVIDER_OCTOPART_COUNTRY`: The country you want to get prices in if available (optional, 2 letter ISO-code,
   default: `DE`). To get the correct prices, you have to set this and the currency setting to the correct value.
 * `PROVIDER_OCTOPART_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `10`). This
   affects how quickly your monthly limit is used up.

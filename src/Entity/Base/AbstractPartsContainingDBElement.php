@@ -31,8 +31,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @template-covariant AT of Attachment
- * @template-covariant PT of AbstractParameter
+ * @template AT of Attachment
+ * @template PT of AbstractParameter
  * @extends AbstractStructuralDBElement<AT, PT>
  */
 #[ORM\MappedSuperclass(repositoryClass: AbstractPartsContainingRepository::class)]

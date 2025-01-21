@@ -229,6 +229,10 @@ class PartController extends AbstractController
         $dto = $infoRetriever->getDetails($providerKey, $providerId);
         $new_part = $infoRetriever->dtoToPart($dto);
 
+        if ($new_part->getCategory() === null || $new_part->getCategory()->getID() === null) {
+            $this->addFlash('warning', t("part.create_from_info_provider.no_category_yet"));
+        }
+
         return $this->renderPartForm('new', $request, $new_part, [
             'info_provider_dto' => $dto,
         ]);

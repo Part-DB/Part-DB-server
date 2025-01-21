@@ -83,6 +83,19 @@ class SetPasswordCommand extends Command
 
         while (!$success) {
             $pw1 = $io->askHidden('Please enter new password:');
+
+            if ($pw1 === null) {
+                $io->error('No password entered! Please try again.');
+
+                //If we are in non-interactive mode, we can not ask again
+                if (!$input->isInteractive()) {
+                    $io->warning('Non-interactive mode detected. No password can be entered that way! If you are using docker exec, please use -it flag.');
+                    return Command::FAILURE;
+                }
+
+                continue;
+            }
+
             $pw2 = $io->askHidden('Please confirm:');
             if ($pw1 !== $pw2) {
                 $io->error('The entered password did not match! Please try again.');

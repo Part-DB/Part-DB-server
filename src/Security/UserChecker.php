@@ -40,12 +40,10 @@ final class UserChecker implements UserCheckerInterface
 
     /**
      * Checks the user account before authentication.
-     *
-     * @throws AccountStatusException
      */
     public function checkPreAuth(UserInterface $user): void
     {
-        // TODO: Implement checkPreAuth() method.
+        //We don't need to check the user before authentication, just implemented to fulfill the interface
     }
 
     /**

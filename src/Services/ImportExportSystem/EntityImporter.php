@@ -44,6 +44,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class EntityImporter
 {
+
+    /**
+     * The encodings that are supported by the importer, and that should be autodeceted.
+     */
+    private const ENCODINGS = ["ASCII", "UTF-8", "ISO-8859-1", "ISO-8859-15", "Windows-1252", "UTF-16", "UTF-32"];
+
     public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator)
     {
     }
@@ -58,13 +64,16 @@ class EntityImporter
      * @phpstan-param class-string<T> $class_name
      * @param AbstractStructuralDBElement|null $parent     the element which will be used as parent element for new elements
      * @param array                            $errors     an associative array containing all validation errors
-     * @param-out  array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}>  $errors
+     * @param-out  list<array{'entity': object, 'violations': ConstraintViolationListInterface}>  $errors
      *
      * @return AbstractNamedDBElement[] An array containing all valid imported entities (with the type $class_name)
      * @return T[]
      */
     public function massCreation(string $lines, string $class_name, ?AbstractStructuralDBElement $parent = null, array &$errors = []): array
     {
+        //Try to detect the text encoding of the data and convert it to UTF-8
+        $lines = mb_convert_encoding($lines, 'UTF-8', mb_detect_encoding($lines, self::ENCODINGS));
+
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
@@ -124,11 +133,13 @@ class EntityImporter
             if ($repo instanceof StructuralDBElementRepository) {
                 $entities = $repo->getNewEntityFromPath($new_path);
                 $entity = end($entities);
+                if ($entity === false) {
+                    throw new InvalidArgumentException('getNewEntityFromPath returned an empty array!');
+                }
             } else { //Otherwise just create a new entity
                 $entity = new $class_name;
                 $entity->setName($name);
             }
-
 
 
             //Validate entity
@@ -159,6 +170,9 @@ class EntityImporter
      */
     public function importString(string $data, array $options = [], array &$errors = []): array
     {
+        //Try to detect the text encoding of the data and convert it to UTF-8
+        $data = mb_convert_encoding($data, 'UTF-8', mb_detect_encoding($data, self::ENCODINGS));
+
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
@@ -215,6 +229,11 @@ class EntityImporter
 
         //Iterate over each $entity write it to DB.
         foreach ($entities as $key => $entity) {
+            //Ensure that entity is a NamedDBElement
+            if (!$entity instanceof AbstractNamedDBElement) {
+                throw new \RuntimeException("Encountered an entity that is not a NamedDBElement!");
+            }
+
             //Validate entity
             $tmp = $this->validator->validate($entity);
 
@@ -269,7 +288,7 @@ class EntityImporter
      *
      * @param File   $file       the file that should be used for importing
      * @param array  $options    options for the import process
-     * @param AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
+     * @param-out AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
      *
      * @return array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}> An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfully, the array should be empty.
@@ -305,7 +324,7 @@ class EntityImporter
      * @param array  $options    options for the import process
      * @param-out  array<string, array{'entity': object, 'violations': ConstraintViolationListInterface}>  $errors
      *
-     * @return array an array containing the deserialized elements
+     * @return AbstractNamedDBElement[] an array containing the deserialized elements
      */
     public function importFile(File $file, array $options = [], array &$errors = []): array
     {

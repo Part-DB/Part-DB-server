@@ -108,8 +108,31 @@ class LabelController extends AbstractController
         $pdf_data = null;
         $filename = 'invalid.pdf';
 
-        //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
         if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile instanceof LabelProfile)) {
+
+            //Check if the label should be saved as profile
+            if ($form->get('save_profile')->isClicked() && $this->isGranted('@labels.create_profiles')) { //@phpstan-ignore-line Phpstan does not recognize the isClicked method
+                //Retrieve the profile name from the form
+                $new_name = $form->get('save_profile_name')->getData();
+                //ensure that the name is not empty
+                if ($new_name === '' || $new_name === null) {
+                    $form->get('save_profile_name')->addError(new FormError($this->translator->trans('label_generator.profile_name_empty')));
+                    goto render;
+                }
+
+                $profile = new LabelProfile();
+                $profile->setName($form->get('save_profile_name')->getData());
+                $profile->setOptions($form_options);
+                $this->em->persist($profile);
+                $this->em->flush();
+                $this->addFlash('success', 'label_generator.profile_saved');
+
+                return $this->redirectToRoute('label_dialog_profile', [
+                    'profile' => $profile->getID(),
+                    'target_id' => (string) $form->get('target_id')->getData()
+                ]);
+            }
+
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
             if ($targets !== []) {
@@ -132,6 +155,7 @@ class LabelController extends AbstractController
             }
         }
 
+        render:
         return $this->render('label_system/dialog.html.twig', [
             'form' => $form,
             'pdf_data' => $pdf_data,
@@ -152,7 +176,7 @@ class LabelController extends AbstractController
     {
         $id_array = $this->rangeParser->parse($ids);
 
-        /** @var DBElementRepository $repo */
+        /** @var DBElementRepository<AbstractDBElement> $repo */
         $repo = $this->em->getRepository($type->getEntityClass());
 
         return $repo->getElementsFromIDArray($id_array);

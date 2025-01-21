@@ -53,7 +53,6 @@ final class PartsTableActionHandler
     {
         $id_array = explode(',', $ids);
 
-        /** @var PartRepository $repo */
         $repo = $this->entityManager->getRepository(Part::class);
 
         return $repo->getElementsFromIDArray($id_array);

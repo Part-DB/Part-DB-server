@@ -151,7 +151,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
             }
             if (null === $entity) {
                 $class = $this->getClassName();
-                /** @var AbstractStructuralDBElement $entity */
+                /** @var TEntityClass $entity */
                 $entity = new $class;
                 $entity->setName($name);
                 $entity->setParent($parent);
@@ -265,7 +265,7 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
             }
 
             $class = $this->getClassName();
-            /** @var AbstractStructuralDBElement $entity */
+            /** @var TEntityClass $entity */
             $entity = new $class;
             $entity->setName($name);
 

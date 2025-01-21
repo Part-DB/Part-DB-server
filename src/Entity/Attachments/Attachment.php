@@ -531,7 +531,7 @@ abstract class Attachment extends AbstractNamedDBElement
         $url = str_replace(' ', '%20', $url);
 
         //Only set if the URL is not empty
-        if ($url !== null && $url !== '') {
+        if ($url !== '') {
             if (str_contains($url, '%BASE%') || str_contains($url, '%MEDIA%')) {
                 throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }

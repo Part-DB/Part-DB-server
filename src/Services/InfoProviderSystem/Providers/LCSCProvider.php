@@ -97,6 +97,9 @@ class LCSCProvider implements InfoProviderInterface
     private function getRealDatasheetUrl(?string $url): string
     {
         if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
+          if (preg_match("/^https:\/\/datasheet\.lcsc\.com\/lcsc\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
+            $url = 'https://www.lcsc.com/datasheet/lcsc_datasheet_' . $rewriteMatches[1];
+          }
           $response = $this->lcscClient->request('GET', $url, [
               'headers' => [
                   'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'

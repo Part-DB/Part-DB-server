@@ -20,7 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
-import {Html5QrcodeScanner, Html5Qrcode} from "html5-qrcode";
+import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
@@ -50,7 +50,7 @@ export default class extends Controller {
         });
 
         this._scanner = new Html5QrcodeScanner(this.element.id, {
-            fps: 2,
+            fps: 10,
             qrbox: qrboxFunction,
             experimentalFeatures: {
                 //This option improves reading quality on android chrome
@@ -59,6 +59,11 @@ export default class extends Controller {
         }, false);
 
         this._scanner.render(this.onScanSuccess.bind(this));
+    }
+
+    disconnect() {
+        this._scanner.pause();
+        this._scanner.clear();
     }
 
     onScanSuccess(decodedText, decodedResult) {

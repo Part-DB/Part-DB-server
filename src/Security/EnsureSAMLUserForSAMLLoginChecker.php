@@ -25,6 +25,7 @@ namespace App\Security;
 use App\Entity\UserSystem\User;
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -50,13 +51,20 @@ class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
         $token = $event->getAuthenticationToken();
         $user = $token->getUser();
 
-        //If we are using SAML, we need to check that the user is a SAML user.
-        if ($token instanceof SamlToken) {
-            if ($user instanceof User && !$user->isSamlUser()) {
-                throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_local_user_per_saml', [], 'security'));
-            }
-        } elseif ($user instanceof User && $user->isSamlUser()) {
-            //Ensure that you can not login locally with a SAML user (even if this should not happen, as the password is not set)
+        //Do not check for anonymous users
+        if (!$user instanceof User) {
+            return;
+        }
+
+        //Do not allow SAML users to login as local user
+        if ($token instanceof SamlToken && !$user->isSamlUser()) {
+            throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_local_user_per_saml',
+                [], 'security'));
+        }
+
+        //Do not allow local users to login as SAML user via local username and password
+        if ($token instanceof UsernamePasswordToken && $user->isSamlUser()) {
+            //Ensure that you can not login locally with a SAML user (even though this should not happen, as the password is not set)
             throw new CustomUserMessageAccountStatusException($this->translator->trans('saml.error.cannot_login_saml_user_locally', [], 'security'));
         }
     }

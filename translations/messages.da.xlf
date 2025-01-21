@@ -11201,7 +11201,7 @@ Oversættelsen
     <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Hvis de sidste cifre i IP-adressen mangler, aktiveres DSGV-tilstanden, hvor IP-adresserne anonymiseres.</target>
+        <target>Hvis de sidste cifre i IP-adressen mangler, aktiveres databeskyttelsesforordningen mode, hvor IP-adresserne anonymiseres.</target>
       </segment>
     </unit>
     <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">

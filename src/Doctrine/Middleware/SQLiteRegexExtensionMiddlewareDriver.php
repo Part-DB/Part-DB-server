@@ -44,15 +44,13 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
             $native_connection = $connection->getNativeConnection();
 
             //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
-            if($native_connection instanceof \PDO && method_exists($native_connection, 'sqliteCreateFunction' )) {
+            if($native_connection instanceof \PDO) {
                 $native_connection->sqliteCreateFunction('REGEXP', self::regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
                 $native_connection->sqliteCreateFunction('FIELD', self::field(...), -1, \PDO::SQLITE_DETERMINISTIC);
                 $native_connection->sqliteCreateFunction('FIELD2', self::field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
 
                 //Create a new collation for natural sorting
-                if (method_exists($native_connection, 'sqliteCreateCollation')) {
-                    $native_connection->sqliteCreateCollation('NATURAL_CMP', strnatcmp(...));
-                }
+                $native_connection->sqliteCreateCollation('NATURAL_CMP', strnatcmp(...));
             }
         }
 

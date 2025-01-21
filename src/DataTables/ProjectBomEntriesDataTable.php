@@ -87,16 +87,14 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     if(!$context->getPart() instanceof Part) {
                         return htmlspecialchars((string) $context->getName());
                     }
-                    if($context->getPart() instanceof Part) {
-                        $tmp = $this->partDataTableHelper->renderName($context->getPart());
-                        if($context->getName() !== null && $context->getName() !== '') {
-                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
-                        }
-                        return $tmp;
-                    }
 
-                    //@phpstan-ignore-next-line
-                    throw new \RuntimeException('This should never happen!');
+                    //Part exists if we reach this point
+
+                    $tmp = $this->partDataTableHelper->renderName($context->getPart());
+                    if($context->getName() !== null && $context->getName() !== '') {
+                        $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
+                    }
+                    return $tmp;
                 },
             ])
             ->add('ipn', TextColumn::class, [

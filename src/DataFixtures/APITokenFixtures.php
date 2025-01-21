@@ -41,7 +41,7 @@ class APITokenFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         /** @var User $admin_user */
-        $admin_user = $this->getReference(UserFixtures::ADMIN);
+        $admin_user = $this->getReference(UserFixtures::ADMIN, User::class);
 
         $read_only_token = new ApiToken();
         $read_only_token->setUser($admin_user);

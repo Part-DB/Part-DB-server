@@ -75,8 +75,8 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.path LIKE :http')
-            ->orWhere('attachment.path LIKE :https');
+            ->where('ILIKE(attachment.path, :http) = TRUE')
+            ->orWhere('ILIKE(attachment.path, :https) = TRUE');
         $qb->setParameter('http', 'http://%');
         $qb->setParameter('https', 'https://%');
         $query = $qb->getQuery();

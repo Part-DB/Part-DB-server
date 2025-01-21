@@ -51,12 +51,16 @@ nelmio_security:
             img-src:
                 - '*'
                 - 'data:'
+                # Required for be able to load pictures in the QR code scanner
+                - 'blob:'
             style-src:
                 - 'self'
                 - 'unsafe-inline'
                 - 'data:'
             script-src:
                 - 'self'
+                # Required for loading the Wasm for the barcode scanner:
+                - 'wasm-unsafe-eval'
             object-src:
                 - 'self'
                 - 'data:'

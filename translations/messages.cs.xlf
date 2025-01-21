@@ -11196,7 +11196,7 @@ Element 3</target>
     <unit id="9jOklgS" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Pokud poslední číslice IP adresy chybí, je povolen režim GPDR, ve kterém jsou IP adresy anynomizovány.</target>
+        <target>Pokud poslední číslice IP adresy chybí, je povolen režim GDPR, ve kterém jsou IP adresy anynomizovány.</target>
       </segment>
     </unit>
     <unit id="kaMyDVi" name="log.user_not_allowed.unauthorized_access_attempt_to">

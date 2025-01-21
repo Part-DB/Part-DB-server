@@ -94,7 +94,14 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
-        return !isset($context[self::ALREADY_CALLED]) && is_array($data) && is_a($type, Part::class, true);
+        //Only denormalize if we are doing a file import operation
+        if (!($context['partdb_import'] ?? false)) {
+            return false;
+        }
+
+        //Only make the denormalizer available on import operations
+        return !isset($context[self::ALREADY_CALLED])
+            && is_array($data) && is_a($type, Part::class, true);
     }
 
     private function normalizeKeys(array &$data): array

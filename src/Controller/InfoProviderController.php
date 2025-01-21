@@ -23,10 +23,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Form\InfoProviderSystem\PartSearchType;
+use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +45,9 @@ class InfoProviderController extends  AbstractController
 {
 
     public function __construct(private readonly ProviderRegistry $providerRegistry,
-        private readonly PartInfoRetriever $infoRetriever)
+        private readonly PartInfoRetriever $infoRetriever,
+        private readonly ExistingPartFinder $existingPartFinder
+    )
     {
 
     }
@@ -72,20 +77,48 @@ class InfoProviderController extends  AbstractController
         //When we are updating a part, use its name as keyword, to make searching easier
         //However we can only do this, if the form was not submitted yet
         if ($update_target !== null && !$form->isSubmitted()) {
-            $form->get('keyword')->setData($update_target->getName());
+            //Use the provider reference if available, otherwise use the manufacturer product number
+            $keyword = $update_target->getProviderReference()->getProviderId() ?? $update_target->getManufacturerProductNumber();
+            //Or the name if both are not available
+            if ($keyword === "") {
+                $keyword = $update_target->getName();
+            }
+
+            $form->get('keyword')->setData($keyword);
+
+            //If we are updating a part, which already has a provider, preselect that provider in the form
+            if ($update_target->getProviderReference()->getProviderKey() !== null) {
+                try {
+                    $form->get('providers')->setData([$this->providerRegistry->getProviderByKey($update_target->getProviderReference()->getProviderKey())]);
+                } catch (\InvalidArgumentException $e) {
+                    //If the provider is not found, just ignore it
+                }
+            }
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $keyword = $form->get('keyword')->getData();
             $providers = $form->get('providers')->getData();
 
+            $dtos = [];
+
             try {
-                $results = $this->infoRetriever->searchByKeyword(keyword: $keyword, providers: $providers);
+                $dtos = $this->infoRetriever->searchByKeyword(keyword: $keyword, providers: $providers);
             } catch (ClientException $e) {
                 $this->addFlash('error', t('info_providers.search.error.client_exception'));
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            }
+
+            // modify the array to an array of arrays that has a field for a matching local Part
+            // the advantage to use that format even when we don't look for local parts is that we
+            // always work with the same interface
+            $results = array_map(function ($result) {return ['dto' => $result, 'localPart' => null];}, $dtos);
+            if(!$update_target) {
+                foreach ($results as $index => $result) {
+                    $results[$index]['localPart'] = $this->existingPartFinder->findFirstExisting($result['dto']);
+                }
             }
         }
 

@@ -57,6 +57,7 @@ doctrine:
                 field2: App\Doctrine\Functions\Field2
                 natsort: App\Doctrine\Functions\Natsort
                 array_position: App\Doctrine\Functions\ArrayPosition
+                ilike: App\Doctrine\Functions\ILike
 
 when@test:
     doctrine:

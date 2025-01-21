@@ -108,8 +108,8 @@ body {
 .back-to-top {
     cursor: pointer;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 60px;
+    right: 40px;
     display:none;
     z-index: 1030;
 }

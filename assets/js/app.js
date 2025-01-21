@@ -44,4 +44,18 @@ import "./register_events";
 import "./tristate_checkboxes";
 
 //Define jquery globally
-window.$ = window.jQuery = require("jquery")
+window.$ = window.jQuery = require("jquery");
+
+//Use the local WASM file for the ZXing library
+import {
+    setZXingModuleOverrides,
+} from "barcode-detector/pure";
+import  wasmFile from "../../node_modules/zxing-wasm/dist/reader/zxing_reader.wasm";
+setZXingModuleOverrides({
+    locateFile: (path, prefix) => {
+        if (path.endsWith(".wasm")) {
+            return wasmFile;
+        }
+        return prefix + path;
+    },
+});

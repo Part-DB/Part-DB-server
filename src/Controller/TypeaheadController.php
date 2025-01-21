@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parameters\AbstractParameter;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -92,7 +93,7 @@ class TypeaheadController extends AbstractController
 
     /**
      * This function map the parameter type to the class, so we can access its repository
-     * @return class-string
+     * @return class-string<AbstractParameter>
      */
     private function typeToParameterClass(string $type): string
     {
@@ -155,7 +156,7 @@ class TypeaheadController extends AbstractController
         //Ensure user has the correct permissions
         $this->denyAccessUnlessGranted('read', $test_obj);
 
-        /** @var ParameterRepository $repository */
+        /** @var ParameterRepository<AbstractParameter> $repository */
         $repository = $entityManager->getRepository($class);
 
         $data = $repository->autocompleteParamName($query);

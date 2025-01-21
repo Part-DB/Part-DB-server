@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -18,22 +18,27 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+namespace App\Tests\Helpers;
 
+use App\Helpers\IPAnonymizer;
+use PHPUnit\Framework\TestCase;
 
-namespace App\Services\LabelSystem\Barcodes;
-
-use App\Entity\LabelSystem\LabelSupportedElement;
-
-/**
- * This class represents the result of a barcode scan, with the target type and the ID of the element
- */
-class BarcodeScanResult
+class IPAnonymizerTest extends TestCase
 {
-    public function __construct(
-        public readonly LabelSupportedElement $target_type,
-        public readonly int $target_id,
-        public readonly BarcodeSourceType $source_type,
-    ) {
+
+    public function anonymizeDataProvider(): \Generator
+    {
+        yield ['127.0.0.0', '127.0.0.23'];
+        yield ['2001:db8:85a3::', '2001:0db8:85a3:0000:0000:8a2e:0370:7334'];
+        //RFC 4007 format
+        yield ['fe80::', 'fe80::1fc4:15d8:78db:2319%enp4s0'];
+    }
+
+    /**
+     * @dataProvider anonymizeDataProvider
+     */
+    public function testAnonymize(string $expected, string $input): void
+    {
+        $this->assertSame($expected, IPAnonymizer::anonymize($input));
     }
 }

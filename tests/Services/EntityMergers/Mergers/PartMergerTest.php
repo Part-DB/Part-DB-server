@@ -148,7 +148,7 @@ class PartMergerTest extends KernelTestCase
     public function testMergeOfPartLots(): void
     {
         $lot1 = (new PartLot())->setAmount(2)->setNeedsRefill(true);
-        $lot2 = (new PartLot())->setInstockUnknown(true)->setVendorBarcode('test');
+        $lot2 = (new PartLot())->setInstockUnknown(true)->setUserBarcode('test');
         $lot3 = (new PartLot())->setDescription('lot3')->setAmount(3);
         $lot4 = (new PartLot())->setDescription('lot4')->setComment('comment');
 

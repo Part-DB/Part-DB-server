@@ -69,6 +69,15 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
             && in_array('import', $context['groups'] ?? [], true);
     }
 
+    /**
+     * @template T of AbstractStructuralDBElement
+     * @param $data
+     * @phpstan-param class-string<T> $type
+     * @param string|null $format
+     * @param array $context
+     * @return AbstractStructuralDBElement|null
+     * @phpstan-return T|null
+     */
     public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         //Do not use API Platform's denormalizer
@@ -85,7 +94,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
         $deserialized_entity = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         //Check if we already have the entity in the database (via path)
-        /** @var StructuralDBElementRepository $repo */
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->entityManager->getRepository($type);
 
         $path = $deserialized_entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
