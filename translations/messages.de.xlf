@@ -3848,7 +3848,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher es werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
+        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
 Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status &lt;i&gt;aller &lt;/i&gt;Computer zurücksetzen.</target>
       </segment>
     </unit>
