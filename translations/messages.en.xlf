@@ -12323,5 +12323,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Profile saved!</target>
       </segment>
     </unit>
+    <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
+      <segment>
+        <source>entity.export.flash.error.no_entities</source>
+        <target>There are no entities to export!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
