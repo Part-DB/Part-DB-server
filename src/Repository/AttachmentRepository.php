@@ -58,8 +58,8 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.path LIKE :like');
-        $qb->setParameter('like', '\\%SECURE\\%%');
+            ->where('attachment.path LIKE :like ESCAPE \'#\'');
+        $qb->setParameter('like', '#%SECURE#%%');
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();
@@ -94,12 +94,12 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.path LIKE :base')
-            ->orWhere('attachment.path LIKE :media')
-            ->orWhere('attachment.path LIKE :secure');
-        $qb->setParameter('secure', '\\%SECURE\\%%');
-        $qb->setParameter('base', '\\%BASE\\%%');
-        $qb->setParameter('media', '\\%MEDIA\\%%');
+            ->where('attachment.path LIKE :base ESCAPE \'#\'')
+            ->orWhere('attachment.path LIKE :media ESCAPE \'#\'')
+            ->orWhere('attachment.path LIKE :secure ESCAPE \'#\'');
+        $qb->setParameter('secure', '#%SECURE#%%');
+        $qb->setParameter('base', '#%BASE#%%');
+        $qb->setParameter('media', '#%MEDIA#%%');
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();
