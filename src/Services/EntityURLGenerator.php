@@ -156,25 +156,32 @@ class EntityURLGenerator
 
     public function viewURL(Attachment $entity): string
     {
-        if ($entity->isExternal()) { //For external attachments, return the link to external path
-            return $entity->getURL() ?? throw new \RuntimeException('External attachment has no URL!');
+        if ($entity->hasInternal()) {
+            return $this->attachmentURLGenerator->getInternalViewURL($entity);
         }
-        //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
-        return $this->attachmentURLGenerator->getViewURL($entity) ?? '';
+
+        if($entity->hasExternal()) {
+            return $entity->getExternalPath();
+        }
+
+        throw new \RuntimeException('Attachment has no internal nor external path!');
     }
 
     public function downloadURL($entity): string
     {
-        if ($entity instanceof Attachment) {
-            if ($entity->isExternal()) { //For external attachments, return the link to external path
-                return $entity->getURL() ?? throw new \RuntimeException('External attachment has no URL!');
-            }
-
-            return $this->attachmentURLGenerator->getDownloadURL($entity);
+        if (!($entity instanceof Attachment)) {
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
         }
 
-        //Otherwise throw an error
-        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', $entity::class));
+        if ($entity->hasInternal()) {
+            return $this->attachmentURLGenerator->getInternalDownloadURL($entity);
+        }
+
+        if($entity->hasExternal()) {
+            return $entity->getExternalPath();
+        }
+
+        throw new \RuntimeException('Attachment has not internal or external path!');
     }
 
     /**

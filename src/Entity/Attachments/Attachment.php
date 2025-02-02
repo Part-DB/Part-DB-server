@@ -78,11 +78,16 @@ use LogicException;
     denormalizationContext: ['groups' => ['attachment:write', 'attachment:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
     processor: HandleAttachmentsUploadsProcessor::class,
 )]
-#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'media_url', type: 'string', nullable: true,
-    description: 'The URL to the file, where the attachment file can be downloaded. This can be an internal or external URL.',
-    example: '/media/part/2/bc547-6508afa5a79c8.pdf')]
-#[DocumentedAPIProperty(schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
-    description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.')]
+//This property is added by the denormalizer in order to resolve the placeholder
+#[DocumentedAPIProperty(
+    schemaName: 'Attachment-Read', property: 'internal_path', type: 'string', nullable: false,
+    description: 'The URL to the internally saved copy of the file, if one exists',
+    example: '/media/part/2/bc547-6508afa5a79c8.pdf'
+)]
+#[DocumentedAPIProperty(
+    schemaName: 'Attachment-Read', property: 'thumbnail_url', type: 'string', nullable: true,
+    description: 'The URL to a thumbnail version of this file. This only exists for internal picture attachments.'
+)]
 #[ApiFilter(LikeFilter::class, properties: ["name"])]
 #[ApiFilter(EntityFilter::class, properties: ["attachment_type"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
@@ -119,10 +124,6 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     final public const MODEL_EXTS = ['x3d'];
 
-    /**
-     * When the path begins with one of the placeholders.
-     */
-    final public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
     /**
      * @var array placeholders for attachments which using built in files
@@ -152,10 +153,21 @@ abstract class Attachment extends AbstractNamedDBElement
     protected ?string $original_filename = null;
 
     /**
-     * @var string The path to the file relative to a placeholder path like %MEDIA%
+     * @var string If a copy of the file is stored internally, the path to the file relative to a placeholder
+     * path like %MEDIA%
      */
-    #[ORM\Column(name: 'path', type: Types::STRING)]
-    protected string $path = '';
+    #[ORM\Column(type: Types::STRING)]
+    protected string $internal_path = '';
+
+
+    /**
+     * @var string The path to the external source if the file is stored externally or was downloaded from an
+     * external source
+     */
+    #[ORM\Column(type: Types::STRING)]
+    #[Groups(['attachment:read'])]
+    #[ApiProperty(example: 'http://example.com/image.jpg')]
+    protected string $external_path = '';
 
     /**
      * @var string the name of this element
@@ -237,7 +249,7 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * Check if this attachment is a picture (analyse the file's extension).
-     * If the link is external, it is assumed that this is true.
+     * If the link is only external and doesn't contain an extension, it is assumed that this is true.
      *
      * @return bool * true if the file extension is a picture extension
      *              * otherwise false
@@ -245,54 +257,63 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     public function isPicture(): bool
     {
-        if ($this->isExternal()) {
+        if($this->hasInternal()){
+
+            $extension = pathinfo($this->getInternalPath(), PATHINFO_EXTENSION);
+
+            return in_array(strtolower($extension), static::PICTURE_EXTS, true);
+
+        }
+        if ($this->hasExternal()) {
             //Check if we can extract a file extension from the URL
-            $extension = pathinfo(parse_url($this->path, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
+            $extension = pathinfo(parse_url($this->getExternalPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
 
             //If no extension is found or it is known picture extension, we assume that this is a picture extension
             return $extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true);
         }
-
-        $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
-
-        return in_array(strtolower($extension), static::PICTURE_EXTS, true);
+        //File doesn't have an internal, nor an external copy. This shouldn't happen, but it certainly isn't a picture...
+        return false;
     }
 
     /**
      * Check if this attachment is a 3D model and therefore can be directly shown to user.
-     * If the attachment is external, false is returned (3D Models must be internal).
+     * If no internal copy exists, false is returned (3D Models must be internal).
      */
     #[Groups(['attachment:read'])]
     #[SerializedName('3d_model')]
     public function is3DModel(): bool
     {
         //We just assume that 3D Models are internally saved, otherwise we get problems loading them.
-        if ($this->isExternal()) {
+        if (!$this->hasInternal()) {
             return false;
         }
 
-        $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
+        $extension = pathinfo($this->getInternalPath(), PATHINFO_EXTENSION);
 
         return in_array(strtolower($extension), static::MODEL_EXTS, true);
     }
 
     /**
-     * Checks if the attachment file is externally saved (the database saves an URL).
+     * Checks if this attachment has a path to an external file
      *
-     * @return bool true, if the file is saved externally
+     * @return bool true, if there is a path to an external file
      */
     #[Groups(['attachment:read'])]
-    public function isExternal(): bool
+    public function hasExternal(): bool
     {
-        //When path is empty, this attachment can not be external
-        if ($this->path === '') {
-            return false;
-        }
+        return $this->external_path !== '';
+    }
 
-        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
-        $tmp = explode('/', $this->path);
-
-        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), true);
+    /**
+     * Checks if this attachment has a path to an internal file.
+     * Does not check if the file exists.
+     *
+     * @return bool true, if there is a path to an internal file
+     */
+    #[Groups(['attachment:read'])]
+    public function hasInternal(): bool
+    {
+        return $this->internal_path !== '';
     }
 
     /**
@@ -306,7 +327,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function isSecure(): bool
     {
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
-        $tmp = explode('/', $this->path);
+        $tmp = explode('/', $this->internal_path);
 
         return '%SECURE%' === $tmp[0];
     }
@@ -320,7 +341,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     public function isBuiltIn(): bool
     {
-        return static::checkIfBuiltin($this->path);
+        return static::checkIfBuiltin($this->internal_path);
     }
 
     /********************************************************************************
@@ -332,13 +353,13 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * Returns the extension of the file referenced via the attachment.
      * For a path like %BASE/path/foo.bar, bar will be returned.
-     * If this attachment is external null is returned.
+     * If this attachment is only external null is returned.
      *
      * @return string|null the file extension in lower case
      */
     public function getExtension(): ?string
     {
-        if ($this->isExternal()) {
+        if (!$this->hasInternal()) {
             return null;
         }
 
@@ -346,7 +367,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
         }
 
-        return strtolower(pathinfo($this->getPath(), PATHINFO_EXTENSION));
+        return strtolower(pathinfo($this->getInternalPath(), PATHINFO_EXTENSION));
     }
 
     /**
@@ -361,52 +382,54 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
-     * The URL to the external file, or the path to the built-in file.
+     * The URL to the external file, or the path to the built-in file, but not paths to uploaded files.
      * Returns null, if the file is not external (and not builtin).
+     * The output of this function is such, that no changes occur when it is fed back into setURL().
+     * Required for the Attachment form field.
      */
-    #[Groups(['attachment:read'])]
-    #[SerializedName('url')]
     public function getURL(): ?string
     {
-        if (!$this->isExternal() && !$this->isBuiltIn()) {
-            return null;
+        if($this->hasExternal()){
+            return $this->getExternalPath();
         }
-
-        return $this->path;
+        if($this->isBuiltIn()){
+            return $this->getInternalPath();
+        }
+        return null;
     }
 
     /**
      * Returns the hostname where the external file is stored.
-     * Returns null, if the file is not external.
+     * Returns null, if there is no external path.
      */
     public function getHost(): ?string
     {
-        if (!$this->isExternal()) {
+        if (!$this->hasExternal()) {
             return null;
         }
 
-        return parse_url((string) $this->getURL(), PHP_URL_HOST);
+        return parse_url($this->getExternalPath(), PHP_URL_HOST);
     }
 
-    /**
-     * Get the filepath, relative to %BASE%.
-     *
-     * @return string A string like %BASE/path/foo.bar
-     */
-    public function getPath(): string
+    public function getInternalPath(): string
     {
-        return $this->path;
+        return $this->internal_path;
+    }
+
+    public function getExternalPath(): string
+    {
+        return $this->external_path;
     }
 
     /**
      * Returns the filename of the attachment.
      * For a path like %BASE/path/foo.bar, foo.bar will be returned.
      *
-     * If the path is a URL (can be checked via isExternal()), null will be returned.
+     * If there is no internal copy of the file, null will be returned.
      */
     public function getFilename(): ?string
     {
-        if ($this->isExternal()) {
+        if (!$this->hasInternal()) {
             return null;
         }
 
@@ -415,7 +438,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return $this->original_filename;
         }
 
-        return pathinfo($this->getPath(), PATHINFO_BASENAME);
+        return pathinfo($this->getInternalPath(), PATHINFO_BASENAME);
     }
 
     /**
@@ -488,15 +511,12 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
-     * Sets the filepath (with relative placeholder) for this attachment.
-     *
-     * @param string $path the new filepath of the attachment
-     *
-     * @return Attachment
+     * Sets the path to a file hosted internally. If you set this path to a file that was not downloaded from the
+     * external source in external_path, make sure to reset external_path.
      */
-    public function setPath(string $path): self
+    public function setInternalPath(?string $internal_path): self
     {
-        $this->path = $path;
+        $this->internal_path = $internal_path ?? '';
 
         return $this;
     }
@@ -512,34 +532,62 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
-     * Sets the url associated with this attachment.
-     * If the url is empty nothing is changed, to not override the file path.
-     *
-     * @return Attachment
+     * Sets up the paths using a user provided string which might contain an external path or a builtin path. Allows
+     * resetting the external path if an internal path exists. Resets any other paths if a (nonempty) new path is set.
      */
     #[Groups(['attachment:write'])]
     #[SerializedName('url')]
+    #[ApiProperty(description: 'Set the path of the attachment here. 
+    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty 
+    string if the attachment has an internal file associated and you\'d like to reset the external source.
+    If you set a new (nonempty) file path any associated internal file will be removed!')]
     public function setURL(?string $url): self
     {
-        //Do nothing if the URL is empty
-        if ($url === null || $url === '') {
+        $url = $url ?? '';
+
+        //Don't allow the user to set an empty external path if the internal path is empty already
+        if ($url === '' && !$this->hasInternal()) {
             return $this;
         }
 
-        $url = trim($url);
-        //Escape spaces in URL
-        $url = str_replace(' ', '%20', $url);
-
-        //Only set if the URL is not empty
-        if ($url !== '') {
-            if (str_contains($url, '%BASE%') || str_contains($url, '%MEDIA%')) {
-                throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
-            }
-
-            $this->path = $url;
-            //Reset internal filename
-            $this->original_filename = null;
+        //The URL field can also contain the special builtin internal paths, so we need to distinguish here
+        if ($this::checkIfBuiltin($url)) {
+            $this->setInternalPath($url);
+            //make sure the external path isn't still pointing to something unrelated
+            $this->setExternalPath('');
+        } else {
+            $this->setExternalPath($url);
         }
+    return $this;
+    }
+
+
+    /**
+     * Sets the path to a file hosted on an external server. Setting the external path to a (nonempty) value different
+     * from the the old one _clears_ the internal path, so that the external path reflects where any associated internal
+     * file came from.
+     */
+    public function setExternalPath(?string $external_path): self
+    {
+        //If we only clear the external path, don't reset the internal path, since that could be confusing
+        if($external_path === null || $external_path === '') {
+            $this->external_path = '';
+            return $this;
+        }
+
+        $external_path = trim($external_path);
+        //Escape spaces in URL
+        $external_path = str_replace(' ', '%20', $external_path);
+
+        if($this->external_path === $external_path) {
+            //Nothing changed, nothing to do
+            return $this;
+        }
+
+        $this->external_path = $external_path;
+        $this->internal_path = '';
+        //Reset internal filename
+        $this->original_filename = null;
 
         return $this;
     }

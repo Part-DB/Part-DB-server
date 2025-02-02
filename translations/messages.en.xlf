@@ -791,7 +791,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment state="translated">
         <source>attachment.external</source>
-        <target>External</target>
+        <target>External only</target>
       </segment>
     </unit>
     <unit id="JES0hrm" name="attachment.preview.alt">
@@ -817,7 +817,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment state="translated">
         <source>attachment.view</source>
-        <target>View</target>
+        <target>View Local Copy</target>
       </segment>
     </unit>
     <unit id="mEHEYM6" name="attachment.file_not_found">
@@ -2126,7 +2126,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>attachment.download</source>
-        <target>Download</target>
+        <target>Download Local Copy</target>
       </segment>
     </unit>
     <unit id="mPK9Iyq" name="user.creating_user">

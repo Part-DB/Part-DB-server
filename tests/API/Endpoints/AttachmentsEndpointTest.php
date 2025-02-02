@@ -91,7 +91,7 @@ class AttachmentsEndpointTest extends AuthenticatedApiTestCase
         //Attachment must be set (not null)
         $array = json_decode($response->getContent(), true);
 
-        self::assertNotNull($array['media_url']);
+        self::assertNotNull($array['internal_path']);
 
         //Attachment must be private
         self::assertJsonContains([

@@ -154,26 +154,24 @@
             {% set attach = form.vars.value %}
 
             {% if attach is not null %}
-                {% if attachment_manager.fileExisting(attach) %}
-                    {% if not attach.external %}
-                        <br><br>
-                        <h6>
-                        <span class="badge bg-primary">
-                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
-                        </span>
-                            <br>
-                            <span class="badge bg-secondary">
-                            <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
-                        </span>
-                        </h6>
-                    {% else %}
-                        <br><br>
-                        <h6>
+                {% if not attach.hasInternal() %}
+                    <br><br>
+                    <h6>
                         <span class="badge bg-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
-                        </h6>
-                    {% endif %}
+                    </h6>
+                {% elseif attachment_manager.isInternalFileExisting(attach) %}
+                    <br><br>
+                    <h6>
+                    <span class="badge bg-primary">
+                        <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
+                    </span>
+                        <br>
+                        <span class="badge bg-secondary">
+                        <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
+                    </span>
+                    </h6>
 
                     {% if attach.secure %}
                         <h6>

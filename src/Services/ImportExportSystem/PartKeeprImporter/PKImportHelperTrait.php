@@ -105,7 +105,7 @@ trait PKImportHelperTrait
         //Next comes the filename plus extension
         $path .= '/'.$attachment_row['filename'].'.'.$attachment_row['extension'];
 
-        $attachment->setPath($path);
+        $attachment->setInternalPath($path);
 
         return $attachment;
     }
