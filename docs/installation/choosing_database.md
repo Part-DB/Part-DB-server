@@ -150,9 +150,9 @@ In the `serverVersion` parameter you can specify the version of the PostgreSQL s
 
 The `charset` parameter specify the character set of the database. It should be set to `utf8` to ensure that all characters are stored correctly.
 
-If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `unix_socket` parameter.
+If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `host` parameter.
 ```shell
-DATABASE_URL="postgresql://db_user:db_password@localhost/db_name?serverVersion=12.19&charset=utf8&unix_socket=/var/run/postgresql/.s.PGSQL.5432"
+DATABASE_URL="postgresql://localhost/db_name?serverVersion=16.6&charset=utf8&host=/var/run/postgresql"
 ```
 
 
