@@ -152,7 +152,7 @@ The `charset` parameter specify the character set of the database. It should be 
 
 If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `host` parameter.
 ```shell
-DATABASE_URL="postgresql://localhost/db_name?serverVersion=16.6&charset=utf8&host=/var/run/postgresql"
+DATABASE_URL="postgresql://db_user@localhost/db_name?serverVersion=16.6&charset=utf8&host=/var/run/postgresql"
 ```
 
 
