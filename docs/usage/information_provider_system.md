@@ -127,6 +127,9 @@ You must create an organization there and create a "Production app". Most settin
 grant access to the "Product Information" API.
 You will get a Client ID and a Client Secret, which you have to put in the Part-DB env configuration (see below).
 
+**Attention**: Currently only the "Product Information V3 (Deprecated)" is supported by Part-DB. 
+Using "Product Information V4" will not work.
+
 The following env configuration options are available:
 
 * `PROVIDER_DIGIKEY_CLIENT_ID`: The client ID you got from Digi-Key (mandatory)
