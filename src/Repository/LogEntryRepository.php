@@ -160,7 +160,7 @@ class LogEntryRepository extends DBElementRepository
      * @param  int|null  $limit
      * @param  int|null  $offset
      */
-    public function getLogsOrderedByTimestamp(string $order = 'DESC', int $limit = null, int $offset = null): array
+    public function getLogsOrderedByTimestamp(string $order = 'DESC', ?int $limit = null, ?int $offset = null): array
     {
         return $this->findBy([], ['timestamp' => $order], $limit, $offset);
     }

@@ -28,7 +28,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class LessThanDesiredConstraint extends BooleanConstraint
 {
-    public function __construct(string $property = null, string $identifier = null, ?bool $default_value = null)
+    public function __construct(?string $property = null, ?string $identifier = null, ?bool $default_value = null)
     {
         parent::__construct($property ?? '(
                     SELECT COALESCE(SUM(ld_partLot.amount), 0.0)

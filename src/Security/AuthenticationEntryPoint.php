@@ -47,7 +47,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
     ) {
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         //Check if the request is an API request
         if ($this->isJSONRequest($request)) {

@@ -43,9 +43,9 @@ class AddDocumentedAPIPropertiesJSONSchemaFactory implements SchemaFactoryInterf
         string $className,
         string $format = 'json',
         string $type = Schema::TYPE_OUTPUT,
-        Operation $operation = null,
-        Schema $schema = null,
-        array $serializerContext = null,
+        ?Operation $operation = null,
+        ?Schema $schema = null,
+        ?array $serializerContext = null,
         bool $forceCollection = false
     ): Schema {
 

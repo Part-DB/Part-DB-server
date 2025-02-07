@@ -42,7 +42,7 @@ class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterf
     {
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array|null
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array|null
     {
         if (!$object instanceof Attachment) {
             throw new \InvalidArgumentException('This normalizer only supports Attachment objects!');
@@ -60,7 +60,7 @@ class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterf
         return $data;
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         // avoid recursion: only call once per object
         if (isset($context[self::ALREADY_CALLED])) {
