@@ -36,7 +36,7 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
     {
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
+    public function supportsDenormalization($data, string $type, ?string $format = null, array $context = []): bool
     {
         //Only denormalize if we are doing a file import operation
         if (!($context['partdb_import'] ?? false)) {
@@ -51,10 +51,10 @@ class StructuralElementFromNameDenormalizer implements DenormalizerInterface
      * @phpstan-param class-string<T> $type
      * @phpstan-return T|null
      */
-    public function denormalize($data, string $type, string $format = null, array $context = []): AbstractStructuralDBElement|null
+    public function denormalize($data, string $type, ?string $format = null, array $context = []): AbstractStructuralDBElement|null
     {
         //Retrieve the repository for the given type
-        /** @var StructuralDBElementRepository $repo */
+        /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->em->getRepository($type);
 
         $path_delimiter = $context['path_delimiter'] ?? '->';

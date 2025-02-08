@@ -63,13 +63,13 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
     {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         //We only remove the type field for CSV export
         return !isset($context[self::ALREADY_CALLED]) && $format === 'csv' && $data instanceof Part ;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
@@ -94,7 +94,14 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
-        return !isset($context[self::ALREADY_CALLED]) && is_array($data) && is_a($type, Part::class, true);
+        //Only denormalize if we are doing a file import operation
+        if (!($context['partdb_import'] ?? false)) {
+            return false;
+        }
+
+        //Only make the denormalizer available on import operations
+        return !isset($context[self::ALREADY_CALLED])
+            && is_array($data) && is_a($type, Part::class, true);
     }
 
     private function normalizeKeys(array &$data): array
@@ -110,7 +117,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         return $data;
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?Part
+    public function denormalize($data, string $type, ?string $format = null, array $context = []): ?Part
     {
         $this->normalizeKeys($data);
 

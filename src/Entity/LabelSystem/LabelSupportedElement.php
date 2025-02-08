@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Entity\LabelSystem;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -34,7 +36,7 @@ enum LabelSupportedElement: string
 
     /**
      * Returns the entity class for the given element type
-     * @return string
+     * @return class-string<AbstractDBElement>
      */
     public function getEntityClass(): string
     {

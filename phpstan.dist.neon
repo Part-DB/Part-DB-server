@@ -20,7 +20,7 @@ parameters:
     treatPhpDocTypesAsCertain: false
 
     symfony:
-        container_xml_path: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
+        containerXmlPath: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
 
     doctrine:
     	objectManagerLoader: tests/object-manager.php
@@ -30,11 +30,6 @@ parameters:
 
     checkFunctionNameCase: false
 
-    checkAlwaysTrueInstanceof: false
-    checkAlwaysTrueCheckTypeFunctionCall: false
-    checkAlwaysTrueStrictComparison: false
-    reportAlwaysTrueInLastCondition: false
-
     reportMaybesInPropertyPhpDocTypes: false
     reportMaybesInMethodSignatures: false
 
@@ -43,14 +38,14 @@ parameters:
     	booleansInConditions: false
     	uselessCast: false
     	requireParentConstructorCall: true
-    	disallowedConstructs: false
     	overwriteVariablesWithLoop: false
     	closureUsesThis: false
     	matchingInheritedMethodNames: true
     	numericOperandsInArithmeticOperators: true
-    	strictCalls: true
     	switchConditionsMatchingType: false
     	noVariableVariables: false
+    	disallowedEmpty: false
+    	disallowedShortTernary: false
 
     ignoreErrors:
         # Ignore errors caused by complex mapping with AbstractStructuralDBElement
@@ -63,3 +58,6 @@ parameters:
 
         # Ignore doctrine type mapping mismatch
         - '#Property .* type mapping mismatch: property can contain .* but database expects .*#'
+
+        # Ignore error of unused WithPermPresetsTrait, as it is used in the migrations which are not analyzed by Phpstan
+        - '#Trait App\\Migration\\WithPermPresetsTrait is used zero times and is not analysed#'

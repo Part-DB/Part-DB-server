@@ -27,6 +27,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\Manufacturer;
@@ -36,6 +37,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Repository\Parts\CategoryRepository;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -156,6 +158,12 @@ final class DTOtoEntityConverter
 
         $entity->setMass($dto->mass);
 
+        //Try to map the category to an existing entity (but never create a new one)
+        if ($dto->category) {
+            //@phpstan-ignore-next-line For some reason php does not recognize the repo returns a category
+            $entity->setCategory($this->em->getRepository(Category::class)->findForInfoProvider($dto->category));
+        }
+
         $entity->setManufacturer($this->getOrCreateEntity(Manufacturer::class, $dto->manufacturer));
         $entity->setFootprint($this->getOrCreateEntity(Footprint::class, $dto->footprint));
 
@@ -166,9 +174,21 @@ final class DTOtoEntityConverter
         //Set the provider reference on the part
         $entity->setProviderReference(InfoProviderReference::fromPartDTO($dto));
 
+        $param_groups = [];
+
         //Add parameters
         foreach ($dto->parameters ?? [] as $parameter) {
-            $entity->addParameter($this->convertParameter($parameter));
+            $new_param = $this->convertParameter($parameter);
+
+            $key = $new_param->getName() . '##' . $new_param->getGroup();
+            //If there is already an parameter with the same name and group, rename the new parameter, by suffixing a number
+            if (count($param_groups[$key] ?? []) > 0) {
+                $new_param->setName($new_param->getName() . ' (' . (count($param_groups[$key]) + 1) . ')');
+            }
+
+            $param_groups[$key][] = $new_param;
+
+            $entity->addParameter($new_param);
         }
 
         //Add preview image
@@ -184,6 +204,8 @@ final class DTOtoEntityConverter
             $entity->setMasterPictureAttachment($preview_image);
         }
 
+        $attachments_grouped = [];
+
         //Add other images
         $images = $this->files_unique($dto->images ?? []);
         foreach ($images as $image) {
@@ -192,14 +214,29 @@ final class DTOtoEntityConverter
                 continue;
             }
 
-            $entity->addAttachment($this->convertFile($image, $image_type));
+            $attachment = $this->convertFile($image, $image_type);
+
+            $attachments_grouped[$attachment->getName()][] = $attachment;
+            if (count($attachments_grouped[$attachment->getName()] ?? []) > 1) {
+                $attachment->setName($attachment->getName() . ' (' . (count($attachments_grouped[$attachment->getName()]) + 1) . ')');
+            }
+
+
+            $entity->addAttachment($attachment);
         }
 
         //Add datasheets
         $datasheet_type = $this->getDatasheetType();
         $datasheets = $this->files_unique($dto->datasheets ?? []);
         foreach ($datasheets as $datasheet) {
-            $entity->addAttachment($this->convertFile($datasheet, $datasheet_type));
+            $attachment = $this->convertFile($datasheet, $datasheet_type);
+
+            $attachments_grouped[$attachment->getName()][] = $attachment;
+            if (count($attachments_grouped[$attachment->getName()] ?? []) > 1) {
+                $attachment->setName($attachment->getName() . ' (' . (count($attachments_grouped[$attachment->getName()])) . ')');
+            }
+
+            $entity->addAttachment($attachment);
         }
 
         //Add orderdetails and prices

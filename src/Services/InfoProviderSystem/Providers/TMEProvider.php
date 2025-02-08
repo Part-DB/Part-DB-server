@@ -36,12 +36,19 @@ class TMEProvider implements InfoProviderInterface
 
     private const VENDOR_NAME = 'TME';
 
+    /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
+    private readonly bool $get_gross_prices;
+
     public function __construct(private readonly TMEClient $tmeClient, private readonly string $country,
         private readonly string $language, private readonly string $currency,
-        /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
-        private readonly bool $get_gross_prices)
+        bool $get_gross_prices)
     {
-
+        //If we have a private token, set get_gross_prices to false, as it is automatically determined by the account type then
+        if ($this->tmeClient->isUsingPrivateToken()) {
+            $this->get_gross_prices = false;
+        } else {
+            $this->get_gross_prices = $get_gross_prices;
+        }
     }
 
     public function getProviderInfo(): array

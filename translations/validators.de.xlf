@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>user.invalid_username</source>
-        <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten.</target>
+        <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten und darf nicht mit einem @ beginnen.</target>
       </segment>
     </unit>
     <unit id="_v.DMg." name="validator.noneofitschild.self">

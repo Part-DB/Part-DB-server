@@ -66,7 +66,7 @@ class TagFinder
 
         $qb->select('p.tags')
             ->from(Part::class, 'p')
-            ->where('p.tags LIKE ?1')
+            ->where('ILIKE(p.tags, ?1) = TRUE')
             ->setMaxResults($options['query_limit'])
             //->orderBy('RAND()')
             ->setParameter(1, '%'.$keyword.'%');

@@ -61,10 +61,10 @@ final class TagFilter extends AbstractFilter
         $expr = $queryBuilder->expr();
 
         $tmp = $expr->orX(
-            $expr->like('o.'.$property, ':' . $tag_identifier_prefix . '_1'),
-            $expr->like('o.'.$property, ':' . $tag_identifier_prefix . '_2'),
-            $expr->like('o.'.$property, ':' . $tag_identifier_prefix . '_3'),
-            $expr->eq('o.'.$property, ':' . $tag_identifier_prefix . '_4'),
+            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_1) = TRUE',
+            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_2) = TRUE',
+            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_3) = TRUE',
+            'ILIKE(o.'.$property.', :' . $tag_identifier_prefix . '_4) = TRUE',
         );
 
         $queryBuilder->andWhere($tmp);

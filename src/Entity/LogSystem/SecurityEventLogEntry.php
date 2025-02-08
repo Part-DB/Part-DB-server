@@ -44,9 +44,9 @@ namespace App\Entity\LogSystem;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvents;
+use App\Helpers\IPAnonymizer;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
-use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when something security related to a user happens.
@@ -134,7 +134,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     public function setIPAddress(string $ip, bool $anonymize = true): self
     {
         if ($anonymize) {
-            $ip = IpUtils::anonymize($ip);
+            $ip = IPAnonymizer::anonymize($ip);
         }
         $this->extra['i'] = $ip;
 

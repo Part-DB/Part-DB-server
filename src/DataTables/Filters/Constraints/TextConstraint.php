@@ -32,7 +32,7 @@ class TextConstraint extends AbstractConstraint
     /**
      * @param string $value
      */
-    public function __construct(string $property, string $identifier = null, /**
+    public function __construct(string $property, ?string $identifier = null, /**
      * @var string|null The value to compare to
      */
     protected ?string $value = null, /**
@@ -107,7 +107,8 @@ class TextConstraint extends AbstractConstraint
         }
 
         if ($like_value !== null) {
-            $this->addSimpleAndConstraint($queryBuilder, $this->property, $this->identifier, 'LIKE', $like_value);
+            $queryBuilder->andWhere(sprintf('ILIKE(%s, :%s) = TRUE', $this->property, $this->identifier));
+            $queryBuilder->setParameter($this->identifier, $like_value);
             return;
         }
 

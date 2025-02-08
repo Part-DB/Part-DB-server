@@ -44,7 +44,7 @@ class DoNotUsePurgerFactory implements PurgerFactory
                 throw new \LogicException('Do not use doctrine:fixtures:load directly. Use partdb:fixtures:load instead!');
             }
 
-            public function setEntityManager(EntityManagerInterface $em)
+            public function setEntityManager(EntityManagerInterface $em): void
             {
                 // TODO: Implement setEntityManager() method.
             }

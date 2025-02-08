@@ -12228,5 +12228,101 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Codice generato</target>
       </segment>
     </unit>
+    <unit id="5fgkpRc" name="info_providers.search.show_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.show_existing_part</source>
+        <target>Mostra i componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="iPO8lit" name="info_providers.search.edit_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.edit_existing_part</source>
+        <target>Modifica i componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="gUMm8CJ" name="info_providers.search.existing_part_found.short">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found.short</source>
+        <target>Componenti già presenti</target>
+      </segment>
+    </unit>
+    <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found</source>
+        <target>Questo componente (o uno molto simile) è già stato trovato nel database. Controlla se è lo stesso e se vuoi crearlo di nuovo!</target>
+      </segment>
+    </unit>
+    <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.update_existing_part</source>
+        <target>Aggiorna il componente esistente con le informazioni del provider</target>
+      </segment>
+    </unit>
+    <unit id="X5tEZJs" name="part.create_from_info_provider.no_category_yet">
+      <segment state="translated">
+        <source>part.create_from_info_provider.no_category_yet</source>
+        <target>La categoria non può essere determinata automaticamente dal provider di informazioni. Verifica i dati e seleziona manualmente la categoria.</target>
+      </segment>
+    </unit>
+    <unit id="v6oyTac" name="part_lot.edit.user_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.user_barcode</source>
+        <target>Codice a barre utente</target>
+      </segment>
+    </unit>
+    <unit id="dXhegcm" name="scan_dialog.mode.user">
+      <segment state="translated">
+        <source>scan_dialog.mode.user</source>
+        <target>Codice a barre definito dall'utente (configurato sul lotto del componente)</target>
+      </segment>
+    </unit>
+    <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
+      <segment state="translated">
+        <source>scan_dialog.mode.eigp</source>
+        <target>Codice a barre EIGP 114 (ad esempio, i codici datamatrix sugli ordini di Digikey e Mouser)</target>
+      </segment>
+    </unit>
+    <unit id="QSMS_Bd" name="scan_dialog.info_mode">
+      <segment state="translated">
+        <source>scan_dialog.info_mode</source>
+        <target>Modalità "info" (Decodifica il codice a barre e mostra il suo contenuto, senza reindirizzare alla parte)</target>
+      </segment>
+    </unit>
+    <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
+      <segment state="translated">
+        <source>label_scanner.decoded_info.title</source>
+        <target>Informazioni decodificate</target>
+      </segment>
+    </unit>
+    <unit id="nmXQWcS" name="label_generator.edit_profiles">
+      <segment state="translated">
+        <source>label_generator.edit_profiles</source>
+        <target>Modifica profili</target>
+      </segment>
+    </unit>
+    <unit id="JzfeFN6" name="label_generator.profile_name_empty">
+      <segment state="translated">
+        <source>label_generator.profile_name_empty</source>
+        <target>Il nome del profilo non può essere vuoto</target>
+      </segment>
+    </unit>
+    <unit id="0TP6The" name="label_generator.save_profile_name">
+      <segment state="translated">
+        <source>label_generator.save_profile_name</source>
+        <target>Nome profilo</target>
+      </segment>
+    </unit>
+    <unit id="OhUW6es" name="label_generator.save_profile">
+      <segment state="translated">
+        <source>label_generator.save_profile</source>
+        <target>Salva come nuovo profilo</target>
+      </segment>
+    </unit>
+    <unit id="sqc4h7S" name="label_generator.profile_saved">
+      <segment state="translated">
+        <source>label_generator.profile_saved</source>
+        <target>Profilo salvato!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

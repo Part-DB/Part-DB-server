@@ -101,6 +101,8 @@ class PartBaseType extends AbstractType
                 'dto_value' => $dto?->category,
                 'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
+                //Do not require category for new parts, so that the user must select the category by hand and cannot forget it (the requirement is handled by the constraint in the entity)
+                'required' => !$new_part,
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,

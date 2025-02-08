@@ -256,7 +256,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?string $password = null;
 
     #[Assert\NotBlank]
-    #[Assert\Regex('/^[\w\.\+\-\$]+$/', message: 'user.invalid_username')]
+    #[Assert\Regex('/^[\w\.\+\-\$]+[\w\.\+\-\$\@]*$/', message: 'user.invalid_username')]
     #[Groups(['user:read'])]
     protected string $name = '';
 
@@ -893,8 +893,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @param string[] $codes An array containing the backup codes
      *
      * @return $this
-     *
-     * @throws Exception If an error with the datetime occurs
      */
     public function setBackupCodes(array $codes): self
     {

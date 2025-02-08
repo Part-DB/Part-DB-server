@@ -38,7 +38,7 @@ final class LikeFilter extends AbstractFilter
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = []
     ): void {
         // Otherwise filter is applied to order and page as well
@@ -50,7 +50,7 @@ final class LikeFilter extends AbstractFilter
         }
         $parameterName = $queryNameGenerator->generateParameterName($property); // Generate a unique parameter name to avoid collisions with other filters
         $queryBuilder
-            ->andWhere(sprintf('o.%s LIKE :%s', $property, $parameterName))
+            ->andWhere(sprintf('ILIKE(o.%s, :%s) = TRUE', $property, $parameterName))
             ->setParameter($parameterName, $value);
     }
 

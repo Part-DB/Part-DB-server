@@ -771,11 +771,6 @@ class OEMSecretsProvider implements InfoProviderInterface
         // Logic to extract parameters from the description
         $extractedParameters = $this->parseDescriptionToParameters($description) ?? [];
 
-        // Ensure that $extractedParameters is an array
-        if (!is_array($extractedParameters)) {
-            $extractedParameters = [];
-        }
-
         foreach ($extractedParameters as $newParam) {
             $isDuplicate = false;
             foreach ($parameters as $existingParam) {
@@ -1226,7 +1221,7 @@ class OEMSecretsProvider implements InfoProviderInterface
      *               - 'value_min' => string|null The minimum value in a range, if applicable.
      *               - 'value_max' => string|null The maximum value in a range, if applicable.
      */
-    private function customSplitIntoValueAndUnit(string $value1, string $value2 = null): array
+    private function customSplitIntoValueAndUnit(string $value1, ?string $value2 = null): array
     {
         // Separate numbers and units (basic parsing handling)
         $unit = null;

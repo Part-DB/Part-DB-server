@@ -153,6 +153,7 @@ class BOMImporter
                 break;
             }
 
+            //@phpstan-ignore-next-line We want to keep this check just to be safe when something changes
             $new_index = self::MAP_KICAD_PCB_FIELDS[$index] ?? throw new \UnexpectedValueException('Invalid field index!');
             $out[$new_index] = $field;
         }

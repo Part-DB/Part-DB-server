@@ -60,6 +60,7 @@ class PartListsController extends AbstractController
         $ids = $request->request->get('ids');
         $action = $request->request->get('action');
         $target = $request->request->get('target');
+        $redirectResponse = null;
 
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
@@ -80,7 +81,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        if (isset($redirectResponse) && $redirectResponse instanceof Response) {
+        if ($redirectResponse !== null) {
             return $redirectResponse;
         }
 
@@ -131,7 +132,11 @@ class PartListsController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(['filter' => $filter], $additional_table_vars))
+        $table = $this->dataTableFactory->createFromType(
+            PartsDataTable::class,
+            array_merge(['filter' => $filter], $additional_table_vars),
+            ['lengthMenu' => PartsDataTable::LENGTH_MENU]
+        )
             ->handleRequest($request);
 
         if ($table->isCallback()) {

@@ -115,6 +115,62 @@ class RedirectControllerTest extends WebTestCase
 
         $this->client->followRedirects(false);
         $this->client->request('GET', $input_path);
-        $this->assertResponseRedirects($redirect_path);
+        self::assertResponseRedirects($redirect_path);
     }
+
+    /**
+     * Test if the user is redirected to the localized version of a page, based on his settings.
+     * We simulate the situation of a reverse proxy here, by adding a prefix to the path.
+     *
+     * @dataProvider urlAddLocaleDataProvider
+     * @group slow
+     */
+    public function testAddLocaleReverseProxy(?string $user_locale, string $input_path, string $redirect_path): void
+    {
+        //Input path remains unchanged, as this is what the server receives from the proxy
+
+        //Redirect path must contain the proxy prefix
+        $redirect_path = 'http://localhost'. '/proxy' . $redirect_path;
+
+        /** @var User $user */
+        $user = $this->userRepo->findOneBy(['name' => 'user']);
+        //Set user locale
+        $user->setLanguage($user_locale);
+        $this->em->flush();
+
+        $this->client->followRedirects(false);
+        $this->client->request('GET', $input_path, [], [], ['HTTP_X_FORWARDED_PREFIX' => '/proxy']);
+        self::assertResponseRedirects($redirect_path);
+    }
+
+
+    /**
+     * Test if the user is redirected to the localized version of a page, based on his settings.
+     * We simulate the situation of serving Part-DB in a subfolder here.
+     *
+     * @dataProvider urlAddLocaleDataProvider
+     * @group slow
+     */
+    public function testAddLocaleSubfolder(?string $user_locale, string $input_path, string $redirect_path): void
+    {
+        //Prefix our path with the proxy prefix
+        $input_path = '/folder'.$input_path;
+
+        //Redirect path is absolute
+        $redirect_path = 'http://localhost'. '/folder' . $redirect_path;
+
+        /** @var User $user */
+        $user = $this->userRepo->findOneBy(['name' => 'user']);
+        //Set user locale
+        $user->setLanguage($user_locale);
+        $this->em->flush();
+
+        $this->client->followRedirects(false);
+        $this->client->request('GET', $input_path, [], [], [
+            'SCRIPT_FILENAME' => '/var/www/html/folder/public/index.php',
+            'PHP_SELF' => '/folder/index.php',
+        ]);
+        self::assertResponseRedirects($redirect_path);
+    }
+
 }

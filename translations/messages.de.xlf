@@ -3848,7 +3848,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher es werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
+        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
 Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status &lt;i&gt;aller &lt;/i&gt;Computer zurücksetzen.</target>
       </segment>
     </unit>
@@ -12221,6 +12221,102 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>tfa.check.code.confirmation</source>
         <target>Erzeugter Code</target>
+      </segment>
+    </unit>
+    <unit id="5fgkpRc" name="info_providers.search.show_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.show_existing_part</source>
+        <target>Bestehendes Bauteil anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="iPO8lit" name="info_providers.search.edit_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.edit_existing_part</source>
+        <target>Bestehendes Bauteil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="gUMm8CJ" name="info_providers.search.existing_part_found.short">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found.short</source>
+        <target>Bauteil existiert bereits</target>
+      </segment>
+    </unit>
+    <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found</source>
+        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es das gleiche ist und ob Sie dies erneut erstellen möchten!</target>
+      </segment>
+    </unit>
+    <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.update_existing_part</source>
+        <target>Bestehendes Bauteil von Informationsquelle aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="X5tEZJs" name="part.create_from_info_provider.no_category_yet">
+      <segment state="translated">
+        <source>part.create_from_info_provider.no_category_yet</source>
+        <target>Die Kategorie konnte nicht automatisch von der Informationsquelle ermittelt werden. Überprüfen Sie die Daten und wählen Sie die Kategorie händisch aus.</target>
+      </segment>
+    </unit>
+    <unit id="v6oyTac" name="part_lot.edit.user_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.user_barcode</source>
+        <target>Benutzer-Barcode</target>
+      </segment>
+    </unit>
+    <unit id="dXhegcm" name="scan_dialog.mode.user">
+      <segment state="translated">
+        <source>scan_dialog.mode.user</source>
+        <target>Benutzer definierter Barcode (in Bauteilebestand konfiguriert)</target>
+      </segment>
+    </unit>
+    <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
+      <segment state="translated">
+        <source>scan_dialog.mode.eigp</source>
+        <target>EIGP 114 Barcode (z. B. der Datamatrix code auf Digikey und Mouser Bauteilen)</target>
+      </segment>
+    </unit>
+    <unit id="QSMS_Bd" name="scan_dialog.info_mode">
+      <segment state="translated">
+        <source>scan_dialog.info_mode</source>
+        <target>Info Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
+      </segment>
+    </unit>
+    <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
+      <segment state="translated">
+        <source>label_scanner.decoded_info.title</source>
+        <target>Dekodierte Informationen</target>
+      </segment>
+    </unit>
+    <unit id="nmXQWcS" name="label_generator.edit_profiles">
+      <segment state="translated">
+        <source>label_generator.edit_profiles</source>
+        <target>Profile bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="JzfeFN6" name="label_generator.profile_name_empty">
+      <segment state="translated">
+        <source>label_generator.profile_name_empty</source>
+        <target>Der Profilname darf nicht leer sein!</target>
+      </segment>
+    </unit>
+    <unit id="0TP6The" name="label_generator.save_profile_name">
+      <segment state="translated">
+        <source>label_generator.save_profile_name</source>
+        <target>Profilname</target>
+      </segment>
+    </unit>
+    <unit id="OhUW6es" name="label_generator.save_profile">
+      <segment state="translated">
+        <source>label_generator.save_profile</source>
+        <target>Als neues Profil speichern</target>
+      </segment>
+    </unit>
+    <unit id="sqc4h7S" name="label_generator.profile_saved">
+      <segment state="translated">
+        <source>label_generator.profile_saved</source>
+        <target>Profil gespeichert!</target>
       </segment>
     </unit>
   </file>

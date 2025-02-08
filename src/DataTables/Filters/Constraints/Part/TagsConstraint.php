@@ -30,7 +30,7 @@ class TagsConstraint extends AbstractConstraint
 {
     final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
 
-    public function __construct(string $property, string $identifier = null,
+    public function __construct(string $property, ?string $identifier = null,
         protected ?string $value = null,
         protected ?string $operator = '')
     {
@@ -93,10 +93,10 @@ class TagsConstraint extends AbstractConstraint
         $expr = $queryBuilder->expr();
 
         $tmp = $expr->orX(
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_1'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_2'),
-            $expr->like($this->property, ':' . $tag_identifier_prefix . '_3'),
-            $expr->eq($this->property, ':' . $tag_identifier_prefix . '_4'),
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_1) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_2) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_3) = TRUE',
+            'ILIKE(' . $this->property . ', :' . $tag_identifier_prefix . '_4) = TRUE',
         );
 
         //Set the parameters for the LIKE expression, in each variation of the tag (so with a comma, at the end, at the beginning, and on both ends, and equaling the tag)
@@ -133,6 +133,7 @@ class TagsConstraint extends AbstractConstraint
             return;
         }
 
+        //@phpstan-ignore-next-line Keep this check to ensure that everything has the same structure even if we add a new operator
         if ($this->operator === 'NONE') {
             $queryBuilder->andWhere($queryBuilder->expr()->not($queryBuilder->expr()->orX(...$tagsExpressions)));
             return;

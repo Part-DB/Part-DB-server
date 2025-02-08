@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Helpers\IPAnonymizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\IpUtils;
 
 #[ORM\Entity]
 class UserLogoutLogEntry extends AbstractLogEntry
@@ -56,7 +56,7 @@ class UserLogoutLogEntry extends AbstractLogEntry
     public function setIPAddress(string $ip, bool $anonymize = true): self
     {
         if ($anonymize) {
-            $ip = IpUtils::anonymize($ip);
+            $ip = IPAnonymizer::anonymize($ip);
         }
 
         $this->extra['i'] = $ip;

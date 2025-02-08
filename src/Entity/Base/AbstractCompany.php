@@ -33,8 +33,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This abstract class is used for companies like suppliers or manufacturers.
  *
- * @template-covariant AT of Attachment
- * @template-covariant PT of AbstractParameter
+ * @template AT of Attachment
+ * @template PT of AbstractParameter
  * @extends AbstractPartsContainingDBElement<AT, PT>
  */
 #[ORM\MappedSuperclass]
@@ -162,7 +162,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      *
      * @return string the link to the article
      */
-    public function getAutoProductUrl(string $partnr = null): string
+    public function getAutoProductUrl(?string $partnr = null): string
     {
         if (is_string($partnr)) {
             return str_replace('%PARTNUMBER%', $partnr, $this->auto_product_url);

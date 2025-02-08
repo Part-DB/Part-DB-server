@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>user.invalid_username</source>
-        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses!</target>
+        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses and must not begin with an @!</target>
       </segment>
     </unit>
     <unit id="_v.DMg." name="validator.noneofitschild.self">
