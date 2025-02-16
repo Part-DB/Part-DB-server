@@ -23,6 +23,12 @@ import "tom-select/dist/css/tom-select.bootstrap5.css";
 import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 
+import TomSelect_click_to_edit from '../../tomselect/click_to_edit/click_to_edit'
+import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+
+TomSelect.define('click_to_edit', TomSelect_click_to_edit)
+TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+
 export default class extends Controller {
     _tomSelect;
 
@@ -46,6 +52,11 @@ export default class extends Controller {
                     }
                     return '<div>' + escape(data.label) + '</div>';
                 }
+            },
+            plugins: {
+                'autoselect_typed': {},
+                'click_to_edit': {},
+                'remove_button': {}
             }
         };
 
