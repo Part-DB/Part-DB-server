@@ -56,7 +56,8 @@ export default class extends Controller {
             plugins: {
                 'autoselect_typed': {},
                 'click_to_edit': {},
-                'remove_button': {}
+                'clear_button': {},
+                "restore_on_backspace": {}
             }
         };
 
