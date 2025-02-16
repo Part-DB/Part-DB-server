@@ -48,6 +48,7 @@ export default class extends Controller {
             selectOnTab: true,
             maxOptions: null,
             create: allowAdd ? this.createItem.bind(this) : false,
+            createFilter: this.createFilter.bind(this),
 
             // This three options allow us to paste element names with commas: (see issue #538)
             maxItems: 1,
@@ -126,6 +127,31 @@ export default class extends Controller {
             text: input,
             not_in_db_yet: true,
         });
+    }
+
+    createFilter(input) {
+
+        //Normalize the input (replace spacing around arrows)
+        if (input.includes("->")) {
+            const inputs = input.split("->");
+            inputs.forEach((value, index) => {
+                inputs[index] = value.trim();
+            });
+            input = inputs.join("->");
+        } else {
+            input = input.trim();
+        }
+
+        const options = this._tomSelect.options;
+        //Iterate over all options and check if the input is already present
+        for (let index in options) {
+            const option = options[index];
+            if (option.path === input) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
