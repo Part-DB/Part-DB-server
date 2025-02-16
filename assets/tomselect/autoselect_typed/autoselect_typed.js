@@ -24,6 +24,11 @@ function select_current_input(self){
     }
 
     const val = self.inputValue()
+    //Do nothing if the input is empty
+    if (!val) {
+        return
+    }
+
     if (self.options[val]) {
         self.addItem(val)
         self.setTextboxValue()
