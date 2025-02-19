@@ -72,9 +72,9 @@ class ParameterDTO
                 group: $group);
         }
 
-        //If the attribute contains "..." or a tilde we assume it is a range
-        if (preg_match('/(\.{3}|~)/', $value) === 1) {
-            $parts = preg_split('/\s*(\.{3}|~)\s*/', $value);
+        //If the attribute contains ".." or "..." or a tilde we assume it is a range
+        if (preg_match('/(\.{2,3}|~)/', $value) === 1) {
+            $parts = preg_split('/\s*(\.{2,3}|~)\s*/', $value);
             if (count($parts) === 2) {
                 //Try to extract number and unit from value (allow leading +)
                 if ($unit === null || trim($unit) === '') {

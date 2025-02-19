@@ -70,6 +70,16 @@ class ParameterDTOTest extends TestCase
             'test'
         ];
 
+        //Test ranges
+        yield [
+            new ParameterDTO('test', value_min: 1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
+            'test',
+            '1.0..2.0',
+            'kg',
+            'm',
+            'test'
+        ];
+
         //Test ranges with tilde
         yield [
             new ParameterDTO('test', value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
