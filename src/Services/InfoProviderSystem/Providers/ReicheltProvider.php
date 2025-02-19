@@ -131,6 +131,7 @@ class ReicheltProvider implements InfoProviderInterface
             provider_id: $id,
             name: $json[0]['article_artnr'],
             description: $json[0]['article_besch'],
+            category: $this->parseCategory($dom),
             manufacturer: $json[0]['manufacturer_name'],
             preview_image_url: $json[0]['article_picture'],
             provider_url: $productPage,
@@ -141,6 +142,29 @@ class ReicheltProvider implements InfoProviderInterface
 
     }
 
+
+    private function parseCategory(Crawler $dom): string
+    {
+        // Look for ol.breadcrumb and iterate over the li elements
+        $category = '';
+        $dom->filter('ol.breadcrumb li.triangle-left')->each(function (Crawler $element) use (&$category) {
+            //Do not include the .breadcrumb-showmore element
+            if ($element->attr('id') === 'breadcrumb-showmore') {
+                return;
+            }
+
+            $category .= $element->text() . ' -> ';
+        });
+        //Remove the trailing ' -> '
+        $category = substr($category, 0, -4);
+
+        return $category;
+    }
+
+    /**
+     * @param  Crawler  $dom
+     * @return ParameterDTO[]
+     */
     private function parseParameters(Crawler $dom): array
     {
         $parameters = [];
