@@ -26,12 +26,16 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ReicheltProvider implements InfoProviderInterface
 {
+
+    public const DISTRIBUTOR_NAME = "Reichelt";
 
     private const SEARCH_ENDPOINT = "https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=%s";
 
@@ -125,6 +129,16 @@ class ReicheltProvider implements InfoProviderInterface
             $datasheets[] = new FileDTO($element->attr('href'), $element->filter('span')->text());
         });
 
+        //Create purchase info
+        $purchaseInfo = new PurchaseInfoDTO(
+            distributor_name: self::DISTRIBUTOR_NAME,
+            order_number: $json[0]['article_artnr'],
+            prices: [
+                new PriceDTO(1.0, (string) $json[0]['article_price'], 'EUR')
+            ],
+            product_url: $productPage
+        );
+
         //Create part object
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
@@ -137,7 +151,8 @@ class ReicheltProvider implements InfoProviderInterface
             provider_url: $productPage,
             notes: $notes,
             datasheets: $datasheets,
-            parameters: $this->parseParameters($dom)
+            parameters: $this->parseParameters($dom),
+            vendor_infos: [$purchaseInfo]
         );
 
     }

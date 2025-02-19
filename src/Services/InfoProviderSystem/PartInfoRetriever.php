@@ -33,8 +33,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 final class PartInfoRetriever
 {
 
-    private const CACHE_DETAIL_EXPIRATION = 60 * 60 * 24 * 4; // 4 days
-    private const CACHE_RESULT_EXPIRATION = 60 * 60 * 24 * 7; // 7 days
+    private const CACHE_DETAIL_EXPIRATION = 5; // 4 days
+    private const CACHE_RESULT_EXPIRATION = 5; // 7 days
 
     public function __construct(private readonly ProviderRegistry $provider_registry,
         private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache)
