@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DomCrawler\Crawler;
@@ -70,6 +71,9 @@ class ReicheltProvider implements InfoProviderInterface
         $results = [];
         $dom->filter('div.al_gallery_article')->each(function (Crawler $element) use (&$results) {
 
+            //Extract product id from data-product attribute
+            $artId = json_decode($element->attr('data-product'), true, 2, JSON_THROW_ON_ERROR)['artid'];
+
             $productID = $element->filter('meta[itemprop="productID"]')->attr('content');
             $name = $element->filter('meta[itemprop="name"]')->attr('content');
             $sku = $element->filter('meta[itemprop="sku"]')->attr('content');
@@ -79,7 +83,7 @@ class ReicheltProvider implements InfoProviderInterface
 
             $results[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
-                provider_id: $productID,
+                provider_id: $artId,
                 name: $productID,
                 description: $name,
                 category: null,
@@ -94,7 +98,51 @@ class ReicheltProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        // TODO: Implement getDetails() method.
+        //Check that the ID is a number
+        if (!is_numeric($id)) {
+            throw new \InvalidArgumentException("Invalid ID");
+        }
+
+        //Use this endpoint to resolve the artID to a product page
+        $response = $this->client->request('GET', sprintf('https://www.reichelt.com/?ACTION=514&id=74&article=%s&LANGUAGE=EN&CCOUNTRY=DE', $id));
+        $json = $response->toArray();
+
+        //Retrieve the product page from the response
+        $productPage = $this->getBaseURL() . '/shop/product' .  $json[0]['article_path'];
+
+
+        $response = $this->client->request('GET', $productPage);
+        $html = $response->getContent();
+        $dom = new Crawler($html);
+
+        //Extract the product notes
+        $notes = $dom->filter('p[itemprop="description"]')->html();
+
+        //Extract datasheets
+        $datasheets = [];
+        $dom->filter('div.articleDatasheet a')->each(function (Crawler $element) use (&$datasheets) {
+            $datasheets[] = new FileDTO($element->attr('href'), $element->filter('span')->text());
+        });
+
+        //Create part object
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $id,
+            name: $json[0]['article_artnr'],
+            description: $json[0]['article_besch'],
+            manufacturer: $json[0]['manufacturer_name'],
+            preview_image_url: $json[0]['article_picture'],
+            provider_url: $productPage,
+            notes: $notes,
+            datasheets: $datasheets
+        );
+
+    }
+
+    private function getBaseURL(): string
+    {
+        //Without the trailing slash
+        return 'https://www.reichelt.com/de/en';
     }
 
     public function getCapabilities(): array
