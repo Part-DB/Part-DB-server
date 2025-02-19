@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DomCrawler\Crawler;
@@ -134,9 +135,30 @@ class ReicheltProvider implements InfoProviderInterface
             preview_image_url: $json[0]['article_picture'],
             provider_url: $productPage,
             notes: $notes,
-            datasheets: $datasheets
+            datasheets: $datasheets,
+            parameters: $this->parseParameters($dom)
         );
 
+    }
+
+    private function parseParameters(Crawler $dom): array
+    {
+        $parameters = [];
+        //Iterate over each ul.articleTechnicalData which contains the specifications of each group
+        $dom->filter('ul.articleTechnicalData')->each(function (Crawler $groupElement) use (&$parameters) {
+            $groupName = $groupElement->filter('li.articleTechnicalHeadline')->text();
+
+            //Iterate over each second li in ul.articleAttribute, which contains the specifications
+            $groupElement->filter('ul.articleAttribute li:nth-child(2n)')->each(function (Crawler $specElement) use (&$parameters, $groupName) {
+                $parameters[] = ParameterDTO::parseValueField(
+                    name: $specElement->previousAll()->text(),
+                    value: $specElement->text(),
+                    group: $groupName
+                );
+            });
+        });
+
+        return $parameters;
     }
 
     private function getBaseURL(): string
