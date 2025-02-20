@@ -184,9 +184,9 @@ class PollinProvider implements InfoProviderInterface
 
         //Iterate over each tr.properties-row inside table.product-detail-properties-table
         $dom->filter('table.product-detail-properties-table tr.properties-row')->each(function (Crawler $node) use (&$parameters) {
-            $parameters[] = ParameterDTO::parseValueField(
+            $parameters[] = ParameterDTO::parseValueIncludingUnit(
                 name: rtrim($node->filter('th.properties-label')->text(), ':'),
-                value: $node->filter('td.properties-value')->text()
+                value: trim($node->filter('td.properties-value')->text())
             );
         });
 

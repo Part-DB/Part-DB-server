@@ -256,7 +256,7 @@ class ReicheltProvider implements InfoProviderInterface
 
             //Iterate over each second li in ul.articleAttribute, which contains the specifications
             $groupElement->filter('ul.articleAttribute li:nth-child(2n)')->each(function (Crawler $specElement) use (&$parameters, $groupName) {
-                $parameters[] = ParameterDTO::parseValueField(
+                $parameters[] = ParameterDTO::parseValueIncludingUnit(
                     name: $specElement->previousAll()->text(),
                     value: $specElement->text(),
                     group: $groupName
