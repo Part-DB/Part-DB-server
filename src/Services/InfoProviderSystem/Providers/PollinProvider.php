@@ -141,16 +141,7 @@ class PollinProvider implements InfoProviderInterface
         $mass = (float) $massStr * 1000;
 
         //Parse purchase info
-        $purchaseInfo = new PurchaseInfoDTO(
-            'Pollin',
-            $orderId,
-            [
-                new PriceDTO(1, $dom->filter('meta[property="product:price:amount"]')->attr('content'), $dom->filter('meta[property="product:price:currency"]')->attr('content'))
-            ],
-            $productPageUrl
-        );
-
-
+        $purchaseInfo = new PurchaseInfoDTO('Pollin', $orderId, $this->parsePrices($dom), $productPageUrl);
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
@@ -219,6 +210,25 @@ class PollinProvider implements InfoProviderInterface
     {
         //Concat product highlights and product description
         return $dom->filter('div.product-detail-top-features')->html() . '<br><br>' . $dom->filter('div.product-detail-description-text')->html();
+    }
+
+    private function parsePrices(Crawler $dom): array
+    {
+        //TODO: Properly handle multiple prices, for now we just look at the price for one piece
+
+        //We assume the currency is always the same
+        $currency = $dom->filter('meta[property="product:price:currency"]')->attr('content');
+
+        //If there is meta[property=highPrice] then use this as the price
+        if ($dom->filter('meta[itemprop="highPrice"]')->count() > 0) {
+            $price = $dom->filter('meta[itemprop="highPrice"]')->attr('content');
+        } else {
+            $price = $dom->filter('meta[property="product:price:amount"]')->attr('content');
+        }
+
+        return [
+            new PriceDTO(1.0, $price, $currency)
+        ];
     }
 
     public function getCapabilities(): array
