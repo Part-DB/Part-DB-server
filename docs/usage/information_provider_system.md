@@ -247,6 +247,14 @@ The following env configuration options are available:
 * `PROVIDER_REICHELT_LANGUAGE`: The language you want to get the descriptions in (optional, default: `en`)
 * `PROVIDER_REICHELT_INCLUDE_VAT`: If set to `1`, the prices will be gross prices (including tax), otherwise net prices (optional, default: `1`)
 
+### Pollin
+
+The pollin provider uses webscraping from [pollin.de](https://www.pollin.de/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+The following env configuration options are available:
+* `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
