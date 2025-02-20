@@ -147,6 +147,7 @@ class ReicheltProvider implements InfoProviderInterface
             description: $json[0]['article_besch'],
             category: $this->parseCategory($dom),
             manufacturer: $json[0]['manufacturer_name'],
+            mpn: $this->parseMPN($dom),
             preview_image_url: $json[0]['article_picture'],
             provider_url: $productPage,
             notes: $notes,
@@ -155,6 +156,19 @@ class ReicheltProvider implements InfoProviderInterface
             vendor_infos: [$purchaseInfo]
         );
 
+    }
+
+    private function parseMPN(Crawler $dom): ?string
+    {
+        //Find the small element directly after meta[itemprop="url"] element
+        $element = $dom->filter('meta[itemprop="url"] + small');
+        //If the text contains GTIN text, take the small element afterwards
+        if (str_contains($element->text(), 'GTIN')) {
+            $element = $dom->filter('meta[itemprop="url"] + small + small');
+        }
+
+        //The MPN is contained in the span inside the element
+        return $element->filter('span')->text();
     }
 
     private function parseBatchPrices(Crawler $dom): array
