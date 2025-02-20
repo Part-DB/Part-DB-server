@@ -59,7 +59,7 @@ class ReicheltProvider implements InfoProviderInterface
             'name' => 'Reichelt',
             'description' => 'Webscrapping from reichelt.com to get part information',
             'url' => 'https://www.reichelt.com/',
-            'disabled_help' => 'TODO'
+            'disabled_help' => 'Set PROVIDER_REICHELT_ENABLED env to 1'
         ];
     }
 
