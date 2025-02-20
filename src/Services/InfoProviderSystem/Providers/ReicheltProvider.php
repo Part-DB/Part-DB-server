@@ -48,7 +48,9 @@ class ReicheltProvider implements InfoProviderInterface
         #[Autowire(env: "PROVIDER_REICHELT_COUNTRY")]
         private readonly string $country = "DE",
         #[Autowire(env: "PROVIDER_REICHELT_INCLUDE_VAT")]
-        private bool $includeVAT = false
+        private readonly bool $includeVAT = false,
+        #[Autowire(env: "PROVIDER_REICHELT_CURRENCY")]
+        private readonly string $currency = "EUR",
     )
     {
     }
@@ -134,6 +136,7 @@ class ReicheltProvider implements InfoProviderInterface
         $response = $this->client->request('GET', $productPage, [
             'query' => [
                 'CCTYPE' => $this->includeVAT ? 'private' : 'business',
+                'currency' => $this->currency,
             ],
         ]);
         $html = $response->getContent();
