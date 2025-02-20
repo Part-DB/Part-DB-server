@@ -74,6 +74,12 @@ class PollinProvider implements InfoProviderInterface
         ]);
 
         $content = $response->getContent();
+
+        //If the response has us redirected to the product page, then just return the single item
+        if ($response->getInfo('redirect_count') > 0) {
+            return [$this->parseProductPage($content)];
+        }
+
         $dom = new Crawler($content);
 
         $results = [];
