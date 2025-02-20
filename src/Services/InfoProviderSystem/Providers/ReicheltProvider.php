@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -39,7 +40,13 @@ class ReicheltProvider implements InfoProviderInterface
 
     private const SEARCH_ENDPOINT = "https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=%s";
 
-    public function __construct(private readonly HttpClientInterface $client, private readonly bool $enabled = true, private readonly string $language = "en", private readonly string $country = "DE")
+    public function __construct(private readonly HttpClientInterface $client,
+        #[Autowire(env: "bool:PROVIDER_REICHELT_ENABLED")]
+        private readonly bool $enabled = true,
+        #[Autowire(env: "PROVIDER_REICHELT_LANGUAGE")]
+        private readonly string $language = "en",
+        #[Autowire(env: "PROVIDER_REICHELT_COUNTRY")]
+        private readonly string $country = "DE")
     {
     }
 
