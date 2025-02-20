@@ -156,9 +156,9 @@ class ReicheltProvider implements InfoProviderInterface
         $purchaseInfo = new PurchaseInfoDTO(
             distributor_name: self::DISTRIBUTOR_NAME,
             order_number: $json[0]['article_artnr'],
-            prices: [
-                new PriceDTO(1.0, $priceString, $currency, $this->includeVAT)
-            ] + $this->parseBatchPrices($dom, $currency),
+            prices: array_merge(
+                [new PriceDTO(1.0, $priceString, $currency, $this->includeVAT)]
+            , $this->parseBatchPrices($dom, $currency)),
             product_url: $productPage
         );
 
