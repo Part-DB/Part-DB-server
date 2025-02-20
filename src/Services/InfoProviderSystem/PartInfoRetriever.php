@@ -59,6 +59,11 @@ final class PartInfoRetriever
                 $provider = $this->provider_registry->getProviderByKey($provider);
             }
 
+            //Ensure that the provider is active
+            if (!$provider->isActive()) {
+                throw new \RuntimeException("The provider with key {$provider->getProviderKey()} is not active!");
+            }
+
             if (!$provider instanceof InfoProviderInterface) {
                 throw new \InvalidArgumentException("The provider must be either a provider key or a provider instance!");
             }
@@ -96,6 +101,11 @@ final class PartInfoRetriever
     public function getDetails(string $provider_key, string $part_id): PartDetailDTO
     {
         $provider = $this->provider_registry->getProviderByKey($provider_key);
+
+        //Ensure that the provider is active
+        if (!$provider->isActive()) {
+            throw new \RuntimeException("The provider with key $provider_key is not active!");
+        }
 
         //Generate key and escape reserved characters from the provider id
         $escaped_part_id = urlencode($part_id);
