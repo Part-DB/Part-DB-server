@@ -182,7 +182,7 @@ class ReicheltProvider implements InfoProviderInterface
 
     }
 
-    private function parseMPN(Crawler $dom): ?string
+    private function parseMPN(Crawler $dom): string
     {
         //Find the small element directly after meta[itemprop="url"] element
         $element = $dom->filter('meta[itemprop="url"] + small');
