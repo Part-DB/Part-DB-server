@@ -57,12 +57,30 @@ final class Version20250220215048 extends AbstractMultiPlatformMigration
 
     public function sqLiteUp(Schema $schema): void
     {
-        // TODO: Implement sqLiteUp() method.
+        $this->addSql('CREATE TEMPORARY TABLE __temp__attachments AS SELECT id, type_id, original_filename, show_in_table, name, last_modified, datetime_added, class_name, element_id, path FROM attachments');
+        $this->addSql('DROP TABLE attachments');
+        $this->addSql('CREATE TABLE attachments (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type_id INTEGER NOT NULL, original_filename VARCHAR(255) DEFAULT NULL, show_in_table BOOLEAN NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, class_name VARCHAR(255) NOT NULL, element_id INTEGER NOT NULL, internal_path VARCHAR(255) DEFAULT NULL, external_path VARCHAR(255) DEFAULT NULL, CONSTRAINT FK_47C4FAD6C54C8C93 FOREIGN KEY (type_id) REFERENCES attachment_types (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('INSERT INTO attachments (id, type_id, original_filename, show_in_table, name, last_modified, datetime_added, class_name, element_id, external_path) SELECT id, type_id, original_filename, show_in_table, name, last_modified, datetime_added, class_name, element_id, path FROM __temp__attachments');
+        $this->addSql('DROP TABLE __temp__attachments');
+        $this->addSql('CREATE INDEX attachment_element_idx ON attachments (class_name, element_id)');
+        $this->addSql('CREATE INDEX attachment_name_idx ON attachments (name)');
+        $this->addSql('CREATE INDEX attachments_idx_class_name_id ON attachments (class_name, id)');
+        $this->addSql('CREATE INDEX attachments_idx_id_element_id_class_name ON attachments (id, element_id, class_name)');
+        $this->addSql('CREATE INDEX IDX_47C4FAD6C54C8C93 ON attachments (type_id)');
+        $this->addSql('CREATE INDEX IDX_47C4FAD61F1F2A24 ON attachments (element_id)');
+
+        $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%MEDIA#%%\' ESCAPE \'#\'');
+        $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%BASE#%%\' ESCAPE \'#\'');
+        $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%SECURE#%%\' ESCAPE \'#\'');
+        $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%FOOTPRINTS#%%\' ESCAPE \'#\'');
+        $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%FOOTPRINTS3D#%%\' ESCAPE \'#\'');
+        $this->addSql('UPDATE attachments SET external_path=NULL WHERE internal_path IS NOT NULL');
     }
 
     public function sqLiteDown(Schema $schema): void
     {
-        // TODO: Implement sqLiteDown() method.
+        //Reuse the MySQL down migration:
+        $this->mySQLDown($schema);
     }
 
 
