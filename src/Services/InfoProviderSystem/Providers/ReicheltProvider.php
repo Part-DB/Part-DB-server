@@ -38,8 +38,6 @@ class ReicheltProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = "Reichelt";
 
-    private const SEARCH_ENDPOINT = "https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=%s";
-
     public function __construct(private readonly HttpClientInterface $client,
         #[Autowire(env: "bool:PROVIDER_REICHELT_ENABLED")]
         private readonly bool $enabled = true,
