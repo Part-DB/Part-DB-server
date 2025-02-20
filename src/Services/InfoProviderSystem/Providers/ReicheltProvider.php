@@ -39,7 +39,7 @@ class ReicheltProvider implements InfoProviderInterface
 
     private const SEARCH_ENDPOINT = "https://www.reichelt.com/index.html?ACTION=446&LA=0&nbc=1&q=%s";
 
-    public function __construct(private readonly HttpClientInterface $client)
+    public function __construct(private readonly HttpClientInterface $client, private readonly bool $enabled = true, private readonly string $language = "en", private readonly string $country = "DE")
     {
     }
 
@@ -47,8 +47,8 @@ class ReicheltProvider implements InfoProviderInterface
     {
         return [
             'name' => 'Reichelt',
-            'description' => 'TODO',
-            'url' => 'https://www.reichelt.de/',
+            'description' => 'Webscrapping from reichelt.com to get part information',
+            'url' => 'https://www.reichelt.com/',
             'disabled_help' => 'TODO'
         ];
     }
@@ -60,14 +60,12 @@ class ReicheltProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return true;
+        return $this->enabled;
     }
 
     public function searchByKeyword(string $keyword): array
     {
-        //Lowercase the keyword and urlencode it
-        $keyword = urlencode($keyword);
-        $response = $this->client->request('GET', sprintf(self::SEARCH_ENDPOINT, $keyword));
+        $response = $this->client->request('GET', sprintf($this->getBaseURL() . '/shop/search/%s', $keyword));
         $html = $response->getContent();
 
         //Parse the HTML and return the results
@@ -109,7 +107,14 @@ class ReicheltProvider implements InfoProviderInterface
         }
 
         //Use this endpoint to resolve the artID to a product page
-        $response = $this->client->request('GET', sprintf('https://www.reichelt.com/?ACTION=514&id=74&article=%s&LANGUAGE=EN&CCOUNTRY=DE', $id));
+        $response = $this->client->request('GET',
+            sprintf(
+                'https://www.reichelt.com/?ACTION=514&id=74&article=%s&LANGUAGE=%s&CCOUNTRY=%s',
+                $id,
+                strtoupper($this->language),
+                strtoupper($this->country)
+            )
+        );
         $json = $response->toArray();
 
         //Retrieve the product page from the response
@@ -246,7 +251,7 @@ class ReicheltProvider implements InfoProviderInterface
     private function getBaseURL(): string
     {
         //Without the trailing slash
-        return 'https://www.reichelt.com/de/en';
+        return 'https://www.reichelt.com/' . strtolower($this->country) . '/' . strtolower($this->language);
     }
 
     public function getCapabilities(): array
