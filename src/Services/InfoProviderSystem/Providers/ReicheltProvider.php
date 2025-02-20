@@ -135,7 +135,7 @@ class ReicheltProvider implements InfoProviderInterface
             order_number: $json[0]['article_artnr'],
             prices: [
                 new PriceDTO(1.0, (string) $json[0]['article_price'], 'EUR')
-            ],
+            ] + $this->parseBatchPrices($dom),
             product_url: $productPage
         );
 
@@ -155,6 +155,35 @@ class ReicheltProvider implements InfoProviderInterface
             vendor_infos: [$purchaseInfo]
         );
 
+    }
+
+    private function parseBatchPrices(Crawler $dom): array
+    {
+        //Iterate over each a.inline-block element in div.discountValue
+        $prices = [];
+        $dom->filter('div.discountValue a.inline-block')->each(function (Crawler $element) use (&$prices) {
+            //The minimum amount is the number in the span.block element
+            $minAmountText = $element->filter('span.block')->text();
+
+            //Extract a integer from the text
+            $matches = [];
+            if (!preg_match('/\d+/', $minAmountText, $matches)) {
+                return;
+            }
+
+            $minAmount = (int) $matches[0];
+
+            //The price is the text of the p.productPrice element
+            $priceString = $element->filter('p.productPrice')->text();
+            //Replace comma with dot
+            $priceString = str_replace(',', '.', $priceString);
+            //Strip any non-numeric characters
+            $priceString = preg_replace('/[^0-9.]/', '', $priceString);
+
+            $prices[] = new PriceDTO($minAmount, $priceString, 'EUR');
+        });
+
+        return $prices;
     }
 
 
