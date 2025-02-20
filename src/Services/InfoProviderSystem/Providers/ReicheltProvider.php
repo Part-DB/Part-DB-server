@@ -46,7 +46,10 @@ class ReicheltProvider implements InfoProviderInterface
         #[Autowire(env: "PROVIDER_REICHELT_LANGUAGE")]
         private readonly string $language = "en",
         #[Autowire(env: "PROVIDER_REICHELT_COUNTRY")]
-        private readonly string $country = "DE")
+        private readonly string $country = "DE",
+        #[Autowire(env: "PROVIDER_REICHELT_INCLUDE_VAT")]
+        private bool $includeVAT = false
+    )
     {
     }
 
@@ -128,7 +131,11 @@ class ReicheltProvider implements InfoProviderInterface
         $productPage = $this->getBaseURL() . '/shop/product' .  $json[0]['article_path'];
 
 
-        $response = $this->client->request('GET', $productPage);
+        $response = $this->client->request('GET', $productPage, [
+            'query' => [
+                'CCTYPE' => $this->includeVAT ? 'private' : 'business',
+            ],
+        ]);
         $html = $response->getContent();
         $dom = new Crawler($html);
 
@@ -141,13 +148,17 @@ class ReicheltProvider implements InfoProviderInterface
             $datasheets[] = new FileDTO($element->attr('href'), $element->filter('span')->text());
         });
 
+        //Determine price for one unit
+        $priceString = $dom->filter('meta[itemprop="price"]')->attr('content');
+        $currency = $dom->filter('meta[itemprop="priceCurrency"]')->attr('content', 'EUR');
+
         //Create purchase info
         $purchaseInfo = new PurchaseInfoDTO(
             distributor_name: self::DISTRIBUTOR_NAME,
             order_number: $json[0]['article_artnr'],
             prices: [
-                new PriceDTO(1.0, (string) $json[0]['article_price'], 'EUR')
-            ] + $this->parseBatchPrices($dom),
+                new PriceDTO(1.0, $priceString, $currency, $this->includeVAT)
+            ] + $this->parseBatchPrices($dom, $currency),
             product_url: $productPage
         );
 
@@ -183,11 +194,11 @@ class ReicheltProvider implements InfoProviderInterface
         return $element->filter('span')->text();
     }
 
-    private function parseBatchPrices(Crawler $dom): array
+    private function parseBatchPrices(Crawler $dom, string $currency): array
     {
         //Iterate over each a.inline-block element in div.discountValue
         $prices = [];
-        $dom->filter('div.discountValue a.inline-block')->each(function (Crawler $element) use (&$prices) {
+        $dom->filter('div.discountValue a.inline-block')->each(function (Crawler $element) use (&$prices, $currency) {
             //The minimum amount is the number in the span.block element
             $minAmountText = $element->filter('span.block')->text();
 
@@ -206,7 +217,7 @@ class ReicheltProvider implements InfoProviderInterface
             //Strip any non-numeric characters
             $priceString = preg_replace('/[^0-9.]/', '', $priceString);
 
-            $prices[] = new PriceDTO($minAmount, $priceString, 'EUR');
+            $prices[] = new PriceDTO($minAmount, $priceString, $currency, $this->includeVAT);
         });
 
         return $prices;
