@@ -75,7 +75,8 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.external_path <> \'\'');
+            ->andWhere('attaachment.internal_path IS NULL')
+            ->where('attachment.external_path IS NOT NULL');
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();

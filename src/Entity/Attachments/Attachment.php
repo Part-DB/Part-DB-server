@@ -153,21 +153,21 @@ abstract class Attachment extends AbstractNamedDBElement
     protected ?string $original_filename = null;
 
     /**
-     * @var string If a copy of the file is stored internally, the path to the file relative to a placeholder
+     * @var string|null If a copy of the file is stored internally, the path to the file relative to a placeholder
      * path like %MEDIA%
      */
-    #[ORM\Column(type: Types::STRING)]
-    protected string $internal_path = '';
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    protected ?string $internal_path = null;
 
 
     /**
-     * @var string The path to the external source if the file is stored externally or was downloaded from an
-     * external source
+     * @var string|null The path to the external source if the file is stored externally or was downloaded from an
+     * external source. Null if there is no external source.
      */
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
-    protected string $external_path = '';
+    protected ?string $external_path = null;
 
     /**
      * @var string the name of this element
@@ -297,11 +297,13 @@ abstract class Attachment extends AbstractNamedDBElement
      * Checks if this attachment has a path to an external file
      *
      * @return bool true, if there is a path to an external file
+     * @phpstan-assert-if-true non-empty-string $this->external_path
+     * @phpstan-assert-if-true non-empty-string $this->getExternalPath())
      */
     #[Groups(['attachment:read'])]
     public function hasExternal(): bool
     {
-        return $this->external_path !== '';
+        return $this->external_path !== null && $this->external_path !== '';
     }
 
     /**
@@ -309,11 +311,13 @@ abstract class Attachment extends AbstractNamedDBElement
      * Does not check if the file exists.
      *
      * @return bool true, if there is a path to an internal file
+     * @phpstan-assert-if-true non-empty-string $this->internal_path
+     * @phpstan-assert-if-true non-empty-string $this->getInternalPath())
      */
     #[Groups(['attachment:read'])]
     public function hasInternal(): bool
     {
-        return $this->internal_path !== '';
+        return $this->internal_path !== null && $this->internal_path !== '';
     }
 
     /**
@@ -326,6 +330,10 @@ abstract class Attachment extends AbstractNamedDBElement
     #[SerializedName('private')]
     public function isSecure(): bool
     {
+        if ($this->internal_path === null) {
+            return false;
+        }
+
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->internal_path);
 
@@ -341,6 +349,10 @@ abstract class Attachment extends AbstractNamedDBElement
     #[Groups(['attachment:read'])]
     public function isBuiltIn(): bool
     {
+        if ($this->internal_path === null) {
+            return false;
+        }
+
         return static::checkIfBuiltin($this->internal_path);
     }
 
@@ -411,12 +423,12 @@ abstract class Attachment extends AbstractNamedDBElement
         return parse_url($this->getExternalPath(), PHP_URL_HOST);
     }
 
-    public function getInternalPath(): string
+    public function getInternalPath(): ?string
     {
         return $this->internal_path;
     }
 
-    public function getExternalPath(): string
+    public function getExternalPath(): ?string
     {
         return $this->external_path;
     }
@@ -516,7 +528,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function setInternalPath(?string $internal_path): self
     {
-        $this->internal_path = $internal_path ?? '';
+        $this->internal_path = $internal_path;
 
         return $this;
     }
@@ -543,10 +555,8 @@ abstract class Attachment extends AbstractNamedDBElement
     If you set a new (nonempty) file path any associated internal file will be removed!')]
     public function setURL(?string $url): self
     {
-        $url = $url ?? '';
-
         //Don't allow the user to set an empty external path if the internal path is empty already
-        if ($url === '' && !$this->hasInternal()) {
+        if (($url === null || $url === "") && !$this->hasInternal()) {
             return $this;
         }
 
@@ -554,7 +564,7 @@ abstract class Attachment extends AbstractNamedDBElement
         if ($this::checkIfBuiltin($url)) {
             $this->setInternalPath($url);
             //make sure the external path isn't still pointing to something unrelated
-            $this->setExternalPath('');
+            $this->setExternalPath(null);
         } else {
             $this->setExternalPath($url);
         }
@@ -571,7 +581,7 @@ abstract class Attachment extends AbstractNamedDBElement
     {
         //If we only clear the external path, don't reset the internal path, since that could be confusing
         if($external_path === null || $external_path === '') {
-            $this->external_path = '';
+            $this->external_path = null;
             return $this;
         }
 
@@ -585,7 +595,7 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         $this->external_path = $external_path;
-        $this->internal_path = '';
+        $this->internal_path = null;
         //Reset internal filename
         $this->original_filename = null;
 

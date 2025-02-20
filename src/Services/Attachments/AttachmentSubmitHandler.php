@@ -429,7 +429,7 @@ class AttachmentSubmitHandler
         //Save the path to the attachment
         $attachment->setInternalPath($file_path);
         //reset any external paths the attachment might have had
-        $attachment->setExternalPath('');
+        $attachment->setExternalPath(null);
         //And save original filename
         $attachment->setFilename($file->getClientOriginalName());
 
