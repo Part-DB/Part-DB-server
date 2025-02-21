@@ -235,6 +235,26 @@ The following env configuration options are available:
 completeness (prioritizing items with the most detailed information). If set to 'M', it further sorts by manufacturer name.
 If set to any other value, no sorting is performed.
 
+### Reichelt
+
+The reichelt provider uses webscraping from [reichelt.com](https://reichelt.com/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+The following env configuration options are available:  
+* `PROVIDER_REICHELT_ENABLED`: Set this to `1` to enable the Reichelt provider
+* `PROVIDER_REICHELT_CURRENCY`: The currency you want to get prices in. Only possible for countries which use Non-EUR (optional, default: `EUR`)
+* `PROVIDER_REICHELT_COUNTRY`: The country you want to get the prices for (optional, default: `DE`)
+* `PROVIDER_REICHELT_LANGUAGE`: The language you want to get the descriptions in (optional, default: `en`)
+* `PROVIDER_REICHELT_INCLUDE_VAT`: If set to `1`, the prices will be gross prices (including tax), otherwise net prices (optional, default: `1`)
+
+### Pollin
+
+The pollin provider uses webscraping from [pollin.de](https://www.pollin.de/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+The following env configuration options are available:
+* `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
