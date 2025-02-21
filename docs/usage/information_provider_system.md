@@ -255,6 +255,25 @@ This is not an official API and could break at any time. So use it at your own r
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
 
+### Buerklin
+
+The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
+To use it you have to request access to the API.
+You will get an e-mail with the client ID and client secret, which you have to put in the Part-DB env configuration (see below).
+
+Please note that the Buerklin API is limited to 100 requests/minute per IP address and 
+access to the Authentication server is limited to 10 requests/minute per IP address
+
+The following env configuration options are available:
+
+* `PROVIDER_BUERKLIN_CLIENT_ID`: The client ID you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_SECRET`: The client secret you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_USERNAME`: The username you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_PASSWORD`: The password you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code,
+  default: `EUR`).
+* `PROVIDER_BUERKLIN_LANGUAGE`: The language you want to get the descriptions in. Possible values: `de` = German, `en` = English. (optional, default: `de`)
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
