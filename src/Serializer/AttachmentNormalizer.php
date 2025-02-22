@@ -57,6 +57,10 @@ class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterf
         //Add thumbnail url if the attachment is a picture
         $data['thumbnail_url'] = $object->isPicture() ? $this->attachmentURLGenerator->getThumbnailURL($object) : null;
 
+        //For backwards compatibility reasons
+        //Deprecated: Use internal_path and external_path instead
+        $data['media_url'] = $data['internal_path'] ?? $object->getExternalPath();
+
         return $data;
     }
 
