@@ -21,7 +21,7 @@ final class Version20250222165240 extends AbstractMigration
     {
         //Change the old discriminator values to the new ones
         $this->addSql("UPDATE attachments SET class_name = 'Part' WHERE class_name = 'PartDB\Part'");
-        $this->addSql("UPDATE attachments SET class_name = 'Device' WHERE class_name = ''PartDB\Device'");
+        $this->addSql("UPDATE attachments SET class_name = 'Device' WHERE class_name = 'PartDB\Device'");
     }
 
     public function down(Schema $schema): void
