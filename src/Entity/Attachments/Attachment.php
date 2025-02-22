@@ -96,8 +96,8 @@ use LogicException;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
-    private const ORM_DISCRIMINATOR_MAP = ['PartDB\Part' => PartAttachment::class, 'Part' => PartAttachment::class,
-        'PartDB\Device' => ProjectAttachment::class, 'Device' => ProjectAttachment::class, 'AttachmentType' => AttachmentTypeAttachment::class,
+    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'Device' => ProjectAttachment::class,
+        'AttachmentType' => AttachmentTypeAttachment::class,
         'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
         'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
         'Storelocation' => StorageLocationAttachment::class, 'Supplier' => SupplierAttachment::class,
