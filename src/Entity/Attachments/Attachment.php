@@ -609,12 +609,17 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * Checks if the given path is a path to a builtin resource.
      *
-     * @param string $path The path that should be checked
+     * @param string|null $path The path that should be checked
      *
      * @return bool true if the path is pointing to a builtin resource
      */
-    public static function checkIfBuiltin(string $path): bool
+    public static function checkIfBuiltin(?string $path): bool
     {
+        //An empty path can't be a builtin
+        if ($path === null) {
+            return false;
+        }
+
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $path);
         //Builtins must have a %PLACEHOLDER% construction

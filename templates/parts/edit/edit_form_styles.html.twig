@@ -188,7 +188,7 @@
                             <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
                         </a>
                     {% else %}
-                        <a href="{{ entity_url(attach, 'file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                        <a href="{{ entity_url(attach, 'file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view_local{% endtrans %}</a>
                     {% endif %}
                 {% else %}
                     <br><br>
