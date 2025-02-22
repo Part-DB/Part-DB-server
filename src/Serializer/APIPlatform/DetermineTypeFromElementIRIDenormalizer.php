@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Serializer\APIPlatform;
 
 use ApiPlatform\Metadata\Exception\ResourceClassNotFoundException;
-use ApiPlatform\Api\IriConverterInterface;
+use ApiPlatform\Metadata\IriConverterInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
@@ -60,7 +60,6 @@ class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, 
      * @param  array  $input
      * @param  Operation  $operation
      * @return array
-     * @throws ResourceClassNotFoundException
      */
     private function addTypeDiscriminatorIfNecessary(array $input, Operation $operation): array
     {
@@ -81,6 +80,7 @@ class DetermineTypeFromElementIRIDenormalizer implements DenormalizerInterface, 
         }
 
         //Retrieve the element
+        //@phpstan-ignore-next-line
         $element = $this->iriConverter->getResourceFromIri($input['element']);
 
         //Retrieve the short name of the operation
