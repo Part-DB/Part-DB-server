@@ -28,7 +28,7 @@ class BooleanConstraint extends AbstractConstraint
 {
     public function __construct(
         string $property,
-        string $identifier = null,
+        ?string $identifier = null,
         /** @var bool|null The value of our constraint */
         protected ?bool $value = null
     )

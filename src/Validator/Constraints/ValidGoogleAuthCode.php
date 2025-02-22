@@ -31,8 +31,8 @@ class ValidGoogleAuthCode extends Constraint
      * @param  TwoFactorInterface|null  $user The user to use for the validation process, if null, the current user is used
      */
     public function __construct(
-        array $options = null,
-        array $groups = null,
+        ?array $options = null,
+        ?array $groups = null,
         mixed $payload = null,
         public ?TwoFactorInterface $user = null)
     {

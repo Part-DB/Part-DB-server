@@ -54,7 +54,7 @@ class TwoStepORMAdapter extends ORMAdapter
 
     private \Closure|null $query_modifier = null;
 
-    public function __construct(ManagerRegistry $registry = null)
+    public function __construct(?ManagerRegistry $registry = null)
     {
         parent::__construct($registry);
         $this->detailQueryCallable = static function (QueryBuilder $qb, array $ids): never {
