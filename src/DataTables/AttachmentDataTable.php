@@ -119,6 +119,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('internal_link', TextColumn::class, [
             'label' => 'attachment.table.internal_file',
             'propertyPath' => 'filename',
+            'orderField' => 'NATSORT(attachment.original_filename)',
             'render' => function ($value, Attachment $context) {
                 if ($this->attachmentHelper->isInternalFileExisting($context)) {
                     return sprintf(
@@ -135,12 +136,14 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('external_link', TextColumn::class, [
             'label' => 'attachment.table.external_link',
             'propertyPath' => 'host',
+            'orderField' => 'attachment.external_path',
             'render' => function ($value, Attachment $context) {
                 if ($context->hasExternal()) {
                     return sprintf(
-                        '<a href="%s" class="link-external">%s</a>',
+                        '<a href="%s" class="link-external" title="%s" target="_blank" rel="noopener">%s</a>',
                         htmlspecialchars((string) $context->getExternalPath()),
-                        htmlspecialchars($value)
+                        htmlspecialchars((string) $context->getExternalPath()),
+                        htmlspecialchars($value),
                     );
                 }
 
