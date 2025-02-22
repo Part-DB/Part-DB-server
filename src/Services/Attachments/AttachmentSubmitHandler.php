@@ -207,7 +207,7 @@ class AttachmentSubmitHandler
         if ($file instanceof UploadedFile) {
 
             $this->upload($attachment, $file, $secure_attachment);
-        } elseif ($upload->downloadUrl && $attachment->isExternal()) {
+        } elseif ($upload->downloadUrl && $attachment->hasExternal()) {
             $this->downloadURL($attachment, $secure_attachment);
         }
 
@@ -244,12 +244,12 @@ class AttachmentSubmitHandler
     protected function renameBlacklistedExtensions(Attachment $attachment): Attachment
     {
         //We can not do anything on builtins or external ressources
-        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
             return $attachment;
         }
 
         //Determine the old filepath
-        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
         if ($old_path === null || $old_path === '' || !file_exists($old_path)) {
             return $attachment;
         }
@@ -267,7 +267,7 @@ class AttachmentSubmitHandler
             $fs->rename($old_path, $new_path);
 
             //Update the attachment
-            $attachment->setPath($this->pathResolver->realPathToPlaceholder($new_path));
+            $attachment->setInternalPath($this->pathResolver->realPathToPlaceholder($new_path));
         }
 
 
@@ -275,17 +275,17 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Move the given attachment to secure location (or back to public folder) if needed.
+     * Move the internal copy of the given attachment to a secure location (or back to public folder) if needed.
      *
      * @param Attachment $attachment      the attachment for which the file should be moved
      * @param bool       $secure_location this value determines, if the attachment is moved to the secure or public folder
      *
-     * @return Attachment The attachment with the updated filepath
+     * @return Attachment The attachment with the updated internal filepath
      */
     protected function moveFile(Attachment $attachment, bool $secure_location): Attachment
     {
         //We can not do anything on builtins or external ressources
-        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
             return $attachment;
         }
 
@@ -295,7 +295,7 @@ class AttachmentSubmitHandler
         }
 
         //Determine the old filepath
-        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
         if (!file_exists($old_path)) {
             return $attachment;
         }
@@ -319,7 +319,7 @@ class AttachmentSubmitHandler
 
         //Save info to attachment entity
         $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
-        $attachment->setPath($new_path);
+        $attachment->setInternalPath($new_path);
 
         return $attachment;
     }
@@ -329,7 +329,7 @@ class AttachmentSubmitHandler
      *
      * @param bool $secureAttachment True if the file should be moved to the secure attachment storage
      *
-     * @return Attachment The attachment with the new filepath
+     * @return Attachment The attachment with the downloaded copy
      */
     protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
@@ -338,7 +338,7 @@ class AttachmentSubmitHandler
             throw new RuntimeException('Download of attachments is not allowed!');
         }
 
-        $url = $attachment->getURL();
+        $url = $attachment->getExternalPath();
 
         $fs = new Filesystem();
         $attachment_folder = $this->generateAttachmentPath($attachment, $secureAttachment);
@@ -399,7 +399,7 @@ class AttachmentSubmitHandler
             //Make our file path relative to %BASE%
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
-            $attachment->setPath($new_path);
+            $attachment->setInternalPath($new_path);
         } catch (TransportExceptionInterface) {
             throw new AttachmentDownloadException('Transport error!');
         }
@@ -427,7 +427,9 @@ class AttachmentSubmitHandler
         //Make our file path relative to %BASE%
         $file_path = $this->pathResolver->realPathToPlaceholder($file_path);
         //Save the path to the attachment
-        $attachment->setPath($file_path);
+        $attachment->setInternalPath($file_path);
+        //reset any external paths the attachment might have had
+        $attachment->setExternalPath(null);
         //And save original filename
         $attachment->setFilename($file->getClientOriginalName());
 

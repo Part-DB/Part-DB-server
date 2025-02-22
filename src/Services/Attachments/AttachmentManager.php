@@ -44,35 +44,31 @@ class AttachmentManager
      *
      * @param Attachment $attachment The attachment for which the file should be generated
      *
-     * @return SplFileInfo|null The fileinfo for the attachment file. Null, if the attachment is external or has
+     * @return SplFileInfo|null The fileinfo for the attachment file. Null, if the attachment is only external or has
      *                          invalid file.
      */
     public function attachmentToFile(Attachment $attachment): ?SplFileInfo
     {
-        if ($attachment->isExternal() || !$this->isFileExisting($attachment)) {
+        if (!$this->isInternalFileExisting($attachment)) {
             return null;
         }
 
-        return new SplFileInfo($this->toAbsoluteFilePath($attachment));
+        return new SplFileInfo($this->toAbsoluteInternalFilePath($attachment));
     }
 
     /**
-     * Returns the absolute filepath of the attachment. Null is returned, if the attachment is externally saved,
-     * or is not existing.
+     * Returns the absolute filepath to the internal copy of the attachment. Null is returned, if the attachment is
+     * only externally saved, or is not existing.
      *
      * @param Attachment $attachment The attachment for which the filepath should be determined
      */
-    public function toAbsoluteFilePath(Attachment $attachment): ?string
+    public function toAbsoluteInternalFilePath(Attachment $attachment): ?string
     {
-        if ($attachment->getPath() === '') {
+        if (!$attachment->hasInternal()){
             return null;
         }
 
-        if ($attachment->isExternal()) {
-            return null;
-        }
-
-        $path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        $path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
 
         //realpath does not work with null as argument
         if (null === $path) {
@@ -89,8 +85,8 @@ class AttachmentManager
     }
 
     /**
-     * Checks if the file in this attachement is existing. This works for files on the HDD, and for URLs
-     * (it's not checked if the ressource behind the URL is really existing, so for every external attachment true is returned).
+     * Checks if the file in this attachment is existing. This works for files on the HDD, and for URLs
+     * (it's not checked if the resource behind the URL is really existing, so for every external attachment true is returned).
      *
      * @param Attachment $attachment The attachment for which the existence should be checked
      *
@@ -98,15 +94,23 @@ class AttachmentManager
      */
     public function isFileExisting(Attachment $attachment): bool
     {
-        if ($attachment->getPath() === '') {
-            return false;
-        }
-
-        if ($attachment->isExternal()) {
+        if($attachment->hasExternal()){
             return true;
         }
+        return $this->isInternalFileExisting($attachment);
+    }
 
-        $absolute_path = $this->toAbsoluteFilePath($attachment);
+    /**
+     * Checks if the internal file in this attachment is existing. Returns false if the attachment doesn't have an
+     * internal file.
+     *
+     * @param Attachment $attachment The attachment for which the existence should be checked
+     *
+     * @return bool true if the file is existing
+     */
+    public function isInternalFileExisting(Attachment $attachment): bool
+    {
+        $absolute_path = $this->toAbsoluteInternalFilePath($attachment);
 
         if (null === $absolute_path) {
             return false;
@@ -117,21 +121,17 @@ class AttachmentManager
 
     /**
      * Returns the filesize of the attachments in bytes.
-     * For external attachments or not existing attachments, null is returned.
+     * For purely external attachments or inexistent attachments, null is returned.
      *
      * @param Attachment $attachment the filesize for which the filesize should be calculated
      */
     public function getFileSize(Attachment $attachment): ?int
     {
-        if ($attachment->isExternal()) {
+        if (!$this->isInternalFileExisting($attachment)) {
             return null;
         }
 
-        if (!$this->isFileExisting($attachment)) {
-            return null;
-        }
-
-        $tmp = filesize($this->toAbsoluteFilePath($attachment));
+        $tmp = filesize($this->toAbsoluteInternalFilePath($attachment));
 
         return  false !== $tmp ? $tmp : null;
     }
