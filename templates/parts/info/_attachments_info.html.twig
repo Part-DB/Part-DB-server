@@ -58,7 +58,7 @@
             <td><div class="btn-group" role="group" aria-label="">
                     <a {% if attachment.hasExternal() %}href="{{ attachment.externalPath }}"{% endif %} target="_blank"
                        class="btn btn-secondary {% if not attachment.hasExternal()  %}disabled{% endif %}"
-                       data-turbo="false" title="View at {{ attachment.host }}" rel="noopener"> {# TODO: translate #}
+                       data-turbo="false" title="{% trans with {"%host%": attachment.host} %}attachment.view_external.view_at{% endtrans %}" rel="noopener">
                         <i class="fas fa-globe fa-fw"></i>
                     </a>
                     <a {% if attachment_manager.isInternalFileExisting(attachment) %}href="{{ entity_url(attachment, 'file_view') }}"{% endif %} target="_blank"

@@ -12333,5 +12333,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>External link</target>
       </segment>
     </unit>
+    <unit id="2WKNZAm" name="attachment.view_external.view_at">
+      <segment>
+        <source>attachment.view_external.view_at</source>
+        <target>View at %host%</target>
+      </segment>
+    </unit>
+    <unit id="nwO78O_" name="attachment.view_external">
+      <segment>
+        <source>attachment.view_external</source>
+        <target>View external version</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
