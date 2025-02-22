@@ -102,7 +102,7 @@ class BuerklinProvider implements InfoProviderInterface
           }
           $response = $this->buerklinClient->request('GET', $url, [
               'headers' => [
-                  'Referer' => 'https://www.buerklin.com/product-detail/_' . $matches[2] . '.html'
+                  'Referer' => 'https://www.buerklin.com/de/p/' . $matches[2] . '/'
               ],
           ]);
           if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.buerklin\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
@@ -121,7 +121,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function queryByTerm(string $term): array
     {
-        $response = $this->buerklinClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+        $response = $this->buerklinClient->request('GET', self::ENDPOINT_URL . "products/search/?curr=$this->currency&language=en&pageSize=50&currentPage=0&query=Laser&sort=relevance", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->currency)
             ],
@@ -284,7 +284,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function getProductShortURL(string $product_code): string
     {
-        return 'https://www.buerklin.com/product-detail/' . $product_code .'.html';
+        return 'https://www.buerklin.com/de/p/' . $product_code .'/';
     }
 
     /**
