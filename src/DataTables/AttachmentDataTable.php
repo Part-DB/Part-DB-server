@@ -117,7 +117,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('internal_link', TextColumn::class, [
-            'label' => 'Internal copy', #TODO: translation
+            'label' => 'attachment.table.internal_file',
             'propertyPath' => 'filename',
             'render' => function ($value, Attachment $context) {
                 if ($this->attachmentHelper->isInternalFileExisting($context)) {
@@ -133,7 +133,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('external_link', TextColumn::class, [
-            'label' => 'External copy', #TODO: translation
+            'label' => 'attachment.table.external_link',
             'propertyPath' => 'host',
             'render' => function ($value, Attachment $context) {
                 if ($context->hasExternal()) {
@@ -156,7 +156,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                         '<span class="badge bg-primary">
                         <i class="fas fa-globe fa-fw"></i>%s
                         </span>',
-                        $this->translator->trans('attachment.external')
+                        $this->translator->trans('attachment.external_only')
                     );
                 }
 

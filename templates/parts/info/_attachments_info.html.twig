@@ -31,7 +31,7 @@
             <td class="align-middle h6">
                 {% if not attachment.hasInternal() %}
                     <span class="badge bg-primary">
-                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external_only{% endtrans %}
                         </span>
                 {% elseif attachment_manager.internalFileExisting(attachment) %}
                     <span class="badge bg-secondary">
@@ -63,12 +63,12 @@
                     </a>
                     <a {% if attachment_manager.isInternalFileExisting(attachment) %}href="{{ entity_url(attachment, 'file_view') }}"{% endif %} target="_blank"
                        class="btn btn-secondary {% if not attachment_manager.isInternalFileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment))  %}disabled{% endif %}"
-                       data-turbo="false" title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
+                       data-turbo="false" title="{% trans %}attachment.view_local{% endtrans %}" rel="noopener">
                         <i class="fas fa-eye fa-fw"></i>
                     </a>
                     <a {% if attachment_manager.isInternalFileExisting(attachment)  %}href="{{ entity_url(attachment, 'file_download') }}"{% endif %} data-turbo="false"
                        class="btn btn-secondary {% if not attachment_manager.isInternalFileExisting(attachment) or (attachment.secure and not is_granted("show_private", attachment)) %}disabled{% endif %}"
-                       title="{% trans %}attachment.download{% endtrans %}">
+                       title="{% trans %}attachment.download_local{% endtrans %}">
                         <i class="fas fa-download fa-fw"></i>
                     </a>
 
