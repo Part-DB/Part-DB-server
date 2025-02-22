@@ -33,23 +33,24 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\ApiPlatform\DocumentedAPIProperty;
+use App\ApiPlatform\DocumentedAPIProperties\DocumentedAPIProperty;
 use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\HandleAttachmentsUploadsProcessor;
-use App\Repository\AttachmentRepository;
-use App\EntityListeners\AttachmentDeleteListener;
-use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\EntityListeners\AttachmentDeleteListener;
+use App\Repository\AttachmentRepository;
 use App\Validator\Constraints\Selectable;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
+use LogicException;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use function in_array;
-use InvalidArgumentException;
-use LogicException;
 
 /**
  * Class Attachment.
