@@ -29,23 +29,36 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use Symfony\Component\HttpFoundation\Cookie;
+use App\Services\OAuth\OAuthTokenManager;
+use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BuerklinProvider implements InfoProviderInterface
 {
 
-    private const ENDPOINT_URL = 'https://buerklin.com/buerklinws/v2/buerklin/';
+    private const ENDPOINT_URL = 'https://buerklin.com/buerklinws/v2/buerklin';
 
     public const DISTRIBUTOR_NAME = 'Buerklin';
     private const OAUTH_APP_NAME = 'ip_buerklin_oauth';
 
-    public function __construct(private readonly HttpClientInterface $httpClient,
-        private readonly OAuthTokenManager $authTokenManager, private readonly CacheItemPoolInterface $partInfoCache,
-        private readonly string $clientId, private readonly string $secret,
-        private readonly int $username, private readonly bool $password,
-        private readonly string $currency, private readonly string $language)
+    public function __construct(private readonly HttpClientInterface $client,
+        private readonly OAuthTokenManager $authTokenManager,
+        private readonly CacheItemPoolInterface $partInfoCache,
+        #[Autowire(env: "string:PROVIDER_BUERKLIN_CLIENT_ID")]
+        private readonly string $clientId = "",
+        #[Autowire(env: "string:PROVIDER_BUERKLIN_SECRET")]
+        private readonly string $secret = "",
+        #[Autowire(env: "string:PROVIDER_BUERKLIN_USERNAME")]
+        private readonly string $username = "",
+        #[Autowire(env: "string:PROVIDER_BUERKLIN_PASSWORD")]
+        private readonly string $password = "",
+        #[Autowire(env: "PROVIDER_BUERKLIN_LANGUAGE")]
+        private readonly string $language = "en",
+        #[Autowire(env: "PROVIDER_BUERKLIN_CURRENCY")]
+        private readonly string $currency = "EUR"
+        )
     {
 
     }
@@ -67,6 +80,30 @@ class BuerklinProvider implements InfoProviderInterface
         }
 
         return $tmp;
+    }
+
+        /**
+     * Make a http get request to the Buerklin API
+     * @return array
+     */
+    private function makeAPICall(string $query, ?array $variables = null): array
+    {
+        if ($variables === []) {
+            $variables = null;
+        }
+
+        $options = (new HttpOptions())
+            ->setJson(['query' => $query, 'variables' => $variables])
+            ->setAuthBearer($this->getToken())
+        ;
+
+        $response = $this->client->request(
+            'GET',
+            self::ENDPOINT_URL,
+            $options->toArray(),
+        );
+
+        return $response->toArray(true);
     }
 
     public function getProviderInfo(): array
@@ -97,10 +134,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function queryDetail(string $id): PartDetailDTO
     {
-        $response = $this->buerklinClient->request('GET', self::ENDPOINT_URL . "/products", [
-            'headers' => [
-                'Cookie' => new Cookie('currencyCode', $this->currency)
-            ],
+        $response = $this->client->request('GET', self::ENDPOINT_URL . "/products", [
             'query' => [
                 'sku' => $id,
             ],
@@ -117,69 +151,6 @@ class BuerklinProvider implements InfoProviderInterface
     }
 
     /**
-     * @param  string  $url
-     * @return String
-     */
-    private function getRealDatasheetUrl(?string $url): string
-    {
-        if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.buerklin\.com|www\.buerklin\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
-          if (preg_match("/^https:\/\/datasheet\.buerklin\.com\/buerklin\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
-            $url = 'https://www.buerklin.com/datasheet/buerklin_datasheet_' . $rewriteMatches[1];
-          }
-          $response = $this->buerklinClient->request('GET', $url, [
-              'headers' => [
-                  'Referer' => 'https://www.buerklin.com/de/p/' . $matches[2] . '/'
-              ],
-          ]);
-          if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.buerklin\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
-            //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
-            //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
-            $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
-            $url = $jsonObj->previewPdfUrl;
-          }
-        }
-        return $url;
-    }
-
-    /**
-     * @param  string  $term
-     * @return PartDetailDTO[]
-     */
-    private function queryByTerm(string $term): array
-    {
-        $response = $this->buerklinClient->request('GET', self::ENDPOINT_URL . "products/search/?curr=$this->currency&language=en&pageSize=50&currentPage=0&query=Laser&sort=relevance", [
-            'headers' => [
-                'Cookie' => new Cookie('currencyCode', $this->currency)
-            ],
-            'query' => [
-                'keyword' => $term,
-            ],
-        ]);
-
-        $arr = $response->toArray();
-
-        // Get products list
-        $products = $arr['result']['productSearchResultVO']['productList'] ?? [];
-        // Get product tip
-        $tipProductCode = $arr['result']['tipProductDetailUrlVO']['productCode'] ?? null;
-
-        $result = [];
-
-        // Buerklin does not display Buerklin codes in the search, instead taking you directly to the
-        // detailed product listing. It does so utilizing a product tip field.
-        // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) === 0 && $tipProductCode !== null) {
-            $result[] = $this->queryDetail($tipProductCode);
-        }
-
-        foreach ($products as $product) {
-            $result[] = $this->getPartDetail($product);
-        }
-
-        return $result;
-    }
-
-    /**
      * Sanitizes a field by removing any HTML tags and other unwanted characters
      * @param  string|null  $field
      * @return string|null
@@ -193,7 +164,6 @@ class BuerklinProvider implements InfoProviderInterface
         return strip_tags($field);
     }
 
-
     /**
      * Takes a deserialized json object of the product and returns a PartDetailDTO
      * @param  array  $product
@@ -202,46 +172,38 @@ class BuerklinProvider implements InfoProviderInterface
     private function getPartDetail(array $product): PartDetailDTO
     {
         // Get product images in advance
-        $product_images = $this->getProductImages($product['productImages'] ?? null);
+        $product_images = $this->getProductImages($product['images'] ?? null);
         $product['productImageUrl'] ??= null;
 
-        // If the product does not have a product image but otherwise has attached images, use the first one.
+        // If the product does not have a product image but otherwise has attached images, use the first one which should be thumbnail.
         if (count($product_images) > 0) {
-            $product['productImageUrl'] ??= $product_images[0]->url;
+            $product['productImageUrl'] ??= self::ENDPOINT_URL . $product_images[0]->url;
         }
 
-        // Buerklin puts HTML in footprints and descriptions sometimes randomly
-        $footprint = $product["encapStandard"] ?? null;
-        //If the footprint just consists of a dash, we'll assume it's empty
-        if ($footprint === '-') {
-            $footprint = null;
-        }
-
-        //Build category by concatenating the catalogName and parentCatalogName
-        $category = $product['parentCatalogName'] ?? null;
-        if (isset($product['catalogName'])) {
-            $category = ($category ?? '') . ' -> ' . $product['catalogName'];
-
-            // Replace the / with a -> for better readability
-            $category = str_replace('/', ' -> ', $category);
+        // Find the footprint in classifications->features. en: name='Design'; de: name='Bauform'
+        foreach ($product[classifications][features] as $feature) {
+            if($feature[name]=='Design'||$feature[name]=='Bauform')
+            {
+                $footprint = $feature["featureValues"]["value"];
+            }
         }
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
-            provider_id: $product['productCode'],
-            name: $product['productModel'],
-            description: $this->sanitizeField($product['productIntroEn']),
-            category: $this->sanitizeField($category ?? null),
-            manufacturer: $this->sanitizeField($product['brandNameEn'] ?? null),
-            mpn: $this->sanitizeField($product['productModel'] ?? null),
+            provider_id: $product['code'],
+            name: $product['name'],
+            description: $this->sanitizeField($product['description']),
+            category: $this->sanitizeField($product['classifications'][0]['name'] ?? null),
+            manufacturer: $this->sanitizeField($product['manufacturer'] ?? null),
+            mpn: $this->sanitizeField($product['manufacturerProductId'] ?? null),
             preview_image_url: $product['productImageUrl'],
             manufacturing_status: null,
-            provider_url: $this->getProductShortURL($product['productCode']),
-            footprint: $this->sanitizeField($footprint),
-            datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
+            provider_url: $this->getProductShortURL($product['code']),
+            footprint: $footprint ?? null,
+            datasheets: null, //datasheet urls not found in API responses
             images: $product_images,
-            parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
-            vendor_infos: $this->pricesToVendorInfo($product['productCode'], $this->getProductShortURL($product['productCode']), $product['productPriceList'] ?? []),
+            parameters: $this->attributesToParameters($product['classifications']['features'] ?? []),
+            vendor_infos: $this->pricesToVendorInfo($product['code'], $this->getProductShortURL($product['code']), $product['productPriceList'] ?? []),
             mass: $product['weight'] ?? null,
         );
     }
@@ -259,9 +221,9 @@ class BuerklinProvider implements InfoProviderInterface
 
         foreach ($prices as $price) {
             $price_dtos[] = new PriceDTO(
-                minimum_discount_amount: $price['ladder'],
-                price: $price['productPrice'],
-                currency_iso_code: $this->getUsedCurrency($price['currencySymbol']),
+                minimum_discount_amount: $price['minQuantity'],
+                price: $price['value'],
+                currency_iso_code: $price['currencyIso'],
                 includes_tax: false,
             );
         }
@@ -277,33 +239,6 @@ class BuerklinProvider implements InfoProviderInterface
     }
 
     /**
-     * Converts Buerklin currency symbol to an ISO code.
-     * @param  string  $currency
-     * @return string
-     */
-    private function getUsedCurrency(string $currency): string
-    {
-        //Decide based on the currency symbol
-        return match ($currency) {
-            'US$', '$' => 'USD',
-            '€' => 'EUR',
-            'A$' => 'AUD',
-            'C$' => 'CAD',
-            '£' => 'GBP',
-            'HK$' => 'HKD',
-            'JP¥' => 'JPY',
-            'RM' => 'MYR',
-            'S$' => 'SGD',
-            '₽' => 'RUB',
-            'kr' => 'SEK',
-            'kr.' => 'DKK',
-            '₹' => 'INR',
-            //Fallback to the configured currency
-            default => $this->currency,
-        };
-    }
-
-    /**
      * Returns a valid Buerklin product short URL from product code
      * @param  string  $product_code
      * @return string
@@ -311,22 +246,6 @@ class BuerklinProvider implements InfoProviderInterface
     private function getProductShortURL(string $product_code): string
     {
         return 'https://www.buerklin.com/de/p/' . $product_code .'/';
-    }
-
-    /**
-     * Returns a product datasheet FileDTO array from a single pdf url
-     * @param  string  $url
-     * @return FileDTO[]
-     */
-    private function getProductDatasheets(?string $url): array
-    {
-        if ($url === null) {
-            return [];
-        }
-
-        $realUrl = $this->getRealDatasheetUrl($url);
-
-        return [new FileDTO($realUrl, null)];
     }
 
     /**
@@ -350,11 +269,11 @@ class BuerklinProvider implements InfoProviderInterface
         foreach ($attributes as $attribute) {
 
             //Skip this attribute if it's empty
-            if (in_array(trim((string) $attribute['paramValueEn']), ['', '-'], true)) {
+            if (in_array(trim((string) $attribute['featureValues']['value']), ['', '-'], true)) {
               continue;
             }
 
-            $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], group: null);
+            $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['name'], value: $attribute['featureValues']['value'], group: null);
         }
 
         return $result;
@@ -362,12 +281,37 @@ class BuerklinProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
-        return $this->queryByTerm($keyword);
+        $response = $this->client->request('GET', self::ENDPOINT_URL . "products/search/", [
+            'auth_bearer' => $this->getToken(),
+            'query' => [
+                'curr' => $this->currency,
+                'language' => $this->language,
+                'pageSize' => '50',
+                'currentPage' => '1',
+                'query' => $term,
+                'sort' => 'relevance'
+            ],
+        ]);
+
+        $arr = $response->toArray();
+
+        // Get products list
+        $products = $arr['products'] ?? [];
+
+        $result = [];
+
+        foreach ($products as $product) {
+            $result[] = $this->getPartDetail($product);
+        }
+
+        return $result;
     }
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $tmp = $this->queryByTerm($id);
+        $tmp = $this->searchByKeyword($id);
+
+
         if (count($tmp) === 0) {
             throw new \RuntimeException('No part found with ID ' . $id);
         }
