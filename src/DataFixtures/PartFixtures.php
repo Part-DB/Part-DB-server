@@ -131,7 +131,7 @@ class PartFixtures extends Fixture implements DependentFixtureInterface
 
         $attachment = new PartAttachment();
         $attachment->setName('Test2');
-        $attachment->setPath('invalid');
+        $attachment->setInternalPath('invalid');
         $attachment->setShowInTable(true);
         $attachment->setAttachmentType($manager->find(AttachmentType::class, 1));
         $part->addAttachment($attachment);

@@ -59,14 +59,15 @@ class AttachmentTest extends TestCase
 
         $this->assertNull($attachment->getAttachmentType());
         $this->assertFalse($attachment->isPicture());
-        $this->assertFalse($attachment->isExternal());
+        $this->assertFalse($attachment->hasExternal());
+        $this->assertFalse($attachment->hasInternal());
         $this->assertFalse($attachment->isSecure());
         $this->assertFalse($attachment->isBuiltIn());
         $this->assertFalse($attachment->is3DModel());
         $this->assertFalse($attachment->getShowInTable());
-        $this->assertEmpty($attachment->getPath());
+        $this->assertEmpty($attachment->getInternalPath());
+        $this->assertEmpty($attachment->getExternalPath());
         $this->assertEmpty($attachment->getName());
-        $this->assertEmpty($attachment->getURL());
         $this->assertEmpty($attachment->getExtension());
         $this->assertNull($attachment->getElement());
         $this->assertEmpty($attachment->getFilename());
@@ -119,82 +120,63 @@ class AttachmentTest extends TestCase
         $attachment->setElement($element);
     }
 
-    public function externalDataProvider(): \Iterator
-    {
-        yield ['', false];
-        yield ['%MEDIA%/foo/bar.txt', false];
-        yield ['%BASE%/foo/bar.jpg', false];
-        yield ['%FOOTPRINTS%/foo/bar.jpg', false];
-        yield ['%FOOTPRINTS3D%/foo/bar.jpg', false];
-        yield ['%SECURE%/test.txt', false];
-        yield ['%test%/foo/bar.ghp', true];
-        yield ['foo%MEDIA%/foo.jpg', true];
-        yield ['foo%MEDIA%/%BASE%foo.jpg', true];
-    }
 
-    /**
-     * @dataProvider externalDataProvider
-     */
-    public function testIsExternal($path, $expected): void
+    public static function extensionDataProvider(): \Iterator
     {
-        $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
-        $this->assertSame($expected, $attachment->isExternal());
-    }
-
-    public function extensionDataProvider(): \Iterator
-    {
-        yield ['%MEDIA%/foo/bar.txt', null, 'txt'];
-        yield ['%MEDIA%/foo/bar.JPeg', null, 'jpeg'];
-        yield ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'txt'];
-        yield ['%MEDIA%/foo/bar', null, ''];
-        yield ['%MEDIA%/foo.bar', 'bar', ''];
-        yield ['http://google.de', null, null];
-        yield ['https://foo.bar', null, null];
-        yield ['https://foo.bar/test.jpeg', null, null];
-        yield ['test', null, null];
-        yield ['test.txt', null, null];
+        yield ['%MEDIA%/foo/bar.txt',   'http://google.de',           null,        'txt'];
+        yield ['%MEDIA%/foo/bar.JPeg',  'https://foo.bar',            null,        'jpeg'];
+        yield ['%MEDIA%/foo/bar.JPeg',  null,                           'test.txt',  'txt'];
+        yield ['%MEDIA%/foo/bar',       'https://foo.bar/test.jpeg',  null,        ''];
+        yield ['%MEDIA%/foo.bar',       'test.txt',                   'bar',       ''];
+        yield [null,                      'http://google.de',           null,        null];
+        yield [null,                      'https://foo.bar',            null,        null];
+        yield [null,                      ',https://foo.bar/test.jpeg', null,        null];
+        yield [null,                      'test',                       null,        null];
+        yield [null,                      'test.txt',                   null,        null];
     }
 
     /**
      * @dataProvider extensionDataProvider
      */
-    public function testGetExtension($path, $originalFilename, $expected): void
+    public function testGetExtension(?string $internal_path, ?string $external_path, ?string $originalFilename, ?string $expected): void
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'internal_path', $internal_path);
+        $this->setProtectedProperty($attachment, 'external_path', $external_path);
         $this->setProtectedProperty($attachment, 'original_filename', $originalFilename);
         $this->assertSame($expected, $attachment->getExtension());
     }
 
-    public function pictureDataProvider(): \Iterator
+    public static function pictureDataProvider(): \Iterator
     {
-        yield ['%MEDIA%/foo/bar.txt', false];
-        yield ['https://test.de/picture.jpeg', true];
-        yield ['https://test.de/picture.png?test=fdsj&width=34', true];
-        yield ['https://invalid.invalid/file.txt', false];
-        yield ['http://infsf.inda/file.zip?test', false];
-        yield ['https://test.de', true];
-        yield ['https://invalid.com/invalid/pic', true];
-        yield ['%MEDIA%/foo/bar.jpeg', true];
-        yield ['%MEDIA%/foo/bar.webp', true];
-        yield ['%MEDIA%/foo', false];
-        yield ['%SECURE%/foo.txt/test', false];
+        yield [null,                        '%MEDIA%/foo/bar.txt',                               false];
+        yield [null,                        'https://test.de/picture.jpeg',                      true];
+        yield [null,                        'https://test.de/picture.png?test=fdsj&width=34',    true];
+        yield [null,                        'https://invalid.invalid/file.txt',                  false];
+        yield [null,                        'http://infsf.inda/file.zip?test',                   false];
+        yield [null,                        'https://test.de',                                   true];
+        yield [null,                        'https://invalid.com/invalid/pic',                   true];
+        yield ['%MEDIA%/foo/bar.jpeg',    'https://invalid.invalid/file.txt',                  true];
+        yield ['%MEDIA%/foo/bar.webp',    '',                                                  true];
+        yield ['%MEDIA%/foo',             '',                                                  false];
+        yield ['%SECURE%/foo.txt/test',   'https://test.de/picture.jpeg',                      false];
     }
 
     /**
      * @dataProvider pictureDataProvider
      */
-    public function testIsPicture($path, $expected): void
+    public function testIsPicture(?string $internal_path, ?string $external_path, bool $expected): void
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'internal_path', $internal_path);
+        $this->setProtectedProperty($attachment, 'external_path', $external_path);
         $this->assertSame($expected, $attachment->isPicture());
     }
 
-    public function builtinDataProvider(): \Iterator
+    public static function builtinDataProvider(): \Iterator
     {
         yield ['', false];
+        yield [null, false];
         yield ['%MEDIA%/foo/bar.txt', false];
         yield ['%BASE%/foo/bar.txt', false];
         yield ['/', false];
@@ -205,14 +187,14 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider builtinDataProvider
      */
-    public function testIsBuiltIn($path, $expected): void
+    public function testIsBuiltIn(?string $path, $expected): void
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'internal_path', $path);
         $this->assertSame($expected, $attachment->isBuiltIn());
     }
 
-    public function hostDataProvider(): \Iterator
+    public static function hostDataProvider(): \Iterator
     {
         yield ['%MEDIA%/foo/bar.txt', null];
         yield ['https://www.google.de/test.txt', 'www.google.de'];
@@ -222,55 +204,60 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider hostDataProvider
      */
-    public function testGetHost($path, $expected): void
+    public function testGetHost(?string $path, ?string $expected): void
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'external_path', $path);
         $this->assertSame($expected, $attachment->getHost());
     }
 
-    public function filenameProvider(): \Iterator
+    public static function filenameProvider(): \Iterator
     {
-        yield ['%MEDIA%/foo/bar.txt', null, 'bar.txt'];
-        yield ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'test.txt'];
-        yield ['https://www.google.de/test.txt', null, null];
+        yield ['%MEDIA%/foo/bar.txt',  'https://www.google.de/test.txt',   null,      'bar.txt'];
+        yield ['%MEDIA%/foo/bar.JPeg', 'https://www.google.de/foo.txt',   'test.txt', 'test.txt'];
+        yield ['',                     'https://www.google.de/test.txt',   null,       null];
+        yield [null,                     'https://www.google.de/test.txt',   null,       null];
     }
 
     /**
      * @dataProvider filenameProvider
      */
-    public function testGetFilename($path, $original_filename, $expected): void
+    public function testGetFilename(?string $internal_path, ?string $external_path, ?string $original_filename, ?string $expected): void
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'internal_path', $internal_path);
+        $this->setProtectedProperty($attachment, 'external_path', $external_path);
         $this->setProtectedProperty($attachment, 'original_filename', $original_filename);
         $this->assertSame($expected, $attachment->getFilename());
     }
 
-    public function testSetURL(): void
+    public function testSetExternalPath(): void
     {
         $attachment = new PartAttachment();
 
         //Set URL
-        $attachment->setURL('https://google.de');
-        $this->assertSame('https://google.de', $attachment->getURL());
+        $attachment->setExternalPath('https://google.de');
+        $this->assertSame('https://google.de', $attachment->getExternalPath());
 
-        //Ensure that an empty url does not overwrite the existing one
-        $attachment->setPath('%MEDIA%/foo/bar.txt');
-        $attachment->setURL(' ');
-        $this->assertSame('%MEDIA%/foo/bar.txt', $attachment->getPath());
+        //Ensure that changing the external path does reset the internal one
+        $attachment->setInternalPath('%MEDIA%/foo/bar.txt');
+        $attachment->setExternalPath('https://example.de');
+        $this->assertSame(null, $attachment->getInternalPath());
+
+        //Ensure that setting the same value to the external path again doesn't reset the internal one
+        $attachment->setExternalPath('https://google.de');
+        $attachment->setInternalPath('%MEDIA%/foo/bar.txt');
+        $attachment->setExternalPath('https://google.de');
+        $this->assertSame('%MEDIA%/foo/bar.txt', $attachment->getInternalPath());
+
+        //Ensure that resetting the external path doesn't reset the internal one
+        $attachment->setInternalPath('%MEDIA%/foo/bar.txt');
+        $attachment->setExternalPath('');
+        $this->assertSame('%MEDIA%/foo/bar.txt', $attachment->getInternalPath());
 
         //Ensure that spaces get replaced by %20
-        $attachment->setURL('https://google.de/test file.txt');
-        $this->assertSame('https://google.de/test%20file.txt', $attachment->getURL());
-    }
-
-    public function testSetURLForbiddenURL(): void
-    {
-        $attachment = new PartAttachment();
-
-        $this->expectException(InvalidArgumentException::class);
-        $attachment->setURL('%MEDIA%/foo/bar.txt');
+        $attachment->setExternalPath('https://example.de/test file.txt');
+        $this->assertSame('https://example.de/test%20file.txt', $attachment->getExternalPath());
     }
 
     public function testIsURL(): void

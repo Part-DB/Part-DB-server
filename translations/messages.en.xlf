@@ -780,18 +780,10 @@ The user will have to set up all two-factor authentication methods again and pri
         <target>Delete</target>
       </segment>
     </unit>
-    <unit id="W80Gv6o" name="attachment.external">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-      </notes>
+    <unit id="FtktoBj" name="attachment.external_only">
       <segment state="translated">
-        <source>attachment.external</source>
-        <target>External</target>
+        <source>attachment.external_only</source>
+        <target>External only</target>
       </segment>
     </unit>
     <unit id="JES0hrm" name="attachment.preview.alt">
@@ -806,7 +798,7 @@ The user will have to set up all two-factor authentication methods again and pri
         <target>Attachment thumbnail</target>
       </segment>
     </unit>
-    <unit id="fCQby7u" name="attachment.view">
+    <unit id="I_HDnsL" name="attachment.view_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
@@ -816,8 +808,8 @@ The user will have to set up all two-factor authentication methods again and pri
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
       </notes>
       <segment state="translated">
-        <source>attachment.view</source>
-        <target>View</target>
+        <source>attachment.view_local</source>
+        <target>View Local Copy</target>
       </segment>
     </unit>
     <unit id="mEHEYM6" name="attachment.file_not_found">
@@ -2119,14 +2111,14 @@ Sub elements will be moved upwards.</target>
         <target>Preview picture</target>
       </segment>
     </unit>
-    <unit id="O2kBcDz" name="attachment.download">
+    <unit id="Uuy6Ntl" name="attachment.download_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
       </notes>
       <segment state="translated">
-        <source>attachment.download</source>
-        <target>Download</target>
+        <source>attachment.download_local</source>
+        <target>Download Local Copy</target>
       </segment>
     </unit>
     <unit id="mPK9Iyq" name="user.creating_user">
@@ -12327,6 +12319,30 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>entity.export.flash.error.no_entities</source>
         <target>There are no entities to export!</target>
+      </segment>
+    </unit>
+    <unit id="0B3_rob" name="attachment.table.internal_file">
+      <segment state="translated">
+        <source>attachment.table.internal_file</source>
+        <target>Internal file</target>
+      </segment>
+    </unit>
+    <unit id="uhfLnkB" name="attachment.table.external_link">
+      <segment state="translated">
+        <source>attachment.table.external_link</source>
+        <target>External link</target>
+      </segment>
+    </unit>
+    <unit id="2WKNZAm" name="attachment.view_external.view_at">
+      <segment state="translated">
+        <source>attachment.view_external.view_at</source>
+        <target>View at %host%</target>
+      </segment>
+    </unit>
+    <unit id="nwO78O_" name="attachment.view_external">
+      <segment state="translated">
+        <source>attachment.view_external</source>
+        <target>View external version</target>
       </segment>
     </unit>
   </file>
