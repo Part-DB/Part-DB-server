@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BuerklinProvider implements InfoProviderInterface
@@ -38,10 +39,34 @@ class BuerklinProvider implements InfoProviderInterface
     private const ENDPOINT_URL = 'https://buerklin.com/buerklinws/v2/buerklin/';
 
     public const DISTRIBUTOR_NAME = 'Buerklin';
+    private const OAUTH_APP_NAME = 'ip_buerklin_oauth';
 
-    public function __construct(private readonly HttpClientInterface $buerklinClient, private readonly string $currency, private readonly bool $enabled = true)
+    public function __construct(private readonly HttpClientInterface $httpClient,
+        private readonly OAuthTokenManager $authTokenManager, private readonly CacheItemPoolInterface $partInfoCache,
+        private readonly string $clientId, private readonly string $secret,
+        private readonly int $username, private readonly bool $password,
+        private readonly string $currency, private readonly string $language)
     {
 
+    }
+
+    /**
+     * Gets the latest OAuth token for the Buerklin API, or creates a new one if none is available
+     * @return string
+     */
+    private function getToken(): string
+    {
+        //Check if we already have a token saved for this app, otherwise we have to retrieve one via OAuth
+        if (!$this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
+            $this->authTokenManager->retrieveClientCredentialsToken(self::OAUTH_APP_NAME);
+        }
+
+        $tmp = $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
+        if ($tmp === null) {
+            throw new \RuntimeException('Could not retrieve OAuth token for Buerklin');
+        }
+
+        return $tmp;
     }
 
     public function getProviderInfo(): array
@@ -50,7 +75,7 @@ class BuerklinProvider implements InfoProviderInterface
             'name' => 'Buerklin',
             'description' => 'This provider uses the Buerklin API to search for parts.',
             'url' => 'https://www.buerklin.com/',
-            'disabled_help' => 'Set PROVIDER_BUERKLIN_ENABLED to 1 (or true) in your environment variable config.'
+            'disabled_help' => 'Set the environment variables PROVIDER_BUERKLIN_CLIENT_ID, PROVIDER_BUERKLIN_SECRET, PROVIDER_BUERKLIN_USERNAME and PROVIDER_BUERKLIN_PASSWORD.'
         ];
     }
 
@@ -62,7 +87,8 @@ class BuerklinProvider implements InfoProviderInterface
     // This provider is always active
     public function isActive(): bool
     {
-        return $this->enabled;
+        //The client ID has to be set and a token has to be available (user clicked connect)
+        return $this->clientId !== '' && $this->secret !== '' && $this->username !== '' && $this->password !== '';
     }
 
     /**
