@@ -65,7 +65,7 @@ class NormalizePropertyNameCollectionFactory implements PropertyNameCollectionFa
                 $camelized = u($property)->camel()->toString();
 
                 //If the camelized version exists, remove it from the collection
-                $index = array_search($camelized, $properties);
+                $index = array_search($camelized, $properties, true);
                 if ($index !== false) {
                     unset($properties[$index]);
                 }
