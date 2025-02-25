@@ -76,7 +76,7 @@ class LCSCProvider implements InfoProviderInterface
                 'Cookie' => new Cookie('currencyCode', $this->currency)
             ],
             'query' => [
-                'prductCode' => $id,
+                'productCode' => $id,
             ],
         ]);
 
