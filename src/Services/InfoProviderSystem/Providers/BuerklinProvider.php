@@ -69,42 +69,39 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function getToken(): string
     {
-        //Check if we already have a token saved for this app, otherwise we have to retrieve one via OAuth
-        if (!$this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
-            $this->authTokenManager->retrieveClientCredentialsToken(self::OAUTH_APP_NAME);
+        if ($this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
+            return $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
         }
-
-        $tmp = $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
-        if ($tmp === null) {
+    
+        $this->authTokenManager->retrieveClientCredentialsToken(self::OAUTH_APP_NAME);
+        $token = $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
+    
+        if ($token === null) {
             throw new \RuntimeException('Could not retrieve OAuth token for Buerklin');
         }
-
-        return $tmp;
+    
+        return $token;
     }
+    
 
         /**
      * Make a http get request to the Buerklin API
      * @return array
      */
-    private function makeAPICall(string $query, ?array $variables = null): array
+    private function makeAPICall(string $endpoint, array $queryParams = []): array
     {
-        if ($variables === []) {
-            $variables = null;
+        try {
+            $response = $this->client->request('GET', self::ENDPOINT_URL . $endpoint, [
+                'auth_bearer' => $this->getToken(),
+                'query' => $queryParams,
+            ]);
+
+            return $response->toArray();
+        } catch (\Exception $e) {
+            throw new \RuntimeException("Buerklin API request failed: " . $e->getMessage());
         }
-
-        $options = (new HttpOptions())
-            ->setJson(['query' => $query, 'variables' => $variables])
-            ->setAuthBearer($this->getToken())
-        ;
-
-        $response = $this->client->request(
-            'GET',
-            self::ENDPOINT_URL,
-            $options->toArray(),
-        );
-
-        return $response->toArray(true);
     }
+
 
     public function getProviderInfo(): array
     {
@@ -134,11 +131,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function queryDetail(string $id): PartDetailDTO
     {
-        $response = $this->client->request('GET', self::ENDPOINT_URL . "/products", [
-            'query' => [
-                'sku' => $id,
-            ],
-        ]);
+        $response = $this->makeAPICall('/products', ['sku' => $id]);
 
         $arr = $response->toArray();
         $product = $arr['result'] ?? null;
@@ -181,10 +174,12 @@ class BuerklinProvider implements InfoProviderInterface
         }
 
         // Find the footprint in classifications->features. en: name='Design'; de: name='Bauform'
-        foreach ($product[classifications][features] as $feature) {
-            if($feature[name]=='Design'||$feature[name]=='Bauform')
-            {
-                $footprint = $feature["featureValues"]["value"];
+        if (isset($product['classifications']['features'])) {
+            foreach ($product['classifications']['features'] as $feature) {
+                if (isset($feature['name']) && ($feature['name'] === 'Design' || $feature['name'] === 'Bauform')) {
+                    $footprint = $feature['featureValues']['value'] ?? null;
+                    break;
+                }
             }
         }
 
@@ -217,26 +212,23 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function pricesToVendorInfo(string $sku, string $url, array $prices): array
     {
-        $price_dtos = [];
-
-        foreach ($prices as $price) {
-            $price_dtos[] = new PriceDTO(
-                minimum_discount_amount: $price['minQuantity'],
-                price: $price['value'],
-                currency_iso_code: $price['currencyIso'],
-                includes_tax: false,
-            );
-        }
+        $priceDTOs = array_map(fn($price) => new PriceDTO(
+            minimum_discount_amount: $price['minQuantity'],
+            price: $price['value'],
+            currency_iso_code: $price['currencyIso'],
+            includes_tax: false
+        ), $prices);
 
         return [
             new PurchaseInfoDTO(
                 distributor_name: self::DISTRIBUTOR_NAME,
                 order_number: $sku,
-                prices: $price_dtos,
+                prices: $priceDTOs,
                 product_url: $url,
             )
         ];
     }
+
 
     /**
      * Returns a valid Buerklin product short URL from product code
@@ -265,62 +257,50 @@ class BuerklinProvider implements InfoProviderInterface
     private function attributesToParameters(?array $attributes): array
     {
         $result = [];
-
+    
         foreach ($attributes as $attribute) {
-
-            //Skip this attribute if it's empty
-            if (in_array(trim((string) $attribute['featureValues']['value']), ['', '-'], true)) {
-              continue;
+            if (!isset($attribute['name'], $attribute['featureValues']['value'])) {
+                continue;
             }
-
-            $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['name'], value: $attribute['featureValues']['value'], group: null);
+    
+            $value = trim((string)$attribute['featureValues']['value']);
+            if ($value === '' || $value === '-') {
+                continue;
+            }
+    
+            $result[] = ParameterDTO::parseValueIncludingUnit(
+                name: $attribute['name'],
+                value: $value,
+                group: null
+            );
         }
-
+    
         return $result;
     }
+    
 
     public function searchByKeyword(string $keyword): array
     {
-        $response = $this->client->request('GET', self::ENDPOINT_URL . "products/search/", [
-            'auth_bearer' => $this->getToken(),
-            'query' => [
-                'curr' => $this->currency,
-                'language' => $this->language,
-                'pageSize' => '50',
-                'currentPage' => '1',
-                'query' => $term,
-                'sort' => 'relevance'
-            ],
-        ]);
-
-        $arr = $response->toArray();
-
-        // Get products list
-        $products = $arr['products'] ?? [];
-
-        $result = [];
-
-        foreach ($products as $product) {
-            $result[] = $this->getPartDetail($product);
-        }
-
-        return $result;
+        $response = $this->makeAPICall('/products/search', [
+            'curr' => $this->currency,
+            'language' => $this->language,
+            'pageSize' => '50',
+            'currentPage' => '1',
+            'keyword' => $keyword,
+            'sort' => 'relevance']);
+            
+            return array_map(fn($product) => $this->getPartDetail($product), $response['products'] ?? []);
     }
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $tmp = $this->searchByKeyword($id);
-
-
-        if (count($tmp) === 0) {
-            throw new \RuntimeException('No part found with ID ' . $id);
+        $response = $this->makeAPICall("/products", ['sku' => $id]);
+    
+        if (empty($response['result'])) {
+            throw new \RuntimeException("No part found with ID $id");
         }
-
-        if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID ' . $id);
-        }
-
-        return $tmp[0];
+    
+        return $this->getPartDetail($response['result']);
     }
 
     public function getCapabilities(): array
