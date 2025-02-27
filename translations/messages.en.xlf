@@ -9304,7 +9304,7 @@ Element 3</target>
     <unit id="oQmnwDq" name="part.filter.orderdetails_count">
       <segment state="translated">
         <source>part.filter.orderdetails_count</source>
-        <target>Number of orderdetails</target>
+        <target>Number of order details</target>
       </segment>
     </unit>
     <unit id="EVZFWzr" name="part.filter.lotExpirationDate">
