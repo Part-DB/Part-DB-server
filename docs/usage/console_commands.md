@@ -25,6 +25,12 @@ is named `partdb`, you can execute the command `php bin/console cache:clear` wit
 docker exec --user=www-data partdb php bin/console cache:clear
 ```
 
+{: .warning }
+> If you run a root console inside the docker container, and wanna execute commands on the webserver behalf, be sure to use `sudo -E` command (with the `-E` flag) to preserve env variables from the current shell.
+> Otherwise Part-DB console might use the wrong configuration to execute commands.
+
+## Troubleshooting
+
 ## User management commands
 
 * `php bin/console partdb:users:list`: List all users of this Part-DB instance

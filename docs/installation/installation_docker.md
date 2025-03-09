@@ -201,6 +201,10 @@ You also have to create the database as described above in step 4.
 You can run the console commands described in README by
 executing `docker exec --user=www-data -it partdb bin/console [command]`
 
+{: .warning }
+> If you run a root console inside the container, and wanna execute commands on the webserver behalf, be sure to use `sudo -E` command (with the `-E` flag) to preserve env variables from the current shell.
+> Otherwise Part-DB console might use the wrong configuration to execute commands.
+
 ## Troubleshooting
 
 *Login is not possible. Login page is just reloading and no error message is shown or something like "CSFR token invalid"*:
