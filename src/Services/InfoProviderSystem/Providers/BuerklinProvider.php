@@ -69,11 +69,10 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function getToken(): string
     {
-        if ($this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
-            return $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
+        if (!$this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
+            $this->authTokenManager->retrieveClientCredentialsToken(self::OAUTH_APP_NAME);
         }
     
-        $this->authTokenManager->retrieveClientCredentialsToken(self::OAUTH_APP_NAME);
         $token = $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
     
         if ($token === null) {
@@ -81,10 +80,9 @@ class BuerklinProvider implements InfoProviderInterface
         }
     
         return $token;
-    }
-    
+    }  
 
-        /**
+    /**
      * Make a http get request to the Buerklin API
      * @return array
      */
