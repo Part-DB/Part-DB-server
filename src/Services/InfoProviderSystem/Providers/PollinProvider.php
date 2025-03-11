@@ -242,8 +242,8 @@ class PollinProvider implements InfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
+            ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
-            ProviderCapabilities::DATASHEET
         ];
     }
 }
