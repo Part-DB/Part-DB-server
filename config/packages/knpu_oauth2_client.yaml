@@ -22,7 +22,7 @@ knpu_oauth2_client:
                 #urlAccessToken: 'https://sandbox-api.digikey.com/v1/oauth2/token'
                 #urlResourceOwnerDetails: ''
 
-         ip_octopart_oauth:
+        ip_octopart_oauth:
             type: generic
             provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
 
@@ -48,6 +48,6 @@ knpu_oauth2_client:
             redirect_params: { name: 'ip_buerklin_oauth' }
 
             provider_options:
-                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/token'
+                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/authorize'
                 urlAccessToken: 'https://www.buerklin.com/authorizationserver/oauth/token'
                 urlResourceOwnerDetails: ''
