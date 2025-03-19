@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\ProjectSystem\Project;
@@ -108,6 +109,7 @@ final class EntityExtension extends AbstractExtension
             Manufacturer::class => 'manufacturer',
             Category::class => 'category',
             Project::class => 'device',
+            Assembly::class => 'assembly',
             Attachment::class => 'attachment',
             Supplier::class => 'supplier',
             User::class => 'user',

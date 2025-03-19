@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -174,6 +175,12 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.edit.projects'),
                 $this->urlGenerator->generate('project_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
+        }
+        if ($this->security->isGranted('read', new Assembly())) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.assemblies'),
+                $this->urlGenerator->generate('assembly_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-list');
         }
         if ($this->security->isGranted('read', new Supplier())) {
             $nodes[] = (new TreeViewNode(

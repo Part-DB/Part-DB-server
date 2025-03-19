@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\AttachmentFilter;
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
@@ -80,6 +81,7 @@ class AttachmentFilterType extends AbstractType
                 'category.label' => CategoryAttachment::class,
                 'currency.label' => CurrencyAttachment::class,
                 'project.label' => ProjectAttachment::class,
+                'assembly.label' => AssemblyAttachment::class,
                 'footprint.label' => FootprintAttachment::class,
                 'group.label' => GroupAttachment::class,
                 'label_profile.label' => LabelAttachment::class,

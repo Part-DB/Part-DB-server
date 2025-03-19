@@ -245,6 +245,12 @@
         <target>您必须为 BOM 条目选择部件，或为非部件 BOM 条目设置名称。</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>只能选择一个零件或组件。请修改您的选择！</target>
+      </segment>
+    </unit>
     <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -345,6 +351,24 @@
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>
         <target>由于技术限制，在32位系统中无法选择2038年1月19日之后的日期！</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>此零件已存在于组中！</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>具有此名称的零件已存在！</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>必须选择零件或为非零件指定名称！</target>
       </segment>
     </unit>
   </file>

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -45,6 +46,7 @@ use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
+use App\Services\AssemblySystem\AssemblyBuildPartHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use App\Settings\BehaviorSettings\PartInfoSettings;
 use DateTime;
@@ -204,15 +206,18 @@ final class PartController extends AbstractController
 
     #[Route(path: '/new', name: 'part_new')]
     #[Route(path: '/{id}/clone', name: 'part_clone')]
-    #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
+    #[Route(path: '/new_build_part_project/{project_id}', name: 'part_new_build_part')]
+    #[Route(path: '/new_build_part_assembly/{assembly_id}', name: 'part_new_build_part_assembly')]
     public function new(
         Request $request,
         EntityManagerInterface $em,
         TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         ProjectBuildPartHelper $projectBuildPartHelper,
+        AssemblyBuildPartHelper $assemblyBuildPartHelper,
         #[MapEntity(mapping: ['id' => 'id'])] ?Part $part = null,
-        #[MapEntity(mapping: ['project_id' => 'id'])] ?Project $project = null
+        #[MapEntity(mapping: ['project_id' => 'id'])] ?Project $project = null,
+        #[MapEntity(mapping: ['assembly_id' => 'id'])] ?Assembly $assembly = null
     ): Response {
 
         if ($part instanceof Part) {
@@ -226,6 +231,14 @@ final class PartController extends AbstractController
                 return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
             }
             $new_part = $projectBuildPartHelper->getPartInitialization($project);
+        } elseif ($assembly instanceof Assembly) {
+            //Initialize a new part for a build part from the given assembly
+            //Ensure that the assembly has not already a build part
+            if ($project->getBuildPart() instanceof Part) {
+                $this->addFlash('error', 'part.new_build_part.error.build_part_already_exists');
+                return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
+            }
+            $new_part = $assemblyBuildPartHelper->getPartInitialization($assembly);
         } else { //Create an empty part from scratch
             $new_part = new Part();
         }

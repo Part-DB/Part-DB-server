@@ -76,6 +76,21 @@
     {% endif %}
 {% endmacro %}
 
+{% macro assemblies_status_to_badge(status, class="badge") %}
+    {% if status is not empty %}
+        {% set color = " bg-secondary" %}
+
+        {% if status == "in_production" %}
+            {% set color = " bg-success" %}
+        {% endif %}
+
+        <span class="{{ class ~ color}}">
+            <i class="fa-fw fas fa-info-circle"></i>
+            {{ ("assembly.status." ~ status) | trans }}
+        </span>
+    {% endif %}
+{% endmacro %}
+
 {% macro structural_entity_link(entity, link_type = "list_parts") %}
     {# @var entity \App\Entity\Base\StructuralDBElement #}
     {% if entity %}
@@ -101,6 +116,7 @@
         "category": ["fa-solid fa-tags", "category.label"],
         "currency": ["fa-solid fa-coins", "currency.label"],
         "device": ["fa-solid fa-archive", "project.label"],
+        "assembly": ["fa-solid fa-list", "assembly.label"],
         "footprint": ["fa-solid fa-microchip", "footprint.label"],
         "group": ["fa-solid fa-users", "group.label"],
         "label_profile": ["fa-solid fa-qrcode", "label_profile.label"],

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
@@ -66,6 +68,8 @@ class ElementTypeNameGenerator
             AttachmentType::class => $this->translator->trans('attachment_type.label'),
             Project::class => $this->translator->trans('project.label'),
             ProjectBOMEntry::class => $this->translator->trans('project_bom_entry.label'),
+            Assembly::class => $this->translator->trans('assembly.label'),
+            AssemblyBOMEntry::class => $this->translator->trans('assembly_bom_entry.label'),
             Footprint::class => $this->translator->trans('footprint.label'),
             Manufacturer::class => $this->translator->trans('manufacturer.label'),
             MeasurementUnit::class => $this->translator->trans('measurement_unit.label'),
@@ -182,6 +186,8 @@ class ElementTypeNameGenerator
                 $on = $entity->getOrderdetail()->getPart();
             } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof Project) {
                 $on = $entity->getProject();
+            } elseif ($entity instanceof AssemblyBOMEntry && $entity->getAssembly() instanceof Assembly) {
+                $on = $entity->getAssembly();
             }
 
             if (isset($on) && $on instanceof NamedElementInterface) {

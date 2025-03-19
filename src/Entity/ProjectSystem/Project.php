@@ -108,6 +108,7 @@ class Project extends AbstractStructuralDBElement
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
+    #[UniqueObjectCollection(message: 'project.bom_entry.assembly_already_in_bom', fields: ['assembly'])]
     #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]
     protected Collection $bom_entries;
 

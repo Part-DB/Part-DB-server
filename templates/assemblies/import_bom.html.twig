@@ -1,0 +1,60 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}assembly.import_bom{% endtrans %}{% endblock %}
+
+{% block before_card %}
+    {% if errors %}
+        <div class="alert alert-danger">
+            <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}parts.import.errors.title{% endtrans %}</h4>
+            <ul>
+                {% for violation in errors %}
+                    <li>
+                        <b>{{ violation.propertyPath }}: </b>
+                        {{ violation.message|trans(violation.parameters, 'validators') }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block card_title %}
+    <i class="fa-solid fa-file-import fa-fw"></i>
+    {% trans %}assembly.import_bom{% endtrans %}{% if assembly %}: <i>{{ assembly.name }}</i>{% endif %}
+{% endblock %}
+
+{% block card_content %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block additional_content %}
+<div class="container-fluid row d-flex align-items-stretch pe-0 me-0">
+    <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex">
+        <div class="card border-secondary flex-grow-1 overflow-auto">
+            <div class="card-header bg-secondary text-white">
+                {% trans %}assembly.import_bom.template.header.json{% endtrans %}
+            </div>
+            <div class="card-body">
+                <pre>{{ jsonTemplate|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_UNICODE')) }}</pre>
+
+                {{ 'assembly.bom_import.template.json.table'|trans|raw }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex overflow-auto">
+        <div class="card border-secondary flex-grow-1 overflow-auto">
+            <div class="card-header bg-secondary text-white">
+                {% trans %}assembly.import_bom.template.header.kicad_pcbnew{% endtrans %}
+            </div>
+            <div class="card-body">
+                {{ 'assembly.bom_import.template.kicad_pcbnew.exptected_columns'|trans }}
+                <pre>Id;Designator;Package;Quantity;Designation;Supplier and ref</pre>
+                {{ 'assembly.bom_import.template.kicad_pcbnew.exptected_columns.note'|trans|raw }}
+
+                {{ 'assembly.bom_import.template.json.table'|trans|raw }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
