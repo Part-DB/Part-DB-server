@@ -1,0 +1,105 @@
+{% extends "main_card.html.twig" %}
+{% import "helper.twig" as helper %}
+
+{% block  title %}
+    {% trans %}assembly.info.title{% endtrans %}: {{ assembly.name }}
+{% endblock %}
+
+{% block content %}
+
+    {{ helper.breadcrumb_entity_link(assembly) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block card_title %}
+    {% if assembly.masterPictureAttachment is not null and attachment_manager.isFileExisting(assembly.masterPictureAttachment) %}
+        <img class="hoverpic ms-0 me-1 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(assembly.masterPictureAttachment, 'file_view') }}" src="{{ attachment_thumbnail(assembly.masterPictureAttachment, 'thumbnail_sm') }}">
+    {% else %}
+        {{ helper.entity_icon(assembly, "me-1") }}
+    {% endif %}
+    {% trans %}assembly.info.title{% endtrans %}:&nbsp;<b>{{ assembly.name }}</b>
+{% endblock %}
+
+{% block card_content %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
+                    type="button" role="tab" aria-controls="info-tab-pane" aria-selected="true">
+                <i class="fa-solid fa-circle-info fa-fw"></i>
+                {% trans %}assembly.info.info.label{% endtrans %}
+            </button>
+        </li>
+        {% if assembly.children is not empty %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="subassemblies-tab" data-bs-toggle="tab" data-bs-target="#subassemblies-tab-pane"
+                        type="button" role="tab" aria-controls="subassemblies-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-folder-tree fa-fw"></i>
+                    {% trans %}assembly.info.sub_assemblies.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.children | length }}</span>
+                </button>
+            </li>
+        {% endif %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bom-tab" data-bs-toggle="tab" data-bs-target="#bom-tab-pane"
+                    type="button" role="tab" aria-controls="bom-tab-pane" aria-selected="false">
+                <i class="fa-solid fa-list-check fa-fw"></i>
+                {% trans %}assembly_bom_entry.label{% endtrans %}
+                <span class="badge bg-secondary">{{ assembly.bomEntries | length }}</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="builds-tab" data-bs-toggle="tab" data-bs-target="#builds-tab-pane"
+                    type="button" role="tab" aria-controls="builds-tab-pane" aria-selected="false">
+                <i class="fa-solid fa-bolt fa-fw"></i>
+                {% trans %}assembly.info.builds.label{% endtrans %}
+            </button>
+        </li>
+        {% if assembly.attachments is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="attachments-tab" data-bs-toggle="tab"
+                   data-bs-target="#attachments-tab-pane" role="tab">
+                    <i class="fas fa-paperclip fa-fw"></i>
+                    {% trans %}attachment.labelp{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.attachments | length }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if assembly.parameters is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="parameters-tab" data-bs-toggle="tab"
+                   data-bs-target="#parameters-tab-pane" role="tab">
+                    <i class="fas fa-atlas fa-fw"></i>
+                    {% trans %}entity.info.parameters.tab{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.parameters | length }}</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
+            {% include "assemblies/info/_info.html.twig" %}
+        </div>
+        {% if assembly.children is not empty %}
+            <div class="tab-pane fade" id="subassemblies-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+                {% include "assemblies/info/_subassemblies.html.twig" %}
+            </div>
+        {% endif %}
+        <div class="tab-pane fade" id="bom-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+            {% include "assemblies/info/_bom.html.twig" %}
+        </div>
+        <div class="tab-pane fade" id="builds-tab-pane" role="tabpanel" aria-labelledby="builds-tab" tabindex="0">
+            {% include "assemblies/info/_builds.html.twig" %}
+        </div>
+        <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
+            {% include "parts/info/_attachments_info.html.twig" with {"part": assembly} %}
+        </div>
+        <div class="tab-pane fade" id="parameters-tab-pane" role="tabpanel" aria-labelledby="parameters-tab">
+            {% for name, parameters in assembly.groupedParameters %}
+                {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                {{ helper.parameters_table(assembly.parameters) }}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

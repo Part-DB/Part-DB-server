@@ -7,5 +7,29 @@
         <target>Ο εσωτερικός αριθμός εξαρτήματος πρέπει να είναι μοναδικός. {{ value }} χρησιμοποιείται ήδη!</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Det er kun tilladt at vælge én del eller en samling. Venligst tilpas dit valg!</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Αυτό το εξάρτημα υπάρχει ήδη στην ομάδα!</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Υπάρχει ήδη ένα εξάρτημα με αυτό το όνομα!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Πρέπει να επιλέξετε ένα εξάρτημα ή να βάλετε ένα όνομα για ένα μη εξάρτημα!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

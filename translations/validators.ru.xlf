@@ -245,6 +245,12 @@
         <target>Вам необходимо выбрать компонент или задать имя для BOM, не относящейся к компоненту!</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Можно выбрать только деталь или сборку. Пожалуйста, измените ваш выбор!</target>
+      </segment>
+    </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -357,6 +363,24 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Неверный код. Проверьте, что приложение аутентификации настроено правильно и что на сервере и устройстве аутентификации установлено правильное время.</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Эта деталь уже существует в группе!</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Деталь с таким названием уже существует!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Необходимо выбрать деталь или ввести название для недетали!</target>
       </segment>
     </unit>
   </file>

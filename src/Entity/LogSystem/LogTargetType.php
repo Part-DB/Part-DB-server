@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Entity\LogSystem;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
@@ -67,6 +69,8 @@ enum LogTargetType: int
     case LABEL_PROFILE = 19;
 
     case PART_ASSOCIATION = 20;
+    case ASSEMBLY = 21;
+    case ASSEMBLY_BOM_ENTRY = 22;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -82,6 +86,8 @@ enum LogTargetType: int
             self::CATEGORY => Category::class,
             self::PROJECT => Project::class,
             self::BOM_ENTRY => ProjectBOMEntry::class,
+            self::ASSEMBLY => Assembly::class,
+            self::ASSEMBLY_BOM_ENTRY => AssemblyBOMEntry::class,
             self::FOOTPRINT => Footprint::class,
             self::GROUP => Group::class,
             self::MANUFACTURER => Manufacturer::class,

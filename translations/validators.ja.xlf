@@ -203,5 +203,29 @@
         <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>部品またはアセンブリのみ選択可能です。選択内容を調整してください！</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>この部品はすでにグループに存在します！</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>この名前の部品はすでに存在します！</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>部品を選択するか、非部品の名前を入力する必要があります！</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -12,7 +12,7 @@ export default class extends Controller {
 
         let settings = {
             allowEmptyOption: true,
-            plugins: ['dropdown_input'],
+            plugins: ['dropdown_input', 'clear_button'],
             searchField: ["name", "description", "category", "footprint"],
             valueField: "id",
             labelField: "name",

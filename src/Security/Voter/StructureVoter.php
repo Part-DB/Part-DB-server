@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
@@ -47,6 +48,7 @@ final class StructureVoter extends Voter
         AttachmentType::class => 'attachment_types',
         Category::class => 'categories',
         Project::class => 'projects',
+        Assembly::class => 'assemblies',
         Footprint::class => 'footprints',
         Manufacturer::class => 'manufacturers',
         StorageLocation::class => 'storelocations',

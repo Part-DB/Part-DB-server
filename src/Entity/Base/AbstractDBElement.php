@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
@@ -68,7 +71,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Every database table which are managed with this class (or a subclass of it)
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
  */
-#[DiscriminatorMap(typeProperty: 'type', mapping: ['attachment_type' => AttachmentType::class, 'attachment' => Attachment::class, 'attachment_type_attachment' => AttachmentTypeAttachment::class, 'category_attachment' => CategoryAttachment::class, 'currency_attachment' => CurrencyAttachment::class, 'footprint_attachment' => FootprintAttachment::class, 'group_attachment' => GroupAttachment::class, 'label_attachment' => LabelAttachment::class, 'manufacturer_attachment' => ManufacturerAttachment::class, 'measurement_unit_attachment' => MeasurementUnitAttachment::class, 'part_attachment' => PartAttachment::class, 'project_attachment' => ProjectAttachment::class, 'storelocation_attachment' => StorageLocationAttachment::class, 'supplier_attachment' => SupplierAttachment::class, 'user_attachment' => UserAttachment::class, 'category' => Category::class, 'project' => Project::class, 'project_bom_entry' => ProjectBOMEntry::class, 'footprint' => Footprint::class, 'group' => Group::class, 'manufacturer' => Manufacturer::class, 'orderdetail' => Orderdetail::class, 'part' => Part::class, 'pricedetail' => Pricedetail::class, 'storelocation' => StorageLocation::class, 'part_lot' => PartLot::class, 'currency' => Currency::class, 'measurement_unit' => MeasurementUnit::class, 'parameter' => AbstractParameter::class, 'supplier' => Supplier::class, 'user' => User::class])]
+#[DiscriminatorMap(typeProperty: 'type', mapping: ['attachment_type' => AttachmentType::class, 'attachment' => Attachment::class, 'attachment_type_attachment' => AttachmentTypeAttachment::class, 'category_attachment' => CategoryAttachment::class, 'currency_attachment' => CurrencyAttachment::class, 'footprint_attachment' => FootprintAttachment::class, 'group_attachment' => GroupAttachment::class, 'label_attachment' => LabelAttachment::class, 'manufacturer_attachment' => ManufacturerAttachment::class, 'measurement_unit_attachment' => MeasurementUnitAttachment::class, 'part_attachment' => PartAttachment::class, 'project_attachment' => ProjectAttachment::class, 'assembly_attachment' => AssemblyAttachment::class, 'storelocation_attachment' => StorageLocationAttachment::class, 'supplier_attachment' => SupplierAttachment::class, 'user_attachment' => UserAttachment::class, 'category' => Category::class, 'project' => Project::class, 'project_bom_entry' => ProjectBOMEntry::class, 'assembly' => Assembly::class, 'assembly_bom_entry' => AssemblyBOMEntry::class, 'footprint' => Footprint::class, 'group' => Group::class, 'manufacturer' => Manufacturer::class, 'orderdetail' => Orderdetail::class, 'part' => Part::class, 'pricedetail' => Pricedetail::class, 'storelocation' => StorageLocation::class, 'part_lot' => PartLot::class, 'currency' => Currency::class, 'measurement_unit' => MeasurementUnit::class, 'parameter' => AbstractParameter::class, 'supplier' => Supplier::class, 'user' => User::class])]
 #[ORM\MappedSuperclass(repositoryClass: DBElementRepository::class)]
 abstract class AbstractDBElement implements JsonSerializable
 {

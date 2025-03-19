@@ -1,0 +1,62 @@
+{% extends "admin/base_admin.html.twig" %}
+
+{# @var entity App\Entity\AssemblySystem\Assembly #}
+
+{% block card_title %}
+    <i class="fas fa-archive fa-fw"></i> {% trans %}assembly.caption{% endtrans %}
+{% endblock %}
+
+{% block edit_title %}
+    {% trans %}assembly.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}assembly.new{% endtrans %}
+{% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#bom">BOM</a></li>
+{% endblock %}
+
+{% block quick_links %}
+    <div class="btn-toolbar" style="display: inline-block;">
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="{{ entity_url(entity) }}"><i class="fas fa-eye fa-fw"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.description) }}
+    {{ form_row(form.status) }}
+    {% if entity.id %}
+        <div class="mb-2 row">
+            <label class="col-form-label col-sm-3">{% trans %}assembly.edit.associated_build_part{% endtrans %}</label>
+            <div class="col-sm-9">
+                {% if entity.buildPart %}
+                    <span class="form-control-static"><a href="{{ entity_url(entity.buildPart) }}">{{ entity.buildPart.name }}</a></span>
+                {% else %}
+                    <a href="{{ path('part_new_build_part_assembly', {"assembly_id": entity.id , "_redirect":  uri_without_host(app.request)}) }}"
+                       class="btn btn-outline-success">{% trans %}assembly.edit.associated_build_part.add{% endtrans %}</a>
+                {% endif %}
+                <p class="text-muted">{% trans %}assembly.edit.associated_build.hint{% endtrans %}</p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="bom">
+        {% form_theme form.bom_entries with ['form/collection_types_layout_assembly.html.twig'] %}
+        {{ form_errors(form.bom_entries) }}
+        {{ form_widget(form.bom_entries) }}
+        {% if entity.id %}
+            <a href="{{ path('assembly_import_bom', {'id': entity.id}) }}" class="btn btn-secondary mb-2"
+            {% if not is_granted('edit', entity) %}disabled="disabled"{% endif %}>
+                <i class="fa-solid fa-file-import fa-fw"></i>
+                {% trans %}assembly.edit.bom.import_bom{% endtrans %}
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

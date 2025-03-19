@@ -4703,6 +4703,18 @@
         <target>名称</target>
       </segment>
     </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+        <segment state="translated">
+            <source>part.table.name.value.for_part</source>
+            <target>%value%（部品）</target>
+        </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+        <segment state="translated">
+            <source>part.table.name.value.for_assembly</source>
+            <target>%value%（アセンブリ）</target>
+        </segment>
+    </unit>
     <unit id="eshqdG." name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
@@ -8832,6 +8844,646 @@ Exampletown</target>
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
+      </segment>
+    </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>アセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>選択</target>
+      </segment>
+    </unit>
+    <unit id="hIIFtI1" name="assembly.edit.status">
+      <segment state="translated">
+        <source>assembly.edit.status</source>
+        <target>ステータス</target>
+      </segment>
+    </unit>
+    <unit id="zRd.psv" name="assembly.status.draft">
+      <segment state="translated">
+        <source>assembly.status.draft</source>
+        <target>下書き</target>
+      </segment>
+    </unit>
+    <unit id="_U8bb1t" name="assembly.status.planning">
+      <segment state="translated">
+        <source>assembly.status.planning</source>
+        <target>計画中</target>
+      </segment>
+    </unit>
+    <unit id="GgUh7RT" name="assembly.status.in_production">
+      <segment state="translated">
+        <source>assembly.status.in_production</source>
+        <target>製作中</target>
+      </segment>
+    </unit>
+    <unit id="IluD8iU" name="assembly.status.finished">
+      <segment state="translated">
+        <source>assembly.status.finished</source>
+        <target>完成</target>
+      </segment>
+    </unit>
+    <unit id="Mybkd1s" name="assembly.status.archived">
+      <segment state="translated">
+        <source>assembly.status.archived</source>
+        <target>アーカイブ済み</target>
+      </segment>
+    </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>nessuna scorta specificata</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (必要数: %quantity%)</target>
+      </segment>
+    </unit>
+    <unit id="G2sXzh7" name="assembly.label">
+      <segment>
+        <source>assembly.label</source>
+        <target>アセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="dL51AVa" name="assembly.caption">
+      <segment>
+        <source>assembly.caption</source>
+        <target>アセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="G_rlE3w" name="perm.assemblies">
+      <segment>
+        <source>perm.assemblies</source>
+        <target>アセンブリ一覧</target>
+      </segment>
+    </unit>
+    <unit id="dipIGt4" name="assembly_bom_entry.label">
+      <segment>
+        <source>assembly_bom_entry.label</source>
+        <target>コンポーネント</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment>
+        <source>assembly.labelp</source>
+        <target>アセンブリ一覧</target>
+      </segment>
+    </unit>
+    <unit id="gyRGdfv" name="assembly.edit">
+      <segment>
+        <source>assembly.edit</source>
+        <target>アセンブリを編集</target>
+      </segment>
+    </unit>
+    <unit id="4Tdtoj_" name="assembly.new">
+      <segment>
+        <source>assembly.new</source>
+        <target>新しいアセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="M51YUE." name="assembly.edit.associated_build_part">
+      <segment>
+        <source>assembly.edit.associated_build_part</source>
+        <target>関連コンポーネント</target>
+      </segment>
+    </unit>
+    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
+      <segment>
+        <source>assembly.edit.associated_build_part.add</source>
+        <target>コンポーネントを追加</target>
+      </segment>
+    </unit>
+    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
+      <segment>
+        <source>assembly.edit.associated_build.hint</source>
+        <target>このコンポーネントは、アセンブリの製造されたインスタンスを表します。製造されたインスタンスが必要な場合は登録してください。それ以外の場合、コンポーネントの数量は該当するプロジェクトを構築する際にのみ使用されます。</target>
+      </segment>
+    </unit>
+    <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
+      <segment>
+        <source>assembly.edit.bom.import_bom</source>
+        <target>コンポーネントをインポート</target>
+      </segment>
+    </unit>
+    <unit id="vsmgKMw" name="log.database_updated.failed">
+      <segment>
+        <source>log.database_updated.failed</source>
+        <target>__log.database_updated.failed</target>
+      </segment>
+    </unit>
+    <unit id="GcQrTTE" name="log.database_updated.old_version">
+      <segment>
+        <source>log.database_updated.old_version</source>
+        <target>__log.database_updated.old_version</target>
+      </segment>
+    </unit>
+    <unit id="JJF47vK" name="log.database_updated.new_version">
+      <segment>
+        <source>log.database_updated.new_version</source>
+        <target>__log.database_updated.new_version</target>
+      </segment>
+    </unit>
+    <unit id="iVHS_sh" name="tree.tools.edit.assemblies">
+      <segment>
+        <source>tree.tools.edit.assemblies</source>
+        <target>アセンブリ一覧</target>
+      </segment>
+    </unit>
+    <unit id="naAMjcH" name="assembly.bom_import.flash.success">
+      <segment>
+        <source>assembly.bom_import.flash.success</source>
+        <target>%count% 個のコンポーネントが正常にアセンブリへインポートされました。</target>
+      </segment>
+    </unit>
+    <unit id="ScQhV.o" name="assembly.bom_import.flash.invalid_entries">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_entries</source>
+        <target>検証エラー! インポートしたファイルを確認してください！</target>
+      </segment>
+    </unit>
+    <unit id="luj_uCZ" name="assembly.bom_import.flash.invalid_file">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_file</source>
+        <target>ファイルをインポートできませんでした。正しいファイル形式を選択しているか確認してください。エラーメッセージ: %message%</target>
+      </segment>
+    </unit>
+    <unit id="u7SYWcB" name="assembly.bom.quantity">
+      <segment>
+        <source>assembly.bom.quantity</source>
+        <target>数量</target>
+      </segment>
+    </unit>
+    <unit id="D7dPvPL" name="assembly.bom.mountnames">
+      <segment>
+        <source>assembly.bom.mountnames</source>
+        <target>取り付け名</target>
+      </segment>
+    </unit>
+    <unit id="rswC4eS" name="assembly.bom.instockAmount">
+      <segment state="translated">
+        <source>assembly.bom.instockAmount</source>
+        <target>在庫数量</target>
+      </segment>
+    </unit>
+    <unit id="oNutri3" name="assembly.info.title">
+      <segment>
+        <source>assembly.info.title</source>
+        <target>アセンブリ情報</target>
+      </segment>
+    </unit>
+    <unit id="aO1rzVQ" name="assembly.info.info.label">
+      <segment>
+        <source>assembly.info.info.label</source>
+        <target>情報</target>
+      </segment>
+    </unit>
+    <unit id="9dOByT_" name="assembly.info.sub_assemblies.label">
+      <segment>
+        <source>assembly.info.sub_assemblies.label</source>
+        <target>サブアセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="Hmf0EwN" name="assembly.info.builds.label">
+      <segment>
+        <source>assembly.info.builds.label</source>
+        <target>ビルド</target>
+      </segment>
+    </unit>
+    <unit id="z3F4Rcu" name="assembly.info.bom_add_parts">
+      <segment>
+        <source>assembly.info.bom_add_parts</source>
+        <target>部品を追加</target>
+      </segment>
+    </unit>
+    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
+      <segment>
+        <source>assembly.builds.check_assembly_status</source>
+        <target><![CDATA[アセンブリの現在の状態は<b>"%assembly_status%"</b>です。この状態でビルドを続行してよろしいですか？]]></target>
+      </segment>
+    </unit>
+    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
+      <segment>
+        <source>assembly.builds.build_not_possible</source>
+        <target>ビルド不可能: 必要な部品が不足しています</target>
+      </segment>
+    </unit>
+    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock</source>
+        <target>%number_of_builds% 回のビルドを行うのに十分な部品在庫がありません。不足している部品:</target>
+      </segment>
+    </unit>
+    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
+      <segment>
+        <source>assembly.builds.build_possible</source>
+        <target>ビルド可能</target>
+      </segment>
+    </unit>
+    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
+      <segment>
+        <source>assembly.builds.number_of_builds_possible</source>
+        <target><![CDATA[現在の在庫では<b>%max_builds%</b> 回のアセンブリをビルドできます。]]></target>
+      </segment>
+    </unit>
+    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
+      <segment>
+        <source>assembly.builds.number_of_builds</source>
+        <target>ビルドするアセンブリ数</target>
+      </segment>
+    </unit>
+    <unit id="mtJqT_a" name="assembly.build.btn_build">
+      <segment>
+        <source>assembly.build.btn_build</source>
+        <target>ビルド</target>
+      </segment>
+    </unit>
+    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
+      <segment>
+        <source>assembly.builds.no_stocked_builds</source>
+        <target>在庫のビルド済みアセンブリ数</target>
+      </segment>
+    </unit>
+    <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
+      <segment>
+        <source>assembly.info.bom_entries_count</source>
+        <target>部品</target>
+      </segment>
+    </unit>
+    <unit id="xJ7oBM4" name="assembly.info.sub_assemblies_count">
+      <segment>
+        <source>assembly.info.sub_assemblies_count</source>
+        <target>サブアセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="HZYhTlb" name="assembly.builds.stocked">
+      <segment>
+        <source>assembly.builds.stocked</source>
+        <target>在庫あり</target>
+      </segment>
+    </unit>
+    <unit id="9EG0PLW" name="assembly.builds.needed">
+      <segment>
+        <source>assembly.builds.needed</source>
+        <target>必要数量</target>
+      </segment>
+    </unit>
+    <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
+      <segment>
+        <source>assembly.add_parts_to_assembly</source>
+        <target>アセンブリに部品を追加</target>
+      </segment>
+    </unit>
+    <unit id="rs_qty" name="assembly.build.required_qty">
+      <segment>
+        <source>assembly.build.required_qty</source>
+        <target>必要な数量</target>
+      </segment>
+    </unit>
+    <unit id="yes_button" name="assembly.build.yes_button">
+      <segment>
+        <source>assembly.build.yes_button</source>
+        <target>はい</target>
+      </segment>
+    </unit>
+    <unit id="no_button" name="assembly.build.no_button">
+      <segment>
+        <source>assembly.build.no_button</source>
+        <target>いいえ</target>
+      </segment>
+    </unit>
+    <unit id="JLhsU08" name="assembly.confirmation.required">
+      <segment>
+        <source>assembly.confirmation.required</source>
+        <target><![CDATA[続行してよろしいですか？]]></target>
+      </segment>
+    </unit>
+    <unit id="build_success" name="assembly.build.success">
+      <segment>
+        <source>assembly.build.success</source>
+        <target>ビルドが正常に完了しました！</target>
+      </segment>
+    </unit>
+    <unit id="build_cancelled" name="assembly.build.cancelled">
+      <segment>
+        <source>assembly.build.cancelled</source>
+        <target>ビルドがキャンセルされました。</target>
+      </segment>
+    </unit>
+    <unit id="nl.jtSx" name="assembly.bom_import.type">
+      <segment state="translated">
+        <source>assembly.bom_import.type</source>
+        <target>タイプ</target>
+      </segment>
+    </unit>
+    <unit id="LtbSLHx" name="assembly.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>アセンブリ用 JSON</target>
+      </segment>
+    </unit>
+    <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_pcbnew</source>
+        <target>CSV (KiCAD Pcbnew)</target>
+      </segment>
+    </unit>
+    <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom</source>
+        <target>インポート前に既存の BOM をクリアする</target>
+      </segment>
+    </unit>
+    <unit id="S4QY6pA" name="assembly.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom.help</source>
+        <target>有効にすると、既存のすべての BOM エントリが削除され、インポートされたデータに置き換えられます。</target>
+      </segment>
+    </unit>
+    <unit id="RVNWPsh" name="assembly.import_bom.template.header.json">
+      <segment>
+        <source>assembly.import_bom.template.header.json</source>
+        <target>アセンブリ用 JSON テンプレート</target>
+      </segment>
+    </unit>
+    <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>assembly.import_bom.template.header.kicad_pcbnew</source>
+        <target>アセンブリ用 CSV テンプレート（KiCAD Pcbnew BOM）</target>
+      </segment>
+    </unit>
+    <unit id="aLomVVS" name="assembly.bom_import.template.entry.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.name</source>
+        <target>アセンブリ内の部品名</target>
+      </segment>
+    </unit>
+    <unit id="o4ZcLfV" name="assembly.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.mpnr</source>
+        <target>メーカーの部品番号</target>
+      </segment>
+    </unit>
+    <unit id="n3YbKeU" name="assembly.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.ipn</source>
+        <target>部品の一意の IPN</target>
+      </segment>
+    </unit>
+    <unit id="l2SYJP5" name="assembly.bom_import.template.entry.part.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.name</source>
+        <target>部品名</target>
+      </segment>
+    </unit>
+    <unit id="VgXQ1xW" name="assembly.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.manufacturer.name</source>
+        <target>メーカー名</target>
+      </segment>
+    </unit>
+    <unit id="MpB.o_L" name="assembly.bom_import.template.entry.part.category.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.category.name</source>
+        <target>カテゴリ名</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.json.table">
+      <segment>
+        <source>assembly.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>フィールド</th>
+                <th>条件</th>
+                <th>データ型</th>
+                <th>説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>必須</td>
+                <td>浮動小数点数 (Float)</td>
+                <td>指定され、0.0より大きい浮動小数点値 (Float) を含む必要があります。</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>指定されている場合、空でない文字列でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>任意</td>
+                <td>オブジェクト/配列</td>
+                <td>
+                  指定された場合、オブジェクト/配列であり、以下のフィールドのうち少なくとも1つが入力されている必要があります：
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>任意</td>
+                <td>整数 (Integer)</td>
+                <td>整数 (Integer) &gt; 0。部品の Part-DB 内部数値 ID に対応します。</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>part.mpnr または part.ipn が指定されていない場合、空でない文字列でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>part.name または part.ipn が指定されていない場合、空でない文字列でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>part.name または part.mpnr が指定されていない場合、空でない文字列でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part.description</td>
+                <td>任意</td>
+                <td>文字列または null</td>
+                <td>指定されている場合、空でない文字列または null でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>任意</td>
+                <td>オブジェクト/配列</td>
+                <td>
+                  指定されている場合、オブジェクト/配列であり、以下のフィールドのうち少なくとも1つが入力されている必要があります：
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>任意</td>
+                <td>整数 (Integer)</td>
+                <td>整数 (Integer) &gt; 0。製造元の内部数値 ID に対応します。</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>manufacturer.id が指定されていない場合、空でない文字列でなければなりません。</td>
+              </tr>
+              <tr>
+                <td>part.category</td>
+                <td>任意</td>
+                <td>オブジェクト/配列</td>
+                <td>
+                  指定されている場合、オブジェクト/配列であり、以下のフィールドのうち少なくとも1つが入力されている必要があります：
+                  <ul>
+                    <li>category.id</li>
+                    <li>category.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>category.id</td>
+                <td>任意</td>
+                <td>整数 (Integer)</td>
+                <td>整数 (Integer) &gt; 0。コンポーネントカテゴリの内部数値 ID に対応します。</td>
+              </tr>
+              <tr>
+                <td>category.name</td>
+                <td>任意</td>
+                <td>文字列 (String)</td>
+                <td>category.id が指定されていない場合、空でない文字列でなければなりません。</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>予想される列:</target>
+      </segment>
+    </unit>
+    <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
+        <segment>
+            <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+            <target>
+                <![CDATA[
+                <p><strong>注意:</strong> カテゴリ管理から特定のコンポーネントへのマッピングは行われません。</p>
+                ]]>
+            </target>
+        </segment>
+    </unit>
+    <unit id="translationUnit9" name="assembly.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>フィールド</th>
+                        <th>条件</th>
+                        <th>データタイプ</th>
+                        <th>説明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>任意</td>
+                            <td>整数</td>
+                            <td>自由形式フィールド。各コンポーネントの一意の識別番号。</td>
+                        </tr>
+                        <tr>
+                            <td>デジネータ</td>
+                            <td>任意</td>
+                            <td>文字列</td>
+                            <td>自由形式フィールド。PCB上のコンポーネントの一意の参照デジネータ（例: 抵抗1の「R1」）。コンポーネントグループ内の配置の命名に使用されます。</td>
+                        </tr>
+                        <tr>
+                            <td>パッケージ</td>
+                            <td>任意</td>
+                            <td>文字列</td>
+                            <td>自由形式フィールド。コンポーネントのケースまたはフォームファクタ（例: SMD抵抗「0805」）。</td>
+                        </tr>
+                        <tr>
+                            <td>数量</td>
+                            <td>必須</td>
+                            <td>整数</td>
+                            <td>アセンブリの単一インスタンスを作成するために必要な同一コンポーネントの数。</td>
+                        </tr>
+                        <tr>
+                            <td>指定</td>
+                            <td>必須</td>
+                            <td>文字列</td>
+                            <td>コンポーネントの説明または機能（例: 抵抗値「10kΩ」やコンデンサ値「100nF」）。部品表（BOM）エントリ内の名前として使用されます。</td>
+                        </tr>
+                        <tr>
+                            <td>サプライヤーと参照</td>
+                            <td>任意</td>
+                            <td>文字列</td>
+                            <td>自由形式フィールド。たとえば、特定のディストリビューター情報を含む場合があります。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
+    </unit>
+    <unit id="QiZM3zY" name="typeahead.parts.part.name">
+      <segment>
+        <source>typeahead.parts.part.name</source>
+        <target>%name%（部品）</target>
+      </segment>
+    </unit>
+    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
+      <segment>
+        <source>typeahead.parts.assembly.name</source>
+        <target>%name%（アセンブリ）</target>
+      </segment>
+    </unit>
+    <unit id="4cgba2c" name="projects.build.form.part">
+      <segment>
+        <source>projects.build.form.part</source>
+        <target>部品「%name%」</target>
+      </segment>
+    </unit>
+    <unit id="1bCA1zb" name="projects.build.form.assembly">
+      <segment>
+        <source>projects.build.form.assembly</source>
+        <target>アセンブリ「%name%」</target>
+      </segment>
+    </unit>
+    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry</source>
+        <target>%name% （必要数量: %quantity%）</target>
+      </segment>
+    </unit>
+    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry.no.stock</source>
+        <target>在庫なし</target>
       </segment>
     </unit>
   </file>

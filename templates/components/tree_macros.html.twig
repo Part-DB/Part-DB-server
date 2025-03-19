@@ -7,6 +7,7 @@
         ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read')],
         ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read')],
         ['projects', path('tree_device_root'), 'project.labelp', is_granted('@projects.read')],
+        ['assembly', path('tree_assembly_root'), 'assembly.labelp', is_granted('@assemblies.read')],
         ['tools', path('tree_tools'), 'tools.label', true],
     ] %}
 
