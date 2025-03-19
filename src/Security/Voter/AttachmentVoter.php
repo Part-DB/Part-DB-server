@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentContainingDBElement;
@@ -89,6 +90,8 @@ final class AttachmentVoter extends Voter
                 $param = 'currencies';
             } elseif (is_a($subject, ProjectAttachment::class, true)) {
                 $param = 'projects';
+            } elseif (is_a($subject, AssemblyAttachment::class, true)) {
+                $param = 'assemblies';
             } elseif (is_a($subject, FootprintAttachment::class, true)) {
                 $param = 'footprints';
             } elseif (is_a($subject, GroupAttachment::class, true)) {

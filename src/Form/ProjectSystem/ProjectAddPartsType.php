@@ -59,6 +59,7 @@ class ProjectAddPartsType extends AbstractType
             ],
             'constraints' => [
                 new UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part']),
+                new UniqueObjectCollection(message: 'project.bom_entry.assembly_already_in_bom', fields: ['assembly']),
                 new UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name']),
             ]
         ]);

@@ -245,6 +245,12 @@
         <target>Należy wybrać część dla wpisu BOM części lub ustawić nazwę dla wpisu BOM niebędącego częścią.</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Można wybrać tylko jedną część lub zespół. Proszę dostosować swój wybór!</target>
+      </segment>
+    </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -357,6 +363,24 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Nieprawidłowy kod. Sprawdź, czy aplikacja uwierzytelniająca jest poprawnie skonfigurowana i czy zarówno serwer, jak i urządzenie uwierzytelniające mają poprawnie ustawiony czas.</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Ten element już istnieje w grupie!</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Element o tej nazwie już istnieje!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Musisz wybrać element lub przypisać nazwę dla elementu niestandardowego!</target>
       </segment>
     </unit>
   </file>

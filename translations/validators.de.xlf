@@ -242,7 +242,13 @@
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
-        <target>Sie müssen ein Bauteil auswählen, oder einen Namen für ein nicht-Bauteil BOM-Eintrag setzen!</target>
+        <target>Sie müssen ein Bauteil bzw. eine Baugruppe auswählen, oder einen Namen für ein nicht-Bauteil BOM-Eintrag setzen!</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Es darf nur ein Bauteil oder eine Baugruppe ausgewählt werden. Bitte passen Sie Ihre Auswahl an!</target>
       </segment>
     </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
@@ -363,6 +369,24 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Ungültiger Code. Überprüfen Sie, ob die Authenticator App korrekt eingerichtet ist und ob der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Dieses Bauteil existiert bereits in der Gruppe!</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Es gibt bereits einen Bauteil mit diesem Namen!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Sie müssen ein Bauteil auswählen, oder einen Namen für ein nicht-Bauteil setzen!</target>
       </segment>
     </unit>
   </file>

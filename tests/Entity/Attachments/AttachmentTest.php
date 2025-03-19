@@ -24,6 +24,8 @@ namespace App\Tests\Entity\Attachments;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
@@ -81,6 +83,7 @@ class AttachmentTest extends TestCase
         yield [CategoryAttachment::class, Category::class];
         yield [CurrencyAttachment::class, Currency::class];
         yield [ProjectAttachment::class, Project::class];
+        yield [AssemblyAttachment::class, Assembly::class];
         yield [FootprintAttachment::class, Footprint::class];
         yield [GroupAttachment::class, Group::class];
         yield [ManufacturerAttachment::class, Manufacturer::class];

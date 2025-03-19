@@ -54,6 +54,7 @@ use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
+use App\Entity\Parts\PartTraits\AssemblyTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Repository\PartRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
@@ -125,6 +126,7 @@ class Part extends AttachmentContainingDBElement
     use OrderTrait;
     use ParametersTrait;
     use ProjectTrait;
+    use AssemblyTrait;
     use AssociationTrait;
     use EDATrait;
 
@@ -186,6 +188,7 @@ class Part extends AttachmentContainingDBElement
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->project_bom_entries = new ArrayCollection();
+        $this->assembly_bom_entries = new ArrayCollection();
 
         $this->associated_parts_as_owner = new ArrayCollection();
         $this->associated_parts_as_other = new ArrayCollection();

@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Form\ProjectSystem;
 
+use App\Helpers\Assemblies\AssemblyBuildRequest;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -38,10 +39,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
-    public function __construct(private readonly Security $security)
+    public function __construct(private readonly Security $security, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -82,36 +84,54 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         //The form is initially empty, we have to define the fields after we know the data
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
-            /** @var ProjectBuildRequest $build_request */
-            $build_request = $event->getData();
+            /** @var ProjectBuildRequest $projectBuildRequest */
+            $projectBuildRequest = $event->getData();
 
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => !$build_request->getProject()->getBuildPart() instanceof Part,
+                'disabled' => !$projectBuildRequest->getProject()->getBuildPart() instanceof Part,
             ]);
 
-            if ($build_request->getProject()->getBuildPart() instanceof Part) {
+            if ($projectBuildRequest->getProject()->getBuildPart() instanceof Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'project.build.builds_part_lot',
                     'required' => false,
-                    'part' => $build_request->getProject()->getBuildPart(),
+                    'part' => $projectBuildRequest->getProject()->getBuildPart(),
                     'placeholder' => 'project.build.buildsPartLot.new_lot'
                 ]);
             }
 
-            foreach ($build_request->getPartBomEntries() as $bomEntry) {
+            foreach ($projectBuildRequest->getPartBomEntries() as $bomEntry) {
                 //Every part lot has a field to specify the number of parts to take from this lot
-                foreach ($build_request->getPartLotsForBOMEntry($bomEntry) as $lot) {
+                foreach ($projectBuildRequest->getPartLotsForBOMEntry($bomEntry) as $lot) {
                     $form->add('lot_' . $lot->getID(), SIUnitType::class, [
                         'label' => false,
                         'measurement_unit' => $bomEntry->getPart()->getPartUnit(),
-                        'max' => min($build_request->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
+                        'max' => min($projectBuildRequest->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
                         'disabled' => !$this->security->isGranted('withdraw', $lot),
                     ]);
                 }
             }
 
+            foreach ($projectBuildRequest->getAssemblyBomEntries() as $bomEntry) {
+                $assemblyBuildRequest = new AssemblyBuildRequest($bomEntry->getAssembly(), $projectBuildRequest->getNumberOfBuilds());
+
+                //Add fields for assembly bom entries
+                foreach ($assemblyBuildRequest->getPartBomEntries() as $partBomEntry) {
+                    foreach ($assemblyBuildRequest->getPartLotsForBOMEntry($partBomEntry) as $lot) {
+                        $form->add('lot_' . $lot->getID(), SIUnitType::class, [
+                            'label' => $this->translator->trans('project.build.builds_part_lot_label', [
+                                '%name%' => $partBomEntry->getPart()->getName(),
+                                '%quantity%' => $partBomEntry->getQuantity() * $projectBuildRequest->getNumberOfBuilds()
+                            ]),
+                            'measurement_unit' => $partBomEntry->getPart()->getPartUnit(),
+                            'max' => min($assemblyBuildRequest->getNeededAmountForBOMEntry($partBomEntry), $lot->getAmount()),
+                            'disabled' => !$this->security->isGranted('withdraw', $lot),
+                        ]);
+                    }
+                }
+            }
         });
     }
 
