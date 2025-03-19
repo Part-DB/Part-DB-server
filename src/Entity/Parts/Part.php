@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\ApiPlatform\Filter\TagFilter;
+use App\Entity\Parts\PartTraits\AssemblyTrait;
 use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
@@ -114,6 +115,7 @@ class Part extends AttachmentContainingDBElement
     use OrderTrait;
     use ParametersTrait;
     use ProjectTrait;
+    use AssemblyTrait;
     use AssociationTrait;
     use EDATrait;
 
@@ -169,6 +171,7 @@ class Part extends AttachmentContainingDBElement
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->project_bom_entries = new ArrayCollection();
+        $this->assembly_bom_entries = new ArrayCollection();
 
         $this->associated_parts_as_owner = new ArrayCollection();
         $this->associated_parts_as_other = new ArrayCollection();

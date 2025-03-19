@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parameters\AbstractParameter;
+use App\Services\Attachments\AssemblyPreviewGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -53,6 +55,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use InvalidArgumentException;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
@@ -60,8 +64,11 @@ use Symfony\Component\Serializer\Serializer;
 #[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
 {
-    public function __construct(protected AttachmentURLGenerator $urlGenerator, protected Packages $assets)
-    {
+    public function __construct(
+        protected AttachmentURLGenerator $urlGenerator,
+        protected Packages $assets,
+        protected TranslatorInterface $translator
+    ) {
     }
 
     #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
@@ -109,19 +116,22 @@ class TypeaheadController extends AbstractController
             'group' => GroupParameter::class,
             'measurement_unit' => MeasurementUnitParameter::class,
             'currency' => Currency::class,
-            default => throw new \InvalidArgumentException('Invalid parameter type: '.$type),
+            default => throw new InvalidArgumentException('Invalid parameter type: '.$type),
         };
     }
 
     #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
-    public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
-    AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
-    {
+    public function parts(
+        EntityManagerInterface $entityManager,
+        PartPreviewGenerator $previewGenerator,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        string $query = ""
+    ): JsonResponse {
         $this->denyAccessUnlessGranted('@parts.read');
 
-        $repo = $entityManager->getRepository(Part::class);
+        $partRepository = $entityManager->getRepository(Part::class);
 
-        $parts = $repo->autocompleteSearch($query, 100);
+        $parts = $partRepository->autocompleteSearch($query, 100);
 
         $data = [];
         foreach ($parts as $part) {
@@ -145,6 +155,44 @@ class TypeaheadController extends AbstractController
         }
 
         return new JsonResponse($data);
+    }
+
+    #[Route(path: '/assemblies/search/{query}', name: 'typeahead_assemblies')]
+    public function assemblies(
+        EntityManagerInterface $entityManager,
+        AssemblyPreviewGenerator $assemblyPreviewGenerator,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        string $query = ""
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted('@assemblies.read');
+
+        $result = [];
+
+        $assemblyRepository = $entityManager->getRepository(Assembly::class);
+
+        $assemblies = $assemblyRepository->autocompleteSearch($query, 100);
+
+        foreach ($assemblies as $assembly) {
+            $preview_attachment = $assemblyPreviewGenerator->getTablePreviewAttachment($assembly);
+
+            if($preview_attachment instanceof Attachment) {
+                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
+            } else {
+                $preview_url = '';
+            }
+
+            /** @var Assembly $assembly */
+            $result[] = [
+                'id' => $assembly->getID(),
+                'name' => $this->translator->trans('typeahead.parts.assembly.name', ['%name%' => $assembly->getName()]),
+                'category' => '',
+                'footprint' => '',
+                'description' => mb_strimwidth($assembly->getDescription(), 0, 127, '...'),
+                'image' => $preview_url,
+            ];
+        }
+
+        return new JsonResponse($result);
     }
 
     #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]

@@ -38,7 +38,7 @@ export default class extends Controller {
 
     connect() {
         //Add event listener to the checkbox
-        this.getCheckbox().addEventListener('change', this.toggleInputLimits.bind(this));
+        this.getCheckbox()?.addEventListener('change', this.toggleInputLimits.bind(this));
     }
 
     toggleInputLimits() {

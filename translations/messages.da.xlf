@@ -4748,6 +4748,18 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Navn</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>Montering</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>Valg</target>
+      </segment>
+    </unit>
     <unit id="eshqdG." name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
@@ -9812,6 +9824,18 @@ Element 3</target>
         <target>Komponent</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>Baugruppe</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>Auswahl</target>
+      </segment>
+    </unit>
     <unit id="apnWXEq" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -9887,6 +9911,42 @@ Element 3</target>
     <unit id="wpp2047" name="project.status.archived">
       <segment state="translated">
         <source>project.status.archived</source>
+        <target>Arkiveret</target>
+      </segment>
+    </unit>
+    <unit id="hIIFtI1" name="assembly.edit.status">
+      <segment state="translated">
+        <source>assembly.edit.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="zRd.psv" name="assembly.status.draft">
+      <segment state="translated">
+        <source>assembly.status.draft</source>
+        <target>Kladde</target>
+      </segment>
+    </unit>
+    <unit id="_U8bb1t" name="assembly.status.planning">
+      <segment state="translated">
+        <source>assembly.status.planning</source>
+        <target>Under planlægning</target>
+      </segment>
+    </unit>
+    <unit id="GgUh7RT" name="assembly.status.in_production">
+      <segment state="translated">
+        <source>assembly.status.in_production</source>
+        <target>I produktion</target>
+      </segment>
+    </unit>
+    <unit id="IluD8iU" name="assembly.status.finished">
+      <segment state="translated">
+        <source>assembly.status.finished</source>
+        <target>Ophørt</target>
+      </segment>
+    </unit>
+    <unit id="Mybkd1s" name="assembly.status.archived">
+      <segment state="translated">
+        <source>assembly.status.archived</source>
         <target>Arkiveret</target>
       </segment>
     </unit>
@@ -10166,6 +10226,12 @@ Element 3</target>
         <target>På lager</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>intet lager angivet</target>
+      </segment>
+    </unit>
     <unit id="mwL3d70" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10236,6 +10302,12 @@ Element 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Mål mængde</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (%quantity% påkrævet)</target>
       </segment>
     </unit>
     <unit id="pyv0k6b" name="project.builds.number_of_builds">
@@ -12194,6 +12266,634 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>part.withdraw.zero_amount</source>
         <target>Du forsøgte at fjerne/tilføje en mængde sat til nul! Der blev ikke foretaget nogen handling.</target>
+      </segment>
+    </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value% (Del)</target>
+      </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Samlingsenhed)</target>
+      </segment>
+    </unit>
+    <unit id="G2sXzh7" name="assembly.label">
+      <segment>
+        <source>assembly.label</source>
+        <target>Samling</target>
+      </segment>
+    </unit>
+    <unit id="dL51AVa" name="assembly.caption">
+      <segment>
+        <source>assembly.caption</source>
+        <target>Samling</target>
+      </segment>
+    </unit>
+    <unit id="G_rlE3w" name="perm.assemblies">
+      <segment>
+        <source>perm.assemblies</source>
+        <target>Samlinger</target>
+      </segment>
+    </unit>
+    <unit id="dipIGt4" name="assembly_bom_entry.label">
+      <segment>
+        <source>assembly_bom_entry.label</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment>
+        <source>assembly.labelp</source>
+        <target>Samlinger</target>
+      </segment>
+    </unit>
+    <unit id="gyRGdfv" name="assembly.edit">
+      <segment>
+        <source>assembly.edit</source>
+        <target>Rediger samling</target>
+      </segment>
+    </unit>
+    <unit id="4Tdtoj_" name="assembly.new">
+      <segment>
+        <source>assembly.new</source>
+        <target>Ny samling</target>
+      </segment>
+    </unit>
+    <unit id="M51YUE." name="assembly.edit.associated_build_part">
+      <segment>
+        <source>assembly.edit.associated_build_part</source>
+        <target>Tilknyttet komponent</target>
+      </segment>
+    </unit>
+    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
+      <segment>
+        <source>assembly.edit.associated_build_part.add</source>
+        <target>Tilføj komponent</target>
+      </segment>
+    </unit>
+    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
+      <segment>
+        <source>assembly.edit.associated_build.hint</source>
+        <target>Denne komponent repræsenterer de fremstillede instanser af samlingen. Angiv, hvis fremstillede instanser er påkrævet. Hvis ikke, vil antallet af komponenter først blive anvendt ved opbygning af det pågældende projekt.</target>
+      </segment>
+    </unit>
+    <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
+      <segment>
+        <source>assembly.edit.bom.import_bom</source>
+        <target>Importér komponenter</target>
+      </segment>
+    </unit>
+    <unit id="vsmgKMw" name="log.database_updated.failed">
+      <segment>
+        <source>log.database_updated.failed</source>
+        <target>__log.database_updated.failed</target>
+      </segment>
+    </unit>
+    <unit id="GcQrTTE" name="log.database_updated.old_version">
+      <segment>
+        <source>log.database_updated.old_version</source>
+        <target>__log.database_updated.old_version</target>
+      </segment>
+    </unit>
+    <unit id="JJF47vK" name="log.database_updated.new_version">
+      <segment>
+        <source>log.database_updated.new_version</source>
+        <target>__log.database_updated.new_version</target>
+      </segment>
+    </unit>
+    <unit id="iVHS_sh" name="tree.tools.edit.assemblies">
+      <segment>
+        <source>tree.tools.edit.assemblies</source>
+        <target>Samlinger</target>
+      </segment>
+    </unit>
+    <unit id="naAMjcH" name="assembly.bom_import.flash.success">
+      <segment>
+        <source>assembly.bom_import.flash.success</source>
+        <target>%count% komponent(er) blev importeret til samlingen med succes.</target>
+      </segment>
+    </unit>
+    <unit id="ScQhV.o" name="assembly.bom_import.flash.invalid_entries">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_entries</source>
+        <target>Valideringsfejl! Kontroller venligst den importerede fil!</target>
+      </segment>
+    </unit>
+    <unit id="luj_uCZ" name="assembly.bom_import.flash.invalid_file">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_file</source>
+        <target>Filen kunne ikke importeres. Kontrollér, at du har valgt den korrekte filtype. Fejlmeddelelse: %message%</target>
+      </segment>
+    </unit>
+    <unit id="u7SYWcB" name="assembly.bom.quantity">
+      <segment>
+        <source>assembly.bom.quantity</source>
+        <target>Mængde</target>
+      </segment>
+    </unit>
+    <unit id="D7dPvPL" name="assembly.bom.mountnames">
+      <segment>
+        <source>assembly.bom.mountnames</source>
+        <target>Monteringsnavne</target>
+      </segment>
+    </unit>
+    <unit id="rswC4eS" name="assembly.bom.instockAmount">
+      <segment state="translated">
+        <source>assembly.bom.instockAmount</source>
+        <target>Antal på lager</target>
+      </segment>
+    </unit>
+    <unit id="oNutri3" name="assembly.info.title">
+      <segment>
+        <source>assembly.info.title</source>
+        <target>Samleinfo</target>
+      </segment>
+    </unit>
+    <unit id="aO1rzVQ" name="assembly.info.info.label">
+      <segment>
+        <source>assembly.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="9dOByT_" name="assembly.info.sub_assemblies.label">
+      <segment>
+        <source>assembly.info.sub_assemblies.label</source>
+        <target>Undergruppe</target>
+      </segment>
+    </unit>
+    <unit id="Hmf0EwN" name="assembly.info.builds.label">
+      <segment>
+        <source>assembly.info.builds.label</source>
+        <target>Byggeri</target>
+      </segment>
+    </unit>
+    <unit id="z3F4Rcu" name="assembly.info.bom_add_parts">
+      <segment>
+        <source>assembly.info.bom_add_parts</source>
+        <target>Tilføj dele</target>
+      </segment>
+    </unit>
+    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
+      <segment>
+        <source>assembly.builds.check_assembly_status</source>
+        <target><![CDATA[Den aktuelle samlingsstatus er <b>"%assembly_status%"</b>. Du bør kontrollere, om du virkelig ønsker at bygge samlingen med denne status!]]></target>
+      </segment>
+    </unit>
+    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
+      <segment>
+        <source>assembly.builds.build_not_possible</source>
+        <target>Opbygning ikke mulig: Ikke nok komponenter til rådighed</target>
+      </segment>
+    </unit>
+    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock</source>
+        <target>Der er ikke nok dele på lager til at bygge dette projekt %number_of_builds% gange. Følgende dele mangler på lager:</target>
+      </segment>
+    </unit>
+    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
+      <segment>
+        <source>assembly.builds.build_possible</source>
+        <target>Byggeri muligt</target>
+      </segment>
+    </unit>
+    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
+      <segment>
+        <source>assembly.builds.number_of_builds_possible</source>
+        <target><![CDATA[Du har nok dele på lager til at bygge <b>%max_builds%</b> eksemplarer af denne samling.]]></target>
+      </segment>
+    </unit>
+    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
+      <segment>
+        <source>assembly.builds.number_of_builds</source>
+        <target>Antal opbygninger</target>
+      </segment>
+    </unit>
+    <unit id="mtJqT_a" name="assembly.build.btn_build">
+      <segment>
+        <source>assembly.build.btn_build</source>
+        <target>Byg</target>
+      </segment>
+    </unit>
+    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
+      <segment>
+        <source>assembly.builds.no_stocked_builds</source>
+        <target>Antal lagrede byggede enheder</target>
+      </segment>
+    </unit>
+    <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
+      <segment>
+        <source>assembly.info.bom_entries_count</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="xJ7oBM4" name="assembly.info.sub_assemblies_count">
+      <segment>
+        <source>assembly.info.sub_assemblies_count</source>
+        <target>Undergrupper</target>
+      </segment>
+    </unit>
+    <unit id="HZYhTlb" name="assembly.builds.stocked">
+      <segment>
+        <source>assembly.builds.stocked</source>
+        <target>på lager</target>
+      </segment>
+    </unit>
+    <unit id="9EG0PLW" name="assembly.builds.needed">
+      <segment>
+        <source>assembly.builds.needed</source>
+        <target>nødvendig</target>
+      </segment>
+    </unit>
+    <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
+      <segment>
+        <source>assembly.add_parts_to_assembly</source>
+        <target>Tilføj dele til samlingen</target>
+      </segment>
+    </unit>
+    <unit id="PPsM0Dg" name="assembly.bom.name">
+      <segment>
+        <source>assembly.bom.name</source>
+        <target>Navn</target>
+      </segment>
+    </unit>
+    <unit id="nUEs.ld" name="assembly.bom.comment">
+      <segment>
+        <source>assembly.bom.comment</source>
+        <target>Notater</target>
+      </segment>
+    </unit>
+    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
+        <target>Der er ikke nok dele på lager til at bygge denne samling %number_of_builds% gange. Følgende dele mangler på lager:</target>
+      </segment>
+    </unit>
+    <unit id="JlQhDdS" name="assembly.build.help">
+      <segment>
+        <source>assembly.build.help</source>
+        <target>Vælg, hvilke lagre de nødvendige dele til bygningen skal tages fra (og i hvilken mængde). Marker afkrydsningsfeltet for hver delpost, når du har fjernet delene, eller brug det øverste afkrydsningsfelt for at markere alle på én gang.</target>
+      </segment>
+    </unit>
+    <unit id="iP5_QVj" name="assembly.build.required_qty">
+      <segment>
+        <source>assembly.build.required_qty</source>
+        <target>Krævet antal</target>
+      </segment>
+    </unit>
+    <unit id="UJpD7n6" name="assembly.import_bom">
+      <segment>
+        <source>assembly.import_bom</source>
+        <target>Importer dele til samling</target>
+      </segment>
+    </unit>
+    <unit id="WTasGao" name="assembly.bom.part">
+      <segment>
+        <source>assembly.bom.part</source>
+        <target>Del</target>
+      </segment>
+    </unit>
+    <unit id="jHKh8Zp" name="assembly.bom.add_entry">
+      <segment>
+        <source>assembly.bom.add_entry</source>
+        <target>Tilføj post</target>
+      </segment>
+    </unit>
+    <unit id="RsZ77df" name="assembly.bom.price">
+      <segment>
+        <source>assembly.bom.price</source>
+        <target>Pris</target>
+      </segment>
+    </unit>
+    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
+      <segment state="translated">
+        <source>assembly.build.dont_check_quantity</source>
+        <target>Tjek ikke mængder</target>
+      </segment>
+    </unit>
+    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
+      <segment state="translated">
+        <source>assembly.build.dont_check_quantity.help</source>
+        <target>Hvis denne mulighed vælges, fjernes de valgte mængder fra lageret, uanset om der er mere eller mindre end nødvendigt for at bygge samlingen.</target>
+      </segment>
+    </unit>
+    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>assembly.build.add_builds_to_builds_part</source>
+        <target>Tilføj byggede enheder til assemblies del</target>
+      </segment>
+    </unit>
+    <unit id="nl.jtSx" name="assembly.bom_import.type">
+      <segment state="translated">
+        <source>assembly.bom_import.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="LtbSLHx" name="assembly.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON for en samling</target>
+      </segment>
+    </unit>
+    <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_pcbnew</source>
+        <target>CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom</source>
+        <target>Slet eksisterende poster før import</target>
+      </segment>
+    </unit>
+    <unit id="S4QY6pA" name="assembly.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom.help</source>
+        <target>Hvis dette valg er markeret, slettes alle eksisterende komponentposter i samlingen og erstattes med de importerede.</target>
+      </segment>
+    </unit>
+    <unit id="RVNWPsh" name="assembly.import_bom.template.header.json">
+      <segment>
+        <source>assembly.import_bom.template.header.json</source>
+        <target>JSON-importskabelon til en samling</target>
+      </segment>
+    </unit>
+    <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>assembly.import_bom.template.header.kicad_pcbnew</source>
+        <target>Importskabelon CSV (KiCAD Pcbnew BOM) til en samling</target>
+      </segment>
+    </unit>
+    <unit id="aLomVVS" name="assembly.bom_import.template.entry.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.name</source>
+        <target>Delens navn i samlingen</target>
+      </segment>
+    </unit>
+    <unit id="o4ZcLfV" name="assembly.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.mpnr</source>
+        <target>Unik produktnummer hos producenten</target>
+      </segment>
+    </unit>
+    <unit id="n3YbKeU" name="assembly.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.ipn</source>
+        <target>Unik IPN for delen</target>
+      </segment>
+    </unit>
+    <unit id="l2SYJP5" name="assembly.bom_import.template.entry.part.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.name</source>
+        <target>Unikt komponentnavn</target>
+      </segment>
+    </unit>
+    <unit id="VgXQ1xW" name="assembly.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Unikt producenter navn</target>
+      </segment>
+    </unit>
+    <unit id="MpB.o_L" name="assembly.bom_import.template.entry.part.category.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.category.name</source>
+        <target>Kategoriens unikke navn</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.json.table">
+      <segment>
+        <source>assembly.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Felt</th>
+                <th>Betingelse</th>
+                <th>Datatype</th>
+                <th>Beskrivelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Påkrævet</td>
+                <td>Flydende tal (Float)</td>
+                <td>Skal være til stede og indeholde en flydende værdi (Float), der er større end 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Hvis til stede, skal det være en ikke-tom streng.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Valgfri</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Hvis angivet, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Valgfri</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) &gt; 0. Matcher Part-DB's interne numeriske ID for komponenten.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Ikke-tom streng, hvis part.mpnr eller part.ipn ikke er givet.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Ikke-tom streng, hvis part.name eller part.ipn ikke er givet.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Ikke-tom streng, hvis part.name eller part.mpnr ikke er givet.</td>
+              </tr>
+              <tr>
+                <td>part.description</td>
+                <td>Valgfri</td>
+                <td>String eller null</td>
+                <td>Hvis til stede, skal det være en ikke-tom streng eller null.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Valgfri</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Hvis til stede, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Valgfri</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) &gt; 0. Matcher producentens interne numeriske ID.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Ikke-tom streng, hvis manufacturer.id ikke er givet.</td>
+              </tr>
+              <tr>
+                <td>part.category</td>
+                <td>Valgfri</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Hvis til stede, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  <ul>
+                    <li>category.id</li>
+                    <li>category.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>category.id</td>
+                <td>Valgfri</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) &gt; 0. Matcher komponentkategoriens interne numeriske ID.</td>
+              </tr>
+              <tr>
+                <td>category.name</td>
+                <td>Valgfri</td>
+                <td>String</td>
+                <td>Ikke-tom streng, hvis category.id ikke er givet.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Forventede kolonner:</target>
+      </segment>
+    </unit>
+    <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Bemærk:</strong> Der foretages ingen tildelinger til konkrete komponenter fra kategoristyringen.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="translationUnit2" name="assembly.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Felt</th>
+                        <th>Betingelse</th>
+                        <th>Datatype</th>
+                        <th>Beskrivelse</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Valgfri</td>
+                            <td>Heltal (Integer)</td>
+                            <td>Fri oplysning. Et unikt identifikationsnummer for hver komponent.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Valgfri</td>
+                            <td>Streng</td>
+                            <td>Fri oplysning. En unik referencebetegnelse for komponenten på printkortet, f.eks. "R1" for modstand 1. Bruges til navngivning af monteringssæt i komponentgruppen.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Valgfri</td>
+                            <td>Streng</td>
+                            <td>Fri oplysning. Komponentenheden eller -formatet, f.eks. "0805" for SMD-modstande.</td>
+                        </tr>
+                        <tr>
+                            <td>Antal</td>
+                            <td>Påkrævet</td>
+                            <td>Heltal (Integer)</td>
+                            <td>Antallet af identiske komponenter, der kræves for at oprette en enkelt instans af samling.</td>
+                        </tr>
+                        <tr>
+                            <td>Betegnelse</td>
+                            <td>Påkrævet</td>
+                            <td>Streng</td>
+                            <td>Beskrivelse eller funktion for komponenten, f.eks. modstandsværdi "10kΩ" eller kondensatorværdi "100nF". Bruges til navnet i BOM-posten.</td>
+                        </tr>
+                        <tr>
+                            <td>Leverandør og ref</td>
+                            <td>Valgfri</td>
+                            <td>Streng</td>
+                            <td>Fri oplysning. Kan indeholde f.eks. distributørspecifik værdi.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
+    </unit>
+    <unit id="QiZM3zY" name="typeahead.parts.part.name">
+      <segment>
+        <source>typeahead.parts.part.name</source>
+        <target>%name% (del)</target>
+      </segment>
+    </unit>
+    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
+      <segment>
+        <source>typeahead.parts.assembly.name</source>
+        <target>%name% (samling)</target>
+      </segment>
+    </unit>
+    <unit id="4cgba2c" name="projects.build.form.part">
+      <segment>
+        <source>projects.build.form.part</source>
+        <target>Del "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="1bCA1zb" name="projects.build.form.assembly">
+      <segment>
+        <source>projects.build.form.assembly</source>
+        <target>Samling "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry</source>
+        <target>%name% (%quantity% nødvendig)</target>
+      </segment>
+    </unit>
+    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry.no.stock</source>
+        <target>ikke på lager</target>
       </segment>
     </unit>
   </file>

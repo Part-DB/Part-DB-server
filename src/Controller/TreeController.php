@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\AssemblySystem\Assembly;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
@@ -123,6 +124,19 @@ class TreeController extends AbstractController
     {
         if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
+        } else {
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
+        }
+
+        return new JsonResponse($tree);
+    }
+
+    #[Route(path: '/assembly/{id}', name: 'tree_assembly')]
+    #[Route(path: '/assemblies', name: 'tree_assembly_root')]
+    public function assemblyTree(?Assembly $assembly = null): JsonResponse
+    {
+        if ($this->isGranted('@assemblies.read')) {
+            $tree = $this->treeGenerator->getTreeView(Assembly::class, $assembly, 'assemblies');
         } else {
             return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
         }

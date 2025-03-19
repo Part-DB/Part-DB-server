@@ -6,7 +6,7 @@
             <tr>
                 <th></th> {#  expand button #}
                 <th>{% trans %}project.bom.quantity{% endtrans %}</th>
-                <th>{% trans %}project.bom.part{% endtrans %}</th>
+                <th>{% trans %}project.bom.partOrAssembly{% endtrans %}</th>
                 <th>{% trans %}project.bom.name{% endtrans %}</th>
                 <th></th> {# Remove button #}
             </tr>
@@ -41,9 +41,11 @@
             {{ form_widget(form.quantity) }}
             {{ form_errors(form.quantity) }}
         </td>
-        <td style="min-width: 250px;">
-            {{ form_widget(form.part) }}
+        <td style="min-width: 300px;">
+            {{ form_row(form.part) }}
             {{ form_errors(form.part) }}
+            {{ form_widget(form.assembly) }}
+            {{ form_errors(form.assembly) }}
         </td>
         <td>
             {{ form_widget(form.name) }}

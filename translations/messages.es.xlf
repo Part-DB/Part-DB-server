@@ -4740,6 +4740,18 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>Nombre</target>
       </segment>
     </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value% (Componente)</target>
+      </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Ensamblaje)</target>
+      </segment>
+    </unit>
     <unit id="rW_SFJE" name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
@@ -9804,6 +9816,18 @@ Elemento 3</target>
         <target>Componente</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>Baugruppe</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>Auswahl</target>
+      </segment>
+    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -9879,6 +9903,42 @@ Elemento 3</target>
     <unit id="aYomAkH" name="project.status.archived">
       <segment state="translated">
         <source>project.status.archived</source>
+        <target>Archivado</target>
+      </segment>
+    </unit>
+    <unit id="hIIFtI1" name="assembly.edit.status">
+      <segment state="translated">
+        <source>assembly.edit.status</source>
+        <target>Estatus</target>
+      </segment>
+    </unit>
+    <unit id="zRd.psv" name="assembly.status.draft">
+      <segment state="translated">
+        <source>assembly.status.draft</source>
+        <target>Esbozo</target>
+      </segment>
+    </unit>
+    <unit id="_U8bb1t" name="assembly.status.planning">
+      <segment state="translated">
+        <source>assembly.status.planning</source>
+        <target>En planificación</target>
+      </segment>
+    </unit>
+    <unit id="GgUh7RT" name="assembly.status.in_production">
+      <segment state="translated">
+        <source>assembly.status.in_production</source>
+        <target>En producción</target>
+      </segment>
+    </unit>
+    <unit id="IluD8iU" name="assembly.status.finished">
+      <segment state="translated">
+        <source>assembly.status.finished</source>
+        <target>Completado</target>
+      </segment>
+    </unit>
+    <unit id="Mybkd1s" name="assembly.status.archived">
+      <segment state="translated">
+        <source>assembly.status.archived</source>
         <target>Archivado</target>
       </segment>
     </unit>
@@ -10158,6 +10218,12 @@ Elemento 3</target>
         <target>Almacenado</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>no se ha especificado stock</target>
+      </segment>
+    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10228,6 +10294,12 @@ Elemento 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Lote objetivo</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (se requiere %quantity%)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -12342,6 +12414,622 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment state="translated">
         <source>attachment.view_external</source>
         <target>Ver versión externa</target>
+      </segment>
+    </unit>
+    <unit id="G2sXzh7" name="assembly.label">
+      <segment>
+        <source>assembly.label</source>
+        <target>Ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="dL51AVa" name="assembly.caption">
+      <segment>
+        <source>assembly.caption</source>
+        <target>Ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="G_rlE3w" name="perm.assemblies">
+      <segment>
+        <source>perm.assemblies</source>
+        <target>Ensamblajes</target>
+      </segment>
+    </unit>
+    <unit id="dipIGt4" name="assembly_bom_entry.label">
+      <segment>
+        <source>assembly_bom_entry.label</source>
+        <target>Componentes</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment>
+        <source>assembly.labelp</source>
+        <target>Ensamblajes</target>
+      </segment>
+    </unit>
+    <unit id="gyRGdfv" name="assembly.edit">
+      <segment>
+        <source>assembly.edit</source>
+        <target>Editar ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="4Tdtoj_" name="assembly.new">
+      <segment>
+        <source>assembly.new</source>
+        <target>Nuevo ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="M51YUE." name="assembly.edit.associated_build_part">
+      <segment>
+        <source>assembly.edit.associated_build_part</source>
+        <target>Componente asociado</target>
+      </segment>
+    </unit>
+    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
+      <segment>
+        <source>assembly.edit.associated_build_part.add</source>
+        <target>Añadir componente</target>
+      </segment>
+    </unit>
+    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
+      <segment>
+        <source>assembly.edit.associated_build.hint</source>
+        <target>Este componente representa las instancias fabricadas del ensamblaje. Indique si se necesitan instancias fabricadas. De lo contrario, las cantidades del componente solo se utilizarán cuando se construya el proyecto correspondiente.</target>
+      </segment>
+    </unit>
+    <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
+      <segment>
+        <source>assembly.edit.bom.import_bom</source>
+        <target>Importar componentes</target>
+      </segment>
+    </unit>
+    <unit id="vsmgKMw" name="log.database_updated.failed">
+      <segment>
+        <source>log.database_updated.failed</source>
+        <target>__log.database_updated.failed</target>
+      </segment>
+    </unit>
+    <unit id="GcQrTTE" name="log.database_updated.old_version">
+      <segment>
+        <source>log.database_updated.old_version</source>
+        <target>__log.database_updated.old_version</target>
+      </segment>
+    </unit>
+    <unit id="JJF47vK" name="log.database_updated.new_version">
+      <segment>
+        <source>log.database_updated.new_version</source>
+        <target>__log.database_updated.new_version</target>
+      </segment>
+    </unit>
+    <unit id="iVHS_sh" name="tree.tools.edit.assemblies">
+      <segment>
+        <source>tree.tools.edit.assemblies</source>
+        <target>Ensamblajes</target>
+      </segment>
+    </unit>
+    <unit id="naAMjcH" name="assembly.bom_import.flash.success">
+      <segment>
+        <source>assembly.bom_import.flash.success</source>
+        <target>%count% componente(s) se importaron correctamente al ensamblaje.</target>
+      </segment>
+    </unit>
+    <unit id="ScQhV.o" name="assembly.bom_import.flash.invalid_entries">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_entries</source>
+        <target>¡Error de validación! ¡Revisa el archivo importado!</target>
+      </segment>
+    </unit>
+    <unit id="luj_uCZ" name="assembly.bom_import.flash.invalid_file">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_file</source>
+        <target>No se pudo importar el archivo. Asegúrate de haber seleccionado el tipo de archivo correcto. Mensaje de error: %message%</target>
+      </segment>
+    </unit>
+    <unit id="u7SYWcB" name="assembly.bom.quantity">
+      <segment>
+        <source>assembly.bom.quantity</source>
+        <target>Cantidad</target>
+      </segment>
+    </unit>
+    <unit id="D7dPvPL" name="assembly.bom.mountnames">
+      <segment>
+        <source>assembly.bom.mountnames</source>
+        <target>Nombres de montaje</target>
+      </segment>
+    </unit>
+    <unit id="rswC4eS" name="assembly.bom.instockAmount">
+      <segment state="translated">
+        <source>assembly.bom.instockAmount</source>
+        <target>Cantidad en stock</target>
+      </segment>
+    </unit>
+    <unit id="oNutri3" name="assembly.info.title">
+      <segment>
+        <source>assembly.info.title</source>
+        <target>Información del ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="aO1rzVQ" name="assembly.info.info.label">
+      <segment>
+        <source>assembly.info.info.label</source>
+        <target>Información</target>
+      </segment>
+    </unit>
+    <unit id="9dOByT_" name="assembly.info.sub_assemblies.label">
+      <segment>
+        <source>assembly.info.sub_assemblies.label</source>
+        <target>Subconjuntos</target>
+      </segment>
+    </unit>
+    <unit id="Hmf0EwN" name="assembly.info.builds.label">
+      <segment>
+        <source>assembly.info.builds.label</source>
+        <target>Construcciones</target>
+      </segment>
+    </unit>
+    <unit id="z3F4Rcu" name="assembly.info.bom_add_parts">
+      <segment>
+        <source>assembly.info.bom_add_parts</source>
+        <target>Añadir piezas</target>
+      </segment>
+    </unit>
+    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
+      <segment>
+        <source>assembly.builds.check_assembly_status</source>
+        <target><![CDATA[El estado actual del ensamblaje es <b>"%assembly_status%"</b>. ¡Por favor, verifica si realmente deseas construir el ensamblaje con este estado!]]></target>
+      </segment>
+    </unit>
+    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
+      <segment>
+        <source>assembly.builds.build_not_possible</source>
+        <target>Construcción no posible: No hay suficientes componentes disponibles</target>
+      </segment>
+    </unit>
+    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock</source>
+        <target>No hay suficientes piezas en stock para construir este proyecto %number_of_builds% veces. Faltan las siguientes piezas:</target>
+      </segment>
+    </unit>
+    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
+      <segment>
+        <source>assembly.builds.build_possible</source>
+        <target>Construcción posible</target>
+      </segment>
+    </unit>
+    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
+      <segment>
+        <source>assembly.builds.number_of_builds_possible</source>
+        <target><![CDATA[Disponen de suficientes piezas en stock para construir <b>%max_builds%</b> unidades de este ensamblaje.]]></target>
+      </segment>
+    </unit>
+    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
+      <segment>
+        <source>assembly.builds.number_of_builds</source>
+        <target>Número de construcciones</target>
+      </segment>
+    </unit>
+    <unit id="mtJqT_a" name="assembly.build.btn_build">
+      <segment>
+        <source>assembly.build.btn_build</source>
+        <target>Construir</target>
+      </segment>
+    </unit>
+    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
+      <segment>
+        <source>assembly.builds.no_stocked_builds</source>
+        <target>Unidades construidas almacenadas</target>
+      </segment>
+    </unit>
+    <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
+      <segment>
+        <source>assembly.info.bom_entries_count</source>
+        <target>Componentes</target>
+      </segment>
+    </unit>
+    <unit id="xJ7oBM4" name="assembly.info.sub_assemblies_count">
+      <segment>
+        <source>assembly.info.sub_assemblies_count</source>
+        <target>Subconjuntos</target>
+      </segment>
+    </unit>
+    <unit id="HZYhTlb" name="assembly.builds.stocked">
+      <segment>
+        <source>assembly.builds.stocked</source>
+        <target>en stock</target>
+      </segment>
+    </unit>
+    <unit id="9EG0PLW" name="assembly.builds.needed">
+      <segment>
+        <source>assembly.builds.needed</source>
+        <target>necesario</target>
+      </segment>
+    </unit>
+    <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
+      <segment>
+        <source>assembly.add_parts_to_assembly</source>
+        <target>Añadir piezas al ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="PPsM0Dg" name="assembly.bom.name">
+      <segment>
+        <source>assembly.bom.name</source>
+        <target>Nombre</target>
+      </segment>
+    </unit>
+    <unit id="nUEs.ld" name="assembly.bom.comment">
+      <segment>
+        <source>assembly.bom.comment</source>
+        <target>Comentarios</target>
+      </segment>
+    </unit>
+    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
+        <target>No hay suficientes piezas en stock para construir este ensamblaje %number_of_builds% veces. Faltan las siguientes piezas:</target>
+      </segment>
+    </unit>
+    <unit id="JlQhDdS" name="assembly.build.help">
+      <segment>
+        <source>assembly.build.help</source>
+        <target>Seleccione de qué almacenes se tomarán las piezas necesarias para la construcción (y en qué cantidad). Marque la casilla de cada entrada una vez que haya quitado las piezas, o use la casilla superior para marcarlas todas a la vez.</target>
+      </segment>
+    </unit>
+    <unit id="iP5_QVj" name="assembly.build.required_qty">
+      <segment>
+        <source>assembly.build.required_qty</source>
+        <target>Cantidad requerida</target>
+      </segment>
+    </unit>
+    <unit id="UJpD7n6" name="assembly.import_bom">
+      <segment>
+        <source>assembly.import_bom</source>
+        <target>Importar piezas para ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="WTasGao" name="assembly.bom.part">
+      <segment>
+        <source>assembly.bom.part</source>
+        <target>Pieza</target>
+      </segment>
+    </unit>
+    <unit id="jHKh8Zp" name="assembly.bom.add_entry">
+      <segment>
+        <source>assembly.bom.add_entry</source>
+        <target>Añadir entrada</target>
+      </segment>
+    </unit>
+    <unit id="RsZ77df" name="assembly.bom.price">
+      <segment>
+        <source>assembly.bom.price</source>
+        <target>Precio</target>
+      </segment>
+    </unit>
+    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
+      <segment state="translated">
+        <source>assembly.build.dont_check_quantity</source>
+        <target>No verificar cantidades</target>
+      </segment>
+    </unit>
+    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
+      <segment state="translated">
+        <source>assembly.build.dont_check_quantity.help</source>
+        <target>Si se selecciona esta opción, las cantidades seleccionadas se quitarán del inventario independientemente de si hay más o menos de lo necesario para construir el ensamblaje.</target>
+      </segment>
+    </unit>
+    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>assembly.build.add_builds_to_builds_part</source>
+        <target>Añadir unidades construidas a la parte del ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="nl.jtSx" name="assembly.bom_import.type">
+      <segment state="translated">
+        <source>assembly.bom_import.type</source>
+        <target>Tipo</target>
+      </segment>
+    </unit>
+    <unit id="LtbSLHx" name="assembly.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON para un ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_pcbnew</source>
+        <target>CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom</source>
+        <target>Eliminar entradas de componentes existentes antes de la importación</target>
+      </segment>
+    </unit>
+    <unit id="S4QY6pA" name="assembly.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom.help</source>
+        <target>Si esta opción está seleccionada, se eliminarán todos los componentes existentes en el ensamblaje y serán reemplazados por los datos de los componentes importados.</target>
+      </segment>
+    </unit>
+    <unit id="RVNWPsh" name="assembly.import_bom.template.header.json">
+      <segment>
+        <source>assembly.import_bom.template.header.json</source>
+        <target>Plantilla de importación JSON para un ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>assembly.import_bom.template.header.kicad_pcbnew</source>
+        <target>Plantilla de importación CSV (KiCAD Pcbnew BOM) para un ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="aLomVVS" name="assembly.bom_import.template.entry.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.name</source>
+        <target>Nombre del componente en el ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="o4ZcLfV" name="assembly.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.mpnr</source>
+        <target>Número de parte único dentro del fabricante</target>
+      </segment>
+    </unit>
+    <unit id="n3YbKeU" name="assembly.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.ipn</source>
+        <target>IPN único del componente</target>
+      </segment>
+    </unit>
+    <unit id="l2SYJP5" name="assembly.bom_import.template.entry.part.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.name</source>
+        <target>Nombre único del componente</target>
+      </segment>
+    </unit>
+    <unit id="VgXQ1xW" name="assembly.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Nombre único del fabricante</target>
+      </segment>
+    </unit>
+    <unit id="MpB.o_L" name="assembly.bom_import.template.entry.part.category.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.category.name</source>
+        <target>Nombre único de la categoría</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.json.table">
+      <segment>
+        <source>assembly.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Campo</th>
+                <th>Condición</th>
+                <th>Tipo de dato</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Obligatorio</td>
+                <td>Número decimal (Float)</td>
+                <td>Debe estar presente y contener un valor decimal (Float) mayor que 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Si está presente, debe ser una cadena de texto no vacía.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Opcional</td>
+                <td>Objeto/Array</td>
+                <td>
+                  Si se proporciona, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno del componente en la base de datos.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Cadena de texto no vacía, si no se proporciona part.mpnr o part.ipn.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Cadena de texto no vacía, si no se proporciona part.name o part.ipn.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Cadena de texto no vacía, si no se proporciona part.name o part.mpnr.</td>
+              </tr>
+              <tr>
+                <td>part.description</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String) o null</td>
+                <td>Si está presente, debe ser una cadena de texto no vacía o null.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Opcional</td>
+                <td>Objeto/Array</td>
+                <td>
+                  Si está presente, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno del fabricante.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Cadena de texto no vacía, si no se proporciona manufacturer.id.</td>
+              </tr>
+              <tr>
+                <td>part.category</td>
+                <td>Opcional</td>
+                <td>Objeto/Array</td>
+                <td>
+                  Si está presente, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  <ul>
+                    <li>category.id</li>
+                    <li>category.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>category.id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno de la categoría del componente.</td>
+              </tr>
+              <tr>
+                <td>category.name</td>
+                <td>Opcional</td>
+                <td>Cadena de texto (String)</td>
+                <td>Cadena de texto no vacía, si no se proporciona category.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Columnas esperadas:</target>
+      </segment>
+    </unit>
+    <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Nota:</strong> No se realiza una asociación con componentes específicos de la gestión de categorías.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="translationUnit6" name="assembly.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Campo</th>
+                        <th>Condición</th>
+                        <th>Tipo de Datos</th>
+                        <th>Descripción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Opcional</td>
+                            <td>Entero</td>
+                            <td>Campo libre. Un número de identificación único para cada componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Designador</td>
+                            <td>Opcional</td>
+                            <td>Cadena de texto</td>
+                            <td>Campo libre. Un designador de referencia único para el componente en la PCB, p. ej., "R1" para la resistencia 1. Se utiliza para nombrar la colocación en el grupo de componentes.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Opcional</td>
+                            <td>Cadena de texto</td>
+                            <td>Campo libre. El formato o tipo de encapsulado del componente, p. ej., "0805" para resistencias SMD.</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad</td>
+                            <td>Obligatorio</td>
+                            <td>Entero</td>
+                            <td>El número de componentes idénticos necesarios para crear una instancia única de un ensamblaje.</td>
+                        </tr>
+                        <tr>
+                            <td>Designación</td>
+                            <td>Obligatorio</td>
+                            <td>Cadena de texto</td>
+                            <td>La descripción o función del componente, p. ej., el valor de la resistencia "10kΩ" o el valor del condensador "100nF". Se utiliza para el nombre en la entrada del BOM.</td>
+                        </tr>
+                        <tr>
+                            <td>Proveedor y referencia</td>
+                            <td>Opcional</td>
+                            <td>Cadena de texto</td>
+                            <td>Campo libre. Puede incluir, por ejemplo, información específica del distribuidor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
+    </unit>
+    <unit id="QiZM3zY" name="typeahead.parts.part.name">
+      <segment>
+        <source>typeahead.parts.part.name</source>
+        <target>%name% (Componente)</target>
+      </segment>
+    </unit>
+    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
+      <segment>
+        <source>typeahead.parts.assembly.name</source>
+        <target>%name% (Ensamblaje)</target>
+      </segment>
+    </unit>
+    <unit id="4cgba2c" name="projects.build.form.part">
+      <segment>
+        <source>projects.build.form.part</source>
+        <target>Componente "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="1bCA1zb" name="projects.build.form.assembly">
+      <segment>
+        <source>projects.build.form.assembly</source>
+        <target>Ensamblaje "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry</source>
+        <target>%name% (%quantity% necesario)</target>
+      </segment>
+    </unit>
+    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
+      <segment>
+        <source>projects.build.form.assembly.bom.entry.no.stock</source>
+        <target>sin stock</target>
       </segment>
     </unit>
     <unit id="X9HUFrv" name="part.table.actions.error">

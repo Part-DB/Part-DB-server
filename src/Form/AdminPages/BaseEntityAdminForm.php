@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
@@ -114,7 +115,7 @@ class BaseEntityAdminForm extends AbstractType
             );
         }
 
-        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Currency)) {
+        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Assembly || $entity instanceof Currency)) {
             $builder->add('alternative_names', TextType::class, [
                 'required' => false,
                 'label' => 'entity.edit.alternative_names.label',

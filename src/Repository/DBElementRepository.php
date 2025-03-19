@@ -154,4 +154,14 @@ class DBElementRepository extends EntityRepository
         $property->setAccessible(true);
         $property->setValue($element, $new_value);
     }
+
+    protected function save(AbstractDBElement $entity, bool $flush = true): void
+    {
+        $manager = $this->getEntityManager();
+        $manager->persist($entity);
+
+        if ($flush) {
+            $manager->flush();
+        }
+    }
 }

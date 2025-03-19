@@ -245,6 +245,12 @@
         <target>Du skal vælge en komponent eller angive et navn til en ikke-komponent styklistepost!</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Det er kun tilladt at vælge én del eller en samling. Venligst tilpas dit valg!</target>
+      </segment>
+    </unit>
     <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -339,6 +345,24 @@
       <segment state="translated">
         <source>validator.part_lot.vendor_barcode_must_be_unique</source>
         <target>Denne leverandørstregkodeværdi er allerede brugt til en anden beholdning. Stregkoden skal være unik!</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Denne del eksisterer allerede i gruppen!</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Der findes allerede en del med dette navn!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Du skal vælge en del eller sætte et navn for en ikke-del!</target>
       </segment>
     </unit>
   </file>

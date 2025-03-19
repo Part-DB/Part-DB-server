@@ -1,0 +1,8 @@
+{% macro assembly_bom_entry_with_missing_instock(assembly_bom_entry, number_of_builds = 1) %}
+    {# @var \App\Entity\AssemblySystem\AssemblyBOMEntry assembly_bom_entry #}
+    <b><a href="{{ entity_url(assembly_bom_entry.part) }}">{{ assembly_bom_entry.part.name }}</a></b>
+    {% if assembly_bom_entry.name %}&nbsp;({{ assembly_bom_entry.name }}){% endif %}:
+    <b>{{ assembly_bom_entry.part.amountSum | format_amount(assembly_bom_entry.part.partUnit) }}</b> {% trans %}assembly.builds.stocked{% endtrans %}
+    /
+    <b>{{ (assembly_bom_entry.quantity * number_of_builds) | format_amount(assembly_bom_entry.part.partUnit) }}</b> {% trans %}assembly.builds.needed{% endtrans %}
+{% endmacro %}

@@ -1,0 +1,22 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}assembly.add_parts_to_assembly{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
+    {% trans %}assembly.add_parts_to_assembly{% endtrans %}{% if assembly %}: <i>{{ assembly.name }}</i>{% endif %}
+{% endblock %}
+
+{% block card_content %}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.assembly) }}
+    {% form_theme form.bom_entries with ['form/collection_types_layout_assembly.html.twig'] %}
+    {{ form_widget(form.bom_entries) }}
+
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

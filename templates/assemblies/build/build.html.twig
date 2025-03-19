@@ -1,0 +1,40 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}assembly.info.builds.label{% endtrans %}: {{ number_of_builds }}x {{ assembly.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-bolt fa-fw"></i>
+    {% trans %}assembly.info.builds.label{% endtrans %}: <b>{{ number_of_builds }}x</b> <i>{{ assembly.name }}</i>
+{% endblock %}
+
+{% block card_content %}
+    {% set can_build = buildHelper.assemblyBuildable(assembly, number_of_builds) %}
+    {% import "components/assemblies.macro.html.twig" as assembly_macros %}
+
+    {% if assembly.status is not empty and assembly.status != "in_production" %}
+        <div class="alert  alert-warning" role="alert">
+            <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans with {"%assembly_status%": ('assembly.status.'~assembly.status)|trans } %}assembly.builds.check_assembly_status{% endtrans %}
+        </div>
+    {% endif %}
+
+    <div class="alert {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+        {% if not can_build %}
+            <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}assembly.builds.build_not_possible{% endtrans %}</h5>
+            <b>{% trans with {"%number_of_builds%": number_of_builds} %}assembly.builds.following_bom_entries_miss_instock_n{% endtrans %}</b>
+            <ul>
+                {% for bom_entry in buildHelper.nonBuildableAssemblyBomEntries(assembly, number_of_builds) %}
+                    <li>{{ assembly_macros.assembly_bom_entry_with_missing_instock(bom_entry, number_of_builds) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}assembly.builds.build_possible{% endtrans %}</h5>
+            <span>{% trans with {"%max_builds%": number_of_builds} %}assembly.builds.number_of_builds_possible{% endtrans %}</span>
+        {% endif %}
+    </div>
+
+    <p class="text-muted">{% trans %}assembly.build.help{% endtrans %}</p>
+
+    {% include 'assemblies/build/_form.html.twig' %}
+
+
+{% endblock %}
