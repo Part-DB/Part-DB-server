@@ -251,6 +251,12 @@
         <target>Вам необходимо выбрать компонент или задать имя для BOM, не относящейся к компоненту!</target>
       </segment>
     </unit>
+    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Можно выбрать только деталь или сборку. Пожалуйста, измените ваш выбор!</target>
+      </segment>
+    </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>

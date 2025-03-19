@@ -74,11 +74,11 @@ class AssemblyBuildHelper
                 continue;
             }
 
-            //The maximum buildable count for the whole project is the minimum of all BOM entries
+            //The maximum buildable count for the whole assembly is the minimum of all BOM entries
             if ($bom_entry->getPart() !== null) {
                 $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
             } elseif ($bom_entry->getReferencedAssembly() !== null) {
-                $maximum_buildable_count = min($maximum_buildable_count, $this->projectBuildHelper->getMaximumBuildableCount($bom_entry->getReferencedAssembly()));
+                $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCount($bom_entry->getReferencedAssembly()));
             }
         }
 
@@ -105,7 +105,7 @@ class AssemblyBuildHelper
     }
 
     /**
-     * Returns the project BOM entries for which parts are missing in the stock for the given number of builds
+     * Returns the assembly BOM entries for which parts are missing in the stock for the given number of builds
      * @param  Assembly $assembly The assembly for which the BOM entries should be checked
      * @param  int  $number_of_builds How often should the assembly be build?
      * @return AssemblyBOMEntry[]

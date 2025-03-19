@@ -206,7 +206,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
         //Apply the user configured order and visibility and add the columns to the table
         $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,"TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
 
-        $dataTable->addOrderBy('name');
+        $dataTable->addOrderBy('name', DataTable::SORT_ASCENDING);
 
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => Attachment::class,

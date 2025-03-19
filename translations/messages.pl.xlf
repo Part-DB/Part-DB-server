@@ -10331,6 +10331,12 @@ Element 3</target>
         <target>dostępny</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>brak podanego stanu magazynowego</target>
+      </segment>
+    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10401,6 +10407,12 @@ Element 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Partia docelowa</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (%quantity% wymagane)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">

@@ -4831,6 +4831,18 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>%value% (Project)</target>
       </segment>
     </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value% (Part)</target>
+      </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Assembly)</target>
+      </segment>
+    </unit>
     <unit id="rW_SFJE" name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
@@ -9987,6 +9999,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Part</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>Assembly</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>Selection</target>
+      </segment>
+    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10383,6 +10407,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>stocked</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>no stock specified</target>
+      </segment>
+    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10453,6 +10483,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Target lot</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (%quantity% needed)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">

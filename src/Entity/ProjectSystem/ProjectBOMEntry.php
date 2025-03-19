@@ -35,6 +35,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Repository\DBElementRepository;
 use App\Validator\UniqueValidatableInterface;
@@ -104,7 +105,10 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      */
-    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
+    #[Assert\Expression(
+        'this.getPart() !== null or this.getAssembly() !== null or (this.getName() !== null and this.getName() != "")',
+        message: 'validator.project.bom_entry.part_or_assembly_needed'
+    )]
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
     protected ?string $name = null;
@@ -131,6 +135,18 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     #[ORM\JoinColumn(name: 'id_part')]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'full'])]
     protected ?Part $part = null;
+
+    /**
+     * @var Assembly|null The associated assembly
+     */
+    #[Assert\Expression(
+        '(this.getPart() === null or this.getAssembly() === null) and (this.getName() === null or (this.getName() != null and this.getName() != ""))',
+        message: 'validator.project.bom_entry.only_part_or_assembly_allowed'
+    )]
+    #[ORM\ManyToOne(targetEntity: Assembly::class, inversedBy: 'assembly_bom_entries')]
+    #[ORM\JoinColumn(name: 'id_assembly')]
+    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    protected ?Assembly $assembly = null;
 
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
@@ -224,6 +240,16 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this;
     }
 
+    public function getAssembly(): ?Assembly
+    {
+        return $this->assembly;
+    }
+
+    public function setAssembly(?Assembly $assembly): void
+    {
+        $this->assembly = $assembly;
+    }
+
     /**
      * Returns the price of this BOM entry, if existing.
      * Prices are only valid on non-Part BOM entries.
@@ -259,6 +285,15 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     public function isPartBomEntry(): bool
     {
         return $this->part instanceof Part;
+    }
+
+    /**
+     * Checks whether this BOM entry is a assembly associated BOM entry or not.
+     * @return bool True if this BOM entry is a assembly associated BOM entry, false otherwise.
+     */
+    public function isAssemblyBomEntry(): bool
+    {
+        return $this->assembly instanceof Assembly;
     }
 
     #[Assert\Callback]
@@ -322,6 +357,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return [
             'name' => $this->getName(),
             'part' => $this->getPart()?->getID(),
+            'assembly' => $this->getAssembly()?->getID(),
         ];
     }
 }

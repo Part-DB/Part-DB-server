@@ -9938,6 +9938,18 @@ Element 3</target>
         <target>部件</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>装配</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>选择</target>
+      </segment>
+    </unit>
     <unit id="apnWXEq" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10334,6 +10346,12 @@ Element 3</target>
         <target>在库</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>未指定库存</target>
+      </segment>
+    </unit>
     <unit id="mwL3d70" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10404,6 +10422,12 @@ Element 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>目标批次</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (需求数量: %quantity%)</target>
       </segment>
     </unit>
     <unit id="pyv0k6b" name="project.builds.number_of_builds">

@@ -37,6 +37,7 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\ProjectSystem\Project;
+use App\Entity\AssemblySystem\Assembly;
 use App\Repository\DBElementRepository;
 use App\Validator\Constraints\AssemblySystem\AssemblyCycle;
 use App\Validator\Constraints\AssemblySystem\AssemblyInvalidBomEntry;

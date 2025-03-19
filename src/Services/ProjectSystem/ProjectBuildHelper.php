@@ -22,10 +22,13 @@ declare(strict_types=1);
  */
 namespace App\Services\ProjectSystem;
 
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Helpers\Projects\ProjectBuildRequest;
+use App\Services\AssemblySystem\AssemblyBuildHelper;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 
 /**
@@ -33,8 +36,10 @@ use App\Services\Parts\PartLotWithdrawAddHelper;
  */
 class ProjectBuildHelper
 {
-    public function __construct(private readonly PartLotWithdrawAddHelper $withdraw_add_helper)
-    {
+    public function __construct(
+        private readonly PartLotWithdrawAddHelper $withdrawAddHelper,
+        private readonly AssemblyBuildHelper      $assemblyBuildHelper
+    ) {
     }
 
     /**
@@ -66,12 +71,16 @@ class ProjectBuildHelper
         $maximum_buildable_count = PHP_INT_MAX;
         foreach ($project->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$bom_entry->isPartBomEntry()) {
+            if (!$bom_entry->isPartBomEntry() && $bom_entry->getAssembly() === null) {
                 continue;
             }
 
             //The maximum buildable count for the whole project is the minimum of all BOM entries
-            $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
+            if ($bom_entry->getPart() !== null) {
+                $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
+            } elseif ($bom_entry->getAssembly() !== null) {
+                $maximum_buildable_count = min($maximum_buildable_count, $this->assemblyBuildHelper->getMaximumBuildableCount($bom_entry->getAssembly()));
+            }
         }
 
         return $maximum_buildable_count;
@@ -97,10 +106,10 @@ class ProjectBuildHelper
     }
 
     /**
-     * Returns the project BOM entries for which parts are missing in the stock for the given number of builds
+     * Returns the project or assembly BOM entries for which parts are missing in the stock for the given number of builds
      * @param  Project  $project The project for which the BOM entries should be checked
      * @param  int  $number_of_builds How often should the project be build?
-     * @return ProjectBOMEntry[]
+     * @return ProjectBOMEntry[]|AssemblyBOMEntry[]
      */
     public function getNonBuildableProjectBomEntries(Project $project, int $number_of_builds = 1): array
     {
@@ -108,24 +117,29 @@ class ProjectBuildHelper
             throw new \InvalidArgumentException('The number of builds must be greater than 0!');
         }
 
-        $non_buildable_entries = [];
+        $nonBuildableEntries = [];
 
         foreach ($project->getBomEntries() as $bomEntry) {
             $part = $bomEntry->getPart();
 
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$part instanceof Part) {
+            if (!$part instanceof Part && $bomEntry->getAssembly() === null) {
                 continue;
             }
 
-            $amount_sum = $part->getAmountSum();
+            if ($bomEntry->getPart() !== null) {
+                $amount_sum = $part->getAmountSum();
 
-            if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
-                $non_buildable_entries[] = $bomEntry;
+                if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
+                    $nonBuildableEntries[] = $bomEntry;
+                }
+            } elseif ($bomEntry->getAssembly() !== null) {
+                $nonBuildableAssemblyEntries = $this->assemblyBuildHelper->getNonBuildableAssemblyBomEntries($bomEntry->getAssembly(), $number_of_builds);
+                $nonBuildableEntries = array_merge($nonBuildableEntries, $nonBuildableAssemblyEntries);
             }
         }
 
-        return $non_buildable_entries;
+        return $nonBuildableEntries;
     }
 
     /**
@@ -133,22 +147,37 @@ class ProjectBuildHelper
      * The ProjectBuildRequest has to be validated before!!
      * You have to flush changes to DB afterward
      */
-    public function doBuild(ProjectBuildRequest $buildRequest): void
+    public function doBuild(ProjectBuildRequest $projectBuildRequest): void
     {
-        $message = $buildRequest->getComment();
-        $message .= ' (Project build: '.$buildRequest->getProject()->getName().')';
+        $message = $projectBuildRequest->getComment();
+        $message .= ' (Project build: '.$projectBuildRequest->getProject()->getName().')';
 
-        foreach ($buildRequest->getPartBomEntries() as $bom_entry) {
-            foreach ($buildRequest->getPartLotsForBOMEntry($bom_entry) as $part_lot) {
-                $amount = $buildRequest->getLotWithdrawAmount($part_lot);
+        foreach ($projectBuildRequest->getPartBomEntries() as $bomEntry) {
+            foreach ($projectBuildRequest->getPartLotsForBOMEntry($bomEntry) as $partLot) {
+                $amount = $projectBuildRequest->getLotWithdrawAmount($partLot);
                 if ($amount > 0) {
-                    $this->withdraw_add_helper->withdraw($part_lot, $amount, $message);
+                    $this->withdrawAddHelper->withdraw($partLot, $amount, $message);
                 }
             }
         }
 
-        if ($buildRequest->getAddBuildsToBuildsPart()) {
-            $this->withdraw_add_helper->add($buildRequest->getBuildsPartLot(), $buildRequest->getNumberOfBuilds(), $message);
+        foreach ($projectBuildRequest->getAssemblyBomEntries() as $bomEntry) {
+            $assemblyBuildRequest = new AssemblyBuildRequest($bomEntry->getAssembly(), $projectBuildRequest->getNumberOfBuilds());
+
+            //Add fields for assembly bom entries
+            foreach ($assemblyBuildRequest->getPartBomEntries() as $partBomEntry) {
+                foreach ($assemblyBuildRequest->getPartLotsForBOMEntry($partBomEntry) as $partLot) {
+                    //Read amount from build configuration of the projectBuildRequest
+                    $amount = $projectBuildRequest->getLotWithdrawAmount($partLot);
+                    if ($amount > 0) {
+                        $this->withdrawAddHelper->withdraw($partLot, $amount, $message);
+                    }
+                }
+            }
+        }
+
+        if ($projectBuildRequest->getAddBuildsToBuildsPart()) {
+            $this->withdrawAddHelper->add($projectBuildRequest->getBuildsPartLot(), $projectBuildRequest->getNumberOfBuilds(), $message);
         }
     }
 }

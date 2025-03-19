@@ -44,8 +44,8 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
     public function sqLiteUp(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-        CREATE TEMPORARY TABLE __temp__parts AS 
-            SELECT 
+        CREATE TEMPORARY TABLE __temp__parts AS
+            SELECT
                 id,
                 id_preview_attachment,
                 id_category,
@@ -82,7 +82,7 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
                 eda_info_exclude_from_board,
                 eda_info_exclude_from_sim,
                 eda_info_kicad_symbol,
-                eda_info_kicad_footprint 
+                eda_info_kicad_footprint
             FROM parts
         SQL);
         $this->addSql('DROP TABLE parts');
@@ -148,8 +148,8 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
             id_part_unit,
             id_manufacturer,
             order_orderdetails_id,
-            built_project_id,     
-            datetime_added,               
+            built_project_id,
+            datetime_added,
             name,
             last_modified,
             needs_review,
@@ -164,12 +164,12 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
             manufacturer_product_number,
             manufacturing_status,
             order_quantity,
-            manual_order,       
+            manual_order,
             ipn,
             provider_reference_provider_key,
             provider_reference_provider_id,
             provider_reference_provider_url,
-            provider_reference_last_updated,               
+            provider_reference_last_updated,
             eda_info_reference_prefix,
             eda_info_value,
             eda_info_invisible,
@@ -223,8 +223,8 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
     public function sqLiteDown(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-        CREATE TEMPORARY TABLE __temp__parts AS 
-            SELECT 
+        CREATE TEMPORARY TABLE __temp__parts AS
+            SELECT
                 id,
                 id_preview_attachment,
                 id_category,
@@ -326,8 +326,8 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
             id_part_unit,
             id_manufacturer,
             order_orderdetails_id,
-            built_project_id,     
-            datetime_added,               
+            built_project_id,
+            datetime_added,
             name,
             last_modified,
             needs_review,
@@ -342,12 +342,12 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
             manufacturer_product_number,
             manufacturing_status,
             order_quantity,
-            manual_order,       
+            manual_order,
             ipn,
             provider_reference_provider_key,
             provider_reference_provider_id,
             provider_reference_provider_url,
-            provider_reference_last_updated,               
+            provider_reference_last_updated,
             eda_info_reference_prefix,
             eda_info_value,
             eda_info_invisible,

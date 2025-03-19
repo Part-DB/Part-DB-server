@@ -76,8 +76,6 @@ class BOMImporter
 
     private DBElementRepository $assemblyBOMEntryRepository;
 
-    private TranslatorInterface $translator;
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly TranslatorInterface $translator,
@@ -89,7 +87,6 @@ class BOMImporter
         $this->categoryRepository = $entityManager->getRepository(Category::class);
         $this->projectBOMEntryRepository = $entityManager->getRepository(ProjectBOMEntry::class);
         $this->assemblyBOMEntryRepository = $entityManager->getRepository(AssemblyBOMEntry::class);
-        $this->translator = $translator;
     }
 
     protected function configureOptions(OptionsResolver $resolver): OptionsResolver
@@ -257,7 +254,8 @@ class BOMImporter
         $options = $resolver->resolve($options);
 
         return match ($options['type']) {
-            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $objectType)->getBomEntries(),
+            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject)->getBomEntries(),
+            self::IMPORT_TYPE_KICAD_SCHEMATIC => $this->parseKiCADPCB($data, $importObject)->getBomEntries(),
             default => throw new InvalidArgumentException($this->translator->trans('validator.bom_importer.invalid_import_type', [], 'validators')),
         };
     }
@@ -285,8 +283,8 @@ class BOMImporter
 
         return match ($options['type']) {
             self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject),
-            self::IMPORT_TYPE_JSON => $this->parseJson($data, $importObject),
-            self::IMPORT_TYPE_CSV => $this->parseCsv($data, $importObject),
+            self::IMPORT_TYPE_JSON => $this->parseJson($importObject, $data),
+            self::IMPORT_TYPE_CSV => $this->parseCsv($importObject, $data),
             default => $defaultImporterResult,
         };
     }

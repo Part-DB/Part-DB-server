@@ -22,9 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
-use App\Entity\AssemblySystem\Assembly;
-use App\Entity\AssemblySystem\AssemblyBOMEntry;
-use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentTypeAttachment;
@@ -38,6 +35,7 @@ use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
@@ -47,6 +45,8 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Footprint;
 use App\Entity\UserSystem\Group;
 use App\Entity\Parts\Manufacturer;
@@ -87,12 +87,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'part_attachment' => PartAttachment::class,
     'part_custom_state_attachment' => PartCustomStateAttachment::class,
     'project_attachment' => ProjectAttachment::class,
+    'assembly_attachment' => AssemblyAttachment::class,
     'storelocation_attachment' => StorageLocationAttachment::class,
     'supplier_attachment' => SupplierAttachment::class,
     'user_attachment' => UserAttachment::class,
     'category' => Category::class,
     'project' => Project::class,
     'project_bom_entry' => ProjectBOMEntry::class,
+    'assembly' => Assembly::class,
+    'assembly_bom_entry' => AssemblyBOMEntry::class,
     'footprint' => Footprint::class,
     'group' => Group::class,
     'manufacturer' => Manufacturer::class,

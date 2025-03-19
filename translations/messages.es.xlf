@@ -9930,6 +9930,18 @@ Elemento 3</target>
         <target>Componente</target>
       </segment>
     </unit>
+    <unit id="KJuXVR5" name="project.bom.assembly">
+      <segment state="translated">
+        <source>project.bom.assembly</source>
+        <target>Baugruppe</target>
+      </segment>
+    </unit>
+    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
+      <segment state="translated">
+        <source>project.bom.partOrAssembly</source>
+        <target>Auswahl</target>
+      </segment>
+    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10326,6 +10338,12 @@ Elemento 3</target>
         <target>Almacenado</target>
       </segment>
     </unit>
+    <unit id="gHU1vgc" name="project.builds.no_stock">
+      <segment state="translated">
+        <source>project.builds.no_stock</source>
+        <target>no se ha especificado stock</target>
+      </segment>
+    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10396,6 +10414,12 @@ Elemento 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Lote objetivo</target>
+      </segment>
+    </unit>
+    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
+      <segment state="translated">
+        <source>project.build.builds_part_lot_label</source>
+        <target>%name% (se requiere %quantity%)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
