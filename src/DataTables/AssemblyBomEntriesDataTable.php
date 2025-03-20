@@ -25,6 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
+use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
@@ -41,14 +42,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AssemblyBomEntriesDataTable implements DataTableTypeInterface
 {
-    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper, protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
-    {
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected PartDataTableHelper $partDataTableHelper,
+        protected EntityURLGenerator $entityURLGenerator,
+        protected AmountFormatter $amountFormatter,
+        private string $visible_columns,
+        private ColumnSortHelper $csh
+    ){
     }
-
 
     public function configure(DataTable $dataTable, array $options): void
     {
-        $dataTable
+        $this->csh
             //->add('select', SelectColumn::class)
             ->add('picture', TextColumn::class, [
                 'label' => '',
@@ -62,7 +68,6 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
-                'visible' => false,
             ])
             ->add('quantity', TextColumn::class, [
                 'label' => $this->translator->trans('assembly.bom.quantity'),
@@ -97,11 +102,12 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),
                 'orderField' => 'NATSORT(part.ipn)',
-                'visible' => false,
                 'render' => function ($value, AssemblyBOMEntry $context) {
                     if($context->getPart() instanceof Part) {
                         return $context->getPart()->getIpn();
                     }
+
+                    return '';
                 }
             ])
             ->add('description', MarkdownColumn::class, [
@@ -142,7 +148,6 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('instockAmount', TextColumn::class, [
                 'label' => 'assembly.bom.instockAmount',
-                'visible' => false,
                 'render' => function ($value, AssemblyBOMEntry $context) {
                     if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderAmount($context->getPart());
@@ -153,7 +158,6 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('storageLocations', TextColumn::class, [
                 'label' => 'part.table.storeLocations',
-                'visible' => false,
                 'render' => function ($value, AssemblyBOMEntry $context) {
                     if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderStorageLocations($context->getPart());
@@ -164,15 +168,17 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
-                'visible' => false,
             ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-                'visible' => false,
             ])
         ;
 
-        $dataTable->addOrderBy('name', DataTable::SORT_ASCENDING);
+        //Apply the user configured order and visibility and add the columns to the table
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,
+            "TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
+
+        $dataTable->addOrderBy('name');
 
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => Attachment::class,
