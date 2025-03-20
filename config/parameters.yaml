@@ -43,6 +43,10 @@ parameters:
   ######################################################################################################################
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
+  ######################################################################################################################
+  # Table settings
+  ######################################################################################################################
+  partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%' # The default columns in assembly tables and their order
 
   ######################################################################################################################
   # Miscellaneous
