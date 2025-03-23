@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="security.en">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
+      <segment state="translated">
+        <source>user.login_error.user_disabled</source>
+        <target>Su cuenta ha sido deshabilitada. Contacte con el administrador si cree que podría ser un error.</target>
+      </segment>
+    </unit>
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>No puede identificarse como usuario local vía SSO. Utilice su contraseña local en su lugar.</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>No puede identificarse como usuario SAML utilizando su usuario local. Utilice su identificación SSO en su lugar.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
