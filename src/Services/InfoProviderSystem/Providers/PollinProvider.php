@@ -215,7 +215,7 @@ class PollinProvider implements InfoProviderInterface
     private function parseNotes(Crawler $dom): string
     {
         //Concat product highlights and product description
-        return $dom->filter('div.product-detail-top-features')->html() . '<br><br>' . $dom->filter('div.product-detail-description-text')->html();
+        return $dom->filter('div.product-detail-top-features')->html('') . '<br><br>' . $dom->filter('div.product-detail-description-text')->html('');
     }
 
     private function parsePrices(Crawler $dom): array
