@@ -345,9 +345,28 @@ class AttachmentSubmitHandler
         $tmp_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
-            $response = $this->httpClient->request('GET', $url, [
+            $opts = [
                 'buffer' => false,
-            ]);
+                //Use user-agent and other headers to make the server think we are a browser
+                'headers' => [
+                    "sec-ch-ua" => "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
+                    "sec-ch-ua-mobile" => "?0",
+                    "sec-ch-ua-platform" => "\"Windows\"",
+                    "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+                    "sec-fetch-site" => "none",
+                    "sec-fetch-mode" => "navigate",
+                ],
+
+            ];
+            $response = $this->httpClient->request('GET', $url, $opts);
+            //Digikey wants TLSv1.3, so try again with that if we get a 403
+            if ($response->getStatusCode() === 403) {
+                $opts['crypto_method'] = STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
+                $response = $this->httpClient->request('GET', $url, $opts);
+            }
+            # if you have these changes and downloads still fail, check if it's due to an unknown certificate. Curl by
+            # default uses the systems ca store and that doesn't contain all the intermediate certificates needed to
+            # verify the leafs
 
             if (200 !== $response->getStatusCode()) {
                 throw new AttachmentDownloadException('Status code: '.$response->getStatusCode());
