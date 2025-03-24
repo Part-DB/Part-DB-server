@@ -174,6 +174,19 @@ final class PartsDataTable implements DataTableTypeInterface
                     return $tmp;
                 }
             ])
+            ->add('partCustomState', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.partCustomState'),
+                'orderField' => 'NATSORT(_partCustomState.name)',
+                'render' => function($value, Part $context): string {
+                    $partCustomState = $context->getPartCustomState();
+
+                    if ($partCustomState === null) {
+                        return '';
+                    }
+
+                    return htmlspecialchars($partCustomState->getName());
+                }
+            ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
             ])
@@ -309,6 +322,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partUnit')
+            ->addSelect('partCustomState')
             ->addSelect('master_picture_attachment')
             ->addSelect('footprint_attachment')
             ->addSelect('partLots')
@@ -327,6 +341,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.partCustomState', 'partCustomState')
             ->leftJoin('part.parameters', 'parameters')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
@@ -344,6 +359,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
+            ->addGroupBy('partCustomState')
             ->addGroupBy('parameters');
 
         //Get the results in the same order as the IDs were passed
@@ -414,6 +430,10 @@ final class PartsDataTable implements DataTableTypeInterface
         if (str_contains($dql, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');
             $builder->addGroupBy('_partUnit');
+        }
+        if (str_contains($dql, '_partCustomState')) {
+            $builder->leftJoin('part.partCustomState', '_partCustomState');
+            $builder->addGroupBy('_partCustomState');
         }
         if (str_contains($dql, '_parameters')) {
             $builder->leftJoin('part.parameters', '_parameters');
