@@ -548,6 +548,12 @@
         <target>Měrné jednotky</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Vlastní stav komponenty</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -4891,6 +4897,12 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrné jednotky</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
@@ -5755,6 +5767,12 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrná jednotka</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -6042,6 +6060,12 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrná jednotka</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6283,6 +6307,12 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Měrné jednotky</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Vlastní stav součásti</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -8559,6 +8589,12 @@ Element 3</target>
       <segment state="translated">
         <source>perm.measurement_units</source>
         <target>Měrná jednotka</target>
+      </segment>
+    </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Vlastní stav součásti</target>
       </segment>
     </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
@@ -10926,6 +10962,12 @@ Element 3</target>
         <target>Měrná jednotka</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11507,6 +11549,18 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Upravit měrnou jednotku</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Nový vlastní stav komponenty</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Upravit vlastní stav komponenty</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">

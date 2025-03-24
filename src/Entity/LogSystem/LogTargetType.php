@@ -34,6 +34,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -71,6 +72,7 @@ enum LogTargetType: int
     case PART_ASSOCIATION = 20;
     case ASSEMBLY = 21;
     case ASSEMBLY_BOM_ENTRY = 22;
+    case PART_CUSTOM_STATE = 23;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -102,6 +104,7 @@ enum LogTargetType: int
             self::PARAMETER => AbstractParameter::class,
             self::LABEL_PROFILE => LabelProfile::class,
             self::PART_ASSOCIATION => PartAssociation::class,
+            self::PART_CUSTOM_STATE => PartCustomState::class
         };
     }
 

@@ -233,13 +233,6 @@ abstract class BaseAdminController extends AbstractController
 
         $repo = $this->entityManager->getRepository($this->entity_class);
 
-        $showParameters = true;
-        if ($this instanceof AssemblyAdminController) {
-            //currently not needed for assemblies
-
-            $showParameters = false;
-        }
-
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form,
@@ -249,7 +242,7 @@ abstract class BaseAdminController extends AbstractController
             'timeTravel' => $timeTravel_timestamp,
             'repo' => $repo,
             'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
-            'showParameters' => $showParameters,
+            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 
@@ -403,20 +396,13 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
-        $showParameters = true;
-        if ($this instanceof AssemblyAdminController) {
-            //currently not needed for assemblies
-
-            $showParameters = false;
-        }
-
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
             'import_form' => $import_form,
             'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
-            'showParameters' => $showParameters,
+            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 

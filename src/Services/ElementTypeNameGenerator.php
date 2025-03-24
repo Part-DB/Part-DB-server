@@ -30,6 +30,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
@@ -83,6 +84,7 @@ class ElementTypeNameGenerator
             AbstractParameter::class => $this->translator->trans('parameter.label'),
             LabelProfile::class => $this->translator->trans('label_profile.label'),
             PartAssociation::class => $this->translator->trans('part_association.label'),
+            PartCustomState::class => $this->translator->trans('part_custom_state.label'),
         ];
     }
 

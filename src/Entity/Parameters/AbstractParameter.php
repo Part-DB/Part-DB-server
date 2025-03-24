@@ -73,7 +73,8 @@ use function sprintf;
 #[ORM\DiscriminatorMap([0 => CategoryParameter::class, 1 => CurrencyParameter::class, 2 => ProjectParameter::class,
     3 => FootprintParameter::class, 4 => GroupParameter::class, 5 => ManufacturerParameter::class,
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
-    9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class, 11 => AssemblyParameter::class])]
+    9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class, 11 => AssemblyParameter::class,
+    12 => PartCustomStateParameter::class])]
 #[ORM\Table('parameters')]
 #[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
 #[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
@@ -105,7 +106,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
         "Project" => ProjectParameter::class, "Assembly" => AssemblyParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
         "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
-        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class];
+        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class, "PartCustomState" => PartCustomStateParameter::class];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
@@ -460,7 +461,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         return $str;
     }
-    
+
     /**
      * Returns the class of the element that is allowed to be associated with this attachment.
      * @return string
