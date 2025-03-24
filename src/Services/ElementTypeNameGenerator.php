@@ -37,6 +37,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -87,6 +88,7 @@ class ElementTypeNameGenerator
             PartAssociation::class => $this->translator->trans('part_association.label'),
             BulkInfoProviderImportJob::class => $this->translator->trans('bulk_info_provider_import_job.label'),
             BulkInfoProviderImportJobPart::class => $this->translator->trans('bulk_info_provider_import_job_part.label'),
+            PartCustomState::class => $this->translator->trans('part_custom_state.label'),
         ];
     }
 

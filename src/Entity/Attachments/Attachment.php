@@ -97,7 +97,7 @@ use function in_array;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
-    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'Device' => ProjectAttachment::class, 'Assembly' => AssemblyAttachment::class,
+    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class, 'Assembly' => AssemblyAttachment::class,
         'AttachmentType' => AttachmentTypeAttachment::class,
         'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
         'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
@@ -107,7 +107,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /*
      * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
      */
-    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "Project" => ProjectAttachment::class, "Assembly" => AssemblyAttachment::class,
+    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "PartCustomState" => PartCustomStateAttachment::class, "Project" => ProjectAttachment::class, "Assembly" => AssemblyAttachment::class,
         "AttachmentType" => AttachmentTypeAttachment::class,
         "Category" => CategoryAttachment::class, "Footprint" => FootprintAttachment::class, "Manufacturer" => ManufacturerAttachment::class,
         "Currency" => CurrencyAttachment::class, "Group" => GroupAttachment::class, "MeasurementUnit" => MeasurementUnitAttachment::class,
@@ -551,8 +551,8 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[Groups(['attachment:write'])]
     #[SerializedName('url')]
-    #[ApiProperty(description: 'Set the path of the attachment here. 
-    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty 
+    #[ApiProperty(description: 'Set the path of the attachment here.
+    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty
     string if the attachment has an internal file associated and you\'d like to reset the external source.
     If you set a new (nonempty) file path any associated internal file will be removed!')]
     public function setURL(?string $url): self

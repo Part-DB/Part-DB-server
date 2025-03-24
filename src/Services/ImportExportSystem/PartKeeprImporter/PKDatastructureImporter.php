@@ -29,6 +29,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -146,6 +147,26 @@ class PKDatastructureImporter
         $this->em->flush();
 
         return is_countable($partunit_data) ? count($partunit_data) : 0;
+    }
+
+    public function importPartCustomStates(array $data): int
+    {
+        if (!isset($data['partcustomstate'])) {
+            throw new \RuntimeException('$data must contain a "partcustomstate" key!');
+        }
+
+        $partCustomStateData = $data['partcustomstate'];
+        foreach ($partCustomStateData as $partCustomState) {
+            $customState = new PartCustomState();
+            $customState->setName($partCustomState['name']);
+
+            $this->setIDOfEntity($customState, $partCustomState['id']);
+            $this->em->persist($customState);
+        }
+
+        $this->em->flush();
+
+        return is_countable($partCustomStateData) ? count($partCustomStateData) : 0;
     }
 
     public function importCategories(array $data): int

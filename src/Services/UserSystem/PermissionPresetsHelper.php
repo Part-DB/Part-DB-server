@@ -102,6 +102,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'attachment_types', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'currencies', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'measurement_units', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'part_custom_states', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
 

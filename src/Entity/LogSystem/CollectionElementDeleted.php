@@ -48,6 +48,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -60,6 +61,8 @@ use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Parameters\PartCustomStateParameter;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parameters\AssemblyParameter;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\AbstractParameter;
@@ -162,6 +165,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                 Part::class => PartParameter::class,
                 StorageLocation::class => StorageLocationParameter::class,
                 Supplier::class => SupplierParameter::class,
+                PartCustomState::class => PartCustomStateParameter::class,
                 default => throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass()),
             };
         }
@@ -178,6 +182,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                 Manufacturer::class => ManufacturerAttachment::class,
                 MeasurementUnit::class => MeasurementUnitAttachment::class,
                 Part::class => PartAttachment::class,
+                PartCustomState::class => PartCustomStateAttachment::class,
                 StorageLocation::class => StorageLocationAttachment::class,
                 Supplier::class => SupplierAttachment::class,
                 User::class => UserAttachment::class,

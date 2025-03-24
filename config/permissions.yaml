@@ -24,7 +24,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.read"
         # If a part can be read by a user, he can also see all the datastructures (except devices)
         alsoSet: ['storelocations.read', 'footprints.read', 'categories.read', 'suppliers.read', 'manufacturers.read',
-                  'currencies.read', 'attachment_types.read', 'measurement_units.read']
+                  'currencies.read', 'attachment_types.read', 'measurement_units.read', 'part_custom_states.read']
         apiTokenRole: ROLE_API_READ_ONLY
       edit:
         label: "perm.edit"
@@ -136,6 +136,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   measurement_units:
     <<: *PART_CONTAINING
     label: "perm.measurement_units"
+
+  part_custom_states:
+    <<: *PART_CONTAINING
+    label: "perm.part_custom_states"
 
   tools:
     label: "perm.part.tools"

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\AssemblyAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentContainingDBElement;
@@ -102,6 +103,8 @@ final class AttachmentVoter extends Voter
                 $param = 'measurement_units';
             } elseif (is_a($subject, PartAttachment::class, true)) {
                 $param = 'parts';
+            } elseif (is_a($subject, PartCustomStateAttachment::class, true)) {
+                $param = 'part_custom_states';
             } elseif (is_a($subject, StorageLocationAttachment::class, true)) {
                 $param = 'storelocations';
             } elseif (is_a($subject, SupplierAttachment::class, true)) {

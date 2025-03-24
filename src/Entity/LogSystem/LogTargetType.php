@@ -34,6 +34,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -75,6 +76,7 @@ enum LogTargetType: int
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
     case ASSEMBLY = 23;
     case ASSEMBLY_BOM_ENTRY = 24;
+    case PART_CUSTOM_STATE = 25;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -108,6 +110,7 @@ enum LogTargetType: int
             self::PART_ASSOCIATION => PartAssociation::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB => BulkInfoProviderImportJob::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => BulkInfoProviderImportJobPart::class,
+            self::PART_CUSTOM_STATE => PartCustomState::class
         };
     }
 

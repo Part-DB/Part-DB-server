@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
@@ -174,6 +175,12 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
+            ])
+            ->add('partCustomState', StructuralEntityType::class, [
+                'class' => PartCustomState::class,
+                'required' => false,
+                'disable_not_selectable' => true,
+                'label' => 'part.edit.partCustomState',
             ])
             ->add('ipn', TextType::class, [
                 'required' => false,

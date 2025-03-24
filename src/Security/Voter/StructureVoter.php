@@ -24,6 +24,7 @@ namespace App\Security\Voter;
 
 use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -55,6 +56,7 @@ final class StructureVoter extends Voter
         Supplier::class => 'suppliers',
         Currency::class => 'currencies',
         MeasurementUnit::class => 'measurement_units',
+        PartCustomState::class => 'part_custom_states',
     ];
 
     public function __construct(private readonly VoterHelper $helper)

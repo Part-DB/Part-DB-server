@@ -30,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -230,6 +231,12 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.edit.label_profile'),
                 $this->urlGenerator->generate('label_profile_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
+        }
+        if ($this->security->isGranted('read', new PartCustomState())) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.part_custom_state'),
+                $this->urlGenerator->generate('part_custom_state_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
         }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = (new TreeViewNode(

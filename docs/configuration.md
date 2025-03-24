@@ -142,7 +142,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `TABLE_PARTS_DEFAULT_COLUMNS`: The columns in parts tables, which are visible by default (when loading table for first
   time).
   Also specify the default order of the columns. This is a comma separated list of column names. Available columns
-  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
+  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `partCustomState`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
 * `TABLE_ASSEMBLIES_DEFAULT_COLUMNS`: The columns in assemblies tables, which are visible by default (when loading table for first time).
     Also specify the default order of the columns. This is a comma separated list of column names. Available columns
     are: `name`, `id`, `ipn`, `description`, `referencedAssemblies`, `edit`, `addedDate`, `lastModified`.
