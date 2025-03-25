@@ -559,6 +559,15 @@
     "symfony/options-resolver": {
         "version": "v4.2.3"
     },
+    "symfony/panther": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "bc2de681f79db177eac72d5b04c23bd59bea2b46"
+        }
+    },
     "symfony/password-hasher": {
         "version": "v5.3.8"
     },

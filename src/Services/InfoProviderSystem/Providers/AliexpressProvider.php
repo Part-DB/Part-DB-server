@@ -25,15 +25,24 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\WebDriverDimension;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\Panther\Client;
+use Symfony\Component\Panther\DomCrawler\Link;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AliexpressProvider implements InfoProviderInterface
 {
 
-    public function __construct(private readonly HttpClientInterface $client)
-    {
+    private readonly string $chromiumDriverPath;
 
+    public function __construct(private readonly HttpClientInterface $client,
+        #[Autowire('%kernel.project_dir%')]
+        private readonly string $projectDir)
+    {
+        $this->chromiumDriverPath = $this->projectDir . '/drivers/chromedriver.exe';
     }
 
     public function getProviderInfo(): array
@@ -125,18 +134,44 @@ class AliexpressProvider implements InfoProviderInterface
         }
 
         $product_page = $this->getBaseURL() . "/item/{$id}.html";
-        $response = $this->client->request('GET', $product_page );
+        //Create panther client
+        $chromeOptions = new ChromeOptions();
+        //Disable W3C mode, to avoid issues with getting html() from elements. See https://github.com/symfony/panther/issues/478
+        $chromeOptions->setExperimentalOption('w3c', false);
 
-        $content = $response->getContent();
-        $dom = new Crawler($content);
+        $client = Client::createChromeClient( $this->chromiumDriverPath, options: ['capabilities' => [ChromeOptions::CAPABILITY =>  $chromeOptions]]);
+        $client->manage()->deleteAllCookies();
+        $client->manage()->window()->setSize(new WebDriverDimension(1920, 1080));
+
+
+        $client->request('GET', $product_page );
+
+        //Dismiss cookie consent
+        $dom = $client->waitFor('div.global-gdpr-wrap button.btn-accept');
+        $dom->filter('div.global-gdpr-wrap button.btn-accept')->first()->click();
+
+        $dom = $client->waitFor('h1[data-pl="product-title"]');
+        $name = $dom->filter('h1[data-pl="product-title"]')->text();
+
+
+        //Click on the description button
+        $dom->filter('a[href="#nav-description"]')->first()->click();
+        //$client->clickLink('Übersicht');
+
+        $dom = $client->waitFor('#product-description');
+        $description = $dom->filter('#product-description')->html();
+
+        //Remove any script tags. This is just to prevent any weird output in the notes field, this is not really a security measure
+        $description = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $description);
+
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $id,
-            name: $dom->filter('h1[data-pl="product-title"]')->text(),
+            name: $name,
             description: "",
             provider_url: $product_page,
-            notes: $dom->filter('div[data-pl="product-description"]')->html(),
+            notes: $description,
         );
     }
 

@@ -8,6 +8,8 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
+drivers/
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache

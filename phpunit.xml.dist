@@ -28,6 +28,7 @@
     </testsuite>
   </testsuites>
   <extensions>
+        <extension class="Symfony\Component\Panther\ServerExtension" />
     <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
   </extensions>
   <listeners>
