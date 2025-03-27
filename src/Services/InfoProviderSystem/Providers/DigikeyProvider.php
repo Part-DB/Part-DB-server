@@ -110,7 +110,9 @@ class DigikeyProvider implements InfoProviderInterface
             'Keywords' => $keyword,
             'Limit' => 50,
             'Offset' => 0,
-            'MarketPlaceFilter' => 'ExcludeMarketPlace',
+            'FilterOptionsRequest' => [
+                'MarketPlaceFilter' => 'ExcludeMarketPlace',
+            ],
         ];
 
         //$response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
