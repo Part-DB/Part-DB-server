@@ -190,7 +190,7 @@ class DigikeyProvider implements InfoProviderInterface
 
     /**
      * Converts the product status from the Digikey API to the manufacturing status used in Part-DB
-     * @param  string|null  $dk_status
+     * @param  int|null  $dk_status
      * @return ManufacturingStatus|null
      */
     private function productStatusToManufacturingStatus(?int $dk_status): ?ManufacturingStatus
@@ -277,7 +277,7 @@ class DigikeyProvider implements InfoProviderInterface
     }
 
     /**
-     * @param  array  $media_links
+     * @param  string  $id The Digikey product number, to get the media for
      * @return FileDTO[][]
      * @phpstan-return array<string, FileDTO[]>
      */
