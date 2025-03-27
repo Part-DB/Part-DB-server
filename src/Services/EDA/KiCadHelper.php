@@ -27,6 +27,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,6 +45,7 @@ class KiCadHelper
         private readonly EntityManagerInterface $em,
         private readonly ElementCacheTagGenerator $tagGenerator,
         private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
         /** The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
         private readonly int $category_depth,
@@ -108,6 +110,8 @@ class KiCadHelper
                 $result[] = [
                     'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
+                    //Show the category link as the category description, this also fixes an segfault in KiCad see issue #878
+                    'description' => $this->entityURLGenerator->listPartsURL($category),
                 ];
             }
 
