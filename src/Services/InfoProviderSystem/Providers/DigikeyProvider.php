@@ -108,12 +108,15 @@ class DigikeyProvider implements InfoProviderInterface
     {
         $request = [
             'Keywords' => $keyword,
-            'RecordCount' => 50,
-            'RecordStartPosition' => 0,
-            'ExcludeMarketPlaceProducts' => 'true',
+            'Limit' => 50,
+            'Offset' => 0,
+            'FilterOptionsRequest' => [
+                'MarketPlaceFilter' => 'ExcludeMarketPlace',
+            ],
         ];
 
-        $response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
+        //$response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
+        $response = $this->digikeyClient->request('POST', '/products/v4/search/keyword', [
             'json' => $request,
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
@@ -124,18 +127,21 @@ class DigikeyProvider implements InfoProviderInterface
         $result = [];
         $products = $response_array['Products'];
         foreach ($products as $product) {
-            $result[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: $product['DigiKeyPartNumber'],
-                name: $product['ManufacturerPartNumber'],
-                description: $product['DetailedDescription'] ?? $product['ProductDescription'],
-                category: $this->getCategoryString($product),
-                manufacturer: $product['Manufacturer']['Value'] ?? null,
-                mpn: $product['ManufacturerPartNumber'],
-                preview_image_url: $product['PrimaryPhoto'] ?? null,
-                manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']),
-                provider_url: $product['ProductUrl'],
-            );
+            foreach ($product['ProductVariations'] as $variation) {
+                $result[] = new SearchResultDTO(
+                    provider_key: $this->getProviderKey(),
+                    provider_id: $variation['DigiKeyProductNumber'],
+                    name: $product['ManufacturerProductNumber'],
+                    description: $product['Description']['DetailedDescription'] ?? $product['Description']['ProductDescription'],
+                    category: $this->getCategoryString($product),
+                    manufacturer: $product['Manufacturer']['Name'] ?? null,
+                    mpn: $product['ManufacturerProductNumber'],
+                    preview_image_url: $product['PhotoUrl'] ?? null,
+                    manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']['Id']),
+                    provider_url: $product['ProductUrl'],
+                    footprint: $variation['PackageType']['Name'], //Use the footprint field, to show the user the package type (Tape & Reel, etc., as digikey has many different package types)
+                );
+            }
         }
 
         return $result;
@@ -143,32 +149,42 @@ class DigikeyProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $response = $this->digikeyClient->request('GET', '/Search/v3/Products/' . urlencode($id), [
+        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
-        $product = $response->toArray();
+        $response_array = $response->toArray();
+        $product = $response_array['Product'];
 
         $footprint = null;
         $parameters = $this->parametersToDTOs($product['Parameters'] ?? [], $footprint);
-        $media = $this->mediaToDTOs($product['MediaLinks']);
+        $media = $this->mediaToDTOs($id);
+
+        // Get the price_breaks of the selected variation
+        $price_breaks = [];
+        foreach ($product['ProductVariations'] as $variation) {
+            if ($variation['DigiKeyProductNumber'] == $id) {
+                $price_breaks = $variation['StandardPricing'] ?? [];
+                break;
+            }
+        }
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
-            provider_id: $product['DigiKeyPartNumber'],
-            name: $product['ManufacturerPartNumber'],
-            description: $product['DetailedDescription'] ?? $product['ProductDescription'],
+            provider_id: $id,
+            name: $product['ManufacturerProductNumber'],
+            description: $product['Description']['DetailedDescription'] ?? $product['Description']['ProductDescription'],
             category: $this->getCategoryString($product),
-            manufacturer: $product['Manufacturer']['Value'] ?? null,
-            mpn: $product['ManufacturerPartNumber'],
-            preview_image_url: $product['PrimaryPhoto'] ?? null,
-            manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']),
+            manufacturer: $product['Manufacturer']['Name'] ?? null,
+            mpn: $product['ManufacturerProductNumber'],
+            preview_image_url: $product['PhotoUrl'] ?? null,
+            manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']['Id']),
             provider_url: $product['ProductUrl'],
             footprint: $footprint,
             datasheets: $media['datasheets'],
             images: $media['images'],
             parameters: $parameters,
-            vendor_infos: $this->pricingToDTOs($product['StandardPricing'] ?? [], $product['DigiKeyPartNumber'], $product['ProductUrl']),
+            vendor_infos: $this->pricingToDTOs($price_breaks, $id, $product['ProductUrl']),
         );
     }
 
@@ -177,28 +193,35 @@ class DigikeyProvider implements InfoProviderInterface
      * @param  string|null  $dk_status
      * @return ManufacturingStatus|null
      */
-    private function productStatusToManufacturingStatus(?string $dk_status): ?ManufacturingStatus
+    private function productStatusToManufacturingStatus(?int $dk_status): ?ManufacturingStatus
     {
+        // The V4 can use strings to get the status, but if you have changed the PROVIDER_DIGIKEY_LANGUAGE it will not match.
+        // Using the Id instead which should be fixed.
+        //
+        // The API is not well documented and the ID are not there yet, so were extracted using "trial and error".
+        // The 'Preliminary' id was not found in several categories so I was unable to extract it. Disabled for now.
         return match ($dk_status) {
             null => null,
-            'Active' => ManufacturingStatus::ACTIVE,
-            'Obsolete' => ManufacturingStatus::DISCONTINUED,
-            'Discontinued at Digi-Key', 'Last Time Buy' => ManufacturingStatus::EOL,
-            'Not For New Designs' => ManufacturingStatus::NRFND,
-            'Preliminary' => ManufacturingStatus::ANNOUNCED,
+            0 => ManufacturingStatus::ACTIVE,
+            1 => ManufacturingStatus::DISCONTINUED,
+            2, 4 => ManufacturingStatus::EOL,
+            7 => ManufacturingStatus::NRFND,
+            //'Preliminary' => ManufacturingStatus::ANNOUNCED,
             default => ManufacturingStatus::NOT_SET,
         };
     }
 
     private function getCategoryString(array $product): string
     {
-        $category = $product['Category']['Value'];
-        $sub_category = $product['Family']['Value'];
+        $category = $product['Category']['Name'];
+        $sub_category = current($product['Category']['ChildCategories']);
 
-        //Replace the  ' - ' category separator with ' -> '
-        $sub_category = str_replace(' - ', ' -> ', $sub_category);
+        if ($sub_category) {
+            //Replace the  ' - ' category separator with ' -> '
+            $category = $category . ' -> ' . str_replace(' - ', ' -> ', $sub_category["Name"]);
+        }
 
-        return $category . ' -> ' . $sub_category;
+        return $category;
     }
 
     /**
@@ -215,18 +238,18 @@ class DigikeyProvider implements InfoProviderInterface
 
         foreach ($parameters as $parameter) {
             if ($parameter['ParameterId'] === 1291) { //Meaning "Manufacturer given footprint"
-                $footprint_name = $parameter['Value'];
+                $footprint_name = $parameter['ValueText'];
             }
 
-            if (in_array(trim((string) $parameter['Value']), ['', '-'], true)) {
+            if (in_array(trim((string) $parameter['ValueText']), ['', '-'], true)) {
                 continue;
             }
 
             //If the parameter was marked as text only, then we do not try to parse it as a numerical value
             if (in_array($parameter['ParameterId'], self::TEXT_ONLY_PARAMETERS, true)) {
-                $results[] = new ParameterDTO(name: $parameter['Parameter'], value_text: $parameter['Value']);
+                $results[] = new ParameterDTO(name: $parameter['ParameterText'], value_text: $parameter['ValueText']);
             } else { //Otherwise try to parse it as a numerical value
-                $results[] = ParameterDTO::parseValueIncludingUnit($parameter['Parameter'], $parameter['Value']);
+                $results[] = ParameterDTO::parseValueIncludingUnit($parameter['ParameterText'], $parameter['ValueText']);
             }
         }
 
@@ -258,12 +281,18 @@ class DigikeyProvider implements InfoProviderInterface
      * @return FileDTO[][]
      * @phpstan-return array<string, FileDTO[]>
      */
-    private function mediaToDTOs(array $media_links): array
+    private function mediaToDTOs(string $id): array
     {
         $datasheets = [];
         $images = [];
 
-        foreach ($media_links as $media_link) {
+        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/media', [
+            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+        ]);
+
+        $media_array = $response->toArray();
+
+        foreach ($media_array['MediaLinks'] as $media_link) {
             $file = new FileDTO(url: $media_link['Url'], name: $media_link['Title']);
 
             switch ($media_link['MediaType']) {
