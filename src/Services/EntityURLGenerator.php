@@ -156,8 +156,10 @@ class EntityURLGenerator
 
     public function viewURL(Attachment $entity): string
     {
-        if ($entity->hasInternal()) {
-            return $this->attachmentURLGenerator->getInternalViewURL($entity);
+        //If the underlying file path is invalid, null gets returned, which is not allowed here.
+        //We still have the chance to use an external path, if it is set.
+        if ($entity->hasInternal() && ($url = $this->attachmentURLGenerator->getInternalViewURL($entity)) !== null) {
+            return $url;
         }
 
         if($entity->hasExternal()) {
