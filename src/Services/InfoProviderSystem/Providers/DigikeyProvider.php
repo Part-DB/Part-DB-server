@@ -139,6 +139,7 @@ class DigikeyProvider implements InfoProviderInterface
                     preview_image_url: $product['PhotoUrl'] ?? null,
                     manufacturing_status: $this->productStatusToManufacturingStatus($product['ProductStatus']['Id']),
                     provider_url: $product['ProductUrl'],
+                    footprint: $variation['PackageType']['Name'], //Use the footprint field, to show the user the package type (Tape & Reel, etc., as digikey has many different package types)
                 );
             }
         }
