@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use Composer\CaBundle\CaBundle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface
@@ -43,9 +44,19 @@ class Element14Provider implements InfoProviderInterface
     private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
-    public function __construct(private readonly HttpClientInterface $element14Client, private readonly string $api_key, private readonly string $store_id)
-    {
+    private readonly HttpClientInterface $element14Client;
 
+    public function __construct(HttpClientInterface $element14Client, private readonly string $api_key, private readonly string $store_id)
+    {
+        /* We use the mozilla CA from the composer ca bundle directly, as some debian systems seems to have problems
+         * with the SSL.COM CA, element14 uses. See https://github.com/Part-DB/Part-DB-server/issues/866
+         *
+         * This is a workaround until the issue is resolved in debian (or never).
+         * As this only affects this provider, this should have no negative impact and the CA bundle is still secure.
+         */
+        $this->element14Client = $element14Client->withOptions([
+            'cafile' => CaBundle::getBundledCaBundlePath(),
+        ]);
     }
 
     public function getProviderInfo(): array
