@@ -208,7 +208,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      */
     #[Groups(['parameter:read', 'full'])]
     #[SerializedName('formatted')]
-    public function getFormattedValue(): string
+    public function getFormattedValue(bool $latex_formatted = false): string
     {
         //If we just only have text value, return early
         if (null === $this->value_typical && null === $this->value_min && null === $this->value_max) {
@@ -218,7 +218,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         $str = '';
         $bracket_opened = false;
         if ($this->value_typical) {
-            $str .= $this->getValueTypicalWithUnit();
+            $str .= $this->getValueTypicalWithUnit($latex_formatted);
             if ($this->value_min || $this->value_max) {
                 $bracket_opened = true;
                 $str .= ' (';
@@ -226,11 +226,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         }
 
         if ($this->value_max && $this->value_min) {
-            $str .= $this->getValueMinWithUnit().' ... '.$this->getValueMaxWithUnit();
+            $str .= $this->getValueMinWithUnit($latex_formatted).' ... '.$this->getValueMaxWithUnit($latex_formatted);
         } elseif ($this->value_max) {
-            $str .= 'max. '.$this->getValueMaxWithUnit();
+            $str .= 'max. '.$this->getValueMaxWithUnit($latex_formatted);
         } elseif ($this->value_min) {
-            $str .= 'min. '.$this->getValueMinWithUnit();
+            $str .= 'min. '.$this->getValueMinWithUnit($latex_formatted);
         }
 
         //Add closing bracket
@@ -344,25 +344,25 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * Return a formatted version with the minimum value with the unit of this parameter.
      */
-    public function getValueTypicalWithUnit(): string
+    public function getValueTypicalWithUnit(bool $with_latex = false): string
     {
-        return $this->formatWithUnit($this->value_typical);
+        return $this->formatWithUnit($this->value_typical, with_latex: $with_latex);
     }
 
     /**
      * Return a formatted version with the maximum value with the unit of this parameter.
      */
-    public function getValueMaxWithUnit(): string
+    public function getValueMaxWithUnit(bool $with_latex = false): string
     {
-        return $this->formatWithUnit($this->value_max);
+        return $this->formatWithUnit($this->value_max, with_latex: $with_latex);
     }
 
     /**
      * Return a formatted version with the typical value with the unit of this parameter.
      */
-    public function getValueMinWithUnit(): string
+    public function getValueMinWithUnit(bool $with_latex = false): string
     {
-        return $this->formatWithUnit($this->value_min);
+        return $this->formatWithUnit($this->value_min, with_latex: $with_latex);
     }
 
     /**
@@ -441,11 +441,18 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * Return a string representation and (if possible) with its unit.
      */
-    protected function formatWithUnit(float $value, string $format = '%g'): string
+    protected function formatWithUnit(float $value, string $format = '%g', bool $with_latex = false): string
     {
         $str = sprintf($format, $value);
         if ($this->unit !== '') {
-            return $str.' '.$this->unit;
+
+            if (!$with_latex) {
+                $unit = $this->unit;
+            } else {
+                $unit = '$\mathrm{'.$this->unit.'}$';
+            }
+
+            return $str.' '.$unit;
         }
 
         return $str;
