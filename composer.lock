@@ -15407,16 +15407,16 @@
         },
         {
             "name": "jbtronics/translation-editor-bundle",
-            "version": "v1.1",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/translation-editor-bundle.git",
-                "reference": "6999bf8ccd7311bb50136fdd6781f46275b4ab72"
+                "reference": "fa003c38f3f61060a368734b91aeb40d788b0825"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/6999bf8ccd7311bb50136fdd6781f46275b4ab72",
-                "reference": "6999bf8ccd7311bb50136fdd6781f46275b4ab72",
+                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/fa003c38f3f61060a368734b91aeb40d788b0825",
+                "reference": "fa003c38f3f61060a368734b91aeb40d788b0825",
                 "shasum": ""
             },
             "require": {
@@ -15461,7 +15461,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/translation-editor-bundle/issues",
-                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.1"
+                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.1.1"
             },
             "funding": [
                 {
@@ -15473,7 +15473,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-22T17:18:12+00:00"
+            "time": "2025-03-29T15:14:31+00:00"
         },
         {
             "name": "myclabs/deep-copy",
