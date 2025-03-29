@@ -71,3 +71,9 @@ docker exec --user=www-data partdb php bin/console cache:clear
 
 * `php bin/console doctrine:migrations:migrate`: Migrate the database to the latest version
 * `php bin/console doctrine:migrations:up-to-date`: Check if the database is up-to-date
+
+## Attachment commands
+
+* `php bin/console partdb:attachments:download`: Download all attachments, which are not already downloaded, to the
+  local filesystem. This is useful to create local backups of the attachments, no matter what happens on the remote and
+ also makes pictures thumbnails available for the frontend for them
