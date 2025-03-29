@@ -22,7 +22,7 @@ final class Version20250220215048 extends AbstractMigration
 
         //Copy the data from path to external_path and remove the path column
         $this->addSql('UPDATE attachments SET external_path=path');
-        $this->addSql('ALTER TABLE attachments DROP path');
+        $this->addSql('ALTER TABLE attachments DROP COLUMN path');
 
 
         $this->addSql('UPDATE attachments SET internal_path=external_path WHERE external_path LIKE \'#%MEDIA#%%\' ESCAPE \'#\'');
@@ -36,7 +36,7 @@ final class Version20250220215048 extends AbstractMigration
     public function down(Schema $schema): void
     {
         $this->addSql('UPDATE attachments SET external_path=internal_path WHERE internal_path IS NOT NULL');
-        $this->addSql('ALTER TABLE attachments DROP internal_path');
+        $this->addSql('ALTER TABLE attachments DROP COLUMN internal_path');
         $this->addSql('ALTER TABLE attachments RENAME COLUMN external_path TO path');
     }
 }
