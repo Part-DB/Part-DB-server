@@ -66,6 +66,10 @@ class KiCadHelper
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
             $item->tag($secure_class_name);
 
+            //Invalidate the cache on part changes (as the visibility depends on parts, and the parts can change)
+            $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Part::class);
+            $item->tag($secure_class_name);
+
             //If the category depth is smaller than 0, create only one dummy category
             if ($this->category_depth < 0) {
                 return [
