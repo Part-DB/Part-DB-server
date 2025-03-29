@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Services\Parts;
 
+use App\Entity\Parts\StorageLocation;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -35,6 +36,9 @@ use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\Translation\TranslatableInterface;
+
+use function Symfony\Component\Translation\t;
 
 final class PartsTableActionHandler
 {
@@ -61,8 +65,9 @@ final class PartsTableActionHandler
     /**
      * @param Part[] $selected_parts
      * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
+     * @phpstan-param-out array<array{'part': Part, 'message': string|TranslatableInterface}> $errors
      */
-    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null): ?RedirectResponse
+    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
         if ($action === 'add_to_project') {
             return new RedirectResponse(
@@ -160,6 +165,29 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 case 'change_unit':
                     $this->denyAccessUnlessGranted('@measurement_units.read');
                     $part->setPartUnit(null === $target_id ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
+                    break;
+                case 'change_location':
+                    $this->denyAccessUnlessGranted('@storelocations.read');
+                    //Retrieve the first part lot and set the location for it
+                    $part_lots = $part->getPartLots();
+                    if ($part_lots->count() > 0) {
+                        if ($part_lots->count() > 1) {
+                            $errors[] = [
+                                'part' => $part,
+                                'message' => t('parts.table.action_handler.error.part_lots_multiple'),
+                            ];
+                            break;
+                        }
+
+                        $part_lot = $part_lots->first();
+                        $part_lot->setStorageLocation(null === $target_id ? null : $this->entityManager->find(StorageLocation::class, $target_id));
+                    } else { //Create a new part lot if there are none
+                        $part_lot = new PartLot();
+                        $part_lot->setPart($part);
+                        $part_lot->setInstockUnknown(true); //We do not know how many parts are in stock, so we set it to true
+                        $part_lot->setStorageLocation(null === $target_id ? null : $this->entityManager->find(StorageLocation::class, $target_id));
+                        $this->entityManager->persist($part_lot);
+                    }
                     break;
 
                 default:

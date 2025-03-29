@@ -29,6 +29,7 @@ use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Exceptions\InvalidRegexException;
@@ -43,7 +44,10 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
@@ -71,13 +75,32 @@ class PartListsController extends AbstractController
         if (null === $action || null === $ids) {
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
+            $errors = [];
+
             $parts = $actionHandler->idStringToArray($ids);
-            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect);
+            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect, $errors);
 
             //Save changes
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'part.table.actions.success');
+            if (count($errors) === 0) {
+                $this->addFlash('success', 'part.table.actions.success');
+            } else {
+                $this->addFlash('error', t('part.table.actions.error', ['%count%' => count($errors)]));
+                //Create a flash message for each error
+                foreach ($errors as $error) {
+                    /** @var Part $part */
+                    $part = $error['part'];
+
+                    $this->addFlash('error',
+                        t('part.table.actions.error_detail', [
+                            '%part_name%' => $part->getName(),
+                            '%part_id%' => $part->getID(),
+                            '%message%' => $error['message']
+                        ])
+                    );
+                }
+            }
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
