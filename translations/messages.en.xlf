@@ -12360,7 +12360,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="4wpp6h." name="part_list.action.action.change_location">
       <segment state="translated">
         <source>part_list.action.action.change_location</source>
-        <target>Change location (only for parts with single lot)</target>
+        <target>Change location (only for parts with single stock)</target>
       </segment>
     </unit>
     <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
