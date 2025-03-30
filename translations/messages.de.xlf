@@ -12341,5 +12341,29 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Externe Version anzeigen</target>
       </segment>
     </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Es traten %count% Fehler bei der Aktion auf!</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Lagerort ändern (nur für Bauteile mit einzelnem Bestand)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Dieses Bauteil enthält mehr als einen Bestand. Ändere den Lagerort bei Hand, um auszuwählen, welcher Bestand geändert werden soll.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
