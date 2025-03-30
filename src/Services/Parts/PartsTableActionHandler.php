@@ -65,7 +65,7 @@ final class PartsTableActionHandler
     /**
      * @param Part[] $selected_parts
      * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
-     * @phpstan-param-out array<array{'part': Part, 'message': string|TranslatableInterface}> $errors
+     * //@param-out list<array{'part': Part, 'message': string|TranslatableInterface}>|array<void> $errors
      */
     public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
