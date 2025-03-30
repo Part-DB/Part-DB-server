@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\WebDriverDimension;
@@ -164,6 +166,30 @@ class AliexpressProvider implements InfoProviderInterface
         //Remove any script tags. This is just to prevent any weird output in the notes field, this is not really a security measure
         $description = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $description);
 
+        //Find price
+        $dom = $client->waitFor('span.product-price-value');
+        $price_str = $dom->filter('span.product-price-value')->text();
+        //Try to extract the price from the text
+        $matches = [];
+        preg_match('/([\d,\.]+)/', $price_str, $matches);
+
+        //Try to parse the price as a float
+        $price = str_replace(',', '.', $matches[1] ?? '0');
+
+        $client->quit();
+
+        $price = new PriceDTO(
+            minimum_discount_amount: 1,
+            price: $price,
+            currency_iso_code: "EUR"
+        );
+
+        $vendor_info = new PurchaseInfoDTO(
+            distributor_name: "Aliexpress",
+            order_number: $id,
+            prices: [$price],
+            product_url: $product_page
+        );
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
@@ -172,6 +198,7 @@ class AliexpressProvider implements InfoProviderInterface
             description: "",
             provider_url: $product_page,
             notes: $description,
+            vendor_infos: [$vendor_info]
         );
     }
 
