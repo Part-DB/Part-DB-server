@@ -2476,5 +2476,71 @@
         <target>%name% (Το συνώνυμό σας: %synonym%)</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Πρόθεμα εξαρτήματος IPN</target>
+      </segment>
+    </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>π.χ. "B12A"</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Μια προτεινόμενη πρόθεμα κατά την εισαγωγή του IPN ενός τμήματος.</target>
+      </segment>
+    </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Προτάσεις χωρίς αύξηση μέρους</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Προτάσεις με αριθμητικές αυξήσεις μερών</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Το IPN πρόθεμα της άμεσης κατηγορίας είναι κενό, καθορίστε το στην κατηγορία "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Πρόθεμα IPN για την άμεση κατηγορία</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Πρόθεμα IPN της άμεσης κατηγορίας και μιας ειδικής για μέρος αύξησης</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>Προθέματα IPN με ιεραρχική σειρά κατηγοριών των προθέτων γονέων</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>Προθέματα IPN με ιεραρχική σειρά κατηγοριών των προθέτων γονέων και συγκεκριμένη αύξηση για το μέρος</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Δημιουργήστε πρώτα ένα εξάρτημα και αντιστοιχίστε το σε μια κατηγορία: με τις υπάρχουσες κατηγορίες και τα δικά τους προθέματα IPN, η ονομασία IPN για το εξάρτημα μπορεί να προταθεί αυτόματα</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

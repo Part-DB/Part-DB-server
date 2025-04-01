@@ -263,6 +263,30 @@ services:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
 
+    App\Controller\PartController:
+        bind:
+            $autocompletePartDigits: '%partdb.autocomplete_part_digits%'
+
+    App\Controller\TypeaheadController:
+        bind:
+            $autocompletePartDigits: '%partdb.autocomplete_part_digits%'
+
+    App\Repository\PartRepository:
+        arguments:
+            $translator: '@translator'
+        tags: ['doctrine.repository_service']
+
+    App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
+        arguments:
+            $enforceUniqueIpn: '%partdb.users.enforce_unique_ipn%'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    App\Validator\Constraints\UniquePartIpnValidator:
+        arguments:
+            $enforceUniqueIpn: '%partdb.users.enforce_unique_ipn%'
+        tags: [ 'validator.constraint_validator' ]
+
     # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
         public: true

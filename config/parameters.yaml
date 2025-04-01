@@ -9,6 +9,8 @@ parameters:
   # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
   partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh', 'pl']    # The languages that are shown in user drop down menu
+  partdb.enforce_change_comments_for: '%env(csv:ENFORCE_CHANGE_COMMENTS_FOR)%'        # The actions for which a change comment is required (e.g. "part_edit", "part_create", etc.). If this is empty, change comments are not required at all.
+  partdb.autocomplete_part_digits: '%env(trim:string:AUTOCOMPLETE_PART_DIGITS)%'      # The number of digits used for the incremental numbering of parts in the IPN (Internal Part Number) autocomplete system.
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
 
@@ -35,6 +37,7 @@ parameters:
   ######################################################################################################################
   partdb.gdpr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GDPR compliant
   partdb.users.email_pw_reset: '%env(bool:ALLOW_EMAIL_PW_RESET)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
+  partdb.users.enforce_unique_ipn: '%env(bool:ENFORCE_UNIQUE_IPN)%' # Config if users are able, to enter an already available IPN. In this case a unique increment is appended to the user input.
 
   ######################################################################################################################
   # Mail settings
