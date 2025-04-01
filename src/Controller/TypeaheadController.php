@@ -69,7 +69,8 @@ class TypeaheadController extends AbstractController
     public function __construct(
         protected AttachmentURLGenerator $urlGenerator,
         protected Packages $assets,
-        protected TranslatorInterface $translator
+        protected TranslatorInterface $translator,
+        protected int $autocompletePartDigits,
     ) {
     }
 
@@ -270,5 +271,29 @@ class TypeaheadController extends AbstractController
         $data = $serializer->serialize($array, 'json');
 
         return new JsonResponse($data, Response::HTTP_OK, [], true);
+    }
+
+    #[Route(path: '/parts/ipn-suggestions', name: 'ipn_suggestions', methods: ['GET'])]
+    public function ipnSuggestions(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+        $partId = $request->query->get('partId');
+        if ($partId === '0' || $partId === 'undefined' || $partId === 'null') {
+            $partId = null;
+        }
+        $categoryId = $request->query->getInt('categoryId');
+
+        /** @var Part $part */
+        $part = $partId !== null ? $entityManager->getRepository(Part::class)->find($partId) : new Part();
+        $category = $entityManager->getRepository(Category::class)->find($categoryId);
+
+        $clonedPart = clone $part;
+        $clonedPart->setCategory($category);
+
+        $partRepository = $entityManager->getRepository(Part::class);
+        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $this->autocompletePartDigits);
+
+        return new JsonResponse($ipnSuggestions);
     }
 }

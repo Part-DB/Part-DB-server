@@ -68,12 +68,16 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/part')]
 class PartController extends AbstractController
 {
-    public function __construct(protected PricedetailHelper $pricedetailHelper,
+    public function __construct(
+        protected PricedetailHelper $pricedetailHelper,
         protected PartPreviewGenerator $partPreviewGenerator,
         private readonly TranslatorInterface $translator,
-        private readonly AttachmentSubmitHandler $attachmentSubmitHandler, private readonly EntityManagerInterface $em,
-        protected EventCommentHelper $commentHelper, private readonly PartInfoSettings $partInfoSettings)
-    {
+        private readonly AttachmentSubmitHandler $attachmentSubmitHandler,
+        private readonly EntityManagerInterface $em,
+        protected EventCommentHelper $commentHelper,
+        private readonly PartInfoSettings $partInfoSettings,
+        private readonly int $autocompletePartDigits
+    ) {
     }
 
     /**
@@ -385,15 +389,17 @@ class PartController extends AbstractController
             $template = 'parts/edit/update_from_ip.html.twig';
         }
 
+        $partRepository = $this->em->getRepository(Part::class);
+
         return $this->render($template,
             [
                 'part' => $new_part,
+                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, $this->autocompletePartDigits),
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
                 'merge_other' => $merge_infos['other_part'] ?? null
             ]);
     }
-
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response

@@ -116,6 +116,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
+* `AUTOCOMPLETE_PART_DIGITS`: Defines the fixed number of digits used as the increment at the end of an IPN (Internal Part Number). 
+  IPN prefixes, maintained within part categories and their hierarchy, form the foundation for suggesting complete IPNs. 
+  These suggestions become accessible during IPN input of a part. The constant specifies the digits used to calculate and assign 
+  unique increments for parts within a category hierarchy, ensuring consistency and uniqueness in IPN generation.
 
 ### E-Mail settings (all env only)
 
@@ -128,6 +132,8 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   sent from.
 * `ALLOW_EMAIL_PW_RESET`: Set this value to true, if you want to allow users to reset their password via an email
   notification. You have to configure the mail provider first before via the MAILER_DSN setting.
+* `ENFORCE_UNIQUE_IPN`: Set this value to false, if you want to allow users to enter a already available IPN for a part entry.
+  In this case a unique increment is appended to the user input.
 
 ### Table related settings
 

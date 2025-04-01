@@ -104,6 +104,9 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 //Do not require category for new parts, so that the user must select the category by hand and cannot forget it (the requirement is handled by the constraint in the entity)
                 'required' => !$new_part,
+                'attr' => [
+                    'data-ipn-suggestion' => 'categoryField',
+                ]
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
@@ -175,6 +178,11 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'empty_data' => null,
                 'label' => 'part.edit.ipn',
+                'attr' => [
+                    'class' => 'ipn-suggestion-field',
+                    'data-elements--ipn-suggestion-target' => 'input',
+                    'autocomplete' => 'off',
+                ]
             ]);
 
         //Comment section
