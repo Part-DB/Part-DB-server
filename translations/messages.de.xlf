@@ -1841,6 +1841,54 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Erweiterte Optionen</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Vorschläge ohne Teil-Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Vorschläge mit numerischen Teil-Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>IPN-Präfix der direkten Kategorie leer, geben Sie einen Präfix in Kategorie "%name%" an</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN-Präfix der direkten Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN-Präfix der direkten Kategorie und eines teilspezifischen Inkrements</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe und ein teilsspezifisches Inkrement</target>
+      </segment>
+    </unit>
+     <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Bitte erstellen Sie zuerst ein Bauteil und weisen Sie dieses einer Kategorie zu: mit vorhandenen Kategorien und derene eigenen IPN-Präfix kann die IPN-Angabe für das jeweilige Teil automatisch vorgeschlagen werden</target>
+      </segment>
+    </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6958,6 +7006,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Namensfilter</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Bauteil IPN-Präfix</target>
+      </segment>
+    </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -10328,10 +10382,22 @@ Element 1 -&gt; Element 1.2</target>
         <target>z.B. "/Kondensator \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>z.B. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Ein PCRE-kompatibler regulärer Ausdruck, den der Bauteilename erfüllen muss.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Ein Präfix, der bei der IPN-Eingabe eines Bauteils vorgeschlagen wird.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">

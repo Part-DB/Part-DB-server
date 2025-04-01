@@ -1820,6 +1820,54 @@ Show/Hide sidebar</target>
         <target>Avancé</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Suggestions sans incrément de partie</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Propositions avec incréments numériques de parties</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Le préfixe IPN de la catégorie directe est vide, veuillez le spécifier dans la catégorie "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Préfixe IPN de la catégorie directe</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Préfixe IPN de la catégorie directe et d'un incrément spécifique à la partie</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>Préfixes IPN avec un ordre hiérarchique des catégories des préfixes parents</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>Préfixes IPN avec un ordre hiérarchique des catégories des préfixes parents et un incrément spécifique à la pièce</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Créez d'abord une pièce et assignez-la à une catégorie : avec les catégories existantes et leurs propres préfixes IPN, l'identifiant IPN pour la pièce peut être proposé automatiquement</target>
+      </segment>
+    </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6900,6 +6948,12 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Filtre de nom</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Préfixe de pièce IPN</target>
+      </segment>
+    </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -6947,7 +7001,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>company.edit.address.placeholder</source>
-        <target>Ex. 99 exemple de rue 
+        <target>Ex. 99 exemple de rue
 exemple de ville</target>
       </segment>
     </unit>
@@ -9095,6 +9149,18 @@ exemple de ville</target>
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>par ex. "B12A"</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Un préfixe suggéré lors de la saisie de l'IPN d'une pièce.</target>
       </segment>
     </unit>
   </file>

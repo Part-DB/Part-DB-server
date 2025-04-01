@@ -1842,6 +1842,54 @@ Sub elements will be moved upwards.</target>
         <target>Advanced</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Suggestions without part increment</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Suggestions with numeric part increment</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>IPN prefix of direct category empty, specify one in category "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN prefix of direct category</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN prefix of direct category and part-specific increment</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN prefixes with hierarchical category order of parent-prefix(es)</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN prefixes with hierarchical category order of parent-prefix(es) and part-specific increment</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Please create part at first and assign it to a category: with existing categories and their own IPN prefix, the IPN for the part can be suggested automatically</target>
+      </segment>
+    </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6959,6 +7007,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Name filter</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Part IPN Prefix</target>
+      </segment>
+    </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -10329,10 +10383,22 @@ Element 1 -&gt; Element 1.2</target>
         <target>e.g "/Capacitor \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>e.g "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>A PCRE-compatible regular expression, which a part name have to match.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>A prefix suggested when entering the IPN of a part.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">

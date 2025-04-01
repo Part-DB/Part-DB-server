@@ -1850,6 +1850,54 @@ Underelementer vil blive flyttet opad.</target>
         <target>Advanceret</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Forslag uden del-inkrement</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Forslag med numeriske deleforøgelser</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>IPN-præfikset for den direkte kategori er tomt, angiv det i kategorien "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN-præfiks for direkte kategori</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN-præfiks for den direkte kategori og en delspecifik inkrement</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-præfikser med hierarkisk rækkefølge af overordnede præfikser</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-præfikser med hierarkisk rækkefølge af overordnede præfikser og en del-specifik inkrement</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Opret først en komponent, og tildel den en kategori: med eksisterende kategorier og deres egne IPN-præfikser kan IPN-betegnelsen for komponenten foreslås automatisk</target>
+      </segment>
+    </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6966,6 +7014,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Navnefilter</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>IPN-komponentförstavelse</target>
+      </segment>
+    </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -10280,10 +10334,22 @@ Element 3</target>
         <target>f.eks. "/Kondensator \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>f.eks. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="QFgP__5" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Et PCRE-kompatibelt regulært udtryk, som delnavnet skal opfylde.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Et prefix foreslået, når IPN for en del indtastes.</target>
       </segment>
     </unit>
     <unit id="vr7oZKL" name="entity.select.add_hint">

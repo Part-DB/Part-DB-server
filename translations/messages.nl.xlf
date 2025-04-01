@@ -724,5 +724,71 @@
         <target>Weet u zeker dat u wilt doorgaan?</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>IPN-voorvoegsel van onderdeel</target>
+      </segment>
+    </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>bijv. "B12A"</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Een voorgesteld voorvoegsel bij het invoeren van de IPN van een onderdeel.</target>
+      </segment>
+    </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Suggesties zonder toename van onderdelen</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Suggesties met numerieke verhogingen van onderdelen</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Het IPN-prefix van de directe categorie is leeg, geef het op in de categorie "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN-prefix van de directe categorie</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN-voorvoegsel van de directe categorie en een onderdeel specifiek increment</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-prefixen met een hiërarchische volgorde van hoofdcategorieën</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-prefixen met een hiërarchische volgorde van hoofdcategorieën en een specifieke toename voor het onderdeel</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Maak eerst een component en wijs het toe aan een categorie: met de bestaande categorieën en hun eigen IPN-prefixen kan de IPN voor het component automatisch worden voorgesteld</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

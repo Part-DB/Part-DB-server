@@ -22,17 +22,31 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends NamedDBElementRepository<Part>
  */
 class PartRepository extends NamedDBElementRepository
 {
+    private TranslatorInterface $translator;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        TranslatorInterface $translator
+    ) {
+        parent::__construct($em, $em->getClassMetadata(Part::class));
+
+        $this->translator = $translator;
+    }
+
     /**
      * Gets the summed up instock of all parts (only parts without a measurement unit).
      *
@@ -93,5 +107,110 @@ class PartRepository extends NamedDBElementRepository
         $qb->orderBy('NATSORT(part.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function autoCompleteIpn(Part $part, int $autocompletePartDigits): array
+    {
+        $category = $part->getCategory();
+        $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
+
+        // Validate the category and ensure it's an instance of Category
+        if ($category instanceof Category) {
+            $currentPath = $category->getPartIpnPrefix();
+            $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
+            $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
+
+            $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $autocompletePartDigits);
+
+            $ipnSuggestions['commonPrefixes'][] = [
+                'title' => $currentPath . '-',
+                'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category')
+            ];
+
+            $ipnSuggestions['prefixesPartIncrement'][] = [
+                'title' => $currentPath . '-' . $increment,
+                'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category.increment')
+            ];
+
+            // Process parent categories
+            $parentCategory = $category->getParent();
+
+            while ($parentCategory instanceof Category) {
+                // Prepend the parent category's prefix to the current path
+                $currentPath = $parentCategory->getPartIpnPrefix() . '-' . $currentPath;
+                $currentPath = $parentCategory->getPartIpnPrefix() === '' ? 'n.a.-' . $currentPath : $currentPath;
+
+                $ipnSuggestions['commonPrefixes'][] = [
+                    'title' => $currentPath . '-',
+                    'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment')
+                ];
+
+                $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $autocompletePartDigits);
+
+                $ipnSuggestions['prefixesPartIncrement'][] = [
+                    'title' => $currentPath . '-' . $increment,
+                    'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.increment')
+                ];
+
+                // Move to the next parent category
+                $parentCategory = $parentCategory->getParent();
+            }
+        } elseif ($part->getID() === null) {
+            $ipnSuggestions['commonPrefixes'][] = [
+                'title' => 'n.a.',
+                'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.not_saved')
+            ];
+        }
+
+        return $ipnSuggestions;
+    }
+
+    public function generateNextPossiblePartIncrement(string $currentPath, Part $currentPart, int $autocompletePartDigits): string
+    {
+        $qb = $this->createQueryBuilder('part');
+
+        $expectedLength = strlen($currentPath) + 1 + $autocompletePartDigits; // Path + '-' + $autocompletePartDigits digits
+
+        // Fetch all parts in the given category, sorted by their ID in ascending order
+        $qb->select('part')
+            ->where('part.ipn LIKE :ipnPattern')
+            ->andWhere('LENGTH(part.ipn) = :expectedLength')
+            ->setParameter('ipnPattern', $currentPath . '%')
+            ->setParameter('expectedLength', $expectedLength)
+            ->orderBy('part.id', 'ASC');
+
+        $parts = $qb->getQuery()->getResult();
+
+        // Collect all used increments in the category
+        $usedIncrements = [];
+        foreach ($parts as $part) {
+            if ($part->getIpn() === null || $part->getIpn() === '') {
+                continue;
+            }
+
+            if ($part->getId() === $currentPart->getId()) {
+                // Extract and return the current part's increment directly
+                $incrementPart = substr($part->getIpn(), -$autocompletePartDigits);
+                if (is_numeric($incrementPart)) {
+                    return str_pad((string) $incrementPart, $autocompletePartDigits, '0', STR_PAD_LEFT);
+                }
+            }
+
+            // Extract last $autocompletePartDigits digits for possible available part increment
+            $incrementPart = substr($part->getIpn(), -$autocompletePartDigits);
+            if (is_numeric($incrementPart)) {
+                $usedIncrements[] = (int) $incrementPart;
+            }
+
+        }
+
+        // Generate the next free $autocompletePartDigits-digit increment
+        $nextIncrement = 1; // Start at the beginning
+
+        while (in_array($nextIncrement, $usedIncrements)) {
+            $nextIncrement++;
+        }
+
+        return str_pad((string) $nextIncrement, $autocompletePartDigits, '0', STR_PAD_LEFT);
     }
 }

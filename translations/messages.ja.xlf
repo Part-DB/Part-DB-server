@@ -1820,6 +1820,54 @@
         <target>詳細</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>部品の増加なしの提案。</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>パーツの数値インクリメントを含む提案</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>直接カテゴリの IPN プレフィックスが空です。「%name%」カテゴリで指定してください</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>直接カテゴリのIPNプレフィックス</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>直接カテゴリのIPNプレフィックスと部品特有のインクリメント</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>親プレフィックスの階層カテゴリ順のIPNプレフィックス</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>親プレフィックスの階層カテゴリ順とパーツ固有の増分のIPNプレフィックス</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>まずはコンポーネントを作成し、それをカテゴリに割り当ててください：既存のカテゴリとそれぞれのIPNプレフィックスを基に、コンポーネントのIPNを自動的に提案できます</target>
+      </segment>
+    </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6901,6 +6949,12 @@
         <target>名前のフィルター</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>部品 IPN 接頭辞</target>
+      </segment>
+    </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -8832,6 +8886,18 @@ Exampletown</target>
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
+      </segment>
+    </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>例: "B12A"</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>部品のIPN入力時に提案される接頭辞。</target>
       </segment>
     </unit>
   </file>

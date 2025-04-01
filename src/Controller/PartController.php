@@ -74,6 +74,7 @@ final class PartController extends AbstractController
         private readonly EntityManagerInterface $em,
         private readonly EventCommentHelper $commentHelper,
         private readonly PartInfoSettings $partInfoSettings,
+        private readonly int $autocompletePartDigits,
     ) {
     }
 
@@ -444,10 +445,13 @@ final class PartController extends AbstractController
             $template = 'parts/edit/update_from_ip.html.twig';
         }
 
+        $partRepository = $this->em->getRepository(Part::class);
+
         return $this->render(
             $template,
             [
                 'part' => $new_part,
+                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, $this->autocompletePartDigits),
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
                 'merge_other' => $merge_infos['other_part'] ?? null,
@@ -456,7 +460,6 @@ final class PartController extends AbstractController
             ]
         );
     }
-
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response

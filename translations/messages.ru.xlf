@@ -1850,6 +1850,54 @@
         <target>Расширенные</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Предложения без увеличения частей.</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Предложения с числовыми приращениями частей</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Префикс IPN для прямой категории пуст, укажите его в категории «%name%».</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Префикс IPN для прямой категории</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Префикс IPN прямой категории и специфическое для части приращение</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов и специфическим увеличением для компонента</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Сначала создайте компонент и назначьте ему категорию: на основе существующих категорий и их собственных IPN-префиксов идентификатор IPN для компонента может быть предложен автоматически</target>
+      </segment>
+    </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -6970,6 +7018,12 @@
         <target>Фильтр по имени</target>
       </segment>
     </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Префикс IPN детали</target>
+      </segment>
+    </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
       <notes>
         <note priority="1">obsolete</note>
@@ -10281,10 +10335,22 @@
         <target>e.g "/Конденсатор \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>e.g "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>PCRE-совместимое регулярное выражение которому должно соответствовать имя компонента.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Предлагаемый префикс при вводе IPN детали.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
