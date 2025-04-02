@@ -71,7 +71,6 @@ class AssemblySelectType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             'class' => Assembly::class,
             'choice_label' => 'name',
-            'placeholder' => 'None',
             'compound' => true,
             'error_bubbling' => false,
         ]);

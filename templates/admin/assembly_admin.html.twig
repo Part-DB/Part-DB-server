@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block additional_pills %}
-    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#bom">BOM</a></li>
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#part">{% trans %}assembly_bom_entry.label{% endtrans %}</a></li>
 {% endblock %}
 
 {% block quick_links %}
@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block additional_panes %}
-    <div class="tab-pane" id="bom">
+    <div class="tab-pane" id="part">
         {% form_theme form.bom_entries with ['form/collection_types_layout_assembly.html.twig'] %}
         {{ form_errors(form.bom_entries) }}
         {{ form_widget(form.bom_entries) }}
