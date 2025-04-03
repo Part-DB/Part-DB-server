@@ -12803,56 +12803,56 @@ Element 3</target>
             </target>
         </segment>
     </unit>
-    <unit id="translationUnit13" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>字段</th>
-                        <th>条件</th>
-                        <th>数据类型</th>
-                        <th>描述</th>
-                    </tr>
+                        <tr>
+                            <th>字段</th>
+                            <th>条件</th>
+                            <th>数据类型</th>
+                            <th>描述</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ID</td>
+                            <td>Id</td>
                             <td>可选</td>
                             <td>整数</td>
-                            <td>自由格式字段。每个组件的唯一标识号。</td>
+                            <td>自由字段。每个组件的唯一标识号。</td>
                         </tr>
                         <tr>
-                            <td>设计ator</td>
+                            <td>Designator</td>
                             <td>可选</td>
                             <td>字符串</td>
-                            <td>自由格式字段。PCB上组件的唯一参考标识符，例如电阻1的"R1"。用于命名组件组中的位置。</td>
+                            <td>自由字段。PCB上组件的唯一参考标识符，例如电阻 "R1"。<br>用于装配部件条目中的位置名称。</td>
                         </tr>
                         <tr>
-                            <td>封装</td>
+                            <td>Package</td>
                             <td>可选</td>
                             <td>字符串</td>
-                            <td>自由格式字段。组件的封装类型或形式因子，例如对于SMD电阻"0805"。</td>
+                            <td>自由字段。组件的封装类型或外形规格，例如表面贴装电阻器 "0805"。<br>不包含在装配部件条目信息中。</td>
                         </tr>
                         <tr>
-                            <td>数量</td>
+                            <td>Quantity</td>
                             <td>必填</td>
                             <td>整数</td>
-                            <td>创建一个组装实例所需的相同组件的数量。</td>
+                            <td>创建一个装配实例所需的相同部件的数量。<br>用于装配部件条目中的数量。</td>
                         </tr>
                         <tr>
-                            <td>描述</td>
+                            <td>Designation</td>
                             <td>必填</td>
                             <td>字符串</td>
-                            <td>组件的描述或功能，例如电阻值"10kΩ"或电容值"100nF"。在物料清单（BOM）条目中用作名称。</td>
+                            <td>组件的描述或功能，例如电阻的值 "10kΩ" 或电容的值 "100nF"。<br>用于装配部件条目中的名称。</td>
                         </tr>
                         <tr>
-                            <td>供应商和参考</td>
+                            <td>供应商及参考</td>
                             <td>可选</td>
                             <td>字符串</td>
-                            <td>自由格式字段。例如，可以包含特定分销商的信息。</td>
+                            <td>自由字段。例如，可以包含有关供应商的特定信息。<br>用作装配部件信息中的备注。</td>
                         </tr>
                     </tbody>
                 </table>

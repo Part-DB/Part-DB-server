@@ -1355,19 +1355,19 @@
             </target>
         </segment>
     </unit>
-    <unit id="translationUnit10" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Veld</th>
-                        <th>Voorwaarde</th>
-                        <th>Gegevenstype</th>
-                        <th>Beschrijving</th>
-                    </tr>
+                        <tr>
+                            <th>Veld</th>
+                            <th>Voorwaarde</th>
+                            <th>Gegevenstype</th>
+                            <th>Beschrijving</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -1377,34 +1377,34 @@
                             <td>Vrij veld. Een unieke identificatienummer voor elk onderdeel.</td>
                         </tr>
                         <tr>
-                            <td>Ontwerper</td>
+                            <td>Designator</td>
                             <td>Optioneel</td>
-                            <td>Tekst</td>
-                            <td>Vrij veld. Een unieke referentie-ontwerper voor het onderdeel op de PCB, bijvoorbeeld "R1" voor weerstand 1. Gebruikt voor de naamgeving van de plaatsing in de componentgroep.</td>
+                            <td>String</td>
+                            <td>Vrij veld. Een unieke referentienaam voor het onderdeel op de PCB, bijvoorbeeld "R1" voor weerstand 1.<br>Wordt gebruikt als positioneringsnaam in de onderdelenlijst van de assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Omhulsel</td>
+                            <td>Package</td>
                             <td>Optioneel</td>
-                            <td>Tekst</td>
-                            <td>Vrij veld. Het type of de vormfactor van het onderdeel, bijvoorbeeld "0805" voor SMD-weerstanden.</td>
+                            <td>String</td>
+                            <td>Vrij veld. De behuizing of vormfactor van het onderdeel, bijvoorbeeld "0805" voor SMD-weerstanden.<br>Wordt niet opgenomen in de onderdelenlijst binnen de assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Aantal</td>
-                            <td>Verplicht</td>
+                            <td>Quantity</td>
+                            <td>Vereist</td>
                             <td>Integer</td>
-                            <td>Het aantal identieke onderdelen dat nodig is om een enkele instantie van een assemblage te maken.</td>
+                            <td>Het aantal identieke onderdelen dat nodig is om een assemblage-instantie te creëren.<br>Wordt gebruikt als hoeveelheid in de onderdelenlijst binnen de assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Aanduiding</td>
-                            <td>Verplicht</td>
-                            <td>Tekst</td>
-                            <td>De beschrijving of functie van het onderdeel, bijvoorbeeld de weerstandswaarde "10kΩ" of de condensatorwaarde "100nF". Wordt gebruikt als naam in de BOM-invoer.</td>
+                            <td>Designation</td>
+                            <td>Vereist</td>
+                            <td>String</td>
+                            <td>De beschrijving of functie van het onderdeel, zoals weerstandwaarde "10kΩ" of condensatorwaarde "100nF".<br>Wordt gebruikt als de naam in de onderdelenlijst binnen de assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Leverancier en referentie</td>
+                            <td>Supplier and ref</td>
                             <td>Optioneel</td>
-                            <td>Tekst</td>
-                            <td>Vrij veld. Kan bijvoorbeeld informatie bevatten die specifiek is voor de distributeur.</td>
+                            <td>String</td>
+                            <td>Vrij veld. Kan bijvoorbeeld specifieke informatie over leveranciers bevatten.<br>Wordt gebruikt als notitie in de onderdelenlijst binnen de assemblage.</td>
                         </tr>
                     </tbody>
                 </table>

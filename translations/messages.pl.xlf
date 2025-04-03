@@ -12818,19 +12818,19 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
             </target>
         </segment>
     </unit>
-    <unit id="translationUnit11" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Pole</th>
-                        <th>Warunek</th>
-                        <th>Typ Danych</th>
-                        <th>Opis</th>
-                    </tr>
+                        <tr>
+                            <th>Pole</th>
+                            <th>Warunek</th>
+                            <th>Typ Danych</th>
+                            <th>Opis</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -12840,34 +12840,34 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
                             <td>Pole dowolne. Unikalny numer identyfikacyjny dla każdego komponentu.</td>
                         </tr>
                         <tr>
-                            <td>Designer</td>
+                            <td>Designator</td>
                             <td>Opcjonalne</td>
-                            <td>Łańcuch znaków</td>
-                            <td>Pole dowolne. Unikalny oznacznik referencyjny komponentu na PCB, np. "R1" dla rezystora 1. Używany do nazewnictwa położenia w grupie komponentów.</td>
+                            <td>Tekst</td>
+                            <td>Pole dowolne. Jednoznaczny znacznik referencyjny komponentu na PCB, np. "R1" dla rezystora 1.<br>Używane jako nazwa pozycji w pozycji komponentu w montażu.</td>
                         </tr>
                         <tr>
-                            <td>Obudowa</td>
+                            <td>Package</td>
                             <td>Opcjonalne</td>
-                            <td>Łańcuch znaków</td>
-                            <td>Pole dowolne. Typ lub forma obudowy komponentu, np. "0805" dla rezystorów SMD.</td>
+                            <td>Tekst</td>
+                            <td>Pole dowolne. Obudowa lub forma komponentu, np. "0805" dla rezystorów SMD.<br>Niewykorzystywane w pozycji komponentu w montażu.</td>
                         </tr>
                         <tr>
-                            <td>Ilość</td>
+                            <td>Quantity</td>
                             <td>Wymagane</td>
                             <td>Liczba całkowita</td>
-                            <td>Liczba identycznych komponentów potrzebnych do stworzenia jednej instancji złożenia.</td>
+                            <td>Liczba identycznych komponentów potrzebna do utworzenia jednej instancji montażu.<br>Używane jako ilość w pozycji komponentu w montażu.</td>
                         </tr>
                         <tr>
-                            <td>Oznaczenie</td>
+                            <td>Designation</td>
                             <td>Wymagane</td>
-                            <td>Łańcuch znaków</td>
-                            <td>Opis lub funkcja komponentu, np. wartość rezystora "10kΩ" lub wartość kondensatora "100nF". Używane jako nazwa w pozycji na liście materiałowej (BOM).</td>
+                            <td>Tekst</td>
+                            <td>Opis lub funkcja komponentu, np. wartość rezystora "10kΩ" lub wartość kondensatora "100nF".<br>Używane jako nazwa w pozycji komponentu w montażu.</td>
                         </tr>
                         <tr>
-                            <td>Dostawca i referencja</td>
+                            <td>Supplier and ref</td>
                             <td>Opcjonalne</td>
-                            <td>Łańcuch znaków</td>
-                            <td>Pole dowolne. Może zawierać, np. informacje specyficzne dla dystrybutora.</td>
+                            <td>Tekst</td>
+                            <td>Pole dowolne. Może zawierać np. specyficzne informacje o dostawcy.<br>Używane jako notatka w pozycji komponentu w montażu.</td>
                         </tr>
                     </tbody>
                 </table>

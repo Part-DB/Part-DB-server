@@ -13524,19 +13524,19 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit3" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Feld</th>
-                        <th>Bedingung</th>
-                        <th>Datentyp</th>
-                        <th>Beschreibung</th>
-                    </tr>
+                        <tr>
+                            <th>Feld</th>
+                            <th>Bedingung</th>
+                            <th>Datentyp</th>
+                            <th>Beschreibung</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -13549,31 +13549,31 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                             <td>Designator</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Offene Angabe. Ein eindeutiger Referenzbezeichner des Bauteils auf der Leiterplatte, z.B. „R1“ für Widerstand 1. Wird für den Bestückungsnamen des Bauteil-Eintrags innerhalb der Bauteilgruppe verwendet.</td>
+                            <td>Offene Angabe. Ein eindeutiger Referenzbezeichner des Bauteils auf der Leiterplatte, z.B. „R1“ für Widerstand 1.<br>Wird in den Bestückungsnamen des Bauteil-Eintrags in der Baugruppe übernommen.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Offene Angabe. Das Gehäuse oder die Bauform des Bauteils, z.B. „0805“ für SMD-Widerstände.</td>
+                            <td>Offene Angabe. Das Gehäuse oder die Bauform des Bauteils, z.B. „0805“ für SMD-Widerstände.<br>Wird für ein Bauteil-Eintrag innerhalb der Baugruppe nicht übernommen.</td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
                             <td>Pflichtfeld</td>
                             <td>Ganzzahl (Integer)</td>
-                            <td>Anzahl der identischen Bauteile, die benötigt werden, um eine Instanz der Baugruppe zu erstellen.</td>
+                            <td>Anzahl der identischen Bauteile, die benötigt werden, um eine Instanz der Baugruppe zu erstellen.<br>Wird als Anzahl des Bauteil-Eintrags innerhalb der Baugruppe übernommen.</td>
                         </tr>
                         <tr>
                             <td>Designation</td>
                             <td>Pflichtfeld</td>
                             <td>String</td>
-                            <td>Beschreibung oder Funktion des Bauteils, z.B. Widerstandswert „10kΩ“ oder Kondensatorwert „100nF“. Wird für den Namen des BOM-Eintrags verwendet.</td>
+                            <td>Beschreibung oder Funktion des Bauteils, z.B. Widerstandswert „10kΩ“ oder Kondensatorwert „100nF“.<br>Wird in den Namen des Bauteil-Eintrags innerhalb der Baugruppe übernommen.</td>
                         </tr>
                         <tr>
                             <td>Supplier and ref</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Offene Angabe. Kann z.B. Distributor spezifischen Wert enthalten.</td>
+                            <td>Offene Angabe. Kann z.B. Distributor spezifischen Wert enthalten.<br>Wird als Notiz zum Bauteil-Eintrag innerhalb der Baugruppe übernommen.</td>
                         </tr>
                     </tbody>
                 </table>
