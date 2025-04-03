@@ -12963,7 +12963,7 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit6" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
@@ -12982,37 +12982,37 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
                             <td>Id</td>
                             <td>Opcional</td>
                             <td>Entero</td>
-                            <td>Campo libre. Un número de identificación único para cada componente.</td>
+                            <td>Campo libre. Un número único de identificación para cada componente.</td>
                         </tr>
                         <tr>
-                            <td>Designador</td>
+                            <td>Designator</td>
                             <td>Opcional</td>
-                            <td>Cadena de texto</td>
-                            <td>Campo libre. Un designador de referencia único para el componente en la PCB, p. ej., "R1" para la resistencia 1. Se utiliza para nombrar la colocación en el grupo de componentes.</td>
+                            <td>Cadena</td>
+                            <td>Campo libre. Un designador de referencia único para el componente en la PCB, por ejemplo, "R1" para la resistencia 1.<br>Se utiliza como el nombre de ubicación en la entrada de componentes dentro del ensamblaje.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
                             <td>Opcional</td>
-                            <td>Cadena de texto</td>
-                            <td>Campo libre. El formato o tipo de encapsulado del componente, p. ej., "0805" para resistencias SMD.</td>
+                            <td>Cadena</td>
+                            <td>Campo libre. El encapsulado o formato del componente, por ejemplo, "0805" para resistencias SMD.<br>No se incluye en la entrada del componente dentro del ensamblaje.</td>
                         </tr>
                         <tr>
-                            <td>Cantidad</td>
-                            <td>Obligatorio</td>
+                            <td>Quantity</td>
+                            <td>Requerido</td>
                             <td>Entero</td>
-                            <td>El número de componentes idénticos necesarios para crear una instancia única de un ensamblaje.</td>
+                            <td>El número de componentes idénticos necesarios para crear una instancia del ensamblaje.<br>Se usa como la cantidad en la entrada de componentes dentro del ensamblaje.</td>
                         </tr>
                         <tr>
-                            <td>Designación</td>
-                            <td>Obligatorio</td>
-                            <td>Cadena de texto</td>
-                            <td>La descripción o función del componente, p. ej., el valor de la resistencia "10kΩ" o el valor del condensador "100nF". Se utiliza para el nombre en la entrada del BOM.</td>
+                            <td>Designation</td>
+                            <td>Requerido</td>
+                            <td>Cadena</td>
+                            <td>Descripción o función del componente, por ejemplo, valor de resistencia "10kΩ" o valor de condensador "100nF".<br>Se usa como el nombre de la entrada del componente dentro del ensamblaje.</td>
                         </tr>
                         <tr>
-                            <td>Proveedor y referencia</td>
+                            <td>Supplier and ref</td>
                             <td>Opcional</td>
-                            <td>Cadena de texto</td>
-                            <td>Campo libre. Puede incluir, por ejemplo, información específica del distribuidor.</td>
+                            <td>Cadena</td>
+                            <td>Campo libre. Puede contener, por ejemplo, información específica del distribuidor.<br>Se usa como una nota en la entrada del componente dentro del ensamblaje.</td>
                         </tr>
                     </tbody>
                 </table>
