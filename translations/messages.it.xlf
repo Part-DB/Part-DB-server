@@ -12941,56 +12941,56 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit8" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Campo</th>
-                        <th>Condizione</th>
-                        <th>Tipo di Dati</th>
-                        <th>Descrizione</th>
-                    </tr>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Condizione</th>
+                            <th>Tipo di Dati</th>
+                            <th>Descrizione</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Id</td>
                             <td>Opzionale</td>
                             <td>Intero</td>
-                            <td>Campo libero. Un numero identificativo unico per ogni componente.</td>
+                            <td>Campo libero. Un numero identificativo univoco per ogni componente.</td>
                         </tr>
                         <tr>
-                            <td>Designatore</td>
+                            <td>Designator</td>
                             <td>Opzionale</td>
                             <td>Stringa</td>
-                            <td>Campo libero. Un designatore di riferimento unico per il componente sul PCB, ad esempio, "R1" per il resistore 1. Utilizzato per nominare la posizione nel gruppo di componenti.</td>
+                            <td>Campo libero. Un riferimento univoco al componente su PCB, ad esempio "R1" per il resistore 1.<br>Utilizzato come nome della posizione nella voce componenti all'interno dell'assemblaggio.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
                             <td>Opzionale</td>
                             <td>Stringa</td>
-                            <td>Campo libero. Il tipo o formato del contenitore del componente, ad esempio, "0805" per le resistenze SMD.</td>
+                            <td>Campo libero. L'involucro o il fattore di forma del componente, ad esempio "0805" per i resistori SMD.<br>Non incluso nelle informazioni del componente nell'assemblaggio.</td>
                         </tr>
                         <tr>
-                            <td>Quantità</td>
+                            <td>Quantity</td>
                             <td>Obbligatorio</td>
                             <td>Intero</td>
-                            <td>Il numero di componenti identici necessari per creare una singola unità di assemblaggio.</td>
+                            <td>Il numero di componenti identici richiesti per creare un'istanza dell'assemblaggio.<br>Utilizzato come quantità nella voce componenti dell'assemblaggio.</td>
                         </tr>
                         <tr>
-                            <td>Designazione</td>
+                            <td>Designation</td>
                             <td>Obbligatorio</td>
                             <td>Stringa</td>
-                            <td>La descrizione o la funzione del componente, ad esempio, il valore della resistenza "10kΩ" o il valore del condensatore "100nF". Utilizzato per il nome nell'entrata della lista dei materiali (BOM).</td>
+                            <td>Descrizione o funzione del componente, ad esempio valore resistore "10kΩ" o valore condensatore "100nF".<br>Utilizzato come nome nella voce componenti dell'assemblaggio.</td>
                         </tr>
                         <tr>
-                            <td>Fornitore e riferimento</td>
+                            <td>Supplier and ref</td>
                             <td>Opzionale</td>
                             <td>Stringa</td>
-                            <td>Campo libero. Può includere, ad esempio, informazioni specifiche del distributore.</td>
+                            <td>Campo libero. Può contenere, ad esempio, informazioni specifiche del fornitore.<br>Utilizzato come nota nelle informazioni del componente nell'assemblaggio.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -13642,56 +13642,56 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit1" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Pole</th>
-                        <th>Podmínka</th>
-                        <th>Datový typ</th>
-                        <th>Popis</th>
-                    </tr>
+                        <tr>
+                            <th>Pole</th>
+                            <th>Podmínka</th>
+                            <th>Datový typ</th>
+                            <th>Popis</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Id</td>
-                            <td>Volitelný</td>
-                            <td>Celé číslo (Integer)</td>
-                            <td>Volný údaj. Jedinečné identifikační číslo pro každou součástku.</td>
+                            <td>Volitelné</td>
+                            <td>Celé číslo</td>
+                            <td>Volné pole. Unikátní identifikační číslo pro každou součástku.</td>
                         </tr>
                         <tr>
                             <td>Designator</td>
-                            <td>Volitelný</td>
-                            <td>Řetězec (String)</td>
-                            <td>Volný údaj. Jedinečný referenční označovač součástky na desce plošných spojů, např. „R1“ pro rezistor 1. Používá se pro název osazení součástky v rámci skupiny součástek.</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec</td>
+                            <td>Volné pole. Unikátní referenční označení součástky na PCB, např. „R1“ pro rezistor 1.<br>Používá se pro název umístění v rámci součástkové skupiny.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
-                            <td>Volitelný</td>
-                            <td>Řetězec (String)</td>
-                            <td>Volný údaj. Pouzdro nebo tvar součástky, např. „0805“ pro SMD rezistory.</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec</td>
+                            <td>Volné pole. Pouzdro nebo formát součástky, např. „0805“ pro SMD rezistory.<br>Není použito pro záznam součástky v rámci sestavy.</td>
                         </tr>
                         <tr>
-                            <td>Množství</td>
-                            <td>Povinný</td>
-                            <td>Celé číslo (Integer)</td>
-                            <td>Počet identických součástek, které jsou potřeba k vytvoření jedné instance sestavy.</td>
+                            <td>Quantity</td>
+                            <td>Povinné pole</td>
+                            <td>Celé číslo</td>
+                            <td>Počet identických součástek potřebných k vytvoření jedné instance sestavy.<br>Použito jako počet záznamu součástky v rámci sestavy.</td>
                         </tr>
                         <tr>
-                            <td>Určení</td>
-                            <td>Povinný</td>
-                            <td>Řetězec (String)</td>
-                            <td>Popis nebo funkce součástky, např. hodnota rezistoru „10kΩ“ nebo hodnota kondenzátoru „100nF“. Používá se pro název položky v BOM.</td>
+                            <td>Designation</td>
+                            <td>Povinné pole</td>
+                            <td>Řetězec</td>
+                            <td>Popis nebo funkce součástky, např. hodnota rezistoru „10kΩ“ nebo hodnota kondenzátoru „100nF“.<br>Použito jako název záznamu součástky v rámci sestavy.</td>
                         </tr>
                         <tr>
-                            <td>Dodavatel a ref</td>
-                            <td>Volitelný</td>
-                            <td>Řetězec (String)</td>
-                            <td>Volný údaj. Může obsahovat např. specifické údaje distributora.</td>
+                            <td>Supplier and ref</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec</td>
+                            <td>Volné pole. Může obsahovat např. specifické informace o distributorovi.<br>Používá se jako poznámka k záznamu součástky v rámci sestavy.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -9393,56 +9393,56 @@ Exampletown</target>
             </target>
         </segment>
     </unit>
-    <unit id="translationUnit9" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>フィールド</th>
-                        <th>条件</th>
-                        <th>データタイプ</th>
-                        <th>説明</th>
-                    </tr>
+                        <tr>
+                            <th>フィールド</th>
+                            <th>条件</th>
+                            <th>データ型</th>
+                            <th>説明</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ID</td>
+                            <td>Id</td>
                             <td>任意</td>
                             <td>整数</td>
-                            <td>自由形式フィールド。各コンポーネントの一意の識別番号。</td>
+                            <td>自由形式のフィールド。各コンポーネントのユニークな識別番号。</td>
                         </tr>
                         <tr>
-                            <td>デジネータ</td>
+                            <td>Designator</td>
                             <td>任意</td>
                             <td>文字列</td>
-                            <td>自由形式フィールド。PCB上のコンポーネントの一意の参照デジネータ（例: 抵抗1の「R1」）。コンポーネントグループ内の配置の命名に使用されます。</td>
+                            <td>自由形式のフィールド。PCB上のコンポーネントごとの一意のリファレンス識別子。例: 抵抗 "R1"。<br>アセンブリ内の部品エントリの配置名として使用。</td>
                         </tr>
                         <tr>
-                            <td>パッケージ</td>
+                            <td>Package</td>
                             <td>任意</td>
                             <td>文字列</td>
-                            <td>自由形式フィールド。コンポーネントのケースまたはフォームファクタ（例: SMD抵抗「0805」）。</td>
+                            <td>自由形式のフィールド。コンポーネントのパッケージまたはフォームファクタ。例: 表面実装抵抗器 "0805"。<br>アセンブリ内の部品エントリ情報には含まれません。</td>
                         </tr>
                         <tr>
-                            <td>数量</td>
+                            <td>Quantity</td>
                             <td>必須</td>
                             <td>整数</td>
-                            <td>アセンブリの単一インスタンスを作成するために必要な同一コンポーネントの数。</td>
+                            <td>アセンブリの一つのインスタンスを作るために必要な同一部品の数。<br>アセンブリの部品情報で数量として使用。</td>
                         </tr>
                         <tr>
-                            <td>指定</td>
+                            <td>Designation</td>
                             <td>必須</td>
                             <td>文字列</td>
-                            <td>コンポーネントの説明または機能（例: 抵抗値「10kΩ」やコンデンサ値「100nF」）。部品表（BOM）エントリ内の名前として使用されます。</td>
+                            <td>コンポーネントの説明や機能。例: 抵抗の値 "10kΩ" やコンデンサの値 "100nF"。<br>アセンブリの部品情報で名称として使用。</td>
                         </tr>
                         <tr>
-                            <td>サプライヤーと参照</td>
+                            <td>Supplier and ref</td>
                             <td>任意</td>
                             <td>文字列</td>
-                            <td>自由形式フィールド。たとえば、特定のディストリビューター情報を含む場合があります。</td>
+                            <td>自由形式フィールド。例: 供給元に関する特定の情報を含む場合がある。<br>アセンブリの部品情報の注記として使用。</td>
                         </tr>
                     </tbody>
                 </table>
