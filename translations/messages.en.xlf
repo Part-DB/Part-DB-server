@@ -13525,56 +13525,56 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit5" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Field</th>
-                        <th>Condition</th>
-                        <th>Data Type</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Field</th>
+                            <th>Condition</th>
+                            <th>Data Type</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Id</td>
                             <td>Optional</td>
                             <td>Integer</td>
-                            <td>Free-form field. A unique identification number for each component.</td>
+                            <td>Free-form field. A unique identification number for each part.</td>
                         </tr>
                         <tr>
                             <td>Designator</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Free-form field. A unique reference designator of the component on the PCB, e.g., “R1” for resistor 1. Used for naming the placement in the component group.</td>
+                            <td>Free-form field. A unique reference designator of the part on the PCB, e.g., “R1” for resistor 1.<br>Used for the placement name of the part entry in the assembly.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Free-form field. The casing or form factor of the component, e.g., “0805” for SMD resistors.</td>
+                            <td>Free-form field. The case or form factor of the part, e.g., “0805” for SMD resistors.<br>Not adopted for a part entry within the assembly.</td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
-                            <td>Required</td>
+                            <td>Required field</td>
                             <td>Integer</td>
-                            <td>The number of identical components required to create a single instance of an assembly.</td>
+                            <td>The number of identical parts needed to create an instance of the assembly.<br>Adopted as the quantity of the part entry within the assembly.</td>
                         </tr>
                         <tr>
                             <td>Designation</td>
-                            <td>Required</td>
+                            <td>Required field</td>
                             <td>String</td>
-                            <td>The description or function of the component, e.g., resistor value “10kΩ” or capacitor value “100nF.” Used for the name in the BOM entry.</td>
+                            <td>Description or function of the part, e.g., resistor value “10kΩ” or capacitor value “100nF.”<br>Adopted into the name of the part entry within the assembly.</td>
                         </tr>
                         <tr>
                             <td>Supplier and ref</td>
                             <td>Optional</td>
                             <td>String</td>
-                            <td>Free-form field. May include, for example, specific distributor information.</td>
+                            <td>Free-form field. May, for example, contain distributor-specific information.<br>Adopted as a note for the part entry within the assembly.</td>
                         </tr>
                     </tbody>
                 </table>

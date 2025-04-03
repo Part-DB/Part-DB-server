@@ -12803,56 +12803,56 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit2" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Felt</th>
-                        <th>Betingelse</th>
-                        <th>Datatype</th>
-                        <th>Beskrivelse</th>
-                    </tr>
+                        <tr>
+                            <th>Felt</th>
+                            <th>Betingelse</th>
+                            <th>Datatype</th>
+                            <th>Beskrivelse</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Id</td>
-                            <td>Valgfri</td>
-                            <td>Heltal (Integer)</td>
-                            <td>Fri oplysning. Et unikt identifikationsnummer for hver komponent.</td>
+                            <td>Valgfrit</td>
+                            <td>Heltal</td>
+                            <td>Fri tekst. Et unikt identifikationsnummer for hver komponent.</td>
                         </tr>
                         <tr>
                             <td>Designator</td>
-                            <td>Valgfri</td>
+                            <td>Valgfrit</td>
                             <td>Streng</td>
-                            <td>Fri oplysning. En unik referencebetegnelse for komponenten på printkortet, f.eks. "R1" for modstand 1. Bruges til navngivning af monteringssæt i komponentgruppen.</td>
+                            <td>Fri tekst. En unik referencebetegnelse for komponenten på PCB'en, f.eks. “R1” for modstand 1.<br>Bruges som navnet på placeringen i komponentgruppen.</td>
                         </tr>
                         <tr>
                             <td>Package</td>
-                            <td>Valgfri</td>
+                            <td>Valgfrit</td>
                             <td>Streng</td>
-                            <td>Fri oplysning. Komponentenheden eller -formatet, f.eks. "0805" for SMD-modstande.</td>
+                            <td>Fri tekst. Komponentens kabinet eller formfaktor, f.eks. “0805” for SMD-modstande.<br>Ikke inkluderet som komponentoplysning i samlingen.</td>
                         </tr>
                         <tr>
-                            <td>Antal</td>
+                            <td>Quantity</td>
                             <td>Påkrævet</td>
-                            <td>Heltal (Integer)</td>
-                            <td>Antallet af identiske komponenter, der kræves for at oprette en enkelt instans af samling.</td>
+                            <td>Heltal</td>
+                            <td>Antallet af identiske komponenter, der kræves for at oprette en enkelt forekomst af samlingen.<br>Bruges som antal af komponentoplysning i samlingen.</td>
                         </tr>
                         <tr>
-                            <td>Betegnelse</td>
+                            <td>Designation</td>
                             <td>Påkrævet</td>
                             <td>Streng</td>
-                            <td>Beskrivelse eller funktion for komponenten, f.eks. modstandsværdi "10kΩ" eller kondensatorværdi "100nF". Bruges til navnet i BOM-posten.</td>
+                            <td>Beskrivelse eller funktion af komponenten, f.eks. modstandsværdi “10kΩ” eller kondensatorværdi “100nF”.<br>Bruges som navnet på komponentoplysningen i samlingen.</td>
                         </tr>
                         <tr>
-                            <td>Leverandør og ref</td>
-                            <td>Valgfri</td>
+                            <td>Supplier and ref</td>
+                            <td>Valgfrit</td>
                             <td>Streng</td>
-                            <td>Fri oplysning. Kan indeholde f.eks. distributørspecifik værdi.</td>
+                            <td>Fri tekst. Kan indeholde, for eksempel, specifikke oplysninger fra en distributør.<br>Bruges som en note til komponentoplysningen i samlingen.</td>
                         </tr>
                     </tbody>
                 </table>

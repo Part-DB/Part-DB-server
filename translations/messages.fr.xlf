@@ -6959,7 +6959,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>company.edit.address.placeholder</source>
-        <target>Ex. 99 exemple de rue 
+        <target>Ex. 99 exemple de rue
 exemple de ville</target>
       </segment>
     </unit>
@@ -9692,19 +9692,19 @@ exemple de ville</target>
         </target>
       </segment>
     </unit>
-    <unit id="translationUnit7" name="assembly.bom_import.template.kicad_pcbnew.table">
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
         <segment>
             <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th>Champ</th>
-                        <th>Condition</th>
-                        <th>Type de Données</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Champ</th>
+                            <th>Condition</th>
+                            <th>Type de Données</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -9714,34 +9714,34 @@ exemple de ville</target>
                             <td>Champ libre. Un numéro d'identification unique pour chaque composant.</td>
                         </tr>
                         <tr>
-                            <td>Designeur</td>
+                            <td>Designator</td>
                             <td>Optionnel</td>
                             <td>Chaîne</td>
-                            <td>Champ libre. Une référence de désignation unique du composant sur le PCB, par exemple, "R1" pour la résistance 1. Utilisé pour nommer la position au sein du groupe de composants.</td>
+                            <td>Champ libre. Une désignation de référence unique pour le composant sur le PCB, par exemple, "R1" pour la résistance 1.<br>Utilisé comme le nom de l'emplacement de l'entrée composant dans l'assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Boîtier</td>
+                            <td>Package</td>
                             <td>Optionnel</td>
                             <td>Chaîne</td>
-                            <td>Champ libre. Le type ou format d'encapsulation du composant, par exemple, "0805" pour des résistances CMS.</td>
+                            <td>Champ libre. Le boîtier ou le format du composant, par exemple, "0805" pour les résistances CMS.<br>Non inclus dans l'entrée composant pour l'assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Quantité</td>
+                            <td>Quantity</td>
                             <td>Obligatoire</td>
                             <td>Entier</td>
-                            <td>Le nombre de composants identiques nécessaires pour créer une instance unique d'un ensemble.</td>
+                            <td>Le nombre de composants identiques nécessaires pour créer une instance de l'assemblage.<br>Utilisé comme la quantité dans l'entrée composant de l'assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Désignation</td>
+                            <td>Designation</td>
                             <td>Obligatoire</td>
                             <td>Chaîne</td>
-                            <td>La description ou la fonction du composant, par exemple, la valeur de résistance "10kΩ" ou la valeur de condensateur "100nF". Utilisé comme nom dans l'entrée de la nomenclature (BOM).</td>
+                            <td>La description ou la fonction du composant, par exemple, valeur de résistance "10kΩ" ou valeur de condensateur "100nF".<br>Utilisé comme le nom dans l'entrée composant pour l'assemblage.</td>
                         </tr>
                         <tr>
-                            <td>Fournisseur et réf</td>
+                            <td>Supplier and ref</td>
                             <td>Optionnel</td>
                             <td>Chaîne</td>
-                            <td>Champ libre. Peut inclure, par exemple, des informations spécifiques au distributeur.</td>
+                            <td>Champ libre. Peut contenir par exemple des informations spécifiques sur le fournisseur.<br>Utilisé comme une note dans l'entrée composant pour l'assemblage.</td>
                         </tr>
                     </tbody>
                 </table>
