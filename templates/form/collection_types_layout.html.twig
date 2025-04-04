@@ -44,9 +44,18 @@
         <td style="min-width: 300px;">
             {{ form_row(form.part) }}
             {{ form_errors(form.part) }}
-            <div class="text-center mb-2" style="line-height: 1">∨</div>
-            {{ form_widget(form.assembly) }}
-            {{ form_errors(form.assembly) }}
+
+            {% if form.vars.value is not null and form.vars.value.project is not null %}
+                {% set hasAssembly = false %}
+                {% if is_granted("@assemblies.read") or has_assembly(form.vars.value.project.bomEntries.toArray) %}
+                    <div class="text-center mb-2" style="line-height: 1">∨</div>
+                    {{ form_widget(form.assembly) }}
+                    {{ form_errors(form.assembly) }}
+                {% endif %}
+            {% elseif is_granted("@assemblies.read") %}
+                {{ form_widget(form.assembly) }}
+                {{ form_errors(form.assembly) }}
+            {% endif %}
         </td>
         <td>
             {{ form_widget(form.name) }}
