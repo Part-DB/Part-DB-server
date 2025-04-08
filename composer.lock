@@ -968,16 +968,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v3.4.16",
+            "version": "v3.4.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "64c6e1092cf988ba619907b3e4cce8a229ce4fae"
+                "reference": "c5fb664d17ed9ae919394514ea69a5039d2ad9ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/64c6e1092cf988ba619907b3e4cce8a229ce4fae",
-                "reference": "64c6e1092cf988ba619907b3e4cce8a229ce4fae",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/c5fb664d17ed9ae919394514ea69a5039d2ad9ab",
+                "reference": "c5fb664d17ed9ae919394514ea69a5039d2ad9ab",
                 "shasum": ""
             },
             "require": {
@@ -1183,9 +1183,9 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v3.4.16"
+                "source": "https://github.com/api-platform/core/tree/v3.4.17"
             },
-            "time": "2025-01-17T14:17:26+00:00"
+            "time": "2025-04-07T08:40:57+00:00"
         },
         {
             "name": "beberlei/assert",
