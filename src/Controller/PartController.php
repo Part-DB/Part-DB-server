@@ -234,7 +234,7 @@ final class PartController extends AbstractController
         } elseif ($assembly instanceof Assembly) {
             //Initialize a new part for a build part from the given assembly
             //Ensure that the assembly has not already a build part
-            if ($project->getBuildPart() instanceof Part) {
+            if ($assembly->getBuildPart() instanceof Part) {
                 $this->addFlash('error', 'part.new_build_part.error.build_part_already_exists');
                 return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
             }
