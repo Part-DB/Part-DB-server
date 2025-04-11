@@ -29,7 +29,6 @@ use App\Entity\Parts\Part;
 use App\Form\AssemblySystem\AssemblyAddPartsType;
 use App\Form\AssemblySystem\AssemblyBuildType;
 use App\Helpers\Assemblies\AssemblyBuildRequest;
-use App\Repository\PartRepository;
 use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\AssemblySystem\AssemblyBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -52,14 +51,10 @@ use function Symfony\Component\Translation\t;
 #[Route(path: '/assembly')]
 class AssemblyController extends AbstractController
 {
-    private PartRepository $partRepository;
-
     public function __construct(
         private readonly DataTableFactory $dataTableFactory,
-        private readonly EntityManagerInterface $entityManager,
         private readonly TranslatorInterface $translator,
     ) {
-        $this->partRepository = $this->entityManager->getRepository(Part::class);
     }
 
     #[Route(path: '/{id}/info', name: 'assembly_info', requirements: ['id' => '\d+'])]
@@ -161,15 +156,14 @@ class AssemblyController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-            //Clear existing BOM entries if requested
+            // Clear existing entries if requested
             if ($form->get('clear_existing_bom')->getData()) {
                 $assembly->getBomEntries()->clear();
                 $entityManager->flush();
             }
 
             try {
-                $entries = $BOMImporter->importFileIntoAssembly($form->get('file')->getData(), $assembly, [
+                $importerResult = $BOMImporter->importFileIntoAssembly($form->get('file')->getData(), $assembly, [
                     'type' => $form->get('type')->getData(),
                 ]);
 
@@ -177,24 +171,17 @@ class AssemblyController extends AbstractController
                 $errors = $validator->validateProperty($assembly, 'bom_entries');
 
                 //If no validation errors occured, save the changes and redirect to edit page
-                if (count ($errors) === 0) {
-                    foreach ($entries as $entry) {
-                        if ($entry instanceof AssemblyBOMEntry && $entry->getPart() !== null) {
-                            $part = $entry->getPart();
-                            if ($part->getID() === null) {
-                                $this->partRepository->save($part);
-                            }
-                        }
-                    }
+                if (count ($errors) === 0 && $importerResult->getViolations()->count() === 0) {
+                    $entries = $importerResult->getBomEntries();
 
                     $this->addFlash('success', t('assembly.bom_import.flash.success', ['%count%' => count($entries)]));
                     $entityManager->flush();
+
                     return $this->redirectToRoute('assembly_edit', ['id' => $assembly->getID()]);
                 }
 
-                //When we get here, there were validation errors
+                //Show validation errors
                 $this->addFlash('error', t('assembly.bom_import.flash.invalid_entries'));
-
             } catch (\UnexpectedValueException|\RuntimeException|SyntaxError $e) {
                 $this->addFlash('error', t('assembly.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }
@@ -226,7 +213,8 @@ class AssemblyController extends AbstractController
             'assembly' => $assembly,
             'jsonTemplate' => $jsonTemplate,
             'form' => $form,
-            'errors' => $errors ?? null,
+            'validationErrors' => $errors ?? null,
+            'importerErrors' => isset($importerResult) ? $importerResult->getViolations() : null,
         ]);
     }
 

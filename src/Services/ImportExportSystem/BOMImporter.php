@@ -39,8 +39,9 @@ use League\Csv\Reader;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use RuntimeException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use UnexpectedValueException;
+use Symfony\Component\Validator\ConstraintViolation;
 
 /**
  * @see \App\Tests\Services\ImportExportSystem\BOMImporterTest
@@ -57,6 +58,8 @@ class BOMImporter
         5 => 'Supplier and ref',
     ];
 
+    private string $jsonRoot = '';
+
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
@@ -64,7 +67,8 @@ class BOMImporter
         private readonly PartRepository $partRepository,
         private readonly ManufacturerRepository $manufacturerRepository,
         private readonly CategoryRepository $categoryRepository,
-        private readonly DBElementRepository $assemblyBOMEntryRepository
+        private readonly DBElementRepository $assemblyBOMEntryRepositor,
+        private readonly TranslatorInterface $translator
     ) {
     }
 
@@ -102,20 +106,21 @@ class BOMImporter
     }
 
     /**
-     * Converts the given file into an array of BOM entries using the given options and save them into the given assembly.
+     * Converts the given file into an ImporterResult with an array of BOM entries using the given options and save them into the given assembly.
      * The changes are not saved into the database yet.
-     * @return AssemblyBOMEntry[]
      */
-    public function importFileIntoAssembly(File $file, Assembly $assembly, array $options): array
+    public function importFileIntoAssembly(File $file, Assembly $assembly, array $options): ImporterResult
     {
-        $bomEntries = $this->fileToBOMEntries($file, $options, AssemblyBOMEntry::class);
+        $importerResult = $this->fileToImporterResult($file, $options, AssemblyBOMEntry::class);
 
-        //Assign the bom_entries to the assembly
-        foreach ($bomEntries as $bom_entry) {
-            $assembly->addBomEntry($bom_entry);
+        if ($importerResult->getViolations()->count() === 0) {
+            //Assign the bom_entries to the assembly
+            foreach ($importerResult->getBomEntries() as $bomEntry) {
+                $assembly->addBomEntry($bomEntry);
+            }
         }
 
-        return $bomEntries;
+        return $importerResult;
     }
 
     /**
@@ -125,6 +130,14 @@ class BOMImporter
     public function fileToBOMEntries(File $file, array $options, string $objectType = ProjectBOMEntry::class): array
     {
         return $this->stringToBOMEntries($file->getContent(), $options, $objectType);
+    }
+
+    /**
+     * Converts the given file into an ImporterResult with an array of BOM entries using the given options.
+     */
+    public function fileToImporterResult(File $file, array $options, string $objectType = ProjectBOMEntry::class): ImporterResult
+    {
+        return $this->stringToImporterResult($file->getContent(), $options, $objectType);
     }
 
     /**
@@ -163,13 +176,32 @@ class BOMImporter
         };
     }
 
-    private function parseKiCADPCB(string $data, string $objectType = ProjectBOMEntry::class): array
+    /**
+     * Import string data into an array of BOM entries, which are not yet assigned to a project.
+     * @param  string  $data The data to import
+     * @param  array  $options An array of options
+     * @return ProjectBOMEntry[]|AssemblyBOMEntry[] An array of imported entries
+     */
+    public function stringToImporterResult(string $data, array $options, string $objectType = ProjectBOMEntry::class): ImporterResult
     {
+        $resolver = new OptionsResolver();
+        $resolver = $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+
+        return match ($options['type']) {
+            'kicad_pcbnew' => $this->parseKiCADPCB($data, $objectType),
+            'json' => $this->parseJson($data, $options, $objectType),
+            default => throw new InvalidArgumentException('Invalid import type!'),
+        };
+    }
+
+    private function parseKiCADPCB(string $data, string $objectType = ProjectBOMEntry::class): ImporterResult
+    {
+        $result = new ImporterResult();
+
         $csv = Reader::createFromString($data);
         $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
-
-        $bom_entries = [];
 
         foreach ($csv->getRecords() as $offset => $entry) {
             //Translate the german field names to english
@@ -200,10 +232,10 @@ class BOMImporter
             $bom_entry->setComment($entry['Supplier and ref'] ?? '');
             $bom_entry->setQuantity((float) ($entry['Quantity'] ?? 1));
 
-            $bom_entries[] = $bom_entry;
+            $result->addBomEntry($bom_entry);
         }
 
-        return $bom_entries;
+        return $result;
     }
 
     /**
@@ -263,30 +295,47 @@ class BOMImporter
         return $this->validationService->validateBOMEntries($mapped_entries, $options);
     }
 
-    private function parseJson(string $data, array $options = [], string $objectType = ProjectBOMEntry::class): array
+    private function parseJson(string $data, array $options = [], string $objectType = ProjectBOMEntry::class): ImporterResult
     {
-        $result = [];
+        $result = new ImporterResult();
+        $this->jsonRoot = 'JSON Import for '.$objectType === ProjectBOMEntry::class ? 'Project' : 'Assembly';
 
         $data = json_decode($data, true);
 
-        foreach ($data as $entry) {
+        foreach ($data as $key => $entry) {
             // Check quantity
             if (!isset($entry['quantity'])) {
-                throw new UnexpectedValueException('quantity missing');
+                $result->addViolation($this->buildJsonViolation(
+                    'validator.bom_importer.json.quantity.required',
+                    "entry[$key].quantity"
+                ));
             }
-            if (!is_float($entry['quantity']) || $entry['quantity'] <= 0) {
-                throw new UnexpectedValueException('quantity expected as float greater than 0.0');
+
+            if (isset($entry['quantity']) && (!is_float($entry['quantity']) || $entry['quantity'] <= 0)) {
+                $result->addViolation($this->buildJsonViolation(
+                    'validator.bom_importer.json.quantity.float',
+                    "entry[$key].quantity",
+                    $entry['quantity']
+                ));
             }
 
             // Check name
             if (isset($entry['name']) && !is_string($entry['name'])) {
-                throw new UnexpectedValueException('name of part list entry expected as string');
+                $result->addViolation($this->buildJsonViolation(
+                    'validator.bom_importer.json.parameter.string.notEmpty',
+                    "entry[$key].name",
+                    $entry['name']
+                ));
             }
 
             // Check if part is assigned with relevant information
             if (isset($entry['part'])) {
                 if (!is_array($entry['part'])) {
-                    throw new UnexpectedValueException('The property "part" should be an array');
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.array',
+                        "entry[$key].part",
+                        $entry['part']
+                    ));
                 }
 
                 $partIdValid = isset($entry['part']['id']) && is_int($entry['part']['id']) && $entry['part']['id'] > 0;
@@ -295,9 +344,12 @@ class BOMImporter
                 $partIpnValid = isset($entry['part']['ipn']) && is_string($entry['part']['ipn']) && trim($entry['part']['ipn']) !== '';
 
                 if (!$partIdValid && !$partNameValid && !$partMpnrValid && !$partIpnValid) {
-                    throw new UnexpectedValueException(
-                        'The property "part" must have either assigned: "id" as integer greater than 0, "name", "mpnr", or "ipn" as non-empty string'
-                    );
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.subproperties',
+                        "entry[$key].part",
+                        $entry['part'],
+                        ['%propertyString%' => '"id", "name", "mpnr", or "ipn"']
+                    ));
                 }
 
                 $part = $partIdValid ? $this->partRepository->findOneBy(['id' => $entry['part']['id']]) : null;
@@ -306,28 +358,71 @@ class BOMImporter
                 $part = $part ?? ($partNameValid ? $this->partRepository->findOneBy(['name' => trim($entry['part']['name'])]) : null);
 
                 if ($part === null) {
-                    $part = new Part();
-                    $part->setName($entry['part']['name']);
+                    $value = sprintf('part.id: %s, part.mpnr: %s, part.ipn: %s, part.name: %s',
+                        isset($entry['part']['id']) ? '<strong>' . $entry['part']['id'] . '</strong>' : '-',
+                        isset($entry['part']['mpnr']) ? '<strong>' . $entry['part']['mpnr'] . '</strong>' : '-',
+                        isset($entry['part']['ipn']) ? '<strong>' . $entry['part']['ipn'] . '</strong>' : '-',
+                        isset($entry['part']['name']) ? '<strong>' . $entry['part']['name'] . '</strong>' : '-',
+                    );
+
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.notFoundFor',
+                        "entry[$key].part",
+                        $entry['part'],
+                        ['%value%' => $value]
+                    ));
                 }
 
-                if ($partNameValid && $part->getName() !== trim($entry['part']['name'])) {
-                    throw new RuntimeException(sprintf('Part name does not match exact the given name. Given for import: %s, found part: %s', $entry['part']['name'], $part->getName()));
+                if ($partNameValid && $part !== null && isset($entry['part']['name']) && $part->getName() !== trim($entry['part']['name'])) {
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.noExactMatch',
+                        "entry[$key].part.name",
+                        $entry['part']['name'],
+                        [
+                            '%importValue%' => '<strong>' . $entry['part']['name'] . '</strong>',
+                            '%foundId%' => $part->getID(),
+                            '%foundValue%' => '<strong>' . $part->getName() . '</strong>'
+                        ]
+                    ));
                 }
 
-                if ($partIpnValid && $part->getManufacturerProductNumber() !== trim($entry['part']['mpnr'])) {
-                    throw new RuntimeException(sprintf('Part mpnr does not match exact the given mpnr. Given for import: %s, found part: %s', $entry['part']['mpnr'], $part->getManufacturerProductNumber()));
+                if ($partMpnrValid && $part !== null && isset($entry['part']['mpnr']) && $part->getManufacturerProductNumber() !== trim($entry['part']['mpnr'])) {
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.noExactMatch',
+                        "entry[$key].part.mpnr",
+                        $entry['part']['mpnr'],
+                        [
+                            '%importValue%' => '<strong>' . $entry['part']['mpnr'] . '</strong>',
+                            '%foundId%' => $part->getID(),
+                            '%foundValue%' => '<strong>' . $part->getManufacturerProductNumber() . '</strong>'
+                        ]
+                    ));
                 }
 
-                if ($partIpnValid && $part->getIpn() !== trim($entry['part']['ipn'])) {
-                    throw new RuntimeException(sprintf('Part ipn does not match exact the given ipn. Given for import: %s, found part: %s', $entry['part']['ipn'], $part->getIpn()));
+                if ($partIpnValid && $part !== null && isset($entry['part']['ipn']) && $part->getIpn() !== trim($entry['part']['ipn'])) {
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.noExactMatch',
+                        "entry[$key].part.ipn",
+                        $entry['part']['ipn'],
+                        [
+                            '%importValue%' => '<strong>' . $entry['part']['ipn'] . '</strong>',
+                            '%foundId%' => $part->getID(),
+                            '%foundValue%' => '<strong>' . $part->getIpn() . '</strong>'
+                        ]
+                    ));
                 }
 
                 // Part: Description check
-                if (isset($entry['part']['description']) && !is_null($entry['part']['description'])) {
+                if (isset($entry['part']['description'])) {
                     if (!is_string($entry['part']['description']) || trim($entry['part']['description']) === '') {
-                        throw new UnexpectedValueException('The property path "part.description" must be a non-empty string if not null');
+                        $result->addViolation($this->buildJsonViolation(
+                            'validator.bom_importer.json.parameter.string.notEmpty',
+                            'entry[$key].part.description',
+                            $entry['part']['description']
+                        ));
                     }
                 }
+
                 $partDescription = $entry['part']['description'] ?? '';
 
                 // Part: Manufacturer check
@@ -335,7 +430,11 @@ class BOMImporter
                 $manufacturerNameValid = false;
                 if (array_key_exists('manufacturer', $entry['part'])) {
                     if (!is_array($entry['part']['manufacturer'])) {
-                        throw new UnexpectedValueException('The property path "part.manufacturer" must be an array');
+                        $result->addViolation($this->buildJsonViolation(
+                            'validator.bom_importer.json.parameter.array',
+                            'entry[$key].part.manufacturer',
+                            $entry['part']['manufacturer']) ?? null
+                        );
                     }
 
                     $manufacturerIdValid = isset($entry['part']['manufacturer']['id']) && is_int($entry['part']['manufacturer']['id']) && $entry['part']['manufacturer']['id'] > 0;
@@ -343,23 +442,43 @@ class BOMImporter
 
                     // Stellen sicher, dass mindestens eine Bedingung für manufacturer erfüllt sein muss
                     if (!$manufacturerIdValid && !$manufacturerNameValid) {
-                        throw new UnexpectedValueException(
-                            'The property "manufacturer" must have either assigned: "id" as integer greater than 0, or "name" as non-empty string'
-                        );
+                        $result->addViolation($this->buildJsonViolation(
+                            'validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties',
+                            "entry[$key].part.manufacturer",
+                            $entry['part']['manufacturer'],
+                        ));
                     }
                 }
 
                 $manufacturer = $manufacturerIdValid ? $this->manufacturerRepository->findOneBy(['id' => $entry['part']['manufacturer']['id']]) : null;
                 $manufacturer = $manufacturer ?? ($manufacturerNameValid ? $this->manufacturerRepository->findOneBy(['name' => trim($entry['part']['manufacturer']['name'])]) : null);
 
-                if ($manufacturer === null) {
-                    throw new RuntimeException(
-                        'Manufacturer not found'
+                if (($manufacturerIdValid || $manufacturerNameValid) && $manufacturer === null) {
+                    $value = sprintf(
+                        'manufacturer.id: %s, manufacturer.name: %s',
+                        isset($entry['part']['manufacturer']['id']) && $entry['part']['manufacturer']['id'] !== null ? '<strong>' . $entry['part']['manufacturer']['id'] . '</strong>' : '-',
+                        isset($entry['part']['manufacturer']['name']) && $entry['part']['manufacturer']['name'] !== null ? '<strong>' . $entry['part']['manufacturer']['name'] . '</strong>' : '-'
                     );
+
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.notFoundFor',
+                        "entry[$key].part.manufacturer",
+                        $entry['part']['manufacturer'],
+                        ['%value%' => $value]
+                    ));
                 }
 
-                if ($manufacturerNameValid && $manufacturer->getName() !== trim($entry['part']['manufacturer']['name'])) {
-                    throw new RuntimeException(sprintf('Manufacturer name does not match exact the given name. Given for import: %s, found manufacturer: %s',  $entry['manufacturer']['name'], $manufacturer->getName()));
+                if ($manufacturerNameValid && $manufacturer !== null && isset($entry['part']['manufacturer']['name']) && $manufacturer->getName() !== trim($entry['part']['manufacturer']['name'])) {
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.noExactMatch',
+                        "entry[$key].part.manufacturer.name",
+                        $entry['part']['manufacturer']['name'],
+                        [
+                            '%importValue%' => '<strong>' . $entry['part']['manufacturer']['name'] . '</strong>',
+                            '%foundId%' => $manufacturer->getID(),
+                            '%foundValue%' => '<strong>' . $manufacturer->getName() . '</strong>'
+                        ]
+                    ));
                 }
 
                 // Part: Category check
@@ -367,49 +486,82 @@ class BOMImporter
                 $categoryNameValid = false;
                 if (array_key_exists('category', $entry['part'])) {
                     if (!is_array($entry['part']['category'])) {
-                        throw new UnexpectedValueException('part.category must be an array');
+                        $result->addViolation($this->buildJsonViolation(
+                            'validator.bom_importer.json.parameter.array',
+                            'entry[$key].part.category',
+                            $entry['part']['category']) ?? null
+                        );
                     }
 
                     $categoryIdValid = isset($entry['part']['category']['id']) && is_int($entry['part']['category']['id']) && $entry['part']['category']['id'] > 0;
                     $categoryNameValid = isset($entry['part']['category']['name']) && is_string($entry['part']['category']['name']) && trim($entry['part']['category']['name']) !== '';
 
                     if (!$categoryIdValid && !$categoryNameValid) {
-                        throw new UnexpectedValueException(
-                            'The property "category" must have either assigned: "id" as integer greater than 0, or "name" as non-empty string'
-                        );
+                        $result->addViolation($this->buildJsonViolation(
+                            'validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties',
+                            "entry[$key].part.category",
+                            $entry['part']['category']
+                        ));
                     }
                 }
 
                 $category = $categoryIdValid ? $this->categoryRepository->findOneBy(['id' => $entry['part']['category']['id']]) : null;
                 $category = $category ?? ($categoryNameValid ? $this->categoryRepository->findOneBy(['name' => trim($entry['part']['category']['name'])]) : null);
 
-                if ($category === null) {
-                    throw new RuntimeException(
-                        'Category not found'
+                if (($categoryIdValid || $categoryNameValid) && $category === null) {
+                    $value = sprintf(
+                        'category.id: %s, category.name: %s',
+                        isset($entry['part']['category']['id']) && $entry['part']['category']['id'] !== null ? '<strong>' . $entry['part']['category']['id'] . '</strong>' : '-',
+                        isset($entry['part']['category']['name']) && $entry['part']['category']['name'] !== null ? '<strong>' . $entry['part']['category']['name'] . '</strong>' : '-'
                     );
+
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.notFoundFor',
+                        "entry[$key].part.category",
+                        $entry['part']['category'],
+                        ['%value%' => $value]
+                    ));
                 }
 
-                if ($categoryNameValid && $category->getName() !== trim($entry['part']['category']['name'])) {
-                    throw new RuntimeException(sprintf('Category name does not match exact the given name. Given for import: %s, found category: %s',  $entry['category']['name'], $category->getName()));
+                if ($categoryNameValid && $category !== null && isset($entry['part']['category']['name']) && $category->getName() !== trim($entry['part']['category']['name'])) {
+                    $result->addViolation($this->buildJsonViolation(
+                        'validator.bom_importer.json.parameter.noExactMatch',
+                        "entry[$key].part.category.name",
+                        $entry['part']['category']['name'],
+                        [
+                            '%importValue%' => '<strong>' . $entry['part']['category']['name'] . '</strong>',
+                            '%foundId%' => $category->getID(),
+                            '%foundValue%' => '<strong>' . $category->getName() . '</strong>'
+                        ]
+                    ));
                 }
 
-                $part->setDescription($partDescription);
-                $part->setManufacturer($manufacturer);
-                $part->setCategory($category);
-
-                if ($partMpnrValid) {
-                    $part->setManufacturerProductNumber($entry['part']['mpnr'] ?? '');
+                if ($result->getViolations()->count() > 0) {
+                    continue;
                 }
-                if ($partIpnValid) {
-                    $part->setIpn($entry['part']['ipn'] ?? '');
+
+                if ($partDescription !== '') {
+                    //Beim Import / Aktualisieren von zugehörigen Bauteilen zu einer Baugruppe die Beschreibung des Bauteils mit übernehmen.
+                    $part->setDescription($partDescription);
+                }
+
+                if ($manufacturer !== null && $manufacturer->getID() !== $part->getManufacturerID()) {
+                    //Beim Import / Aktualisieren von zugehörigen Bauteilen zu einer Baugruppe des Hersteller des Bauteils mit übernehmen.
+                    $part->setManufacturer($manufacturer);
+                }
+
+                if ($category !== null && $category->getID() !== $part->getCategoryID()) {
+                    //Beim Import / Aktualisieren von zugehörigen Bauteilen zu einer Baugruppe die Kategorie des Bauteils mit übernehmen.
+                    $part->setCategory($category);
                 }
 
                 if ($objectType === AssemblyBOMEntry::class) {
                     $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['part' => $part]);
 
                     if ($bomEntry === null) {
-                        $name = isset($entry['name']) && $entry['name'] !== null ? trim($entry['name']) : '';
-                        $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $name]);
+                        if (isset($entry['name']) && $entry['name'] !== '') {
+                            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $entry['name']]);
+                        }
 
                         if ($bomEntry === null) {
                             $bomEntry = new AssemblyBOMEntry();
@@ -423,9 +575,22 @@ class BOMImporter
                 $bomEntry->setName($entry['name'] ?? '');
 
                 $bomEntry->setPart($part);
-            }
 
-            $result[] = $bomEntry;
+                $result->addBomEntry($bomEntry);
+            } else {
+                //Eintrag ohne Part-Relation in die Bauteilliste aufnehmen
+
+                if ($objectType === AssemblyBOMEntry::class) {
+                    $bomEntry = new AssemblyBOMEntry();
+                } else {
+                    $bomEntry = new ProjectBOMEntry();
+                }
+
+                $bomEntry->setQuantity($entry['quantity']);
+                $bomEntry->setName($entry['name'] ?? '');
+
+                $result->addBomEntry($bomEntry);
+            }
         }
 
         return $result;
@@ -930,5 +1095,17 @@ class BOMImporter
 
 
         return array_values($headers);
+    }
+
+    private function buildJsonViolation(string $message, string $propertyPath, mixed $invalidValue = null, array $parameters = []): ConstraintViolation
+    {
+        return new ConstraintViolation(
+            message: $this->translator->trans($message, $parameters, 'validators'),
+            messageTemplate: $message,
+            parameters: $parameters,
+            root: $this->jsonRoot,
+            propertyPath: $propertyPath,
+            invalidValue: $invalidValue
+        );
     }
 }
