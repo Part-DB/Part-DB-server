@@ -227,5 +227,59 @@
         <target>部品を選択するか、非部品の名前を入力する必要があります！</target>
       </segment>
     </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json.quantity.required</source>
+        <target>数量 > 0 を入力する必要があります！</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json.quantity.float</source>
+        <target>0.0 より大きい小数 (float) である必要があります</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <target>空でない文字列が期待されます</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <target>空でない文字列または null が期待されます</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json.parameter.array</source>
+        <target>配列として期待されます</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <target>以下のサブパラメーターのいずれかを含む必要があります：%propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <target>%value% に対する項目が見つかりません</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <target>完全には一致しません。インポートされた値：%importValue%、見つかった値 (%foundId%)：%foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>サブパラメーターとして次のいずれかを含む必要があります："id" は 0 より大きい整数、または "name" は空でない文字列</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

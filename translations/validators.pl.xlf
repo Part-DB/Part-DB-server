@@ -383,5 +383,59 @@
         <target>Musisz wybrać element lub przypisać nazwę dla elementu niestandardowego!</target>
       </segment>
     </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json.quantity.required</source>
+        <target>Musisz wprowadzić ilość > 0!</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json.quantity.float</source>
+        <target>oczekiwano liczby zmiennoprzecinkowej (float) większej od 0,0</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <target>oczekiwano jako niepusty ciąg znaków</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <target>oczekiwano jako niepusty ciąg znaków lub null</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json.parameter.array</source>
+        <target>oczekiwano jako tablicę</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <target>musi zawierać co najmniej jeden z następujących podparametrów: %propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <target>nie znaleziono dla %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <target>brak dokładnego dopasowania. Wprowadzone do importu: %importValue%, znalezione (%foundId%): %foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>musi zawierać jako podparametr: "id" jako liczbę całkowitą większą od 0 lub "name" jako niepusty ciąg znaków</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
