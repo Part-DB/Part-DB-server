@@ -371,5 +371,59 @@
         <target>必须选择零件或为非零件指定名称！</target>
       </segment>
     </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json.quantity.required</source>
+        <target>必须输入数量 > 0！</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json.quantity.float</source>
+        <target>应为大于 0.0 的浮点数 (float)</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <target>应为非空字符串</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <target>应为非空字符串或 null</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json.parameter.array</source>
+        <target>应为数组</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <target>必须包含以下子参数之一：%propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <target>未找到对应值 %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <target>未精确匹配。用于导入的值：%importValue%，找到的值 (%foundId%)：%foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>必须包含子参数："id" 为大于 0 的整数，或 "name" 为非空字符串</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
