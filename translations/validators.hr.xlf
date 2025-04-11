@@ -383,5 +383,59 @@
         <target>Morate odabrati dio ili unijeti naziv za nedio!</target>
       </segment>
     </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json.quantity.required</source>
+        <target>Morate unijeti količinu > 0!</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json.quantity.float</source>
+        <target>očekuje se decimalni broj (float) veći od 0,0</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <target>očekuje se kao neprazan niz znakova</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <target>očekuje se kao neprazan niz znakova ili null</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json.parameter.array</source>
+        <target>očekuje se kao niz</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <target>mora sadržavati barem jedan od sljedećih pod-parametara: %propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <target>nije pronađeno za %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <target>ne podudara se točno. Uneseno za uvoz: %importValue%, pronađeno (%foundId%): %foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>mora sadržavati kao pod-parametar bilo: "id" kao cijeli broj veći od 0 ili "name" kao neprazan niz znakova</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

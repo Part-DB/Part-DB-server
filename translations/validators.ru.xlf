@@ -383,5 +383,59 @@
         <target>Необходимо выбрать деталь или ввести название для недетали!</target>
       </segment>
     </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json.quantity.required</source>
+        <target>Необходимо указать количество > 0!</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json.quantity.float</source>
+        <target>ожидается число с плавающей запятой (float), большее 0,0</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <target>ожидается непустая строка</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <target>ожидается непустая строка или null</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json.parameter.array</source>
+        <target>ожидается массив</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <target>должен содержать хотя бы один из следующих под-параметров: %propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <target>не найдено для %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <target>точное совпадение отсутствует. Указано для импорта: %importValue%, найдено (%foundId%): %foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>должен содержать под-параметр: "id" как целое число больше 0 или "name" как непустая строка</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
