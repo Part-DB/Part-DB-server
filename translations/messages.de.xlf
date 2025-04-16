@@ -13064,7 +13064,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
-        <target>Bauteile importieren</target>
+        <target>Importiere Bauteil-Liste</target>
       </segment>
     </unit>
     <unit id="vsmgKMw" name="log.database_updated.failed">
@@ -13319,6 +13319,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>JSON für eine Baugruppe</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV für eine Baugruppe</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -13341,6 +13347,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Import-Vorlage JSON für eine Baugruppe</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Import-Vorlage CSV für eine Baugruppe</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -13410,16 +13422,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                 <td>name</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Falls vorhanden, muss es ein nicht-leerer String sein.</td>
+                <td>Falls vorhanden, muss es ein nicht-leerer String sein. Name des Eintrags innerhalb der Baugruppe.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Optional</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Falls angegeben, muss es ein Objekt/Array sein und mindestens eines der Felder ausgefüllt sein:
+                  Falls ein Bauteil zugeordnet werden soll, muss es ein Objekt/Array und mindestens eines der Felder ausgefüllt sein:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -13431,35 +13445,35 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                 <td>Ganzzahl (Integer) > 0. Entspricht der Part-DB internen numerischen ID des Bauteils.</td>
               </tr>
               <tr>
-                <td>part.name</td>
-                <td>Optional</td>
-                <td>String</td>
-                <td>Nicht-leerer String, falls keine part.mpnr- bzw. part.ipn-Angabe gegeben ist.</td>
-              </tr>
-              <tr>
                 <td>part.mpnr</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Nicht-leerer String, falls keine part.name- bzw. part-ipn-Angabe gegeben ist.</td>
+                <td>Nicht-leerer String, falls keine part.id-, part-ipn- bzw. part.name-Angabe gegeben ist.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Nicht-leerer String, falls keine part.name- bzw. part.mpnr-Angabe gegeben ist.</td>
+                <td>Nicht-leerer String, falls keine part.id-, part.mpnr bzw. part.name-Angabe gegeben ist.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Nicht-leerer String, falls keine part.id-, part.mpnr- bzw. part.ipn-Angabe gegeben ist.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Optional</td>
                 <td>String oder null</td>
-                <td>Falls vorhanden, muss es ein nicht-leerer String sein oder null.</td>
+                <td>Falls vorhanden, muss es ein nicht-leerer String sein oder null. Wird in das Bauteil übernommen, d.h. der dortige Wert überschrieben.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Optional</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Falls vorhanden, muss es ein Objekt/Array sein und mindestens eines der Felder ausgefüllt sein:
+                  Falls der Hersteller eines Bauteils mit angepasst werden oder das Bauteil anhand der part.mpnr-Angabe eindeutig gesucht werden soll, muss es ein Objekt/Array und mindestens eines der Felder ausgefüllt sein:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -13483,7 +13497,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                 <td>Optional</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Falls vorhanden, muss es ein Objekt/Array sein und mindestens eines der Felder ausgefüllt sein:
+                  Falls die Kategorie eine Bauteils mit angepasst werden soll, muss es ein Objekt/Array und mindestens eines der Felder ausgefüllt sein:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -13501,6 +13515,131 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                 <td>Optional</td>
                 <td>String</td>
                 <td>Nicht-leerer String, falls keine category.id-Angabe gegeben ist.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Mögliche Spalten:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Spalte</th>
+                <th>Bedingung</th>
+                <th>Datentyp</th>
+                <th>Beschreibung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Pflichtfeld</td>
+                <td>Gleitkommazahl (Float)</td>
+                <td>Muss gegeben sein und enthält einen Gleitkommawert (Float), der größer als 0.0 ist.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Name des Eintrags innerhalb der Baugruppe.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Spalten beginnend mit part_</strong></td>
+                <td>
+                  Falls ein Bauteil zugeordnet werden soll, muss eine der folgenden Spalten gegeben und ausgefüllt sein:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Optional</td>
+                <td>Ganzzahl (Integer)</td>
+                <td>Ganzzahl (Integer) > 0. Entspricht der Part-DB internen numerischen ID des Bauteils.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Anzugeben, falls keine part_id-, part_ipn- bzw. part_name-Spalte ausgefüllt gegeben ist.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Anzugeben, falls keine part_id-, part_mpnr- bzw. part_name-Spalte ausgefüllt gegeben ist.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Anzugeben, falls keine part_id-, part_mpnr- bzw. part_ipn-Spalte ausgefüllt gegeben ist.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Wird in das Bauteil übernommen, d.h. der dortige Wert überschrieben sofern ein nicht-leerer String gegeben ist.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Spalten beginnend mit part_manufacturer_</strong></td>
+                <td>
+                  Falls der Hersteller eines Bauteils mit angepasst werden oder das Bauteil anhand der part_mpnr-Angabe eindeutig gesucht werden soll, muss eine der folgenden Spalten gegeben und ausgefüllt sein:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Optional</td>
+                <td>Ganzzahl (Integer)</td>
+                <td>Ganzzahl (Integer) > 0. Entspricht der internen numerischen ID des Herstellers.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Anzugeben, falls keine part_manufacturer_id-Spalte ausgefüllt gegeben ist.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Spalten beginnend mit part.category_</strong></td>
+                <td>
+                  Falls die Kategorie eines Bauteils mit angepasst werden soll, muss eine der folgenden Spalten gegeben und ausgefüllt sein:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Optional</td>
+                <td>Ganzzahl (Integer)</td>
+                <td>Ganzzahl (Integer) > 0. Entspricht der internen numerischen ID der Kategorie des Bauteils.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Anzugeben, falls keine part_category_id-Spalte ausgefüllt gegeben ist.</td>
               </tr>
             </tbody>
           </table>

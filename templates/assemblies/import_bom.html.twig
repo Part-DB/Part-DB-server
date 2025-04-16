@@ -53,6 +53,34 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex">
+        <div class="card border-secondary flex-grow-1 overflow-auto">
+            <div class="card-header bg-secondary text-white">
+                {% trans %}assembly.import_bom.template.header.csv{% endtrans %}
+            </div>
+            <div class="card-body">
+                {{ 'assembly.bom_import.template.csv.exptected_columns'|trans }}
+
+                <pre>quantity;name;part_id;part_mpnr;part_ipn;part_name;part_description;part_manufacturer_id;part_manufacturer_name;part_category_id;part_category_name</pre>
+
+                <ul>
+                    <li>quantity</li>
+                    <li>name</li>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                    <li>part_description</li>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                </ul>
+
+                {{ 'assembly.bom_import.template.csv.table'|trans|raw }}
+            </div>
+        </div>
+    </div>
     <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex overflow-auto">
         <div class="card border-secondary flex-grow-1 overflow-auto">
             <div class="card-header bg-secondary text-white">
@@ -61,6 +89,20 @@
             <div class="card-body">
                 {{ 'assembly.bom_import.template.kicad_pcbnew.exptected_columns'|trans }}
                 <pre>Id;Designator;Package;Quantity;Designation;Supplier and ref</pre>
+
+                <ul>
+                    <li>Id</li>
+                    <li>Designator</li>
+                    <li>Package</li>
+                    <li>Quantity</li>
+                    <li>Designation</li>
+                    <li>Supplier and ref</li>
+                    <li>Note</li>
+                    <li>Footprint</li>
+                    <li>Value</li>
+                    <li>Footprint</li>
+                </ul>
+
                 {{ 'assembly.bom_import.template.kicad_pcbnew.exptected_columns.note'|trans|raw }}
 
                 {{ 'assembly.bom_import.template.kicad_pcbnew.table'|trans|raw }}

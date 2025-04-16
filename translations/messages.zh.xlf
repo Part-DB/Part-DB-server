@@ -12598,6 +12598,12 @@ Element 3</target>
         <target>JSON 文件（组件）</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>装配的CSV</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -12620,6 +12626,12 @@ Element 3</target>
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>装配 JSON 导入模板</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>用于装配的CSV导入模板</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -12681,24 +12693,26 @@ Element 3</target>
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>必填</td>
+                <td>必填字段</td>
                 <td>浮点数 (Float)</td>
-                <td>必须存在，并包含大于 0.0 的浮点值 (Float)。</td>
+                <td>必须填写且包含大于 0.0 的浮点数 (Float)。</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果存在，必须是非空字符串。</td>
+                <td>文本</td>
+                <td>如果填写，必须是非空文本。表示装配中的项目名称。</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>可选</td>
                 <td>对象/数组</td>
                 <td>
-                  如果提供，则必须是对象/数组，并且以下字段中至少有一个被填写：
+                  如果需要分配零件，它必须是一个对象/数组，并且至少需要填写以下字段之一：
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -12706,39 +12720,39 @@ Element 3</target>
               <tr>
                 <td>part.id</td>
                 <td>可选</td>
-                <td>整数 (Integer)</td>
-                <td>整数 (Integer) &gt; 0。表示组件在 Part-DB 中的内部数字 ID。</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果未提供 part.mpnr 或 part.ipn，则必须是非空字符串。</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应数据库中零件的内部数字ID。</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果未提供 part.name 或 part.ipn，则必须是非空字符串。</td>
+                <td>文本</td>
+                <td>如果 part.id、part.ipn 或 part.name 未填写，则必须是非空文本。</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果未提供 part.name 或 part.mpnr，则必须是非空字符串。</td>
+                <td>文本</td>
+                <td>如果 part.id、part.mpnr 或 part.name 未填写，则必须是非空文本。</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part.id、part.mpnr 或 part.ipn 未填写，则必须是非空文本。</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>可选</td>
-                <td>字符串或 null</td>
-                <td>如果存在，必须是非空字符串或 null。</td>
+                <td>文本或 null</td>
+                <td>如果填写，必须是非空文本或 null。该值将替换零件中的现有值。</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>可选</td>
                 <td>对象/数组</td>
                 <td>
-                  如果存在，则必须是对象/数组，并且以下字段中至少有一个被填写：
+                  如果需要更改零件制造商或通过值 part.mpnr 唯一查找零件，它必须是一个对象/数组，并且至少需要填写以下字段之一：
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -12748,21 +12762,21 @@ Element 3</target>
               <tr>
                 <td>manufacturer.id</td>
                 <td>可选</td>
-                <td>整数 (Integer)</td>
-                <td>整数 (Integer) &gt; 0。表示制造商的内部数字 ID。</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应制造商的内部数字 ID。</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果未提供 manufacturer.id，则必须是非空字符串。</td>
+                <td>文本</td>
+                <td>如果 manufacturer.id 未填写，则必须是非空文本。</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>可选</td>
                 <td>对象/数组</td>
                 <td>
-                  如果存在，则必须是对象/数组，并且以下字段中至少有一个被填写：
+                  如果需要更改零件的类别，它必须是一个对象/数组，并且至少需要填写以下字段之一：
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -12772,14 +12786,139 @@ Element 3</target>
               <tr>
                 <td>category.id</td>
                 <td>可选</td>
-                <td>整数 (Integer)</td>
-                <td>整数 (Integer) &gt; 0。表示组件类别的内部数字 ID。</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应零件类别的内部数字 ID。</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>可选</td>
-                <td>字符串 (String)</td>
-                <td>如果未提供 category.id，则必须是非空字符串。</td>
+                <td>文本</td>
+                <td>如果 category.id 未填写，则必须是非空文本。</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>可用列：</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>列名</th>
+                <th>条件</th>
+                <th>数据类型</th>
+                <th>描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>必填字段</td>
+                <td>浮点数 (Float)</td>
+                <td>必须填写且包含大于 0.0 的浮点数 (Float)。</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>装配中的项目名称。</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>以 part_ 开头的列</strong></td>
+                <td>
+                  如果需要分配零件，则至少需要填写以下列之一：
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>可选</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应数据库中零件的内部数字 ID。</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part_id、part_ipn 或 part_name 未填写，则必须是非空文本。</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part_id、part_mpnr 或 part_name 未填写，则必须是非空文本。</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part_id、part_mpnr 或 part_ipn 未填写，则必须是非空文本。</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果指定，将取代现有描述值，且必须为非空文本。</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>以 part_manufacturer_ 开头的列</strong></td>
+                <td>
+                  如果需要更改零件的制造商或通过 part_mpnr 唯一查找，至少需要填写以下列之一：
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>可选</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应制造商的内部数字 ID。</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part_manufacturer_id 未填写，则必须是非空文本。</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>以 part_category_ 开头的列</strong></td>
+                <td>
+                  如果需要更改零件的类别，则至少需要填写以下列之一：
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>可选</td>
+                <td>整数</td>
+                <td>一个大于 0 的整数。对应零件类别的内部数字 ID。</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>可选</td>
+                <td>文本</td>
+                <td>如果 part_category_id 未填写，则必须是非空文本。</td>
               </tr>
             </tbody>
           </table>

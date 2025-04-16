@@ -13065,7 +13065,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
-        <target>Import BOM</target>
+        <target>Import part list</target>
       </segment>
     </unit>
     <unit id="vsmgKMw" name="log.database_updated.failed">
@@ -13269,7 +13269,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
-        <target>Import BOM for project</target>
+        <target>Import part list for assembly</target>
       </segment>
     </unit>
     <unit id="WTasGao" name="assembly.bom.part">
@@ -13317,7 +13317,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="LtbSLHx" name="assembly.bom_import.type.json">
       <segment state="translated">
         <source>assembly.bom_import.type.json</source>
-        <target>JSON for one assembly</target>
+        <target>JSON for an assembly</target>
+      </segment>
+    </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV for an assembly</target>
       </segment>
     </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
@@ -13342,6 +13348,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Import template JSON format for one assembly</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Import template CSV format for one assembly</target>
       </segment>
     </unit>
     <unit id="RVNWPsh" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -13396,31 +13408,33 @@ Please note, that you can not impersonate a disabled user. If you try you will g
               <tr>
                 <th>Field</th>
                 <th>Condition</th>
-                <th>Data type</th>
+                <th>Data Type</th>
                 <th>Description</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Required</td>
-                <td>Floating point (Float)</td>
-                <td>Must be provided and contains a floating-point value (Float) greater than 0.0.</td>
+                <td>Mandatory</td>
+                <td>Floating point number (Float)</td>
+                <td>Must be provided and contains a floating point value (Float), which is greater than 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>If present, it must be a non-empty string.</td>
+                <td>If present, it must be a non-empty string. Name of the entry within the assembly.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Optional</td>
                 <td>Object/Array</td>
                 <td>
-                  If provided, it must be an object/array and at least one of the fields must be filled:
+                  If a part is to be associated, it must be an object/array with at least one of the following fields filled out:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -13429,38 +13443,38 @@ Please note, that you can not impersonate a disabled user. If you try you will g
                 <td>part.id</td>
                 <td>Optional</td>
                 <td>Integer</td>
-                <td>Integer > 0. Matches the Part-DB internal numeric ID of the component.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Optional</td>
-                <td>String</td>
-                <td>Non-empty string if no part.mpnr or part.ipn is provided.</td>
+                <td>Integer > 0. Corresponds to the part database internal numeric ID of the part.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Non-empty string if no part.name or part.ipn is provided.</td>
+                <td>Non-empty string, if no part.id, part.ipn, or part.name is provided.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Non-empty string if no part.name or part.mpnr is provided.</td>
+                <td>Non-empty string, if no part.id, part.mpnr, or part.name is provided.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Non-empty string, if no part.id, part.mpnr, or part.ipn is provided.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Optional</td>
                 <td>String or null</td>
-                <td>If present, it must be a non-empty string or null.</td>
+                <td>If provided, it must be a non-empty string or null. It will be transferred to the part, overwriting its current value.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Optional</td>
                 <td>Object/Array</td>
                 <td>
-                  If present, it must be an object/array and at least one of the fields must be filled:
+                  If the manufacturer of a part is to be adjusted or the part is to be uniquely identified using the part.mpnr, it must be an object/array with at least one of the following fields filled out:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -13471,20 +13485,20 @@ Please note, that you can not impersonate a disabled user. If you try you will g
                 <td>manufacturer.id</td>
                 <td>Optional</td>
                 <td>Integer</td>
-                <td>Integer > 0. Matches the internal numeric ID of the manufacturer.</td>
+                <td>Integer > 0. Corresponds to the internal numeric ID of the manufacturer.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Non-empty string if no manufacturer.id is provided.</td>
+                <td>Non-empty string, if no manufacturer.id is provided.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Optional</td>
                 <td>Object/Array</td>
                 <td>
-                  If present, it must be an object/array and at least one of the fields must be filled:
+                  If the category of a part is to be adjusted, it must be an object/array with at least one of the following fields filled out:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -13495,13 +13509,138 @@ Please note, that you can not impersonate a disabled user. If you try you will g
                 <td>category.id</td>
                 <td>Optional</td>
                 <td>Integer</td>
-                <td>Integer > 0. Matches the internal numeric ID of the component's category.</td>
+                <td>Integer > 0. Corresponds to the internal numeric ID of the part category.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Optional</td>
                 <td>String</td>
-                <td>Non-empty string if no category.id is provided.</td>
+                <td>Non-empty string, if no category.id is provided.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Possible columns:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Column</th>
+                <th>Condition</th>
+                <th>Data Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Mandatory</td>
+                <td>Floating point number (Float)</td>
+                <td>Must be provided and contains a floating point value (Float), which is greater than 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Name of the entry within the assembly.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columns starting with part_</strong></td>
+                <td>
+                  If a part is to be associated, one of the following columns must be provided and filled out:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Optional</td>
+                <td>Integer</td>
+                <td>Integer > 0. Corresponds to the part database internal numeric ID of the part.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Must be provided if no part_id, part_ipn, or part_name column is filled out.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Must be provided if no part_id, part_mpnr, or part_name column is filled out.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Must be provided if no part_id, part_mpnr, or part_ipn column is filled out.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Will be transferred to the part, overwriting its current value if a non-empty string is provided.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columns starting with part_manufacturer_</strong></td>
+                <td>
+                  If the manufacturer of a part is to be adjusted or the part is to be uniquely identified using the part_mpnr, one of the following columns must be provided and filled out:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Optional</td>
+                <td>Integer</td>
+                <td>Integer > 0. Corresponds to the internal numeric ID of the manufacturer.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Must be provided if no part_manufacturer_id column is filled out.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columns starting with part.category_</strong></td>
+                <td>
+                  If the category of a part is to be adjusted, one of the following columns must be provided and filled out:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Optional</td>
+                <td>Integer</td>
+                <td>Integer > 0. Corresponds to the internal numeric ID of the part category.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Must be provided if no part_category_id column is filled out.</td>
               </tr>
             </tbody>
           </table>
