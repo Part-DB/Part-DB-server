@@ -12713,6 +12713,12 @@
         <target>JSON для сборки</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV для сборки</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -12735,6 +12741,12 @@
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Шаблон импорта JSON для сборки</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Шаблон импорта CSV для сборки</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -12796,64 +12808,66 @@
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Обязательное</td>
-                <td>Дробное число (Float)</td>
-                <td>Поле должно быть заполнено и содержать дробное значение (Float), большее 0,0.</td>
+                <td>Обязательное поле</td>
+                <td>Число с плавающей точкой (Float)</td>
+                <td>Должно быть заполнено и содержать число с плавающей точкой (Float) больше 0,0.</td>
               </tr>
               <tr>
                 <td>name</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
-                <td>Если присутствует, должно быть непустой строкой.</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Если указано, должно быть непустой строкой. Имя элемента внутри сборки.</td>
               </tr>
               <tr>
                 <td>part</td>
-                <td>Опциональное</td>
+                <td>Необязательное</td>
                 <td>Объект/Массив</td>
                 <td>
-                  Если указано, должно быть объектом/массивом, и хотя бы одно из следующих полей должно быть заполнено:
+                  Если необходимо назначить деталь, это должен быть объект/массив, и должно быть заполнено хотя бы одно из следующих полей:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
               </tr>
               <tr>
                 <td>part.id</td>
-                <td>Опциональное</td>
-                <td>Целое число (Integer)</td>
-                <td>Целое число (Integer) &gt; 0. Соответствует внутреннему цифровому идентификатору компонента в Part-DB.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
-                <td>Непустая строка, если part.mpnr или part.ipn не указаны.</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому идентификатору детали в базе данных.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
-                <td>Непустая строка, если part.name или part.ipn не указаны.</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Непустая строка, если part.id, part.ipn или part.name не указаны.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
-                <td>Непустая строка, если part.name или part.mpnr не указаны.</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Непустая строка, если part.id, part.mpnr или part.name не указаны.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Непустая строка, если part.id, part.mpnr или part.ipn не указаны.</td>
               </tr>
               <tr>
                 <td>part.description</td>
-                <td>Опциональное</td>
+                <td>Необязательное</td>
                 <td>Строка или null</td>
-                <td>Если присутствует, должно быть непустой строкой или null.</td>
+                <td>Если указано, должно быть непустой строкой или null. Это значение перезаписывает существующее значение в детали.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
-                <td>Опциональное</td>
+                <td>Необязательное</td>
                 <td>Объект/Массив</td>
                 <td>
-                  Если присутствует, должно быть объектом/массивом, и хотя бы одно из следующих полей должно быть заполнено:
+                  Если необходимо изменить производителя детали или уникально найти по значению part.mpnr, это должен быть объект/массив, и должно быть заполнено хотя бы одно из следующих полей:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -12862,22 +12876,22 @@
               </tr>
               <tr>
                 <td>manufacturer.id</td>
-                <td>Опциональное</td>
-                <td>Целое число (Integer)</td>
-                <td>Целое число (Integer) &gt; 0. Соответствует внутреннему идентификатору производителя.</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому идентификатору производителя.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
                 <td>Непустая строка, если manufacturer.id не указано.</td>
               </tr>
               <tr>
                 <td>part.category</td>
-                <td>Опциональное</td>
+                <td>Необязательное</td>
                 <td>Объект/Массив</td>
                 <td>
-                  Если присутствует, должно быть объектом/массивом, и хотя бы одно из следующих полей должно быть заполнено:
+                  Если необходимо изменить категорию детали, это должен быть объект/массив, и должно быть заполнено хотя бы одно из следующих полей:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -12886,15 +12900,140 @@
               </tr>
               <tr>
                 <td>category.id</td>
-                <td>Опциональное</td>
-                <td>Целое число (Integer)</td>
-                <td>Целое число (Integer) &gt; 0. Соответствует внутреннему цифровому идентификатору категории компонента.</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому идентификатору категории детали.</td>
               </tr>
               <tr>
                 <td>category.name</td>
-                <td>Опциональное</td>
-                <td>Строка (String)</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
                 <td>Непустая строка, если category.id не указано.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Возможные столбцы:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Столбец</th>
+                <th>Условие</th>
+                <th>Тип данных</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Обязательное поле</td>
+                <td>Число с плавающей точкой (Float)</td>
+                <td>Должно быть заполнено и содержать число с плавающей точкой (Float), больше 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Название элемента в рамках сборки.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Столбцы, начинающиеся с part_</strong></td>
+                <td>
+                  Если необходимо назначить деталь, то хотя бы один из следующих столбцов должен быть заполнен:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому ID детали в базе данных.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Должно быть заполнено, если part_id, part_ipn или part_name не указаны.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Должно быть заполнено, если part_id, part_mpnr или part_name не указаны.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Должно быть заполнено, если part_id, part_mpnr или part_ipn не указаны.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Если указано, заменяет существующее значение описания деталя не пустой строкой.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Столбцы, начинающиеся с part_manufacturer_</strong></td>
+                <td>
+                  Если необходимо указать производителя детали или найти деталь уникально по part_mpnr, должно быть заполнено хотя бы одно из следующих полей:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому ID производителя.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Должно быть заполнено, если part_manufacturer_id не указано.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Столбцы, начинающиеся с part_category_</strong></td>
+                <td>
+                  Если необходимо изменить категорию детали, должно быть заполнено хотя бы одно из следующих полей:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Необязательное</td>
+                <td>Целое число</td>
+                <td>Целое число > 0. Соответствует внутреннему числовому ID категории детали.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Необязательное</td>
+                <td>Строка</td>
+                <td>Должно быть заполнено, если part_category_id не указано.</td>
               </tr>
             </tbody>
           </table>
@@ -12909,71 +13048,71 @@
       </segment>
     </unit>
     <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
-            <target>
-                <![CDATA[
-                <p><strong>Примечание:</strong> Сопоставление с конкретными компонентами из управления категориями не выполняется.</p>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+          <![CDATA[
+            <p><strong>Примечание:</strong> Сопоставление с конкретными компонентами из управления категориями не выполняется.</p>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
-            <target>
-                <![CDATA[
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Поле</th>
-                            <th>Условие</th>
-                            <th>Тип данных</th>
-                            <th>Описание</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>Опционально</td>
-                            <td>Целое</td>
-                            <td>Свободное поле. Уникальный идентификационный номер для каждого компонента.</td>
-                        </tr>
-                        <tr>
-                            <td>Package</td>
-                            <td>Designator</td>
-                            <td>Строка</td>
-                            <td>Свободное поле. Уникальная ссылочная метка компонента на печатной плате, например, "R1" для резистора 1.<br>Используется как наименование позиции в компоненте сборки.</td>
-                        </tr>
-                        <tr>
-                            <td>Package</td>
-                            <td>Опционально</td>
-                            <td>Строка</td>
-                            <td>Свободное поле. Тип корпуса или форм-фактор компонента, например, "0805" для SMD-резисторов.<br>Не включается в информацию о компоненте сборки.</td>
-                        </tr>
-                        <tr>
-                            <td>Quantity</td>
-                            <td>Обязательно</td>
-                            <td>Целое</td>
-                            <td>Количество одинаковых компонентов, необходимых для создания одной версии сборки.<br>Используется как количество в информации о компоненте сборки.</td>
-                        </tr>
-                        <tr>
-                            <td>Designation</td>
-                            <td>Обязательно</td>
-                            <td>Строка</td>
-                            <td>Описание или функция компонента, например, значение резистора "10kΩ" или значение конденсатора "100nF".<br>Используется как наименование в информации о компоненте сборки.</td>
-                        </tr>
-                        <tr>
-                            <td>Supplier and ref</td>
-                            <td>Опционально</td>
-                            <td>Строка</td>
-                            <td>Свободное поле. Может содержать, например, информацию о конкретных поставщиках.<br>Используется как примечание в информации о компоненте сборки.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Поле</th>
+                        <th>Условие</th>
+                        <th>Тип данных</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Опционально</td>
+                        <td>Целое</td>
+                        <td>Свободное поле. Уникальный идентификационный номер для каждого компонента.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Designator</td>
+                        <td>Строка</td>
+                        <td>Свободное поле. Уникальная ссылочная метка компонента на печатной плате, например, "R1" для резистора 1.<br>Используется как наименование позиции в компоненте сборки.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Опционально</td>
+                        <td>Строка</td>
+                        <td>Свободное поле. Тип корпуса или форм-фактор компонента, например, "0805" для SMD-резисторов.<br>Не включается в информацию о компоненте сборки.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Обязательно</td>
+                        <td>Целое</td>
+                        <td>Количество одинаковых компонентов, необходимых для создания одной версии сборки.<br>Используется как количество в информации о компоненте сборки.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Обязательно</td>
+                        <td>Строка</td>
+                        <td>Описание или функция компонента, например, значение резистора "10kΩ" или значение конденсатора "100nF".<br>Используется как наименование в информации о компоненте сборки.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Опционально</td>
+                        <td>Строка</td>
+                        <td>Свободное поле. Может содержать, например, информацию о конкретных поставщиках.<br>Используется как примечание в информации о компоненте сборки.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="QiZM3zY" name="typeahead.parts.part.name">
       <segment>

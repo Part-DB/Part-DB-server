@@ -12613,6 +12613,12 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
         <target>JSON dla zespołu</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV dla zestawienia</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -12635,6 +12641,12 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Szablon importu JSON dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Szablon importu CSV dla zespołu</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -12696,24 +12708,26 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Wymagane</td>
-                <td>Typ zmiennoprzecinkowy (Float)</td>
-                <td>Musi być obecne i zawierać wartość zmiennoprzecinkową (Float) większą niż 0,0.</td>
+                <td>Pole obowiązkowe</td>
+                <td>Liczba zmiennoprzecinkowa (Float)</td>
+                <td>Musi być wypełnione i zawierać liczbę zmiennoprzecinkową (Float) większą niż 0,0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Jeśli obecne, musi być niepustym ciągiem znaków.</td>
+                <td>Tekst</td>
+                <td>Jeśli określono, musi to być niepusty tekst. Nazwa elementu w ramach montażu.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Opcjonalne</td>
                 <td>Obiekt/Tablica</td>
                 <td>
-                  Jeśli podane, musi być obiektem/tablicą i co najmniej jedno z poniższych pól musi być wypełnione:
+                  Jeśli konieczne jest przypisanie części, musi to być Obiekt/Tablica, a przynajmniej jedno z poniższych pól powinno być wypełnione:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -12721,39 +12735,39 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
               <tr>
                 <td>part.id</td>
                 <td>Opcjonalne</td>
-                <td>Liczba całkowita (Integer)</td>
-                <td>Liczba całkowita (Integer) &gt; 0. Odpowiada wewnętrznemu numerowi ID komponentu w Part-DB.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Niepusty ciąg znaków, jeśli part.mpnr ani part.ipn nie są podane.</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID części w bazie danych.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Niepusty ciąg znaków, jeśli part.name ani part.ipn nie są podane.</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.ipn lub part.name nie są wypełnione.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Niepusty ciąg znaków, jeśli part.name ani part.mpnr nie są podane.</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.mpnr lub part.name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.mpnr lub part.ipn nie są wypełnione.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków lub null</td>
-                <td>Jeśli obecne, musi być niepustym ciągiem znaków lub null.</td>
+                <td>Tekst lub null</td>
+                <td>Jeśli określono, musi to być niepusty tekst lub null. Ta wartość nadpisze istniejącą wartość w części.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Opcjonalne</td>
                 <td>Obiekt/Tablica</td>
                 <td>
-                  Jeśli obecne, musi być obiektem/tablicą i co najmniej jedno z poniższych pól musi być wypełnione:
+                  Jeśli producent części ma zostać zmieniony lub wyszukany unikalnie za pomocą wartości part.mpnr, musi to być Obiekt/Tablica i przynajmniej jedno z poniższych pól powinno być wypełnione:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -12763,21 +12777,21 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
               <tr>
                 <td>manufacturer.id</td>
                 <td>Opcjonalne</td>
-                <td>Liczba całkowita (Integer)</td>
-                <td>Liczba całkowita (Integer) &gt; 0. Odpowiada wewnętrznemu identyfikatorowi numerowemu producenta.</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID producenta.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Niepusty ciąg znaków, jeśli manufacturer.id nie jest podane.</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pole manufacturer.id nie jest wypełnione.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Opcjonalne</td>
                 <td>Obiekt/Tablica</td>
                 <td>
-                  Jeśli obecne, musi być obiektem/tablicą i co najmniej jedno z poniższych pól musi być wypełnione:
+                  Jeśli konieczna jest zmiana kategorii części, musi to być Obiekt/Tablica i przynajmniej jedno z poniższych pól powinno być wypełnione:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -12787,14 +12801,139 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
               <tr>
                 <td>category.id</td>
                 <td>Opcjonalne</td>
-                <td>Liczba całkowita (Integer)</td>
-                <td>Liczba całkowita (Integer) &gt; 0. Odpowiada wewnętrznemu numerowi ID kategorii komponentu.</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID kategorii części.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Opcjonalne</td>
-                <td>Ciąg znaków (String)</td>
-                <td>Niepusty ciąg znaków, jeśli category.id nie jest podane.</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pole category.id nie jest wypełnione.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Możliwe kolumny:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolumna</th>
+                <th>Warunek</th>
+                <th>Typ danych</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Pole obowiązkowe</td>
+                <td>Liczba zmiennoprzecinkowa (Float)</td>
+                <td>Musi być wypełnione i zawierać liczbę zmiennoprzecinkową (Float) większą niż 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Nazwa elementu w ramach montażu.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_</strong></td>
+                <td>
+                  Jeśli konieczne jest przypisanie części, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID części w bazie danych.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_ipn lub part_name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_mpnr lub part_name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_mpnr lub part_ipn nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Zostanie przeniesione i zastąpi istniejącą wartość opisu, jeśli określono niepusty tekst.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_manufacturer_</strong></td>
+                <td>
+                  Jeśli producent części musi zostać zmieniony lub wyszukany unikalnie za pomocą part_mpnr, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID producenta.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, jeśli part_manufacturer_id nie jest określony.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_category_</strong></td>
+                <td>
+                  Jeśli konieczna jest zmiana kategorii części, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID kategorii części.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, jeśli part_category_id nie jest określone.</td>
               </tr>
             </tbody>
           </table>
@@ -12809,71 +12948,71 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
       </segment>
     </unit>
     <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
-            <target>
-                <![CDATA[
-                <p><strong>Uwaga:</strong> Nie wykonano mapowania z określonymi komponentami z zarządzania kategoriami.</p>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+          <![CDATA[
+            <p><strong>Uwaga:</strong> Nie wykonano mapowania z określonymi komponentami z zarządzania kategoriami.</p>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
-            <target>
-                <![CDATA[
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Pole</th>
-                            <th>Warunek</th>
-                            <th>Typ Danych</th>
-                            <th>Opis</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>Opcjonalne</td>
-                            <td>Liczba całkowita</td>
-                            <td>Pole dowolne. Unikalny numer identyfikacyjny dla każdego komponentu.</td>
-                        </tr>
-                        <tr>
-                            <td>Designator</td>
-                            <td>Opcjonalne</td>
-                            <td>Tekst</td>
-                            <td>Pole dowolne. Jednoznaczny znacznik referencyjny komponentu na PCB, np. "R1" dla rezystora 1.<br>Używane jako nazwa pozycji w pozycji komponentu w montażu.</td>
-                        </tr>
-                        <tr>
-                            <td>Package</td>
-                            <td>Opcjonalne</td>
-                            <td>Tekst</td>
-                            <td>Pole dowolne. Obudowa lub forma komponentu, np. "0805" dla rezystorów SMD.<br>Niewykorzystywane w pozycji komponentu w montażu.</td>
-                        </tr>
-                        <tr>
-                            <td>Quantity</td>
-                            <td>Wymagane</td>
-                            <td>Liczba całkowita</td>
-                            <td>Liczba identycznych komponentów potrzebna do utworzenia jednej instancji montażu.<br>Używane jako ilość w pozycji komponentu w montażu.</td>
-                        </tr>
-                        <tr>
-                            <td>Designation</td>
-                            <td>Wymagane</td>
-                            <td>Tekst</td>
-                            <td>Opis lub funkcja komponentu, np. wartość rezystora "10kΩ" lub wartość kondensatora "100nF".<br>Używane jako nazwa w pozycji komponentu w montażu.</td>
-                        </tr>
-                        <tr>
-                            <td>Supplier and ref</td>
-                            <td>Opcjonalne</td>
-                            <td>Tekst</td>
-                            <td>Pole dowolne. Może zawierać np. specyficzne informacje o dostawcy.<br>Używane jako notatka w pozycji komponentu w montażu.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Pole</th>
+                        <th>Warunek</th>
+                        <th>Typ Danych</th>
+                        <th>Opis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Opcjonalne</td>
+                        <td>Liczba całkowita</td>
+                        <td>Pole dowolne. Unikalny numer identyfikacyjny dla każdego komponentu.</td>
+                    </tr>
+                    <tr>
+                        <td>Designator</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Jednoznaczny znacznik referencyjny komponentu na PCB, np. "R1" dla rezystora 1.<br>Używane jako nazwa pozycji w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Obudowa lub forma komponentu, np. "0805" dla rezystorów SMD.<br>Niewykorzystywane w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Wymagane</td>
+                        <td>Liczba całkowita</td>
+                        <td>Liczba identycznych komponentów potrzebna do utworzenia jednej instancji montażu.<br>Używane jako ilość w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Wymagane</td>
+                        <td>Tekst</td>
+                        <td>Opis lub funkcja komponentu, np. wartość rezystora "10kΩ" lub wartość kondensatora "100nF".<br>Używane jako nazwa w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Może zawierać np. specyficzne informacje o dostawcy.<br>Używane jako notatka w pozycji komponentu w montażu.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="QiZM3zY" name="typeahead.parts.part.name">
       <segment>

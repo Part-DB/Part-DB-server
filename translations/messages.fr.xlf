@@ -9487,6 +9487,12 @@ exemple de ville</target>
         <target>JSON pour un assemblage</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV pour un assemblage</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -9509,6 +9515,12 @@ exemple de ville</target>
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Modèle d’importation JSON pour un assemblage</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Modèle d'importation CSV pour un assemblage</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -9570,24 +9582,26 @@ exemple de ville</target>
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Obligatoire</td>
-                <td>Nombre décimal (Float)</td>
-                <td>Doit être présent et contenir une valeur décimale (Float) supérieure à 0,0.</td>
+                <td>Champ obligatoire</td>
+                <td>Nombre à virgule flottante (Float)</td>
+                <td>Doit être rempli et contenir une valeur décimale (Float) supérieure à 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Si présent, doit être une chaîne non vide.</td>
+                <td>Chaîne</td>
+                <td>Si renseigné, doit être une chaîne non vide. Le nom de l'élément dans l'assemblage.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Optionnel</td>
                 <td>Objet/Tableau</td>
                 <td>
-                  Si fourni, doit être un objet/un tableau et au moins un des champs doit être rempli :
+                  Si une pièce doit être assignée, cela doit être un objet/tableau et au moins un des champs suivants doit être renseigné :
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -9596,38 +9610,38 @@ exemple de ville</target>
                 <td>part.id</td>
                 <td>Optionnel</td>
                 <td>Entier (Integer)</td>
-                <td>Entier (Integer) &gt; 0. Correspond à l'ID numérique interne dans Part-DB du composant.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Chaîne non vide si part.mpnr ou part.ipn ne sont pas fournis.</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique de la pièce dans la base de données.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Chaîne non vide si part.name ou part.ipn ne sont pas fournis.</td>
+                <td>Chaîne</td>
+                <td>Chaîne non vide si part.id, part.ipn ou part.name ne sont pas renseignés.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Chaîne non vide si part.name ou part.mpnr ne sont pas fournis.</td>
+                <td>Chaîne</td>
+                <td>Chaîne non vide si part.id, part.mpnr ou part.name ne sont pas renseignés.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Chaîne non vide si part.id, part.mpnr ou part.ipn ne sont pas renseignés.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Optionnel</td>
                 <td>Chaîne ou null</td>
-                <td>Si présent, doit être une chaîne non vide ou null.</td>
+                <td>Si renseignée, doit être une chaîne non vide ou null. Ce champ remplacera la valeur existante de la pièce.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Optionnel</td>
                 <td>Objet/Tableau</td>
                 <td>
-                  Si présent, doit être un objet/un tableau et au moins un des champs doit être rempli :
+                  Si le fabricant de la pièce doit être modifié ou recherché de manière unique à l'aide de la valeur part.mpnr, cela doit être un objet/tableau et au moins un des champs suivants doit être renseigné :
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -9638,20 +9652,20 @@ exemple de ville</target>
                 <td>manufacturer.id</td>
                 <td>Optionnel</td>
                 <td>Entier (Integer)</td>
-                <td>Entier (Integer) &gt; 0. Correspond à l'ID numérique interne du fabricant.</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique du fabricant.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Chaîne non vide si manufacturer.id n'est pas fourni.</td>
+                <td>Chaîne</td>
+                <td>Chaîne non vide si manufacturer.id n'est pas renseigné.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Optionnel</td>
                 <td>Objet/Tableau</td>
                 <td>
-                  Si présent, doit être un objet/un tableau et au moins un des champs doit être rempli :
+                  Si la catégorie de la pièce doit être modifiée, cela doit être un objet/tableau et au moins un des champs suivants doit être renseigné :
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -9662,13 +9676,138 @@ exemple de ville</target>
                 <td>category.id</td>
                 <td>Optionnel</td>
                 <td>Entier (Integer)</td>
-                <td>Entier (Integer) &gt; 0. Correspond à l'ID numérique interne de la catégorie du composant.</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique de la catégorie de la pièce.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Optionnel</td>
-                <td>Chaîne (String)</td>
-                <td>Chaîne non vide si category.id n'est pas fourni.</td>
+                <td>Chaîne</td>
+                <td>Chaîne non vide si category.id n'est pas renseigné.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Colonnes possibles :</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Colonne</th>
+                <th>Condition</th>
+                <th>Type de données</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Champ obligatoire</td>
+                <td>Nombre à virgule flottante (Float)</td>
+                <td>Doit être rempli et contenir une valeur décimale (Float) supérieure à 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Le nom de l'élément dans l'assemblage.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Colonnes commençant par part_</strong></td>
+                <td>
+                  Si une pièce doit être assignée, au moins une des colonnes suivantes doit être renseignée :
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Optionnel</td>
+                <td>Entier (Integer)</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique de la pièce dans la base de données.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Doit être renseignée si les colonnes part_id, part_ipn ou part_name ne sont pas remplies.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Doit être renseignée si les colonnes part_id, part_mpnr ou part_name ne sont pas remplies.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Doit être renseignée si les colonnes part_id, part_mpnr ou part_ipn ne sont pas remplies.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Sera transférée et remplacera la valeur existante de la description si une chaîne non vide est fournie.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Colonnes commençant par part_manufacturer_</strong></td>
+                <td>
+                  Si le fabricant de la pièce doit être modifié ou recherché uniquement via part_mpnr, au moins une des colonnes suivantes doit être renseignée :
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Optionnel</td>
+                <td>Entier (Integer)</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique du fabricant.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Doit être renseignée si part_manufacturer_id n'est pas fourni.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Colonnes commençant par part.category_</strong></td>
+                <td>
+                  Si la catégorie de la pièce doit être modifiée, au moins une des colonnes suivantes doit être renseignée :
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Optionnel</td>
+                <td>Entier (Integer)</td>
+                <td>Nombre entier > 0. Correspond à l'ID interne numérique de la catégorie de la pièce.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Optionnel</td>
+                <td>Chaîne</td>
+                <td>Doit être renseignée si part_category_id n'est pas fourni.</td>
               </tr>
             </tbody>
           </table>
@@ -9679,75 +9818,75 @@ exemple de ville</target>
     <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
       <segment>
         <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
-        <target>Colonnes attendues :</target>
+        <target>Colonnes attendues:</target>
       </segment>
     </unit>
     <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
       <segment>
         <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
         <target>
-            <![CDATA[
-            <p><strong>Remarque :</strong> Aucun mappage n'est effectué avec des composants spécifiques issus de la gestion des catégories.</p>
-            ]]>
+          <![CDATA[
+            <p><strong>Remarque:</strong> Aucun mappage n'est effectué avec des composants spécifiques issus de la gestion des catégories.</p>
+          ]]>
         </target>
       </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
-            <target>
-                <![CDATA[
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Champ</th>
-                            <th>Condition</th>
-                            <th>Type de Données</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>Optionnel</td>
-                            <td>Entier</td>
-                            <td>Champ libre. Un numéro d'identification unique pour chaque composant.</td>
-                        </tr>
-                        <tr>
-                            <td>Designator</td>
-                            <td>Optionnel</td>
-                            <td>Chaîne</td>
-                            <td>Champ libre. Une désignation de référence unique pour le composant sur le PCB, par exemple, "R1" pour la résistance 1.<br>Utilisé comme le nom de l'emplacement de l'entrée composant dans l'assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Package</td>
-                            <td>Optionnel</td>
-                            <td>Chaîne</td>
-                            <td>Champ libre. Le boîtier ou le format du composant, par exemple, "0805" pour les résistances CMS.<br>Non inclus dans l'entrée composant pour l'assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Quantity</td>
-                            <td>Obligatoire</td>
-                            <td>Entier</td>
-                            <td>Le nombre de composants identiques nécessaires pour créer une instance de l'assemblage.<br>Utilisé comme la quantité dans l'entrée composant de l'assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Designation</td>
-                            <td>Obligatoire</td>
-                            <td>Chaîne</td>
-                            <td>La description ou la fonction du composant, par exemple, valeur de résistance "10kΩ" ou valeur de condensateur "100nF".<br>Utilisé comme le nom dans l'entrée composant pour l'assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Supplier and ref</td>
-                            <td>Optionnel</td>
-                            <td>Chaîne</td>
-                            <td>Champ libre. Peut contenir par exemple des informations spécifiques sur le fournisseur.<br>Utilisé comme une note dans l'entrée composant pour l'assemblage.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Champ</th>
+                        <th>Condition</th>
+                        <th>Type de Données</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Optionnel</td>
+                        <td>Entier</td>
+                        <td>Champ libre. Un numéro d'identification unique pour chaque composant.</td>
+                    </tr>
+                    <tr>
+                        <td>Designator</td>
+                        <td>Optionnel</td>
+                        <td>Chaîne</td>
+                        <td>Champ libre. Une désignation de référence unique pour le composant sur le PCB, par exemple, "R1" pour la résistance 1.<br>Utilisé comme le nom de l'emplacement de l'entrée composant dans l'assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Optionnel</td>
+                        <td>Chaîne</td>
+                        <td>Champ libre. Le boîtier ou le format du composant, par exemple, "0805" pour les résistances CMS.<br>Non inclus dans l'entrée composant pour l'assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Obligatoire</td>
+                        <td>Entier</td>
+                        <td>Le nombre de composants identiques nécessaires pour créer une instance de l'assemblage.<br>Utilisé comme la quantité dans l'entrée composant de l'assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Obligatoire</td>
+                        <td>Chaîne</td>
+                        <td>La description ou la fonction du composant, par exemple, valeur de résistance "10kΩ" ou valeur de condensateur "100nF".<br>Utilisé comme le nom dans l'entrée composant pour l'assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Optionnel</td>
+                        <td>Chaîne</td>
+                        <td>Champ libre. Peut contenir par exemple des informations spécifiques sur le fournisseur.<br>Utilisé comme une note dans l'entrée composant pour l'assemblage.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="QiZM3zY" name="typeahead.parts.part.name">
       <segment>

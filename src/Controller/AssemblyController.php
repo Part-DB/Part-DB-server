@@ -139,6 +139,7 @@ class AssemblyController extends AbstractController
             'required' => true,
             'choices' => [
                 'assembly.bom_import.type.json' => 'json',
+                'assembly.bom_import.type.csv' => 'csv',
                 'assembly.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
             ]
         ]);
