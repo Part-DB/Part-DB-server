@@ -12598,6 +12598,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>JSON for en samling</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV til en samling</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -12620,6 +12626,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>JSON-importskabelon til en samling</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Importskabelon CSV til en samling</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -12681,64 +12693,66 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Påkrævet</td>
-                <td>Flydende tal (Float)</td>
-                <td>Skal være til stede og indeholde en flydende værdi (Float), der er større end 0,0.</td>
+                <td>Påkrævet felt</td>
+                <td>Flydende punkt-tal (Float)</td>
+                <td>Skal være udfyldt og indeholde en flydende værdi (Float), der er større end 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Hvis til stede, skal det være en ikke-tom streng.</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Hvis det er angivet, skal det være en ikke-tom streng. Navn på posten inden for samlingen.</td>
               </tr>
               <tr>
                 <td>part</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Hvis angivet, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  Hvis en del skal tildeles, skal det være et objekt/array, og mindst et af følgende felter skal være udfyldt:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
               </tr>
               <tr>
                 <td>part.id</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Heltal (Integer)</td>
-                <td>Heltal (Integer) &gt; 0. Matcher Part-DB's interne numeriske ID for komponenten.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Ikke-tom streng, hvis part.mpnr eller part.ipn ikke er givet.</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for delen i database.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Ikke-tom streng, hvis part.name eller part.ipn ikke er givet.</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Ikke-tom streng, hvis ingen part.id-, part.ipn- eller part.name-værdi er angivet.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Ikke-tom streng, hvis part.name eller part.mpnr ikke er givet.</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Ikke-tom streng, hvis ingen part.id-, part.mpnr- eller part.name-værdi er angivet.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Ikke-tom streng, hvis ingen part.id-, part.mpnr- eller part.ipn-værdi er angivet.</td>
               </tr>
               <tr>
                 <td>part.description</td>
-                <td>Valgfri</td>
-                <td>String eller null</td>
-                <td>Hvis til stede, skal det være en ikke-tom streng eller null.</td>
+                <td>Valgfrit</td>
+                <td>Streng eller null</td>
+                <td>Hvis angivet, skal det være en ikke-tom streng eller null. Værdien bliver overskrevet i delen.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Hvis til stede, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  Hvis producenten af en del skal ændres eller entydigt søges ved hjælp af part.mpnr-værdien, skal det være et objekt/array og mindst et af følgende felter skal være udfyldt:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -12747,22 +12761,22 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
               </tr>
               <tr>
                 <td>manufacturer.id</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Heltal (Integer)</td>
-                <td>Heltal (Integer) &gt; 0. Matcher producentens interne numeriske ID.</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for producenten.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Ikke-tom streng, hvis manufacturer.id ikke er givet.</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Ikke-tom streng, hvis ingen manufacturer.id er angivet.</td>
               </tr>
               <tr>
                 <td>part.category</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Hvis til stede, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  Hvis en delens kategori skal ændres, skal det være et objekt/array, og mindst et af følgende felter skal være udfyldt:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -12771,15 +12785,140 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
               </tr>
               <tr>
                 <td>category.id</td>
-                <td>Valgfri</td>
+                <td>Valgfrit</td>
                 <td>Heltal (Integer)</td>
-                <td>Heltal (Integer) &gt; 0. Matcher komponentkategoriens interne numeriske ID.</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for delens kategori.</td>
               </tr>
               <tr>
                 <td>category.name</td>
-                <td>Valgfri</td>
-                <td>String</td>
-                <td>Ikke-tom streng, hvis category.id ikke er givet.</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Ikke-tom streng, hvis ingen category.id er angivet.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Mulige kolonner:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolonne</th>
+                <th>Betingelse</th>
+                <th>Datatype</th>
+                <th>Beskrivelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Påkrævet felt</td>
+                <td>Flydende punkt-tal (Float)</td>
+                <td>Skal være udfyldt og indeholde en flydende værdi (Float), der er større end 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Navnet på posten inden for samlingen.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolonner, der starter med part_</strong></td>
+                <td>
+                  Hvis en del skal tildeles, skal en af følgende kolonner være angivet og udfyldt:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Valgfrit</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for delen i databasen.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Skal angives, hvis ingen af kolonnerne part_id, part_ipn, eller part_name er udfyldt.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Skal angives, hvis ingen af kolonnerne part_id, part_mpnr eller part_name er udfyldt.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Skal angives, hvis ingen af kolonnerne part_id, part_mpnr eller part_ipn er udfyldt.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Vil blive overført og overskrive værdien for delen, hvis en ikke-tom streng er angivet.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolonner, der starter med part_manufacturer_</strong></td>
+                <td>
+                  Hvis producenten for en del skal ændres eller søges entydigt ved hjælp af part_mpnr, skal en af følgende kolonner være angivet og udfyldt:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Valgfrit</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for producenten.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Skal angives, hvis ingen part_manufacturer_id er udfyldt.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolonner, der starter med part.category_</strong></td>
+                <td>
+                  Hvis en dels kategori skal ændres, skal en af følgende kolonner være angivet og udfyldt:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Valgfrit</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal > 0. Tilsvarer den interne nummer-ID for delens kategori.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Valgfrit</td>
+                <td>Streng</td>
+                <td>Skal angives, hvis ingen part_category_id er udfyldt.</td>
               </tr>
             </tbody>
           </table>

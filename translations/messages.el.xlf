@@ -1925,6 +1925,12 @@
         <target>JSON για συναρμολόγηση</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV για μια συναρμολόγηση</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -1947,6 +1953,12 @@
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Πρότυπο εισαγωγής JSON για συναρμολόγηση</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Πρότυπο CSV εισαγωγής για μια συναρμολόγηση</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -2001,7 +2013,7 @@
               <tr>
                 <th>Πεδίο</th>
                 <th>Προϋπόθεση</th>
-                <th>Τύπος Δεδομένων</th>
+                <th>Τύπος δεδομένων</th>
                 <th>Περιγραφή</th>
               </tr>
             </thead>
@@ -2010,22 +2022,24 @@
                 <td>quantity</td>
                 <td>Υποχρεωτικό πεδίο</td>
                 <td>Αριθμός κινητής υποδιαστολής (Float)</td>
-                <td>Πρέπει να παρέχεται και να περιέχει τιμή κινητής υποδιαστολής (Float) μεγαλύτερη από 0.0.</td>
+                <td>Πρέπει να είναι συμπληρωμένος και να περιέχει μια αριθμητική τιμή (Float) μεγαλύτερη από 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Εάν υπάρχει, πρέπει να είναι μη κενό κείμενο.</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Αν υπάρχει, πρέπει να είναι μη κενό κείμενο. Το όνομα του είδους μέσα στη συλλογή.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Προαιρετικό</td>
                 <td>Αντικείμενο/Πίνακας</td>
                 <td>
-                  Εάν παρέχεται, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα πεδία του να είναι συμπληρωμένο:
+                  Αν πρόκειται να ανατεθεί ένα εξάρτημα, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα παρακάτω πεδία πρέπει να έχει συμπληρωθεί:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -2034,38 +2048,38 @@
                 <td>part.id</td>
                 <td>Προαιρετικό</td>
                 <td>Ακέραιος αριθμός (Integer)</td>
-                <td>Ακέραιος (Integer) > 0. Αντιστοιχεί στην εσωτερική αριθμητική ταυτότητα (ID) του εξαρτήματος στη βάση δεδομένων.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Μη κενό κείμενο, εάν δεν παρέχονται οι ενδείξεις part.mpnr ή part.ipn.</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID του εξαρτήματος στη βάση δεδομένων.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Μη κενό κείμενο, εάν δεν παρέχονται οι ενδείξεις part.name ή part.ipn.</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Μη κενό κείμενο, αν δεν έχει συμπληρωθεί το part.id, part.ipn ή part.name.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Μη κενό κείμενο, εάν δεν παρέχονται οι ενδείξεις part.name ή part.mpnr.</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Μη κενό κείμενο, αν δεν έχει συμπληρωθεί το part.id, part.mpnr ή part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Μη κενό κείμενο, αν δεν έχει συμπληρωθεί το part.id, part.mpnr ή part.ipn.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο ή null</td>
-                <td>Εάν υπάρχει, πρέπει να είναι μη κενό κείμενο, ή null.</td>
+                <td>Χαρακτηριστική ακολουθία ή null</td>
+                <td>Αν υπάρχει, πρέπει να είναι μη κενό κείμενο ή null. Υπερισχύει της υπάρχουσας τιμής στο εξάρτημα.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Προαιρετικό</td>
                 <td>Αντικείμενο/Πίνακας</td>
                 <td>
-                  Εάν υπάρχει, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα πεδία του να είναι συμπληρωμένο:
+                  Αν ο κατασκευαστής ενός εξαρτήματος χρειάζεται να αλλάξει ή να αναζητηθεί μονοσήμαντα μέσω της τιμής part.mpnr, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα παρακάτω πεδία να είναι συμπληρωμένα:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -2076,20 +2090,20 @@
                 <td>manufacturer.id</td>
                 <td>Προαιρετικό</td>
                 <td>Ακέραιος αριθμός (Integer)</td>
-                <td>Ακέραιος (Integer) > 0. Αντιστοιχεί στην εσωτερική αριθμητική ταυτότητα (ID) του κατασκευαστή.</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID του κατασκευαστή.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Μη κενό κείμενο, εάν δεν παρέχεται η ένδειξη manufacturer.id.</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Μη κενό κείμενο, αν δεν έχει συμπληρωθεί το manufacturer.id.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Προαιρετικό</td>
                 <td>Αντικείμενο/Πίνακας</td>
                 <td>
-                  Εάν υπάρχει, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα πεδία του να είναι συμπληρωμένο:
+                  Αν χρειάζεται να τροποποιηθεί η κατηγορία του εξαρτήματος, πρέπει να είναι αντικείμενο/πίνακας και τουλάχιστον ένα από τα παρακάτω πεδία να είναι συμπληρωμένα:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -2100,13 +2114,138 @@
                 <td>category.id</td>
                 <td>Προαιρετικό</td>
                 <td>Ακέραιος αριθμός (Integer)</td>
-                <td>Ακέραιος (Integer) > 0. Αντιστοιχεί στην εσωτερική αριθμητική ταυτότητα (ID) της κατηγορίας του εξαρτήματος.</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID της κατηγορίας εξαρτήματος.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Προαιρετικό</td>
-                <td>Κείμενο (String)</td>
-                <td>Μη κενό κείμενο, εάν δεν παρέχεται η ένδειξη category.id.</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Μη κενό κείμενο, αν δεν έχει συμπληρωθεί το category.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Δυνατές στήλες:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Στήλη</th>
+                <th>Προϋπόθεση</th>
+                <th>Τύπος δεδομένων</th>
+                <th>Περιγραφή</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Υποχρεωτικό πεδίο</td>
+                <td>Αριθμός κινητής υποδιαστολής (Float)</td>
+                <td>Πρέπει να είναι συμπληρωμένος και να περιέχει μια αριθμητική τιμή (Float) μεγαλύτερη από 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Το όνομα του είδους μέσα στη συλλογή.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Στήλες που ξεκινούν με part_</strong></td>
+                <td>
+                  Αν χρειάζεται να αποδοθεί εξάρτημα, πρέπει να συμπληρωθεί μία από τις παρακάτω στήλες:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Προαιρετικό</td>
+                <td>Ακέραιος αριθμός (Integer)</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID του εξαρτήματος στη βάση δεδομένων.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Πρέπει να συμπληρωθεί αν δεν γεμίσουν οι part_id, part_ipn ή part_name.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Πρέπει να συμπληρωθεί αν δεν γεμίσουν οι part_id, part_mpnr ή part_name.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Πρέπει να συμπληρωθεί αν δεν γεμίσουν οι part_id, part_mpnr ή part_ipn.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία</td>
+                <td>Θα μεταφερθεί και θα αντικαταστήσει την τιμή στο εξάρτημα, αν δοθεί μια μη κενή ακολουθία.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Στήλες που ξεκινούν με part_manufacturer_</strong></td>
+                <td>
+                  Αν ο κατασκευαστής του εξαρτήματος πρέπει να αλλάξει ή να αναζητηθεί μονοσήμαντα μέσω της part_mpnr, πρέπει να συμπληρωθεί μία από τις παρακάτω στήλες:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Προαιρετικό</td>
+                <td>Ακέραιος αριθμός (Integer)</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID του κατασκευαστή.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Πρέπει να συμπληρωθεί αν δεν γεμίσει το πεδίο part_manufacturer_id.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Στήλες που ξεκινούν με part.category_</strong></td>
+                <td>
+                  Αν η κατηγορία του εξαρτήματος πρέπει να αλλάξει, πρέπει να συμπληρωθεί μία από τις παρακάτω στήλες:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Προαιρετικό</td>
+                <td>Ακέραιος αριθμός (Integer)</td>
+                <td>Ακέραιος αριθμός > 0. Αντιστοιχεί στο εσωτερικό αριθμητικό ID της κατηγορίας του εξαρτήματος.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Προαιρετικό</td>
+                <td>Χαρακτηριστική ακολουθία (String)</td>
+                <td>Πρέπει να συμπληρωθεί αν δεν γεμίσει το πεδίο part_category_id.</td>
               </tr>
             </tbody>
           </table>

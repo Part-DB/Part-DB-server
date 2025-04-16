@@ -12734,6 +12734,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>JSON para un ensamblaje</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV para un ensamblaje</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -12756,6 +12762,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Plantilla de importación JSON para un ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Plantilla de importación CSV para un ensamblaje</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -12810,31 +12822,33 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
               <tr>
                 <th>Campo</th>
                 <th>Condición</th>
-                <th>Tipo de dato</th>
+                <th>Tipo de datos</th>
                 <th>Descripción</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Obligatorio</td>
-                <td>Número decimal (Float)</td>
-                <td>Debe estar presente y contener un valor decimal (Float) mayor que 0.0.</td>
+                <td>Campo obligatorio</td>
+                <td>Número de punto flotante (Float)</td>
+                <td>Debe completarse y contener un valor flotante (Float) mayor a 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Si está presente, debe ser una cadena de texto no vacía.</td>
+                <td>Cadena</td>
+                <td>Si se especifica, debe ser una cadena no vacía. El nombre del elemento dentro del conjunto.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Opcional</td>
                 <td>Objeto/Array</td>
                 <td>
-                  Si se proporciona, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  Si se debe asignar una pieza, debe ser un objeto/array, y al menos uno de los siguientes campos debe completarse:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -12843,38 +12857,38 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
                 <td>part.id</td>
                 <td>Opcional</td>
                 <td>Entero (Integer)</td>
-                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno del componente en la base de datos.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Cadena de texto no vacía, si no se proporciona part.mpnr o part.ipn.</td>
+                <td>Entero > 0. Corresponde al ID interno numérico de la pieza en la base de datos.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Cadena de texto no vacía, si no se proporciona part.name o part.ipn.</td>
+                <td>Cadena</td>
+                <td>Cadena no vacía si no se rellenan los campos part.id, part.ipn o part.name.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Cadena de texto no vacía, si no se proporciona part.name o part.mpnr.</td>
+                <td>Cadena</td>
+                <td>Cadena no vacía si no se rellenan los campos part.id, part.mpnr o part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Cadena no vacía si no se rellenan los campos part.id, part.mpnr o part.ipn.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String) o null</td>
-                <td>Si está presente, debe ser una cadena de texto no vacía o null.</td>
+                <td>Cadena o null</td>
+                <td>Si se especifica, debe ser una cadena no vacía o null. Este valor sobrescribirá el existente en la pieza.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Opcional</td>
                 <td>Objeto/Array</td>
                 <td>
-                  Si está presente, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  Si se desea cambiar el fabricante de la pieza o buscarlo de forma única utilizando el valor part.mpnr, debe ser un objeto/array y al menos uno de los siguientes campos debe completarse:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -12885,20 +12899,20 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
                 <td>manufacturer.id</td>
                 <td>Opcional</td>
                 <td>Entero (Integer)</td>
-                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno del fabricante.</td>
+                <td>Entero > 0. Corresponde al ID interno numérico del fabricante.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Cadena de texto no vacía, si no se proporciona manufacturer.id.</td>
+                <td>Cadena</td>
+                <td>Cadena no vacía si no se proporciona el campo manufacturer.id.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Opcional</td>
                 <td>Objeto/Array</td>
                 <td>
-                  Si está presente, debe ser un objeto/array y al menos uno de los campos debe estar completado:
+                  Si se desea cambiar la categoría de la pieza, debe ser un objeto/array y al menos uno de los siguientes campos debe completarse:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -12909,13 +12923,138 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
                 <td>category.id</td>
                 <td>Opcional</td>
                 <td>Entero (Integer)</td>
-                <td>Entero (Integer) &gt; 0. Corresponde al ID numérico interno de la categoría del componente.</td>
+                <td>Entero > 0. Corresponde al ID interno numérico de la categoría de la pieza.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Opcional</td>
-                <td>Cadena de texto (String)</td>
-                <td>Cadena de texto no vacía, si no se proporciona category.id.</td>
+                <td>Cadena</td>
+                <td>Cadena no vacía si no se proporciona el campo category.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Columnas posibles:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Columna</th>
+                <th>Condición</th>
+                <th>Tipo de datos</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Campo obligatorio</td>
+                <td>Número de punto flotante (Float)</td>
+                <td>Debe completarse y contener un valor flotante (Float) mayor a 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>El nombre del elemento dentro del conjunto.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columnas que comienzan con part_</strong></td>
+                <td>
+                  Si se debe asignar una pieza, al menos una de las siguientes columnas debe completarse:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero > 0. Corresponde al ID interno numérico de la pieza en la base de datos.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Debe completarse si no se han rellenado las columnas part_id, part_ipn o part_name.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Debe completarse si no se han rellenado las columnas part_id, part_mpnr o part_name.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Debe completarse si no se han rellenado las columnas part_id, part_mpnr o part_ipn.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Se transferirá y reemplazará el valor de la descripción de la pieza si se proporciona una cadena no vacía.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columnas que comienzan con part_manufacturer_</strong></td>
+                <td>
+                  Si el fabricante de la pieza debe cambiarse o buscarse exclusivamente mediante part_mpnr, al menos una de las siguientes columnas debe completarse:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero > 0. Corresponde al ID interno numérico del fabricante.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Debe completarse si no se ha proporcionado el campo part_manufacturer_id.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Columnas que comienzan con part.category_</strong></td>
+                <td>
+                  Si se necesita modificar la categoría de la pieza, al menos una de las siguientes columnas debe completarse:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Opcional</td>
+                <td>Entero (Integer)</td>
+                <td>Entero > 0. Corresponde al ID interno numérico de la categoría de la pieza.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Opcional</td>
+                <td>Cadena</td>
+                <td>Debe completarse si no se ha proporcionado el campo part_category_id.</td>
               </tr>
             </tbody>
           </table>

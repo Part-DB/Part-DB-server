@@ -1150,6 +1150,12 @@
         <target>JSON voor assemblage</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV voor een assemblage</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -1172,6 +1178,12 @@
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>JSON-sjabloon voor assemblage</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>CSV-importsjabloon voor een assemblage</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -1235,22 +1247,24 @@
                 <td>quantity</td>
                 <td>Verplicht veld</td>
                 <td>Kommagetal (Float)</td>
-                <td>Moet opgegeven zijn en bevat een kommagetal (Float) dat groter is dan 0,0.</td>
+                <td>Moet worden ingevuld en een kommagetal (Float) bevatten dat groter is dan 0,0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Optioneel</td>
-                <td>String</td>
-                <td>Indien aanwezig, moet het een niet-lege string zijn.</td>
+                <td>Tekst</td>
+                <td>Wanneer ingevuld, moet het een niet-lege tekst zijn. De naam van het item binnen de assemblage.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Optioneel</td>
                 <td>Object/Array</td>
                 <td>
-                  Indien opgegeven, moet het een object/array zijn en ten minste één van de velden ingevuld zijn:
+                  Als een onderdeel moet worden toegewezen, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -1258,39 +1272,39 @@
               <tr>
                 <td>part.id</td>
                 <td>Optioneel</td>
-                <td>Geheel getal (Integer)</td>
-                <td>Geheel getal (Integer) > 0. Komt overeen met de interne numerieke ID van het onderdeel in de Part-DB.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Optioneel</td>
-                <td>String</td>
-                <td>Niet-lege string, indien geen part.mpnr- of part.ipn-vermelding is gegeven.</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van het onderdeel in de database.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Optioneel</td>
-                <td>String</td>
-                <td>Niet-lege string, indien geen part.name- of part.ipn-vermelding is gegeven.</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst, wanneer part.id, part.ipn of part.name niet zijn ingevuld.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Optioneel</td>
-                <td>String</td>
-                <td>Niet-lege string, indien geen part.name- of part.mpnr-vermelding is gegeven.</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst wanneer part.id, part.mpnr of part.name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst, wanneer part.id, part.mpnr of part.ipn niet zijn ingevuld.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Optioneel</td>
-                <td>String of null</td>
-                <td>Indien aanwezig, moet het een niet-lege string zijn of null.</td>
+                <td>Tekst of null</td>
+                <td>Indien ingevuld, moet het een niet-lege tekst of null zijn. Deze waarde vervangt de bestaande waarde in het onderdeel.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Optioneel</td>
                 <td>Object/Array</td>
                 <td>
-                  Indien aanwezig, moet het een object/array zijn en ten minste één van de velden ingevuld zijn:
+                  Als de fabrikant van het onderdeel moet worden gewijzigd of uniek moet worden opgezocht met de waarde part.mpnr, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -1300,21 +1314,21 @@
               <tr>
                 <td>manufacturer.id</td>
                 <td>Optioneel</td>
-                <td>Geheel getal (Integer)</td>
-                <td>Geheel getal (Integer) > 0. Komt overeen met de interne numerieke ID van de fabrikant.</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de fabrikant.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Optioneel</td>
-                <td>String</td>
-                <td>Niet-lege string, indien geen manufacturer.id-vermelding is gegeven.</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst als manufacturer.id niet is ingevuld.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Optioneel</td>
                 <td>Object/Array</td>
                 <td>
-                  Indien aanwezig, moet het een object/array zijn en ten minste één van de velden ingevuld zijn:
+                  Als de categorie van het onderdeel moet worden gewijzigd, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -1324,14 +1338,139 @@
               <tr>
                 <td>category.id</td>
                 <td>Optioneel</td>
-                <td>Geheel getal (Integer)</td>
-                <td>Geheel getal (Integer) > 0. Komt overeen met de interne numerieke ID van de categorie van het onderdeel.</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de categorie van het onderdeel.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Optioneel</td>
-                <td>String</td>
-                <td>Niet-lege string, indien geen category.id-vermelding is gegeven.</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst als category.id niet is ingevuld.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Mogelijke kolommen:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolom</th>
+                <th>Voorwaarde</th>
+                <th>Gegevenstype</th>
+                <th>Beschrijving</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Verplicht veld</td>
+                <td>Kommagetal (Float)</td>
+                <td>Moet worden ingevuld en moet een kommagetal (Float) bevatten dat groter is dan 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>De naam van het item binnen de assemblage.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_</strong></td>
+                <td>
+                  Als een onderdeel moet worden toegewezen, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van het onderdeel in de database.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_ipn of part_name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_mpnr of part_name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_mpnr of part_ipn niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Wordt overgenomen en vervangt de bestaande waarde van de beschrijving als er een niet-lege tekst wordt opgegeven.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_manufacturer_</strong></td>
+                <td>
+                  Als de fabrikant van een onderdeel moet worden gewijzigd of uniek moet worden gezocht via part_mpnr, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de fabrikant.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_manufacturer_id niet wordt opgegeven.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_category_</strong></td>
+                <td>
+                  Als de categorie van een onderdeel moet worden gewijzigd, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de categorie van het onderdeel.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_category_id niet wordt opgegeven.</td>
               </tr>
             </tbody>
           </table>
@@ -1346,71 +1485,71 @@
       </segment>
     </unit>
     <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
-            <target>
-                <![CDATA[
-                <p><strong>Opmerking:</strong> Er wordt geen mapping uitgevoerd met specifieke componenten uit de categoriebeheer.</p>
-                ]]>
-            </target>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+          <target>
+            <![CDATA[
+              <p><strong>Opmerking:</strong> Er wordt geen mapping uitgevoerd met specifieke componenten uit de categoriebeheer.</p>
+            ]]>
+          </target>
         </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
-            <target>
-                <![CDATA[
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Veld</th>
-                            <th>Voorwaarde</th>
-                            <th>Gegevenstype</th>
-                            <th>Beschrijving</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>Optioneel</td>
-                            <td>Integer</td>
-                            <td>Vrij veld. Een unieke identificatienummer voor elk onderdeel.</td>
-                        </tr>
-                        <tr>
-                            <td>Designator</td>
-                            <td>Optioneel</td>
-                            <td>String</td>
-                            <td>Vrij veld. Een unieke referentienaam voor het onderdeel op de PCB, bijvoorbeeld "R1" voor weerstand 1.<br>Wordt gebruikt als positioneringsnaam in de onderdelenlijst van de assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Package</td>
-                            <td>Optioneel</td>
-                            <td>String</td>
-                            <td>Vrij veld. De behuizing of vormfactor van het onderdeel, bijvoorbeeld "0805" voor SMD-weerstanden.<br>Wordt niet opgenomen in de onderdelenlijst binnen de assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Quantity</td>
-                            <td>Vereist</td>
-                            <td>Integer</td>
-                            <td>Het aantal identieke onderdelen dat nodig is om een assemblage-instantie te creëren.<br>Wordt gebruikt als hoeveelheid in de onderdelenlijst binnen de assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Designation</td>
-                            <td>Vereist</td>
-                            <td>String</td>
-                            <td>De beschrijving of functie van het onderdeel, zoals weerstandwaarde "10kΩ" of condensatorwaarde "100nF".<br>Wordt gebruikt als de naam in de onderdelenlijst binnen de assemblage.</td>
-                        </tr>
-                        <tr>
-                            <td>Supplier and ref</td>
-                            <td>Optioneel</td>
-                            <td>String</td>
-                            <td>Vrij veld. Kan bijvoorbeeld specifieke informatie over leveranciers bevatten.<br>Wordt gebruikt als notitie in de onderdelenlijst binnen de assemblage.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ]]>
-            </target>
-        </segment>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Veld</th>
+                        <th>Voorwaarde</th>
+                        <th>Gegevenstype</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Optioneel</td>
+                        <td>Integer</td>
+                        <td>Vrij veld. Een unieke identificatienummer voor elk onderdeel.</td>
+                    </tr>
+                    <tr>
+                        <td>Designator</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. Een unieke referentienaam voor het onderdeel op de PCB, bijvoorbeeld "R1" voor weerstand 1.<br>Wordt gebruikt als positioneringsnaam in de onderdelenlijst van de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. De behuizing of vormfactor van het onderdeel, bijvoorbeeld "0805" voor SMD-weerstanden.<br>Wordt niet opgenomen in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Vereist</td>
+                        <td>Integer</td>
+                        <td>Het aantal identieke onderdelen dat nodig is om een assemblage-instantie te creëren.<br>Wordt gebruikt als hoeveelheid in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Vereist</td>
+                        <td>String</td>
+                        <td>De beschrijving of functie van het onderdeel, zoals weerstandwaarde "10kΩ" of condensatorwaarde "100nF".<br>Wordt gebruikt als de naam in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. Kan bijvoorbeeld specifieke informatie over leveranciers bevatten.<br>Wordt gebruikt als notitie in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
     </unit>
     <unit id="QiZM3zY" name="typeahead.parts.part.name">
       <segment>

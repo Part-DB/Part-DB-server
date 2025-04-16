@@ -365,6 +365,18 @@
         <target>Codice non valido. Controlla che la tua app di autenticazione sia impostata correttamente e che sia il server che il dispositivo di autenticazione abbiano l'ora impostata correttamente.</target>
       </segment>
     </unit>
+    <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_import_type</source>
+        <target>Tipo di importazione non valido!</target>
+      </segment>
+    </unit>
+    <unit id="rbo1XEP" name="validator.bom_importer.invalid_file_extension">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_file_extension</source>
+        <target>Estensione del file "%extension%" non valida per il tipo di importazione "%importType%". Estensioni consentite: %allowedExtensions%.</target>
+      </segment>
+    </unit>
     <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
       <segment>
         <source>assembly.bom_entry.part_already_in_bom</source>
@@ -383,57 +395,57 @@
         <target>È necessario selezionare una parte o inserire un nome per un non-parte!</target>
       </segment>
     </unit>
-    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+    <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">
       <segment>
-        <source>validator.bom_importer.json.quantity.required</source>
+        <source>validator.bom_importer.json_csv.quantity.required</source>
         <target>Devi inserire una quantità > 0!</target>
       </segment>
     </unit>
-    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+    <unit id="hlBA1Pd" name="validator.bom_importer.json_csv.quantity.float">
       <segment>
-        <source>validator.bom_importer.json.quantity.float</source>
+        <source>validator.bom_importer.json_csv.quantity.float</source>
         <target>atteso come numero decimale (float) maggiore di 0,0</target>
       </segment>
     </unit>
-    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+    <unit id="eBCiG.1" name="validator.bom_importer.json_csv.parameter.string.notEmpty">
       <segment>
-        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty</source>
         <target>atteso come stringa non vuota</target>
       </segment>
     </unit>
-    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+    <unit id="aKg7qlT" name="validator.bom_importer.json_csv.parameter.string.notEmpty.null">
       <segment>
-        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty.null</source>
         <target>atteso come stringa non vuota o null</target>
       </segment>
     </unit>
-    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+    <unit id="g8HPqwx" name="validator.bom_importer.json_csv.parameter.array">
       <segment>
-        <source>validator.bom_importer.json.parameter.array</source>
+        <source>validator.bom_importer.json_csv.parameter.array</source>
         <target>atteso come array</target>
       </segment>
     </unit>
-    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+    <unit id="adLRxnA" name="validator.bom_importer.json_csv.parameter.subproperties">
       <segment>
-        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <source>validator.bom_importer.json_csv.parameter.subproperties</source>
         <target>deve avere almeno uno dei seguenti sotto-parametri: %propertyString%</target>
       </segment>
     </unit>
-    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+    <unit id="kt12PW4" name="validator.bom_importer.json_csv.parameter.notFoundFor">
       <segment>
-        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <source>validator.bom_importer.json_csv.parameter.notFoundFor</source>
         <target>non trovato per %value%</target>
       </segment>
     </unit>
-    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+    <unit id="bhc3WQf" name="validator.bom_importer.json_csv.parameter.noExactMatch">
       <segment>
-        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <source>validator.bom_importer.json_csv.parameter.noExactMatch</source>
         <target>non corrisponde esattamente. Valore dato per l'importazione: %importValue%, trovato (%foundId%): %foundValue%</target>
       </segment>
     </unit>
-    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+    <unit id="Kb1hpq3" name="validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties">
       <segment>
-        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <source>validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties</source>
         <target>deve contenere come sotto-parametro: "id" come intero maggiore di 0 o "name" come stringa non vuota</target>
       </segment>
     </unit>
