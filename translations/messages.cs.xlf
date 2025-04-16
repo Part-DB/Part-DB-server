@@ -13881,6 +13881,12 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>JSON pro sestavu</target>
       </segment>
     </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV pro sestavu</target>
+      </segment>
+    </unit>
     <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
@@ -13903,6 +13909,12 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment>
         <source>assembly.import_bom.template.header.json</source>
         <target>Šablona importu JSON pro sestavu</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Importní šablona CSV pro sestavu</target>
       </segment>
     </unit>
     <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
@@ -13964,24 +13976,26 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
             <tbody>
               <tr>
                 <td>quantity</td>
-                <td>Povinné</td>
+                <td>Povinné pole</td>
                 <td>Číslo s plovoucí desetinnou čárkou (Float)</td>
-                <td>Musí být uvedeno a obsahovat hodnotu s plovoucí desetinnou čárkou (Float) větší než 0,0.</td>
+                <td>Musí být vyplněno a obsahovat číselnou hodnotu (Float) větší než 0.0.</td>
               </tr>
               <tr>
                 <td>name</td>
                 <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Pokud je přítomen, musí být neprázdný řetězec.</td>
+                <td>Řetězec</td>
+                <td>Pokud je uvedeno, musí být neprázdný text. Název položky ve skupině.</td>
               </tr>
               <tr>
                 <td>part</td>
                 <td>Volitelné</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Pokud je uvedeno, musí to být objekt/array a minimálně jedno pole musí být vyplněno:
+                  Pokud má být přiřazena součástka, musí být objektem/arrayem a alespoň jedno z následujících polí musí být vyplněno:
                   <ul>
                     <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
                     <li>part.name</li>
                   </ul>
                 </td>
@@ -13990,38 +14004,38 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
                 <td>part.id</td>
                 <td>Volitelné</td>
                 <td>Celé číslo (Integer)</td>
-                <td>Celé číslo (Integer) &gt; 0. Odpovídá internímu číselnému ID součástky v Part-DB.</td>
-              </tr>
-              <tr>
-                <td>part.name</td>
-                <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Neprázdný řetězec, pokud není zadáno part.mpnr nebo part.ipn.</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID součástky v databázi.</td>
               </tr>
               <tr>
                 <td>part.mpnr</td>
                 <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Neprázdný řetězec, pokud není zadáno part.name nebo part.ipn.</td>
+                <td>Řetězec</td>
+                <td>Neprázdný text, pokud není vyplněno part.id, part.ipn ani part.name.</td>
               </tr>
               <tr>
                 <td>part.ipn</td>
                 <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Neprázdný řetězec, pokud není zadáno part.name nebo part.mpnr.</td>
+                <td>Řetězec</td>
+                <td>Neprázdný text, pokud není vyplněno part.id, part.mpnr ani part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Neprázdný text, pokud není vyplněno part.id, part.mpnr ani part.ipn.</td>
               </tr>
               <tr>
                 <td>part.description</td>
                 <td>Volitelné</td>
                 <td>Řetězec nebo null</td>
-                <td>Pokud je přítomen, musí být neprázdný řetězec nebo null.</td>
+                <td>Pokud je uvedeno, musí být neprázdný řetězec nebo null. Přepíše stávající hodnotu v součástce.</td>
               </tr>
               <tr>
                 <td>part.manufacturer</td>
                 <td>Volitelné</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Pokud je přítomen, musí to být objekt/array a minimálně jedno pole musí být vyplněno:
+                  Pokud má být výrobce součástky upraven nebo má být součástka jednoznačně identifikována pomocí hodnoty part.mpnr, musí být objektem/arrayem a alespoň jedno z následujících polí musí být vyplněno:
                   <ul>
                     <li>manufacturer.id</li>
                     <li>manufacturer.name</li>
@@ -14032,20 +14046,20 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
                 <td>manufacturer.id</td>
                 <td>Volitelné</td>
                 <td>Celé číslo (Integer)</td>
-                <td>Celé číslo (Integer) &gt; 0. Odpovídá internímu číselnému ID výrobce.</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID výrobce.</td>
               </tr>
               <tr>
                 <td>manufacturer.name</td>
                 <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Neprázdný řetězec, pokud není uvedeno manufacturer.id.</td>
+                <td>Řetězec</td>
+                <td>Neprázdný text, pokud není uveden manufacturer.id.</td>
               </tr>
               <tr>
                 <td>part.category</td>
                 <td>Volitelné</td>
                 <td>Objekt/Array</td>
                 <td>
-                  Pokud je přítomen, musí to být objekt/array a minimálně jedno pole musí být vyplněno:
+                  Pokud má být kategorie součástky upravena, musí být objektem/arrayem a alespoň jedno z následujících polí musí být vyplněno:
                   <ul>
                     <li>category.id</li>
                     <li>category.name</li>
@@ -14056,13 +14070,138 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
                 <td>category.id</td>
                 <td>Volitelné</td>
                 <td>Celé číslo (Integer)</td>
-                <td>Celé číslo (Integer) &gt; 0. Odpovídá internímu číselnému ID kategorie součástky.</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID kategorie součástky.</td>
               </tr>
               <tr>
                 <td>category.name</td>
                 <td>Volitelné</td>
-                <td>Řetězec (String)</td>
-                <td>Neprázdný řetězec, pokud není uvedeno category.id.</td>
+                <td>Řetězec</td>
+                <td>Neprázdný text, pokud není uvedeno category.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Možné sloupce:</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Sloupec</th>
+                <th>Podmínka</th>
+                <th>Datový typ</th>
+                <th>Popis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Povinné pole</td>
+                <td>Číslo s plovoucí desetinnou čárkou (Float)</td>
+                <td>Musí být vyplněno a obsahovat číselnou hodnotu (Float) větší než 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Název položky ve skupině.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Sloupce začínající part_</strong></td>
+                <td>
+                  Pokud má být přiřazena součástka, jeden z následujících sloupců musí být uveden a vyplněn:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID součástky v databázi.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_ipn nebo part_name.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_mpnr nebo part_name.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_mpnr nebo part_ipn.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Bude přeneseno do součástky a přepíše aktuální hodnotu, pokud je uveden neprázdný text.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Sloupce začínající part_manufacturer_</strong></td>
+                <td>
+                  Pokud má být výrobce upraven nebo součástka jednoznačně identifikována pomocí part_mpnr, jeden z následujících sloupců musí být uveden a vyplněn:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID výrobce.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Musí být uvedeno, pokud není vyplněn sloupec part_manufacturer_id.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Sloupce začínající part.category_</strong></td>
+                <td>
+                  Pokud má být kategorie upravena, jeden z následujících sloupců musí být uveden a vyplněn:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo > 0. Odpovídá internímu číselnému ID kategorie součástky.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Volitelné</td>
+                <td>Řetězec</td>
+                <td>Musí být uvedeno, pokud není vyplněn sloupec part_category_id.</td>
               </tr>
             </tbody>
           </table>

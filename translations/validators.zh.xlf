@@ -353,6 +353,18 @@
         <target>由于技术限制，在32位系统中无法选择2038年1月19日之后的日期！</target>
       </segment>
     </unit>
+    <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_import_type</source>
+        <target>无效的导入类型！</target>
+      </segment>
+    </unit>
+    <unit id="rbo1XEP" name="validator.bom_importer.invalid_file_extension">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_file_extension</source>
+        <target>导入类型“%importType%”的文件扩展名“%extension%”无效。允许的扩展名: %allowedExtensions%。</target>
+      </segment>
+    </unit>
     <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
       <segment>
         <source>assembly.bom_entry.part_already_in_bom</source>
@@ -371,57 +383,57 @@
         <target>必须选择零件或为非零件指定名称！</target>
       </segment>
     </unit>
-    <unit id="a1dKro7" name="validator.bom_importer.json.quantity.required">
+    <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">
       <segment>
-        <source>validator.bom_importer.json.quantity.required</source>
+        <source>validator.bom_importer.json_csv.quantity.required</source>
         <target>必须输入数量 > 0！</target>
       </segment>
     </unit>
-    <unit id="hlBA1Pd" name="validator.bom_importer.json.quantity.float">
+    <unit id="hlBA1Pd" name="validator.bom_importer.json_csv.quantity.float">
       <segment>
-        <source>validator.bom_importer.json.quantity.float</source>
+        <source>validator.bom_importer.json_csv.quantity.float</source>
         <target>应为大于 0.0 的浮点数 (float)</target>
       </segment>
     </unit>
-    <unit id="eBCiG.1" name="validator.bom_importer.json.parameter.string.notEmpty">
+    <unit id="eBCiG.1" name="validator.bom_importer.json_csv.parameter.string.notEmpty">
       <segment>
-        <source>validator.bom_importer.json.parameter.string.notEmpty</source>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty</source>
         <target>应为非空字符串</target>
       </segment>
     </unit>
-    <unit id="aKg7qlT" name="validator.bom_importer.json.parameter.string.notEmpty.null">
+    <unit id="aKg7qlT" name="validator.bom_importer.json_csv.parameter.string.notEmpty.null">
       <segment>
-        <source>validator.bom_importer.json.parameter.string.notEmpty.null</source>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty.null</source>
         <target>应为非空字符串或 null</target>
       </segment>
     </unit>
-    <unit id="g8HPqwx" name="validator.bom_importer.json.parameter.array">
+    <unit id="g8HPqwx" name="validator.bom_importer.json_csv.parameter.array">
       <segment>
-        <source>validator.bom_importer.json.parameter.array</source>
+        <source>validator.bom_importer.json_csv.parameter.array</source>
         <target>应为数组</target>
       </segment>
     </unit>
-    <unit id="adLRxnA" name="validator.bom_importer.json.parameter.subproperties">
+    <unit id="adLRxnA" name="validator.bom_importer.json_csv.parameter.subproperties">
       <segment>
-        <source>validator.bom_importer.json.parameter.subproperties</source>
+        <source>validator.bom_importer.json_csv.parameter.subproperties</source>
         <target>必须包含以下子参数之一：%propertyString%</target>
       </segment>
     </unit>
-    <unit id="kt12PW4" name="validator.bom_importer.json.parameter.notFoundFor">
+    <unit id="kt12PW4" name="validator.bom_importer.json_csv.parameter.notFoundFor">
       <segment>
-        <source>validator.bom_importer.json.parameter.notFoundFor</source>
+        <source>validator.bom_importer.json_csv.parameter.notFoundFor</source>
         <target>未找到对应值 %value%</target>
       </segment>
     </unit>
-    <unit id="bhc3WQf" name="validator.bom_importer.json.parameter.noExactMatch">
+    <unit id="bhc3WQf" name="validator.bom_importer.json_csv.parameter.noExactMatch">
       <segment>
-        <source>validator.bom_importer.json.parameter.noExactMatch</source>
+        <source>validator.bom_importer.json_csv.parameter.noExactMatch</source>
         <target>未精确匹配。用于导入的值：%importValue%，找到的值 (%foundId%)：%foundValue%</target>
       </segment>
     </unit>
-    <unit id="Kb1hpq3" name="validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties">
+    <unit id="Kb1hpq3" name="validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties">
       <segment>
-        <source>validator.bom_importer.json.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <source>validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties</source>
         <target>必须包含子参数："id" 为大于 0 的整数，或 "name" 为非空字符串</target>
       </segment>
     </unit>
