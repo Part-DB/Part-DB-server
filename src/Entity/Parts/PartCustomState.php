@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use ApiPlatform\Metadata\ApiProperty;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartCustomStateAttachment;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -97,6 +98,11 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $attachments;
+
+    #[ORM\ManyToOne(targetEntity: PartCustomStateAttachment::class)]
+    #[ORM\JoinColumn(name: 'id_preview_attachment', onDelete: 'SET NULL')]
+    #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
+    protected ?Attachment $master_picture_attachment = null;
 
     /** @var Collection<int, PartCustomStateAttachment>
      */
