@@ -122,7 +122,7 @@ class Category extends AbstractPartsContainingDBElement
      * @var string The prefix for ipn generation for created parts in this category.
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false, options: ['default' => ''])]
     protected string $part_ipn_prefix = '';
 
     /**
