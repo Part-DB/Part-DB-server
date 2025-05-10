@@ -69,6 +69,8 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'QR code linking to this element': 'QR Code verknüpft mit diesem Element',
     'Code 128 barcode linking to this element': 'Code 128 Barcode verknüpft mit diesem Element',
     'Code 39 barcode linking to this element': 'Code 39 Barcode verknüpft mit diesem Element',
+    'Code 93 barcode linking to this element': 'Code 93 Barcode verknüpft mit diesem Element',
+    'Datamatrix code linking to this element': 'Datamatrix Code verknüpft mit diesem Element',
 
     'Location ID': 'Lagerort ID',
     'Name': 'Name',
