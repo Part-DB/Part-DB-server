@@ -215,7 +215,7 @@ class AttachmentSubmitHandler
         $this->moveFile($attachment, $secure_attachment);
 
         //Sanitize the SVG if needed
-        $this->sanitizeSVGFiles($attachment);
+        $this->sanitizeSVGAttachment($attachment);
 
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
@@ -503,11 +503,11 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Sanatizes the given SVG file, if the attachment is an internal SVG file.
+     * Sanitizes the given SVG file, if the attachment is an internal SVG file.
      * @param  Attachment  $attachment
      * @return Attachment
      */
-    protected function sanitizeSVGFiles(Attachment $attachment): Attachment
+    public function sanitizeSVGAttachment(Attachment $attachment): Attachment
     {
         //We can not do anything on builtins or external ressources
         if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
