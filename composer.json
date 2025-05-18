@@ -43,6 +43,7 @@
         "omines/datatables-bundle": "^0.9.1",
         "paragonie/sodium_compat": "^1.21",
         "part-db/label-fonts": "^1.0",
+        "rhukster/dom-sanitizer": "^1.0",
         "runtime/frankenphp-symfony": "^0.2.0",
         "s9e/text-formatter": "^2.1",
         "scheb/2fa-backup-code": "^6.8.0",

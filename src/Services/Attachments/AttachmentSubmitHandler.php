@@ -65,7 +65,7 @@ class AttachmentSubmitHandler
         'htpasswd', ''];
 
     public function __construct(protected AttachmentPathResolver $pathResolver, protected bool $allow_attachments_downloads,
-        protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes,
+        protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes, protected readonly SVGSanitizer $SVGSanitizer,
         protected FileTypeFilterTools $filterTools, /**
          * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
          */
@@ -213,6 +213,9 @@ class AttachmentSubmitHandler
 
         //Move the attachment files to secure location (and back) if needed
         $this->moveFile($attachment, $secure_attachment);
+
+        //Sanitize the SVG if needed
+        $this->sanitizeSVGFiles($attachment);
 
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
@@ -497,5 +500,33 @@ class AttachmentSubmitHandler
         );
 
         return $this->max_upload_size_bytes;
+    }
+
+    /**
+     * Sanatizes the given SVG file, if the attachment is an internal SVG file.
+     * @param  Attachment  $attachment
+     * @return Attachment
+     */
+    protected function sanitizeSVGFiles(Attachment $attachment): Attachment
+    {
+        //We can not do anything on builtins or external ressources
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
+            return $attachment;
+        }
+
+        //Resolve the path to the file
+        $path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
+
+        //Check if the file exists
+        if (!file_exists($path)) {
+            return $attachment;
+        }
+
+        //Check if the file is an SVG
+        if ($attachment->getExtension() === "svg") {
+            $this->SVGSanitizer->sanitizeFile($path);
+        }
+
+        return $attachment;
     }
 }
