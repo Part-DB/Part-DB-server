@@ -118,3 +118,10 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+# Set Content-Security-Policy for svg files (and compressed variants), to block embedded javascript in there
+<IfModule mod_headers.c>
+    <FilesMatch "\.(svg|svg\.gz|svg\.br)$">
+        Header set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';"
+    </FilesMatch>
+</IfModule>
