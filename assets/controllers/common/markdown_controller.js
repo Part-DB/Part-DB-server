@@ -56,12 +56,16 @@ export default class MarkdownController extends Controller {
         this.element.innerHTML = DOMPurify.sanitize(MarkdownController._marked.parse(this.unescapeHTML(raw)));
 
         for(let a of this.element.querySelectorAll('a')) {
-            //Mark all links as external
-            a.classList.add('link-external');
-            //Open links in new tag
-            a.setAttribute('target', '_blank');
-            //Dont track
-            a.setAttribute('rel', 'noopener');
+            // test if link is absolute
+            var r = new RegExp('^(?:[a-z+]+:)?//', 'i');
+            if (r.test(a.getAttribute('href'))) {
+                //Mark all links as external
+                a.classList.add('link-external');
+                //Open links in new tag
+                a.setAttribute('target', '_blank');
+                //Dont track
+                a.setAttribute('rel', 'noopener');
+            }
         }
 
         //Apply bootstrap styles to tables
