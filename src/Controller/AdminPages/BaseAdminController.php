@@ -467,6 +467,11 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $entity);
         $entities = $em->getRepository($this->entity_class)->findAll();
 
+        if (count($entities) === 0) {
+            $this->addFlash('error', 'entity.export.flash.error.no_entities');
+            return $this->redirectToRoute($this->route_base.'_new');
+        }
+
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 

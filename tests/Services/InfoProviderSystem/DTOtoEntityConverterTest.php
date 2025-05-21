@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOtoEntityConverter;
+use PhpParser\Node\Param;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -150,9 +151,9 @@ class DTOtoEntityConverterTest extends WebTestCase
 
     public function testConvertPart(): void
     {
-        $parameters = [new ParameterDTO('Test', 'Test')];
-        $datasheets = [new FileDTO('https://invalid.invalid/file.pdf'), new FileDTO('https://invalid.invalid/file.pdf', name: 'TestFile')];
-        $images = [new FileDTO('https://invalid.invalid/image.png'), new FileDTO('https://invalid.invalid/image2.png', name: 'TestImage2'), new FileDTO('https://invalid.invalid/image2.png')];
+        $parameters = [new ParameterDTO('Test', 'Test'), new ParameterDTO('Duplicate', 'Test'), new ParameterDTO('Test', 'test', group: "Other"), new ParameterDTO('Duplicate', 'ds')];
+        $datasheets = [new FileDTO('https://invalid.invalid/file.pdf'), new FileDTO('https://invalid.invalid/file.pdf', name: 'TestFile'), new FileDTO('https://invalid.invalid/file2.pdf', name: 'Duplicate'), new FileDTO('https://invalid.invalid/file3.pdf', name: 'Duplicate')];
+        $images = [new FileDTO('https://invalid.invalid/image.png'), new FileDTO('https://invalid.invalid/image2.png', name: 'TestImage2'), new FileDTO('https://invalid.invalid/image3.png', name: "Duplicate")];
         $shopping_infos = [new  PurchaseInfoDTO('TestDistributor', 'TestOrderNumber', [new PriceDTO(1, "10.0", 'EUR')])];
 
         $dto = new PartDetailDTO(
@@ -182,15 +183,31 @@ class DTOtoEntityConverterTest extends WebTestCase
         $this->assertCount(count($parameters), $entity->getParameters());
         $this->assertCount(count($shopping_infos), $entity->getOrderdetails());
 
+        //Test that duplicate parameters get renamed:
+        $this->assertSame('Test', $entity->getParameters()[0]->getName());
+        $this->assertSame('Duplicate', $entity->getParameters()[1]->getName());
+        $this->assertSame('Test', $entity->getParameters()[2]->getName());
+        $this->assertSame('Duplicate (2)', $entity->getParameters()[3]->getName());
+
         //Datasheets and images are stored as attachments and the duplicates, should be filtered out
-        $this->assertCount(3, $entity->getAttachments());
+        $this->assertCount(6, $entity->getAttachments());
         //The attachments should have the name of the named duplicate file
         $image1 = $entity->getAttachments()[0];
         $this->assertSame('Main image', $image1->getName());
 
         $image1 = $entity->getAttachments()[1];
+        $this->assertSame('TestImage2', $image1->getName());
 
         $datasheet = $entity->getAttachments()[2];
+        $this->assertSame('Duplicate', $datasheet->getName());
+
+        $datasheet = $entity->getAttachments()[3];
         $this->assertSame('TestFile', $datasheet->getName());
+
+        $datasheet = $entity->getAttachments()[4];
+        $this->assertSame('Duplicate (2)', $datasheet->getName());
+
+        $datasheet = $entity->getAttachments()[5];
+        $this->assertSame('Duplicate (3)', $datasheet->getName());
     }
 }

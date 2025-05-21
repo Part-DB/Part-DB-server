@@ -55,7 +55,7 @@ class AttachmentReverseSearch
         $repo = $this->em->getRepository(Attachment::class);
 
         return $repo->findBy([
-            'path' => [$relative_path_new, $relative_path_old],
+            'internal_path' => [$relative_path_new, $relative_path_old],
         ]);
     }
 

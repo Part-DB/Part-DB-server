@@ -58,15 +58,15 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.path LIKE :like');
-        $qb->setParameter('like', '\\%SECURE\\%%');
+            ->where('attachment.internal_path LIKE :like ESCAPE \'#\'');
+        $qb->setParameter('like', '#%SECURE#%%');
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();
     }
 
     /**
-     * Gets the count of all external attachments (attachments only containing a URL).
+     * Gets the count of all external attachments (attachments containing only an external path).
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -75,17 +75,16 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('ILIKE(attachment.path, :http) = TRUE')
-            ->orWhere('ILIKE(attachment.path, :https) = TRUE');
-        $qb->setParameter('http', 'http://%');
-        $qb->setParameter('https', 'https://%');
+            ->where('attachment.external_path IS NOT NULL')
+            ->andWhere('attachment.internal_path IS NULL');
+
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();
     }
 
     /**
-     * Gets the count of all attachments where a user uploaded a file.
+     * Gets the count of all attachments where a user uploaded a file or a file was downloaded from an external source.
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -94,12 +93,12 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->where('attachment.path LIKE :base')
-            ->orWhere('attachment.path LIKE :media')
-            ->orWhere('attachment.path LIKE :secure');
-        $qb->setParameter('secure', '\\%SECURE\\%%');
-        $qb->setParameter('base', '\\%BASE\\%%');
-        $qb->setParameter('media', '\\%MEDIA\\%%');
+            ->where('attachment.internal_path LIKE :base ESCAPE \'#\'')
+            ->orWhere('attachment.internal_path LIKE :media ESCAPE \'#\'')
+            ->orWhere('attachment.internal_path LIKE :secure ESCAPE \'#\'');
+        $qb->setParameter('secure', '#%SECURE#%%');
+        $qb->setParameter('base', '#%BASE#%%');
+        $qb->setParameter('media', '#%MEDIA#%%');
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();

@@ -38,7 +38,7 @@ class PartStoragelocationFilter extends AbstractFilter
     public function __construct(
         ManagerRegistry $managerRegistry,
         private readonly EntityFilterHelper $filter_helper,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         ?array $properties = null,
         ?NameConverterInterface $nameConverter = null
     ) {
@@ -51,7 +51,7 @@ class PartStoragelocationFilter extends AbstractFilter
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = []
     ): void {
         //Do not check for mapping here, as we are using a virtual property

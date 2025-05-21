@@ -37,7 +37,7 @@ class EntityFilter extends AbstractFilter
     public function __construct(
         ManagerRegistry $managerRegistry,
         private readonly EntityFilterHelper $filter_helper,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         ?array $properties = null,
         ?NameConverterInterface $nameConverter = null
     ) {
@@ -50,7 +50,7 @@ class EntityFilter extends AbstractFilter
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = []
     ): void {
         if (

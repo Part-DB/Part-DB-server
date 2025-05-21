@@ -128,6 +128,8 @@ const PLACEHOLDERS = [
             ['[[BARCODE_QR]]', 'QR code linking to this element'],
             ['[[BARCODE_C128]]', 'Code 128 barcode linking to this element'],
             ['[[BARCODE_C39]]', 'Code 39 barcode linking to this element'],
+            ['[[BARCODE_C93]]', 'Code 93 barcode linking to this element'],
+            ['[[BARCODE_DATAMATRIX]]', 'Datamatrix code linking to this element'],
         ]
     },
     {

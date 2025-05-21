@@ -29,6 +29,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Services\Trees\NodesListBuilder;
@@ -76,6 +77,12 @@ class SelectAPIController extends AbstractController
     public function projects(): Response
     {
         return $this->getResponseForClass(Project::class, false);
+    }
+
+    #[Route(path: '/storage_location', name: 'select_storage_location')]
+    public function locations(): Response
+    {
+        return $this->getResponseForClass(StorageLocation::class, true);
     }
 
     #[Route(path: '/export_level', name: 'select_export_level')]

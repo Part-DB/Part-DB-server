@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="security.en">
-    <unit id="aazoCks" name="user.login_error.user_disabled">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
         <target>Votre compte est désactivé ! Contactez un administrateur si vous pensez que c'est une erreur.</target>
+      </segment>
+    </unit>
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>Impossible de se connecter via le SSO (Single Sign On) !</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>Vous ne pouvez pas utiliser l'authentification par mot de passe ! Veuillez utiliser le SSO!</target>
       </segment>
     </unit>
   </file>

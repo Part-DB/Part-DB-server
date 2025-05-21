@@ -100,6 +100,15 @@ class AttachmentFilterType extends AbstractType
             'label' => 'attachment.edit.show_in_table'
         ]);
 
+        $builder->add('originalFileName', TextConstraintType::class, [
+            'label' => 'attachment.file_name'
+        ]);
+
+        $builder->add('externalLink', TextConstraintType::class, [
+            'label' => 'attachment.table.external_link'
+        ]);
+
+
         $builder->add('lastModified', DateTimeConstraintType::class, [
             'label' => 'lastModified'
         ]);

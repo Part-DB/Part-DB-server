@@ -779,18 +779,10 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
         <target>Löschen</target>
       </segment>
     </unit>
-    <unit id="W80Gv6o" name="attachment.external">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-      </notes>
+    <unit id="FtktoBj" name="attachment.external_only">
       <segment state="translated">
-        <source>attachment.external</source>
-        <target>Extern</target>
+        <source>attachment.external_only</source>
+        <target>Nur Extern</target>
       </segment>
     </unit>
     <unit id="JES0hrm" name="attachment.preview.alt">
@@ -805,7 +797,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
         <target>Thumbnail des Dateianhanges</target>
       </segment>
     </unit>
-    <unit id="fCQby7u" name="attachment.view">
+    <unit id="I_HDnsL" name="attachment.view_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
@@ -815,8 +807,8 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
       </notes>
       <segment state="translated">
-        <source>attachment.view</source>
-        <target>Anzeigen</target>
+        <source>attachment.view_local</source>
+        <target>Lokale Datei anzeigen</target>
       </segment>
     </unit>
     <unit id="mEHEYM6" name="attachment.file_not_found">
@@ -2118,14 +2110,14 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Vorschaubild</target>
       </segment>
     </unit>
-    <unit id="O2kBcDz" name="attachment.download">
+    <unit id="Uuy6Ntl" name="attachment.download_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
       </notes>
       <segment state="translated">
-        <source>attachment.download</source>
-        <target>Herunterladen</target>
+        <source>attachment.download_local</source>
+        <target>Lokale Datei downloaden</target>
       </segment>
     </unit>
     <unit id="mPK9Iyq" name="user.creating_user">
@@ -3848,7 +3840,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher es werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
+        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
 Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status &lt;i&gt;aller &lt;/i&gt;Computer zurücksetzen.</target>
       </segment>
     </unit>
@@ -12317,6 +12309,60 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>label_generator.profile_saved</source>
         <target>Profil gespeichert!</target>
+      </segment>
+    </unit>
+    <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
+      <segment state="translated">
+        <source>entity.export.flash.error.no_entities</source>
+        <target>Es gibt keine Entitäten zu exportieren!</target>
+      </segment>
+    </unit>
+    <unit id="0B3_rob" name="attachment.table.internal_file">
+      <segment state="translated">
+        <source>attachment.table.internal_file</source>
+        <target>Interne Datei</target>
+      </segment>
+    </unit>
+    <unit id="uhfLnkB" name="attachment.table.external_link">
+      <segment state="translated">
+        <source>attachment.table.external_link</source>
+        <target>Externer link</target>
+      </segment>
+    </unit>
+    <unit id="2WKNZAm" name="attachment.view_external.view_at">
+      <segment state="translated">
+        <source>attachment.view_external.view_at</source>
+        <target>Auf %host% anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="nwO78O_" name="attachment.view_external">
+      <segment state="translated">
+        <source>attachment.view_external</source>
+        <target>Externe Version anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Es traten %count% Fehler bei der Aktion auf!</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Lagerort ändern (nur für Bauteile mit einzelnem Bestand)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Dieses Bauteil enthält mehr als einen Bestand. Ändere den Lagerort bei Hand, um auszuwählen, welcher Bestand geändert werden soll.</target>
       </segment>
     </unit>
   </file>

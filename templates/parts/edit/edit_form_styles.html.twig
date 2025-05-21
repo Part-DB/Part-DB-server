@@ -75,7 +75,7 @@
         <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
         <td>{{ form_widget(form.value_typical) }}{{ form_errors(form.value_typical) }}</td>
         <td>{{ form_widget(form.value_max) }}{{ form_errors(form.value_max) }}</td>
-        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>
@@ -152,35 +152,32 @@
             </button>
 
             {% set attach = form.vars.value %}
+            {# @var \App\Entity\Attachments\Attachment attach #}
 
             {% if attach is not null %}
-                {% if attachment_manager.fileExisting(attach) %}
-                    {% if not attach.external %}
-                        <br><br>
-                        <h6>
+                {% if not attach.hasInternal() and attach.external %}
+                    <div class="mt-2">
                         <span class="badge bg-primary">
-                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external_only{% endtrans %}
                         </span>
-                            <br>
-                            <span class="badge bg-secondary">
+                    </div>
+                {% elseif attachment_manager.isInternalFileExisting(attach) %}
+                    <div class="mt-2">
+                        <div class="badge bg-primary mt-2" title="{{ attach.filename }}">
+                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename|u.truncate(25, ' ...') }}
+                        </div>
+                        <br>
+                        <div class="badge bg-secondary mt-1">
                             <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
-                        </span>
-                        </h6>
-                    {% else %}
-                        <br><br>
-                        <h6>
-                        <span class="badge bg-primary">
-                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
-                        </span>
-                        </h6>
-                    {% endif %}
+                        </div>
+                    </div>
 
                     {% if attach.secure %}
-                        <h6>
+                        <div>
                            <span class="badge bg-success">
                                 <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
                            </span>
-                        </h6>
+                        </div>
                     {% endif %}
 
                     {% if attach.secure and not is_granted('show_private', attach) %}
@@ -190,16 +187,21 @@
                             <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
                         </a>
                     {% else %}
-                        <a href="{{ entity_url(attach, 'file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                        <a href="{{ entity_url(attach, 'file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view_local{% endtrans %}</a>
                     {% endif %}
                 {% else %}
-                    <br><br>
-                    <h6>
+                    <div class="mt-2">
                     <span class="badge bg-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
                     </span>
-                    </h6>
+                    </div>
+                {% endif %}
 
+                {% if attach.external %}
+                    <div>
+                        <a href="{{ attach.externalPath }}" rel="noopener" target="_blank" data-turbo="false" class="link-external"
+                           title="{% trans with {"%host%": attach.host} %}attachment.view_external.view_at{% endtrans %}">{% trans %}attachment.view_external{% endtrans %}</a>
+                    </div>
                 {% endif %}
             {% endif %}
 

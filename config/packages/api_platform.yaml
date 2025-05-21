@@ -35,3 +35,7 @@ api_platform:
   keep_legacy_inflector: false
   # Need to be true, or some tests will fail
   use_symfony_listeners: true
+
+  serializer:
+    # Change this to false later, to remove the hydra prefix on the API
+    hydra_prefix: true

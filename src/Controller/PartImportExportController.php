@@ -112,8 +112,9 @@ class PartImportExportController extends AbstractController
         $ids = $request->query->get('ids', '');
         $parts = $this->partsTableActionHandler->idStringToArray($ids);
 
-        if ($parts === []) {
-            throw new \RuntimeException('No parts found!');
+        if (count($parts) === 0) {
+            $this->addFlash('error', 'entity.export.flash.error.no_entities');
+            return $this->redirectToRoute('homepage');
         }
 
         //Ensure that we have access to the parts

@@ -73,6 +73,9 @@ class CleanAttachmentsCommand extends Command
         //Ignore image cache folder
         $finder->exclude('cache');
 
+        //Ignore automigration folder
+        $finder->exclude('.automigration-backup');
+
         $fs = new Filesystem();
 
         $file_list = [];

@@ -92,9 +92,9 @@ class AttachmentURLGenerator
      * Returns a URL under which the attachment file can be viewed.
      * @return string|null The URL or null if the attachment file is not existing
      */
-    public function getViewURL(Attachment $attachment): ?string
+    public function getInternalViewURL(Attachment $attachment): ?string
     {
-        $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
+        $absolute_path = $this->attachmentHelper->toAbsoluteInternalFilePath($attachment);
         if (null === $absolute_path) {
             return null;
         }
@@ -111,6 +111,7 @@ class AttachmentURLGenerator
 
     /**
      * Returns a URL to a thumbnail of the attachment file.
+     * For external files the original URL is returned.
      * @return string|null The URL or null if the attachment file is not existing
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string
@@ -119,11 +120,14 @@ class AttachmentURLGenerator
             throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
-        if ($attachment->isExternal() && ($attachment->getURL() !== null && $attachment->getURL() !== '')) {
-            return $attachment->getURL();
+        if (!$attachment->hasInternal()){
+            if($attachment->hasExternal()) {
+                return $attachment->getExternalPath();
+            }
+            return null;
         }
 
-        $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
+        $absolute_path = $this->attachmentHelper->toAbsoluteInternalFilePath($attachment);
         if (null === $absolute_path) {
             return null;
         }
@@ -137,7 +141,7 @@ class AttachmentURLGenerator
         //GD can not work with SVG, so serve it directly...
         //We can not use getExtension here, because it uses the original filename and not the real extension
         //Instead we use the logic, which is also used to determine if the attachment is a picture
-        $extension = pathinfo(parse_url($attachment->getPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
+        $extension = pathinfo(parse_url($attachment->getInternalPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
         if ('svg' === $extension) {
             return $this->assets->getUrl($asset_path);
         }
@@ -157,7 +161,7 @@ class AttachmentURLGenerator
     /**
      * Returns a download link to the file associated with the attachment.
      */
-    public function getDownloadURL(Attachment $attachment): string
+    public function getInternalDownloadURL(Attachment $attachment): string
     {
         //Redirect always to download controller, which sets the correct headers for downloading:
         return $this->urlGenerator->generate('attachment_download', ['id' => $attachment->getID()]);
