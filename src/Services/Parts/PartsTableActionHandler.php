@@ -140,14 +140,15 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 case "add_tag":
                     $this->denyAccessUnlessGranted('edit', $part);
                     $tags = $part->getTags();
-                    $part->setTags($tags . ',' . $target_id); // simple append
+                    // simple append
+                    $part->setTags($tags.','.$target_id);
                     break;
                 case "remove_tag":
                     $this->denyAccessUnlessGranted('edit', $part);
-                    $tags = $part->getTags();
-                    $tags = str_replace($target_id, '', $tags);
-                    // sanitize $tags (remove leading, trailing and double commas)
-                    $part->setTags($tags);
+                    // remove tag at start or end
+                    $tags = preg_replace("/(^".$target_id.",|,".$target_id."$)/", '', $part->getTags());
+                    // remove tag in the middle, retaining one comma
+                    $tags = str_replace(','.$target_id.',', ',' $tags);
                     break;
                 case 'favorite':
                     $this->denyAccessUnlessGranted('change_favorite', $part);
