@@ -137,18 +137,18 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             $this->denyAccessUnlessGranted('edit', $part);
 
             switch ($action) {
-				case "add_tag":
+                case "add_tag":
                     $this->denyAccessUnlessGranted('edit', $part);
-					$tags = $part->getTags();
+                    $tags = $part->getTags();
                     $part->setTags($tags . ',' . $target_id); // simple append
-					break;
-				case "remove_tag":
+                    break;
+                case "remove_tag":
                     $this->denyAccessUnlessGranted('edit', $part);
-					$tags = $part->getTags();
-					$tags = str_replace($target_id, '', $tags);
-					// sanitize $tags (remove leading, trailing and double commas)
+                    $tags = $part->getTags();
+                    $tags = str_replace($target_id, '', $tags);
+                    // sanitize $tags (remove leading, trailing and double commas)
                     $part->setTags($tags);
-					break;
+                    break;
                 case 'favorite':
                     $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(true);

@@ -53,17 +53,17 @@ class SelectAPIController extends AbstractController
     #[Route(path: '/tag', name: 'select_tag')]
     public function tag(): Response
     {
-		$tags = [
+        $tags = [
                     'text' => 'test',
                     'value' => 'test',
                 ];
-		$this->addEmptyNode($tags);
-		// pseudocode:
-		// for each part in selection
-		//   use TagFilter to find tags
-		// dedupe
-		return $this->json($tags);
-	
+        $this->addEmptyNode($tags);
+        // pseudocode:
+        // for each part in selection
+        //   use TagFilter to find tags
+        // dedupe
+        return $this->json($tags);
+
     #[Route(path: '/category', name: 'select_category')]
     public function category(): Response
     {
