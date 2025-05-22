@@ -41,6 +41,10 @@
 
                 <select class="form-select" name="action" data-controller="elements--select" {{ stimulus_action('elements/datatables/parts', 'updateTargetPicker', 'change') }}
                         title="{% trans %}part_list.action.action.title{% endtrans %}" required>
+                    <optgroup label="{% trans %}part_list.action.action.group.tags{% endtrans %}">
+                        <option {% if not is_granted('@parts.edit')  %}disabled{% endif %} value="add_tag" data-url="{{ path('select_tag') }}">{% trans %}part_list.action.action.add_tag{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="remove_tag" data-url="{{ path('select_tag') }}">{% trans %}part_list.action.action.remove_tag{% endtrans %}</option>
+                    </optgroup>
                     <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
                         <option {% if not is_granted('@parts.change_favorite')  %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
                         <option {% if not is_granted('@parts.change_favorite') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>

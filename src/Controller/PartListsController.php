@@ -78,7 +78,7 @@ class PartListsController extends AbstractController
             $errors = [];
 
             $parts = $actionHandler->idStringToArray($ids);
-            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect, $errors);
+            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? $target : null, $redirect, $errors);
 
             //Save changes
             $this->entityManager->flush();

@@ -67,8 +67,15 @@ final class PartsTableActionHandler
      * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
      * //@param-out list<array{'part': Part, 'message': string|TranslatableInterface}>|array<void> $errors
      */
-    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
+    public function handleAction(string $action, array $selected_parts, ?string $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
+        // sanitize target_id
+        if (!str_contains($action, 'tag') && $target_id !== null)
+        {
+            if (!is_numeric($target_id)
+                throw new InvalidArgumentException('$target_id must be an integer for action'. $action.'!');
+        }
+        
         if ($action === 'add_to_project') {
             return new RedirectResponse(
                 $this->urlGenerator->generate('project_add_parts', [
@@ -130,6 +137,18 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             $this->denyAccessUnlessGranted('edit', $part);
 
             switch ($action) {
+				case "add_tag":
+                    $this->denyAccessUnlessGranted('edit', $part);
+					$tags = $part->getTags();
+                    $part->setTags($tags . ',' . $target_id); // simple append
+					break;
+				case "remove_tag":
+                    $this->denyAccessUnlessGranted('edit', $part);
+					$tags = $part->getTags();
+					$tags = str_replace($target_id, '', $tags);
+					// sanitize $tags (remove leading, trailing and double commas)
+                    $part->setTags($tags);
+					break;
                 case 'favorite':
                     $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(true);
