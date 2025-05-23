@@ -33,6 +33,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Services\Trees\NodesListBuilder;
+use App\ApiPlatform\Filter\TagFilter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,20 @@ class SelectAPIController extends AbstractController
     public function __construct(private readonly NodesListBuilder $nodesListBuilder, private readonly TranslatorInterface $translator, private readonly StructuralEntityChoiceHelper $choiceHelper)
     {
     }
+
+    #[Route(path: '/tag', name: 'select_tag')]
+    public function tag(): Response
+    {
+        $tags = [
+                    'text' => 'test',
+                    'value' => 'test',
+                ];
+        $this->addEmptyNode($tags);
+        // pseudocode:
+        // for each part in selection
+        //   use TagFilter to find tags
+        // dedupe
+        return $this->json($tags);
 
     #[Route(path: '/category', name: 'select_category')]
     public function category(): Response
