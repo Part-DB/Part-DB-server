@@ -77,7 +77,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->settings->storeId !== null && $this->settings->apiKey !== '';
+        return trim($this->settings->apiKey) !== '';
     }
 
     /**
@@ -129,11 +129,6 @@ class Element14Provider implements InfoProviderInterface
         }
 
         return $result;
-    }
-
-    private function generateProductURL($sku): string
-    {
-        return 'https://' . $this->store_id . '/' . $sku;
     }
 
     /**

@@ -49,7 +49,7 @@ final class SetUserTimezoneSubscriber implements EventSubscriberInterface
         }
 
         //Fill with default value if needed
-        if (null === $timezone && $this->localizationSettings !== '') {
+        if (null === $timezone && $this->localizationSettings->timezone !== '') {
             $timezone = $this->localizationSettings->timezone;
         }
 
