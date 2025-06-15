@@ -71,6 +71,7 @@ class AttachmentSubmitHandler
         protected MimeTypesInterface $mimeTypes,
         protected FileTypeFilterTools $filterTools,
         protected AttachmentsSettings $settings,
+        protected readonly SVGSanitizer $SVGSanitizer,
     )
     {
         //The mapping used to determine which folder will be used for an attachment type
@@ -209,12 +210,15 @@ class AttachmentSubmitHandler
         if ($file instanceof UploadedFile) {
 
             $this->upload($attachment, $file, $secure_attachment);
-        } elseif ($upload->downloadUrl && $attachment->isExternal()) {
+        } elseif ($upload->downloadUrl && $attachment->hasExternal()) {
             $this->downloadURL($attachment, $secure_attachment);
         }
 
         //Move the attachment files to secure location (and back) if needed
         $this->moveFile($attachment, $secure_attachment);
+
+        //Sanitize the SVG if needed
+        $this->sanitizeSVGAttachment($attachment);
 
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
@@ -246,12 +250,12 @@ class AttachmentSubmitHandler
     protected function renameBlacklistedExtensions(Attachment $attachment): Attachment
     {
         //We can not do anything on builtins or external ressources
-        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
             return $attachment;
         }
 
         //Determine the old filepath
-        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
         if ($old_path === null || $old_path === '' || !file_exists($old_path)) {
             return $attachment;
         }
@@ -269,7 +273,7 @@ class AttachmentSubmitHandler
             $fs->rename($old_path, $new_path);
 
             //Update the attachment
-            $attachment->setPath($this->pathResolver->realPathToPlaceholder($new_path));
+            $attachment->setInternalPath($this->pathResolver->realPathToPlaceholder($new_path));
         }
 
 
@@ -277,17 +281,17 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Move the given attachment to secure location (or back to public folder) if needed.
+     * Move the internal copy of the given attachment to a secure location (or back to public folder) if needed.
      *
      * @param Attachment $attachment      the attachment for which the file should be moved
      * @param bool       $secure_location this value determines, if the attachment is moved to the secure or public folder
      *
-     * @return Attachment The attachment with the updated filepath
+     * @return Attachment The attachment with the updated internal filepath
      */
     protected function moveFile(Attachment $attachment, bool $secure_location): Attachment
     {
         //We can not do anything on builtins or external ressources
-        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
             return $attachment;
         }
 
@@ -297,7 +301,7 @@ class AttachmentSubmitHandler
         }
 
         //Determine the old filepath
-        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
         if (!file_exists($old_path)) {
             return $attachment;
         }
@@ -321,7 +325,7 @@ class AttachmentSubmitHandler
 
         //Save info to attachment entity
         $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
-        $attachment->setPath($new_path);
+        $attachment->setInternalPath($new_path);
 
         return $attachment;
     }
@@ -331,7 +335,7 @@ class AttachmentSubmitHandler
      *
      * @param bool $secureAttachment True if the file should be moved to the secure attachment storage
      *
-     * @return Attachment The attachment with the new filepath
+     * @return Attachment The attachment with the downloaded copy
      */
     protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
@@ -340,16 +344,35 @@ class AttachmentSubmitHandler
             throw new RuntimeException('Download of attachments is not allowed!');
         }
 
-        $url = $attachment->getURL();
+        $url = $attachment->getExternalPath();
 
         $fs = new Filesystem();
         $attachment_folder = $this->generateAttachmentPath($attachment, $secureAttachment);
         $tmp_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
-            $response = $this->httpClient->request('GET', $url, [
+            $opts = [
                 'buffer' => false,
-            ]);
+                //Use user-agent and other headers to make the server think we are a browser
+                'headers' => [
+                    "sec-ch-ua" => "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
+                    "sec-ch-ua-mobile" => "?0",
+                    "sec-ch-ua-platform" => "\"Windows\"",
+                    "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+                    "sec-fetch-site" => "none",
+                    "sec-fetch-mode" => "navigate",
+                ],
+
+            ];
+            $response = $this->httpClient->request('GET', $url, $opts);
+            //Digikey wants TLSv1.3, so try again with that if we get a 403
+            if ($response->getStatusCode() === 403) {
+                $opts['crypto_method'] = STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
+                $response = $this->httpClient->request('GET', $url, $opts);
+            }
+            # if you have these changes and downloads still fail, check if it's due to an unknown certificate. Curl by
+            # default uses the systems ca store and that doesn't contain all the intermediate certificates needed to
+            # verify the leafs
 
             if (200 !== $response->getStatusCode()) {
                 throw new AttachmentDownloadException('Status code: '.$response->getStatusCode());
@@ -401,7 +424,7 @@ class AttachmentSubmitHandler
             //Make our file path relative to %BASE%
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
-            $attachment->setPath($new_path);
+            $attachment->setInternalPath($new_path);
         } catch (TransportExceptionInterface) {
             throw new AttachmentDownloadException('Transport error!');
         }
@@ -429,7 +452,9 @@ class AttachmentSubmitHandler
         //Make our file path relative to %BASE%
         $file_path = $this->pathResolver->realPathToPlaceholder($file_path);
         //Save the path to the attachment
-        $attachment->setPath($file_path);
+        $attachment->setInternalPath($file_path);
+        //reset any external paths the attachment might have had
+        $attachment->setExternalPath(null);
         //And save original filename
         $attachment->setFilename($file->getClientOriginalName());
 
@@ -478,5 +503,33 @@ class AttachmentSubmitHandler
         );
 
         return $this->max_upload_size_bytes;
+    }
+
+    /**
+     * Sanitizes the given SVG file, if the attachment is an internal SVG file.
+     * @param  Attachment  $attachment
+     * @return Attachment
+     */
+    public function sanitizeSVGAttachment(Attachment $attachment): Attachment
+    {
+        //We can not do anything on builtins or external ressources
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
+            return $attachment;
+        }
+
+        //Resolve the path to the file
+        $path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
+
+        //Check if the file exists
+        if (!file_exists($path)) {
+            return $attachment;
+        }
+
+        //Check if the file is an SVG
+        if ($attachment->getExtension() === "svg") {
+            $this->SVGSanitizer->sanitizeFile($path);
+        }
+
+        return $attachment;
     }
 }

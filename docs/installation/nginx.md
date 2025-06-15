@@ -52,6 +52,11 @@ server {
     location ~ \.php$ {
         return 404;
     }
+    
+    # Set Content-Security-Policy for svg files, to block embedded javascript in there
+    location ~* \.svg$ {
+        add_header Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';";
+    }
 
     error_log /var/log/nginx/parts.error.log;
     access_log /var/log/nginx/parts.access.log;

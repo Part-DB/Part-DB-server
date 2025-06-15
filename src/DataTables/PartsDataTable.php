@@ -58,6 +58,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
+    const LENGTH_MENU = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]];
+
     public function __construct(
         private readonly EntityURLGenerator $urlGenerator,
         private readonly TranslatorInterface $translator,

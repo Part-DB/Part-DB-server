@@ -115,12 +115,16 @@ class AttachmentPathResolver
      * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
      * The directory separator is always /. Relative pathes are not realy possible (.. is striped).
      *
-     * @param string $placeholder_path the filepath with placeholder for which the real path should be determined
+     * @param string|null $placeholder_path the filepath with placeholder for which the real path should be determined
      *
      * @return string|null The absolute real path of the file, or null if the placeholder path is invalid
      */
-    public function placeholderToRealPath(string $placeholder_path): ?string
+    public function placeholderToRealPath(?string $placeholder_path): ?string
     {
+        if (null === $placeholder_path) {
+            return null;
+        }
+
         //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
         //Older path entries are given via %BASE% which was the project root
 

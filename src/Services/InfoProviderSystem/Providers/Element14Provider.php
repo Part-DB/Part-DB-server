@@ -29,14 +29,13 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use App\Settings\InfoProviderSystem\Element14Settings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://api.element14.com/catalog/products';
-    private const API_VERSION_NUMBER = '1.2';
+    private const API_VERSION_NUMBER = '1.4';
     private const NUMBER_OF_RESULTS = 20;
 
     public const DISTRIBUTOR_NAME = 'Farnell';
@@ -44,9 +43,19 @@ class Element14Provider implements InfoProviderInterface
     private const COMPLIANCE_ATTRIBUTES = ['euEccn', 'hazardous', 'MSL', 'productTraceability', 'rohsCompliant',
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
+    private readonly HttpClientInterface $element14Client;
+    
     public function __construct(private readonly HttpClientInterface $element14Client, private readonly Element14Settings $settings)
     {
-
+        /* We use the mozilla CA from the composer ca bundle directly, as some debian systems seems to have problems
+         * with the SSL.COM CA, element14 uses. See https://github.com/Part-DB/Part-DB-server/issues/866
+         *
+         * This is a workaround until the issue is resolved in debian (or never).
+         * As this only affects this provider, this should have no negative impact and the CA bundle is still secure.
+         */
+        $this->element14Client = $element14Client->withOptions([
+            'cafile' => CaBundle::getBundledCaBundlePath(),
+        ]);
     }
 
     public function getProviderInfo(): array
@@ -84,7 +93,7 @@ class Element14Provider implements InfoProviderInterface
                 'resultsSettings.responseGroup' => 'large',
                 'callInfo.apiKey' => $this->settings->apiKey,
                 'callInfo.responseDataFormat' => 'json',
-                'callInfo.version' => self::API_VERSION_NUMBER,
+                'versionNumber' => self::API_VERSION_NUMBER,
             ],
         ]);
 
@@ -108,10 +117,12 @@ class Element14Provider implements InfoProviderInterface
                 mpn: $product['translatedManufacturerPartNumber'],
                 preview_image_url: $this->toImageUrl($product['image'] ?? null),
                 manufacturing_status: $this->releaseStatusCodeToManufacturingStatus($product['releaseStatusCode'] ?? null),
-                provider_url: $this->generateProductURL($product['sku']),
+                provider_url: $product['productURL'],
+                notes: $product['productOverview']['description'] ?? null,
                 datasheets: $this->parseDataSheets($product['datasheets'] ?? null),
                 parameters: $this->attributesToParameters($product['attributes'] ?? null),
-                vendor_infos: $this->pricesToVendorInfo($product['sku'], $product['prices'] ?? [])
+                vendor_infos: $this->pricesToVendorInfo($product['sku'], $product['prices'] ?? [], $product['productURL']),
+
             );
         }
 
@@ -120,7 +131,7 @@ class Element14Provider implements InfoProviderInterface
 
     private function generateProductURL($sku): string
     {
-        return 'https://' . $this->settings->storeId . '/' . $sku;
+        return 'https://' . $this->store_id . '/' . $sku;
     }
 
     /**
@@ -162,7 +173,7 @@ class Element14Provider implements InfoProviderInterface
      * @param  array  $prices
      * @return array
      */
-    private function pricesToVendorInfo(string $sku, array $prices): array
+    private function pricesToVendorInfo(string $sku, array $prices, string $product_url): array
     {
         $price_dtos = [];
 
@@ -180,7 +191,7 @@ class Element14Provider implements InfoProviderInterface
                 distributor_name: self::DISTRIBUTOR_NAME,
                 order_number: $sku,
                 prices: $price_dtos,
-                product_url: $this->generateProductURL($sku)
+                product_url: $product_url
             )
         ];
     }

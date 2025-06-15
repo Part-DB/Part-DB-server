@@ -42,7 +42,7 @@ class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterf
     {
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = []): array|null
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array|null
     {
         if (!$object instanceof Attachment) {
             throw new \InvalidArgumentException('This normalizer only supports Attachment objects!');
@@ -52,15 +52,19 @@ class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $context[self::ALREADY_CALLED] = true;
 
         $data = $this->normalizer->normalize($object, $format, $context);
+        $data['internal_path'] = $this->attachmentURLGenerator->getInternalViewURL($object);
 
-        $data['media_url'] = $this->attachmentURLGenerator->getViewURL($object);
         //Add thumbnail url if the attachment is a picture
         $data['thumbnail_url'] = $object->isPicture() ? $this->attachmentURLGenerator->getThumbnailURL($object) : null;
+
+        //For backwards compatibility reasons
+        //Deprecated: Use internal_path and external_path instead
+        $data['media_url'] = $data['internal_path'] ?? $object->getExternalPath();
 
         return $data;
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         // avoid recursion: only call once per object
         if (isset($context[self::ALREADY_CALLED])) {

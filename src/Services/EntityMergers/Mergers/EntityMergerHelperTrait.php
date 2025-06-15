@@ -247,7 +247,8 @@ trait EntityMergerHelperTrait
     {
         return $this->mergeCollections($target, $other, 'attachments', fn(Attachment $t, Attachment $o): bool => $t->getName() === $o->getName()
             && $t->getAttachmentType() === $o->getAttachmentType()
-            && $t->getPath() === $o->getPath());
+            && $t->getExternalPath() === $o->getExternalPath()
+            && $t->getInternalPath() === $o->getInternalPath());
     }
 
     /**

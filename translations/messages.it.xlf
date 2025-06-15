@@ -780,18 +780,10 @@ L'utente dovrà configurare nuovamente tutti i metodi di autenticazione a due fa
         <target>Eliminare</target>
       </segment>
     </unit>
-    <unit id="W80Gv6o" name="attachment.external">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-      </notes>
+    <unit id="FtktoBj" name="attachment.external_only">
       <segment state="translated">
-        <source>attachment.external</source>
-        <target>Esterno</target>
+        <source>attachment.external_only</source>
+        <target>Solo allegato esterno</target>
       </segment>
     </unit>
     <unit id="JES0hrm" name="attachment.preview.alt">
@@ -806,7 +798,7 @@ L'utente dovrà configurare nuovamente tutti i metodi di autenticazione a due fa
         <target>Miniatura dell'allegato</target>
       </segment>
     </unit>
-    <unit id="fCQby7u" name="attachment.view">
+    <unit id="I_HDnsL" name="attachment.view_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
@@ -816,8 +808,8 @@ L'utente dovrà configurare nuovamente tutti i metodi di autenticazione a due fa
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
       </notes>
       <segment state="translated">
-        <source>attachment.view</source>
-        <target>Visualizzare</target>
+        <source>attachment.view_local</source>
+        <target>Visualizza la copia locale</target>
       </segment>
     </unit>
     <unit id="mEHEYM6" name="attachment.file_not_found">
@@ -2119,14 +2111,14 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Immagine di anteprima</target>
       </segment>
     </unit>
-    <unit id="O2kBcDz" name="attachment.download">
+    <unit id="Uuy6Ntl" name="attachment.download_local">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
       </notes>
       <segment state="translated">
-        <source>attachment.download</source>
-        <target>Download</target>
+        <source>attachment.download_local</source>
+        <target>Scarica la copia in locale</target>
       </segment>
     </unit>
     <unit id="mPK9Iyq" name="user.creating_user">
@@ -12226,6 +12218,156 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       <segment state="translated">
         <source>tfa.check.code.confirmation</source>
         <target>Codice generato</target>
+      </segment>
+    </unit>
+    <unit id="5fgkpRc" name="info_providers.search.show_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.show_existing_part</source>
+        <target>Mostra i componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="iPO8lit" name="info_providers.search.edit_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.edit_existing_part</source>
+        <target>Modifica i componenti esistenti</target>
+      </segment>
+    </unit>
+    <unit id="gUMm8CJ" name="info_providers.search.existing_part_found.short">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found.short</source>
+        <target>Componenti già presenti</target>
+      </segment>
+    </unit>
+    <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
+      <segment state="translated">
+        <source>info_providers.search.existing_part_found</source>
+        <target>Questo componente (o uno molto simile) è già stato trovato nel database. Controlla se è lo stesso e se vuoi crearlo di nuovo!</target>
+      </segment>
+    </unit>
+    <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
+      <segment state="translated">
+        <source>info_providers.search.update_existing_part</source>
+        <target>Aggiorna il componente esistente con le informazioni del provider</target>
+      </segment>
+    </unit>
+    <unit id="X5tEZJs" name="part.create_from_info_provider.no_category_yet">
+      <segment state="translated">
+        <source>part.create_from_info_provider.no_category_yet</source>
+        <target>La categoria non può essere determinata automaticamente dal provider di informazioni. Verifica i dati e seleziona manualmente la categoria.</target>
+      </segment>
+    </unit>
+    <unit id="v6oyTac" name="part_lot.edit.user_barcode">
+      <segment state="translated">
+        <source>part_lot.edit.user_barcode</source>
+        <target>Codice a barre utente</target>
+      </segment>
+    </unit>
+    <unit id="dXhegcm" name="scan_dialog.mode.user">
+      <segment state="translated">
+        <source>scan_dialog.mode.user</source>
+        <target>Codice a barre definito dall'utente (configurato sul lotto del componente)</target>
+      </segment>
+    </unit>
+    <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
+      <segment state="translated">
+        <source>scan_dialog.mode.eigp</source>
+        <target>Codice a barre EIGP 114 (ad esempio, i codici datamatrix sugli ordini di Digikey e Mouser)</target>
+      </segment>
+    </unit>
+    <unit id="QSMS_Bd" name="scan_dialog.info_mode">
+      <segment state="translated">
+        <source>scan_dialog.info_mode</source>
+        <target>Modalità "info" (Decodifica il codice a barre e mostra il suo contenuto, senza reindirizzare alla parte)</target>
+      </segment>
+    </unit>
+    <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
+      <segment state="translated">
+        <source>label_scanner.decoded_info.title</source>
+        <target>Informazioni decodificate</target>
+      </segment>
+    </unit>
+    <unit id="nmXQWcS" name="label_generator.edit_profiles">
+      <segment state="translated">
+        <source>label_generator.edit_profiles</source>
+        <target>Modifica profili</target>
+      </segment>
+    </unit>
+    <unit id="JzfeFN6" name="label_generator.profile_name_empty">
+      <segment state="translated">
+        <source>label_generator.profile_name_empty</source>
+        <target>Il nome del profilo non può essere vuoto</target>
+      </segment>
+    </unit>
+    <unit id="0TP6The" name="label_generator.save_profile_name">
+      <segment state="translated">
+        <source>label_generator.save_profile_name</source>
+        <target>Nome profilo</target>
+      </segment>
+    </unit>
+    <unit id="OhUW6es" name="label_generator.save_profile">
+      <segment state="translated">
+        <source>label_generator.save_profile</source>
+        <target>Salva come nuovo profilo</target>
+      </segment>
+    </unit>
+    <unit id="sqc4h7S" name="label_generator.profile_saved">
+      <segment state="translated">
+        <source>label_generator.profile_saved</source>
+        <target>Profilo salvato!</target>
+      </segment>
+    </unit>
+    <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
+      <segment state="translated">
+        <source>entity.export.flash.error.no_entities</source>
+        <target>Non ci sono entità da esportare!</target>
+      </segment>
+    </unit>
+    <unit id="0B3_rob" name="attachment.table.internal_file">
+      <segment state="translated">
+        <source>attachment.table.internal_file</source>
+        <target>File interno</target>
+      </segment>
+    </unit>
+    <unit id="uhfLnkB" name="attachment.table.external_link">
+      <segment state="translated">
+        <source>attachment.table.external_link</source>
+        <target>Link esterno</target>
+      </segment>
+    </unit>
+    <unit id="2WKNZAm" name="attachment.view_external.view_at">
+      <segment state="translated">
+        <source>attachment.view_external.view_at</source>
+        <target>Visualizza da %host%</target>
+      </segment>
+    </unit>
+    <unit id="nwO78O_" name="attachment.view_external">
+      <segment state="translated">
+        <source>attachment.view_external</source>
+        <target>Visualizza la versione esterna</target>
+      </segment>
+    </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Si sono verificati %count% errori durante l'esecuzione dell'azione:</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Cambia posizione (solo per componenti con stock singolo)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Questo componente contiene più di uno stock. Cambia manualmente la posizione per selezionare quale stock scegliere.</target>
       </segment>
     </unit>
   </file>

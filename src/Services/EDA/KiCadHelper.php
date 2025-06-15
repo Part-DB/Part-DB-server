@@ -27,6 +27,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use App\Settings\MiscSettings\KiCadEDASettings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,6 +49,7 @@ class KiCadHelper
         private readonly EntityManagerInterface $em,
         private readonly ElementCacheTagGenerator $tagGenerator,
         private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
         KiCadEDASettings $kiCadEDASettings,
     ) {
@@ -66,6 +68,10 @@ class KiCadHelper
         return $this->kicadCache->get('kicad_categories_' . $this->category_depth, function (ItemInterface $item) {
             //Invalidate the cache on category changes
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
+            $item->tag($secure_class_name);
+
+            //Invalidate the cache on part changes (as the visibility depends on parts, and the parts can change)
+            $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Part::class);
             $item->tag($secure_class_name);
 
             //If the category depth is smaller than 0, create only one dummy category
@@ -112,6 +118,8 @@ class KiCadHelper
                 $result[] = [
                     'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
+                    //Show the category link as the category description, this also fixes an segfault in KiCad see issue #878
+                    'description' => $this->entityURLGenerator->listPartsURL($category),
                 ];
             }
 

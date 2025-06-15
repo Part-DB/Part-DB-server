@@ -51,6 +51,16 @@ class TMEClient
         return !($this->settings->apiToken === '' || $this->settings->apiSecret === '');
     }
 
+    /**
+     * Returns true if the client is using a private (account related token) instead of a deprecated anonymous token
+     * to authenticate with TME.
+     * @return bool
+     */
+    public function isUsingPrivateToken(): bool
+    {
+        //Private tokens are longer than anonymous ones (50 instead of 45 characters)
+        return strlen($this->token) > 45;
+    }
 
     /**
      * Generates the signature for the given action and parameters.

@@ -92,6 +92,7 @@ class MouserProvider implements InfoProviderInterface
         From the startingRecord, the number of records specified will be returned up to the end of the recordset.
         This is useful for paging through the complete recordset of parts matching keyword.
 
+
         searchOptions	string
         Optional.
         If not provided, the default is None.
@@ -174,11 +175,16 @@ class MouserProvider implements InfoProviderInterface
             throw new \RuntimeException('No part found with ID '.$id);
         }
 
+        //Manually filter out the part with the correct ID
+        $tmp = array_filter($tmp, fn(PartDetailDTO $part) => $part->provider_id === $id);
+        if (count($tmp) === 0) {
+            throw new \RuntimeException('No part found with ID '.$id);
+        }
         if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID '.$id . ' ('.count($tmp).' found). This is basically a bug in Mousers API response. See issue #616.');
+            throw new \RuntimeException('Multiple parts found with ID '.$id);
         }
 
-        return $tmp[0];
+        return reset($tmp);
     }
 
     public function getCapabilities(): array

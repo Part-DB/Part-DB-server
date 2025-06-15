@@ -43,12 +43,12 @@ class UniqueObjectCollection extends Constraint
      * @param array|string $fields the combination of fields that must contain unique values or a set of options
      */
     public function __construct(
-        array $options = null,
-        string $message = null,
-        callable $normalizer = null,
-        array $groups = null,
+        ?array $options = null,
+        ?string $message = null,
+        ?callable $normalizer = null,
+        ?array $groups = null,
         mixed $payload = null,
-        array|string $fields = null,
+        array|string|null $fields = null,
         public bool $allowNull = true,
     ) {
         parent::__construct($options, $groups, $payload);

@@ -112,3 +112,10 @@ ul.structural_link li a:hover {
     background-color: var(--bs-success);
     border-color: var(--bs-success);
 }
+
+/***********************************************
+ * Katex rendering with same height as text
+ ***********************************************/
+.katex-same-height-as-text .katex {
+    font-size: 1.0em;
+}

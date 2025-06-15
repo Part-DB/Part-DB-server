@@ -27,6 +27,7 @@ use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -34,10 +35,12 @@ final class PartInfoRetriever
 {
 
     private const CACHE_DETAIL_EXPIRATION = 60 * 60 * 24 * 4; // 4 days
-    private const CACHE_RESULT_EXPIRATION = 60 * 60 * 24 * 7; // 7 days
+    private const CACHE_RESULT_EXPIRATION = 60 * 60 * 24 * 4; // 7 days
 
     public function __construct(private readonly ProviderRegistry $provider_registry,
-        private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache)
+        private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache,
+        #[Autowire(param: "kernel.debug")]
+        private readonly bool $debugMode = false)
     {
     }
 
@@ -54,6 +57,11 @@ final class PartInfoRetriever
         foreach ($providers as $provider) {
             if (is_string($provider)) {
                 $provider = $this->provider_registry->getProviderByKey($provider);
+            }
+
+            //Ensure that the provider is active
+            if (!$provider->isActive()) {
+                throw new \RuntimeException("The provider with key {$provider->getProviderKey()} is not active!");
             }
 
             if (!$provider instanceof InfoProviderInterface) {
@@ -77,7 +85,7 @@ final class PartInfoRetriever
         $escaped_keyword = urlencode($keyword);
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time
-            $item->expiresAfter(self::CACHE_RESULT_EXPIRATION);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 1);
 
             return $provider->searchByKeyword($keyword);
         });
@@ -94,11 +102,16 @@ final class PartInfoRetriever
     {
         $provider = $this->provider_registry->getProviderByKey($provider_key);
 
+        //Ensure that the provider is active
+        if (!$provider->isActive()) {
+            throw new \RuntimeException("The provider with key $provider_key is not active!");
+        }
+
         //Generate key and escape reserved characters from the provider id
         $escaped_part_id = urlencode($part_id);
         return $this->partInfoCache->get("details_{$provider_key}_{$escaped_part_id}", function (ItemInterface $item) use ($provider, $part_id) {
             //Set the expiration time
-            $item->expiresAfter(self::CACHE_DETAIL_EXPIRATION);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 1);
 
             return $provider->getDetails($part_id);
         });
