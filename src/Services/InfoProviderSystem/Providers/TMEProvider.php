@@ -44,7 +44,7 @@ class TMEProvider implements InfoProviderInterface
         if ($this->tmeClient->isUsingPrivateToken()) {
             $this->get_gross_prices = false;
         } else {
-            $this->get_gross_prices = $get_gross_prices;
+            $this->get_gross_prices = $this->settings->grossPrices;
         }
     }
 

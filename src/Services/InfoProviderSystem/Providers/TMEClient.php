@@ -59,7 +59,7 @@ class TMEClient
     public function isUsingPrivateToken(): bool
     {
         //Private tokens are longer than anonymous ones (50 instead of 45 characters)
-        return strlen($this->token) > 45;
+        return strlen($this->settings->apiToken) > 45;
     }
 
     /**
