@@ -29,6 +29,8 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\Element14Settings;
+use Composer\CaBundle\CaBundle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface
@@ -45,7 +47,7 @@ class Element14Provider implements InfoProviderInterface
 
     private readonly HttpClientInterface $element14Client;
     
-    public function __construct(private readonly HttpClientInterface $element14Client, private readonly Element14Settings $settings)
+    public function __construct(HttpClientInterface $element14Client, private readonly Element14Settings $settings)
     {
         /* We use the mozilla CA from the composer ca bundle directly, as some debian systems seems to have problems
          * with the SSL.COM CA, element14 uses. See https://github.com/Part-DB/Part-DB-server/issues/866
