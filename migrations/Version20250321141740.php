@@ -16,16 +16,28 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
 
     public function mySQLUp(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE parts ADD id_part_custom_state INT DEFAULT NULL AFTER id_part_unit');
-        $this->addSql('ALTER TABLE parts ADD CONSTRAINT FK_6940A7FEA3ED1215 FOREIGN KEY (id_part_custom_state) REFERENCES `part_custom_states` (id)');
-        $this->addSql('CREATE INDEX IDX_6940A7FEA3ED1215 ON parts (id_part_custom_state)');
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD id_part_custom_state INT DEFAULT NULL AFTER id_part_unit
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD CONSTRAINT FK_6940A7FEA3ED1215 FOREIGN KEY (id_part_custom_state) REFERENCES part_custom_states (id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_6940A7FEA3ED1215 ON parts (id_part_custom_state)
+        SQL);
     }
 
     public function mySQLDown(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY FK_6940A7FEA3ED1215');
-        $this->addSql('DROP INDEX IDX_6940A7FEA3ED1215 ON `parts`');
-        $this->addSql('ALTER TABLE `parts` DROP id_part_custom_state');
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts DROP FOREIGN KEY FK_6940A7FEA3ED1215
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX IDX_6940A7FEA3ED1215 ON parts
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts DROP id_part_custom_state
+        SQL);
     }
 
     public function sqLiteUp(Schema $schema): void
@@ -465,11 +477,27 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
 
     public function postgreSQLUp(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD id_part_custom_state INT DEFAULT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD CONSTRAINT FK_6940A7FEA3ED1215 FOREIGN KEY (id_part_custom_state) REFERENCES "part_custom_states" (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_6940A7FEA3ED1215 ON parts (id_part_custom_state)
+        SQL);
     }
 
     public function postgreSQLDown(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE "parts" DROP CONSTRAINT FK_6940A7FEA3ED1215
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX IDX_6940A7FEA3ED1215
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE "parts" DROP id_part_custom_state
+        SQL);
     }
 }
