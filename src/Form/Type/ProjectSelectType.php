@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
-use App\Services\Attachments\AssemblyPreviewGenerator;
+use App\Entity\ProjectSystem\Project;
+use App\Services\Attachments\ProjectPreviewGenerator;
 use App\Services\Attachments\AttachmentURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,9 +20,9 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class AssemblySelectType extends AbstractType implements DataMapperInterface
+class ProjectSelectType extends AbstractType implements DataMapperInterface
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em, private readonly AssemblyPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em, private readonly ProjectPreviewGenerator $previewGenerator, private readonly AttachmentURLGenerator $attachmentURLGenerator)
     {
     }
 
@@ -69,28 +69,28 @@ class AssemblySelectType extends AbstractType implements DataMapperInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'class' => Assembly::class,
+            'class' => Project::class,
             'choice_label' => 'name',
             'compound' => true,
             'error_bubbling' => false,
         ]);
 
-        error_log($this->urlGenerator->generate('typeahead_assemblies', ['query' => '__QUERY__']));
+        error_log($this->urlGenerator->generate('typeahead_projects', ['query' => '__QUERY__']));
 
         $resolver->setDefaults([
             'attr' => [
-                'data-controller' => 'elements--assembly-select',
-                'data-autocomplete' => $this->urlGenerator->generate('typeahead_assemblies', ['query' => '__QUERY__']),
+                'data-controller' => 'elements--project-select',
+                'data-autocomplete' => $this->urlGenerator->generate('typeahead_projects', ['query' => '__QUERY__']),
                 'autocomplete' => 'off',
             ],
         ]);
 
         $resolver->setDefaults([
             //Prefill the selected choice with the needed data, so the user can see it without an additional Ajax request
-            'choice_attr' => ChoiceList::attr($this, function (?Assembly $assembly) {
-                if($assembly instanceof Assembly) {
+            'choice_attr' => ChoiceList::attr($this, function (?Project $project) {
+                if($project instanceof Project) {
                     //Determine the picture to show:
-                    $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($assembly);
+                    $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($project);
                     if ($preview_attachment instanceof Attachment) {
                         $preview_url = $this->attachmentURLGenerator->getThumbnailURL($preview_attachment,
                             'thumbnail_sm');
@@ -99,8 +99,8 @@ class AssemblySelectType extends AbstractType implements DataMapperInterface
                     }
                 }
 
-                return $assembly instanceof Assembly ? [
-                    'data-description' => $assembly->getDescription() ? mb_strimwidth($assembly->getDescription(), 0, 127, '...') : '',
+                return $project instanceof Project ? [
+                    'data-description' => $project->getDescription() ? mb_strimwidth($project->getDescription(), 0, 127, '...') : '',
                     'data-category' => '',
                     'data-footprint' => '',
                     'data-image' => $preview_url,

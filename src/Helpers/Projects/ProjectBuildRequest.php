@@ -22,13 +22,10 @@ declare(strict_types=1);
  */
 namespace App\Helpers\Projects;
 
-use App\Entity\AssemblySystem\Assembly;
-use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Validator\Constraints\ProjectSystem\ValidProjectBuildRequest;
 
 /**
@@ -82,28 +79,13 @@ final class ProjectBuildRequest
         //Completely reset the array
         $this->withdraw_amounts = [];
 
-        //Now create an array for each part BOM entry
+        //Now create an array for each BOM entry
         foreach ($this->getPartBomEntries() as $bom_entry) {
             $remaining_amount = $this->getNeededAmountForBOMEntry($bom_entry);
             foreach($this->getPartLotsForBOMEntry($bom_entry) as $lot) {
                 //If the lot has instock use it for the build
                 $this->withdraw_amounts[$lot->getID()] = min($remaining_amount, $lot->getAmount());
                 $remaining_amount -= max(0, $this->withdraw_amounts[$lot->getID()]);
-            }
-        }
-
-        //Now create an array for each assembly BOM entry
-        foreach ($this->getAssemblyBomEntries() as $assemblyBomEntry) {
-            $assemblyBuildRequest = new AssemblyBuildRequest($assemblyBomEntry->getAssembly(), $this->number_of_builds);
-
-            //Add fields for assembly bom entries
-            foreach ($assemblyBuildRequest->getPartBomEntries() as $partBomEntry) {
-                $remaining_amount = $assemblyBuildRequest->getNeededAmountForBOMEntry($partBomEntry) * $assemblyBomEntry->getQuantity();
-
-                foreach ($assemblyBuildRequest->getPartLotsForBOMEntry($partBomEntry) as $lot) {
-                    $this->withdraw_amounts[$lot->getID()] = min($remaining_amount, $lot->getAmount());
-                    $remaining_amount -= max(0, $this->withdraw_amounts[$lot->getID()]);
-                }
             }
         }
     }
@@ -248,77 +230,12 @@ final class ProjectBuildRequest
     {
         $this->ensureBOMEntryValid($projectBOMEntry);
 
-        if (!$projectBOMEntry->getPart() instanceof Part && !$projectBOMEntry->getAssembly() instanceof Assembly) {
+        if (!$projectBOMEntry->getPart() instanceof Part) {
             return null;
         }
 
         //Filter out all lots which have unknown instock
-        if ($projectBOMEntry->getPart() instanceof Part) {
-            return $projectBOMEntry->getPart()->getPartLots()->filter(fn (PartLot $lot) => !$lot->isInstockUnknown())->toArray();
-        } elseif ($projectBOMEntry->getAssembly() instanceof Assembly) {
-            $assemblyBuildRequest = new AssemblyBuildRequest($projectBOMEntry->getAssembly(), $this->number_of_builds);
-
-            //Add fields for assembly bom entries
-            $result = [];
-            foreach ($assemblyBuildRequest->getPartBomEntries() as $assemblyBOMEntry) {
-                $tmp = $assemblyBOMEntry->getPart()->getPartLots()->filter(fn (PartLot $lot) => !$lot->isInstockUnknown())->toArray();
-                $result = array_merge($result, $tmp);
-            }
-
-            return $result;
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns all available assembly BOM-entries with no part assigned.
-     * @return AssemblyBOMEntry[]|null Returns null if no entries found
-     */
-    public function getAssemblyBomEntriesWithoutPart(ProjectBOMEntry $projectBOMEntry): ?array
-    {
-        $this->ensureBOMEntryValid($projectBOMEntry);
-
-        if (!$projectBOMEntry->getAssembly() instanceof Assembly) {
-            return null;
-        }
-
-        $assemblyBuildRequest = new AssemblyBuildRequest($projectBOMEntry->getAssembly(), $this->number_of_builds);
-
-        $result = [];
-
-        foreach ($assemblyBuildRequest->getBomEntries() as $assemblyBOMEntry) {
-            if ($assemblyBOMEntry->getPart() === null) {
-                $result[] = $assemblyBOMEntry;
-            }
-        }
-
-        return count($result) > 0 ? $result : null;
-    }
-
-    /**
-     * Returns all available assembly BOM-entries with no part assigned.
-     * @return AssemblyBOMEntry[]|null Returns null if no entries found
-     */
-    public function getAssemblyBomEntriesWithPartNoStock(ProjectBOMEntry $projectBOMEntry): ?array
-    {
-        $this->ensureBOMEntryValid($projectBOMEntry);
-
-        if (!$projectBOMEntry->getAssembly() instanceof Assembly) {
-            return null;
-        }
-
-        $assemblyBuildRequest = new AssemblyBuildRequest($projectBOMEntry->getAssembly(), $this->number_of_builds);
-
-        $result = [];
-
-        foreach ($assemblyBuildRequest->getBomEntries() as $assemblyBOMEntry) {
-            if ($assemblyBOMEntry->getPart() instanceof Part && $assemblyBOMEntry->getPart()->getPartLots()->filter(fn (PartLot $lot) => !$lot->isInstockUnknown())->count() === 0) {
-                $result[] = $assemblyBOMEntry;
-            }
-        }
-
-        return count($result) > 0 ? $result : null;
+        return $projectBOMEntry->getPart()->getPartLots()->filter(fn (PartLot $lot) => !$lot->isInstockUnknown())->toArray();
     }
 
     /**
@@ -347,15 +264,6 @@ final class ProjectBuildRequest
     public function getPartBomEntries(): array
     {
         return $this->project->getBomEntries()->filter(fn(ProjectBOMEntry $entry) => $entry->isPartBomEntry())->toArray();
-    }
-
-    /**
-     * Returns the all assembly bom entries that have to be built.
-     * @return ProjectBOMEntry[]
-     */
-    public function getAssemblyBomEntries(): array
-    {
-        return $this->project->getBomEntries()->filter(fn(ProjectBOMEntry $entry) => $entry->isAssemblyBomEntry())->toArray();
     }
 
     /**

@@ -25,9 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
-use App\DataTables\Helpers\AssemblyDataTableHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
-use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -46,7 +44,6 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
     public function __construct(
         protected TranslatorInterface     $translator,
         protected PartDataTableHelper     $partDataTableHelper,
-        protected AssemblyDataTableHelper $assemblyDataTableHelper,
         protected EntityURLGenerator      $entityURLGenerator,
         protected AmountFormatter         $amountFormatter
     ) {
@@ -90,26 +87,16 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    if(!$context->getPart() instanceof Part && !$context->getAssembly() instanceof Assembly) {
+                    if(!$context->getPart() instanceof Part) {
                         return htmlspecialchars((string) $context->getName());
                     }
 
-                    if ($context->getPart() !== null) {
-                        $tmp = $this->partDataTableHelper->renderName($context->getPart());
-                        $tmp = $this->translator->trans('part.table.name.value.for_part', ['%value%' => $tmp]);
+                    //Part exists if we reach this point
 
-                        if($context->getName() !== null && $context->getName() !== '') {
-                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
-                        }
-                    } elseif ($context->getAssembly() !== null) {
-                        $tmp = $this->assemblyDataTableHelper->renderName($context->getAssembly());
-                        $tmp = $this->translator->trans('part.table.name.value.for_assembly', ['%value%' => $tmp]);
-
-                        if($context->getName() !== null && $context->getName() !== '') {
-                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
-                        }
+                    $tmp = $this->partDataTableHelper->renderName($context->getPart());
+                    if($context->getName() !== null && $context->getName() !== '') {
+                        $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
                     }
-
                     return $tmp;
                 },
             ])
@@ -121,6 +108,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     if($context->getPart() instanceof Part) {
                         return $context->getPart()->getIpn();
                     }
+
+                    return '';
                 }
             ])
             ->add('description', MarkdownColumn::class, [

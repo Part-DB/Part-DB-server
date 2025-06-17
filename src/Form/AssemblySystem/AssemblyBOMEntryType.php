@@ -8,6 +8,7 @@ use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
+use App\Form\Type\ProjectSelectType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use Symfony\Component\Form\AbstractType;
@@ -34,11 +35,13 @@ class AssemblyBOMEntryType extends AbstractType
         });
 
         $builder
-
             ->add('part', PartSelectType::class, [
                 'required' => false,
             ])
-
+            ->add('project', ProjectSelectType::class, [
+                'label' => 'assembly.bom.project',
+                'required' => false,
+            ])
             ->add('name', TextType::class, [
                 'label' => 'assembly.bom.name',
                 'required' => false,
@@ -75,10 +78,8 @@ class AssemblyBOMEntryType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'short' => true,
-            ])
-
-        ;
-
+            ]
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

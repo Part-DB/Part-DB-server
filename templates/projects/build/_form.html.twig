@@ -27,9 +27,7 @@
             </td>
             <td >
                 {% if bom_entry.part %}
-                    <b><a target="_blank" href="{{ entity_url(bom_entry.part) }}">{{ 'projects.build.form.part'|trans({'%name%': bom_entry.part.name}) }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
-                {% elseif bom_entry.assembly %}
-                    <b><a target="_blank" href="{{ entity_url(bom_entry.assembly) }}">{{ 'projects.build.form.assembly'|trans({'%name%': bom_entry.assembly.name}) }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
+                    <b><a target="_blank" href="{{ entity_url(bom_entry.part) }}">{{ bom_entry.part.name }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
                 {% else %}
                     <b>{{ bom_entry.name }}</b>
                 {% endif %}
@@ -47,29 +45,9 @@
         <tr>
             <td colspan="4">
                 {% set lots = build_request.partLotsForBOMEntry(bom_entry) %}
-                {% set assemblyBomEntriesWithoutPart = build_request.assemblyBomEntriesWithoutPart(bom_entry) %}
-                {% set assemblyBomEntriesWithPartNoStock = build_request.assemblyBomEntriesWithPartNoStock(bom_entry) %}
                 {% if lots is not null %}
-                    {% set previousLabel = null %}
-
                     {% for lot in lots %}
                         {# @var lot \App\Entity\Parts\PartLot #}
-
-                        {% set label = '' %}
-                        {% if form["lot_"~lot.id].vars.label is defined and form["lot_"~lot.id].vars.label is not empty %}
-                            {% set label = form["lot_"~lot.id].vars.label %}
-                        {% endif %}
-
-                        {% if label != '' and (previousLabel is null or label != previousLabel) %}
-                        <div class="mb-2 row">
-                            <label class="col-form-label col-lg-4">
-                                <small>{{ label|raw }}</small>
-                            </label>
-                        </div>
-                        {% endif %}
-
-                        {% set previousLabel = label %}
-
                         <div class="mb-2 row">
                             <label class="col-form-label col-sm-4" for="category_admin_form_parent">
                                 {% if lot.storageLocation %}
@@ -83,39 +61,10 @@
                                 {{ form_errors(form["lot_"~lot.id]) }}
                                 {{ form_widget(form["lot_"~lot.id]) }}
                             </div>
-                            <div class="col-sm-2 mt-1 text-end">
+                            <div class="col-sm-2 mt-1  text-end">
                                 / <b>{{ lot.amount | format_amount(lot.part.partUnit) }}</b> {% trans %}project.builds.stocked{% endtrans %}
                             </div>
                         </div>
-                    {% endfor %}
-                {% endif %}
-                {% if assemblyBomEntriesWithoutPart is not null %}
-                    {% for bomEntryWithoutPart in assemblyBomEntriesWithoutPart %}
-                        <div class="mb-2 row">
-                            <label class="col-form-label col-sm-4" for="category_admin_form_parent">
-                                <small>{{ 'projects.build.form.assembly.bom.entry'|trans({'%name%': bomEntryWithoutPart.name, '%quantity%': bomEntryWithoutPart.quantity * number_of_builds}) }}</small>
-                            </label>
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-2 mt-1 text-end">
-                                / {% trans %}project.builds.no_stock{% endtrans %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                {% if assemblyBomEntriesWithPartNoStock is not null %}
-                    {% for bomEntryWithPartNoStock in assemblyBomEntriesWithPartNoStock %}
-                    <div class="alert alert-danger">
-                        <div class="mb-2 row">
-                            <label class="col-form-label col-sm-4" for="category_admin_form_parent">
-                                {% trans %}projects.build.form.assembly.bom.entry.no.stock{% endtrans %}<br/>
-                                <small>{{ 'projects.build.form.assembly.bom.entry'|trans({'%name%': bomEntryWithPartNoStock.name ? bomEntryWithPartNoStock.name : bomEntryWithPartNoStock.part.name, '%quantity%': bomEntryWithPartNoStock.quantity * number_of_builds}) }}</small>
-                            </label>
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-2 mt-1 text-end">
-                                / {% trans %}project.builds.no_stock{% endtrans %}
-                            </div>
-                        </div>
-                    </div>
                     {% endfor %}
                 {% endif %}
             </td>
@@ -126,7 +75,7 @@
 
 {{ form_row(form.comment) }}
 <div {{ stimulus_controller('pages/dont_check_quantity_checkbox') }}>
-{{ form_row(form.dontCheckQuantity) }}
+    {{ form_row(form.dontCheckQuantity) }}
 </div>
 
 {{ form_row(form.addBuildsToBuildsPart) }}

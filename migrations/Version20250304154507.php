@@ -386,11 +386,27 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
 
     public function postgreSQLUp(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD built_assembly_id INT DEFAULT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE parts ADD CONSTRAINT FK_6940A7FECC660B3C FOREIGN KEY (built_assembly_id) REFERENCES assemblies (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_6940A7FECC660B3C ON parts (built_assembly_id)
+        SQL);
     }
 
     public function postgreSQLDown(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE "parts" DROP CONSTRAINT FK_6940A7FECC660B3C
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX UNIQ_6940A7FECC660B3C
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE "parts" DROP built_assembly_id
+        SQL);
     }
 }

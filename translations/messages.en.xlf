@@ -4747,10 +4747,10 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>%value% (Part)</target>
       </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
-        <source>part.table.name.value.for_assembly</source>
-        <target>%value% (Assembly)</target>
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Project)</target>
       </segment>
     </unit>
     <unit id="rW_SFJE" name="part.table.id">
@@ -9873,18 +9873,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Part</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Assembly</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Selection</target>
-      </segment>
-    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10275,12 +10263,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>stocked</target>
       </segment>
     </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>no stock specified</target>
-      </segment>
-    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10351,12 +10333,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Target lot</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (%quantity% needed)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -13230,10 +13206,22 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>needed</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Do you really want to delete this entry?</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Add parts to assembly</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Project</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
@@ -13272,9 +13260,9 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Import part list for assembly</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.part">
+    <unit id="WTasGao" name="assembly.bom.partOrProject">
       <segment>
-        <source>assembly.bom.part</source>
+        <source>assembly.bom.partOrProject</source>
         <target>Part</target>
       </segment>
     </unit>
@@ -13720,42 +13708,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
                 ]]>
             </target>
         </segment>
-    </unit>
-    <unit id="QiZM3zY" name="typeahead.parts.part.name">
-      <segment>
-        <source>typeahead.parts.part.name</source>
-        <target>%name% (Part)</target>
-      </segment>
-    </unit>
-    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
-      <segment>
-        <source>typeahead.parts.assembly.name</source>
-        <target>%name% (Assembly)</target>
-      </segment>
-    </unit>
-    <unit id="4cgba2c" name="projects.build.form.part">
-      <segment>
-        <source>projects.build.form.part</source>
-        <target>Part "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="projects.build.form.assembly">
-      <segment>
-        <source>projects.build.form.assembly</source>
-        <target>Assembly "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry</source>
-        <target>%name% (%quantity% needed)</target>
-      </segment>
-    </unit>
-    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry.no.stock</source>
-        <target>not in stock</target>
-      </segment>
     </unit>
     <unit id="X9HUFrv" name="part.table.actions.error">
       <segment state="translated">

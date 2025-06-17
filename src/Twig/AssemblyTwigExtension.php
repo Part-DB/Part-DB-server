@@ -10,14 +10,14 @@ class AssemblyTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('has_assembly', [$this, 'hasAssembly']),
+            new TwigFunction('has_project', [$this, 'hasProject']),
         ];
     }
 
-    public function hasAssembly(array $bomEntries): bool
+    public function hasProject(array $bomEntries): bool
     {
         foreach ($bomEntries as $entry) {
-            if ($entry->getAssembly() !== null) {
+            if ($entry->getProject() !== null) {
                 return true;
             }
         }
