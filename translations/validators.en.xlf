@@ -429,6 +429,7 @@
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
         <target>You must select a part or set a name for the entry!</target>
+        <target>You must select a part or set a name for the entry!</target>
       </segment>
     </unit>
     <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">

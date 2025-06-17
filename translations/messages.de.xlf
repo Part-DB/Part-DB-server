@@ -9986,18 +9986,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Bauteil</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Baugruppe</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Auswahl</target>
-      </segment>
-    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10430,12 +10418,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>vorhanden</target>
       </segment>
     </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>kein Lager angegeben</target>
-      </segment>
-    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10506,12 +10488,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Ziel-Bestand</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (%quantity% benötigt)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -13738,6 +13714,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment>
         <source>assembly.builds.needed</source>
         <target>benötigt</target>
+      </segment>
+    </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Wollen sie diesen Eintrag wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">

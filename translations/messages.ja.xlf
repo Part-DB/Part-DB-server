@@ -8960,18 +8960,6 @@ Exampletown</target>
         <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>アセンブリ</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>選択</target>
-      </segment>
-    </unit>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
@@ -9006,18 +8994,6 @@ Exampletown</target>
       <segment state="translated">
         <source>assembly.status.archived</source>
         <target>アーカイブ済み</target>
-      </segment>
-    </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>nessuna scorta specificata</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (必要数: %quantity%)</target>
       </segment>
     </unit>
     <unit id="G2sXzh7" name="assembly.label">

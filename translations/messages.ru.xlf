@@ -9939,18 +9939,6 @@
         <target>Компонент</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Сборка</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Выбор</target>
-      </segment>
-    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10347,12 +10335,6 @@
         <target>запасено</target>
       </segment>
     </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>склад не указан</target>
-      </segment>
-    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10423,12 +10405,6 @@
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Целевой лот</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (требуется: %quantity%)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -13120,6 +13096,12 @@
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Добавить детали в сборку</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Проект</target>
       </segment>
     </unit>
     <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
