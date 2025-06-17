@@ -45,7 +45,7 @@ final class Version20250321075747 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            ALTER TABLE part_custom_states DROP FOREIGN KEY FK_F552745D727ACA70;
+            ALTER TABLE part_custom_states DROP FOREIGN KEY FK_F552745D727ACA70
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE part_custom_states DROP FOREIGN KEY FK_F552745DEA7100A1
