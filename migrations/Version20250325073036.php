@@ -291,11 +291,21 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
 
     public function postgreSQLUp(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE categories ADD part_ipn_prefix VARCHAR(255) DEFAULT '' NOT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX uniq_6940a7fe3d721c14
+        SQL);
     }
 
     public function postgreSQLDown(Schema $schema): void
     {
-        //Not needed
+        $this->addSql(<<<'SQL'
+            ALTER TABLE "categories" DROP part_ipn_prefix
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX uniq_6940a7fe3d721c14 ON "parts" (ipn)
+        SQL);
     }
 }
