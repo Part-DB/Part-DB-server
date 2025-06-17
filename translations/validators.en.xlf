@@ -386,19 +386,25 @@
     <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
       <segment>
         <source>assembly.bom_entry.part_already_in_bom</source>
-        <target>__assembly.bom_entry.part_already_in_bom</target>
+        <target>This part already exists in the list!</target>
+      </segment>
+    </unit>
+    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.project_already_in_bom</source>
+        <target>This project already exists in the list!</target>
       </segment>
     </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>
-        <target>__assembly.bom_entry.name_already_in_bom</target>
+        <target>There is already a part with this name!</target>
       </segment>
     </unit>
     <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
-        <target>__validator.assembly.bom_entry.name_or_part_needed</target>
+        <target>You must select a part or set a name for the entry!</target>
       </segment>
     </unit>
     <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">

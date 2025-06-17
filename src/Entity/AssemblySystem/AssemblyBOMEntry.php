@@ -36,7 +36,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Contracts\TimeStampableInterface;
-use App\Entity\AssemblySystem\Assembly;
+use App\Entity\ProjectSystem\Project;
 use App\Repository\DBElementRepository;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
@@ -134,6 +134,18 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     protected ?Part $part = null;
 
     /**
+     * @var Project|null The associated project
+     */
+    #[Assert\Expression(
+        '(this.getPart() === null or this.getProject() === null) and (this.getName() === null or (this.getName() != null and this.getName() != ""))',
+        message: 'validator.project.bom_entry.only_part_or_assembly_allowed'
+    )]
+    #[ORM\ManyToOne(targetEntity: Project::class)]
+    #[ORM\JoinColumn(name: 'id_project', nullable: true)]
+    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    protected ?Project $project = null;
+
+    /**
      * @var BigDecimal|null The price of this non-part BOM entry
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
@@ -225,6 +237,17 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return $this;
     }
 
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): AssemblyBOMEntry
+    {
+        $this->project = $project;
+        return $this;
+    }
+
     /**
      * Returns the price of this BOM entry, if existing.
      * Prices are only valid on non-Part BOM entries.
@@ -297,6 +320,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return [
             'name' => $this->getName(),
             'part' => $this->getPart()?->getID(),
+            'project' => $this->getProject()?->getID(),
         ];
     }
 }
