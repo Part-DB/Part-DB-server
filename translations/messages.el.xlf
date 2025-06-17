@@ -1541,22 +1541,10 @@
         <target>%value% (Μέρος)</target>
       </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
-        <source>part.table.name.value.for_assembly</source>
-        <target>%value% (Συναρμολόγηση)</target>
-      </segment>
-    </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Συναρμολόγηση</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Επιλογή</target>
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Έργο)</target>
       </segment>
     </unit>
     <unit id="hIIFtI1" name="assembly.edit.status">
@@ -1593,18 +1581,6 @@
       <segment state="translated">
         <source>assembly.status.archived</source>
         <target>Αρχειοθετήθηκε</target>
-      </segment>
-    </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>δεν έχει καθοριστεί απόθεμα</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (%quantity% απαιτείται)</target>
       </segment>
     </unit>
     <unit id="G2sXzh7" name="assembly.label">
@@ -1835,10 +1811,22 @@
         <target>απαιτούμενο</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Θέλετε πραγματικά να διαγράψετε αυτήν την εγγραφή;</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Προσθήκη εξαρτημάτων στη συναρμολόγηση</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>έργο</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
@@ -1877,9 +1865,9 @@
         <target>Εισαγωγή εξαρτημάτων συναρμολόγησης</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.part">
+    <unit id="WTasGao" name="assembly.bom.partOrProject">
       <segment>
-        <source>assembly.bom.part</source>
+        <source>assembly.bom.partOrProject</source>
         <target>Εξάρτημα</target>
       </segment>
     </unit>
@@ -2325,42 +2313,6 @@
                 ]]>
             </target>
         </segment>
-    </unit>
-    <unit id="QiZM3zY" name="typeahead.parts.part.name">
-      <segment>
-        <source>typeahead.parts.part.name</source>
-        <target>%name% (Εξάρτημα)</target>
-      </segment>
-    </unit>
-    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
-      <segment>
-        <source>typeahead.parts.assembly.name</source>
-        <target>%name% (Συναρμολόγηση)</target>
-      </segment>
-    </unit>
-    <unit id="4cgba2c" name="projects.build.form.part">
-      <segment>
-        <source>projects.build.form.part</source>
-        <target>Εξάρτημα "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="projects.build.form.assembly">
-      <segment>
-        <source>projects.build.form.assembly</source>
-        <target>Συναρμολόγηση "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry</source>
-        <target>%name% (%quantity% απαιτείται)</target>
-      </segment>
-    </unit>
-    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry.no.stock</source>
-        <target>δεν υπάρχει στο απόθεμα</target>
-      </segment>
     </unit>
   </file>
 </xliff>

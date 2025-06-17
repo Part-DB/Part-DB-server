@@ -4746,10 +4746,10 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>%value% (Componente)</target>
       </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
-        <source>part.table.name.value.for_assembly</source>
-        <target>%value% (Ensamblaje)</target>
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Proyecto)</target>
       </segment>
     </unit>
     <unit id="rW_SFJE" name="part.table.id">
@@ -9816,18 +9816,6 @@ Elemento 3</target>
         <target>Componente</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Baugruppe</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Auswahl</target>
-      </segment>
-    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10218,12 +10206,6 @@ Elemento 3</target>
         <target>Almacenado</target>
       </segment>
     </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>no se ha especificado stock</target>
-      </segment>
-    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10294,12 +10276,6 @@ Elemento 3</target>
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
         <target>Lote objetivo</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (se requiere %quantity%)</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -12668,10 +12644,22 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>necesario</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>¿Realmente desea eliminar esta entrada?</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Añadir piezas al ensamblaje</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Proyecto</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
@@ -12710,9 +12698,9 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Importar piezas para ensamblaje</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.part">
+    <unit id="WTasGao" name="assembly.bom.partOrProject">
       <segment>
-        <source>assembly.bom.part</source>
+        <source>assembly.bom.partOrProject</source>
         <target>Pieza</target>
       </segment>
     </unit>
@@ -13158,42 +13146,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
                 ]]>
             </target>
         </segment>
-    </unit>
-    <unit id="QiZM3zY" name="typeahead.parts.part.name">
-      <segment>
-        <source>typeahead.parts.part.name</source>
-        <target>%name% (Componente)</target>
-      </segment>
-    </unit>
-    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
-      <segment>
-        <source>typeahead.parts.assembly.name</source>
-        <target>%name% (Ensamblaje)</target>
-      </segment>
-    </unit>
-    <unit id="4cgba2c" name="projects.build.form.part">
-      <segment>
-        <source>projects.build.form.part</source>
-        <target>Componente "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="projects.build.form.assembly">
-      <segment>
-        <source>projects.build.form.assembly</source>
-        <target>Ensamblaje "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry</source>
-        <target>%name% (%quantity% necesario)</target>
-      </segment>
-    </unit>
-    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry.no.stock</source>
-        <target>sin stock</target>
-      </segment>
     </unit>
   </file>
 </xliff>

@@ -22,38 +22,38 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
-use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
+use App\Entity\ProjectSystem\Project;
 
-class AssemblyPreviewGenerator
+class ProjectPreviewGenerator
 {
     public function __construct(protected AttachmentManager $attachmentHelper)
     {
     }
 
     /**
-     *  Returns a list of attachments that can be used for previewing the assembly ordered by priority.
+     *  Returns a list of attachments that can be used for previewing the project ordered by priority.
      *
-     * @param Assembly $assembly the assembly for which the attachments should be determined
+     * @param Project $project the project for which the attachments should be determined
      *
      * @return (Attachment|null)[]
      *
      * @psalm-return list<Attachment|null>
      */
-    public function getPreviewAttachments(Assembly $assembly): array
+    public function getPreviewAttachments(Project $project): array
     {
         $list = [];
 
         //Master attachment has top priority
-        $attachment = $assembly->getMasterPictureAttachment();
+        $attachment = $project->getMasterPictureAttachment();
         if ($this->isAttachmentValidPicture($attachment)) {
             $list[] = $attachment;
         }
 
-        //Then comes the other images of the assembly
-        foreach ($assembly->getAttachments() as $attachment) {
+        //Then comes the other images of the project
+        foreach ($project->getAttachments() as $attachment) {
             //Dont show the master attachment twice
-            if ($this->isAttachmentValidPicture($attachment) && $attachment !== $assembly->getMasterPictureAttachment()) {
+            if ($this->isAttachmentValidPicture($attachment) && $attachment !== $project->getMasterPictureAttachment()) {
                 $list[] = $attachment;
             }
         }
@@ -62,14 +62,14 @@ class AssemblyPreviewGenerator
     }
 
     /**
-     * Determines what attachment should be used for previewing a assembly (especially in assembly table).
+     * Determines what attachment should be used for previewing a project (especially in project table).
      * The returned attachment is guaranteed to be existing and be a picture.
      *
-     * @param Assembly $assembly The assembly for which the attachment should be determined
+     * @param Project $project The project for which the attachment should be determined
      */
-    public function getTablePreviewAttachment(Assembly $assembly): ?Attachment
+    public function getTablePreviewAttachment(Project $project): ?Attachment
     {
-        $attachment = $assembly->getMasterPictureAttachment();
+        $attachment = $project->getMasterPictureAttachment();
         if ($this->isAttachmentValidPicture($attachment)) {
             return $attachment;
         }

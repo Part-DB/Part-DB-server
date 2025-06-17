@@ -27,14 +27,17 @@ use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Services\Parts\PartLotWithdrawAddHelper;
+use App\Services\ProjectSystem\ProjectBuildHelper;
 
 /**
  * @see \App\Tests\Services\AssemblySystem\AssemblyBuildHelperTest
  */
 class AssemblyBuildHelper
 {
-    public function __construct(private readonly PartLotWithdrawAddHelper $withdraw_add_helper)
-    {
+    public function __construct(
+        private readonly PartLotWithdrawAddHelper   $withdraw_add_helper,
+        private readonly ProjectBuildHelper         $projectBuildHelper
+    ) {
     }
 
     /**
@@ -66,12 +69,16 @@ class AssemblyBuildHelper
         $maximum_buildable_count = PHP_INT_MAX;
         foreach ($assembly->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$bom_entry->isPartBomEntry()) {
+            if (!$bom_entry->isPartBomEntry() && $bom_entry->getProject() === null) {
                 continue;
             }
 
-            //The maximum buildable count for the whole assembly is the minimum of all BOM entries
-            $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
+            //The maximum buildable count for the whole project is the minimum of all BOM entries
+            if ($bom_entry->getPart() !== null) {
+                $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
+            } elseif ($bom_entry->getProject() !== null) {
+                $maximum_buildable_count = min($maximum_buildable_count, $this->projectBuildHelper->getMaximumBuildableCount($bom_entry->getProject()));
+            }
         }
 
         return $maximum_buildable_count;
@@ -97,7 +104,7 @@ class AssemblyBuildHelper
     }
 
     /**
-     * Returns the assembly BOM entries for which parts are missing in the stock for the given number of builds
+     * Returns the project BOM entries for which parts are missing in the stock for the given number of builds
      * @param  Assembly $assembly The assembly for which the BOM entries should be checked
      * @param  int  $number_of_builds How often should the assembly be build?
      * @return AssemblyBOMEntry[]
@@ -108,24 +115,29 @@ class AssemblyBuildHelper
             throw new \InvalidArgumentException('The number of builds must be greater than 0!');
         }
 
-        $non_buildable_entries = [];
+        $nonBuildableEntries = [];
 
         foreach ($assembly->getBomEntries() as $bomEntry) {
             $part = $bomEntry->getPart();
 
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$part instanceof Part) {
+            if (!$part instanceof Part && $bomEntry->getAssembly() === null) {
                 continue;
             }
 
-            $amount_sum = $part->getAmountSum();
+            if ($bomEntry->getPart() !== null) {
+                $amount_sum = $part->getAmountSum();
 
-            if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
-                $non_buildable_entries[] = $bomEntry;
+                if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
+                    $nonBuildableEntries[] = $bomEntry;
+                }
+            } elseif ($bomEntry->getAssembly() !== null) {
+                $nonBuildableAssemblyEntries = $this->projectBuildHelper->getNonBuildableProjectBomEntries($bomEntry->getProject(), $number_of_builds);
+                $nonBuildableEntries = array_merge($nonBuildableEntries, $nonBuildableAssemblyEntries);
             }
         }
 
-        return $non_buildable_entries;
+        return $nonBuildableEntries;
     }
 
     /**

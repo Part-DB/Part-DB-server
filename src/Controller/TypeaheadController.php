@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parameters\AbstractParameter;
-use App\Services\Attachments\AssemblyPreviewGenerator;
+use App\Entity\ProjectSystem\Project;
+use App\Services\Attachments\ProjectPreviewGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -151,29 +151,29 @@ class TypeaheadController extends AbstractController
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
-                ];
+            ];
         }
 
         return new JsonResponse($data);
     }
 
-    #[Route(path: '/assemblies/search/{query}', name: 'typeahead_assemblies')]
-    public function assemblies(
-        EntityManagerInterface $entityManager,
-        AssemblyPreviewGenerator $assemblyPreviewGenerator,
-        AttachmentURLGenerator $attachmentURLGenerator,
-        string $query = ""
+    #[Route(path: '/projects/search/{query}', name: 'typeahead_projects')]
+    public function projects(
+        EntityManagerInterface  $entityManager,
+        ProjectPreviewGenerator $projectPreviewGenerator,
+        AttachmentURLGenerator  $attachmentURLGenerator,
+        string                  $query = ""
     ): JsonResponse {
-        $this->denyAccessUnlessGranted('@assemblies.read');
+        $this->denyAccessUnlessGranted('@projects.read');
 
         $result = [];
 
-        $assemblyRepository = $entityManager->getRepository(Assembly::class);
+        $projectRepository = $entityManager->getRepository(Project::class);
 
-        $assemblies = $assemblyRepository->autocompleteSearch($query, 100);
+        $projects = $projectRepository->autocompleteSearch($query, 100);
 
-        foreach ($assemblies as $assembly) {
-            $preview_attachment = $assemblyPreviewGenerator->getTablePreviewAttachment($assembly);
+        foreach ($projects as $project) {
+            $preview_attachment = $projectPreviewGenerator->getTablePreviewAttachment($project);
 
             if($preview_attachment instanceof Attachment) {
                 $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
@@ -181,13 +181,13 @@ class TypeaheadController extends AbstractController
                 $preview_url = '';
             }
 
-            /** @var Assembly $assembly */
+            /** @var Project $project */
             $result[] = [
-                'id' => $assembly->getID(),
-                'name' => $this->translator->trans('typeahead.parts.assembly.name', ['%name%' => $assembly->getName()]),
+                'id' => $project->getID(),
+                'name' => $project->getName(),
                 'category' => '',
                 'footprint' => '',
-                'description' => mb_strimwidth($assembly->getDescription(), 0, 127, '...'),
+                'description' => mb_strimwidth($project->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
             ];
         }

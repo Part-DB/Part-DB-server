@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Form\ProjectSystem;
 
 use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Form\Type\AssemblySelectType;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
@@ -37,10 +36,6 @@ class ProjectBOMEntryType extends AbstractType
         $builder
             ->add('part', PartSelectType::class, [
                 'label' => 'project.bom.part',
-                'required' => false,
-            ])
-            ->add('assembly', AssemblySelectType::class, [
-                'label' => 'project.bom.assembly',
                 'required' => false,
             ])
             ->add('name', TextType::class, [

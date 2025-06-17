@@ -78,35 +78,34 @@ class AssemblyBuildType extends AbstractType implements DataMapperInterface
             'required' => false,
         ]);
 
-
-        //The form is initially empty, we have to define the fields after we know the data
+        //The form is initially empty, define the fields after we know the data
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
-            /** @var AssemblyBuildRequest $build_request */
-            $build_request = $event->getData();
+            /** @var AssemblyBuildRequest $assemblyBuildRequest */
+            $assemblyBuildRequest = $event->getData();
 
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'assembly.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => !$build_request->getAssembly()->getBuildPart() instanceof Part,
+                'disabled' => !$assemblyBuildRequest->getAssembly()->getBuildPart() instanceof Part,
             ]);
 
-            if ($build_request->getAssembly()->getBuildPart() instanceof Part) {
+            if ($assemblyBuildRequest->getAssembly()->getBuildPart() instanceof Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'assembly.build.builds_part_lot',
                     'required' => false,
-                    'part' => $build_request->getAssembly()->getBuildPart(),
+                    'part' => $assemblyBuildRequest->getAssembly()->getBuildPart(),
                     'placeholder' => 'assembly.build.buildsPartLot.new_lot'
                 ]);
             }
 
-            foreach ($build_request->getPartBomEntries() as $bomEntry) {
+            foreach ($assemblyBuildRequest->getPartBomEntries() as $bomEntry) {
                 //Every part lot has a field to specify the number of parts to take from this lot
-                foreach ($build_request->getPartLotsForBOMEntry($bomEntry) as $lot) {
+                foreach ($assemblyBuildRequest->getPartLotsForBOMEntry($bomEntry) as $lot) {
                     $form->add('lot_' . $lot->getID(), SIUnitType::class, [
                         'label' => false,
                         'measurement_unit' => $bomEntry->getPart()->getPartUnit(),
-                        'max' => min($build_request->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
+                        'max' => min($assemblyBuildRequest->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
                         'disabled' => !$this->security->isGranted('withdraw', $lot),
                     ]);
                 }

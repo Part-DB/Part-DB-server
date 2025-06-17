@@ -4709,11 +4709,11 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
             <target>%value% (Componente)</target>
         </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
-        <segment state="translated">
-            <source>part.table.name.value.for_assembly</source>
-            <target>%value% (Assemblaggio)</target>
-        </segment>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
+      <segment state="translated">
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Projet)</target>
+      </segment>
     </unit>
     <unit id="eshqdG." name="part.table.id">
       <notes>
@@ -9109,18 +9109,6 @@ exemple de ville</target>
         <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Assemblage</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Sélection</target>
-      </segment>
-    </unit>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
@@ -9155,18 +9143,6 @@ exemple de ville</target>
       <segment state="translated">
         <source>assembly.status.archived</source>
         <target>Archivé</target>
-      </segment>
-    </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>aucun stock indiqué</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (%quantity% requis)</target>
       </segment>
     </unit>
     <unit id="G2sXzh7" name="assembly.label">
@@ -9397,10 +9373,22 @@ exemple de ville</target>
         <target>nécessaire</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Voulez-vous vraiment supprimer cette entrée ?</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Ajouter des pièces à l'assemblage</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Projet</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
@@ -9439,9 +9427,9 @@ exemple de ville</target>
         <target>Importer des pièces pour l'assemblage</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.part">
+    <unit id="WTasGao" name="assembly.bom.partOrProject">
       <segment>
-        <source>assembly.bom.part</source>
+        <source>assembly.bom.partOrProject</source>
         <target>Pièce</target>
       </segment>
     </unit>
@@ -9886,42 +9874,6 @@ exemple de ville</target>
             </table>
           ]]>
         </target>
-      </segment>
-    </unit>
-    <unit id="QiZM3zY" name="typeahead.parts.part.name">
-      <segment>
-        <source>typeahead.parts.part.name</source>
-        <target>%name% (pièce)</target>
-      </segment>
-    </unit>
-    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
-      <segment>
-        <source>typeahead.parts.assembly.name</source>
-        <target>%name% (assemblage)</target>
-      </segment>
-    </unit>
-    <unit id="4cgba2c" name="projects.build.form.part">
-      <segment>
-        <source>projects.build.form.part</source>
-        <target>Pièce "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="projects.build.form.assembly">
-      <segment>
-        <source>projects.build.form.assembly</source>
-        <target>Assemblage "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry</source>
-        <target>%name% (%quantity% nécessaires)</target>
-      </segment>
-    </unit>
-    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry.no.stock</source>
-        <target>Non disponible en stock</target>
       </segment>
     </unit>
   </file>
