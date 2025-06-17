@@ -25,11 +25,13 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
+use App\DataTables\Helpers\ProjectDataTableHelper;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
+use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use Doctrine\ORM\QueryBuilder;
@@ -43,12 +45,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AssemblyBomEntriesDataTable implements DataTableTypeInterface
 {
     public function __construct(
-        protected TranslatorInterface $translator,
-        protected PartDataTableHelper $partDataTableHelper,
-        protected EntityURLGenerator $entityURLGenerator,
-        protected AmountFormatter $amountFormatter,
-        private string $visible_columns,
-        private ColumnSortHelper $csh
+        protected TranslatorInterface    $translator,
+        protected PartDataTableHelper    $partDataTableHelper,
+        protected ProjectDataTableHelper $projectDataTableHelper,
+        protected EntityURLGenerator     $entityURLGenerator,
+        protected AmountFormatter        $amountFormatter,
+        private string                   $visible_columns,
+        private ColumnSortHelper         $csh
     ){
     }
 
@@ -86,18 +89,29 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, AssemblyBOMEntry $context) {
-                    if(!$context->getPart() instanceof Part) {
+                    if(!$context->getPart() instanceof Part && !$context->getProject() instanceof Project) {
                         return htmlspecialchars((string) $context->getName());
                     }
 
-                    //Part exists if we reach this point
+                    if ($context->getPart() !== null) {
+                        $tmp = $this->partDataTableHelper->renderName($context->getPart());
+                        $tmp = $this->translator->trans('part.table.name.value.for_part', ['%value%' => $tmp]);
 
-                    $tmp = $this->partDataTableHelper->renderName($context->getPart());
-                    if($context->getName() !== null && $context->getName() !== '') {
-                        $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
+                        if($context->getName() !== null && $context->getName() !== '') {
+                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
+                        }
+                    } elseif ($context->getProject() !== null) {
+                        $tmp = $this->projectDataTableHelper->renderName($context->getProject());
+                        $tmp = $this->translator->trans('part.table.name.value.for_project', ['%value%' => $tmp]);
+
+                        if($context->getName() !== null && $context->getName() !== '') {
+                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
+                        }
                     }
+
                     return $tmp;
                 },
+
             ])
             ->add('ipn', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.ipn'),

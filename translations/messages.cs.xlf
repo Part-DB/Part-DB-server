@@ -4741,19 +4741,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Název</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Sestava</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Výběr</target>
-      </segment>
-    </unit>
-    <unit id="rW_SFJE" name="part.table.id">
+    <unit id="eshqdG." name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:126</note>
@@ -9798,18 +9786,6 @@ Element 3</target>
         <target>Díl</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>Baugruppe</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>Auswahl</target>
-      </segment>
-    </unit>
     <unit id="kGqIirz" name="project.bom.add_entry">
       <segment state="translated">
         <source>project.bom.add_entry</source>
@@ -10200,12 +10176,6 @@ Element 3</target>
         <target>k dispozici</target>
       </segment>
     </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>není uveden žádný sklad</target>
-      </segment>
-    </unit>
     <unit id="s5DQlqF" name="project.builds.needed">
       <segment state="translated">
         <source>project.builds.needed</source>
@@ -10278,13 +10248,7 @@ Element 3</target>
         <target>Cílový inventář</target>
       </segment>
     </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (%quantity% požadováno)</target>
-      </segment>
-    </unit>
-    <unit id="5DTAvWG" name="project.builds.number_of_builds">
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
       <segment state="translated">
         <source>project.builds.number_of_builds</source>
         <target>Množství sestavy</target>
@@ -13113,10 +13077,10 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>%value% (Součást)</target>
       </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
-        <source>part.table.name.value.for_assembly</source>
-        <target>%value% (Sestava)</target>
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Projekt)</target>
       </segment>
     </unit>
     <unit id="G2sXzh7" name="assembly.label">
@@ -13347,10 +13311,22 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>potřebné</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Opravdu chcete tuto položku smazat?</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>Přidat součásti do sestavy</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Projekt</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
@@ -13389,9 +13365,9 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Importovat součásti do sestavy</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.part">
+    <unit id="WTasGao" name="assembly.bom.partOrProject">
       <segment>
-        <source>assembly.bom.part</source>
+        <source>assembly.bom.partOrProject</source>
         <target>Součást</target>
       </segment>
     </unit>

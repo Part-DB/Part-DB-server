@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 namespace App\Form\ProjectSystem;
 
-use App\Helpers\Assemblies\AssemblyBuildRequest;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -39,11 +38,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
-    public function __construct(private readonly Security $security, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly Security $security)
     {
     }
 
@@ -111,25 +109,6 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
                         'max' => min($projectBuildRequest->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
                         'disabled' => !$this->security->isGranted('withdraw', $lot),
                     ]);
-                }
-            }
-
-            foreach ($projectBuildRequest->getAssemblyBomEntries() as $bomEntry) {
-                $assemblyBuildRequest = new AssemblyBuildRequest($bomEntry->getAssembly(), $projectBuildRequest->getNumberOfBuilds());
-
-                //Add fields for assembly bom entries
-                foreach ($assemblyBuildRequest->getPartBomEntries() as $partBomEntry) {
-                    foreach ($assemblyBuildRequest->getPartLotsForBOMEntry($partBomEntry) as $lot) {
-                        $form->add('lot_' . $lot->getID(), SIUnitType::class, [
-                            'label' => $this->translator->trans('project.build.builds_part_lot_label', [
-                                '%name%' => $partBomEntry->getPart()->getName(),
-                                '%quantity%' => $partBomEntry->getQuantity() * $projectBuildRequest->getNumberOfBuilds()
-                            ]),
-                            'measurement_unit' => $partBomEntry->getPart()->getPartUnit(),
-                            'max' => min($assemblyBuildRequest->getNeededAmountForBOMEntry($partBomEntry), $lot->getAmount()),
-                            'disabled' => !$this->security->isGranted('withdraw', $lot),
-                        ]);
-                    }
                 }
             }
         });

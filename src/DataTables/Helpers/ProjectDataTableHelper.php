@@ -23,18 +23,18 @@ declare(strict_types=1);
 
 namespace App\DataTables\Helpers;
 
-use App\Entity\AssemblySystem\Assembly;
+use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 
 /**
  * A helper service which contains common code to render columns for assembly related tables
  */
-class AssemblyDataTableHelper
+class ProjectDataTableHelper
 {
     public function __construct(private readonly EntityURLGenerator $entityURLGenerator) {
     }
 
-    public function renderName(Assembly $context): string
+    public function renderName(Project $context): string
     {
         $icon = '';
 

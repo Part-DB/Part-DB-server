@@ -4709,11 +4709,11 @@
             <target>%value%（部品）</target>
         </segment>
     </unit>
-    <unit id="GW8ZOX7" name="part.table.name.value.for_assembly">
-        <segment state="translated">
-            <source>part.table.name.value.for_assembly</source>
-            <target>%value%（アセンブリ）</target>
-        </segment>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
+      <segment state="translated">
+        <source>part.table.name.value.for_project</source>
+        <target>%value%（プロジェクト）</target>
+      </segment>
     </unit>
     <unit id="eshqdG." name="part.table.id">
       <notes>
@@ -8846,18 +8846,6 @@ Exampletown</target>
         <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
       </segment>
     </unit>
-    <unit id="KJuXVR5" name="project.bom.assembly">
-      <segment state="translated">
-        <source>project.bom.assembly</source>
-        <target>アセンブリ</target>
-      </segment>
-    </unit>
-    <unit id="LKvYWS6" name="project.bom.partOrAssembly">
-      <segment state="translated">
-        <source>project.bom.partOrAssembly</source>
-        <target>選択</target>
-      </segment>
-    </unit>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
@@ -8892,18 +8880,6 @@ Exampletown</target>
       <segment state="translated">
         <source>assembly.status.archived</source>
         <target>アーカイブ済み</target>
-      </segment>
-    </unit>
-    <unit id="gHU1vgc" name="project.builds.no_stock">
-      <segment state="translated">
-        <source>project.builds.no_stock</source>
-        <target>nessuna scorta specificata</target>
-      </segment>
-    </unit>
-    <unit id="OsmK1Iv" name="project.build.builds_part_lot_label">
-      <segment state="translated">
-        <source>project.build.builds_part_lot_label</source>
-        <target>%name% (必要数: %quantity%)</target>
       </segment>
     </unit>
     <unit id="G2sXzh7" name="assembly.label">
@@ -9134,10 +9110,46 @@ Exampletown</target>
         <target>必要数量</target>
       </segment>
     </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>本当にこのエントリを削除しますか？</target>
+      </segment>
+    </unit>
     <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
       <segment>
         <source>assembly.add_parts_to_assembly</source>
         <target>アセンブリに部品を追加</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>プロジェクト</target>
+      </segment>
+    </unit>
+    <unit id="PPsM0Dg" name="assembly.bom.name">
+      <segment>
+        <source>assembly.bom.name</source>
+        <target>名前</target>
+      </segment>
+    </unit>
+    <unit id="nUEs.ld" name="assembly.bom.comment">
+      <segment>
+        <source>assembly.bom.comment</source>
+        <target>コメント</target>
+      </segment>
+    </unit>
+    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
+      <segment>
+        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
+        <target>このアセンブリを%number_of_builds%回作成するための部品が十分に在庫にありません。以下の部品が不足しています:</target>
+      </segment>
+    </unit>
+    <unit id="JlQhDdS" name="assembly.build.help">
+      <segment>
+        <source>assembly.build.help</source>
+        <target>どの在庫から必要な部品を取り出すか（およびその数量）を選択してください。部品を取り出した場合は、各項目のチェックをオンにするか、最上部のチェックボックスを使って一括でオンにすることができます。</target>
       </segment>
     </unit>
     <unit id="rs_qty" name="assembly.build.required_qty">
@@ -9587,42 +9599,6 @@ Exampletown</target>
             </table>
           ]]>
         </target>
-      </segment>
-    </unit>
-    <unit id="QiZM3zY" name="typeahead.parts.part.name">
-      <segment>
-        <source>typeahead.parts.part.name</source>
-        <target>%name%（部品）</target>
-      </segment>
-    </unit>
-    <unit id="WhYL2yX" name="typeahead.parts.assembly.name">
-      <segment>
-        <source>typeahead.parts.assembly.name</source>
-        <target>%name%（アセンブリ）</target>
-      </segment>
-    </unit>
-    <unit id="4cgba2c" name="projects.build.form.part">
-      <segment>
-        <source>projects.build.form.part</source>
-        <target>部品「%name%」</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="projects.build.form.assembly">
-      <segment>
-        <source>projects.build.form.assembly</source>
-        <target>アセンブリ「%name%」</target>
-      </segment>
-    </unit>
-    <unit id="2cDB2ac" name="projects.build.form.assembly.bom.entry">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry</source>
-        <target>%name% （必要数量: %quantity%）</target>
-      </segment>
-    </unit>
-    <unit id="3dEC3bd" name="projects.build.form.assembly.bom.entry.no.stock">
-      <segment>
-        <source>projects.build.form.assembly.bom.entry.no.stock</source>
-        <target>在庫なし</target>
       </segment>
     </unit>
   </file>
