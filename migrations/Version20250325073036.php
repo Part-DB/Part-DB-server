@@ -16,14 +16,22 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
 
     public function mySQLUp(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE categories ADD COLUMN part_ipn_prefix VARCHAR(255) NOT NULL DEFAULT \'\'');
-        $this->addSql('DROP INDEX UNIQ_6940A7FE3D721C14 ON parts');
+        $this->addSql(<<<'SQL'
+            ALTER TABLE categories ADD COLUMN part_ipn_prefix VARCHAR(255) NOT NULL DEFAULT ''
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX UNIQ_6940A7FE3D721C14 ON parts
+        SQL);
     }
 
     public function mySQLDown(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE `categories` DROP part_ipn_prefix');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON `parts` (ipn)');
+        $this->addSql(<<<'SQL'
+            ALTER TABLE categories DROP part_ipn_prefixSQL
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON parts (ipn)
+        SQL);
     }
 
     public function sqLiteUp(Schema $schema): void
