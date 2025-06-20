@@ -237,6 +237,28 @@ class KiCadHelper
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
+        // Add supplier information from orderdetails (include obsolete orderdetails)
+        if ($part->getOrderdetails(false)->count() > 0) {
+            $supplierCounts = [];
+            
+            foreach ($part->getOrderdetails(false) as $orderdetail) {
+                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
+                    $supplierName = $orderdetail->getSupplier()->getName();
+                    
+                    if (!isset($supplierCounts[$supplierName])) {
+                        $supplierCounts[$supplierName] = 0;
+                    }
+                    $supplierCounts[$supplierName]++;
+                    
+                    // Create field name with sequential number if more than one from same supplier (e.g. "Mouser", "Mouser 2", etc.)
+                    $fieldName = $supplierCounts[$supplierName] > 1 
+                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
+                        : $supplierName;
+                    
+                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                }
+            }
+        }
 
         return $result;
     }
