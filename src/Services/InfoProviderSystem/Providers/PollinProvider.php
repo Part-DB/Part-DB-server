@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Settings\InfoProviderSystem\PollinSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -39,8 +40,7 @@ class PollinProvider implements InfoProviderInterface
 {
 
     public function __construct(private readonly HttpClientInterface $client,
-        #[Autowire(env: 'bool:PROVIDER_POLLIN_ENABLED')]
-        private readonly bool $enabled = true,
+        private readonly PollinSettings $settings,
     )
     {
     }
@@ -62,7 +62,7 @@ class PollinProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->enabled;
+        return $this->settings->enabled;
     }
 
     public function searchByKeyword(string $keyword): array

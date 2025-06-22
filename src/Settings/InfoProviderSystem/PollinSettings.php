@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -23,33 +23,15 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings()]
-class InfoProviderSettings
+#[Settings(label: new TM("settings.ips.pollin"), description: new TM("settings.ips.pollin.help"))]
+#[SettingsIcon("fa-plug")]
+class PollinSettings
 {
-    use SettingsTrait;
-
-    #[EmbeddedSettings]
-    public ?MouserSettings $mouser = null;
-
-    #[EmbeddedSettings]
-    public ?TMESettings $tme = null;
-
-    #[EmbeddedSettings]
-    public ?Element14Settings $element14 = null;
-
-    #[EmbeddedSettings]
-    public ?LCSCSettings $lcsc = null;
-
-    #[EmbeddedSettings]
-    public ?OEMSecretsSettings $oemsecrets = null;
-
-    #[EmbeddedSettings]
-    public ?ReicheltSettings $reichelt = null;
-
-    #[EmbeddedSettings]
-    public ?PollinSettings $pollin = null;
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"), envVar: "bool:PROVIDER_POLLIN_ENABLED")]
+    public bool $enabled = false;
 }

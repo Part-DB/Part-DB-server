@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Settings\InfoProviderSystem\ReicheltSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -39,16 +40,7 @@ class ReicheltProvider implements InfoProviderInterface
     public const DISTRIBUTOR_NAME = "Reichelt";
 
     public function __construct(private readonly HttpClientInterface $client,
-        #[Autowire(env: "bool:PROVIDER_REICHELT_ENABLED")]
-        private readonly bool $enabled = true,
-        #[Autowire(env: "PROVIDER_REICHELT_LANGUAGE")]
-        private readonly string $language = "en",
-        #[Autowire(env: "PROVIDER_REICHELT_COUNTRY")]
-        private readonly string $country = "DE",
-        #[Autowire(env: "PROVIDER_REICHELT_INCLUDE_VAT")]
-        private readonly bool $includeVAT = false,
-        #[Autowire(env: "PROVIDER_REICHELT_CURRENCY")]
-        private readonly string $currency = "EUR",
+        private readonly ReicheltSettings $settings,
     )
     {
     }
@@ -70,7 +62,7 @@ class ReicheltProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->enabled;
+        return $this->settings->enabled;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -121,8 +113,8 @@ class ReicheltProvider implements InfoProviderInterface
             sprintf(
                 'https://www.reichelt.com/?ACTION=514&id=74&article=%s&LANGUAGE=%s&CCOUNTRY=%s',
                 $id,
-                strtoupper($this->language),
-                strtoupper($this->country)
+                strtoupper($this->settings->language),
+                strtoupper($this->settings->country)
             )
         );
         $json = $response->toArray();
@@ -133,8 +125,8 @@ class ReicheltProvider implements InfoProviderInterface
 
         $response = $this->client->request('GET', $productPage, [
             'query' => [
-                'CCTYPE' => $this->includeVAT ? 'private' : 'business',
-                'currency' => $this->currency,
+                'CCTYPE' => $this->settings->includeVAT ? 'private' : 'business',
+                'currency' => $this->settings->currency,
             ],
         ]);
         $html = $response->getContent();
@@ -158,7 +150,7 @@ class ReicheltProvider implements InfoProviderInterface
             distributor_name: self::DISTRIBUTOR_NAME,
             order_number: $json[0]['article_artnr'],
             prices: array_merge(
-                [new PriceDTO(1.0, $priceString, $currency, $this->includeVAT)]
+                [new PriceDTO(1.0, $priceString, $currency, $this->settings->includeVAT)]
             , $this->parseBatchPrices($dom, $currency)),
             product_url: $productPage
         );
@@ -218,7 +210,7 @@ class ReicheltProvider implements InfoProviderInterface
             //Strip any non-numeric characters
             $priceString = preg_replace('/[^0-9.]/', '', $priceString);
 
-            $prices[] = new PriceDTO($minAmount, $priceString, $currency, $this->includeVAT);
+            $prices[] = new PriceDTO($minAmount, $priceString, $currency, $this->settings->includeVAT);
         });
 
         return $prices;
@@ -270,7 +262,7 @@ class ReicheltProvider implements InfoProviderInterface
     private function getBaseURL(): string
     {
         //Without the trailing slash
-        return 'https://www.reichelt.com/' . strtolower($this->country) . '/' . strtolower($this->language);
+        return 'https://www.reichelt.com/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language);
     }
 
     public function getCapabilities(): array

@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -30,36 +30,33 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings(label: new TM("settings.ips.tme"))]
+#[Settings(label: new TM("settings.ips.reichelt"), description: new TM("settings.ips.reichelt.help"))]
 #[SettingsIcon("fa-plug")]
-class TMESettings
+class ReicheltSettings
 {
     use SettingsTrait;
 
-    private const SUPPORTED_CURRENCIES = ["EUR", "USD", "PLN", "GBP"];
+    public const SUPPORTED_LANGUAGE = ["en", "de", "fr", "nl", "pl", "it", "es"];
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.token"),
-        description: new TM("settings.ips.tme.token.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_TME_KEY")]
-    public ?string $apiToken = null;
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"), envVar: "bool:PROVIDER_REICHELT_ENABLED")]
+    public bool $enabled = false;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.secret"), envVar: "PROVIDER_TME_SECRET")]
-    public ?string $apiSecret = null;
-
-    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES], envVar: "PROVIDER_TME_CURRENCY")]
-    #[Assert\Choice(choices: self::SUPPORTED_CURRENCIES)]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => ["EUR"]], envVar: "PROVIDER_REICHELT_CURRENCY")]
     public string $currency = "EUR";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => ["en", "de", "fr", "pl"]], envVar: "PROVIDER_TME_LANGUAGE")]
-    #[Assert\Language]
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => self::SUPPORTED_LANGUAGE], envVar: "PROVIDER_REICHELT_LANGUAGE")]
+    #[Assert\Language()]
+    #[Assert\Choice(choices: self::SUPPORTED_LANGUAGE)]
     public string $language = "en";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]], envVar: "PROVIDER_TME_COUNTRY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), envVar: "PROVIDER_REICHELT_COUNTRY", formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]])]
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.grossPrices"), envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES")]
-    public bool $grossPrices = true;
+    #[SettingsParameter(label: new TM("settings.ips.reichelt.include_vat"), envVar: "bool:PROVIDER_REICHELT_INCLUDE_VAT")]
+    public bool $includeVAT = true;
+
 }
