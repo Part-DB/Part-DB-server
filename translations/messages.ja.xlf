@@ -9122,6 +9122,12 @@ Exampletown</target>
         <target>アセンブリに部品を追加</target>
       </segment>
     </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>このパーツをアセンブリに追加</target>
+      </segment>
+    </unit>
     <unit id="1zsGacg3" name="assembly.bom.project">
       <segment>
         <source>assembly.bom.project</source>
