@@ -282,6 +282,34 @@ final class PartsDataTable implements DataTableTypeInterface
             ]);
         }
 
+        //Add a assembly column to list where the part is used, when the user has the permission to see the assemblies
+        if ($this->security->isGranted('read', Assembly::class)) {
+            $this->csh->add('assemblies', TextColumn::class, [
+                'label' => $this->translator->trans('assembly.labelp'),
+                'render' => function ($value, Part $context): string {
+                    //Only show the first 5 assembly names
+                    $assemblies = $context->getAssemblies();
+                    $tmp = "";
+
+                    $max = 5;
+
+                    for ($i = 0; $i < min($max, count($assemblies)); $i++) {
+                        $url = $this->urlGenerator->infoURL($assemblies[$i]);
+                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($assemblies[$i]->getName()));
+                        if ($i < count($assemblies) - 1) {
+                            $tmp .= ", ";
+                        }
+                    }
+
+                    if (count($assemblies) > $max) {
+                        $tmp .= ", + ".(count($assemblies) - $max);
+                    }
+
+                    return $tmp;
+                }
+            ]);
+        }
+
         $this->csh
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
