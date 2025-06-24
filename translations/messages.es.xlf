@@ -12981,6 +12981,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Añadir piezas al ensamblaje</target>
       </segment>
     </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>Agregar esta parte a un ensamblaje</target>
+      </segment>
+    </unit>
     <unit id="1zsGacg3" name="assembly.bom.project">
       <segment>
         <source>assembly.bom.project</source>
