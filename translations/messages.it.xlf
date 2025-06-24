@@ -12959,6 +12959,12 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Aggiungi componenti al gruppo</target>
       </segment>
     </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>Aggiungi questa parte a un assemblaggio</target>
+      </segment>
+    </unit>
     <unit id="1zsGacg3" name="assembly.bom.project">
       <segment>
         <source>assembly.bom.project</source>

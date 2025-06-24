@@ -1,0 +1,31 @@
+{% import "components/attachments.macro.html.twig" as attachments %}
+{% import "helper.twig" as helper %}
+
+<table class="table table-striped table-sm table-hover table-responsive-sm">
+    <thead>
+    <tr>
+        <th></th>
+        <th>{% trans %}entity.info.name{% endtrans %}</th>
+        <th>{% trans %}description.label{% endtrans %}</th>
+        <th>{% trans %}assembly.bom.quantity{% endtrans %}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for bom_entry in part.assemblyBomEntries %}
+        {# @var bom_entry App\Entity\Assembly\AssemblyBOMEntry #}
+    <tr>
+        <td>{% if bom_entry.assembly.masterPictureAttachment is not null %}{{ attachments.attachment_icon(bom_entry.assembly.masterPictureAttachment, attachment_manager) }}{% endif %}</td>
+        <td><a href="{{ path('assembly_info', {'id': bom_entry.assembly.iD}) }}">{{ bom_entry.assembly.name }}</a></td> {# Name #}
+        <td>{{ bom_entry.assembly.description|format_markdown }}</td> {# Description #}
+        <td>{{ bom_entry.quantity | format_amount(part.partUnit) }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-success" {% if not is_granted('@assemblies.edit') %}disabled{% endif %}
+   href="{{ path('assembly_add_parts_no_id', {"parts": part.id, "_redirect":  uri_without_host(app.request)}) }}">
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
+    {% trans %}part.info.add_part_to_assembly{% endtrans %}
+</a>

@@ -12809,6 +12809,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Tilføj dele til samlingen</target>
       </segment>
     </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>Tilføj denne del til en samling</target>
+      </segment>
+    </unit>
     <unit id="1zsGacg3" name="assembly.bom.project">
       <segment>
         <source>assembly.bom.project</source>
