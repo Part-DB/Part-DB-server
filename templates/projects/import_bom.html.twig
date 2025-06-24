@@ -3,21 +3,31 @@
 {% block title %}{% trans %}project.import_bom{% endtrans %}{% endblock %}
 
 {% block before_card %}
-    {% if errors %}
+    {% if validationErrors or importerErrors %}
         <div class="alert alert-danger">
             <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}parts.import.errors.title{% endtrans %}</h4>
             <ul>
-                {% for violation in errors %}
-                    <li>
-                        <b>{{ violation.propertyPath }}: </b>
-                        {{ violation.message|trans(violation.parameters, 'validators') }}
-                    </li>
-                {% endfor %}
+                {% if validationErrors %}
+                    {% for violation in validationErrors %}
+                        <li>
+                            <b>{{ violation.propertyPath }}: </b>
+                            {{ violation.message|trans(violation.parameters, 'validators') }}
+                        </li>
+                    {% endfor %}
+                {% endif %}
+
+                {% if importerErrors %}
+                    {% for violation in importerErrors %}
+                        <li>
+                            <b>{{ violation.propertyPath }}: </b>
+                            {{ violation.message|trans(violation.parameters, 'validators')|raw }}
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </div>
     {% endif %}
 {% endblock %}
-
 
 {% block card_title %}
     <i class="fa-solid fa-file-import fa-fw"></i>
@@ -25,7 +35,75 @@
 {% endblock %}
 
 {% block card_content %}
-
     {{ form(form) }}
+{% endblock %}
 
+{% block additional_content %}
+    <div class="container-fluid row d-flex align-items-stretch pe-0 me-0">
+        <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex">
+            <div class="card border-secondary flex-grow-1 overflow-auto">
+                <div class="card-header bg-secondary text-white">
+                    {% trans %}project.import_bom.template.header.json{% endtrans %}
+                </div>
+                <div class="card-body">
+                    <pre>{{ jsonTemplate|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_UNICODE')) }}</pre>
+
+                    {{ 'project.bom_import.template.json.table'|trans|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex">
+            <div class="card border-secondary flex-grow-1 overflow-auto">
+                <div class="card-header bg-secondary text-white">
+                    {% trans %}project.import_bom.template.header.csv{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {{ 'project.bom_import.template.csv.exptected_columns'|trans }}
+
+                    <pre>quantity;name;part_id;part_mpnr;part_ipn;part_name;part_manufacturer_id;part_manufacturer_name</pre>
+
+                    <ul>
+                        <li>quantity</li>
+                        <li>name</li>
+                        <li>part_id</li>
+                        <li>part_mpnr</li>
+                        <li>part_ipn</li>
+                        <li>part_name</li>
+                        <li>part_manufacturer_id</li>
+                        <li>part_manufacturer_name</li>
+                    </ul>
+
+                    {{ 'project.bom_import.template.csv.table'|trans|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 ps-0 mt-3 d-flex overflow-auto">
+            <div class="card border-secondary flex-grow-1 overflow-auto">
+                <div class="card-header bg-secondary text-white">
+                    {% trans %}project.import_bom.template.header.kicad_pcbnew{% endtrans %}
+                </div>
+                <div class="card-body">
+                    {{ 'project.bom_import.template.kicad_pcbnew.exptected_columns'|trans }}
+                    <pre>Id;Designator;Package;Quantity;Designation;Supplier and ref</pre>
+
+                    <ul>
+                        <li>Id</li>
+                        <li>Designator</li>
+                        <li>Package</li>
+                        <li>Quantity</li>
+                        <li>Designation</li>
+                        <li>Supplier and ref</li>
+                        <li>Note</li>
+                        <li>Footprint</li>
+                        <li>Value</li>
+                        <li>Footprint</li>
+                    </ul>
+
+                    {{ 'project.bom_import.template.kicad_pcbnew.exptected_columns.note'|trans|raw }}
+
+                    {{ 'project.bom_import.template.kicad_pcbnew.table'|trans|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

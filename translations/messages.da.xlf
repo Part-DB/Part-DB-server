@@ -11078,6 +11078,18 @@ Oversættelsen
         <target>Typ</target>
       </segment>
     </unit>
+    <unit id="hRLz1qd" name="project.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="k9JWt2P" name="project.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
     <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
@@ -11089,6 +11101,319 @@ Oversættelsen
         <source>project.bom_import.clear_existing_bom</source>
         <target>let eksisterende styklisteposter før import</target>
       </segment>
+    </unit>
+    <unit id="h8zHL1o" name="project.import_bom.template.header.json">
+      <segment>
+        <source>project.import_bom.template.header.json</source>
+        <target>JSON-importskabelon</target>
+      </segment>
+    </unit>
+    <unit id="i9yIJ4B" name="project.import_bom.template.header.csv">
+      <segment>
+        <source>project.import_bom.template.header.csv</source>
+        <target>CSV-importskabelon</target>
+      </segment>
+    </unit>
+    <unit id="9PmGE2C" name="project.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>project.import_bom.template.header.kicad_pcbnew</source>
+        <target>CSV-importskabelon (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="vG3DXq1" name="project.bom_import.template.entry.name">
+      <segment>
+        <source>project.bom_import.template.entry.name</source>
+        <target>Komponentens navn i projektet</target>
+      </segment>
+    </unit>
+    <unit id="rQ4BUt5" name="project.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>project.bom_import.template.entry.part.mpnr</source>
+        <target>Unikt produktnummer hos producenten</target>
+      </segment>
+    </unit>
+    <unit id="zHbY5V3" name="project.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>project.bom_import.template.entry.part.ipn</source>
+        <target>Komponentens unikke IPN</target>
+      </segment>
+    </unit>
+    <unit id="UhW5M9o" name="project.bom_import.template.entry.part.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.name</source>
+        <target>Komponentens unikke navn</target>
+      </segment>
+    </unit>
+    <unit id="9U5b1Rc" name="project.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Producentens unikke navn</target>
+      </segment>
+    </unit>
+    <unit id="4fU9rO2" name="project.bom_import.template.json.table">
+      <segment>
+        <source>project.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Felt</th>
+                <th>Betingelse</th>
+                <th>Datatype</th>
+                <th>Beskrivelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Obligatorisk</td>
+                <td>Decimaltal (Float)</td>
+                <td>Skal være angivet og skal indeholde en decimaltalsværdi (Float), der er større end 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Valgfrit</td>
+                <td>String</td>
+                <td>Hvis til stede, skal det være en ikke-tom streng. Navnet på posten i stykliste.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Valgfrit</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Hvis en komponent skal knyttes, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Valgfrit</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) > 0. Svarer til det interne numeriske ID for komponenten i Part-DB.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Valgfrit</td>
+                <td>String</td>
+                <td>En ikke-tom streng, hvis hverken part.id, part.ipn eller part.name er angivet.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Valgfrit</td>
+                <td>String</td>
+                <td>En ikke-tom streng, hvis hverken part.id, part.mpnr eller part.name er angivet.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Valgfrit</td>
+                <td>String</td>
+                <td>En ikke-tom streng, hvis hverken part.id, part.mpnr eller part.ipn er angivet.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Valgfrit</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Hvis en komponents producent skal justeres, eller hvis komponenten skal findes entydigt via part.mpnr, skal det være et objekt/array, og mindst ét af felterne skal udfyldes:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Valgfrit</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) > 0. Svarer til producentens interne numeriske ID.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Valgfrit</td>
+                <td>String</td>
+                <td>En ikke-tom streng, hvis manufacturer.id ikke er angivet.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aK4i2aT" name="project.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.csv.exptected_columns</source>
+        <target>Mulige kolonner:</target>
+      </segment>
+    </unit>
+    <unit id="Red8MLw" name="project.bom_import.template.csv.table">
+      <segment>
+        <source>project.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolonne</th>
+                <th>Betingelse</th>
+                <th>Datatype</th>
+                <th>Beskrivelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Obligatorisk</td>
+                <td>Decimaltal (Float)</td>
+                <td>Skal være angivet og indeholde en decimaltalsværdi (Float), som er større end 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Hvis tilgængelig, skal det være en ikke-tom streng. Navnet på elementet inden for stykliste.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolonner, der begynder med part_</strong></td>
+                <td>
+                  Hvis en komponent skal tildeles, skal mindst én af følgende kolonner være angivet og udfyldt:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Valgfri</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) > 0. Svarer til den interne numeriske ID for komponenten i Part-DB.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Valgfri</td>
+                <td>Streng (String)</td>
+                <td>Skal angives, hvis kolonnerne part_id, part_ipn eller part_name ikke er udfyldt.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Valgfri</td>
+                <td>Streng (String)</td>
+                <td>Skal angives, hvis kolonnerne part_id, part_mpnr eller part_name ikke er udfyldt.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Valgfri</td>
+                <td>Streng (String)</td>
+                <td>Skal angives, hvis kolonnerne part_id, part_mpnr eller part_ipn ikke er udfyldt.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolonner, der begynder med part_manufacturer_</strong></td>
+                <td>
+                  Hvis komponentens producent skal ændres eller identificeres entydigt baseret på part_mpnr, skal mindst én af følgende kolonner være angivet og udfyldt:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Valgfri</td>
+                <td>Heltal (Integer)</td>
+                <td>Heltal (Integer) > 0. Svarer til den interne numeriske ID for producenten.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Valgfri</td>
+                <td>Streng (String)</td>
+                <td>Skal angives, hvis kolonnen part_manufacturer_id ikke er udfyldt.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="o0u7vGe" name="project.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Forventede kolonner:</target>
+      </segment>
+    </unit>
+    <unit id="bKWoLeT" name="project.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Bemærk:</strong> Der sker ingen tilknytning til specifikke komponenter fra kategoristyringen.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>project.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Felt</th>
+                            <th>Betingelse</th>
+                            <th>Datatype</th>
+                            <th>Beskrivelse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Valgfrit</td>
+                            <td>Heltal (Integer)</td>
+                            <td>Fri opgave. Et entydigt identifikationsnummer for hver komponent.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Valgfrit</td>
+                            <td>Streng (String)</td>
+                            <td>Fri opgave. En entydig referencemarkering for komponenten på PCB'et, fx "R1" for modstand 1.<br>Bliver overført til monteringsnavnet på komponentindgangen.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Valgfrit</td>
+                            <td>Streng (String)</td>
+                            <td>Fri opgave. Komponentens pakning eller form, fx "0805" for SMD-modstande.<br>Bliver ikke overført til komponentindgangen.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>Obligatorisk felt</td>
+                            <td>Heltal (Integer)</td>
+                            <td>Antallet af identiske komponenter, der kræves for at oprette en instans.<br>Overtages som antallet af komponentposter.</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>Obligatorisk felt</td>
+                            <td>Streng (String)</td>
+                            <td>Beskrivelse eller funktion af komponenten, fx modstandsværdi "10kΩ" eller kondensatorværdi "100nF".<br>Bliver overført til komponentindgangens navn.</td>
+                        </tr>
+                        <tr>
+                            <td>Supplier and ref</td>
+                            <td>Valgfrit</td>
+                            <td>Streng (String)</td>
+                            <td>Fri opgave. Kan eksempelvis indeholde en distributørspecifik værdi.<br>Bliver overført som en note til komponentindgangen.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
     </unit>
     <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -12777,13 +13102,13 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         </target>
       </segment>
     </unit>
-    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
       <segment>
         <source>assembly.bom_import.template.csv.exptected_columns</source>
         <target>Mulige kolonner:</target>
       </segment>
     </unit>
-    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
       <segment>
         <source>assembly.bom_import.template.csv.table</source>
         <target>
@@ -12808,7 +13133,7 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
                 <td>name</td>
                 <td>Valgfrit</td>
                 <td>Streng</td>
-                <td>Navnet på posten inden for samlingen.</td>
+                <td>Navnet på posten inden for stykliste.</td>
               </tr>
               <tr>
                 <td colspan="3"><strong>Kolonner, der starter med part_</strong></td>

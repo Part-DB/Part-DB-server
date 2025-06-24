@@ -11085,6 +11085,18 @@
         <target>Тип</target>
       </segment>
     </unit>
+    <unit id="hRLz1qd" name="project.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="k9JWt2P" name="project.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
@@ -11096,6 +11108,319 @@
         <source>project.bom_import.clear_existing_bom</source>
         <target>Удалить существующие записи BOM перед импортом.</target>
       </segment>
+    </unit>
+    <unit id="h8zHL1o" name="project.import_bom.template.header.json">
+      <segment>
+        <source>project.import_bom.template.header.json</source>
+        <target>Шаблон импорта JSON</target>
+      </segment>
+    </unit>
+    <unit id="i9yIJ4B" name="project.import_bom.template.header.csv">
+      <segment>
+        <source>project.import_bom.template.header.csv</source>
+        <target>Шаблон импорта CSV</target>
+      </segment>
+    </unit>
+    <unit id="9PmGE2C" name="project.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>project.import_bom.template.header.kicad_pcbnew</source>
+        <target>Шаблон импорта CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="vG3DXq1" name="project.bom_import.template.entry.name">
+      <segment>
+        <source>project.bom_import.template.entry.name</source>
+        <target>Название компонента в проекте</target>
+      </segment>
+    </unit>
+    <unit id="rQ4BUt5" name="project.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>project.bom_import.template.entry.part.mpnr</source>
+        <target>Уникальный номер продукта производителя</target>
+      </segment>
+    </unit>
+    <unit id="zHbY5V3" name="project.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>project.bom_import.template.entry.part.ipn</source>
+        <target>Уникальный IPN компонента</target>
+      </segment>
+    </unit>
+    <unit id="UhW5M9o" name="project.bom_import.template.entry.part.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.name</source>
+        <target>Уникальное название компонента</target>
+      </segment>
+    </unit>
+    <unit id="9U5b1Rc" name="project.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Уникальное название производителя</target>
+      </segment>
+    </unit>
+    <unit id="4fU9rO2" name="project.bom_import.template.json.table">
+      <segment>
+        <source>project.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Поле</th>
+                <th>Условие</th>
+                <th>Тип данных</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Обязательно</td>
+                <td>Дробное число (Float)</td>
+                <td>Должно быть указано и содержать дробное значение (Float), большее 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Опционально</td>
+                <td>Строка (String)</td>
+                <td>Если присутствует, должно быть непустой строкой. Название элемента в спецификации материалов.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Опционально</td>
+                <td>Объект/Массив</td>
+                <td>
+                  Если необходимо назначить компонент, он должен быть объектом/массивом, и должно быть заполнено хотя бы одно из следующих полей:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Опционально</td>
+                <td>Целое число (Integer)</td>
+                <td>Целое число (Integer) &gt; 0. Соответствует внутреннему числовому идентификатору компонента в базе данных компонентов (Part-DB).</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Опционально</td>
+                <td>Строка (String)</td>
+                <td>Непустая строка, если не указаны part.id, part.ipn или part.name.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Опционально</td>
+                <td>Строка (String)</td>
+                <td>Непустая строка, если не указаны part.id, part.mpnr или part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Опционально</td>
+                <td>Строка (String)</td>
+                <td>Непустая строка, если не указаны part.id, part.mpnr или part.ipn.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Опционально</td>
+                <td>Объект/Массив</td>
+                <td>
+                  Если необходимо указать производителя компонента или однозначно идентифицировать компонент на основе part.mpnr, он должен быть объектом/массивом, и хотя бы одно из следующих полей должно быть заполнено:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Опционально</td>
+                <td>Целое число (Integer)</td>
+                <td>Целое число (Integer) &gt; 0. Соответствует внутреннему числовому идентификатору производителя.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Опционально</td>
+                <td>Строка (String)</td>
+                <td>Непустая строка, если manufacturer.id не указан.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="project.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.csv.exptected_columns</source>
+        <target>Возможные колонки:</target>
+      </segment>
+    </unit>
+    <unit id="Red8MLw" name="project.bom_import.template.csv.table">
+      <segment>
+        <source>project.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Колонка</th>
+                <th>Условие</th>
+                <th>Тип данных</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Обязательная</td>
+                <td>Число с плавающей запятой (Float)</td>
+                <td>Количество идентичных компонентов, необходимых для создания экземпляра.<br>Считается количеством записей компонента.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Если доступно, должна быть непустая строка. Название элемента в спецификации материалов.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Колонки, начинающиеся с part_</strong></td>
+                <td>
+                  Если нужно назначить компонент, должна быть указана и заполнена по крайней мере одна из следующих колонок:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Необязательная</td>
+                <td>Целое число (Integer)</td>
+                <td>Целое > 0. Соответствует внутреннему числовому ID компонента в базе данных компонентов (Part-DB).</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Необязательная</td>
+                <td>Строка (String)</td>
+                <td>Должна быть указана, если колонки part_id, part_ipn или part_name не заполнены.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Необязательная</td>
+                <td>Строка (String)</td>
+                <td>Должна быть указана, если колонки part_id, part_mpnr или part_name не заполнены.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Необязательная</td>
+                <td>Строка (String)</td>
+                <td>Должна быть указана, если колонки part_id, part_mpnr или part_ipn не заполнены.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Колонки, начинающиеся с part_manufacturer_</strong></td>
+                <td>
+                  Если требуется указать производителя компонента или уникально идентифицировать компонент на основе значения part_mpnr, должна быть указана и заполнена по крайней мере одна из следующих колонок:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Необязательная</td>
+                <td>Целое число (Integer)</td>
+                <td>Целое > 0. Соответствует внутреннему числовому ID производителя.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Необязательная</td>
+                <td>Строка (String)</td>
+                <td>Должна быть указана, если колонка part_manufacturer_id не заполнена.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="o0u7vGe" name="project.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Ожидаемые столбцы:</target>
+      </segment>
+    </unit>
+    <unit id="bKWoLeT" name="project.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Примечание:</strong> Не выполняется привязка к конкретным компонентам из управления категориями.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>project.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Поле</th>
+                            <th>Условие</th>
+                            <th>Тип данных</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Необязательно</td>
+                            <td>Целое число (Integer)</td>
+                            <td>Свободный ввод. Уникальный идентификационный номер для каждого компонента.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Необязательно</td>
+                            <td>Строка (String)</td>
+                            <td>Свободный ввод. Уникальный идентификатор компонента на печатной плате, например, «R1» для резистора 1.<br>Добавляется в название сборочного узла записи компонента.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Необязательно</td>
+                            <td>Строка (String)</td>
+                            <td>Свободный ввод. Корпус или тип компонента, например, «0805» для SMD резисторов.<br>Не добавляется в запись компонента.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>Обязательно</td>
+                            <td>Целое число (Integer)</td>
+                            <td>Число идентичных компонентов, необходимых для создания экземпляра сборки.<br>Добавляется как количество записи компонента.</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>Обязательно</td>
+                            <td>Строка (String)</td>
+                            <td>Описание или функция компонента, например, значение резистора «10kΩ» или значение конденсатора «100nF».<br>Добавляется в название записи компонента.</td>
+                        </tr>
+                        <tr>
+                            <td>Supplier and ref</td>
+                            <td>Необязательно</td>
+                            <td>Строка (String)</td>
+                            <td>Свободный ввод. Может содержать дистрибьюторское значение, например.<br>Добавляется как примечание к записи компонента.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -12904,13 +13229,13 @@
         </target>
       </segment>
     </unit>
-    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
       <segment>
         <source>assembly.bom_import.template.csv.exptected_columns</source>
         <target>Возможные столбцы:</target>
       </segment>
     </unit>
-    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
       <segment>
         <source>assembly.bom_import.template.csv.table</source>
         <target>
