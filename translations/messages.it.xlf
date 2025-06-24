@@ -11078,6 +11078,18 @@ Element 3</target>
         <target>Tipo</target>
       </segment>
     </unit>
+    <unit id="hRLz1qd" name="project.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="k9JWt2P" name="project.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
@@ -11089,6 +11101,319 @@ Element 3</target>
         <source>project.bom_import.clear_existing_bom</source>
         <target>Cancellare le voci della BOM (lista dei materiali) esistenti prima dell'importazione</target>
       </segment>
+    </unit>
+    <unit id="h8zHL1o" name="project.import_bom.template.header.json">
+      <segment>
+        <source>project.import_bom.template.header.json</source>
+        <target>Modello di importazione JSON</target>
+      </segment>
+    </unit>
+    <unit id="i9yIJ4B" name="project.import_bom.template.header.csv">
+      <segment>
+        <source>project.import_bom.template.header.csv</source>
+        <target>Modello di importazione CSV</target>
+      </segment>
+    </unit>
+    <unit id="9PmGE2C" name="project.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>project.import_bom.template.header.kicad_pcbnew</source>
+        <target>Modello di importazione CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="vG3DXq1" name="project.bom_import.template.entry.name">
+      <segment>
+        <source>project.bom_import.template.entry.name</source>
+        <target>Nome del componente nel progetto</target>
+      </segment>
+    </unit>
+    <unit id="rQ4BUt5" name="project.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>project.bom_import.template.entry.part.mpnr</source>
+        <target>Codice prodotto unico del produttore</target>
+      </segment>
+    </unit>
+    <unit id="zHbY5V3" name="project.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>project.bom_import.template.entry.part.ipn</source>
+        <target>IPN unico del componente</target>
+      </segment>
+    </unit>
+    <unit id="UhW5M9o" name="project.bom_import.template.entry.part.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.name</source>
+        <target>Nome unico del componente</target>
+      </segment>
+    </unit>
+    <unit id="9U5b1Rc" name="project.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Nome unico del produttore</target>
+      </segment>
+    </unit>
+    <unit id="4fU9rO2" name="project.bom_import.template.json.table">
+      <segment>
+        <source>project.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Campo</th>
+                <th>Condizione</th>
+                <th>Tipo di Dati</th>
+                <th>Descrizione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Obbligatorio</td>
+                <td>Decimale (Float)</td>
+                <td>Deve essere fornito e contenere un valore decimale (Float) maggiore di 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Se presente, deve essere una stringa non vuota. Il nome dell'elemento all'interno della distinta materiali.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Opzionale</td>
+                <td>Oggetto/Array</td>
+                <td>
+                  Se un componente deve essere assegnato, deve essere un oggetto/array e almeno uno dei seguenti campi deve essere compilato:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Opzionale</td>
+                <td>Intero (Integer)</td>
+                <td>Intero (Integer) &gt; 0. Corrisponde all'ID numerico interno del componente nel database delle parti (Part-DB).</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Una stringa non vuota se non sono forniti part.id, part.ipn o part.name.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Una stringa non vuota se non sono forniti part.id, part.mpnr o part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Una stringa non vuota se non sono forniti part.id, part.mpnr o part.ipn.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Opzionale</td>
+                <td>Oggetto/Array</td>
+                <td>
+                  Se il produttore di un componente deve essere modificato o se è necessario identificare univocamente il componente basandosi su part.mpnr, deve essere un oggetto/array e almeno uno dei seguenti campi deve essere compilato:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Opzionale</td>
+                <td>Intero (Integer)</td>
+                <td>Intero (Integer) &gt; 0. Corrisponde all'ID numerico interno del produttore.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Una stringa non vuota se non è fornito manufacturer.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="project.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.csv.exptected_columns</source>
+        <target>Colonne possibili:</target>
+      </segment>
+    </unit>
+    <unit id="Red8MLw" name="project.bom_import.template.csv.table">
+      <segment>
+        <source>project.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Colonna</th>
+                <th>Condizione</th>
+                <th>Tipo di dato</th>
+                <th>Descrizione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Obbligatoria</td>
+                <td>Numero decimale (Float)</td>
+                <td>Deve essere fornita e contenere un valore decimale (Float) maggiore di 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Se disponibile, deve essere una stringa non vuota. Il nome della voce all'interno della distinta base.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Colonne che iniziano con part_</strong></td>
+                <td>
+                  Se un componente deve essere assegnato, almeno una delle seguenti colonne deve essere fornita e compilata:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Opzionale</td>
+                <td>Intero (Integer)</td>
+                <td>Intero > 0. Corrisponde all'ID numerico interno del componente nel database delle parti (Part-DB).</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Deve essere fornita se le colonne part_id, part_ipn o part_name non sono compilate.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Deve essere fornita se le colonne part_id, part_mpnr o part_name non sono compilate.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Deve essere fornita se le colonne part_id, part_mpnr o part_ipn non sono compilate.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Colonne che iniziano con part_manufacturer_</strong></td>
+                <td>
+                  Se il produttore di un componente deve essere modificato o il componente deve essere identificato univocamente in base al valore part_mpnr, almeno una delle seguenti colonne deve essere fornita e compilata:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Opzionale</td>
+                <td>Intero (Integer)</td>
+                <td>Intero > 0. Corrisponde all'ID numerico interno del produttore.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Opzionale</td>
+                <td>Stringa (String)</td>
+                <td>Deve essere fornita se la colonna part_manufacturer_id non è compilata.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="o0u7vGe" name="project.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Colonne previste:</target>
+      </segment>
+    </unit>
+    <unit id="bKWoLeT" name="project.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Nota:</strong> Non viene effettuata alcuna associazione con componenti specifici dalla gestione delle categorie.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>project.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Campo</th>
+                            <th>Condizione</th>
+                            <th>Tipo di dato</th>
+                            <th>Descrizione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Opzionale</td>
+                            <td>Numero intero</td>
+                            <td>Valore libero. Un numero identificativo univoco per ciascun componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Opzionale</td>
+                            <td>Stringa</td>
+                            <td>Valore libero. Un identificatore di riferimento univoco del componente sul PCB, ad esempio "R1" per il resistore 1.<br>Viene trasferito nel nome di montaggio del record del componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Opzionale</td>
+                            <td>Stringa</td>
+                            <td>Valore libero. L'involucro o la forma del componente, ad esempio "0805" per i resistori SMD.<br>Non viene trasferito nel record del componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>Campo obbligatorio</td>
+                            <td>Numero intero</td>
+                            <td>Il numero dei componenti identici necessari per creare un'istanza.<br>Registrato come il numero della voce del componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>Campo obbligatorio</td>
+                            <td>Stringa</td>
+                            <td>Descrizione o funzione del componente, ad esempio valore del resistore "10kΩ" o valore del condensatore "100nF".<br>Viene trasferita nel nome del record del componente.</td>
+                        </tr>
+                        <tr>
+                            <td>Supplier and ref</td>
+                            <td>Opzionale</td>
+                            <td>Stringa</td>
+                            <td>Valore libero. Può contenere ad esempio un valore specifico del distributore.<br>Viene trasferito come nota nel record del componente.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -12927,13 +13252,13 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         </target>
       </segment>
     </unit>
-    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
       <segment>
         <source>assembly.bom_import.template.csv.exptected_columns</source>
         <target>Colonne possibili:</target>
       </segment>
     </unit>
-    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
       <segment>
         <source>assembly.bom_import.template.csv.table</source>
         <target>

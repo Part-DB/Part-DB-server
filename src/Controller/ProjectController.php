@@ -46,14 +46,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 use function Symfony\Component\Translation\t;
 
 #[Route(path: '/project')]
 class ProjectController extends AbstractController
 {
-    public function __construct(private readonly DataTableFactory $dataTableFactory)
-    {
+    public function __construct(
+        private readonly DataTableFactory $dataTableFactory,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
@@ -147,6 +149,8 @@ class ProjectController extends AbstractController
             'label' => 'project.bom_import.type',
             'required' => true,
             'choices' => [
+                'project.bom_import.type.json' => 'json',
+                'project.bom_import.type.csv' => 'csv',
                 'project.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
                 'project.bom_import.type.kicad_schematic' => 'kicad_schematic',
                 'project.bom_import.type.generic_csv' => 'generic_csv',
@@ -189,17 +193,20 @@ class ProjectController extends AbstractController
                 }
 
                 // For PCB imports, proceed directly
-                $entries = $BOMImporter->importFileIntoProject($form->get('file')->getData(), $project, [
-                    'type' => $import_type,
+                $importerResult = $BOMImporter->importFileIntoProject($form->get('file')->getData(), $project, [
+                    'type' => $form->get('type')->getData(),
                 ]);
 
                 // Validate the project entries
                 $errors = $validator->validateProperty($project, 'bom_entries');
 
-                // If no validation errors occurred, save the changes and redirect to edit page
-                if (count($errors) === 0) {
+                //If no validation errors occured, save the changes and redirect to edit page
+                if (count ($errors) === 0 && $importerResult->getViolations()->count() === 0) {
+                    $entries = $importerResult->getBomEntries();
+
                     $this->addFlash('success', t('project.bom_import.flash.success', ['%count%' => count($entries)]));
                     $entityManager->flush();
+
                     return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
                 }
 
@@ -211,10 +218,29 @@ class ProjectController extends AbstractController
             }
         }
 
+        $jsonTemplate = [
+            [
+                "quantity" => 1.0,
+                "name" => $this->translator->trans('project.bom_import.template.entry.name'),
+                "part" => [
+                    "id" => null,
+                    "ipn" => $this->translator->trans('project.bom_import.template.entry.part.ipn'),
+                    "mpnr" => $this->translator->trans('project.bom_import.template.entry.part.mpnr'),
+                    "name" => $this->translator->trans('project.bom_import.template.entry.part.name'),
+                    "manufacturer" => [
+                        "id" => null,
+                        "name" => $this->translator->trans('project.bom_import.template.entry.part.manufacturer.name')
+                    ],
+                ]
+            ]
+        ];
+
         return $this->render('projects/import_bom.html.twig', [
             'project' => $project,
+            'jsonTemplate' => $jsonTemplate,
             'form' => $form,
-            'errors' => $errors ?? null,
+            'validationErrors' => $errors ?? null,
+            'importerErrors' => isset($importerResult) ? $importerResult->getViolations() : null,
         ]);
     }
 
