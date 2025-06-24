@@ -11046,6 +11046,18 @@ Element 3</target>
         <target>Typ</target>
       </segment>
     </unit>
+    <unit id="hRLz1qd" name="project.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="k9JWt2P" name="project.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
@@ -11063,6 +11075,319 @@ Element 3</target>
         <source>project.bom_import.clear_existing_bom.help</source>
         <target>Výběrem této možnosti odstraníte všechny existující položky BOM v projektu a přepíšete je importovaným souborem BOM!</target>
       </segment>
+    </unit>
+    <unit id="h8zHL1o" name="project.import_bom.template.header.json">
+      <segment>
+        <source>project.import_bom.template.header.json</source>
+        <target>Šablona importu JSON</target>
+      </segment>
+    </unit>
+    <unit id="i9yIJ4B" name="project.import_bom.template.header.csv">
+      <segment>
+        <source>project.import_bom.template.header.csv</source>
+        <target>Šablona importu CSV</target>
+      </segment>
+    </unit>
+    <unit id="9PmGE2C" name="project.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>project.import_bom.template.header.kicad_pcbnew</source>
+        <target>Šablona importu CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="vG3DXq1" name="project.bom_import.template.entry.name">
+      <segment>
+        <source>project.bom_import.template.entry.name</source>
+        <target>Název komponenty v projektu</target>
+      </segment>
+    </unit>
+    <unit id="rQ4BUt5" name="project.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>project.bom_import.template.entry.part.mpnr</source>
+        <target>Jedinečné číslo produktu u výrobce</target>
+      </segment>
+    </unit>
+    <unit id="zHbY5V3" name="project.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>project.bom_import.template.entry.part.ipn</source>
+        <target>Jedinečné IPN součásti</target>
+      </segment>
+    </unit>
+    <unit id="UhW5M9o" name="project.bom_import.template.entry.part.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.name</source>
+        <target>Jedinečný název součásti</target>
+      </segment>
+    </unit>
+    <unit id="9U5b1Rc" name="project.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Jedinečný název výrobce</target>
+      </segment>
+    </unit>
+    <unit id="4fU9rO2" name="project.bom_import.template.json.table">
+      <segment>
+        <source>project.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Pole</th>
+                <th>Podmínka</th>
+                <th>Datový typ</th>
+                <th>Popis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Povinné</td>
+                <td>Desetinné číslo (Float)</td>
+                <td>Musí být zadáno a obsahovat desetinnou hodnotu (Float), která je větší než 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Pokud je přítomen, musí být neprázdný řetězec. Název položky v kusovníku.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Volitelné</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Pokud je potřeba přiřadit součástku, musí to být objekt/pole a musí být vyplněno alespoň jedno z následujících polí:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo (Integer) > 0. Odpovídá internímu číselnému ID součástky v Part-DB.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Neprázdný řetězec, pokud není uvedeno part.id, part.ipn nebo part.name.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Neprázdný řetězec, pokud není uvedeno part.id, part.mpnr nebo part.name.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Neprázdný řetězec, pokud není uvedeno part.id, part.mpnr nebo part.ipn.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Volitelné</td>
+                <td>Objekt/Array</td>
+                <td>
+                  Pokud má být upraven výrobce součástky nebo pokud má být součástka nalezena jednoznačně na základě part.mpnr, musí to být objekt/pole a musí být vyplněno alespoň jedno z následujících polí:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo (Integer) > 0. Odpovídá internímu číselnému ID výrobce.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Neprázdný řetězec, pokud není uvedeno manufacturer.id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="bH5Qi1Z" name="project.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.csv.exptected_columns</source>
+        <target>Možné sloupce:</target>
+      </segment>
+    </unit>
+    <unit id="Red8MLw" name="project.bom_import.template.csv.table">
+      <segment>
+        <source>project.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Sloupec</th>
+                <th>Podmínka</th>
+                <th>Datový typ</th>
+                <th>Popis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Povinné</td>
+                <td>Desetinné číslo (Float)</td>
+                <td>Musí být uvedeno a obsahovat hodnotu desetinného čísla (Float) větší než 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Název položky v kusovníku.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Sloupce začínající part_</strong></td>
+                <td>
+                  Pokud má být přiřazena součástka, musí být uveden a vyplněn alespoň jeden z následujících sloupců:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo (Integer) > 0. Odpovídá internímu číselnému ID součástky v Part-DB.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_ipn nebo part_name.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_mpnr nebo part_name.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Musí být uvedeno, pokud nejsou vyplněny sloupce part_id, part_mpnr nebo part_ipn.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Sloupce začínající part_manufacturer_</strong></td>
+                <td>
+                  Pokud má být upraven výrobce dílu nebo má být díl jednoznačně identifikován podle hodnoty part_mpnr, musí být uveden a vyplněn alespoň jeden z následujících sloupců:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Volitelné</td>
+                <td>Celé číslo (Integer)</td>
+                <td>Celé číslo (Integer) > 0. Odpovídá internímu číselnému ID výrobce.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Volitelné</td>
+                <td>Řetězec (String)</td>
+                <td>Musí být uvedeno, pokud není vyplněn sloupec part_manufacturer_id.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="o0u7vGe" name="project.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Očekávané sloupce:</target>
+      </segment>
+    </unit>
+    <unit id="bKWoLeT" name="project.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Poznámka:</strong> Nedochází k přiřazení ke konkrétním součástkám ze správy kategorií.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>project.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Pole</th>
+                            <th>Podmínka</th>
+                            <th>Datový typ</th>
+                            <th>Popis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Volitelné</td>
+                            <td>Celé číslo (Integer)</td>
+                            <td>Volný údaj. Jedinečné identifikační číslo pro každou součástku.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec (String)</td>
+                            <td>Volný údaj. Jedinečný referenční označovač součástky na desce plošných spojů, např. „R1“ pro odpor 1.<br>Je převzat do osazovacího názvu záznamu součástky.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec (String)</td>
+                            <td>Volný údaj. Pouzdro nebo tvar součástky, např. „0805“ pro SMD odpory.<br>Pro záznam součástky není převzato.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>Povinné pole</td>
+                            <td>Celé číslo (Integer)</td>
+                            <td>Počet identických komponent, které jsou potřebné k vytvoření instance.<br>Je převzat jako počet položky komponenty.</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>Povinné pole</td>
+                            <td>Řetězec (String)</td>
+                            <td>Popis nebo funkce součástky, např. hodnota odporu „10kΩ“ nebo kapacita kondenzátoru „100nF“.<br>Je převzato do názvu záznamu součástky.</td>
+                        </tr>
+                        <tr>
+                            <td>Supplier and ref</td>
+                            <td>Volitelné</td>
+                            <td>Řetězec (String)</td>
+                            <td>Volný údaj. Může obsahovat např. distribuční specifickou hodnotu.<br>Je převzato jako poznámka ke záznamu součástky.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
       <segment state="translated">

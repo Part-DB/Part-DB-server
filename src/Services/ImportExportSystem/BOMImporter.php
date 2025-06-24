@@ -87,7 +87,7 @@ class BOMImporter
         $this->partRepository = $entityManager->getRepository(Part::class);
         $this->manufacturerRepository = $entityManager->getRepository(Manufacturer::class);
         $this->categoryRepository = $entityManager->getRepository(Category::class);
-        $this->projectBOMEntryRepository = $entityManager->getRepository(Project::class);
+        $this->projectBOMEntryRepository = $entityManager->getRepository(ProjectBOMEntry::class);
         $this->assemblyBOMEntryRepository = $entityManager->getRepository(AssemblyBOMEntry::class);
         $this->translator = $translator;
     }
@@ -111,18 +111,19 @@ class BOMImporter
     /**
      * Converts the given file into an array of BOM entries using the given options and save them into the given project.
      * The changes are not saved into the database yet.
-     * @return ProjectBOMEntry[]
      */
-    public function importFileIntoProject(File $file, Project $project, array $options): array
+    public function importFileIntoProject(UploadedFile $file, Project $project, array $options): ImporterResult
     {
-        $bom_entries = $this->fileToBOMEntries($file, $options);
+        $importerResult = $this->fileToImporterResult($file, $options);
 
-        //Assign the bom_entries to the project
-        foreach ($bom_entries as $bom_entry) {
-            $project->addBomEntry($bom_entry);
+        if ($importerResult->getViolations()->count() === 0) {
+            //Assign the bom_entries to the project
+            foreach ($importerResult->getBomEntries() as $bomEntry) {
+                $project->addBomEntry($bomEntry);
+            }
         }
 
-        return $bom_entries;
+        return $importerResult;
     }
 
     /**
@@ -202,7 +203,7 @@ class BOMImporter
                 $fileExtension,
                 [
                     '%extension%' => $fileExtension,
-                    '%importType%' => $this->translator->trans('assembly.bom_import.type.'.$options['type']),
+                    '%importType%' => $this->translator->trans($objectType === ProjectBOMEntry::class ? 'project.bom_import.type.'.$options['type'] : 'assembly.bom_import.type.'.$options['type']),
                     '%allowedExtensions%' => implode(', ', $validExtensions),
                 ]
             ));
@@ -711,7 +712,7 @@ class BOMImporter
         $category = $categoryIdValid ? $this->categoryRepository->findOneBy(['id' => $entry['part']['category']['id']]) : null;
         $category = $category ?? ($categoryNameValid ? $this->categoryRepository->findOneBy(['name' => trim($entry['part']['category']['name'])]) : null);
 
-        if (($categoryIdValid || $categoryNameValid) && $category === null) {
+        if (($categoryIdValid || $categoryNameValid)) {
             $value = sprintf(
                 'category.id: %s, category.name: %s',
                 isset($entry['part']['category']['id']) && $entry['part']['category']['id'] !== null ? '<strong>' . $entry['part']['category']['id'] . '</strong>' : '-',
@@ -748,12 +749,12 @@ class BOMImporter
             $part->setDescription($partDescription);
         }
 
-        if ($manufacturer !== null && $manufacturer->getID() !== $part->getManufacturerID()) {
+        if ($manufacturer !== null && $manufacturer->getID() !== $part->getManufacturer()->getID()) {
             //When updating the associated parts, take over to a assembly of the manufacturer of the part.
             $part->setManufacturer($manufacturer);
         }
 
-        if ($category !== null && $category->getID() !== $part->getCategoryID()) {
+        if ($category !== null && $category->getID() !== $part->getCategory()->getID()) {
             //When updating the associated parts to a assembly, take over the category of the part.
             $part->setCategory($category);
         }
@@ -771,11 +772,26 @@ class BOMImporter
                 }
             }
         } else {
-            $bomEntry = new ProjectBOMEntry();
+            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['part' => $part]);
+
+            if ($bomEntry === null) {
+                if (isset($entry['name']) && $entry['name'] !== '') {
+                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $entry['name']]);
+                }
+
+                if ($bomEntry === null) {
+                    $bomEntry = new ProjectBOMEntry();
+                }
+            }
         }
 
         $bomEntry->setQuantity((float) $entry['quantity']);
-        $bomEntry->setName($entry['name'] ?? '');
+
+        if (isset($entry['name'])) {
+            $bomEntry->setName(trim($entry['name']) === '' ? null : trim ($entry['name']));
+        } else {
+            $bomEntry->setName(null);
+        }
 
         $bomEntry->setPart($part);
 
