@@ -48,8 +48,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    public function __construct(protected Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
-    {
+    public function __construct(
+        protected Security $security,
+        protected EventCommentNeededHelper $eventCommentNeededHelper,
+        protected bool $useAssemblyIpnPlaceholder = false
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -70,6 +73,7 @@ class BaseEntityAdminForm extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'name.label',
+                'data' => $is_new && $entity instanceof Assembly && $this->useAssemblyIpnPlaceholder ? '%%ipn%%' : $entity->getName(),
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
                 ],
