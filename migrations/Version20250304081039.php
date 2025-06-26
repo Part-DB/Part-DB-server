@@ -120,6 +120,7 @@ final class Version20250304081039 extends AbstractMultiPlatformMigration
             last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
             datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
             status VARCHAR(64) DEFAULT NULL,
+            ipn VARCHAR(100) DEFAULT NULL, 
             description CLOB NOT NULL,
             alternative_names CLOB DEFAULT NULL,
             CONSTRAINT FK_5F3832C0727ACA70 FOREIGN KEY (parent_id) REFERENCES assemblies (id) NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -131,6 +132,12 @@ final class Version20250304081039 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_5F3832C0EA7100A1 ON assemblies (id_preview_attachment)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_5F3832C03D721C14 ON assemblies (ipn)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX assembly_idx_ipn ON assemblies (ipn)
         SQL);
 
         $this->addSql(<<<'SQL'

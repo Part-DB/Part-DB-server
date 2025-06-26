@@ -7,6 +7,12 @@
         <target>Ο εσωτερικός αριθμός εξαρτήματος πρέπει να είναι μοναδικός. {{ value }} χρησιμοποιείται ήδη!</target>
       </segment>
     </unit>
+    <unit id="Zhn4Xq1" name="assembly.ipn.must_be_unique">
+      <segment state="translated">
+        <source>assembly.ipn.must_be_unique</source>
+        <target>Ο εσωτερικός αριθμός εξαρτήματος πρέπει να είναι μοναδικός. {{ value }} χρησιμοποιείται ήδη!</target>
+      </segment>
+    </unit>
     <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
       <segment state="translated">
         <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
