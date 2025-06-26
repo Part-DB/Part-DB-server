@@ -47,8 +47,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -58,6 +60,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'assemblies')]
+#[UniqueEntity(fields: ['ipn'], message: 'assembly.ipn.must_be_unique')]
+#[ORM\Index(columns: ['ipn'], name: 'assembly_idx_ipn')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -83,7 +87,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     normalizationContext: ['groups' => ['assembly:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
+#[ApiFilter(LikeFilter::class, properties: ["name", "comment", "ipn"])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Assembly extends AbstractStructuralDBElement
 {
@@ -122,6 +126,14 @@ class Assembly extends AbstractStructuralDBElement
     #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
 
+    /**
+     * @var string|null The internal ipn number of the assembly
+     */
+    #[Assert\Length(max: 100)]
+    #[Groups(['extended', 'full', 'project:read', 'project:write', 'import'])]
+    #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
+    #[Length(max: 100)]
+    protected ?string $ipn = null;
 
     /**
      * @var Part|null The (optional) part that represents the builds of this assembly in the stock
@@ -299,6 +311,25 @@ class Assembly extends AbstractStructuralDBElement
     public function setStatus(?string $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * Returns the internal part number of the assembly.
+     * @return string
+     */
+    public function getIpn(): ?string
+    {
+        return $this->ipn;
+    }
+
+    /**
+     * Sets the internal part number of the assembly.
+     * @param  string  $ipn The new IPN of the assembly
+     */
+    public function setIpn(?string $ipn): Assembly
+    {
+        $this->ipn = $ipn;
+        return $this;
     }
 
     /**

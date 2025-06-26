@@ -141,6 +141,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     time).
     Also specify the default order of the columns. This is a comma separated list of column names. Available columns
     are: `name`, `id`, `quantity`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `mountnames`, `instockAmount`, `storageLocations`, `addedDate`, `lastModified`.
+* `CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME`: Use an %%ipn%% placeholder in the name of a assembly. Placeholder is replaced with the ipn input while saving.
 
 ### History/Eventlog-related settings
 

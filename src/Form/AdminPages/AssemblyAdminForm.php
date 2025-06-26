@@ -25,11 +25,22 @@ namespace App\Form\AdminPages;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\AssemblySystem\AssemblyBOMEntryCollectionType;
 use App\Form\Type\RichTextEditorType;
+use App\Services\LogSystem\EventCommentNeededHelper;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class AssemblyAdminForm extends BaseEntityAdminForm
 {
+    public function __construct(
+        protected Security $security,
+        protected EventCommentNeededHelper $eventCommentNeededHelper,
+        protected bool $useAssemblyIpnPlaceholder = false
+    ) {
+        parent::__construct($security, $eventCommentNeededHelper, $useAssemblyIpnPlaceholder);
+    }
+
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $builder->add('description', RichTextEditorType::class, [
@@ -59,6 +70,12 @@ class AssemblyAdminForm extends BaseEntityAdminForm
                 'assembly.status.finished' => 'finished',
                 'assembly.status.archived' => 'archived',
             ],
+        ]);
+
+        $builder->add('ipn', TextType::class, [
+            'required' => false,
+            'empty_data' => null,
+            'label' => 'assembly.edit.ipn',
         ]);
     }
 }

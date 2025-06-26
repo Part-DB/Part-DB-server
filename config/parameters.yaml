@@ -14,6 +14,8 @@ parameters:
 
   partdb.db.emulate_natural_sort: '%env(bool:DATABASE_EMULATE_NATURAL_SORT)%' # If this is set to true, natural sorting is emulated on platforms that do not support it natively. This can be slow on large datasets.
 
+  partdb.create_assembly_use_ipn_placeholder_in_name: '%env(bool:CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME)%' # Use an %%ipn%% placeholder in the name of an assembly. Placeholder is replaced with the ipn input while saving.
+
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################

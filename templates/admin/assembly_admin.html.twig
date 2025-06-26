@@ -29,6 +29,7 @@
 {% block additional_controls %}
     {{ form_row(form.description) }}
     {{ form_row(form.status) }}
+    {{ form_row(form.ipn) }}
     {% if entity.id %}
         <div class="mb-2 row">
             <label class="col-form-label col-sm-3">{% trans %}assembly.edit.associated_build_part{% endtrans %}</label>
