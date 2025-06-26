@@ -164,6 +164,10 @@ services:
         arguments:
             $saml_enabled: '%partdb.saml.enabled%'
 
+    App\Form\AdminPages\AssemblyAdminForm:
+        arguments:
+            $useAssemblyIpnPlaceholder: '%partdb.create_assembly_use_ipn_placeholder_in_name%'
+
     ####################################################################################################################
     # Table settings
     ####################################################################################################################

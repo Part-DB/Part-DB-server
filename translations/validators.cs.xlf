@@ -239,6 +239,12 @@
         <target>Interní číslo dílu musí být jedinečné. {{ value }} se již používá!</target>
       </segment>
     </unit>
+    <unit id="Zhn4Xq1" name="assembly.ipn.must_be_unique">
+      <segment state="translated">
+        <source>assembly.ipn.must_be_unique</source>
+        <target>Interní číslo dílu musí být jedinečné. {{ value }} se již používá!</target>
+      </segment>
+    </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
