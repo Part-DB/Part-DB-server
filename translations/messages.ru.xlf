@@ -10029,6 +10029,12 @@
         <target>Внутренний номер компонента (IPN)</target>
       </segment>
     </unit>
+    <unit id="9uJEwv1" name="assembly.edit.ipn">
+      <segment state="translated">
+        <source>assembly.edit.ipn</source>
+        <target>Внутренний номер компонента (IPN)</target>
+      </segment>
+    </unit>
     <unit id="zRd.psv" name="assembly.status.draft">
       <segment state="translated">
         <source>assembly.status.draft</source>
