@@ -63,7 +63,8 @@ class TreeViewGenerator
         private readonly UrlGeneratorInterface $router,
         protected bool $rootNodeExpandedByDefault,
         protected bool $rootNodeEnabled,
-
+        //TODO: Make this configurable in the future
+        protected bool $rootNodeRedirectsToNewEntity = false,
     ) {
     }
 
@@ -186,14 +187,22 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeHref(string $class): ?string
     {
+        //If the root node should redirect to the new entity page, we return the URL for the new entity.
+        if ($this->rootNodeRedirectsToNewEntity) {
+            return match ($class) {
+                Category::class => $this->router->generate('category_new'),
+                StorageLocation::class => $this->router->generate('store_location_new'),
+                Footprint::class => $this->router->generate('footprint_new'),
+                Manufacturer::class => $this->router->generate('manufacturer_new'),
+                Supplier::class => $this->router->generate('supplier_new'),
+                Project::class => $this->router->generate('project_new'),
+                default => null,
+            };
+        }
+
         return match ($class) {
-            Category::class => $this->router->generate('category_new'),
-            StorageLocation::class => $this->router->generate('store_location_new'),
-            Footprint::class => $this->router->generate('footprint_new'),
-            Manufacturer::class => $this->router->generate('manufacturer_new'),
-            Supplier::class => $this->router->generate('supplier_new'),
             Project::class => $this->router->generate('project_new'),
-            default => null,
+            default => $this->router->generate('parts_show_all')
         };
     }
 
