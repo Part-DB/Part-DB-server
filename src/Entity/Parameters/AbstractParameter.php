@@ -449,29 +449,16 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
             if (!$with_latex) {
                 $unit = $this->unit;
             } else {
-                // if chars occur that will mess up the latex formatting, display them plain, regardless of the desired output
-                if (str_contains($this->unit, '~') || str_contains($this->unit, '^') || str_contains($this->unit, '\\'))
-                {
-                    $unit = $this->unit;
-                }
-                else // otherwise, style the chars with latex, but escape latex special chars
-                {
-                    $unit = '$\mathrm{'.$this->latexEscape($this->unit).'}$';
-                }
+                //Escape the percentage sign for convenience (as latex uses it as comment and it is often used in units)
+                $escaped = preg_replace('/(\%)/', "\\\\$1", $this->unit);
+
+                $unit = '$\mathrm{'.$escaped.'}$';
             }
 
             return $str.' '.$unit;
         }
 
         return $str;
-    }
-    
-    /**
-     * Return a latex escaped string
-     */
-    protected function latexEscape(string $latex): string
-    {
-        return preg_replace('/(\&|\%|\$|\#|\_|\{|\})/', "\\\\$1", $latex);
     }
     
     /**
