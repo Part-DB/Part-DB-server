@@ -23,15 +23,22 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\AssemblyBomEntriesDataTable;
+use App\DataTables\AssemblyDataTable;
+use App\DataTables\ErrorDataTable;
+use App\DataTables\Filters\AssemblyFilter;
 use App\Entity\AssemblySystem\Assembly;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
+use App\Exceptions\InvalidRegexException;
 use App\Form\AssemblySystem\AssemblyAddPartsType;
 use App\Form\AssemblySystem\AssemblyBuildType;
+use App\Form\Filters\AssemblyFilterType;
 use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\AssemblySystem\AssemblyBuildHelper;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -54,7 +61,74 @@ class AssemblyController extends AbstractController
     public function __construct(
         private readonly DataTableFactory $dataTableFactory,
         private readonly TranslatorInterface $translator,
+        private readonly NodesListBuilder $nodesListBuilder
     ) {
+    }
+
+    #[Route(path: '/list', name: 'assemblies_list')]
+    public function showAll(Request $request): Response
+    {
+        return $this->showListWithFilter($request,'assemblies/lists/all_list.html.twig');
+    }
+
+    /**
+     * Common implementation for the part list pages.
+     * @param  Request  $request The request to parse
+     * @param  string  $template  The template that should be rendered
+     * @param  callable|null  $filter_changer  A function that is called with the filter object as parameter. This function can be used to customize the filter
+     * @param  callable|null  $form_changer  A function that is called with the form object as parameter. This function can be used to customize the form
+     * @param  array  $additonal_template_vars  Any additional template variables that should be passed to the template
+     * @param  array  $additional_table_vars Any additional variables that should be passed to the table creation
+     */
+    protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = [], array $additional_table_vars = []): Response
+    {
+        $this->denyAccessUnlessGranted('@assemblies.read');
+
+        $formRequest = clone $request;
+        $formRequest->setMethod('GET');
+        $filter = new AssemblyFilter($this->nodesListBuilder);
+        if($filter_changer !== null){
+            $filter_changer($filter);
+        }
+
+        $filterForm = $this->createForm(AssemblyFilterType::class, $filter, ['method' => 'GET']);
+        if($form_changer !== null) {
+            $form_changer($filterForm);
+        }
+
+        $filterForm->handleRequest($formRequest);
+
+        $table = $this->dataTableFactory->createFromType(
+            AssemblyDataTable::class,
+            array_merge(['filter' => $filter], $additional_table_vars),
+            ['lengthMenu' => AssemblyDataTable::LENGTH_MENU]
+        )
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            try {
+                try {
+                    return $table->getResponse();
+                } catch (DriverException $driverException) {
+                    if ($driverException->getCode() === 1139) {
+                        //Convert the driver exception to InvalidRegexException so it has the same handler as for SQLite
+                        throw InvalidRegexException::fromDriverException($driverException);
+                    } else {
+                        throw $driverException;
+                    }
+                }
+            } catch (InvalidRegexException $exception) {
+                $errors = $this->translator->trans('assembly.table.invalid_regex').': '.$exception->getReason();
+                $request->request->set('order', []);
+
+                return ErrorDataTable::errorTable($this->dataTableFactory, $request, $errors);
+            }
+        }
+
+        return $this->render($template, array_merge([
+            'datatable' => $table,
+            'filterForm' => $filterForm->createView(),
+        ], $additonal_template_vars));
     }
 
     #[Route(path: '/{id}/info', name: 'assembly_info', requirements: ['id' => '\d+'])]
