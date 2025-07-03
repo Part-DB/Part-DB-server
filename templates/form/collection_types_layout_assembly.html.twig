@@ -6,7 +6,7 @@
             <tr>
                 <th></th> {#  expand button #}
                 <th>{% trans %}assembly.bom.quantity{% endtrans %}</th>
-                <th>{% trans %}assembly.bom.partOrProject{% endtrans %}</th>
+                <th>{% trans %}assembly.bom.partOrAssembly{% endtrans %}</th>
                 <th>{% trans %}assembly.bom.name{% endtrans %}</th>
                 <th></th> {# Remove button #}
             </tr>
@@ -44,18 +44,9 @@
         <td style="min-width: 300px;">
             {{ form_row(form.part) }}
             {{ form_errors(form.part) }}
-
-            {% if form.vars.value is not null and form.vars.value.assembly is not null %}
-                {% if is_granted("@projects.read") or has_project(form.vars.value.assembly.bomEntries.toArray) %}
-                    <div class="text-center mb-2" style="line-height: 1">∨</div>
-                    {{ form_widget(form.project) }}
-                    {{ form_errors(form.project) }}
-                {% endif %}
-            {% elseif is_granted("@projects.read") %}
-                <div class="text-center mb-2" style="line-height: 1">∨</div>
-                {{ form_widget(form.project) }}
-                {{ form_errors(form.project) }}
-            {% endif %}
+            <div class="text-center mb-2" style="line-height: 1">∨</div>
+            {{ form_widget(form.referencedAssembly) }}
+            {{ form_errors(form.referencedAssembly) }}
         </td>
         <td>
             {{ form_widget(form.name) }}

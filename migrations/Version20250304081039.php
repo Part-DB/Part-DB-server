@@ -146,6 +146,7 @@ final class Version20250304081039 extends AbstractMultiPlatformMigration
             id_assembly INTEGER DEFAULT NULL,
             id_part INTEGER DEFAULT NULL,
             id_project INTEGER DEFAULT NULL, 
+            id_referenced_assembly INTEGER DEFAULT NULL,
             price_currency_id INTEGER DEFAULT NULL,
             quantity DOUBLE PRECISION NOT NULL,
             mountnames CLOB NOT NULL,
@@ -156,8 +157,9 @@ final class Version20250304081039 extends AbstractMultiPlatformMigration
             datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
             CONSTRAINT FK_8C74887E4AD2039E FOREIGN KEY (id_assembly) REFERENCES assemblies (id) NOT DEFERRABLE INITIALLY IMMEDIATE,
             CONSTRAINT FK_8C74887EC22F6CC4 FOREIGN KEY (id_part) REFERENCES "parts" (id) NOT DEFERRABLE INITIALLY IMMEDIATE,
-            CONSTRAINT FK_8C74887EF12E799E FOREIGN KEY (id_project) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE
-            CONSTRAINT FK_8C74887E3FFDCD60 FOREIGN KEY (price_currency_id) REFERENCES currencies (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+            CONSTRAINT FK_8C74887EF12E799E FOREIGN KEY (id_project) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE,
+            CONSTRAINT FK_8C74887E22522999 FOREIGN KEY (id_referenced_assembly) REFERENCES assemblies (id) ON UPDATE NO ACTION ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE, 
+            CONSTRAINT FK_8C74887E3FFDCD60 FOREIGN KEY (price_currency_id) REFERENCES currencies (id) NOT DEFERRABLE INITIALLY IMMEDIATE                             
         )
         SQL);
         $this->addSql(<<<'SQL'
@@ -168,6 +170,9 @@ final class Version20250304081039 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_8C74887EF12E799E ON assembly_bom_entries (id_project)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_8C74887E22522999 ON assembly_bom_entries (id_referenced_assembly)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_8C74887E3FFDCD60 ON assembly_bom_entries (price_currency_id)

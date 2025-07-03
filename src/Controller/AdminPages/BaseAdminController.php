@@ -200,7 +200,7 @@ abstract class BaseAdminController extends AbstractController
                      * depending on CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME, when creating a new one,
                      * to avoid having to insert it manually */
 
-                    $entity->setName(str_ireplace('%%ipn%%', $entity->getIpn(), $entity->getName()));
+                    $entity->setName(str_ireplace('%%ipn%%', $entity->getIpn() ?? '', $entity->getName()));
                 }
 
                 $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -233,6 +233,13 @@ abstract class BaseAdminController extends AbstractController
 
         $repo = $this->entityManager->getRepository($this->entity_class);
 
+        $showParameters = true;
+        if ($this instanceof AssemblyAdminController) {
+            //currently not needed for assemblies
+
+            $showParameters = false;
+        }
+
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form,
@@ -242,7 +249,7 @@ abstract class BaseAdminController extends AbstractController
             'timeTravel' => $timeTravel_timestamp,
             'repo' => $repo,
             'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
-            'showParameters' => !($this instanceof AssemblyAdminController),
+            'showParameters' => $showParameters,
         ]);
     }
 
@@ -303,7 +310,7 @@ abstract class BaseAdminController extends AbstractController
                  * depending on CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME, when creating a new one,
                  * to avoid having to insert it manually */
 
-                $new_entity->setName(str_ireplace('%%ipn%%', $new_entity->getIpn(), $new_entity->getName()));
+                $new_entity->setName(str_ireplace('%%ipn%%', $new_entity->getIpn() ?? '', $new_entity->getName()));
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -396,13 +403,20 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
+        $showParameters = true;
+        if ($this instanceof AssemblyAdminController) {
+            //currently not needed for assemblies
+
+            $showParameters = false;
+        }
+
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
             'import_form' => $import_form,
             'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
-            'showParameters' => !($this instanceof AssemblyAdminController),
+            'showParameters' => $showParameters,
         ]);
     }
 

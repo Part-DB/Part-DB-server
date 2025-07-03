@@ -4748,6 +4748,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
             <target>%value% (Componente)</target>
         </segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Assemblaggio)</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -9899,7 +9905,7 @@ Element 3</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>Stato</target>
+        <target>Stato dell'assemblaggio</target>
       </segment>
     </unit>
     <unit id="9uJEwv1" name="assembly.edit.ipn">
@@ -12755,6 +12761,12 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Assemblaggi</target>
       </segment>
     </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Assembly referenziati</target>
+      </segment>
+    </unit>
     <unit id="gyRGdfv" name="assembly.edit">
       <segment>
         <source>assembly.edit</source>
@@ -12923,6 +12935,12 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Costruire</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>assembly.build.form.referencedAssembly</source>
+        <target>Gruppo "%name%"</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -12977,6 +12995,12 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Progetto</target>
       </segment>
     </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Assemblaggio</target>
+      </segment>
+    </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
       <segment>
         <source>assembly.bom.name</source>
@@ -13013,10 +13037,10 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Importa componenti per il gruppo</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.partOrProject">
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
       <segment>
-        <source>assembly.bom.partOrProject</source>
-        <target>Componente</target>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Parte o assieme</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">

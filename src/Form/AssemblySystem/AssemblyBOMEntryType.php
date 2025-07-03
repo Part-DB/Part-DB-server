@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\AssemblySystem;
 
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
+use App\Form\Type\AssemblySelectType;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
@@ -40,6 +41,10 @@ class AssemblyBOMEntryType extends AbstractType
             ])
             ->add('project', ProjectSelectType::class, [
                 'label' => 'assembly.bom.project',
+                'required' => false,
+            ])
+            ->add('referencedAssembly', AssemblySelectType::class, [
+                'label' => 'assembly.bom.referencedAssembly',
                 'required' => false,
             ])
             ->add('name', TextType::class, [

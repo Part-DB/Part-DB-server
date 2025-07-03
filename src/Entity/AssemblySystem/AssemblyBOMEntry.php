@@ -134,6 +134,18 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     protected ?Part $part = null;
 
     /**
+     * @var Assembly|null The associated assembly
+     */
+    #[Assert\Expression(
+        '(this.getPart() === null or this.getReferencedAssembly() === null) and (this.getName() === null or (this.getName() != null and this.getName() != ""))',
+        message: 'validator.assembly.bom_entry.only_part_or_assembly_allowed'
+    )]
+    #[ORM\ManyToOne(targetEntity: Assembly::class)]
+    #[ORM\JoinColumn(name: 'id_referenced_assembly', nullable: true, onDelete: 'SET NULL')]
+    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    protected ?Assembly $referencedAssembly = null;
+
+    /**
      * @var Project|null The associated project
      */
     #[Assert\Expression(
@@ -234,6 +246,17 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     public function setPart(?Part $part): AssemblyBOMEntry
     {
         $this->part = $part;
+        return $this;
+    }
+
+    public function getReferencedAssembly(): ?Assembly
+    {
+        return $this->referencedAssembly;
+    }
+
+    public function setReferencedAssembly(?Assembly $referencedAssembly): AssemblyBOMEntry
+    {
+        $this->referencedAssembly = $referencedAssembly;
         return $this;
     }
 

@@ -140,7 +140,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `TABLE_ASSEMBLIES_DEFAULT_COLUMNS`: The columns in assemblies tables, which are visible by default (when loading table for first
     time).
     Also specify the default order of the columns. This is a comma separated list of column names. Available columns
-    are: `name`, `id`, `quantity`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `mountnames`, `instockAmount`, `storageLocations`, `addedDate`, `lastModified`.
+    are: `name`, `id`, `ipn`, `description`, `referencedAssemblies`, `edit`, `addedDate`, `lastModified`.
+* `TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS`: The columns in assemblies bom tables, which are visible by default (when loading table for first time).
+    Also specify the default order of the columns. This is a comma separated list of column names. Available columns
+    are: `quantity`, `name`, `id`, `ipn`, `description`, `addedDate`, `lastModified`.
 * `CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME`: Use an %%ipn%% placeholder in the name of a assembly. Placeholder is replaced with the ipn input while saving.
 
 ### History/Eventlog-related settings
