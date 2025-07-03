@@ -4709,6 +4709,12 @@
             <target>%value%（部品）</target>
         </segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value%（アセンブリ）</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -8849,7 +8855,7 @@ Exampletown</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>ステータス</target>
+        <target>アセンブリのステータス</target>
       </segment>
     </unit>
     <unit id="zRd.psv" name="assembly.status.draft">
@@ -8910,6 +8916,12 @@ Exampletown</target>
       <segment>
         <source>assembly.labelp</source>
         <target>アセンブリ一覧</target>
+      </segment>
+    </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>参照されたアセンブリ</target>
       </segment>
     </unit>
     <unit id="gyRGdfv" name="assembly.edit">
@@ -9080,6 +9092,12 @@ Exampletown</target>
         <target>ビルド</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>assembly.build.form.referencedAssembly</source>
+        <target>アセンブリ「%name%」</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -9132,6 +9150,12 @@ Exampletown</target>
       <segment>
         <source>assembly.bom.project</source>
         <target>プロジェクト</target>
+      </segment>
+    </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>アセンブリ</target>
       </segment>
     </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">

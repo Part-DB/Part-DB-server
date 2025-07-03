@@ -4755,6 +4755,12 @@
     		<target>%value%（部件）</target>
     	</segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value%（装配）</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -9905,7 +9911,7 @@ Element 3</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>状态</target>
+        <target>装配状态</target>
       </segment>
     </unit>
     <unit id="9uJEwv1" name="assembly.edit.ipn">
@@ -12617,6 +12623,12 @@ Element 3</target>
         <target>装配列表</target>
       </segment>
     </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>引用的程序集</target>
+      </segment>
+    </unit>
     <unit id="gyRGdfv" name="assembly.edit">
       <segment>
         <source>assembly.edit</source>
@@ -12785,6 +12797,12 @@ Element 3</target>
         <target>构建</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>assembly.build.form.referencedAssembly</source>
+        <target>组件“%name%”</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -12839,6 +12857,12 @@ Element 3</target>
         <target>项目</target>
       </segment>
     </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>组件</target>
+      </segment>
+    </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
       <segment>
         <source>assembly.bom.name</source>
@@ -12875,10 +12899,10 @@ Element 3</target>
         <target>导入组件的零件</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.partOrProject">
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
       <segment>
-        <source>assembly.bom.partOrProject</source>
-        <target>零件</target>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>部件或组件</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">

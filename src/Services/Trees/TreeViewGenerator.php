@@ -189,6 +189,15 @@ class TreeViewGenerator
             $root_node->setIcon($this->entityClassToRootNodeIcon($class));
 
             $generic = [$root_node];
+        } elseif ($mode === 'assemblies' && $this->rootNodeEnabled) {
+            //We show the root node as a link to the list of all assemblies
+            $show_all_parts_url = $this->router->generate('assemblies_list');
+
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $show_all_parts_url, $generic);
+            $root_node->setExpanded($this->rootNodeExpandedByDefault);
+            $root_node->setIcon($this->entityClassToRootNodeIcon($class));
+
+            $generic = [$root_node];
         }
 
         return array_merge($head, $generic);

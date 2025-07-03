@@ -4746,6 +4746,12 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>%value% (Componente)</target>
       </segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Ensamblaje)</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -9897,7 +9903,7 @@ Elemento 3</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>Estatus</target>
+        <target>Estado del ensamblaje</target>
       </segment>
     </unit>
     <unit id="9uJEwv1" name="assembly.edit.ipn">
@@ -12777,6 +12783,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Ensamblajes</target>
       </segment>
     </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Conjuntos referenciados</target>
+      </segment>
+    </unit>
     <unit id="gyRGdfv" name="assembly.edit">
       <segment>
         <source>assembly.edit</source>
@@ -12945,6 +12957,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Construir</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>assembly.build.form.referencedAssembly</source>
+        <target>Ensamblaje "%name%"</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -12999,6 +13017,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Proyecto</target>
       </segment>
     </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Ensamblaje</target>
+      </segment>
+    </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
       <segment>
         <source>assembly.bom.name</source>
@@ -13035,10 +13059,10 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Importar piezas para ensamblaje</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.partOrProject">
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
       <segment>
-        <source>assembly.bom.partOrProject</source>
-        <target>Pieza</target>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Parte o conjunto</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">

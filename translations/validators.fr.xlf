@@ -203,12 +203,6 @@
         <target>L'emplacement de stockage a été marqué comme "Composant seul", par conséquent aucun nouveau composant ne peut être ajouté.</target>
       </segment>
     </unit>
-    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
-      <segment state="translated">
-        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
-        <target>Seule une pièce ou un assemblage peut être sélectionné. Veuillez ajuster votre sélection!</target>
-      </segment>
-    </unit>
     <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
       <segment state="translated">
         <source>validator.bom_importer.invalid_import_type</source>
@@ -227,6 +221,12 @@
         <target>Cette pièce existe déjà dans le groupe!</target>
       </segment>
     </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>Cet assemblage existe déjà en tant qu'entrée !</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
@@ -243,6 +243,12 @@
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
         <target>Vous devez sélectionner une pièce ou attribuer un nom pour un non-élément!</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Seule une pièce ou un assemblage peut être sélectionné. Veuillez ajuster votre sélection!</target>
       </segment>
     </unit>
     <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">

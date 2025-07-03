@@ -251,12 +251,6 @@
         <target>您必须为 BOM 条目选择部件，或为非部件 BOM 条目设置名称。</target>
       </segment>
     </unit>
-    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
-      <segment state="translated">
-        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
-        <target>只能选择一个零件或组件。请修改您的选择！</target>
-      </segment>
-    </unit>
     <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -377,6 +371,12 @@
         <target>此零件已存在于组中！</target>
       </segment>
     </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>此装配已经作为条目存在！</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
@@ -393,6 +393,12 @@
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
         <target>必须选择零件或为非零件指定名称！</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>只能选择一个零件或组件。请修改您的选择！</target>
       </segment>
     </unit>
     <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">

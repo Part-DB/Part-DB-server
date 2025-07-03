@@ -67,6 +67,7 @@ class AssemblyBuildHelper
     public function getMaximumBuildableCount(Assembly $assembly): int
     {
         $maximum_buildable_count = PHP_INT_MAX;
+        /** @var AssemblyBOMEntry $bom_entry */
         foreach ($assembly->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
             if (!$bom_entry->isPartBomEntry() && $bom_entry->getProject() === null) {
@@ -76,8 +77,8 @@ class AssemblyBuildHelper
             //The maximum buildable count for the whole project is the minimum of all BOM entries
             if ($bom_entry->getPart() !== null) {
                 $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
-            } elseif ($bom_entry->getProject() !== null) {
-                $maximum_buildable_count = min($maximum_buildable_count, $this->projectBuildHelper->getMaximumBuildableCount($bom_entry->getProject()));
+            } elseif ($bom_entry->getReferencedAssembly() !== null) {
+                $maximum_buildable_count = min($maximum_buildable_count, $this->projectBuildHelper->getMaximumBuildableCount($bom_entry->getReferencedAssembly()));
             }
         }
 
@@ -117,11 +118,12 @@ class AssemblyBuildHelper
 
         $nonBuildableEntries = [];
 
+        /** @var AssemblyBOMEntry $bomEntry */
         foreach ($assembly->getBomEntries() as $bomEntry) {
             $part = $bomEntry->getPart();
 
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$part instanceof Part && $bomEntry->getAssembly() === null) {
+            if (!$part instanceof Part && $bomEntry->getReferencedAssembly() === null) {
                 continue;
             }
 
@@ -131,8 +133,8 @@ class AssemblyBuildHelper
                 if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
                     $nonBuildableEntries[] = $bomEntry;
                 }
-            } elseif ($bomEntry->getAssembly() !== null) {
-                $nonBuildableAssemblyEntries = $this->projectBuildHelper->getNonBuildableProjectBomEntries($bomEntry->getProject(), $number_of_builds);
+            } elseif ($bomEntry->getReferencedAssembly() !== null) {
+                $nonBuildableAssemblyEntries = $this->getNonBuildableAssemblyBomEntries($bomEntry->getReferencedAssembly(), $number_of_builds);
                 $nonBuildableEntries = array_merge($nonBuildableEntries, $nonBuildableAssemblyEntries);
             }
         }
