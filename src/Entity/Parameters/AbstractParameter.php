@@ -450,7 +450,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
                 $unit = $this->unit;
             } else {
                 //Escape the percentage sign for convenience (as latex uses it as comment and it is often used in units)
-                $escaped = preg_replace('/(\%)/', "\\\\$1", $this->unit);
+                $escaped = preg_replace('/([^\\\\]?%)/', "\\\\$1", $this->unit);
 
                 $unit = '$\mathrm{'.$escaped.'}$';
             }
