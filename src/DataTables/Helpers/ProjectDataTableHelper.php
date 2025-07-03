@@ -27,7 +27,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 
 /**
- * A helper service which contains common code to render columns for assembly related tables
+ * A helper service which contains common code to render columns for project related tables
  */
 class ProjectDataTableHelper
 {
