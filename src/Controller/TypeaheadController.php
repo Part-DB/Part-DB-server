@@ -22,8 +22,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\ProjectSystem\Project;
+use App\Services\Attachments\AssemblyPreviewGenerator;
 use App\Services\Attachments\ProjectPreviewGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
@@ -188,6 +190,44 @@ class TypeaheadController extends AbstractController
                 'category' => '',
                 'footprint' => '',
                 'description' => mb_strimwidth($project->getDescription(), 0, 127, '...'),
+                'image' => $preview_url,
+            ];
+        }
+
+        return new JsonResponse($result);
+    }
+
+    #[Route(path: '/assemblies/search/{query}', name: 'typeahead_assemblies')]
+    public function assemblies(
+        EntityManagerInterface $entityManager,
+        AssemblyPreviewGenerator $assemblyPreviewGenerator,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        string $query = ""
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted('@assemblies.read');
+
+        $result = [];
+
+        $assemblyRepository = $entityManager->getRepository(Assembly::class);
+
+        $assemblies = $assemblyRepository->autocompleteSearch($query, 100);
+
+        foreach ($assemblies as $assembly) {
+            $preview_attachment = $assemblyPreviewGenerator->getTablePreviewAttachment($assembly);
+
+            if($preview_attachment instanceof Attachment) {
+                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
+            } else {
+                $preview_url = '';
+            }
+
+            /** @var Assembly $assembly */
+            $result[] = [
+                'id' => $assembly->getID(),
+                'name' => $assembly->getName(),
+                'category' => '',
+                'footprint' => '',
+                'description' => mb_strimwidth($assembly->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
             ];
         }

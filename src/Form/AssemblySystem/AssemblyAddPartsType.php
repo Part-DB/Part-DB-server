@@ -51,14 +51,17 @@ class AssemblyAddPartsType extends AbstractType
         $builder->add('bom_entries', AssemblyBOMEntryCollectionType::class, [
             'entry_options' => [
                 'constraints' => [
-                    new UniqueEntity(fields: ['part', 'assembly'], message: 'assembly.bom_entry.part_already_in_bom',
+                    new UniqueEntity(fields: ['part'], message: 'assembly.bom_entry.part_already_in_bom',
                         entityClass: AssemblyBOMEntry::class),
-                    new UniqueEntity(fields: ['name', 'assembly'], message: 'assembly.bom_entry.name_already_in_bom',
+                    new UniqueEntity(fields: ['referencedAssembly'], message: 'assembly.bom_entry.assembly_already_in_bom',
+                        entityClass: AssemblyBOMEntry::class),
+                    new UniqueEntity(fields: ['name'], message: 'assembly.bom_entry.name_already_in_bom',
                         entityClass: AssemblyBOMEntry::class, ignoreNull: true),
                 ]
             ],
             'constraints' => [
                 new UniqueObjectCollection(message: 'assembly.bom_entry.part_already_in_bom', fields: ['part']),
+                new UniqueObjectCollection(message: 'assembly.bom_entry.assembly_already_in_bom', fields: ['referencedAssembly']),
                 new UniqueObjectCollection(message: 'assembly.bom_entry.name_already_in_bom', fields: ['name']),
             ]
         ]);

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\AssemblySystem;
 
+use App\Repository\AssemblyRepository;
 use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -38,6 +39,7 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Validator\Constraints\UniqueObjectCollection;
+use App\Validator\Constraints\AssemblySystem\UniqueReferencedAssembly;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -58,7 +60,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @extends AbstractStructuralDBElement<AssemblyAttachment, AssemblyParameter>
  */
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: AssemblyRepository::class)]
 #[ORM\Table(name: 'assemblies')]
 #[UniqueEntity(fields: ['ipn'], message: 'assembly.ipn.must_be_unique')]
 #[ORM\Index(columns: ['ipn'], name: 'assembly_idx_ipn')]
@@ -109,8 +111,9 @@ class Assembly extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import'])]
-    #[ORM\OneToMany(mappedBy: 'assembly', targetEntity: AssemblyBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: AssemblyBOMEntry::class, mappedBy: 'assembly', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.part_already_in_bom', fields: ['part'])]
+    #[UniqueReferencedAssembly]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.project_already_in_bom', fields: ['project'])]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.name_already_in_bom', fields: ['name'])]
     protected Collection $bom_entries;
@@ -385,5 +388,23 @@ class Assembly extends AbstractStructuralDBElement
                     ->addViolation();
             }
         }
+    }
+
+    /**
+     *  Get all referenced assemblies which uses this assembly.
+     *
+     * @return Assembly[] all referenced assemblies which uses this assembly as a one-dimensional array of assembly objects
+     */
+    public function getReferencedAssemblies(): array
+    {
+        $assemblies = [];
+
+        foreach($this->bom_entries as $entry) {
+            if ($entry->getAssembly() !== null) {
+                $assemblies[] = $entry->getReferencedAssembly();
+            }
+        }
+
+        return $assemblies;
     }
 }
