@@ -48,14 +48,8 @@ parameters:
   ######################################################################################################################
   # Table settings
   ######################################################################################################################
-<<<<<<< HEAD
   partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%' # The default columns in assembly tables and their order
-=======
-  partdb.table.default_page_size: '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'                                    # The default number of entries shown per page in tables
-  partdb.table.parts.default_columns: '%env(trim:string:TABLE_PARTS_DEFAULT_COLUMNS)%'                    # The default columns in part tables and their order
-  partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%'          # The default columns in assembly tables and their order
   partdb.table.assemblies_bom.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS)%'  # The default columns in assembly bom tables and their order
->>>>>>> 2779c55a (Baugruppen Stückliste um referenzierte Baugruppe erweitern)
 
   ######################################################################################################################
   # Miscellaneous
