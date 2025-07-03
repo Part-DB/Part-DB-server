@@ -400,7 +400,7 @@ class Assembly extends AbstractStructuralDBElement
         $assemblies = [];
 
         foreach($this->bom_entries as $entry) {
-            if ($entry->getAssembly() !== null) {
+            if ($entry->getReferencedAssembly() !== null) {
                 $assemblies[] = $entry->getReferencedAssembly();
             }
         }
