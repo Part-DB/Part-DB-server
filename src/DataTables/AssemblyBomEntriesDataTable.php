@@ -22,12 +22,13 @@ declare(strict_types=1);
  */
 namespace App\DataTables;
 
-use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
+use App\DataTables\Helpers\AssemblyDataTableHelper;
 use App\DataTables\Helpers\ProjectDataTableHelper;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
@@ -45,20 +46,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AssemblyBomEntriesDataTable implements DataTableTypeInterface
 {
     public function __construct(
-        protected TranslatorInterface    $translator,
-        protected PartDataTableHelper    $partDataTableHelper,
-        protected ProjectDataTableHelper $projectDataTableHelper,
-        protected EntityURLGenerator     $entityURLGenerator,
-        protected AmountFormatter        $amountFormatter,
-        private string                   $visible_columns,
-        private ColumnSortHelper         $csh
+        protected TranslatorInterface     $translator,
+        protected PartDataTableHelper     $partDataTableHelper,
+        protected ProjectDataTableHelper  $projectDataTableHelper,
+        protected AssemblyDataTableHelper $assemblyDataTableHelper,
+        protected EntityURLGenerator      $entityURLGenerator,
+        protected AmountFormatter         $amountFormatter,
+        private string                    $visible_columns,
+        private ColumnSortHelper          $csh
     ){
     }
 
     public function configure(DataTable $dataTable, array $options): void
     {
         $this->csh
-            //->add('select', SelectColumn::class)
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
@@ -89,13 +90,20 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, AssemblyBOMEntry $context) {
-                    if(!$context->getPart() instanceof Part && !$context->getProject() instanceof Project) {
+                    if(!$context->getPart() instanceof Part && !$context->getReferencedAssembly() instanceof Assembly && !$context->getProject() instanceof Project) {
                         return htmlspecialchars((string) $context->getName());
                     }
 
                     if ($context->getPart() !== null) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
                         $tmp = $this->translator->trans('part.table.name.value.for_part', ['%value%' => $tmp]);
+
+                        if($context->getName() !== null && $context->getName() !== '') {
+                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
+                        }
+                    } elseif ($context->getReferencedAssembly() !== null) {
+                        $tmp = $this->assemblyDataTableHelper->renderName($context->getReferencedAssembly());
+                        $tmp = $this->translator->trans('part.table.name.value.for_assembly', ['%value%' => $tmp]);
 
                         if($context->getName() !== null && $context->getName() !== '') {
                             $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
@@ -127,58 +135,14 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
                 'data' => function (AssemblyBOMEntry $context) {
-                    if($context->getPart() instanceof Part) {
+                    if ($context->getPart() instanceof Part) {
                         return $context->getPart()->getDescription();
+                    } elseif ($context->getReferencedAssembly() instanceof Assembly) {
+                        return $context->getReferencedAssembly()->getDescription();
                     }
                     //For non-part BOM entries show the comment field
                     return $context->getComment();
                 },
-            ])
-            ->add('category', EntityColumn::class, [
-                'label' => $this->translator->trans('part.table.category'),
-                'property' => 'part.category',
-                'orderField' => 'NATSORT(category.name)',
-            ])
-            ->add('footprint', EntityColumn::class, [
-                'property' => 'part.footprint',
-                'label' => $this->translator->trans('part.table.footprint'),
-                'orderField' => 'NATSORT(footprint.name)',
-            ])
-            ->add('manufacturer', EntityColumn::class, [
-                'property' => 'part.manufacturer',
-                'label' => $this->translator->trans('part.table.manufacturer'),
-                'orderField' => 'NATSORT(manufacturer.name)',
-            ])
-            ->add('mountnames', TextColumn::class, [
-                'label' => 'assembly.bom.mountnames',
-                'render' => function ($value, AssemblyBOMEntry $context) {
-                    $html = '';
-
-                    foreach (explode(',', $context->getMountnames()) as $mountname) {
-                        $html .= sprintf('<span class="badge badge-secondary bg-secondary">%s</span> ', htmlspecialchars($mountname));
-                    }
-                    return $html;
-                },
-            ])
-            ->add('instockAmount', TextColumn::class, [
-                'label' => 'assembly.bom.instockAmount',
-                'render' => function ($value, AssemblyBOMEntry $context) {
-                    if ($context->getPart() !== null) {
-                        return $this->partDataTableHelper->renderAmount($context->getPart());
-                    }
-
-                    return '';
-                }
-            ])
-            ->add('storageLocations', TextColumn::class, [
-                'label' => 'part.table.storeLocations',
-                'render' => function ($value, AssemblyBOMEntry $context) {
-                    if ($context->getPart() !== null) {
-                        return $this->partDataTableHelper->renderStorageLocations($context->getPart());
-                    }
-
-                    return '';
-                }
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
@@ -189,8 +153,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
         ;
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,
-            "TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,"TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name');
 
@@ -214,6 +177,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ->addSelect('part')
             ->from(AssemblyBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
+            ->leftJoin('bom_entry.referencedAssembly', 'referencedAssembly')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
