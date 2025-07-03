@@ -251,12 +251,6 @@
         <target>È necessario selezionare un componente o assegnare un nome ad una voce BOM che non indica un componente!</target>
       </segment>
     </unit>
-    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
-      <segment state="translated">
-        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
-        <target>È consentito selezionare solo una parte o un assieme. Si prega di modificare la selezione!</target>
-      </segment>
-    </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
@@ -389,6 +383,12 @@
         <target>Questa parte è già presente nel gruppo!</target>
       </segment>
     </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>Questo assemblaggio è già presente come voce!</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
@@ -405,6 +405,12 @@
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
         <target>È necessario selezionare una parte o inserire un nome per un non-parte!</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>È consentito selezionare solo una parte o un assieme. Si prega di modificare la selezione!</target>
       </segment>
     </unit>
     <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">

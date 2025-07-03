@@ -28,6 +28,8 @@
             <td >
                 {% if bom_entry.part %}
                     <b><a target="_blank" href="{{ entity_url(bom_entry.part) }}">{{ bom_entry.part.name }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
+                {% elseif bom_entry.referencedAssembly %}
+                    <b><a target="_blank" href="{{ entity_url(bom_entry.referencedAssembly) }}">{{ 'assembly.build.form.referencedAssembly'|trans({'%name%': bom_entry.referencedAssembly.name}) }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
                 {% else %}
                     <b>{{ bom_entry.name }}</b>
                 {% endif %}

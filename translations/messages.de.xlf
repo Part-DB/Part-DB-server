@@ -4746,6 +4746,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>%value% (Bauteil)</target>
       </segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Baugruppe)</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -9953,7 +9959,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>Status</target>
+        <target>Status Baugruppe</target>
       </segment>
     </unit>
     <unit id="9uJEwv1" name="assembly.edit.ipn">
@@ -13338,6 +13344,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Baugruppen</target>
       </segment>
     </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Referenzierte Baugruppen</target>
+      </segment>
+    </unit>
     <unit id="gyRGdfv" name="assembly.edit">
       <segment>
         <source>assembly.edit</source>
@@ -13506,6 +13518,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauen</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>asssembly.build.form.referencedAssembly</source>
+        <target>Baugruppe "%name%"</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -13560,6 +13578,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Projekt</target>
       </segment>
     </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Baugruppe</target>
+      </segment>
+    </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
       <segment>
         <source>assembly.bom.name</source>
@@ -13596,10 +13620,10 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Importiere Parts für Baugruppe</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.partOrProject">
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
       <segment>
-        <source>assembly.bom.partOrProject</source>
-        <target>Bauteil oder Projekt</target>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Bauteil oder Baugruppe</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">

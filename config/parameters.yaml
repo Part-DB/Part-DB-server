@@ -48,7 +48,8 @@ parameters:
   ######################################################################################################################
   # Table settings
   ######################################################################################################################
-  partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%' # The default columns in assembly tables and their order
+  partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%'          # The default columns in assembly tables and their order
+  partdb.table.assemblies_bom.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS)%'  # The default columns in assembly bom tables and their order
 
   ######################################################################################################################
   # Miscellaneous

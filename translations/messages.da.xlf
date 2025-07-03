@@ -9893,7 +9893,7 @@ Element 3</target>
     <unit id="hIIFtI1" name="assembly.edit.status">
       <segment state="translated">
         <source>assembly.edit.status</source>
-        <target>Status</target>
+        <target>Samlingens status</target>
       </segment>
     </unit>
     <unit id="9uJEwv1" name="assembly.edit.ipn">
@@ -12569,6 +12569,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>%value% (Del)</target>
       </segment>
     </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Samling)</target>
+      </segment>
+    </unit>
     <unit id="GW8ZOX7" name="part.table.name.value.for_project">
       <segment state="translated">
         <source>part.table.name.value.for_project</source>
@@ -12603,6 +12609,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment>
         <source>assembly.labelp</source>
         <target>Samlinger</target>
+      </segment>
+    </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Refererede samlinger</target>
       </segment>
     </unit>
     <unit id="gyRGdfv" name="assembly.edit">
@@ -12773,6 +12785,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Byg</target>
       </segment>
     </unit>
+    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
+      <segment>
+        <source>assembly.build.form.referencedAssembly</source>
+        <target>Samling "%name%"</target>
+      </segment>
+    </unit>
     <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
       <segment>
         <source>assembly.builds.no_stocked_builds</source>
@@ -12827,6 +12845,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Projekt</target>
       </segment>
     </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Sammenstilling</target>
+      </segment>
+    </unit>
     <unit id="PPsM0Dg" name="assembly.bom.name">
       <segment>
         <source>assembly.bom.name</source>
@@ -12863,10 +12887,10 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Importer dele til samling</target>
       </segment>
     </unit>
-    <unit id="WTasGao" name="assembly.bom.partOrProject">
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
       <segment>
-        <source>assembly.bom.partOrProject</source>
-        <target>Del</target>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Del eller samling</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">

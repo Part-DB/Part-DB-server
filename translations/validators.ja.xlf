@@ -203,12 +203,6 @@
         <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>
       </segment>
     </unit>
-    <unit id="Q42Zh.e" name="validator.project.bom_entry.only_part_or_assembly_allowed">
-      <segment state="translated">
-        <source>validator.project.bom_entry.only_part_or_assembly_allowed</source>
-        <target>部品またはアセンブリのみ選択可能です。選択内容を調整してください！</target>
-      </segment>
-    </unit>
     <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
       <segment state="translated">
         <source>validator.bom_importer.invalid_import_type</source>
@@ -227,6 +221,12 @@
         <target>この部品はすでにグループに存在します！</target>
       </segment>
     </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>このアセンブリはすでにエントリとして存在します！</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
@@ -243,6 +243,12 @@
       <segment>
         <source>validator.assembly.bom_entry.name_or_part_needed</source>
         <target>部品を選択するか、非部品の名前を入力する必要があります！</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>部品またはアセンブリのみ選択可能です。選択内容を調整してください！</target>
       </segment>
     </unit>
     <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">
