@@ -262,6 +262,25 @@ class KiCadHelper
             }
         }
 
+        //Add fields for KiCost:
+        if ($part->getManufacturer() !== null) {
+            $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
+        }
+        if ($part->getManufacturerProductNumber() !== null) {
+            $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
+        }
+
+        //For each supplier, add a field with the supplier name and the supplier part number for KiCost
+        if ($part->getOrderdetails(false)->count() > 0) {
+            foreach ($part->getOrderdetails(false) as $orderdetail) {
+                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
+                    $fieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+
+                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                }
+            }
+        }
+
         return $result;
     }
 
