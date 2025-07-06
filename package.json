@@ -99,6 +99,7 @@
         "stimulus-use": "^0.52.0",
         "tom-select": "^2.1.0",
         "ts-loader": "^9.2.6",
-        "typescript": "^5.7.2"
+        "typescript": "^5.7.2",
+        "minimatch": "^9.0.5"
     }
 }
