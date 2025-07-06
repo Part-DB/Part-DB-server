@@ -40,6 +40,8 @@ class SettingsController extends AbstractController
     #[Route("/settings", name: "system_settings")]
     public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
     {
+        $this->denyAccessUnlessGranted('@config.change_system_settings');
+
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy(AppSettings::class);
 
@@ -61,9 +63,6 @@ class SettingsController extends AbstractController
             //It might be possible, that the tree settings have changed, so clear the cache
             $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
         }
-
-
-
 
         //Render the form
         return $this->render('settings/settings.html.twig', [

@@ -13012,5 +13012,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Show the image overlay with attachment details on hovering over the part image gallery.</target>
       </segment>
     </unit>
+    <unit id="ALfPkeR" name="perm.config.change_system_settings">
+      <segment>
+        <source>perm.config.change_system_settings</source>
+        <target>Change system settings</target>
+      </segment>
+    </unit>
+    <unit id="TlHeIjk" name="tree.tools.system.settings">
+      <segment>
+        <source>tree.tools.system.settings</source>
+        <target>System settings</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
