@@ -217,7 +217,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         $str = '';
         $bracket_opened = false;
-        if ($this->value_typical) {
+        if ($this->value_typical !== null) {
             $str .= $this->getValueTypicalWithUnit($latex_formatted);
             if ($this->value_min || $this->value_max) {
                 $bracket_opened = true;
@@ -225,11 +225,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
             }
         }
 
-        if ($this->value_max && $this->value_min) {
+        if ($this->value_max !== null && $this->value_min !== null) {
             $str .= $this->getValueMinWithUnit($latex_formatted).' ... '.$this->getValueMaxWithUnit($latex_formatted);
-        } elseif ($this->value_max) {
+        } elseif ($this->value_max !== null) {
             $str .= 'max. '.$this->getValueMaxWithUnit($latex_formatted);
-        } elseif ($this->value_min) {
+        } elseif ($this->value_min !== null) {
             $str .= 'min. '.$this->getValueMinWithUnit($latex_formatted);
         }
 
@@ -449,7 +449,10 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
             if (!$with_latex) {
                 $unit = $this->unit;
             } else {
-                $unit = '$\mathrm{'.$this->unit.'}$';
+                //Escape the percentage sign for convenience (as latex uses it as comment and it is often used in units)
+                $escaped = preg_replace('/\\\\?%/', "\\\\%", $this->unit);
+
+                $unit = '$\mathrm{'.$escaped.'}$';
             }
 
             return $str.' '.$unit;
@@ -457,7 +460,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         return $str;
     }
-
+    
     /**
      * Returns the class of the element that is allowed to be associated with this attachment.
      * @return string

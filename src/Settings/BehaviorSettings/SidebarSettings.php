@@ -67,4 +67,6 @@ class SidebarSettings
      */
     #[SettingsParameter(label: new TM("settings.behavior.sidebar.rootNodeExpanded"))]
     public bool $rootNodeExpanded = true;
+
+    public bool $rootNodeRedirectsToNewEntity = false;
 }
