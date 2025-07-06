@@ -199,16 +199,6 @@ services:
         arguments:
             $providers: !tagged_iterator 'app.info_provider'
 
-    App\Services\InfoProviderSystem\Providers\OctopartProvider:
-        arguments:
-            $clientId: '&env(string:PROVIDER_OCTOPART_CLIENT_ID)%'
-            $secret: '%env(string:PROVIDER_OCTOPART_SECRET)%'
-            $country: '%env(string:PROVIDER_OCTOPART_COUNTRY)%'
-            $currency: '%env(string:PROVIDER_OCTOPART_CURRENCY)%'
-            $search_limit: '%env(int:PROVIDER_OCTOPART_SEARCH_LIMIT)%'
-            $onlyAuthorizedSellers: '%env(bool:PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS)%'
-
-
     ####################################################################################################################
     # API system
     ####################################################################################################################

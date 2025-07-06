@@ -45,6 +45,9 @@ class InfoProviderSettings
     public ?Element14Settings $element14 = null;
 
     #[EmbeddedSettings]
+    public ?OctopartSettings $octopartSettings = null;
+
+    #[EmbeddedSettings]
     public ?LCSCSettings $lcsc = null;
 
     #[EmbeddedSettings]

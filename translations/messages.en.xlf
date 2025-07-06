@@ -12946,5 +12946,35 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Secret</target>
       </segment>
     </unit>
+    <unit id="5xjmMzf" name="settings.ips.octopart">
+      <segment>
+        <source>settings.ips.octopart</source>
+        <target>Octopart / Nexar</target>
+      </segment>
+    </unit>
+    <unit id="vGv90iO" name="settings.ips.octopart.searchLimit">
+      <segment>
+        <source>settings.ips.octopart.searchLimit</source>
+        <target>Number of results</target>
+      </segment>
+    </unit>
+    <unit id="au4Yeps" name="settings.ips.octopart.searchLimit.help">
+      <segment>
+        <source>settings.ips.octopart.searchLimit.help</source>
+        <target>The number of results to get from Octopart while searching (please note that this counts towards your API limits)</target>
+      </segment>
+    </unit>
+    <unit id="Tiqmk.8" name="settings.ips.octopart.onlyAuthorizedSellers">
+      <segment>
+        <source>settings.ips.octopart.onlyAuthorizedSellers</source>
+        <target>Only authorized sellers</target>
+      </segment>
+    </unit>
+    <unit id="ECQkeJy" name="settings.ips.octopart.onlyAuthorizedSellers.help">
+      <segment>
+        <source>settings.ips.octopart.onlyAuthorizedSellers.help</source>
+        <target>Set to false to include non-authorized offers in the results</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
