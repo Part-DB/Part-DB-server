@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "871a0310bf9b8201ee7c28c73c33691c",
+    "content-hash": "88e396c8b913ba47f157b58a248b0835",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4001,7 +4001,7 @@
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "dev-master",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
@@ -4045,7 +4045,6 @@
                 "doctrine/doctrine-bundle": "To use the doctrine ORM storage",
                 "symfony/twig-bridge": "Allows to access settings in twig templates"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -19144,7 +19143,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "florianv/swap-bundle": 20,
-        "jbtronics/settings-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
