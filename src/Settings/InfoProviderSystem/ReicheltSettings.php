@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\InfoProviderSystem;
 
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -41,22 +42,27 @@ class ReicheltSettings
 
     public const SUPPORTED_LANGUAGE = ["en", "de", "fr", "nl", "pl", "it", "es"];
 
-    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"), envVar: "bool:PROVIDER_REICHELT_ENABLED")]
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"),
+        envVar: "bool:PROVIDER_REICHELT_ENABLED", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $enabled = false;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => ["EUR"]], envVar: "PROVIDER_REICHELT_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => ["EUR"]],
+        envVar: "PROVIDER_REICHELT_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     public string $currency = "EUR";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => self::SUPPORTED_LANGUAGE], envVar: "PROVIDER_REICHELT_LANGUAGE")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => self::SUPPORTED_LANGUAGE],
+        envVar: "PROVIDER_REICHELT_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Language()]
     #[Assert\Choice(choices: self::SUPPORTED_LANGUAGE)]
     public string $language = "en";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), envVar: "PROVIDER_REICHELT_COUNTRY", formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]])]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]],
+        envVar: "PROVIDER_REICHELT_COUNTRY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.reichelt.include_vat"), envVar: "bool:PROVIDER_REICHELT_INCLUDE_VAT")]
+    #[SettingsParameter(label: new TM("settings.ips.reichelt.include_vat"),
+        envVar: "bool:PROVIDER_REICHELT_INCLUDE_VAT", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $includeVAT = true;
 
 }

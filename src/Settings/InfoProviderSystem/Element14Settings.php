@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\InfoProviderSystem;
 
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -35,9 +36,11 @@ class Element14Settings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), description: new TM("settings.ips.element14.apiKey.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_KEY")]
+    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), description: new TM("settings.ips.element14.apiKey.help"),
+        formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.element14.storeId"), description: new TM("settings.ips.element14.storeId.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_STORE_ID")]
+    #[SettingsParameter(label: new TM("settings.ips.element14.storeId"), description: new TM("settings.ips.element14.storeId.help"),
+        formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_STORE_ID", envVarMode: EnvVarMode::OVERWRITE)]
     public string $storeId = "de.farnell.com";
 }

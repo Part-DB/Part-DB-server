@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\InfoProviderSystem;
 
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -41,14 +42,17 @@ class OEMSecretsSettings
     public const SUPPORTED_CURRENCIES = ["AUD", "CAD", "CHF", "CNY", "DKK", "EUR", "GBP", "HKD", "ILS", "INR", "JPY", "KRW", "NOK",
                        "NZD", "RUB", "SEK", "SGD", "TWD", "USD"];
 
-    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), envVar: "PROVIDER_OEMSECRETS_KEY")]
+    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"),
+        envVar: "PROVIDER_OEMSECRETS_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
 
     #[Assert\Country]
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR", "US"]], envVar: "PROVIDER_OEMSECRETS_COUNTRY_CODE")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR", "US"]],
+        envVar: "PROVIDER_OEMSECRETS_COUNTRY_CODE", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES], envVar: "PROVIDER_OEMSECRETS_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES],
+        envVar: "PROVIDER_OEMSECRETS_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Choice(choices: self::SUPPORTED_CURRENCIES)]
     public string $currency = "EUR";
 
@@ -56,7 +60,8 @@ class OEMSecretsSettings
      * @var bool If this is enabled, distributors with zero prices
      * will be discarded from the creation of a new part
      */
-    #[SettingsParameter(label: new TM("settings.ips.oemsecrets.keepZeroPrices"), description: new TM("settings.ips.oemsecrets.keepZeroPrices.help"), envVar: "bool:PROVIDER_OEMSECRETS_ZERO_PRICE")]
+    #[SettingsParameter(label: new TM("settings.ips.oemsecrets.keepZeroPrices"), description: new TM("settings.ips.oemsecrets.keepZeroPrices.help"),
+        envVar: "bool:PROVIDER_OEMSECRETS_ZERO_PRICE", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $keepZeroPrices = false;
 
     /**
@@ -64,7 +69,8 @@ class OEMSecretsSettings
      * # from the description transforming unstructured descriptions into structured parameters;
      * # each parameter in description should have the form: "...;name1:value1;name2:value2"
      */
-    #[SettingsParameter(label: new TM("settings.ips.oemsecrets.parseParams"), description: new TM("settings.ips.oemsecrets.parseParams.help"), envVar: "bool:PROVIDER_OEMSECRETS_SET_PARAM")]
+    #[SettingsParameter(label: new TM("settings.ips.oemsecrets.parseParams"), description: new TM("settings.ips.oemsecrets.parseParams.help"),
+        envVar: "bool:PROVIDER_OEMSECRETS_SET_PARAM", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $parseParams = true;
 
     #[SettingsParameter(label: new TM("settings.ips.oemsecrets.sortMode"), envVar: "PROVIDER_OEMSECRETS_SORT_CRITERIA", envVarMapper: [self::class, "mapSortModeEnvVar"])]

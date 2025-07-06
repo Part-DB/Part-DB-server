@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\InfoProviderSystem;
 
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -37,10 +38,12 @@ class LCSCSettings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"), envVar: "bool:PROVIDER_LCSC_ENABLED")]
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.enabled"),
+        envVar: "bool:PROVIDER_LCSC_ENABLED", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $enabled = false;
 
-    #[SettingsParameter(label: new TM("settings.ips.lcsc.currency"), formType: CurrencyType::class, envVar: "string:PROVIDER_LCSC_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.lcsc.currency"), formType: CurrencyType::class,
+        envVar: "string:PROVIDER_LCSC_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Currency()]
     public string $currency = 'EUR';
 }

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\InfoProviderSystem;
 
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -41,30 +42,37 @@ class OctopartSettings
 
     #[SettingsParameter(
         label: new TM("settings.ips.digikey.client_id"),
-        envVar: "PROVIDER_OCTOPART_CLIENT_ID"
+        envVar: "PROVIDER_OCTOPART_CLIENT_ID", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $clientId = null;
 
     #[SettingsParameter(
         label: new TM("settings.ips.digikey.secret"),
-        envVar: "PROVIDER_OCTOPART_SECRET"
+        envVar: "PROVIDER_OCTOPART_SECRET", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $secret = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => ["EUR", "USD", "CHF", "GBP"]], envVar: "PROVIDER_OCTOPART_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class,
+        formOptions: ["preferred_choices" => ["EUR", "USD", "CHF", "GBP"]],
+        envVar: "PROVIDER_OCTOPART_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Currency()]
     public string $currency = "EUR";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, envVar: "PROVIDER_OCTOPART_COUNTRY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class,
+        envVar: "PROVIDER_OCTOPART_COUNTRY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Country]
     public string $country = "DE";
 
     #[SettingsParameter(label: new TM("settings.ips.octopart.searchLimit"), description: new TM("settings.ips.octopart.searchLimit.help"),
-        formType: NumberType::class, formOptions: ["attr" => ["min" => 1, "max" => 100]], envVar: "PROVIDER_OCTOPART_SEARCH_LIMIT")]
+        formType: NumberType::class, formOptions: ["attr" => ["min" => 1, "max" => 100]],
+        envVar: "int:PROVIDER_OCTOPART_SEARCH_LIMIT", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Range(min: 1, max: 100)]
     public int $searchLimit = 10;
 
-    #[SettingsParameter(label: new TM("settings.ips.octopart.onlyAuthorizedSellers"), description: new TM("settings.ips.octopart.onlyAuthorizedSellers.help"))]
+    #[SettingsParameter(label: new TM("settings.ips.octopart.onlyAuthorizedSellers"),
+        description: new TM("settings.ips.octopart.onlyAuthorizedSellers.help"),
+        envVar: "bool:PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS", envVarMode: EnvVarMode::OVERWRITE
+    )]
     public bool $onlyAuthorizedSellers = true;
 
 }
