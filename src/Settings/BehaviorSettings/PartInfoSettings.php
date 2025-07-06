@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -23,21 +23,21 @@ declare(strict_types=1);
 
 namespace App\Settings\BehaviorSettings;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
-class BehaviorSettings
+#[Settings(name: "part_info", label: new TM("settings.behavior.part_info"))]
+#[SettingsIcon('fa-circle-info')]
+class PartInfoSettings
 {
-    use SettingsTrait;
-
-    #[EmbeddedSettings]
-    public ?SidebarSettings $sidebar = null;
-
-    #[EmbeddedSettings]
-    public ?TableSettings $table = null;
-
-    #[EmbeddedSettings]
-    public ?PartInfoSettings $partInfo = null;
+    /**
+     * Whether to show the part image overlays in the part info view
+     * @var bool
+     */
+    #[SettingsParameter(label: new TM("settings.behavior.part_info.show_part_image_overlay"), description: new TM("settings.behavior.part_info.show_part_image_overlay.help"),
+    envVar: "bool:SHOW_PART_IMAGE_OVERLAY", envVarMode: EnvVarMode::OVERWRITE)]
+    public bool $showPartImageOverlay = true;
 }

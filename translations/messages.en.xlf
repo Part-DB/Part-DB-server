@@ -12994,5 +12994,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>If you need exchange rates between non-euro currencies, you can input an API key from fixer.io here.</target>
       </segment>
     </unit>
+    <unit id="Ffr5xYM" name="settings.behavior.part_info">
+      <segment>
+        <source>settings.behavior.part_info</source>
+        <target>Part info page</target>
+      </segment>
+    </unit>
+    <unit id="weH3j.a" name="settings.behavior.part_info.show_part_image_overlay">
+      <segment>
+        <source>settings.behavior.part_info.show_part_image_overlay</source>
+        <target>Show image overlay</target>
+      </segment>
+    </unit>
+    <unit id="SCUs3WS" name="settings.behavior.part_info.show_part_image_overlay.help">
+      <segment>
+        <source>settings.behavior.part_info.show_part_image_overlay.help</source>
+        <target>Show the image overlay with attachment details on hovering over the part image gallery.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
