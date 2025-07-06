@@ -33,6 +33,9 @@ class InfoProviderSettings
     use SettingsTrait;
 
     #[EmbeddedSettings]
+    public ?DigikeySettings $digikey = null;
+
+    #[EmbeddedSettings]
     public ?MouserSettings $mouser = null;
 
     #[EmbeddedSettings]

@@ -12928,5 +12928,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Root nodes redirect to new entity pages</target>
       </segment>
     </unit>
+    <unit id="j7HiQ80" name="settings.ips.digikey">
+      <segment>
+        <source>settings.ips.digikey</source>
+        <target>Digikey</target>
+      </segment>
+    </unit>
+    <unit id="_ViyVdh" name="settings.ips.digikey.client_id">
+      <segment>
+        <source>settings.ips.digikey.client_id</source>
+        <target>Client ID</target>
+      </segment>
+    </unit>
+    <unit id="eB9dDyp" name="settings.ips.digikey.secret">
+      <segment>
+        <source>settings.ips.digikey.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

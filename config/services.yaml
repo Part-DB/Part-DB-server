@@ -199,13 +199,6 @@ services:
         arguments:
             $providers: !tagged_iterator 'app.info_provider'
 
-    App\Services\InfoProviderSystem\Providers\DigikeyProvider:
-        arguments:
-            $clientId: '%env(string:PROVIDER_DIGIKEY_CLIENT_ID)%'
-            $currency: '%env(string:PROVIDER_DIGIKEY_CURRENCY)%'
-            $language: '%env(string:PROVIDER_DIGIKEY_LANGUAGE)%'
-            $country: '%env(string:PROVIDER_DIGIKEY_COUNTRY)%'
-
     App\Services\InfoProviderSystem\Providers\OctopartProvider:
         arguments:
             $clientId: '&env(string:PROVIDER_OCTOPART_CLIENT_ID)%'
