@@ -12976,5 +12976,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Set to false to include non-authorized offers in the results</target>
       </segment>
     </unit>
+    <unit id="iRDDtdU" name="settings.misc.exchange_rate">
+      <segment>
+        <source>settings.misc.exchange_rate</source>
+        <target>Money exchange rates</target>
+      </segment>
+    </unit>
+    <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
+      <segment>
+        <source>settings.misc.exchange_rate.fixer_api_key</source>
+        <target>Fixer.io API Key</target>
+      </segment>
+    </unit>
+    <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
+      <segment>
+        <source>settings.misc.exchange_rate.fixer_api_key.help</source>
+        <target>If you need exchange rates between non-euro currencies, you can input an API key from fixer.io here.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

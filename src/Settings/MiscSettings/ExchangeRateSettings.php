@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -23,15 +23,19 @@ declare(strict_types=1);
 
 namespace App\Settings\MiscSettings;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
-class MiscSettings
+#[Settings(name: "exchange_rate", label: new TM("settings.misc.exchange_rate"))]
+#[SettingsIcon("fa-money-bill-transfer")]
+class ExchangeRateSettings
 {
-    #[EmbeddedSettings]
-    public ?KiCadEDASettings $kicadEDA = null;
-
-    #[EmbeddedSettings]
-    public ?ExchangeRateSettings $exchangeRate = null;
+    #[SettingsParameter(label: new TM("settings.misc.exchange_rate.fixer_api_key"),
+        description: new TM("settings.misc.exchange_rate.fixer_api_key.help"),
+        envVar: "FIXER_API_KEY", envVarMode: EnvVarMode::OVERWRITE,
+        )]
+    public ?string $fixerApiKey = null;
 }
