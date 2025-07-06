@@ -244,7 +244,9 @@ class KiCadHelper
             foreach ($part->getOrderdetails(false) as $orderdetail) {
                 if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
                     $supplierName = $orderdetail->getSupplier()->getName();
-                    
+
+                    $supplierName .= " SPN"; // Append "SPN" to the supplier name to indicate Supplier Part Number
+
                     if (!isset($supplierCounts[$supplierName])) {
                         $supplierCounts[$supplierName] = 0;
                     }
