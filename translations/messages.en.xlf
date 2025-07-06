@@ -12922,5 +12922,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Pollin.de offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
       </segment>
     </unit>
+    <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
+      <segment>
+        <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
+        <target>Root nodes redirect to new entity pages</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
