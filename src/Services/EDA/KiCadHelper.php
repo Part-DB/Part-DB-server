@@ -266,7 +266,7 @@ class KiCadHelper
         if ($part->getManufacturer() !== null) {
             $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
         }
-        if ($part->getManufacturerProductNumber() !== null) {
+        if ($part->getManufacturerProductNumber() !== "") {
             $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
         }
 
