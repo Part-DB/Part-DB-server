@@ -15456,5 +15456,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Invalid regular expression (regex)</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Your synonym: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

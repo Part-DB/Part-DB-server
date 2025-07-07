@@ -15455,5 +15455,11 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Ungültiger regulärer Ausdruck (regex)</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Ihr Synonym: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

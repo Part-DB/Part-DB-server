@@ -16,6 +16,20 @@ parameters:
 
   partdb.create_assembly_use_ipn_placeholder_in_name: '%env(bool:CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME)%' # Use an %%ipn%% placeholder in the name of an assembly. Placeholder is replaced with the ipn input while saving.
 
+  partdb.data_sources.synonyms:                               # Define your own synonyms for the given data sources
+                                                              # Possible datasources: category, storagelocation, footprint, manufacturer, supplier, project, assembly
+                                                              # Possible locales like the ones in 'partdb.locale_menu': en, de, it, fr, ru, ja, cs, da, zh, pl
+    #category:
+      #de: 'Bauteil Kategorien'
+      #en: 'Part categories'
+    #project:
+      #de: 'Geräte'
+      #en: 'Devices'
+    #assembly:
+      #de: 'Zusammengestellte Baugruppe'
+      #en: 'Combined assembly'
+
+
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################

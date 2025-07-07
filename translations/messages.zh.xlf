@@ -13474,5 +13474,11 @@ Element 3</target>
         <target>无效的正则表达式（regex）</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (您的同义词: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
