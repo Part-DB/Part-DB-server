@@ -24,19 +24,17 @@ namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementNormalizerTest
  */
-class StructuralElementNormalizer implements NormalizerInterface
+class StructuralElementNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
-    public function __construct(
-        #[Autowire(service: ObjectNormalizer::class)]private readonly NormalizerInterface $normalizer
-    )
-    {
-    }
+    use NormalizerAwareTrait;
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -48,7 +46,7 @@ class StructuralElementNormalizer implements NormalizerInterface
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): mixed
+    public function normalize($object, ?string $format = null, array $context = []): \ArrayObject|bool|float|int|string
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');

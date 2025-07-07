@@ -41,7 +41,7 @@ class SelectTypeOrderExtension extends AbstractTypeExtension
         ];
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('ordered', false);
         $resolver->setDefault('by_reference', function (Options $options) {
@@ -50,7 +50,7 @@ class SelectTypeOrderExtension extends AbstractTypeExtension
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         //Pass the data in ordered form to the frontend controller, so it can make the items appear in the correct order.
         if ($options['ordered']) {
