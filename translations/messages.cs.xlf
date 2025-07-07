@@ -14745,5 +14745,11 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Neplatný regulární výraz (regex)</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Váš synonymum: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

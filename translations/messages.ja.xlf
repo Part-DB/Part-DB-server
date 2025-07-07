@@ -9757,5 +9757,11 @@ Exampletown</target>
         <target>無効な正規表現（regex）</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (あなたの同義語: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

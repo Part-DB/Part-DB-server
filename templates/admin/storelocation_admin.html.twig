@@ -2,7 +2,9 @@
 {% import "label_system/dropdown_macro.html.twig" as dropdown %}
 
 {% block card_title %}
-    <i class="fas fa-cube fa-fw"></i> {% trans %}storelocation.labelp{% endtrans %}
+    {% set dataSourceName = get_data_source_name('storagelocation', 'storelocation.labelp') %}
+    {% set translatedSource = 'storelocation.labelp'|trans %}
+    <i class="fas fa-cube fa-fw"></i> {% if dataSourceName != translatedSource %}{{ 'datasource.synonym'|trans({'%name%': translatedSource, '%synonym%': dataSourceName}) }}{% else %}{{ translatedSource }}{% endif %}
 {% endblock %}
 
 {% block additional_controls %}

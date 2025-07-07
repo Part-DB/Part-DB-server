@@ -1,7 +1,9 @@
 {% extends "admin/base_company_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-truck fa-fw"></i> {% trans %}supplier.caption{% endtrans %}
+    {% set dataSourceName = get_data_source_name('supplier', 'supplier.caption') %}
+    {% set translatedSource = 'supplier.caption'|trans %}
+    <i class="fas fa-truck fa-fw"></i> {% if dataSourceName != translatedSource %}{{ 'datasource.synonym'|trans({'%name%': translatedSource, '%synonym%': dataSourceName}) }}{% else %}{{ translatedSource }}{% endif %}
 {% endblock %}
 
 {% block additional_panes %}
