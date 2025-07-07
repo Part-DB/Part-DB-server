@@ -783,9 +783,6 @@
     "symfony/yaml": {
         "version": "v4.2.3"
     },
-    "symplify/easy-coding-standard": {
-        "version": "v7.1.3"
-    },
     "tecnickcom/tc-lib-barcode": {
         "version": "1.15.20"
     },
