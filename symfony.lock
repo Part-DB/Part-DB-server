@@ -216,15 +216,15 @@
         ]
     },
     "nelmio/security-bundle": {
-        "version": "2.4",
+        "version": "3.5",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "2.4",
-            "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
+            "ref": "71045833e4f882ad9de8c95fe47efb99a1eec2f7"
         },
         "files": [
-            "./config/packages/nelmio_security.yaml"
+            "config/packages/nelmio_security.yaml"
         ]
     },
     "nikic/php-parser": {
