@@ -13489,5 +13489,11 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
         <target>Nieprawidłowe wyrażenie regularne (regex)</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Twój synonim: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
