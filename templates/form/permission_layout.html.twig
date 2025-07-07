@@ -6,12 +6,31 @@
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input tristate permission-checkbox permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
                     <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
-                        <b>{{ form.vars.label | trans }}</b>
+                        {% set dataSource = '' %}
+                        {% if (form.vars.label == 'perm.categories') %}
+                            {% set dataSource = 'category' %}
+                        {% elseif (form.vars.label == 'perm.storelocations') %}
+                            {% set dataSource = 'storagelocation' %}
+                        {% elseif (form.vars.label == 'perm.footprints') %}
+                            {% set dataSource = 'footprint' %}
+                        {% elseif (form.vars.label == 'perm.manufacturers') %}
+                            {% set dataSource = 'manufacturer' %}
+                        {% elseif (form.vars.label == 'perm.suppliers') %}
+                            {% set dataSource = 'supplier' %}
+                        {% elseif (form.vars.label == 'perm.projects') %}
+                            {% set dataSource = 'project' %}
+                        {% elseif (form.vars.label == 'perm.assemblies') %}
+                            {% set dataSource = 'assembly' %}
+                        {% endif %}
+
+                        {% set dataSourceName = get_data_source_name(dataSource, form.vars.label) %}
+                        {% set translatedSource = form.vars.label|trans %}
+                        {% if dataSourceName != translatedSource %}<b>{{ 'datasource.synonym'|trans({'%name%': translatedSource ~ '<br>', '%synonym%': dataSourceName})|raw }}{% else %}{{ translatedSource }}</b>{% endif %}
                     </label>
                 </div>
 
             {% else %}
-                <b>{{ form.vars.label | trans }}</b>
+                <b>def{{ form.vars.label | trans }}</b>
             {% endif %}
 
 

@@ -29,6 +29,7 @@ use App\DataTables\Filters\AssemblyFilter;
 use App\Entity\AssemblySystem\Assembly;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
+use App\Entity\UserSystem\User;
 use App\Exceptions\InvalidRegexException;
 use App\Form\AssemblySystem\AssemblyAddPartsType;
 use App\Form\AssemblySystem\AssemblyBuildType;
