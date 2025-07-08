@@ -401,6 +401,12 @@
         <target>Tato sestava již existuje jako položka v seznamu materiálů!</target>
       </segment>
     </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>Byl zjištěn cyklus: Sestava "%name%" nepřímo odkazuje sama na sebe.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
