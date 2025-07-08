@@ -389,6 +389,12 @@
         <target>Ova se montaža već nalazi kao zapis!</target>
       </segment>
     </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>Otkriven je ciklus: Sklop "%name%" neizravno referencira samog sebe.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

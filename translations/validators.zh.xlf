@@ -377,6 +377,12 @@
         <target>此装配已经作为条目存在！</target>
       </segment>
     </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>检测到循环：装配体“%name%”间接引用了其自身。</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
