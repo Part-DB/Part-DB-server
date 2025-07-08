@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\AssemblySystem;
 
 use App\Repository\AssemblyRepository;
+use App\Validator\Constraints\AssemblySystem\AssemblyCycle;
 use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -113,6 +114,7 @@ class Assembly extends AbstractStructuralDBElement
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\OneToMany(targetEntity: AssemblyBOMEntry::class, mappedBy: 'assembly', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.part_already_in_bom', fields: ['part'])]
+    #[AssemblyCycle]
     #[UniqueReferencedAssembly]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.project_already_in_bom', fields: ['project'])]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.name_already_in_bom', fields: ['name'])]

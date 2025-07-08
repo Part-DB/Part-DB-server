@@ -389,6 +389,12 @@
         <target>To zestawienie jest już dodane jako wpis!</target>
       </segment>
     </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>循環が検出されました: アセンブリ「%name%」が間接的に自身を参照しています。</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

@@ -38,6 +38,7 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\ProjectSystem\Project;
 use App\Repository\DBElementRepository;
+use App\Validator\Constraints\AssemblySystem\AssemblyCycle;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -140,6 +141,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         '(this.getPart() === null or this.getReferencedAssembly() === null) and (this.getName() === null or (this.getName() != null and this.getName() != ""))',
         message: 'validator.assembly.bom_entry.only_part_or_assembly_allowed'
     )]
+    #[AssemblyCycle]
     #[ORM\ManyToOne(targetEntity: Assembly::class)]
     #[ORM\JoinColumn(name: 'id_referenced_assembly', nullable: true, onDelete: 'SET NULL')]
     #[Groups(['bom_entry:read', 'bom_entry:write', ])]
