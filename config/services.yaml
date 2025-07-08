@@ -168,6 +168,9 @@ services:
         arguments:
             $useAssemblyIpnPlaceholder: '%partdb.create_assembly_use_ipn_placeholder_in_name%'
 
+    App\Validator\Constraints\AssemblySystem\AssemblyCycleValidator:
+        tags: [ 'validator.constraint_validator' ]
+
     ####################################################################################################################
     # Table settings
     ####################################################################################################################

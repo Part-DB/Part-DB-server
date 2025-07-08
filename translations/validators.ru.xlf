@@ -389,6 +389,12 @@
         <target>Этот сборочный узел уже добавлен как запись!</target>
       </segment>
     </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>Обнаружен цикл: Сборка «%name%» косвенно ссылается на саму себя.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
