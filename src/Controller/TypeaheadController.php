@@ -197,6 +197,7 @@ class TypeaheadController extends AbstractController
             $partId = null;
         }
         $categoryId = $request->query->getInt('categoryId');
+        $description = $request->query->getString('description');
 
         /** @var Part $part */
         $part = $partId !== null ? $entityManager->getRepository(Part::class)->find($partId) : new Part();
@@ -206,7 +207,7 @@ class TypeaheadController extends AbstractController
         $clonedPart->setCategory($category);
 
         $partRepository = $entityManager->getRepository(Part::class);
-        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $this->autocompletePartDigits);
+        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->autocompletePartDigits);
 
         return new JsonResponse($ipnSuggestions);
     }
