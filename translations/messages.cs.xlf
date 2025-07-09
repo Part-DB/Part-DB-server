@@ -1854,6 +1854,18 @@ Související prvky budou přesunuty nahoru.</target>
         <target>Návrhy s číselnými přírůstky částí</target>
       </segment>
     </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Aktuální specifikace IPN pro součást</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Další možná specifikace IPN na základě identického popisu součásti</target>
+      </segment>
+    </unit>
     <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>

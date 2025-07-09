@@ -1853,6 +1853,18 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Vorschläge mit numerischen Teil-Inkrement</target>
       </segment>
     </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Aktuelle IPN-Angabe des Bauteils</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Nächstmögliche IPN-Angabe auf Basis der identischen Bauteil-Beschreibung</target>
+      </segment>
+    </unit>
     <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>

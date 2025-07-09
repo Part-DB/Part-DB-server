@@ -86,6 +86,7 @@ class PartBaseType extends AbstractType
                 'attr' => [
                     'placeholder' => 'part.edit.description.placeholder',
                     'rows' => 2,
+                    'data-ipn-suggestion' => 'descriptionField',
                 ],
             ])
             ->add('minAmount', SIUnitType::class, [
