@@ -1832,6 +1832,18 @@ Show/Hide sidebar</target>
         <target>Propositions avec incréments numériques de parties</target>
       </segment>
     </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Spécification IPN actuelle pour la pièce</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Prochaine spécification IPN possible basée sur une description identique de la pièce</target>
+      </segment>
+    </unit>
     <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>

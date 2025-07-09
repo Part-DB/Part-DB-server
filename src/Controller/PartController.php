@@ -394,7 +394,7 @@ class PartController extends AbstractController
         return $this->render($template,
             [
                 'part' => $new_part,
-                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, $this->autocompletePartDigits),
+                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, base64_encode($data->getDescription()), $this->autocompletePartDigits),
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
                 'merge_other' => $merge_infos['other_part'] ?? null

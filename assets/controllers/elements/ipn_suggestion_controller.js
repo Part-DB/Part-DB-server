@@ -6,6 +6,7 @@ export default class extends Controller {
     static values = {
         partId: Number,
         partCategoryId: Number,
+        partDescription: String,
         suggestions: Object,
         commonSectionHeader: String, // Dynamic header for common Prefixes
         partIncrementHeader: String, // Dynamic header for new possible part increment
@@ -15,6 +16,7 @@ export default class extends Controller {
     connect() {
         this.configureAutocomplete();
         this.watchCategoryChanges();
+        this.watchDescriptionChanges();
     }
 
     templates = {
@@ -92,34 +94,6 @@ export default class extends Controller {
         const panelLayout = document.createElement("div");
         panelLayout.classList.add("aa-PanelLayout", "aa-Panel--scrollable");
 
-        // Section for common prefixes
-        if (commonPrefixes.length) {
-            const commonSection = document.createElement("section");
-            commonSection.classList.add("aa-Source");
-
-            const commonSectionHeader = this.templates.commonSectionHeader({
-                title: commonHeader,
-                html: String.raw,
-            });
-            commonSection.innerHTML += commonSectionHeader;
-
-            const commonList = document.createElement("ul");
-            commonList.classList.add("aa-List");
-            commonList.setAttribute("role", "listbox");
-
-            commonPrefixes.forEach((prefix) => {
-                const itemHTML = this.templates.item({
-                    suggestion: prefix.title,
-                    description: prefix.description,
-                    html: String.raw,
-                });
-                commonList.innerHTML += itemHTML;
-            });
-
-            commonSection.appendChild(commonList);
-            panelLayout.appendChild(commonSection);
-        }
-
         // Section for prefixes part increment
         if (prefixesPartIncrement.length) {
             const partIncrementSection = document.createElement("section");
@@ -146,6 +120,34 @@ export default class extends Controller {
 
             partIncrementSection.appendChild(partIncrementList);
             panelLayout.appendChild(partIncrementSection);
+        }
+
+        // Section for common prefixes
+        if (commonPrefixes.length) {
+            const commonSection = document.createElement("section");
+            commonSection.classList.add("aa-Source");
+
+            const commonSectionHeader = this.templates.commonSectionHeader({
+                title: commonHeader,
+                html: String.raw,
+            });
+            commonSection.innerHTML += commonSectionHeader;
+
+            const commonList = document.createElement("ul");
+            commonList.classList.add("aa-List");
+            commonList.setAttribute("role", "listbox");
+
+            commonPrefixes.forEach((prefix) => {
+                const itemHTML = this.templates.item({
+                    suggestion: prefix.title,
+                    description: prefix.description,
+                    html: String.raw,
+                });
+                commonList.innerHTML += itemHTML;
+            });
+
+            commonSection.appendChild(commonList);
+            panelLayout.appendChild(commonSection);
         }
 
         panel.appendChild(panelLayout);
@@ -176,25 +178,48 @@ export default class extends Controller {
 
     watchCategoryChanges() {
         const categoryField = document.querySelector('[data-ipn-suggestion="categoryField"]');
+        const descriptionField = document.querySelector('[data-ipn-suggestion="descriptionField"]');
         this.previousCategoryId = Number(this.partCategoryIdValue);
 
         if (categoryField) {
             categoryField.addEventListener("change", () => {
                 const categoryId = Number(categoryField.value);
+                const description = String(descriptionField.value);
 
                 // Check whether the category has changed compared to the previous ID
                 if (categoryId !== this.previousCategoryId) {
-                    this.fetchNewSuggestions(categoryId);
+                    this.fetchNewSuggestions(categoryId, description);
                     this.previousCategoryId = categoryId;
                 }
             });
         }
     }
 
-    fetchNewSuggestions(categoryId) {
+    watchDescriptionChanges() {
+        const categoryField = document.querySelector('[data-ipn-suggestion="categoryField"]');
+        const descriptionField = document.querySelector('[data-ipn-suggestion="descriptionField"]');
+        this.previousDescription = String(this.partDescriptionValue);
+
+        if (descriptionField) {
+            descriptionField.addEventListener("input", () => {
+                const categoryId = Number(categoryField.value);
+                const description = String(descriptionField.value);
+
+                // Check whether the description has changed compared to the previous one
+                if (description !== this.previousDescription) {
+                    this.fetchNewSuggestions(categoryId, description);
+                    this.previousDescription = description;
+                }
+            });
+        }
+    }
+
+    fetchNewSuggestions(categoryId, description) {
         const baseUrl = this.suggestUrlValue;
         const partId = this.partIdValue;
-        const url = `${baseUrl}?partId=${partId}&categoryId=${categoryId}`;
+        const truncatedDescription = description.length > 150 ? description.substring(0, 150) : description;
+        const encodedDescription = this.base64EncodeUtf8(truncatedDescription);
+        const url = `${baseUrl}?partId=${partId}&categoryId=${categoryId}&description=${encodedDescription}`;
 
         fetch(url, {
             method: "GET",
@@ -216,5 +241,10 @@ export default class extends Controller {
             .catch((error) => {
                 console.error("Errors when loading the new IPN-suggestions:", error);
             });
+    };
+
+    base64EncodeUtf8(text) {
+        const utf8Bytes = new TextEncoder().encode(text);
+        return btoa(String.fromCharCode(...utf8Bytes));
     };
 }

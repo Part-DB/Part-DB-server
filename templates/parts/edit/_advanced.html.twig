@@ -4,6 +4,7 @@
 <div {{ stimulus_controller('elements/ipn_suggestion', {
     partId: part.id,
     partCategoryId: part.category ? part.category.id : null,
+    partDescription: part.description,
     suggestions: ipnSuggestions,
     'commonSectionHeader': 'part.edit.tab.advanced.ipn.commonSectionHeader'|trans,
     'partIncrementHeader': 'part.edit.tab.advanced.ipn.partIncrementHeader'|trans,
