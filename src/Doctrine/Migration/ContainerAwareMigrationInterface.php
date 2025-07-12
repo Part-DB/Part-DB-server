@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Migration;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 interface ContainerAwareMigrationInterface
 {

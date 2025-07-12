@@ -28,7 +28,7 @@ use Doctrine\Migrations\AbstractMigration;
 use Doctrine\Migrations\Version\MigrationFactory;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 #[AsDecorator("doctrine.migrations.migrations_factory")]
 class ContainerAwareMigrationFactory implements MigrationFactory
