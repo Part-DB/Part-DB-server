@@ -608,7 +608,16 @@
         "version": "v4.2.3"
     },
     "symfony/property-info": {
-        "version": "v4.2.3"
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.3",
+            "ref": "dae70df71978ae9226ae915ffd5fad817f5ca1f7"
+        },
+        "files": [
+            "./config/packages/property_info.yaml"
+        ]
     },
     "symfony/routing": {
         "version": "6.2",
