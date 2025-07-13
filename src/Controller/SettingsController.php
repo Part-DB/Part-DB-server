@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Settings\AppSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -49,7 +50,7 @@ class SettingsController extends AbstractController
         $builder = $this->settingsFormFactory->createSettingsFormBuilder($settings);
 
         //Add a submit button to the form
-        $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' => 'save']);
+        $builder->add('submit', SubmitType::class, ['label' => 'save']);
 
         //Create the form
         $form = $builder->getForm();
