@@ -87,7 +87,7 @@ class ValidGoogleAuthCodeValidatorTest extends ConstraintValidatorTestCase
                         return [];
                     }
 
-                    public function eraseCredentials()
+                    public function eraseCredentials(): void
                     {
                     }
 

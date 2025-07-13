@@ -46,7 +46,7 @@ class Element14Provider implements InfoProviderInterface
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
     private readonly HttpClientInterface $element14Client;
-    
+
     public function __construct(HttpClientInterface $element14Client, private readonly Element14Settings $settings)
     {
         /* We use the mozilla CA from the composer ca bundle directly, as some debian systems seems to have problems
@@ -77,7 +77,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return trim($this->settings->apiKey) !== '';
+        return $this->settings->apiKey !== null && trim($this->settings->apiKey) !== '';
     }
 
     /**
