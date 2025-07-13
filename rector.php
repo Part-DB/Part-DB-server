@@ -7,6 +7,7 @@ use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
+use Rector\PHPUnit\CodeQuality\Rector\MethodCall\AssertEmptyNullableObjectToAssertInstanceofRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -32,6 +33,8 @@ return RectorConfig::configure()
 
     ->withSets([
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        PHPUnitSetList::PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT_110,
     ])
 
     ->withRules([
@@ -39,6 +42,10 @@ return RectorConfig::configure()
     ])
 
     ->withSkip([
+        //Leave our AssertNull tests alone
+        AssertEmptyNullableObjectToAssertInstanceofRector::class,
+
+
         CountArrayToEmptyArrayComparisonRector::class,
         //Leave our !== null checks alone
         FlipTypeControlToUseExclusiveTypeRector::class,
