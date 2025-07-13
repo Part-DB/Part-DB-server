@@ -47,7 +47,7 @@ class TimeTravelTest extends KernelTestCase
         $undeletedCategory = $this->service->undeleteEntity(Category::class, 100);
 
         $this->assertInstanceOf(Category::class, $undeletedCategory);
-        $this->assertEquals(100, $undeletedCategory->getId());
+        $this->assertSame(100, $undeletedCategory->getId());
     }
 
     public function testApplyEntry(): void
@@ -65,8 +65,8 @@ class TimeTravelTest extends KernelTestCase
 
         $this->service->applyEntry($category, $logEntry);
 
-        $this->assertEquals('Old Category', $category->getName());
-        $this->assertEquals('Old Comment', $category->getComment());
+        $this->assertSame('Old Category', $category->getName());
+        $this->assertSame('Old Comment', $category->getComment());
     }
 
     public function testRevertEntityToTimestamp(): void

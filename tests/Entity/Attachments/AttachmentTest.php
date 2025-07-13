@@ -231,7 +231,7 @@ class AttachmentTest extends TestCase
         //Ensure that changing the external path does reset the internal one
         $attachment->setInternalPath('%MEDIA%/foo/bar.txt');
         $attachment->setExternalPath('https://example.de');
-        $this->assertSame(null, $attachment->getInternalPath());
+        $this->assertNull($attachment->getInternalPath());
 
         //Ensure that setting the same value to the external path again doesn't reset the internal one
         $attachment->setExternalPath('https://google.de');

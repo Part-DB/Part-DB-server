@@ -53,7 +53,7 @@ class EIGP114BarcodeScanResultTest extends TestCase
             '4L' => 'US',
             '13Z' => 'Digi-Key',
         ]);
-        $this->assertEquals('digikey', $barcode->guessBarcodeVendor());
+        $this->assertSame('digikey', $barcode->guessBarcodeVendor());
 
         //Mouser barcode:
         $barcode = new EIGP114BarcodeScanResult([
@@ -66,7 +66,7 @@ class EIGP114BarcodeScanResultTest extends TestCase
             '1V' => 'Mouser',
         ]);
 
-        $this->assertEquals('mouser', $barcode->guessBarcodeVendor());
+        $this->assertSame('mouser', $barcode->guessBarcodeVendor());
 
         //Farnell barcode:
         $barcode = new EIGP114BarcodeScanResult([
@@ -79,7 +79,7 @@ class EIGP114BarcodeScanResultTest extends TestCase
             '3P' => 'Farnell',
         ]);
 
-        $this->assertEquals('element14', $barcode->guessBarcodeVendor());
+        $this->assertSame('element14', $barcode->guessBarcodeVendor());
     }
 
     public function testIsFormat06Code(): void
@@ -104,7 +104,7 @@ class EIGP114BarcodeScanResultTest extends TestCase
     public function testParseFormat06Code(): void
     {
         $barcode = EIGP114BarcodeScanResult::parseFormat06Code("[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04");
-        $this->assertEquals([
+        $this->assertSame([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
             'Q' => '3',
@@ -125,32 +125,32 @@ class EIGP114BarcodeScanResultTest extends TestCase
             '4L' => 'US',
         ]);
 
-        $this->assertEquals('596-777A1-ND', $barcode->customerPartNumber);
-        $this->assertEquals('XAF4444', $barcode->supplierPartNumber);
-        $this->assertEquals(3, $barcode->quantity);
-        $this->assertEquals('1452', $barcode->alternativeDateCode);
-        $this->assertEquals('BF1103', $barcode->lotCode);
-        $this->assertEquals('US', $barcode->countryOfOrigin);
+        $this->assertSame('596-777A1-ND', $barcode->customerPartNumber);
+        $this->assertSame('XAF4444', $barcode->supplierPartNumber);
+        $this->assertSame(3, $barcode->quantity);
+        $this->assertSame('1452', $barcode->alternativeDateCode);
+        $this->assertSame('BF1103', $barcode->lotCode);
+        $this->assertSame('US', $barcode->countryOfOrigin);
     }
 
     public function testDigikeyParsing(): void
     {
         $barcode = EIGP114BarcodeScanResult::parseFormat06Code("[)>\x1e06\x1dPQ1045-ND\x1d1P364019-01\x1d30PQ1045-ND\x1dK12432 TRAVIS FOSS P\x1d1K85732873\x1d10K103332956\x1d9D231013\x1d1TQJ13P\x1d11K1\x1d4LTW\x1dQ3\x1d11ZPICK\x1d12Z7360988\x1d13Z999999\x1d20Z0000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
-        $this->assertEquals('digikey', $barcode->guessBarcodeVendor());
+        $this->assertSame('digikey', $barcode->guessBarcodeVendor());
 
-        $this->assertEquals('Q1045-ND', $barcode->customerPartNumber);
-        $this->assertEquals('364019-01', $barcode->supplierPartNumber);
-        $this->assertEquals(3, $barcode->quantity);
-        $this->assertEquals('231013', $barcode->dateCode);
-        $this->assertEquals('QJ13P', $barcode->lotCode);
-        $this->assertEquals('TW', $barcode->countryOfOrigin);
-        $this->assertEquals('Q1045-ND', $barcode->digikeyPartNumber);
-        $this->assertEquals('85732873', $barcode->digikeySalesOrderNumber);
-        $this->assertEquals('103332956', $barcode->digikeyInvoiceNumber);
-        $this->assertEquals('PICK', $barcode->digikeyLabelType);
-        $this->assertEquals('7360988', $barcode->digikeyPartID);
-        $this->assertEquals('999999', $barcode->digikeyNA);
-        $this->assertEquals('0000000000000000000000000000000000000000000000000000000000000000000000000000000000000', $barcode->digikeyPadding);
+        $this->assertSame('Q1045-ND', $barcode->customerPartNumber);
+        $this->assertSame('364019-01', $barcode->supplierPartNumber);
+        $this->assertSame(3, $barcode->quantity);
+        $this->assertSame('231013', $barcode->dateCode);
+        $this->assertSame('QJ13P', $barcode->lotCode);
+        $this->assertSame('TW', $barcode->countryOfOrigin);
+        $this->assertSame('Q1045-ND', $barcode->digikeyPartNumber);
+        $this->assertSame('85732873', $barcode->digikeySalesOrderNumber);
+        $this->assertSame('103332956', $barcode->digikeyInvoiceNumber);
+        $this->assertSame('PICK', $barcode->digikeyLabelType);
+        $this->assertSame('7360988', $barcode->digikeyPartID);
+        $this->assertSame('999999', $barcode->digikeyNA);
+        $this->assertSame('0000000000000000000000000000000000000000000000000000000000000000000000000000000000000', $barcode->digikeyPadding);
     }
 }

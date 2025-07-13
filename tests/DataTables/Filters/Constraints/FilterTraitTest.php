@@ -52,7 +52,7 @@ class FilterTraitTest extends TestCase
     #[DataProvider('isAggregateFunctionStringDataProvider')]
     public function testIsAggregateFunctionString(bool $expected, string $input): void
     {
-        $this->assertEquals($expected, $this->isAggregateFunctionString($input));
+        $this->assertSame($expected, $this->isAggregateFunctionString($input));
     }
 
 }

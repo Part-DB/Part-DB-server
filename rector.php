@@ -35,6 +35,9 @@ return RectorConfig::configure()
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
         PHPUnitSetList::PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_110,
+        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+
+        
     ])
 
     ->withRules([
