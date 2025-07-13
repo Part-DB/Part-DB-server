@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -67,9 +68,7 @@ class GlobalProvidersTest extends WebTestCase
         yield ['anonymous', '[[USERNAME]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

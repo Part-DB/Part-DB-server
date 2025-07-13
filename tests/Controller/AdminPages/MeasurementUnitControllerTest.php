@@ -22,12 +22,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\Parts\MeasurementUnit;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group('slow')]
+#[Group('DB')]
 class MeasurementUnitControllerTest extends AbstractAdminControllerTest
 {
     protected static string $base_path = '/en/measurement_unit';

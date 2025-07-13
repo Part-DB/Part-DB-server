@@ -22,16 +22,17 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group('slow')]
+#[Group('DB')]
 class RedirectControllerTest extends WebTestCase
 {
     protected EntityManagerInterface $em;
@@ -64,10 +65,9 @@ class RedirectControllerTest extends WebTestCase
 
     /**
      * Test if a certain request to an url will be redirected.
-     *
-     * @dataProvider urlMatchDataProvider
-     * @group slow
      */
+    #[DataProvider('urlMatchDataProvider')]
+    #[Group('slow')]
     public function testUrlMatch($url, $expect_redirect): void
     {
         //$client = static::createClient();
@@ -97,11 +97,10 @@ class RedirectControllerTest extends WebTestCase
 
     /**
      * Test if the user is redirected to the localized version of a page, based on his settings.
-     *
-     * @dataProvider urlAddLocaleDataProvider
-     * @group slow
-     * @depends      testUrlMatch
      */
+    #[Depends('testUrlMatch')]
+    #[DataProvider('urlAddLocaleDataProvider')]
+    #[Group('slow')]
     public function testAddLocale(?string $user_locale, string $input_path, string $redirect_path): void
     {
         //Redirect path is absolute
@@ -121,10 +120,9 @@ class RedirectControllerTest extends WebTestCase
     /**
      * Test if the user is redirected to the localized version of a page, based on his settings.
      * We simulate the situation of a reverse proxy here, by adding a prefix to the path.
-     *
-     * @dataProvider urlAddLocaleDataProvider
-     * @group slow
      */
+    #[DataProvider('urlAddLocaleDataProvider')]
+    #[Group('slow')]
     public function testAddLocaleReverseProxy(?string $user_locale, string $input_path, string $redirect_path): void
     {
         //Input path remains unchanged, as this is what the server receives from the proxy
@@ -147,10 +145,9 @@ class RedirectControllerTest extends WebTestCase
     /**
      * Test if the user is redirected to the localized version of a page, based on his settings.
      * We simulate the situation of serving Part-DB in a subfolder here.
-     *
-     * @dataProvider urlAddLocaleDataProvider
-     * @group slow
      */
+    #[DataProvider('urlAddLocaleDataProvider')]
+    #[Group('slow')]
     public function testAddLocaleSubfolder(?string $user_locale, string $input_path, string $redirect_path): void
     {
         //Prefix our path with the proxy prefix

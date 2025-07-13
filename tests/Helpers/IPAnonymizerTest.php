@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Helpers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Helpers\IPAnonymizer;
 use PHPUnit\Framework\TestCase;
 
@@ -36,9 +37,7 @@ class IPAnonymizerTest extends TestCase
         yield ['fe80::', 'fe80::1fc4:15d8:78db:2319%enp4s0'];
     }
 
-    /**
-     * @dataProvider anonymizeDataProvider
-     */
+    #[DataProvider('anonymizeDataProvider')]
     public function testAnonymize(string $expected, string $input): void
     {
         $this->assertSame($expected, IPAnonymizer::anonymize($input));

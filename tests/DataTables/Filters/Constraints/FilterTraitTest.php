@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\DataTables\Filters\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\DataTables\Filters\Constraints\FilterTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -48,9 +49,7 @@ class FilterTraitTest extends TestCase
         yield [true, 'MAX(attachments.value)'];
     }
 
-    /**
-     * @dataProvider isAggregateFunctionStringDataProvider
-     */
+    #[DataProvider('isAggregateFunctionStringDataProvider')]
     public function testIsAggregateFunctionString(bool $expected, string $input): void
     {
         $this->assertEquals($expected, $this->isAggregateFunctionString($input));

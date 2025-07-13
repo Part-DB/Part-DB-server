@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Services\LabelSystem\LabelTextReplacer;
@@ -94,17 +95,13 @@ class LabelTextReplacerTest extends WebTestCase
         yield ['TEST[[ ]]TEST', 'TEST[[ ]]TEST'];
     }
 
-    /**
-     * @dataProvider handlePlaceholderDataProvider
-     */
+    #[DataProvider('handlePlaceholderDataProvider')]
     public function testHandlePlaceholder(string $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->handlePlaceholder($input, $this->target));
     }
 
-    /**
-     * @dataProvider replaceDataProvider
-     */
+    #[DataProvider('replaceDataProvider')]
     public function testReplace(string $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->replace($input, $this->target));

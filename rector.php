@@ -30,6 +30,10 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
 
+    ->withSets([
+        PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
+    ])
+
     ->withRules([
         DeclareStrictTypesRector::class
     ])

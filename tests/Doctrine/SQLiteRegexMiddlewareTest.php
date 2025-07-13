@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Doctrine;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Doctrine\Middleware\SQLiteRegexExtensionMiddlewareDriver;
 use PHPUnit\Framework\TestCase;
 
@@ -41,9 +42,7 @@ class SQLiteRegexMiddlewareTest extends TestCase
         yield [1, '^a\d+$', 'a123'];
     }
 
-    /**
-     * @dataProvider regexpDataProvider
-     */
+    #[DataProvider('regexpDataProvider')]
     public function testRegexp(int $expected, string $pattern, string $value): void
     {
         $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::regexp($pattern, $value));
@@ -73,17 +72,13 @@ class SQLiteRegexMiddlewareTest extends TestCase
         yield [6, 'c', ['b', 'a', 'b', 'a', 'b', 'c']];
     }
 
-    /**
-     * @dataProvider fieldDataProvider
-     */
+    #[DataProvider('fieldDataProvider')]
     public function testField(int $expected, string|int|null $value, array $array): void
     {
         $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::field($value, ...$array));
     }
 
-    /**
-     * @dataProvider fieldDataProvider
-     */
+    #[DataProvider('fieldDataProvider')]
     public function testField2(int $expected, string|int|null $value, array $array): void
     {
         //Should be the same as field, but with the array comma imploded

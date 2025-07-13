@@ -22,13 +22,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group('slow')]
+#[Group('DB')]
 abstract class AbstractAdminControllerTest extends WebTestCase
 {
     protected static string $base_path = 'not_valid';
@@ -43,10 +43,10 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider readDataProvider
-     * @group slow
      * Tests if you can access the /new part which is used to list all entities. Checks if permissions are working
      */
+    #[DataProvider('readDataProvider')]
+    #[Group('slow')]
     public function testListEntries(string $user, bool $read): void
     {
         static::ensureKernelShutdown();
@@ -72,10 +72,13 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider readDataProvider
-     * @group slow
      * Tests if it is possible to access a specific entity. Checks if permissions are working.
+     * @param  string  $user
+     * @param  bool  $read
+     * @return void
      */
+    #[DataProvider('readDataProvider')]
+    #[Group('slow')]
     public function testReadEntity(string $user, bool $read): void
     {
         //Test read access
@@ -106,10 +109,9 @@ abstract class AbstractAdminControllerTest extends WebTestCase
 
     /**
      * Tests if deleting an entity is working.
-     *
-     * @group slow
-     * @dataProvider deleteDataProvider
      */
+    #[DataProvider('deleteDataProvider')]
+    #[Group('slow')]
     public function testDeleteEntity(string $user, bool $delete): void
     {
         //Test read access

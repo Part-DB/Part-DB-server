@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\Attachments\AttachmentPathResolver;
 use const DIRECTORY_SEPARATOR;
@@ -119,17 +120,13 @@ class AttachmentPathResolverTest extends WebTestCase
         yield ['/not/root'.$this->footprint_path, null];
     }
 
-    /**
-     * @dataProvider placeholderDataProvider
-     */
+    #[DataProvider('placeholderDataProvider')]
     public function testPlaceholderToRealPath($param, $expected): void
     {
         $this->assertSame($expected, $this->service->placeholderToRealPath($param));
     }
 
-    /**
-     * @dataProvider realPathDataProvider
-     */
+    #[DataProvider('realPathDataProvider')]
     public function testRealPathToPlaceholder($param, $expected, $old_method = false): void
     {
         $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
@@ -154,9 +151,7 @@ class AttachmentPathResolverTest extends WebTestCase
         yield [$this->footprint_path . '/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png', '%FOOTPRINTS%/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png'];
     }
 
-    /**
-     * @dataProvider germanFootprintPathdDataProvider
-     */
+    #[DataProvider('germanFootprintPathdDataProvider')]
     public function testConversionOfGermanFootprintPaths(string $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->placeholderToRealPath($input));

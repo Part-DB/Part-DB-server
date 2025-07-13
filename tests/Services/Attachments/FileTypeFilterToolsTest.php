@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\FileTypeFilterTools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -85,25 +86,20 @@ class FileTypeFilterToolsTest extends WebTestCase
 
     /**
      * Test the validateFilterString method.
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidateFilterString(string $filter, bool $expected): void
     {
         $this->assertSame($expected, self::$service->validateFilterString($filter));
     }
 
-    /**
-     * @dataProvider normalizeDataProvider
-     */
+    #[DataProvider('normalizeDataProvider')]
     public function testNormalizeFilterString(string $filter, string $expected): void
     {
         $this->assertSame($expected, self::$service->normalizeFilterString($filter));
     }
 
-    /**
-     * @dataProvider extensionAllowedDataProvider
-     */
+    #[DataProvider('extensionAllowedDataProvider')]
     public function testIsExtensionAllowed(string $filter, string $extension, bool $expected): void
     {
         $this->assertSame($expected, self::$service->isExtensionAllowed($filter, $extension));

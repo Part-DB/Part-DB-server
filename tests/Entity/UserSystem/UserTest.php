@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\UserSystem;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpunit;
 use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use Doctrine\Common\Collections\Collection;
@@ -52,9 +54,7 @@ class UserTest extends TestCase
         yield ['SSSk38498', true];
     }
 
-    /**
-     * @dataProvider googleAuthenticatorEnabledDataProvider
-     */
+    #[DataProvider('googleAuthenticatorEnabledDataProvider')]
     public function testIsGoogleAuthenticatorEnabled(?string $secret, bool $expected): void
     {
         $user = new User();
@@ -62,9 +62,7 @@ class UserTest extends TestCase
         $this->assertSame($expected, $user->isGoogleAuthenticatorEnabled());
     }
 
-    /**
-     * @requires PHPUnit 8
-     */
+    #[RequiresPhpunit('8')]
     public function testSetBackupCodes(): void
     {
         $user = new User();

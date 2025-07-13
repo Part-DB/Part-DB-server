@@ -41,13 +41,12 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DatatablesAvailabilityTest extends WebTestCase
 {
-    /**
-     * @dataProvider urlProvider
-     */
+    #[DataProvider('urlProvider')]
     public function testDataTable(string $url, ?array $ordering = null): void
     {
         //We have localized routes

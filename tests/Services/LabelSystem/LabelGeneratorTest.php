@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelSupportedElement;
@@ -70,9 +71,7 @@ class LabelGeneratorTest extends WebTestCase
         yield [LabelSupportedElement::STORELOCATION, StorageLocation::class];
     }
 
-    /**
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(LabelSupportedElement $type, string $class): void
     {
         $options = new LabelOptions();

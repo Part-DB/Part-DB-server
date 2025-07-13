@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\Parameters;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parameters\PartParameter;
 use PHPUnit\Framework\TestCase;
 
@@ -80,9 +81,7 @@ class PartParameterTest extends TestCase
         yield ['10.23 $\mathrm{V}$ (9 $\mathrm{V}$ ... 11 $\mathrm{V}$) [Test]', 9, 10.23, 11, 'V', 'Test'];
     }
 
-    /**
-     * @dataProvider  valueWithUnitDataProvider
-     */
+    #[DataProvider('valueWithUnitDataProvider')]
     public function testGetValueMinWithUnit(string $expected, float $value, string $unit): void
     {
         $param = new PartParameter();
@@ -91,9 +90,7 @@ class PartParameterTest extends TestCase
         $this->assertSame($expected, $param->getValueMinWithUnit());
     }
 
-    /**
-     * @dataProvider  valueWithUnitDataProvider
-     */
+    #[DataProvider('valueWithUnitDataProvider')]
     public function testGetValueMaxWithUnit(string $expected, float $value, string $unit): void
     {
         $param = new PartParameter();
@@ -102,9 +99,7 @@ class PartParameterTest extends TestCase
         $this->assertSame($expected, $param->getValueMaxWithUnit());
     }
 
-    /**
-     * @dataProvider  valueWithUnitDataProvider
-     */
+    #[DataProvider('valueWithUnitDataProvider')]
     public function testGetValueTypicalWithUnit(string $expected, float $value, string $unit): void
     {
         $param = new PartParameter();
@@ -114,12 +109,12 @@ class PartParameterTest extends TestCase
     }
 
     /**
-     * @dataProvider formattedValueDataProvider
      *
      * @param float $min
      * @param float $typical
      * @param float $max
      */
+    #[DataProvider('formattedValueDataProvider')]
     public function testGetFormattedValue(string $expected, ?float $min, ?float $typical, ?float $max, string $unit, string $text): void
     {
         $param = new PartParameter();
@@ -132,12 +127,12 @@ class PartParameterTest extends TestCase
     }
 
     /**
-     * @dataProvider formattedValueWithLatexDataProvider
      *
      * @param float $min
      * @param float $typical
      * @param float $max
      */
+    #[DataProvider('formattedValueWithLatexDataProvider')]
     public function testGetFormattedValueWithLatex(string $expected, ?float $min, ?float $typical, ?float $max, string $unit, string $text): void
     {
         $param = new PartParameter();

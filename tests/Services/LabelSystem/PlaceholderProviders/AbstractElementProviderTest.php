@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Base\AbstractDBElement;
 use App\Services\LabelSystem\PlaceholderProviders\AbstractDBElementProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -68,9 +69,7 @@ class AbstractElementProviderTest extends WebTestCase
         yield ['123', '[[ID]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

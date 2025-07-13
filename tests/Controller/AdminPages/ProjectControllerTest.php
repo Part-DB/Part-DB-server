@@ -23,12 +23,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\ProjectSystem\Project;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group('slow')]
+#[Group('DB')]
 class ProjectControllerTest extends AbstractAdminControllerTest
 {
     protected static string $base_path = '/en/project';

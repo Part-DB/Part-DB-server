@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Parameters;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parameters\AbstractParameter;
 use App\Services\Parameters\ParameterExtractor;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -69,9 +70,7 @@ class ParameterExtractorTest extends WebTestCase
         yield ['A [link](https://demo.part-db.de) should not be matched'];
     }
 
-    /**
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testShouldReturnEmpty(string $input): void
     {
         $this->assertEmpty($this->service->extractParameters($input));

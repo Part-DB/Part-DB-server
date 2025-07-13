@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Parts;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -81,9 +82,7 @@ class PricedetailHelperTest extends WebTestCase
         yield [$part, 10.0, 'Part with multiple orderdetails failed'];
     }
 
-    /**
-     * @dataProvider maxDiscountAmountDataProvider
-     */
+    #[DataProvider('maxDiscountAmountDataProvider')]
     public function testGetMaxDiscountAmount(Part $part, ?float $expected_result, string $message): void
     {
         $this->assertSame($expected_result, $this->service->getMaxDiscountAmount($part), $message);

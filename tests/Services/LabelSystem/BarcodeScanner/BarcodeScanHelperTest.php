@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
@@ -140,17 +141,13 @@ class BarcodeScanHelperTest extends WebTestCase
         yield [''];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testNormalizeBarcodeContent(BarcodeScanResultInterface $expected, string $input): void
     {
         $this->assertEquals($expected, $this->service->scanBarcodeContent($input));
     }
 
-    /**
-     * @dataProvider invalidDataProvider
-     */
+    #[DataProvider('invalidDataProvider')]
     public function testInvalidFormats(string $input): void
     {
         $this->expectException(\InvalidArgumentException::class);

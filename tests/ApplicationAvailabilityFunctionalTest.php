@@ -22,20 +22,19 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * This test just ensures that different pages are available (do not throw an exception).
- *
- * @group DB
- * @group slow
  */
+#[Group('DB')]
+#[Group('slow')]
 class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
-    /**
-     * @dataProvider urlProvider
-     */
+    #[DataProvider('urlProvider')]
     public function testPageIsSuccessful(string $url): void
     {
         //We have localized routes

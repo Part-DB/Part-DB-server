@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use PHPUnit\Framework\TestCase;
 
@@ -234,18 +235,18 @@ class ParameterDTOTest extends TestCase
     }
 
     /**
-     * @dataProvider parseValueFieldDataProvider
      * @return void
      */
+    #[DataProvider('parseValueFieldDataProvider')]
     public function testParseValueField(ParameterDTO $expected, string $name, string|float $value, ?string $unit = null, ?string $symbol = null, ?string $group = null)
     {
         $this->assertEquals($expected, ParameterDTO::parseValueField($name, $value, $unit, $symbol, $group));
     }
 
     /**
-     * @dataProvider parseValueIncludingUnitDataProvider
      * @return void
      */
+    #[DataProvider('parseValueIncludingUnitDataProvider')]
     public function testParseValueIncludingUnit(ParameterDTO $expected, string $name, string|float $value, ?string $symbol = null, ?string $group = null)
     {
         $this->assertEquals($expected, ParameterDTO::parseValueIncludingUnit($name, $value, $symbol, $group));

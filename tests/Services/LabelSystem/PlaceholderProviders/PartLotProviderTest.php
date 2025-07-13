@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -101,9 +102,7 @@ class PartLotProviderTest extends WebTestCase
         yield ['user', '[[OWNER_USERNAME]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

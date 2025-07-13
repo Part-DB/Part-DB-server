@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
@@ -89,9 +91,7 @@ class AttachmentTest extends TestCase
         yield [UserAttachment::class, User::class];
     }
 
-    /**
-     * @dataProvider subClassesDataProvider
-     */
+    #[DataProvider('subClassesDataProvider')]
     public function testSetElement(string $attachment_class, string $allowed_class): void
     {
         /** @var Attachment $attachment */
@@ -106,10 +106,9 @@ class AttachmentTest extends TestCase
     /**
      * Test that all attachment subclasses like PartAttachment or similar returns an exception, when a not allowed
      * element is passed.
-     *
-     * @dataProvider subClassesDataProvider
-     * @depends  testSetElement
      */
+    #[Depends('testSetElement')]
+    #[DataProvider('subClassesDataProvider')]
     public function testSetElementExceptionOnSubClasses(string $attachment_class, string $allowed_class): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -135,9 +134,7 @@ class AttachmentTest extends TestCase
         yield [null,                      'test.txt',                   null,        null];
     }
 
-    /**
-     * @dataProvider extensionDataProvider
-     */
+    #[DataProvider('extensionDataProvider')]
     public function testGetExtension(?string $internal_path, ?string $external_path, ?string $originalFilename, ?string $expected): void
     {
         $attachment = new PartAttachment();
@@ -162,9 +159,7 @@ class AttachmentTest extends TestCase
         yield ['%SECURE%/foo.txt/test',   'https://test.de/picture.jpeg',                      false];
     }
 
-    /**
-     * @dataProvider pictureDataProvider
-     */
+    #[DataProvider('pictureDataProvider')]
     public function testIsPicture(?string $internal_path, ?string $external_path, bool $expected): void
     {
         $attachment = new PartAttachment();
@@ -184,9 +179,7 @@ class AttachmentTest extends TestCase
         yield ['%FOOTPRINTS%/foo/bar.txt', true];
     }
 
-    /**
-     * @dataProvider builtinDataProvider
-     */
+    #[DataProvider('builtinDataProvider')]
     public function testIsBuiltIn(?string $path, $expected): void
     {
         $attachment = new PartAttachment();
@@ -201,9 +194,7 @@ class AttachmentTest extends TestCase
         yield ['https://foo.bar/test?txt=test', 'foo.bar'];
     }
 
-    /**
-     * @dataProvider hostDataProvider
-     */
+    #[DataProvider('hostDataProvider')]
     public function testGetHost(?string $path, ?string $expected): void
     {
         $attachment = new PartAttachment();
@@ -219,9 +210,7 @@ class AttachmentTest extends TestCase
         yield [null,                     'https://www.google.de/test.txt',   null,       null];
     }
 
-    /**
-     * @dataProvider filenameProvider
-     */
+    #[DataProvider('filenameProvider')]
     public function testGetFilename(?string $internal_path, ?string $external_path, ?string $original_filename, ?string $expected): void
     {
         $attachment = new PartAttachment();
