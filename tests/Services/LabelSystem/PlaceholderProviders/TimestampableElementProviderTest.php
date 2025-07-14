@@ -75,7 +75,7 @@ class TimestampableElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         \Locale::setDefault('en');
         yield ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'];

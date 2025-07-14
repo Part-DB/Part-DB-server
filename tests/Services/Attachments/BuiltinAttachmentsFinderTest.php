@@ -44,7 +44,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         //No value should return empty array
         yield ['', [], []];

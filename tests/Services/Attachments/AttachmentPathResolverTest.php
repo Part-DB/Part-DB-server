@@ -70,19 +70,19 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertNull($this->service->parameterToAbsolutePath('/./this/one/too'));
     }
 
-    public function placeholderDataProvider(): \Iterator
+    public static function placeholderDataProvider(): \Iterator
     {
         //We need to do initialization (again), as dataprovider is called before setUp()
         self::bootKernel();
-        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
-        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
-        $this->media_path = $this->projectDir.'/public/media';
-        $this->footprint_path = $this->projectDir.'/public/img/footprints';
-        yield ['%FOOTPRINTS%/test/test.jpg', $this->footprint_path.'/test/test.jpg'];
-        yield ['%FOOTPRINTS%/test/', $this->footprint_path.'/test/'];
-        yield ['%MEDIA%/test', $this->media_path.'/test'];
-        yield ['%MEDIA%', $this->media_path];
-        yield ['%FOOTPRINTS%', $this->footprint_path];
+        $projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $projectDir = str_replace('\\', '/', $projectDir_orig);
+        $media_path = $projectDir.'/public/media';
+        $footprint_path = $projectDir.'/public/img/footprints';
+        yield ['%FOOTPRINTS%/test/test.jpg', $footprint_path.'/test/test.jpg'];
+        yield ['%FOOTPRINTS%/test/', $footprint_path.'/test/'];
+        yield ['%MEDIA%/test', $media_path.'/test'];
+        yield ['%MEDIA%', $media_path];
+        yield ['%FOOTPRINTS%', $footprint_path];
         //Footprints 3D are disabled
         yield ['%FOOTPRINTS_3D%', null];
         //Check that invalid pathes return null
@@ -99,25 +99,25 @@ class AttachmentPathResolverTest extends WebTestCase
         yield ['%FOOTPRINTS%/0\..\test', null];
     }
 
-    public function realPathDataProvider(): \Iterator
+    public static function realPathDataProvider(): \Iterator
     {
         //We need to do initialization (again), as dataprovider is called before setUp()
         self::bootKernel();
-        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
-        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
-        $this->media_path = $this->projectDir.'/public/media';
-        $this->footprint_path = $this->projectDir.'/public/img/footprints';
-        yield [$this->media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'];
-        yield [$this->media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true];
-        yield [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'];
-        yield [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true];
+        $projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $projectDir = str_replace('\\', '/', $projectDir_orig);
+        $media_path = $projectDir.'/public/media';
+        $footprint_path = $projectDir.'/public/img/footprints';
+        yield [$media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'];
+        yield [$media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true];
+        yield [$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'];
+        yield [$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true];
         //Every kind of absolute path, that is not based with our placeholder dirs must be invald
         yield ['/etc/passwd', null];
         yield ['C:\\not\\existing.txt', null];
         //More than one placeholder is not allowed
-        yield [$this->footprint_path.'/test/'.$this->footprint_path, null];
+        yield [$footprint_path.'/test/'.$footprint_path, null];
         //Path must begin with path
-        yield ['/not/root'.$this->footprint_path, null];
+        yield ['/not/root'.$footprint_path, null];
     }
 
     #[DataProvider('placeholderDataProvider')]
@@ -132,23 +132,23 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
     }
 
-    public function germanFootprintPathdDataProvider(): ?\Generator
+    public static function germanFootprintPathdDataProvider(): ?\Generator
     {
         self::bootKernel();
-        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
-        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
-        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+        $projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $projectDir = str_replace('\\', '/', $projectDir_orig);
+        $footprint_path = $projectDir.'/public/img/footprints';
 
-        yield [$this->footprint_path. '/Active/Diodes/THT/DIODE_P600.png', '%FOOTPRINTS%/Aktiv/Dioden/Bedrahtet/DIODE_P600.png'];
-        yield [$this->footprint_path . '/Passive/Resistors/THT/Carbon/RESISTOR-CARBON_0207.png', '%FOOTPRINTS%/Passiv/Widerstaende/Bedrahtet/Kohleschicht/WIDERSTAND-KOHLE_0207.png'];
-        yield [$this->footprint_path . '/Optics/LEDs/THT/LED-GREEN_3MM.png', '%FOOTPRINTS%/Optik/LEDs/Bedrahtet/LED-GRUEN_3MM.png'];
-        yield [$this->footprint_path . '/Passive/Capacitors/TrimmerCapacitors/TRIMMER_CAPACITOR-RED_TZ03F.png', '%FOOTPRINTS%/Passiv/Kondensatoren/Trimmkondensatoren/TRIMMKONDENSATOR-ROT_TZ03F.png'];
-        yield [$this->footprint_path . '/Active/ICs/TO/IC_TO126.png', '%FOOTPRINTS%/Aktiv/ICs/TO/IC_TO126.png'];
-        yield [$this->footprint_path . '/Electromechanics/Switches_Buttons/RotarySwitches/ROTARY_SWITCH_DIP10.png', '%FOOTPRINTS%/Elektromechanik/Schalter_Taster/Drehschalter/DREHSCHALTER_DIP10.png'];
-        yield [$this->footprint_path . '/Electromechanics/Connectors/DINConnectors/SOCKET_DIN_MAB_4.png', '%FOOTPRINTS%/Elektromechanik/Verbinder/Rundsteckverbinder/BUCHSE_DIN_MAB_4.png'];
+        yield [$footprint_path. '/Active/Diodes/THT/DIODE_P600.png', '%FOOTPRINTS%/Aktiv/Dioden/Bedrahtet/DIODE_P600.png'];
+        yield [$footprint_path . '/Passive/Resistors/THT/Carbon/RESISTOR-CARBON_0207.png', '%FOOTPRINTS%/Passiv/Widerstaende/Bedrahtet/Kohleschicht/WIDERSTAND-KOHLE_0207.png'];
+        yield [$footprint_path . '/Optics/LEDs/THT/LED-GREEN_3MM.png', '%FOOTPRINTS%/Optik/LEDs/Bedrahtet/LED-GRUEN_3MM.png'];
+        yield [$footprint_path . '/Passive/Capacitors/TrimmerCapacitors/TRIMMER_CAPACITOR-RED_TZ03F.png', '%FOOTPRINTS%/Passiv/Kondensatoren/Trimmkondensatoren/TRIMMKONDENSATOR-ROT_TZ03F.png'];
+        yield [$footprint_path . '/Active/ICs/TO/IC_TO126.png', '%FOOTPRINTS%/Aktiv/ICs/TO/IC_TO126.png'];
+        yield [$footprint_path . '/Electromechanics/Switches_Buttons/RotarySwitches/ROTARY_SWITCH_DIP10.png', '%FOOTPRINTS%/Elektromechanik/Schalter_Taster/Drehschalter/DREHSCHALTER_DIP10.png'];
+        yield [$footprint_path . '/Electromechanics/Connectors/DINConnectors/SOCKET_DIN_MAB_4.png', '%FOOTPRINTS%/Elektromechanik/Verbinder/Rundsteckverbinder/BUCHSE_DIN_MAB_4.png'];
 
         //Leave english pathes untouched
-        yield [$this->footprint_path . '/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png', '%FOOTPRINTS%/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png'];
+        yield [$footprint_path . '/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png', '%FOOTPRINTS%/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png'];
     }
 
     #[DataProvider('germanFootprintPathdDataProvider')]

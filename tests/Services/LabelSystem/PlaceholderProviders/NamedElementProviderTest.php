@@ -67,7 +67,7 @@ class NamedElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['This is my Name', '[[NAME]]'];
     }

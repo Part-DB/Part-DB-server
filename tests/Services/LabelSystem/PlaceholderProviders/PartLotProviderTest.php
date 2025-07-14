@@ -86,7 +86,7 @@ class PartLotProviderTest extends WebTestCase
         $this->target->setOwner($user);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['unknown', '[[LOT_ID]]'];
         yield ['Lot description', '[[LOT_NAME]]'];

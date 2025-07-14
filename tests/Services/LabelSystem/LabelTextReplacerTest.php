@@ -71,7 +71,7 @@ class LabelTextReplacerTest extends WebTestCase
         $this->target->setComment('P Comment');
     }
 
-    public function handlePlaceholderDataProvider(): \Iterator
+    public static function handlePlaceholderDataProvider(): \Iterator
     {
         yield ['Part 1', '[[NAME]]'];
         yield ['P Description', '[[DESCRIPTION]]'];
@@ -83,7 +83,7 @@ class LabelTextReplacerTest extends WebTestCase
         yield ['Test [[NAME]]', 'Test [[NAME]]', 'Test [[NAME]]'];
     }
 
-    public function replaceDataProvider(): \Iterator
+    public static function replaceDataProvider(): \Iterator
     {
         yield ['Part 1', '[[NAME]]'];
         yield ['TestPart 1', 'Test[[NAME]]'];

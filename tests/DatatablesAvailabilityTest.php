@@ -79,7 +79,7 @@ class DatatablesAvailabilityTest extends WebTestCase
         $this->assertJson($client->getResponse()->getContent());
     }
 
-    public function urlProvider(): ?\Generator
+    public static function urlProvider(): ?\Generator
     {
         //Part lists
         yield ['/category/1/parts'];

@@ -75,7 +75,7 @@ class AttachmentTest extends TestCase
         $this->assertEmpty($attachment->getFilename());
     }
 
-    public function subClassesDataProvider(): \Iterator
+    public static function subClassesDataProvider(): \Iterator
     {
         yield [AttachmentTypeAttachment::class, AttachmentType::class];
         yield [CategoryAttachment::class, Category::class];

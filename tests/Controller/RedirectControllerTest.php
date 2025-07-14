@@ -51,7 +51,7 @@ class RedirectControllerTest extends WebTestCase
         $this->userRepo = $this->em->getRepository(User::class);
     }
 
-    public function urlMatchDataProvider(): \Iterator
+    public static function urlMatchDataProvider(): \Iterator
     {
         yield ['/', true];
         yield ['/part/2/info', true];
@@ -79,7 +79,7 @@ class RedirectControllerTest extends WebTestCase
         $this->assertSame($expect_redirect, $response->isRedirect());
     }
 
-    public function urlAddLocaleDataProvider(): \Iterator
+    public static function urlAddLocaleDataProvider(): \Iterator
     {
         //User locale, original target, redirect target
         yield ['de', '/', '/de/'];

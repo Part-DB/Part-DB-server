@@ -53,7 +53,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode() . ' for URL '.$url);
     }
 
-    public function urlProvider(): ?Generator
+    public static function urlProvider(): ?Generator
     {
         //Homepage
         yield ['/'];

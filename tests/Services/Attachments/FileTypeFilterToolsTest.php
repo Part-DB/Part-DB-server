@@ -36,7 +36,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         self::$service = self::getContainer()->get(FileTypeFilterTools::class);
     }
 
-    public function validateDataProvider(): \Iterator
+    public static function validateDataProvider(): \Iterator
     {
         yield ['', true];
         //Empty string is valid
@@ -55,7 +55,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         yield ['.png .jpg .gif', false];
     }
 
-    public function normalizeDataProvider(): \Iterator
+    public static function normalizeDataProvider(): \Iterator
     {
         yield ['', ''];
         yield ['.jpeg,.png,.gif', '.jpeg,.png,.gif'];
@@ -69,7 +69,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         yield ['png, .gif, .png,', '.png,.gif'];
     }
 
-    public function extensionAllowedDataProvider(): \Iterator
+    public static function extensionAllowedDataProvider(): \Iterator
     {
         yield ['', 'txt', true];
         yield ['', 'everything_should_match', true];

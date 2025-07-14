@@ -41,7 +41,7 @@ class FilterTraitTest extends TestCase
         $this->assertFalse($this->useHaving);
     }
 
-    public function isAggregateFunctionStringDataProvider(): iterable
+    public static function isAggregateFunctionStringDataProvider(): iterable
     {
         yield [false, 'parts.test'];
         yield [false, 'attachments.test'];

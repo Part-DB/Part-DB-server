@@ -19,10 +19,7 @@
         <ini name="memory_limit" value="1G"/>
         <ini name="display_errors" value="1"/>
     </php>
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
+    <coverage includeUncoveredFiles="true">
     </coverage>
 
     <testsuites>

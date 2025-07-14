@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class ParameterDTOTest extends TestCase
 {
 
-    public function parseValueFieldDataProvider(): \Generator
+    public static function parseValueFieldDataProvider(): \Generator
     {
         //Text value
         yield [
@@ -132,7 +132,7 @@ class ParameterDTOTest extends TestCase
         ];
     }
 
-    public function parseValueIncludingUnitDataProvider(): \Generator
+    public static function parseValueIncludingUnitDataProvider(): \Generator
     {
         //Text value
         yield [

@@ -20,15 +20,16 @@
 
 declare(strict_types=1);
 
+
 namespace App\Tests\Controller\AdminPages;
 
 use PHPUnit\Framework\Attributes\Group;
-use App\Entity\Attachments\AttachmentType;
+use App\Entity\ProjectSystem\Project;
 
 #[Group('slow')]
 #[Group('DB')]
-class AttachmentTypeControllerTest extends AbstractAdminControllerTest
+class ProjectController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/attachment_type';
-    protected static string $entity_class = AttachmentType::class;
+    protected static string $base_path = '/en/project';
+    protected static string $entity_class = Project::class;
 }

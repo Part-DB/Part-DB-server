@@ -29,12 +29,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Group('slow')]
 #[Group('DB')]
-abstract class AbstractAdminControllerTest extends WebTestCase
+abstract class AbstractAdminController extends WebTestCase
 {
     protected static string $base_path = 'not_valid';
     protected static string $entity_class = 'not valid';
 
-    public function readDataProvider(): \Iterator
+    public static function readDataProvider(): \Iterator
     {
         yield ['noread', false];
         yield ['anonymous', true];
@@ -99,7 +99,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $this->assertSame($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
-    public function deleteDataProvider(): \Iterator
+    public static function deleteDataProvider(): \Iterator
     {
         yield ['noread', false];
         yield ['anonymous', false];

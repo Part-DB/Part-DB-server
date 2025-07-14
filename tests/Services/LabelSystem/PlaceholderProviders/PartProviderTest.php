@@ -87,7 +87,7 @@ class PartProviderTest extends WebTestCase
         $this->target->setComment('<b>Bold</b> *Italic*');
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['Node 2.1', '[[CATEGORY]]'];
         yield ['Node 2 → Node 2.1', '[[CATEGORY_FULL]]'];

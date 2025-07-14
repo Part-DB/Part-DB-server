@@ -47,7 +47,7 @@ use PHPUnit\Framework\TestCase;
 
 class PartParameterTest extends TestCase
 {
-    public function valueWithUnitDataProvider(): \Iterator
+    public static function valueWithUnitDataProvider(): \Iterator
     {
         yield ['1', 1.0, ''];
         yield ['1 V', 1.0, 'V'];
@@ -55,7 +55,7 @@ class PartParameterTest extends TestCase
         yield ['1.23 V', 1.23, 'V'];
     }
 
-    public function formattedValueDataProvider(): \Iterator
+    public static function formattedValueDataProvider(): \Iterator
     {
         yield ['Text Test', null, null, null, 'V', 'Text Test'];
         yield ['10.23 V', null, 10.23, null, 'V', ''];
@@ -68,7 +68,7 @@ class PartParameterTest extends TestCase
         yield ['10.23 V (9 V ... 11 V) [Test]', 9, 10.23, 11, 'V', 'Test'];
     }
 
-    public function formattedValueWithLatexDataProvider(): \Iterator
+    public static function formattedValueWithLatexDataProvider(): \Iterator
     {
         yield ['Text Test', null, null, null, 'V', 'Text Test'];
         yield ['10.23 $\mathrm{V}$', null, 10.23, null, 'V', ''];

@@ -20,16 +20,15 @@
 
 declare(strict_types=1);
 
-
 namespace App\Tests\Controller\AdminPages;
 
 use PHPUnit\Framework\Attributes\Group;
-use App\Entity\ProjectSystem\Project;
+use App\Entity\Parts\StorageLocation;
 
 #[Group('slow')]
 #[Group('DB')]
-class ProjectControllerTest extends AbstractAdminControllerTest
+class StorelocationController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/project';
-    protected static string $entity_class = Project::class;
+    protected static string $base_path = '/en/store_location';
+    protected static string $entity_class = StorageLocation::class;
 }

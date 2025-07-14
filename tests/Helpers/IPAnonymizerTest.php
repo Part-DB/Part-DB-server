@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class IPAnonymizerTest extends TestCase
 {
 
-    public function anonymizeDataProvider(): \Generator
+    public static function anonymizeDataProvider(): \Generator
     {
         yield ['127.0.0.0', '127.0.0.23'];
         yield ['2001:db8:85a3::', '2001:0db8:85a3:0000:0000:8a2e:0370:7334'];

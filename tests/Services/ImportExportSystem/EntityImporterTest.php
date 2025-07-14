@@ -174,7 +174,7 @@ EOT;
         $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): \Iterator
+    public static function formatDataProvider(): \Iterator
     {
         yield ['csv', 'csv'];
         yield ['csv', 'CSV'];

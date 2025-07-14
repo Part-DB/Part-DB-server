@@ -35,7 +35,7 @@ class BBCodeToMarkdownConverterTest extends TestCase
         $this->converter = new BBCodeToMarkdownConverter();
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['[b]Bold[/b]', '**Bold**'];
         yield ['[i]Italic[/i]', '*Italic*'];

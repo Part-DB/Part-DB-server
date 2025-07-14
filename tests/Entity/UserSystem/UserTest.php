@@ -47,7 +47,7 @@ class UserTest extends TestCase
         $this->assertSame('John (@username)', $user->getFullName(true));
     }
 
-    public function googleAuthenticatorEnabledDataProvider(): \Iterator
+    public static function googleAuthenticatorEnabledDataProvider(): \Iterator
     {
         yield [null, false];
         yield ['', false];
@@ -62,7 +62,7 @@ class UserTest extends TestCase
         $this->assertSame($expected, $user->isGoogleAuthenticatorEnabled());
     }
 
-    #[RequiresPhpunit('8')]
+    //#[RequiresPhpunit('8')]
     public function testSetBackupCodes(): void
     {
         $user = new User();

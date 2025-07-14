@@ -58,7 +58,7 @@ class RangeParserTest extends WebTestCase
         $this->service = self::getContainer()->get(RangeParser::class);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield [[], ''];
         yield [[], '   '];
@@ -82,7 +82,7 @@ class RangeParserTest extends WebTestCase
         yield [[], '1, 2, test', true];
     }
 
-    public function validDataProvider(): \Iterator
+    public static function validDataProvider(): \Iterator
     {
         yield [true, ''];
         yield [true, '    '];

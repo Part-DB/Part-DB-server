@@ -58,14 +58,14 @@ class BarcodeContentGeneratorTest extends KernelTestCase
         $this->service = self::getContainer()->get(BarcodeContentGenerator::class);
     }
 
-    public function Barcode1DDataProvider(): \Iterator
+    public static function Barcode1DDataProvider(): \Iterator
     {
         yield ['P0000', Part::class];
         yield ['L0000', PartLot::class];
         yield ['S0000', StorageLocation::class];
     }
 
-    public function Barcode2DDataProvider(): \Iterator
+    public static function Barcode2DDataProvider(): \Iterator
     {
         yield ['/scan/part/0', Part::class];
         yield ['/scan/lot/0', PartLot::class];

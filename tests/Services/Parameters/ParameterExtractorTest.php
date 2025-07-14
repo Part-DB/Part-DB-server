@@ -57,7 +57,7 @@ class ParameterExtractorTest extends WebTestCase
         $this->service = self::getContainer()->get(ParameterExtractor::class);
     }
 
-    public function emptyDataProvider(): \Iterator
+    public static function emptyDataProvider(): \Iterator
     {
         yield [''];
         yield ['      '];

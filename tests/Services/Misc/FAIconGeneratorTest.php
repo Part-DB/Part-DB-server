@@ -42,7 +42,7 @@ class FAIconGeneratorTest extends WebTestCase
         $this->service = self::getContainer()->get(FAIconGenerator::class);
     }
 
-    public function fileExtensionDataProvider(): \Iterator
+    public static function fileExtensionDataProvider(): \Iterator
     {
         yield ['pdf', 'fa-file-pdf'];
         yield ['jpeg','fa-file-image'];

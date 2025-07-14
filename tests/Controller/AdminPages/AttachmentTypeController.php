@@ -23,12 +23,12 @@ declare(strict_types=1);
 namespace App\Tests\Controller\AdminPages;
 
 use PHPUnit\Framework\Attributes\Group;
-use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Attachments\AttachmentType;
 
 #[Group('slow')]
 #[Group('DB')]
-class MeasurementUnitControllerTest extends AbstractAdminControllerTest
+class AttachmentTypeController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/measurement_unit';
-    protected static string $entity_class = MeasurementUnit::class;
+    protected static string $base_path = '/en/attachment_type';
+    protected static string $entity_class = AttachmentType::class;
 }

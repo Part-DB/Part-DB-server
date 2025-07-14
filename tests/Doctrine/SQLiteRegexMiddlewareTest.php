@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class SQLiteRegexMiddlewareTest extends TestCase
 {
 
-    public function regexpDataProvider(): \Generator
+    public static function regexpDataProvider(): \Generator
     {
         yield [1, 'a', 'a'];
         yield [0, 'a', 'b'];
@@ -48,7 +48,7 @@ class SQLiteRegexMiddlewareTest extends TestCase
         $this->assertSame($expected, SQLiteRegexExtensionMiddlewareDriver::regexp($pattern, $value));
     }
 
-    public function fieldDataProvider(): \Generator
+    public static function fieldDataProvider(): \Generator
     {
 
         // Null cases

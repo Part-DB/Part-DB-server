@@ -37,7 +37,7 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_110,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
 
-        
+
     ])
 
     ->withRules([
