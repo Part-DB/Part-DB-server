@@ -127,6 +127,8 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                 'render' => function ($value, AssemblyBOMEntry $context) {
                     if($context->getPart() instanceof Part) {
                         return $context->getPart()->getIpn();
+                    } elseif($context->getReferencedAssembly() instanceof Assembly) {
+                        return $context->getReferencedAssembly()->getIpn();
                     }
 
                     return '';
