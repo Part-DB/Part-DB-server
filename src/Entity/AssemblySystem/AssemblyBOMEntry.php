@@ -106,7 +106,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      */
-    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.assembly.bom_entry.name_or_part_needed')]
+    #[Assert\Expression('this.getPart() !== null or this.getReferencedAssembly() !== null or this.getName() !== null', message: 'validator.assembly.bom_entry.name_or_part_needed')]
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
     protected ?string $name = null;
@@ -206,7 +206,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
      */
     public function getName(): ?string
     {
-        return $this->name;
+        return trim($this->name ?? '') === '' ? null : $this->name;
     }
 
     /**
@@ -214,7 +214,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
      */
     public function setName(?string $name): AssemblyBOMEntry
     {
-        $this->name = $name;
+        $this->name = trim($name ?? '') === '' ? null : $name;
         return $this;
     }
 

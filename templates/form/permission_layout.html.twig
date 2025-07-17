@@ -7,15 +7,15 @@
                     <input type="checkbox" class="form-check-input tristate permission-checkbox permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
                     <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
                         {% set dataSource = '' %}
-                        {% if (form.vars.label == 'perm.categories') %}
+                        {% if (form.vars.label == 'perm.part.categories') %}
                             {% set dataSource = 'category' %}
                         {% elseif (form.vars.label == 'perm.storelocations') %}
                             {% set dataSource = 'storagelocation' %}
-                        {% elseif (form.vars.label == 'perm.footprints') %}
+                        {% elseif (form.vars.label == 'perm.part.footprints') %}
                             {% set dataSource = 'footprint' %}
-                        {% elseif (form.vars.label == 'perm.manufacturers') %}
+                        {% elseif (form.vars.label == 'perm.part.manufacturers') %}
                             {% set dataSource = 'manufacturer' %}
-                        {% elseif (form.vars.label == 'perm.suppliers') %}
+                        {% elseif (form.vars.label == 'perm.part.supplier') %}
                             {% set dataSource = 'supplier' %}
                         {% elseif (form.vars.label == 'perm.projects') %}
                             {% set dataSource = 'project' %}
@@ -25,7 +25,12 @@
 
                         {% set dataSourceName = get_data_source_name(dataSource, form.vars.label) %}
                         {% set translatedSource = form.vars.label|trans %}
-                        {% if dataSourceName != translatedSource %}<b>{{ 'datasource.synonym'|trans({'%name%': translatedSource ~ '<br>', '%synonym%': dataSourceName})|raw }}{% else %}{{ translatedSource }}</b>{% endif %}
+                        {% if dataSourceName != translatedSource %}
+                            {{ translatedSource }}
+                            <i class="fas fa-fw fa-info" title="{{ 'datasource.synonym'|trans({'%name%': '', '%synonym%': dataSourceName })|raw }}"></i>
+                        {% else %}
+                            {{ translatedSource }}
+                        {% endif %}
                     </label>
                 </div>
 
