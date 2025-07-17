@@ -27,7 +27,7 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            ALTER TABLE categories DROP part_ipn_prefixSQL
+            ALTER TABLE categories DROP part_ipn_prefix
         SQL);
         $this->addSql(<<<'SQL'
             CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON parts (ipn)
@@ -164,6 +164,10 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             CREATE INDEX category_idx_parent_name ON categories (parent_id, name)
         SQL);
+
+        $this->addSql(<<<'SQL'
+            DROP INDEX UNIQ_6940A7FE3D721C14
+        SQL);
     }
 
     public function sqLiteDown(Schema $schema): void
@@ -294,6 +298,10 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX category_idx_parent_name ON categories (parent_id, name)
+        SQL);
+
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON "parts" (ipn)
         SQL);
     }
 
