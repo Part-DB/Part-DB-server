@@ -53,6 +53,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                     id_manufacturer,
                     order_orderdetails_id,
                     built_project_id,
+                    built_assembly_id,
                     datetime_added,
                     name,
                     last_modified,
@@ -100,6 +101,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 id_part_custom_state INTEGER DEFAULT NULL,
                 order_orderdetails_id INTEGER DEFAULT NULL,
                 built_project_id INTEGER DEFAULT NULL,
+                built_assembly_id INTEGER DEFAULT NULL,
                 datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -136,7 +138,8 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 CONSTRAINT FK_6940A7FE1ECB93AE FOREIGN KEY (id_manufacturer) REFERENCES manufacturers (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
                 CONSTRAINT FK_6940A7FEA3ED1215 FOREIGN KEY (id_part_custom_state) REFERENCES "part_custom_states" (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
                 CONSTRAINT FK_6940A7FE81081E9B FOREIGN KEY (order_orderdetails_id) REFERENCES orderdetails (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
-                CONSTRAINT FK_6940A7FEE8AE70D9 FOREIGN KEY (built_project_id) REFERENCES projects (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
+                CONSTRAINT FK_6940A7FEE8AE70D9 FOREIGN KEY (built_project_id) REFERENCES projects (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE,
+                CONSTRAINT FK_6940A7FECC660B3C FOREIGN KEY (built_assembly_id) REFERENCES assemblies (id) ON UPDATE NO ACTION ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE
             )
         SQL);
 
@@ -237,6 +240,9 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
             CREATE UNIQUE INDEX UNIQ_6940A7FEE8AE70D9 ON parts (built_project_id)
         SQL);
         $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_6940A7FECC660B3C ON "parts" (built_assembly_id)
+        SQL);
+        $this->addSql(<<<'SQL'
             CREATE UNIQUE INDEX UNIQ_6940A7FE81081E9B ON parts (order_orderdetails_id)
         SQL);
         $this->addSql(<<<'SQL'
@@ -275,6 +281,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                     id_manufacturer, 
                     order_orderdetails_id, 
                     built_project_id,
+                    built_assembly_id,
                     datetime_added, 
                     name, 
                     last_modified, 
@@ -319,6 +326,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 id_manufacturer INTEGER DEFAULT NULL, 
                 order_orderdetails_id INTEGER DEFAULT NULL, 
                 built_project_id INTEGER DEFAULT NULL, 
+                built_assembly_id INTEGER DEFAULT NULL,
                 datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, 
                 name VARCHAR(255) NOT NULL, 
                 last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, 
@@ -354,7 +362,8 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 CONSTRAINT FK_6940A7FE2626CEF9 FOREIGN KEY (id_part_unit) REFERENCES "measurement_units" (id) NOT DEFERRABLE INITIALLY IMMEDIATE, 
                 CONSTRAINT FK_6940A7FE1ECB93AE FOREIGN KEY (id_manufacturer) REFERENCES "manufacturers" (id) NOT DEFERRABLE INITIALLY IMMEDIATE, 
                 CONSTRAINT FK_6940A7FE81081E9B FOREIGN KEY (order_orderdetails_id) REFERENCES "orderdetails" (id) NOT DEFERRABLE INITIALLY IMMEDIATE, 
-                CONSTRAINT FK_6940A7FEE8AE70D9 FOREIGN KEY (built_project_id) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE
+                CONSTRAINT FK_6940A7FEE8AE70D9 FOREIGN KEY (built_project_id) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE,
+                CONSTRAINT FK_6940A7FECC660B3C FOREIGN KEY (built_assembly_id) REFERENCES assemblies (id) NOT DEFERRABLE INITIALLY IMMEDIATE
             )
         SQL);
         $this->addSql(<<<'SQL'
@@ -367,6 +376,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 id_manufacturer, 
                 order_orderdetails_id, 
                 built_project_id,
+                built_assembly_id,                 
                 datetime_added, 
                 name, 
                 last_modified, 
@@ -405,6 +415,7 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
                 id_manufacturer, 
                 order_orderdetails_id, 
                 built_project_id,
+                built_assembly_id,
                 datetime_added, 
                 name, 
                 last_modified, 
@@ -463,6 +474,9 @@ final class Version20250321141740 extends AbstractMultiPlatformMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE UNIQUE INDEX UNIQ_6940A7FEE8AE70D9 ON "parts" (built_project_id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_6940A7FECC660B3C ON "parts" (built_assembly_id)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX parts_idx_datet_name_last_id_needs ON "parts" (datetime_added, name, last_modified, id, needs_review)
