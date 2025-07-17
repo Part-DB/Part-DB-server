@@ -13,10 +13,15 @@
      * Initializes the datatable dynamically.
      */
     $.fn.initDataTables = function(config, options) {
-
         //Update default used url, so it reflects the current location (useful on single side apps)
         //CHANGED jbtronics: Preserve the get parameters (needed so we can pass additional params to query)
         $.fn.initDataTables.defaults.url = window.location.origin + window.location.pathname + window.location.search;
+
+        $.fn.dataTable.ext.errMode = function(settings, helpPage, message) {
+            if (message.includes('ColReorder')) {
+                console.warn('ColReorder does not fit the number of columns', message);
+            }
+        };
 
         var root = this,
             config = $.extend({}, $.fn.initDataTables.defaults, config),
@@ -104,7 +109,6 @@
                         column.render = $.fn.dataTable.render.select();
                     }
                 }
-
 
                 root.html(data.template);
                 dt = $('table', root).DataTable(dtOpts);
