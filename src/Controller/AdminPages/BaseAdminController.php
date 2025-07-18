@@ -24,6 +24,7 @@ namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
 use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentUpload;
@@ -455,6 +456,10 @@ abstract class BaseAdminController extends AbstractController
                     return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
                 }
             } else {
+                if ($entity instanceof Assembly) {
+                    $this->markReferencedBomEntry($entity);
+                }
+
                 if ($entity instanceof AbstractStructuralDBElement) {
                     $parent = $entity->getParent();
 
@@ -501,5 +506,17 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $entity);
 
         return $exporter->exportEntityFromRequest($entity, $request);
+    }
+
+    private function markReferencedBomEntry(Assembly $referencedAssembly): void
+    {
+        $bomEntries = $this->entityManager->getRepository(AssemblyBOMEntry::class)->findBy(['referencedAssembly' => $referencedAssembly]);
+
+        foreach ($bomEntries as $entry) {
+            $entry->setReferencedAssembly(null);
+            $entry->setName($referencedAssembly->getName(). ' DELETED');
+
+            $this->entityManager->persist($entry);
+        }
     }
 }
