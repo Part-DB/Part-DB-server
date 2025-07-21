@@ -18,7 +18,7 @@ final class Version20250304154507 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            ALTER TABLE parts ADD built_assembly_id INT DEFAULT NULL AFTER build_project_id
+            ALTER TABLE parts ADD built_assembly_id INT DEFAULT NULL AFTER built_project_id
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE parts ADD CONSTRAINT FK_6940A7FECC660B3C FOREIGN KEY (built_assembly_id) REFERENCES assemblies (id)
