@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Validator\Constraints\AssemblySystem;
 
 use App\Entity\AssemblySystem\Assembly;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -51,7 +52,7 @@ class AssemblyCycleValidator extends ConstraintValidator
         $bomEntries = $value->getBomEntries()->toArray();
 
         // Consider additional entries from the form
-        if ($this->context->getRoot()->has('bom_entries')) {
+        if ($this->context->getRoot() instanceof Form && $this->context->getRoot()->has('bom_entries')) {
             $formBomEntries = $this->context->getRoot()->get('bom_entries')->getData();
             if ($formBomEntries) {
                 $given = is_array($formBomEntries) ? $formBomEntries : iterator_to_array($formBomEntries);
