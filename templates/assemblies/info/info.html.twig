@@ -64,18 +64,18 @@
 {% block card_content %}
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="part-tab" data-bs-toggle="tab" data-bs-target="#part-tab-pane"
-                    type="button" role="tab" aria-controls="part-tab-pane" aria-selected="true">
-                <i class="fa-solid fa-list-check fa-fw"></i>
-                {% trans %}assembly_bom_entry.label{% endtrans %}
-                <span class="badge bg-secondary">{{ assembly.bomEntries | length }}</span>
+            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
+                    type="button" role="tab" aria-controls="info-tab-pane" aria-selected="true">
+                <i class="fa-solid fa-circle-info fa-fw"></i>
+                {% trans %}assembly.info.info.label{% endtrans %}
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
-                    type="button" role="tab" aria-controls="info-tab-pane" aria-selected="false">
-                <i class="fa-solid fa-circle-info fa-fw"></i>
-                {% trans %}assembly.info.info.label{% endtrans %}
+            <button class="nav-link" id="part-tab" data-bs-toggle="tab" data-bs-target="#part-tab-pane"
+                    type="button" role="tab" aria-controls="part-tab-pane" aria-selected="false">
+                <i class="fa-solid fa-list-check fa-fw"></i>
+                {% trans %}assembly_bom_entry.label{% endtrans %}
+                <span class="badge bg-secondary">{{ assembly.bomEntries | length }}</span>
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -98,11 +98,11 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="part-tab-pane" role="tabpanel" aria-labelledby="part-tab" tabindex="0">
-            {% include "assemblies/info/_part.html.twig" %}
-        </div>
         <div class="tab-pane fade" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
             {% include "assemblies/info/_info.html.twig" %}
+        </div>
+        <div class="tab-pane fade show active" id="part-tab-pane" role="tabpanel" aria-labelledby="part-tab" tabindex="0">
+            {% include "assemblies/info/_part.html.twig" %}
         </div>
         <div class="tab-pane fade" id="builds-tab-pane" role="tabpanel" aria-labelledby="builds-tab" tabindex="0">
             {% include "assemblies/info/_builds.html.twig" %}

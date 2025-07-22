@@ -393,20 +393,37 @@ class Assembly extends AbstractStructuralDBElement
     }
 
     /**
-     *  Get all referenced assemblies which uses this assembly.
+     * Get all assemblies and sub-assemblies recursive that are referenced in the assembly bom entries.
      *
-     * @return Assembly[] all referenced assemblies which uses this assembly as a one-dimensional array of assembly objects
+     * @param Assembly $assembly Assembly, which is to be processed recursively.
+     * @param array $processedAssemblies (optional) a list of the already edited assemblies to avoid circulatory references.
+     * @return Assembly[] A flat list of all recursively found assemblies.
      */
-    public function getReferencedAssemblies(): array
+    public function getAllReferencedAssembliesRecursive(Assembly $assembly, array &$processedAssemblies = []): array
     {
         $assemblies = [];
 
-        foreach($this->bom_entries as $entry) {
-            if ($entry->getReferencedAssembly() !== null) {
-                $assemblies[] = $entry->getReferencedAssembly();
+        // Avoid circular references
+        if (in_array($assembly, $processedAssemblies, true)) {
+            return $assemblies;
+        }
+
+        // Add the current assembly to the processed
+        $processedAssemblies[] = $assembly;
+
+        // Iterate by the bom entries of the current assembly
+        foreach ($assembly->getBomEntries() as $bomEntry) {
+            if ($bomEntry->getReferencedAssembly() !== null) {
+                $referencedAssembly = $bomEntry->getReferencedAssembly();
+
+                $assemblies[] = $referencedAssembly;
+
+                // Continue recursively to process sub-assemblies
+                $assemblies = array_merge($assemblies, $this->getAllReferencedAssembliesRecursive($referencedAssembly, $processedAssemblies));
             }
         }
 
         return $assemblies;
     }
+
 }
