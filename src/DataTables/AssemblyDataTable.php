@@ -109,14 +109,13 @@ final class AssemblyDataTable implements DataTableTypeInterface
             $this->csh->add('referencedAssemblies', TextColumn::class, [
                 'label' => $this->translator->trans('assembly.referencedAssembly.labelp'),
                 'render' => function ($value, Assembly $context): string {
-                    $assemblies = $context->getReferencedAssemblies();
+                    $assemblies = $context->getAllReferencedAssembliesRecursive($context);
 
                     $max = 5;
                     $tmp = "";
 
                     for ($i = 0; $i < min($max, count($assemblies)); $i++) {
-                        $url = $this->urlGenerator->infoURL($assemblies[$i]);
-                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($assemblies[$i]->getName()));
+                        $tmp .= $this->assemblyDataTableHelper->renderName($assemblies[$i]);
                         if ($i < count($assemblies) - 1) {
                             $tmp .= ", ";
                         }
