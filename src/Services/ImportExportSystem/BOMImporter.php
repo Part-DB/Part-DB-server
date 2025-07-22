@@ -446,14 +446,27 @@ class BOMImporter
     function parseCsv(string $csvData, string $objectType = ProjectBOMEntry::class): ImporterResult
     {
         $result = new ImporterResult();
-        $rows = explode("\n", trim($csvData));
-        $headers = str_getcsv(array_shift($rows), ';');
+        $rows = explode("\r\n", trim($csvData));
+        $headers = str_getcsv(array_shift($rows), ',');
+
+        if (count($headers) === 1 && isset($headers[0])) {
+            //If only one column was recognized, try fallback with semicolon as a separator
+            $headers = str_getcsv($headers[0], ';');
+        }
 
         foreach ($rows as $key => $row) {
             $entry = [];
-            $values = str_getcsv($row, ';');
+            $values = str_getcsv($row, ',');
+
+            if (count($values) === 1 || count($values) !== count($headers)) {
+                //If only one column was recognized, try fallback with semicolon as a separator
+                $values = str_getcsv($row, ';');
+            }
 
             foreach ($headers as $index => $column) {
+                //Change the column names in small letters
+                $column = strtolower($column);
+
                 //Convert column name into hierarchy
                 $path = explode('_', $column);
                 $temp = &$entry;
@@ -504,6 +517,11 @@ class BOMImporter
                     "row[$key].name",
                     $entry['name']
                 ));
+            }
+
+            if (isset($entry['id']) && is_numeric($entry['id'])) {
+                //Use id column as a fallback for the expected part_id column
+                $entry['part']['id'] = (int) $entry['id'];
             }
 
             if (isset($entry['part'])) {
@@ -788,7 +806,12 @@ class BOMImporter
         $bomEntry->setQuantity((float) $entry['quantity']);
 
         if (isset($entry['name'])) {
-            $bomEntry->setName(trim($entry['name']) === '' ? null : trim ($entry['name']));
+            $givenName = trim($entry['name']) === '' ? null : trim ($entry['name']);
+
+            if ($givenName !== null && $bomEntry->getPart() !== null && $bomEntry->getPart()->getName() !== $givenName) {
+                //Apply different names for parts list entry
+                $bomEntry->setName(trim($entry['name']) === '' ? null : trim ($entry['name']));
+            }
         } else {
             $bomEntry->setName(null);
         }
