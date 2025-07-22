@@ -114,7 +114,7 @@ class BOMImporter
      */
     public function importFileIntoProject(UploadedFile $file, Project $project, array $options): ImporterResult
     {
-        $importerResult = $this->fileToImporterResult($file, $options);
+        $importerResult = $this->fileToImporterResult($project, $file, $options);
 
         if ($importerResult->getViolations()->count() === 0) {
             //Assign the bom_entries to the project
@@ -127,12 +127,21 @@ class BOMImporter
     }
 
     /**
-     * Converts the given file into an ImporterResult with an array of BOM entries using the given options and save them into the given assembly.
-     * The changes are not saved into the database yet.
+     * Imports a file into an Assembly object and processes its contents.
+     *
+     * This method converts the provided file into an ImporterResult object that contains BOM entries and potential
+     * validation violations. If no violations are found, the BOM entries extracted from the file are added to the
+     * provided Assembly object.
+     *
+     * @param UploadedFile  $file The file to be imported and processed.
+     * @param Assembly      $assembly The target Assembly object to which the BOM entries are added.
+     * @param array         $options Options or configurations related to the import process.
+     *
+     * @return ImporterResult An object containing the result of the import process, including BOM entries and any violations.
      */
     public function importFileIntoAssembly(UploadedFile $file, Assembly $assembly, array $options): ImporterResult
     {
-        $importerResult = $this->fileToImporterResult($file, $options, AssemblyBOMEntry::class);
+        $importerResult = $this->fileToImporterResult($assembly, $file, $options);
 
         if ($importerResult->getViolations()->count() === 0) {
             //Assign the bom_entries to the assembly
@@ -145,12 +154,20 @@ class BOMImporter
     }
 
     /**
-     * Converts the given file into an array of BOM entries using the given options.
-     * @return ProjectBOMEntry[]|AssemblyBOMEntry[]
+     * Converts the content of a file into an array of BOM (Bill of Materials) entries.
+     *
+     * This method processes the content of the provided file and delegates the conversion
+     * to a helper method that generates BOM entries based on the provided import object and options.
+     *
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entries (either a Project or Assembly).
+     * @param File              $file The file whose content will be converted into BOM entries.
+     * @param array             $options Additional options or configurations to be applied during the conversion process.
+     *
+     * @return array An array of BOM entries created from the file content.
      */
-    public function fileToBOMEntries(File $file, array $options, string $objectType = ProjectBOMEntry::class): array
+    public function fileToBOMEntries(Project|Assembly $importObject, File $file, array $options): array
     {
-        return $this->stringToBOMEntries($file->getContent(), $options, $objectType);
+        return $this->stringToBOMEntries($importObject, $file->getContent(), $options);
     }
 
     /**
@@ -171,9 +188,19 @@ class BOMImporter
     }
 
     /**
-     * Converts the given file into an ImporterResult with an array of BOM entries using the given options.
+     * Handles the conversion of an uploaded file into an ImporterResult for a given project or assembly.
+     *
+     * This method processes the uploaded file by validating its file extension based on the provided import type
+     * options and then proceeds to convert the file content into an ImporterResult. If the file extension is
+     * invalid or unsupported, the result will contain a corresponding violation.
+     *
+     * @param Project|Assembly  $importObject The context of the import operation (either a Project or Assembly).
+     * @param UploadedFile      $file The uploaded file to be processed.
+     * @param array             $options An array of options, expected to include an 'type' key to determine valid file types.
+     *
+     * @return ImporterResult An object containing the results of the import process, including any detected violations.
      */
-    public function fileToImporterResult(UploadedFile $file, array $options, string $objectType = ProjectBOMEntry::class): ImporterResult
+    public function fileToImporterResult(Project|Assembly $importObject, UploadedFile $file, array $options): ImporterResult
     {
         $result = new ImporterResult();
 
@@ -203,7 +230,7 @@ class BOMImporter
                 $fileExtension,
                 [
                     '%extension%' => $fileExtension,
-                    '%importType%' => $this->translator->trans($objectType === ProjectBOMEntry::class ? 'project.bom_import.type.'.$options['type'] : 'assembly.bom_import.type.'.$options['type']),
+                    '%importType%' => $this->translator->trans($importObject instanceof Project ? 'project.bom_import.type.'.$options['type'] : 'assembly.bom_import.type.'.$options['type']),
                     '%allowedExtensions%' => implode(', ', $validExtensions),
                 ]
             ));
@@ -211,16 +238,19 @@ class BOMImporter
             return $result;
         }
 
-        return $this->stringToImporterResult($file->getContent(), $options, $objectType);
+        return $this->stringToImporterResult($importObject, $file->getContent(), $options);
     }
 
     /**
      * Import string data into an array of BOM entries, which are not yet assigned to a project.
-     * @param  string  $data The data to import
-     * @param  array  $options An array of options
+     *
+     * @param Project|Assembly $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string           $data The data to import
+     * @param array            $options An array of options
+     *
      * @return ProjectBOMEntry[]|AssemblyBOMEntry[] An array of imported entries
      */
-    public function stringToBOMEntries(string $data, array $options, string $objectType = ProjectBOMEntry::class): array
+    public function stringToBOMEntries(Project|Assembly $importObject, string $data, array $options): array
     {
         $resolver = new OptionsResolver();
         $resolver = $this->configureOptions($resolver);
@@ -234,11 +264,14 @@ class BOMImporter
 
     /**
      * Import string data into an array of BOM entries, which are not yet assigned to a project.
-     * @param  string  $data The data to import
-     * @param  array  $options An array of options
+     *
+     * @param Project|Assembly $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string           $data The data to import
+     * @param array            $options An array of options
+     *
      * @return ImporterResult An result of imported entries or a violation list
      */
-    public function stringToImporterResult(string $data, array $options, string $objectType = ProjectBOMEntry::class): ImporterResult
+    public function stringToImporterResult(Project|Assembly $importObject, string $data, array $options): ImporterResult
     {
         $resolver = new OptionsResolver();
         $resolver = $this->configureOptions($resolver);
@@ -251,14 +284,28 @@ class BOMImporter
         ));
 
         return match ($options['type']) {
-            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $objectType),
-            self::IMPORT_TYPE_JSON => $this->parseJson($data, $objectType),
-            self::IMPORT_TYPE_CSV => $this->parseCsv($data, $objectType),
+            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject),
+            self::IMPORT_TYPE_JSON => $this->parseJson($data, $importObject),
+            self::IMPORT_TYPE_CSV => $this->parseCsv($data, $importObject),
             default => $defaultImporterResult,
         };
     }
 
-    private function parseKiCADPCB(string $data, string $objectType = ProjectBOMEntry::class): ImporterResult
+    /**
+     * Parses a KiCAD PCB file and imports its BOM (Bill of Materials) entries into the given Project or Assembly context.
+     *
+     * This method processes a semicolon-delimited CSV data string, normalizes column names,
+     * validates the required fields, and creates BOM entries for each record in the data.
+     * The BOM entries are added to the provided Project or Assembly, depending on the context.
+     *
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string            $data The semicolon- or comma-delimited CSV data to be parsed
+     *
+     * @return ImporterResult The result of the import process, containing the created BOM entries.
+     *
+     * @throws UnexpectedValueException If required fields are missing in the provided data.
+     */
+    private function parseKiCADPCB(string $data, Project|Assembly $importObject): ImporterResult
     {
         $result = new ImporterResult();
 
@@ -284,8 +331,8 @@ class BOMImporter
                 throw new \UnexpectedValueException('Quantity missing at line ' . ($offset + 1) . '!');
             }
 
-            $bom_entry = $objectType === ProjectBOMEntry::class ? new ProjectBOMEntry() : new AssemblyBOMEntry();
-            if ($objectType === ProjectBOMEntry::class) {
+            $bom_entry = $importObject instanceof Project ? new ProjectBOMEntry() : new AssemblyBOMEntry();
+            if ($bom_entry instanceof ProjectBOMEntry) {
                 $bom_entry->setName($entry['Designation'] . ' (' . $entry['Package'] . ')');
             } else {
                 $bom_entry->setName($entry['Designation']);
@@ -383,15 +430,15 @@ class BOMImporter
      * - Checking for empty or invalid descriptions.
      * - Ensuring manufacturers, if specified, have valid `name` or `id` values.
      *
-     * @param string $data JSON encoded string containing BOM entries data.
-     * @param string $objectType The type of entries expected during import (e.g., `ProjectBOMEntry` or `AssemblyBOMEntry`).
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string            $data JSON encoded string containing BOM entries data.
      *
      * @return ImporterResult The result containing parsed data and any violations encountered during the parsing process.
      */
-    private function parseJson(string $data, array $options = [], string $objectType = ProjectBOMEntry::class): ImporterResult
+    private function parseJson(Project|Assembly $importObject, string $data): ImporterResult
     {
         $result = new ImporterResult();
-        $this->jsonRoot = 'JSON Import for '.$objectType === ProjectBOMEntry::class ? 'Project' : 'Assembly';
+        $this->jsonRoot = 'JSON Import for '.($importObject instanceof Project ? 'Project' : 'Assembly');
 
         $data = json_decode($data, true);
 
@@ -420,9 +467,9 @@ class BOMImporter
             }
 
             if (isset($entry['part'])) {
-                $this->processPart($entry, $result, $key, $objectType,self::IMPORT_TYPE_JSON);
+                $this->processPart($importObject, $entry, $result, $key, self::IMPORT_TYPE_JSON);
             } else {
-                $bomEntry = $this->getOrCreateBomEntry($objectType, $entry['name'] ?? null);
+                $bomEntry = $this->getOrCreateBomEntry($importObject, $entry['name'] ?? null);
                 $bomEntry->setQuantity((float) $entry['quantity']);
 
                 $result->addBomEntry($bomEntry);
@@ -438,16 +485,16 @@ class BOMImporter
      * performing validations and converting data based on the provided headers.
      * Handles potential violations and manages the creation of BOM entries based on the given type.
      *
-     * @param string $csvData The raw CSV data to parse, with rows separated by newlines.
-     * @param string $objectType The class type to instantiate for BOM entries, defaults to ProjectBOMEntry.
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string            $csvData The raw CSV data to parse, with rows separated by newlines.
      *
      * @return ImporterResult Returns an ImporterResult instance containing BOM entries and any validation violations encountered.
      */
-    function parseCsv(string $csvData, string $objectType = ProjectBOMEntry::class): ImporterResult
+    function parseCsv(Project|Assembly $importObject, string $csvData): ImporterResult
     {
         $result = new ImporterResult();
         $rows = explode("\r\n", trim($csvData));
-        $headers = str_getcsv(array_shift($rows), ',');
+        $headers = str_getcsv(array_shift($rows));
 
         if (count($headers) === 1 && isset($headers[0])) {
             //If only one column was recognized, try fallback with semicolon as a separator
@@ -456,7 +503,7 @@ class BOMImporter
 
         foreach ($rows as $key => $row) {
             $entry = [];
-            $values = str_getcsv($row, ',');
+            $values = str_getcsv($row);
 
             if (count($values) === 1 || count($values) !== count($headers)) {
                 //If only one column was recognized, try fallback with semicolon as a separator
@@ -484,7 +531,7 @@ class BOMImporter
                     //Check whether the value is numerical
                     if (is_numeric($values[$index])) {
                         //Convert to integer or float
-                        $temp = (strpos($values[$index], '.') !== false)
+                        $temp = (str_contains($values[$index], '.'))
                             ? floatval($values[$index])
                             : intval($values[$index]);
                     } else {
@@ -525,9 +572,9 @@ class BOMImporter
             }
 
             if (isset($entry['part'])) {
-                $this->processPart($entry, $result, $key, $objectType, self::IMPORT_TYPE_CSV);
+                $this->processPart($importObject, $entry, $result, $key, self::IMPORT_TYPE_CSV);
             } else {
-                $bomEntry = $this->getOrCreateBomEntry($objectType, $entry['name'] ?? null);
+                $bomEntry = $this->getOrCreateBomEntry($importObject, $entry['name'] ?? null);
                 $bomEntry->setQuantity((float) $entry['quantity'] ?? 0);
 
                 $result->addBomEntry($bomEntry);
@@ -544,15 +591,15 @@ class BOMImporter
      * to identify corresponding objects in the database. The result is recorded, and violations are
      * logged if issues or discrepancies exist in the validation or database matching process.
      *
-     * @param array $entry The array representation of the part entry.
-     * @param ImporterResult $result The result object used for recording validation violations.
-     * @param int $key The index of the entry in the data array.
-     * @param string $objectType The type of object being processed.
-     * @param string $importType The type of import being performed.
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param array             $entry The array representation of the part entry.
+     * @param ImporterResult    $result The result object used for recording validation violations.
+     * @param int               $key The index of the entry in the data array.
+     * @param string            $importType The type of import being performed.
      *
      * @return void
      */
-    private function processPart(array $entry, ImporterResult $result, int $key, string $objectType, string $importType): void
+    private function processPart(Project|Assembly $importObject, array $entry, ImporterResult $result, int $key, string $importType): void
     {
         $prefix = $importType === self::IMPORT_TYPE_JSON ? 'entry' : 'row';
 
@@ -777,12 +824,12 @@ class BOMImporter
             $part->setCategory($category);
         }
 
-        if ($objectType === AssemblyBOMEntry::class) {
-            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['part' => $part]);
+        if ($importObject instanceof Assembly) {
+            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $entry['name']]);
+                    $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -790,11 +837,11 @@ class BOMImporter
                 }
             }
         } else {
-            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['part' => $part]);
+            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $entry['name']]);
+                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -841,22 +888,38 @@ class BOMImporter
         return $data;
     }
 
-    private function getOrCreateBomEntry(string $objectType, ?string $name)
+    /**
+     * Retrieves an existing BOM (Bill of Materials) entry by name or creates a new one if not found.
+     *
+     * Depending on whether the provided import object is a Project or Assembly, this method attempts to locate
+     * a corresponding BOM entry in the appropriate repository. If no entry is located, a new BOM entry object
+     * is instantiated according to the type of the import object.
+     *
+     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string|null       $name The name of the BOM entry to search for or assign to a new entry.
+     *
+     * @return ProjectBOMEntry|AssemblyBOMEntry An existing or newly created BOM entry.
+     */
+    private function getOrCreateBomEntry(Project|Assembly $importObject, ?string $name): ProjectBOMEntry|AssemblyBOMEntry
     {
         $bomEntry = null;
 
         //Check whether there is a name
         if (!empty($name)) {
-            if ($objectType === ProjectBOMEntry::class) {
+            if ($importObject instanceof Project) {
                 $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $name]);
-            } elseif ($objectType === AssemblyBOMEntry::class) {
+            } else {
                 $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $name]);
             }
         }
 
-        //If no bom enttry was found, a new object create
+        //If no bom entry was found, a new object create
         if ($bomEntry === null) {
-            $bomEntry = new $objectType();
+            if ($importObject instanceof Project) {
+                $bomEntry = new ProjectBOMEntry();
+            } else {
+                $bomEntry = new AssemblyBOMEntry();
+            }
         }
 
         $bomEntry->setName($name);
@@ -887,7 +950,6 @@ class BOMImporter
         return $out;
     }
 
-
     /**
      * Builds a JSON-based constraint violation.
      *
@@ -895,10 +957,10 @@ class BOMImporter
      * The violation includes a message, property path, invalid value, and other contextual information.
      * Translations for the violation message can be applied through the translator service.
      *
-     * @param string $message The translation key for the validation message.
-     * @param string $propertyPath The property path where the violation occurred.
-     * @param mixed|null $invalidValue The value that caused the violation (optional).
-     * @param array $parameters Additional parameters for message placeholders (default is an empty array).
+     * @param string        $message The translation key for the validation message.
+     * @param string        $propertyPath The property path where the violation occurred.
+     * @param mixed|null    $invalidValue The value that caused the violation (optional).
+     * @param array         $parameters Additional parameters for message placeholders (default is an empty array).
      *
      * @return ConstraintViolation The created constraint violation object.
      */
