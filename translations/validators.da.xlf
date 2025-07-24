@@ -377,6 +377,12 @@
         <target>En cyklus blev opdaget: Samlingen "%name%" refererer indirekte til sig selv.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>En samling må ikke referere til en undergruppe fra sin egen hierarki i BOM-listerne.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

@@ -395,6 +395,12 @@
         <target>È stato rilevato un ciclo: L'assemblaggio "%name%" fa riferimento indirettamente a sé stesso.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Un assemblaggio non deve fare riferimento a un sottoassemblaggio nella propria gerarchia nelle voci della distinta base (BOM).</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
