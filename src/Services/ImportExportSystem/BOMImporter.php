@@ -529,7 +529,7 @@ class BOMImporter
                 //If there is no value, skip
                 if (isset($values[$index]) && $values[$index] !== '') {
                     //Check whether the value is numerical
-                    if (is_numeric($values[$index])) {
+                    if (is_numeric($values[$index]) && !in_array($column, ['name','description','manufacturer','designator'])) {
                         //Convert to integer or float
                         $temp = (str_contains($values[$index], '.'))
                             ? floatval($values[$index])
@@ -560,7 +560,7 @@ class BOMImporter
 
             if (isset($entry['name']) && !is_string($entry['name'])) {
                 $result->addViolation($this->buildJsonViolation(
-                    'validator.bom_importer.csv.parameter.string.notEmpty',
+                    'validator.bom_importer.json_csv.parameter.string.notEmpty',
                     "row[$key].name",
                     $entry['name']
                 ));
