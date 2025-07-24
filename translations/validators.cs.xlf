@@ -407,6 +407,12 @@
         <target>Byl zjištěn cyklus: Sestava "%name%" nepřímo odkazuje sama na sebe.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Sestava nesmí ve svém seznamu materiálů (BOM) odkazovat na podskupinu, která je součástí její vlastní hierarchie.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

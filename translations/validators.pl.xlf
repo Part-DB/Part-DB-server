@@ -395,6 +395,12 @@
         <target>循環が検出されました: アセンブリ「%name%」が間接的に自身を参照しています。</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Zespół nie może odwoływać się do podzespołu w swojej własnej hierarchii w wpisach BOM.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

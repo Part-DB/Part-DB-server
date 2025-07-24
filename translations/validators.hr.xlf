@@ -395,6 +395,12 @@
         <target>Otkriven je ciklus: Sklop "%name%" neizravno referencira samog sebe.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Sklop ne smije referencirati podsklop iz vlastite hijerarhije u unosima BOM-a.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

@@ -2,24 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
- *
- *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License as published
- *  by the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Affero General Public License for more details.
- *
- *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
 namespace App\Validator\Constraints\AssemblySystem;
 
 use App\Entity\AssemblySystem\Assembly;
@@ -31,18 +13,14 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 use ReflectionClass;
 
 /**
- * Validator class to check for cycles in assemblies based on BOM entries.
- *
- * This validator ensures that the structure of assemblies does not contain circular dependencies
- * by validating each entry in the Bill of Materials (BOM) of the given assembly. Additionally,
- * it can handle form-submitted BOM entries to include these in the validation process.
+ * Validator to check that no child assemblies are referenced in BOM entries.
  */
-class AssemblyCycleValidator extends ConstraintValidator
+class AssemblyInvalidBomEntryValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof AssemblyCycle) {
-            throw new UnexpectedTypeException($constraint, AssemblyCycle::class);
+        if (!$constraint instanceof AssemblyInvalidBomEntry) {
+            throw new UnexpectedTypeException($constraint, AssemblyInvalidBomEntry::class);
         }
 
         if (!$value instanceof Assembly) {
@@ -73,55 +51,63 @@ class AssemblyCycleValidator extends ConstraintValidator
             }
         }
 
-        $visitedAssemblies = [];
         foreach ($relevantEntries as $bomEntry) {
-            if ($this->hasCycle($bomEntry->getReferencedAssembly(), $value, $visitedAssemblies)) {
+            $referencedAssembly = $bomEntry->getReferencedAssembly();
+
+            if ($bomEntry->getAssembly()->getParent()?->getId() === $referencedAssembly->getParent()?->getId()) {
+                //Save on the same assembly level
+                continue;
+            } elseif ($this->isInvalidBomEntry($referencedAssembly, $bomEntry->getAssembly())) {
                 $this->addViolation($value, $constraint);
             }
         }
     }
 
     /**
-     * Determines if there is a cyclic dependency in the assembly hierarchy.
+     * Determines whether a Bill of Materials (BOM) entry is invalid based on the relationship
+     * between the current assembly and the parent assembly.
      *
-     * This method checks if a cycle exists in the hierarchy of referenced assemblies starting
-     * from a given assembly. It traverses through the Bill of Materials (BOM) entries of each
-     * assembly recursively and keeps track of visited assemblies to detect cycles.
+     * @param Assembly|null $currentAssembly The current assembly being analyzed. Null indicates no assembly is referenced.
+     * @param Assembly      $parentAssembly The parent assembly to check against the current assembly.
      *
-     * @param Assembly|null $currentAssembly The current assembly being checked for cycles.
-     * @param Assembly      $originalAssembly The original assembly from where the cycle detection started.
-     * @param Assembly[]    $visitedAssemblies A list of assemblies that have been visited during the current traversal.
-     *
-     * @return bool True if a cycle is detected, false otherwise.
+     * @return bool Returns
      */
-    private function hasCycle(?Assembly $currentAssembly, Assembly $originalAssembly, array $visitedAssemblies = []): bool
+    private function isInvalidBomEntry(?Assembly $currentAssembly, Assembly $parentAssembly): bool
     {
-        //No referenced assembly → no cycle
+        //No assembly referenced -> no problems
         if ($currentAssembly === null) {
             return false;
         }
 
-        //If the assembly has already been visited, there is a cycle
-        if (in_array($currentAssembly->getId(), array_map(fn($a) => $a->getId(), $visitedAssemblies), true)) {
+        //Check: is the current assembly a descendant of the parent assembly?
+        if ($currentAssembly->isChildOf($parentAssembly)) {
             return true;
         }
 
-        //Add the current assembly to the visited
-        $visitedAssemblies[] = $currentAssembly;
-
-        //Go through the bom entries of the current assembly
+        //Recursive check: Analyze the current assembly list
         foreach ($currentAssembly->getBomEntries() as $bomEntry) {
             $referencedAssembly = $bomEntry->getReferencedAssembly();
 
-            if ($referencedAssembly !== null && $this->hasCycle($referencedAssembly, $originalAssembly, $visitedAssemblies)) {
+            if ($this->isInvalidBomEntry($referencedAssembly, $parentAssembly)) {
                 return true;
             }
         }
 
-        //Remove the current assembly from the list of visit (recursion completed)
-        array_pop($visitedAssemblies);
-
         return false;
+
+    }
+
+    private function isOnSameLevel(Assembly $assembly1, Assembly $assembly2): bool
+    {
+        $parent1 = $assembly1->getParent();
+        $parent2 = $assembly2->getParent();
+
+        if ($parent1 === null || $parent2 === null) {
+            return false;
+        }
+
+        // Beide Assemblies teilen denselben Parent
+        return $parent1 !== null && $parent2 !== null && $parent1->getId() === $parent2->getId();
     }
 
     /**
@@ -135,7 +121,7 @@ class AssemblyCycleValidator extends ConstraintValidator
      * @param Constraint    $constraint The constraint containing the validation details.
      *
      */
-    private function addViolation(mixed $value, Constraint $constraint): void
+    private function addViolation($value, Constraint $constraint): void
     {
         /** @var ConstraintViolationBuilder $buildViolation */
         $buildViolation = $this->context->buildViolation($constraint->message)

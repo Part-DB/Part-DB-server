@@ -401,6 +401,12 @@
         <target>Ein Zyklus wurde entdeckt: Die Baugruppe "%name%" referenziert sich indirekt selbst.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Eine Baugruppe darf keine Unterbaugruppe aus seiner eigenen Hierarchie in den BOM-Einträgen referenzieren.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
