@@ -233,6 +233,12 @@
         <target>循環が検出されました: アセンブリ「%name%」が間接的に自身を参照しています。</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>アセンブリは、BOMエントリで自身の階層内のサブアセンブリを参照してはいけません。</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>

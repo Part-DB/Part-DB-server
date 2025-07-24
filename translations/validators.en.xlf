@@ -401,6 +401,12 @@
         <target>A cycle was detected: the assembly "%name%" indirectly references itself.</target>
       </segment>
     </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>An assembly must not reference a subassembly from its own hierarchy in the BOM entries.</target>
+      </segment>
+    </unit>
     <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
       <segment>
         <source>assembly.bom_entry.project_already_in_bom</source>
