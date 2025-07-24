@@ -39,6 +39,7 @@ use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\ProjectSystem\Project;
 use App\Repository\DBElementRepository;
 use App\Validator\Constraints\AssemblySystem\AssemblyCycle;
+use App\Validator\Constraints\AssemblySystem\AssemblyInvalidBomEntry;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -142,6 +143,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         message: 'validator.assembly.bom_entry.only_part_or_assembly_allowed'
     )]
     #[AssemblyCycle]
+    #[AssemblyInvalidBomEntry]
     #[ORM\ManyToOne(targetEntity: Assembly::class)]
     #[ORM\JoinColumn(name: 'id_referenced_assembly', nullable: true, onDelete: 'SET NULL')]
     #[Groups(['bom_entry:read', 'bom_entry:write', ])]
