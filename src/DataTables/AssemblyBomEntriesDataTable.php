@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\DataTables;
 
+use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\AssemblyDataTableHelper;
@@ -145,6 +146,54 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                     //For non-part BOM entries show the comment field
                     return $context->getComment();
                 },
+            ])
+            ->add('category', EntityColumn::class, [
+                'label' => $this->translator->trans('part.table.category'),
+                'property' => 'part.category',
+                'orderField' => 'NATSORT(category.name)',
+            ])
+            ->add('footprint', EntityColumn::class, [
+                'property' => 'part.footprint',
+                'label' => $this->translator->trans('part.table.footprint'),
+                'orderField' => 'NATSORT(footprint.name)',
+            ])
+            ->add('manufacturer', EntityColumn::class, [
+                'property' => 'part.manufacturer',
+                'label' => $this->translator->trans('part.table.manufacturer'),
+                'orderField' => 'NATSORT(manufacturer.name)',
+            ])
+            ->add('mountnames', TextColumn::class, [
+                'label' => 'assembly.bom.mountnames',
+                'render' => function ($value, AssemblyBOMEntry $context) {
+                    $html = '';
+
+                    foreach (explode(',', $context->getMountnames()) as $mountname) {
+                        $html .= sprintf('<span class="badge badge-secondary bg-secondary">%s</span> ', htmlspecialchars($mountname));
+                    }
+                    return $html;
+                },
+            ])
+            ->add('instockAmount', TextColumn::class, [
+                'label' => 'assembly.bom.instockAmount',
+                'visible' => false,
+                'render' => function ($value, AssemblyBOMEntry $context) {
+                    if ($context->getPart() !== null) {
+                        return $this->partDataTableHelper->renderAmount($context->getPart());
+                    }
+
+                    return '';
+                }
+            ])
+            ->add('storageLocations', TextColumn::class, [
+                'label' => 'part.table.storeLocations',
+                'visible' => false,
+                'render' => function ($value, AssemblyBOMEntry $context) {
+                    if ($context->getPart() !== null) {
+                        return $this->partDataTableHelper->renderStorageLocations($context->getPart());
+                    }
+
+                    return '';
+                }
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
