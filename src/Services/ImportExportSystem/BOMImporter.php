@@ -563,6 +563,11 @@ class BOMImporter
                 $this->processPart($importObject, $entry, $result, $key, self::IMPORT_TYPE_CSV);
             } else {
                 $bomEntry = $this->getOrCreateBomEntry($importObject, $entry['name'] ?? null);
+
+                if (isset($entry['designator'])) {
+                    $bomEntry->setMountnames(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
+                }
+
                 $bomEntry->setQuantity((float) $entry['quantity'] ?? 0);
 
                 $result->addBomEntry($bomEntry);
@@ -849,6 +854,10 @@ class BOMImporter
             }
         } else {
             $bomEntry->setName(null);
+        }
+
+        if (isset($entry['designator'])) {
+            $bomEntry->setMountnames(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
         }
 
         $bomEntry->setPart($part);
