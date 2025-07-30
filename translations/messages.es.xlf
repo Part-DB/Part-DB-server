@@ -12344,5 +12344,29 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Ver versión externa</target>
       </segment>
     </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Han ocurrido %count% errores mientras se ejecutaba la acción:</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Cambiar de ubicación (solo para componentes con un único lote)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Este componente contiene más de un stock. Cambie la ubicación manualmente para seleccionar el stock deseado.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
