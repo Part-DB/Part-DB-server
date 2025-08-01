@@ -38,6 +38,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Serializer\SerializerInterface;
 use function Symfony\Component\String\u;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
  * Use this class to export an entity to multiple file formats.
@@ -52,7 +55,7 @@ class EntityExporter
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('format', 'csv');
-        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
+        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml', 'xlsx', 'xls']);
 
         $resolver->setDefault('csv_delimiter', ';');
         $resolver->setAllowedTypes('csv_delimiter', 'string');
@@ -88,6 +91,11 @@ class EntityExporter
 
         $options = $resolver->resolve($options);
 
+        //Handle Excel formats by converting from CSV
+        if (in_array($options['format'], ['xlsx', 'xls'])) {
+            return $this->exportToExcel($entities, $options);
+        }
+
         //If include children is set, then we need to add the include_children group
         $groups = [$options['level']];
         if ($options['include_children']) {
@@ -120,6 +128,73 @@ class EntityExporter
         }
 
         throw new CircularReferenceException('Circular reference detected for object of type '.get_class($object));
+    }
+
+    /**
+     * Exports entities to Excel format (xlsx or xls).
+     *
+     * @param AbstractNamedDBElement[] $entities The entities to export
+     * @param array                    $options  The export options
+     * 
+     * @return string The Excel file content as binary string
+     */
+    protected function exportToExcel(array $entities, array $options): string
+    {
+        //First get CSV data using existing serializer
+        $csvOptions = $options;
+        $csvOptions['format'] = 'csv';
+        $groups = [$options['level']];
+        if ($options['include_children']) {
+            $groups[] = 'include_children';
+        }
+
+        $csvData = $this->serializer->serialize($entities, 'csv',
+            [
+                'groups' => $groups,
+                'as_collection' => true,
+                'csv_delimiter' => $options['csv_delimiter'],
+                'partdb_export' => true,
+                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
+                AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
+            ]
+        );
+
+        //Convert CSV to Excel
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        $rows = explode("\n", $csvData);
+        $rowIndex = 1;
+        
+        foreach ($rows as $row) {
+            if (trim($row) === '') {
+                continue;
+            }
+            
+            $columns = str_getcsv($row, $options['csv_delimiter']);
+            $colIndex = 1;
+            
+            foreach ($columns as $column) {
+                $cellCoordinate = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
+                $worksheet->setCellValue($cellCoordinate, $column);
+                $colIndex++;
+            }
+            $rowIndex++;
+        }
+
+        //Save to memory stream
+        if ($options['format'] === 'xlsx') {
+            $writer = new Xlsx($spreadsheet);
+        } else {
+            $writer = new Xls($spreadsheet);
+        }
+        
+        ob_start();
+        $writer->save('php://output');
+        $content = ob_get_contents();
+        ob_end_clean();
+        
+        return $content;
     }
 
     /**
@@ -167,6 +242,12 @@ class EntityExporter
                 break;
             case 'json':
                 $content_type = 'application/json';
+                break;
+            case 'xlsx':
+                $content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                break;
+            case 'xls':
+                $content_type = 'application/vnd.ms-excel';
                 break;
         }
         $response->headers->set('Content-Type', $content_type);

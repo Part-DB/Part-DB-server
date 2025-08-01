@@ -117,9 +117,29 @@
         "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*"
     },
-    "suggest": {
-        "ext-bcmath": "Used to improve price calculation performance",
-        "ext-gmp": "Used to improve price calculation performanice"
+    "sort-packages": true,
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "symfony/flex": true,
+      "phpstan/extension-installer": true,
+      "symfony/runtime": true,
+      "php-http/discovery": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
     },
     "config": {
         "preferred-install": {
@@ -170,4 +190,5 @@
             "docker": true
         }
     }
+  }
 }

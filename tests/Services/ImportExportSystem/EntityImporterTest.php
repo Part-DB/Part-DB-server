@@ -36,6 +36,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 #[Group('DB')]
 class EntityImporterTest extends WebTestCase
@@ -207,6 +210,10 @@ EOT;
         yield ['json', 'json'];
         yield ['yaml', 'yml'];
         yield ['yaml', 'YAML'];
+        yield ['xlsx', 'xlsx'];
+        yield ['xlsx', 'XLSX'];
+        yield ['xls', 'xls'];
+        yield ['xls', 'XLS'];
     }
 
     #[DataProvider('formatDataProvider')]
@@ -341,5 +348,42 @@ EOT;
         $this->assertSame('Test 1 manufacturer', $results[0]->getManufacturer()->getName());
         $this->assertSame($category, $results[0]->getCategory());
         $this->assertSame('test,test2', $results[0]->getTags());
+    }
+
+    public function testImportExcelFileProjects(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        $worksheet->setCellValue('A1', 'name');
+        $worksheet->setCellValue('B1', 'comment');
+        $worksheet->setCellValue('A2', 'Test Excel 1');
+        $worksheet->setCellValue('B2', 'Test Excel 1 notes');
+        $worksheet->setCellValue('A3', 'Test Excel 2');
+        $worksheet->setCellValue('B3', 'Test Excel 2 notes');
+        
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_excel') . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($tempFile);
+        
+        $file = new File($tempFile);
+        
+        $errors = [];
+        $results = $this->service->importFile($file, [
+            'class' => Project::class,
+            'format' => 'xlsx',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(2, $results);
+        $this->assertEmpty($errors);
+        $this->assertContainsOnlyInstancesOf(Project::class, $results);
+
+        $this->assertSame('Test Excel 1', $results[0]->getName());
+        $this->assertSame('Test Excel 1 notes', $results[0]->getComment());
+        $this->assertSame('Test Excel 2', $results[1]->getName());
+        $this->assertSame('Test Excel 2 notes', $results[1]->getComment());
+        
+        unlink($tempFile);
     }
 }
