@@ -100,7 +100,8 @@ class PartMerger implements EntityMergerInterface
         return $target;
     }
 
-    private function comparePartAssociations(PartAssociation $t, PartAssociation $o): bool {
+    private function comparePartAssociations(PartAssociation $t, PartAssociation $o): bool
+    {
         //We compare the translation keys, as it contains info about the type and other type info
         return $t->getOther() === $o->getOther()
             && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
@@ -141,40 +142,39 @@ class PartMerger implements EntityMergerInterface
             $owner->addAssociatedPartsAsOwner($clone);
         }
 
+        // Merge orderdetails, considering same supplier+part number as duplicates
         $this->mergeCollections($target, $other, 'orderdetails', function (Orderdetail $t, Orderdetail $o) {
-            //First check that the orderdetails infos are equal
-            $tmp = $t->getSupplier() === $o->getSupplier()
-                && $t->getSupplierPartNr() === $o->getSupplierPartNr()
-                && $t->getSupplierProductUrl(false) === $o->getSupplierProductUrl(false);
-
-            if (!$tmp) {
-                return false;
-            }
-
-            //Check if the pricedetails are equal
-            $t_pricedetails = $t->getPricedetails();
-            $o_pricedetails = $o->getPricedetails();
-            //Ensure that both pricedetails have the same length
-            if (count($t_pricedetails) !== count($o_pricedetails)) {
-                return false;
-            }
-
-            //Check if all pricedetails are equal
-            for ($n=0, $nMax = count($t_pricedetails); $n< $nMax; $n++) {
-                $t_price = $t_pricedetails->get($n);
-                $o_price = $o_pricedetails->get($n);
-
-                if (!$t_price->getPrice()->isEqualTo($o_price->getPrice())
-                    || $t_price->getCurrency() !== $o_price->getCurrency()
-                    || $t_price->getPriceRelatedQuantity() !== $o_price->getPriceRelatedQuantity()
-                    || $t_price->getMinDiscountQuantity() !== $o_price->getMinDiscountQuantity()
-                ) {
-                    return false;
+            // If supplier and part number match, merge the orderdetails
+            if ($t->getSupplier() === $o->getSupplier() && $t->getSupplierPartNr() === $o->getSupplierPartNr()) {
+                // Update URL if target doesn't have one
+                if (empty($t->getSupplierProductUrl(false)) && !empty($o->getSupplierProductUrl(false))) {
+                    $t->setSupplierProductUrl($o->getSupplierProductUrl(false));
                 }
+                // Merge price details: add new ones, update empty ones, keep existing non-empty ones
+                foreach ($o->getPricedetails() as $otherPrice) {
+                    $found = false;
+                    foreach ($t->getPricedetails() as $targetPrice) {
+                        if ($targetPrice->getMinDiscountQuantity() === $otherPrice->getMinDiscountQuantity()
+                            && $targetPrice->getCurrency() === $otherPrice->getCurrency()) {
+                            // Only update price if the existing one is zero/empty (most logical)
+                            if ($targetPrice->getPrice()->isZero()) {
+                                $targetPrice->setPrice($otherPrice->getPrice());
+                                $targetPrice->setPriceRelatedQuantity($otherPrice->getPriceRelatedQuantity());
+                            }
+                            $found = true;
+                            break;
+                        }
+                    }
+                    // Add completely new price tiers
+                    if (!$found) {
+                        $clonedPrice = clone $otherPrice;
+                        $clonedPrice->setOrderdetail($t);
+                        $t->addPricedetail($clonedPrice);
+                    }
+                }
+                return true; // Consider them equal so the other one gets skipped
             }
-
-            //If all pricedetails are equal, the orderdetails are equal
-            return true;
+            return false; // Different supplier/part number, add as new
         });
         //The pricedetails are not correctly assigned to the new orderdetails, so fix that
         foreach ($target->getOrderdetails() as $orderdetail) {
