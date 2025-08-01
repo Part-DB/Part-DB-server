@@ -10903,6 +10903,12 @@ Element 3</target>
         <target>Export to XML</target>
       </segment>
     </unit>
+    <unit id="xLSXExport" name="part_list.action.export_xlsx">
+      <segment state="translated">
+        <source>part_list.action.export_xlsx</source>
+        <target>Export to Excel</target>
+      </segment>
+    </unit>
     <unit id="w0AgPEI" name="parts.import.title">
       <segment state="translated">
         <source>parts.import.title</source>
