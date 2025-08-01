@@ -92,7 +92,7 @@ class EntityExporter
         $options = $resolver->resolve($options);
 
         //Handle Excel formats by converting from CSV
-        if (in_array($options['format'], ['xlsx', 'xls'])) {
+        if (in_array($options['format'], ['xlsx', 'xls'], true)) {
             return $this->exportToExcel($entities, $options);
         }
 

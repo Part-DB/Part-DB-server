@@ -346,7 +346,7 @@ class EntityImporter
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
-        if (in_array($options['format'], ['xlsx', 'xls'])) {
+        if (in_array($options['format'], ['xlsx', 'xls'], true)) {
             $this->logger->info('Converting Excel file to CSV', [
                 'filename' => $file->getFilename(),
                 'format' => $options['format'],
