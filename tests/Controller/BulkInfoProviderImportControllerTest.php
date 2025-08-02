@@ -22,6 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\Parts\Part;
+use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\BulkImportJobStatus;
 use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,6 +112,86 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $client->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN ||
             $client->getResponse()->getStatusCode() === Response::HTTP_OK
         );
+    }
+
+    public function testStep2TemplateRendering(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+        
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        
+        // Use an existing part from test fixtures (ID 1 should exist)
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+        
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+        
+        // Get the admin user for the createdBy field
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+        
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+        
+        // Create a test job with search results that include source_field and source_keyword
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([$part->getId()]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([
+            [
+                'part_id' => $part->getId(),
+                'search_results' => [
+                    [
+                        'dto' => [
+                            'provider_key' => 'test_provider',
+                            'provider_id' => 'TEST123',
+                            'name' => 'Test Component',
+                            'description' => 'Test component description',
+                            'manufacturer' => 'Test Manufacturer',
+                            'mpn' => 'TEST-MPN-123',
+                            'provider_url' => 'https://example.com/test',
+                            'preview_image_url' => null,
+                            '_source_field' => 'test_field',
+                            '_source_keyword' => 'test_keyword'
+                        ],
+                        'localPart' => null
+                    ]
+                ],
+                'errors' => []
+            ]
+        ]);
+        
+        $entityManager->persist($job);
+        $entityManager->flush();
+        
+        // Test that step2 renders correctly with the search results
+        $client->request('GET', '/tools/bulk-info-provider-import/step2/' . $job->getId());
+        
+        // Follow any redirects (like locale redirects)
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+        
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        
+        // Verify the template rendered the source_field and source_keyword correctly
+        $content = $client->getResponse()->getContent();
+        $this->assertStringContainsString('test_field', $content);
+        $this->assertStringContainsString('test_keyword', $content);
+        
+        // Clean up - find by ID to avoid detached entity issues
+        $jobId = $job->getId();
+        $entityManager->clear(); // Clear all entities
+        $jobToRemove = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($jobToRemove) {
+            $entityManager->remove($jobToRemove);
+            $entityManager->flush();
+        }
     }
 
     private function loginAsUser($client, string $username): void

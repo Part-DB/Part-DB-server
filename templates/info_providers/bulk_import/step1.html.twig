@@ -246,9 +246,9 @@
                                                 <br><small class="text-muted">{{ dto.provider_id }}</small>
                                             </td>
                                             <td>
-                                                <span class="badge bg-info">{{ dto._source_field ?? 'unknown' }}</span>
-                                                {% if dto._source_keyword %}
-                                                    <br><small class="text-muted">{{ dto._source_keyword }}</small>
+                                                <span class="badge bg-info">{{ result.source_field ?? 'unknown' }}</span>
+                                                {% if result.source_keyword %}
+                                                    <br><small class="text-muted">{{ result.source_keyword }}</small>
                                                 {% endif %}
                                             </td>
                                             <td>
