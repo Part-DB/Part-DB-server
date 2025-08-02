@@ -1,0 +1,339 @@
+{% extends "main_card.html.twig" %}
+
+{% import "info_providers/providers.macro.html.twig" as providers_macro %}
+{% import "helper.twig" as helper %}
+
+{% block title %}
+    {% trans %}info_providers.bulk_import.step1.title{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.bulk_import.step1.title{% endtrans %}
+    <span class="badge bg-secondary">{{ parts|length }} {% trans %}info_providers.bulk_import.parts_selected{% endtrans %}</span>
+{% endblock %}
+
+{% block card_content %}
+
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle"></i>
+        {% trans %}info_providers.bulk_import.step1.global_mapping_description{% endtrans %}
+    </div>
+    
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle"></i>
+        {% trans %}info_providers.bulk_import.step1.spn_recommendation{% endtrans %}
+    </div>
+
+    <!-- Show selected parts -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">{% trans %}info_providers.bulk_import.selected_parts{% endtrans %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for part in parts %}
+                    {% set hasNoIdentifiers = part.manufacturerProductNumber is empty and part.orderdetails is empty %}
+                    <div class="col-md-6 col-lg-4 mb-2">
+                        <div class="d-flex align-items-center {% if hasNoIdentifiers %}text-danger{% endif %}">
+                            <i class="fas fa-microchip {% if hasNoIdentifiers %}text-danger{% else %}text-primary{% endif %} me-2"></i>
+                            <div>
+                                <a href="{{ path('app_part_show', {'id': part.id}) }}" class="text-decoration-none {% if hasNoIdentifiers %}text-danger{% endif %}">
+                                    <strong>{{ part.name }}</strong>
+                                    {% if part.manufacturerProductNumber %}
+                                        <br><small class="{% if hasNoIdentifiers %}text-danger{% else %}text-muted{% endif %}">MPN: {{ part.manufacturerProductNumber }}</small>
+                                    {% endif %}
+                                    {% if part.orderdetails is not empty %}
+                                        <br><small class="{% if hasNoIdentifiers %}text-danger{% else %}text-muted{% endif %}">
+                                            SPNs: {{ part.orderdetails|map(od => od.supplierPartNr)|join(', ') }}
+                                        </small>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">{% trans %}info_providers.bulk_import.field_mappings{% endtrans %}</h5>
+            <small class="text-muted">{% trans %}info_providers.bulk_import.field_mappings_help{% endtrans %}</small>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans %}info_providers.bulk_search.search_field{% endtrans %}</th>
+                            <th>{% trans %}info_providers.bulk_search.providers{% endtrans %}</th>
+                            <th width="100">{% trans %}action.label{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="field-mappings-tbody" data-prototype="{{ form_widget(form.field_mappings.vars.prototype)|e('html_attr') }}">
+                        {% for mapping in form.field_mappings %}
+                            <tr class="mapping-row">
+                                <td>{{ form_widget(mapping.field) }}{{ form_errors(mapping.field) }}</td>
+                                <td>{{ form_widget(mapping.providers) }}{{ form_errors(mapping.providers) }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-success btn-sm" onclick="addMapping()">
+                    <i class="fas fa-plus"></i> {% trans %}info_providers.bulk_import.add_mapping{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex flex-column align-items-start gap-2">
+        <a class="mb-2" href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+        {{ form_widget(form.submit) }}
+    </div>
+
+    {{ form_end(form) }}
+
+    {% if search_results is not null %}
+        <hr>
+        <h4>{% trans %}info_providers.bulk_import.search_results.title{% endtrans %}</h4>
+
+        {% for part_result in search_results %}
+            {% set part = part_result.part %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        {{ part.name }}
+                        {% if part_result.errors is not empty %}
+                            <span class="badge bg-warning">{{ part_result.errors|length }} {% trans %}info_providers.bulk_import.errors{% endtrans %}</span>
+                        {% endif %}
+                        <span class="badge bg-success">{{ part_result.search_results|length }} {% trans %}info_providers.bulk_import.results_found{% endtrans %}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if part_result.errors is not empty %}
+                        {% for error in part_result.errors %}
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if part_result.search_results|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{% trans %}name.label{% endtrans %}</th>
+                                        <th>{% trans %}description.label{% endtrans %}</th>
+                                        <th>{% trans %}manufacturer.label{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.bulk_import.source_field{% endtrans %}</th>
+                                        <th>{% trans %}action.label{% endtrans %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in part_result.search_results %}
+                                        {% set dto = result.dto %}
+                                        {% set localPart = result.localPart %}
+                                        <tr {% if localPart is not null %}class="table-warning"{% endif %}>
+                                            <td>
+                                                <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
+                                                     class="hoverpic" style="max-width: 30px;" {{ stimulus_controller('elements/hoverpic') }}>
+                                            </td>
+                                            <td>
+                                                {% if dto.provider_url is not null %}
+                                                    <a href="{{ dto.provider_url }}" target="_blank" rel="noopener">{{ dto.name }}</a>
+                                                {% else %}
+                                                    {{ dto.name }}
+                                                {% endif %}
+                                                {% if dto.mpn is not null %}
+                                                    <br><small class="text-muted">{{ dto.mpn }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ dto.description }}</td>
+                                            <td>{{ dto.manufacturer ?? '' }}</td>
+                                            <td>
+                                                {{ info_provider_label(dto.provider_key)|default(dto.provider_key) }}
+                                                <br><small class="text-muted">{{ dto.provider_id }}</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ dto._source_field ?? 'unknown' }}</span>
+                                                {% if dto._source_keyword %}
+                                                    <br><small class="text-muted">{{ dto._source_keyword }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group-vertical btn-group-sm" role="group">
+                                                    {% set updateHref = path('info_providers_update_part',
+                                                        {'id': part.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) %}
+                                                    <a class="btn btn-primary" href="{{ updateHref }}" target="_blank">
+                                                        <i class="fas fa-edit"></i> {% trans %}info_providers.bulk_import.update_part{% endtrans %}
+                                                    </a>
+                                                    
+                                                    {% if localPart is not null %}
+                                                        <a class="btn btn-info btn-sm" href="{{ path('app_part_show', {'id': localPart.id}) }}" target="_blank">
+                                                            <i class="fas fa-eye"></i> {% trans %}info_providers.bulk_import.view_existing{% endtrans %}
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            {% trans %}info_providers.search.no_results{% endtrans %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+let mappingIndex = {{ form.field_mappings|length }};
+const maxMappings = {{ fieldChoices|length }};
+
+function addMapping() {
+    const tbody = document.getElementById('field-mappings-tbody');
+    const currentMappings = tbody.querySelectorAll('.mapping-row').length;
+    
+    // Check if we've reached the maximum number of mappings
+    if (currentMappings >= maxMappings) {
+        alert('{% trans %}info_providers.bulk_import.max_mappings_reached{% endtrans %}');
+        return;
+    }
+    
+    const prototype = tbody.dataset.prototype;
+    
+    // Replace __name__ placeholder with current index
+    const newRowHtml = prototype.replace(/__name__/g, mappingIndex);
+    
+    // Create temporary div to parse the prototype HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = newRowHtml;
+    
+    // Extract field and provider widgets
+    const fieldWidget = tempDiv.querySelector('select[name*="[field]"]') || tempDiv.children[0];
+    const providerWidget = tempDiv.querySelector('select[name*="[providers]"]') || tempDiv.children[1];
+    
+    // Create new row
+    const newRow = document.createElement('tr');
+    newRow.className = 'mapping-row';
+    newRow.innerHTML = `
+        <td>${fieldWidget ? fieldWidget.outerHTML : ''}</td>
+        <td>${providerWidget ? providerWidget.outerHTML : ''}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </td>
+    `;
+    
+    tbody.appendChild(newRow);
+    mappingIndex++;
+    
+    // Add change listener to the new field select and clear its selection
+    const newFieldSelect = newRow.querySelector('select[name*="[field]"]');
+    if (newFieldSelect) {
+        // Clear the selection for new rows - select the placeholder option
+        newFieldSelect.value = '';
+        addFieldChangeListener(newFieldSelect);
+    }
+    
+    // Update field options to hide already selected fields
+    updateFieldOptions();
+    
+    // Update add button state
+    updateAddButtonState();
+}
+
+function removeMapping(button) {
+    const row = button.closest('tr');
+    row.remove();
+    updateFieldOptions();
+    updateAddButtonState();
+}
+
+
+
+function updateFieldOptions() {
+    const tbody = document.getElementById('field-mappings-tbody');
+    const fieldSelects = tbody.querySelectorAll('select[name*="[field]"]');
+    
+    // Get all currently selected field values (excluding empty values)
+    const selectedFields = Array.from(fieldSelects)
+        .map(select => select.value)
+        .filter(value => value && value !== '');
+    
+    console.log('Selected fields:', selectedFields);
+    
+    // Update each field select to disable already selected options
+    fieldSelects.forEach(select => {
+        Array.from(select.options).forEach(option => {
+            // Don't disable if this is the current select's value or if option is empty
+            const isCurrentValue = option.value === select.value;
+            const isEmptyOption = !option.value || option.value === '';
+            const isAlreadySelected = selectedFields.includes(option.value);
+            
+            if (!isEmptyOption && isAlreadySelected && !isCurrentValue) {
+                option.disabled = true;
+                option.style.display = 'none';
+            } else {
+                option.disabled = false;
+                option.style.display = '';
+            }
+        });
+    });
+}
+
+function updateAddButtonState() {
+    const tbody = document.getElementById('field-mappings-tbody');
+    const addButton = document.querySelector('button[onclick="addMapping()"]');
+    const currentMappings = tbody.querySelectorAll('.mapping-row').length;
+    
+    if (addButton) {
+        if (currentMappings >= maxMappings) {
+            addButton.disabled = true;
+            addButton.title = '{% trans %}info_providers.bulk_import.max_mappings_reached{% endtrans %}';
+        } else {
+            addButton.disabled = false;
+            addButton.title = '';
+        }
+    }
+}
+
+// Add event listener for field changes
+function addFieldChangeListener(select) {
+    select.addEventListener('change', function() {
+        updateFieldOptions();
+    });
+}
+
+// Initialize add button state on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateAddButtonState();
+    updateFieldOptions();
+    
+    // Add change listeners to existing field selects
+    const fieldSelects = document.querySelectorAll('select[name*="[field]"]');
+    fieldSelects.forEach(addFieldChangeListener);
+});
+</script>
+{% endblock %}
+
