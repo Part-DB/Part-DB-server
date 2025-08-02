@@ -32,7 +32,11 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
+use App\Entity\BulkInfoProviderImportJob;
 use App\Form\Filters\Constraints\BooleanConstraintType;
+use App\Form\Filters\Constraints\BulkImportJobExistsConstraintType;
+use App\Form\Filters\Constraints\BulkImportJobStatusConstraintType;
+use App\Form\Filters\Constraints\BulkImportPartStatusConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
@@ -296,6 +300,23 @@ class PartFilterType extends AbstractType
                 ])
             ;
 
+        }
+
+        /**************************************************************************
+         * Bulk Import Job tab
+         **************************************************************************/
+        if ($this->security->isGranted('@info_providers.create_parts')) {
+            $builder
+                ->add('inBulkImportJob', BulkImportJobExistsConstraintType::class, [
+                    'label' => 'part.filter.in_bulk_import_job',
+                ])
+                ->add('bulkImportJobStatus', BulkImportJobStatusConstraintType::class, [
+                    'label' => 'part.filter.bulk_import_job_status',
+                ])
+                ->add('bulkImportPartStatus', BulkImportPartStatusConstraintType::class, [
+                    'label' => 'part.filter.bulk_import_part_status',
+                ])
+            ;
         }
 
 

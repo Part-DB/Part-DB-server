@@ -31,6 +31,9 @@ use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\Part\LessThanDesiredConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportJobExistsConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportJobStatusConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportPartStatusConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
@@ -42,6 +45,8 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
+use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\BulkInfoProviderImportJobPart;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -101,6 +106,14 @@ class PartFilter implements FilterInterface
     public readonly TextConstraint $bomName;
     public readonly TextConstraint $bomComment;
 
+    /*************************************************
+     * Bulk Import Job tab
+     *************************************************/
+
+    public readonly BulkImportJobExistsConstraint $inBulkImportJob;
+    public readonly BulkImportJobStatusConstraint $bulkImportJobStatus;
+    public readonly BulkImportPartStatusConstraint $bulkImportPartStatus;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -126,7 +139,7 @@ class PartFilter implements FilterInterface
          */
         $this->amountSum = (new IntConstraint('(
                     SELECT COALESCE(SUM(__partLot.amount), 0.0)
-                    FROM '.PartLot::class.' __partLot
+                    FROM ' . PartLot::class . ' __partLot
                     WHERE __partLot.part = part.id
                     AND __partLot.instock_unknown = false
                     AND (__partLot.expiration_date IS NULL OR __partLot.expiration_date > CURRENT_DATE())
@@ -161,6 +174,11 @@ class PartFilter implements FilterInterface
         $this->bomQuantity = new NumberConstraint('_projectBomEntries.quantity');
         $this->bomName = new TextConstraint('_projectBomEntries.name');
         $this->bomComment = new TextConstraint('_projectBomEntries.comment');
+
+        // Bulk Import Job filters
+        $this->inBulkImportJob = new BulkImportJobExistsConstraint();
+        $this->bulkImportJobStatus = new BulkImportJobStatusConstraint();
+        $this->bulkImportPartStatus = new BulkImportPartStatusConstraint();
 
     }
 

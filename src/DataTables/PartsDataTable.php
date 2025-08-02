@@ -43,6 +43,7 @@ use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
+use App\Entity\BulkInfoProviderImportJobPart;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
@@ -142,23 +143,25 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
                 'orderField' => 'NATSORT(MIN(_storelocations.name))',
-                'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
 
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
-                'render' => fn ($value, Part $context) => $this->partDataTableHelper->renderAmount($context),
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderAmount($context),
                 'orderField' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
-                    $context->getPartUnit())),
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format(
+                    $value,
+                    $context->getPartUnit()
+                )),
             ])
             ->add('partUnit', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partUnit'),
                 'orderField' => 'NATSORT(_partUnit.name)',
-                'render' => function($value, Part $context): string {
+                'render' => function ($value, Part $context): string {
                     $partUnit = $context->getPartUnit();
                     if ($partUnit === null) {
                         return '';
@@ -167,7 +170,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     $tmp = htmlspecialchars($partUnit->getName());
 
                     if ($partUnit->getUnit()) {
-                        $tmp .= ' ('.htmlspecialchars($partUnit->getUnit()).')';
+                        $tmp .= ' (' . htmlspecialchars($partUnit->getUnit()) . ')';
                     }
                     return $tmp;
                 }
@@ -230,7 +233,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     }
 
                     if (count($projects) > $max) {
-                        $tmp .= ", + ".(count($projects) - $max);
+                        $tmp .= ", + " . (count($projects) - $max);
                     }
 
                     return $tmp;
@@ -366,7 +369,7 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->addSelect(
                 '(
                     SELECT COALESCE(SUM(partLot.amount), 0.0)
-                    FROM '.PartLot::class.' partLot
+                    FROM ' . PartLot::class . ' partLot
                     WHERE partLot.part = part.id
                     AND partLot.instock_unknown = false
                     AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
@@ -422,6 +425,13 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->leftJoin('part.project_bom_entries', '_projectBomEntries');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_projectBomEntries');
+        }
+        if (str_contains($dql, '_jobPart')) {
+            $builder->leftJoin('part.bulkImportJobParts', '_jobPart');
+            $builder->leftJoin('_jobPart.job', '_bulkImportJob');
+            //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
+            //$builder->addGroupBy('_jobPart');
+            //$builder->addGroupBy('_bulkImportJob');
         }
 
         return $builder;

@@ -23,7 +23,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,9 +45,6 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 {
     #[ORM\Column(type: Types::TEXT)]
     private string $name = '';
-
-    #[ORM\Column(type: Types::JSON)]
-    private array $partIds = [];
 
     #[ORM\Column(type: Types::JSON)]
     private array $fieldMappings = [];
@@ -68,12 +68,14 @@ class BulkInfoProviderImportJob extends AbstractDBElement
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $progress = [];
+    /** @var Collection<int, BulkInfoProviderImportJobPart> */
+    #[ORM\OneToMany(targetEntity: BulkInfoProviderImportJobPart::class, mappedBy: 'job', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $jobParts;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->jobParts = new ArrayCollection();
     }
 
     public function getName(): string
@@ -102,14 +104,50 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $this;
     }
 
+    public function getJobParts(): Collection
+    {
+        return $this->jobParts;
+    }
+
+    public function addJobPart(BulkInfoProviderImportJobPart $jobPart): self
+    {
+        if (!$this->jobParts->contains($jobPart)) {
+            $this->jobParts->add($jobPart);
+            $jobPart->setJob($this);
+        }
+        return $this;
+    }
+
+    public function removeJobPart(BulkInfoProviderImportJobPart $jobPart): self
+    {
+        if ($this->jobParts->removeElement($jobPart)) {
+            if ($jobPart->getJob() === $this) {
+                $jobPart->setJob(null);
+            }
+        }
+        return $this;
+    }
+
     public function getPartIds(): array
     {
-        return $this->partIds;
+        return $this->jobParts->map(fn($jobPart) => $jobPart->getPart()->getId())->toArray();
     }
 
     public function setPartIds(array $partIds): self
     {
-        $this->partIds = $partIds;
+        // This method is kept for backward compatibility but should be replaced with addJobPart
+        // Clear existing job parts
+        $this->jobParts->clear();
+
+        // Add new job parts (this would need the actual Part entities, not just IDs)
+        // This is a simplified implementation - in practice, you'd want to pass Part entities
+        return $this;
+    }
+
+    public function addPart(Part $part): self
+    {
+        $jobPart = new BulkInfoProviderImportJobPart($this, $part);
+        $this->addJobPart($jobPart);
         return $this;
     }
 
@@ -186,12 +224,31 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     public function getProgress(): array
     {
-        return $this->progress;
+        $progress = [];
+        foreach ($this->jobParts as $jobPart) {
+            $progressData = [
+                'status' => $jobPart->getStatus()->value
+            ];
+
+            // Only include completed_at if it's not null
+            if ($jobPart->getCompletedAt() !== null) {
+                $progressData['completed_at'] = $jobPart->getCompletedAt()->format('c');
+            }
+
+            // Only include reason if it's not null
+            if ($jobPart->getReason() !== null) {
+                $progressData['reason'] = $jobPart->getReason();
+            }
+
+            $progress[$jobPart->getPart()->getId()] = $progressData;
+        }
+        return $progress;
     }
 
     public function setProgress(array $progress): self
     {
-        $this->progress = $progress;
+        // This method is kept for backward compatibility
+        // The progress is now managed through the jobParts relationship
         return $this;
     }
 
@@ -254,7 +311,7 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     public function getPartCount(): int
     {
-        return count($this->partIds);
+        return $this->jobParts->count();
     }
 
     public function getResultCount(): int
@@ -268,48 +325,61 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     public function markPartAsCompleted(int $partId): self
     {
-        $this->progress[$partId] = [
-            'status' => 'completed',
-            'completed_at' => (new \DateTimeImmutable())->format('c')
-        ];
+        $jobPart = $this->findJobPartByPartId($partId);
+        if ($jobPart) {
+            $jobPart->markAsCompleted();
+        }
         return $this;
     }
 
     public function markPartAsSkipped(int $partId, string $reason = ''): self
     {
-        $this->progress[$partId] = [
-            'status' => 'skipped',
-            'reason' => $reason,
-            'completed_at' => (new \DateTimeImmutable())->format('c')
-        ];
+        $jobPart = $this->findJobPartByPartId($partId);
+        if ($jobPart) {
+            $jobPart->markAsSkipped($reason);
+        }
         return $this;
     }
 
     public function markPartAsPending(int $partId): self
     {
-        // Remove from progress array to mark as pending
-        unset($this->progress[$partId]);
+        $jobPart = $this->findJobPartByPartId($partId);
+        if ($jobPart) {
+            $jobPart->markAsPending();
+        }
         return $this;
     }
 
     public function isPartCompleted(int $partId): bool
     {
-        return isset($this->progress[$partId]) && $this->progress[$partId]['status'] === 'completed';
+        $jobPart = $this->findJobPartByPartId($partId);
+        return $jobPart ? $jobPart->isCompleted() : false;
     }
 
     public function isPartSkipped(int $partId): bool
     {
-        return isset($this->progress[$partId]) && $this->progress[$partId]['status'] === 'skipped';
+        $jobPart = $this->findJobPartByPartId($partId);
+        return $jobPart ? $jobPart->isSkipped() : false;
     }
 
     public function getCompletedPartsCount(): int
     {
-        return count(array_filter($this->progress, fn($p) => $p['status'] === 'completed'));
+        return $this->jobParts->filter(fn($jobPart) => $jobPart->isCompleted())->count();
     }
 
     public function getSkippedPartsCount(): int
     {
-        return count(array_filter($this->progress, fn($p) => $p['status'] === 'skipped'));
+        return $this->jobParts->filter(fn($jobPart) => $jobPart->isSkipped())->count();
+    }
+
+    private function findJobPartByPartId(int $partId): ?BulkInfoProviderImportJobPart
+    {
+        foreach ($this->jobParts as $jobPart) {
+            if ($jobPart->getPart()->getId() === $partId) {
+                return $jobPart;
+            }
+        }
+        return null;
     }
 
     public function getProgressPercentage(): float

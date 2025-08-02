@@ -13801,5 +13801,101 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Are you sure you want to stop this job?</target>
       </segment>
     </unit>
+    <unit id="bulk109" name="part.filter.in_bulk_import_job">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job</source>
+        <target>In Bulk Import Job</target>
+      </segment>
+    </unit>
+    <unit id="bulk110" name="part.filter.in_bulk_import_job.yes">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job.yes</source>
+        <target>Yes</target>
+      </segment>
+    </unit>
+    <unit id="bulk111" name="part.filter.in_bulk_import_job.no">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job.no</source>
+        <target>No</target>
+      </segment>
+    </unit>
+    <unit id="bulk112" name="part.filter.bulk_import_job_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_job_status</source>
+        <target>Bulk Import Job Status</target>
+      </segment>
+    </unit>
+    <unit id="bulk113" name="part.filter.bulk_import_part_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_part_status</source>
+        <target>Bulk Import Part Status</target>
+      </segment>
+    </unit>
+    <unit id="bulk114" name="part.edit.tab.bulk_import">
+      <segment state="translated">
+        <source>part.edit.tab.bulk_import</source>
+        <target>Bulk Import Job</target>
+      </segment>
+    </unit>
+    <unit id="bulk115" name="bulk_import.status.pending">
+      <segment state="translated">
+        <source>bulk_import.status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="bulk116" name="bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>bulk_import.status.in_progress</source>
+        <target>In Progress</target>
+      </segment>
+    </unit>
+    <unit id="bulk117" name="bulk_import.status.completed">
+      <segment state="translated">
+        <source>bulk_import.status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="bulk118" name="bulk_import.status.stopped">
+      <segment state="translated">
+        <source>bulk_import.status.stopped</source>
+        <target>Stopped</target>
+      </segment>
+    </unit>
+    <unit id="bulk119" name="bulk_import.status.failed">
+      <segment state="translated">
+        <source>bulk_import.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="bulk120" name="bulk_import.part_status.pending">
+      <segment state="translated">
+        <source>bulk_import.part_status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="bulk121" name="bulk_import.part_status.completed">
+      <segment state="translated">
+        <source>bulk_import.part_status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="bulk122" name="bulk_import.part_status.skipped">
+      <segment state="translated">
+        <source>bulk_import.part_status.skipped</source>
+        <target>Skipped</target>
+      </segment>
+    </unit>
+    <unit id="bulk123" name="bulk_import.part_status.failed">
+      <segment state="translated">
+        <source>bulk_import.part_status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="bulk124" name="filter.operator">
+      <segment state="translated">
+        <source>filter.operator</source>
+        <target>Operator</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

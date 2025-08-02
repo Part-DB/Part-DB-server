@@ -25,6 +25,7 @@ namespace App\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\BulkInfoProviderImportJobPart;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
@@ -69,6 +70,7 @@ enum LogTargetType: int
 
     case PART_ASSOCIATION = 20;
     case BULK_INFO_PROVIDER_IMPORT_JOB = 21;
+    case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -99,6 +101,7 @@ enum LogTargetType: int
             self::LABEL_PROFILE => LabelProfile::class,
             self::PART_ASSOCIATION => PartAssociation::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB => BulkInfoProviderImportJob::class,
+            self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => BulkInfoProviderImportJobPart::class,
         };
     }
 
