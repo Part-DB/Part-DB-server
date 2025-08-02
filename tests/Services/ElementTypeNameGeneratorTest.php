@@ -25,6 +25,7 @@ namespace App\Tests\Services;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
@@ -50,12 +51,14 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         //We only test in english
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(new Part()));
         $this->assertSame('Category', $this->service->getLocalizedTypeLabel(new Category()));
+        $this->assertSame('bulk_info_provider_import_job.label', $this->service->getLocalizedTypeLabel(new BulkInfoProviderImportJob()));
 
         //Test inheritance
         $this->assertSame('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
 
         //Test for class name
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(Part::class));
+        $this->assertSame('bulk_info_provider_import_job.label', $this->service->getLocalizedTypeLabel(BulkInfoProviderImportJob::class));
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);

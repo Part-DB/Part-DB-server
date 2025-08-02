@@ -28,7 +28,6 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
-use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -37,12 +36,12 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\UserSystem\User;
 
 #[Route('/tools/bulk-info-provider-import')]
 class BulkInfoProviderImportController extends AbstractController
 {
     public function __construct(
-        private readonly ProviderRegistry $providerRegistry,
         private readonly PartInfoRetriever $infoRetriever,
         private readonly ExistingPartFinder $existingPartFinder,
         private readonly EntityManagerInterface $entityManager
@@ -108,7 +107,11 @@ class BulkInfoProviderImportController extends AbstractController
             $job->setPartIds(array_map(fn($part) => $part->getId(), $parts));
             $job->setFieldMappings($fieldMappings);
             $job->setPrefetchDetails($prefetchDetails);
-            $job->setCreatedBy($this->getUser());
+            $user = $this->getUser();
+            if (!$user instanceof User) {
+                throw new \RuntimeException('User must be authenticated and of type User');
+            }
+            $job->setCreatedBy($user);
 
             $this->entityManager->persist($job);
             $this->entityManager->flush();
@@ -124,6 +127,7 @@ class BulkInfoProviderImportController extends AbstractController
 
                 // Collect all DTOs from all applicable field mappings
                 $allDtos = [];
+                $dtoMetadata = []; // Store source field info separately
 
                 foreach ($fieldMappings as $mapping) {
                     $field = $mapping['field'];
@@ -142,10 +146,13 @@ class BulkInfoProviderImportController extends AbstractController
                                 providers: $providers
                             );
 
-                            // Add field info to each DTO for tracking
+                            // Store field info for each DTO separately
                             foreach ($dtos as $dto) {
-                                $dto->_source_field = $field;
-                                $dto->_source_keyword = $keyword;
+                                $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
+                                $dtoMetadata[$dtoKey] = [
+                                    'source_field' => $field,
+                                    'source_keyword' => $keyword
+                                ];
                             }
 
                             $allDtos = array_merge($allDtos, $dtos);
@@ -160,16 +167,28 @@ class BulkInfoProviderImportController extends AbstractController
                 $uniqueDtos = [];
                 $seenKeys = [];
                 foreach ($allDtos as $dto) {
-                    $key = $dto->provider_key . '|' . $dto->provider_id;
-                    if (!in_array($key, $seenKeys)) {
+                    if ($dto === null || !isset($dto->provider_key, $dto->provider_id)) {
+                        continue;
+                    }
+                    $key = "{$dto->provider_key}|{$dto->provider_id}";
+                    if (!in_array($key, $seenKeys, true)) {
                         $seenKeys[] = $key;
                         $uniqueDtos[] = $dto;
                     }
                 }
 
-                // Convert DTOs to result format
+                // Convert DTOs to result format with metadata
                 $partResult['search_results'] = array_map(
-                    fn($dto) => ['dto' => $dto, 'localPart' => $this->existingPartFinder->findFirstExisting($dto)],
+                    function($dto) use ($dtoMetadata) {
+                        $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
+                        $metadata = $dtoMetadata[$dtoKey] ?? [];
+                        return [
+                            'dto' => $dto,
+                            'localPart' => $this->existingPartFinder->findFirstExisting($dto),
+                            'source_field' => $metadata['source_field'] ?? null,
+                            'source_keyword' => $metadata['source_keyword'] ?? null
+                        ];
+                    },
                     $uniqueDtos
                 );
 
@@ -182,7 +201,7 @@ class BulkInfoProviderImportController extends AbstractController
             $this->entityManager->flush();
 
             // Prefetch details if requested
-            if ($prefetchDetails && !empty($searchResults)) {
+            if ($prefetchDetails) {
                 $this->prefetchDetailsForResults($searchResults, $exceptionLogger);
             }
 
@@ -387,8 +406,8 @@ class BulkInfoProviderImportController extends AbstractController
                         'mpn' => $dto->mpn,
                         'provider_url' => $dto->provider_url,
                         'preview_image_url' => $dto->preview_image_url,
-                        '_source_field' => $dto->_source_field ?? null,
-                        '_source_keyword' => $dto->_source_keyword ?? null,
+                        '_source_field' => $result['source_field'] ?? null,
+                        '_source_keyword' => $result['source_keyword'] ?? null,
                     ],
                     'localPart' => $result['localPart'] ? $result['localPart']->getId() : null
                 ];
@@ -435,10 +454,6 @@ class BulkInfoProviderImportController extends AbstractController
                     preview_image_url: $dtoData['preview_image_url']
                 );
 
-                // Add the source field info
-                $dto->_source_field = $dtoData['_source_field'];
-                $dto->_source_keyword = $dtoData['_source_keyword'];
-
                 $localPart = null;
                 if ($resultData['localPart']) {
                     $localPart = $this->entityManager->getRepository(Part::class)->find($resultData['localPart']);
@@ -446,7 +461,9 @@ class BulkInfoProviderImportController extends AbstractController
 
                 $partResult['search_results'][] = [
                     'dto' => $dto,
-                    'localPart' => $localPart
+                    'localPart' => $localPart,
+                    'source_field' => $dtoData['_source_field'] ?? null,
+                    'source_keyword' => $dtoData['_source_keyword'] ?? null
                 ];
             }
 
