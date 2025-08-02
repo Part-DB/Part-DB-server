@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\InfoProviderSystem;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,6 +45,12 @@ class GlobalFieldMappingType extends AbstractType
             'allow_delete' => true,
             'prototype' => true,
             'label' => false,
+        ]);
+
+        $builder->add('prefetch_details', CheckboxType::class, [
+            'label' => 'info_providers.bulk_import.prefetch_details',
+            'required' => false,
+            'help' => 'info_providers.bulk_import.prefetch_details_help',
         ]);
 
         $builder->add('submit', SubmitType::class, [

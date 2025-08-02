@@ -5,6 +5,19 @@
 {% block card_border %}border-info{% endblock %}
 {% block card_type %}bg-info text-bg-info{% endblock %}
 
+{% block before_card %}
+    {% if bulk_job and jobId %}
+        <div class="alert alert-info mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-cloud-download fa-fw" aria-hidden="true"></i>
+                    {% trans %}info_providers.bulk_import.editing_part{% endtrans %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block title %}
     {% trans %}info_providers.update_part.title{% endtrans %}: {{ merge_old_name }}
 {% endblock %}

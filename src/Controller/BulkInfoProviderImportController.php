@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\BulkImportJobStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
@@ -35,8 +37,6 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-use function Symfony\Component\Translation\t;
 
 #[Route('/tools/bulk-info-provider-import')]
 class BulkInfoProviderImportController extends AbstractController
@@ -87,7 +87,8 @@ class BulkInfoProviderImportController extends AbstractController
         $initialData = [
             'field_mappings' => [
                 ['field' => 'mpn', 'providers' => []]
-            ]
+            ],
+            'prefetch_details' => false
         ];
 
         $form = $this->createForm(GlobalFieldMappingType::class, $initialData, [
@@ -98,7 +99,20 @@ class BulkInfoProviderImportController extends AbstractController
         $searchResults = null;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $fieldMappings = $form->getData()['field_mappings'];
+            $formData = $form->getData();
+            $fieldMappings = $formData['field_mappings'];
+            $prefetchDetails = $formData['prefetch_details'] ?? false;
+
+            // Create and save the job
+            $job = new BulkInfoProviderImportJob();
+            $job->setPartIds(array_map(fn($part) => $part->getId(), $parts));
+            $job->setFieldMappings($fieldMappings);
+            $job->setPrefetchDetails($prefetchDetails);
+            $job->setCreatedBy($this->getUser());
+
+            $this->entityManager->persist($job);
+            $this->entityManager->flush();
+
             $searchResults = [];
 
             foreach ($parts as $part) {
@@ -161,14 +175,98 @@ class BulkInfoProviderImportController extends AbstractController
 
                 $searchResults[] = $partResult;
             }
+
+            // Save search results to job
+            $job->setSearchResults($this->serializeSearchResults($searchResults));
+            $job->markAsInProgress();
+            $this->entityManager->flush();
+
+            // Prefetch details if requested
+            if ($prefetchDetails && !empty($searchResults)) {
+                $this->prefetchDetailsForResults($searchResults, $exceptionLogger);
+            }
+
+            // Redirect to step 2 with the job
+            return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $job->getId()]);
         }
+
+        // Get existing in-progress jobs for current user
+        $existingJobs = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
+            ->findBy(['createdBy' => $this->getUser(), 'status' => BulkImportJobStatus::IN_PROGRESS], ['createdAt' => 'DESC'], 10);
 
         return $this->render('info_providers/bulk_import/step1.html.twig', [
             'form' => $form,
             'parts' => $parts,
             'search_results' => $searchResults,
+            'existing_jobs' => $existingJobs,
             'fieldChoices' => $fieldChoices
         ]);
+    }
+
+    #[Route('/manage', name: 'bulk_info_provider_manage')]
+    public function manageBulkJobs(): Response
+    {
+        // Get all jobs for current user
+        $allJobs = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
+            ->findBy([], ['createdAt' => 'DESC']);
+
+        // Check and auto-complete jobs that should be completed
+        $updatedJobs = false;
+        foreach ($allJobs as $job) {
+            if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
+                $job->markAsCompleted();
+                $updatedJobs = true;
+            }
+        }
+
+        // Flush changes if any jobs were updated
+        if ($updatedJobs) {
+            $this->entityManager->flush();
+        }
+
+        return $this->render('info_providers/bulk_import/manage.html.twig', [
+            'jobs' => $allJobs
+        ]);
+    }
+
+    #[Route('/job/{jobId}/delete', name: 'bulk_info_provider_delete', methods: ['DELETE'])]
+    public function deleteJob(int $jobId): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
+            return $this->json(['error' => 'Job not found or access denied'], 404);
+        }
+
+        // Only allow deletion of completed, failed, or stopped jobs
+        if (!$job->isCompleted() && !$job->isFailed() && !$job->isStopped()) {
+            return $this->json(['error' => 'Cannot delete active job'], 400);
+        }
+
+        $this->entityManager->remove($job);
+        $this->entityManager->flush();
+
+        return $this->json(['success' => true]);
+    }
+
+    #[Route('/job/{jobId}/stop', name: 'bulk_info_provider_stop', methods: ['POST'])]
+    public function stopJob(int $jobId): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
+            return $this->json(['error' => 'Job not found or access denied'], 404);
+        }
+
+        // Only allow stopping of pending or in-progress jobs
+        if (!$job->canBeStopped()) {
+            return $this->json(['error' => 'Cannot stop job in current status'], 400);
+        }
+
+        $job->markAsStopped();
+        $this->entityManager->flush();
+
+        return $this->json(['success' => true]);
     }
 
     private function getKeywordFromField(Part $part, string $field): ?string
@@ -206,5 +304,233 @@ class BulkInfoProviderImportController extends AbstractController
         }
 
         return null;
+    }
+
+    /**
+     * Prefetch details for all search results to populate cache
+     */
+    private function prefetchDetailsForResults(array $searchResults, LoggerInterface $logger): void
+    {
+        $prefetchCount = 0;
+
+        foreach ($searchResults as $partResult) {
+            foreach ($partResult['search_results'] as $result) {
+                $dto = $result['dto'];
+
+                try {
+                    // This call will cache the details for later use
+                    $this->infoRetriever->getDetails($dto->provider_key, $dto->provider_id);
+                    $prefetchCount++;
+                } catch (\Exception $e) {
+                    $logger->warning('Failed to prefetch details for provider part', [
+                        'provider_key' => $dto->provider_key,
+                        'provider_id' => $dto->provider_id,
+                        'error' => $e->getMessage()
+                    ]);
+                }
+            }
+        }
+
+        if ($prefetchCount > 0) {
+            $this->addFlash('success', "Prefetched details for {$prefetchCount} search results");
+        }
+    }
+
+    #[Route('/step2/{jobId}', name: 'bulk_info_provider_step2')]
+    public function step2(int $jobId): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job) {
+            $this->addFlash('error', 'Bulk import job not found');
+            return $this->redirectToRoute('bulk_info_provider_step1');
+        }
+
+        // Check if user owns this job
+        if ($job->getCreatedBy() !== $this->getUser()) {
+            $this->addFlash('error', 'Access denied to this bulk import job');
+            return $this->redirectToRoute('bulk_info_provider_step1');
+        }
+
+        // Get the parts and deserialize search results
+        $partRepository = $this->entityManager->getRepository(Part::class);
+        $parts = $partRepository->getElementsFromIDArray($job->getPartIds());
+        $searchResults = $this->deserializeSearchResults($job->getSearchResults(), $parts);
+
+        return $this->render('info_providers/bulk_import/step2.html.twig', [
+            'job' => $job,
+            'parts' => $parts,
+            'search_results' => $searchResults,
+        ]);
+    }
+
+    private function serializeSearchResults(array $searchResults): array
+    {
+        $serialized = [];
+
+        foreach ($searchResults as $partResult) {
+            $partData = [
+                'part_id' => $partResult['part']->getId(),
+                'search_results' => [],
+                'errors' => $partResult['errors']
+            ];
+
+            foreach ($partResult['search_results'] as $result) {
+                $dto = $result['dto'];
+                $partData['search_results'][] = [
+                    'dto' => [
+                        'provider_key' => $dto->provider_key,
+                        'provider_id' => $dto->provider_id,
+                        'name' => $dto->name,
+                        'description' => $dto->description,
+                        'manufacturer' => $dto->manufacturer,
+                        'mpn' => $dto->mpn,
+                        'provider_url' => $dto->provider_url,
+                        'preview_image_url' => $dto->preview_image_url,
+                        '_source_field' => $dto->_source_field ?? null,
+                        '_source_keyword' => $dto->_source_keyword ?? null,
+                    ],
+                    'localPart' => $result['localPart'] ? $result['localPart']->getId() : null
+                ];
+            }
+
+            $serialized[] = $partData;
+        }
+
+        return $serialized;
+    }
+
+    private function deserializeSearchResults(array $serializedResults, array $parts): array
+    {
+        $partsById = [];
+        foreach ($parts as $part) {
+            $partsById[$part->getId()] = $part;
+        }
+
+        $searchResults = [];
+
+        foreach ($serializedResults as $partData) {
+            $part = $partsById[$partData['part_id']] ?? null;
+            if (!$part) {
+                continue;
+            }
+
+            $partResult = [
+                'part' => $part,
+                'search_results' => [],
+                'errors' => $partData['errors']
+            ];
+
+            foreach ($partData['search_results'] as $resultData) {
+                $dtoData = $resultData['dto'];
+
+                $dto = new \App\Services\InfoProviderSystem\DTOs\SearchResultDTO(
+                    provider_key: $dtoData['provider_key'],
+                    provider_id: $dtoData['provider_id'],
+                    name: $dtoData['name'],
+                    description: $dtoData['description'],
+                    manufacturer: $dtoData['manufacturer'],
+                    mpn: $dtoData['mpn'],
+                    provider_url: $dtoData['provider_url'],
+                    preview_image_url: $dtoData['preview_image_url']
+                );
+
+                // Add the source field info
+                $dto->_source_field = $dtoData['_source_field'];
+                $dto->_source_keyword = $dtoData['_source_keyword'];
+
+                $localPart = null;
+                if ($resultData['localPart']) {
+                    $localPart = $this->entityManager->getRepository(Part::class)->find($resultData['localPart']);
+                }
+
+                $partResult['search_results'][] = [
+                    'dto' => $dto,
+                    'localPart' => $localPart
+                ];
+            }
+
+            $searchResults[] = $partResult;
+        }
+
+        return $searchResults;
+    }
+
+    #[Route('/job/{jobId}/part/{partId}/mark-completed', name: 'bulk_info_provider_mark_completed', methods: ['POST'])]
+    public function markPartCompleted(int $jobId, int $partId): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
+            return $this->json(['error' => 'Job not found or access denied'], 404);
+        }
+
+        $job->markPartAsCompleted($partId);
+
+        // Auto-complete job if all parts are done
+        if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
+            $job->markAsCompleted();
+        }
+
+        $this->entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'progress' => $job->getProgressPercentage(),
+            'completed_count' => $job->getCompletedPartsCount(),
+            'total_count' => $job->getPartCount(),
+            'job_completed' => $job->isCompleted()
+        ]);
+    }
+
+    #[Route('/job/{jobId}/part/{partId}/mark-skipped', name: 'bulk_info_provider_mark_skipped', methods: ['POST'])]
+    public function markPartSkipped(int $jobId, int $partId, Request $request): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
+            return $this->json(['error' => 'Job not found or access denied'], 404);
+        }
+
+        $reason = $request->request->get('reason', '');
+        $job->markPartAsSkipped($partId, $reason);
+
+        // Auto-complete job if all parts are done
+        if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
+            $job->markAsCompleted();
+        }
+
+        $this->entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'progress' => $job->getProgressPercentage(),
+            'completed_count' => $job->getCompletedPartsCount(),
+            'skipped_count' => $job->getSkippedPartsCount(),
+            'total_count' => $job->getPartCount(),
+            'job_completed' => $job->isCompleted()
+        ]);
+    }
+
+    #[Route('/job/{jobId}/part/{partId}/mark-pending', name: 'bulk_info_provider_mark_pending', methods: ['POST'])]
+    public function markPartPending(int $jobId, int $partId): Response
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
+            return $this->json(['error' => 'Job not found or access denied'], 404);
+        }
+
+        $job->markPartAsPending($partId);
+        $this->entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'progress' => $job->getProgressPercentage(),
+            'completed_count' => $job->getCompletedPartsCount(),
+            'skipped_count' => $job->getSkippedPartsCount(),
+            'total_count' => $job->getPartCount(),
+            'job_completed' => $job->isCompleted()
+        ]);
     }
 }

@@ -14,6 +14,74 @@
 
 {% block card_content %}
 
+    <!-- Show existing jobs -->
+    {% if existing_jobs is not empty %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">{% trans %}info_providers.bulk_import.existing_jobs{% endtrans %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
+                                <th>{% trans %}action.label{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in existing_jobs %}
+                                <tr>
+                                    <td>{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</td>
+                                    <td>{{ job.partCount }}</td>
+                                    <td>{{ job.resultCount }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress me-2" style="width: 60px; height: 8px;">
+                                                <div class="progress-bar {% if job.isCompleted %}bg-success{% else %}bg-info{% endif %}" 
+                                                     role="progressbar" 
+                                                     style="width: {{ job.progressPercentage }}%" 
+                                                     aria-valuenow="{{ job.progressPercentage }}" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <small class="text-muted">{{ job.progressPercentage }}%</small>
+                                        </div>
+                                        <small class="text-muted">{{ job.completedPartsCount }}/{{ job.partCount }}</small>
+                                    </td>
+                                    <td>
+                                        {% if job.isPending %}
+                                            <span class="badge bg-warning">{% trans %}info_providers.bulk_import.status.pending{% endtrans %}</span>
+                                        {% elseif job.isInProgress %}
+                                            <span class="badge bg-info">{% trans %}info_providers.bulk_import.status.in_progress{% endtrans %}</span>
+                                        {% elseif job.isCompleted %}
+                                            <span class="badge bg-success">{% trans %}info_providers.bulk_import.status.completed{% endtrans %}</span>
+                                        {% elseif job.isFailed %}
+                                            <span class="badge bg-danger">{% trans %}info_providers.bulk_import.status.failed{% endtrans %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ job.createdAt|date('Y-m-d H:i') }}</td>
+                                    <td>
+                                        {% if job.isInProgress or job.isCompleted %}
+                                            <a href="{{ path('bulk_info_provider_step2', {'jobId': job.id}) }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-eye"></i> {% trans %}info_providers.bulk_import.view_results{% endtrans %}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="alert alert-info" role="alert">
         <i class="fas fa-info-circle"></i>
         {% trans %}info_providers.bulk_import.step1.global_mapping_description{% endtrans %}
@@ -70,7 +138,7 @@
                         <tr>
                             <th>{% trans %}info_providers.bulk_search.search_field{% endtrans %}</th>
                             <th>{% trans %}info_providers.bulk_search.providers{% endtrans %}</th>
-                            <th width="100">{% trans %}action.label{% endtrans %}</th>
+                            <th width="100">{% trans %}info_providers.bulk_import.actions.label{% endtrans %}</th>
                         </tr>
                     </thead>
                     <tbody id="field-mappings-tbody" data-prototype="{{ form_widget(form.field_mappings.vars.prototype)|e('html_attr') }}">
@@ -95,7 +163,18 @@
     </div>
 
     <div class="mb-2 d-flex flex-column align-items-start gap-2">
-        <a class="mb-2" href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+        <div class="mb-2">
+            <a href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+            |
+            <a href="{{ path('bulk_info_provider_manage') }}">{% trans %}info_providers.bulk_import.manage_jobs{% endtrans %}</a>
+        </div>
+        
+        <div class="form-check mb-2">
+            {{ form_widget(form.prefetch_details, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(form.prefetch_details, null, {'label_attr': {'class': 'form-check-label'}}) }}
+            {{ form_help(form.prefetch_details) }}
+        </div>
+        
         {{ form_widget(form.submit) }}
     </div>
 
