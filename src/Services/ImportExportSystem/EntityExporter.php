@@ -143,8 +143,6 @@ class EntityExporter
     protected function exportToExcel(array $entities, array $options): string
     {
         //First get CSV data using existing serializer
-        $csvOptions = $options;
-        $csvOptions['format'] = 'csv';
         $groups = [$options['level']];
         if ($options['include_children']) {
             $groups[] = 'include_children';
