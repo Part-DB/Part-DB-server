@@ -13063,5 +13063,149 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Redacted for security reasons</target>
       </segment>
     </unit>
+    <unit id="bulk001" name="info_providers.bulk_import.step1.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.title</source>
+        <target>Bulk Info Provider Import - Step 1</target>
+      </segment>
+    </unit>
+    <unit id="bulk002" name="info_providers.bulk_import.parts_selected">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_selected</source>
+        <target>parts selected</target>
+      </segment>
+    </unit>
+    <unit id="bulk003" name="info_providers.bulk_import.step1.global_mapping_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.global_mapping_description</source>
+        <target>Configure field mappings that will be applied to all selected parts. For example: "MPN → LCSC + Mouser" means search LCSC and Mouser providers using each part's MPN field.</target>
+      </segment>
+    </unit>
+    <unit id="bulk004" name="info_providers.bulk_import.selected_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.selected_parts</source>
+        <target>Selected Parts</target>
+      </segment>
+    </unit>
+    <unit id="bulk005" name="info_providers.bulk_import.field_mappings">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings</source>
+        <target>Field Mappings</target>
+      </segment>
+    </unit>
+    <unit id="bulk006" name="info_providers.bulk_import.field_mappings_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings_help</source>
+        <target>Define which part fields to search with which info providers. Multiple mappings will be combined.</target>
+      </segment>
+    </unit>
+    <unit id="bulk007" name="info_providers.bulk_import.add_mapping">
+      <segment state="translated">
+        <source>info_providers.bulk_import.add_mapping</source>
+        <target>Add Mapping</target>
+      </segment>
+    </unit>
+    <unit id="bulk008" name="info_providers.bulk_import.search_results.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search_results.title</source>
+        <target>Search Results</target>
+      </segment>
+    </unit>
+    <unit id="bulk009" name="info_providers.bulk_import.errors">
+      <segment state="translated">
+        <source>info_providers.bulk_import.errors</source>
+        <target>errors</target>
+      </segment>
+    </unit>
+    <unit id="bulk010" name="info_providers.bulk_import.results_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_found</source>
+        <target>results found</target>
+      </segment>
+    </unit>
+    <unit id="bulk011" name="info_providers.bulk_import.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.source_field</source>
+        <target>Source Field</target>
+      </segment>
+    </unit>
+    <unit id="bulk012" name="info_providers.bulk_import.create_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.create_part</source>
+        <target>Create Part</target>
+      </segment>
+    </unit>
+    <unit id="bulk013" name="info_providers.bulk_import.view_existing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_existing</source>
+        <target>View Existing</target>
+      </segment>
+    </unit>
+    <unit id="bulk014" name="info_providers.bulk_search.search_field">
+      <segment state="translated">
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Search Field</target>
+      </segment>
+    </unit>
+    <unit id="bulk015" name="info_providers.bulk_search.providers">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers</source>
+        <target>Info Providers</target>
+      </segment>
+    </unit>
+    <unit id="bulk016" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Select which info providers to search when parts have this field.</target>
+      </segment>
+    </unit>
+    <unit id="bulk017" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Search All Parts</target>
+      </segment>
+    </unit>
+    <unit id="bulk018" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Manufacturer Part Number (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="bulk019" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Part Name</target>
+      </segment>
+    </unit>
+    <unit id="bulk020" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Info Provider</target>
+      </segment>
+    </unit>
+    <unit id="bulk021" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Bulk Info Provider Import</target>
+      </segment>
+    </unit>
+    <unit id="bulk022" name="info_providers.bulk_import.clear_selections">
+      <segment state="translated">
+        <source>info_providers.bulk_import.clear_selections</source>
+        <target>Clear All Selections</target>
+      </segment>
+    </unit>
+    <unit id="bulk023" name="info_providers.bulk_import.clear_row">
+      <segment state="translated">
+        <source>info_providers.bulk_import.clear_row</source>
+        <target>Clear this row's selections</target>
+      </segment>
+    </unit>
+    <unit id="bulk024" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>SPN (Supplier Part Number) is recommended for better results. Add a mapping for each supplier to use their SPNs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
