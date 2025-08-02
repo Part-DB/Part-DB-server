@@ -131,7 +131,43 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
-        return $this->renderPartForm('edit', $request, $part);
+        // Check if this is part of a bulk import job
+        $jobId = $request->query->get('jobId');
+        $bulkJob = null;
+        if ($jobId) {
+            $bulkJob = $this->em->getRepository(\App\Entity\BulkInfoProviderImportJob::class)->find($jobId);
+            // Verify user owns this job
+            if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
+                $bulkJob = null;
+            }
+        }
+
+        return $this->renderPartForm('edit', $request, $part, [], [
+            'bulk_job' => $bulkJob
+        ]);
+    }
+
+    #[Route(path: '/{id}/bulk-import-complete/{jobId}', name: 'part_bulk_import_complete', methods: ['POST'])]
+    public function markBulkImportComplete(Part $part, int $jobId, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+        
+        if (!$this->isCsrfTokenValid('bulk_complete_' . $part->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+        
+        $bulkJob = $this->em->getRepository(\App\Entity\BulkInfoProviderImportJob::class)->find($jobId);
+        if (!$bulkJob || $bulkJob->getCreatedBy() !== $this->getUser()) {
+            throw $this->createNotFoundException('Bulk import job not found');
+        }
+        
+        $bulkJob->markPartAsCompleted($part->getId());
+        $this->em->persist($bulkJob);
+        $this->em->flush();
+        
+        $this->addFlash('success', 'Part marked as completed in bulk import');
+        
+        return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $jobId]);
     }
 
     #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
@@ -273,10 +309,22 @@ class PartController extends AbstractController
 
         $this->addFlash('notice', t('part.merge.flash.please_review'));
 
+        // Check if this is part of a bulk import job
+        $jobId = $request->query->get('jobId');
+        $bulkJob = null;
+        if ($jobId) {
+            $bulkJob = $this->em->getRepository(\App\Entity\BulkInfoProviderImportJob::class)->find($jobId);
+            // Verify user owns this job
+            if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
+                $bulkJob = null;
+            }
+        }
+
         return $this->renderPartForm('update_from_ip', $request, $part, [
             'info_provider_dto' => $dto,
         ], [
-            'tname_before' => $old_name
+            'tname_before' => $old_name,
+            'bulk_job' => $bulkJob
         ]);
     }
 
@@ -352,6 +400,12 @@ class PartController extends AbstractController
                 return $this->redirectToRoute('part_new');
             }
 
+            // Check if we're in bulk import mode and preserve jobId
+            $jobId = $request->query->get('jobId');
+            if ($jobId && isset($merge_infos['bulk_job'])) {
+                return $this->redirectToRoute('part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]);
+            }
+            
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
@@ -375,7 +429,9 @@ class PartController extends AbstractController
                 'part' => $new_part,
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
-                'merge_other' => $merge_infos['other_part'] ?? null
+                'merge_other' => $merge_infos['other_part'] ?? null,
+                'bulk_job' => $merge_infos['bulk_job'] ?? null,
+                'jobId' => $request->query->get('jobId')
             ]);
     }
 

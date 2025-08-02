@@ -26,6 +26,7 @@ use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\ProjectSystem\Project;
@@ -79,6 +80,7 @@ class ElementTypeNameGenerator
             AbstractParameter::class => $this->translator->trans('parameter.label'),
             LabelProfile::class => $this->translator->trans('label_profile.label'),
             PartAssociation::class => $this->translator->trans('part_association.label'),
+            BulkInfoProviderImportJob::class => $this->translator->trans('bulk_info_provider_import_job.label'),
         ];
     }
 
