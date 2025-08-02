@@ -39,9 +39,9 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
-        
+
         $client->request('GET', '/tools/bulk-info-provider-import/step1');
-        
+
         $this->assertResponseRedirects();
     }
 
@@ -49,9 +49,9 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
-        
+
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=999999,888888');
-        
+
         $this->assertResponseRedirects();
     }
 
@@ -59,32 +59,32 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
-        
+
         $client->request('GET', '/tools/bulk-info-provider-import/manage');
-        
+
         // Follow any redirects (like locale redirects)
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
         }
-        
+
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testAccessControlForStep1(): void
     {
         $client = static::createClient();
-        
+
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
         $this->assertResponseRedirects();
-        
+
         $this->loginAsUser($client, 'noread');
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
-        
+
         // Follow redirects if any, then check for 403 or final response
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
         }
-        
+
         // The user might get redirected to an error page instead of direct 403
         $this->assertTrue(
             $client->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN ||
@@ -95,18 +95,18 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     public function testAccessControlForManage(): void
     {
         $client = static::createClient();
-        
+
         $client->request('GET', '/tools/bulk-info-provider-import/manage');
         $this->assertResponseRedirects();
-        
+
         $this->loginAsUser($client, 'noread');
         $client->request('GET', '/tools/bulk-info-provider-import/manage');
-        
+
         // Follow redirects if any, then check for 403 or final response
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
         }
-        
+
         // The user might get redirected to an error page instead of direct 403
         $this->assertTrue(
             $client->getResponse()->getStatusCode() === Response::HTTP_FORBIDDEN ||
@@ -118,25 +118,25 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
-        
+
         $entityManager = $client->getContainer()->get('doctrine')->getManager();
-        
+
         // Use an existing part from test fixtures (ID 1 should exist)
         $partRepository = $entityManager->getRepository(Part::class);
         $part = $partRepository->find(1);
-        
+
         if (!$part) {
             $this->markTestSkipped('Test part with ID 1 not found in fixtures');
         }
-        
+
         // Get the admin user for the createdBy field
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['name' => 'admin']);
-        
+
         if (!$user) {
             $this->markTestSkipped('Admin user not found in fixtures');
         }
-        
+
         // Create a test job with search results that include source_field and source_keyword
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
@@ -165,25 +165,25 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 'errors' => []
             ]
         ]);
-        
+
         $entityManager->persist($job);
         $entityManager->flush();
-        
+
         // Test that step2 renders correctly with the search results
         $client->request('GET', '/tools/bulk-info-provider-import/step2/' . $job->getId());
-        
+
         // Follow any redirects (like locale redirects)
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
         }
-        
+
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        
+
         // Verify the template rendered the source_field and source_keyword correctly
         $content = $client->getResponse()->getContent();
         $this->assertStringContainsString('test_field', $content);
         $this->assertStringContainsString('test_keyword', $content);
-        
+
         // Clean up - find by ID to avoid detached entity issues
         $jobId = $job->getId();
         $entityManager->clear(); // Clear all entities
@@ -194,16 +194,344 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
     }
 
+    public function testStep1WithValidIds(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+
+    public function testDeleteJobWithValidJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        // Create a completed job
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::COMPLETED);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+    }
+
+    public function testDeleteJobWithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/999999/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+    }
+
+    public function testDeleteJobWithActiveJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        // Create an active job
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testStopJobWithValidJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        // Create an active job
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testStopJobWithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/999999/stop');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+    }
+
+    public function testMarkPartCompleted(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1, 2]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-completed');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertArrayHasKey('progress', $response);
+        $this->assertArrayHasKey('completed_count', $response);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testMarkPartSkipped(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1, 2]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-skipped', [
+            'reason' => 'Test skip reason'
+        ]);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertArrayHasKey('skipped_count', $response);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testMarkPartPending(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-pending');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testStep2WithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('GET', '/tools/bulk-info-provider-import/step2/999999');
+
+        $this->assertResponseRedirects();
+    }
+
+    public function testStep2WithUnauthorizedAccess(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $admin = $userRepository->findOneBy(['name' => 'admin']);
+        $readonly = $userRepository->findOneBy(['name' => 'noread']);
+
+        if (!$admin || !$readonly) {
+            $this->markTestSkipped('Required test users not found in fixtures');
+        }
+
+        // Create job as admin
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($admin);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        // Try to access as readonly user
+        $this->loginAsUser($client, 'noread');
+        $client->request('GET', '/tools/bulk-info-provider-import/step2/' . $job->getId());
+
+        $this->assertResponseRedirects();
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testJobAccessControlForDelete(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $admin = $userRepository->findOneBy(['name' => 'admin']);
+        $readonly = $userRepository->findOneBy(['name' => 'noread']);
+
+        if (!$admin || !$readonly) {
+            $this->markTestSkipped('Required test users not found in fixtures');
+        }
+
+        // Create job as readonly user
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($readonly);
+        $job->setPartIds([1]);
+        $job->setStatus(BulkImportJobStatus::COMPLETED);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        // Try to delete as admin (should fail due to ownership)
+        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
     private function loginAsUser($client, string $username): void
     {
         $entityManager = $client->getContainer()->get('doctrine')->getManager();
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['name' => $username]);
-        
+
         if (!$user) {
-            $this->markTestSkipped('User ' . $username . ' not found');
+            $this->markTestSkipped("User {$username} not found");
         }
-        
+
         $client->loginUser($user);
     }
 }
