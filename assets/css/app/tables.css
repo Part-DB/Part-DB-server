@@ -84,6 +84,11 @@ th.select-checkbox {
     display: inline-flex;
 }
 
+/** Add spacing between column visibility button and length menu */
+.buttons-colvis {
+    margin-right: 0.2em !important;
+}
+
 /** Fix datatables select-checkbox position */
 table.dataTable tr.selected td.select-checkbox:after
 {
