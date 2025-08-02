@@ -140,7 +140,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         // Create a test job with search results that include source_field and source_keyword
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([$part->getId()]);
+        $job->addPart($part);
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([
             [
@@ -230,10 +230,18 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get a test part
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
         // Create a completed job
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1]);
+        $job->addPart($part);
         $job->setStatus(BulkImportJobStatus::COMPLETED);
         $job->setSearchResults([]);
 
@@ -272,10 +280,15 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1]);
+
         // Create an active job
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -306,10 +319,15 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1]);
+
         // Create an active job
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -352,9 +370,14 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1, 2]);
+
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1, 2]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -387,9 +410,14 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1, 2]);
+
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1, 2]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -423,9 +451,14 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Admin user not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1]);
+
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($user);
-        $job->setPartIds([1]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -467,10 +500,15 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Required test users not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1]);
+
         // Create job as admin
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($admin);
-        $job->setPartIds([1]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
         $job->setSearchResults([]);
 
@@ -502,10 +540,15 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Required test users not found in fixtures');
         }
 
+        // Get test parts
+        $parts = $this->getTestParts($entityManager, [1]);
+
         // Create job as readonly user
         $job = new BulkInfoProviderImportJob();
         $job->setCreatedBy($readonly);
-        $job->setPartIds([1]);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
         $job->setStatus(BulkImportJobStatus::COMPLETED);
         $job->setSearchResults([]);
 
@@ -533,5 +576,21 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         $client->loginUser($user);
+    }
+
+    private function getTestParts($entityManager, array $ids): array
+    {
+        $partRepository = $entityManager->getRepository(Part::class);
+        $parts = [];
+
+        foreach ($ids as $id) {
+            $part = $partRepository->find($id);
+            if (!$part) {
+                $this->markTestSkipped("Test part with ID {$id} not found in fixtures");
+            }
+            $parts[] = $part;
+        }
+
+        return $parts;
     }
 }

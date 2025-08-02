@@ -36,15 +36,23 @@ class BulkInfoProviderImportJobTest extends TestCase
     {
         $this->user = new User();
         $this->user->setName('test_user');
-        
+
         $this->job = new BulkInfoProviderImportJob();
         $this->job->setCreatedBy($this->user);
+    }
+
+    private function createMockPart(int $id): \App\Entity\Parts\Part
+    {
+        $part = $this->createMock(\App\Entity\Parts\Part::class);
+        $part->method('getId')->willReturn($id);
+        $part->method('getName')->willReturn("Test Part {$id}");
+        return $part;
     }
 
     public function testConstruct(): void
     {
         $job = new BulkInfoProviderImportJob();
-        
+
         $this->assertInstanceOf(\DateTimeImmutable::class, $job->getCreatedAt());
         $this->assertEquals(BulkImportJobStatus::PENDING, $job->getStatus());
         $this->assertEmpty($job->getPartIds());
@@ -60,9 +68,12 @@ class BulkInfoProviderImportJobTest extends TestCase
         $this->job->setName('Test Job');
         $this->assertEquals('Test Job', $this->job->getName());
 
-        $partIds = [1, 2, 3];
-        $this->job->setPartIds($partIds);
-        $this->assertEquals($partIds, $this->job->getPartIds());
+        // Test with actual parts - this is what actually works
+        $parts = [$this->createMockPart(1), $this->createMockPart(2), $this->createMockPart(3)];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
+        $this->assertEquals([1, 2, 3], $this->job->getPartIds());
 
         $fieldMappings = ['field1' => 'provider1', 'field2' => 'provider2'];
         $this->job->setFieldMappings($fieldMappings);
@@ -133,7 +144,17 @@ class BulkInfoProviderImportJobTest extends TestCase
     {
         $this->assertEquals(0, $this->job->getPartCount());
 
-        $this->job->setPartIds([1, 2, 3, 4, 5]);
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3),
+            $this->createMockPart(4),
+            $this->createMockPart(5)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
         $this->assertEquals(5, $this->job->getPartCount());
     }
 
@@ -152,7 +173,16 @@ class BulkInfoProviderImportJobTest extends TestCase
 
     public function testPartProgressTracking(): void
     {
-        $this->job->setPartIds([1, 2, 3, 4]);
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3),
+            $this->createMockPart(4)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
 
         $this->assertFalse($this->job->isPartCompleted(1));
         $this->assertFalse($this->job->isPartSkipped(1));
@@ -172,7 +202,17 @@ class BulkInfoProviderImportJobTest extends TestCase
 
     public function testProgressCounts(): void
     {
-        $this->job->setPartIds([1, 2, 3, 4, 5]);
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3),
+            $this->createMockPart(4),
+            $this->createMockPart(5)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
 
         $this->assertEquals(0, $this->job->getCompletedPartsCount());
         $this->assertEquals(0, $this->job->getSkippedPartsCount());
@@ -190,7 +230,18 @@ class BulkInfoProviderImportJobTest extends TestCase
         $emptyJob = new BulkInfoProviderImportJob();
         $this->assertEquals(100.0, $emptyJob->getProgressPercentage());
 
-        $this->job->setPartIds([1, 2, 3, 4, 5]);
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3),
+            $this->createMockPart(4),
+            $this->createMockPart(5)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
+
         $this->assertEquals(0.0, $this->job->getProgressPercentage());
 
         $this->job->markPartAsCompleted(1);
@@ -210,7 +261,16 @@ class BulkInfoProviderImportJobTest extends TestCase
         $emptyJob = new BulkInfoProviderImportJob();
         $this->assertTrue($emptyJob->isAllPartsCompleted());
 
-        $this->job->setPartIds([1, 2, 3]);
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
+
         $this->assertFalse($this->job->isAllPartsCompleted());
 
         $this->job->markPartAsCompleted(1);
@@ -223,8 +283,16 @@ class BulkInfoProviderImportJobTest extends TestCase
 
     public function testDisplayNameMethods(): void
     {
-        $this->job->setPartIds([1, 2, 3]);
-        
+        // Test with actual parts - setPartIds doesn't actually add parts
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
+
         $this->assertEquals('info_providers.bulk_import.job_name_template', $this->job->getDisplayNameKey());
         $this->assertEquals(['%count%' => 3], $this->job->getDisplayNameParams());
     }
@@ -237,19 +305,39 @@ class BulkInfoProviderImportJobTest extends TestCase
 
     public function testProgressDataStructure(): void
     {
+        $parts = [
+            $this->createMockPart(1),
+            $this->createMockPart(2),
+            $this->createMockPart(3)
+        ];
+        foreach ($parts as $part) {
+            $this->job->addPart($part);
+        }
+
         $this->job->markPartAsCompleted(1);
         $this->job->markPartAsSkipped(2, 'Test reason');
 
         $progress = $this->job->getProgress();
-        
-        $this->assertArrayHasKey(1, $progress);
+
+        // The progress array should have keys for all part IDs, even if not completed/skipped
+        $this->assertArrayHasKey(1, $progress, 'Progress should contain key for part 1');
+        $this->assertArrayHasKey(2, $progress, 'Progress should contain key for part 2');
+        $this->assertArrayHasKey(3, $progress, 'Progress should contain key for part 3');
+
+        // Part 1: completed
         $this->assertEquals('completed', $progress[1]['status']);
         $this->assertArrayHasKey('completed_at', $progress[1]);
+        $this->assertArrayNotHasKey('reason', $progress[1]);
 
-        $this->assertArrayHasKey(2, $progress);
+        // Part 2: skipped
         $this->assertEquals('skipped', $progress[2]['status']);
         $this->assertEquals('Test reason', $progress[2]['reason']);
         $this->assertArrayHasKey('completed_at', $progress[2]);
+
+        // Part 3: should be present but not completed/skipped
+        $this->assertEquals('pending', $progress[3]['status']);
+        $this->assertArrayNotHasKey('completed_at', $progress[3]);
+        $this->assertArrayNotHasKey('reason', $progress[3]);
     }
 
     public function testCompletedAtTimestamp(): void

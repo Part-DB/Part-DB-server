@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\BulkInfoProviderImportJobPart;
 use App\Entity\BulkImportJobStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
@@ -104,7 +105,6 @@ class BulkInfoProviderImportController extends AbstractController
 
             // Create and save the job
             $job = new BulkInfoProviderImportJob();
-            $job->setPartIds(array_map(fn($part) => $part->getId(), $parts));
             $job->setFieldMappings($fieldMappings);
             $job->setPrefetchDetails($prefetchDetails);
             $user = $this->getUser();
@@ -112,6 +112,12 @@ class BulkInfoProviderImportController extends AbstractController
                 throw new \RuntimeException('User must be authenticated and of type User');
             }
             $job->setCreatedBy($user);
+
+            // Create job parts for each part
+            foreach ($parts as $part) {
+                $jobPart = new BulkInfoProviderImportJobPart($job, $part);
+                $job->addJobPart($jobPart);
+            }
 
             $this->entityManager->persist($job);
             $this->entityManager->flush();
@@ -179,7 +185,7 @@ class BulkInfoProviderImportController extends AbstractController
 
                 // Convert DTOs to result format with metadata
                 $partResult['search_results'] = array_map(
-                    function($dto) use ($dtoMetadata) {
+                    function ($dto) use ($dtoMetadata) {
                         $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
                         $metadata = $dtoMetadata[$dtoKey] ?? [];
                         return [
@@ -372,8 +378,7 @@ class BulkInfoProviderImportController extends AbstractController
         }
 
         // Get the parts and deserialize search results
-        $partRepository = $this->entityManager->getRepository(Part::class);
-        $parts = $partRepository->getElementsFromIDArray($job->getPartIds());
+        $parts = $job->getJobParts()->map(fn($jobPart) => $jobPart->getPart())->toArray();
         $searchResults = $this->deserializeSearchResults($job->getSearchResults(), $parts);
 
         return $this->render('info_providers/bulk_import/step2.html.twig', [
