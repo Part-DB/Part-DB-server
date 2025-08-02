@@ -102,22 +102,24 @@ class EntityExporter
             $groups[] = 'include_children';
         }
 
-        return $this->serializer->serialize($entities, $options['format'],
+        return $this->serializer->serialize(
+            $entities,
+            $options['format'],
             [
                 'groups' => $groups,
                 'as_collection' => true,
                 'csv_delimiter' => $options['csv_delimiter'],
                 'xml_root_node_name' => 'PartDBExport',
                 'partdb_export' => true,
-                //Skip the item normalizer, so that we dont get IRIs in the output
+                    //Skip the item normalizer, so that we dont get IRIs in the output
                 SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
-                //Handle circular references
+                    //Handle circular references
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
             ]
         );
     }
 
-    private function handleCircularReference(object $object, string $format, array $context): string
+    private function handleCircularReference(object $object): string
     {
         if ($object instanceof AbstractStructuralDBElement) {
             return $object->getFullPath("->");
@@ -127,7 +129,7 @@ class EntityExporter
             return $object->__toString();
         }
 
-        throw new CircularReferenceException('Circular reference detected for object of type '.get_class($object));
+        throw new CircularReferenceException('Circular reference detected for object of type ' . get_class($object));
     }
 
     /**
@@ -148,7 +150,9 @@ class EntityExporter
             $groups[] = 'include_children';
         }
 
-        $csvData = $this->serializer->serialize($entities, 'csv',
+        $csvData = $this->serializer->serialize(
+            $entities,
+            'csv',
             [
                 'groups' => $groups,
                 'as_collection' => true,
@@ -162,18 +166,18 @@ class EntityExporter
         //Convert CSV to Excel
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        
+
         $rows = explode("\n", $csvData);
         $rowIndex = 1;
-        
+
         foreach ($rows as $row) {
             if (trim($row) === '') {
                 continue;
             }
-            
-            $columns = str_getcsv($row, $options['csv_delimiter']);
+
+            $columns = str_getcsv($row, $options['csv_delimiter'], '"', '\\');
             $colIndex = 1;
-            
+
             foreach ($columns as $column) {
                 $cellCoordinate = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
                 $worksheet->setCellValue($cellCoordinate, $column);
@@ -183,17 +187,13 @@ class EntityExporter
         }
 
         //Save to memory stream
-        if ($options['format'] === 'xlsx') {
-            $writer = new Xlsx($spreadsheet);
-        } else {
-            $writer = new Xls($spreadsheet);
-        }
-        
+        $writer = $options['format'] === 'xlsx' ? new Xlsx($spreadsheet) : new Xls($spreadsheet);
+
         ob_start();
         $writer->save('php://output');
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         return $content;
     }
 
@@ -231,25 +231,15 @@ class EntityExporter
 
         //Determine the content type for the response
 
-        //Plain text should work for all types
-        $content_type = 'text/plain';
-
         //Try to use better content types based on the format
         $format = $options['format'];
-        switch ($format) {
-            case 'xml':
-                $content_type = 'application/xml';
-                break;
-            case 'json':
-                $content_type = 'application/json';
-                break;
-            case 'xlsx':
-                $content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-                break;
-            case 'xls':
-                $content_type = 'application/vnd.ms-excel';
-                break;
-        }
+        $content_type = match ($format) {
+            'xml' => 'application/xml',
+            'json' => 'application/json',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'xls' => 'application/vnd.ms-excel',
+            default => 'text/plain',
+        };
         $response->headers->set('Content-Type', $content_type);
 
         //If view option is not specified, then download the file.
@@ -267,7 +257,7 @@ class EntityExporter
 
             $level = $options['level'];
 
-            $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;
+            $filename = "export_{$entity_name}_{$level}.{$format}";
 
             //Sanitize the filename
             $filename = FilenameSanatizer::sanitizeFilename($filename);
