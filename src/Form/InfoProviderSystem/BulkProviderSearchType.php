@@ -59,10 +59,4 @@ class BulkProviderSearchType extends AbstractType
         ]);
         $resolver->setRequired('parts');
     }
-
-    private function getDefaultSearchField(Part $part): string
-    {
-        // Default to MPN if available, otherwise name
-        return $part->getManufacturerProductNumber() ? 'mpn' : 'name';
-    }
 }

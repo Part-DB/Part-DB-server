@@ -66,7 +66,7 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private User $createdBy;
+    private ?User $createdBy = null;
 
     #[ORM\Column(type: Types::JSON)]
     private array $progress = [];
