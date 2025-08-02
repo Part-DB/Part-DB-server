@@ -45,7 +45,7 @@ class BulkInfoProviderImportJobPart extends AbstractDBElement
     #[ORM\JoinColumn(nullable: false)]
     private BulkInfoProviderImportJob $job;
 
-    #[ORM\ManyToOne(targetEntity: Part::class)]
+    #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'bulkImportJobParts')]
     #[ORM\JoinColumn(nullable: false)]
     private Part $part;
 

@@ -8944,7 +8944,7 @@ Element 1 -&gt; Element 1.2]]></target>
         <target>Edit part</target>
       </segment>
     </unit>
-    <unit id="bulk099" name="part_list.action.scrollable_hint">
+    <unit id="keLmdcq" name="part_list.action.scrollable_hint">
       <segment state="translated">
         <source>part_list.action.scrollable_hint</source>
         <target>Scroll to see all actions</target>
@@ -9340,79 +9340,79 @@ Element 1 -&gt; Element 1.2]]></target>
         <target>Attachment name</target>
       </segment>
     </unit>
-    <unit id="BlkJob01" name="filter.bulk_import_job.label">
+    <unit id="_5zM4Zv" name="filter.bulk_import_job.label">
       <segment state="translated">
         <source>filter.bulk_import_job.label</source>
         <target>Bulk Import Job</target>
       </segment>
     </unit>
-    <unit id="BlkJob02" name="filter.bulk_import_job.job_status">
+    <unit id="rXReB8s" name="filter.bulk_import_job.job_status">
       <segment state="translated">
         <source>filter.bulk_import_job.job_status</source>
         <target>Job Status</target>
       </segment>
     </unit>
-    <unit id="BlkJob03" name="filter.bulk_import_job.part_status_in_job">
+    <unit id="VSY.FIr" name="filter.bulk_import_job.part_status_in_job">
       <segment state="translated">
         <source>filter.bulk_import_job.part_status_in_job</source>
         <target>Part Status in Job</target>
       </segment>
     </unit>
-    <unit id="BlkJob04" name="filter.bulk_import_job.status.any">
+    <unit id="LS0ckg6" name="filter.bulk_import_job.status.any">
       <segment state="translated">
         <source>filter.bulk_import_job.status.any</source>
         <target>Any Status</target>
       </segment>
     </unit>
-    <unit id="BlkJob05" name="filter.bulk_import_job.status.pending">
+    <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
       <segment state="translated">
         <source>filter.bulk_import_job.status.pending</source>
         <target>Pending</target>
       </segment>
     </unit>
-    <unit id="BlkJob06" name="filter.bulk_import_job.status.in_progress">
+    <unit id="JT3CbaE" name="filter.bulk_import_job.status.in_progress">
       <segment state="translated">
         <source>filter.bulk_import_job.status.in_progress</source>
         <target>In Progress</target>
       </segment>
     </unit>
-    <unit id="BlkJob07" name="filter.bulk_import_job.status.completed">
+    <unit id="J9uBFFo" name="filter.bulk_import_job.status.completed">
       <segment state="translated">
         <source>filter.bulk_import_job.status.completed</source>
         <target>Completed</target>
       </segment>
     </unit>
-    <unit id="BlkJob08" name="filter.bulk_import_job.status.stopped">
+    <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
       <segment state="translated">
         <source>filter.bulk_import_job.status.stopped</source>
         <target>Stopped</target>
       </segment>
     </unit>
-    <unit id="BlkJob09" name="filter.bulk_import_job.status.failed">
+    <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
       <segment state="translated">
         <source>filter.bulk_import_job.status.failed</source>
         <target>Failed</target>
       </segment>
     </unit>
-    <unit id="BlkJob10" name="filter.bulk_import_job.part_status.any">
+    <unit id="T1zyhcD" name="filter.bulk_import_job.part_status.any">
       <segment state="translated">
         <source>filter.bulk_import_job.part_status.any</source>
         <target>Any Part Status</target>
       </segment>
     </unit>
-    <unit id="BlkJob11" name="filter.bulk_import_job.part_status.pending">
+    <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
       <segment state="translated">
         <source>filter.bulk_import_job.part_status.pending</source>
         <target>Pending</target>
       </segment>
     </unit>
-    <unit id="BlkJob12" name="filter.bulk_import_job.part_status.completed">
+    <unit id=".Bxg5IL" name="filter.bulk_import_job.part_status.completed">
       <segment state="translated">
         <source>filter.bulk_import_job.part_status.completed</source>
         <target>Completed</target>
       </segment>
     </unit>
-    <unit id="BlkJob13" name="filter.bulk_import_job.part_status.skipped">
+    <unit id="kRFtBzL" name="filter.bulk_import_job.part_status.skipped">
       <segment state="translated">
         <source>filter.bulk_import_job.part_status.skipped</source>
         <target>Skipped</target>
@@ -10990,7 +10990,7 @@ Element 1 -&gt; Element 1.2]]></target>
         <target>Export to XML</target>
       </segment>
     </unit>
-    <unit id="xLSXExport" name="part_list.action.export_xlsx">
+    <unit id="X.gTRGX" name="part_list.action.export_xlsx">
       <segment state="translated">
         <source>part_list.action.export_xlsx</source>
         <target>Export to Excel</target>
@@ -12303,7 +12303,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="VZuIXC1" name="info_providers.search.no_results">
       <segment state="translated">
         <source>info_providers.search.no_results</source>
-        <target>No results found at the selected providers! Check your search term or try to choose additional providers.</target>
+        <target>No results found</target>
       </segment>
     </unit>
     <unit id="It1umoK" name="tfa.check.code.confirmation">
@@ -13147,754 +13147,718 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Redacted for security reasons</target>
       </segment>
     </unit>
-    <unit id="bulk001" name="info_providers.bulk_import.step1.title">
+    <unit id="vkjf5qA" name="info_providers.bulk_import.step1.title">
       <segment state="translated">
         <source>info_providers.bulk_import.step1.title</source>
         <target>Bulk Info Provider Import - Step 1</target>
       </segment>
     </unit>
-    <unit id="bulk002" name="info_providers.bulk_import.parts_selected">
+    <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
       <segment state="translated">
         <source>info_providers.bulk_import.parts_selected</source>
         <target>parts selected</target>
       </segment>
     </unit>
-    <unit id="bulk003" name="info_providers.bulk_import.step1.global_mapping_description">
+    <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
       <segment state="translated">
         <source>info_providers.bulk_import.step1.global_mapping_description</source>
         <target>Configure field mappings that will be applied to all selected parts. For example: "MPN → LCSC + Mouser" means search LCSC and Mouser providers using each part's MPN field.</target>
       </segment>
     </unit>
-    <unit id="bulk004" name="info_providers.bulk_import.selected_parts">
+    <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
       <segment state="translated">
         <source>info_providers.bulk_import.selected_parts</source>
         <target>Selected Parts</target>
       </segment>
     </unit>
-    <unit id="bulk005" name="info_providers.bulk_import.field_mappings">
+    <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
       <segment state="translated">
         <source>info_providers.bulk_import.field_mappings</source>
         <target>Field Mappings</target>
       </segment>
     </unit>
-    <unit id="bulk006" name="info_providers.bulk_import.field_mappings_help">
+    <unit id="cZb6a7b" name="info_providers.bulk_import.field_mappings_help">
       <segment state="translated">
         <source>info_providers.bulk_import.field_mappings_help</source>
         <target>Define which part fields to search with which info providers. Multiple mappings will be combined.</target>
       </segment>
     </unit>
-    <unit id="bulk007" name="info_providers.bulk_import.add_mapping">
+    <unit id="hImbHbq" name="info_providers.bulk_import.add_mapping">
       <segment state="translated">
         <source>info_providers.bulk_import.add_mapping</source>
         <target>Add Mapping</target>
       </segment>
     </unit>
-    <unit id="bulk008" name="info_providers.bulk_import.search_results.title">
+    <unit id="u4_QWOb" name="info_providers.bulk_import.search_results.title">
       <segment state="translated">
         <source>info_providers.bulk_import.search_results.title</source>
         <target>Search Results</target>
       </segment>
     </unit>
-    <unit id="bulk009" name="info_providers.bulk_import.errors">
+    <unit id="aXSJ0L3" name="info_providers.bulk_import.errors">
       <segment state="translated">
         <source>info_providers.bulk_import.errors</source>
         <target>errors</target>
       </segment>
     </unit>
-    <unit id="bulk010" name="info_providers.bulk_import.results_found">
-      <segment state="translated">
-        <source>info_providers.bulk_import.results_found</source>
-        <target>results found</target>
-      </segment>
-    </unit>
-    <unit id="bulk011" name="info_providers.bulk_import.source_field">
-      <segment state="translated">
-        <source>info_providers.bulk_import.source_field</source>
-        <target>Source Field</target>
-      </segment>
-    </unit>
-    <unit id="bulk012" name="info_providers.bulk_import.create_part">
-      <segment state="translated">
-        <source>info_providers.bulk_import.create_part</source>
-        <target>Create Part</target>
-      </segment>
-    </unit>
-    <unit id="bulk013" name="info_providers.bulk_import.view_existing">
-      <segment state="translated">
-        <source>info_providers.bulk_import.view_existing</source>
-        <target>View Existing</target>
-      </segment>
-    </unit>
-    <unit id="bulk014" name="info_providers.bulk_search.search_field">
-      <segment state="translated">
-        <source>info_providers.bulk_search.search_field</source>
-        <target>Search Field</target>
-      </segment>
-    </unit>
-    <unit id="bulk015" name="info_providers.bulk_search.providers">
-      <segment state="translated">
-        <source>info_providers.bulk_search.providers</source>
-        <target>Info Providers</target>
-      </segment>
-    </unit>
-    <unit id="bulk016" name="info_providers.bulk_import.actions.label">
-      <segment state="translated">
-        <source>info_providers.bulk_import.actions.label</source>
-        <target>Actions</target>
-      </segment>
-    </unit>
-    <unit id="bulk016" name="info_providers.bulk_search.providers.help">
-      <segment state="translated">
-        <source>info_providers.bulk_search.providers.help</source>
-        <target>Select which info providers to search when parts have this field.</target>
-      </segment>
-    </unit>
-    <unit id="bulk017" name="info_providers.bulk_search.submit">
-      <segment state="translated">
-        <source>info_providers.bulk_search.submit</source>
-        <target>Search All Parts</target>
-      </segment>
-    </unit>
-    <unit id="bulk017a" name="info_providers.bulk_search.field.select">
-      <segment state="translated">
-        <source>info_providers.bulk_search.field.select</source>
-        <target>Select a field to search by</target>
-      </segment>
-    </unit>
-    <unit id="bulk018" name="info_providers.bulk_search.field.mpn">
-      <segment state="translated">
-        <source>info_providers.bulk_search.field.mpn</source>
-        <target>Manufacturer Part Number (MPN)</target>
-      </segment>
-    </unit>
-    <unit id="bulk019" name="info_providers.bulk_search.field.name">
-      <segment state="translated">
-        <source>info_providers.bulk_search.field.name</source>
-        <target>Part Name</target>
-      </segment>
-    </unit>
-    <unit id="bulk020" name="part_list.action.action.info_provider">
-      <segment state="translated">
-        <source>part_list.action.action.info_provider</source>
-        <target>Info Provider</target>
-      </segment>
-    </unit>
-    <unit id="bulk021" name="part_list.action.bulk_info_provider_import">
-      <segment state="translated">
-        <source>part_list.action.bulk_info_provider_import</source>
-        <target>Bulk Info Provider Import</target>
-      </segment>
-    </unit>
-    <unit id="bulk022" name="info_providers.bulk_import.clear_selections">
-      <segment state="translated">
-        <source>info_providers.bulk_import.clear_selections</source>
-        <target>Clear All Selections</target>
-      </segment>
-    </unit>
-    <unit id="bulk023" name="info_providers.bulk_import.clear_row">
-      <segment state="translated">
-        <source>info_providers.bulk_import.clear_row</source>
-        <target>Clear this row's selections</target>
-      </segment>
-    </unit>
-    <unit id="bulk024" name="info_providers.bulk_import.step1.spn_recommendation">
-      <segment state="translated">
-        <source>info_providers.bulk_import.step1.spn_recommendation</source>
-        <target>SPN (Supplier Part Number) is recommended for better results. Add a mapping for each supplier to use their SPNs.</target>
-      </segment>
-    </unit>
-    <unit id="bulk025" name="info_providers.bulk_import.update_part">
-      <segment state="translated">
-        <source>info_providers.bulk_import.update_part</source>
-        <target>Update Part</target>
-      </segment>
-    </unit>
-    <unit id="bulk026" name="info_providers.bulk_import.prefetch_details">
-      <segment state="translated">
-        <source>info_providers.bulk_import.prefetch_details</source>
-        <target>Prefetch Details</target>
-      </segment>
-    </unit>
-    <unit id="bulk027" name="info_providers.bulk_import.prefetch_details_help">
-      <segment state="translated">
-        <source>info_providers.bulk_import.prefetch_details_help</source>
-        <target>Prefetch details for all results. This will take longer, but will speed up workflow for updating parts.</target>
-      </segment>
-    </unit>
-    <unit id="bulk028a" name="info_providers.bulk_import.step2.title">
-      <segment state="translated">
-        <source>info_providers.bulk_import.step2.title</source>
-        <target>Bulk import from info providers</target>
-      </segment>
-    </unit>
-    <unit id="bulk028b" name="info_providers.bulk_import.step2.card_title">
-      <segment state="translated">
-        <source>info_providers.bulk_import.step2.card_title</source>
-        <target>Bulk import for %count% parts - %date%</target>
-      </segment>
-    </unit>
-    <unit id="bulk029" name="info_providers.bulk_import.parts">
-      <segment state="translated">
-        <source>info_providers.bulk_import.parts</source>
-        <target>parts</target>
-      </segment>
-    </unit>
-    <unit id="bulk030" name="info_providers.bulk_import.results">
-      <segment state="translated">
-        <source>info_providers.bulk_import.results</source>
-        <target>results</target>
-      </segment>
-    </unit>
-    <unit id="bulk031" name="info_providers.bulk_import.created_at">
-      <segment state="translated">
-        <source>info_providers.bulk_import.created_at</source>
-        <target>Created at</target>
-      </segment>
-    </unit>
-    <unit id="bulk032" name="info_providers.bulk_import.status.in_progress">
-      <segment state="translated">
-        <source>info_providers.bulk_import.status.in_progress</source>
-        <target>In Progress</target>
-      </segment>
-    </unit>
-    <unit id="bulk033" name="info_providers.bulk_import.status.completed">
-      <segment state="translated">
-        <source>info_providers.bulk_import.status.completed</source>
-        <target>Completed</target>
-      </segment>
-    </unit>
-    <unit id="bulk034" name="info_providers.bulk_import.status.failed">
-      <segment state="translated">
-        <source>info_providers.bulk_import.status.failed</source>
-        <target>Failed</target>
-      </segment>
-    </unit>
-    <unit id="bulk035" name="info_providers.bulk_import.results_found">
+    <unit id="TPEhXlb" name="info_providers.bulk_import.results_found">
       <segment state="translated">
         <source>info_providers.bulk_import.results_found</source>
         <target>%count% results found</target>
       </segment>
     </unit>
-    <unit id="bulk036" name="info_providers.bulk_import.table.name">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.name</source>
-        <target>Name</target>
-      </segment>
-    </unit>
-    <unit id="bulk037" name="info_providers.bulk_import.table.description">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.description</source>
-        <target>Description</target>
-      </segment>
-    </unit>
-    <unit id="bulk038" name="info_providers.bulk_import.table.manufacturer">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.manufacturer</source>
-        <target>Manufacturer</target>
-      </segment>
-    </unit>
-    <unit id="bulk039" name="info_providers.bulk_import.table.provider">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.provider</source>
-        <target>Provider</target>
-      </segment>
-    </unit>
-    <unit id="bulk040" name="info_providers.bulk_import.table.source_field">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.source_field</source>
-        <target>Source Field</target>
-      </segment>
-    </unit>
-    <unit id="bulk041" name="info_providers.bulk_import.table.action">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.action</source>
-        <target>Action</target>
-      </segment>
-    </unit>
-    <unit id="bulk042" name="info_providers.bulk_import.action.select">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.select</source>
-        <target>Select</target>
-      </segment>
-    </unit>
-    <unit id="bulk043" name="info_providers.bulk_import.action.deselect">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.deselect</source>
-        <target>Deselect</target>
-      </segment>
-    </unit>
-    <unit id="bulk044" name="info_providers.bulk_import.action.view_details">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.view_details</source>
-        <target>View Details</target>
-      </segment>
-    </unit>
-    <unit id="bulk045" name="info_providers.bulk_import.no_results">
-      <segment state="translated">
-        <source>info_providers.bulk_import.no_results</source>
-        <target>No results found</target>
-      </segment>
-    </unit>
-    <unit id="bulk046" name="info_providers.bulk_import.processing">
-      <segment state="translated">
-        <source>info_providers.bulk_import.processing</source>
-        <target>Processing...</target>
-      </segment>
-    </unit>
-    <unit id="bulk047" name="info_providers.bulk_import.error">
-      <segment state="translated">
-        <source>info_providers.bulk_import.error</source>
-        <target>Error occurred during import</target>
-      </segment>
-    </unit>
-    <unit id="bulk048" name="info_providers.bulk_import.success">
-      <segment state="translated">
-        <source>info_providers.bulk_import.success</source>
-        <target>Import completed successfully</target>
-      </segment>
-    </unit>
-    <unit id="bulk049" name="info_providers.bulk_import.partial_success">
-      <segment state="translated">
-        <source>info_providers.bulk_import.partial_success</source>
-        <target>Import completed with some errors</target>
-      </segment>
-    </unit>
-    <unit id="bulk050" name="info_providers.bulk_import.retry">
-      <segment state="translated">
-        <source>info_providers.bulk_import.retry</source>
-        <target>Retry</target>
-      </segment>
-    </unit>
-    <unit id="bulk051" name="info_providers.bulk_import.cancel">
-      <segment state="translated">
-        <source>info_providers.bulk_import.cancel</source>
-        <target>Cancel</target>
-      </segment>
-    </unit>
-    <unit id="bulk052" name="info_providers.bulk_import.confirm">
-      <segment state="translated">
-        <source>info_providers.bulk_import.confirm</source>
-        <target>Confirm Import</target>
-      </segment>
-    </unit>
-    <unit id="bulk053" name="info_providers.bulk_import.back">
-      <segment state="translated">
-        <source>info_providers.bulk_import.back</source>
-        <target>Back</target>
-      </segment>
-    </unit>
-    <unit id="bulk054" name="info_providers.bulk_import.next">
-      <segment state="translated">
-        <source>info_providers.bulk_import.next</source>
-        <target>Next</target>
-      </segment>
-    </unit>
-    <unit id="bulk055" name="info_providers.bulk_import.finish">
-      <segment state="translated">
-        <source>info_providers.bulk_import.finish</source>
-        <target>Finish</target>
-      </segment>
-    </unit>
-    <unit id="bulk056" name="info_providers.bulk_import.progress">
-      <segment state="translated">
-        <source>info_providers.bulk_import.progress</source>
-        <target>Progress:</target>
-      </segment>
-    </unit>
-    <unit id="bulk057" name="info_providers.bulk_import.time_remaining">
-      <segment state="translated">
-        <source>info_providers.bulk_import.time_remaining</source>
-        <target>Estimated time remaining: %time%</target>
-      </segment>
-    </unit>
-    <unit id="bulk058" name="info_providers.bulk_import.details_modal.title">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.title</source>
-        <target>Part Details</target>
-      </segment>
-    </unit>
-    <unit id="bulk059" name="info_providers.bulk_import.details_modal.close">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.close</source>
-        <target>Close</target>
-      </segment>
-    </unit>
-    <unit id="bulk060" name="info_providers.bulk_import.details_modal.select_this_part">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.select_this_part</source>
-        <target>Select This Part</target>
-      </segment>
-    </unit>
-    <unit id="bulk061" name="info_providers.bulk_import.status.pending">
-      <segment state="translated">
-        <source>info_providers.bulk_import.status.pending</source>
-        <target>Pending</target>
-      </segment>
-    </unit>
-    <unit id="bulk062" name="info_providers.bulk_import.completed">
-      <segment state="translated">
-        <source>info_providers.bulk_import.completed</source>
-        <target>completed</target>
-      </segment>
-    </unit>
-    <unit id="bulk063" name="info_providers.bulk_import.skipped">
-      <segment state="translated">
-        <source>info_providers.bulk_import.skipped</source>
-        <target>skipped</target>
-      </segment>
-    </unit>
-    <unit id="bulk064" name="info_providers.bulk_import.errors">
-      <segment state="translated">
-        <source>info_providers.bulk_import.errors</source>
-        <target>errors</target>
-      </segment>
-    </unit>
-    <unit id="bulk065" name="info_providers.bulk_import.mark_completed">
-      <segment state="translated">
-        <source>info_providers.bulk_import.mark_completed</source>
-        <target>Mark Completed</target>
-      </segment>
-    </unit>
-    <unit id="bulk066" name="info_providers.bulk_import.mark_skipped">
-      <segment state="translated">
-        <source>info_providers.bulk_import.mark_skipped</source>
-        <target>Mark Skipped</target>
-      </segment>
-    </unit>
-    <unit id="bulk067" name="info_providers.bulk_import.mark_pending">
-      <segment state="translated">
-        <source>info_providers.bulk_import.mark_pending</source>
-        <target>Mark Pending</target>
-      </segment>
-    </unit>
-    <unit id="bulk068" name="info_providers.bulk_import.skip_reason">
-      <segment state="translated">
-        <source>info_providers.bulk_import.skip_reason</source>
-        <target>Skip reason</target>
-      </segment>
-    </unit>
-    <unit id="bulk070" name="info_providers.bulk_import.source_field">
+    <unit id="8coVh8q" name="info_providers.bulk_import.source_field">
       <segment state="translated">
         <source>info_providers.bulk_import.source_field</source>
         <target>Source Field</target>
       </segment>
     </unit>
-    <unit id="bulk071" name="info_providers.bulk_import.update_part">
+    <unit id="eL7WKtX" name="info_providers.bulk_import.create_part">
       <segment state="translated">
-        <source>info_providers.bulk_import.update_part</source>
-        <target>Update Part</target>
+        <source>info_providers.bulk_import.create_part</source>
+        <target>Create Part</target>
       </segment>
     </unit>
-    <unit id="bulk072" name="info_providers.bulk_import.view_existing">
+    <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
       <segment state="translated">
         <source>info_providers.bulk_import.view_existing</source>
         <target>View Existing</target>
       </segment>
     </unit>
-    <unit id="bulk073" name="info_providers.search.no_results">
+    <unit id="LPN5MOO" name="info_providers.bulk_search.search_field">
       <segment state="translated">
-        <source>info_providers.search.no_results</source>
-        <target>No results found</target>
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Search Field</target>
       </segment>
     </unit>
-    <unit id="bulk074" name="info_providers.table.provider.label">
+    <unit id="DTm1q3f" name="info_providers.bulk_search.providers">
       <segment state="translated">
-        <source>info_providers.table.provider.label</source>
+        <source>info_providers.bulk_search.providers</source>
+        <target>Info Providers</target>
+      </segment>
+    </unit>
+    <unit id="5zem1xb" name="info_providers.bulk_import.actions.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.actions.label</source>
+        <target>Actions</target>
+      </segment>
+    </unit>
+    <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Select which info providers to search when parts have this field.</target>
+      </segment>
+    </unit>
+    <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Search All Parts</target>
+      </segment>
+    </unit>
+    <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.select</source>
+        <target>Select a field to search by</target>
+      </segment>
+    </unit>
+    <unit id="AKm8Kw9" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Manufacturer Part Number (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="Wne2ljh" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Part Name</target>
+      </segment>
+    </unit>
+    <unit id="iOh1gJZ" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Info Provider</target>
+      </segment>
+    </unit>
+    <unit id="xukxTs_" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Bulk Info Provider Import</target>
+      </segment>
+    </unit>
+    <unit id="HtoFAm0" name="info_providers.bulk_import.clear_selections">
+      <segment state="translated">
+        <source>info_providers.bulk_import.clear_selections</source>
+        <target>Clear All Selections</target>
+      </segment>
+    </unit>
+    <unit id="CHfk1d." name="info_providers.bulk_import.clear_row">
+      <segment state="translated">
+        <source>info_providers.bulk_import.clear_row</source>
+        <target>Clear this row's selections</target>
+      </segment>
+    </unit>
+    <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>SPN (Supplier Part Number) is recommended for better results. Add a mapping for each supplier to use their SPNs.</target>
+      </segment>
+    </unit>
+    <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.update_part</source>
+        <target>Update Part</target>
+      </segment>
+    </unit>
+    <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details</source>
+        <target>Prefetch Details</target>
+      </segment>
+    </unit>
+    <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details_help</source>
+        <target>Prefetch details for all results. This will take longer, but will speed up workflow for updating parts.</target>
+      </segment>
+    </unit>
+    <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.title</source>
+        <target>Bulk import from info providers</target>
+      </segment>
+    </unit>
+    <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.card_title</source>
+        <target>Bulk import for %count% parts - %date%</target>
+      </segment>
+    </unit>
+    <unit id="fyatGYL" name="info_providers.bulk_import.parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts</source>
+        <target>parts</target>
+      </segment>
+    </unit>
+    <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results</source>
+        <target>results</target>
+      </segment>
+    </unit>
+    <unit id="V8eTEPM" name="info_providers.bulk_import.created_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_at</source>
+        <target>Created at</target>
+      </segment>
+    </unit>
+    <unit id="CiqevAs" name="info_providers.bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.in_progress</source>
+        <target>In Progress</target>
+      </segment>
+    </unit>
+    <unit id="YeLN8i_" name="info_providers.bulk_import.status.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="TIzGVyk" name="info_providers.bulk_import.status.failed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="RxaZ6kn" name="info_providers.bulk_import.table.name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="36MkrQF" name="info_providers.bulk_import.table.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.provider</source>
         <target>Provider</target>
       </segment>
     </unit>
-    <unit id="bulk075" name="info_providers.bulk_import.editing_part">
+    <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.source_field</source>
+        <target>Source Field</target>
+      </segment>
+    </unit>
+    <unit id="9iBuLfS" name="info_providers.bulk_import.table.action">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.action</source>
+        <target>Action</target>
+      </segment>
+    </unit>
+    <unit id="qgyoLWA" name="info_providers.bulk_import.action.select">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.select</source>
+        <target>Select</target>
+      </segment>
+    </unit>
+    <unit id="aSo.jkT" name="info_providers.bulk_import.action.deselect">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.deselect</source>
+        <target>Deselect</target>
+      </segment>
+    </unit>
+    <unit id="ViKzR5M" name="info_providers.bulk_import.action.view_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.view_details</source>
+        <target>View Details</target>
+      </segment>
+    </unit>
+    <unit id="8qnf_gP" name="info_providers.bulk_import.no_results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.no_results</source>
+        <target>No results found</target>
+      </segment>
+    </unit>
+    <unit id="KDNhQMH" name="info_providers.bulk_import.processing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.processing</source>
+        <target>Processing...</target>
+      </segment>
+    </unit>
+    <unit id="eGaXfru" name="info_providers.bulk_import.error">
+      <segment state="translated">
+        <source>info_providers.bulk_import.error</source>
+        <target>Error occurred during import</target>
+      </segment>
+    </unit>
+    <unit id="HiczSH4" name="info_providers.bulk_import.success">
+      <segment state="translated">
+        <source>info_providers.bulk_import.success</source>
+        <target>Import completed successfully</target>
+      </segment>
+    </unit>
+    <unit id="yt3kZvQ" name="info_providers.bulk_import.partial_success">
+      <segment state="translated">
+        <source>info_providers.bulk_import.partial_success</source>
+        <target>Import completed with some errors</target>
+      </segment>
+    </unit>
+    <unit id="LrlWQ0." name="info_providers.bulk_import.retry">
+      <segment state="translated">
+        <source>info_providers.bulk_import.retry</source>
+        <target>Retry</target>
+      </segment>
+    </unit>
+    <unit id="mjzOCYY" name="info_providers.bulk_import.cancel">
+      <segment state="translated">
+        <source>info_providers.bulk_import.cancel</source>
+        <target>Cancel</target>
+      </segment>
+    </unit>
+    <unit id="QphMXMq" name="info_providers.bulk_import.confirm">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm</source>
+        <target>Confirm Import</target>
+      </segment>
+    </unit>
+    <unit id="CoSmRQc" name="info_providers.bulk_import.back">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="Flgdv5w" name="info_providers.bulk_import.next">
+      <segment state="translated">
+        <source>info_providers.bulk_import.next</source>
+        <target>Next</target>
+      </segment>
+    </unit>
+    <unit id="N8uN_eL" name="info_providers.bulk_import.finish">
+      <segment state="translated">
+        <source>info_providers.bulk_import.finish</source>
+        <target>Finish</target>
+      </segment>
+    </unit>
+    <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress</source>
+        <target>Progress:</target>
+      </segment>
+    </unit>
+    <unit id="FfSQT4T" name="info_providers.bulk_import.time_remaining">
+      <segment state="translated">
+        <source>info_providers.bulk_import.time_remaining</source>
+        <target>Estimated time remaining: %time%</target>
+      </segment>
+    </unit>
+    <unit id="g1pqdBr" name="info_providers.bulk_import.details_modal.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.details_modal.title</source>
+        <target>Part Details</target>
+      </segment>
+    </unit>
+    <unit id="_P5nIFz" name="info_providers.bulk_import.details_modal.close">
+      <segment state="translated">
+        <source>info_providers.bulk_import.details_modal.close</source>
+        <target>Close</target>
+      </segment>
+    </unit>
+    <unit id="GGMVm_." name="info_providers.bulk_import.details_modal.select_this_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.details_modal.select_this_part</source>
+        <target>Select This Part</target>
+      </segment>
+    </unit>
+    <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="KcADJb." name="info_providers.bulk_import.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed</source>
+        <target>completed</target>
+      </segment>
+    </unit>
+    <unit id="hptkZvI" name="info_providers.bulk_import.skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skipped</source>
+        <target>skipped</target>
+      </segment>
+    </unit>
+    <unit id="vylzyYJ" name="info_providers.bulk_import.mark_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_completed</source>
+        <target>Mark Completed</target>
+      </segment>
+    </unit>
+    <unit id="ePdcL7W" name="info_providers.bulk_import.mark_skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_skipped</source>
+        <target>Mark Skipped</target>
+      </segment>
+    </unit>
+    <unit id="3HeDhTB" name="info_providers.bulk_import.mark_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_pending</source>
+        <target>Mark Pending</target>
+      </segment>
+    </unit>
+    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skip_reason</source>
+        <target>Skip reason</target>
+      </segment>
+    </unit>
+    <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
       <segment state="translated">
         <source>info_providers.bulk_import.editing_part</source>
         <target>Editing part as part of bulk import</target>
       </segment>
     </unit>
-    <unit id="bulk076" name="info_providers.bulk_import.complete">
+    <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
       <segment state="translated">
         <source>info_providers.bulk_import.complete</source>
         <target>Complete</target>
       </segment>
     </unit>
-    <unit id="bulk077" name="info_providers.bulk_import.existing_jobs">
+    <unit id="bHLXJ8Z" name="info_providers.bulk_import.existing_jobs">
       <segment state="translated">
         <source>info_providers.bulk_import.existing_jobs</source>
         <target>Existing Jobs</target>
       </segment>
     </unit>
-    <unit id="bulk078" name="info_providers.bulk_import.job_name">
+    <unit id="jg2YuGQ" name="info_providers.bulk_import.job_name">
       <segment state="translated">
         <source>info_providers.bulk_import.job_name</source>
         <target>Job Name</target>
       </segment>
     </unit>
-    <unit id="bulk079" name="info_providers.bulk_import.parts_count">
+    <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
       <segment state="translated">
         <source>info_providers.bulk_import.parts_count</source>
         <target>Parts Count</target>
       </segment>
     </unit>
-    <unit id="bulk080" name="info_providers.bulk_import.results_count">
+    <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
       <segment state="translated">
         <source>info_providers.bulk_import.results_count</source>
         <target>Results Count</target>
       </segment>
     </unit>
-    <unit id="bulk081" name="info_providers.bulk_import.progress_label">
+    <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
       <segment state="translated">
         <source>info_providers.bulk_import.progress_label</source>
         <target>Progress: %current%/%total%</target>
       </segment>
     </unit>
-    <unit id="bulk082" name="info_providers.bulk_import.manage_jobs">
+    <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
       <segment state="translated">
         <source>info_providers.bulk_import.manage_jobs</source>
         <target>Manage Bulk Import Jobs</target>
       </segment>
     </unit>
-    <unit id="bulk083" name="info_providers.bulk_import.view_results">
+    <unit id="mJ73hdI" name="info_providers.bulk_import.view_results">
       <segment state="translated">
         <source>info_providers.bulk_import.view_results</source>
         <target>View Results</target>
       </segment>
     </unit>
-    <unit id="bulk084" name="info_providers.bulk_import.status">
+    <unit id="d5ZxGBG" name="info_providers.bulk_import.status">
       <segment state="translated">
         <source>info_providers.bulk_import.status</source>
         <target>Status</target>
       </segment>
     </unit>
-    <unit id="bulk085" name="info_providers.bulk_import.manage_jobs_description">
+    <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
       <segment state="translated">
         <source>info_providers.bulk_import.manage_jobs_description</source>
         <target>View and manage all your bulk import jobs. To create a new job, select parts and click "Bulk import from info providers".</target>
       </segment>
     </unit>
-    <unit id="bulk087" name="info_providers.bulk_import.no_jobs_found">
+    <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
       <segment state="translated">
         <source>info_providers.bulk_import.no_jobs_found</source>
         <target>No bulk import jobs found.</target>
       </segment>
     </unit>
-    <unit id="bulk088" name="info_providers.bulk_import.create_first_job">
+    <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
       <segment state="translated">
         <source>info_providers.bulk_import.create_first_job</source>
         <target>Create your first bulk import job</target>
       </segment>
     </unit>
-    <unit id="bulk089" name="info_providers.bulk_import.confirm_delete_job">
+    <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
       <segment state="translated">
         <source>info_providers.bulk_import.confirm_delete_job</source>
         <target>Are you sure you want to delete this job?</target>
       </segment>
     </unit>
-    <unit id="bulk090" name="info_providers.bulk_import.job_name_template">
+    <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
       <segment state="translated">
         <source>info_providers.bulk_import.job_name_template</source>
         <target>Bulk import for %count% parts</target>
       </segment>
     </unit>
-    <unit id="bulk091" name="info_providers.bulk_import.step2.instructions.title">
+    <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.title</source>
         <target>How to use bulk import</target>
       </segment>
     </unit>
-    <unit id="bulk092" name="info_providers.bulk_import.step2.instructions.description">
+    <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.description</source>
         <target>Follow these steps to efficiently update your parts:</target>
       </segment>
     </unit>
-    <unit id="bulk093" name="info_providers.bulk_import.step2.instructions.step1">
+    <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.step1</source>
         <target>Click "Update Part" to edit a part with the supplier data</target>
       </segment>
     </unit>
-    <unit id="bulk094" name="info_providers.bulk_import.step2.instructions.step2">
+    <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.step2</source>
         <target>Review and modify the part information as needed. Note: You need to click "Save" twice to save the changes.</target>
       </segment>
     </unit>
-    <unit id="bulk095" name="info_providers.bulk_import.step2.instructions.step3">
+    <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.step3</source>
         <target>Click "Complete" to mark the part as done and return to this overview</target>
       </segment>
     </unit>
-    <unit id="bulk096" name="info_providers.bulk_import.created_by">
+    <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
       <segment state="translated">
         <source>info_providers.bulk_import.created_by</source>
         <target>Created By</target>
       </segment>
     </unit>
-    <unit id="bulk097" name="info_providers.bulk_import.completed_at">
+    <unit id="egSjRGI" name="info_providers.bulk_import.completed_at">
       <segment state="translated">
         <source>info_providers.bulk_import.completed_at</source>
         <target>Completed At</target>
       </segment>
     </unit>
-    <unit id="bulk098" name="info_providers.bulk_import.action.label">
+    <unit id="9L.HbvX" name="info_providers.bulk_import.action.label">
       <segment state="translated">
         <source>info_providers.bulk_import.action.label</source>
         <target>Action</target>
       </segment>
     </unit>
-    <unit id="bulk099" name="info_providers.bulk_import.action.delete">
+    <unit id="vcNdo9m" name="info_providers.bulk_import.action.delete">
       <segment state="translated">
         <source>info_providers.bulk_import.action.delete</source>
         <target>Delete</target>
       </segment>
     </unit>
-    <unit id="bulk100" name="info_providers.bulk_import.status.active">
+    <unit id="bE3MUIU" name="info_providers.bulk_import.status.active">
       <segment state="translated">
         <source>info_providers.bulk_import.status.active</source>
         <target>Active</target>
       </segment>
     </unit>
-    <unit id="bulk101" name="info_providers.bulk_import.progress.title">
+    <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
       <segment state="translated">
         <source>info_providers.bulk_import.progress.title</source>
         <target>Progress</target>
       </segment>
     </unit>
-    <unit id="bulk102" name="info_providers.bulk_import.progress.completed_text">
+    <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
       <segment state="translated">
         <source>info_providers.bulk_import.progress.completed_text</source>
         <target>%completed% / %total% completed</target>
       </segment>
     </unit>
-    <unit id="bulk103" name="info_providers.bulk_import.error.deleting_job">
+    <unit id="Y53fY_F" name="info_providers.bulk_import.error.deleting_job">
       <segment state="translated">
         <source>info_providers.bulk_import.error.deleting_job</source>
         <target>Error deleting job</target>
       </segment>
     </unit>
-    <unit id="bulk104" name="info_providers.bulk_import.error.unknown">
+    <unit id="i.EWgLw" name="info_providers.bulk_import.error.unknown">
       <segment state="translated">
         <source>info_providers.bulk_import.error.unknown</source>
         <target>Unknown error</target>
       </segment>
     </unit>
-    <unit id="bulk105" name="info_providers.bulk_import.error.deleting_job_with_details">
+    <unit id="XrRgd0t" name="info_providers.bulk_import.error.deleting_job_with_details">
       <segment state="translated">
         <source>info_providers.bulk_import.error.deleting_job_with_details</source>
         <target>Error deleting job: %error%</target>
       </segment>
     </unit>
-    <unit id="bulk106" name="info_providers.bulk_import.status.stopped">
+    <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
       <segment state="translated">
         <source>info_providers.bulk_import.status.stopped</source>
         <target>Stopped</target>
       </segment>
     </unit>
-    <unit id="bulk107" name="info_providers.bulk_import.action.stop">
+    <unit id="we_yrOV" name="info_providers.bulk_import.action.stop">
       <segment state="translated">
         <source>info_providers.bulk_import.action.stop</source>
         <target>Stop</target>
       </segment>
     </unit>
-    <unit id="bulk108" name="info_providers.bulk_import.confirm_stop_job">
+    <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
       <segment state="translated">
         <source>info_providers.bulk_import.confirm_stop_job</source>
         <target>Are you sure you want to stop this job?</target>
       </segment>
     </unit>
-    <unit id="bulk109" name="part.filter.in_bulk_import_job">
+    <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
       <segment state="translated">
         <source>part.filter.in_bulk_import_job</source>
         <target>In Bulk Import Job</target>
       </segment>
     </unit>
-    <unit id="bulk110" name="part.filter.in_bulk_import_job.yes">
+    <unit id="Q9UiUw." name="part.filter.in_bulk_import_job.yes">
       <segment state="translated">
         <source>part.filter.in_bulk_import_job.yes</source>
         <target>Yes</target>
       </segment>
     </unit>
-    <unit id="bulk111" name="part.filter.in_bulk_import_job.no">
+    <unit id="6m0ooZf" name="part.filter.in_bulk_import_job.no">
       <segment state="translated">
         <source>part.filter.in_bulk_import_job.no</source>
         <target>No</target>
       </segment>
     </unit>
-    <unit id="bulk112" name="part.filter.bulk_import_job_status">
+    <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
       <segment state="translated">
         <source>part.filter.bulk_import_job_status</source>
         <target>Bulk Import Job Status</target>
       </segment>
     </unit>
-    <unit id="bulk113" name="part.filter.bulk_import_part_status">
+    <unit id="940sEqZ" name="part.filter.bulk_import_part_status">
       <segment state="translated">
         <source>part.filter.bulk_import_part_status</source>
         <target>Bulk Import Part Status</target>
       </segment>
     </unit>
-    <unit id="bulk114" name="part.edit.tab.bulk_import">
+    <unit id="rv.QfEA" name="part.edit.tab.bulk_import">
       <segment state="translated">
         <source>part.edit.tab.bulk_import</source>
         <target>Bulk Import Job</target>
       </segment>
     </unit>
-    <unit id="bulk115" name="bulk_import.status.pending">
+    <unit id="BUAqJHD" name="bulk_import.status.pending">
       <segment state="translated">
         <source>bulk_import.status.pending</source>
         <target>Pending</target>
       </segment>
     </unit>
-    <unit id="bulk116" name="bulk_import.status.in_progress">
+    <unit id="GkVa8H3" name="bulk_import.status.in_progress">
       <segment state="translated">
         <source>bulk_import.status.in_progress</source>
         <target>In Progress</target>
       </segment>
     </unit>
-    <unit id="bulk117" name="bulk_import.status.completed">
+    <unit id="da3QKdj" name="bulk_import.status.completed">
       <segment state="translated">
         <source>bulk_import.status.completed</source>
         <target>Completed</target>
       </segment>
     </unit>
-    <unit id="bulk118" name="bulk_import.status.stopped">
+    <unit id="YM7qaAP" name="bulk_import.status.stopped">
       <segment state="translated">
         <source>bulk_import.status.stopped</source>
         <target>Stopped</target>
       </segment>
     </unit>
-    <unit id="bulk119" name="bulk_import.status.failed">
+    <unit id="5SSBsBs" name="bulk_import.status.failed">
       <segment state="translated">
         <source>bulk_import.status.failed</source>
         <target>Failed</target>
       </segment>
     </unit>
-    <unit id="bulk120" name="bulk_import.part_status.pending">
+    <unit id="JprgheW" name="bulk_import.part_status.pending">
       <segment state="translated">
         <source>bulk_import.part_status.pending</source>
         <target>Pending</target>
       </segment>
     </unit>
-    <unit id="bulk121" name="bulk_import.part_status.completed">
+    <unit id="iDoZxrE" name="bulk_import.part_status.completed">
       <segment state="translated">
         <source>bulk_import.part_status.completed</source>
         <target>Completed</target>
       </segment>
     </unit>
-    <unit id="bulk122" name="bulk_import.part_status.skipped">
+    <unit id="KInkh07" name="bulk_import.part_status.skipped">
       <segment state="translated">
         <source>bulk_import.part_status.skipped</source>
         <target>Skipped</target>
       </segment>
     </unit>
-    <unit id="bulk123" name="bulk_import.part_status.failed">
+    <unit id="tmVFe1V" name="bulk_import.part_status.failed">
       <segment state="translated">
         <source>bulk_import.part_status.failed</source>
         <target>Failed</target>
       </segment>
     </unit>
-    <unit id="bulk124" name="filter.operator">
+    <unit id="Unr5IS7" name="filter.operator">
       <segment state="translated">
         <source>filter.operator</source>
         <target>Operator</target>
+      </segment>
+    </unit>
+    <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
+      <segment>
+        <source>bulk_info_provider_import_job.label</source>
+        <target>Bulk Info Provider Import</target>
       </segment>
     </unit>
   </file>
