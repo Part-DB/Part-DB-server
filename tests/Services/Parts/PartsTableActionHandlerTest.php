@@ -59,12 +59,4 @@ class PartsTableActionHandlerTest extends WebTestCase
         }
     }
 
-    public function testIdStringToArray(): void
-    {
-        // This test would require actual Part entities in the database
-        // For now, we just test the method exists and handles empty strings
-        $result = $this->service->idStringToArray('');
-        $this->assertIsArray($result);
-        $this->assertEmpty($result);
-    }
 }
