@@ -52,9 +52,15 @@ export default class extends Controller {
 
         const language = document.body.dataset.locale ?? "en";
 
+        const emojiURL = new URL('../../ckeditor/emojis.json', import.meta.url).href;
+
         const config = {
             language: language,
             licenseKey: "GPL",
+
+            emoji: {
+                definitionsUrl: emojiURL
+            }
         }
 
         const watchdog = new EditorWatchdog();

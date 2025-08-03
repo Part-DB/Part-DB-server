@@ -27,10 +27,11 @@ import {Subscript} from 'ckeditor5';
 import {Superscript} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
 import {EditorWatchdog} from 'ckeditor5';
+import {Mention, Emoji} from "ckeditor5";
 
 import ExtendedMarkdownInline from "./plugins/extendedMarkdownInline";
 import SingleLinePlugin from "./plugins/singleLine";
-import SpecialCharactersEmoji from "./plugins/special_characters_emoji";
+import SpecialCharactersGreek from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
 
@@ -62,7 +63,8 @@ Editor.builtinPlugins = [
 
     ExtendedMarkdownInline,
     SingleLinePlugin,
-    SpecialCharactersEmoji
+    SpecialCharactersGreek,
+    Mention, Emoji
 ];
 
 // Editor configuration.
@@ -81,6 +83,7 @@ Editor.defaultConfig = {
             'link',
             'code',
             'specialCharacters',
+            'emoji',
             '|',
             'undo',
             'redo',

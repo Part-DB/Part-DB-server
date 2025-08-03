@@ -63,7 +63,8 @@ import {EditorWatchdog} from 'ckeditor5';
 import {TodoList} from 'ckeditor5';
 
 import ExtendedMarkdown from "./plugins/extendedMarkdown.js";
-import SpecialCharactersEmoji from "./plugins/special_characters_emoji";
+import SpecialCharactersGreek from "./plugins/special_characters_emoji";
+import {Mention, Emoji} from "ckeditor5";
 
 class Editor extends ClassicEditor {}
 
@@ -117,9 +118,11 @@ Editor.builtinPlugins = [
     Underline,
     TodoList,
 
+    Mention, Emoji,
+
     //Our own extensions
     ExtendedMarkdown,
-    SpecialCharactersEmoji
+    SpecialCharactersGreek
 ];
 
 // Editor configuration.
@@ -148,6 +151,7 @@ Editor.defaultConfig = {
             'indent',
             '|',
             'specialCharacters',
+            "emoji",
             'horizontalLine',
             '|',
             'imageUpload',
