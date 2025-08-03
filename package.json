@@ -6,7 +6,7 @@
         "@hotwired/stimulus": "^3.0.0",
         "@hotwired/turbo": "^8.0.1",
         "@popperjs/core": "^2.10.2",
-        "@symfony/stimulus-bridge": "^3.2.0",
+        "@symfony/stimulus-bridge": "^4.0.0",
         "@symfony/ux-translator": "file:vendor/symfony/ux-translator/assets",
         "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
         "@symfony/webpack-encore": "^5.0.0",
