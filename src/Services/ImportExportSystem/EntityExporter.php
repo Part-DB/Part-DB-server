@@ -137,7 +137,7 @@ class EntityExporter
         $options = [
             'format' => $request->get('format') ?? 'json',
             'level' => $request->get('level') ?? 'extended',
-            'include_children' => $request->request->getBoolean('include_children') ?? false,
+            'include_children' => $request->request->getBoolean('include_children'),
         ];
 
         if (!is_array($entities)) {
