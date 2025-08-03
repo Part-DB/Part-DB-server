@@ -35,7 +35,6 @@
         "@algolia/autocomplete-theme-classic": "^1.17.0",
         "@ckeditor/ckeditor5-dev-translations": "^43.0.1",
         "@ckeditor/ckeditor5-dev-utils": "^43.0.1",
-        "@ckeditor/ckeditor5-markdown-gfm": "^46.0.0",
         "@jbtronics/bs-treeview": "^1.0.1",
         "@part-db/html5-qrcode": "^3.1.0",
         "@zxcvbn-ts/core": "^3.0.2",

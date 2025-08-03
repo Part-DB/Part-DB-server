@@ -18,7 +18,7 @@
  */
 
 import {Plugin} from 'ckeditor5';
-import {MarkdownGfmDataProcessor} from '@ckeditor/ckeditor5-markdown-gfm';
+import {MarkdownGfmDataProcessor} from 'ckeditor5';
 
 const ALLOWED_TAGS = [
 	//Common elements
