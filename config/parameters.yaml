@@ -58,6 +58,8 @@ parameters:
   ######################################################################################################################
   partdb.table.default_page_size: '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'               # The default number of entries shown per page in tables
   partdb.table.parts.default_columns: '%env(trim:string:TABLE_PARTS_DEFAULT_COLUMNS)%' # The default columns in part tables and their order
+  partdb.table.image_preview_min_size: '%env(int:TABLE_IMAGE_PREVIEW_MIN_SIZE)%'     # The minimum size of preview images in tables (in pixels)
+  partdb.table.image_preview_max_size: '%env(int:TABLE_IMAGE_PREVIEW_MAX_SIZE)%'     # The maximum size of preview images in tables (in pixels)
 
   ######################################################################################################################
   # Sidebar
@@ -134,6 +136,8 @@ parameters:
   env(ALLOW_EMAIL_PW_RESET): 0
 
   env(TABLE_DEFAULT_PAGE_SIZE): 50
+  env(TABLE_IMAGE_PREVIEW_MIN_SIZE): 10
+  env(TABLE_IMAGE_PREVIEW_MAX_SIZE): 30
 
   env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
   env(TRUSTED_HOSTS): '' # Trust all host names by default
