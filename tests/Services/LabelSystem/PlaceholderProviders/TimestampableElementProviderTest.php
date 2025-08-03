@@ -60,26 +60,29 @@ class TimestampableElementProviderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        \Locale::setDefault('en');
+        \Locale::setDefault('en_US');
         $this->service = self::getContainer()->get(TimestampableElementProvider::class);
-        $this->target = new class() implements TimeStampableInterface {
+        $this->target = new class () implements TimeStampableInterface {
             public function getLastModified(): ?DateTime
             {
-                return new \DateTime('2000-01-01');
+                return new DateTime('2000-01-01');
             }
 
             public function getAddedDate(): ?DateTime
             {
-                return new \DateTime('2000-01-01');
+                return new DateTime('2000-01-01');
             }
         };
     }
 
     public static function dataProvider(): \Iterator
     {
-        \Locale::setDefault('en');
-        yield ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'];
-        yield ['1/1/00, 12:00 AM', '[[CREATION_DATE]]'];
+        \Locale::setDefault('en_US');
+        // Use IntlDateFormatter like the actual service does
+        $formatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
+        $expectedFormat = $formatter->format(new DateTime('2000-01-01'));
+        yield [$expectedFormat, '[[LAST_MODIFIED]]'];
+        yield [$expectedFormat, '[[CREATION_DATE]]'];
     }
 
     #[DataProvider('dataProvider')]
