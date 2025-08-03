@@ -73,6 +73,10 @@ test-run:
 	@echo "🧪 Running tests..."
 	php bin/phpunit
 
+test-typecheck:
+	@echo "🧪 Running type checks..."
+	COMPOSER_MEMORY_LIMIT=-1 composer phpstan
+
 # Quick test reset (clean + migrate + fixtures, skip DB creation)
 test-reset: test-cache-clear test-db-migrate test-fixtures
 	@echo "✅ Test environment reset complete!"
