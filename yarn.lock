@@ -1991,12 +1991,12 @@
   resolved "https://registry.yarnpkg.com/@orchidjs/unicode-variants/-/unicode-variants-1.1.2.tgz#1fd71791a67fdd1591ebe0dcaadd3964537a824e"
   integrity sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==
 
-"@part-db/html5-qrcode@^3.1.0":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@part-db/html5-qrcode/-/html5-qrcode-3.1.1.tgz#96bf5e57796f3ec72ee6191ac7b8604298c98dfa"
-  integrity sha512-6lH77mvu9ClwIfKHWSOW1+jz+SkCJnbm/8XTuzqlcUWUIW8NRHC5x1wU7svV4gtoirqvBlQvaz1MaopVmfOAqQ==
+"@part-db/html5-qrcode@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@part-db/html5-qrcode/-/html5-qrcode-4.0.0.tgz#aff7b4cc051ce72652cd63849158140550381d9d"
+  integrity sha512-BPdGZ6CSh8cr5Yg7az9JXbS1x0evZSUnjPXK8KHTKv7TVrK0o5YDA2LBp0fM+/nwXJ2AB7PG5hmkkAEiA9/MRQ==
   dependencies:
-    barcode-detector "^2.3.1"
+    barcode-detector "^3.0.0"
 
 "@polka/url@^1.0.0-next.24":
   version "1.0.0-next.29"
@@ -2074,12 +2074,7 @@
   dependencies:
     "@types/ms" "*"
 
-"@types/dom-webcodecs@0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@types/dom-webcodecs/-/dom-webcodecs-0.1.11.tgz#2e36e5cc71789551f107e2fe15d956845fa19567"
-  integrity sha512-yPEZ3z7EohrmOxbk/QTAa0yonMFkNkjnVXqbGb7D4rMr+F1dGQ8ZUFxXkyLLJuiICPejZ0AZE9Rrk9wUCczx4A==
-
-"@types/emscripten@^1.39.13":
+"@types/emscripten@^1.40.1":
   version "1.40.1"
   resolved "https://registry.yarnpkg.com/@types/emscripten/-/emscripten-1.40.1.tgz#4c34102d7cd1503979d4e6652082c23fd805805e"
   integrity sha512-sr53lnYkQNhjHNN0oJDdUm5564biioI5DuOpycufDVK7D3y+GR3oUswe2rlwY1nPNyusHbrJ9WoTyIHl4/Bpwg==
@@ -2600,13 +2595,12 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-barcode-detector@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/barcode-detector/-/barcode-detector-2.3.1.tgz#91d0d4e3b913d87f94bae5d024b6b9b5cedc420c"
-  integrity sha512-D9KEtrquS1tmBZduxBZl8qublIKnRrFqD8TAHDYcLCyrHQBo+vitIxmjMJ61LvXjXyAMalOlO7q0Oh/9Rl2PbQ==
+barcode-detector@^3.0.0, barcode-detector@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/barcode-detector/-/barcode-detector-3.0.5.tgz#4a7b2d60378b2d74071fe922bf052550d35d9eda"
+  integrity sha512-SWeGhJ8SEW0T3Anbr2wEugUXW2bSCld3PauZh+LjTgN1lSInnIrI+RnG53NkzS4pl3cfPCl1AZ10Rq+hSkXBSw==
   dependencies:
-    "@types/dom-webcodecs" "0.1.11"
-    zxing-wasm "1.3.4"
+    zxing-wasm "2.2.0"
 
 base64-js@1.3.1:
   version "1.3.1"
@@ -7511,6 +7505,11 @@ tslib@^2.8.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
+type-fest@^4.41.0:
+  version "4.41.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.41.0.tgz#6ae1c8e5731273c2bf1f58ad39cbae2c91a46c58"
+  integrity sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==
+
 typed-array-buffer@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/typed-array-buffer/-/typed-array-buffer-1.0.3.tgz#a72395450a4869ec033fd549371b47af3a2ee536"
@@ -8046,9 +8045,10 @@ zwitch@^2.0.0, zwitch@^2.0.4:
   resolved "https://registry.yarnpkg.com/zwitch/-/zwitch-2.0.4.tgz#c827d4b0acb76fc3e685a4c6ec2902d51070e9d7"
   integrity sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==
 
-zxing-wasm@1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/zxing-wasm/-/zxing-wasm-1.3.4.tgz#4bc45b78dc3594278bb0c24233bfb035ca9efab1"
-  integrity sha512-9l0QymyATF19FmI92QHe7Dayb+BUN7P7zFAt5iDgTnUf0dFWokz6GVA/W9EepjW5q8s3e89fIE/7uxpX27yqEQ==
+zxing-wasm@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/zxing-wasm/-/zxing-wasm-2.2.0.tgz#ff055c3c81d11d88ed684fb75d96b8b72e3f0091"
+  integrity sha512-RyHxVaAHsLSDzmwcAG05IF8sVOE5Ta2JT1dRDh0mzVZOIiDXZstsjkqvKHasN1n4lvFSbX7ngkHDufnt/XI07Q==
   dependencies:
-    "@types/emscripten" "^1.39.13"
+    "@types/emscripten" "^1.40.1"
+    type-fest "^4.41.0"
