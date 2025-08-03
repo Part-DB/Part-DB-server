@@ -29,6 +29,9 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
+    "engines": {
+        "node": ">=20.0.0"
+    },
     "dependencies": {
         "@algolia/autocomplete-js": "^1.17.0",
         "@algolia/autocomplete-plugin-recent-searches": "^1.17.0",

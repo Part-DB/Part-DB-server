@@ -33,7 +33,7 @@ sudo apt install git curl zip ca-certificates software-properties-common apt-tra
 
 ### Install PHP and apache2
 
-Part-DB is written in [PHP](https://php.net) and therefore needs a PHP interpreter to run. Part-DB needs PHP 8.1 or
+Part-DB is written in [PHP](https://php.net) and therefore needs a PHP interpreter to run. Part-DB needs PHP 8.2 or
 higher. However, it is recommended to use the most recent version of PHP for performance reasons and future
 compatibility.
 
