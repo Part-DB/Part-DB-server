@@ -1,0 +1,186 @@
+{# BOM Validation Results Component #}
+{# 
+    Usage:
+    {% include 'projects/_bom_validation_results.html.twig' with {
+        validation_result: validation_result,
+        show_summary: true,
+        show_details: true
+    } %}
+#}
+
+{% if validation_result is defined and validation_result is not empty %}
+    {% set stats = validation_result %}
+    
+    {# Validation Summary #}
+    {% if show_summary is defined and show_summary %}
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="fa-solid fa-chart-bar fa-fw"></i>
+                            {% trans %}project.bom_import.validation.summary{% endtrans %}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="h3 text-primary">{{ stats.total_entries }}</div>
+                                    <small class="text-muted">{% trans %}project.bom_import.validation.total_entries{% endtrans %}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="h3 text-success">{{ stats.valid_entries }}</div>
+                                    <small class="text-muted">{% trans %}project.bom_import.validation.valid_entries{% endtrans %}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="h3 text-warning">{{ stats.invalid_entries }}</div>
+                                    <small class="text-muted">{% trans %}project.bom_import.validation.invalid_entries{% endtrans %}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="h3 text-info">
+                                        {% if stats.total_entries > 0 %}
+                                            {{ ((stats.valid_entries / stats.total_entries) * 100) | round(1) }}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </div>
+                                    <small class="text-muted">{% trans %}project.bom_import.validation.success_rate{% endtrans %}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Validation Messages #}
+    {% if validation_result.errors is defined and validation_result.errors is not empty %}
+        <div class="alert alert-danger">
+            <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}project.bom_import.validation.errors.title{% endtrans %}</h4>
+            <p class="mb-2">{% trans %}project.bom_import.validation.errors.description{% endtrans %}</p>
+            <ul class="mb-0">
+                {% for error in validation_result.errors %}
+                    <li>{{ error|raw }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if validation_result.warnings is defined and validation_result.warnings is not empty %}
+        <div class="alert alert-warning">
+            <h4><i class="fa-solid fa-exclamation-circle fa-fw"></i> {% trans %}project.bom_import.validation.warnings.title{% endtrans %}</h4>
+            <p class="mb-2">{% trans %}project.bom_import.validation.warnings.description{% endtrans %}</p>
+            <ul class="mb-0">
+                {% for warning in validation_result.warnings %}
+                    <li>{{ warning|raw }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if validation_result.info is defined and validation_result.info is not empty %}
+        <div class="alert alert-info">
+            <h4><i class="fa-solid fa-info-circle fa-fw"></i> {% trans %}project.bom_import.validation.info.title{% endtrans %}</h4>
+            <ul class="mb-0">
+                {% for info in validation_result.info %}
+                    <li>{{ info|raw }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {# Detailed Line-by-Line Results #}
+    {% if show_details is defined and show_details and validation_result.line_results is defined %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fa-solid fa-list fa-fw"></i>
+                    {% trans %}project.bom_import.validation.details.title{% endtrans %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}project.bom_import.validation.details.line{% endtrans %}</th>
+                                <th>{% trans %}project.bom_import.validation.details.status{% endtrans %}</th>
+                                <th>{% trans %}project.bom_import.validation.details.messages{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for line_result in validation_result.line_results %}
+                                <tr class="{% if line_result.is_valid %}table-success{% else %}table-danger{% endif %}">
+                                    <td>
+                                        <strong>{{ line_result.line_number }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if line_result.is_valid %}
+                                            <span class="badge bg-success">
+                                                <i class="fa-solid fa-check fa-fw"></i>
+                                                {% trans %}project.bom_import.validation.details.valid{% endtrans %}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger">
+                                                <i class="fa-solid fa-times fa-fw"></i>
+                                                {% trans %}project.bom_import.validation.details.invalid{% endtrans %}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if line_result.errors is not empty %}
+                                            <div class="text-danger">
+                                                {% for error in line_result.errors %}
+                                                    <div><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {{ error|raw }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if line_result.warnings is not empty %}
+                                            <div class="text-warning">
+                                                {% for warning in line_result.warnings %}
+                                                    <div><i class="fa-solid fa-exclamation-circle fa-fw"></i> {{ warning|raw }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if line_result.info is not empty %}
+                                            <div class="text-info">
+                                                {% for info in line_result.info %}
+                                                    <div><i class="fa-solid fa-info-circle fa-fw"></i> {{ info|raw }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Action Buttons #}
+    {% if validation_result.is_valid is defined %}
+        <div class="mt-3">
+            {% if validation_result.is_valid %}
+                <div class="alert alert-success">
+                    <i class="fa-solid fa-check-circle fa-fw"></i>
+                    {% trans %}project.bom_import.validation.all_valid{% endtrans %}
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    <i class="fa-solid fa-exclamation-triangle fa-fw"></i>
+                    {% trans %}project.bom_import.validation.fix_errors{% endtrans %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %} 
