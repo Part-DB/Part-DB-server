@@ -17,10 +17,10 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters';
-import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials';
+import SpecialCharacters from 'ckeditor5';
+import SpecialCharactersEssentials from 'ckeditor5';
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {Plugin} from 'ckeditor5';
 
 const emoji = require('emoji.json');
 
