@@ -53,6 +53,13 @@
         {% endif %}
 
         {{ encore_entry_link_tags('app') }}
+        
+        <style>
+            :root {
+                --table-image-preview-min-size: {{ table_image_preview_min_size }}px;
+                --table-image-preview-max-size: {{ table_image_preview_max_size }}px;
+            }
+        </style>
     {% endblock %}
 
     {% block javascripts %}

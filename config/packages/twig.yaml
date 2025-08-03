@@ -22,6 +22,8 @@ twig:
         saml_enabled: '%partdb.saml.enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
         img_overlay: '%partdb.show_part_image_overlay%'
+        table_image_preview_min_size: '%partdb.table.image_preview_min_size%'
+        table_image_preview_max_size: '%partdb.table.image_preview_max_size%'
 
 when@test:
     twig:
