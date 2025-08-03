@@ -57,6 +57,7 @@ import {Underline} from 'ckeditor5';
 import {WordCount} from 'ckeditor5';
 import {EditorWatchdog} from 'ckeditor5';
 import PartDBLabel from "./plugins/PartDBLabel/PartDBLabel";
+import SpecialCharactersGreek from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
 
@@ -118,7 +119,8 @@ Editor.builtinPlugins = [
     Underline,
     WordCount,
 
-    PartDBLabel
+    PartDBLabel,
+    SpecialCharactersGreek
 ];
 
 // Editor configuration.
