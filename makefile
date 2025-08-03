@@ -97,7 +97,7 @@ dev-db-migrate:
 
 dev-cache-clear:
 	@echo "🗑️  Clearing development cache..."
-	rm -rf var/cache/dev
+	php -d memory_limit=1G bin/console cache:clear --env dev -n
 	@echo "✅ Development cache cleared"
 
 dev-warmup:
