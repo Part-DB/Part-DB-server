@@ -4001,16 +4001,16 @@
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "664fb806aa4449e781add38a5930e4139a24ca9e"
+                "reference": "a2a8f5b15c26ea790dcb6153c0e3ddc5c75df8af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/664fb806aa4449e781add38a5930e4139a24ca9e",
-                "reference": "664fb806aa4449e781add38a5930e4139a24ca9e",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/a2a8f5b15c26ea790dcb6153c0e3ddc5c75df8af",
+                "reference": "a2a8f5b15c26ea790dcb6153c0e3ddc5c75df8af",
                 "shasum": ""
             },
             "require": {
@@ -4071,7 +4071,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v2.6.0"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v2.6.1"
             },
             "funding": [
                 {
@@ -4083,7 +4083,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-01T22:03:48+00:00"
+            "time": "2025-08-03T19:40:00+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
