@@ -13861,5 +13861,35 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Bulk Info Provider Import</target>
       </segment>
     </unit>
+    <unit id="XQV7AkF" name="info_providers.bulk_search.priority">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority</source>
+        <target>Priority</target>
+      </segment>
+    </unit>
+    <unit id="XR9mZP_" name="info_providers.bulk_search.priority.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority.help</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="Iz3Ow0_" name="info_providers.bulk_import.priority_system.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.title</source>
+        <target>Priority System</target>
+      </segment>
+    </unit>
+    <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.description</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.example</source>
+        <target>Example: Priority 1: "LCSC SPN → LCSC", Priority 2: "MPN → LCSC + Mouser", Priority 3: "Name → All providers"</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

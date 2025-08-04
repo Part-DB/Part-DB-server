@@ -31,7 +31,7 @@
                                 <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
                                 <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
                                 <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
-                                <th>{% trans %}action.label{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,6 +87,14 @@
         {% trans %}info_providers.bulk_import.step1.global_mapping_description{% endtrans %}
     </div>
     
+    <div class="alert alert-success" role="alert">
+        <i class="fas fa-lightbulb"></i>
+        <strong>{% trans %}info_providers.bulk_import.priority_system.title{% endtrans %}:</strong> {% trans %}info_providers.bulk_import.priority_system.description{% endtrans %}
+        <br><small class="text-muted">
+            {% trans %}info_providers.bulk_import.priority_system.example{% endtrans %}
+        </small>
+    </div>
+    
     <div class="alert alert-warning" role="alert">
         <i class="fas fa-exclamation-triangle"></i>
         {% trans %}info_providers.bulk_import.step1.spn_recommendation{% endtrans %}
@@ -138,6 +146,7 @@
                         <tr>
                             <th>{% trans %}info_providers.bulk_search.search_field{% endtrans %}</th>
                             <th>{% trans %}info_providers.bulk_search.providers{% endtrans %}</th>
+                            <th width="80">{% trans %}info_providers.bulk_search.priority{% endtrans %}</th>
                             <th width="100">{% trans %}info_providers.bulk_import.actions.label{% endtrans %}</th>
                         </tr>
                     </thead>
@@ -146,6 +155,7 @@
                             <tr class="mapping-row">
                                 <td>{{ form_widget(mapping.field) }}{{ form_errors(mapping.field) }}</td>
                                 <td>{{ form_widget(mapping.providers) }}{{ form_errors(mapping.providers) }}</td>
+                                <td>{{ form_widget(mapping.priority) }}{{ form_errors(mapping.priority) }}</td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
                                         <i class="fas fa-trash"></i>
@@ -217,7 +227,7 @@
                                         <th>{% trans %}manufacturer.label{% endtrans %}</th>
                                         <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
                                         <th>{% trans %}info_providers.bulk_import.source_field{% endtrans %}</th>
-                                        <th>{% trans %}action.label{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -307,9 +317,10 @@ function addMapping() {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = newRowHtml;
     
-    // Extract field and provider widgets
+    // Extract field, provider, and priority widgets
     const fieldWidget = tempDiv.querySelector('select[name*="[field]"]') || tempDiv.children[0];
     const providerWidget = tempDiv.querySelector('select[name*="[providers]"]') || tempDiv.children[1];
+    const priorityWidget = tempDiv.querySelector('input[name*="[priority]"]') || tempDiv.children[2];
     
     // Create new row
     const newRow = document.createElement('tr');
@@ -317,6 +328,7 @@ function addMapping() {
     newRow.innerHTML = `
         <td>${fieldWidget ? fieldWidget.outerHTML : ''}</td>
         <td>${providerWidget ? providerWidget.outerHTML : ''}</td>
+        <td>${priorityWidget ? priorityWidget.outerHTML : ''}</td>
         <td>
             <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
                 <i class="fas fa-trash"></i>

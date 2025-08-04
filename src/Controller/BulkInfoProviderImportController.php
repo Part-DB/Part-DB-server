@@ -53,6 +53,9 @@ class BulkInfoProviderImportController extends AbstractController
     public function step1(Request $request, LoggerInterface $exceptionLogger): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
+        
+        // Increase execution time for bulk operations
+        set_time_limit(600); // 10 minutes for large batches
 
         $ids = $request->query->get('ids');
         if (!$ids) {
@@ -68,6 +71,11 @@ class BulkInfoProviderImportController extends AbstractController
         if (empty($parts)) {
             $this->addFlash('error', 'No valid parts found for bulk import');
             return $this->redirectToRoute('homepage');
+        }
+        
+        // Warn about large batches
+        if (count($parts) > 50) {
+            $this->addFlash('warning', 'Processing ' . count($parts) . ' parts may take several minutes and could timeout. Consider processing smaller batches.');
         }
 
         // Generate field choices
@@ -86,7 +94,7 @@ class BulkInfoProviderImportController extends AbstractController
         // Initialize form with useful default mappings
         $initialData = [
             'field_mappings' => [
-                ['field' => 'mpn', 'providers' => []]
+                ['field' => 'mpn', 'providers' => [], 'priority' => 1]
             ],
             'prefetch_details' => false
         ];
@@ -102,6 +110,12 @@ class BulkInfoProviderImportController extends AbstractController
             $formData = $form->getData();
             $fieldMappings = $formData['field_mappings'];
             $prefetchDetails = $formData['prefetch_details'] ?? false;
+            
+            // Debug logging
+            $exceptionLogger->info('Form data received', [
+                'prefetch_details' => $prefetchDetails,
+                'prefetch_details_type' => gettype($prefetchDetails)
+            ]);
 
             // Create and save the job
             $job = new BulkInfoProviderImportJob();
@@ -123,92 +137,195 @@ class BulkInfoProviderImportController extends AbstractController
             $this->entityManager->flush();
 
             $searchResults = [];
+            $hasAnyResults = false;
 
-            foreach ($parts as $part) {
-                $partResult = [
-                    'part' => $part,
-                    'search_results' => [],
-                    'errors' => []
-                ];
-
-                // Collect all DTOs from all applicable field mappings
-                $allDtos = [];
-                $dtoMetadata = []; // Store source field info separately
-
-                foreach ($fieldMappings as $mapping) {
-                    $field = $mapping['field'];
-                    $providers = $mapping['providers'] ?? [];
-
-                    if (empty($providers)) {
-                        continue;
-                    }
-
-                    $keyword = $this->getKeywordFromField($part, $field);
-
-                    if ($keyword) {
-                        try {
-                            $dtos = $this->infoRetriever->searchByKeyword(
-                                keyword: $keyword,
-                                providers: $providers
-                            );
-
-                            // Store field info for each DTO separately
-                            foreach ($dtos as $dto) {
-                                $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
-                                $dtoMetadata[$dtoKey] = [
-                                    'source_field' => $field,
-                                    'source_keyword' => $keyword
+            try {
+                // Optimize: Use batch async requests for LCSC provider
+                $lcscKeywords = [];
+                $keywordToPartField = [];
+                
+                // First, collect all LCSC keywords for batch processing
+                foreach ($parts as $part) {
+                    foreach ($fieldMappings as $mapping) {
+                        $field = $mapping['field'];
+                        $providers = $mapping['providers'] ?? [];
+                        
+                        if (in_array('lcsc', $providers, true)) {
+                            $keyword = $this->getKeywordFromField($part, $field);
+                            if ($keyword) {
+                                $lcscKeywords[] = $keyword;
+                                $keywordToPartField[$keyword] = [
+                                    'part' => $part,
+                                    'field' => $field
                                 ];
                             }
-
-                            $allDtos = array_merge($allDtos, $dtos);
-                        } catch (ClientException $e) {
-                            $partResult['errors'][] = "Error searching with {$field}: " . $e->getMessage();
-                            $exceptionLogger->error('Error during bulk info provider search for part ' . $part->getId() . " field {$field}: " . $e->getMessage(), ['exception' => $e]);
                         }
                     }
                 }
 
-                // Remove duplicates based on provider_key + provider_id
-                $uniqueDtos = [];
-                $seenKeys = [];
-                foreach ($allDtos as $dto) {
-                    if ($dto === null || !isset($dto->provider_key, $dto->provider_id)) {
-                        continue;
-                    }
-                    $key = "{$dto->provider_key}|{$dto->provider_id}";
-                    if (!in_array($key, $seenKeys, true)) {
-                        $seenKeys[] = $key;
-                        $uniqueDtos[] = $dto;
+                // Batch search LCSC keywords asynchronously
+                $lcscBatchResults = [];
+                if (!empty($lcscKeywords)) {
+                    try {
+                        // Try to get LCSC provider and use batch method if available
+                        $lcscBatchResults = $this->searchLcscBatch($lcscKeywords);
+                    } catch (\Exception $e) {
+                        $exceptionLogger->warning('LCSC batch search failed, falling back to individual requests', [
+                            'error' => $e->getMessage()
+                        ]);
                     }
                 }
 
-                // Convert DTOs to result format with metadata
-                $partResult['search_results'] = array_map(
-                    function ($dto) use ($dtoMetadata) {
-                        $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
-                        $metadata = $dtoMetadata[$dtoKey] ?? [];
-                        return [
-                            'dto' => $dto,
-                            'localPart' => $this->existingPartFinder->findFirstExisting($dto),
-                            'source_field' => $metadata['source_field'] ?? null,
-                            'source_keyword' => $metadata['source_keyword'] ?? null
-                        ];
-                    },
-                    $uniqueDtos
-                );
+                // Now process each part
+                foreach ($parts as $part) {
+                    $partResult = [
+                        'part' => $part,
+                        'search_results' => [],
+                        'errors' => []
+                    ];
 
-                $searchResults[] = $partResult;
+                    // Collect all DTOs using priority-based search
+                    $allDtos = [];
+                    $dtoMetadata = []; // Store source field info separately
+
+                    // Group mappings by priority (lower number = higher priority)
+                    $mappingsByPriority = [];
+                    foreach ($fieldMappings as $mapping) {
+                        $priority = $mapping['priority'] ?? 1;
+                        $mappingsByPriority[$priority][] = $mapping;
+                    }
+                    ksort($mappingsByPriority); // Sort by priority (1, 2, 3...)
+
+                    // Try each priority level until we find results
+                    foreach ($mappingsByPriority as $priority => $mappings) {
+                        $priorityResults = [];
+
+                        // For same priority, search all and combine results
+                        foreach ($mappings as $mapping) {
+                            $field = $mapping['field'];
+                            $providers = $mapping['providers'] ?? [];
+
+                            if (empty($providers)) {
+                                continue;
+                            }
+
+                            $keyword = $this->getKeywordFromField($part, $field);
+
+                            if ($keyword) {
+                                try {
+                                    // Use batch results for LCSC if available
+                                    if (in_array('lcsc', $providers, true) && isset($lcscBatchResults[$keyword])) {
+                                        $dtos = $lcscBatchResults[$keyword];
+                                    } else {
+                                        // Fall back to regular search for non-LCSC providers
+                                        $dtos = $this->infoRetriever->searchByKeyword(
+                                            keyword: $keyword,
+                                            providers: $providers
+                                        );
+                                    }
+
+                                    // Store field info for each DTO separately
+                                    foreach ($dtos as $dto) {
+                                        $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
+                                        $dtoMetadata[$dtoKey] = [
+                                            'source_field' => $field,
+                                            'source_keyword' => $keyword,
+                                            'priority' => $priority
+                                        ];
+                                    }
+
+                                    $priorityResults = array_merge($priorityResults, $dtos);
+                                } catch (ClientException $e) {
+                                    $partResult['errors'][] = "Error searching with {$field} (priority {$priority}): " . $e->getMessage();
+                                    $exceptionLogger->error('Error during bulk info provider search for part ' . $part->getId() . " field {$field}: " . $e->getMessage(), ['exception' => $e]);
+                                }
+                            }
+                        }
+
+                        // If we found results at this priority level, use them and stop
+                        if (!empty($priorityResults)) {
+                            $allDtos = $priorityResults;
+                            break;
+                        }
+                    }
+
+                    // Remove duplicates based on provider_key + provider_id
+                    $uniqueDtos = [];
+                    $seenKeys = [];
+                    foreach ($allDtos as $dto) {
+                        if ($dto === null || !isset($dto->provider_key, $dto->provider_id)) {
+                            continue;
+                        }
+                        $key = "{$dto->provider_key}|{$dto->provider_id}";
+                        if (!in_array($key, $seenKeys, true)) {
+                            $seenKeys[] = $key;
+                            $uniqueDtos[] = $dto;
+                        }
+                    }
+
+                    // Convert DTOs to result format with metadata
+                    $partResult['search_results'] = array_map(
+                        function ($dto) use ($dtoMetadata) {
+                            $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
+                            $metadata = $dtoMetadata[$dtoKey] ?? [];
+                            return [
+                                'dto' => $dto,
+                                'localPart' => $this->existingPartFinder->findFirstExisting($dto),
+                                'source_field' => $metadata['source_field'] ?? null,
+                                'source_keyword' => $metadata['source_keyword'] ?? null
+                            ];
+                        },
+                        $uniqueDtos
+                    );
+
+                    if (!empty($partResult['search_results'])) {
+                        $hasAnyResults = true;
+                    }
+
+                    $searchResults[] = $partResult;
+                }
+
+                // Check if search was successful
+                if (!$hasAnyResults) {
+                    $exceptionLogger->warning('Bulk import search returned no results for any parts', [
+                        'job_id' => $job->getId(),
+                        'parts_count' => count($parts)
+                    ]);
+                    
+                    // Delete the job since it has no useful results
+                    $this->entityManager->remove($job);
+                    $this->entityManager->flush();
+                    
+                    $this->addFlash('error', 'No search results found for any of the selected parts. Please check your field mappings and provider selections.');
+                    return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
+                }
+
+                // Save search results to job
+                $job->setSearchResults($this->serializeSearchResults($searchResults));
+                $job->markAsInProgress();
+                $this->entityManager->flush();
+                
+            } catch (\Exception $e) {
+                $exceptionLogger->error('Critical error during bulk import search', [
+                    'job_id' => $job->getId(),
+                    'error' => $e->getMessage(),
+                    'exception' => $e
+                ]);
+                
+                // Delete the job on critical failure
+                $this->entityManager->remove($job);
+                $this->entityManager->flush();
+                
+                $this->addFlash('error', 'Search failed due to an error: ' . $e->getMessage());
+                return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
             }
-
-            // Save search results to job
-            $job->setSearchResults($this->serializeSearchResults($searchResults));
-            $job->markAsInProgress();
-            $this->entityManager->flush();
 
             // Prefetch details if requested
             if ($prefetchDetails) {
+                $exceptionLogger->info('Prefetch details requested, starting prefetch for ' . count($searchResults) . ' parts');
                 $this->prefetchDetailsForResults($searchResults, $exceptionLogger);
+            } else {
+                $exceptionLogger->info('Prefetch details not requested, skipping prefetch');
             }
 
             // Redirect to step 2 with the job
@@ -236,21 +353,40 @@ class BulkInfoProviderImportController extends AbstractController
             ->findBy([], ['createdAt' => 'DESC']);
 
         // Check and auto-complete jobs that should be completed
+        // Also clean up jobs with no results (failed searches)
         $updatedJobs = false;
+        $jobsToDelete = [];
+        
         foreach ($allJobs as $job) {
             if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
                 $job->markAsCompleted();
                 $updatedJobs = true;
             }
+            
+            // Mark jobs with no results for deletion (failed searches)
+            if ($job->getResultCount() === 0 && $job->isInProgress()) {
+                $jobsToDelete[] = $job;
+            }
+        }
+        
+        // Delete failed jobs
+        foreach ($jobsToDelete as $job) {
+            $this->entityManager->remove($job);
+            $updatedJobs = true;
         }
 
         // Flush changes if any jobs were updated
         if ($updatedJobs) {
             $this->entityManager->flush();
+            
+            if (!empty($jobsToDelete)) {
+                $this->addFlash('info', 'Cleaned up ' . count($jobsToDelete) . ' failed job(s) with no results.');
+            }
         }
 
         return $this->render('info_providers/bulk_import/manage.html.twig', [
-            'jobs' => $allJobs
+            'jobs' => $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
+                ->findBy([], ['createdAt' => 'DESC']) // Refetch after cleanup
         ]);
     }
 
@@ -476,6 +612,25 @@ class BulkInfoProviderImportController extends AbstractController
         }
 
         return $searchResults;
+    }
+
+    /**
+     * Perform batch LCSC search using async HTTP requests
+     */
+    private function searchLcscBatch(array $keywords): array
+    {
+        // Get LCSC provider through reflection since PartInfoRetriever doesn't expose it
+        $reflection = new \ReflectionClass($this->infoRetriever);
+        $registryProp = $reflection->getProperty('provider_registry');
+        $registryProp->setAccessible(true);
+        $registry = $registryProp->getValue($this->infoRetriever);
+        
+        $lcscProvider = $registry->getProviderByKey('lcsc');
+        if ($lcscProvider && method_exists($lcscProvider, 'searchByKeywordsBatch')) {
+            return $lcscProvider->searchByKeywordsBatch($keywords);
+        }
+        
+        return [];
     }
 
     #[Route('/job/{jobId}/part/{partId}/mark-completed', name: 'bulk_info_provider_mark_completed', methods: ['POST'])]

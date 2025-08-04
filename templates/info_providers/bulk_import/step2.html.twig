@@ -140,7 +140,7 @@
                                     <th>{% trans %}manufacturer.label{% endtrans %}</th>
                                     <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
                                     <th>{% trans %}info_providers.bulk_import.source_field{% endtrans %}</th>
-                                    <th>{% trans %}action.label{% endtrans %}</th>
+                                    <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,7 +178,7 @@
                                             <div class="btn-group-vertical btn-group-sm" role="group">
                                                 {% set updateHref = path('info_providers_update_part',
                                                     {'id': part.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) ~ '?jobId=' ~ job.id %}
-                                                <a class="btn btn-primary{% if isCompleted %} disabled{% endif %}" href="{% if not isCompleted %}{{ updateHref }}{% else %}#{% endif %}" target="_blank"{% if isCompleted %} aria-disabled="true"{% endif %}>
+                                                <a class="btn btn-primary{% if isCompleted %} disabled{% endif %}" href="{% if not isCompleted %}{{ updateHref }}{% else %}#{% endif %}"{% if isCompleted %} aria-disabled="true"{% endif %}>
                                                     <i class="fas fa-edit"></i> {% trans %}info_providers.bulk_import.update_part{% endtrans %}
                                                 </a>
                                             </div>
