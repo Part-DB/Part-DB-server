@@ -748,13 +748,16 @@
         ]
     },
     "symfony/ux-turbo": {
-        "version": "2.27",
+        "version": "2.28",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.20",
-            "ref": "e4b951d7de760751e170c6d2e3b565cf9ed5182f"
-        }
+            "ref": "287f7c6eb6e9b65e422d34c00795b360a787380b"
+        },
+        "files": [
+            "config/packages/ux_turbo.yaml"
+        ]
     },
     "symfony/validator": {
         "version": "7.3",
