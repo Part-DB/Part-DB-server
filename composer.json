@@ -41,7 +41,7 @@
         "nelmio/cors-bundle": "^2.3",
         "nelmio/security-bundle": "^3.0",
         "nyholm/psr7": "^1.1",
-        "omines/datatables-bundle": "^0.9.1",
+        "omines/datatables-bundle": "^0.10.0",
         "paragonie/sodium_compat": "^1.21",
         "part-db/label-fonts": "^1.0",
         "rhukster/dom-sanitizer": "^1.0",
