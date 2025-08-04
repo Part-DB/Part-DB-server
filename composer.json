@@ -12,7 +12,9 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "amphp/http-client": "^5.1",
-        "api-platform/core": "^3.1",
+        "api-platform/doctrine-orm": "^4.1",
+        "api-platform/symfony": "^4.0.0",
+        "api-platform/json-api": "^4.0.0",
         "beberlei/doctrineextensions": "^1.2",
         "brick/math": "^0.13.1",
         "composer/ca-bundle": "^1.5",
@@ -84,6 +86,7 @@
         "symfony/web-link": "7.3.*",
         "symfony/webpack-encore-bundle": "^v2.0.1",
         "symfony/yaml": "7.3.*",
+        "symplify/easy-coding-standard": "^12.5.20",
         "tecnickcom/tc-lib-barcode": "^2.1.4",
         "twig/cssinliner-extra": "^3.0",
         "twig/extra-bundle": "^3.8",
@@ -92,8 +95,7 @@
         "twig/intl-extra": "^3.8",
         "twig/markdown-extra": "^3.8",
         "twig/string-extra": "^3.8",
-        "web-auth/webauthn-symfony-bundle": "^4.0.0",
-        "symplify/easy-coding-standard": "^12.5.20"
+        "web-auth/webauthn-symfony-bundle": "^4.0.0"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^v8.0.0",
