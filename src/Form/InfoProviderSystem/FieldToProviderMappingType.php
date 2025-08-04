@@ -24,6 +24,7 @@ namespace App\Form\InfoProviderSystem;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -46,6 +47,19 @@ class FieldToProviderMappingType extends AbstractType
             'label' => 'info_providers.bulk_search.providers',
             'help' => 'info_providers.bulk_search.providers.help',
             'required' => false,
+        ]);
+
+        $builder->add('priority', IntegerType::class, [
+            'label' => 'info_providers.bulk_search.priority',
+            'help' => 'info_providers.bulk_search.priority.help',
+            'required' => false,
+            'data' => 1, // Default priority
+            'attr' => [
+                'min' => 1,
+                'max' => 10,
+                'class' => 'form-control-sm',
+                'style' => 'width: 80px;'
+            ]
         ]);
     }
 
