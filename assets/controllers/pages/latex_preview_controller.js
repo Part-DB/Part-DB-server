@@ -25,9 +25,23 @@ import "katex/dist/katex.css";
 export default class extends Controller {
     static targets = ["input", "preview"];
 
+    static values = {
+        unit: {type: Boolean, default: false} //Render as upstanding (non-italic) text, useful for units
+    }
+
     updatePreview()
     {
-        katex.render(this.inputTarget.value, this.previewTarget, {
+        let value = "";
+        if (this.unitValue) {
+            //Escape percentage signs
+            value = this.inputTarget.value.replace(/%/g, '\\%');
+
+            value = "\\mathrm{" + value + "}";
+        } else {
+            value = this.inputTarget.value;
+        }
+
+        katex.render(value, this.previewTarget, {
             throwOnError: false,
         });
     }

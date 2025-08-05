@@ -116,10 +116,10 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
      * Maps a list of SAML roles to a local group ID.
      * The first available mapping will be used (so the order of the $map is important, first match wins).
      * @param  array  $roles The list of SAML roles
-     * @param  array  $map|null The mapping from SAML roles. If null, the global mapping will be used.
+     * @param  array|null  $map The mapping from SAML roles. If null, the global mapping will be used.
      * @return int|null The ID of the local group or null if no mapping was found.
      */
-    public function mapSAMLRolesToLocalGroupID(array $roles, array $map = null): ?int
+    public function mapSAMLRolesToLocalGroupID(array $roles, ?array $map = null): ?int
     {
         $map ??= $this->saml_role_mapping;
 

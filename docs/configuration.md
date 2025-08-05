@@ -95,6 +95,8 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   particularly for securing and protecting various aspects of your application. It's a secret key that is used for
   cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
   value should be handled as confidential data and not shared publicly.
+* `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
+  part image gallery
 
 ### E-Mail settings
 

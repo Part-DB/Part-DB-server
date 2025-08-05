@@ -62,7 +62,7 @@ trait WithPermPresetsTrait
         return json_encode($user->getPermissions());
     }
 
-    public function setContainer(ContainerInterface $container = null): void
+    public function setContainer(?ContainerInterface $container = null): void
     {
         if ($container !== null) {
             $this->container = $container;

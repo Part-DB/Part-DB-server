@@ -21,7 +21,9 @@
 declare(strict_types=1);
 
 
-namespace App\ApiPlatform;
+namespace App\ApiPlatform\DocumentedAPIProperties;
+
+use ApiPlatform\Metadata\ApiProperty;
 
 /**
  * When this attribute is applied to a class, an property will be added to the API documentation using the given parameters.
@@ -63,5 +65,56 @@ final class DocumentedAPIProperty
         public readonly mixed $example = null,
     )
     {
+    }
+
+    public function toAPIProperty(bool $use_swagger = false): ApiProperty
+    {
+        $openApiContext = [];
+
+        if (false === $this->writeable) {
+            $openApiContext['readOnly'] = true;
+        }
+        if (!$use_swagger && false === $this->readable) {
+            $openApiContext['writeOnly'] = true;
+        }
+        if (null !== $description = $this->description) {
+            $openApiContext['description'] = $description;
+        }
+
+        $deprecationReason = $this->deprecationReason;
+
+        // see https://github.com/json-schema-org/json-schema-spec/pull/737
+        if (!$use_swagger && null !== $deprecationReason) {
+            $openApiContext['deprecated'] = true;
+        }
+
+        if (!empty($default = $this->default)) {
+            if ($default instanceof \BackedEnum) {
+                $default = $default->value;
+            }
+            $openApiContext['default'] = $default;
+        }
+
+        if (!empty($example = $this->example)) {
+            $openApiContext['example'] = $example;
+        }
+
+        if (!isset($openApiContext['example']) && isset($openApiContext['default'])) {
+            $openApiContext['example'] = $openApiContext['default'];
+        }
+
+        $openApiContext['type'] = $this->type;
+        $openApiContext['nullable'] = $this->nullable;
+
+
+
+        return new ApiProperty(
+            description: $this->description,
+            readable: $this->readable,
+            writable: $this->writeable,
+            openapiContext: $openApiContext,
+            types: $this->type,
+            property: $this->property
+        );
     }
 }

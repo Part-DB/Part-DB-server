@@ -38,7 +38,7 @@ class StructuralElementNormalizer implements NormalizerInterface
     {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         //Only normalize if we are doing a file export operation
         if (!($context['partdb_export'] ?? false)) {
@@ -48,7 +48,7 @@ class StructuralElementNormalizer implements NormalizerInterface
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    public function normalize($object, string $format = null, array $context = []): mixed
+    public function normalize($object, ?string $format = null, array $context = []): mixed
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');

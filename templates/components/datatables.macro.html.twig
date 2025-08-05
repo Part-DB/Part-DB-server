@@ -54,6 +54,7 @@
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_location" data-url="{{ path('select_storage_location') }}">{% trans %}part_list.action.action.change_location{% endtrans %}</option>
                     </optgroup>
                     <optgroup label="{% trans %}part_list.action.group.labels{% endtrans %}">
                         <option {% if not is_granted('@labels.create_labels') %}disabled{% endif %} value="generate_label_lot" data-url="{{  path('select_label_profiles_lot')}}">{% trans %}part_list.action.projects.generate_label_lot{% endtrans %}</option>

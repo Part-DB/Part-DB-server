@@ -38,7 +38,7 @@ final class LikeFilter extends AbstractFilter
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        Operation $operation = null,
+        ?Operation $operation = null,
         array $context = []
     ): void {
         // Otherwise filter is applied to order and page as well
@@ -67,12 +67,6 @@ final class LikeFilter extends AbstractFilter
                 'type' => Type::BUILTIN_TYPE_STRING,
                 'required' => false,
                 'description' => 'Filter using a LIKE SQL expression. Use % as wildcard for multiple characters and _ for single characters. For example, to search for all items containing foo, use foo. To search for all items starting with foo, use foo%. To search for all items ending with foo, use %foo',
-                'openapi' => [
-                    'example' => '',
-                    'allowReserved' => false,// if true, query parameters will be not percent-encoded
-                    'allowEmptyValue' => true,
-                    'explode' => false, // to be true, the type must be Type::BUILTIN_TYPE_ARRAY, ?product=blue,green will be ?product=blue&product=green
-                ],
             ];
         }
         return $description;

@@ -31,7 +31,7 @@ class NumberConstraint extends AbstractConstraint
 
     public function __construct(
         string $property,
-        string $identifier = null,
+        ?string $identifier = null,
         /**
          * The value1 used for comparison (this is the main one used for all mono-value comparisons)
          */

@@ -162,7 +162,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      *
      * @return string the link to the article
      */
-    public function getAutoProductUrl(string $partnr = null): string
+    public function getAutoProductUrl(?string $partnr = null): string
     {
         if (is_string($partnr)) {
             return str_replace('%PARTNUMBER%', $partnr, $this->auto_product_url);

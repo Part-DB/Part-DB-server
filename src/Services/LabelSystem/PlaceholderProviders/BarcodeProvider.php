@@ -63,9 +63,21 @@ final class BarcodeProvider implements PlaceholderProviderInterface
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 
+        if ('[[BARCODE_DATAMATRIX]]' === $placeholder) {
+            $label_options = new LabelOptions();
+            $label_options->setBarcodeType(BarcodeType::DATAMATRIX);
+            return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
+        }
+
         if ('[[BARCODE_C39]]' === $placeholder) {
             $label_options = new LabelOptions();
             $label_options->setBarcodeType(BarcodeType::CODE39);
+            return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
+        }
+
+        if ('[[BARCODE_C93]]' === $placeholder) {
+            $label_options = new LabelOptions();
+            $label_options->setBarcodeType(BarcodeType::CODE93);
             return $this->barcodeGenerator->generateHTMLBarcode($label_options, $label_target);
         }
 

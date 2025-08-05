@@ -52,8 +52,8 @@ class AttachmentDeleteListener
     #[PreUpdate]
     public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event): void
     {
-        if ($event->hasChangedField('path')) {
-            $old_path = $event->getOldValue('path');
+        if ($event->hasChangedField('internal_path')) {
+            $old_path = $event->getOldValue('internal_path');
 
             //Dont delete file if the attachment uses a builtin ressource:
             if (Attachment::checkIfBuiltin($old_path)) {

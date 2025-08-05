@@ -32,7 +32,7 @@ class TextConstraint extends AbstractConstraint
     /**
      * @param string $value
      */
-    public function __construct(string $property, string $identifier = null, /**
+    public function __construct(string $property, ?string $identifier = null, /**
      * @var string|null The value to compare to
      */
     protected ?string $value = null, /**

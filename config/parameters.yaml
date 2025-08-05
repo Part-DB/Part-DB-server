@@ -74,6 +74,7 @@ parameters:
   # Miscellaneous
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
+  partdb.show_part_image_overlay: '%env(bool:SHOW_PART_IMAGE_OVERLAY)%' # If set to false, the filename overlay of the part image will be disabled
 
   # Set the themes from which the user can choose from in the settings.
   # Themes commented here by default, are not really usable, because of display problems. Enable them at your own risk!

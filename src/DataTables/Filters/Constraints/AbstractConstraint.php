@@ -45,7 +45,7 @@ abstract class AbstractConstraint implements FilterInterface
      * @var string The property where this BooleanConstraint should apply to
      */
     protected string $property,
-    string $identifier = null)
+    ?string $identifier = null)
     {
         $this->identifier = $identifier ?? $this->generateParameterIdentifier($property);
     }

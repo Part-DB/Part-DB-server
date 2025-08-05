@@ -318,6 +318,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             return new ArrayCollection();
         }
 
+        //@phpstan-ignore-next-line
         return $this->children ?? new ArrayCollection();
     }
 

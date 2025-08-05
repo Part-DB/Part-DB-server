@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ru">
   <file id="security.en">
-    <unit id="aazoCks" name="user.login_error.user_disabled">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
         <target>Ваша учетная запись отключена! Свяжитесь с администратором, если вы считаете, что это неправильно.</target>
       </segment>
     </unit>
-    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
         <target>Вы не можете войти в систему как локальный пользователь через SSO! Используйте локального пользователя и его пароль.</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>Вы не можете использовать локальную аутентификацию для входа в качестве пользователя SAML! Вместо этого используйте вход SSO.</target>
       </segment>
     </unit>
   </file>

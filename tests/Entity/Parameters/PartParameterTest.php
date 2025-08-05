@@ -67,6 +67,19 @@ class PartParameterTest extends TestCase
         yield ['10.23 V (9 V ... 11 V) [Test]', 9, 10.23, 11, 'V', 'Test'];
     }
 
+    public function formattedValueWithLatexDataProvider(): \Iterator
+    {
+        yield ['Text Test', null, null, null, 'V', 'Text Test'];
+        yield ['10.23 $\mathrm{V}$', null, 10.23, null, 'V', ''];
+        yield ['10.23 $\mathrm{V}$ [Text]', null, 10.23, null, 'V', 'Text'];
+        yield ['max. 10.23 $\mathrm{V}$', null, null, 10.23, 'V', ''];
+        yield ['max. 10.23 [Text]', null, null, 10.23, '', 'Text'];
+        yield ['min. 10.23 $\mathrm{V}$', 10.23, null, null, 'V', ''];
+        yield ['10.23 $\mathrm{V}$ ... 11 $\mathrm{V}$', 10.23, null, 11, 'V', ''];
+        yield ['10.23 $\mathrm{V}$ (9 $\mathrm{V}$ ... 11 $\mathrm{V}$)', 9, 10.23, 11, 'V', ''];
+        yield ['10.23 $\mathrm{V}$ (9 $\mathrm{V}$ ... 11 $\mathrm{V}$) [Test]', 9, 10.23, 11, 'V', 'Test'];
+    }
+
     /**
      * @dataProvider  valueWithUnitDataProvider
      */
@@ -116,5 +129,23 @@ class PartParameterTest extends TestCase
         $param->setValueMax($max);
         $param->setValueText($text);
         $this->assertSame($expected, $param->getFormattedValue());
+    }
+
+    /**
+     * @dataProvider formattedValueWithLatexDataProvider
+     *
+     * @param float $min
+     * @param float $typical
+     * @param float $max
+     */
+    public function testGetFormattedValueWithLatex(string $expected, ?float $min, ?float $typical, ?float $max, string $unit, string $text): void
+    {
+        $param = new PartParameter();
+        $param->setUnit($unit);
+        $param->setValueMin($min);
+        $param->setValueTypical($typical);
+        $param->setValueMax($max);
+        $param->setValueText($text);
+        $this->assertSame($expected, $param->getFormattedValue(true));
     }
 }

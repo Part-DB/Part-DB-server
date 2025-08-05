@@ -33,12 +33,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
 {
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof BigNumber;
     }
 
-    public function normalize($object, string $format = null, array $context = []): string
+    public function normalize($object, ?string $format = null, array $context = []): string
     {
         if (!$object instanceof BigNumber) {
             throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
@@ -58,7 +58,7 @@ class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
         ];
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): BigNumber|null
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): BigNumber|null
     {
         if (!is_a($type, BigNumber::class, true)) {
             throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
@@ -67,7 +67,7 @@ class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
         return $type::of($data);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         //data must be a string or a number (int, float, etc.) and the type must be BigNumber or BigDecimal
         return (is_string($data) || is_numeric($data)) && (is_subclass_of($type, BigNumber::class));

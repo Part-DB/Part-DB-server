@@ -117,6 +117,6 @@ For a German keyboard layout, replace `[` with `0`, and `]` with `´`.
 | Key                            | Character          |
 |--------------------------------|--------------------|
 | **Alt + [**  (code 219)        | © (Copyright char) |
-| **Alt + Shift + [** (code 219) | (Registered char)  |
+| **Alt + Shift + [** (code 219) | ® (Registered char)  |
 | **Alt + ]**  (code 221)        | ™ (Trademark char) |
-| **Alt + Shift + ]** (code 221) | (Degree char)      |
+| **Alt + Shift + ]** (code 221) | ° (Degree char)      |

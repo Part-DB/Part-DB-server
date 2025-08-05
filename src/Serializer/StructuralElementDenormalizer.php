@@ -49,7 +49,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
     {
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
+    public function supportsDenormalization($data, string $type, ?string $format = null, array $context = []): bool
     {
         //Only denormalize if we are doing a file import operation
         if (!($context['partdb_import'] ?? false)) {
@@ -78,7 +78,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
      * @return AbstractStructuralDBElement|null
      * @phpstan-return T|null
      */
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?AbstractStructuralDBElement
+    public function denormalize($data, string $type, ?string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
         //Do not use API Platform's denormalizer
         $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;

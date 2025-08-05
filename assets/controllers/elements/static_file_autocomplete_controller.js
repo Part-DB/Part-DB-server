@@ -23,6 +23,12 @@ import "tom-select/dist/css/tom-select.bootstrap5.css";
 import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 
+import TomSelect_click_to_edit from '../../tomselect/click_to_edit/click_to_edit'
+import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+
+TomSelect.define('click_to_edit', TomSelect_click_to_edit)
+TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+
 /**
  * This is the frontend controller for StaticFileAutocompleteType form element.
  * Basically it loads a text file from the given url (via data-url) and uses it as a source for the autocomplete.
@@ -46,7 +52,13 @@ export default class extends Controller {
             orderField: 'text',
 
             //This a an ugly solution to disable the delimiter parsing of the TomSelect plugin
-            delimiter: 'VERY_L0NG_D€LIMITER_WHICH_WILL_NEVER_BE_ENCOUNTERED_IN_A_STRING'
+            delimiter: 'VERY_L0NG_D€LIMITER_WHICH_WILL_NEVER_BE_ENCOUNTERED_IN_A_STRING',
+            plugins: {
+                'autoselect_typed': {},
+                'click_to_edit': {},
+                'clear_button': {},
+                'restore_on_backspace': {}
+            }
         };
 
         if (this.element.dataset.url) {

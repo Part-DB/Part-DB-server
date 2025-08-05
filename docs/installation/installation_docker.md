@@ -47,6 +47,12 @@ services:
       - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
+      
+      # Uncomment this, if you want to use the automatic database migration feature. With this you have you do not have to
+      # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
+      # folder (under .automigration-backup), so you can restore it, if the migration fails.
+      # This feature is currently experimental, so use it at your own risk!
+      # - DB_AUTOMIGRATE=true
 
       # You can configure Part-DB using environment variables
       # Below you can find the most essential ones predefined
@@ -130,6 +136,12 @@ services:
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
 
+       # Uncomment this, if you want to use the automatic database migration feature. With this you have you do not have to
+       # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
+       # folder (under .automigration-backup), so you can restore it, if the migration fails.
+       # This feature is currently experimental, so use it at your own risk!
+       # - DB_AUTOMIGRATE=true
+
       # You can configure Part-DB using environment variables
       # Below you can find the most essential ones predefined
       # However you can add add any other environment configuration you want here
@@ -200,6 +212,10 @@ You also have to create the database as described above in step 4.
 
 You can run the console commands described in README by
 executing `docker exec --user=www-data -it partdb bin/console [command]`
+
+{: .warning }
+> If you run a root console inside the container, and wanna execute commands on the webserver behalf, be sure to use `sudo -E` command (with the `-E` flag) to preserve env variables from the current shell.
+> Otherwise Part-DB console might use the wrong configuration to execute commands.
 
 ## Troubleshooting
 

@@ -46,7 +46,7 @@ class EntityConstraint extends AbstractConstraint
     public function __construct(protected ?NodesListBuilder $nodesListBuilder,
         protected string $class,
         string $property,
-        string $identifier = null,
+        ?string $identifier = null,
         protected ?AbstractDBElement $value = null,
         protected ?string $operator = null)
     {

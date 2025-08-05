@@ -24,6 +24,9 @@ import {Controller} from "@hotwired/stimulus";
 
 import {trans, ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB} from '../../translator.js'
 
+import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+
 export default class extends Controller {
     _tomSelect;
 
@@ -37,11 +40,15 @@ export default class extends Controller {
         const allowAdd = this.element.getAttribute("data-allow-add") === "true";
         const addHint = this.element.getAttribute("data-add-hint") ?? "";
 
+
+
+
         let settings = {
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
             create: allowAdd ? this.createItem.bind(this) : false,
+            createFilter: this.createFilter.bind(this),
 
             // This three options allow us to paste element names with commas: (see issue #538)
             maxItems: 1,
@@ -81,7 +88,16 @@ export default class extends Controller {
             //Add callbacks to update validity
             onInitialize: this.updateValidity.bind(this),
             onChange: this.updateValidity.bind(this),
+
+            plugins: {
+                "autoselect_typed": {},
+            }
         };
+
+        //Add clear button plugin, if an empty option is present
+        if (this.element.querySelector("option[value='']") !== null) {
+            settings.plugins["clear_button"] = {};
+        }
 
         this._tomSelect = new TomSelect(this.element, settings);
         //Do not do a sync here as this breaks the initial rendering of the empty option
@@ -111,6 +127,31 @@ export default class extends Controller {
             text: input,
             not_in_db_yet: true,
         });
+    }
+
+    createFilter(input) {
+
+        //Normalize the input (replace spacing around arrows)
+        if (input.includes("->")) {
+            const inputs = input.split("->");
+            inputs.forEach((value, index) => {
+                inputs[index] = value.trim();
+            });
+            input = inputs.join("->");
+        } else {
+            input = input.trim();
+        }
+
+        const options = this._tomSelect.options;
+        //Iterate over all options and check if the input is already present
+        for (let index in options) {
+            const option = options[index];
+            if (option.path === input) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

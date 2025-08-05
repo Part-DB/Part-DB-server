@@ -51,15 +51,15 @@ class AttachmentFileController extends AbstractController
             $this->denyAccessUnlessGranted('show_private', $attachment);
         }
 
-        if ($attachment->isExternal()) {
-            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
+        if (!$attachment->hasInternal()) {
+            throw $this->createNotFoundException('The file for this attachment is external and not stored locally!');
         }
 
-        if (!$helper->isFileExisting($attachment)) {
+        if (!$helper->isInternalFileExisting($attachment)) {
             throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
-        $file_path = $helper->toAbsoluteFilePath($attachment);
+        $file_path = $helper->toAbsoluteInternalFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
         //Set header content disposition, so that the file will be downloaded
@@ -80,15 +80,15 @@ class AttachmentFileController extends AbstractController
             $this->denyAccessUnlessGranted('show_private', $attachment);
         }
 
-        if ($attachment->isExternal()) {
-            throw $this->createNotFoundException('The file for this attachment is external and can not stored locally!');
+        if (!$attachment->hasInternal()) {
+            throw $this->createNotFoundException('The file for this attachment is external and not stored locally!');
         }
 
-        if (!$helper->isFileExisting($attachment)) {
+        if (!$helper->isInternalFileExisting($attachment)) {
             throw $this->createNotFoundException('The file associated with the attachment is not existing!');
         }
 
-        $file_path = $helper->toAbsoluteFilePath($attachment);
+        $file_path = $helper->toAbsoluteInternalFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
         //Set header content disposition, so that the file will be downloaded

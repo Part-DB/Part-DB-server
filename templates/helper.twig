@@ -218,14 +218,16 @@
         <thead>
         <tr>
             <th>{% trans %}specifications.property{% endtrans %}</th>
+            <th>{% trans %}specifications.symbol{% endtrans %}</th>
             <th>{% trans %}specifications.value{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
         {% for param in parameters %}
             <tr>
-                <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex" data-controller="common--latex">${{ param.symbol }}$</span>{% endif %}</td>
-                <td>{{ param.formattedValue }}</td>
+                <td>{{ param.name }}</td>
+                <td>{% if param.symbol is not empty %}<span class="latex" {{ stimulus_controller('common/latex') }}>${{ param.symbol }}$</span>{% endif %}</td>
+                <td {{ stimulus_controller('common/latex') }} class="katex-same-height-as-text">{{ param.formattedValue(true) }}</td>
             </tr>
         {% endfor %}
         </tbody>

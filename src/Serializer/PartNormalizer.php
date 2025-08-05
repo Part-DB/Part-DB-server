@@ -63,13 +63,13 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
     {
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         //We only remove the type field for CSV export
         return !isset($context[self::ALREADY_CALLED]) && $format === 'csv' && $data instanceof Part ;
     }
 
-    public function normalize($object, string $format = null, array $context = []): array
+    public function normalize($object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
@@ -117,7 +117,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         return $data;
     }
 
-    public function denormalize($data, string $type, string $format = null, array $context = []): ?Part
+    public function denormalize($data, string $type, ?string $format = null, array $context = []): ?Part
     {
         $this->normalizeKeys($data);
 

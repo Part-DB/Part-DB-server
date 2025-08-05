@@ -54,7 +54,7 @@ class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
      */
     private const DEFAULT_EXPIRATION_TIME = 3600;
 
-    public function __construct(string $name, ?string $refresh_token, ?string $token = null, \DateTimeImmutable $expires_at = null)
+    public function __construct(string $name, ?string $refresh_token, ?string $token = null, ?\DateTimeImmutable $expires_at = null)
     {
         //If token is given, you also have to give the expires_at date
         if ($token !== null && $expires_at === null) {

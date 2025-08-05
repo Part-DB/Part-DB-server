@@ -30,7 +30,7 @@ class TagsConstraint extends AbstractConstraint
 {
     final public const ALLOWED_OPERATOR_VALUES = ['ANY', 'ALL', 'NONE'];
 
-    public function __construct(string $property, string $identifier = null,
+    public function __construct(string $property, ?string $identifier = null,
         protected ?string $value = null,
         protected ?string $operator = '')
     {

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
   <file id="security.en">
-    <unit id="aazoCks" name="user.login_error.user_disabled">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
         <target>账户已被禁用。请联系管理员</target>
       </segment>
     </unit>
-    <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
         <target>无法通过 SSO 以本地用户身份登录。请使用本地用户密码</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>无法使用本地身份验证器以SAML用户身份登录！请改用SSO登录</target>
       </segment>
     </unit>
   </file>

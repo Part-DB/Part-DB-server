@@ -45,6 +45,9 @@ class AttachmentFilter implements FilterInterface
     public readonly DateTimeConstraint $lastModified;
     public readonly DateTimeConstraint $addedDate;
 
+    public readonly TextConstraint $originalFileName;
+    public readonly TextConstraint $externalLink;
+
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
@@ -55,6 +58,9 @@ class AttachmentFilter implements FilterInterface
         $this->lastModified = new DateTimeConstraint('attachment.lastModified');
         $this->addedDate = new DateTimeConstraint('attachment.addedDate');
         $this->showInTable = new BooleanConstraint('attachment.show_in_table');
+        $this->originalFileName = new TextConstraint('attachment.original_filename');
+        $this->externalLink = new TextConstraint('attachment.external_path');
+
     }
 
     public function apply(QueryBuilder $queryBuilder): void

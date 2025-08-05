@@ -63,7 +63,8 @@ class TreeViewGenerator
         private readonly UrlGeneratorInterface $router,
         protected bool $rootNodeExpandedByDefault,
         protected bool $rootNodeEnabled,
-
+        //TODO: Make this configurable in the future
+        protected bool $rootNodeRedirectsToNewEntity = false,
     ) {
     }
 
@@ -174,10 +175,7 @@ class TreeViewGenerator
         }
 
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
-            //We show the root node as a link to the list of all parts
-            $show_all_parts_url = $this->router->generate('parts_show_all');
-
-            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $show_all_parts_url, $generic);
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $this->entityClassToRootNodeHref($class), $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $root_node->setIcon($this->entityClassToRootNodeIcon($class));
 
@@ -185,6 +183,27 @@ class TreeViewGenerator
         }
 
         return array_merge($head, $generic);
+    }
+
+    protected function entityClassToRootNodeHref(string $class): ?string
+    {
+        //If the root node should redirect to the new entity page, we return the URL for the new entity.
+        if ($this->rootNodeRedirectsToNewEntity) {
+            return match ($class) {
+                Category::class => $this->router->generate('category_new'),
+                StorageLocation::class => $this->router->generate('store_location_new'),
+                Footprint::class => $this->router->generate('footprint_new'),
+                Manufacturer::class => $this->router->generate('manufacturer_new'),
+                Supplier::class => $this->router->generate('supplier_new'),
+                Project::class => $this->router->generate('project_new'),
+                default => null,
+            };
+        }
+
+        return match ($class) {
+            Project::class => $this->router->generate('project_new'),
+            default => $this->router->generate('parts_show_all')
+        };
     }
 
     protected function entityClassToRootNodeString(string $class): string
