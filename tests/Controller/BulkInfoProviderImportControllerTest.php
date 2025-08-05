@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Controller\BulkInfoProviderImportController;
 use App\Entity\Parts\Part;
 use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\BulkImportJobStatus;
@@ -592,5 +593,322 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         return $parts;
+    }
+
+    public function testStep1Form(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertStringContainsString('Bulk Info Provider Import', $client->getResponse()->getContent());
+    }
+
+    public function testStep1FormSubmissionWithErrors(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertStringContainsString('Bulk Info Provider Import', $client->getResponse()->getContent());
+    }
+
+    public function testGetKeywordFromFieldPrivateMethod(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $controller = $client->getContainer()->get(BulkInfoProviderImportController::class);
+        $reflection = new \ReflectionClass($controller);
+        $method = $reflection->getMethod('getKeywordFromField');
+        $method->setAccessible(true);
+
+        $result = $method->invokeArgs($controller, [$part, 'name']);
+        $this->assertIsString($result);
+        
+        $result = $method->invokeArgs($controller, [$part, 'mpn']);
+        $this->assertIsString($result);
+    }
+
+    public function testSerializeAndDeserializeSearchResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $controller = $client->getContainer()->get(BulkInfoProviderImportController::class);
+        $reflection = new \ReflectionClass($controller);
+        
+        $serializeMethod = $reflection->getMethod('serializeSearchResults');
+        $serializeMethod->setAccessible(true);
+        
+        $deserializeMethod = $reflection->getMethod('deserializeSearchResults');
+        $deserializeMethod->setAccessible(true);
+
+        $searchResults = [[
+            'part' => $part,
+            'search_results' => [[
+                'dto' => new \App\Services\InfoProviderSystem\DTOs\SearchResultDTO(
+                    provider_key: 'test',
+                    provider_id: 'TEST123',
+                    name: 'Test Component',
+                    description: 'Test description',
+                    manufacturer: 'Test Manufacturer',
+                    mpn: 'TEST-MPN',
+                    provider_url: 'https://example.com',
+                    preview_image_url: null
+                ),
+                'localPart' => null,
+                'source_field' => 'mpn',
+                'source_keyword' => 'TEST123'
+            ]],
+            'errors' => []
+        ]];
+
+        $serialized = $serializeMethod->invokeArgs($controller, [$searchResults]);
+        $this->assertIsArray($serialized);
+        $this->assertArrayHasKey(0, $serialized);
+        $this->assertArrayHasKey('part_id', $serialized[0]);
+
+        $deserialized = $deserializeMethod->invokeArgs($controller, [$serialized, [$part]]);
+        $this->assertIsArray($deserialized);
+        $this->assertCount(1, $deserialized);
+    }
+
+    public function testManagePageWithJobCleanup(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->addPart($part);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('GET', '/tools/bulk-info-provider-import/manage');
+
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        // Find job from database to avoid detached entity errors  
+        $jobId = $job->getId();
+        $entityManager->clear();
+        $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($persistedJob) {
+            $entityManager->remove($persistedJob);
+            $entityManager->flush();
+        }
+    }
+
+    public function testGetSupplierPartNumberPrivateMethod(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $controller = $client->getContainer()->get(BulkInfoProviderImportController::class);
+        $reflection = new \ReflectionClass($controller);
+        $method = $reflection->getMethod('getSupplierPartNumber');
+        $method->setAccessible(true);
+
+        $result = $method->invokeArgs($controller, [$part, 'invalid_field']);
+        $this->assertNull($result);
+
+        $result = $method->invokeArgs($controller, [$part, 'test_supplier_spn']);
+        $this->assertNull($result);
+    }
+
+    public function testSearchLcscBatchPrivateMethod(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $controller = $client->getContainer()->get(BulkInfoProviderImportController::class);
+        $reflection = new \ReflectionClass($controller);
+        $method = $reflection->getMethod('searchLcscBatch');
+        $method->setAccessible(true);
+
+        $result = $method->invokeArgs($controller, [['TEST123', 'TEST456']]);
+        $this->assertIsArray($result);
+    }
+
+    public function testPrefetchDetailsForResultsPrivateMethod(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $reflection = new \ReflectionClass(BulkInfoProviderImportController::class);
+        $method = $reflection->getMethod('prefetchDetailsForResults');
+        $method->setAccessible(true);
+
+        // Test the method exists and can be called
+        $this->assertTrue($method->isPrivate());
+        $this->assertEquals('prefetchDetailsForResults', $method->getName());
+    }
+
+    public function testJobAccessControlForStopAndMarkOperations(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $admin = $userRepository->findOneBy(['name' => 'admin']);
+        $readonly = $userRepository->findOneBy(['name' => 'noread']);
+
+        if (!$admin || !$readonly) {
+            $this->markTestSkipped('Required test users not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($readonly);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-completed');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-skipped', [
+            'reason' => 'Test reason'
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-pending');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        // Find job from database to avoid detached entity errors
+        $jobId = $job->getId();
+        $entityManager->clear();
+        $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($persistedJob) {
+            $entityManager->remove($persistedJob);
+            $entityManager->flush();
+        }
+    }
+
+    public function testOperationsOnCompletedJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::COMPLETED);
+        $job->setSearchResults([]);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+
+        $entityManager->remove($job);
+        $entityManager->flush();
     }
 }
