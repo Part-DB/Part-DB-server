@@ -31,6 +31,11 @@
                         <button class="nav-link" id="filter-projects-tab" data-bs-toggle="tab" data-bs-target="#filter-projects"><i class="fas fa-archive fa-fw"></i> {% trans %}project.labelp{% endtrans %}</button>
                     </li>
                 {% endif %}
+                {% if filterForm.inBulkImportJob is defined %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="filter-bulk-import-tab" data-bs-toggle="tab" data-bs-target="#filter-bulk-import"><i class="fas fa-download fa-fw"></i> {% trans %}part.edit.tab.bulk_import{% endtrans %}</button>
+                    </li>
+                {% endif %}
             </ul>
 
             {{ form_start(filterForm, {"attr": {"data-controller": "helpers--form-cleanup", "data-action": "helpers--form-cleanup#submit"}}) }}
@@ -124,6 +129,13 @@
                         {{ form_row(filterForm.bomQuantity) }}
                         {{ form_row(filterForm.bomName) }}
                         {{ form_row(filterForm.bomComment) }}
+                    </div>
+                {% endif %}
+                {% if filterForm.inBulkImportJob is defined %}
+                    <div class="tab-pane pt-3" id="filter-bulk-import" role="tabpanel" aria-labelledby="filter-bulk-import-tab" tabindex="0">
+                        {{ form_row(filterForm.inBulkImportJob) }}
+                        {{ form_row(filterForm.bulkImportJobStatus) }}
+                        {{ form_row(filterForm.bulkImportPartStatus) }}
                     </div>
                 {% endif %}
 

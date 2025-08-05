@@ -25,6 +25,7 @@ namespace App\Tests\Services;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
@@ -50,16 +51,18 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         //We only test in english
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(new Part()));
         $this->assertSame('Category', $this->service->getLocalizedTypeLabel(new Category()));
+        $this->assertSame('Bulk Info Provider Import', $this->service->getLocalizedTypeLabel(new BulkInfoProviderImportJob()));
 
         //Test inheritance
         $this->assertSame('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
 
         //Test for class name
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(Part::class));
+        $this->assertSame('Bulk Info Provider Import', $this->service->getLocalizedTypeLabel(BulkInfoProviderImportJob::class));
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getLocalizedTypeLabel(new class() extends AbstractDBElement {
+        $this->service->getLocalizedTypeLabel(new class () extends AbstractDBElement {
         });
     }
 
@@ -74,7 +77,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
         //Test exception
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getTypeNameCombination(new class() extends AbstractNamedDBElement {
+        $this->service->getTypeNameCombination(new class () extends AbstractNamedDBElement {
             public function getIDString(): string
             {
                 return 'Stub';

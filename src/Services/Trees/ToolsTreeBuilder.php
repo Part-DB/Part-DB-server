@@ -138,6 +138,11 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
+            
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('info_providers.bulk_import.manage_jobs'),
+                $this->urlGenerator->generate('bulk_info_provider_manage')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-tasks');
         }
 
         return $nodes;

@@ -55,6 +55,7 @@ use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Entity\BulkInfoProviderImportJobPart;
 use App\Repository\PartRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -83,8 +84,18 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(columns: ['ipn'], name: 'parts_idx_ipn')]
 #[ApiResource(
     operations: [
-        new Get(normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read',
-            'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+        new Get(normalizationContext: [
+            'groups' => [
+                'part:read',
+                'provider_reference:read',
+                'api:basic:read',
+                'part_lot:read',
+                'orderdetail:read',
+                'pricedetail:read',
+                'parameter:read',
+                'attachment:read',
+                'eda_info:read'
+            ],
             'openapi_definition_name' => 'Read',
         ], security: 'is_granted("read", object)'),
         new GetCollection(security: 'is_granted("@parts.read")'),
@@ -92,7 +103,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
     ],
-    normalizationContext: ['groups' => ['part:read', 'provider_reference:read',  'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
+    normalizationContext: ['groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['part:write', 'api:basic:write', 'eda_info:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
@@ -100,7 +111,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
 #[ApiFilter(TagFilter::class, properties: ["tags"])]
-#[ApiFilter(BooleanFilter::class, properties: ["favorite" , "needs_review"])]
+#[ApiFilter(BooleanFilter::class, properties: ["favorite", "needs_review"])]
 #[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
@@ -160,6 +171,12 @@ class Part extends AttachmentContainingDBElement
     #[Groups(['part:read'])]
     protected ?\DateTimeImmutable $lastModified = null;
 
+    /**
+     * @var Collection<int, BulkInfoProviderImportJobPart>
+     */
+    #[ORM\OneToMany(mappedBy: 'part', targetEntity: BulkInfoProviderImportJobPart::class, cascade: ['remove'], orphanRemoval: true)]
+    protected Collection $bulkImportJobParts;
+
 
     public function __construct()
     {
@@ -172,6 +189,7 @@ class Part extends AttachmentContainingDBElement
 
         $this->associated_parts_as_owner = new ArrayCollection();
         $this->associated_parts_as_other = new ArrayCollection();
+        $this->bulkImportJobParts = new ArrayCollection();
 
         //By default, the part has no provider
         $this->providerReference = InfoProviderReference::noProvider();
@@ -229,5 +247,39 @@ class Part extends AttachmentContainingDBElement
                     ->addViolation();
             }
         }
+    }
+
+    /**
+     * Get all bulk import job parts for this part
+     * @return Collection<int, BulkInfoProviderImportJobPart>
+     */
+    public function getBulkImportJobParts(): Collection
+    {
+        return $this->bulkImportJobParts;
+    }
+
+    /**
+     * Add a bulk import job part to this part
+     */
+    public function addBulkImportJobPart(BulkInfoProviderImportJobPart $jobPart): self
+    {
+        if (!$this->bulkImportJobParts->contains($jobPart)) {
+            $this->bulkImportJobParts->add($jobPart);
+            $jobPart->setPart($this);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove a bulk import job part from this part
+     */
+    public function removeBulkImportJobPart(BulkInfoProviderImportJobPart $jobPart): self
+    {
+        if ($this->bulkImportJobParts->removeElement($jobPart)) {
+            if ($jobPart->getPart() === $this) {
+                $jobPart->setPart(null);
+            }
+        }
+        return $this;
     }
 }
