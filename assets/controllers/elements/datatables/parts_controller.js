@@ -42,11 +42,11 @@ export default class extends DatatablesController {
 
         const selectPanel = this.selectPanelTarget;
 
-        //Hide/Unhide panel with the selection tools
+        //Toggle action button based on selection
         if (count > 0) {
-            selectPanel.classList.remove('d-none');
+            document.getElementById("selectPanel_submit").disabled = false; 
         } else {
-            selectPanel.classList.add('d-none');
+            document.getElementById("selectPanel_submit").disabled = true; 
         }
 
         //Update selection count text
