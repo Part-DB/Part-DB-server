@@ -993,7 +993,7 @@
     "@ckeditor/ckeditor5-watchdog" "44.3.0"
     lodash-es "4.17.21"
 
-"@ckeditor/ckeditor5-dev-translations@^43.0.1", "@ckeditor/ckeditor5-dev-translations@^43.1.0":
+"@ckeditor/ckeditor5-dev-translations@^43.0.1":
   version "43.1.0"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-translations/-/ckeditor5-dev-translations-43.1.0.tgz#62b3929fcf5f7ab3e3d93c33c4b5234687913fa9"
   integrity sha512-dIjau68aLaaQtugLsHaCTuxhRL9t2bFmtTIsoUfMl1uHWpOWMdv2LeGEcDznZp633gZh6SDmrqLq2Bp2iOVBew==
@@ -1005,12 +1005,12 @@
     rimraf "^3.0.2"
     webpack-sources "^2.0.1"
 
-"@ckeditor/ckeditor5-dev-utils@^43.0.1":
-  version "43.1.0"
-  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-utils/-/ckeditor5-dev-utils-43.1.0.tgz#f196c3accaa7d1272ac3f36e69abe9b15cc1ceb2"
-  integrity sha512-EM1zg0vWcFSkxbwOYV6YE6nPoBphfEHtRKzgk86ex9XbxoQvq8HdDvC0dkCSAfgX0oUrFxjLonQBJUTgCoD3YQ==
+"@ckeditor/ckeditor5-dev-utils@43.0.*":
+  version "43.0.1"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-utils/-/ckeditor5-dev-utils-43.0.1.tgz#878d1c47d81572f8965a31b0b7d0f9349a86241b"
+  integrity sha512-GyobheNObVkcqLTU8KVCoPOQWDR56qSWAv+SbGc45+itPh7/VFfdA5/Q7R5oQQk8nXWocL50qLG6EcFpMjMngA==
   dependencies:
-    "@ckeditor/ckeditor5-dev-translations" "^43.1.0"
+    "@ckeditor/ckeditor5-dev-translations" "^43.0.1"
     chalk "^3.0.0"
     cli-cursor "^3.1.0"
     cli-spinners "^2.6.1"
