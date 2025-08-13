@@ -42,11 +42,11 @@ export default class extends DatatablesController {
 
         const selectPanel = this.selectPanelTarget;
 
-        //Toggle action button based on selection
+        //Enable action button based on selection
         if (count > 0) {
-            document.getElementById("selectPanel_submit").disabled = false; 
+            selectPanel.querySelector('button[type="submit"]').disabled = false; 
         } else {
-            document.getElementById("selectPanel_submit").disabled = true; 
+            selectPanel.querySelector('button[type="submit"]').disabled = true; 
         }
 
         //Update selection count text
