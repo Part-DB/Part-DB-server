@@ -157,7 +157,10 @@ class EntityImporter
                 }
             }
 
-            $last_element = $entity;
+            $last_element = end($entities);
+            if ($last_element === false) {
+                $last_element = null;
+            }
         }
 
         //Only return objects once
