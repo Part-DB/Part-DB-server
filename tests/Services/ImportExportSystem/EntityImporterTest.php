@@ -75,8 +75,8 @@ class EntityImporterTest extends WebTestCase
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $parent = $em->find(AttachmentType::class, 1);
         $results = $this->service->massCreation($lines, AttachmentType::class, $parent, $errors);
-        $this->assertCount(3, $results);
-        $this->assertSame($parent, $results[0]->getParent());
+        $this->assertCount(4, $results);
+        $this->assertSame("Test 1", $results[1]->getName());
 
         //Test for addition of existing elements
         $errors = [];
@@ -113,6 +113,31 @@ EOT;
 
     }
 
+    public function testMassCreationArrow(): void
+    {
+        $input = <<<EOT
+        Test1 -> Test1.1
+        Test1 -> Test1.2
+        Test2 -> Test2.1
+        Test1
+            Test1.3
+        EOT;
+
+        $errors = [];
+        $results = $this->service->massCreation($input, AttachmentType::class, null, $errors);
+
+        //We have 6 elements, and 0 errors
+        $this->assertCount(0, $errors);
+        $this->assertCount(6, $results);
+
+        $this->assertEquals('Test1', $results[0]->getName());
+        $this->assertEquals('Test1.1', $results[1]->getName());
+        $this->assertEquals('Test1.2', $results[2]->getName());
+        $this->assertEquals('Test2', $results[3]->getName());
+        $this->assertEquals('Test2.1', $results[4]->getName());
+        $this->assertEquals('Test1.3', $results[5]->getName());
+    }
+
     public function testMassCreationNested(): void
     {
         $input = <<<EOT
@@ -132,15 +157,15 @@ EOT;
 
         //We have 7 elements, and 0 errors
         $this->assertCount(0, $errors);
-        $this->assertCount(7, $results);
+        $this->assertCount(8, $results);
 
-        $element1 = $results[0];
-        $element11 = $results[1];
-        $element111 = $results[2];
-        $element112 = $results[3];
-        $element12 = $results[4];
-        $element121 = $results[5];
-        $element2 = $results[6];
+        $element1 = $results[1];
+        $element11 = $results[2];
+        $element111 = $results[3];
+        $element112 = $results[4];
+        $element12 = $results[5];
+        $element121 = $results[6];
+        $element2 = $results[7];
 
         $this->assertSame('Test 1', $element1->getName());
         $this->assertSame('Test 1.1', $element11->getName());
