@@ -9009,7 +9009,7 @@ Elemento 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>¡%count% componentes seleccionadas!</target>
+        <target>¡%count% componentes seleccionadas</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
