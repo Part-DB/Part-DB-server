@@ -50,7 +50,6 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\MarkdownConverter;
-use Parsedown;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
