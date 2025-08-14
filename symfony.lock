@@ -133,9 +133,6 @@
     "ekino/phpstan-banned-code": {
         "version": "v0.3.1"
     },
-    "erusev/parsedown": {
-        "version": "1.7.4"
-    },
     "florianv/exchanger": {
         "version": "1.4.1"
     },
