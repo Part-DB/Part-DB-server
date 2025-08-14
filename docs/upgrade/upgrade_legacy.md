@@ -2,6 +2,7 @@
 layout: default
 title: Upgrade from legacy Part-DB version (<1.0)
 nav_order: 100
+redirect_from: /upgrade_legacy
 ---
 
 # Upgrade from legacy Part-DB version
