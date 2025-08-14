@@ -50,6 +50,7 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Node\Block\Paragraph;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -62,7 +63,6 @@ final class PartProvider implements PlaceholderProviderInterface
 
     public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)
     {
-        $this->blockConverter = new GithubFlavoredMarkdownConverter();
         $environment = new Environment();
         $environment->addExtension(new InlinesOnlyExtension());
         $this->inlineConverter = new MarkdownConverter($environment);
@@ -123,19 +123,19 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[DESCRIPTION]]' === $placeholder) {
-            return $this->inlineConverter->convert($part->getDescription())->getContent();
+            return trim($this->inlineConverter->convert($part->getDescription())->getContent());
         }
 
         if ('[[DESCRIPTION_T]]' === $placeholder) {
-            return strip_tags($this->inlineConverter->convert($part->getDescription())->getContent());
+            return trim(strip_tags($this->inlineConverter->convert($part->getDescription())->getContent()));
         }
 
         if ('[[COMMENT]]' === $placeholder) {
-            return $this->blockConverter->convert($part->getComment())->getContent();
+            return trim($this->inlineConverter->convert($part->getComment())->getContent());
         }
 
         if ('[[COMMENT_T]]' === $placeholder) {
-            return strip_tags($this->blockConverter->convert($part->getComment())->getContent());
+            return trim(strip_tags($this->inlineConverter->convert($part->getComment())->getContent()));
         }
 
         return null;
