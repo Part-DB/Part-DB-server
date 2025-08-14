@@ -63,8 +63,8 @@ final class Version20250813214628 extends AbstractMultiPlatformMigration
     public function postgreSQLUp(Schema $schema): void
     {
         $this->convertArrayToJson();
-        $this->addSql('ALTER TABLE webauthn_keys ALTER transports TYPE JSON');
-        $this->addSql('ALTER TABLE webauthn_keys ALTER other_ui TYPE JSON');
+        $this->addSql('ALTER TABLE webauthn_keys ALTER transports TYPE JSON USING transports::JSON');
+        $this->addSql('ALTER TABLE webauthn_keys ALTER other_ui TYPE JSON USING other_ui::JSON');
     }
 
     public function postgreSQLDown(Schema $schema): void
