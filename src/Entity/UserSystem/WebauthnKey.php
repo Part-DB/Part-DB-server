@@ -100,16 +100,19 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
     public static function fromRegistration(BasePublicKeyCredentialSource $registration): self
     {
         return new self(
-            $registration->getPublicKeyCredentialId(),
-            $registration->getType(),
-            $registration->getTransports(),
-            $registration->getAttestationType(),
-            $registration->getTrustPath(),
-            $registration->getAaguid(),
-            $registration->getCredentialPublicKey(),
-            $registration->getUserHandle(),
-            $registration->getCounter(),
-            $registration->getOtherUI()
+            publicKeyCredentialId:  $registration->publicKeyCredentialId,
+            type:  $registration->type,
+            transports: $registration->transports,
+            attestationType:  $registration->attestationType,
+            trustPath:  $registration->trustPath,
+            aaguid:  $registration->aaguid,
+            credentialPublicKey:  $registration->credentialPublicKey,
+            userHandle:  $registration->userHandle,
+            counter:  $registration->counter,
+            otherUI:  $registration->otherUI,
+            backupEligible:  $registration->backupEligible,
+            backupStatus:  $registration->backupStatus,
+            uvInitialized:  $registration->uvInitialized,
         );
     }
 }
