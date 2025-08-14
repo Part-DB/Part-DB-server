@@ -13,16 +13,51 @@
     </style>
 </head>
 <body>
-{% for element in elements %}
-    <div class="page">
-        {% if options.barcodeType.none %}
-            {% include "label_system/labels/label_page_none.html.twig" %}
-        {% elseif options.barcodeType.is2D() %}
-            {% include "label_system/labels/label_page_qr.html.twig" %}
-        {% elseif options.barcodeType.is1D() %}
-            {% include "label_system/labels/label_page_1d.html.twig" %}
-        {% endif %}
-    </div>
-{% endfor %}
+    {% set start_page %}
+        <div class="page" style="break-after: always;"><table col="{{ options.xcount }}" row="{{ options.ycount }}"><tr>
+    {% endset %}
+
+    {% set end_page %}
+        </tr></table></div>
+    {% endset %}
+
+    {{ start_page }}
+        {% set labels = (0 .. options.skipcount)|merge(elements) %}
+        {% for element in labels %}
+            {% if loop.first %}
+                {# continue #}
+            {% else %}
+                <td>
+                    {% if element <= options.skipcount %}
+                    {% elseif options.barcodeType.none %}
+                        {% include "label_system/labels/label_page_none.html.twig" %}
+                    {% elseif options.barcodeType.is2D() %}
+                        {% include "label_system/labels/label_page_qr.html.twig" %}
+                    {% elseif options.barcodeType.is1D() %}
+                        {% include "label_system/labels/label_page_1d.html.twig" %}
+                    {% endif %}
+                </td>
+                {% if not loop.last %}
+                    {# The current row is full. Start a new row #}
+                    {% if (loop.index > 2) and loop.index0 is divisible by(options.xcount) %}
+                    </tr><tr>
+                    {% endif %}
+                    
+                    {# The current page is full and there are still labels in the queue. Start a new page #}
+                    {% if loop.index0 is divisible by(options.xcount * options.ycount) %}
+                        {{ end_page }}
+                        {{ start_page }}
+                    {% endif %}
+                {% else %}
+                    {# last iteration: fill the row if the generated label count is too small #}
+                    {% for i in (labels|length - 1) .. options.xcount %}
+                        {% if labels|length - 1 < options.xcount and i < options.xcount %}
+                            <td></td>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {{ end_page }}
 </body>
 </html>
