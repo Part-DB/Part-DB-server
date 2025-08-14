@@ -48,9 +48,7 @@ use App\Entity\Parts\Part;
 use App\Services\Formatters\SIFormatter;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\MarkdownConverter;
-use League\CommonMark\Node\Block\Paragraph;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -58,7 +56,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class PartProvider implements PlaceholderProviderInterface
 {
-    private readonly MarkdownConverter $blockConverter;
     private readonly MarkdownConverter $inlineConverter;
 
     public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)
