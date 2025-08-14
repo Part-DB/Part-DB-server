@@ -25,10 +25,6 @@ doctrine:
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
 
-            # This was removed in doctrine/orm 4.0 but we need it for the WebauthnKey entity
-            array:
-                class: App\Doctrine\Types\ArrayType
-        
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
         profiling_collect_backtrace: false
