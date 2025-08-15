@@ -33,7 +33,10 @@ export default class extends Controller {
     {
         let value = "";
         if (this.unitValue) {
-            value = "\\mathrm{" + this.inputTarget.value + "}";
+            //Escape percentage signs
+            value = this.inputTarget.value.replace(/%/g, '\\%');
+
+            value = "\\mathrm{" + value + "}";
         } else {
             value = this.inputTarget.value;
         }

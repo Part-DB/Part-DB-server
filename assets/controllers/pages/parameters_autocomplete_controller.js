@@ -85,7 +85,9 @@ export default class extends Controller
                         tmp += '<span>' + katex.renderToString(data.symbol) + '</span>'
                     }
                     if (data.unit) {
-                        tmp += '<span class="ms-2">' + katex.renderToString('[' + data.unit + ']') + '</span>'
+                        let unit  = data.unit.replace(/%/g, '\\%');
+                        unit = "\\mathrm{" + unit + "}";
+                        tmp += '<span class="ms-2">' + katex.renderToString('[' + unit + ']') + '</span>'
                     }
 
 
