@@ -341,4 +341,35 @@ class PartListsController extends AbstractController
     {
         return $this->showListWithFilter($request,'parts/lists/all_list.html.twig');
     }
+
+    #[Route(path: '/parts/filter/less_than_desired', name: 'parts_filter_less_than_desired')]
+    public function showLessThanDesiredFilter(Request $request): Response
+    {
+        return $this->showListWithFilter($request,
+            'parts/lists/all_list.html.twig',
+            function (PartFilter $filter) {
+                $filter->lessThanDesired->setValue(true);
+            },
+	    function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('lessThanDesired')->get('value'));
+            }
+        );
+    }
+
+    #[Route(path: '/parts/filter/custom', name: 'parts_filter_custom')]
+    public function showCustomFilter(Request $request): Response
+    {
+	// TODO custom filters will need custom access permission checks!
+        return $this->showListWithFilter($request,
+            'parts/lists/all_list.html.twig',
+            function (PartFilter $filter) {
+                ;
+            },
+	    function (FormInterface $filterForm) {
+                ;
+            }
+        );
+    }
+
+
 }
