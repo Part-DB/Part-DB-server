@@ -13033,5 +13033,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>The value of this parameter can be overridden by setting the environment variable "%env%".</target>
       </segment>
     </unit>
+    <unit id="boWkQh7" name="settings.flash.saved">
+      <segment>
+        <source>settings.flash.saved</source>
+        <target>Settings saved successfully.</target>
+      </segment>
+    </unit>
+    <unit id="tEYWrWD" name="settings.flash.invalid">
+      <segment>
+        <source>settings.flash.invalid</source>
+        <target>Settings are invalid. Please check your input!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

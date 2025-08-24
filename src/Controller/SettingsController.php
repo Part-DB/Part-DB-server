@@ -33,6 +33,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
+use function Symfony\Component\Translation\t;
+
 class SettingsController extends AbstractController
 {
     public function __construct(private readonly SettingsManagerInterface $settingsManager, private readonly SettingsFormFactoryInterface $settingsFormFactory)
@@ -63,6 +65,12 @@ class SettingsController extends AbstractController
 
             //It might be possible, that the tree settings have changed, so clear the cache
             $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
+
+            $this->addFlash('success', t('settings.flash.saved'));
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', t('settings.flash.invalid'));
         }
 
         //Render the form
