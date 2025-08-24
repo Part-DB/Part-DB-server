@@ -51,7 +51,7 @@ class PollinProvider implements InfoProviderInterface
             'name' => 'Pollin',
             'description' => 'Webscraping from pollin.de to get part information',
             'url' => 'https://www.pollin.de/',
-            'disabled_help' => 'Set PROVIDER_POLLIN_ENABLED env to 1'
+            'disabled_help' => 'Enable the provider in provider settings'
         ];
     }
 

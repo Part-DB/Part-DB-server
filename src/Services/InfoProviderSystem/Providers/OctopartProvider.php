@@ -170,7 +170,7 @@ class OctopartProvider implements InfoProviderInterface
             'name' => 'Octopart',
             'description' => 'This provider uses the Nexar/Octopart API to search for parts on Octopart.',
             'url' => 'https://www.octopart.com/',
-            'disabled_help' => 'Set the PROVIDER_OCTOPART_CLIENT_ID and PROVIDER_OCTOPART_SECRET env option.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings.'
         ];
     }
 
@@ -183,7 +183,8 @@ class OctopartProvider implements InfoProviderInterface
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
         //return /*!empty($this->clientId) && */ $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
-        return $this->settings->clientId !== '' && $this->settings->secret !== '';
+        return $this->settings->clientId !== null && $this->settings->clientId !== ''
+            && $this->settings->secret !== null && $this->settings->secret !== '';
     }
 
     private function mapLifeCycleStatus(?string $value): ?ManufacturingStatus
@@ -337,7 +338,7 @@ class OctopartProvider implements InfoProviderInterface
               ) {
                 hits
                 results {
-                  part 
+                  part
                   %s
                 }
               }

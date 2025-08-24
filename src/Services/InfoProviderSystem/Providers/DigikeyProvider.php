@@ -78,7 +78,7 @@ class DigikeyProvider implements InfoProviderInterface
             'description' => 'This provider uses the DigiKey API to search for parts.',
             'url' => 'https://www.digikey.com/',
             'oauth_app_name' => self::OAUTH_APP_NAME,
-            'disabled_help' => 'Set the PROVIDER_DIGIKEY_CLIENT_ID and PROVIDER_DIGIKEY_SECRET env option and connect OAuth to enable.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings and connect OAuth to enable.'
         ];
     }
 
@@ -101,7 +101,7 @@ class DigikeyProvider implements InfoProviderInterface
     public function isActive(): bool
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
-        return $this->settings->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
+        return $this->settings->clientId !== null && $this->settings->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
     }
 
     public function searchByKeyword(string $keyword): array

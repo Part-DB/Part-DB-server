@@ -51,7 +51,7 @@ class LCSCProvider implements InfoProviderInterface
             'name' => 'LCSC',
             'description' => 'This provider uses the (unofficial) LCSC API to search for parts.',
             'url' => 'https://www.lcsc.com/',
-            'disabled_help' => 'Set PROVIDER_LCSC_ENABLED to 1 (or true) in your environment variable config.'
+            'disabled_help' => 'Enable this provider in the provider settings.'
         ];
     }
 
