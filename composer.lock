@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b0f46c3211d452d6bbd71a38ece8cbd",
+    "content-hash": "09b78f345ea8115b5b29ea3e67dcb579",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5090,16 +5090,16 @@
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v2.7.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "2f579554d52b3d5226b8569ccd13988f6403f6af"
+                "reference": "34b9629af73c7ad8989d8284470e79f3f8d79712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/2f579554d52b3d5226b8569ccd13988f6403f6af",
-                "reference": "2f579554d52b3d5226b8569ccd13988f6403f6af",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/34b9629af73c7ad8989d8284470e79f3f8d79712",
+                "reference": "34b9629af73c7ad8989d8284470e79f3f8d79712",
                 "shasum": ""
             },
             "require": {
@@ -5160,7 +5160,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v2.7.0"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v3.0.0"
             },
             "funding": [
                 {
@@ -5172,7 +5172,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-15T22:13:15+00:00"
+            "time": "2025-08-24T17:17:43+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
