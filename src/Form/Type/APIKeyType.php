@@ -47,6 +47,7 @@ class APIKeyType extends AbstractType
         $resolver->setDefaults([
             'always_empty' => false,
             'toggle' => true,
+            'empty_data' => null,
             'attr' => ['autocomplete' => 'off'],
         ]);
     }
