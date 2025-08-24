@@ -1,6 +1,8 @@
 {% extends "main_card.html.twig" %}
 {% macro genId(widget) %}{{ widget.vars.full_name }}{% endmacro %}
 
+{% form_theme form "form/settings_form.html.twig" %}
+
 {% block title %}{% trans %}settings.title{% endtrans %}{% endblock %}
 
 {% block card_title %}<i class="fa-solid fa-gears fa-fw"></i> {% trans %}settings.title{% endtrans %}{% endblock %}
