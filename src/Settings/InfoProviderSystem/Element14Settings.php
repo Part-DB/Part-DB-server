@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -36,7 +37,8 @@ class Element14Settings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), description: new TM("settings.ips.element14.apiKey.help"),
+    #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"), description: new TM("settings.ips.element14.apiKey.help"),#
+        formType: APIKeyType::class,
         formOptions: ["help_html" => true], envVar: "PROVIDER_ELEMENT14_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
 

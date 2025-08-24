@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -42,12 +43,14 @@ class DigikeySettings
 
     #[SettingsParameter(
         label: new TM("settings.ips.digikey.client_id"),
+        formType: APIKeyType::class,
         envVar: "PROVIDER_DIGIKEY_CLIENT_ID", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $clientId = null;
 
     #[SettingsParameter(
         label: new TM("settings.ips.digikey.secret"),
+        formType: APIKeyType::class,
         envVar: "PROVIDER_DIGIKEY_SECRET", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $secret = null;

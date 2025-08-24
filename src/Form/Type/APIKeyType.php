@@ -21,23 +21,33 @@
 declare(strict_types=1);
 
 
-namespace App\Settings\MiscSettings;
+namespace App\Form\Type;
 
-use App\Form\Type\APIKeyType;
-use App\Settings\SettingsIcon;
-use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
-use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsParameter;
-use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-#[Settings(name: "exchange_rate", label: new TM("settings.misc.exchange_rate"))]
-#[SettingsIcon("fa-money-bill-transfer")]
-class ExchangeRateSettings
+class APIKeyType extends AbstractType
 {
-    #[SettingsParameter(label: new TM("settings.misc.exchange_rate.fixer_api_key"),
-        description: new TM("settings.misc.exchange_rate.fixer_api_key.help"),
-        formType: APIKeyType::class,
-        envVar: "FIXER_API_KEY", envVarMode: EnvVarMode::OVERWRITE,
-        )]
-    public ?string $fixerApiKey = null;
+    public function getParent(): string
+    {
+        return PasswordType::class;
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        //Ensure that the field is never empty
+        $view->vars['value'] = $form->getViewData();
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'always_empty' => false,
+            'toggle' => true,
+            'attr' => ['autocomplete' => 'off'],
+        ]);
+    }
 }

@@ -729,6 +729,9 @@
         },
         "files": []
     },
+    "symfony/ux-toggle-password": {
+        "version": "v2.29.2"
+    },
     "symfony/ux-translator": {
         "version": "2.9",
         "recipe": {

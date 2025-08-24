@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -43,6 +44,7 @@ class OEMSecretsSettings
                        "NZD", "RUB", "SEK", "SGD", "TWD", "USD"];
 
     #[SettingsParameter(label: new TM("settings.ips.element14.apiKey"),
+        formType: APIKeyType::class,
         envVar: "PROVIDER_OEMSECRETS_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
 

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -43,11 +44,13 @@ class TMESettings
     private const SUPPORTED_CURRENCIES = ["EUR", "USD", "PLN", "GBP"];
 
     #[SettingsParameter(label: new TM("settings.ips.tme.token"),
-        description: new TM("settings.ips.tme.token.help"), formOptions: ["help_html" => true],
+        description: new TM("settings.ips.tme.token.help"),
+        formType: APIKeyType::class, formOptions: ["help_html" => true],
         envVar: "PROVIDER_TME_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiToken = null;
 
     #[SettingsParameter(label: new TM("settings.ips.tme.secret"),
+        formType: APIKeyType::class,
         envVar: "PROVIDER_TME_SECRET", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiSecret = null;
 
