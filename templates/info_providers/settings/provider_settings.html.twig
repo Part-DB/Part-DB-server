@@ -22,6 +22,10 @@
     </div>
 
     {{ form_start(form) }}
-    {{ form_help(form) }}
+    <div class="row">
+        <div class="offset-sm-3 col mb-3 ps-2">
+            <b>{{ form_help(form) }}</b>
+        </div>
+    </div>
     {{ form_end(form) }}
 {% endblock %}

@@ -42,8 +42,12 @@
                                     <i class="fa-solid {{ settings_icon(settings_object)|default('fa-sliders') }} fa-fw"></i>
                                     {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
                                 </legend>
-                                {{ form_help(section_widget) }}
-                                {{ form_errors(section_widget) }}
+                                <div class="row">
+                                    <div class="offset-sm-3 col mb-3 ps-2">
+                                        <b>{{ form_help(section_widget) }}</b>
+                                        {{ form_errors(section_widget) }}
+                                    </div>
+                                </div>
                                 {{ form_widget(section_widget) }}
                             </fieldset>
                             {% if not loop.last %}
