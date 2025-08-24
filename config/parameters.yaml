@@ -90,7 +90,6 @@ parameters:
   env(ERROR_PAGE_SHOW_HELP): 1
 
   env(DEMO_MODE): 0
-  env(BANNER): ''
 
 
   env(EMAIL_SENDER_EMAIL): 'noreply@partdb.changeme'

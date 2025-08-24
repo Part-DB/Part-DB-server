@@ -49,6 +49,7 @@ class CustomizationSettings
     #[SettingsParameter(
         label: new TM("settings.system.customization.banner"),
         formType: RichTextEditorType::class, formOptions: ['mode' => 'markdown-full'],
+        envVar: "BANNER", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $banner = null;
 

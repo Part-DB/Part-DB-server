@@ -30,7 +30,7 @@ use App\Settings\SystemSettings\CustomizationSettings;
  */
 class BannerHelper
 {
-    public function __construct(private CustomizationSettings $customizationSettings)
+    public function __construct(private readonly CustomizationSettings $customizationSettings)
     {
 
     }
