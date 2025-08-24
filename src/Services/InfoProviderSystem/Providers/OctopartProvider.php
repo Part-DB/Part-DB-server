@@ -170,7 +170,8 @@ class OctopartProvider implements InfoProviderInterface
             'name' => 'Octopart',
             'description' => 'This provider uses the Nexar/Octopart API to search for parts on Octopart.',
             'url' => 'https://www.octopart.com/',
-            'disabled_help' => 'Set the Client ID and Secret in provider settings.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings.',
+            'settings_class' => OctopartSettings::class
         ];
     }
 

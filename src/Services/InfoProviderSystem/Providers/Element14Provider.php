@@ -66,7 +66,8 @@ class Element14Provider implements InfoProviderInterface
             'name' => 'Farnell element14',
             'description' => 'This provider uses the Farnell element14 API to search for parts.',
             'url' => 'https://www.element14.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => Element14Settings::class,
         ];
     }
 

@@ -54,7 +54,8 @@ class TMEProvider implements InfoProviderInterface
             'name' => 'TME',
             'description' => 'This provider uses the API of TME (Transfer Multipart).',
             'url' => 'https://tme.eu/',
-            'disabled_help' => 'Configure the API Token and secret in provider settings to use this provider.'
+            'disabled_help' => 'Configure the API Token and secret in provider settings to use this provider.',
+            'settings_class' => TMESettings::class
         ];
     }
 

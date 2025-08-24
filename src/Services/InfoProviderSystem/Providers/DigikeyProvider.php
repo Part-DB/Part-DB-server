@@ -78,7 +78,8 @@ class DigikeyProvider implements InfoProviderInterface
             'description' => 'This provider uses the DigiKey API to search for parts.',
             'url' => 'https://www.digikey.com/',
             'oauth_app_name' => self::OAUTH_APP_NAME,
-            'disabled_help' => 'Set the Client ID and Secret in provider settings and connect OAuth to enable.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings and connect OAuth to enable.',
+            'settings_class' => DigikeySettings::class,
         ];
     }
 

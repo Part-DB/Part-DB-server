@@ -61,7 +61,8 @@ class MouserProvider implements InfoProviderInterface
             'name' => 'Mouser',
             'description' => 'This provider uses the Mouser API to search for parts.',
             'url' => 'https://www.mouser.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => MouserSettings::class
         ];
     }
 

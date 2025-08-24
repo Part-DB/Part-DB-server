@@ -246,7 +246,8 @@ class OEMSecretsProvider implements InfoProviderInterface
             'name' => 'OEMSecrets',
             'description' => 'This provider uses the OEMSecrets API to search for parts.',
             'url' => 'https://www.oemsecrets.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => OEMSecretsSettings::class
         ];
     }
     /**
