@@ -17,8 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Plugin } from 'ckeditor5';
-import {MarkdownGfmDataProcessor} from 'ckeditor5';
+import { Plugin, MarkdownGfmDataProcessor } from 'ckeditor5';
 
 const ALLOWED_TAGS = [
 	//Common elements
