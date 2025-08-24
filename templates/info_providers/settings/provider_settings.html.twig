@@ -1,0 +1,27 @@
+{% extends "main_card.html.twig" %}
+{% macro genId(widget) %}{{ widget.vars.full_name }}{% endmacro %}
+
+{% form_theme form "form/settings_form.html.twig" %}
+
+{% block title %}{% trans %}info_providers.settings.title{% endtrans %}: {{ info_provider_info.name }}{% endblock %}
+
+{% block card_title %}<i class="fa-solid fa-gear fa-fw"></i> {% trans %}info_providers.settings.title{% endtrans %}: <b>{{ info_provider_info.name }}</b>{% endblock %}
+
+{% block card_content %}
+    <div class="offset-sm-3">
+        <h3>
+            {% if info_provider_info.url %}
+                <a href="{{ info_provider_info.url }}" class="link-external" target="_blank" rel="nofollow">{{ info_provider_info.name }}</a>
+            {% else %}
+                {{ info_provider_info.name }}
+            {% endif %}
+        </h3>
+        {% if info_provider_info.description %}
+            <p class="text-muted">{{ info_provider_info.description }}</p>
+        {% endif %}
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_help(form) }}
+    {{ form_end(form) }}
+{% endblock %}

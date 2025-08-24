@@ -13045,5 +13045,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Settings are invalid. Please check your input!</target>
       </segment>
     </unit>
+    <unit id="yRXWSRN" name="info_providers.settings.title">
+      <segment>
+        <source>info_providers.settings.title</source>
+        <target>Info provider settings</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
