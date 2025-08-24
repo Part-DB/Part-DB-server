@@ -31,7 +31,7 @@
         "hshn/base64-encoded-file": "^5.0",
         "jbtronics/2fa-webauthn": "^3.0.0",
         "jbtronics/dompdf-font-loader-bundle": "^1.0.0",
-        "jbtronics/settings-bundle": "^v2.6.0",
+        "jbtronics/settings-bundle": "^v2.7.0",
         "jfcherng/php-diff": "^6.14",
         "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/commonmark": "^2.7",
