@@ -24,14 +24,27 @@ class UniquePartIpnValidator extends ConstraintValidator
             return;
         }
 
-        $repository = $this->entityManager->getRepository(Part::class);
-        $existingPart = $repository->findOneBy(['ipn' => $value]);
+        if (!$this->enforceUniqueIpn) {
+            return;
+        }
 
-        if ($existingPart) {
-            if ($this->enforceUniqueIpn) {
-                $this->context->buildViolation($constraint->message)
-                    ->setParameter('{{ value }}', $value)
-                    ->addViolation();
+        /** @var Part $currentPart */
+        $currentPart = $this->context->getObject();
+
+        if (!$currentPart instanceof Part) {
+            return;
+        }
+
+        $repository = $this->entityManager->getRepository(Part::class);
+        $existingParts = $repository->findBy(['ipn' => $value]);
+
+        foreach ($existingParts as $existingPart) {
+            if ($currentPart->getId() !== $existingPart->getId()) {
+                if ($this->enforceUniqueIpn) {
+                    $this->context->buildViolation($constraint->message)
+                        ->setParameter('{{ value }}', $value)
+                        ->addViolation();
+                }
             }
         }
     }
