@@ -9018,7 +9018,7 @@ Element 3</target>
     <unit id="qKDo_nI" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>%count% dílů vybráno!</target>
+        <target>%count% dílů vybráno</target>
       </segment>
     </unit>
     <unit id="ssOogP5" name="company.edit.quick.website">
