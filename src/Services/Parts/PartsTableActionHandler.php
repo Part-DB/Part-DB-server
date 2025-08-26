@@ -67,8 +67,13 @@ final class PartsTableActionHandler
      * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
      * //@param-out list<array{'part': Part, 'message': string|TranslatableInterface}>|array<void> $errors
      */
-    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
+    public function handleAction(string $action, array $selected_parts, ?string $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
+        // validate target_id
+        if (!str_contains($action, 'tag') && $target_id !== null && !is_numeric($target_id))
+                throw new InvalidArgumentException('$target_id must be an integer for action'. $action.'!');
+        }
+
         if ($action === 'add_to_project') {
             return new RedirectResponse(
                 $this->urlGenerator->generate('project_add_parts', [
@@ -130,6 +135,19 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             $this->denyAccessUnlessGranted('edit', $part);
 
             switch ($action) {
+                case "add_tag":
+                    $this->denyAccessUnlessGranted('edit', $part);
+                    $tags = $part->getTags();
+                    // simple append
+                    $part->setTags($tags.','.$target_id);
+                    break;
+                case "remove_tag":
+                    $this->denyAccessUnlessGranted('edit', $part);
+                    // remove any matching tag at start or end
+                    $tags = preg_replace('/(^'.$target_id.',|,'.$target_id.'$)/', '', $part->getTags());
+                    // remove any matching tags in the middle, retaining one comma, and commit
+                    $part->setTags(str_replace(','.$target_id.',', ',' $tags);
+                    break;
                 case 'favorite':
                     $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(true);
