@@ -72,6 +72,7 @@
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_csv" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_csv{% endtrans %}</option>
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_yaml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_yaml{% endtrans %}</option>
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_xml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_xml{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_xlsx" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_xlsx{% endtrans %}</option>
                     </optgroup>
                 </select>
 

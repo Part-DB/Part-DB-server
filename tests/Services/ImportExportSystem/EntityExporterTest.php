@@ -26,6 +26,7 @@ use App\Entity\Parts\Category;
 use App\Services\ImportExportSystem\EntityExporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class EntityExporterTest extends WebTestCase
 {
@@ -76,7 +77,40 @@ class EntityExporterTest extends WebTestCase
 
         $this->assertSame('application/json', $response->headers->get('Content-Type'));
         $this->assertNotEmpty($response->headers->get('Content-Disposition'));
+    }
 
+    public function testExportToExcel(): void
+    {
+        $entities = $this->getEntities();
 
+        $xlsxData = $this->service->exportEntities($entities, ['format' => 'xlsx', 'level' => 'simple']);
+        $this->assertNotEmpty($xlsxData);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_export') . '.xlsx';
+        file_put_contents($tempFile, $xlsxData);
+        
+        $spreadsheet = IOFactory::load($tempFile);
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        $this->assertSame('name', $worksheet->getCell('A1')->getValue());
+        $this->assertSame('full_name', $worksheet->getCell('B1')->getValue());
+        
+        $this->assertSame('Enitity 1', $worksheet->getCell('A2')->getValue());
+        $this->assertSame('Enitity 1', $worksheet->getCell('B2')->getValue());
+        
+        unlink($tempFile);
+    }
+
+    public function testExportExcelFromRequest(): void
+    {
+        $entities = $this->getEntities();
+
+        $request = new Request();
+        $request->request->set('format', 'xlsx');
+        $request->request->set('level', 'simple');
+        $response = $this->service->exportEntityFromRequest($entities, $request);
+
+        $this->assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type'));
+        $this->assertStringContainsString('export_Category_simple.xlsx', $response->headers->get('Content-Disposition'));
     }
 }

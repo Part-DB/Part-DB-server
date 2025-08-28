@@ -38,6 +38,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Psr\Log\LoggerInterface;
 
 /**
  * @see \App\Tests\Services\ImportExportSystem\EntityImporterTest
@@ -50,7 +53,7 @@ class EntityImporter
      */
     private const ENCODINGS = ["ASCII", "UTF-8", "ISO-8859-1", "ISO-8859-15", "Windows-1252", "UTF-16", "UTF-32"];
 
-    public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator)
+    public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator, protected LoggerInterface $logger)
     {
     }
 
@@ -102,7 +105,7 @@ class EntityImporter
 
         foreach ($names as $name) {
             //Count indentation level (whitespace characters at the beginning of the line)
-            $identSize = strlen($name)-strlen(ltrim($name));
+            $identSize = strlen($name) - strlen(ltrim($name));
 
             //If the line is intended more than the last line, we have a new parent element
             if ($identSize > end($indentations)) {
@@ -195,16 +198,20 @@ class EntityImporter
         }
 
         //The [] behind class_name denotes that we expect an array.
-        $entities = $this->serializer->deserialize($data, $options['class'].'[]', $options['format'],
+        $entities = $this->serializer->deserialize(
+            $data,
+            $options['class'] . '[]',
+            $options['format'],
             [
                 'groups' => $groups,
                 'csv_delimiter' => $options['csv_delimiter'],
                 'create_unknown_datastructures' => $options['create_unknown_datastructures'],
                 'path_delimiter' => $options['path_delimiter'],
                 'partdb_import' => true,
-                //Disable API Platform normalizer, as we don't want to use it here
+                    //Disable API Platform normalizer, as we don't want to use it here
                 SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
-            ]);
+            ]
+        );
 
         //Ensure we have an array of entity elements.
         if (!is_array($entities)) {
@@ -279,7 +286,7 @@ class EntityImporter
             'path_delimiter' => '->', //The delimiter used to separate the path elements in the name of a structural element
         ]);
 
-        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
+        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml', 'xlsx', 'xls']);
         $resolver->setAllowedTypes('csv_delimiter', 'string');
         $resolver->setAllowedTypes('preserve_children', 'bool');
         $resolver->setAllowedTypes('class', 'string');
@@ -335,6 +342,33 @@ class EntityImporter
      */
     public function importFile(File $file, array $options = [], array &$errors = []): array
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+
+        if (in_array($options['format'], ['xlsx', 'xls'], true)) {
+            $this->logger->info('Converting Excel file to CSV', [
+                'filename' => $file->getFilename(),
+                'format' => $options['format'],
+                'delimiter' => $options['csv_delimiter']
+            ]);
+
+            $csvData = $this->convertExcelToCsv($file, $options['csv_delimiter']);
+            $options['format'] = 'csv';
+
+            $this->logger->debug('Excel to CSV conversion completed', [
+                'csv_length' => strlen($csvData),
+                'csv_lines' => substr_count($csvData, "\n") + 1
+            ]);
+
+            // Log the converted CSV for debugging (first 1000 characters)
+            $this->logger->debug('Converted CSV preview', [
+                'csv_preview' => substr($csvData, 0, 1000) . (strlen($csvData) > 1000 ? '...' : '')
+            ]);
+
+            return $this->importString($csvData, $options, $errors);
+        }
+
         return $this->importString($file->getContent(), $options, $errors);
     }
 
@@ -354,9 +388,102 @@ class EntityImporter
             'xml' => 'xml',
             'csv', 'tsv' => 'csv',
             'yaml', 'yml' => 'yaml',
+            'xlsx' => 'xlsx',
+            'xls' => 'xls',
             default => null,
         };
     }
+
+    /**
+     * Converts Excel file to CSV format using PhpSpreadsheet.
+     *
+     * @param File   $file      The Excel file to convert
+     * @param string $delimiter The CSV delimiter to use
+     * 
+     * @return string The CSV data as string
+     */
+    protected function convertExcelToCsv(File $file, string $delimiter = ';'): string
+    {
+        try {
+            $this->logger->debug('Loading Excel file', ['path' => $file->getPathname()]);
+            $spreadsheet = IOFactory::load($file->getPathname());
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            $csvData = [];
+            $highestRow = $worksheet->getHighestRow();
+            $highestColumn = $worksheet->getHighestColumn();
+
+            $this->logger->debug('Excel file dimensions', [
+                'rows' => $highestRow,
+                'columns_detected' => $highestColumn,
+                'worksheet_title' => $worksheet->getTitle()
+            ]);
+
+            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+            
+            for ($row = 1; $row <= $highestRow; $row++) {
+                $rowData = [];
+
+                // Read all columns using numeric index
+                for ($colIndex = 1; $colIndex <= $highestColumnIndex; $colIndex++) {
+                    $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex);
+                    try {
+                        $cellValue = $worksheet->getCell("{$col}{$row}")->getCalculatedValue();
+                        $rowData[] = $cellValue ?? '';
+                        
+                    } catch (\Exception $e) {
+                        $this->logger->warning('Error reading cell value', [
+                            'cell' => "{$col}{$row}",
+                            'error' => $e->getMessage()
+                        ]);
+                        $rowData[] = '';
+                    }
+                }
+
+                $csvRow = implode($delimiter, array_map(function ($value) use ($delimiter) {
+                    $value = (string) $value;
+                    if (strpos($value, $delimiter) !== false || strpos($value, '"') !== false || strpos($value, "\n") !== false) {
+                        return '"' . str_replace('"', '""', $value) . '"';
+                    }
+                    return $value;
+                }, $rowData));
+
+                $csvData[] = $csvRow;
+
+                // Log first few rows for debugging
+                if ($row <= 3) {
+                    $this->logger->debug("Row {$row} converted", [
+                        'original_data' => $rowData,
+                        'csv_row' => $csvRow,
+                        'first_cell_raw' => $worksheet->getCell("A{$row}")->getValue(),
+                        'first_cell_calculated' => $worksheet->getCell("A{$row}")->getCalculatedValue()
+                    ]);
+                }
+            }
+
+            $result = implode("\n", $csvData);
+
+            $this->logger->info('Excel to CSV conversion successful', [
+                'total_rows' => count($csvData),
+                'total_characters' => strlen($result)
+            ]);
+
+            $this->logger->debug('Full CSV data', [
+                'csv_data' => $result
+            ]);
+
+            return $result;
+
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to convert Excel to CSV', [
+                'file' => $file->getFilename(),
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
+    }
+
 
     /**
      * This functions corrects the parent setting based on the children value of the parent.
