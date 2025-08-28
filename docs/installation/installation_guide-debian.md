@@ -1,13 +1,13 @@
 ---
-title: Direct Installation on Debian 11
+title: Direct Installation on Debian 12
 layout: default
 parent: Installation
 nav_order: 4
 ---
 
-# Part-DB installation guide for Debian 11 (Bullseye)
+# Part-DB installation guide for Debian 12 (Bookworm)
 
-This guide shows you how to install Part-DB directly on Debian 11 using apache2 and SQLite. This guide should work with
+This guide shows you how to install Part-DB directly on Debian 12 using apache2 and SQLite. This guide should work with
 recent Ubuntu and other Debian-based distributions with little to no changes.
 Depending on what you want to do, using the prebuilt docker images may be a better choice, as you don't need to install
 this many dependencies. See [here]({% link installation/installation_docker.md %}) for more information on the docker
@@ -37,31 +37,18 @@ Part-DB is written in [PHP](https://php.net) and therefore needs a PHP interpret
 higher. However, it is recommended to use the most recent version of PHP for performance reasons and future
 compatibility.
 
-As Debian 11 does not ship PHP 8.1 in its default repositories, we have to add a repository for it. You can skip this
-step if your distribution is shipping a recent version of PHP or you want to use the built-in PHP version. If you are
-using Debian 12, you can skip this step, as PHP 8.1 is already included in the default repositories.
+Install PHP with required extensions and apache2:
 
 ```bash
-# Add sury repository for PHP 8.1
-sudo curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
-
-# Update package list
-sudo apt update && sudo apt upgrade
+sudo apt install apache2 php8.2 libapache2-mod-php8.2 \
+  php8.2-opcache php8.2-curl php8.2-gd php8.2-mbstring \
+  php8.2-xml php8.2-bcmath php8.2-intl php8.2-zip php8.2-xsl \
+  php8.2-sqlite3 php8.2-mysql
 ```
-
-Now you can install PHP 8.1 and the required packages (change the 8.1 in the package version according to the version you
-want to use):
-
-```bash
-sudo apt install php8.1 libapache2-mod-php8.1 php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql
-```
-
-The apache2 webserver should be already installed with this command and configured basically.
 
 ### Install composer
 
-Part-DB uses [composer](https://getcomposer.org/) to install required PHP libraries. As the version shipped in the
-repositories is pretty old, we will install it manually:
+Part-DB uses [composer](https://getcomposer.org/) to install required PHP libraries. Install the latest version manually:
 
 ```bash
 # Download composer installer script
@@ -78,10 +65,9 @@ To build the front end (the user interface) Part-DB uses [yarn](https://yarnpkg.
 shipped versions are pretty old, we install new versions from the official Node.js repository:
 
 ```bash
-# Add recent node repository (nodejs 18 is supported until 2025)
-curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-# Install nodejs
-sudo apt install nodejs
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
 ```
 
 We can install yarn with the following commands:
@@ -117,8 +103,8 @@ Alternatively, you can check out a specific version by running (
 see [GitHub Releases page](https://github.com/Part-DB/Part-DB-server/releases) for a list of available versions):
 
 ```bash
-# This checks out the version 1.5.2
-git checkout v1.5.2
+# This checks out the version 2.0.0
+git checkout v2.0.0
 ```
 
 Change ownership of the files to the apache user:
@@ -142,11 +128,10 @@ configuration:
 cp .env .env.local
 ```
 
-In your `.env.local` you can configure Part-DB according to your wishes. A full list of configuration options can be
-found [here](../configuration.md).
-Other configuration options like the default language or default currency can be found in `config/parameters.yaml`.
+In your `.env.local` you can configure Part-DB according to your wishes and overwrite web interface settings.
+A full list of configuration options can be  found [here](../configuration.md).
 
-Please check that the `partdb.default_currency` value in `config/parameters.yaml` matches your mainly used currency, as
+Please check that the configured base currency matches your mainly used currency, as
 this can not be changed after creating price information.
 
 ### Install dependencies for Part-DB and build frontend
@@ -256,6 +241,7 @@ network to point to the server).
 
 Navigate to the Part-DB web interface and login via the user icon in the top right corner. You can log in using the
 username `admin` and the password you have written down earlier.
+As first steps, you should check out the system settings and check if everything is correct.
 
 ## Update Part-DB
 
@@ -291,7 +277,7 @@ sudo -u www-data php bin/console cache:clear
 ## MySQL/MariaDB database
 
 To use a MySQL database, follow the steps from above (except the creation of the database, we will do this later).
-Debian 11 does not ship MySQL in its repositories anymore, so we use the compatible MariaDB instead:
+Debian 12 does not ship MySQL in its repositories anymore, so we use the compatible MariaDB instead:
 
 1. Install maria-db with:
 
