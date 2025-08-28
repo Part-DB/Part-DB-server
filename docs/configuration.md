@@ -10,7 +10,7 @@ Part-DBs behavior can be configured to your needs. There are different kinds of 
 user-changeable (changeable dynamically via frontend), options that can be configured by environment variables, and
 options that are only configurable via Symfony config files.
 
-## User changeable
+## User configruation
 
 The following things can be changed for every user and a user can change it for himself (if he has the correct permission
 for it). Configuration is either possible via the user's own settings page (where you can also change the password) or via
@@ -24,15 +24,33 @@ the user admin page:
 * **Preferred currency**: One of the defined currencies, in which all prices should be shown, if possible. Prices with
   other currencies will be converted to the price selected here
 
+## System configuration (via web interface)
+
+Many common configuration options can be changed via the web interface. You can find the settings page in the sidebar under
+"System" -> "Settings". You need to have the "Change system settings" permission to access this page.
+
+If a setting is greyed out and cannot be changed, it means that this setting is currently overwritten by an environment
+variable. You can either change the environment variable to change the setting, or you can migrate the setting to the
+database, so that it can be changed via the web interface. To do this, you can use the `php bin/console settings:migrate-env-to-settings` command 
+and remove the environment variable afterward.
+
 ## Environment variables (.env.local)
 
 The following configuration options can only be changed by the server administrator, by either changing the server
 variables, changing the `.env.local` file or setting env for your docker container. Here are just the most important
 options listed, see `.env` file for the full list of possible env variables.
 
+Environment variables allow to overwrite settings in the web interface. This is useful, if you want to enforce certain
+settings to be unchangable by users, or if you want to configure settings in a central place in a deployed environment.
+On the settings page, you can hover over a setting to see, which environment variable can be used to overwrite it, it 
+is shown as tooltip.
+
+For technical and security reasons some settings can only be configured via environment variables and not via the web
+interface. These settings are marked with "(env only)" in the description below.
+
 ### General options
 
-* `DATABASE_URL`: Configures the database which Part-DB uses:
+* `DATABASE_URL` (env only): Configures the database which Part-DB uses:
    * For MySQL (or MariaDB) use a string in the form of `mysql://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<TABLE_NAME>` here
   (e.g. `DATABASE_URL=mysql://user:password@127.0.0.1:3306/part-db`).
    * For SQLite use the following format to specify the
@@ -42,10 +60,10 @@ options listed, see `.env` file for the full list of possible env variables.
 
      Please note that **`serverVersion=x.y`** variable is required due to dependency of Symfony framework.
 
-* `DATABASE_MYSQL_USE_SSL_CA`: If this value is set to `1` or `true` and a MySQL connection is used, then the connection
+* `DATABASE_MYSQL_USE_SSL_CA` (env only): If this value is set to `1` or `true` and a MySQL connection is used, then the connection
  is encrypted by SSL/TLS and the server certificate is verified against the system CA certificates or the CA certificate
 bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept all certificates.
-* `DATABASE_EMULATE_NATURAL_SORT` (default 0): If set to 1, Part-DB will emulate natural sorting, even if the database 
+* `DATABASE_EMULATE_NATURAL_SORT` (default 0) (env only): If set to 1, Part-DB will emulate natural sorting, even if the database 
   does not support it natively. However this is much slower than the native sorting, and contain bugs or quirks, so use
   it only, if you have to.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
@@ -74,7 +92,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   to specify the size in kilobytes, megabytes or gigabytes. By default `100M` (100 megabytes). Please note that this is
   only the limit of Part-DB. You still need to configure the php.ini `upload_max_filesize` and `post_max_size` to allow
   bigger files to be uploaded.
-* `DEFAULT_URI`: The default URI base to use for the Part-DB, when no URL can be determined from the browser request.
+* `DEFAULT_URI` (env only): The default URI base to use for the Part-DB, when no URL can be determined from the browser request.
   This should be the primary URL/Domain, which is used to access Part-DB. This value is used to create correct links in
   emails and other places, where the URL is needed. It is also used, when SAML is enabled.s If you are using a reverse
   proxy, you should set this to the URL of the reverse proxy (e.g. `https://part-db.example.com`). **This value must end
@@ -91,14 +109,14 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
 * `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
   versions, or if your server can not connect to the internet.
-* `APP_SECRET`: This variable is a configuration parameter used for various security-related purposes,
+* `APP_SECRET` (env only): This variable is a configuration parameter used for various security-related purposes,
   particularly for securing and protecting various aspects of your application. It's a secret key that is used for
   cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
 
-### E-Mail settings
+### E-Mail settings (all env only)
 
 * `MAILER_DSN`: You can configure the mail provider which should be used for email delivery (
   see https://symfony.com/doc/current/components/mailer.html for full documentation). If you just want to use an SMTP
@@ -138,7 +156,7 @@ The following options are used to configure, which (and how much) data is writte
 If you want to use want to revert changes or view older revisions of entities,
 then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAVE_REMOVED_DATA` all have to be true.
 
-### Error pages settings
+### Error pages settings (all env only)
 
 * `ERROR_PAGE_ADMIN_EMAIL`: You can set an email address here, which is shown on the error page, who should be contacted
   about the issue (e.g. an IT support email of your company)
@@ -153,7 +171,7 @@ then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAV
    All parts in the selected category and all subcategories are shown in KiCad. Set this to a higher value, if you want to show more categories in KiCad.
    When you set this value to -1, all parts are shown inside a single category in KiCad.
 
-### SAML SSO settings
+### SAML SSO settings (all env only)
 
 The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to log in to
 Part-DB without entering a username and password, but instead they are redirected to a SAML Identity Provider (IdP) and
@@ -201,26 +219,26 @@ See the [information providers]({% link usage/information_provider_system.md %})
 
 ### Other / less-used options
 
-* `TRUSTED_PROXIES`: Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct
+* `TRUSTED_PROXIES` (env only): Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct
   IP information (see [here](https://symfony.com/doc/current/deployment/proxies.html) for more info).
-* `TRUSTED_HOSTS`: To prevent `HTTP Host header attacks` you can set a regex containing all host names via which Part-DB
+* `TRUSTED_HOSTS` (env only): To prevent `HTTP Host header attacks` you can set a regex containing all host names via which Part-DB
   should be accessible. If accessed via the wrong hostname, an error will be shown.
-* `DEMO_MODE`: Set Part-DB into demo mode, which forbids users to change their passwords and settings. Used for the demo
+* `DEMO_MODE` (env only): Set Part-DB into demo mode, which forbids users to change their passwords and settings. Used for the demo
   instance. This should not be needed for normal installations.
-* `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`): Set this value to true, if your webserver does not
+* `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`) (env only): Set this value to true, if your webserver does not
   support rewrite. In this case, all URL paths will contain index.php/, which is needed then. Normally this setting does
   not need to be changed.
-* `REDIRECT_TO_HTTPS`: If this is set to true, all requests to http will be redirected to https. This is useful if your
+* `REDIRECT_TO_HTTPS` (env only): If this is set to true, all requests to http will be redirected to https. This is useful if your
   web server does not already do this (like the one used in the demo instance). If your web server already redirects to
   https, you don't need to set this. Ensure that Part-DB is accessible via HTTPS before you enable this setting.
 * `FIXER_API_KEY`: If you want to automatically retrieve exchange rates for base currencies other than euros, you have to
   configure an exchange rate provider API. [Fixer.io](https://fixer.io/) is preconfigured, and you just have to register
   there and set the retrieved API key in this environment variable.
-* `APP_ENV`: This value should always be set to `prod` in normal use. Set it to `dev` to enable debug/development
+* `APP_ENV` (env only): This value should always be set to `prod` in normal use. Set it to `dev` to enable debug/development
   mode. (**You should not do this on a publicly accessible server, as it will leak sensitive information!**)
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker
   containers. In all other applications you can just change the `config/banner.md` file.
-* `DISABLE_YEAR2038_BUG_CHECK`: If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
+* `DISABLE_YEAR2038_BUG_CHECK` (env only): If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
 2038 are no longer forbidden. However this will lead to 500 error messages when rendering dates after 2038 as all current
 32-bit PHP versions can not format these dates correctly. This setting is for the case that future PHP versions will
 handle this correctly on 32-bit systems. 64-bit systems are not affected by this bug, and the check is always disabled.
@@ -228,7 +246,7 @@ handle this correctly on 32-bit systems. 64-bit systems are not affected by this
 ## Banner
 
 To change the banner you can find on the homepage, you can either set the `BANNER` environment variable to the text you
-want to show, or you can edit the `config/banner.md` file. The banner is written in markdown, so you can use all
+want to show, or change it in the system settings webinterface. The banner is written in markdown, so you can use all
 markdown (and even some subset of HTML) syntax to format the text.
 
 ## parameters.yaml
@@ -243,8 +261,6 @@ command `bin/console cache:clear`.
 
 The following options are available:
 
-* `partdb.global_theme`: The default theme to use, when no user specific theme is set. Should be one of the themes from
-  the `partdb.available_themes` config option.
 * `partdb.locale_menu`: The codes of the languages, which should be shown in the language chooser menu (the one with the
   user icon in the navbar). The first language in the list will be the default language.
 * `partdb.gdpr_compliance`: When set to true (default value), IP addresses which are saved in the database will be
