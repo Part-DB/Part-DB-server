@@ -1,12 +1,13 @@
 {% extends "base.html.twig" %}
+{% import "vars.macro.twig" as vars %}
 
-{% block title %}{{ partdb_title }} {% trans %}tfa_backup.codes.title{% endtrans %}{% endblock %}
+{% block title %}{{ vars.partdb_title() }} {% trans %}tfa_backup.codes.title{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="card">
             <div class="card-header">
-                {{ partdb_title }} {% trans %}tfa_backup.codes.title{% endtrans %}
+                {{ vars.partdb_title() }} {% trans %}tfa_backup.codes.title{% endtrans %}
             </div>
             <div class="card-body">
                 <h5 class="card-title">{% trans %}tfa_backup.codes.explanation{% endtrans %}</h5>

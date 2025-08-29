@@ -42,6 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelProcessMode;
+use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
@@ -60,7 +61,7 @@ final class LabelHTMLGenerator
         private readonly LabelBarcodeGenerator $barcodeGenerator,
         private readonly SandboxedTwigFactory $sandboxedTwigProvider,
         private readonly Security $security,
-        private readonly string $partdb_title)
+        private readonly CustomizationSettings $customizationSettings,)
     {
     }
 
@@ -88,7 +89,8 @@ final class LabelHTMLGenerator
                             'page' => $page,
                             'last_page' => count($elements),
                             'user' => $current_user,
-                            'install_title' => $this->partdb_title,
+                            'install_title' => $this->customizationSettings->instanceName,
+                            'partdb_title' => $this->customizationSettings->instanceName,
                             'paper_width' => $options->getWidth(),
                             'paper_height' => $options->getHeight(),
                         ]

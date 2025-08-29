@@ -22,7 +22,11 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Settings\SettingsIcon;
 use Symfony\Component\HttpFoundation\Request;
+use App\Services\LogSystem\EventCommentType;
+use Jbtronics\SettingsBundle\Proxy\SettingsProxyInterface;
+use ReflectionClass;
 use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
@@ -36,12 +40,41 @@ final class MiscExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('event_comment_needed',
-                fn(string $operation_type) => $this->eventCommentNeededHelper->isCommentNeeded($operation_type)
-            ),
+            new TwigFunction('event_comment_needed', $this->evenCommentNeeded(...)),
 
+            new TwigFunction('settings_icon', $this->settingsIcon(...)),
             new TwigFunction('uri_without_host', $this->uri_without_host(...))
         ];
+    }
+
+    private function evenCommentNeeded(string|EventCommentType $operation_type): bool
+    {
+        if (is_string($operation_type)) {
+            $operation_type = EventCommentType::from($operation_type);
+        }
+
+        return $this->eventCommentNeededHelper->isCommentNeeded($operation_type);
+    }
+
+    /**
+     * Returns the value of the icon attribute of the SettingsIcon attribute of the given class.
+     * If the class does not have a SettingsIcon attribute, then null is returned.
+     * @param  string|object  $objectOrClass
+     * @return string|null
+     * @throws \ReflectionException
+     */
+    private function settingsIcon(string|object $objectOrClass): ?string
+    {
+        //If the given object is a proxy, then get the real object
+        if (is_a($objectOrClass, SettingsProxyInterface::class)) {
+            $objectOrClass = get_parent_class($objectOrClass);
+        }
+
+        $reflection = new ReflectionClass($objectOrClass);
+
+        $attribute = $reflection->getAttributes(SettingsIcon::class)[0] ?? null;
+
+        return $attribute?->newInstance()->icon;
     }
 
     /**

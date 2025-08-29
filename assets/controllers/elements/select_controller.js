@@ -40,6 +40,7 @@ export default class extends Controller {
 
 
         let settings = {
+            plugins: ["clear_button"],
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
@@ -50,7 +51,24 @@ export default class extends Controller {
             }
         };
 
+        //Load the drag_drop plugin if the select is ordered
+        if (this.element.dataset.orderedValue) {
+            settings.plugins.push('drag_drop');
+            settings.plugins.push("caret_position");
+        }
+
+        //If multiple items can be selected, enable the remove_button plugin
+        if (this.element.multiple) {
+            settings.plugins.push('remove_button');
+        }
+
         this._tomSelect = new TomSelect(this.element, settings);
+
+        //If the select is ordered, we need to update the value field (with the decoded value from the orderedValue field)
+        if (this.element.dataset.orderedValue) {
+            const data = JSON.parse(this.element.dataset.orderedValue);
+            this._tomSelect.setValue(data);
+        }
     }
 
     getTomSelect() {

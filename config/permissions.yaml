@@ -265,17 +265,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   #      label: "perm.database.write_db_settings"
   #      alsoSet: ['read_db_settings', 'see_status']
 
-  #config:
-  #  label: "perm.config"
-  #  group: "system"
-  #  operations:
-  #    read_config:
-  #      label: "perm.config.read_config"
-  #    edit_config:
-  #      label: "perm.config.edit_config"
-  #      alsoSet: 'read_config'
-  #    server_info:
-  #      label: "perm.config.server_info"
+  config:
+    label: "perm.config"
+    group: "system"
+    operations:
+      change_system_settings:
+        label: "perm.config.change_system_settings"
+        apiTokenRole: ROLE_API_ADMIN
 
   system:
     label: "perm.system"

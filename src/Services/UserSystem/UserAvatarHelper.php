@@ -30,6 +30,7 @@ use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
+use App\Settings\SystemSettings\PrivacySettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -42,7 +43,7 @@ class UserAvatarHelper
     public const IMG_DEFAULT_AVATAR_PATH = 'img/default_avatar.svg';
 
     public function __construct(
-        private readonly bool $use_gravatar,
+        private readonly PrivacySettings $privacySettings,
         private readonly Packages $packages,
         private readonly AttachmentURLGenerator $attachmentURLGenerator,
         private readonly EntityManagerInterface $entityManager,
@@ -65,7 +66,7 @@ class UserAvatarHelper
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
-        if ($this->use_gravatar) {
+        if ($this->privacySettings->useGravatar) {
             return $this->getGravatar($user, 200); //200px wide picture
         }
 
@@ -82,7 +83,7 @@ class UserAvatarHelper
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
-        if ($this->use_gravatar) {
+        if ($this->privacySettings->useGravatar) {
             return $this->getGravatar($user, 50); //50px wide picture
         }
 
@@ -99,7 +100,7 @@ class UserAvatarHelper
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)
-        if ($this->use_gravatar) {
+        if ($this->privacySettings->useGravatar) {
             return $this->getGravatar($user, 150);
         }
 

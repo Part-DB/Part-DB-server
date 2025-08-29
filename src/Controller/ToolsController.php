@@ -29,6 +29,7 @@ use App\Services\Doctrine\DBInfoHelper;
 use App\Services\Doctrine\NatsortDebugHelper;
 use App\Services\Misc\GitVersionInfo;
 use App\Services\System\UpdateAvailableManager;
+use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -47,7 +48,8 @@ class ToolsController extends AbstractController
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
+        AppSettings $settings): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
@@ -55,23 +57,23 @@ class ToolsController extends AbstractController
             //Part-DB section
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
-            'default_locale' => $this->getParameter('partdb.locale'),
-            'default_timezone' => $this->getParameter('partdb.timezone'),
-            'default_currency' => $this->getParameter('partdb.default_currency'),
-            'default_theme' => $this->getParameter('partdb.global_theme'),
+            'default_locale' => $settings->system->localization->locale,
+            'default_timezone' => $settings->system->localization->timezone,
+            'default_currency' => $settings->system->localization->baseCurrency,
+            'default_theme' => $settings->system->customization->theme,
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
+            'use_gravatar' => $settings->system->privacy->useGravatar,
             'gdpr_compliance' => $this->getParameter('partdb.gdpr_compliance'),
-            'use_gravatar' => $this->getParameter('partdb.users.use_gravatar'),
             'email_password_reset' => $this->getParameter('partdb.users.email_pw_reset'),
             'environment' => $this->getParameter('kernel.environment'),
             'is_debug' => $this->getParameter('kernel.debug'),
             'email_sender' => $this->getParameter('partdb.mail.sender_email'),
             'email_sender_name' => $this->getParameter('partdb.mail.sender_name'),
-            'allow_attachments_downloads' => $this->getParameter('partdb.attachments.allow_downloads'),
+            'allow_attachments_downloads' => $settings->system->attachments->allowDownloads,
             'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
-            'configured_max_file_size' => $this->getParameter('partdb.attachments.max_file_size'),
+            'configured_max_file_size' => $settings->system->attachments->maxFileSize,
             'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
             'saml_enabled' => $this->getParameter('partdb.saml.enabled'),
 

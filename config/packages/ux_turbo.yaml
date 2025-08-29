@@ -1,0 +1,4 @@
+# Enable stateless CSRF protection for forms and logins/logouts
+framework:
+    csrf_protection:
+        check_header: true

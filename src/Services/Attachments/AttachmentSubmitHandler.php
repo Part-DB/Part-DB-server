@@ -40,6 +40,7 @@ use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
 use const DIRECTORY_SEPARATOR;
@@ -64,12 +65,14 @@ class AttachmentSubmitHandler
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
         'htpasswd', ''];
 
-    public function __construct(protected AttachmentPathResolver $pathResolver, protected bool $allow_attachments_downloads,
-        protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes, protected readonly SVGSanitizer $SVGSanitizer,
-        protected FileTypeFilterTools $filterTools, /**
-         * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
-         */
-        protected string $max_upload_size)
+    public function __construct(
+        protected AttachmentPathResolver $pathResolver,
+        protected HttpClientInterface $httpClient,
+        protected MimeTypesInterface $mimeTypes,
+        protected FileTypeFilterTools $filterTools,
+        protected AttachmentsSettings $settings,
+        protected readonly SVGSanitizer $SVGSanitizer,
+    )
     {
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
@@ -337,7 +340,7 @@ class AttachmentSubmitHandler
     protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
         //Check if we are allowed to download files
-        if (!$this->allow_attachments_downloads) {
+        if (!$this->settings->allowDownloads) {
             throw new RuntimeException('Download of attachments is not allowed!');
         }
 
@@ -496,7 +499,7 @@ class AttachmentSubmitHandler
         $this->max_upload_size_bytes = min(
             $this->parseFileSizeString(ini_get('post_max_size')),
             $this->parseFileSizeString(ini_get('upload_max_filesize')),
-            $this->parseFileSizeString($this->max_upload_size),
+            $this->parseFileSizeString($this->settings->maxFileSize)
         );
 
         return $this->max_upload_size_bytes;

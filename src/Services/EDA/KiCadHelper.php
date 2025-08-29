@@ -29,6 +29,7 @@ use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -39,6 +40,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class KiCadHelper
 {
 
+    /** @var int The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
+    private readonly int $category_depth;
+
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
@@ -47,9 +51,9 @@ class KiCadHelper
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
-        /** The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
-        private readonly int $category_depth,
+        KiCadEDASettings $kiCadEDASettings,
     ) {
+        $this->category_depth = $kiCadEDASettings->categoryDepth;
     }
 
     /**

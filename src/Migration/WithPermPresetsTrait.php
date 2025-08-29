@@ -26,7 +26,7 @@ namespace App\Migration;
 use App\Entity\UserSystem\PermissionData;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\UserSystem\PermissionPresetsHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 trait WithPermPresetsTrait
 {

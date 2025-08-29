@@ -75,10 +75,10 @@ Part-DB is also used by small companies and universities for managing their inve
 
 * A **web server** (like Apache2 or nginx) that is capable of
   running [Symfony 6](https://symfony.com/doc/current/reference/requirements.html),
-  this includes a minimum PHP version of **PHP 8.1**
+  this includes a minimum PHP version of **PHP 8.2**
 * A **MySQL** (at least 5.7) /**MariaDB** (at least 10.4) database server, or **PostgreSQL** 10+ if you do not want to use SQLite.
 * Shell access to your server is highly recommended!
-* For building the client-side assets **yarn** and **nodejs** (>= 18.0) is needed.
+* For building the client-side assets **yarn** and **nodejs** (>= 20.0) is needed.
 
 ## Installation
 

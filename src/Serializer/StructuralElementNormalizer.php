@@ -23,20 +23,21 @@ declare(strict_types=1);
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementNormalizerTest
  */
-class StructuralElementNormalizer implements NormalizerInterface
+class StructuralElementNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
-    public function __construct(
-        #[Autowire(service: ObjectNormalizer::class)]private readonly NormalizerInterface $normalizer
-    )
-    {
-    }
+    use NormalizerAwareTrait;
+
+    public const ALREADY_CALLED = 'STRUCTURAL_ELEMENT_NORMALIZER_ALREADY_CALLED';
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -45,14 +46,24 @@ class StructuralElementNormalizer implements NormalizerInterface
             return false;
         }
 
+        if (isset($context[self::ALREADY_CALLED]) && in_array($data, $context[self::ALREADY_CALLED], true)) {
+            //If we already handled this object, skip it
+            return false;
+        }
+
         return $data instanceof AbstractStructuralDBElement;
     }
 
-    public function normalize($object, ?string $format = null, array $context = []): mixed
+    public function normalize($object, ?string $format = null, array $context = []): \ArrayObject|bool|float|int|string|array
     {
         if (!$object instanceof AbstractStructuralDBElement) {
             throw new \InvalidArgumentException('This normalizer only supports AbstractStructural objects!');
         }
+
+        //Avoid infinite recursion by checking if we already handled this object
+        $context[self::ALREADY_CALLED] = $context[self::ALREADY_CALLED] ?? [];
+        $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
+        $context[self::ALREADY_CALLED][] = $object;
 
         $data = $this->normalizer->normalize($object, $format, $context);
 
@@ -77,7 +88,8 @@ class StructuralElementNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            AbstractStructuralDBElement::class => true,
+            //We cannot cache the result, as it depends on the context
+            AbstractStructuralDBElement::class => false,
         ];
     }
 }

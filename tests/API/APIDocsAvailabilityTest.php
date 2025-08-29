@@ -23,15 +23,14 @@ declare(strict_types=1);
 
 namespace App\Tests\API;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class APIDocsAvailabilityTest extends WebTestCase
 {
-    /**
-     * @dataProvider urlProvider
-     */
+    #[DataProvider('urlProvider')]
     public function testDocAvailabilityForLoggedInUser(string $url): void
     {
         self::ensureKernelShutdown();

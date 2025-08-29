@@ -20,6 +20,8 @@
 import {Controller} from "@hotwired/stimulus";
 import TomSelect from "tom-select";
 
+// TODO: Merge with select_controller.js
+
 export default class extends Controller {
     _tomSelect;
 

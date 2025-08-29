@@ -9,7 +9,8 @@ datatables:
     # Set options, as documented at https://datatables.net/reference/option/
     options:
         lengthMenu : [[10, 25, 50, 100], [10, 25, 50, 100]] # We add the "All" option, when part tables are generated
-        pageLength: '%partdb.table.default_page_size%'   # Set to -1 to disable pagination (i.e. show all rows) by default
+        #pageLength: '%partdb.table.default_page_size%'   # Set to -1 to disable pagination (i.e. show all rows) by default
+        pageLength: 50 #TODO
         dom: "  <'row' <'col mb-2 input-group flex-nowrap' B l > <'col-auto mb-2' < p >>>
                     <'card'
                         rt

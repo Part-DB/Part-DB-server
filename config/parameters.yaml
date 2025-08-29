@@ -5,14 +5,10 @@ parameters:
   ######################################################################################################################
   # Common
   ######################################################################################################################
-  partdb.locale: '%env(string:DEFAULT_LANG)%'                 # The default language to use serverwide
-  partdb.timezone: '%env(string:DEFAULT_TIMEZONE)%'           # The default timezone
-  partdb.title: '%env(trim:string:INSTANCE_NAME)%'            # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-  partdb.banner: '%env(trim:string:BANNER)%'                  # The info text shown in the homepage, if empty config/banner.md is used
-  partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
-  partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
+
+  # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
+  partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh', 'pl']    # The languages that are shown in user drop down menu
-  partdb.enforce_change_comments_for: '%env(csv:ENFORCE_CHANGE_COMMENTS_FOR)%' # The actions for which a change comment is required (e.g. "part_edit", "part_create", etc.). If this is empty, change comments are not required at all.
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
 
@@ -22,10 +18,7 @@ parameters:
   # Users and Privacy
   ######################################################################################################################
   partdb.gdpr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GDPR compliant
-  partdb.users.use_gravatar: '%env(bool:USE_GRAVATAR)%'         # Set to false, if no Gravatar images should be used for user profiles.
   partdb.users.email_pw_reset: '%env(bool:ALLOW_EMAIL_PW_RESET)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
-
-  partdb.check_for_updates: '%env(bool:CHECK_FOR_UPDATES)' # Set to false, if Part-DB should not contact the GitHub API to check for updates
 
   ######################################################################################################################
   # Mail settings
@@ -36,11 +29,8 @@ parameters:
   ######################################################################################################################
   # Attachments and files
   ######################################################################################################################
-  partdb.attachments.allow_downloads: '%env(bool:ALLOW_ATTACHMENT_DOWNLOADS)%'    # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
-  partdb.attachments.download_by_default: '%env(bool:ATTACHMENT_DOWNLOAD_BY_DEFAULT)%' # If this is set the 'download external files' checkbox is set by default for new attachments (only if allow_downloads is set to true)
   partdb.attachments.dir.media: 'public/media/'                                   # The folder where uploaded attachment files are saved (must be in public folder)
   partdb.attachments.dir.secure: 'uploads/'                                       # The folder where secured attachment files are saved (must not be in public/)
-  partdb.attachments.max_file_size: '%env(string:MAX_ATTACHMENT_FILE_SIZE)%'      # The maximum size of an attachment file (in bytes, you can use M for megabytes and G for gigabytes)
 
   ######################################################################################################################
   # Error pages
@@ -53,28 +43,11 @@ parameters:
   ######################################################################################################################
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
-  ######################################################################################################################
-  # Table settings
-  ######################################################################################################################
-  partdb.table.default_page_size: '%env(int:TABLE_DEFAULT_PAGE_SIZE)%'               # The default number of entries shown per page in tables
-  partdb.table.parts.default_columns: '%env(trim:string:TABLE_PARTS_DEFAULT_COLUMNS)%' # The default columns in part tables and their order
-
-  ######################################################################################################################
-  # Sidebar
-  ######################################################################################################################
-  # You can configures the default shown tree items in the sidebar here. You can add or remove entries here, to change the number of trees in the sidebar. The possible entries are: categories, locations, footprints, manufacturers, suppliers, devices, tools
-  partdb.sidebar.items:
-    - categories
-    - devices
-    - tools
-  partdb.sidebar.root_expanded: true                         # If this is set to true, the root node of the sidebar is expanded by default
-  partdb.sidebar.root_node_enable: true                      # Put all entities below a root node in the sidebar
 
   ######################################################################################################################
   # Miscellaneous
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
-  partdb.show_part_image_overlay: '%env(bool:SHOW_PART_IMAGE_OVERLAY)%' # If set to false, the filename overlay of the part image will be disabled
 
   # Set the themes from which the user can choose from in the settings.
   # Themes commented here by default, are not really usable, because of display problems. Enable them at your own risk!
@@ -111,29 +84,17 @@ parameters:
   # Env default values
   ######################################################################################################################
 
-  env(DEFAULT_LANG): 'en'
-  env(DEFAULT_TIMEZONE): 'Europe/Berlin'
-  env(INSTANCE_NAME): 'Part-DB'
-  env(BASE_CURRENCY): 'EUR'
-  env(USE_GRAVATAR): '0'
-  env(MAX_ATTACHMENT_FILE_SIZE): '100M'
-
   env(REDIRECT_TO_HTTPS): 0
-
-  env(ENFORCE_CHANGE_COMMENTS_FOR): ''
 
   env(ERROR_PAGE_ADMIN_EMAIL): ''
   env(ERROR_PAGE_SHOW_HELP): 1
 
   env(DEMO_MODE): 0
-  env(BANNER): ''
 
 
   env(EMAIL_SENDER_EMAIL): 'noreply@partdb.changeme'
   env(EMAIL_SENDER_NAME): 'Part-DB Mailer'
   env(ALLOW_EMAIL_PW_RESET): 0
-
-  env(TABLE_DEFAULT_PAGE_SIZE): 50
 
   env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
   env(TRUSTED_HOSTS): '' # Trust all host names by default
@@ -141,12 +102,5 @@ parameters:
   env(DEFAULT_URI): 'https://partdb.changeme.invalid/'
 
   env(SAML_ROLE_MAPPING): '{}'
-
-  env(HISTORY_SAVE_CHANGED_DATA): 1
-  env(HISTORY_SAVE_CHANGED_FIELDS): 1
-  env(HISTORY_SAVE_REMOVED_DATA): 1
-  env(HISTORY_SAVE_NEW_DATA): 1
-
-  env(EDA_KICAD_CATEGORY_DEPTH): 0
 
   env(DATABASE_EMULATE_NATURAL_SORT): 0

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\UserSystem;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
@@ -91,7 +92,7 @@ class PermissionManagerTest extends WebTestCase
         $this->group->method('getParent')->willReturn($parent_group);
     }
 
-    public function getPermissionNames(): \Iterator
+    public static function getPermissionNames(): \Iterator
     {
         //List some permission names
         yield ['parts'];
@@ -101,9 +102,7 @@ class PermissionManagerTest extends WebTestCase
         yield ['tools'];
     }
 
-    /**
-     * @dataProvider getPermissionNames
-     */
+    #[DataProvider('getPermissionNames')]
     public function testListOperationsForPermission($perm_name): void
     {
         $arr = $this->service->listOperationsForPermission($perm_name);

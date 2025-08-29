@@ -121,3 +121,10 @@ del {
     background-color: #f09595;
     font-weight: bold;
 }
+
+/****************************************
+ * Password toggle
+ ****************************************/
+.toggle-password-button {
+    top: 0.7rem !important;
+}

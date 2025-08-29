@@ -28,6 +28,7 @@ use App\Entity\Attachments\Attachment;
 use App\Form\Filters\AttachmentFilterType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\TableSettings;
 use Omines\DataTablesBundle\DataTableFactory;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -98,7 +99,8 @@ class AttachmentFileController extends AbstractController
     }
 
     #[Route(path: '/attachment/list', name: 'attachment_list')]
-    public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder): Response
+    public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder,
+        TableSettings $tableSettings): Response
     {
         $this->denyAccessUnlessGranted('@attachments.list_attachments');
 
@@ -110,7 +112,7 @@ class AttachmentFileController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $dataTableFactory->createFromType(AttachmentDataTable::class, ['filter' => $filter])
+        $table = $dataTableFactory->createFromType(AttachmentDataTable::class, ['filter' => $filter], ['pageLength' => $tableSettings->fullDefaultPageSize])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
