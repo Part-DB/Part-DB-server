@@ -43,7 +43,8 @@ options listed, see `.env` file for the full list of possible env variables.
 Environment variables allow to overwrite settings in the web interface. This is useful, if you want to enforce certain
 settings to be unchangable by users, or if you want to configure settings in a central place in a deployed environment.
 On the settings page, you can hover over a setting to see, which environment variable can be used to overwrite it, it 
-is shown as tooltip.
+is shown as tooltip. API keys or similar sensitve data which is overwritten by env variables, are redacted on the web
+interface, so that even administrators cannot see them (only the last 2 characters and the length).
 
 For technical and security reasons some settings can only be configured via environment variables and not via the web
 interface. These settings are marked with "(env only)" in the description below.
