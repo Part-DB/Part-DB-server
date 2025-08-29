@@ -12318,6 +12318,529 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Profile saved!</target>
       </segment>
     </unit>
+    <unit id="XUlcyOb" name="settings.ips.element14">
+      <segment state="translated">
+        <source>settings.ips.element14</source>
+        <target>Element 14 / Farnell</target>
+      </segment>
+    </unit>
+    <unit id="1N9Wp0_" name="settings.ips.element14.apiKey">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey.help</source>
+        <target>You can register for an API key on &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId</source>
+        <target>Store Domain</target>
+      </segment>
+    </unit>
+    <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId.help</source>
+        <target>The store domain to retrieve the data from. This decides the language and currency of results. See &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;here&lt;/a&gt; for a list of valid domains.</target>
+      </segment>
+    </unit>
+    <unit id="WKWZIm2" name="settings.ips.tme">
+      <segment state="translated">
+        <source>settings.ips.tme</source>
+        <target>TME</target>
+      </segment>
+    </unit>
+    <unit id="KgK78ks" name="settings.ips.tme.token">
+      <segment state="translated">
+        <source>settings.ips.tme.token</source>
+        <target>API Token</target>
+      </segment>
+    </unit>
+    <unit id="_pYLrPT" name="settings.ips.tme.token.help">
+      <segment state="translated">
+        <source>settings.ips.tme.token.help</source>
+        <target>You can get an API token and secret on &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="yswx4bq" name="settings.ips.tme.secret">
+      <segment state="translated">
+        <source>settings.ips.tme.secret</source>
+        <target>API Secret</target>
+      </segment>
+    </unit>
+    <unit id="edYZA5y" name="settings.ips.tme.currency">
+      <segment state="translated">
+        <source>settings.ips.tme.currency</source>
+        <target>Currency</target>
+      </segment>
+    </unit>
+    <unit id="EsVqpUJ" name="settings.ips.tme.language">
+      <segment state="translated">
+        <source>settings.ips.tme.language</source>
+        <target>Language</target>
+      </segment>
+    </unit>
+    <unit id="qFwUGJJ" name="settings.ips.tme.country">
+      <segment state="translated">
+        <source>settings.ips.tme.country</source>
+        <target>Country</target>
+      </segment>
+    </unit>
+    <unit id="Mf2WKob" name="settings.ips.tme.grossPrices">
+      <segment state="translated">
+        <source>settings.ips.tme.grossPrices</source>
+        <target>Get gross prices (including tax)</target>
+      </segment>
+    </unit>
+    <unit id="A.x1dyH" name="settings.ips.mouser">
+      <segment state="translated">
+        <source>settings.ips.mouser</source>
+        <target>Mouser</target>
+      </segment>
+    </unit>
+    <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey</source>
+        <target>API key</target>
+      </segment>
+    </unit>
+    <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey.help</source>
+        <target>You can register for an API key on &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit</source>
+        <target>Search limit</target>
+      </segment>
+    </unit>
+    <unit id="aj5nhIi" name="settings.ips.mouser.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit.help</source>
+        <target>The maximum amount of results for a single search. Can not be higher than 50.</target>
+      </segment>
+    </unit>
+    <unit id="q8.Wpbu" name="settings.ips.mouser.searchOptions">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions</source>
+        <target>Search filters</target>
+      </segment>
+    </unit>
+    <unit id="7ERXoOf" name="settings.ips.mouser.searchOptions.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.help</source>
+        <target>This allows you to only show parts with a certain availability and/or compliance.</target>
+      </segment>
+    </unit>
+    <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.none</source>
+        <target>No filter</target>
+      </segment>
+    </unit>
+    <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohs</source>
+        <target>Only RoHS compliant parts</target>
+      </segment>
+    </unit>
+    <unit id="4SPypVz" name="settings.ips.mouser.searchOptions.inStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.inStock</source>
+        <target>Only in stock parts</target>
+      </segment>
+    </unit>
+    <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
+        <target>Only in stock, RoHS compliant parts</target>
+      </segment>
+    </unit>
+    <unit id="fQYt0Om" name="settings.ips.lcsc">
+      <segment state="translated">
+        <source>settings.ips.lcsc</source>
+        <target>LCSC</target>
+      </segment>
+    </unit>
+    <unit id="iD6HBym" name="settings.ips.lcsc.help">
+      <segment state="translated">
+        <source>settings.ips.lcsc.help</source>
+        <target>Warning: LCSC does not provide an official API. This provider utilizes the webshop API. LCSC did not intend the use of this API, and it could break any time, so use it on your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="v7inGbo" name="settings.ips.lcsc.enabled">
+      <segment state="translated">
+        <source>settings.ips.lcsc.enabled</source>
+        <target>Enable</target>
+      </segment>
+    </unit>
+    <unit id="3KcMouQ" name="settings.ips.lcsc.currency">
+      <segment state="translated">
+        <source>settings.ips.lcsc.currency</source>
+        <target>Currency</target>
+      </segment>
+    </unit>
+    <unit id="kKv0J3." name="settings.system.attachments">
+      <segment state="translated">
+        <source>settings.system.attachments</source>
+        <target>Attachments &amp; Files</target>
+      </segment>
+    </unit>
+    <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize</source>
+        <target>Maximum file size</target>
+      </segment>
+    </unit>
+    <unit id="uI1XsbJ" name="settings.system.attachments.maxFileSize.help">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize.help</source>
+        <target>The maximum size of files that can be uploaded. Please note that this is also limited by PHP configuration.</target>
+      </segment>
+    </unit>
+    <unit id="sIt9Ovp" name="settings.system.attachments.allowDownloads">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads</source>
+        <target>Allow downloading of external files</target>
+      </segment>
+    </unit>
+    <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads.help</source>
+        <target>With this option users can download external files into Part-DB by providing an URL. &lt;b&gt;Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
+      <segment state="translated">
+        <source>settings.system.attachments.downloadByDefault</source>
+        <target>Download new attachment URLs by default</target>
+      </segment>
+    </unit>
+    <unit id="UuDCaUI" name="settings.system.customization">
+      <segment state="translated">
+        <source>settings.system.customization</source>
+        <target>Customization</target>
+      </segment>
+    </unit>
+    <unit id="VYMqQr5" name="settings.system.customization.instanceName">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName</source>
+        <target>Instance name</target>
+      </segment>
+    </unit>
+    <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName.help</source>
+        <target>Name of this Part-DB installation. The value is shown in nav bar and titles.</target>
+      </segment>
+    </unit>
+    <unit id="28n6rA7" name="settings.system.customization.banner">
+      <segment state="translated">
+        <source>settings.system.customization.banner</source>
+        <target>Homepage banner</target>
+      </segment>
+    </unit>
+    <unit id="cdwJbbA" name="settings.system.history">
+      <segment state="translated">
+        <source>settings.system.history</source>
+        <target>History log</target>
+      </segment>
+    </unit>
+    <unit id="6TrsK5U" name="settings.system.history.saveChangedFields">
+      <segment state="translated">
+        <source>settings.system.history.saveChangedFields</source>
+        <target>Save which fields of an element were changed in log entries</target>
+      </segment>
+    </unit>
+    <unit id="IVP9YL8" name="settings.system.history.saveOldData">
+      <segment state="translated">
+        <source>settings.system.history.saveOldData</source>
+        <target>Save the old data in log entries on element changes</target>
+      </segment>
+    </unit>
+    <unit id="clqgFOW" name="settings.system.history.saveNewData">
+      <segment state="translated">
+        <source>settings.system.history.saveNewData</source>
+        <target>Save the new data in log entries on element change/creation</target>
+      </segment>
+    </unit>
+    <unit id="MITi2KP" name="settings.system.history.saveRemovedData">
+      <segment state="translated">
+        <source>settings.system.history.saveRemovedData</source>
+        <target>Save removed data in log entries on element deletion</target>
+      </segment>
+    </unit>
+    <unit id="pinyqu2" name="settings.system.customization.theme">
+      <segment state="translated">
+        <source>settings.system.customization.theme</source>
+        <target>Global theme</target>
+      </segment>
+    </unit>
+    <unit id="Aky9nXE" name="settings.system.history.enforceComments">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments</source>
+        <target>Enforce comments for action types</target>
+      </segment>
+    </unit>
+    <unit id="axivgKB" name="settings.system.history.enforceComments.description">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.description</source>
+        <target>With this option, you can specify for which actions, users are enforced to give a reason, which will be logged in history.</target>
+      </segment>
+    </unit>
+    <unit id="eqQKTzQ" name="settings.system.history.enforceComments.type.part_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_edit</source>
+        <target>Part edit</target>
+      </segment>
+    </unit>
+    <unit id="Ip_kAO3" name="settings.system.history.enforceComments.type.part_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_create</source>
+        <target>Part creation</target>
+      </segment>
+    </unit>
+    <unit id="qEa.03L" name="settings.system.history.enforceComments.type.part_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_delete</source>
+        <target>Part deletion</target>
+      </segment>
+    </unit>
+    <unit id="zjITvo2" name="settings.system.history.enforceComments.type.part_stock_operation">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_stock_operation</source>
+        <target>Part stock operation</target>
+      </segment>
+    </unit>
+    <unit id="hPbibkF" name="settings.system.history.enforceComments.type.datastructure_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_edit</source>
+        <target>Data structure edit</target>
+      </segment>
+    </unit>
+    <unit id="7mB_fP3" name="settings.system.history.enforceComments.type.datastructure_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_create</source>
+        <target>Data structure creation</target>
+      </segment>
+    </unit>
+    <unit id="nt8eToz" name="settings.system.history.enforceComments.type.datastructure_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_delete</source>
+        <target>Data structure deletion</target>
+      </segment>
+    </unit>
+    <unit id="zQ8vq5N" name="settings.system.privacy.useGravatar">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar</source>
+        <target>Use Gravatar avatars</target>
+      </segment>
+    </unit>
+    <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar.description</source>
+        <target>If a user does not have an avatar image specified, use the avatar from Gravatar based on the user email. This causes the browser to load pictures from a third-party!</target>
+      </segment>
+    </unit>
+    <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates</source>
+        <target>Check for Part-DB updates</target>
+      </segment>
+    </unit>
+    <unit id="LrAcb0O" name="settings.system.privacy.checkForUpdates.description">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates.description</source>
+        <target>Part-DB regularly checks if a new version is available on GitHub. Disable this here, if you do not want this or if your server can not connect to the internet.</target>
+      </segment>
+    </unit>
+    <unit id="nMhHcYc" name="settings.system.localization.locale">
+      <segment state="translated">
+        <source>settings.system.localization.locale</source>
+        <target>Default language / locale</target>
+      </segment>
+    </unit>
+    <unit id="vWBNX1b" name="settings.system.localization">
+      <segment state="translated">
+        <source>settings.system.localization</source>
+        <target>Localization</target>
+      </segment>
+    </unit>
+    <unit id="7_M.HcK" name="settings.system.localization.timezone">
+      <segment state="translated">
+        <source>settings.system.localization.timezone</source>
+        <target>Default timezone</target>
+      </segment>
+    </unit>
+    <unit id="CCMOzX7" name="settings.system.localization.base_currency">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency</source>
+        <target>Base currency</target>
+      </segment>
+    </unit>
+    <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency_description</source>
+        <target>The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
+&lt;b&gt;Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="cvpTUeY" name="settings.system.privacy">
+      <segment state="translated">
+        <source>settings.system.privacy</source>
+        <target>Privacy</target>
+      </segment>
+    </unit>
+    <unit id="TVAVZUl" name="settings.title">
+      <segment state="translated">
+        <source>settings.title</source>
+        <target>Server settings</target>
+      </segment>
+    </unit>
+    <unit id="xtw_ol7" name="settings.misc.kicad_eda">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda</source>
+        <target>KiCAD integration</target>
+      </segment>
+    </unit>
+    <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth</source>
+        <target>Category depth</target>
+      </segment>
+    </unit>
+    <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth.help</source>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
+      </segment>
+    </unit>
+    <unit id="VwvmcWE" name="settings.behavior.sidebar">
+      <segment state="translated">
+        <source>settings.behavior.sidebar</source>
+        <target>Sidebar</target>
+      </segment>
+    </unit>
+    <unit id="FIneGzR" name="settings.behavior.sidebar.items">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items</source>
+        <target>Sidebar items</target>
+      </segment>
+    </unit>
+    <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items.help</source>
+        <target>The menus which appear at the sidebar by default. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled</source>
+        <target>Use root node</target>
+      </segment>
+    </unit>
+    <unit id="uk0yKdg" name="settings.behavior.sidebar.rootNodeEnabled.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
+        <target>If this is enabled, all top-level categories, footprints, etc. will be put under a single root node. If disabled, the top-level categories will be put directly into the menu.</target>
+      </segment>
+    </unit>
+    <unit id="brCNh0M" name="settings.behavior.sidebar.rootNodeExpanded">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeExpanded</source>
+        <target>Expand root node by default</target>
+      </segment>
+    </unit>
+    <unit id="NkW8ELV" name="settings.behavior.table">
+      <segment state="translated">
+        <source>settings.behavior.table</source>
+        <target>Tables</target>
+      </segment>
+    </unit>
+    <unit id="1Zrv2eZ" name="settings.behavior.table.default_page_size">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size</source>
+        <target>Default page size</target>
+      </segment>
+    </unit>
+    <unit id="lbx.zdp" name="settings.behavior.table.default_page_size.help">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size.help</source>
+        <target>The default page size on full page tables. Set to -1 to show all items by default without pagination.</target>
+      </segment>
+    </unit>
+    <unit id="G1N8QW3" name="settings.behavior.table.parts_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns</source>
+        <target>Default columns for part tables</target>
+      </segment>
+    </unit>
+    <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns.help</source>
+        <target>The columns to show by default in part tables. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="hazr_g5" name="settings.ips.oemsecrets">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets</source>
+        <target>OEMSecrets</target>
+      </segment>
+    </unit>
+    <unit id="ljRPsNX" name="settings.ips.oemsecrets.keepZeroPrices">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices</source>
+        <target>Keep distributors with zero prices</target>
+      </segment>
+    </unit>
+    <unit id="c7YTKEY" name="settings.ips.oemsecrets.keepZeroPrices.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices.help</source>
+        <target>If this is not set, distributors where the prices are 0 will be discarded as invalid</target>
+      </segment>
+    </unit>
+    <unit id="ym9EcxF" name="settings.ips.oemsecrets.parseParams">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams</source>
+        <target>Extract parameters from description</target>
+      </segment>
+    </unit>
+    <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams.help</source>
+        <target>If enabled, the provider tries to convert the unstructured descriptions of OEMSecrets into structured parameters. Each parameter in the description should have the form "...;name1:value1;name2:value2"</target>
+      </segment>
+    </unit>
+    <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode</source>
+        <target>Result sort mode</target>
+      </segment>
+    </unit>
+    <unit id="3VDLyjD" name="settings.ips.oemsecrets.sortMode.N">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.N</source>
+        <target>None</target>
+      </segment>
+    </unit>
+    <unit id="Oz.6cJY" name="settings.ips.oemsecrets.sortMode.C">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.C</source>
+        <target>Completeness (prioritize items with detailed information)</target>
+      </segment>
+    </unit>
+    <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.M</source>
+        <target>Completeness &amp; Manufacturer name</target>
+      </segment>
+    </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
       <segment state="translated">
         <source>entity.export.flash.error.no_entities</source>
@@ -12370,6 +12893,168 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>parts.table.action_handler.error.part_lots_multiple</source>
         <target>This part contains more than one stock. Change the location by hand to select, which stock to choose.</target>
+      </segment>
+    </unit>
+    <unit id="qn25jL." name="settings.ips.reichelt">
+      <segment state="translated">
+        <source>settings.ips.reichelt</source>
+        <target>Reichelt</target>
+      </segment>
+    </unit>
+    <unit id="yYazL3j" name="settings.ips.reichelt.help">
+      <segment state="translated">
+        <source>settings.ips.reichelt.help</source>
+        <target>Reichelt.com offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="2EVJVc6" name="settings.ips.reichelt.include_vat">
+      <segment state="translated">
+        <source>settings.ips.reichelt.include_vat</source>
+        <target>Include VAT in prices</target>
+      </segment>
+    </unit>
+    <unit id="Ocp5ktF" name="settings.ips.pollin">
+      <segment state="translated">
+        <source>settings.ips.pollin</source>
+        <target>Pollin</target>
+      </segment>
+    </unit>
+    <unit id="Xlj6kj2" name="settings.ips.pollin.help">
+      <segment state="translated">
+        <source>settings.ips.pollin.help</source>
+        <target>Pollin.de offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
+        <target>Root nodes redirect to new entity pages</target>
+      </segment>
+    </unit>
+    <unit id="j7HiQ80" name="settings.ips.digikey">
+      <segment state="translated">
+        <source>settings.ips.digikey</source>
+        <target>Digikey</target>
+      </segment>
+    </unit>
+    <unit id="_ViyVdh" name="settings.ips.digikey.client_id">
+      <segment state="translated">
+        <source>settings.ips.digikey.client_id</source>
+        <target>Client ID</target>
+      </segment>
+    </unit>
+    <unit id="eB9dDyp" name="settings.ips.digikey.secret">
+      <segment state="translated">
+        <source>settings.ips.digikey.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="5xjmMzf" name="settings.ips.octopart">
+      <segment state="translated">
+        <source>settings.ips.octopart</source>
+        <target>Octopart / Nexar</target>
+      </segment>
+    </unit>
+    <unit id="vGv90iO" name="settings.ips.octopart.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit</source>
+        <target>Number of results</target>
+      </segment>
+    </unit>
+    <unit id="au4Yeps" name="settings.ips.octopart.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit.help</source>
+        <target>The number of results to get from Octopart while searching (please note that this counts towards your API limits)</target>
+      </segment>
+    </unit>
+    <unit id="Tiqmk.8" name="settings.ips.octopart.onlyAuthorizedSellers">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers</source>
+        <target>Only authorized sellers</target>
+      </segment>
+    </unit>
+    <unit id="ECQkeJy" name="settings.ips.octopart.onlyAuthorizedSellers.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers.help</source>
+        <target>Set to false to include non-authorized offers in the results</target>
+      </segment>
+    </unit>
+    <unit id="iRDDtdU" name="settings.misc.exchange_rate">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate</source>
+        <target>Money exchange rates</target>
+      </segment>
+    </unit>
+    <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key</source>
+        <target>Fixer.io API Key</target>
+      </segment>
+    </unit>
+    <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key.help</source>
+        <target>If you need exchange rates between non-euro currencies, you can input an API key from fixer.io here.</target>
+      </segment>
+    </unit>
+    <unit id="Ffr5xYM" name="settings.behavior.part_info">
+      <segment state="translated">
+        <source>settings.behavior.part_info</source>
+        <target>Part info page</target>
+      </segment>
+    </unit>
+    <unit id="weH3j.a" name="settings.behavior.part_info.show_part_image_overlay">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay</source>
+        <target>Show image overlay</target>
+      </segment>
+    </unit>
+    <unit id="SCUs3WS" name="settings.behavior.part_info.show_part_image_overlay.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay.help</source>
+        <target>Show the image overlay with attachment details on hovering over the part image gallery.</target>
+      </segment>
+    </unit>
+    <unit id="ALfPkeR" name="perm.config.change_system_settings">
+      <segment state="translated">
+        <source>perm.config.change_system_settings</source>
+        <target>Change system settings</target>
+      </segment>
+    </unit>
+    <unit id="TlHeIjk" name="tree.tools.system.settings">
+      <segment state="translated">
+        <source>tree.tools.system.settings</source>
+        <target>System settings</target>
+      </segment>
+    </unit>
+    <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
+      <segment state="translated">
+        <source>settings.tooltip.overrideable_by_env</source>
+        <target>The value of this parameter can be overridden by setting the environment variable "%env%".</target>
+      </segment>
+    </unit>
+    <unit id="boWkQh7" name="settings.flash.saved">
+      <segment state="translated">
+        <source>settings.flash.saved</source>
+        <target>Settings saved successfully.</target>
+      </segment>
+    </unit>
+    <unit id="tEYWrWD" name="settings.flash.invalid">
+      <segment state="translated">
+        <source>settings.flash.invalid</source>
+        <target>Settings are invalid. Please check your input!</target>
+      </segment>
+    </unit>
+    <unit id="yRXWSRN" name="info_providers.settings.title">
+      <segment state="translated">
+        <source>info_providers.settings.title</source>
+        <target>Info provider settings</target>
+      </segment>
+    </unit>
+    <unit id="VgSodKY" name="form.apikey.redacted">
+      <segment state="translated">
+        <source>form.apikey.redacted</source>
+        <target>Redacted for security reasons</target>
       </segment>
     </unit>
   </file>
