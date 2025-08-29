@@ -27,7 +27,7 @@ RUN set -eux; \
       | tee /etc/apt/sources.list.d/yarn.list; \
     \
     # Run NodeSource setup script (unchanged)
-    curl -sL https://deb.nodesource.com/setup_20.x | bash -; \
+    curl -sL https://deb.nodesource.com/setup_22.x | bash -; \
     \
     # Install Node.js + Yarn
     apt-get update; \
