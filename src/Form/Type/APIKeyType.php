@@ -28,9 +28,14 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class APIKeyType extends AbstractType
 {
+    public function __construct(private readonly TranslatorInterface $translator)
+    {
+    }
+
     public function getParent(): string
     {
         return PasswordType::class;
@@ -38,8 +43,30 @@ class APIKeyType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        //Ensure that the field is never empty
-        $view->vars['value'] = $form->getViewData();
+        $viewData = $form->getViewData();
+
+        //If the field is disabled, show the redacted API key
+        if ($options['disabled'] ?? false) {
+            if ($viewData === null || $viewData === '') {
+                $view->vars['value'] = $viewData;
+            } else {
+
+                $view->vars['value'] = self::redact((string)$viewData) . ' (' . $this ->translator->trans("form.apikey.redacted") . ')';
+            }
+        } else { //Otherwise, show the actual value
+            $view->vars['value'] = $viewData;
+        }
+    }
+
+    public static function redact(string $apiKey): string
+    {
+        //Show only the last 2 characters of the API key if it is long enough (more than 16 characters)
+        //Replace all other characters with dots
+        if (strlen($apiKey) > 16) {
+            return str_repeat('*', strlen($apiKey) - 2) . substr($apiKey, -2);
+        }
+
+        return str_repeat('*', strlen($apiKey));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

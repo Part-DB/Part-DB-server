@@ -13051,5 +13051,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Info provider settings</target>
       </segment>
     </unit>
+    <unit id="VgSodKY" name="form.apikey.redacted">
+      <segment>
+        <source>form.apikey.redacted</source>
+        <target>Redacted for security reasons</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
