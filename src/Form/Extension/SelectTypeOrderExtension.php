@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 
-namespace App\Form;
+namespace App\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
