@@ -85,6 +85,7 @@ final class TogglePasswordTypeExtension extends AbstractTypeExtension
         }
 
         $controllerName = 'toggle-password';
+        $controllerValues = [];
         $view->vars['attr']['data-controller'] = trim(\sprintf('%s %s', $view->vars['attr']['data-controller'] ?? '', $controllerName));
 
         if (false !== $options['toggle_translation_domain']) {
