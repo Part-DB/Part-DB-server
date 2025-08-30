@@ -2023,9 +2023,6 @@
     loader-utils "^2.0.0 || ^3.0.0"
     schema-utils "^3.0.0 || ^4.0.0"
 
-"@symfony/ux-toggle-password@file:vendor/symfony/ux-toggle-password/assets":
-  version "2.29.2"
-
 "@symfony/ux-translator@file:vendor/symfony/ux-translator/assets":
   version "2.29.2"
 

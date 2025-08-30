@@ -33,5 +33,4 @@ return [
     Jbtronics\SettingsBundle\JbtronicsSettingsBundle::class => ['all' => true],
     Jbtronics\TranslationEditorBundle\JbtronicsTranslationEditorBundle::class => ['dev' => true],
     ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
-    Symfony\UX\TogglePassword\TogglePasswordBundle::class => ['all' => true],
 ];

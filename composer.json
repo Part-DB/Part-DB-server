@@ -80,7 +80,6 @@
         "symfony/string": "7.3.*",
         "symfony/translation": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
-        "symfony/ux-toggle-password": "^2.29",
         "symfony/ux-translator": "^2.10",
         "symfony/ux-turbo": "^2.0",
         "symfony/validator": "7.3.*",
