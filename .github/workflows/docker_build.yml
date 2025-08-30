@@ -1,5 +1,8 @@
 name: Docker Image Build
 
+permissions:
+    contents: read
+
 on:
   #schedule:
   #  - cron: '0 10 * * *' # everyday at 10am
