@@ -7161,6 +7161,2232 @@ Element 2
 Element 3</target>
       </segment>
     </unit>
+    <unit id="TWSqPFi" name="entity.mass_creation.btn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.mass_creation.btn</source>
+        <target>Anlegen</target>
+      </segment>
+    </unit>
+    <unit id="qJKwgn2" name="measurement_unit.edit.is_integer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer</source>
+        <target>Ganzzahlig</target>
+      </segment>
+    </unit>
+    <unit id="u3dn3AS" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target>Wenn diese Option aktiviert ist, werden alle Mengen in dieser Einheit auf ganze Zahlen gerundet.</target>
+      </segment>
+    </unit>
+    <unit id="gZdMQSn" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target>Benutze SI Prefixe</target>
+      </segment>
+    </unit>
+    <unit id="vvnrMJA" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>Wenn diese Option aktiviert ist, werden bei Ausgabe der Zahlen SI Prefixe benutzt (z.B. 1,2kg anstatt 1200g)</target>
+      </segment>
+    </unit>
+    <unit id="gPCdcst" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>Einheitensymbol</target>
+      </segment>
+    </unit>
+    <unit id="vCiMyIU" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>z.B. m</target>
+      </segment>
+    </unit>
+    <unit id="_xazC8o" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>Lagerort voll</target>
+      </segment>
+    </unit>
+    <unit id="XF4C7ZG" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>Wenn diese Option aktiviert ist, ist es weder möglich neue Bauteile zu diesem Lagerort hinzuzufügen, noch die Anzahl bereits vorhandener Bauteile zu erhöhen.</target>
+      </segment>
+    </unit>
+    <unit id="V1su4ac" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>Nur bestehende Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="6D.6huj" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>Wenn diese Option aktiv ist, ist es nicht möglich neue Bauteile zu diesem Lagerort hinzuzufügen, es ist aber möglich die Anzahl bereits vorhandener Bauteile zu erhöhen.</target>
+      </segment>
+    </unit>
+    <unit id="tGVVeof" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>Nur ein Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="Hyh5pvY" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>Wenn diese Option aktiviert ist, kann dieser Lagerort nur ein einzelnes Bauteil aber in beliebiger Menge fassen. Hilfreich für kleine SMD Fächer oder Feeder.</target>
+      </segment>
+    </unit>
+    <unit id="sty2ele" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>Lagertyp</target>
+      </segment>
+    </unit>
+    <unit id="V5bAC9W" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>Hier kann eine Maßeinheit gewählt werden, die ein Bauteil haben muss, damit es in diesem Lagerort gelagert werden kann.</target>
+      </segment>
+    </unit>
+    <unit id="ilC3c6u" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>Standardwährung</target>
+      </segment>
+    </unit>
+    <unit id="g_1n6ln" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>Versandkosten</target>
+      </segment>
+    </unit>
+    <unit id="1oS_Sxe" name="user.username.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.placeholder</source>
+        <target>z.B. m.muster</target>
+      </segment>
+    </unit>
+    <unit id="NVpoLlP" name="user.firstName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.placeholder</source>
+        <target>z.B. Max</target>
+      </segment>
+    </unit>
+    <unit id="lYSMN_y" name="user.lastName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.placeholder</source>
+        <target>z.B. Muster</target>
+      </segment>
+    </unit>
+    <unit id="jiKhU7W" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>z.B. m.muster@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="52ZHFPS" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>z.B. Entwicklung</target>
+      </segment>
+    </unit>
+    <unit id="zAQlC_i" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>Neues Passwort</target>
+      </segment>
+    </unit>
+    <unit id="hoxGr2I" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>Neues Passwort bestätigen</target>
+      </segment>
+    </unit>
+    <unit id="7xPRLHW" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>Nutzer muss Passwort ändern</target>
+      </segment>
+    </unit>
+    <unit id="77ZzKxQ" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>Benutzer deaktiviert (kein Login möglich)</target>
+      </segment>
+    </unit>
+    <unit id="1.5z09Y" name="user.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.create</source>
+        <target>Benutzer anlegen</target>
+      </segment>
+    </unit>
+    <unit id="Rd9sNEU" name="user.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.save</source>
+        <target>Speichern</target>
+      </segment>
+    </unit>
+    <unit id="uTYx0nw" name="entity.edit.reset">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.reset</source>
+        <target>Änderungen verwerfen</target>
+      </segment>
+    </unit>
+    <unit id="rwhG3NF" name="part.withdraw.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.btn</source>
+        <target>Entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="KYhBkRo" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>Kommentar/Zweck</target>
+      </segment>
+    </unit>
+    <unit id="kAlV8Zt" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>Bauteil hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="TAZxRYj" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>Hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="yqLffb1" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>Kommentar/Zweck</target>
+      </segment>
+    </unit>
+    <unit id="oj5uuIF" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="VI_567B" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>Herstellerlink</target>
+      </segment>
+    </unit>
+    <unit id="hx8T2RQ" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>z.B. NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="SDwGex2" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>z.B. 12</target>
+      </segment>
+    </unit>
+    <unit id="of7AUNW" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>z.B. 10</target>
+      </segment>
+    </unit>
+    <unit id="OsZzrme" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>pro</target>
+      </segment>
+    </unit>
+    <unit id="dEQm2lQ" name="part.withdraw.caption">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption</source>
+        <target>Bauteile entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
+    <unit id="IPge2iH" name="perm.group.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.parts</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="MWuraHU" name="perm.group.structures">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.structures</source>
+        <target>Datenstrukturen</target>
+      </segment>
+    </unit>
+    <unit id="YR3Kupe" name="perm.group.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.group.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="QpKjLiE" name="perm.parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.parts</source>
+        <target>Allgemein</target>
+      </segment>
+    </unit>
+    <unit id="lkP7BGp" name="perm.read">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.read</source>
+        <target>Anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="LqLEHbP" name="perm.edit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="r4UG6G7" name="perm.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.create</source>
+        <target>Anlegen</target>
+      </segment>
+    </unit>
+    <unit id="cWi17IQ" name="perm.part.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.move</source>
+        <target>Kategorie verändern</target>
+      </segment>
+    </unit>
+    <unit id="rwuTftF" name="perm.delete">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="s9QV27G" name="perm.part.search">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.search</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="JpHblld" name="perm.part.all_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.all_parts</source>
+        <target>Alle Bauteile auflisten</target>
+      </segment>
+    </unit>
+    <unit id="xGpxdp3" name="perm.part.no_price_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.no_price_parts</source>
+        <target>Teile ohne Preis auflisten</target>
+      </segment>
+    </unit>
+    <unit id="gVBtadZ" name="perm.part.obsolete_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.obsolete_parts</source>
+        <target>Obsolete Teile auflisten</target>
+      </segment>
+    </unit>
+    <unit id="rh5syrd" name="perm.part.unknown_instock_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unknown_instock_parts</source>
+        <target>Bauteile mit unbekanntem Bestand auflisten</target>
+      </segment>
+    </unit>
+    <unit id="NPRUtkE" name="perm.part.change_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.change_favorite</source>
+        <target>Favoritenstatus ändern</target>
+      </segment>
+    </unit>
+    <unit id="uSlD_4R" name="perm.part.show_favorite">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_favorite</source>
+        <target>Favoriten anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="a6_M8G2" name="perm.part.show_last_edit_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_last_edit_parts</source>
+        <target>Zeige zuletzt bearbeitete/hinzugefügte Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="_d1.jDW" name="perm.part.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_users</source>
+        <target>Letzten bearbeitenden Nutzer anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="rRpUKnD" name="perm.part.show_history">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.show_history</source>
+        <target>Historie anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="daTZIiU" name="perm.part.name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="8xbBpd6" name="perm.part.description">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="NXbqLSh" name="perm.part.instock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.instock</source>
+        <target>Vorhanden</target>
+      </segment>
+    </unit>
+    <unit id="_4ZW26T" name="perm.part.mininstock">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mininstock</source>
+        <target>Min. Bestand</target>
+      </segment>
+    </unit>
+    <unit id="bip50EM" name="perm.part.comment">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="diqCrTG" name="perm.part.storelocation">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.storelocation</source>
+        <target>Lagerort</target>
+      </segment>
+    </unit>
+    <unit id="ijqgYFf" name="perm.part.manufacturer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturer</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="JMu_.7." name="perm.part.orderdetails">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.orderdetails</source>
+        <target>Bestellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="rFVBtUF" name="perm.part.prices">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.prices</source>
+        <target>Preise</target>
+      </segment>
+    </unit>
+    <unit id="xRY0lOj" name="perm.part.attachments">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachments</source>
+        <target>Dateianhänge</target>
+      </segment>
+    </unit>
+    <unit id="M2Gqflj" name="perm.part.order">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.order</source>
+        <target>Bestellungen</target>
+      </segment>
+    </unit>
+    <unit id="9e70TDD" name="perm.storelocations">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.storelocations</source>
+        <target>Lagerorte</target>
+      </segment>
+    </unit>
+    <unit id="iKqTace" name="perm.move">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.move</source>
+        <target>Verschieben</target>
+      </segment>
+    </unit>
+    <unit id="8B44iXL" name="perm.list_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.list_parts</source>
+        <target>Teile auflisten</target>
+      </segment>
+    </unit>
+    <unit id="qp4Nw88" name="perm.part.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="ochCbWd" name="perm.part.categories">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.categories</source>
+        <target>Kategorien</target>
+      </segment>
+    </unit>
+    <unit id="gJeta6V" name="perm.part.supplier">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.supplier</source>
+        <target>Lieferanten</target>
+      </segment>
+    </unit>
+    <unit id="AAW9ULn" name="perm.part.manufacturers">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.manufacturers</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="xIsPPzY" name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
+    <unit id="Fa9cXuf" name="perm.part.attachment_types">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.attachment_types</source>
+        <target>Dateitypen</target>
+      </segment>
+    </unit>
+    <unit id="lIHo4Hd" name="perm.tools.import">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.import</source>
+        <target>Import</target>
+      </segment>
+    </unit>
+    <unit id="hZWt_at" name="perm.tools.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="d6tsIx1" name="perm.tools.calculator">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.calculator</source>
+        <target>Widerstandsrechner</target>
+      </segment>
+    </unit>
+    <unit id="h.oYJ8V" name="perm.tools.footprints">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.footprints</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="Jcz4wWf" name="perm.tools.ic_logos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.ic_logos</source>
+        <target>IC-Logos</target>
+      </segment>
+    </unit>
+    <unit id="Y_XwfhZ" name="perm.tools.statistics">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.statistics</source>
+        <target>Statistik</target>
+      </segment>
+    </unit>
+    <unit id="ytPkIIU" name="perm.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.edit_permissions</source>
+        <target>Berechtigungen ändern</target>
+      </segment>
+    </unit>
+    <unit id="DPKQxmA" name="perm.users.edit_user_name">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_user_name</source>
+        <target>Nutzernamen ändern</target>
+      </segment>
+    </unit>
+    <unit id="ttdtKyD" name="perm.users.edit_change_group">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_change_group</source>
+        <target>Gruppe ändern</target>
+      </segment>
+    </unit>
+    <unit id="XeVuIwd" name="perm.users.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_infos</source>
+        <target>Informationen ändern</target>
+      </segment>
+    </unit>
+    <unit id=".Mu5RB1" name="perm.users.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_permissions</source>
+        <target>Berechtigungen ändern</target>
+      </segment>
+    </unit>
+    <unit id="L5LgaCa" name="perm.users.set_password">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.set_password</source>
+        <target>Passwort ändern</target>
+      </segment>
+    </unit>
+    <unit id="ujyzLbg" name="perm.users.change_user_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.change_user_settings</source>
+        <target>Benutzereinstellungen ändern</target>
+      </segment>
+    </unit>
+    <unit id="7KsjU89" name="perm.database.see_status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.see_status</source>
+        <target>Status anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="3_7e2UL" name="perm.database.update_db">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.update_db</source>
+        <target>Datenbank updaten</target>
+      </segment>
+    </unit>
+    <unit id="QNfaufA" name="perm.database.read_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.read_db_settings</source>
+        <target>Einstellungen anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="U.dPyKO" name="perm.database.write_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.write_db_settings</source>
+        <target>Einstellungen ändern</target>
+      </segment>
+    </unit>
+    <unit id="uAC5BxC" name="perm.config.read_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.read_config</source>
+        <target>Konfiguration anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="tQjPf61" name="perm.config.edit_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.edit_config</source>
+        <target>Konfiguration ändern</target>
+      </segment>
+    </unit>
+    <unit id="mU1UGgy" name="perm.config.server_info">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.server_info</source>
+        <target>Server info</target>
+      </segment>
+    </unit>
+    <unit id="vWNicrf" name="perm.config.use_debug">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.use_debug</source>
+        <target>Debugtools benutzen</target>
+      </segment>
+    </unit>
+    <unit id="tOpPgI8" name="perm.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_logs</source>
+        <target>Logs anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="dCMe8ah" name="perm.delete_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete_logs</source>
+        <target>Logeinträge löschen</target>
+      </segment>
+    </unit>
+    <unit id="nILP34y" name="perm.self.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_infos</source>
+        <target>Informationen ändern</target>
+      </segment>
+    </unit>
+    <unit id="R8OxrPr" name="perm.self.edit_username">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_username</source>
+        <target>Benutzernamen ändern</target>
+      </segment>
+    </unit>
+    <unit id="pOG2vUW" name="perm.self.show_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_permissions</source>
+        <target>Berechtigungen anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="1_vJh4k" name="perm.self.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_logs</source>
+        <target>Logs anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="61TrD1b" name="perm.self.create_labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_labels</source>
+        <target>Labels erstellen</target>
+      </segment>
+    </unit>
+    <unit id="nfql2KA" name="perm.self.edit_options">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_options</source>
+        <target>Einstellungen ändern</target>
+      </segment>
+    </unit>
+    <unit id="w1Y2HMv" name="perm.self.delete_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.delete_profiles</source>
+        <target>Profile löschen</target>
+      </segment>
+    </unit>
+    <unit id="boAMRVq" name="perm.self.edit_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_profiles</source>
+        <target>Profile bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="Q9lnyX8" name="perm.part.tools">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tools</source>
+        <target>Tools</target>
+      </segment>
+    </unit>
+    <unit id="lfusMAZ" name="perm.groups">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.groups</source>
+        <target>Gruppen</target>
+      </segment>
+    </unit>
+    <unit id="SIdd_dV" name="perm.users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="zAtzrfn" name="perm.database">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database</source>
+        <target>Datenbank</target>
+      </segment>
+    </unit>
+    <unit id="dUXVP7t" name="perm.config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config</source>
+        <target>Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="OO4RqQz" name="perm.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="VN4dSmv" name="perm.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self</source>
+        <target>Eigenen Benutzer bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="A7uyqD9" name="perm.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="slAwBk7" name="perm.part.category">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.category</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="QP8XpIR" name="perm.part.minamount">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.minamount</source>
+        <target>Mindestbestand</target>
+      </segment>
+    </unit>
+    <unit id="OB7qVWO" name="perm.part.footprint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="u80GbdM" name="perm.part.mpn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="LyVYOLq" name="perm.part.status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.status</source>
+        <target>Herstellungsstatus</target>
+      </segment>
+    </unit>
+    <unit id="jZvB1lZ" name="perm.part.tags">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="359tBYD" name="perm.part.unit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unit</source>
+        <target>Maßeinheit</target>
+      </segment>
+    </unit>
+    <unit id="BX.bamX" name="perm.part.mass">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mass</source>
+        <target>Gewicht</target>
+      </segment>
+    </unit>
+    <unit id="qeGG9Zf" name="perm.part.lots">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.lots</source>
+        <target>Lagerorte</target>
+      </segment>
+    </unit>
+    <unit id="Ig0En5M" name="perm.show_users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_users</source>
+        <target>Letzten bearbeitenden Nutzer anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="6iZ6MvE" name="perm.currencies">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.currencies</source>
+        <target>Währungen</target>
+      </segment>
+    </unit>
+    <unit id="RA9fVQi" name="perm.measurement_units">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.measurement_units</source>
+        <target>Maßeinheiten</target>
+      </segment>
+    </unit>
+    <unit id="coNue69" name="user.settings.pw_old.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_old.label</source>
+        <target>Altes Passwort</target>
+      </segment>
+    </unit>
+    <unit id="2A8gn6V" name="pw_reset.submit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.submit</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="z7J2YAC" name="u2f_two_factor">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>u2f_two_factor</source>
+        <target>Sicherheitsschlüssel (U2F)</target>
+      </segment>
+    </unit>
+    <unit id="cjWCMi4" name="google">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>google</source>
+        <target>Google</target>
+      </segment>
+    </unit>
+    <unit id="agByADP" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Sicherheitsschlüssel</target>
+      </segment>
+    </unit>
+    <unit id="ELfxZWW" name="tfa.provider.google">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.provider.google</source>
+        <target>Authenticator App</target>
+      </segment>
+    </unit>
+    <unit id="fGkpjYW" name="Login successful">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Login successful</source>
+        <target>Login erfolgreich.</target>
+      </segment>
+    </unit>
+    <unit id="KSHVrbr" name="log.type.exception">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.exception</source>
+        <target>Unbehandelte Exception (veraltet)</target>
+      </segment>
+    </unit>
+    <unit id="WQhfpc7" name="log.type.user_login">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_login</source>
+        <target>Nutzer eingeloggt</target>
+      </segment>
+    </unit>
+    <unit id="4BmkRRr" name="log.type.user_logout">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_logout</source>
+        <target>Nutzer ausgeloggt</target>
+      </segment>
+    </unit>
+    <unit id="XWCQytQ" name="log.type.unknown">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.unknown</source>
+        <target>Unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="Jz8fGbI" name="log.type.element_created">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_created</source>
+        <target>Element angelegt</target>
+      </segment>
+    </unit>
+    <unit id="zrdG.Jf" name="log.type.element_edited">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_edited</source>
+        <target>Element bearbeitet</target>
+      </segment>
+    </unit>
+    <unit id="7U9wURa" name="log.type.element_deleted">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.element_deleted</source>
+        <target>Element gelöscht</target>
+      </segment>
+    </unit>
+    <unit id="_2FIROZ" name="log.type.database_updated">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.database_updated</source>
+        <target>Datenbank aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="TgP5PEM" name="perm.revert_elements">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.revert_elements</source>
+        <target>Element zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id=".9EUOEX" name="perm.show_history">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_history</source>
+        <target>Historie anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="AuMDjJU" name="perm.tools.lastActivity">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.lastActivity</source>
+        <target>Letzte Aktivität anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="6LtH69E" name="perm.tools.timeTravel">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.timeTravel</source>
+        <target>Alte Versionsstände anzeigen (Zeitreisen)</target>
+      </segment>
+    </unit>
+    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
+      </segment>
+    </unit>
+    <unit id="VhxhtYo" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="gDVCAxj" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Authenticator App deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="XFvvUtc" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Sicherheitsschlüssel gelöscht</target>
+      </segment>
+    </unit>
+    <unit id="eZgT4MC" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Sicherheitsschlüssel hinzugefügt</target>
+      </segment>
+    </unit>
+    <unit id="t7d1Q.4" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Neue Backupkeys erzeugt</target>
+      </segment>
+    </unit>
+    <unit id="RF1.KEr" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Authenticator App aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="LnGIxBi" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Passwort geändert</target>
+      </segment>
+    </unit>
+    <unit id="WTGQZj_" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Vertrauenswürdige Geräte zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="a.Le1i0" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Kollektionselement gelöscht</target>
+      </segment>
+    </unit>
+    <unit id="WbkRTGh" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Passwort zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="6FyyN30" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Zwei-Faktor-Authentifizierung durch Administrator zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="gV_X19k" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Unerlaubter Zugriffsversuch</target>
+      </segment>
+    </unit>
+    <unit id="cTiYmSE" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Erfolgreich</target>
+      </segment>
+    </unit>
+    <unit id="De5BR6V" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="bCrCbP6" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="gP8CCIL" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="LocDEF1" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Private Anhänge zeigen</target>
+      </segment>
+    </unit>
+    <unit id="honRcmT" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Labelscanner</target>
+      </segment>
+    </unit>
+    <unit id="YRDDkNh" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Profile anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="uFIXx7j" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Profil anlegen</target>
+      </segment>
+    </unit>
+    <unit id="H5lzk33" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Twig Modus benutzen</target>
+      </segment>
+    </unit>
+    <unit id="iXxuTa3" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>In Barcode Schnellauswahl anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="bgHCh2E" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Erzwinge Zwei-Faktor-Authentifizierung (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="uxw7_77" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindestens einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
+      </segment>
+    </unit>
+    <unit id="O2l2jsJ" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Nichts ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="NwsYm0P" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Nichts ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="0VKsxz3" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Element "%PATH%" enthält noch Bauteile. Bearbeite die Bauteile, um dieses Element löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="1hxhr3b" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="95i8XQ4" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Währung enthält noch Bauteile. Ändere deren Währung, um diese Währung löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="nak8YJ9" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Benutzer sind noch Teil dieser Gruppe. Ändere deren Gruppe, um diese Gruppe löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="6ud5yrD" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Ändern</target>
+      </segment>
+    </unit>
+    <unit id="DachcxN" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Bauteil ändern</target>
+      </segment>
+    </unit>
+    <unit id="w3XOUoO" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Aktion auswählen</target>
+      </segment>
+    </unit>
+    <unit id="Fc.1rpX" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="s2Dybnd" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Bauteile favorisieren</target>
+      </segment>
+    </unit>
+    <unit id="oRXo8cB" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Favorisierung aufheben</target>
+      </segment>
+    </unit>
+    <unit id="sbuGwh6" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Change field</target>
+      </segment>
+    </unit>
+    <unit id="hk8FMXL" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Kategorie ändern</target>
+      </segment>
+    </unit>
+    <unit id="1013DFk" name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Footprint ändern</target>
+      </segment>
+    </unit>
+    <unit id="CPEbRo." name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Hersteller ändern</target>
+      </segment>
+    </unit>
+    <unit id="hQT5qln" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Maßeinheit ändern</target>
+      </segment>
+    </unit>
+    <unit id="CfQo7ZT" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="Ev0Hfc2" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="gaoMsrY" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% Bauteile ausgewählt!</target>
+      </segment>
+    </unit>
+    <unit id="FhdheZY" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Website öffnen</target>
+      </segment>
+    </unit>
+    <unit id="KZ1Eck4" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>E-Mail senden</target>
+      </segment>
+    </unit>
+    <unit id="r2diIQ6" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Call phone</target>
+      </segment>
+    </unit>
+    <unit id="siE4EDy" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Fax senden</target>
+      </segment>
+    </unit>
+    <unit id="4kMwsyh" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>z.B. +49 1234 567890</target>
+      </segment>
+    </unit>
+    <unit id="4vsXT3p" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Speichern und duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="XLEAK5C" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>Dateierweiterung nicht erlaubt für diesen Anhangstyp.</target>
+      </segment>
+    </unit>
+    <unit id="U1HFX19" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="WfFOK.8" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Innerer Durchmesser</target>
+      </segment>
+    </unit>
+    <unit id="JEZvxKV" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Äußerer Durchmesser</target>
+      </segment>
+    </unit>
+    <unit id="MevS6ej" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Tape Dicke</target>
+      </segment>
+    </unit>
+    <unit id="eqy7OUh" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Bauteile Abstand</target>
+      </segment>
+    </unit>
+    <unit id="avUYTF3" name="tools.reel_calc.update">
+      <segment state="translated">
+        <source>tools.reel_calc.update</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="xVGNyjY" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Bauteile pro Meter</target>
+      </segment>
+    </unit>
+    <unit id="Z4Z3NHc" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Tape Länge</target>
+      </segment>
+    </unit>
+    <unit id="KGgSvdN" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Ungefähre Anzahl Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="d2KFRC_" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Fehler: Äußerer Durchmesser muss großer sein als der innere Durchmesser!</target>
+      </segment>
+    </unit>
+    <unit id="ideVnu7" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Bitte alle Werte angeben!</target>
+      </segment>
+    </unit>
+    <unit id="MjKRZmy" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Preset laden</target>
+      </segment>
+    </unit>
+    <unit id="CdphPiM" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegeben Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
+      </segment>
+    </unit>
+    <unit id="21dEh63" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="mTGB4XK" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="Y3Vpp8G" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
+      </segment>
+    </unit>
+    <unit id="x98ftIM" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Wurzel</target>
+      </segment>
+    </unit>
+    <unit id="2LkM7pn" name="part_list.action.select_null">
+      <segment state="translated">
+        <source>part_list.action.select_null</source>
+        <target>Keine Elemente vorhanden!</target>
+      </segment>
+    </unit>
+    <unit id=".X2zJdC" name="part_list.action.delete-title">
+      <segment state="translated">
+        <source>part_list.action.delete-title</source>
+        <target>Möchten Sie diese Bauteile wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="njR3m9K" name="part_list.action.delete-message">
+      <segment state="translated">
+        <source>part_list.action.delete-message</source>
+        <target>Diese Bauteile und alle verknüpften Informationen (Anhänge, Preisinformationen, etc.) werden gelöscht. Dies kann nicht rückgängig gemacht werden!</target>
+      </segment>
+    </unit>
+    <unit id="iprEHvW" name="part.table.actions.success">
+      <segment state="translated">
+        <source>part.table.actions.success</source>
+        <target>Aktionen erfolgreich.</target>
+      </segment>
+    </unit>
+    <unit id="WUDnXcT" name="attachment.edit.delete.confirm">
+      <segment state="translated">
+        <source>attachment.edit.delete.confirm</source>
+        <target>Möchten Sie diesen Anhang wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="B8Ch_oU" name="filter.text_constraint.value.operator.EQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.EQ</source>
+        <target>Gleich</target>
+      </segment>
+    </unit>
+    <unit id="m8gXJmo" name="filter.text_constraint.value.operator.NEQ">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Ungleich</target>
+      </segment>
+    </unit>
+    <unit id="QCi4ct2" name="filter.text_constraint.value.operator.STARTS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Beginnt mit</target>
+      </segment>
+    </unit>
+    <unit id="n3YhIhU" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Enthält</target>
+      </segment>
+    </unit>
+    <unit id="7HLaYeS" name="filter.text_constraint.value.operator.ENDS">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Endet mit</target>
+      </segment>
+    </unit>
+    <unit id="ZQxfZP0" name="filter.text_constraint.value.operator.LIKE">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>LIKE Ausdruck</target>
+      </segment>
+    </unit>
+    <unit id="E9SgBKh" name="filter.text_constraint.value.operator.REGEX">
+      <segment state="translated">
+        <source>filter.text_constraint.value.operator.REGEX</source>
+        <target>Regulärer Ausdruck</target>
+      </segment>
+    </unit>
+    <unit id="YSbtFK8" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment state="translated">
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Zwischen</target>
+      </segment>
+    </unit>
+    <unit id="uArj6qn" name="filter.number_constraint.AND">
+      <segment state="translated">
+        <source>filter.number_constraint.AND</source>
+        <target>und</target>
+      </segment>
+    </unit>
+    <unit id="ZMo..Ic" name="filter.entity_constraint.operator.EQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Gleich (ohne Kindelemente)</target>
+      </segment>
+    </unit>
+    <unit id="gkRF0GY" name="filter.entity_constraint.operator.NEQ">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Ungleich (ohne Kindelemente)</target>
+      </segment>
+    </unit>
+    <unit id="w846rID" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Gleich (inklusive Kindelementen)</target>
+      </segment>
+    </unit>
+    <unit id="LSAhDQ6" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment state="translated">
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Nicht gleich (inklusive Kindelemente)</target>
+      </segment>
+    </unit>
+    <unit id="JFqHGlx" name="part.filter.dbId">
+      <segment state="translated">
+        <source>part.filter.dbId</source>
+        <target>Datenbank ID</target>
+      </segment>
+    </unit>
+    <unit id="smzf9vn" name="filter.tags_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Irgendeiner der Tags</target>
+      </segment>
+    </unit>
+    <unit id="eYdPDKM" name="filter.tags_constraint.operator.ALL">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>Alle der Tags</target>
+      </segment>
+    </unit>
+    <unit id="vSthC2b" name="filter.tags_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>Keine der Tags</target>
+      </segment>
+    </unit>
+    <unit id="0KKZnWr" name="part.filter.lot_count">
+      <segment state="translated">
+        <source>part.filter.lot_count</source>
+        <target>Anzahl der Lagerbestände</target>
+      </segment>
+    </unit>
+    <unit id="LUwPNoD" name="part.filter.attachments_count">
+      <segment state="translated">
+        <source>part.filter.attachments_count</source>
+        <target>Anzahl der Anhänge</target>
+      </segment>
+    </unit>
+    <unit id="oQmnwDq" name="part.filter.orderdetails_count">
+      <segment state="translated">
+        <source>part.filter.orderdetails_count</source>
+        <target>Anzahl der Bestellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="EVZFWzr" name="part.filter.lotExpirationDate">
+      <segment state="translated">
+        <source>part.filter.lotExpirationDate</source>
+        <target>Bauteilebestand Ablaufdatum</target>
+      </segment>
+    </unit>
+    <unit id="jcZuCCn" name="part.filter.lotNeedsRefill">
+      <segment state="translated">
+        <source>part.filter.lotNeedsRefill</source>
+        <target>Lagerbestand benötigt Auffüllung</target>
+      </segment>
+    </unit>
+    <unit id="qvGwmDf" name="part.filter.lotUnknwonAmount">
+      <segment state="translated">
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>Lagerbestand mit unbekannter Anzahl</target>
+      </segment>
+    </unit>
+    <unit id="0wfsO9N" name="part.filter.attachmentName">
+      <segment state="translated">
+        <source>part.filter.attachmentName</source>
+        <target>Name des Anhangs</target>
+      </segment>
+    </unit>
+    <unit id="YcIyWEZ" name="filter.choice_constraint.operator.ANY">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>Einer der Ausgewählten</target>
+      </segment>
+    </unit>
+    <unit id="Kofo3H8" name="filter.choice_constraint.operator.NONE">
+      <segment state="translated">
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>Keine der Ausgewählten</target>
+      </segment>
+    </unit>
+    <unit id="IM9Phue" name="part.filter.amount_sum">
+      <segment state="translated">
+        <source>part.filter.amount_sum</source>
+        <target>Gesamtmenge</target>
+      </segment>
+    </unit>
+    <unit id="dRr__GR" name="filter.submit">
+      <segment state="translated">
+        <source>filter.submit</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="bREY95s" name="filter.discard">
+      <segment state="translated">
+        <source>filter.discard</source>
+        <target>Änderungen verwerfen</target>
+      </segment>
+    </unit>
+    <unit id="1ttX8Bu" name="filter.clear_filters">
+      <segment state="translated">
+        <source>filter.clear_filters</source>
+        <target>Alle Filter zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="VH1tHkH" name="filter.title">
+      <segment state="translated">
+        <source>filter.title</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="dkaI3LF" name="filter.parameter_value_constraint.operator.=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Typ. Wert =</target>
+      </segment>
+    </unit>
+    <unit id="9wXdJPx" name="filter.parameter_value_constraint.operator.!=">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Typ. Wert !=</target>
+      </segment>
+    </unit>
+    <unit id="r4vDLAt" name="filter.parameter_value_constraint.operator.&lt;">
+      <segment state="translated">
+        <source>filter.parameter_value_constraint.operator.&lt;</source>
+        <target>Typ. Wert &lt;</target>
+      </segment>
+    </unit>
     <unit id="X9SA3UP" name="filter.parameter_value_constraint.operator.&gt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;</source>
