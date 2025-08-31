@@ -913,7 +913,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>edit.log_comment</source>
-        <target>Změnit komentář</target>
+        <target>Komentář ke změně</target>
       </segment>
     </unit>
     <unit id="ZMmz8UB" name="entity.delete.recursive">
@@ -4019,7 +4019,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>RegEx. shoda</target>
+        <target>Reg.Ex. shoda</target>
       </segment>
     </unit>
     <unit id="U5IhkwB" name="search.submit">
@@ -12060,7 +12060,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="duBTELg" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Vymazat tento inventář, až se vyprázdní</target>
+        <target>Smazat tuto položku, pokud se vyprázdní</target>
       </segment>
     </unit>
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
