@@ -12528,7 +12528,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="VYMqQr5" name="settings.system.customization.instanceName">
       <segment state="translated">
         <source>settings.system.customization.instanceName</source>
-        <target>Instance name</target>
+        <target>Název instance</target>
       </segment>
     </unit>
     <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
