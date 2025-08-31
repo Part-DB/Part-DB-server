@@ -33,7 +33,7 @@ use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProvider implements InfoProviderInterface
+class LCSCProvider implements BatchInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
