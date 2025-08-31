@@ -20,25 +20,6 @@
 
 set -e
 
-# Pass all environment variables to PHP-FPM
-# Path where PHP-FPM pool configs live
-PHP_FPM_ENV_CONF="/etc/php/PHP_VERSION/fpm/pool.d/99-env.conf"
-
-# start fresh
-echo "; auto-generated env config" > "$PHP_FPM_ENV_CONF"
-echo "[www]" >> "$PHP_FPM_ENV_CONF"
-echo "clear_env = no" >> "$PHP_FPM_ENV_CONF"
-
-# add all container envs
-printenv | while IFS='=' read -r name value; do
-  case "$name" in
-    HOSTNAME|PWD|SHLVL|PATH|_*) continue ;;
-  esac
-  # write literal value in quotes
-  echo "env[$name] = \"$value\"" >> "$PHP_FPM_ENV_CONF"
-done
-
-
 # recursive chowns can take a while, so we'll just do it if the owner is wrong
 
 # Chown uploads/ folder if it does not belong to www-data
@@ -59,7 +40,7 @@ if [ -d /var/www/html/var/db ]; then
 fi
 
 # Start PHP-FPM (the PHP_VERSION is replaced by the configured version in the Dockerfile)
-service phpPHP_VERSION-fpm start
+php-fpmPHP_VERSION -F &
 
 
 # Run migrations if automigration is enabled via env variable DB_AUTOMIGRATE
