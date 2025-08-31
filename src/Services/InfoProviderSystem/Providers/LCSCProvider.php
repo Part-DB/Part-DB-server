@@ -374,7 +374,7 @@ class LCSCProvider implements InfoProviderInterface
                 // Direct detail API call for C-codes
                 $responses[$keyword] = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/product/detail", [
                     'headers' => [
-                        'Cookie' => new Cookie('currencyCode', $this->currency)
+                        'Cookie' => new Cookie('currencyCode', $this->settings->currency)
                     ],
                     'query' => [
                         'productCode' => trim($keyword),
@@ -384,7 +384,7 @@ class LCSCProvider implements InfoProviderInterface
                 // Search API call for other terms
                 $responses[$keyword] = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
                     'headers' => [
-                        'Cookie' => new Cookie('currencyCode', $this->currency)
+                        'Cookie' => new Cookie('currencyCode', $this->settings->currency)
                     ],
                     'query' => [
                         'keyword' => $keyword,
