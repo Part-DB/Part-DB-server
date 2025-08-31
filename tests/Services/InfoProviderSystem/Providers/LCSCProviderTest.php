@@ -30,6 +30,8 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
+use App\Settings\InfoProviderSystem\LCSCSettings;
+use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -37,19 +39,23 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LCSCProviderTest extends TestCase
 {
+    private LCSCSettings $settings;
     private LCSCProvider $provider;
     private MockHttpClient $httpClient;
 
     protected function setUp(): void
     {
         $this->httpClient = new MockHttpClient();
-        $this->provider = new LCSCProvider($this->httpClient, 'USD', true);
+        $this->settings = SettingsTestHelper::createSettingsDummy(LCSCSettings::class);
+        $this->settings->currency = 'USD';
+        $this->settings->enabled = true;
+        $this->provider = new LCSCProvider($this->httpClient, $this->settings);
     }
 
     public function testGetProviderInfo(): void
     {
         $info = $this->provider->getProviderInfo();
-        
+
         $this->assertIsArray($info);
         $this->assertArrayHasKey('name', $info);
         $this->assertArrayHasKey('description', $info);
@@ -66,20 +72,22 @@ class LCSCProviderTest extends TestCase
 
     public function testIsActiveWhenEnabled(): void
     {
-        $enabledProvider = new LCSCProvider($this->httpClient, 'USD', true);
-        $this->assertTrue($enabledProvider->isActive());
+        //Ensure that the settings are enabled
+        $this->settings->enabled = true;
+        $this->assertTrue($this->provider->isActive());
     }
 
     public function testIsActiveWhenDisabled(): void
     {
-        $disabledProvider = new LCSCProvider($this->httpClient, 'USD', false);
-        $this->assertFalse($disabledProvider->isActive());
+        //Ensure that the settings are disabled
+        $this->settings->enabled = false;
+        $this->assertFalse($this->provider->isActive());
     }
 
     public function testGetCapabilities(): void
     {
         $capabilities = $this->provider->getCapabilities();
-        
+
         $this->assertIsArray($capabilities);
         $this->assertContains(ProviderCapabilities::BASIC, $capabilities);
         $this->assertContains(ProviderCapabilities::PICTURE, $capabilities);
@@ -495,7 +503,7 @@ class LCSCProviderTest extends TestCase
                 'productCode' => 'C123456',
                 'productModel' => 'Test Component',
                 'productIntroEn' => 'Test description',
-                'brandNameEn' => 'Test Manufacturer', 
+                'brandNameEn' => 'Test Manufacturer',
                 'encapStandard' => '-',
                 'productImageUrl' => null,
                 'productImages' => [],
