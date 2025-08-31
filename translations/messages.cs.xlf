@@ -580,7 +580,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>Nové místo skladování</target>
+        <target>Nové umístění</target>
       </segment>
     </unit>
     <unit id="Rt3eY_7" name="supplier.caption">
@@ -2502,7 +2502,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.needs_review.badge</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="IttGv57" name="part.favorite.badge">
@@ -4858,7 +4858,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.needsReview</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="AtzzLFz" name="part.table.favorite">
@@ -5662,7 +5662,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="TQbwkUd" name="part.edit.is_favorite">
@@ -6357,7 +6357,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>user.theme.label</source>
-        <target>Téma</target>
+        <target>Vzhled</target>
       </segment>
     </unit>
     <unit id="LQ7ihIX" name="user_settings.theme.placeholder">
@@ -6368,7 +6368,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>user_settings.theme.placeholder</source>
-        <target>Serverové téma</target>
+        <target>Vzhled pro celý server</target>
       </segment>
     </unit>
     <unit id="ZkXKucz" name="log.user_login.ip">
@@ -9718,7 +9718,7 @@ Element 3</target>
     <unit id="OEVzOkv" name="part_list.action.action.group.needs_review">
       <segment state="translated">
         <source>part_list.action.action.group.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="nkoTW_w" name="part_list.action.action.set_needs_review">
@@ -10678,7 +10678,7 @@ Element 3</target>
     <unit id="VraT.Lo" name="log.element_edited.changed_fields.theme">
       <segment state="translated">
         <source>log.element_edited.changed_fields.theme</source>
-        <target>Téma</target>
+        <target>Vzhled</target>
       </segment>
     </unit>
     <unit id="QFESysH" name="log.element_edited.changed_fields.timezone">
@@ -10774,7 +10774,7 @@ Element 3</target>
     <unit id="iF9ovqi" name="log.element_edited.changed_fields.needs_review">
       <segment state="translated">
         <source>log.element_edited.changed_fields.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="wgJmpYG" name="log.element_edited.changed_fields.tags">
@@ -10984,7 +10984,7 @@ Element 3</target>
     <unit id="awbvhVq" name="parts.import.help">
       <segment state="translated">
         <source>parts.import.help</source>
-        <target>Pomocí tohoto nástroje můžete importovat díly z existujících souborů. Díly budou zapsány přímo do databáze, proto před nahráním souboru sem zkontrolujte, zda je jeho obsah správný.</target>
+        <target>Pomocí tohoto nástroje můžete importovat součásti z existujících souborů. Součásti budou přímo zapsány do databáze, proto před nahráním souboru zkontrolujte jeho správný obsah.</target>
       </segment>
     </unit>
     <unit id="5.sq5ns" name="parts.import.flash.success">
@@ -11014,7 +11014,7 @@ Element 3</target>
     <unit id="7dsEiOg" name="parts.import.part_needs_review.help">
       <segment state="translated">
         <source>parts.import.part_needs_review.help</source>
-        <target>Pokud je tato možnost vybrána, budou všechny díly označeny jako "Potřeba revize" bez ohledu na to, co bylo nastaveno v údajích.</target>
+        <target>Pokud je tato možnost vybrána, budou všechny díly označeny jako "Vyžaduje kontrolu" bez ohledu na to, co bylo nastaveno v údajích.</target>
       </segment>
     </unit>
     <unit id="Ie9LLKJ" name="project.bom_import.flash.success">
@@ -12576,7 +12576,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="pinyqu2" name="settings.system.customization.theme">
       <segment state="translated">
         <source>settings.system.customization.theme</source>
-        <target>Globální téma</target>
+        <target>Globální vzhed</target>
       </segment>
     </unit>
     <unit id="Aky9nXE" name="settings.system.history.enforceComments">
@@ -12642,7 +12642,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
       <segment state="translated">
         <source>settings.system.privacy.useGravatar.description</source>
-        <target>Pokud uživatel nemá nastavený avatar, použijte avatar z Gravataru na základě e-mailové adresy uživatele. To způsobí, že prohlížeč načte obrázky od třetí strany!</target>
+        <target>Pokud uživatel nemá zadaný obrázek avatara, použije se avatar z Gravataru na základě e-mailu uživatele. To způsobí, že prohlížeč načte obrázky ze třetí strany!</target>
       </segment>
     </unit>
     <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
