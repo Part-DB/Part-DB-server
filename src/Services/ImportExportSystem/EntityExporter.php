@@ -137,7 +137,7 @@ class EntityExporter
      *
      * @param AbstractNamedDBElement[] $entities The entities to export
      * @param array                    $options  The export options
-     * 
+     *
      * @return string The Excel file content as binary string
      */
     protected function exportToExcel(array $entities, array $options): string
@@ -187,10 +187,15 @@ class EntityExporter
         //Save to memory stream
         $writer = $options['format'] === 'xlsx' ? new Xlsx($spreadsheet) : new Xls($spreadsheet);
 
-        ob_start();
-        $writer->save('php://output');
-        $content = ob_get_contents();
-        ob_end_clean();
+        $memFile = fopen("php://temp", 'r+b');
+        $writer->save($memFile);
+        rewind($memFile);
+        $content = stream_get_contents($memFile);
+        fclose($memFile);
+
+        if ($content === false) {
+            throw new \RuntimeException('Failed to read Excel content from memory stream.');
+        }
 
         return $content;
     }
