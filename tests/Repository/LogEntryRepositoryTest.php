@@ -112,7 +112,8 @@ class LogEntryRepositoryTest extends KernelTestCase
         $this->assertCount(2, $logs);
 
         //The first one must be newer than the second one
-        $this->assertGreaterThanOrEqual($logs[0]->getTimestamp(), $logs[1]->getTimestamp());
+        $this->assertGreaterThanOrEqual($logs[1]->getTimestamp(), $logs[0]->getTimestamp());
+        $this->assertGreaterThanOrEqual($logs[1]->getID(), $logs[0]->getID());
     }
 
     public function testGetElementExistedAtTimestamp(): void
