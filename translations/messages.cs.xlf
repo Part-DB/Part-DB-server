@@ -12691,7 +12691,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
-        <target>Ochrana osobních údajů</target>
+        <target>Soukromí</target>
       </segment>
     </unit>
     <unit id="TVAVZUl" name="settings.title">
