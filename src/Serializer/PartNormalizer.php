@@ -136,6 +136,9 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         if (empty($data['minamount'])) {
             $data['minamount'] = 0.0;
         }
+        if (empty($data['orderamount'])) {
+            $data['orderamount'] = 0.0;
+        }
 
         $context[self::ALREADY_CALLED] = true;
 
