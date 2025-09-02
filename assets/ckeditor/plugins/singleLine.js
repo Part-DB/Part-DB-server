@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {Plugin} from 'ckeditor5';
 
 export default class SingleLinePlugin extends Plugin {
     init() {
@@ -42,7 +42,7 @@ export default class SingleLinePlugin extends Plugin {
             //We can not use the dataTransfer.setData method because the old object is somehow protected
             data.dataTransfer = new DataTransfer();
             data.dataTransfer.setData("text", cleaned);
-            
+
         }, { priority: 'high' } );
     }
 }

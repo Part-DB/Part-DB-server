@@ -80,6 +80,11 @@ Normally the providers utilize an API of a service, and you need to create an ac
 Also, there are limits on how many requests you can do per day or month, depending on the provider and your contract
 with them.
 
+Data providers can be either configured in the system settings (in the info provider tab) or on the settings page which is
+reachable via the cogwheel symbol next to the provider in the provider list. It is also possible to configure them via
+environment variables. See below for the available configuration options. API keys configured via environment variables
+are redacted in the settings interface.
+
 The following providers are currently available and shipped with Part-DB:
 
 (All trademarks are property of their respective owners. Part-DB is not affiliated with any of the companies.)

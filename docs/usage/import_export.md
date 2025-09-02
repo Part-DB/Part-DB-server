@@ -20,7 +20,7 @@ Part-DB. Data can also be exported from Part-DB into various formats.
 > individually in the permissions settings.
 
 If you want to import data from PartKeepr you might want to look into the [PartKeepr migration guide]({% link
-upgrade_legacy.md %}).
+upgrade/upgrade_legacy.md %}).
 
 ### Import parts
 

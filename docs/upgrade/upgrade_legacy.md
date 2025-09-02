@@ -2,6 +2,8 @@
 layout: default
 title: Upgrade from legacy Part-DB version (<1.0)
 nav_order: 100
+redirect_from: /upgrade_legacy
+parent: Upgrade
 ---
 
 # Upgrade from legacy Part-DB version
@@ -16,8 +18,8 @@ sections carefully before proceeding to upgrade.
 
 ## Changes
 
-* PHP 8.1 or higher is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0).
-  Releases are available for Windows too, so almost everybody should be able to use PHP 8.1
+* PHP 8.2 or higher is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0).
+  Releases are available for Windows too, so almost everybody should be able to use PHP 8.2
 * **Console access is highly recommended.** The installation of composer and frontend dependencies require console access,
   also more sensitive stuff like database migration works via CLI now, so you should have console access on your server.
 * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.

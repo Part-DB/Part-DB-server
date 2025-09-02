@@ -35,7 +35,7 @@ class ApiTokenTypeTest extends TestCase
 
     public function testGetTypeFromToken(): void
     {
-        $this->assertEquals(ApiTokenType::PERSONAL_ACCESS_TOKEN, ApiTokenType::getTypeFromToken('tcp_123'));
+        $this->assertSame(ApiTokenType::PERSONAL_ACCESS_TOKEN, ApiTokenType::getTypeFromToken('tcp_123'));
     }
 
     public function testGetTypeFromTokenInvalid(): void

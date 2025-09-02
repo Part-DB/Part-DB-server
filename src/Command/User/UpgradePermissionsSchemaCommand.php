@@ -39,14 +39,7 @@ final class UpgradePermissionsSchemaCommand extends Command
 {
     public function __construct(private readonly PermissionSchemaUpdater $permissionSchemaUpdater, private readonly EntityManagerInterface $em, private readonly EventCommentHelper $eventCommentHelper)
     {
-        parent::__construct(self::$defaultName);
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription(self::$defaultDescription)
-        ;
+        parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

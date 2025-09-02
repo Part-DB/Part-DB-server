@@ -22,14 +22,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Attachments\AttachmentType;
+use PHPUnit\Framework\Attributes\Group;
+use App\Entity\Parts\Footprint;
 
-/**
- * @group slow
- * @group DB
- */
-class AttachmentTypeControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class FootprintController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/attachment_type';
-    protected static string $entity_class = AttachmentType::class;
+    protected static string $base_path = '/en/footprint';
+    protected static string $entity_class = Footprint::class;
 }

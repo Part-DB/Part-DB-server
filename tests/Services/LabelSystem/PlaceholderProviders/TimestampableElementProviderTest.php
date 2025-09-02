@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
 use App\Services\LabelSystem\PlaceholderProviders\TimestampableElementProvider;
@@ -74,16 +75,14 @@ class TimestampableElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         \Locale::setDefault('en');
         yield ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'];
         yield ['1/1/00, 12:00 AM', '[[CREATION_DATE]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

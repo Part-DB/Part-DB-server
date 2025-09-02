@@ -46,7 +46,7 @@ class UsersPermissionsCommand extends Command
     {
         $this->userRepository = $entityManager->getRepository(User::class);
 
-        parent::__construct(self::$defaultName);
+        parent::__construct();
     }
 
     protected function configure(): void

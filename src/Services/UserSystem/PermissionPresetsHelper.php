@@ -105,6 +105,9 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
 
+        //Allow to change system settings
+        $this->permissionResolver->setPermission($perm_holder, 'config', 'change_system_settings', PermissionData::ALLOW);
+
         //Allow to manage Oauth tokens
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
         //Allow to show updates

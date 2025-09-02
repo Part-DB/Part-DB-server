@@ -39,8 +39,9 @@ interface InfoProviderInterface
      * - url?: The url of the provider (e.g. "https://www.digikey.com")
      * - disabled_help?: A help text which is shown when the provider is disabled, explaining how to enable it
      * - oauth_app_name?: The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown
+     * - settings_class?: The class name of the settings class which contains the settings for this provider (e.g. "App\Settings\InfoProviderSettings\DigikeySettings"). If this is set a link to the settings will be shown
      *
-     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string }
+     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string, settings_class?: class-string }
      */
     public function getProviderInfo(): array;
 

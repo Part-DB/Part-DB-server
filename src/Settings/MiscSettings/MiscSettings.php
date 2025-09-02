@@ -31,4 +31,7 @@ class MiscSettings
 {
     #[EmbeddedSettings]
     public ?KiCadEDASettings $kicadEDA = null;
+
+    #[EmbeddedSettings]
+    public ?ExchangeRateSettings $exchangeRate = null;
 }

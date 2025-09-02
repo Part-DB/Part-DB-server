@@ -37,4 +37,7 @@ class BehaviorSettings
 
     #[EmbeddedSettings]
     public ?TableSettings $table = null;
+
+    #[EmbeddedSettings]
+    public ?PartInfoSettings $partInfo = null;
 }

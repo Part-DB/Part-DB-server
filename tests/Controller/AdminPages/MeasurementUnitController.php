@@ -22,14 +22,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Parts\StorageLocation;
+use PHPUnit\Framework\Attributes\Group;
+use App\Entity\Parts\MeasurementUnit;
 
-/**
- * @group slow
- * @group DB
- */
-class StorelocationControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class MeasurementUnitController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/store_location';
-    protected static string $entity_class = StorageLocation::class;
+    protected static string $base_path = '/en/measurement_unit';
+    protected static string $entity_class = MeasurementUnit::class;
 }

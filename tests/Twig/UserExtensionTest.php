@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Twig;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Twig\UserExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -36,7 +37,7 @@ class UserExtensionTest extends WebTestCase
         $this->service = self::getContainer()->get(UserExtension::class);
     }
 
-    public function removeLocaleFromPathDataSet(): ?\Generator
+    public static function removeLocaleFromPathDataSet(): ?\Generator
     {
         yield ['/', '/de/'];
         yield ['/test', '/de/test'];
@@ -46,9 +47,7 @@ class UserExtensionTest extends WebTestCase
         yield ['/test/foo/bar?param1=val1&param2=val2', '/de_DE/test/foo/bar?param1=val1&param2=val2'];
     }
 
-    /**
-     * @dataProvider removeLocaleFromPathDataSet
-     */
+    #[DataProvider('removeLocaleFromPathDataSet')]
     public function testRemoveLocaleFromPath(string $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->removeLocaleFromPath($input));

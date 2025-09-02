@@ -40,7 +40,7 @@ if [ -d /var/www/html/var/db ]; then
 fi
 
 # Start PHP-FPM (the PHP_VERSION is replaced by the configured version in the Dockerfile)
-service phpPHP_VERSION-fpm start
+php-fpmPHP_VERSION -F &
 
 
 # Run migrations if automigration is enabled via env variable DB_AUTOMIGRATE

@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Settings\SettingsIcon;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\LogSystem\EventCommentType;
 use Jbtronics\SettingsBundle\Proxy\SettingsProxyInterface;
@@ -71,7 +72,7 @@ final class MiscExtension extends AbstractExtension
 
         $reflection = new ReflectionClass($objectOrClass);
 
-        $attribute = $reflection->getAttributes(\App\Settings\SettingsIcon::class)[0] ?? null;
+        $attribute = $reflection->getAttributes(SettingsIcon::class)[0] ?? null;
 
         return $attribute?->newInstance()->icon;
     }

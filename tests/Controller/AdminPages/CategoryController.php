@@ -20,17 +20,15 @@
 
 declare(strict_types=1);
 
-
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\ProjectSystem\Project;
+use PHPUnit\Framework\Attributes\Group;
+use App\Entity\Parts\Category;
 
-/**
- * @group slow
- * @group DB
- */
-class ProjectControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class CategoryController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/project';
-    protected static string $entity_class = Project::class;
+    protected static string $base_path = '/en/category';
+    protected static string $entity_class = Category::class;
 }

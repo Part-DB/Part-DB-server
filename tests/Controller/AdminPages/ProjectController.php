@@ -20,16 +20,16 @@
 
 declare(strict_types=1);
 
+
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Parts\Footprint;
+use PHPUnit\Framework\Attributes\Group;
+use App\Entity\ProjectSystem\Project;
 
-/**
- * @group slow
- * @group DB
- */
-class FootprintControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class ProjectController extends AbstractAdminController
 {
-    protected static string $base_path = '/en/footprint';
-    protected static string $entity_class = Footprint::class;
+    protected static string $base_path = '/en/project';
+    protected static string $entity_class = Project::class;
 }

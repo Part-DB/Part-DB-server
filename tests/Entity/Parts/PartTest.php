@@ -41,7 +41,7 @@ class PartTest extends TestCase
         $lot = new PartLot();
         $part->addPartLot($lot);
         $this->assertSame($part, $lot->getPart());
-        $this->assertSame(1, $part->getPartLots()->count());
+        $this->assertCount(1, $part->getPartLots());
 
         //Remove element
         $part->removePartLot($lot);

@@ -46,7 +46,7 @@ class Element14Provider implements InfoProviderInterface
         'rohsPhthalatesCompliant', 'SVHC', 'tariffCode', 'usEccn', 'hazardCode'];
 
     private readonly HttpClientInterface $element14Client;
-    
+
     public function __construct(HttpClientInterface $element14Client, private readonly Element14Settings $settings)
     {
         /* We use the mozilla CA from the composer ca bundle directly, as some debian systems seems to have problems
@@ -66,7 +66,8 @@ class Element14Provider implements InfoProviderInterface
             'name' => 'Farnell element14',
             'description' => 'This provider uses the Farnell element14 API to search for parts.',
             'url' => 'https://www.element14.com/',
-            'disabled_help' => 'Configure the API key in the PROVIDER_ELEMENT14_KEY environment variable to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => Element14Settings::class,
         ];
     }
 
@@ -77,7 +78,7 @@ class Element14Provider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return trim($this->settings->apiKey) !== '';
+        return $this->settings->apiKey !== null && trim($this->settings->apiKey) !== '';
     }
 
     /**

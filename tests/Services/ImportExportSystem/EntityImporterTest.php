@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\ImportExportSystem;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
@@ -35,9 +37,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- * @group DB
- */
+#[Group('DB')]
 class EntityImporterTest extends WebTestCase
 {
     /**
@@ -199,7 +199,7 @@ EOT;
         $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): \Iterator
+    public static function formatDataProvider(): \Iterator
     {
         yield ['csv', 'csv'];
         yield ['csv', 'CSV'];
@@ -209,9 +209,7 @@ EOT;
         yield ['yaml', 'YAML'];
     }
 
-    /**
-     * @dataProvider formatDataProvider
-     */
+    #[DataProvider('formatDataProvider')]
     public function testDetermineFormat(string $expected, string $extension): void
     {
         $this->assertSame($expected, $this->service->determineFormat($extension));

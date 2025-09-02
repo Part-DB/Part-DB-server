@@ -1,5 +1,8 @@
 name: Build assets artifact
 
+permissions:
+    contents: read
+
 on:
   push:
     branches:
@@ -19,7 +22,7 @@ jobs:
       APP_ENV: prod
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -39,7 +42,7 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-  
+            ${{ runner.os }}-composer-
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-dev -a
@@ -59,7 +62,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install yarn dependencies
         run: yarn install

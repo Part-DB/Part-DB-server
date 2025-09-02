@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\ResettableSettingsInterface;
 use InvalidArgumentException;
 use ReflectionClass;
 
@@ -41,14 +43,14 @@ class SettingsTestHelper
         $reflection = new ReflectionClass($class);
 
         //Check if it is a settings class (has a Settings attribute)
-        if ($reflection->getAttributes(\Jbtronics\SettingsBundle\Settings\Settings::class) === []) {
+        if ($reflection->getAttributes(Settings::class) === []) {
             throw new InvalidArgumentException("The class $class is not a settings class!");
         }
 
         $object = $reflection->newInstanceWithoutConstructor();
 
         //If the object has some initialization logic, then call it
-        if ($object instanceof \Jbtronics\SettingsBundle\Settings\ResettableSettingsInterface) {
+        if ($object instanceof ResettableSettingsInterface) {
             $object->resetToDefaultValues();
         }
 

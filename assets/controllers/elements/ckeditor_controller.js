@@ -23,8 +23,9 @@ import { default as FullEditor } from "../../ckeditor/markdown_full";
 import { default as SingleLineEditor} from "../../ckeditor/markdown_single_line";
 import { default as HTMLLabelEditor } from "../../ckeditor/html_label";
 
-import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog';
+import {EditorWatchdog} from 'ckeditor5';
 
+import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
 
 /* stimulusFetch: 'lazy' */
@@ -51,9 +52,15 @@ export default class extends Controller {
 
         const language = document.body.dataset.locale ?? "en";
 
+        const emojiURL = new URL('../../ckeditor/emojis.json', import.meta.url).href;
+
         const config = {
             language: language,
             licenseKey: "GPL",
+
+            emoji: {
+                definitionsUrl: emojiURL
+            }
         }
 
         const watchdog = new EditorWatchdog();

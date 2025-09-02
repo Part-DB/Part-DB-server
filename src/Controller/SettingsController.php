@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Settings\AppSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -32,6 +33,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
+use function Symfony\Component\Translation\t;
+
 class SettingsController extends AbstractController
 {
     public function __construct(private readonly SettingsManagerInterface $settingsManager, private readonly SettingsFormFactoryInterface $settingsFormFactory)
@@ -40,6 +43,8 @@ class SettingsController extends AbstractController
     #[Route("/settings", name: "system_settings")]
     public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
     {
+        $this->denyAccessUnlessGranted('@config.change_system_settings');
+
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy(AppSettings::class);
 
@@ -47,7 +52,7 @@ class SettingsController extends AbstractController
         $builder = $this->settingsFormFactory->createSettingsFormBuilder($settings);
 
         //Add a submit button to the form
-        $builder->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' => 'save']);
+        $builder->add('submit', SubmitType::class, ['label' => 'save']);
 
         //Create the form
         $form = $builder->getForm();
@@ -60,10 +65,13 @@ class SettingsController extends AbstractController
 
             //It might be possible, that the tree settings have changed, so clear the cache
             $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
+
+            $this->addFlash('success', t('settings.flash.saved'));
         }
 
-
-
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', t('settings.flash.invalid'));
+        }
 
         //Render the form
         return $this->render('settings/settings.html.twig', [

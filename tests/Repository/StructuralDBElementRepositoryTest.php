@@ -32,7 +32,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class StructuralDBElementRepositoryTest extends WebTestCase
 {
-    private $entityManager;
     /**
      * @var StructuralDBElementRepository
      */
@@ -42,11 +41,11 @@ class StructuralDBElementRepositoryTest extends WebTestCase
     {
         $kernel = self::bootKernel();
 
-        $this->entityManager = $kernel->getContainer()
+        $entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->repo = $this->entityManager->getRepository(AttachmentType::class);
+        $this->repo = $entityManager->getRepository(AttachmentType::class);
     }
 
     public function testFindRootNodes(): void

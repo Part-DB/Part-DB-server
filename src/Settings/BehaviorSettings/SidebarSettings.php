@@ -67,4 +67,10 @@ class SidebarSettings
      */
     #[SettingsParameter(label: new TM("settings.behavior.sidebar.rootNodeExpanded"))]
     public bool $rootNodeExpanded = true;
+
+    /**
+     * @var bool Whether the root node should redirect to a new entity creation page when clicked.
+     */
+    #[SettingsParameter(label: new TM("settings.behavior.sidebar.rootNodeRedirectsToNewEntity"))]
+    public bool $rootNodeRedirectsToNewEntity = false;
 }

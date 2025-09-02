@@ -29,10 +29,6 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -198,23 +194,6 @@ services:
     App\Services\InfoProviderSystem\ProviderRegistry:
         arguments:
             $providers: !tagged_iterator 'app.info_provider'
-
-    App\Services\InfoProviderSystem\Providers\DigikeyProvider:
-        arguments:
-            $clientId: '%env(string:PROVIDER_DIGIKEY_CLIENT_ID)%'
-            $currency: '%env(string:PROVIDER_DIGIKEY_CURRENCY)%'
-            $language: '%env(string:PROVIDER_DIGIKEY_LANGUAGE)%'
-            $country: '%env(string:PROVIDER_DIGIKEY_COUNTRY)%'
-
-    App\Services\InfoProviderSystem\Providers\OctopartProvider:
-        arguments:
-            $clientId: '&env(string:PROVIDER_OCTOPART_CLIENT_ID)%'
-            $secret: '%env(string:PROVIDER_OCTOPART_SECRET)%'
-            $country: '%env(string:PROVIDER_OCTOPART_COUNTRY)%'
-            $currency: '%env(string:PROVIDER_OCTOPART_CURRENCY)%'
-            $search_limit: '%env(int:PROVIDER_OCTOPART_SEARCH_LIMIT)%'
-            $onlyAuthorizedSellers: '%env(bool:PROVIDER_OCTOPART_ONLY_AUTHORIZED_SELLERS)%'
-
 
     ####################################################################################################################
     # API system

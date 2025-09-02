@@ -22,13 +22,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\Parts\Manufacturer;
 
-/**
- * @group slow
- * @group DB
- */
-class ManufacturerControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class ManufacturerController extends AbstractAdminController
 {
     protected static string $base_path = '/en/manufacturer';
     protected static string $entity_class = Manufacturer::class;

@@ -70,6 +70,7 @@ class HistorySettings
         description: new TM("settings.system.history.enforceComments.description"),
         options: ['type' => EnumType::class, 'nullable' => false, 'options' => ['class' => EventCommentType::class]],
         formType: EnforceEventCommentTypesType::class,
+        formOptions: ['required' => false, "empty_data" => []],
         envVar: "ENFORCE_CHANGE_COMMENTS_FOR", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapEnforceComments']
     )]
     public array $enforceComments = [];

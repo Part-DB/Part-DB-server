@@ -48,7 +48,7 @@ class TMEClient
 
     public function isUsable(): bool
     {
-        return !($this->settings->apiToken === '' || $this->settings->apiSecret === '');
+        return !($this->settings->apiToken === null || $this->settings->apiSecret === null);
     }
 
     /**
@@ -59,7 +59,7 @@ class TMEClient
     public function isUsingPrivateToken(): bool
     {
         //Private tokens are longer than anonymous ones (50 instead of 45 characters)
-        return strlen($this->settings->apiToken) > 45;
+        return strlen($this->settings->apiToken ?? '') > 45;
     }
 
     /**

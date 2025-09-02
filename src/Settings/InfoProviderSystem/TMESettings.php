@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -42,24 +44,32 @@ class TMESettings
     private const SUPPORTED_CURRENCIES = ["EUR", "USD", "PLN", "GBP"];
 
     #[SettingsParameter(label: new TM("settings.ips.tme.token"),
-        description: new TM("settings.ips.tme.token.help"), formOptions: ["help_html" => true], envVar: "PROVIDER_TME_KEY")]
+        description: new TM("settings.ips.tme.token.help"),
+        formType: APIKeyType::class, formOptions: ["help_html" => true],
+        envVar: "PROVIDER_TME_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiToken = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.secret"), envVar: "PROVIDER_TME_SECRET")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.secret"),
+        formType: APIKeyType::class,
+        envVar: "PROVIDER_TME_SECRET", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiSecret = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES], envVar: "PROVIDER_TME_CURRENCY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class, formOptions: ["preferred_choices" => self::SUPPORTED_CURRENCIES],
+        envVar: "PROVIDER_TME_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Choice(choices: self::SUPPORTED_CURRENCIES)]
     public string $currency = "EUR";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => ["en", "de", "fr", "pl"]], envVar: "PROVIDER_TME_LANGUAGE")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class, formOptions: ["preferred_choices" => ["en", "de", "fr", "pl"]],
+        envVar: "PROVIDER_TME_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Language]
     public string $language = "en";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]], envVar: "PROVIDER_TME_COUNTRY")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class, formOptions: ["preferred_choices" => ["DE", "PL", "GB", "FR"]],
+        envVar: "PROVIDER_TME_COUNTRY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.grossPrices"), envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES")]
+    #[SettingsParameter(label: new TM("settings.ips.tme.grossPrices"),
+        envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $grossPrices = true;
 }

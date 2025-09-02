@@ -66,6 +66,8 @@ docker exec --user=www-data partdb php bin/console cache:clear
 * `partdb:migrations:import-partkeepr`: Imports a mysqldump XML dump of a PartKeepr database into Part-DB. This is only
   needed for users, which want to migrate from PartKeepr to Part-DB. *All existing data in the Part-DB database is
   deleted!*
+* `settings:migrate-env-to-settings`: Migrate configuration from environment variables to the settings interface.
+The value of the environment variable is copied to the settings database, so the environment variable can be removed afterwards without losing the configuration.
 
 ## Database commands
 

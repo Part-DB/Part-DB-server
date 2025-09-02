@@ -348,13 +348,13 @@
       </segment>
     </unit>
     <unit id="89nojXY" name="validator.fileSize.invalidFormat">
-      <segment>
+      <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Invalid file size format. Use an integer number plus K, M, G as suffix for Kilo, Mega or Gigabytes.</target>
       </segment>
     </unit>
     <unit id="iXcU7ce" name="validator.invalid_range">
-      <segment>
+      <segment state="translated">
         <source>validator.invalid_range</source>
         <target>The given range is not valid!</target>
       </segment>

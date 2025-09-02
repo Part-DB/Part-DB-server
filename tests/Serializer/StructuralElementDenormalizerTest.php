@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Serializer;
 
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementDenormalizer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -53,9 +54,7 @@ class StructuralElementDenormalizerTest extends WebTestCase
         $this->assertTrue($this->service->supportsDenormalization(['name' => 'Test'], Category::class, 'json', ['groups' => ['import'], 'partdb_import' => true]));
     }
 
-    /**
-     * @group DB
-     */
+    #[Group('DB')]
     public function testDenormalize(): void
     {
         //Check that we retrieve DB elements via the name

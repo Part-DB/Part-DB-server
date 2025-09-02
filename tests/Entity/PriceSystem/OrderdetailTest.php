@@ -38,7 +38,7 @@ class OrderdetailTest extends TestCase
         $pricedetail = new Pricedetail();
         $orderdetail->addPricedetail($pricedetail);
         $this->assertSame($orderdetail, $pricedetail->getOrderdetail());
-        $this->assertSame(1, $orderdetail->getPricedetails()->count());
+        $this->assertCount(1, $orderdetail->getPricedetails());
 
         //After removal of the pricedetail, the orderdetail must be empty again
         $orderdetail->removePricedetail($pricedetail);

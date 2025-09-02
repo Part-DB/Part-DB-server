@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=debian:bookworm-slim
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.4
 
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
@@ -48,7 +48,7 @@ RUN apt-get update && apt-get -y install \
 # Install node and yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get update && apt-get install -y \
       nodejs \
       yarn \
@@ -119,12 +119,12 @@ realpath_cache_size=4096K
 realpath_cache_ttl=600
 EOF
 
-# Increase upload limit and enable preloading
+# Increase upload limit and enable preloading (disabled for now, as it does not seem to work properly, and require prod env anyway)
 COPY <<EOF /etc/php/${PHP_VERSION}/fpm/conf.d/partdb.ini
 upload_max_filesize=256M
 post_max_size=300M
-opcache.preload_user=www-data
-opcache.preload=/var/www/html/config/preload.php
+;opcache.preload_user=www-data
+;opcache.preload=/var/www/html/config/preload.php
 log_limit=8096
 EOF
 

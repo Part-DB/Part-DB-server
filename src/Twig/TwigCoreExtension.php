@@ -34,8 +34,11 @@ use Twig\TwigTest;
  */
 final class TwigCoreExtension extends AbstractExtension
 {
-    public function __construct(protected ObjectNormalizer $objectNormalizer)
+    private readonly ObjectNormalizer $objectNormalizer;
+
+    public function __construct()
     {
+        $this->objectNormalizer = new ObjectNormalizer();
     }
 
     public function getFunctions(): array

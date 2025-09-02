@@ -246,7 +246,8 @@ class OEMSecretsProvider implements InfoProviderInterface
             'name' => 'OEMSecrets',
             'description' => 'This provider uses the OEMSecrets API to search for parts.',
             'url' => 'https://www.oemsecrets.com/',
-            'disabled_help' => 'Configure the API key in the PROVIDER_OEMSECRETS_KEY environment variable to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => OEMSecretsSettings::class
         ];
     }
     /**
@@ -265,7 +266,7 @@ class OEMSecretsProvider implements InfoProviderInterface
      */
     public function isActive(): bool
     {
-        return $this->settings->apiKey !== '';
+        return $this->settings->apiKey !== null && $this->settings->apiKey !== '';
     }
 
 
@@ -285,18 +286,18 @@ class OEMSecretsProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         /*
-        oemsecrets Part Search API  3.0.1 
+        oemsecrets Part Search API  3.0.1
 
         "https://oemsecretsapi.com/partsearch?
         searchTerm=BC547
         &apiKey=icawpb0bspoo2c6s64uv4vpdfp2vgr7e27bxw0yct2bzh87mpl027x353uelpq2x
         &currency=EUR
-        &countryCode=IT" 
-        
+        &countryCode=IT"
+
         partsearch description:
-        Use the Part Search API to find distributor data for a full or partial manufacturer 
+        Use the Part Search API to find distributor data for a full or partial manufacturer
         part number including part details, pricing, compliance and inventory.
-        
+
         Required Parameter  	Format	        Description
         searchTerm	            string	        Part number you are searching for
         apiKey	                string	        Your unique API key provided to you by OEMsecrets
@@ -304,14 +305,14 @@ class OEMSecretsProvider implements InfoProviderInterface
         Additional Parameter	Format	        Description
         countryCode	            string	        The country you want to output for
         currency	            string / array	The currency you want the prices to be displayed as
-        
+
         To display the output for GB and to view prices in USD, add [ countryCode=GB ] and [ currency=USD ]
         as seen below:
         oemsecretsapi.com/partsearch?apiKey=abcexampleapikey123&searchTerm=bd04&countryCode=GB&currency=USD
-        
+
         To view prices in both USD and GBP add [ currency[]=USD&currency[]=GBP ]
         oemsecretsapi.com/partsearch?searchTerm=bd04&apiKey=abcexampleapikey123&currency[]=USD&currency[]=GBP
-        
+
         */
 
 

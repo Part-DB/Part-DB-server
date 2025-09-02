@@ -33,6 +33,9 @@ class InfoProviderSettings
     use SettingsTrait;
 
     #[EmbeddedSettings]
+    public ?DigikeySettings $digikey = null;
+
+    #[EmbeddedSettings]
     public ?MouserSettings $mouser = null;
 
     #[EmbeddedSettings]
@@ -40,6 +43,9 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?Element14Settings $element14 = null;
+
+    #[EmbeddedSettings]
+    public ?OctopartSettings $octopartSettings = null;
 
     #[EmbeddedSettings]
     public ?LCSCSettings $lcsc = null;

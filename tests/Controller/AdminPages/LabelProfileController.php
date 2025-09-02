@@ -41,20 +41,21 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\LabelSystem\LabelProfile;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class LabelProfileControllerTest extends AbstractAdminControllerTest
+class LabelProfileController extends AbstractAdminController
 {
     protected static string $base_path = '/en/label_profile';
     protected static string $entity_class = LabelProfile::class;
 
     /**
      * Tests if deleting an entity is working.
-     *
-     * @group slow
-     * @dataProvider deleteDataProvider
      */
+    #[DataProvider('deleteDataProvider')]
+    #[Group('slow')]
     public function testDeleteEntity(string $user, bool $delete): void
     {
         //Test read access

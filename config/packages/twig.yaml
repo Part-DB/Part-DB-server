@@ -17,7 +17,6 @@ twig:
         available_themes: '%partdb.available_themes%'
         saml_enabled: '%partdb.saml.enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
-        img_overlay: '%partdb.show_part_image_overlay%'
 
 when@test:
     twig:
