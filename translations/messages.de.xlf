@@ -6504,7 +6504,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>flash.password_change_needed</source>
-        <target>Ihr Password muss geändert werden!</target>
+        <target>Ihr Passwort muss geändert werden!</target>
       </segment>
     </unit>
     <unit id="8I8zHPK" name="attachment.table.type">
