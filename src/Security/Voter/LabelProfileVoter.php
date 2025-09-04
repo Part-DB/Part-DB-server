@@ -58,6 +58,7 @@ final class LabelProfileVoter extends Voter
         'delete' => 'delete_profiles',
         'show_history' => 'show_history',
         'revert_element' => 'revert_element',
+        'import' => 'import',
     ];
 
     public function __construct(private readonly VoterHelper $helper)
