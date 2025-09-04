@@ -7157,8 +7157,14 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
         <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
 Element 2
-Element 3</target>
+Element 3
+
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
