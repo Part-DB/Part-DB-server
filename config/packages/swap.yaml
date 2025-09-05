@@ -11,3 +11,6 @@ florianv_swap:
 
     fixer: # Fixer.io (needs an API key)
         access_key: "%env(string:settings:exchange_rate:fixerApiKey)%"
+
+    frankfurter: ~
+    fawazahmed_currency_api: ~

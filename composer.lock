@@ -7436,16 +7436,16 @@
         },
         {
             "name": "part-db/exchanger",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/exchanger.git",
-                "reference": "a549f2bd526042f66ad5caa044fd15c67ac5270f"
+                "reference": "a43fe79a082e331ec2b24f3579e4fba153743757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/exchanger/zipball/a549f2bd526042f66ad5caa044fd15c67ac5270f",
-                "reference": "a549f2bd526042f66ad5caa044fd15c67ac5270f",
+                "url": "https://api.github.com/repos/Part-DB/exchanger/zipball/a43fe79a082e331ec2b24f3579e4fba153743757",
+                "reference": "a43fe79a082e331ec2b24f3579e4fba153743757",
                 "shasum": ""
             },
             "require": {
@@ -7507,9 +7507,9 @@
                 "money"
             ],
             "support": {
-                "source": "https://github.com/Part-DB/exchanger/tree/v3.0.0"
+                "source": "https://github.com/Part-DB/exchanger/tree/v3.1.0"
             },
-            "time": "2025-09-05T14:02:04+00:00"
+            "time": "2025-09-05T19:48:23+00:00"
         },
         {
             "name": "part-db/label-fonts",
@@ -7620,19 +7620,20 @@
         },
         {
             "name": "part-db/swap-bundle",
-            "version": "v6.0.0",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/symfony-swap.git",
-                "reference": "6772eda2603a864b5f0a94224e0cfd79976c7389"
+                "reference": "fd78ebfbd762b1d76b4d71f713f39add63dec62b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/symfony-swap/zipball/6772eda2603a864b5f0a94224e0cfd79976c7389",
-                "reference": "6772eda2603a864b5f0a94224e0cfd79976c7389",
+                "url": "https://api.github.com/repos/Part-DB/symfony-swap/zipball/fd78ebfbd762b1d76b4d71f713f39add63dec62b",
+                "reference": "fd78ebfbd762b1d76b4d71f713f39add63dec62b",
                 "shasum": ""
             },
             "require": {
+                "part-db/exchanger": "^3.1.0",
                 "part-db/swap": "^5.0",
                 "php": "^7.1.3|^8.0",
                 "psr/http-client": "^1.0",
@@ -7687,9 +7688,9 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/Part-DB/symfony-swap/tree/v6.0.0"
+                "source": "https://github.com/Part-DB/symfony-swap/tree/v6.1.0"
             },
-            "time": "2025-09-05T17:26:07+00:00"
+            "time": "2025-09-05T19:52:56+00:00"
         },
         {
             "name": "php-http/discovery",
