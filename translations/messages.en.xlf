@@ -7164,8 +7164,8 @@ Exampletown</target>
 Element 2
 Element 3
 
-Element 1 -&gt; Element 1.1
-Element 1 -&gt; Element 1.2]]></target>
+Element 1 -> Element 1.1
+Element 1 -> Element 1.2]]></target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
