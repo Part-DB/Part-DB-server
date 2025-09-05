@@ -51,7 +51,7 @@ class CurrencyFixtures extends Fixture
 
         $currency7 = new Currency();
         $currency7->setName('Test Currency with long name');
-        $currency7->setIsoCode('CHY');
+        $currency7->setIsoCode('CNY');
         $manager->persist($currency7);
 
         $manager->flush();
