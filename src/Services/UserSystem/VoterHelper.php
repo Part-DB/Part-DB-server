@@ -141,7 +141,7 @@ final class VoterHelper
     {
         if ($voter !== null) {
             $voter->addReason(sprintf("User does not have permission %s -> %s -> %s (%s.%s).",
-                $this->translator->trans('perm.group.'.$this->permissionStructure['perms'][$permission]['group'] ?? 'default' ),
+                $this->translator->trans('perm.group.'.($this->permissionStructure['perms'][$permission]['group'] ?? 'unknown') ),
                 $this->translator->trans($this->permissionStructure['perms'][$permission]['label'] ?? $permission),
                 $this->translator->trans($this->permissionStructure['perms'][$permission]['operations'][$operation]['label'] ?? $operation),
                 $permission,
