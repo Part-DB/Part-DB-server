@@ -54,11 +54,16 @@ final class VoterHelper
      * @param  TokenInterface  $token  The token to check
      * @param  string  $permission  The permission to check
      * @param  string  $operation  The operation to check
+     * @param  Vote|null $vote  The vote object to add reasons to (optional). If null, no reasons are added.
      * @return bool
      */
-    public function isGranted(TokenInterface $token, string $permission, string $operation): bool
+    public function isGranted(TokenInterface $token, string $permission, string $operation, ?Vote $vote = null): bool
     {
-        return $this->isGrantedTrinary($token, $permission, $operation) ?? false;
+        $tmp = $this->isGrantedTrinary($token, $permission, $operation) ?? false;
+        if ($tmp === false) {
+            $this->addReason($vote, $permission, $operation);
+        }
+        return $tmp;
     }
 
     /**
