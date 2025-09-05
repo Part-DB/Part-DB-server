@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09b78f345ea8115b5b29ea3e67dcb579",
+    "content-hash": "fe6dfc229f551945cfa6be8ca26a437e",
     "packages": [
         {
             "name": "amphp/amp",
@@ -968,7 +968,7 @@
         },
         {
             "name": "api-platform/doctrine-common",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-common.git",
@@ -1050,13 +1050,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-common/tree/v4.1.22"
+                "source": "https://github.com/api-platform/doctrine-common/tree/v4.1.23"
             },
             "time": "2025-08-18T13:30:43+00:00"
         },
         {
             "name": "api-platform/doctrine-orm",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-orm.git",
@@ -1135,13 +1135,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.1.22"
+                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.1.23"
             },
             "time": "2025-06-06T14:56:47+00:00"
         },
         {
             "name": "api-platform/documentation",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/documentation.git",
@@ -1203,7 +1203,7 @@
         },
         {
             "name": "api-platform/http-cache",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/http-cache.git",
@@ -1275,13 +1275,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/http-cache/tree/v4.1.22"
+                "source": "https://github.com/api-platform/http-cache/tree/v4.1.23"
             },
             "time": "2025-06-06T14:56:47+00:00"
         },
         {
             "name": "api-platform/hydra",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/hydra.git",
@@ -1360,13 +1360,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/hydra/tree/v4.1.22"
+                "source": "https://github.com/api-platform/hydra/tree/v4.1.23"
             },
             "time": "2025-07-15T14:10:59+00:00"
         },
         {
             "name": "api-platform/json-api",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-api.git",
@@ -1439,13 +1439,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-api/tree/v4.1.22"
+                "source": "https://github.com/api-platform/json-api/tree/v4.1.23"
             },
             "time": "2025-08-06T07:56:58+00:00"
         },
         {
             "name": "api-platform/json-schema",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-schema.git",
@@ -1518,13 +1518,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-schema/tree/v4.1.22"
+                "source": "https://github.com/api-platform/json-schema/tree/v4.1.23"
             },
             "time": "2025-06-29T12:24:14+00:00"
         },
         {
             "name": "api-platform/jsonld",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/jsonld.git",
@@ -1596,22 +1596,22 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/jsonld/tree/v4.1.22"
+                "source": "https://github.com/api-platform/jsonld/tree/v4.1.23"
             },
             "time": "2025-07-25T10:05:30+00:00"
         },
         {
             "name": "api-platform/metadata",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/metadata.git",
-                "reference": "782477dd28cc675909597bfa47af7c1f85659ffa"
+                "reference": "58b25f9a82c12727afab09b5a311828aacff8e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/metadata/zipball/782477dd28cc675909597bfa47af7c1f85659ffa",
-                "reference": "782477dd28cc675909597bfa47af7c1f85659ffa",
+                "url": "https://api.github.com/repos/api-platform/metadata/zipball/58b25f9a82c12727afab09b5a311828aacff8e88",
+                "reference": "58b25f9a82c12727afab09b5a311828aacff8e88",
                 "shasum": ""
             },
             "require": {
@@ -1693,13 +1693,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/metadata/tree/v4.1.22"
+                "source": "https://github.com/api-platform/metadata/tree/v4.1.23"
             },
-            "time": "2025-08-29T15:13:26+00:00"
+            "time": "2025-09-05T09:06:52+00:00"
         },
         {
             "name": "api-platform/openapi",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/openapi.git",
@@ -1780,13 +1780,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/openapi/tree/v4.1.22"
+                "source": "https://github.com/api-platform/openapi/tree/v4.1.23"
             },
             "time": "2025-07-29T08:53:27+00:00"
         },
         {
             "name": "api-platform/serializer",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/serializer.git",
@@ -1871,13 +1871,13 @@
                 "serializer"
             ],
             "support": {
-                "source": "https://github.com/api-platform/serializer/tree/v4.1.22"
+                "source": "https://github.com/api-platform/serializer/tree/v4.1.23"
             },
             "time": "2025-08-29T15:13:26+00:00"
         },
         {
             "name": "api-platform/state",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/state.git",
@@ -1963,22 +1963,22 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/state/tree/v4.1.22"
+                "source": "https://github.com/api-platform/state/tree/v4.1.23"
             },
             "time": "2025-07-16T14:01:52+00:00"
         },
         {
             "name": "api-platform/symfony",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/symfony.git",
-                "reference": "735b9a80f3b7a5f528b663cd28489fbe52f52416"
+                "reference": "e35839489b4e76ffc5fc2b0cbadbbaece75b9ad1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/symfony/zipball/735b9a80f3b7a5f528b663cd28489fbe52f52416",
-                "reference": "735b9a80f3b7a5f528b663cd28489fbe52f52416",
+                "url": "https://api.github.com/repos/api-platform/symfony/zipball/e35839489b4e76ffc5fc2b0cbadbbaece75b9ad1",
+                "reference": "e35839489b4e76ffc5fc2b0cbadbbaece75b9ad1",
                 "shasum": ""
             },
             "require": {
@@ -2087,13 +2087,13 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/api-platform/symfony/tree/v4.1.22"
+                "source": "https://github.com/api-platform/symfony/tree/v4.1.23"
             },
-            "time": "2025-07-16T14:01:52+00:00"
+            "time": "2025-09-05T07:30:37+00:00"
         },
         {
             "name": "api-platform/validator",
-            "version": "v4.1.22",
+            "version": "v4.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/validator.git",
@@ -2162,7 +2162,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/api-platform/validator/tree/v4.1.22"
+                "source": "https://github.com/api-platform/validator/tree/v4.1.23"
             },
             "time": "2025-07-16T14:01:52+00:00"
         },
@@ -2881,16 +2881,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "4.3.2",
+            "version": "4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "7669f131d43b880de168b2d2df9687d152d6c762"
+                "reference": "231959669bb2173194c95636eae7f1b41b2a8b19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/7669f131d43b880de168b2d2df9687d152d6c762",
-                "reference": "7669f131d43b880de168b2d2df9687d152d6c762",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/231959669bb2173194c95636eae7f1b41b2a8b19",
+                "reference": "231959669bb2173194c95636eae7f1b41b2a8b19",
                 "shasum": ""
             },
             "require": {
@@ -2900,10 +2900,10 @@
                 "psr/log": "^1|^2|^3"
             },
             "require-dev": {
-                "doctrine/coding-standard": "13.0.0",
+                "doctrine/coding-standard": "13.0.1",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2023.2",
-                "phpstan/phpstan": "2.1.17",
+                "phpstan/phpstan": "2.1.22",
                 "phpstan/phpstan-phpunit": "2.0.6",
                 "phpstan/phpstan-strict-rules": "^2",
                 "phpunit/phpunit": "11.5.23",
@@ -2967,7 +2967,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/4.3.2"
+                "source": "https://github.com/doctrine/dbal/tree/4.3.3"
             },
             "funding": [
                 {
@@ -2983,7 +2983,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-05T13:30:38+00:00"
+            "time": "2025-09-04T23:52:42+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -3035,16 +3035,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "2.15.1",
+            "version": "2.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "5a305c5e776f9d3eb87f5b94d40d50aff439211d"
+                "reference": "152d5083f0cd205a278131dc4351a8c94d007fe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/5a305c5e776f9d3eb87f5b94d40d50aff439211d",
-                "reference": "5a305c5e776f9d3eb87f5b94d40d50aff439211d",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/152d5083f0cd205a278131dc4351a8c94d007fe1",
+                "reference": "152d5083f0cd205a278131dc4351a8c94d007fe1",
                 "shasum": ""
             },
             "require": {
@@ -3081,6 +3081,7 @@
                 "phpunit/phpunit": "^9.6.22",
                 "psr/log": "^1.1.4 || ^2.0 || ^3.0",
                 "symfony/doctrine-messenger": "^6.4 || ^7.0",
+                "symfony/expression-language": "^6.4 || ^7.0",
                 "symfony/messenger": "^6.4 || ^7.0",
                 "symfony/phpunit-bridge": "^7.2",
                 "symfony/property-info": "^6.4 || ^7.0",
@@ -3137,7 +3138,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.15.1"
+                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.16.1"
             },
             "funding": [
                 {
@@ -3153,7 +3154,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-30T15:48:28+00:00"
+            "time": "2025-09-05T15:24:53+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -4133,16 +4134,16 @@
         },
         {
             "name": "ergebnis/classy",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/classy.git",
-                "reference": "e5a695e44b083d4a4b4f2a40427301cd2916699d"
+                "reference": "05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/classy/zipball/e5a695e44b083d4a4b4f2a40427301cd2916699d",
-                "reference": "e5a695e44b083d4a4b4f2a40427301cd2916699d",
+                "url": "https://api.github.com/repos/ergebnis/classy/zipball/05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef",
+                "reference": "05c3ac7d8d9d337c4cf1d5602a339f57cb2a27ef",
                 "shasum": ""
             },
             "require": {
@@ -4150,11 +4151,11 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.47.0",
-                "ergebnis/license": "^2.6.0",
-                "ergebnis/php-cs-fixer-config": "^6.51.0",
-                "ergebnis/phpstan-rules": "^2.10.5",
-                "ergebnis/phpunit-slow-test-detector": "^2.19.1",
+                "ergebnis/composer-normalize": "^2.48.1",
+                "ergebnis/license": "^2.7.0",
+                "ergebnis/php-cs-fixer-config": "^6.54.0",
+                "ergebnis/phpstan-rules": "^2.11.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.20.0",
                 "fakerphp/faker": "^1.24.1",
                 "infection/infection": "~0.26.6",
                 "phpstan/extension-installer": "^1.4.3",
@@ -4163,7 +4164,7 @@
                 "phpstan/phpstan-phpunit": "^2.0.7",
                 "phpstan/phpstan-strict-rules": "^2.0.6",
                 "phpunit/phpunit": "^9.6.19",
-                "rector/rector": "^2.1.2"
+                "rector/rector": "^2.1.4"
             },
             "type": "library",
             "autoload": {
@@ -4196,208 +4197,7 @@
                 "issues": "https://github.com/ergebnis/classy/issues",
                 "source": "https://github.com/ergebnis/classy"
             },
-            "time": "2025-08-19T06:14:25+00:00"
-        },
-        {
-            "name": "florianv/exchanger",
-            "version": "2.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/florianv/exchanger.git",
-                "reference": "9214f51665fb907e7aa2397e21a90c456eb0c448"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/florianv/exchanger/zipball/9214f51665fb907e7aa2397e21a90c456eb0c448",
-                "reference": "9214f51665fb907e7aa2397e21a90c456eb0c448",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-libxml": "*",
-                "ext-simplexml": "*",
-                "php": "^7.1.3 || ^8.0",
-                "php-http/client-implementation": "^1.0",
-                "php-http/discovery": "^1.6",
-                "php-http/httplug": "^1.0 || ^2.0",
-                "psr/http-factory": "^1.0.2",
-                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "nyholm/psr7": "^1.0",
-                "php-http/message": "^1.7",
-                "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "^7 || ^8 || ^9.4"
-            },
-            "suggest": {
-                "php-http/guzzle6-adapter": "Required to use Guzzle for sending HTTP requests",
-                "php-http/message": "Required to use Guzzle for sending HTTP requests"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Exchanger\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florian Voutzinos",
-                    "email": "florian@voutzinos.com",
-                    "homepage": "https://voutzinos.com"
-                }
-            ],
-            "description": "Currency exchange rates framework for PHP",
-            "homepage": "https://github.com/florianv/exchanger",
-            "keywords": [
-                "Rate",
-                "conversion",
-                "currency",
-                "exchange rates",
-                "money"
-            ],
-            "support": {
-                "issues": "https://github.com/florianv/exchanger/issues",
-                "source": "https://github.com/florianv/exchanger/tree/2.8.1"
-            },
-            "time": "2023-11-03T17:11:52+00:00"
-        },
-        {
-            "name": "florianv/swap",
-            "version": "4.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/florianv/swap.git",
-                "reference": "88edd27fcb95bdc58bbbf9e4b00539a2843d97fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/florianv/swap/zipball/88edd27fcb95bdc58bbbf9e4b00539a2843d97fd",
-                "reference": "88edd27fcb95bdc58bbbf9e4b00539a2843d97fd",
-                "shasum": ""
-            },
-            "require": {
-                "florianv/exchanger": "^2.0",
-                "php": "^7.1.3 || ^8.0"
-            },
-            "require-dev": {
-                "nyholm/psr7": "^1.0",
-                "php-http/message": "^1.7",
-                "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "^7 || ^8 || ^9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Swap\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florian Voutzinos",
-                    "email": "florian@voutzinos.com",
-                    "homepage": "https://voutzinos.com"
-                }
-            ],
-            "description": "Exchange rates library for PHP",
-            "keywords": [
-                "Rate",
-                "conversion",
-                "currency",
-                "exchange rates",
-                "money"
-            ],
-            "support": {
-                "issues": "https://github.com/florianv/swap/issues",
-                "source": "https://github.com/florianv/swap/tree/4.3.0"
-            },
-            "time": "2020-12-28T10:14:12+00:00"
-        },
-        {
-            "name": "florianv/swap-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/florianv/symfony-swap.git",
-                "reference": "c8cd268ad6e2f636f10b91df9850e3941d7f5807"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/florianv/symfony-swap/zipball/c8cd268ad6e2f636f10b91df9850e3941d7f5807",
-                "reference": "c8cd268ad6e2f636f10b91df9850e3941d7f5807",
-                "shasum": ""
-            },
-            "require": {
-                "florianv/swap": "^4.0",
-                "php": "^7.1.3|^8.0",
-                "symfony/framework-bundle": "~3.0|~4.0|~5.0|~6.0|~7.0"
-            },
-            "require-dev": {
-                "nyholm/psr7": "^1.1",
-                "php-http/guzzle6-adapter": "^1.0",
-                "php-http/message": "^1.7",
-                "phpunit/phpunit": "~5.7|~6.0|~7.0|~8.0|~9.0",
-                "symfony/cache": "~3.0|~4.0|~5.0|~6.0|~7.0"
-            },
-            "suggest": {
-                "symfony/cache": "For caching"
-            },
-            "default-branch": true,
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Florianv\\SwapBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florian Voutzinos",
-                    "email": "florian@voutzinos.com",
-                    "homepage": "http://florian.voutzinos.com"
-                }
-            ],
-            "description": "Integrates the Swap library with Symfony",
-            "homepage": "https://github.com/florianv/FlorianvSwapBundle",
-            "keywords": [
-                "Rate",
-                "bundle",
-                "conversion",
-                "currency",
-                "exchange",
-                "money",
-                "symfony"
-            ],
-            "support": {
-                "issues": "https://github.com/florianv/symfony-swap/issues",
-                "source": "https://github.com/florianv/symfony-swap/tree/master"
-            },
-            "time": "2024-07-09T13:51:01+00:00"
+            "time": "2025-09-04T10:17:22+00:00"
         },
         {
             "name": "gregwar/captcha",
@@ -6357,22 +6157,23 @@
         },
         {
             "name": "liip/imagine-bundle",
-            "version": "2.13.3",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "3faccde327f91368e51d05ecad49a9cd915abd81"
+                "reference": "f80dc13e9a454682b8c2255b3487829d2f8a7fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/3faccde327f91368e51d05ecad49a9cd915abd81",
-                "reference": "3faccde327f91368e51d05ecad49a9cd915abd81",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/f80dc13e9a454682b8c2255b3487829d2f8a7fe4",
+                "reference": "f80dc13e9a454682b8c2255b3487829d2f8a7fe4",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "imagine/imagine": "^1.3.2",
                 "php": "^7.2|^8.0",
+                "symfony/deprecation-contracts": "^2.5 || ^3",
                 "symfony/filesystem": "^3.4|^4.4|^5.3|^6.0|^7.0",
                 "symfony/finder": "^3.4|^4.4|^5.3|^6.0|^7.0",
                 "symfony/framework-bundle": "^3.4.23|^4.4|^5.3|^6.0|^7.0",
@@ -6457,9 +6258,9 @@
             ],
             "support": {
                 "issues": "https://github.com/liip/LiipImagineBundle/issues",
-                "source": "https://github.com/liip/LiipImagineBundle/tree/2.13.3"
+                "source": "https://github.com/liip/LiipImagineBundle/tree/2.14.0"
             },
-            "time": "2024-12-12T09:38:23+00:00"
+            "time": "2025-09-03T06:33:10+00:00"
         },
         {
             "name": "lorenzo/pinky",
@@ -7634,6 +7435,83 @@
             "time": "2024-04-22T22:05:04+00:00"
         },
         {
+            "name": "part-db/exchanger",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Part-DB/exchanger.git",
+                "reference": "a549f2bd526042f66ad5caa044fd15c67ac5270f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Part-DB/exchanger/zipball/a549f2bd526042f66ad5caa044fd15c67ac5270f",
+                "reference": "a549f2bd526042f66ad5caa044fd15c67ac5270f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "php": "^7.1.3 || ^8.0",
+                "php-http/client-implementation": "^1.0",
+                "php-http/discovery": "^1.6",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "psr/http-factory": "^1.0.2",
+                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.0",
+                "php-http/message": "^1.7",
+                "php-http/message-factory": "^1.1",
+                "php-http/mock-client": "^1.0",
+                "phpunit/phpunit": "^7 || ^8 || ^9.4 || ^10.5",
+                "symfony/http-client": "^5.4 || ^6.4 || ^7.0"
+            },
+            "suggest": {
+                "php-http/guzzle6-adapter": "Required to use Guzzle for sending HTTP requests",
+                "php-http/message": "Required to use Guzzle for sending HTTP requests"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Exchanger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Voutzinos",
+                    "email": "florian@voutzinos.com",
+                    "homepage": "https://voutzinos.com"
+                },
+                {
+                    "name": "Jan Böhmer",
+                    "email": "mail@jan-boehmer.de"
+                }
+            ],
+            "description": "Fork of florianv/exchanger, a library to convert currencies using different exchange rate providers. Modernized to be compatible with Part-DB.",
+            "homepage": "https://github.com/Part-DB/exchanger",
+            "keywords": [
+                "Rate",
+                "conversion",
+                "currency",
+                "exchange rates",
+                "money"
+            ],
+            "support": {
+                "source": "https://github.com/Part-DB/exchanger/tree/v3.0.0"
+            },
+            "time": "2025-09-05T14:02:04+00:00"
+        },
+        {
             "name": "part-db/label-fonts",
             "version": "v1.1.0",
             "source": {
@@ -7670,6 +7548,148 @@
                 "source": "https://github.com/Part-DB/label-fonts/tree/v1.1.0"
             },
             "time": "2024-02-08T21:44:38+00:00"
+        },
+        {
+            "name": "part-db/swap",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Part-DB/swap.git",
+                "reference": "4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Part-DB/swap/zipball/4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe",
+                "reference": "4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe",
+                "shasum": ""
+            },
+            "require": {
+                "part-db/exchanger": "^3.0",
+                "php": "^7.1.3 || ^8.0",
+                "php-http/message-factory": "^1.1"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.0",
+                "php-http/discovery": "^1.0",
+                "php-http/message": "^1.7",
+                "php-http/mock-client": "^1.0",
+                "phpunit/phpunit": "^7 || ^8 || ^9",
+                "symfony/http-client": "^5.4||^6.0||^7.0"
+            },
+            "suggest": {
+                "php-http/discovery": "If you are not using `useHttpClient` but instead want to auto-discover HttpClient"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Swap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Voutzinos",
+                    "email": "florian@voutzinos.com",
+                    "homepage": "https://voutzinos.com"
+                },
+                {
+                    "name": "Jan Böhmer",
+                    "email": "mail@jan-boehmer.de"
+                }
+            ],
+            "description": "Fork of florianv/swap modernized for use in Part-DB. Exchange rates library for PHP",
+            "keywords": [
+                "Rate",
+                "conversion",
+                "currency",
+                "exchange rates",
+                "money"
+            ],
+            "support": {
+                "source": "https://github.com/Part-DB/swap/tree/v5.0.0"
+            },
+            "time": "2025-09-05T17:10:01+00:00"
+        },
+        {
+            "name": "part-db/swap-bundle",
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Part-DB/symfony-swap.git",
+                "reference": "6772eda2603a864b5f0a94224e0cfd79976c7389"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Part-DB/symfony-swap/zipball/6772eda2603a864b5f0a94224e0cfd79976c7389",
+                "reference": "6772eda2603a864b5f0a94224e0cfd79976c7389",
+                "shasum": ""
+            },
+            "require": {
+                "part-db/swap": "^5.0",
+                "php": "^7.1.3|^8.0",
+                "psr/http-client": "^1.0",
+                "symfony/framework-bundle": "~3.0|~4.0|~5.0|~6.0|~7.0"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.1",
+                "php-http/guzzle6-adapter": "^1.0",
+                "php-http/message": "^1.7",
+                "phpunit/phpunit": "~5.7|~6.0|~7.0|~8.0|~9.0",
+                "symfony/cache": "~3.0|~4.0|~5.0|~6.0|~7.0",
+                "symfony/http-client": "~7.0|~6.0|~5.0"
+            },
+            "suggest": {
+                "symfony/cache": "For caching"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Florianv\\SwapBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Voutzinos",
+                    "email": "florian@voutzinos.com",
+                    "homepage": "http://florian.voutzinos.com"
+                },
+                {
+                    "name": "Jan Böhmer",
+                    "email": "mail@jan-boehmer.de"
+                }
+            ],
+            "description": "Fork of florianv/swap-bundle, modernized for use with Part-DB. Integrates the Swap library with Symfony",
+            "homepage": "https://github.com/florianv/FlorianvSwapBundle",
+            "keywords": [
+                "Rate",
+                "bundle",
+                "conversion",
+                "currency",
+                "exchange",
+                "money",
+                "symfony"
+            ],
+            "support": {
+                "source": "https://github.com/Part-DB/symfony-swap/tree/v6.0.0"
+            },
+            "time": "2025-09-05T17:26:07+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -7806,6 +7826,61 @@
                 "source": "https://github.com/php-http/httplug/tree/2.4.1"
             },
             "time": "2024-09-23T11:39:58+00:00"
+        },
+        {
+            "name": "php-http/message-factory",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/message-factory.git",
+                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/message-factory/zipball/4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
+                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Factory interfaces for PSR-7 HTTP Message",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/message-factory/issues",
+                "source": "https://github.com/php-http/message-factory/tree/1.1.0"
+            },
+            "abandoned": "psr/http-factory",
+            "time": "2023-04-14T14:16:17+00:00"
         },
         {
             "name": "php-http/promise",
@@ -18333,16 +18408,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.35",
+            "version": "11.5.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "d341ee94ee5007b286fc7907b383aae6b5b3cc91"
+                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d341ee94ee5007b286fc7907b383aae6b5b3cc91",
-                "reference": "d341ee94ee5007b286fc7907b383aae6b5b3cc91",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/264a87c7ef68b1ab9af7172357740dc266df5957",
+                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957",
                 "shasum": ""
             },
             "require": {
@@ -18414,7 +18489,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.35"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.36"
             },
             "funding": [
                 {
@@ -18438,20 +18513,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-28T05:13:54+00:00"
+            "time": "2025-09-03T06:24:17+00:00"
         },
         {
             "name": "rector/rector",
-            "version": "2.1.4",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "fe613c528819222f8686a9a037a315ef9d4915b3"
+                "reference": "729aabc0ec66e700ef164e26454a1357f222a2f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/fe613c528819222f8686a9a037a315ef9d4915b3",
-                "reference": "fe613c528819222f8686a9a037a315ef9d4915b3",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/729aabc0ec66e700ef164e26454a1357f222a2f3",
+                "reference": "729aabc0ec66e700ef164e26454a1357f222a2f3",
                 "shasum": ""
             },
             "require": {
@@ -18490,7 +18565,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.1.4"
+                "source": "https://github.com/rectorphp/rector/tree/2.1.6"
             },
             "funding": [
                 {
@@ -18498,7 +18573,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-15T14:41:36+00:00"
+            "time": "2025-09-05T15:43:08+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -18506,12 +18581,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e7589e01dc8452bfecb4c8df977346cd3132650f"
+                "reference": "dc5c4ede5c331ae21fb68947ff89672df9b7cc7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e7589e01dc8452bfecb4c8df977346cd3132650f",
-                "reference": "e7589e01dc8452bfecb4c8df977346cd3132650f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/dc5c4ede5c331ae21fb68947ff89672df9b7cc7d",
+                "reference": "dc5c4ede5c331ae21fb68947ff89672df9b7cc7d",
                 "shasum": ""
             },
             "conflict": {
@@ -18935,7 +19010,7 @@
                 "marshmallow/nova-tiptap": "<5.7",
                 "matomo/matomo": "<1.11",
                 "matyhtf/framework": "<3.0.6",
-                "mautic/core": "<5.2.6|>=6.0.0.0-alpha,<6.0.2",
+                "mautic/core": "<5.2.8|>=6.0.0.0-alpha,<6.0.5",
                 "mautic/core-lib": ">=1.0.0.0-beta,<4.4.13|>=5.0.0.0-alpha,<5.1.1",
                 "maximebf/debugbar": "<1.19",
                 "mdanter/ecc": "<2",
@@ -19081,7 +19156,7 @@
                 "pixelfed/pixelfed": "<0.12.5",
                 "plotly/plotly.js": "<2.25.2",
                 "pocketmine/bedrock-protocol": "<8.0.2",
-                "pocketmine/pocketmine-mp": "<5.25.2",
+                "pocketmine/pocketmine-mp": "<5.32.1",
                 "pocketmine/raklib": ">=0.14,<0.14.6|>=0.15,<0.15.1",
                 "pressbooks/pressbooks": "<5.18",
                 "prestashop/autoupgrade": ">=4,<4.10.1",
@@ -19089,7 +19164,7 @@
                 "prestashop/blockwishlist": ">=2,<2.1.1",
                 "prestashop/contactform": ">=1.0.1,<4.3",
                 "prestashop/gamification": "<2.3.2",
-                "prestashop/prestashop": "<8.1.6",
+                "prestashop/prestashop": "<8.2.3",
                 "prestashop/productcomments": "<5.0.2",
                 "prestashop/ps_contactinfo": "<=3.3.2",
                 "prestashop/ps_emailsubscription": "<2.6.1",
@@ -19463,7 +19538,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-29T15:04:47+00:00"
+            "time": "2025-09-04T20:05:35+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -20959,7 +21034,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "florianv/swap-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
