@@ -100,7 +100,9 @@
                 </div>
             {% endif %}
 
-            {{ form_row(form.update_profile) }}
+            {% if form.update_profile is defined %}
+                {{ form_row(form.update_profile) }}
+            {% endif %}
 
             <div class="form-group row">
                 <div class="offset-sm-3 col-sm-9">

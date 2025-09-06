@@ -147,7 +147,11 @@ class LabelController extends AbstractController
                 ]);
             }
 
-            if ($form->get('update_profile')->isClicked() && $profile instanceof LabelProfile && $this->isGranted('edit', $profile)) { //@phpstan-ignore-line Phpstan does not recognize the isClicked method
+            //Check if the current profile should be updated
+            if ($form->has('update_profile')
+                && $form->get('update_profile')->isClicked()  //@phpstan-ignore-line Phpstan does not recognize the isClicked method
+                && $profile instanceof LabelProfile
+                && $this->isGranted('edit', $profile)) {
                 //Update the profile options
                 $profile->setOptions($form_options);
 
