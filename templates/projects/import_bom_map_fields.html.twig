@@ -15,7 +15,7 @@
             show_details: false
         } %}
     {% endif %}
-    
+
     <div class="row mb-3">
         <div class="col-12">
             <div class="alert alert-info">
@@ -30,7 +30,7 @@
     </div>
 
     {{ form_start(form) }}
-    
+
     <div class="row mb-3">
         <div class="col-md-6">
             {{ form_row(form.delimiter) }}
@@ -83,10 +83,10 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <input type="number" 
-                                           class="form-control form-control-sm priority-input" 
-                                           min="1" 
-                                           value="10" 
+                                    <input type="number"
+                                           class="form-control form-control-sm priority-input"
+                                           min="1"
+                                           value="10"
                                            style="width: 80px;"
                                            data-field="{{ field }}"
                                            title="{% trans %}project.bom_import.field_mapping.priority_help{% endtrans %}">
@@ -96,7 +96,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="mt-3">
                 <h6>{% trans %}project.bom_import.field_mapping.summary{% endtrans %}:</h6>
                 <div id="mapping-summary" class="alert alert-info">
@@ -121,12 +121,12 @@
 
     {{ form_end(form) }}
 
-    <script>
+    <script nonce="{{ csp_nonce('script') }}">
         // Function to initialize the field mapping page
         function initializeFieldMapping() {
             const suggestions = {{ suggested_mapping|json_encode|raw }};
             const fieldNameMapping = {{ field_name_mapping|json_encode|raw }};
-            
+
             Object.keys(suggestions).forEach(function(field) {
                 // Use the sanitized field name from the server-side mapping
                 const sanitizedField = fieldNameMapping[field];
@@ -135,15 +135,15 @@
                     select.value = suggestions[field];
                 }
             });
-            
+
             // Update mapping summary
             updateMappingSummary();
-            
+
             // Add event listeners for dynamic updates
             document.querySelectorAll('.field-mapping-select').forEach(function(select) {
                 select.addEventListener('change', updateMappingSummary);
             });
-            
+
             document.querySelectorAll('.priority-input').forEach(function(input) {
                 input.addEventListener('change', updateMappingSummary);
             });
@@ -158,19 +158,19 @@
                 initializeFieldMapping();
             }
         });
-        
+
         function updateMappingSummary() {
             const summary = document.getElementById('mapping-summary');
             const mappings = {};
             const priorities = {};
-            
+
             // Collect all mappings and priorities
             document.querySelectorAll('.field-mapping-select').forEach(function(select) {
                 const field = select.getAttribute('data-field');
                 const target = select.value;
                 const priorityInput = document.querySelector('.priority-input[data-field="' + field + '"]');
                 const priority = priorityInput ? parseInt(priorityInput.value) || 10 : 10;
-                
+
                 if (target && target !== '') {
                     if (!mappings[target]) {
                         mappings[target] = [];
@@ -181,19 +181,19 @@
                     });
                 }
             });
-            
+
             // Sort by priority and build summary
             let summaryHtml = '<div class="row">';
             Object.keys(mappings).forEach(function(target) {
                 const fieldMappings = mappings[target].sort((a, b) => a.priority - b.priority);
                 const fieldList = fieldMappings.map(m => m.field + ' (' + '{{ "project.bom_import.field_mapping.priority_short"|trans }}' + m.priority + ')').join(', ');
-                
+
                 summaryHtml += '<div class="col-md-6 mb-2">';
                 summaryHtml += '<strong>' + target + ':</strong> ' + fieldList;
                 summaryHtml += '</div>';
             });
             summaryHtml += '</div>';
-            
+
             if (Object.keys(mappings).length === 0) {
                 summary.innerHTML = '<i class="fa-solid fa-info-circle fa-fw"></i> {{ "project.bom_import.field_mapping.select_to_see_summary"|trans }}';
             } else {
