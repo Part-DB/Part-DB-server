@@ -165,6 +165,9 @@ class LCSCProvider implements InfoProviderInterface
         if ($field === null) {
             return null;
         }
+        // Replace "range" indicators with mathematical tilde symbols
+        // so they don't get rendered as strikethrough by Markdown
+        $field = preg_replace("/~/", "\u{223c}", $field);
 
         return strip_tags($field);
     }
