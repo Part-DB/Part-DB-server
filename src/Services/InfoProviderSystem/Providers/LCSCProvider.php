@@ -197,9 +197,6 @@ class LCSCProvider implements InfoProviderInterface
         $category = $product['parentCatalogName'] ?? null;
         if (isset($product['catalogName'])) {
             $category = ($category ?? '') . ' -> ' . $product['catalogName'];
-
-            // Replace the / with a -> for better readability
-            $category = str_replace('/', ' -> ', $category);
         }
 
         return new PartDetailDTO(
