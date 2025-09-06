@@ -359,6 +359,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.revert_elements"
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles', 'delete_profiles']
         apiTokenRole: ROLE_API_EDIT
+      import:
+        label: "perm.import"
+        alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles' ]
+        apiTokenRole: ROLE_API_EDIT
 
   api:
     label: "perm.api"
