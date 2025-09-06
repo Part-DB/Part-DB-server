@@ -158,7 +158,8 @@ class PollinProvider implements InfoProviderInterface
             category: $this->parseCategory($dom),
             manufacturer: $dom->filter('meta[property="product:brand"]')->count() > 0 ? $dom->filter('meta[property="product:brand"]')->attr('content') : null,
             preview_image_url: $dom->filter('meta[property="og:image"]')->attr('content'),
-            manufacturing_status: $this->mapAvailability($dom->filter('link[itemprop="availability"]')->attr('href')),
+            //TODO: Find another way to determine the manufacturing status, as  the itemprop="availability" is often is not existing anymore in the page
+            //manufacturing_status: $this->mapAvailability($dom->filter('link[itemprop="availability"]')->attr('href')),
             provider_url: $productPageUrl,
             notes: $this->parseNotes($dom),
             datasheets: $this->parseDatasheets($dom),
