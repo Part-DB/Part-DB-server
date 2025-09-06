@@ -149,6 +149,7 @@ class ProjectController extends AbstractController
             'choices' => [
                 'project.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
                 'project.bom_import.type.kicad_schematic' => 'kicad_schematic',
+                'project.bom_import.type.generic_csv' => 'generic_csv',
             ]
         ]);
         $builder->add('clear_existing_bom', CheckboxType::class, [
@@ -176,7 +177,7 @@ class ProjectController extends AbstractController
 
             try {
                 // For schematic imports, redirect to field mapping step
-                if ($import_type === 'kicad_schematic') {
+                if (in_array($import_type, ['kicad_schematic', 'generic_csv'], true)) {
                     // Store file content and options in session for field mapping step
                     $file_content = $form->get('file')->getData()->getContent();
                     $clear_existing = $form->get('clear_existing_bom')->getData();
