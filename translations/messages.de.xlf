@@ -6504,7 +6504,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>flash.password_change_needed</source>
-        <target>Ihr Password muss geändert werden!</target>
+        <target>Ihr Passwort muss geändert werden!</target>
       </segment>
     </unit>
     <unit id="8I8zHPK" name="attachment.table.type">
@@ -7157,8 +7157,14 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
         <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
 Element 2
-Element 3</target>
+Element 3
+
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -9006,7 +9012,7 @@ Element 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>%count% Bauteile ausgewählt!</target>
+        <target>%count% Bauteile ausgewählt</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -12921,7 +12927,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
       <segment state="translated">
         <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
-        <target>Wurzelknoten leitet zur Erstellung eines neuen Elements weiter</target>
+        <target>Stammknoten leitet zur Erstellung eines neuen Elements weiter</target>
       </segment>
     </unit>
     <unit id="j7HiQ80" name="settings.ips.digikey">
