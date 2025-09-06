@@ -123,11 +123,11 @@ class LCSCProvider implements InfoProviderInterface
      */
     private function queryByTerm(string $term): array
     {
-        $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
-            'query' => [
+            'json' => [
                 'keyword' => $term,
             ],
         ]);
