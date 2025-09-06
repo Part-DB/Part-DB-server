@@ -378,7 +378,7 @@ class ProjectController extends AbstractController
                 }
 
                 // If there are validation errors, show them and stop
-                if (!empty($validation_result['errors'])) {
+                 if (!empty($validation_result['errors'])) {
                     foreach ($validation_result['errors'] as $error) {
                         $this->addFlash('error', $error);
                     }
@@ -448,6 +448,16 @@ class ProjectController extends AbstractController
 
                 // When we get here, there were validation errors
                 $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
+
+                //Print validation errors to log for debugging
+                foreach ($errors as $error) {
+                    $logger->error('BOM entry validation error', [
+                        'message' => $error->getMessage(),
+                        'invalid_value' => $error->getInvalidValue(),
+                    ]);
+                    //And show as flash message
+                    $this->addFlash('error', $error->getMessage(),);
+                }
 
             } catch (\UnexpectedValueException | SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
