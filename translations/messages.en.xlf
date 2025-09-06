@@ -13429,5 +13429,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Generic CSV</target>
       </segment>
     </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment>
+        <source>label_generator.update_profile</source>
+        <target>Update profile with current settings</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment>
+        <source>label_generator.profile_updated</source>
+        <target>Label profile updated successfully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

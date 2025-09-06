@@ -88,6 +88,7 @@ class LabelController extends AbstractController
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,
+            'profile' => $profile
         ]);
 
         //Try to parse given target_type and target_id
@@ -142,6 +143,29 @@ class LabelController extends AbstractController
 
                 return $this->redirectToRoute('label_dialog_profile', [
                     'profile' => $new_profile->getID(),
+                    'target_id' => (string) $form->get('target_id')->getData()
+                ]);
+            }
+
+            if ($form->get('update_profile')->isClicked() && $profile instanceof LabelProfile && $this->isGranted('edit', $profile)) { //@phpstan-ignore-line Phpstan does not recognize the isClicked method
+                //Update the profile options
+                $profile->setOptions($form_options);
+
+                //Validate the profile name
+                $errors = $this->validator->validate($profile);
+                if (count($errors) > 0) {
+                    foreach ($errors as $error) {
+                        $this->addFlash('error', $error->getMessage());
+                    }
+                    goto render;
+                }
+
+                $this->em->persist($profile);
+                $this->em->flush();
+                $this->addFlash('success', 'label_generator.profile_updated');
+
+                return $this->redirectToRoute('label_dialog_profile', [
+                    'profile' => $profile->getID(),
                     'target_id' => (string) $form->get('target_id')->getData()
                 ]);
             }
