@@ -58,12 +58,15 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route(path: '/label')]
 class LabelController extends AbstractController
 {
-    public function __construct(protected LabelGenerator $labelGenerator, protected EntityManagerInterface $em, protected ElementTypeNameGenerator $elementTypeNameGenerator, protected RangeParser $rangeParser, protected TranslatorInterface $translator)
+    public function __construct(protected LabelGenerator $labelGenerator, protected EntityManagerInterface $em, protected ElementTypeNameGenerator $elementTypeNameGenerator, protected RangeParser $rangeParser, protected TranslatorInterface $translator,
+        private readonly ValidatorInterface $validator
+    )
     {
     }
 
@@ -120,15 +123,25 @@ class LabelController extends AbstractController
                     goto render;
                 }
 
-                $profile = new LabelProfile();
-                $profile->setName($form->get('save_profile_name')->getData());
-                $profile->setOptions($form_options);
-                $this->em->persist($profile);
+                $new_profile = new LabelProfile();
+                $new_profile->setName($form->get('save_profile_name')->getData());
+                $new_profile->setOptions($form_options);
+
+                //Validate the profile name
+                $errors = $this->validator->validate($new_profile);
+                if (count($errors) > 0) {
+                    foreach ($errors as $error) {
+                        $form->get('save_profile_name')->addError(new FormError($error->getMessage()));
+                    }
+                    goto render;
+                }
+
+                $this->em->persist($new_profile);
                 $this->em->flush();
                 $this->addFlash('success', 'label_generator.profile_saved');
 
                 return $this->redirectToRoute('label_dialog_profile', [
-                    'profile' => $profile->getID(),
+                    'profile' => $new_profile->getID(),
                     'target_id' => (string) $form->get('target_id')->getData()
                 ]);
             }
