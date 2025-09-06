@@ -29,6 +29,7 @@ export default class extends Controller {
         this._tomSelect = new TomSelect(this.element, {
             maxItems: 1000,
             allowEmptyOption: true,
+            dropdownParent: 'body',
             plugins: ['remove_button'],
         });
     }

@@ -44,6 +44,7 @@ export default class extends Controller {
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
+            dropdownParent: 'body',
 
             render: {
                 item: this.renderItem.bind(this),
