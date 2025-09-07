@@ -13056,5 +13056,389 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Aus Sicherheitsgründen ausgeblendet</target>
       </segment>
     </unit>
+    <unit id="J716Oh4" name="project.bom_import.map_fields">
+      <segment state="translated">
+        <source>project.bom_import.map_fields</source>
+        <target>Spalten zuordnen</target>
+      </segment>
+    </unit>
+    <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
+      <segment state="translated">
+        <source>project.bom_import.map_fields.help</source>
+        <target>Wählen Sie aus, wie CSV Spalten auf BOM Felder gemappt werden</target>
+      </segment>
+    </unit>
+    <unit id="nh7uLPe" name="project.bom_import.delimiter">
+      <segment state="translated">
+        <source>project.bom_import.delimiter</source>
+        <target>Trennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="MSlSeE4" name="project.bom_import.delimiter.comma">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.comma</source>
+        <target>Komma (,)</target>
+      </segment>
+    </unit>
+    <unit id="UdDSB0h" name="project.bom_import.delimiter.semicolon">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.semicolon</source>
+        <target>Semikolon (;)</target>
+      </segment>
+    </unit>
+    <unit id="Wpa4Gmf" name="project.bom_import.delimiter.tab">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.tab</source>
+        <target>Tab</target>
+      </segment>
+    </unit>
+    <unit id="tjrG_vU" name="project.bom_import.field_mapping.title">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.title</source>
+        <target>Spaltenzuordnung</target>
+      </segment>
+    </unit>
+    <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.csv_field</source>
+        <target>CSV Spalte</target>
+      </segment>
+    </unit>
+    <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.maps_to</source>
+        <target>Mappt auf</target>
+      </segment>
+    </unit>
+    <unit id="rhUpmxC" name="project.bom_import.field_mapping.suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.suggestion</source>
+        <target>Vorschlag</target>
+      </segment>
+    </unit>
+    <unit id="TM0mgKr" name="project.bom_import.field_mapping.priority">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority</source>
+        <target>Priorität</target>
+      </segment>
+    </unit>
+    <unit id="xY8NSRr" name="project.bom_import.field_mapping.priority_help">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_help</source>
+        <target>Priorität (kleinere Nummer = höhere Priorität)</target>
+      </segment>
+    </unit>
+    <unit id="CuXg8WU" name="project.bom_import.field_mapping.priority_short">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_short</source>
+        <target>P</target>
+      </segment>
+    </unit>
+    <unit id="jOHOShN" name="project.bom_import.field_mapping.priority_note">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_note</source>
+        <target>Prioritätstipp: Niedrigere Zahlen = höhere Priorität. Die Standardpriorität ist 10. Verwenden Sie die Prioritäten 1–9 für die wichtigsten Felder und 10+ für normale Priorität.</target>
+      </segment>
+    </unit>
+    <unit id="pvmv3OT" name="project.bom_import.field_mapping.summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.summary</source>
+        <target>Zusammenfassung der Zuordnung</target>
+      </segment>
+    </unit>
+    <unit id="VjLf1Pf" name="project.bom_import.field_mapping.select_to_see_summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.select_to_see_summary</source>
+        <target>Wählen Sie Zuordnungen aus, um eine Zusammenfassung anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="JOPny6T" name="project.bom_import.field_mapping.no_suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.no_suggestion</source>
+        <target>Kein Vorschlag</target>
+      </segment>
+    </unit>
+    <unit id="1LWEtqL" name="project.bom_import.preview">
+      <segment state="translated">
+        <source>project.bom_import.preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="1CJA0aY" name="project.bom_import.flash.session_expired">
+      <segment state="translated">
+        <source>project.bom_import.flash.session_expired</source>
+        <target>Die Import-Sitzung ist abgelaufen. Bitte laden Sie Ihre Datei erneut hoch.</target>
+      </segment>
+    </unit>
+    <unit id="BLN7XRN" name="project.bom_import.field_mapping.ignore">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.ignore</source>
+        <target>Ignorieren</target>
+      </segment>
+    </unit>
+    <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schaltplaneditor BOM (CSV Datei)</target>
+      </segment>
+    </unit>
+    <unit id="ltE6xPP" name="common.back">
+      <segment state="translated">
+        <source>common.back</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.required_field_missing</source>
+        <target>Zeile %line%: Das Pflichtfeld „%field%“ fehlt oder ist leer. Bitte stellen Sie sicher, dass dieses Feld zugeordnet ist und Daten enthält.</target>
+      </segment>
+    </unit>
+    <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.no_valid_designators</source>
+        <target>Zeile %line%: Das Bezeichnungsfeld enthält keine gültigen Komponentenreferenzen. Erwartetes Format: „R1,C2,U3“ oder „R1, C2, U3“.</target>
+      </segment>
+    </unit>
+    <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.unusual_designator_format</source>
+        <target>Zeile %line%: Einige Komponentenreferenzen haben möglicherweise ein ungewöhnliches Format: %designators%. Erwartetes Format: „R1“, „C2“, „U3“ usw.</target>
+      </segment>
+    </unit>
+    <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.duplicate_designators</source>
+        <target>Zeile %line%: Doppelte Komponentenreferenzen gefunden: %designators%. Jede Komponente sollte nur einmal pro Zeile referenziert werden.</target>
+      </segment>
+    </unit>
+    <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_quantity</source>
+        <target>Zeile %line%: Die Menge „%quantity%“ ist keine gültige Zahl. Bitte geben Sie einen numerischen Wert ein (z. B. 1, 2,5, 10).</target>
+      </segment>
+    </unit>
+    <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
+        <target>Zeile %line%: Die Menge muss größer als 0 sein, erhaltene Menge %quantity%.</target>
+      </segment>
+    </unit>
+    <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
+        <target>Zeile %line%: Die Menge %quantity% erscheint ungewöhnlich hoch. Bitte überprüfen Sie, ob dies korrekt ist.</target>
+      </segment>
+    </unit>
+    <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
+        <target>Zeile %line%: Die Menge %quantity% ist keine ganze Zahl, aber Sie haben %count% Komponentenreferenzen. Dies kann auf eine Nichtübereinstimmung hindeuten.</target>
+      </segment>
+    </unit>
+    <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
+        <target>Zeile %line%: Diskrepanz zwischen Menge und Komponentenreferenzen. Menge: %quantity%, Referenzen: %count% (%designators%). Diese sollten übereinstimmen. Passen Sie entweder die Menge an oder überprüfen Sie Ihre Komponentenreferenzen.</target>
+      </segment>
+    </unit>
+    <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_partdb_id</source>
+        <target>Zeile %line%: Part-DB ID „%id%“ ist keine gültige Zahl. Bitte geben Sie eine numerische ID ein.</target>
+      </segment>
+    </unit>
+    <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
+        <target>Zeile %line%: Die Part-DB ID muss größer als 0 sein, erhaltene ID lautet %id%.</target>
+      </segment>
+    </unit>
+    <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
+        <target>Zeile %line%: Teil-DB-ID %id% nicht in der Datenbank gefunden. Die Komponente wird ohne Verknüpfung mit einem vorhandenen Teil importiert.</target>
+      </segment>
+    </unit>
+    <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.partdb_link_success</source>
+        <target>Zeile %line%: Erfolgreich mit dem Bauteil „%name%“ (ID: %id%) verknüpft.</target>
+      </segment>
+    </unit>
+    <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.no_component_name</source>
+        <target>Zeile %line%: Kein Komponentenname/keine Komponentenbezeichnung angegeben (MPN, Bezeichnung oder Wert). Die Komponente wird als „Unbekanntes Bauteil” bezeichnet.</target>
+      </segment>
+    </unit>
+    <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.package_name_too_long</source>
+        <target>Zeile %line%: Der Footprintname „%package%“ ist ungewöhnlich lang. Bitte überprüfen Sie, ob er korrekt ist.</target>
+      </segment>
+    </unit>
+    <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.library_prefix_detected</source>
+        <target>Zeile %line%: Das Footprint „%package%“ enthält ein Bibliothekspräfix. Dieses wird beim Import automatisch entfernt.</target>
+      </segment>
+    </unit>
+    <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.non_numeric_field</source>
+        <target>Zeile %line%: Das Feld „%field%“ enthält den nicht numerischen Wert „%value%“. Bitte geben Sie eine gültige Zahl ein.</target>
+      </segment>
+    </unit>
+    <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.import_summary</source>
+        <target>Importübersicht: %total% Einträge insgesamt, %valid% gültig, %invalid% mit Problemen.</target>
+      </segment>
+    </unit>
+    <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.summary</source>
+        <target>Es wurden %count% Validierungsfehler gefunden, die behoben werden müssen, bevor der Import fortgesetzt werden kann.</target>
+      </segment>
+    </unit>
+    <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.summary</source>
+        <target>Es wurden %count% Warnungen gefunden. Bitte überprüfen Sie diese Probleme, bevor Sie fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.all_valid</source>
+        <target>Alle Einträge haben die Validierung erfolgreich bestanden!</target>
+      </segment>
+    </unit>
+    <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.summary</source>
+        <target>Validierungsübersicht</target>
+      </segment>
+    </unit>
+    <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.total_entries</source>
+        <target>Gesamtzahl der Einträge</target>
+      </segment>
+    </unit>
+    <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.valid_entries</source>
+        <target>Gültige Einträge</target>
+      </segment>
+    </unit>
+    <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.invalid_entries</source>
+        <target>Ungültige Einträge</target>
+      </segment>
+    </unit>
+    <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
+      <segment state="translated">
+        <source>project.bom_import.validation.success_rate</source>
+        <target>Erfolgsquote</target>
+      </segment>
+    </unit>
+    <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.title</source>
+        <target>Validierungsfehler</target>
+      </segment>
+    </unit>
+    <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.description</source>
+        <target>Die folgenden Fehler müssen behoben werden, bevor der Import fortgesetzt werden kann:</target>
+      </segment>
+    </unit>
+    <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.title</source>
+        <target>Validierungswarnungen</target>
+      </segment>
+    </unit>
+    <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.description</source>
+        <target>Die folgenden Warnhinweise sollten vor dem Fortfahren gelesen werden:</target>
+      </segment>
+    </unit>
+    <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.title</source>
+        <target>Informationen</target>
+      </segment>
+    </unit>
+    <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.title</source>
+        <target>Detaillierte Validierungsergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.line</source>
+        <target>Zeile</target>
+      </segment>
+    </unit>
+    <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.messages</source>
+        <target>Meldungen</target>
+      </segment>
+    </unit>
+    <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.valid</source>
+        <target>Gültig</target>
+      </segment>
+    </unit>
+    <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.invalid</source>
+        <target>Ungültig</target>
+      </segment>
+    </unit>
+    <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.all_valid</source>
+        <target>Alle Einträge sind gültig und bereit zum Import!</target>
+      </segment>
+    </unit>
+    <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
+      <segment state="translated">
+        <source>project.bom_import.validation.fix_errors</source>
+        <target>Bitte beheben Sie die Validierungsfehler, bevor Sie mit dem Import fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
+      <segment state="translated">
+        <source>project.bom_import.type.generic_csv</source>
+        <target>Generische CSV-Datei</target>
+      </segment>
+    </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment state="translated">
+        <source>label_generator.update_profile</source>
+        <target>Profil mit aktuellen Einstellungen aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment state="translated">
+        <source>label_generator.profile_updated</source>
+        <target>Labelprofil aktualisiert</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
