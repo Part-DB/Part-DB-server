@@ -6,3 +6,10 @@ jbtronics_settings:
 
   orm_storage:
     default_entity_class: App\Entity\SettingsEntry
+
+
+# Disable caching for development environment
+when@dev:
+  jbtronics_settings:
+    cache:
+      default_cacheable: false
