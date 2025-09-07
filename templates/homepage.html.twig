@@ -13,12 +13,14 @@
 {% block item_banner %}
     <div class="rounded p-4 bg-body-secondary">
         <h1 class="display-3">{{ vars.partdb_title() }}</h1>
-        <h4>
-            {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
-            {% if git_branch is not empty or git_commit is not empty %}
-                ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
-            {% endif %}
-        </h4>
+        {% if settings_instance('customization').showVersionOnHomepage %}
+            <h4>
+                {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
+                {% if git_branch is not empty or git_commit is not empty %}
+                    ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
+                {% endif %}
+            </h4>
+        {% endif %}
         {% if banner is not empty %}
             <hr>
             <div class="latex" data-controller="common--latex">

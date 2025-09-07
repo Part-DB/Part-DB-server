@@ -76,4 +76,9 @@ class CustomizationSettings
     #[Assert\NotBlank()]
     #[Assert\Unique()]
     public array $homepageitems = [HomepageItems::SEARCH, HomepageItems::BANNER, HomepageItems::FIRST_STEPS, HomepageItems::LICENSE, HomepageItems::LAST_ACTIVITY];
+
+    #[SettingsParameter(
+        label: new TM("settings.system.customization.showVersionOnHomepage")
+    )]
+    public bool $showVersionOnHomepage = true;
 }

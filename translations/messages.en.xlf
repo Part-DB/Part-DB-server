@@ -13453,5 +13453,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target><![CDATA[The items to show at the homepage. Order can be changed via drag & drop.]]></target>
       </segment>
     </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment>
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Show Part-DB version on homepage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
