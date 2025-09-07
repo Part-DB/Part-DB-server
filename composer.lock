@@ -7513,16 +7513,16 @@
         },
         {
             "name": "part-db/label-fonts",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/label-fonts.git",
-                "reference": "77c84b70ed3bb005df15f30ff835ddec490394b9"
+                "reference": "c85aeb051d6492961a2c59bc291979f15ce60e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/77c84b70ed3bb005df15f30ff835ddec490394b9",
-                "reference": "77c84b70ed3bb005df15f30ff835ddec490394b9",
+                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/c85aeb051d6492961a2c59bc291979f15ce60e88",
+                "reference": "c85aeb051d6492961a2c59bc291979f15ce60e88",
                 "shasum": ""
             },
             "type": "library",
@@ -7545,9 +7545,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Part-DB/label-fonts/issues",
-                "source": "https://github.com/Part-DB/label-fonts/tree/v1.1.0"
+                "source": "https://github.com/Part-DB/label-fonts/tree/v1.2.0"
             },
-            "time": "2024-02-08T21:44:38+00:00"
+            "time": "2025-09-07T15:42:51+00:00"
         },
         {
             "name": "part-db/swap",
@@ -17883,16 +17883,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "6271e66ce37545bd2edcddbe6bcbdd3b665ab7b8"
+                "reference": "eeff19808f8ae3a6f7c4e43e388a2848eb2b0865"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/6271e66ce37545bd2edcddbe6bcbdd3b665ab7b8",
-                "reference": "6271e66ce37545bd2edcddbe6bcbdd3b665ab7b8",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/eeff19808f8ae3a6f7c4e43e388a2848eb2b0865",
+                "reference": "eeff19808f8ae3a6f7c4e43e388a2848eb2b0865",
                 "shasum": ""
             },
             "require": {
@@ -17949,9 +17949,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.4"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.5"
             },
-            "time": "2025-07-17T11:57:55+00:00"
+            "time": "2025-09-07T11:52:30+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -18003,16 +18003,16 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "392f7ab8f52a0a776977be4e62535358c28e1b15"
+                "reference": "8820c22d785c235f69bb48da3d41e688bc8a1796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/392f7ab8f52a0a776977be4e62535358c28e1b15",
-                "reference": "392f7ab8f52a0a776977be4e62535358c28e1b15",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/8820c22d785c235f69bb48da3d41e688bc8a1796",
+                "reference": "8820c22d785c235f69bb48da3d41e688bc8a1796",
                 "shasum": ""
             },
             "require": {
@@ -18068,9 +18068,9 @@
             "description": "Symfony Framework extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.7"
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.8"
             },
-            "time": "2025-07-22T09:40:57+00:00"
+            "time": "2025-09-07T06:55:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
