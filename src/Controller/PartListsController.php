@@ -161,7 +161,9 @@ class PartListsController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(['filter' => $filter], $additional_table_vars), ['pageLength' => $this->tableSettings->fullDefaultPageSize])
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
+            ['filter' => $filter], $additional_table_vars),
+            ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {

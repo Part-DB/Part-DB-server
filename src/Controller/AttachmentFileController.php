@@ -24,6 +24,7 @@ namespace App\Controller;
 
 use App\DataTables\AttachmentDataTable;
 use App\DataTables\Filters\AttachmentFilter;
+use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Form\Filters\AttachmentFilterType;
 use App\Services\Attachments\AttachmentManager;
@@ -112,7 +113,7 @@ class AttachmentFileController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $dataTableFactory->createFromType(AttachmentDataTable::class, ['filter' => $filter], ['pageLength' => $tableSettings->fullDefaultPageSize])
+        $table = $dataTableFactory->createFromType(AttachmentDataTable::class, ['filter' => $filter], ['pageLength' => $tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
