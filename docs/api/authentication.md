@@ -32,6 +32,14 @@ tokens as you want and also delete them again.
 When deleting a token, it is immediately invalidated and can not be used anymore, which means that the application can
 not access the API anymore with this token.
 
+### Initial Admin API Token
+
+For automated deployments and CI/CD pipelines, Part-DB supports automatically creating an initial admin API token 
+during database setup. Set the `INITIAL_ADMIN_API_KEY` environment variable to a 64-character random string 
+(generate with `openssl rand -hex 32`) before running database migrations. Part-DB will create an API token named 
+"Initial Admin Token" with FULL scope that expires after 1 year. The token can be used immediately with the format 
+`Bearer tcp_<your-64-char-key>` in the Authorization header.
+
 ### Token permissions and scopes
 
 API tokens are ultimately limited by the permissions of the user, which belongs to the token. That means that the token
