@@ -55,7 +55,7 @@
         {{ encore_entry_link_tags('app') }}
 
         {% set table_settings = settings_instance('table') %}
-        <style nonce="{{ csp_nonce('style') }}">
+        <style>
             :root {
                 --table-image-preview-min-size: {{ table_settings.previewImageMinWidth }}px;
                 --table-image-preview-max-size: {{ table_settings.previewImageMaxWidth }}px;
