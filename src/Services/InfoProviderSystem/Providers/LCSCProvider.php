@@ -123,11 +123,11 @@ class LCSCProvider implements InfoProviderInterface
      */
     private function queryByTerm(string $term): array
     {
-        $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
-            'query' => [
+            'json' => [
                 'keyword' => $term,
             ],
         ]);
@@ -165,6 +165,9 @@ class LCSCProvider implements InfoProviderInterface
         if ($field === null) {
             return null;
         }
+        // Replace "range" indicators with mathematical tilde symbols
+        // so they don't get rendered as strikethrough by Markdown
+        $field = preg_replace("/~/", "\u{223c}", $field);
 
         return strip_tags($field);
     }
@@ -197,9 +200,6 @@ class LCSCProvider implements InfoProviderInterface
         $category = $product['parentCatalogName'] ?? null;
         if (isset($product['catalogName'])) {
             $category = ($category ?? '') . ' -> ' . $product['catalogName'];
-
-            // Replace the / with a -> for better readability
-            $category = str_replace('/', ' -> ', $category);
         }
 
         return new PartDetailDTO(

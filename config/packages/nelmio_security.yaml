@@ -69,9 +69,3 @@ nelmio_security:
                 - 'data:'
             block-all-mixed-content: true # defaults to false, blocks HTTP content over HTTPS transport
             # upgrade-insecure-requests: true # defaults to false, upgrades HTTP requests to HTTPS transport
-
-when@dev:
-    # disables the Content-Security-Policy header
-    nelmio_security:
-        csp:
-            enabled: false

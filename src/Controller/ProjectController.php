@@ -36,6 +36,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -102,9 +103,14 @@ class ProjectController extends AbstractController
                 $this->addFlash('success', 'project.build.flash.success');
 
                 return $this->redirect(
-                    $request->get('_redirect',
-                        $this->generateUrl('project_info', ['id' => $project->getID()]
-                        )));
+                    $request->get(
+                        '_redirect',
+                        $this->generateUrl(
+                            'project_info',
+                            ['id' => $project->getID()]
+                        )
+                    )
+                );
             }
 
             $this->addFlash('error', 'project.build.flash.invalid_input');
@@ -120,9 +126,13 @@ class ProjectController extends AbstractController
     }
 
     #[Route(path: '/{id}/import_bom', name: 'project_import_bom', requirements: ['id' => '\d+'])]
-    public function importBOM(Request $request, EntityManagerInterface $entityManager, Project $project,
-        BOMImporter $BOMImporter, ValidatorInterface $validator): Response
-    {
+    public function importBOM(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Project $project,
+        BOMImporter $BOMImporter,
+        ValidatorInterface $validator
+    ): Response {
         $this->denyAccessUnlessGranted('edit', $project);
 
         $builder = $this->createFormBuilder();
@@ -138,6 +148,8 @@ class ProjectController extends AbstractController
             'required' => true,
             'choices' => [
                 'project.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
+                'project.bom_import.type.kicad_schematic' => 'kicad_schematic',
+                'project.bom_import.type.generic_csv' => 'generic_csv',
             ]
         ]);
         $builder->add('clear_existing_bom', CheckboxType::class, [
@@ -161,25 +173,40 @@ class ProjectController extends AbstractController
                 $entityManager->flush();
             }
 
+            $import_type = $form->get('type')->getData();
+
             try {
+                // For schematic imports, redirect to field mapping step
+                if (in_array($import_type, ['kicad_schematic', 'generic_csv'], true)) {
+                    // Store file content and options in session for field mapping step
+                    $file_content = $form->get('file')->getData()->getContent();
+                    $clear_existing = $form->get('clear_existing_bom')->getData();
+
+                    $request->getSession()->set('bom_import_data', $file_content);
+                    $request->getSession()->set('bom_import_clear', $clear_existing);
+
+                    return $this->redirectToRoute('project_import_bom_map_fields', ['id' => $project->getID()]);
+                }
+
+                // For PCB imports, proceed directly
                 $entries = $BOMImporter->importFileIntoProject($form->get('file')->getData(), $project, [
-                    'type' => $form->get('type')->getData(),
+                    'type' => $import_type,
                 ]);
 
-                //Validate the project entries
+                // Validate the project entries
                 $errors = $validator->validateProperty($project, 'bom_entries');
 
-                //If no validation errors occured, save the changes and redirect to edit page
-                if (count ($errors) === 0) {
+                // If no validation errors occurred, save the changes and redirect to edit page
+                if (count($errors) === 0) {
                     $this->addFlash('success', t('project.bom_import.flash.success', ['%count%' => count($entries)]));
                     $entityManager->flush();
                     return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
                 }
 
-                //When we get here, there were validation errors
+                // When we get here, there were validation errors
                 $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
 
-            } catch (\UnexpectedValueException|SyntaxError $e) {
+            } catch (\UnexpectedValueException | SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }
         }
@@ -191,11 +218,267 @@ class ProjectController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/{id}/import_bom/map_fields', name: 'project_import_bom_map_fields', requirements: ['id' => '\d+'])]
+    public function importBOMMapFields(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Project $project,
+        BOMImporter $BOMImporter,
+        ValidatorInterface $validator,
+        LoggerInterface $logger
+    ): Response {
+        $this->denyAccessUnlessGranted('edit', $project);
+
+        // Get stored data from session
+        $file_content = $request->getSession()->get('bom_import_data');
+        $clear_existing = $request->getSession()->get('bom_import_clear', false);
+
+
+        if (!$file_content) {
+            $this->addFlash('error', 'project.bom_import.flash.session_expired');
+            return $this->redirectToRoute('project_import_bom', ['id' => $project->getID()]);
+        }
+
+        // Detect fields and get suggestions
+        $detected_fields = $BOMImporter->detectFields($file_content);
+        $suggested_mapping = $BOMImporter->getSuggestedFieldMapping($detected_fields);
+
+        // Create mapping of original field names to sanitized field names for template
+        $field_name_mapping = [];
+        foreach ($detected_fields as $field) {
+            $sanitized_field = preg_replace('/[^a-zA-Z0-9_-]/', '_', $field);
+            $field_name_mapping[$field] = $sanitized_field;
+        }
+
+        // Create form for field mapping
+        $builder = $this->createFormBuilder();
+
+        // Add delimiter selection
+        $builder->add('delimiter', ChoiceType::class, [
+            'label' => 'project.bom_import.delimiter',
+            'required' => true,
+            'data' => ',',
+            'choices' => [
+                'project.bom_import.delimiter.comma' => ',',
+                'project.bom_import.delimiter.semicolon' => ';',
+                'project.bom_import.delimiter.tab' => "\t",
+            ]
+        ]);
+
+        // Get dynamic field mapping targets from BOMImporter
+        $available_targets = $BOMImporter->getAvailableFieldTargets();
+        $target_fields = ['project.bom_import.field_mapping.ignore' => ''];
+
+        foreach ($available_targets as $target_key => $target_info) {
+            $target_fields[$target_info['label']] = $target_key;
+        }
+
+        foreach ($detected_fields as $field) {
+            // Sanitize field name for form use - replace invalid characters with underscores
+            $sanitized_field = preg_replace('/[^a-zA-Z0-9_-]/', '_', $field);
+            $builder->add('mapping_' . $sanitized_field, ChoiceType::class, [
+                'label' => $field,
+                'required' => false,
+                'choices' => $target_fields,
+                'data' => $suggested_mapping[$field] ?? '',
+            ]);
+        }
+
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'project.bom_import.preview',
+        ]);
+
+        $form = $builder->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Build field mapping array with priority support
+            $field_mapping = [];
+            $field_priorities = [];
+            $delimiter = $form->get('delimiter')->getData();
+
+            foreach ($detected_fields as $field) {
+                $sanitized_field = preg_replace('/[^a-zA-Z0-9_-]/', '_', $field);
+                $target = $form->get('mapping_' . $sanitized_field)->getData();
+                if (!empty($target)) {
+                    $field_mapping[$field] = $target;
+
+                    // Get priority from request (default to 10)
+                    $priority = $request->request->get('priority_' . $sanitized_field, 10);
+                    $field_priorities[$field] = (int) $priority;
+                }
+            }
+
+            // Validate field mapping
+            $validation = $BOMImporter->validateFieldMapping($field_mapping, $detected_fields);
+
+            if (!$validation['is_valid']) {
+                foreach ($validation['errors'] as $error) {
+                    $this->addFlash('error', $error);
+                }
+                foreach ($validation['warnings'] as $warning) {
+                    $this->addFlash('warning', $warning);
+                }
+
+                return $this->render('projects/import_bom_map_fields.html.twig', [
+                    'project' => $project,
+                    'form' => $form->createView(),
+                    'detected_fields' => $detected_fields,
+                    'suggested_mapping' => $suggested_mapping,
+                    'field_name_mapping' => $field_name_mapping,
+                ]);
+            }
+
+            // Show warnings but continue
+            foreach ($validation['warnings'] as $warning) {
+                $this->addFlash('warning', $warning);
+            }
+
+            try {
+                // Re-detect fields with chosen delimiter
+                $detected_fields = $BOMImporter->detectFields($file_content, $delimiter);
+
+                // Clear existing BOM entries if requested
+                if ($clear_existing) {
+                    $existing_count = $project->getBomEntries()->count();
+                    $logger->info('Clearing existing BOM entries', [
+                        'existing_count' => $existing_count,
+                        'project_id' => $project->getID(),
+                    ]);
+                    $project->getBomEntries()->clear();
+                    $entityManager->flush();
+                    $logger->info('Existing BOM entries cleared');
+                } else {
+                    $existing_count = $project->getBomEntries()->count();
+                    $logger->info('Keeping existing BOM entries', [
+                        'existing_count' => $existing_count,
+                        'project_id' => $project->getID(),
+                    ]);
+                }
+
+                // Validate data before importing
+                $validation_result = $BOMImporter->validateBOMData($file_content, [
+                    'type' => 'kicad_schematic',
+                    'field_mapping' => $field_mapping,
+                    'field_priorities' => $field_priorities,
+                    'delimiter' => $delimiter,
+                ]);
+
+                // Log validation results
+                $logger->info('BOM import validation completed', [
+                    'total_entries' => $validation_result['total_entries'],
+                    'valid_entries' => $validation_result['valid_entries'],
+                    'invalid_entries' => $validation_result['invalid_entries'],
+                    'error_count' => count($validation_result['errors']),
+                    'warning_count' => count($validation_result['warnings']),
+                ]);
+
+                // Show validation warnings to user
+                foreach ($validation_result['warnings'] as $warning) {
+                    $this->addFlash('warning', $warning);
+                }
+
+                // If there are validation errors, show them and stop
+                 if (!empty($validation_result['errors'])) {
+                    foreach ($validation_result['errors'] as $error) {
+                        $this->addFlash('error', $error);
+                    }
+
+                    return $this->render('projects/import_bom_map_fields.html.twig', [
+                        'project' => $project,
+                        'form' => $form->createView(),
+                        'detected_fields' => $detected_fields,
+                        'suggested_mapping' => $suggested_mapping,
+                        'field_name_mapping' => $field_name_mapping,
+                        'validation_result' => $validation_result,
+                    ]);
+                }
+
+                // Import with field mapping and priorities (validation already passed)
+                $entries = $BOMImporter->stringToBOMEntries($file_content, [
+                    'type' => 'kicad_schematic',
+                    'field_mapping' => $field_mapping,
+                    'field_priorities' => $field_priorities,
+                    'delimiter' => $delimiter,
+                ]);
+
+                // Log entry details for debugging
+                $logger->info('BOM entries created', [
+                    'total_entries' => count($entries),
+                ]);
+
+                foreach ($entries as $index => $entry) {
+                    $logger->debug("BOM entry {$index}", [
+                        'name' => $entry->getName(),
+                        'mountnames' => $entry->getMountnames(),
+                        'quantity' => $entry->getQuantity(),
+                        'comment' => $entry->getComment(),
+                        'part_id' => $entry->getPart()?->getID(),
+                    ]);
+                }
+
+                // Assign entries to project
+                $logger->info('Adding BOM entries to project', [
+                    'entries_count' => count($entries),
+                    'project_id' => $project->getID(),
+                ]);
+
+                foreach ($entries as $index => $entry) {
+                    $logger->debug("Adding BOM entry {$index} to project", [
+                        'name' => $entry->getName(),
+                        'part_id' => $entry->getPart()?->getID(),
+                        'quantity' => $entry->getQuantity(),
+                    ]);
+                    $project->addBomEntry($entry);
+                }
+
+                // Validate the project entries (includes collection constraints)
+                $errors = $validator->validateProperty($project, 'bom_entries');
+
+                // If no validation errors occurred, save and redirect
+                if (count($errors) === 0) {
+                    $this->addFlash('success', t('project.bom_import.flash.success', ['%count%' => count($entries)]));
+                    $entityManager->flush();
+
+                    // Clear session data
+                    $request->getSession()->remove('bom_import_data');
+                    $request->getSession()->remove('bom_import_clear');
+
+                    return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
+                }
+
+                // When we get here, there were validation errors
+                $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
+
+                //Print validation errors to log for debugging
+                foreach ($errors as $error) {
+                    $logger->error('BOM entry validation error', [
+                        'message' => $error->getMessage(),
+                        'invalid_value' => $error->getInvalidValue(),
+                    ]);
+                    //And show as flash message
+                    $this->addFlash('error', $error->getMessage(),);
+                }
+
+            } catch (\UnexpectedValueException | SyntaxError $e) {
+                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
+            }
+        }
+
+        return $this->render('projects/import_bom_map_fields.html.twig', [
+            'project' => $project,
+            'form' => $form,
+            'detected_fields' => $detected_fields,
+            'suggested_mapping' => $suggested_mapping,
+            'field_name_mapping' => $field_name_mapping,
+        ]);
+    }
+
     #[Route(path: '/add_parts', name: 'project_add_parts_no_id')]
     #[Route(path: '/{id}/add_parts', name: 'project_add_parts', requirements: ['id' => '\d+'])]
     public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
-        if($project instanceof Project) {
+        if ($project instanceof Project) {
             $this->denyAccessUnlessGranted('edit', $project);
         } else {
             $this->denyAccessUnlessGranted('@projects.edit');
@@ -242,7 +525,7 @@ class ProjectController extends AbstractController
 
             $data = $form->getData();
             $bom_entries = $data['bom_entries'];
-            foreach ($bom_entries as $bom_entry){
+            foreach ($bom_entries as $bom_entry) {
                 $target_project->addBOMEntry($bom_entry);
             }
 

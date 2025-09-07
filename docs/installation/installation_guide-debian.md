@@ -28,8 +28,13 @@ It is recommended to install Part-DB on a 64-bit system, as the 32-bit version o
 For the installation of Part-DB, we need some prerequisites. They can be installed by running the following command:
 
 ```bash
-sudo apt install git curl zip ca-certificates software-properties-common apt-transport-https lsb-release nano wget
+sudo apt update && apt upgrade
+sudo apt install git curl zip ca-certificates software-properties-common \
+  apt-transport-https lsb-release nano wget sqlite3
 ```
+
+Please run `sqlite3 --version` to assert that the SQLite version is 3.35 or higher.
+Otherwise some database migrations will not succeed.
 
 ### Install PHP and apache2
 

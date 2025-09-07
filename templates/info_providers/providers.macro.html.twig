@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-6">
                             {% if provider.providerInfo.settings_class is defined %}
-                                <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerKey}) }}" class="btn btn-primary btn-sm"
+                                <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerKey}) }}" class="btn btn-primary btn-sm {% if not is_granted('@config.change_system_settings') %}disabled{% endif %}"
                                    title="{% trans %}info_providers.settings.title{% endtrans %}"
                                 ><i class="fa-solid fa-cog"></i></a>
                             {% endif %}

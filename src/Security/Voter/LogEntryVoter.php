@@ -26,6 +26,7 @@ use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LogSystem\AbstractLogEntry;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -39,7 +40,7 @@ final class LogEntryVoter extends Voter
     {
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $this->helper->resolveUser($token);
 
@@ -48,19 +49,19 @@ final class LogEntryVoter extends Voter
         }
 
         if ('delete' === $attribute) {
-            return $this->helper->isGranted($token, 'system', 'delete_logs');
+            return $this->helper->isGranted($token, 'system', 'delete_logs', $vote);
         }
 
         if ('read' === $attribute) {
             //Allow read of the users own log entries
             if (
                 $subject->getUser() === $user
-                && $this->helper->isGranted($token, 'self', 'show_logs')
+                && $this->helper->isGranted($token, 'self', 'show_logs', $vote)
             ) {
                 return true;
             }
 
-            return $this->helper->isGranted($token, 'system', 'show_logs');
+            return $this->helper->isGranted($token, 'system', 'show_logs', $vote);
         }
 
         if ('show_details' === $attribute) {
