@@ -40,4 +40,10 @@ class PartInfoSettings
     #[SettingsParameter(label: new TM("settings.behavior.part_info.show_part_image_overlay"), description: new TM("settings.behavior.part_info.show_part_image_overlay.help"),
     envVar: "bool:SHOW_PART_IMAGE_OVERLAY", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $showPartImageOverlay = true;
+
+    #[SettingsParameter(label: new TM("settings.behavior.part_info.extract_params_from_description"))]
+    public bool $extractParamsFromDescription = true;
+
+    #[SettingsParameter(label: new TM("settings.behavior.part_info.extract_params_from_notes"))]
+    public bool $extractParamsFromNotes = true;
 }

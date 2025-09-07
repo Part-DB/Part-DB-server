@@ -13459,5 +13459,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Show Part-DB version on homepage</target>
       </segment>
     </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment>
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Extract parameters from part description</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment>
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Extract parameters from part notes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
