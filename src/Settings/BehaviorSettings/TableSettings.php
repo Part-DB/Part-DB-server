@@ -70,6 +70,20 @@ class TableSettings
         PartTableColumns::CATEGORY, PartTableColumns::FOOTPRINT, PartTableColumns::MANUFACTURER,
         PartTableColumns::LOCATION, PartTableColumns::AMOUNT];
 
+    #[SettingsParameter(label: new TM("settings.behavior.table.preview_image_min_width"),
+        formOptions: ['attr' => ['min' => 1, 'max' => 100]],
+        envVar: "int:TABLE_IMAGE_PREVIEW_MIN_SIZE", envVarMode: EnvVarMode::OVERWRITE
+    )]
+    #[Assert\Range(min: 1, max: 100)]
+    public int $previewImageMinWidth = 20;
+
+    #[SettingsParameter(label: new TM("settings.behavior.table.preview_image_max_width"),
+        formOptions: ['attr' => ['min' => 1, 'max' => 100]],
+        envVar: "int:TABLE_IMAGE_PREVIEW_MAX_SIZE", envVarMode: EnvVarMode::OVERWRITE
+    )]
+    #[Assert\Range(min: 1, max: 100)]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'previewImageMinWidth')]
+    public int $previewImageMaxWidth = 35;
 
     public static function mapPartsDefaultColumnsEnv(string $columns): array
     {

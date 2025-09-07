@@ -13489,5 +13489,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>These providers will be preselected for searches in part providers.</target>
       </segment>
     </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment>
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Preview image max width (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment>
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Preview image min width (px)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
