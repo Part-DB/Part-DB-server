@@ -48,3 +48,6 @@ yarn-error.log
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
+
+# Claude Code project documentation (local development only)
+CLAUDE.md
