@@ -242,7 +242,7 @@
       </notes>
       <segment state="final">
         <source>part.info.timetravel_hint</source>
-        <target><![CDATA[This is how the part appeared before %timestamp%. <i>Please note that this feature is experimental, so the info may not be correct.</i>]]></target>
+        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the info may not be correct.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -731,10 +731,10 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target><![CDATA[This will disable <b>all active two-factor authentication methods of the user</b> and delete the <b>backup codes</b>!
-<br>
-The user will have to set up all two-factor authentication methods again and print new backup codes! <br><br>
-<b>Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!</b>]]></target>
+        <target>This will disable &lt;b&gt;all active two-factor authentication methods of the user&lt;/b&gt; and delete the &lt;b&gt;backup codes&lt;/b&gt;!
+&lt;br&gt;
+The user will have to set up all two-factor authentication methods again and print new backup codes! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="APsHYu0" name="user.edit.tfa.disable_tfa.btn">
@@ -885,9 +885,9 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment state="translated">
         <source>entity.delete.message</source>
-        <target><![CDATA[This can not be undone!
-<br>
-Sub elements will be moved upwards.]]></target>
+        <target>This can not be undone!
+&lt;br&gt;
+Sub elements will be moved upwards.</target>
       </segment>
     </unit>
     <unit id="2tKAqHw" name="entity.delete">
@@ -1441,7 +1441,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="final">
         <source>homepage.github.text</source>
-        <target><![CDATA[Source, downloads, bug reports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+        <target>Source, downloads, bug reports, to-do-list etc. can be found on &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="D5OKsgU" name="homepage.help.caption">
@@ -1463,7 +1463,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a>]]></target>
+        <target>Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -1705,7 +1705,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.fallback</source>
-        <target><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
+        <target>If this does not work for you, go to &lt;a href="%url%"&gt;%url%&lt;/a&gt; and enter the following info</target>
       </segment>
     </unit>
     <unit id="DduL9Hu" name="email.pw_reset.username">
@@ -1735,7 +1735,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
+        <target>The reset token will be valid until &lt;i&gt;%date%&lt;/i&gt;.</target>
       </segment>
     </unit>
     <unit id="8sBnjRy" name="orderdetail.delete">
@@ -3578,8 +3578,8 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
-        <target><![CDATA[If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.<br>
-Also note that without two-factor authentication, your account is no longer as well protected against attackers!]]></target>
+        <target>If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.&lt;br&gt;
+Also note that without two-factor authentication, your account is no longer as well protected against attackers!</target>
       </segment>
     </unit>
     <unit id="yu9MSt5" name="tfa_google.disabled_message">
@@ -3599,7 +3599,7 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target><![CDATA[Download an authenticator app (e.g. <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator</a> oder <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp">FreeOTP Authenticator</a>)]]></target>
+        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
@@ -3841,8 +3841,8 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target><![CDATA[When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
-If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of <i>all </i>computers here.]]></target>
+        <target>When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
+If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of &lt;i&gt;all &lt;/i&gt;computers here.</target>
       </segment>
     </unit>
     <unit id="FZINq8z" name="tfa_trustedDevices.invalidate.confirm_title">
@@ -5313,7 +5313,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target><![CDATA[If you select Twig here, the content field is interpreted as Twig template. See <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig documentation</a> and <a href="https://docs.part-db.de/usage/labels.html#twig-mode">Wiki</a> for more information.]]></target>
+        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; for more information.</target>
       </segment>
     </unit>
     <unit id="isvxbiX" name="label_options.page_size.label">
@@ -7157,15 +7157,15 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
-        <target><![CDATA[Element 1
+        <target>Element 1
    Element 1.1
       Element 1.1.1
    Element 1.2
 Element 2
 Element 3
 
-Element 1 -> Element 1.1
-Element 1 -> Element 1.2]]></target>
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -8554,16 +8554,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Authenticator app</target>
       </segment>
     </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Login successful</target>
-      </segment>
-    </unit>
     <unit id="KSHVrbr" name="log.type.exception">
       <notes>
         <note priority="1">obsolete</note>
@@ -8687,15 +8677,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Security key added successfully.</target>
-      </segment>
-    </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Username</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -9391,25 +9372,25 @@ Element 1 -> Element 1.2]]></target>
     <unit id="r4vDLAt" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
-        <target><![CDATA[Typ. Value <]]></target>
+        <target>Typ. Value &lt;</target>
       </segment>
     </unit>
     <unit id="X9SA3UP" name="filter.parameter_value_constraint.operator.&gt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;</source>
-        <target><![CDATA[Typ. Value >]]></target>
+        <target>Typ. Value &gt;</target>
       </segment>
     </unit>
     <unit id="BQGaoQS" name="filter.parameter_value_constraint.operator.&lt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;=</source>
-        <target><![CDATA[Typ. Value <=]]></target>
+        <target>Typ. Value &lt;=</target>
       </segment>
     </unit>
     <unit id="2ha3P6g" name="filter.parameter_value_constraint.operator.&gt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;=</source>
-        <target><![CDATA[Typ. Value >=]]></target>
+        <target>Typ. Value &gt;=</target>
       </segment>
     </unit>
     <unit id="4DaBace" name="filter.parameter_value_constraint.operator.BETWEEN">
@@ -9517,7 +9498,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target><![CDATA[Searching parts with keyword <b>%keyword%</b>]]></target>
+        <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
@@ -10177,13 +10158,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this project.]]></target>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
+        <target>The current project status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the project with this status!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -10285,7 +10266,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="GzqIwHH" name="entity.select.add_hint">
       <segment state="translated">
         <source>entity.select.add_hint</source>
-        <target><![CDATA[Use -> to create nested structures, e.g. "Node 1->Node 1.1"]]></target>
+        <target>Use -&gt; to create nested structures, e.g. "Node 1-&gt;Node 1.1"</target>
       </segment>
     </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
@@ -10309,13 +10290,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="XLnXtsR" name="homepage.first_steps.introduction">
       <segment state="translated">
         <source>homepage.first_steps.introduction</source>
-        <target><![CDATA[Your database is still empty. You might want to read the <a href="%url%">documentation</a> or start to creating the following data structures:]]></target>
+        <target>Your database is still empty. You might want to read the &lt;a href="%url%"&gt;documentation&lt;/a&gt; or start to creating the following data structures:</target>
       </segment>
     </unit>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target><![CDATA[Or you can directly <a href="%url%">create a new part</a>.]]></target>
+        <target>Or you can directly &lt;a href="%url%"&gt;create a new part&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10327,7 +10308,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="MJoZl4f" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target><![CDATA[For questions about Part-DB use the <a href="%href%" class="link-external" target="_blank">discussion forum</a>]]></target>
+        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">
@@ -10981,7 +10962,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
       <segment state="translated">
         <source>parts.import.help_documentation</source>
-        <target><![CDATA[See the <a href="%link%">documentation</a> for more information on the file format.]]></target>
+        <target>See the &lt;a href="%link%"&gt;documentation&lt;/a&gt; for more information on the file format.</target>
       </segment>
     </unit>
     <unit id="awbvhVq" name="parts.import.help">
@@ -11161,7 +11142,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
+        <target>In stock less than desired (total amount &lt; min. amount)</target>
       </segment>
     </unit>
     <unit id="YN9eLcZ" name="part.filter.lotOwner">
@@ -11973,13 +11954,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="i68lU5x" name="part.merge.confirm.title">
       <segment state="translated">
         <source>part.merge.confirm.title</source>
-        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
+        <target>Do you really want to merge &lt;b&gt;%other%&lt;/b&gt; into &lt;b&gt;%target%&lt;/b&gt;?</target>
       </segment>
     </unit>
     <unit id="k0anzYV" name="part.merge.confirm.message">
       <segment state="translated">
         <source>part.merge.confirm.message</source>
-        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
+        <target>&lt;b&gt;%other%&lt;/b&gt; will be deleted, and the part will be saved with the shown information.</target>
       </segment>
     </unit>
     <unit id="mmW5Yl1" name="part.info.merge_modal.title">
@@ -12333,7 +12314,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
       <segment state="translated">
         <source>settings.ips.element14.apiKey.help</source>
-        <target><![CDATA[You can register for an API key on <a href="https://partner.element14.com/">https://partner.element14.com/</a>.]]></target>
+        <target>You can register for an API key on &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
@@ -12345,7 +12326,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
       <segment state="translated">
         <source>settings.ips.element14.storeId.help</source>
-        <target><![CDATA[The store domain to retrieve the data from. This decides the language and currency of results. See <a href="https://partner.element14.com/docs/Product_Search_API_REST__Description">here</a> for a list of valid domains.]]></target>
+        <target>The store domain to retrieve the data from. This decides the language and currency of results. See &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;here&lt;/a&gt; for a list of valid domains.</target>
       </segment>
     </unit>
     <unit id="WKWZIm2" name="settings.ips.tme">
@@ -12363,7 +12344,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
       <segment state="translated">
         <source>settings.ips.tme.token.help</source>
-        <target><![CDATA[You can get an API token and secret on <a href="https://developers.tme.eu/en/">https://developers.tme.eu/en/</a>.]]></target>
+        <target>You can get an API token and secret on &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="yswx4bq" name="settings.ips.tme.secret">
@@ -12411,7 +12392,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
       <segment state="translated">
         <source>settings.ips.mouser.apiKey.help</source>
-        <target><![CDATA[You can register for an API key on <a href="https://eu.mouser.com/api-hub/">https://eu.mouser.com/api-hub/</a>.]]></target>
+        <target>You can register for an API key on &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
@@ -12489,7 +12470,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="kKv0J3." name="settings.system.attachments">
       <segment state="translated">
         <source>settings.system.attachments</source>
-        <target><![CDATA[Attachments & Files]]></target>
+        <target>Attachments &amp; Files</target>
       </segment>
     </unit>
     <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
@@ -12513,7 +12494,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
       <segment state="translated">
         <source>settings.system.attachments.allowDownloads.help</source>
-        <target><![CDATA[With this option users can download external files into Part-DB by providing an URL. <b>Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!</b>]]></target>
+        <target>With this option users can download external files into Part-DB by providing an URL. &lt;b&gt;Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
@@ -12687,8 +12668,8 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
       <segment state="translated">
         <source>settings.system.localization.base_currency_description</source>
-        <target><![CDATA[The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
-<b>Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!</b>]]></target>
+        <target>The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
+&lt;b&gt;Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
@@ -12718,7 +12699,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target><![CDATA[This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value > 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.]]></target>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
       </segment>
     </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
@@ -12736,7 +12717,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
       <segment state="translated">
         <source>settings.behavior.sidebar.items.help</source>
-        <target><![CDATA[The menus which appear at the sidebar by default. Order of items can be changed via drag & drop.]]></target>
+        <target>The menus which appear at the sidebar by default. Order of items can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
@@ -12784,7 +12765,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.parts_default_columns.help</source>
-        <target><![CDATA[The columns to show by default in part tables. Order of items can be changed via drag & drop.]]></target>
+        <target>The columns to show by default in part tables. Order of items can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
@@ -12838,7 +12819,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
       <segment state="translated">
         <source>settings.ips.oemsecrets.sortMode.M</source>
-        <target><![CDATA[Completeness & Manufacturer name]]></target>
+        <target>Completeness &amp; Manufacturer name</target>
       </segment>
     </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
@@ -13178,325 +13159,325 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.type.kicad_schematic</source>
         <target>KiCAD Schematic BOM (CSV file)</target>
       </segment>
     </unit>
     <unit id="ltE6xPP" name="common.back">
-      <segment>
+      <segment state="translated">
         <source>common.back</source>
         <target>Back</target>
       </segment>
     </unit>
     <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.required_field_missing</source>
         <target>Line %line%: Required field "%field%" is missing or empty. Please ensure this field is mapped and contains data.</target>
       </segment>
     </unit>
     <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.no_valid_designators</source>
         <target>Line %line%: Designator field contains no valid component references. Expected format: "R1,C2,U3" or "R1, C2, U3".</target>
       </segment>
     </unit>
     <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.unusual_designator_format</source>
         <target>Line %line%: Some component references may have unusual format: %designators%. Expected format: "R1", "C2", "U3", etc.</target>
       </segment>
     </unit>
     <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.duplicate_designators</source>
         <target>Line %line%: Duplicate component references found: %designators%. Each component should be referenced only once per line.</target>
       </segment>
     </unit>
     <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.invalid_quantity</source>
         <target>Line %line%: Quantity "%quantity%" is not a valid number. Please enter a numeric value (e.g., 1, 2.5, 10).</target>
       </segment>
     </unit>
     <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
         <target>Line %line%: Quantity must be greater than 0, got %quantity%.</target>
       </segment>
     </unit>
     <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
         <target>Line %line%: Quantity %quantity% seems unusually high. Please verify this is correct.</target>
       </segment>
     </unit>
     <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
         <target>Line %line%: Quantity %quantity% is not a whole number, but you have %count% component references. This may indicate a mismatch.</target>
       </segment>
     </unit>
     <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
         <target>Line %line%: Mismatch between quantity and component references. Quantity: %quantity%, References: %count% (%designators%). These should match. Either adjust the quantity or check your component references.</target>
       </segment>
     </unit>
     <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.invalid_partdb_id</source>
         <target>Line %line%: Part-DB ID "%id%" is not a valid number. Please enter a numeric ID.</target>
       </segment>
     </unit>
     <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
         <target>Line %line%: Part-DB ID must be greater than 0, got %id%.</target>
       </segment>
     </unit>
     <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
         <target>Line %line%: Part-DB ID %id% not found in database. The component will be imported without linking to an existing part.</target>
       </segment>
     </unit>
     <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.info.partdb_link_success</source>
         <target>Line %line%: Successfully linked to Part-DB part "%name%" (ID: %id%).</target>
       </segment>
     </unit>
     <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.no_component_name</source>
         <target>Line %line%: No component name/designation provided (MPN, Designation, or Value). Component will be named "Unknown Component".</target>
       </segment>
     </unit>
     <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.package_name_too_long</source>
         <target>Line %line%: Package name "%package%" is unusually long. Please verify this is correct.</target>
       </segment>
     </unit>
     <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.info.library_prefix_detected</source>
         <target>Line %line%: Package "%package%" contains library prefix. This will be automatically removed during import.</target>
       </segment>
     </unit>
     <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.non_numeric_field</source>
         <target>Line %line%: Field "%field%" contains non-numeric value "%value%". Please enter a valid number.</target>
       </segment>
     </unit>
     <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.info.import_summary</source>
         <target>Import summary: %total% total entries, %valid% valid, %invalid% with issues.</target>
       </segment>
     </unit>
     <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.summary</source>
         <target>Found %count% validation error(s) that must be fixed before import can proceed.</target>
       </segment>
     </unit>
     <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.summary</source>
         <target>Found %count% warning(s). Please review these issues before proceeding.</target>
       </segment>
     </unit>
     <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.info.all_valid</source>
         <target>All entries passed validation successfully!</target>
       </segment>
     </unit>
     <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.summary</source>
         <target>Validation Summary</target>
       </segment>
     </unit>
     <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.total_entries</source>
         <target>Total Entries</target>
       </segment>
     </unit>
     <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.valid_entries</source>
         <target>Valid Entries</target>
       </segment>
     </unit>
     <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.invalid_entries</source>
         <target>Invalid Entries</target>
       </segment>
     </unit>
     <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.success_rate</source>
         <target>Success Rate</target>
       </segment>
     </unit>
     <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.title</source>
         <target>Validation Errors</target>
       </segment>
     </unit>
     <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.errors.description</source>
         <target>The following errors must be fixed before the import can proceed:</target>
       </segment>
     </unit>
     <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.title</source>
         <target>Validation Warnings</target>
       </segment>
     </unit>
     <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.warnings.description</source>
         <target>The following warnings should be reviewed before proceeding:</target>
       </segment>
     </unit>
     <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.info.title</source>
         <target>Information</target>
       </segment>
     </unit>
     <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.title</source>
         <target>Detailed Validation Results</target>
       </segment>
     </unit>
     <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.line</source>
         <target>Line</target>
       </segment>
     </unit>
     <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.status</source>
         <target>Status</target>
       </segment>
     </unit>
     <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.messages</source>
         <target>Messages</target>
       </segment>
     </unit>
     <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.valid</source>
         <target>Valid</target>
       </segment>
     </unit>
     <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.details.invalid</source>
         <target>Invalid</target>
       </segment>
     </unit>
     <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.all_valid</source>
         <target>All entries are valid and ready for import!</target>
       </segment>
     </unit>
     <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.validation.fix_errors</source>
         <target>Please fix the validation errors before proceeding with the import.</target>
       </segment>
     </unit>
     <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.type.generic_csv</source>
         <target>Generic CSV</target>
       </segment>
     </unit>
     <unit id=".N35Pvs" name="label_generator.update_profile">
-      <segment>
+      <segment state="translated">
         <source>label_generator.update_profile</source>
         <target>Update profile with current settings</target>
       </segment>
     </unit>
     <unit id="ulTo6Aa" name="label_generator.profile_updated">
-      <segment>
+      <segment state="translated">
         <source>label_generator.profile_updated</source>
         <target>Label profile updated successfully.</target>
       </segment>
     </unit>
     <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.hompepage.items</source>
         <target>Homepage items</target>
       </segment>
     </unit>
     <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.homepage.items.help</source>
-        <target><![CDATA[The items to show at the homepage. Order can be changed via drag & drop.]]></target>
+        <target>The items to show at the homepage. Order can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
-      <segment>
+      <segment state="translated">
         <source>settings.system.customization.showVersionOnHomepage</source>
         <target>Show Part-DB version on homepage</target>
       </segment>
     </unit>
     <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.part_info.extract_params_from_description</source>
         <target>Extract parameters from part description</target>
       </segment>
     </unit>
     <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.part_info.extract_params_from_notes</source>
         <target>Extract parameters from part notes</target>
       </segment>
     </unit>
     <unit id="nCH2MW6" name="settings.ips.default_providers">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.default_providers</source>
         <target>Default search providers</target>
       </segment>
     </unit>
     <unit id="TLNoCLT" name="settings.ips.general">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.general</source>
         <target>General settings</target>
       </segment>
     </unit>
     <unit id="IDs2sXK" name="settings.ips.default_providers.help">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.default_providers.help</source>
         <target>These providers will be preselected for searches in part providers.</target>
       </segment>
     </unit>
     <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.table.preview_image_max_width</source>
         <target>Preview image max width (px)</target>
       </segment>
     </unit>
     <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior.table.preview_image_min_width</source>
         <target>Preview image min width (px)</target>
       </segment>

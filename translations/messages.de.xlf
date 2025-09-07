@@ -8553,16 +8553,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Authenticator App</target>
       </segment>
     </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Login erfolgreich.</target>
-      </segment>
-    </unit>
     <unit id="KSHVrbr" name="log.type.exception">
       <notes>
         <note priority="1">obsolete</note>
@@ -8686,15 +8676,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
-      </segment>
-    </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Benutzername</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -13438,6 +13419,66 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>label_generator.profile_updated</source>
         <target>Labelprofil aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment state="translated">
+        <source>settings.behavior.hompepage.items</source>
+        <target>Startseiten-Elemente</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment state="translated">
+        <source>settings.behavior.homepage.items.help</source>
+        <target>Die Elemente, die auf der Startseite angezeigt werden sollen. Die Reihenfolge kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment state="translated">
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Part-DB-Version auf der Startseite anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Parameter aus der Bauteilebeschreibung extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Parameter aus der Bauteilenotiz extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment state="translated">
+        <source>settings.ips.default_providers</source>
+        <target>Standard-Suchquellen</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment state="translated">
+        <source>settings.ips.general</source>
+        <target>Allgemeine Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment state="translated">
+        <source>settings.ips.default_providers.help</source>
+        <target>Diese Anbieter werden für die Suche in Informationsquellen vorausgewählt.</target>
+      </segment>
+    </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Max. Vorschaubilde-Breite (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Min. Vorschaubilde-Breite (px)</target>
       </segment>
     </unit>
   </file>
