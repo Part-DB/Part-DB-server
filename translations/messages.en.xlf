@@ -13471,5 +13471,23 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Extract parameters from part notes</target>
       </segment>
     </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment>
+        <source>settings.ips.default_providers</source>
+        <target>Default search providers</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment>
+        <source>settings.ips.general</source>
+        <target>General settings</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment>
+        <source>settings.ips.default_providers.help</source>
+        <target>These providers will be preselected for searches in part providers.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

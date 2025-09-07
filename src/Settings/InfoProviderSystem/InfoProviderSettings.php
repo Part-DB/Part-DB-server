@@ -25,12 +25,16 @@ namespace App\Settings\InfoProviderSystem;
 
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 
 #[Settings()]
 class InfoProviderSettings
 {
     use SettingsTrait;
+
+    #[EmbeddedSettings]
+    public ?InfoProviderGeneralSettings $general = null;
 
     #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
