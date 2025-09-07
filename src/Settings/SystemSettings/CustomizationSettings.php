@@ -28,10 +28,13 @@ use App\Form\Type\ThemeChoiceType;
 use App\Settings\SettingsIcon;
 use App\Validator\Constraints\ValidTheme;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(name: "customization", label: new TM("settings.system.customization"))]
 #[SettingsIcon("fa-paint-roller")]
@@ -47,16 +50,30 @@ class CustomizationSettings
     public string $instanceName = "Part-DB";
 
     #[SettingsParameter(
+        label: new TM("settings.system.customization.theme"),
+        formType: ThemeChoiceType::class, formOptions: ['placeholder' => false]
+    )]
+    #[ValidTheme]
+    public string $theme = 'bootstrap';
+
+    #[SettingsParameter(
         label: new TM("settings.system.customization.banner"),
         formType: RichTextEditorType::class, formOptions: ['mode' => 'markdown-full'],
         envVar: "BANNER", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $banner = null;
 
-    #[SettingsParameter(
-        label: new TM("settings.system.customization.theme"),
-        formType: ThemeChoiceType::class, formOptions: ['placeholder' => false]
+    /**
+     * @var HomepageItems[] The items to show in the sidebar.
+     */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.behavior.hompepage.items"),
+        description: new TM("settings.behavior.homepage.items.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => HomepageItems::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => HomepageItems::class, 'multiple' => true, 'ordered' => true]
     )]
-    #[ValidTheme]
-    public string $theme = 'bootstrap';
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
+    public array $homepageitems = [HomepageItems::SEARCH, HomepageItems::BANNER, HomepageItems::FIRST_STEPS, HomepageItems::LICENSE, HomepageItems::LAST_ACTIVITY];
 }

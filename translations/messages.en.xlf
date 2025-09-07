@@ -13441,5 +13441,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Label profile updated successfully.</target>
       </segment>
     </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment>
+        <source>settings.behavior.hompepage.items</source>
+        <target>Homepage items</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment>
+        <source>settings.behavior.homepage.items.help</source>
+        <target><![CDATA[The items to show at the homepage. Order can be changed via drag & drop.]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
