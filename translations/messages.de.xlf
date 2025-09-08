@@ -1004,6 +1004,12 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Unterelemente auch exportieren</target>
       </segment>
     </unit>
+    <unit id="a5h8ltP" name="export.readable">
+      <segment state="translated">
+        <source>export.readable</source>
+        <target>Lesbares CSV</target>
+      </segment>
+    </unit>
     <unit id="Pdmfku8" name="export.btn">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
