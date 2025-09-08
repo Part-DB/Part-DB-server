@@ -22,8 +22,19 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\StorageLocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\ProjectSystem\Project;
 use App\Helpers\FilenameSanatizer;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,6 +76,9 @@ class EntityExporter
 
         $resolver->setDefault('include_children', false);
         $resolver->setAllowedTypes('include_children', 'bool');
+
+        $resolver->setDefault('readable', false);
+        $resolver->setAllowedTypes('readable', 'bool');
     }
 
     /**
@@ -222,15 +236,50 @@ class EntityExporter
             $entities = [$entities];
         }
 
-        //Do the serialization with the given options
-        $serialized_data = $this->exportEntities($entities, $options);
+        if ($request->get('readable', false)) {
+            // Map entity classes to export functions
+            $entityExportMap = [
+                AttachmentType::class => fn($entities) => $this->exportReadable($entities, AttachmentType::class),
+                Category::class => fn($entities) => $this->exportReadable($entities, Category::class),
+                Project::class => fn($entities) => $this->exportReadable($entities, Project::class),
+                Assembly::class => fn($entities) => $this->exportReadable($entities, Assembly::class),
+                Supplier::class => fn($entities) => $this->exportReadable($entities, Supplier::class),
+                Manufacturer::class => fn($entities) => $this->exportReadable($entities, Manufacturer::class),
+                StorageLocation::class => fn($entities) => $this->exportReadable($entities, StorageLocation::class),
+                Footprint::class => fn($entities) => $this->exportReadable($entities, Footprint::class),
+                Currency::class => fn($entities) => $this->exportReadable($entities, Currency::class),
+                MeasurementUnit::class => fn($entities) => $this->exportReadable($entities, MeasurementUnit::class),
+                LabelProfile::class => fn($entities) => $this->exportReadable($entities, LabelProfile::class, false),
+            ];
 
-        $response = new Response($serialized_data);
+            // Determine the type of the entity
+            $type = null;
+            foreach ($entities as $entity) {
+                $entityClass = get_class($entity);
+                if (isset($entityExportMap[$entityClass])) {
+                    $type = $entityClass;
+                    break;
+                }
+            }
 
-        //Resolve the format
-        $optionsResolver = new OptionsResolver();
-        $this->configureOptions($optionsResolver);
-        $options = $optionsResolver->resolve($options);
+            // Generate the response
+            $response = isset($entityExportMap[$type])
+                ? new Response($entityExportMap[$type]($entities))
+                : new Response('');
+
+            $options['format'] = 'csv';
+            $options['level'] = 'readable';
+        } else {
+            //Do the serialization with the given options
+            $serialized_data = $this->exportEntities($entities, $options);
+
+            $response = new Response($serialized_data);
+
+            //Resolve the format
+            $optionsResolver = new OptionsResolver();
+            $this->configureOptions($optionsResolver);
+            $options = $optionsResolver->resolve($options);
+        }
 
         //Determine the content type for the response
 
@@ -276,5 +325,233 @@ class EntityExporter
         }
 
         return $response;
+    }
+
+    /**
+     * Exports data for multiple entity types in a readable CSV format.
+     *
+     * @param array $entities The entities to export.
+     * @param string $type The type of entities ('category', 'project', 'assembly', 'attachmentType', 'supplier').
+     * @return string The generated CSV content as a string.
+     */
+    public function exportReadable(array $entities, string $type, bool $isHierarchical = true): string
+    {
+        //Define headers and entity-specific processing logic
+        $defaultProcessEntity = fn($entity, $depth) => [
+            'Id' => $entity->getId(),
+            'ParentId' => $entity->getParent()?->getId() ?? '',
+            'NameHierarchical' => str_repeat('--', $depth) . ' ' . $entity->getName(),
+            'Name' => $entity->getName(),
+            'FullName' => $this->getFullName($entity),
+        ];
+
+        $config = [
+            AttachmentType::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            Category::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            Project::class => [
+                'header' => [
+                    'Id', 'ParentId', 'Type', 'ProjectNameHierarchical', 'ProjectName', 'ProjectFullName',
+                    'BomQuantity', 'BomPartId', 'BomPartIpn', 'BomPartName', 'BomName', 'BomPartDescription', 'BomMountNames'
+                ],
+                'processEntity' => fn($entity, $depth) => [
+                    'ProjectId' => $entity->getId(),
+                    'ParentProjectId' => $entity->getParent()?->getId() ?? '',
+                    'Type' => 'project',
+                    'ProjectNameHierarchical' => str_repeat('--', $depth) . ' ' . $entity->getName(),
+                    'ProjectName' => $entity->getName(),
+                    'ProjectFullName' => $this->getFullName($entity),
+                    'BomQuantity' => '-',
+                    'BomPartId' => '-',
+                    'BomPartIpn' => '-',
+                    'BomPartName' => '-',
+                    'BomName' => '-',
+                    'BomPartDescription' => '-',
+                    'BomMountNames' => '-',
+                ],
+                'processBomEntries' => fn($entity, $depth) => array_map(fn($bomEntry) => [
+                    'Id' => $entity->getId(),
+                    'ParentId' => '',
+                    'Type' => 'project_bom_entry',
+                    'ProjectNameHierarchical' => str_repeat('--', $depth) . '> ' . $entity->getName(),
+                    'ProjectName' => $entity->getName(),
+                    'ProjectFullName' => $this->getFullName($entity),
+                    'BomQuantity' => $bomEntry->getQuantity() ?? '',
+                    'BomPartId' => $bomEntry->getPart()?->getId() ?? '',
+                    'BomPartIpn' => $bomEntry->getPart()?->getIpn() ?? '',
+                    'BomPartName' => $bomEntry->getPart()?->getName() ?? '',
+                    'BomName' => $bomEntry->getName() ?? '',
+                    'BomPartDescription' => $bomEntry->getPart()?->getDescription() ?? '',
+                    'BomMountNames' => $bomEntry->getMountNames(),
+                ], $entity->getBomEntries()->toArray()),
+            ],
+            Assembly::class => [
+                'header' => [
+                    'Id', 'ParentId', 'Type', 'AssemblyIpn', 'AssemblyNameHierarchical', 'AssemblyName',
+                    'AssemblyFullName', 'BomQuantity', 'BomPartId', 'BomPartIpn', 'BomPartName', 'BomName', 'BomPartDescription',
+                    'BomMountNames', 'BomReferencedAssemblyId', 'BomReferencedAssemblyIpn', 'BomReferencedAssemblyFullName'
+                ],
+                'processEntity' => fn($entity, $depth) => [
+                    'Id' => $entity->getId(),
+                    'ParentId' => $entity->getParent()?->getId() ?? '',
+                    'Type' => 'assembly',
+                    'AssemblyIpn' => $entity->getIpn(),
+                    'AssemblyNameHierarchical' => str_repeat('--', $depth) . ' ' . $entity->getName(),
+                    'AssemblyName' => $entity->getName(),
+                    'AssemblyFullName' => $this->getFullName($entity),
+                    'BomQuantity' => '-',
+                    'BomPartId' => '-',
+                    'BomPartIpn' => '-',
+                    'BomPartName' => '-',
+                    'BomName' => '-',
+                    'BomPartDescription' => '-',
+                    'BomMountNames' => '-',
+                    'BomReferencedAssemblyId' => '-',
+                    'BomReferencedAssemblyIpn' => '-',
+                    'BomReferencedAssemblyFullName' => '-',
+                ],
+                'processBomEntries' => fn($entity, $depth) => array_map(fn($bomEntry) => [
+                    'Id' => $entity->getId(),
+                    'ParentId' => '',
+                    'Type' => 'assembly_bom_entry',
+                    'AssemblyIpn' => $entity->getIpn(),
+                    'AssemblyNameHierarchical' => str_repeat('--', $depth) . '> ' . $entity->getName(),
+                    'AssemblyName' => $entity->getName(),
+                    'AssemblyFullName' => $this->getFullName($entity),
+                    'BomQuantity' => $bomEntry->getQuantity() ?? '',
+                    'BomPartId' => $bomEntry->getPart()?->getId() ?? '',
+                    'BomPartIpn' => $bomEntry->getPart()?->getIpn() ?? '',
+                    'BomPartName' => $bomEntry->getPart()?->getName() ?? '',
+                    'BomName' => $bomEntry->getName() ?? '',
+                    'BomPartDescription' => $bomEntry->getPart()?->getDescription() ?? '',
+                    'BomMountNames' => $bomEntry->getMountNames(),
+                    'BomReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '',
+                    'BomReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '',
+                    'BomReferencedAssemblyFullName' => $this->getFullName($bomEntry->getReferencedAssembly() ?? null),
+                ], $entity->getBomEntries()->toArray()),
+            ],
+            Supplier::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            Manufacturer::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            StorageLocation::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            Footprint::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            Currency::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            MeasurementUnit::class => [
+                'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
+                'processEntity' => $defaultProcessEntity,
+            ],
+            LabelProfile::class => [
+                'header' => ['Id', 'SupportedElement', 'Name'],
+                'processEntity' => fn(LabelProfile $entity, $depth) => [
+                    'Id' => $entity->getId(),
+                    'SupportedElement' => $entity->getOptions()->getSupportedElement()->name,
+                    'Name' => $entity->getName(),
+                ],
+            ],
+        ];
+
+        //Get configuration for the entity type
+        $entityConfig = $config[$type] ?? null;
+
+        if (!$entityConfig) {
+            return '';
+        }
+
+        //Initialize CSV data with the header
+        $csvData = [];
+        $csvData[] = $entityConfig['header'];
+
+        $relevantEntities = $entities;
+
+        if ($isHierarchical) {
+            //Filter root entities (those without parents)
+            $relevantEntities = array_filter($entities, fn($entity) => $entity->getParent() === null);
+
+            if (count($relevantEntities) === 0 && count($entities) > 0) {
+                //If no root entities are found, then we need to add all entities
+
+                $relevantEntities = $entities;
+            }
+        }
+
+        //Sort root entities alphabetically by `name`
+        usort($relevantEntities, fn($a, $b) => strnatcasecmp($a->getName(), $b->getName()));
+
+        //Recursive function to process an entity and its children
+        $processEntity = function ($entity, &$csvData, $depth = 0) use (&$processEntity, $entityConfig, $isHierarchical) {
+            //Add main entity data to CSV
+            $csvData[] = $entityConfig['processEntity']($entity, $depth);
+
+            //Process BOM entries if applicable
+            if (isset($entityConfig['processBomEntries'])) {
+                $bomRows = $entityConfig['processBomEntries']($entity, $depth);
+                foreach ($bomRows as $bomRow) {
+                    $csvData[] = $bomRow;
+                }
+            }
+
+            if ($isHierarchical) {
+                //Retrieve children, sort alphabetically, then process them
+                $children = $entity->getChildren()->toArray();
+                usort($children, fn($a, $b) => strnatcasecmp($a->getName(), $b->getName()));
+                foreach ($children as $childEntity) {
+                    $processEntity($childEntity, $csvData, $depth + 1);
+                }
+            }
+        };
+
+        //Start processing with root entities
+        foreach ($relevantEntities as $rootEntity) {
+            $processEntity($rootEntity, $csvData);
+        }
+
+        //Generate CSV string
+        $output = '';
+        foreach ($csvData as $line) {
+            $output .= implode(';', $line) . "\n"; // Use a semicolon as the delimiter
+        }
+
+        return $output;
+    }
+
+    /**
+     * Constructs the full hierarchical name of an object by traversing
+     * through its parent objects and concatenating their names using
+     * a specified separator.
+     *
+     * @param AttachmentType|Category|Project|Assembly|Supplier|Manufacturer|StorageLocation|Footprint|Currency|MeasurementUnit|LabelProfile|null $object The object whose full name is to be constructed. If null, the result will be an empty string.
+     * @param string $separator The string used to separate the names of the objects in the full hierarchy.
+     *
+     * @return string The full hierarchical name constructed by concatenating the names of the object and its parents.
+     */
+    private function getFullName(AttachmentType|Category|Project|Assembly|Supplier|Manufacturer|StorageLocation|Footprint|Currency|MeasurementUnit|LabelProfile|null $object, string $separator = '->'): string
+    {
+        $fullNameParts = [];
+
+        while ($object !== null) {
+            array_unshift($fullNameParts, $object->getName());
+            $object = $object->getParent();
+        }
+
+        return implode($separator, $fullNameParts);
     }
 }
