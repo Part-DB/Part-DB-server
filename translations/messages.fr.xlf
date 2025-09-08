@@ -320,6 +320,12 @@
         <target>Exporter tous les éléments</target>
       </segment>
     </unit>
+    <unit id="a5h8ltP" name="export.readable">
+      <segment state="translated">
+        <source>export.readable</source>
+        <target>CSV lisible</target>
+      </segment>
+    </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
@@ -9822,13 +9828,13 @@ exemple de ville</target>
         </target>
       </segment>
     </unit>
-    <unit id="bH5Qi1Z" name="assembly.bom_import.template.csv.exptected_columns">
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
       <segment>
         <source>assembly.bom_import.template.csv.exptected_columns</source>
         <target>Colonnes possibles :</target>
       </segment>
     </unit>
-    <unit id="NIcfgj84" name="assembly.bom_import.template.csv.table">
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
       <segment>
         <source>assembly.bom_import.template.csv.table</source>
         <target>
