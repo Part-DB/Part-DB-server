@@ -124,7 +124,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
      */
     #[ORM\ManyToOne(targetEntity: Assembly::class, inversedBy: 'bom_entries')]
     #[ORM\JoinColumn(name: 'id_assembly', nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?Assembly $assembly = null;
 
     /**
@@ -146,7 +146,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     #[AssemblyInvalidBomEntry]
     #[ORM\ManyToOne(targetEntity: Assembly::class)]
     #[ORM\JoinColumn(name: 'id_referenced_assembly', nullable: true, onDelete: 'SET NULL')]
-    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?Assembly $referencedAssembly = null;
 
     /**
@@ -158,7 +158,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     )]
     #[ORM\ManyToOne(targetEntity: Project::class)]
     #[ORM\JoinColumn(name: 'id_project', nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', ])]
+    #[Groups(['bom_entry:read', 'bom_entry:write'])]
     protected ?Project $project = null;
 
     /**

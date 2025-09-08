@@ -351,6 +351,12 @@
         <target>Eksportér alle elementer</target>
       </segment>
     </unit>
+    <unit id="a5h8ltP" name="export.readable">
+      <segment state="translated">
+        <source>export.readable</source>
+        <target>Læsbar CSV</target>
+      </segment>
+    </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
