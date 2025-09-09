@@ -93,7 +93,7 @@ dev-cache-clear:
 
 dev-warmup:
 	@echo "🔥 Warming up development cache..."
-	COMPOSER_MEMORY_LIMIT=-1 php bin/console cache:warmup --env dev -n --memory-limit=1G
+	COMPOSER_MEMORY_LIMIT=-1 php -d memory_limit=1G bin/console cache:warmup --env dev -n
 
 dev-reset: dev-cache-clear dev-db-migrate
 	@echo "✅ Development environment reset complete!" 
