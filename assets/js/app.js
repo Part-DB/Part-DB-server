@@ -49,7 +49,7 @@ window.$ = window.jQuery = require("jquery");
 //Use the local WASM file for the ZXing library
 import {
     setZXingModuleOverrides,
-} from "barcode-detector/pure";
+} from "barcode-detector/ponyfill";
 import  wasmFile from "../../node_modules/zxing-wasm/dist/reader/zxing_reader.wasm";
 setZXingModuleOverrides({
     locateFile: (path, prefix) => {

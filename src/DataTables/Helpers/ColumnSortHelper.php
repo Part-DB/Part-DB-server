@@ -72,7 +72,8 @@ class ColumnSortHelper
      * Apply the visibility configuration to the given DataTable and configure the columns.
      * @param  DataTable  $dataTable
      * @param  string|array  $visible_columns Either a list or a comma separated string of column names, which should
-     * be visible by default. If a column is not listed here, it will be hidden by default.
+     * be visible by default. If a column is not listed here, it will be hidden by default. If an array of enum values are passed,
+     * their value will be used as the column name.
      * @return void
      */
     public function applyVisibilityAndConfigureColumns(DataTable $dataTable, string|array $visible_columns,
@@ -82,6 +83,14 @@ class ColumnSortHelper
         if (!is_array($visible_columns)) {
             $visible_columns = array_map(trim(...), explode(",", $visible_columns));
         }
+
+        //If $visible_columns is a list of enum values, convert them to the column names
+        foreach ($visible_columns as &$value) {
+            if ($value instanceof \BackedEnum) {
+                $value = $value->value;
+            }
+        }
+        unset ($value);
 
         $processed_columns = [];
 

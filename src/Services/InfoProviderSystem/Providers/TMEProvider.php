@@ -30,24 +30,21 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Settings\InfoProviderSystem\TMESettings;
 
 class TMEProvider implements InfoProviderInterface
 {
 
     private const VENDOR_NAME = 'TME';
 
-    /** @var bool If true, the prices are gross prices. If false, the prices are net prices. */
     private readonly bool $get_gross_prices;
-
-    public function __construct(private readonly TMEClient $tmeClient, private readonly string $country,
-        private readonly string $language, private readonly string $currency,
-        bool $get_gross_prices)
+    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings)
     {
         //If we have a private token, set get_gross_prices to false, as it is automatically determined by the account type then
         if ($this->tmeClient->isUsingPrivateToken()) {
             $this->get_gross_prices = false;
         } else {
-            $this->get_gross_prices = $get_gross_prices;
+            $this->get_gross_prices = $this->settings->grossPrices;
         }
     }
 
@@ -57,7 +54,8 @@ class TMEProvider implements InfoProviderInterface
             'name' => 'TME',
             'description' => 'This provider uses the API of TME (Transfer Multipart).',
             'url' => 'https://tme.eu/',
-            'disabled_help' => 'Configure the PROVIDER_TME_KEY and PROVIDER_TME_SECRET environment variables to use this provider.'
+            'disabled_help' => 'Configure the API Token and secret in provider settings to use this provider.',
+            'settings_class' => TMESettings::class
         ];
     }
 
@@ -74,8 +72,8 @@ class TMEProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         $response = $this->tmeClient->makeRequest('Products/Search', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SearchPlain' => $keyword,
         ]);
 
@@ -104,8 +102,8 @@ class TMEProvider implements InfoProviderInterface
     public function getDetails(string $id): PartDetailDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetProducts', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 
@@ -149,8 +147,8 @@ class TMEProvider implements InfoProviderInterface
     public function getFiles(string $id): array
     {
         $response = $this->tmeClient->makeRequest('Products/GetProductsFiles', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 
@@ -191,9 +189,9 @@ class TMEProvider implements InfoProviderInterface
     public function getVendorInfo(string $id, ?string $productURL = null): PurchaseInfoDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetPricesAndStocks', [
-            'Country' => $this->country,
-            'Language' => $this->language,
-            'Currency' => $this->currency,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
+            'Currency' => $this->settings->currency,
             'GrossPrices' => $this->get_gross_prices,
             'SymbolList' => [$id],
         ]);
@@ -234,8 +232,8 @@ class TMEProvider implements InfoProviderInterface
     public function getParameters(string $id, string|null &$footprint_name = null): array
     {
         $response = $this->tmeClient->makeRequest('Products/GetParameters', [
-            'Country' => $this->country,
-            'Language' => $this->language,
+            'Country' => $this->settings->country,
+            'Language' => $this->settings->language,
             'SymbolList' => [$id],
         ]);
 

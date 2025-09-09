@@ -44,9 +44,11 @@ export default class extends DatatablesController {
 
         //Enable action button based on selection
         if (count > 0) {
-            selectPanel.querySelector('button[type="submit"]').disabled = false; 
+            selectPanel.classList.remove('d-none');
+            selectPanel.classList.add('sticky-select-bar');
         } else {
-            selectPanel.querySelector('button[type="submit"]').disabled = true; 
+            selectPanel.classList.add('d-none');
+            selectPanel.classList.remove('sticky-select-bar');
         }
 
         //Update selection count text

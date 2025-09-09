@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -43,7 +44,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         //No value should return empty array
         yield ['', [], []];
@@ -54,9 +55,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         yield ['.txt', [], ['%FOOTPRINTS_3D%/hallo.txt']];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testFind($keyword, $options, $expected): void
     {
         $value = static::$service->find($keyword, $options, static::$mock_list);

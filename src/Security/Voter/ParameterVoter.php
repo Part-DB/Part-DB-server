@@ -39,6 +39,7 @@ use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -53,7 +54,7 @@ final class ParameterVoter extends Voter
     {
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
@@ -108,7 +109,7 @@ final class ParameterVoter extends Voter
             throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
         }
 
-        return $this->helper->isGranted($token, $param, $attribute);
+        return $this->helper->isGranted($token, $param, $attribute, $vote);
     }
 
     protected function supports(string $attribute, $subject): bool

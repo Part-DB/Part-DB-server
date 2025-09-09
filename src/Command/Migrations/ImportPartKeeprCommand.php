@@ -44,7 +44,7 @@ class ImportPartKeeprCommand extends Command
         protected PKDatastructureImporter $datastructureImporter, protected PKPartImporter $partImporter, protected PKImportHelper $importHelper,
         protected PKOptionalImporter $optionalImporter)
     {
-        parent::__construct(self::$defaultName);
+        parent::__construct();
     }
 
     protected function configure(): void

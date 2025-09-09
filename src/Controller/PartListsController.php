@@ -36,6 +36,7 @@ use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -51,7 +52,12 @@ use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager,
+        private readonly NodesListBuilder $nodesListBuilder,
+        private readonly DataTableFactory $dataTableFactory,
+        private readonly TranslatorInterface $translator,
+        private readonly TableSettings $tableSettings
+    )
     {
     }
 
@@ -155,11 +161,9 @@ class PartListsController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $this->dataTableFactory->createFromType(
-            PartsDataTable::class,
-            array_merge(['filter' => $filter], $additional_table_vars),
-            ['lengthMenu' => PartsDataTable::LENGTH_MENU]
-        )
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
+            ['filter' => $filter], $additional_table_vars),
+            ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {

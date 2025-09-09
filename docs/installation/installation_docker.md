@@ -142,28 +142,12 @@ services:
        # This feature is currently experimental, so use it at your own risk!
        # - DB_AUTOMIGRATE=true
 
-      # You can configure Part-DB using environment variables
-      # Below you can find the most essential ones predefined
+      # You can configure Part-DB using the webUI or environment variables
       # However you can add add any other environment configuration you want here
       # See .env file for all available options or https://docs.part-db.de/configuration.html
 
-      # The language to use serverwide as default (en, de, ru, etc.)
-      - DEFAULT_LANG=en
-      # The default timezone to use serverwide (e.g. Europe/Berlin)
-      - DEFAULT_TIMEZONE=Europe/Berlin
-      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
-      - BASE_CURRENCY=EUR
-      # The name of this installation. This will be shown as title in the browser and in the header of the website
-      - INSTANCE_NAME=Part-DB
-
-      # Allow users to download attachments to the server by providing an URL
-      # This could be a potential security issue, as the user can retrieve any file the server has access to (via internet)
-      - ALLOW_ATTACHMENT_DOWNLOADS=0
-      # Use gravatars for user avatars, when user has no own avatar defined
-      - USE_GRAVATAR=0
-
       # Override value if you want to show to show a given text on homepage.
-      # When this is empty the content of config/banner.md is used as banner
+      # When this is outcommented the webUI can be used to configure the banner
       #- BANNER=This is a test banner<br>with a line break
 
   database:

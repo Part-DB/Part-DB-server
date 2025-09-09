@@ -46,6 +46,7 @@ use App\Services\Parameters\ParameterExtractor;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
+use App\Settings\BehaviorSettings\PartInfoSettings;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -69,7 +70,7 @@ class PartController extends AbstractController
         protected PartPreviewGenerator $partPreviewGenerator,
         private readonly TranslatorInterface $translator,
         private readonly AttachmentSubmitHandler $attachmentSubmitHandler, private readonly EntityManagerInterface $em,
-        protected EventCommentHelper $commentHelper)
+        protected EventCommentHelper $commentHelper, private readonly PartInfoSettings $partInfoSettings)
     {
     }
 
@@ -119,8 +120,8 @@ class PartController extends AbstractController
                 'pricedetail_helper' => $this->pricedetailHelper,
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
                 'timeTravel' => $timeTravel_timestamp,
-                'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
-                'comment_params' => $parameterExtractor->extractParameters($part->getComment()),
+                'description_params' => $this->partInfoSettings->extractParamsFromDescription ? $parameterExtractor->extractParameters($part->getDescription()) : [],
+                'comment_params' => $this->partInfoSettings->extractParamsFromNotes ? $parameterExtractor->extractParameters($part->getComment()) : [],
                 'withdraw_add_helper' => $withdrawAddHelper,
             ]
         );

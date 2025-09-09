@@ -1,4 +1,5 @@
 {% import "helper.twig" as helper %}
+{% import "vars.macro.twig" as vars %}
 {% import "components/search.macro.html.twig" as search %}
 
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
@@ -17,7 +18,7 @@
         </div>
 
         <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip"
-                                                                 aria-hidden="true"></i> {{ partdb_title }}</a>
+                                                                 aria-hidden="true"></i> {{ vars.partdb_title() }}</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">

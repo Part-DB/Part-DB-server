@@ -2,8 +2,8 @@
 
 
 <div class="nav flex-column">
-    {% for item in sidebar_items %}
-        {{ tree.treeview_sidebar('sidebar-panel-' ~ loop.index, item) }}
+    {% for item in settings_instance('sidebar').items %}
+        {{ tree.treeview_sidebar('sidebar-panel-' ~ loop.index, item.value) }}
         <div class="mb-2"></div>
     {% endfor %}
 </div>

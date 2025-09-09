@@ -289,6 +289,13 @@ class ToolsTreeBuilder
             ))->setIcon('fa-fw fa-treeview fa-solid fa-database');
         }
 
+        if ($this->security->isGranted('@config.change_system_settings')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.system.settings'),
+                $this->urlGenerator->generate('system_settings')
+            ))->setIcon('fa fa-fw fa-gears fa-solid');
+        }
+
         return $nodes;
     }
 }

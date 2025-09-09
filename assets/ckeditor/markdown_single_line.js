@@ -2,35 +2,36 @@
  * @license Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
-import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
-import AutoLink from '@ckeditor/ckeditor5-link/src/autolink.js';
-import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
-import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
-import FindAndReplace from '@ckeditor/ckeditor5-find-and-replace/src/findandreplace.js';
-import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight.js';
-import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
-import Link from '@ckeditor/ckeditor5-link/src/link.js';
-import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
-import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat.js';
-import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting.js';
-import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters.js';
-import SpecialCharactersArrows from '@ckeditor/ckeditor5-special-characters/src/specialcharactersarrows.js';
-import SpecialCharactersCurrency from '@ckeditor/ckeditor5-special-characters/src/specialcharacterscurrency.js';
-import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials.js';
-import SpecialCharactersLatin from '@ckeditor/ckeditor5-special-characters/src/specialcharacterslatin.js';
-import SpecialCharactersMathematical from '@ckeditor/ckeditor5-special-characters/src/specialcharactersmathematical.js';
-import SpecialCharactersText from '@ckeditor/ckeditor5-special-characters/src/specialcharacterstext.js';
-import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough.js';
-import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript.js';
-import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript.js';
-import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
-import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
+import {ClassicEditor} from 'ckeditor5';
+import {Autoformat} from 'ckeditor5';
+import {AutoLink} from 'ckeditor5';
+import {Bold} from 'ckeditor5';
+import {Code} from 'ckeditor5';
+import {Essentials} from 'ckeditor5';
+import {FindAndReplace} from 'ckeditor5';
+import {Highlight} from 'ckeditor5';
+import {Italic} from 'ckeditor5';
+import {Link} from 'ckeditor5';
+import {Paragraph} from 'ckeditor5';
+import {RemoveFormat} from 'ckeditor5';
+import {SourceEditing} from 'ckeditor5';
+import {SpecialCharacters} from 'ckeditor5';
+import {SpecialCharactersArrows} from 'ckeditor5';
+import {SpecialCharactersCurrency} from 'ckeditor5';
+import {SpecialCharactersEssentials} from 'ckeditor5';
+import {SpecialCharactersLatin} from 'ckeditor5';
+import {SpecialCharactersMathematical} from 'ckeditor5';
+import {SpecialCharactersText} from 'ckeditor5';
+import {Strikethrough} from 'ckeditor5';
+import {Subscript} from 'ckeditor5';
+import {Superscript} from 'ckeditor5';
+import {Underline} from 'ckeditor5';
+import {EditorWatchdog} from 'ckeditor5';
+import {Mention, Emoji} from "ckeditor5";
 
 import ExtendedMarkdownInline from "./plugins/extendedMarkdownInline";
 import SingleLinePlugin from "./plugins/singleLine";
-import SpecialCharactersEmoji from "./plugins/special_characters_emoji";
+import SpecialCharactersGreek from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
 
@@ -62,7 +63,8 @@ Editor.builtinPlugins = [
 
     ExtendedMarkdownInline,
     SingleLinePlugin,
-    SpecialCharactersEmoji
+    SpecialCharactersGreek,
+    Mention, Emoji
 ];
 
 // Editor configuration.
@@ -81,6 +83,7 @@ Editor.defaultConfig = {
             'link',
             'code',
             'specialCharacters',
+            'emoji',
             '|',
             'undo',
             'redo',

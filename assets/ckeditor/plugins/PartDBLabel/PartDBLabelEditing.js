@@ -17,11 +17,11 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {Plugin} from 'ckeditor5';
 import PartDBLabelCommand from "./PartDBLabelCommand";
 
-import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
-import Widget from '@ckeditor/ckeditor5-widget/src/widget';
+import { toWidget } from 'ckeditor5';
+import {Widget} from 'ckeditor5';
 
 export default class PartDBLabelEditing extends Plugin {
     static get requires() {                                                    // ADDED

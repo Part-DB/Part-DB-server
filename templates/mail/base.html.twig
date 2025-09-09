@@ -1,3 +1,5 @@
+{% import "vars.macro.twig" as vars %}
+
 {% apply inky_to_html|inline_css(source('@css/email/foundation-emails.css'), source('@css/email/email.css')) %}
 
     <container>
@@ -5,7 +7,7 @@
         <row class="header">
             <columns>
                 <spacer size="16"></spacer>
-                <h4 class="text-center"><a href="{{ url('homepage') }}">{{ partdb_title }}</a></h4>
+                <h4 class="text-center"><a href="{{ url('homepage') }}">{{ vars.partdb_title() }}</a></h4>
             </columns>
         </row>
 

@@ -17,8 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Plugin } from 'ckeditor5/src/core';
-import GFMDataProcessor from '@ckeditor/ckeditor5-markdown-gfm/src/gfmdataprocessor';
+import { Plugin, MarkdownGfmDataProcessor } from 'ckeditor5';
 
 const ALLOWED_TAGS = [
 	//Common elements
@@ -34,7 +33,6 @@ const ALLOWED_TAGS = [
 
 	//Block elements
 	'span',
-	'p',
 	'img',
 
 
@@ -57,7 +55,7 @@ export default class ExtendedMarkdown extends Plugin {
 	constructor( editor ) {
 		super( editor );
 
-		editor.data.processor = new GFMDataProcessor( editor.data.viewDocument );
+		editor.data.processor = new MarkdownGfmDataProcessor( editor.data.viewDocument );
 		for (const tag of ALLOWED_TAGS) {
 			editor.data.processor.keepHtml(tag);
 		}
