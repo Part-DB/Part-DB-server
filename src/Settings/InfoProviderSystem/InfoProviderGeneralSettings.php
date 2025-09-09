@@ -40,6 +40,6 @@ class InfoProviderGeneralSettings
      */
     #[SettingsParameter(type: ArrayType::class, label: new TM("settings.ips.default_providers"),
         description: new TM("settings.ips.default_providers.help"), options: ['type' => StringType::class],
-        formType: ProviderSelectType::class, formOptions: ['input' => 'string'])]
+        formType: ProviderSelectType::class, formOptions: ['input' => 'string', 'required' => false, 'empty_data' => []])]
     public array $defaultSearchProviders = [];
 }
