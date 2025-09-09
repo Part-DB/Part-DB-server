@@ -13949,5 +13949,53 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Example: Priority 1: "LCSC SPN → LCSC", Priority 2: "MPN → LCSC + Mouser", Priority 3: "Name → All providers"</target>
       </segment>
     </unit>
+    <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search.submit</source>
+        <target>Search Providers</target>
+      </segment>
+    </unit>
+    <unit id="pPndxuf" name="info_providers.bulk_import.searching">
+      <segment state="translated">
+        <source>info_providers.bulk_import.searching</source>
+        <target>Searching</target>
+      </segment>
+    </unit>
+    <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.title</source>
+        <target>Research Parts</target>
+      </segment>
+    </unit>
+    <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.description</source>
+        <target>Re-search for parts using updated information (e.g., new MPNs). Uses the same field mappings as the original search.</target>
+      </segment>
+    </unit>
+    <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.all_pending</source>
+        <target>Research All Pending Parts</target>
+      </segment>
+    </unit>
+    <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part</source>
+        <target>Research</target>
+      </segment>
+    </unit>
+    <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part_tooltip</source>
+        <target>Research this part with updated information</target>
+      </segment>
+    </unit>
+    <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
+      <segment>
+        <source>info_providers.bulk_import.max_mappings_reached</source>
+        <target>Maximum number of mappings reached</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

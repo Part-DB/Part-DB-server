@@ -28,16 +28,14 @@ use App\Entity\BulkImportJobStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
-use App\Services\InfoProviderSystem\PartInfoRetriever;
-use App\Services\InfoProviderSystem\ExistingPartFinder;
-use App\Services\InfoProviderSystem\ProviderRegistry;
-use App\Services\InfoProviderSystem\Providers\LCSCProvider;
+use App\Services\InfoProviderSystem\BulkInfoProviderService;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchRequestDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\UserSystem\User;
 
@@ -45,20 +43,67 @@ use App\Entity\UserSystem\User;
 class BulkInfoProviderImportController extends AbstractController
 {
     public function __construct(
-        private readonly PartInfoRetriever $infoRetriever,
-        private readonly LCSCProvider $LCSCProvider,
-        private readonly ExistingPartFinder $existingPartFinder,
-        private readonly EntityManagerInterface $entityManager
+        private readonly BulkInfoProviderService $bulkService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
     }
 
+    private function createErrorResponse(string $message, int $statusCode = 400, array $context = []): JsonResponse
+    {
+        $this->logger->warning('Bulk import operation failed', array_merge([
+            'error' => $message,
+            'user' => $this->getUser()?->getUserIdentifier(),
+        ], $context));
+
+        return $this->json([
+            'success' => false,
+            'error' => $message
+        ], $statusCode);
+    }
+
+    private function validateJobAccess(int $jobId): ?BulkInfoProviderImportJob
+    {
+        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
+
+        if (!$job) {
+            return null;
+        }
+
+        if ($job->getCreatedBy() !== $this->getUser()) {
+            return null;
+        }
+
+        return $job;
+    }
+
+    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?array $newResults): void
+    {
+        if ($newResults === null) {
+            return;
+        }
+
+        // Only deserialize and update if we have new results
+        $allResults = $job->deserializeSearchResults($this->entityManager);
+
+        // Find and update the results for this specific part
+        foreach ($allResults as $index => $partResult) {
+            if ($partResult['part']->getId() === $partId) {
+                $allResults[$index] = $newResults;
+                break;
+            }
+        }
+
+        // Save updated results back to job
+        $job->setSearchResults($job->serializeSearchResults($allResults));
+    }
+
     #[Route('/step1', name: 'bulk_info_provider_step1')]
-    public function step1(Request $request, LoggerInterface $exceptionLogger): Response
+    public function step1(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
-        // Increase execution time for bulk operations
-        set_time_limit(600); // 10 minutes for large batches
+        set_time_limit(600);
 
         $ids = $request->query->get('ids');
         if (!$ids) {
@@ -66,7 +111,6 @@ class BulkInfoProviderImportController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        // Get the selected parts
         $partIds = explode(',', $ids);
         $partRepository = $this->entityManager->getRepository(Part::class);
         $parts = $partRepository->getElementsFromIDArray($partIds);
@@ -76,7 +120,6 @@ class BulkInfoProviderImportController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        // Warn about large batches
         if (count($parts) > 50) {
             $this->addFlash('warning', 'Processing ' . count($parts) . ' parts may take several minutes and could timeout. Consider processing smaller batches.');
         }
@@ -114,23 +157,17 @@ class BulkInfoProviderImportController extends AbstractController
             $fieldMappings = $formData['field_mappings'];
             $prefetchDetails = $formData['prefetch_details'] ?? false;
 
-            // Debug logging
-            $exceptionLogger->info('Form data received', [
-                'prefetch_details' => $prefetchDetails,
-                'prefetch_details_type' => gettype($prefetchDetails)
-            ]);
+            $user = $this->getUser();
+            if (!$user instanceof User) {
+                throw new \RuntimeException('User must be authenticated and of type User');
+            }
 
             // Create and save the job
             $job = new BulkInfoProviderImportJob();
             $job->setFieldMappings($fieldMappings);
             $job->setPrefetchDetails($prefetchDetails);
-            $user = $this->getUser();
-            if (!$user instanceof User) {
-                throw new \RuntimeException('User must be authenticated and of type User');
-            }
             $job->setCreatedBy($user);
 
-            // Create job parts for each part
             foreach ($parts as $part) {
                 $jobPart = new BulkInfoProviderImportJobPart($job, $part);
                 $job->addJobPart($jobPart);
@@ -139,200 +176,40 @@ class BulkInfoProviderImportController extends AbstractController
             $this->entityManager->persist($job);
             $this->entityManager->flush();
 
-            $searchResults = [];
-            $hasAnyResults = false;
-
             try {
-                // Optimize: Use batch async requests for LCSC provider
-                $lcscKeywords = [];
-                $keywordToPartField = [];
+                $searchRequest = new BulkSearchRequestDTO(
+                    fieldMappings: $fieldMappings,
+                    prefetchDetails: $prefetchDetails,
+                    partIds: $partIds
+                );
 
-                // First, collect all LCSC keywords for batch processing
-                foreach ($parts as $part) {
-                    foreach ($fieldMappings as $mapping) {
-                        $field = $mapping['field'];
-                        $providers = $mapping['providers'] ?? [];
-
-                        if (in_array('lcsc', $providers, true)) {
-                            $keyword = $this->getKeywordFromField($part, $field);
-                            if ($keyword) {
-                                $lcscKeywords[] = $keyword;
-                                $keywordToPartField[$keyword] = [
-                                    'part' => $part,
-                                    'field' => $field
-                                ];
-                            }
-                        }
-                    }
-                }
-
-                // Batch search LCSC keywords asynchronously
-                $lcscBatchResults = [];
-                if (!empty($lcscKeywords)) {
-                    try {
-                        // Try to get LCSC provider and use batch method if available
-                        $lcscBatchResults = $this->searchLcscBatch($lcscKeywords);
-                    } catch (\Exception $e) {
-                        $exceptionLogger->warning('LCSC batch search failed, falling back to individual requests', [
-                            'error' => $e->getMessage()
-                        ]);
-                    }
-                }
-
-                // Now process each part
-                foreach ($parts as $part) {
-                    $partResult = [
-                        'part' => $part,
-                        'search_results' => [],
-                        'errors' => []
-                    ];
-
-                    // Collect all DTOs using priority-based search
-                    $allDtos = [];
-                    $dtoMetadata = []; // Store source field info separately
-
-                    // Group mappings by priority (lower number = higher priority)
-                    $mappingsByPriority = [];
-                    foreach ($fieldMappings as $mapping) {
-                        $priority = $mapping['priority'] ?? 1;
-                        $mappingsByPriority[$priority][] = $mapping;
-                    }
-                    ksort($mappingsByPriority); // Sort by priority (1, 2, 3...)
-
-                    // Try each priority level until we find results
-                    foreach ($mappingsByPriority as $priority => $mappings) {
-                        $priorityResults = [];
-
-                        // For same priority, search all and combine results
-                        foreach ($mappings as $mapping) {
-                            $field = $mapping['field'];
-                            $providers = $mapping['providers'] ?? [];
-
-                            if (empty($providers)) {
-                                continue;
-                            }
-
-                            $keyword = $this->getKeywordFromField($part, $field);
-
-                            if ($keyword) {
-                                try {
-                                    // Use batch results for LCSC if available
-                                    if (in_array('lcsc', $providers, true) && isset($lcscBatchResults[$keyword])) {
-                                        $dtos = $lcscBatchResults[$keyword];
-                                    } else {
-                                        // Fall back to regular search for non-LCSC providers
-                                        $dtos = $this->infoRetriever->searchByKeyword(
-                                            keyword: $keyword,
-                                            providers: $providers
-                                        );
-                                    }
-
-                                    // Store field info for each DTO separately
-                                    foreach ($dtos as $dto) {
-                                        $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
-                                        $dtoMetadata[$dtoKey] = [
-                                            'source_field' => $field,
-                                            'source_keyword' => $keyword,
-                                            'priority' => $priority
-                                        ];
-                                    }
-
-                                    $priorityResults = array_merge($priorityResults, $dtos);
-                                } catch (ClientException $e) {
-                                    $partResult['errors'][] = "Error searching with {$field} (priority {$priority}): " . $e->getMessage();
-                                    $exceptionLogger->error('Error during bulk info provider search for part ' . $part->getId() . " field {$field}: " . $e->getMessage(), ['exception' => $e]);
-                                }
-                            }
-                        }
-
-                        // If we found results at this priority level, use them and stop
-                        if (!empty($priorityResults)) {
-                            $allDtos = $priorityResults;
-                            break;
-                        }
-                    }
-
-                    // Remove duplicates based on provider_key + provider_id
-                    $uniqueDtos = [];
-                    $seenKeys = [];
-                    foreach ($allDtos as $dto) {
-                        if ($dto === null || !isset($dto->provider_key, $dto->provider_id)) {
-                            continue;
-                        }
-                        $key = "{$dto->provider_key}|{$dto->provider_id}";
-                        if (!in_array($key, $seenKeys, true)) {
-                            $seenKeys[] = $key;
-                            $uniqueDtos[] = $dto;
-                        }
-                    }
-
-                    // Convert DTOs to result format with metadata
-                    $partResult['search_results'] = array_map(
-                        function ($dto) use ($dtoMetadata) {
-                            $dtoKey = $dto->provider_key . '|' . $dto->provider_id;
-                            $metadata = $dtoMetadata[$dtoKey] ?? [];
-                            return [
-                                'dto' => $dto,
-                                'localPart' => $this->existingPartFinder->findFirstExisting($dto),
-                                'source_field' => $metadata['source_field'] ?? null,
-                                'source_keyword' => $metadata['source_keyword'] ?? null
-                            ];
-                        },
-                        $uniqueDtos
-                    );
-
-                    if (!empty($partResult['search_results'])) {
-                        $hasAnyResults = true;
-                    }
-
-                    $searchResults[] = $partResult;
-                }
-
-                // Check if search was successful
-                if (!$hasAnyResults) {
-                    $exceptionLogger->warning('Bulk import search returned no results for any parts', [
-                        'job_id' => $job->getId(),
-                        'parts_count' => count($parts)
-                    ]);
-
-                    // Delete the job since it has no useful results
-                    $this->entityManager->remove($job);
-                    $this->entityManager->flush();
-
-                    $this->addFlash('error', 'No search results found for any of the selected parts. Please check your field mappings and provider selections.');
-                    return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
-                }
+                $searchResults = $this->bulkService->performBulkSearch($searchRequest);
 
                 // Save search results to job
-                $job->setSearchResults($this->serializeSearchResults($searchResults));
+                $job->setSearchResults($job->serializeSearchResults($searchResults));
                 $job->markAsInProgress();
                 $this->entityManager->flush();
 
+                // Prefetch details if requested
+                if ($prefetchDetails) {
+                    $this->bulkService->prefetchDetailsForResults($searchResults);
+                }
+
+                return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $job->getId()]);
+
             } catch (\Exception $e) {
-                $exceptionLogger->error('Critical error during bulk import search', [
+                $this->logger->error('Critical error during bulk import search', [
                     'job_id' => $job->getId(),
                     'error' => $e->getMessage(),
                     'exception' => $e
                 ]);
 
-                // Delete the job on critical failure
                 $this->entityManager->remove($job);
                 $this->entityManager->flush();
 
                 $this->addFlash('error', 'Search failed due to an error: ' . $e->getMessage());
                 return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
             }
-
-            // Prefetch details if requested
-            if ($prefetchDetails) {
-                $exceptionLogger->info('Prefetch details requested, starting prefetch for ' . count($searchResults) . ' parts');
-                $this->prefetchDetailsForResults($searchResults, $exceptionLogger);
-            } else {
-                $exceptionLogger->info('Prefetch details not requested, skipping prefetch');
-            }
-
-            // Redirect to step 2 with the job
-            return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $job->getId()]);
         }
 
         // Get existing in-progress jobs for current user
@@ -433,72 +310,6 @@ class BulkInfoProviderImportController extends AbstractController
         return $this->json(['success' => true]);
     }
 
-    private function getKeywordFromField(Part $part, string $field): ?string
-    {
-        return match ($field) {
-            'mpn' => $part->getManufacturerProductNumber(),
-            'name' => $part->getName(),
-            default => $this->getSupplierPartNumber($part, $field)
-        };
-    }
-
-    private function getSupplierPartNumber(Part $part, string $field): ?string
-    {
-        // Check if this is a supplier SPN field
-        if (!str_ends_with($field, '_spn')) {
-            return null;
-        }
-
-        // Extract supplier key (remove _spn suffix)
-        $supplierKey = substr($field, 0, -4);
-
-        // Get all suppliers to find matching one
-        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
-
-        foreach ($suppliers as $supplier) {
-            $normalizedName = strtolower(str_replace([' ', '-', '_'], '_', $supplier->getName()));
-            if ($normalizedName === $supplierKey) {
-                // Find order detail for this supplier
-                $orderDetail = $part->getOrderdetails()->filter(
-                    fn($od) => $od->getSupplier()?->getId() === $supplier->getId()
-                )->first();
-
-                return $orderDetail ? $orderDetail->getSupplierpartnr() : null;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Prefetch details for all search results to populate cache
-     */
-    private function prefetchDetailsForResults(array $searchResults, LoggerInterface $logger): void
-    {
-        $prefetchCount = 0;
-
-        foreach ($searchResults as $partResult) {
-            foreach ($partResult['search_results'] as $result) {
-                $dto = $result['dto'];
-
-                try {
-                    // This call will cache the details for later use
-                    $this->infoRetriever->getDetails($dto->provider_key, $dto->provider_id);
-                    $prefetchCount++;
-                } catch (\Exception $e) {
-                    $logger->warning('Failed to prefetch details for provider part', [
-                        'provider_key' => $dto->provider_key,
-                        'provider_id' => $dto->provider_id,
-                        'error' => $e->getMessage()
-                    ]);
-                }
-            }
-        }
-
-        if ($prefetchCount > 0) {
-            $this->addFlash('success', "Prefetched details for {$prefetchCount} search results");
-        }
-    }
 
     #[Route('/step2/{jobId}', name: 'bulk_info_provider_step2')]
     public function step2(int $jobId): Response
@@ -518,7 +329,7 @@ class BulkInfoProviderImportController extends AbstractController
 
         // Get the parts and deserialize search results
         $parts = $job->getJobParts()->map(fn($jobPart) => $jobPart->getPart())->toArray();
-        $searchResults = $this->deserializeSearchResults($job->getSearchResults(), $parts);
+        $searchResults = $job->deserializeSearchResults($this->entityManager);
 
         return $this->render('info_providers/bulk_import/step2.html.twig', [
             'job' => $job,
@@ -527,103 +338,6 @@ class BulkInfoProviderImportController extends AbstractController
         ]);
     }
 
-    private function serializeSearchResults(array $searchResults): array
-    {
-        $serialized = [];
-
-        foreach ($searchResults as $partResult) {
-            $partData = [
-                'part_id' => $partResult['part']->getId(),
-                'search_results' => [],
-                'errors' => $partResult['errors']
-            ];
-
-            foreach ($partResult['search_results'] as $result) {
-                $dto = $result['dto'];
-                $partData['search_results'][] = [
-                    'dto' => [
-                        'provider_key' => $dto->provider_key,
-                        'provider_id' => $dto->provider_id,
-                        'name' => $dto->name,
-                        'description' => $dto->description,
-                        'manufacturer' => $dto->manufacturer,
-                        'mpn' => $dto->mpn,
-                        'provider_url' => $dto->provider_url,
-                        'preview_image_url' => $dto->preview_image_url,
-                        '_source_field' => $result['source_field'] ?? null,
-                        '_source_keyword' => $result['source_keyword'] ?? null,
-                    ],
-                    'localPart' => $result['localPart'] ? $result['localPart']->getId() : null
-                ];
-            }
-
-            $serialized[] = $partData;
-        }
-
-        return $serialized;
-    }
-
-    private function deserializeSearchResults(array $serializedResults, array $parts): array
-    {
-        $partsById = [];
-        foreach ($parts as $part) {
-            $partsById[$part->getId()] = $part;
-        }
-
-        $searchResults = [];
-
-        foreach ($serializedResults as $partData) {
-            $part = $partsById[$partData['part_id']] ?? null;
-            if (!$part) {
-                continue;
-            }
-
-            $partResult = [
-                'part' => $part,
-                'search_results' => [],
-                'errors' => $partData['errors']
-            ];
-
-            foreach ($partData['search_results'] as $resultData) {
-                $dtoData = $resultData['dto'];
-
-                $dto = new \App\Services\InfoProviderSystem\DTOs\SearchResultDTO(
-                    provider_key: $dtoData['provider_key'],
-                    provider_id: $dtoData['provider_id'],
-                    name: $dtoData['name'],
-                    description: $dtoData['description'],
-                    manufacturer: $dtoData['manufacturer'],
-                    mpn: $dtoData['mpn'],
-                    provider_url: $dtoData['provider_url'],
-                    preview_image_url: $dtoData['preview_image_url']
-                );
-
-                $localPart = null;
-                if ($resultData['localPart']) {
-                    $localPart = $this->entityManager->getRepository(Part::class)->find($resultData['localPart']);
-                }
-
-                $partResult['search_results'][] = [
-                    'dto' => $dto,
-                    'localPart' => $localPart,
-                    'source_field' => $dtoData['_source_field'] ?? null,
-                    'source_keyword' => $dtoData['_source_keyword'] ?? null
-                ];
-            }
-
-            $searchResults[] = $partResult;
-        }
-
-        return $searchResults;
-    }
-
-    /**
-     * Perform batch LCSC search using async HTTP requests
-     */
-    private function searchLcscBatch(array $keywords): array
-    {
-        return $this->LCSCProvider->searchByKeywordsBatch($keywords);
-    }
 
     #[Route('/job/{jobId}/part/{partId}/mark-completed', name: 'bulk_info_provider_mark_completed', methods: ['POST'])]
     public function markPartCompleted(int $jobId, int $partId): Response
@@ -701,5 +415,156 @@ class BulkInfoProviderImportController extends AbstractController
             'total_count' => $job->getPartCount(),
             'job_completed' => $job->isCompleted()
         ]);
+    }
+
+    #[Route('/job/{jobId}/part/{partId}/research', name: 'bulk_info_provider_research_part', methods: ['POST'])]
+    public function researchPart(int $jobId, int $partId): JsonResponse
+    {
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
+        }
+
+        $part = $this->entityManager->getRepository(Part::class)->find($partId);
+        if (!$part) {
+            return $this->createErrorResponse('Part not found', 404, ['part_id' => $partId]);
+        }
+
+        // Only refresh if the entity might be stale (optional optimization)
+        if ($this->entityManager->getUnitOfWork()->isScheduledForUpdate($part)) {
+            $this->entityManager->refresh($part);
+        }
+
+        try {
+            // Use the job's field mappings to perform the search
+            $fieldMappings = $job->getFieldMappings();
+            $prefetchDetails = $job->isPrefetchDetails();
+
+            $searchRequest = new BulkSearchRequestDTO(
+                fieldMappings: $fieldMappings,
+                prefetchDetails: $prefetchDetails,
+                partIds: [$partId]
+            );
+
+            try {
+                $searchResults = $this->bulkService->performBulkSearch($searchRequest);
+            } catch (\Exception $searchException) {
+                // Handle "no search results found" as a normal case, not an error
+                if (str_contains($searchException->getMessage(), 'No search results found')) {
+                    $searchResults = [];
+                } else {
+                    throw $searchException;
+                }
+            }
+
+            // Update the job's search results for this specific part efficiently
+            $this->updatePartSearchResults($job, $partId, $searchResults[0] ?? null);
+
+            // Prefetch details if requested
+            if ($prefetchDetails && !empty($searchResults)) {
+                $this->bulkService->prefetchDetailsForResults($searchResults);
+            }
+
+            $this->entityManager->flush();
+
+            // Return the new results for this part
+            $newResults = $searchResults[0] ?? null;
+
+            return $this->json([
+                'success' => true,
+                'part_id' => $partId,
+                'results_count' => $newResults ? count($newResults['search_results']) : 0,
+                'errors_count' => $newResults ? count($newResults['errors']) : 0,
+                'message' => 'Part research completed successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->createErrorResponse(
+                'Research failed: ' . $e->getMessage(),
+                500,
+                [
+                    'job_id' => $jobId,
+                    'part_id' => $partId,
+                    'exception' => $e->getMessage()
+                ]
+            );
+        }
+    }
+
+    #[Route('/job/{jobId}/research-all', name: 'bulk_info_provider_research_all', methods: ['POST'])]
+    public function researchAllParts(int $jobId): JsonResponse
+    {
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
+        }
+
+        // Get all part IDs that are not completed or skipped
+        $partIds = [];
+        foreach ($job->getJobParts() as $jobPart) {
+            if (!$jobPart->isCompleted() && !$jobPart->isSkipped()) {
+                $partIds[] = $jobPart->getPart()->getId();
+            }
+        }
+
+        if (empty($partIds)) {
+            return $this->json([
+                'success' => true,
+                'message' => 'No parts to research',
+                'researched_count' => 0
+            ]);
+        }
+
+        try {
+            $fieldMappings = $job->getFieldMappings();
+            $prefetchDetails = $job->isPrefetchDetails();
+
+            // Process in batches to reduce memory usage for large operations
+            $batchSize = 20; // Configurable batch size for memory management
+            $allResults = [];
+            $batches = array_chunk($partIds, $batchSize);
+
+            foreach ($batches as $batch) {
+                $searchRequest = new BulkSearchRequestDTO(
+                    fieldMappings: $fieldMappings,
+                    prefetchDetails: $prefetchDetails,
+                    partIds: $batch
+                );
+
+                $batchResults = $this->bulkService->performBulkSearch($searchRequest);
+                $allResults = array_merge($allResults, $batchResults);
+
+                // Clear entity manager periodically to prevent memory issues
+                $this->entityManager->clear();
+                $job = $this->entityManager->find(BulkInfoProviderImportJob::class, $job->getId());
+            }
+
+            // Update the job's search results
+            $job->setSearchResults($job->serializeSearchResults($allResults));
+
+            // Prefetch details if requested
+            if ($prefetchDetails) {
+                $this->bulkService->prefetchDetailsForResults($allResults);
+            }
+
+            $this->entityManager->flush();
+
+            return $this->json([
+                'success' => true,
+                'researched_count' => count($partIds),
+                'message' => sprintf('Successfully researched %d parts', count($partIds))
+            ]);
+
+        } catch (\Exception $e) {
+            return $this->createErrorResponse(
+                'Bulk research failed: ' . $e->getMessage(),
+                500,
+                [
+                    'job_id' => $jobId,
+                    'part_ids' => $partIds,
+                    'exception' => $e->getMessage()
+                ]
+            );
+        }
     }
 }

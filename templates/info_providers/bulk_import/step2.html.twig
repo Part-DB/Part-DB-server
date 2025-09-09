@@ -14,6 +14,14 @@
 
 {% block card_content %}
 
+<div {{ stimulus_controller('bulk-import', {
+    'jobId': job.id,
+    'researchUrl': path('bulk_info_provider_research_part', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'researchAllUrl': path('bulk_info_provider_research_all', {'jobId': job.id}),
+    'markCompletedUrl': path('bulk_info_provider_mark_completed', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'markSkippedUrl': path('bulk_info_provider_mark_skipped', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'markPendingUrl': path('bulk_info_provider_mark_pending', {'jobId': job.id, 'partId': '__PART_ID__'})
+}) }}>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-1">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</h5>
@@ -41,10 +49,10 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h6 class="mb-0">Progress</h6>
-                <span id="progress-text">{{ job.completedPartsCount }} / {{ job.partCount }} completed</span>
+                <span data-bulk-import-target="progressText">{{ job.completedPartsCount }} / {{ job.partCount }} completed</span>
             </div>
             <div class="progress" style="height: 8px;">
-                <div id="progress-bar" class="progress-bar" role="progressbar" 
+                <div data-bulk-import-target="progressBar" class="progress-bar" role="progressbar" 
                      style="width: {{ job.progressPercentage }}%" 
                      aria-valuenow="{{ job.progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
                 </div>
@@ -72,12 +80,32 @@
         </ul>
     </div>
 
+    <!-- Research Controls -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">{% trans %}info_providers.bulk_import.research.title{% endtrans %}</h6>
+                    <small class="text-muted">{% trans %}info_providers.bulk_import.research.description{% endtrans %}</small>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-primary btn-sm me-2" 
+                            data-action="click->bulk-import#researchAllParts"
+                            id="research-all-btn">
+                        <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="research-all-spinner"></span>
+                        <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.research.all_pending{% endtrans %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% for part_result in search_results %}
         {% set part = part_result.part %}
         {% set isCompleted = job.isPartCompleted(part.id) %}
         {% set isSkipped = job.isPartSkipped(part.id) %}
         <div class="card mb-3 {% if isCompleted %}border-success{% elseif isSkipped %}border-warning{% endif %}" 
-             id="part-card-{{ part.id }}" 
+             data-part-id="{{ part.id }}" 
              {% if isCompleted %}style="background-color: rgba(25, 135, 84, 0.1);"{% endif %}>
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -101,19 +129,26 @@
                     </h5>
                 </div>
                 <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-info btn-sm" 
+                            data-action="click->bulk-import#researchPart" 
+                            data-part-id="{{ part.id }}"
+                            title="{% trans %}info_providers.bulk_import.research.part_tooltip{% endtrans %}">
+                        <span class="spinner-border spinner-border-sm me-1" style="display: none;" data-research-spinner="{{ part.id }}"></span>
+                        <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.research.part{% endtrans %}
+                    </button>
                     {% if not isCompleted and not isSkipped %}
-                        <button type="button" class="btn btn-success btn-sm" onclick="markPartCompleted({{ job.id }}, {{ part.id }})">
+                        <button type="button" class="btn btn-success btn-sm" data-action="click->bulk-import#markCompleted" data-part-id="{{ part.id }}">
                             <i class="fas fa-check"></i> {% trans %}info_providers.bulk_import.mark_completed{% endtrans %}
                         </button>
-                        <button type="button" class="btn btn-warning btn-sm" onclick="markPartSkipped({{ job.id }}, {{ part.id }})">
+                        <button type="button" class="btn btn-warning btn-sm" data-action="click->bulk-import#markSkipped" data-part-id="{{ part.id }}">
                             <i class="fas fa-forward"></i> {% trans %}info_providers.bulk_import.mark_skipped{% endtrans %}
                         </button>
                     {% elseif isCompleted %}
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="markPartPending({{ job.id }}, {{ part.id }})">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="click->bulk-import#markPending" data-part-id="{{ part.id }}">
                             <i class="fas fa-undo"></i> {% trans %}info_providers.bulk_import.mark_pending{% endtrans %}
                         </button>
                     {% elseif isSkipped %}
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="markPartPending({{ job.id }}, {{ part.id }})">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="click->bulk-import#markPending" data-part-id="{{ part.id }}">
                             <i class="fas fa-undo"></i> {% trans %}info_providers.bulk_import.mark_pending{% endtrans %}
                         </button>
                     {% endif %}
@@ -172,7 +207,7 @@
                                             <span class="badge bg-info">{{ result.source_field ?? 'unknown' }}</span>
                                             {% if result.source_keyword %}
                                                 <br><small class="text-muted">{{ result.source_keyword }}</small>
-                                            {% endif %}
+                            {% endif %}
                                         </td>
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
@@ -197,152 +232,6 @@
         </div>
     {% endfor %}
 
+</div>
 {% endblock %}
 
-{% block scripts %}
-<script>
-function markPartCompleted(jobId, partId) {
-    fetch(`{{ path('bulk_info_provider_mark_completed', {'jobId': '__JOB_ID__', 'partId': '__PART_ID__'}) }}`.replace('__JOB_ID__', jobId).replace('__PART_ID__', partId), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updatePartStatus(partId, 'completed');
-            updateProgress(data);
-            if (data.job_completed) {
-                location.reload(); // Refresh to show completed status
-            }
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-function markPartSkipped(jobId, partId) {
-    const reason = prompt('{% trans %}info_providers.bulk_import.skip_reason{% endtrans %}:', '');
-    
-    const formData = new FormData();
-    formData.append('reason', reason || '');
-    
-    fetch(`{{ path('bulk_info_provider_mark_skipped', {'jobId': '__JOB_ID__', 'partId': '__PART_ID__'}) }}`.replace('__JOB_ID__', jobId).replace('__PART_ID__', partId), {
-        method: 'POST',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updatePartStatus(partId, 'skipped');
-            updateProgress(data);
-            if (data.job_completed) {
-                location.reload(); // Refresh to show completed status
-            }
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-function markPartPending(jobId, partId) {
-    fetch(`{{ path('bulk_info_provider_mark_pending', {'jobId': '__JOB_ID__', 'partId': '__PART_ID__'}) }}`.replace('__JOB_ID__', jobId).replace('__PART_ID__', partId), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updatePartStatus(partId, 'pending');
-            updateProgress(data);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-function updatePartStatus(partId, status) {
-    const card = document.getElementById(`part-card-${partId}`);
-    const cardHeader = card.querySelector('.card-header');
-    
-    // Remove existing status classes and background
-    card.classList.remove('border-success', 'border-warning');
-    card.style.backgroundColor = '';
-    
-    // Remove existing status badges
-    const existingBadges = cardHeader.querySelectorAll('.badge.bg-success, .badge.bg-warning');
-    existingBadges.forEach(badge => {
-        if (badge.innerHTML.includes('fas fa-check') || badge.innerHTML.includes('fas fa-forward')) {
-            badge.remove();
-        }
-    });
-    
-    // Add new status
-    if (status === 'completed') {
-        card.classList.add('border-success');
-        card.style.backgroundColor = 'rgba(25, 135, 84, 0.1)';
-        const badge = document.createElement('span');
-        badge.className = 'badge bg-success';
-        badge.innerHTML = '<i class="fas fa-check"></i> {% trans %}info_providers.bulk_import.completed{% endtrans %}';
-        cardHeader.querySelector('.card-title').appendChild(badge);
-    } else if (status === 'skipped') {
-        card.classList.add('border-warning');
-        const badge = document.createElement('span');
-        badge.className = 'badge bg-warning';
-        badge.innerHTML = '<i class="fas fa-forward"></i> {% trans %}info_providers.bulk_import.skipped{% endtrans %}';
-        cardHeader.querySelector('.card-title').appendChild(badge);
-    }
-    
-    // Update buttons and Update Part button states
-    const buttonGroup = cardHeader.querySelector('.btn-group');
-    const updateButtons = card.querySelectorAll('.btn-primary');
-    
-    if (status === 'completed' || status === 'skipped') {
-        buttonGroup.innerHTML = `
-            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="markPartPending({{ job.id }}, ${partId})">
-                <i class="fas fa-undo"></i> {% trans %}info_providers.bulk_import.mark_pending{% endtrans %}
-            </button>
-        `;
-        // Disable Update Part buttons
-        updateButtons.forEach(btn => {
-            btn.classList.add('disabled');
-            btn.setAttribute('aria-disabled', 'true');
-            btn.href = '#';
-        });
-    } else {
-        buttonGroup.innerHTML = `
-            <button type="button" class="btn btn-success btn-sm" onclick="markPartCompleted({{ job.id }}, ${partId})">
-                <i class="fas fa-check"></i> {% trans %}info_providers.bulk_import.mark_completed{% endtrans %}
-            </button>
-            <button type="button" class="btn btn-warning btn-sm" onclick="markPartSkipped({{ job.id }}, ${partId})">
-                <i class="fas fa-forward"></i> {% trans %}info_providers.bulk_import.mark_skipped{% endtrans %}
-            </button>
-        `;
-        // Enable Update Part buttons
-        updateButtons.forEach(btn => {
-            btn.classList.remove('disabled');
-            btn.removeAttribute('aria-disabled');
-            // Restore original href - this would need to be stored somewhere
-            location.reload(); // For now, just reload to restore the original state
-        });
-    }
-}
-
-function updateProgress(data) {
-    document.getElementById('progress-bar').style.width = data.progress + '%';
-    document.getElementById('progress-bar').setAttribute('aria-valuenow', data.progress);
-    document.getElementById('progress-percentage').textContent = data.progress + '%';
-    document.getElementById('completed-count').textContent = data.completed_count;
-    document.getElementById('progress-text').textContent = `${data.completed_count} / ${data.total_count} completed`;
-    
-    if (data.skipped_count !== undefined) {
-        document.getElementById('skipped-count').textContent = data.skipped_count;
-    }
-}
-</script>
-{% endblock %}

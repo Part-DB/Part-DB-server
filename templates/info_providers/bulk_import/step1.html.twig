@@ -14,6 +14,8 @@
 
 {% block card_content %}
 
+<div>
+
     <!-- Show existing jobs -->
     {% if existing_jobs is not empty %}
         <div class="card mb-3">
@@ -134,7 +136,12 @@
 
     {{ form_start(form) }}
 
-    <div class="card">
+    <div class="card" 
+         data-controller="field-mapping"
+         data-field-mapping-mapping-index-value="{{ form.field_mappings|length }}"
+         data-field-mapping-max-mappings-value="{{ fieldChoices|length }}"
+         data-field-mapping-prototype-value="{{ form_widget(form.field_mappings.vars.prototype)|e('js') }}"
+         data-field-mapping-max-mappings-reached-message-value="{{ 'info_providers.bulk_import.max_mappings_reached'|trans|e('js') }}">
         <div class="card-header">
             <h5 class="mb-0">{% trans %}info_providers.bulk_import.field_mappings{% endtrans %}</h5>
             <small class="text-muted">{% trans %}info_providers.bulk_import.field_mappings_help{% endtrans %}</small>
@@ -150,14 +157,14 @@
                             <th width="100">{% trans %}info_providers.bulk_import.actions.label{% endtrans %}</th>
                         </tr>
                     </thead>
-                    <tbody id="field-mappings-tbody" data-prototype="{{ form_widget(form.field_mappings.vars.prototype)|e('html_attr') }}">
+                    <tbody id="field-mappings-tbody" data-field-mapping-target="tbody">
                         {% for mapping in form.field_mappings %}
                             <tr class="mapping-row">
                                 <td>{{ form_widget(mapping.field) }}{{ form_errors(mapping.field) }}</td>
                                 <td>{{ form_widget(mapping.providers) }}{{ form_errors(mapping.providers) }}</td>
                                 <td>{{ form_widget(mapping.priority) }}{{ form_errors(mapping.priority) }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
+                                    <button type="button" class="btn btn-danger btn-sm" data-action="click->field-mapping#removeMapping">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -165,7 +172,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-success btn-sm" onclick="addMapping()">
+                <button type="button" class="btn btn-success btn-sm" id="addMappingBtn" data-field-mapping-target="addButton">
                     <i class="fas fa-plus"></i> {% trans %}info_providers.bulk_import.add_mapping{% endtrans %}
                 </button>
             </div>
@@ -185,7 +192,7 @@
             {{ form_help(form.prefetch_details) }}
         </div>
         
-        {{ form_widget(form.submit) }}
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary', 'data-field-mapping-target': 'submitButton'}}) }}
     </div>
 
     {{ form_end(form) }}
@@ -291,140 +298,7 @@
         {% endfor %}
     {% endif %}
 
-{% endblock %}
+</div>
 
-{% block scripts %}
-<script>
-let mappingIndex = {{ form.field_mappings|length }};
-const maxMappings = {{ fieldChoices|length }};
-
-function addMapping() {
-    const tbody = document.getElementById('field-mappings-tbody');
-    const currentMappings = tbody.querySelectorAll('.mapping-row').length;
-    
-    // Check if we've reached the maximum number of mappings
-    if (currentMappings >= maxMappings) {
-        alert('{% trans %}info_providers.bulk_import.max_mappings_reached{% endtrans %}');
-        return;
-    }
-    
-    const prototype = tbody.dataset.prototype;
-    
-    // Replace __name__ placeholder with current index
-    const newRowHtml = prototype.replace(/__name__/g, mappingIndex);
-    
-    // Create temporary div to parse the prototype HTML
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = newRowHtml;
-    
-    // Extract field, provider, and priority widgets
-    const fieldWidget = tempDiv.querySelector('select[name*="[field]"]') || tempDiv.children[0];
-    const providerWidget = tempDiv.querySelector('select[name*="[providers]"]') || tempDiv.children[1];
-    const priorityWidget = tempDiv.querySelector('input[name*="[priority]"]') || tempDiv.children[2];
-    
-    // Create new row
-    const newRow = document.createElement('tr');
-    newRow.className = 'mapping-row';
-    newRow.innerHTML = `
-        <td>${fieldWidget ? fieldWidget.outerHTML : ''}</td>
-        <td>${providerWidget ? providerWidget.outerHTML : ''}</td>
-        <td>${priorityWidget ? priorityWidget.outerHTML : ''}</td>
-        <td>
-            <button type="button" class="btn btn-danger btn-sm" onclick="removeMapping(this)">
-                <i class="fas fa-trash"></i>
-            </button>
-        </td>
-    `;
-    
-    tbody.appendChild(newRow);
-    mappingIndex++;
-    
-    // Add change listener to the new field select and clear its selection
-    const newFieldSelect = newRow.querySelector('select[name*="[field]"]');
-    if (newFieldSelect) {
-        // Clear the selection for new rows - select the placeholder option
-        newFieldSelect.value = '';
-        addFieldChangeListener(newFieldSelect);
-    }
-    
-    // Update field options to hide already selected fields
-    updateFieldOptions();
-    
-    // Update add button state
-    updateAddButtonState();
-}
-
-function removeMapping(button) {
-    const row = button.closest('tr');
-    row.remove();
-    updateFieldOptions();
-    updateAddButtonState();
-}
-
-
-
-function updateFieldOptions() {
-    const tbody = document.getElementById('field-mappings-tbody');
-    const fieldSelects = tbody.querySelectorAll('select[name*="[field]"]');
-    
-    // Get all currently selected field values (excluding empty values)
-    const selectedFields = Array.from(fieldSelects)
-        .map(select => select.value)
-        .filter(value => value && value !== '');
-    
-    console.log('Selected fields:', selectedFields);
-    
-    // Update each field select to disable already selected options
-    fieldSelects.forEach(select => {
-        Array.from(select.options).forEach(option => {
-            // Don't disable if this is the current select's value or if option is empty
-            const isCurrentValue = option.value === select.value;
-            const isEmptyOption = !option.value || option.value === '';
-            const isAlreadySelected = selectedFields.includes(option.value);
-            
-            if (!isEmptyOption && isAlreadySelected && !isCurrentValue) {
-                option.disabled = true;
-                option.style.display = 'none';
-            } else {
-                option.disabled = false;
-                option.style.display = '';
-            }
-        });
-    });
-}
-
-function updateAddButtonState() {
-    const tbody = document.getElementById('field-mappings-tbody');
-    const addButton = document.querySelector('button[onclick="addMapping()"]');
-    const currentMappings = tbody.querySelectorAll('.mapping-row').length;
-    
-    if (addButton) {
-        if (currentMappings >= maxMappings) {
-            addButton.disabled = true;
-            addButton.title = '{% trans %}info_providers.bulk_import.max_mappings_reached{% endtrans %}';
-        } else {
-            addButton.disabled = false;
-            addButton.title = '';
-        }
-    }
-}
-
-// Add event listener for field changes
-function addFieldChangeListener(select) {
-    select.addEventListener('change', function() {
-        updateFieldOptions();
-    });
-}
-
-// Initialize add button state on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateAddButtonState();
-    updateFieldOptions();
-    
-    // Add change listeners to existing field selects
-    const fieldSelects = document.querySelectorAll('select[name*="[field]"]');
-    fieldSelects.forEach(addFieldChangeListener);
-});
-</script>
 {% endblock %}
 

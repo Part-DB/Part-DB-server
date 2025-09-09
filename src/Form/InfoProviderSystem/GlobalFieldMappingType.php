@@ -54,7 +54,7 @@ class GlobalFieldMappingType extends AbstractType
         ]);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => 'info_providers.bulk_search.submit'
+            'label' => 'info_providers.bulk_import.search.submit'
         ]);
     }
 

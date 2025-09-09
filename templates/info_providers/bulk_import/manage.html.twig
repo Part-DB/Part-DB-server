@@ -10,6 +10,12 @@
 
 {% block card_content %}
 
+<div data-controller="bulk-job-manage"
+     data-bulk-job-manage-delete-url-value="{{ path('bulk_info_provider_delete', {'jobId': '__JOB_ID__'}) }}"
+     data-bulk-job-manage-stop-url-value="{{ path('bulk_info_provider_stop', {'jobId': '__JOB_ID__'}) }}"
+     data-bulk-job-manage-delete-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_delete_job{% endtrans %}"
+     data-bulk-job-manage-stop-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_stop_job{% endtrans %}">
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <p class="text-muted mb-0">
             {% trans %}info_providers.bulk_import.manage_jobs_description{% endtrans %}
@@ -89,12 +95,12 @@
                                         </a>
                                     {% endif %}
                                     {% if job.canBeStopped %}
-                                        <button type="button" class="btn btn-warning" onclick="stopJob({{ job.id }})">
+                                        <button type="button" class="btn btn-warning" data-action="click->bulk-job-manage#stopJob" data-job-id="{{ job.id }}">
                                             <i class="fas fa-stop"></i> {% trans %}info_providers.bulk_import.action.stop{% endtrans %}
                                         </button>
                                     {% endif %}
                                     {% if job.isCompleted or job.isFailed or job.isStopped %}
-                                        <button type="button" class="btn btn-danger" onclick="deleteJob({{ job.id }})">
+                                        <button type="button" class="btn btn-danger" data-action="click->bulk-job-manage#deleteJob" data-job-id="{{ job.id }}">
                                             <i class="fas fa-trash"></i> {% trans %}info_providers.bulk_import.action.delete{% endtrans %}
                                         </button>
                                     {% endif %}
@@ -115,54 +121,6 @@
         </div>
     {% endif %}
 
-{% endblock %}
+</div>
 
-{% block scripts %}
-<script>
-function deleteJob(jobId) {
-    if (confirm('{% trans %}info_providers.bulk_import.confirm_delete_job{% endtrans %}')) {
-        fetch(`{{ path('bulk_info_provider_delete', {'jobId': '__JOB_ID__'}) }}`.replace('__JOB_ID__', jobId), {
-            method: 'DELETE',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Error deleting job: ' + (data.error || 'Unknown error'));
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error deleting job');
-        });
-    }
-}
-
-function stopJob(jobId) {
-    if (confirm('{% trans %}info_providers.bulk_import.confirm_stop_job{% endtrans %}')) {
-        fetch(`{{ path('bulk_info_provider_stop', {'jobId': '__JOB_ID__'}) }}`.replace('__JOB_ID__', jobId), {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Error stopping job: ' + (data.error || 'Unknown error'));
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error stopping job');
-        });
-    }
-}
-</script>
 {% endblock %}
