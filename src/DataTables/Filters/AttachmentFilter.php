@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
@@ -32,6 +33,7 @@ use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Attachments\AttachmentType;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Filter\AbstractFilter;
 
 class AttachmentFilter implements FilterInterface
 {
@@ -51,6 +53,9 @@ class AttachmentFilter implements FilterInterface
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
+        //Must be done for every new set of attachment filters, to ensure deterministic parameter names.
+        AbstractConstraint::resetParameterCounter();
+
         $this->dbId = new IntConstraint('attachment.id');
         $this->name = new TextConstraint('attachment.name');
         $this->targetType = new InstanceOfConstraint('attachment');

@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\ChoiceConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
@@ -103,6 +104,9 @@ class PartFilter implements FilterInterface
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
+        //Must be done for every new set of attachment filters, to ensure deterministic parameter names.
+        AbstractConstraint::resetParameterCounter();
+
         $this->name = new TextConstraint('part.name');
         $this->description = new TextConstraint('part.description');
         $this->comment = new TextConstraint('part.comment');

@@ -28,6 +28,7 @@ trait FilterTrait
 {
 
     protected bool $useHaving = false;
+    protected static int $parameterCounter = 0;
 
     public function useHaving($value = true): static
     {
@@ -50,8 +51,18 @@ trait FilterTrait
     {
         //Replace all special characters with underscores
         $property = preg_replace('/\W/', '_', $property);
-        //Add a random number to the end of the property name for uniqueness
-        return $property . '_' . uniqid("", false);
+        return $property . '_' . (self::$parameterCounter++) . '_';
+    }
+
+    /**
+     * Resets the parameter counter, so the next call to generateParameterIdentifier will start from 0 again.
+     * This should be done before initializing a new set of filters to a fresh query builder, to ensure that the parameter
+     * identifiers are deterministic so that they are cacheable.
+     * @return void
+     */
+    public static function resetParameterCounter(): void
+    {
+        self::$parameterCounter = 0;
     }
 
     /**
