@@ -362,7 +362,7 @@
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
-        <target>Ungültiger Code. Überprüfen Sie, dass die Authenticator App korrekt eingerichtet ist und dass der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
+        <target>Ungültiger Code. Überprüfen Sie, ob die Authenticator App korrekt eingerichtet ist und ob der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
       </segment>
     </unit>
   </file>
