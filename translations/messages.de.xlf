@@ -13236,6 +13236,30 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Die Spalten, die standardmäßig in Bauteiltabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
       </segment>
     </unit>
+    <unit id="u7bki9T" name="settings.behavior.table.assemblies_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns</source>
+        <target>Standardmäßige Spalten für Baugruppentabellen</target>
+      </segment>
+    </unit>
+    <unit id="t4jhp3R" name="settings.behavior.table.assemblies_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns.help</source>
+        <target>Die Spalten, die standardmäßig in Baugruppentabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="Uj8ie5E" name="settings.behavior.table.assemblies_bom_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns</source>
+        <target>Standardmäßige Spalten für Baugruppen-Stücklisten</target>
+      </segment>
+    </unit>
+    <unit id="uhb3diP" name="settings.behavior.table.assemblies_bom_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns.help</source>
+        <target>Die Spalten, die standardmäßig in Baugruppen-Stücklisten angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
       <segment state="translated">
         <source>settings.ips.oemsecrets</source>
@@ -13684,6 +13708,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
         <target>CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schaltplaneditor BOM (CSV Datei)</target>
       </segment>
     </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
@@ -14199,6 +14229,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.misc.exchange_rate.fixer_api_key.help</source>
         <target>Wenn Sie Wechselkurse zwischen Nicht-Euro-Währungen benötigen, können Sie hier einen API-Schlüssel von fixer.io eingeben.</target>
+      </segment>
+    </unit>
+    <unit id="akjcu4G" name="settings.misc.assembly">
+      <segment state="translated">
+        <source>settings.misc.assembly</source>
+        <target>Baugruppen</target>
+      </segment>
+    </unit>
+    <unit id="Jiwgf9K" name="settings.misc.assembly.useIpnPlaceholderInName">
+      <segment state="translated">
+        <source>settings.misc.assembly.useIpnPlaceholderInName</source>
+        <target>Verwenden Sie einen %%ipn%%-Platzhalter im Namen einer Baugruppe. Der Platzhalter wird beim Speichern durch die eingegebene IPN ersetzt.</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
@@ -15431,6 +15473,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Beschreibung</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Referenzierte Baugruppen</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -15459,6 +15507,36 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Ungültiger regulärer Ausdruck (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Stückzahl</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Beschreibung</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">

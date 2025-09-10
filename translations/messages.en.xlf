@@ -13237,6 +13237,30 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>The columns to show by default in part tables. Order of items can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
+    <unit id="u7bki9T" name="settings.behavior.table.assemblies_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns</source>
+        <target>Default columns for assembly tables</target>
+      </segment>
+    </unit>
+    <unit id="t4jhp3R" name="settings.behavior.table.assemblies_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns.help</source>
+        <target>The columns to show by default in assembly tables. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="Uj8ie5E" name="settings.behavior.table.assemblies_bom_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns</source>
+        <target>Default columns for assembly BOM tables</target>
+      </segment>
+    </unit>
+    <unit id="uhb3diP" name="settings.behavior.table.assemblies_bom_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns.help</source>
+        <target>The columns to show by default in assembly BOM tables. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
       <segment state="translated">
         <source>settings.ips.oemsecrets</source>
@@ -13685,6 +13709,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>assembly.bom_import.type.kicad_pcbnew</source>
         <target>CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematic BOM (CSV file)</target>
       </segment>
     </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
@@ -14200,6 +14230,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>settings.misc.exchange_rate.fixer_api_key.help</source>
         <target>If you need exchange rates between non-euro currencies, you can input an API key from fixer.io here.</target>
+      </segment>
+    </unit>
+    <unit id="akjcu4G" name="settings.misc.assembly">
+      <segment state="translated">
+        <source>settings.misc.assembly</source>
+        <target>Assemblies</target>
+      </segment>
+    </unit>
+    <unit id="Jiwgf9K" name="settings.misc.assembly.useIpnPlaceholderInName">
+      <segment state="translated">
+        <source>settings.misc.assembly.useIpnPlaceholderInName</source>
+        <target>Use an %%ipn%% placeholder in the name of an assembly. Placeholder is replaced with the ipn input while saving.</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
@@ -15432,6 +15474,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Description</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Referenced assemblies</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -15460,6 +15508,36 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Invalid regular expression (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Quantity</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Description</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">

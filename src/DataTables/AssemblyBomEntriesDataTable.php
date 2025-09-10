@@ -34,8 +34,8 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\ProjectSystem\Project;
-use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -47,15 +47,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AssemblyBomEntriesDataTable implements DataTableTypeInterface
 {
     public function __construct(
-        protected TranslatorInterface     $translator,
-        protected PartDataTableHelper     $partDataTableHelper,
-        protected ProjectDataTableHelper  $projectDataTableHelper,
-        protected AssemblyDataTableHelper $assemblyDataTableHelper,
-        protected EntityURLGenerator      $entityURLGenerator,
-        protected AmountFormatter         $amountFormatter,
-        private string                    $visible_columns,
-        private ColumnSortHelper          $csh
-    ){
+        private readonly TranslatorInterface $translator,
+        private readonly PartDataTableHelper $partDataTableHelper,
+        private readonly ProjectDataTableHelper $projectDataTableHelper,
+        private readonly AssemblyDataTableHelper $assemblyDataTableHelper,
+        private readonly AmountFormatter $amountFormatter,
+        private readonly ColumnSortHelper $csh,
+        private readonly TableSettings $tableSettings,
+    ) {
     }
 
     public function configure(DataTable $dataTable, array $options): void
@@ -200,11 +199,11 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-            ])
-        ;
+            ]);
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,"TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->assembliesBomDefaultColumns,
+            "TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name');
 

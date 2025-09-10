@@ -737,7 +737,7 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target>Это выключит &lt;b&gt;все активные двухфакторной способы аутентификации пользователя&lt;/b&gt;и удалит &lt;b&gt;резервные коды&lt;/b&gt;! 
+        <target>Это выключит &lt;b&gt;все активные двухфакторной способы аутентификации пользователя&lt;/b&gt;и удалит &lt;b&gt;резервные коды&lt;/b&gt;!
 &lt;br&gt;
 Пользователь должен будет снова настроить все методы двухфакторной аутентификации и распечатать новые резервные коды! &lt;br&gt;&lt;br&gt;
 &lt;b&gt;Делайте это только в том случае, если вы абсолютно уверены в личности пользователя (обращающегося за помощью), в противном случае учетная запись может быть взломана злоумышленником!&lt;/b&gt;</target>
@@ -3746,7 +3746,7 @@
       </notes>
       <segment state="translated">
         <source>tfa_backup.reset_codes.confirm_message</source>
-        <target>Это удалит все предыдущие коды и создаст набор новых. Это не может быть отменено. 
+        <target>Это удалит все предыдущие коды и создаст набор новых. Это не может быть отменено.
 Не забудьте распечатать новы кода и хранить их в безопасном месте!</target>
       </segment>
     </unit>
@@ -13080,6 +13080,12 @@
         <target>CSV (KiCAD Pcbnew)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Схематический редактор BOM (CSV файл)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -13565,6 +13571,12 @@
         <target>Описание</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Ссылочные сборки</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -13593,6 +13605,36 @@
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Неверное регулярное выражение (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Название</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Количество</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Описание</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">

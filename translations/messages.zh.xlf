@@ -12965,6 +12965,12 @@ Element 3</target>
         <target>CSV 文件（KiCAD Pcbnew）</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD 原理图编辑器 BOM（CSV 文件）</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -13450,6 +13456,12 @@ Element 3</target>
         <target>描述</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>引用的组件</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -13478,6 +13490,36 @@ Element 3</target>
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>无效的正则表达式（regex）</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>数量</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>描述</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">
