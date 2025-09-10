@@ -1186,6 +1186,12 @@
         <target>CSV (KiCAD Pcbnew)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematische editor BOM (CSV-bestand)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -1671,6 +1677,12 @@
         <target>Beschrijving</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Gerefereerde assemblages</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -1699,6 +1711,36 @@
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Ongeldige reguliere expressie (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Hoeveelheid</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Beschrijving</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">

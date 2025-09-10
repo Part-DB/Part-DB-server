@@ -53,7 +53,6 @@ class TableSettings
     )]
     public int $fullDefaultPageSize = 50;
 
-
     /** @var PartTableColumns[] */
     #[SettingsParameter(ArrayType::class,
         label: new TM("settings.behavior.table.parts_default_columns"),
@@ -69,6 +68,37 @@ class TableSettings
     public array $partsDefaultColumns = [PartTableColumns::NAME, PartTableColumns::DESCRIPTION,
         PartTableColumns::CATEGORY, PartTableColumns::FOOTPRINT, PartTableColumns::MANUFACTURER,
         PartTableColumns::LOCATION, PartTableColumns::AMOUNT];
+
+    /** @var AssemblyTableColumns[] */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.behavior.table.assemblies_default_columns"),
+        description: new TM("settings.behavior.table.assemblies_default_columns.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => AssemblyTableColumns::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => AssemblyTableColumns::class, 'multiple' => true, 'ordered' => true],
+        envVar: "TABLE_ASSEMBLIES_DEFAULT_COLUMNS", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapAssembliesDefaultColumnsEnv']
+    )]
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
+    #[Assert\All([new Assert\Type(AssemblyTableColumns::class)])]
+    public array $assembliesDefaultColumns = [AssemblyTableColumns::ID, AssemblyTableColumns::IPN, AssemblyTableColumns::NAME,
+        AssemblyTableColumns::DESCRIPTION, AssemblyTableColumns::REFERENCED_ASSEMBLIES, AssemblyTableColumns::EDIT];
+
+    /** @var AssemblyBomTableColumns[] */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.behavior.table.assemblies_bom_default_columns"),
+        description: new TM("settings.behavior.table.assemblies_bom_default_columns.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => AssemblyBomTableColumns::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => AssemblyBomTableColumns::class, 'multiple' => true, 'ordered' => true],
+        envVar: "TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapAssemblyBomsDefaultColumnsEnv']
+    )]
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
+    #[Assert\All([new Assert\Type(AssemblyBomTableColumns::class)])]
+
+    public array $assembliesBomDefaultColumns = [AssemblyBomTableColumns::QUANTITY, AssemblyTableColumns::ID, AssemblyTableColumns::IPN,
+        AssemblyTableColumns::NAME, AssemblyTableColumns::DESCRIPTION];
 
     #[SettingsParameter(label: new TM("settings.behavior.table.preview_image_min_width"),
         formOptions: ['attr' => ['min' => 1, 'max' => 100]],
@@ -93,6 +123,38 @@ class TableSettings
             $enum = PartTableColumns::tryFrom($column);
             if (!$enum) {
                 throw new \InvalidArgumentException("Invalid column '$column' in TABLE_PARTS_DEFAULT_COLUMNS");
+            }
+
+            $ret[] = $enum;
+        }
+
+        return $ret;
+    }
+
+    public static function mapAssembliesDefaultColumnsEnv(string $columns): array
+    {
+        $exploded = explode(',', $columns);
+        $ret = [];
+        foreach ($exploded as $column) {
+            $enum = AssemblyTableColumns::tryFrom($column);
+            if (!$enum) {
+                throw new \InvalidArgumentException("Invalid column '$column' in TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
+            }
+
+            $ret[] = $enum;
+        }
+
+        return $ret;
+    }
+
+    public static function mapAssemblyBomsDefaultColumnsEnv(string $columns): array
+    {
+        $exploded = explode(',', $columns);
+        $ret = [];
+        foreach ($exploded as $column) {
+            $enum = AssemblyBomTableColumns::tryFrom($column);
+            if (!$enum) {
+                throw new \InvalidArgumentException("Invalid column '$column' in TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
             }
 
             $ret[] = $enum;

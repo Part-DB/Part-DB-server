@@ -150,18 +150,6 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     protected ?Assembly $referencedAssembly = null;
 
     /**
-     * @var Project|null The associated project
-     */
-    #[Assert\Expression(
-        '(this.getPart() === null or this.getProject() === null) and (this.getName() === null or (this.getName() != null and this.getName() != ""))',
-        message: 'validator.project.bom_entry.only_part_or_assembly_allowed'
-    )]
-    #[ORM\ManyToOne(targetEntity: Project::class)]
-    #[ORM\JoinColumn(name: 'id_project', nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write'])]
-    protected ?Project $project = null;
-
-    /**
      * @var BigDecimal|null The price of this non-part BOM entry
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]

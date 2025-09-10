@@ -63,19 +63,29 @@ class BOMImporter
         5 => 'Supplier and ref',
     ];
 
+    private readonly PartRepository $partRepository;
+
+    private readonly ManufacturerRepository $manufacturerRepository;
+
+    private readonly CategoryRepository $categoryRepository;
+
+    private readonly DBElementRepository $projectBomEntryRepository;
+
+    private readonly DBElementRepository $assemblyBomEntryRepository;
+
     private string $jsonRoot = '';
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
         private readonly BOMValidationService $validationService,
-        private readonly PartRepository $partRepository,
-        private readonly ManufacturerRepository $manufacturerRepository,
-        private readonly CategoryRepository $categoryRepository,
-        private readonly DBElementRepository $projectBOMEntryRepository,
-        private readonly DBElementRepository $assemblyBOMEntryRepositor,
         private readonly TranslatorInterface $translator
     ) {
+        $this->partRepository = $this->entityManager->getRepository(Part::class);
+        $this->manufacturerRepository = $this->entityManager->getRepository(Manufacturer::class);
+        $this->categoryRepository = $this->entityManager->getRepository(Category::class);
+        $this->projectBomEntryRepository = $this->entityManager->getRepository(ProjectBOMEntry::class);
+        $this->assemblyBomEntryRepository = $this->entityManager->getRepository(AssemblyBOMEntry::class);
     }
 
     protected function configureOptions(OptionsResolver $resolver): OptionsResolver
@@ -244,7 +254,7 @@ class BOMImporter
         $options = $resolver->resolve($options);
 
         return match ($options['type']) {
-            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $objectType)->getBomEntries(),
+            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject)->getBomEntries(),
             self::IMPORT_TYPE_KICAD_SCHEMATIC => $this->parseKiCADSchematic($data, $options),
             default => throw new InvalidArgumentException($this->translator->trans('validator.bom_importer.invalid_import_type', [], 'validators')),
         };
@@ -272,7 +282,7 @@ class BOMImporter
         ));
 
         return match ($options['type']) {
-            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($importObject, $data, $options),
+            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject),
             self::IMPORT_TYPE_JSON => $this->parseJson($importObject, $data),
             self::IMPORT_TYPE_CSV => $this->parseCsv($importObject, $data),
             default => $defaultImporterResult,
@@ -286,14 +296,13 @@ class BOMImporter
      * validates the required fields, and creates BOM entries for each record in the data.
      * The BOM entries are added to the provided Project or Assembly, depending on the context.
      *
+     * @param string $data The semicolon- or comma-delimited CSV data to be parsed.
      * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
-     * @param string            $data The semicolon- or comma-delimited CSV data to be parsed.
-     *
      * @return ImporterResult The result of the import process, containing the created BOM entries.
      *
      * @throws UnexpectedValueException If required fields are missing in the provided data.
      */
-    private function parseKiCADPCB(Project|Assembly $importObject, string $data): ImporterResult
+    private function parseKiCADPCB(string $data, Project|Assembly $importObject): ImporterResult
     {
         $result = new ImporterResult();
 
@@ -818,11 +827,11 @@ class BOMImporter
         }
 
         if ($importObject instanceof Assembly) {
-            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
+            $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -830,11 +839,11 @@ class BOMImporter
                 }
             }
         } else {
-            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
+            $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {

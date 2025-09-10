@@ -60,12 +60,6 @@ parameters:
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
   ######################################################################################################################
-  # Table settings
-  ######################################################################################################################
-  partdb.table.assemblies.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_DEFAULT_COLUMNS)%'          # The default columns in assembly tables and their order
-  partdb.table.assemblies_bom.default_columns: '%env(trim:string:TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS)%'  # The default columns in assembly bom tables and their order
-
-  ######################################################################################################################
   # Miscellaneous
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)

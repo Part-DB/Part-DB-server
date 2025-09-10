@@ -164,10 +164,6 @@ services:
         arguments:
             $saml_enabled: '%partdb.saml.enabled%'
 
-    App\Form\AdminPages\AssemblyAdminForm:
-        arguments:
-            $useAssemblyIpnPlaceholder: '%partdb.create_assembly_use_ipn_placeholder_in_name%'
-
     App\Validator\Constraints\AssemblySystem\AssemblyCycleValidator:
         tags: [ 'validator.constraint_validator' ]
 
@@ -177,12 +173,6 @@ services:
 
     App\DataTables\Helpers\ColumnSortHelper:
         shared: false   # Service has a state so not share it between different tables
-    App\DataTables\AssemblyDataTable:
-        arguments:
-            $visible_columns: '%partdb.table.assemblies.default_columns%'
-    App\DataTables\AssemblyBomEntriesDataTable:
-        arguments:
-            $visible_columns: '%partdb.table.assemblies_bom.default_columns%'
 
     ####################################################################################################################
     # Label system
@@ -206,8 +196,6 @@ services:
     ####################################################################################################################
     App\Services\Trees\TreeViewGenerator:
         arguments:
-            $rootNodeExpandedByDefault: '%partdb.sidebar.root_expanded%'
-            $rootNodeEnabled: '%partdb.sidebar.root_node_enable%'
             $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
     App\Services\Trees\ToolsTreeBuilder:
         arguments:

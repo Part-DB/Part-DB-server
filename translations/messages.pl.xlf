@@ -12980,6 +12980,12 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
         <target>CSV (KiCAD Pcbnew)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematyczny edytor BOM (plik CSV)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -13465,6 +13471,12 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
         <target>Opis</target>
       </segment>
     </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Zestawy referencyjne</target>
+      </segment>
+    </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
       <segment state="translated">
         <source>assembly.table.addedDate</source>
@@ -13493,6 +13505,36 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Nieprawidłowe wyrażenie regularne (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Ilość</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Opis</target>
       </segment>
     </unit>
     <unit id="a7uOieC" name="datasource.synonym">
