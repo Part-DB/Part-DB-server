@@ -13478,7 +13478,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
       <segment state="translated">
         <source>settings.behavior.table.preview_image_min_width</source>
-        <target>Min. Vorschaubilde-Breite (px)</target>
+        <target>Min. Vorschaubild-Breite (px)</target>
       </segment>
     </unit>
   </file>
