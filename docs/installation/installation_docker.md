@@ -75,6 +75,11 @@ services:
       # Use gravatars for user avatars, when user has no own avatar defined
       - USE_GRAVATAR=0
 
+      # Automatically create an admin API token during database setup (useful for CI/CD pipelines)
+      # Generate a 64-character random string with: openssl rand -hex 32
+      # The token will be available as: Bearer tcp_<your-64-char-key>
+      #- INITIAL_ADMIN_API_KEY=your_64_character_random_string_here
+
       # Override value if you want to show a given text on homepage.
       # When this is empty the content of config/banner.md is used as banner
       #- BANNER=This is a test banner<br>with a line break
@@ -145,6 +150,11 @@ services:
       # You can configure Part-DB using the webUI or environment variables
       # However you can add add any other environment configuration you want here
       # See .env file for all available options or https://docs.part-db.de/configuration.html
+
+      # Automatically create an admin API token during database setup (useful for CI/CD pipelines)
+      # Generate a 64-character random string with: openssl rand -hex 32
+      # The token will be available as: Bearer tcp_<your-64-char-key>
+      #- INITIAL_ADMIN_API_KEY=your_64_character_random_string_here
 
       # Override value if you want to show to show a given text on homepage.
       # When this is outcommented the webUI can be used to configure the banner

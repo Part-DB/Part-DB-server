@@ -43,6 +43,10 @@ parameters:
   ######################################################################################################################
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
+  ######################################################################################################################
+  # API Configuration
+  ######################################################################################################################
+  partdb.api.initial_admin_key: '%env(trim:string:INITIAL_ADMIN_API_KEY)%'  # Initial admin API key for automated access (env only)
 
   ######################################################################################################################
   # Miscellaneous
@@ -104,3 +108,5 @@ parameters:
   env(SAML_ROLE_MAPPING): '{}'
 
   env(DATABASE_EMULATE_NATURAL_SORT): 0
+
+  env(INITIAL_ADMIN_API_KEY): ''
