@@ -421,7 +421,7 @@ class ProjectController extends AbstractController
                 }
 
                 // Import with field mapping and priorities (validation already passed)
-                $entries = $BOMImporter->stringToBOMEntries($file_content, [
+                $entries = $BOMImporter->stringToBOMEntries($project, $file_content, [
                     'type' => 'kicad_schematic',
                     'field_mapping' => $field_mapping,
                     'field_priorities' => $field_priorities,

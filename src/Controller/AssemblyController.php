@@ -216,6 +216,7 @@ class AssemblyController extends AbstractController
                 'assembly.bom_import.type.json' => 'json',
                 'assembly.bom_import.type.csv' => 'csv',
                 'assembly.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
+                'assembly.bom_import.type.kicad_schematic' => 'kicad_schematic',
             ]
         ]);
         $builder->add('clear_existing_bom', CheckboxType::class, [

@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\AssemblySystem\AssemblyBOMEntryCollectionType;
 use App\Form\Type\RichTextEditorType;
 use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Settings\MiscSettings\AssemblySettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,9 +37,9 @@ class AssemblyAdminForm extends BaseEntityAdminForm
     public function __construct(
         protected Security $security,
         protected EventCommentNeededHelper $eventCommentNeededHelper,
-        protected bool $useAssemblyIpnPlaceholder = false
+        protected AssemblySettings $assemblySettings,
     ) {
-        parent::__construct($security, $eventCommentNeededHelper, $useAssemblyIpnPlaceholder);
+        parent::__construct($security, $eventCommentNeededHelper, $assemblySettings);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void

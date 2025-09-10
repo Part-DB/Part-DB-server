@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -23,18 +24,22 @@ declare(strict_types=1);
 
 namespace App\Settings\MiscSettings;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
-class MiscSettings
+#[Settings(label: new TM("settings.misc.assembly"))]
+#[SettingsIcon("fa-list")]
+class AssemblySettings
 {
-    #[EmbeddedSettings]
-    public ?KiCadEDASettings $kicadEDA = null;
+    use SettingsTrait;
 
-    #[EmbeddedSettings]
-    public ?ExchangeRateSettings $exchangeRate = null;
-
-    #[EmbeddedSettings]
-    public ?AssemblySettings $assembly = null;
+    #[SettingsParameter(
+        label: new TM("settings.misc.assembly.useIpnPlaceholderInName"),
+        envVar: "bool:CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $useIpnPlaceholderInName = true;
 }

@@ -34,6 +34,7 @@ use App\DataTables\Helpers\ColumnSortHelper;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\AssemblySystem\Assembly;
 use App\Services\EntityURLGenerator;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -53,8 +54,8 @@ final class AssemblyDataTable implements DataTableTypeInterface
         private readonly TranslatorInterface $translator,
         private readonly AssemblyDataTableHelper $assemblyDataTableHelper,
         private readonly Security $security,
-        private readonly string $visible_columns,
         private readonly ColumnSortHelper $csh,
+        private readonly TableSettings $tableSettings,
     ) {
     }
 
@@ -139,7 +140,8 @@ final class AssemblyDataTable implements DataTableTypeInterface
             ]);
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns, "TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->assembliesDefaultColumns,
+            "TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name')
             ->createAdapter(TwoStepORMAdapter::class, [

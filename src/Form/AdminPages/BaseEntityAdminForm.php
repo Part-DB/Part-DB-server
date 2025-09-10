@@ -27,6 +27,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\MiscSettings\AssemblySettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -51,7 +52,7 @@ class BaseEntityAdminForm extends AbstractType
     public function __construct(
         protected Security $security,
         protected EventCommentNeededHelper $eventCommentNeededHelper,
-        protected bool $useAssemblyIpnPlaceholder = false
+        protected AssemblySettings $assemblySettings,
     ) {
     }
 
@@ -73,7 +74,7 @@ class BaseEntityAdminForm extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'name.label',
-                'data' => $is_new && $entity instanceof Assembly && $this->useAssemblyIpnPlaceholder ? '%%ipn%%' : $entity->getName(),
+                'data' => $is_new && $entity instanceof Assembly && $this->assemblySettings->useIpnPlaceholderInName ? '%%ipn%%' : $entity->getName(),
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
                 ],

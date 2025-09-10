@@ -72,9 +72,9 @@ class BOMImporter
 
     private CategoryRepository $categoryRepository;
 
-    private DBElementRepository $projectBOMEntryRepository;
+    private DBElementRepository $projectBomEntryRepository;
 
-    private DBElementRepository $assemblyBOMEntryRepository;
+    private DBElementRepository $assemblyBomEntryRepository;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -85,8 +85,8 @@ class BOMImporter
         $this->partRepository = $entityManager->getRepository(Part::class);
         $this->manufacturerRepository = $entityManager->getRepository(Manufacturer::class);
         $this->categoryRepository = $entityManager->getRepository(Category::class);
-        $this->projectBOMEntryRepository = $entityManager->getRepository(ProjectBOMEntry::class);
-        $this->assemblyBOMEntryRepository = $entityManager->getRepository(AssemblyBOMEntry::class);
+        $this->projectBomEntryRepository = $entityManager->getRepository(ProjectBOMEntry::class);
+        $this->assemblyBomEntryRepository = $entityManager->getRepository(AssemblyBOMEntry::class);
     }
 
     protected function configureOptions(OptionsResolver $resolver): OptionsResolver
@@ -828,11 +828,11 @@ class BOMImporter
         }
 
         if ($importObject instanceof Assembly) {
-            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
+            $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -840,11 +840,11 @@ class BOMImporter
                 }
             }
         } else {
-            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
+            $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -914,9 +914,9 @@ class BOMImporter
         //Check whether there is a name
         if (!empty($name)) {
             if ($importObject instanceof Project) {
-                $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->projectBomEntryRepository->findOneBy(['name' => $name]);
             } else {
-                $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['name' => $name]);
             }
         }
 
