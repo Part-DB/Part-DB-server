@@ -34,3 +34,12 @@ select the BOM file you want to import and some options for the import process:
   has a different format and does not work with this type.
   You can generate this BOM file by going to "File" -> "Fabrication Outputs" -> "Bill of Materials" in Pcbnew and save
   the file to your desired location.
+* **KiCAD Schematic BOM (CSV file)**: A CSV file of the Bill of Material (BOM) generated
+  by [KiCAD Eeschema](https://www.kicad.org/).
+  You can generate this BOM file by going to "Tools" -> "Generate Bill of Materials" in Eeschema and save the file to your
+  desired location. In the next step you can customize the mapping of the fields in Part-DB, if you have any special fields
+  in your BOM to locate your fields correctly.
+* **Generic CSV file**: A generic CSV file. You can use this option if you use some different ECAD software or wanna create
+  your own CSV file. You will need to specify at least the designators, quantity and value fields in the CSV. In the next
+  step you can customize the mapping of the fields in Part-DB, if you have any special fields in your BOM to locate your
+  parts correctly.

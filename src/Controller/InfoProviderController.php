@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\AppSettings;
+use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -113,7 +114,7 @@ class InfoProviderController extends  AbstractController
 
     #[Route('/search', name: 'info_providers_search')]
     #[Route('/update/{target}', name: 'info_providers_update_part_search')]
-    public function search(Request $request, #[MapEntity(id: 'target')] ?Part $update_target, LoggerInterface $exceptionLogger): Response
+    public function search(Request $request, #[MapEntity(id: 'target')] ?Part $update_target, LoggerInterface $exceptionLogger, InfoProviderGeneralSettings $infoProviderSettings): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -142,6 +143,23 @@ class InfoProviderController extends  AbstractController
                     //If the provider is not found, just ignore it
                 }
             }
+        }
+
+        //If the providers form is still empty, use our default value from the settings
+        if (count($form->get('providers')->getData() ?? []) === 0) {
+            $default_providers = $infoProviderSettings->defaultSearchProviders;
+            $provider_objects = [];
+            foreach ($default_providers as $provider_key) {
+                try {
+                    $tmp = $this->providerRegistry->getProviderByKey($provider_key);
+                    if ($tmp->isActive()) {
+                        $provider_objects[] = $tmp;
+                    }
+                } catch (\InvalidArgumentException $e) {
+                    //If the provider is not found, just ignore it
+                }
+            }
+            $form->get('providers')->setData($provider_objects);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {

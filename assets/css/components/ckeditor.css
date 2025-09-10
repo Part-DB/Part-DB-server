@@ -71,6 +71,8 @@
     --ck-color-button-on-hover-background: var(--bs-secondary-bg);
     --ck-color-button-on-active-background: var(--bs-secondary-bg);
     --ck-color-button-on-disabled-background: var(--bs-secondary-bg);
-    --ck-color-button-on-color:	var(--bs-primary)
+    --ck-color-button-on-color:	var(--bs-primary);
+
+    --ck-content-font-color: var(--ck-color-base-text);
 
 }

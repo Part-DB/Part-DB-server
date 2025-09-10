@@ -4,26 +4,23 @@
 {% import "components/search.macro.html.twig" as search %}
 {% import "vars.macro.twig" as vars %}
 
-{% block content %}
-
-    {% if is_granted('@system.show_updates') %}
-        {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
-    {% endif %}
-
+{% block item_search %}
     {% if is_granted('@parts.read') %}
         {{ search.search_form("standalone") }}
-        <div class="mb-2"></div>
     {% endif %}
+{% endblock %}
 
-
+{% block item_banner %}
     <div class="rounded p-4 bg-body-secondary">
         <h1 class="display-3">{{ vars.partdb_title() }}</h1>
-        <h4>
-            {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
-            {% if git_branch is not empty or git_commit is not empty %}
-                ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
-            {% endif %}
-        </h4>
+        {% if settings_instance('customization').showVersionOnHomepage %}
+            <h4>
+                {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
+                {% if git_branch is not empty or git_commit is not empty %}
+                    ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
+                {% endif %}
+            </h4>
+        {% endif %}
         {% if banner is not empty %}
             <hr>
             <div class="latex" data-controller="common--latex">
@@ -31,9 +28,11 @@
             </div>
         {% endif %}
     </div>
+{% endblock %}
 
+{% block item_first_steps %}
     {% if show_first_steps %}
-        <div class="card border-info mt-3">
+        <div class="card border-info">
             <div class="card-header bg-info ">
                 <h4><i class="fa fa-circle-play fa-fw " aria-hidden="true"></i> {% trans %}homepage.first_steps.title{% endtrans %}</h4>
             </div>
@@ -51,8 +50,10 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
 
-    <div class="card border-primary mt-3">
+{% block item_license %}
+    <div class="card border-primary">
         <div class="card-header bg-primary text-white">
             <h4><i class="fa fa-book fa-fw" aria-hidden="true"></i> {% trans %}homepage.license{% endtrans %}</h4>
         </div>
@@ -68,9 +69,11 @@
             <strong><i class="fas fa-comments fa-fw"></i> {% trans %}homepage.forum.caption{% endtrans %}:</strong> {% trans with {'%href%': 'https://github.com/Part-DB/Part-DB-server/discussions'}%}homepage.forum.text{% endtrans %}<br>
         </div>
     </div>
+{% endblock %}
 
+{% block item_last_activity %}
     {% if datatable is not null %}
-        <div class="card mt-3">
+        <div class="card">
             <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
             <div class="card-body">
                 {% import "components/history_log_macros.html.twig" as log %}
@@ -78,4 +81,23 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if is_granted('@system.show_updates') %}
+        {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
+    {% endif %}
+
+    {% for item in settings_instance('customization').homepageitems %}
+        {% if block('item_' ~ item.value) is defined %}
+            {{ block('item_' ~ item.value) }}
+            <div class="mb-2"></div>
+        {% else %}
+            <div class="alert alert-warning mt-3" role="alert">
+                Alert: The homepage item "{{ item.value }}" is not defined!
+            </div>
+        {% endif %}
+    {% endfor %}
+
 {% endblock %}

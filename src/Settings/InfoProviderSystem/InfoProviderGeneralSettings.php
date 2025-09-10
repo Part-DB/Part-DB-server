@@ -21,29 +21,25 @@
 declare(strict_types=1);
 
 
-namespace App\Settings\BehaviorSettings;
+namespace App\Settings\InfoProviderSystem;
 
+use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Settings\SettingsIcon;
-use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(name: "part_info", label: new TM("settings.behavior.part_info"))]
-#[SettingsIcon('fa-circle-info')]
-class PartInfoSettings
+#[Settings(label: new TM("settings.ips.general"))]
+#[SettingsIcon("fa-magnifying-glass")]
+class InfoProviderGeneralSettings
 {
     /**
-     * Whether to show the part image overlays in the part info view
-     * @var bool
+     * @var string[]
      */
-    #[SettingsParameter(label: new TM("settings.behavior.part_info.show_part_image_overlay"), description: new TM("settings.behavior.part_info.show_part_image_overlay.help"),
-    envVar: "bool:SHOW_PART_IMAGE_OVERLAY", envVarMode: EnvVarMode::OVERWRITE)]
-    public bool $showPartImageOverlay = true;
-
-    #[SettingsParameter(label: new TM("settings.behavior.part_info.extract_params_from_description"))]
-    public bool $extractParamsFromDescription = true;
-
-    #[SettingsParameter(label: new TM("settings.behavior.part_info.extract_params_from_notes"))]
-    public bool $extractParamsFromNotes = true;
+    #[SettingsParameter(type: ArrayType::class, label: new TM("settings.ips.default_providers"),
+        description: new TM("settings.ips.default_providers.help"), options: ['type' => StringType::class],
+        formType: ProviderSelectType::class, formOptions: ['input' => 'string', 'required' => false, 'empty_data' => []])]
+    public array $defaultSearchProviders = [];
 }

@@ -580,7 +580,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>Nové místo skladování</target>
+        <target>Nové umístění</target>
       </segment>
     </unit>
     <unit id="Rt3eY_7" name="supplier.caption">
@@ -913,7 +913,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>edit.log_comment</source>
-        <target>Změnit komentář</target>
+        <target>Komentář ke změně</target>
       </segment>
     </unit>
     <unit id="ZMmz8UB" name="entity.delete.recursive">
@@ -2502,7 +2502,7 @@ Související prvky budou přesunuty nahoru.</target>
       </notes>
       <segment state="translated">
         <source>part.needs_review.badge</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="IttGv57" name="part.favorite.badge">
@@ -4019,7 +4019,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>search.regexmatching</source>
-        <target>RegEx. shoda</target>
+        <target>Reg.Ex. shoda</target>
       </segment>
     </unit>
     <unit id="U5IhkwB" name="search.submit">
@@ -4858,7 +4858,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.table.needsReview</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="AtzzLFz" name="part.table.favorite">
@@ -5662,7 +5662,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>part.edit.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="TQbwkUd" name="part.edit.is_favorite">
@@ -6357,7 +6357,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>user.theme.label</source>
-        <target>Téma</target>
+        <target>Vzhled</target>
       </segment>
     </unit>
     <unit id="LQ7ihIX" name="user_settings.theme.placeholder">
@@ -6368,7 +6368,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </notes>
       <segment state="translated">
         <source>user_settings.theme.placeholder</source>
-        <target>Serverové téma</target>
+        <target>Vzhled pro celý server</target>
       </segment>
     </unit>
     <unit id="ZkXKucz" name="log.user_login.ip">
@@ -8551,16 +8551,6 @@ Element 3</target>
         <target>Authenticator app</target>
       </segment>
     </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Přihlášení bylo úspěšné</target>
-      </segment>
-    </unit>
     <unit id="KSHVrbr" name="log.type.exception">
       <notes>
         <note priority="1">obsolete</note>
@@ -8684,15 +8674,6 @@ Element 3</target>
       <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Bezpečnostní klíč byl úspěšně přidán.</target>
-      </segment>
-    </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Uživatelské jméno</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -9010,7 +8991,7 @@ Element 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>%count% dílů vybráno!</target>
+        <target>%count% dílů vybráno</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -9718,7 +9699,7 @@ Element 3</target>
     <unit id="OEVzOkv" name="part_list.action.action.group.needs_review">
       <segment state="translated">
         <source>part_list.action.action.group.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="nkoTW_w" name="part_list.action.action.set_needs_review">
@@ -10678,7 +10659,7 @@ Element 3</target>
     <unit id="VraT.Lo" name="log.element_edited.changed_fields.theme">
       <segment state="translated">
         <source>log.element_edited.changed_fields.theme</source>
-        <target>Téma</target>
+        <target>Vzhled</target>
       </segment>
     </unit>
     <unit id="QFESysH" name="log.element_edited.changed_fields.timezone">
@@ -10774,7 +10755,7 @@ Element 3</target>
     <unit id="iF9ovqi" name="log.element_edited.changed_fields.needs_review">
       <segment state="translated">
         <source>log.element_edited.changed_fields.needs_review</source>
-        <target>Potřeba revize</target>
+        <target>Vyžaduje kontrolu</target>
       </segment>
     </unit>
     <unit id="wgJmpYG" name="log.element_edited.changed_fields.tags">
@@ -10984,7 +10965,7 @@ Element 3</target>
     <unit id="awbvhVq" name="parts.import.help">
       <segment state="translated">
         <source>parts.import.help</source>
-        <target>Pomocí tohoto nástroje můžete importovat díly z existujících souborů. Díly budou zapsány přímo do databáze, proto před nahráním souboru sem zkontrolujte, zda je jeho obsah správný.</target>
+        <target>Pomocí tohoto nástroje můžete importovat součásti z existujících souborů. Součásti budou přímo zapsány do databáze, proto před nahráním souboru zkontrolujte jeho správný obsah.</target>
       </segment>
     </unit>
     <unit id="5.sq5ns" name="parts.import.flash.success">
@@ -11014,7 +10995,7 @@ Element 3</target>
     <unit id="7dsEiOg" name="parts.import.part_needs_review.help">
       <segment state="translated">
         <source>parts.import.part_needs_review.help</source>
-        <target>Pokud je tato možnost vybrána, budou všechny díly označeny jako "Potřeba revize" bez ohledu na to, co bylo nastaveno v údajích.</target>
+        <target>Pokud je tato možnost vybrána, budou všechny díly označeny jako "Vyžaduje kontrolu" bez ohledu na to, co bylo nastaveno v údajích.</target>
       </segment>
     </unit>
     <unit id="Ie9LLKJ" name="project.bom_import.flash.success">
@@ -12060,7 +12041,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="duBTELg" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Vymazat tento inventář, až se vyprázdní</target>
+        <target>Smazat tuto položku, pokud se vyprázdní</target>
       </segment>
     </unit>
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
@@ -12516,7 +12497,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
       <segment state="translated">
         <source>settings.system.attachments.downloadByDefault</source>
-        <target>Ve výchozím nastavení stahovat nové adresy URL příloh</target>
+        <target>Ve výchozím nastavení stahovat URL adresu pro nové přílohy</target>
       </segment>
     </unit>
     <unit id="UuDCaUI" name="settings.system.customization">
@@ -12528,7 +12509,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="VYMqQr5" name="settings.system.customization.instanceName">
       <segment state="translated">
         <source>settings.system.customization.instanceName</source>
-        <target>Instance name</target>
+        <target>Název instance</target>
       </segment>
     </unit>
     <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
@@ -12576,7 +12557,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="pinyqu2" name="settings.system.customization.theme">
       <segment state="translated">
         <source>settings.system.customization.theme</source>
-        <target>Globální téma</target>
+        <target>Globální vzhed</target>
       </segment>
     </unit>
     <unit id="Aky9nXE" name="settings.system.history.enforceComments">
@@ -12642,7 +12623,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
       <segment state="translated">
         <source>settings.system.privacy.useGravatar.description</source>
-        <target>Pokud uživatel nemá nastavený avatar, použijte avatar z Gravataru na základě e-mailové adresy uživatele. To způsobí, že prohlížeč načte obrázky od třetí strany!</target>
+        <target>Pokud uživatel nemá zadaný obrázek avatara, použije se avatar z Gravataru na základě e-mailu uživatele. To způsobí, že prohlížeč načte obrázky ze třetí strany!</target>
       </segment>
     </unit>
     <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
@@ -12691,7 +12672,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
-        <target>Ochrana osobních údajů</target>
+        <target>Soukromí</target>
       </segment>
     </unit>
     <unit id="TVAVZUl" name="settings.title">
@@ -13052,6 +13033,450 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment state="translated">
         <source>form.apikey.redacted</source>
         <target>Z bezpečnostních důvodů redigováno</target>
+      </segment>
+    </unit>
+    <unit id="J716Oh4" name="project.bom_import.map_fields">
+      <segment state="translated">
+        <source>project.bom_import.map_fields</source>
+        <target>Mapa polí</target>
+      </segment>
+    </unit>
+    <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
+      <segment state="translated">
+        <source>project.bom_import.map_fields.help</source>
+        <target>Nakonfigurujte, jak se sloupce CSV mapují na pole kusovníku</target>
+      </segment>
+    </unit>
+    <unit id="nh7uLPe" name="project.bom_import.delimiter">
+      <segment state="translated">
+        <source>project.bom_import.delimiter</source>
+        <target>Oddělovač</target>
+      </segment>
+    </unit>
+    <unit id="MSlSeE4" name="project.bom_import.delimiter.comma">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.comma</source>
+        <target>Čárka (,)</target>
+      </segment>
+    </unit>
+    <unit id="UdDSB0h" name="project.bom_import.delimiter.semicolon">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.semicolon</source>
+        <target>Středník (;)</target>
+      </segment>
+    </unit>
+    <unit id="Wpa4Gmf" name="project.bom_import.delimiter.tab">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.tab</source>
+        <target>Tabulátor</target>
+      </segment>
+    </unit>
+    <unit id="tjrG_vU" name="project.bom_import.field_mapping.title">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.title</source>
+        <target>Mapování pole</target>
+      </segment>
+    </unit>
+    <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.csv_field</source>
+        <target>CSV pole</target>
+      </segment>
+    </unit>
+    <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.maps_to</source>
+        <target>Mapy do</target>
+      </segment>
+    </unit>
+    <unit id="rhUpmxC" name="project.bom_import.field_mapping.suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.suggestion</source>
+        <target>Návrh</target>
+      </segment>
+    </unit>
+    <unit id="TM0mgKr" name="project.bom_import.field_mapping.priority">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority</source>
+        <target>Priorita</target>
+      </segment>
+    </unit>
+    <unit id="xY8NSRr" name="project.bom_import.field_mapping.priority_help">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_help</source>
+        <target>Priorita (nižší číslo = vyšší priorita)</target>
+      </segment>
+    </unit>
+    <unit id="CuXg8WU" name="project.bom_import.field_mapping.priority_short">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_short</source>
+        <target>P</target>
+      </segment>
+    </unit>
+    <unit id="jOHOShN" name="project.bom_import.field_mapping.priority_note">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_note</source>
+        <target>Tip k prioritám: Čím nižší číslo, tím vyšší priorita. Výchozí priorita je 10. Pro nejdůležitější pole použijte priority 1-9, pro normální prioritu 10+.</target>
+      </segment>
+    </unit>
+    <unit id="pvmv3OT" name="project.bom_import.field_mapping.summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.summary</source>
+        <target>Shrnutí mapování polí</target>
+      </segment>
+    </unit>
+    <unit id="VjLf1Pf" name="project.bom_import.field_mapping.select_to_see_summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.select_to_see_summary</source>
+        <target>Vyberte mapování polí, abyste viděli souhrn</target>
+      </segment>
+    </unit>
+    <unit id="JOPny6T" name="project.bom_import.field_mapping.no_suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.no_suggestion</source>
+        <target>Žádný návrh</target>
+      </segment>
+    </unit>
+    <unit id="1LWEtqL" name="project.bom_import.preview">
+      <segment state="translated">
+        <source>project.bom_import.preview</source>
+        <target>Náhled</target>
+      </segment>
+    </unit>
+    <unit id="1CJA0aY" name="project.bom_import.flash.session_expired">
+      <segment state="translated">
+        <source>project.bom_import.flash.session_expired</source>
+        <target>Importní relace vypršela. Nahrajte soubor znovu.</target>
+      </segment>
+    </unit>
+    <unit id="BLN7XRN" name="project.bom_import.field_mapping.ignore">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.ignore</source>
+        <target>Ignorovat</target>
+      </segment>
+    </unit>
+    <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_schematic</source>
+        <target>KiCAD schéma BOM (soubor CSV)</target>
+      </segment>
+    </unit>
+    <unit id="ltE6xPP" name="common.back">
+      <segment state="translated">
+        <source>common.back</source>
+        <target>Zpět</target>
+      </segment>
+    </unit>
+    <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.required_field_missing</source>
+        <target>Řádek %line%: Povinné pole "%field%" chybí nebo je prázdné. Ujistěte se, že je toto pole namapováno a obsahuje data.</target>
+      </segment>
+    </unit>
+    <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.no_valid_designators</source>
+        <target>Řádek %line%: Pole označení neobsahuje žádné platné odkazy na komponenty. Očekávaný formát: „R1,C2,U3“ nebo „R1, C2, U3“.</target>
+      </segment>
+    </unit>
+    <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.unusual_designator_format</source>
+        <target>Řádek %line%: Některé odkazy na komponenty mohou mít neobvyklý formát: %designators%. Očekávaný formát: "R1", "C2", "U3" atd.</target>
+      </segment>
+    </unit>
+    <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.duplicate_designators</source>
+        <target>Řádek %line%: Nalezeny duplicitní odkazy na komponenty: %designators%. Každá komponenta by měla být v každém řádku uvedena pouze jednou.</target>
+      </segment>
+    </unit>
+    <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_quantity</source>
+        <target>Řádek %line%: Množství „%quantity%“ není platné číslo. Zadejte číselnou hodnotu (např. 1, 2.5, 10).</target>
+      </segment>
+    </unit>
+    <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
+        <target>Řádek %line%: Množství musí být větší než 0, máte %quantity%.</target>
+      </segment>
+    </unit>
+    <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
+        <target>Řádek %line%: Množství %quantity% se jeví jako neobvykle vysoké. Ověřte prosím, zda je správné.</target>
+      </segment>
+    </unit>
+    <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
+        <target>Řádek %line%: Množství %quantity% není celé číslo, ale máte %count% odkazů na komponenty. To může znamenat nesoulad.</target>
+      </segment>
+    </unit>
+    <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
+        <target>Řádek %line%: Nesoulad mezi množstvím a odkazy na součásti. Množství: %quantity%, odkazy: %count% (%designators%). Tyto hodnoty by se měly shodovat. Upravte množství nebo zkontrolujte odkazy na součásti.</target>
+      </segment>
+    </unit>
+    <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_partdb_id</source>
+        <target>Řádek %line%: ID části databáze „%id%“ není platné číslo. Zadejte číselné ID.</target>
+      </segment>
+    </unit>
+    <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
+        <target>Řádek %line%: ID části DB musí být větší než 0, nalezeno %id%.</target>
+      </segment>
+    </unit>
+    <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
+        <target>Řádek %line%: ID dílu %id% nebylo nalezeno v databázi. Díl bude importována bez propojení s existujícím dílem.</target>
+      </segment>
+    </unit>
+    <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.partdb_link_success</source>
+        <target>Řádek %line%: Úspěšně propojeno s částí Part-DB „%name%“ (ID: %id%).</target>
+      </segment>
+    </unit>
+    <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.no_component_name</source>
+        <target>Řádek %line%: Není uvedeno žádné jméno/označení komponenty (MPN, označení nebo hodnota). Komponenta bude pojmenována "Neznámá komponenta".</target>
+      </segment>
+    </unit>
+    <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.package_name_too_long</source>
+        <target>Řádek %line%: Název balíčku „%package%“ je neobvykle dlouhý. Zkontrolujte, zda je správný.</target>
+      </segment>
+    </unit>
+    <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.library_prefix_detected</source>
+        <target>Řádek %line%: Balíček „%package%“ obsahuje předponu knihovny. Ta bude během importu automaticky odstraněna.</target>
+      </segment>
+    </unit>
+    <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.non_numeric_field</source>
+        <target>Řádek %line%: Pole "%field%" obsahuje nečíselnou hodnotu "%value%". Zadejte platné číslo.</target>
+      </segment>
+    </unit>
+    <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.import_summary</source>
+        <target>Souhrn importu: %total% celkový počet záznamů, %valid% platných, %invalid% s problémy.</target>
+      </segment>
+    </unit>
+    <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.summary</source>
+        <target>Bylo nalezeno %count% chyb ověření, které je nutné opravit, než bude možné pokračovat v importu.</target>
+      </segment>
+    </unit>
+    <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.summary</source>
+        <target>Nalezeno %count% varování. Před pokračováním prosím zkontrolujte tyto problémy.</target>
+      </segment>
+    </unit>
+    <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.all_valid</source>
+        <target>Všechny záznamy úspěšně prošly validací!</target>
+      </segment>
+    </unit>
+    <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.summary</source>
+        <target>Souhrn validace</target>
+      </segment>
+    </unit>
+    <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.total_entries</source>
+        <target>Celkový počet záznamů</target>
+      </segment>
+    </unit>
+    <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.valid_entries</source>
+        <target>Platné záznamy</target>
+      </segment>
+    </unit>
+    <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.invalid_entries</source>
+        <target>Neplatné záznamy</target>
+      </segment>
+    </unit>
+    <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
+      <segment state="translated">
+        <source>project.bom_import.validation.success_rate</source>
+        <target>Success Rate</target>
+      </segment>
+    </unit>
+    <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.title</source>
+        <target>Úspěšnost</target>
+      </segment>
+    </unit>
+    <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.description</source>
+        <target>Před pokračováním v importu je nutné opravit následující chyby:</target>
+      </segment>
+    </unit>
+    <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.title</source>
+        <target>Výstrahy validace</target>
+      </segment>
+    </unit>
+    <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.description</source>
+        <target>Před pokračováním si přečtěte následující varování:</target>
+      </segment>
+    </unit>
+    <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.title</source>
+        <target>Informace</target>
+      </segment>
+    </unit>
+    <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.title</source>
+        <target>Podrobné výsledky ověření</target>
+      </segment>
+    </unit>
+    <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.line</source>
+        <target>Řádek</target>
+      </segment>
+    </unit>
+    <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.status</source>
+        <target>Stav</target>
+      </segment>
+    </unit>
+    <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.messages</source>
+        <target>Zprávy</target>
+      </segment>
+    </unit>
+    <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.valid</source>
+        <target>Platný</target>
+      </segment>
+    </unit>
+    <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.invalid</source>
+        <target>Neplatný</target>
+      </segment>
+    </unit>
+    <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.all_valid</source>
+        <target>Všechny položky jsou platné a připravené k importu!</target>
+      </segment>
+    </unit>
+    <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
+      <segment state="translated">
+        <source>project.bom_import.validation.fix_errors</source>
+        <target>Před pokračováním v importu opravte chyby ověření.</target>
+      </segment>
+    </unit>
+    <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
+      <segment state="translated">
+        <source>project.bom_import.type.generic_csv</source>
+        <target>Obecný CSV</target>
+      </segment>
+    </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment state="translated">
+        <source>label_generator.update_profile</source>
+        <target>Aktualizovat profil s aktuálním nastavením</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment state="translated">
+        <source>label_generator.profile_updated</source>
+        <target>Profil štítku byl úspěšně aktualizován.</target>
+      </segment>
+    </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment state="translated">
+        <source>settings.behavior.hompepage.items</source>
+        <target>Položky na domovské stránce</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment state="translated">
+        <source>settings.behavior.homepage.items.help</source>
+        <target>Položky, které se mají zobrazit na domovské stránce. Pořadí lze změnit pomocí funkce drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment state="translated">
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Zobrazit verzi Part-DB na domovské stránce</target>
+      </segment>
+    </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Extrahovat parametry z popisu dílu</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Extrahovat parametry z poznámek k dílům</target>
+      </segment>
+    </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment state="translated">
+        <source>settings.ips.default_providers</source>
+        <target>Výchozí poskytovatelé vyhledávání</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment state="translated">
+        <source>settings.ips.general</source>
+        <target>Obecná nastavení</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment state="translated">
+        <source>settings.ips.default_providers.help</source>
+        <target>Tito poskytovatelé budou předem vybráni pro vyhledávání v části poskytovatelé.</target>
+      </segment>
+    </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Maximální šířka náhledu (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Minimální šířka náhledu (px)</target>
       </segment>
     </unit>
   </file>

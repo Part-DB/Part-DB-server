@@ -3,7 +3,7 @@
 ![Static analysis](https://github.com/Part-DB/Part-DB-symfony/workflows/Static%20analysis/badge.svg)
 [![codecov](https://codecov.io/gh/Part-DB/Part-DB-server/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-server)
 ![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
-![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.1-green)
+![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-green)
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/jbtronics/part-db1)
 ![Docker Build Status](https://github.com/Part-DB/Part-DB-symfony/workflows/Docker%20Image%20Build/badge.svg)

@@ -133,15 +133,6 @@
     "ekino/phpstan-banned-code": {
         "version": "v0.3.1"
     },
-    "florianv/exchanger": {
-        "version": "1.4.1"
-    },
-    "florianv/swap": {
-        "version": "3.5.0"
-    },
-    "florianv/swap-bundle": {
-        "version": "5.0.x-dev"
-    },
     "gregwar/captcha": {
         "version": "v1.1.7"
     },
@@ -253,6 +244,9 @@
         "files": [
             "./config/packages/datatables.yaml"
         ]
+    },
+    "part-db/swap-bundle": {
+        "version": "v6.0.0"
     },
     "php-http/discovery": {
         "version": "1.18",
