@@ -27,7 +27,9 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Cache\ElementCacheTagGenerator;
+use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -38,16 +40,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class KiCadHelper
 {
 
+    /** @var int The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
+    private readonly int $category_depth;
+
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
         private readonly EntityManagerInterface $em,
         private readonly ElementCacheTagGenerator $tagGenerator,
         private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
-        /** The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
-        private readonly int $category_depth,
+        KiCadEDASettings $kiCadEDASettings,
     ) {
+        $this->category_depth = $kiCadEDASettings->categoryDepth;
     }
 
     /**
@@ -62,6 +68,10 @@ class KiCadHelper
         return $this->kicadCache->get('kicad_categories_' . $this->category_depth, function (ItemInterface $item) {
             //Invalidate the cache on category changes
             $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Category::class);
+            $item->tag($secure_class_name);
+
+            //Invalidate the cache on part changes (as the visibility depends on parts, and the parts can change)
+            $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(Part::class);
             $item->tag($secure_class_name);
 
             //If the category depth is smaller than 0, create only one dummy category
@@ -108,6 +118,8 @@ class KiCadHelper
                 $result[] = [
                     'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
+                    //Show the category link as the category description, this also fixes an segfault in KiCad see issue #878
+                    'description' => $this->entityURLGenerator->listPartsURL($category),
                 ];
             }
 
@@ -229,6 +241,49 @@ class KiCadHelper
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
+        // Add supplier information from orderdetails (include obsolete orderdetails)
+        if ($part->getOrderdetails(false)->count() > 0) {
+            $supplierCounts = [];
+            
+            foreach ($part->getOrderdetails(false) as $orderdetail) {
+                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
+                    $supplierName = $orderdetail->getSupplier()->getName();
+
+                    $supplierName .= " SPN"; // Append "SPN" to the supplier name to indicate Supplier Part Number
+
+                    if (!isset($supplierCounts[$supplierName])) {
+                        $supplierCounts[$supplierName] = 0;
+                    }
+                    $supplierCounts[$supplierName]++;
+                    
+                    // Create field name with sequential number if more than one from same supplier (e.g. "Mouser", "Mouser 2", etc.)
+                    $fieldName = $supplierCounts[$supplierName] > 1 
+                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
+                        : $supplierName;
+                    
+                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                }
+            }
+        }
+
+        //Add fields for KiCost:
+        if ($part->getManufacturer() !== null) {
+            $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
+        }
+        if ($part->getManufacturerProductNumber() !== "") {
+            $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
+        }
+
+        //For each supplier, add a field with the supplier name and the supplier part number for KiCost
+        if ($part->getOrderdetails(false)->count() > 0) {
+            foreach ($part->getOrderdetails(false) as $orderdetail) {
+                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
+                    $fieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+
+                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                }
+            }
+        }
 
         return $result;
     }

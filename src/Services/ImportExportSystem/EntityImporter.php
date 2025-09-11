@@ -57,6 +57,7 @@ class EntityImporter
     /**
      * Creates many entries at once, based on a (text) list of name.
      * The created entities are not persisted to database yet, so you have to do it yourself.
+     * It returns all entities in the hierachy chain (even if they are already persisted).
      *
      * @template T of AbstractNamedDBElement
      * @param string                           $lines      The list of names seperated by \n
@@ -132,32 +133,38 @@ class EntityImporter
             //We can only use the getNewEntityFromPath function, if the repository is a StructuralDBElementRepository
             if ($repo instanceof StructuralDBElementRepository) {
                 $entities = $repo->getNewEntityFromPath($new_path);
-                $entity = end($entities);
-                if ($entity === false) {
+                if ($entities === []) {
                     throw new InvalidArgumentException('getNewEntityFromPath returned an empty array!');
                 }
             } else { //Otherwise just create a new entity
                 $entity = new $class_name;
                 $entity->setName($name);
+                $entities = [$entity];
             }
 
 
             //Validate entity
-            $tmp = $this->validator->validate($entity);
-            //If no error occured, write entry to DB:
-            if (0 === count($tmp)) {
-                $valid_entities[] = $entity;
-            } else { //Otherwise log error
-                $errors[] = [
-                    'entity' => $entity,
-                    'violations' => $tmp,
-                ];
+            foreach ($entities as $entity) {
+                $tmp = $this->validator->validate($entity);
+                //If no error occured, write entry to DB:
+                if (0 === count($tmp)) {
+                    $valid_entities[] = $entity;
+                } else { //Otherwise log error
+                    $errors[] = [
+                        'entity' => $entity,
+                        'violations' => $tmp,
+                    ];
+                }
             }
 
-            $last_element = $entity;
+            $last_element = end($entities);
+            if ($last_element === false) {
+                $last_element = null;
+            }
         }
 
-        return $valid_entities;
+        //Only return objects once
+        return array_values(array_unique($valid_entities));
     }
 
     /**

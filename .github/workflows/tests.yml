@@ -1,5 +1,8 @@
 name: PHPUnit Tests
 
+permissions:
+    contents: read
+
 on:
   push:
     branches:
@@ -9,7 +12,7 @@ on:
     branches:
       - '*'
       - "!l10n_*"
-    
+
 jobs:
   phpunit:
     name: PHPUnit and coverage Test (PHP ${{ matrix.php-versions }}, ${{ matrix.db-type }})
@@ -18,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4' ]
+        php-versions: ['8.2', '8.3', '8.4' ]
         db-type: [ 'mysql', 'sqlite', 'postgres' ]
 
     env:
@@ -43,7 +46,7 @@ jobs:
         if: matrix.db-type == 'postgres'
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -52,7 +55,7 @@ jobs:
           coverage: pcov
           ini-values: xdebug.max_nesting_level=1000
           extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
-    
+
       - name: Start MySQL
         run: sudo systemctl start mysql.service
         if: matrix.db-type == 'mysql'
@@ -71,9 +74,9 @@ jobs:
       #    mysql version: 5.7
       #    mysql database: 'part-db'
       #    mysql root password: '1234'
-        
+
       ## Setup caches
-      
+
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
@@ -83,8 +86,8 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-  
-      
+            ${{ runner.os }}-composer-
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -96,48 +99,48 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      
+
       - name: Install composer dependencies
         run: composer install --prefer-dist --no-progress
-    
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-    
+          node-version: '20'
+
       - name: Install yarn dependencies
         run: yarn install
-    
+
       - name: Build frontend
         run: yarn build
-    
+
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
         if: matrix.db-type == 'mysql' || matrix.db-type == 'postgres'
-    
+
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
 
       # Use our own custom fixtures loading command to circumvent some problems with reset the autoincrement values
       - name: Load fixtures
         run: php bin/console --env test partdb:fixtures:load -n
-    
+
       - name: Run PHPunit and generate coverage
         run: ./bin/phpunit --coverage-clover=coverage.xml
-      
+
       - name: Upload coverage
         uses: codecov/codecov-action@v5
         with:
           env_vars: PHP_VERSION,DB_TYPE
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
-          
+
       - name: Test app:clean-attachments
         run: php bin/console partdb:attachments:clean-unused -n
-      
+
       - name: Test app:convert-bbcode
         run: php bin/console app:convert-bbcode -n
-      
+
       - name: Test app:show-logs
         run: php bin/console app:show-logs -n
 

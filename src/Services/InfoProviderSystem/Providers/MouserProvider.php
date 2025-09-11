@@ -37,6 +37,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\MouserSettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -50,10 +51,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $mouserClient,
-        private readonly string $api_key,
-        private readonly string $language,
-        private readonly string $options,
-        private readonly int $search_limit
+        private readonly MouserSettings $settings,
     ) {
     }
 
@@ -63,7 +61,8 @@ class MouserProvider implements InfoProviderInterface
             'name' => 'Mouser',
             'description' => 'This provider uses the Mouser API to search for parts.',
             'url' => 'https://www.mouser.com/',
-            'disabled_help' => 'Configure the API key in the PROVIDER_MOUSER_KEY environment variable to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => MouserSettings::class
         ];
     }
 
@@ -74,7 +73,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->api_key !== '';
+        return $this->settings->apiKey !== '' && $this->settings->apiKey !== null;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -93,6 +92,7 @@ class MouserProvider implements InfoProviderInterface
         Indicates where in the total recordset the return set should begin.
         From the startingRecord, the number of records specified will be returned up to the end of the recordset.
         This is useful for paging through the complete recordset of parts matching keyword.
+
 
         searchOptions	string
         Optional.
@@ -119,15 +119,15 @@ class MouserProvider implements InfoProviderInterface
 
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/keyword", [
             'query' => [
-                'apiKey' => $this->api_key,
+                'apiKey' => $this->settings->apiKey
             ],
             'json' => [
                 'SearchByKeywordRequest' => [
                     'keyword' => $keyword,
-                    'records' => $this->search_limit, //self::NUMBER_OF_RESULTS,
+                    'records' => $this->settings->searchLimit, //self::NUMBER_OF_RESULTS,
                     'startingRecord' => 0,
-                    'searchOptions' => $this->options,
-                    'searchWithYourSignUpLanguage' => $this->language,
+                    'searchOptions' => $this->settings->searchOption->value,
+                    'searchWithYourSignUpLanguage' => $this->settings->searchWithSignUpLanguage ? 'true' : 'false',
                 ]
             ],
         ]);
@@ -160,7 +160,7 @@ class MouserProvider implements InfoProviderInterface
 
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/partnumber", [
             'query' => [
-                'apiKey' => $this->api_key,
+                'apiKey' => $this->settings->apiKey,
             ],
             'json' => [
                 'SearchByPartRequest' => [
@@ -176,11 +176,16 @@ class MouserProvider implements InfoProviderInterface
             throw new \RuntimeException('No part found with ID '.$id);
         }
 
+        //Manually filter out the part with the correct ID
+        $tmp = array_filter($tmp, fn(PartDetailDTO $part) => $part->provider_id === $id);
+        if (count($tmp) === 0) {
+            throw new \RuntimeException('No part found with ID '.$id);
+        }
         if (count($tmp) > 1) {
-            throw new \RuntimeException('Multiple parts found with ID '.$id . ' ('.count($tmp).' found). This is basically a bug in Mousers API response. See issue #616.');
+            throw new \RuntimeException('Multiple parts found with ID '.$id);
         }
 
-        return $tmp[0];
+        return reset($tmp);
     }
 
     public function getCapabilities(): array

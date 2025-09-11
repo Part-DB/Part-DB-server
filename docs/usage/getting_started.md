@@ -12,11 +12,19 @@ Before starting, it's useful to read a bit about the [concepts of Part-DB]({% li
 1. TOC
 {:toc}
 
-## Customize config files
+## Customize system settings
 
-Before you start creating data structures, you should configure Part-DB to your needs by changing possible configuration
-options.
-This is done either via changing the `.env.local` file in a direct installation or by changing the env variables in
+Before starting creating datastructures, you should check the system settings to ensure that they fit your needs.
+After login as an administrator, you can find the settings in the sidebar under `Tools -> System -> Settings`.
+![image]({% link assets/getting_started/system_settings.png %})
+
+Here you can change various settings, like the name of your Part-DB instance (which is shown in the title bar of the
+browser), the default language (which is used if no user preference is set), the default timezone (which is used to
+display times correctly), the default currency (which is used to display prices correctly), and many more.
+
+Some more fundamental settings like database connection, mail server settings, SSO, etc. are configured via environment variables.
+Environment variables also allow to overwrite various settings from the web interface.
+Environment variables can be changed by editing the `.env.local` file in a direct installation or by changing the env variables in
 your `docker-compose.yaml` file.
 A list of possible configuration options can be found [here]({% link configuration.md %}).
 
@@ -44,8 +52,8 @@ used.
 
 ## (Optional) Customize homepage banner
 
-The banner which is shown on the homepage, can be customized/changed by changing the `config/banner.md` file with a text
-editor. You can use markdown and (safe) HTML here, to style and customize the banner.
+The banner which is shown on the homepage, can be customized/changed via the homepage banner setting in system settings. 
+You can use markdown and (safe) HTML here, to style and customize the banner.
 You can even use LaTeX-style equations by wrapping the expressions into `$` (like `$E=mc^2$`, which is rendered inline:
 $E=mc^2$) or `$$` (like `$$E=mc^2$$`) which will be rendered as a block, like so: $$E=mc^2$$
 

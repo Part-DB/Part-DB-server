@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Command from '@ckeditor/ckeditor5-core/src/command';
+import {Command} from 'ckeditor5';
 
 export default class PartDBLabelCommand extends Command {
     execute( { value } ) {

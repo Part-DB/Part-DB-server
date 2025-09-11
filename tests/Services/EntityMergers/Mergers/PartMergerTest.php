@@ -178,7 +178,9 @@ class PartMergerTest extends KernelTestCase
         //But the new lots, should be assigned to the target part and contain the same info
         $clone3 = $merged->getPartLots()->get(2);
         $clone4 = $merged->getPartLots()->get(3);
+        $this->assertInstanceOf(PartLot::class, $clone3);
         $this->assertSame($merged, $clone3->getPart());
+        $this->assertInstanceOf(PartLot::class, $clone4);
         $this->assertSame($merged, $clone4->getPart());
 
     }

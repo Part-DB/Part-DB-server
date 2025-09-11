@@ -75,7 +75,7 @@
         <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
         <td>{{ form_widget(form.value_typical) }}{{ form_errors(form.value_typical) }}</td>
         <td>{{ form_widget(form.value_max) }}{{ form_errors(form.value_max) }}</td>
-        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>

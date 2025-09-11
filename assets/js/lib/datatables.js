@@ -75,11 +75,10 @@
                             request._dt = config.name;
 
                             //Try to resolve the original column index when the column was reordered (using the ColReorder plugin)
-                            //Only do this when _ColReorder_iOrigCol is available
-                            if (settings.aoColumns && settings.aoColumns.length && settings.aoColumns[0]._ColReorder_iOrigCol !== undefined) {
+                            if (dt.colReorder && dt.colReorder.transpose) {
                                 if (request.order && request.order.length) {
                                     request.order.forEach(function (order) {
-                                        order.column = settings.aoColumns[order.column]._ColReorder_iOrigCol;
+                                        order.column = dt.colReorder.transpose(order.column, "toOriginal");
                                     });
                                 }
                             }

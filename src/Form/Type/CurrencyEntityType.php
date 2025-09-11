@@ -25,6 +25,7 @@ namespace App\Form\Type;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
@@ -36,7 +37,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class CurrencyEntityType extends StructuralEntityType
 {
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper, protected ?string $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper, private readonly LocalizationSettings $localizationSettings)
     {
         parent::__construct($em, $builder, $translator, $choiceHelper);
     }
@@ -57,7 +58,7 @@ class CurrencyEntityType extends StructuralEntityType
 
         $resolver->setDefault('empty_message', function (Options $options) {
             //By default, we use the global base currency:
-            $iso_code = $this->base_currency;
+            $iso_code = $this->localizationSettings->baseCurrency;
 
             if ($options['base_currency']) { //Allow to override it
                 $iso_code = $options['base_currency'];

@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -39,7 +40,7 @@ class LCSCProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'LCSC';
 
-    public function __construct(private readonly HttpClientInterface $lcscClient, private readonly string $currency, private readonly bool $enabled = true)
+    public function __construct(private readonly HttpClientInterface $lcscClient, private readonly LCSCSettings $settings)
     {
 
     }
@@ -50,7 +51,8 @@ class LCSCProvider implements InfoProviderInterface
             'name' => 'LCSC',
             'description' => 'This provider uses the (unofficial) LCSC API to search for parts.',
             'url' => 'https://www.lcsc.com/',
-            'disabled_help' => 'Set PROVIDER_LCSC_ENABLED to 1 (or true) in your environment variable config.'
+            'disabled_help' => 'Enable this provider in the provider settings.',
+            'settings_class' => LCSCSettings::class,
         ];
     }
 
@@ -62,7 +64,7 @@ class LCSCProvider implements InfoProviderInterface
     // This provider is always active
     public function isActive(): bool
     {
-        return $this->enabled;
+        return $this->settings->enabled;
     }
 
     /**
@@ -73,7 +75,7 @@ class LCSCProvider implements InfoProviderInterface
     {
         $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/product/detail", [
             'headers' => [
-                'Cookie' => new Cookie('currencyCode', $this->currency)
+                'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
             'query' => [
                 'productCode' => $id,
@@ -121,11 +123,11 @@ class LCSCProvider implements InfoProviderInterface
      */
     private function queryByTerm(string $term): array
     {
-        $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
             'headers' => [
-                'Cookie' => new Cookie('currencyCode', $this->currency)
+                'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
-            'query' => [
+            'json' => [
                 'keyword' => $term,
             ],
         ]);
@@ -163,6 +165,9 @@ class LCSCProvider implements InfoProviderInterface
         if ($field === null) {
             return null;
         }
+        // Replace "range" indicators with mathematical tilde symbols
+        // so they don't get rendered as strikethrough by Markdown
+        $field = preg_replace("/~/", "\u{223c}", $field);
 
         return strip_tags($field);
     }
@@ -195,9 +200,6 @@ class LCSCProvider implements InfoProviderInterface
         $category = $product['parentCatalogName'] ?? null;
         if (isset($product['catalogName'])) {
             $category = ($category ?? '') . ' -> ' . $product['catalogName'];
-
-            // Replace the / with a -> for better readability
-            $category = str_replace('/', ' -> ', $category);
         }
 
         return new PartDetailDTO(
@@ -273,7 +275,7 @@ class LCSCProvider implements InfoProviderInterface
             'kr.' => 'DKK',
             '₹' => 'INR',
             //Fallback to the configured currency
-            default => $this->currency,
+            default => $this->settings->currency,
         };
     }
 

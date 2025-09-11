@@ -1,3 +1,5 @@
+{% import "vars.macro.twig" as vars %}
+
 <!DOCTYPE html>
 <html lang="{{ app.request.locale | replace({"_": "-"}) }}"
       {#  For the UX translator, just use the language part (before the _. should be 2 chars), otherwise it finds no translations #}
@@ -31,20 +33,18 @@
     <link rel="mask-icon" href="{{ asset('icon/safari-pinned-tab.svg') }}" color="#5bbad5">
 
     {# The content block is already escaped. so we must not escape it again. #}
-    <title>{% apply trim|raw %}{% block title %}{{ partdb_title }}{% endblock %}{% endapply %}</title>
+    <title>{% apply trim|raw %}{% block title %}{{ vars.partdb_title() }}{% endblock %}{% endapply %}</title>
     {% set current_page_title = block("title")|raw %}
     {% block stylesheets %}
         {# Include the main bootstrap theme based on user/global setting #}
 
 
 
-        {% if not app.user.theme is defined %}
-            {% set theme = global_theme %}
+        {% if app.user.theme is not defined or app.user.theme is null  %}
+            {% set theme = settings_instance('customization').theme %}
         {% else %}
             {% set theme = app.user.theme %}
         {% endif %}
-
-
 
         {% if theme and theme in available_themes and encore_entry_exists('theme_' ~ theme) %}
             {{ encore_entry_link_tags('theme_' ~ theme) }}
@@ -53,6 +53,14 @@
         {% endif %}
 
         {{ encore_entry_link_tags('app') }}
+
+        {% set table_settings = settings_instance('table') %}
+        <style>
+            :root {
+                --table-image-preview-min-size: {{ table_settings.previewImageMinWidth }}px;
+                --table-image-preview-max-size: {{ table_settings.previewImageMaxWidth }}px;
+            }
+        </style>
     {% endblock %}
 
     {% block javascripts %}

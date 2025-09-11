@@ -2,6 +2,7 @@
 /.env.local
 /.env.local.php
 /.env.*.local
+/.env.local.bak
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
@@ -41,7 +42,7 @@ yarn-error.log
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-.phpunit.result.cache
+/.phpunit.cache/
 ###< phpunit/phpunit ###
 
 ###> phpstan/phpstan ###

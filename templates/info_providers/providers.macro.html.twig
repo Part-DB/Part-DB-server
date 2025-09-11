@@ -13,7 +13,6 @@
                                 {% else %}
                                     {{ provider.providerInfo.name | trans }}
                                 {% endif %}
-
                             </h5>
                             <div>
                                 {% if provider.providerInfo.description is defined and provider.providerInfo.description is not null %}
@@ -23,6 +22,11 @@
 
                         </div>
                         <div class="col-6">
+                            {% if provider.providerInfo.settings_class is defined %}
+                                <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerKey}) }}" class="btn btn-primary btn-sm {% if not is_granted('@config.change_system_settings') %}disabled{% endif %}"
+                                   title="{% trans %}info_providers.settings.title{% endtrans %}"
+                                ><i class="fa-solid fa-cog"></i></a>
+                            {% endif %}
                             {% for capability in provider.capabilities %}
                                 {# @var capability \App\Services\InfoProviderSystem\Providers\ProviderCapabilities #}
                                 <span class="badge text-bg-secondary">

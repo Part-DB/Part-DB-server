@@ -1,5 +1,8 @@
 name: Static analysis
 
+permissions:
+    contents: read
+
 on:
   push:
     branches:
@@ -16,7 +19,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -30,20 +33,20 @@ jobs:
       id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
-    
+
     - uses: actions/cache@v4
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-composer-  
+          ${{ runner.os }}-composer-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
     - name: Lint config files
       run: ./bin/console lint:yaml config --parse-tags
-    
+
     - name: Lint twig templates
       run: ./bin/console lint:twig templates --env=prod
 
@@ -53,13 +56,13 @@ jobs:
 
     - name: Check dependencies for security
       uses: symfonycorp/security-checker-action@v5
-    
+
     - name: Check doctrine mapping
       run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
     # Use the -d option to raise the max nesting level
     - name: Generate dev container
       run: php -d xdebug.max_nesting_level=1000 ./bin/console cache:clear --env dev
-    
+
     - name: Run PHPstan
       run: composer phpstan

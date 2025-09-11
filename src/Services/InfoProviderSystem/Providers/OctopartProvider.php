@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\OAuth\OAuthTokenManager;
+use App\Settings\InfoProviderSystem\OctopartSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -114,9 +115,8 @@ class OctopartProvider implements InfoProviderInterface
 
     public function __construct(private readonly HttpClientInterface $httpClient,
         private readonly OAuthTokenManager $authTokenManager, private readonly CacheItemPoolInterface $partInfoCache,
-        private readonly string $clientId, private readonly string $secret,
-        private readonly string $currency, private readonly string $country,
-        private readonly int $search_limit, private readonly bool $onlyAuthorizedSellers)
+        private readonly OctopartSettings $settings,
+    )
     {
 
     }
@@ -170,7 +170,8 @@ class OctopartProvider implements InfoProviderInterface
             'name' => 'Octopart',
             'description' => 'This provider uses the Nexar/Octopart API to search for parts on Octopart.',
             'url' => 'https://www.octopart.com/',
-            'disabled_help' => 'Set the PROVIDER_OCTOPART_CLIENT_ID and PROVIDER_OCTOPART_SECRET env option.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings.',
+            'settings_class' => OctopartSettings::class
         ];
     }
 
@@ -183,7 +184,8 @@ class OctopartProvider implements InfoProviderInterface
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
         //return /*!empty($this->clientId) && */ $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
-        return $this->clientId !== '' && $this->secret !== '';
+        return $this->settings->clientId !== null && $this->settings->clientId !== ''
+            && $this->settings->secret !== null && $this->settings->secret !== '';
     }
 
     private function mapLifeCycleStatus(?string $value): ?ManufacturingStatus
@@ -337,7 +339,7 @@ class OctopartProvider implements InfoProviderInterface
               ) {
                 hits
                 results {
-                  part 
+                  part
                   %s
                 }
               }
@@ -347,10 +349,10 @@ class OctopartProvider implements InfoProviderInterface
 
         $result = $this->makeGraphQLCall($graphQL, [
             'keyword' => $keyword,
-            'limit' => $this->search_limit,
-            'currency' => $this->currency,
-            'country' => $this->country,
-            'authorizedOnly' => $this->onlyAuthorizedSellers,
+            'limit' => $this->settings->searchLimit,
+            'currency' => $this->settings->currency,
+            'country' => $this->settings->country,
+            'authorizedOnly' => $this->settings->onlyAuthorizedSellers,
         ]);
 
         $tmp = [];
@@ -383,9 +385,9 @@ class OctopartProvider implements InfoProviderInterface
 
         $result = $this->makeGraphQLCall($graphql, [
             'ids' => [$id],
-            'currency' => $this->currency,
-            'country' => $this->country,
-            'authorizedOnly' => $this->onlyAuthorizedSellers,
+            'currency' => $this->settings->currency,
+            'country' => $this->settings->country,
+            'authorizedOnly' => $this->settings->onlyAuthorizedSellers,
         ]);
 
         $tmp = $this->partResultToDTO($result['data']['supParts'][0]);

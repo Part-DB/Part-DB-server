@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\LogSystem;
 
 use App\Entity\LogSystem\ElementEditedLogEntry;
@@ -45,7 +47,7 @@ class TimeTravelTest extends KernelTestCase
         $undeletedCategory = $this->service->undeleteEntity(Category::class, 100);
 
         $this->assertInstanceOf(Category::class, $undeletedCategory);
-        $this->assertEquals(100, $undeletedCategory->getId());
+        $this->assertSame(100, $undeletedCategory->getId());
     }
 
     public function testApplyEntry(): void
@@ -63,8 +65,8 @@ class TimeTravelTest extends KernelTestCase
 
         $this->service->applyEntry($category, $logEntry);
 
-        $this->assertEquals('Old Category', $category->getName());
-        $this->assertEquals('Old Comment', $category->getComment());
+        $this->assertSame('Old Category', $category->getName());
+        $this->assertSame('Old Comment', $category->getComment());
     }
 
     public function testRevertEntityToTimestamp(): void

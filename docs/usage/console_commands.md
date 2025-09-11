@@ -66,8 +66,16 @@ docker exec --user=www-data partdb php bin/console cache:clear
 * `partdb:migrations:import-partkeepr`: Imports a mysqldump XML dump of a PartKeepr database into Part-DB. This is only
   needed for users, which want to migrate from PartKeepr to Part-DB. *All existing data in the Part-DB database is
   deleted!*
+* `settings:migrate-env-to-settings`: Migrate configuration from environment variables to the settings interface.
+The value of the environment variable is copied to the settings database, so the environment variable can be removed afterwards without losing the configuration.
 
 ## Database commands
 
 * `php bin/console doctrine:migrations:migrate`: Migrate the database to the latest version
 * `php bin/console doctrine:migrations:up-to-date`: Check if the database is up-to-date
+
+## Attachment commands
+
+* `php bin/console partdb:attachments:download`: Download all attachments, which are not already downloaded, to the
+  local filesystem. This is useful to create local backups of the attachments, no matter what happens on the remote and
+ also makes pictures thumbnails available for the frontend for them

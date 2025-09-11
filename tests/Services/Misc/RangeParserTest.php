@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Misc;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Misc\RangeParser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -57,7 +58,7 @@ class RangeParserTest extends WebTestCase
         $this->service = self::getContainer()->get(RangeParser::class);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield [[], ''];
         yield [[], '   '];
@@ -81,7 +82,7 @@ class RangeParserTest extends WebTestCase
         yield [[], '1, 2, test', true];
     }
 
-    public function validDataProvider(): \Iterator
+    public static function validDataProvider(): \Iterator
     {
         yield [true, ''];
         yield [true, '    '];
@@ -96,9 +97,7 @@ class RangeParserTest extends WebTestCase
         yield [false, '1, 2 test'];
     }
 
-    /**
-     * @dataProvider  dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testParse(array $expected, string $input, bool $must_throw = false): void
     {
         if ($must_throw) {
@@ -109,9 +108,7 @@ class RangeParserTest extends WebTestCase
         }
     }
 
-    /**
-     * @dataProvider validDataProvider
-     */
+    #[DataProvider('validDataProvider')]
     public function testIsValidRange(bool $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->isValidRange($input));

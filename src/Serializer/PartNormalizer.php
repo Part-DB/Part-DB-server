@@ -92,7 +92,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         return $data;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
+    public function supportsDenormalization($data, string $type, ?string $format = null, array $context = []): bool
     {
         //Only denormalize if we are doing a file import operation
         if (!($context['partdb_import'] ?? false)) {

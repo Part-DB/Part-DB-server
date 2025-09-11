@@ -25,10 +25,6 @@ doctrine:
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
 
-            # This was removed in doctrine/orm 4.0 but we need it for the WebauthnKey entity
-            array:
-                class: App\Doctrine\Types\ArrayType
-        
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
         profiling_collect_backtrace: false
@@ -39,6 +35,8 @@ doctrine:
         report_fields_where_declared: true
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        identity_generation_preferences:
+            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
         auto_mapping: true
         controller_resolver:
             auto_mapping: true

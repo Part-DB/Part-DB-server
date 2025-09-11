@@ -122,7 +122,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
         return $deserialized_entity;
     }
 
-    public function getSupportedTypes(): array
+    public function getSupportedTypes(?string $format): array
     {
         //Must be false, because we use in_array in supportsDenormalization
         return [

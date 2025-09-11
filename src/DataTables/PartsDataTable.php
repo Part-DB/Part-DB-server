@@ -45,6 +45,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -65,8 +66,8 @@ final class PartsDataTable implements DataTableTypeInterface
         private readonly AmountFormatter $amountFormatter,
         private readonly PartDataTableHelper $partDataTableHelper,
         private readonly Security $security,
-        private readonly string $visible_columns,
         private readonly ColumnSortHelper $csh,
+        private readonly TableSettings $tableSettings,
     ) {
     }
 
@@ -246,7 +247,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ]);
 
         //Apply the user configured order and visibility and add the columns to the table
-        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->visible_columns,
+        $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->partsDefaultColumns,
             "TABLE_PARTS_DEFAULT_COLUMNS");
 
         $dataTable->addOrderBy('name')

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Currencies;
 
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Tools\ExchangeRateUpdater;
@@ -39,7 +40,7 @@ use function strlen;
 #[AsCommand('partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates', 'Updates the currency exchange rates.')]
 class UpdateExchangeRatesCommand extends Command
 {
-    public function __construct(protected string $base_current, protected EntityManagerInterface $em, protected ExchangeRateUpdater $exchangeRateUpdater)
+    public function __construct(protected EntityManagerInterface $em, protected ExchangeRateUpdater $exchangeRateUpdater, private readonly LocalizationSettings $localizationSettings)
     {
         parent::__construct();
     }
@@ -54,13 +55,13 @@ class UpdateExchangeRatesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         //Check for valid base current
-        if (3 !== strlen($this->base_current)) {
+        if (3 !== strlen($this->localizationSettings->baseCurrency)) {
             $io->error('Chosen Base current is not valid. Check your settings!');
 
             return Command::FAILURE;
         }
 
-        $io->note('Update currency exchange rates with base currency: '.$this->base_current);
+        $io->note('Update currency exchange rates with base currency: '.$this->localizationSettings->baseCurrency);
 
         //Check what currencies we need to update:
         $iso_code = $input->getArgument('iso_code');

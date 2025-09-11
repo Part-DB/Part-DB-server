@@ -43,6 +43,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -54,8 +55,11 @@ final class DTOtoEntityConverter
     private const TYPE_DATASHEETS_NAME = 'Datasheet';
     private const TYPE_IMAGE_NAME = 'Image';
 
-    public function __construct(private readonly EntityManagerInterface $em, private readonly string $base_currency)
+    private readonly string $base_currency;
+
+    public function __construct(private readonly EntityManagerInterface $em, LocalizationSettings $localizationSettings)
     {
+        $this->base_currency = $localizationSettings->baseCurrency;
     }
 
     /**

@@ -43,6 +43,7 @@ export default class extends Controller {
             selectOnTab: true,
             createOnBlur: true,
             create: true,
+            dropdownParent: 'body',
         };
 
         if(this.element.dataset.autocomplete) {

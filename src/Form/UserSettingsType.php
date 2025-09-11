@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\Type\LocaleSelectType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
@@ -33,7 +34,6 @@ use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,7 +47,7 @@ class UserSettingsType extends AbstractType
 {
     public function __construct(protected Security $security,
         protected bool $demo_mode,
-        #[Autowire(param: 'partdb.locale_menu')] private readonly array $preferred_languages)
+        )
     {
     }
 
@@ -107,12 +107,11 @@ class UserSettingsType extends AbstractType
                 'mode' => 'markdown-full',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
-            ->add('language', LanguageType::class, [
+            ->add('language', LocaleSelectType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
-                'preferred_choices' => $this->preferred_languages,
             ])
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,

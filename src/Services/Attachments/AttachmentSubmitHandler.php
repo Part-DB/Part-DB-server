@@ -40,6 +40,7 @@ use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
 use const DIRECTORY_SEPARATOR;
@@ -64,12 +65,14 @@ class AttachmentSubmitHandler
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
         'htpasswd', ''];
 
-    public function __construct(protected AttachmentPathResolver $pathResolver, protected bool $allow_attachments_downloads,
-        protected HttpClientInterface $httpClient, protected MimeTypesInterface $mimeTypes,
-        protected FileTypeFilterTools $filterTools, /**
-         * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
-         */
-        protected string $max_upload_size)
+    public function __construct(
+        protected AttachmentPathResolver $pathResolver,
+        protected HttpClientInterface $httpClient,
+        protected MimeTypesInterface $mimeTypes,
+        protected FileTypeFilterTools $filterTools,
+        protected AttachmentsSettings $settings,
+        protected readonly SVGSanitizer $SVGSanitizer,
+    )
     {
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
@@ -214,6 +217,9 @@ class AttachmentSubmitHandler
         //Move the attachment files to secure location (and back) if needed
         $this->moveFile($attachment, $secure_attachment);
 
+        //Sanitize the SVG if needed
+        $this->sanitizeSVGAttachment($attachment);
+
         //Rename blacklisted (unsecure) files to a better extension
         $this->renameBlacklistedExtensions($attachment);
 
@@ -334,7 +340,7 @@ class AttachmentSubmitHandler
     protected function downloadURL(Attachment $attachment, bool $secureAttachment): Attachment
     {
         //Check if we are allowed to download files
-        if (!$this->allow_attachments_downloads) {
+        if (!$this->settings->allowDownloads) {
             throw new RuntimeException('Download of attachments is not allowed!');
         }
 
@@ -345,9 +351,28 @@ class AttachmentSubmitHandler
         $tmp_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
-            $response = $this->httpClient->request('GET', $url, [
+            $opts = [
                 'buffer' => false,
-            ]);
+                //Use user-agent and other headers to make the server think we are a browser
+                'headers' => [
+                    "sec-ch-ua" => "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
+                    "sec-ch-ua-mobile" => "?0",
+                    "sec-ch-ua-platform" => "\"Windows\"",
+                    "user-agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+                    "sec-fetch-site" => "none",
+                    "sec-fetch-mode" => "navigate",
+                ],
+
+            ];
+            $response = $this->httpClient->request('GET', $url, $opts);
+            //Digikey wants TLSv1.3, so try again with that if we get a 403
+            if ($response->getStatusCode() === 403) {
+                $opts['crypto_method'] = STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
+                $response = $this->httpClient->request('GET', $url, $opts);
+            }
+            # if you have these changes and downloads still fail, check if it's due to an unknown certificate. Curl by
+            # default uses the systems ca store and that doesn't contain all the intermediate certificates needed to
+            # verify the leafs
 
             if (200 !== $response->getStatusCode()) {
                 throw new AttachmentDownloadException('Status code: '.$response->getStatusCode());
@@ -474,9 +499,37 @@ class AttachmentSubmitHandler
         $this->max_upload_size_bytes = min(
             $this->parseFileSizeString(ini_get('post_max_size')),
             $this->parseFileSizeString(ini_get('upload_max_filesize')),
-            $this->parseFileSizeString($this->max_upload_size),
+            $this->parseFileSizeString($this->settings->maxFileSize)
         );
 
         return $this->max_upload_size_bytes;
+    }
+
+    /**
+     * Sanitizes the given SVG file, if the attachment is an internal SVG file.
+     * @param  Attachment  $attachment
+     * @return Attachment
+     */
+    public function sanitizeSVGAttachment(Attachment $attachment): Attachment
+    {
+        //We can not do anything on builtins or external ressources
+        if ($attachment->isBuiltIn() || !$attachment->hasInternal()) {
+            return $attachment;
+        }
+
+        //Resolve the path to the file
+        $path = $this->pathResolver->placeholderToRealPath($attachment->getInternalPath());
+
+        //Check if the file exists
+        if (!file_exists($path)) {
+            return $attachment;
+        }
+
+        //Check if the file is an SVG
+        if ($attachment->getExtension() === "svg") {
+            $this->SVGSanitizer->sanitizeFile($path);
+        }
+
+        return $attachment;
     }
 }

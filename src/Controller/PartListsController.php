@@ -29,12 +29,14 @@ use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -43,11 +45,19 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager,
+        private readonly NodesListBuilder $nodesListBuilder,
+        private readonly DataTableFactory $dataTableFactory,
+        private readonly TranslatorInterface $translator,
+        private readonly TableSettings $tableSettings
+    )
     {
     }
 
@@ -71,13 +81,32 @@ class PartListsController extends AbstractController
         if (null === $action || null === $ids) {
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
+            $errors = [];
+
             $parts = $actionHandler->idStringToArray($ids);
-            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect);
+            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect, $errors);
 
             //Save changes
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'part.table.actions.success');
+            if (count($errors) === 0) {
+                $this->addFlash('success', 'part.table.actions.success');
+            } else {
+                $this->addFlash('error', t('part.table.actions.error', ['%count%' => count($errors)]));
+                //Create a flash message for each error
+                foreach ($errors as $error) {
+                    /** @var Part $part */
+                    $part = $error['part'];
+
+                    $this->addFlash('error',
+                        t('part.table.actions.error_detail', [
+                            '%part_name%' => $part->getName(),
+                            '%part_id%' => $part->getID(),
+                            '%message%' => $error['message']
+                        ])
+                    );
+                }
+            }
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
@@ -132,11 +161,9 @@ class PartListsController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $this->dataTableFactory->createFromType(
-            PartsDataTable::class,
-            array_merge(['filter' => $filter], $additional_table_vars),
-            ['lengthMenu' => PartsDataTable::LENGTH_MENU]
-        )
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
+            ['filter' => $filter], $additional_table_vars),
+            ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
@@ -32,7 +33,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly string $base_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly LocalizationSettings $localizationSettings)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }
@@ -51,7 +52,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $builder->add('exchange_rate', BigDecimalMoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
-            'currency' => $this->base_currency,
+            'currency' => $this->localizationSettings->baseCurrency,
             'scale' => 6,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);

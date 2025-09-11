@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelSupportedElement;
@@ -61,7 +62,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
         $this->service = self::getContainer()->get(SandboxedTwigFactory::class);
     }
 
-    public function twigDataProvider(): \Iterator
+    public static function twigDataProvider(): \Iterator
     {
         yield [' {% for i in range(1, 3) %}
                     {{ part.id }}
@@ -94,7 +95,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
             '];
     }
 
-    public function twigNotAllowedDataProvider(): \Iterator
+    public static function twigNotAllowedDataProvider(): \Iterator
     {
         yield ['{% block test %} {% endblock %}'];
         yield ['{% deprecated test %}'];
@@ -103,9 +104,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
         yield ['{{ part.setCategory(null) }}'];
     }
 
-    /**
-     * @dataProvider twigDataProvider
-     */
+    #[DataProvider('twigDataProvider')]
     public function testTwigFeatures(string $twig): void
     {
         $options = new LabelOptions();
@@ -123,9 +122,7 @@ class SandboxedTwigFactoryTest extends WebTestCase
         $this->assertIsString($str);
     }
 
-    /**
-     * @dataProvider twigNotAllowedDataProvider
-     */
+    #[DataProvider('twigNotAllowedDataProvider')]
     public function testTwigForbidden(string $twig): void
     {
         $this->expectException(SecurityError::class);
