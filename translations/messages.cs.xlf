@@ -13270,6 +13270,30 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Sloupce, které se mají ve výchozím nastavení zobrazovat v částečných tabulkách. Pořadí položek lze změnit pomocí funkce drag &amp; drop.</target>
       </segment>
     </unit>
+    <unit id="u7bki9T" name="settings.behavior.table.assemblies_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns</source>
+        <target>Výchozí sloupce pro tabulky sestav</target>
+      </segment>
+    </unit>
+    <unit id="t4jhp3R" name="settings.behavior.table.assemblies_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_default_columns.help</source>
+        <target>Sloupce, které by měly být zobrazeny ve výchozím nastavení v tabulkách sestav. Pořadí prvků lze změnit přetažením.</target>
+      </segment>
+    </unit>
+    <unit id="Uj8ie5E" name="settings.behavior.table.assemblies_bom_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns</source>
+        <target>Výchozí sloupce pro kusovníky sestav</target>
+      </segment>
+    </unit>
+    <unit id="uhb3diP" name="settings.behavior.table.assemblies_bom_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.assemblies_bom_default_columns.help</source>
+        <target>Sloupce, které by měly být zobrazeny ve výchozím nastavení v kusovnících sestav. Pořadí prvků lze změnit přetažením.</target>
+      </segment>
+    </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
       <segment state="translated">
         <source>settings.ips.oemsecrets</source>
@@ -13478,6 +13502,18 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment state="translated">
         <source>settings.misc.exchange_rate.fixer_api_key.help</source>
         <target>Pokud potřebujete směnné kurzy mezi měnami mimo eurozónu, můžete zde zadat API klíč z fixer.io.</target>
+      </segment>
+    </unit>
+    <unit id="akjcu4G" name="settings.misc.assembly">
+      <segment state="translated">
+        <source>settings.misc.assembly</source>
+        <target>Sestavy</target>
+      </segment>
+    </unit>
+    <unit id="Jiwgf9K" name="settings.misc.assembly.useIpnPlaceholderInName">
+      <segment state="translated">
+        <source>settings.misc.assembly.useIpnPlaceholderInName</source>
+        <target>Použít zástupný symbol %%ipn%% v názvu sestavy. Zástupný symbol bude při ukládání nahrazen vstupem IPN.</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">

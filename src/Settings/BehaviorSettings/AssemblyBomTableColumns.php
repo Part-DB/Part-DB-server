@@ -21,20 +21,26 @@
 declare(strict_types=1);
 
 
-namespace App\Settings\MiscSettings;
+namespace App\Settings\BehaviorSettings;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
-use Jbtronics\SettingsBundle\Settings\Settings;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Settings]
-class MiscSettings
+enum AssemblyBomTableColumns : string implements TranslatableInterface
 {
-    #[EmbeddedSettings]
-    public ?KiCadEDASettings $kicadEDA = null;
 
-    #[EmbeddedSettings]
-    public ?ExchangeRateSettings $exchangeRate = null;
+    case NAME = "name";
+    case ID = "id";
+    case QUANTITY = "quantity";
+    case IPN = "ipn";
+    case DESCRIPTION = "description";
 
-    #[EmbeddedSettings]
-    public ?AssemblySettings $assembly = null;
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        $key = match($this) {
+            default => 'assembly.bom.table.' . $this->value,
+        };
+
+        return $translator->trans($key, locale: $locale);
+    }
 }

@@ -49,7 +49,6 @@ use Symfony\Component\Validator\ConstraintViolation;
  */
 class BOMImporter
 {
-
     private const IMPORT_TYPE_JSON = 'json';
     private const IMPORT_TYPE_CSV = 'csv';
     private const IMPORT_TYPE_KICAD_PCB = 'kicad_pcbnew';
@@ -72,24 +71,21 @@ class BOMImporter
 
     private CategoryRepository $categoryRepository;
 
-    private DBElementRepository $projectBOMEntryRepository;
+    private DBElementRepository $projectBomEntryRepository;
 
-    private DBElementRepository $assemblyBOMEntryRepository;
-
-    private TranslatorInterface $translator;
+    private DBElementRepository $assemblyBomEntryRepository;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly TranslatorInterface $translator,
         private readonly LoggerInterface $logger,
-        private readonly BOMValidationService $validationService
+        private readonly BOMValidationService $validationService,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->partRepository = $entityManager->getRepository(Part::class);
-        $this->manufacturerRepository = $entityManager->getRepository(Manufacturer::class);
-        $this->categoryRepository = $entityManager->getRepository(Category::class);
-        $this->projectBOMEntryRepository = $entityManager->getRepository(ProjectBOMEntry::class);
-        $this->assemblyBOMEntryRepository = $entityManager->getRepository(AssemblyBOMEntry::class);
-        $this->translator = $translator;
+        $this->partRepository = $this->entityManager->getRepository(Part::class);
+        $this->manufacturerRepository = $this->entityManager->getRepository(Manufacturer::class);
+        $this->categoryRepository = $this->entityManager->getRepository(Category::class);
+        $this->projectBomEntryRepository = $this->entityManager->getRepository(ProjectBOMEntry::class);
+        $this->assemblyBomEntryRepository = $this->entityManager->getRepository(AssemblyBOMEntry::class);
     }
 
     protected function configureOptions(OptionsResolver $resolver): OptionsResolver
@@ -170,22 +166,6 @@ class BOMImporter
         return $this->stringToBOMEntries($importObject, $file->getContent(), $options);
     }
 
-    /**
-     * Validate BOM data before importing
-     * @return array Validation result with errors, warnings, and info
-     */
-    public function validateBOMData(string $data, array $options): array
-    {
-        $resolver = new OptionsResolver();
-        $resolver = $this->configureOptions($resolver);
-        $options = $resolver->resolve($options);
-
-        return match ($options['type']) {
-            'kicad_pcbnew' => $this->validateKiCADPCB($data),
-            'kicad_schematic' => $this->validateKiCADSchematicData($data, $options),
-            default => throw new InvalidArgumentException('Invalid import type!'),
-        };
-    }
 
     /**
      * Handles the conversion of an uploaded file into an ImporterResult for a given project or assembly.
@@ -242,6 +222,23 @@ class BOMImporter
     }
 
     /**
+     * Validate BOM data before importing
+     * @return array Validation result with errors, warnings, and info
+     */
+    public function validateBOMData(string $data, array $options): array
+    {
+        $resolver = new OptionsResolver();
+        $resolver = $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+
+        return match ($options['type']) {
+            'kicad_pcbnew' => $this->validateKiCADPCB($data),
+            'kicad_schematic' => $this->validateKiCADSchematicData($data, $options),
+            default => throw new InvalidArgumentException('Invalid import type!'),
+        };
+    }
+
+    /**
      * Import string data into an array of BOM entries, which are not yet assigned to a project.
      *
      * @param Project|Assembly $importObject The object determining the context of the BOM entry (either a Project or Assembly).
@@ -257,7 +254,8 @@ class BOMImporter
         $options = $resolver->resolve($options);
 
         return match ($options['type']) {
-            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $objectType)->getBomEntries(),
+            self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject)->getBomEntries(),
+            self::IMPORT_TYPE_KICAD_SCHEMATIC => $this->parseKiCADSchematic($data, $options),
             default => throw new InvalidArgumentException($this->translator->trans('validator.bom_importer.invalid_import_type', [], 'validators')),
         };
     }
@@ -285,8 +283,8 @@ class BOMImporter
 
         return match ($options['type']) {
             self::IMPORT_TYPE_KICAD_PCB => $this->parseKiCADPCB($data, $importObject),
-            self::IMPORT_TYPE_JSON => $this->parseJson($data, $importObject),
-            self::IMPORT_TYPE_CSV => $this->parseCsv($data, $importObject),
+            self::IMPORT_TYPE_JSON => $this->parseJson($importObject, $data),
+            self::IMPORT_TYPE_CSV => $this->parseCsv($importObject, $data),
             default => $defaultImporterResult,
         };
     }
@@ -830,11 +828,11 @@ class BOMImporter
         }
 
         if ($importObject instanceof Assembly) {
-            $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
+            $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['assembly' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -842,11 +840,11 @@ class BOMImporter
                 }
             }
         } else {
-            $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
+            $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'part' => $part]);
 
             if ($bomEntry === null) {
                 if (isset($entry['name']) && $entry['name'] !== '') {
-                    $bomEntry = $this->projectBOMEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
+                    $bomEntry = $this->projectBomEntryRepository->findOneBy(['project' => $importObject, 'name' => $entry['name']]);
                 }
 
                 if ($bomEntry === null) {
@@ -916,9 +914,9 @@ class BOMImporter
         //Check whether there is a name
         if (!empty($name)) {
             if ($importObject instanceof Project) {
-                $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->projectBomEntryRepository->findOneBy(['name' => $name]);
             } else {
-                $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['name' => $name]);
             }
         }
 
@@ -959,6 +957,7 @@ class BOMImporter
         return $out;
     }
 
+
     /**
      * Builds a JSON-based constraint violation.
      *
@@ -966,25 +965,13 @@ class BOMImporter
      * The violation includes a message, property path, invalid value, and other contextual information.
      * Translations for the violation message can be applied through the translator service.
      *
-     * @param string        $message The translation key for the validation message.
-     * @param string        $propertyPath The property path where the violation occurred.
-     * @param mixed|null    $invalidValue The value that caused the violation (optional).
-     * @param array         $parameters Additional parameters for message placeholders (default is an empty array).
+     * @param string $message The translation key for the validation message.
+     * @param string $propertyPath The property path where the violation occurred.
+     * @param mixed|null $invalidValue The value that caused the violation (optional).
+     * @param array $parameters Additional parameters for message placeholders (default is an empty array).
      *
      * @return ConstraintViolation The created constraint violation object.
      */
-    private function buildJsonViolation(string $message, string $propertyPath, mixed $invalidValue = null, array $parameters = []): ConstraintViolation
-    {
-        return new ConstraintViolation(
-            message: $this->translator->trans($message, $parameters, 'validators'),
-            messageTemplate: $message,
-            parameters: $parameters,
-            root: $this->jsonRoot,
-            propertyPath: $propertyPath,
-            invalidValue: $invalidValue
-        );
-    }
-
     /**
      * Parse KiCad schematic BOM with flexible field mapping
      */
@@ -1461,5 +1448,31 @@ class BOMImporter
 
 
         return array_values($headers);
+    }
+
+    /**
+     * Builds a JSON-based constraint violation.
+     *
+     * This method creates a `ConstraintViolation` object that represents a validation error.
+     * The violation includes a message, property path, invalid value, and other contextual information.
+     * Translations for the violation message can be applied through the translator service.
+     *
+     * @param string        $message The translation key for the validation message.
+     * @param string        $propertyPath The property path where the violation occurred.
+     * @param mixed|null    $invalidValue The value that caused the violation (optional).
+     * @param array         $parameters Additional parameters for message placeholders (default is an empty array).
+     *
+     * @return ConstraintViolation The created constraint violation object.
+     */
+    private function buildJsonViolation(string $message, string $propertyPath, mixed $invalidValue = null, array $parameters = []): ConstraintViolation
+    {
+        return new ConstraintViolation(
+            message: $this->translator->trans($message, $parameters, 'validators'),
+            messageTemplate: $message,
+            parameters: $parameters,
+            root: $this->jsonRoot,
+            propertyPath: $propertyPath,
+            invalidValue: $invalidValue
+        );
     }
 }

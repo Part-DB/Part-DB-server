@@ -1240,6 +1240,12 @@
         <target>CSV (KiCAD Pcbnew)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematische editor BOM (CSV-bestand)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -1723,6 +1729,12 @@
       <segment state="translated">
         <source>assembly.table.description</source>
         <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Gerefereerde assemblages</target>
       </segment>
     </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">

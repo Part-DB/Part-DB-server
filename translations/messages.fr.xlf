@@ -9637,6 +9637,12 @@ exemple de ville</target>
         <target>CSV (KiCAD Pcbnew BOM)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Éditeur Schématique BOM (fichier CSV)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -10120,6 +10126,12 @@ exemple de ville</target>
       <segment state="translated">
         <source>assembly.table.description</source>
         <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Ensembles référencés</target>
       </segment>
     </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">

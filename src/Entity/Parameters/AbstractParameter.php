@@ -104,7 +104,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      */
     private const API_DISCRIMINATOR_MAP = ["Part" => PartParameter::class,
         "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
-        "Project" => ProjectParameter::class, "Assembly" => AssemblyParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
+        "Project" => ProjectParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
         "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
         "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class, "PartCustomState" => PartCustomStateParameter::class];
 

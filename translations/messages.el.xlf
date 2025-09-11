@@ -2015,6 +2015,12 @@
         <target>CSV (KiCAD Pcbnew BOM)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Σχηματικό BOM (CSV αρχείο)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -2498,6 +2504,12 @@
       <segment state="translated">
         <source>assembly.table.description</source>
         <target>Περιγραφή</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Αναφερόμενες συναρμολογήσεις</target>
       </segment>
     </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">

@@ -9350,6 +9350,12 @@ Exampletown</target>
         <target>CSV (KiCAD Pcbnew)</target>
       </segment>
     </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD 回路図エディタ BOM (CSV ファイル)</target>
+      </segment>
+    </unit>
     <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>assembly.bom_import.clear_existing_bom</source>
@@ -9833,6 +9839,12 @@ Exampletown</target>
       <segment state="translated">
         <source>assembly.table.description</source>
         <target>説明</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>参照されているアセンブリ</target>
       </segment>
     </unit>
     <unit id="igaT4kQ" name="assembly.table.addedDate">
