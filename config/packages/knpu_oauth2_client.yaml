@@ -41,13 +41,13 @@ knpu_oauth2_client:
             type: generic
             provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
 
-            client_id: '%env(PROVIDER_BUERKLIN_CLIENT_ID)%'
-            client_secret: '%env(PROVIDER_BUERKLIN_SECRET)%'
+            client_id: '%env(settings:buerklin:clientId)%'
+            client_secret: '%env(settings:buerklin:secret)%'
 
             redirect_route: 'oauth_client_check'
             redirect_params: { name: 'ip_buerklin_oauth' }
 
             provider_options:
-                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/token'
+                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/authorize'
                 urlAccessToken: 'https://www.buerklin.com/authorizationserver/oauth/token'
                 urlResourceOwnerDetails: ''
