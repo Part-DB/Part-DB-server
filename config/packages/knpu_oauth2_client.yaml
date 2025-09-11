@@ -48,6 +48,6 @@ knpu_oauth2_client:
             redirect_params: { name: 'ip_buerklin_oauth' }
 
             provider_options:
-                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/authorize'
+                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/token'
                 urlAccessToken: 'https://www.buerklin.com/authorizationserver/oauth/token'
                 urlResourceOwnerDetails: ''
