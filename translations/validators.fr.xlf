@@ -239,12 +239,6 @@
         <target>Un assemblage ne doit pas référencer un sous-assemblage de sa propre hiérarchie dans les entrées de la nomenclature (BOM).</target>
       </segment>
     </unit>
-    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
-      <segment>
-        <source>assembly.bom_entry.project_already_in_bom</source>
-        <target>Ce projet existe déjà dans le groupe!</target>
-      </segment>
-    </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>

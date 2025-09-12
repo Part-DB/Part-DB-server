@@ -118,7 +118,6 @@ class Assembly extends AbstractStructuralDBElement
     #[Groups(['extended', 'full', 'import'])]
     #[ORM\OneToMany(targetEntity: AssemblyBOMEntry::class, mappedBy: 'assembly', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.part_already_in_bom', fields: ['part'])]
-    #[UniqueObjectCollection(message: 'assembly.bom_entry.project_already_in_bom', fields: ['project'])]
     #[UniqueObjectCollection(message: 'assembly.bom_entry.name_already_in_bom', fields: ['name'])]
     protected Collection $bom_entries;
 
@@ -137,7 +136,7 @@ class Assembly extends AbstractStructuralDBElement
      * @var string|null The internal ipn number of the assembly
      */
     #[Assert\Length(max: 100)]
-    #[Groups(['extended', 'full', 'project:read', 'project:write', 'import'])]
+    #[Groups(['extended', 'full', 'assembly:read', 'assembly:write', 'import'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
     #[Length(max: 100)]
     protected ?string $ipn = null;

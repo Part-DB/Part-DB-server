@@ -49,12 +49,6 @@
         <target>Μία συναρμολόγηση δεν πρέπει να αναφέρεται σε μία υποσυναρμολόγηση από την ίδια την ιεραρχία της στη λίστα BOM.</target>
       </segment>
     </unit>
-    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
-      <segment>
-        <source>assembly.bom_entry.project_already_in_bom</source>
-        <target>Αυτό το έργο υπάρχει ήδη στην ομάδα!</target>
-      </segment>
-    </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>

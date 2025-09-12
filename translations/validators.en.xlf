@@ -407,12 +407,6 @@
         <target>An assembly must not reference a subassembly from its own hierarchy in the BOM entries.</target>
       </segment>
     </unit>
-    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
-      <segment>
-        <source>assembly.bom_entry.project_already_in_bom</source>
-        <target>This project already exists in the list!</target>
-      </segment>
-    </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>
