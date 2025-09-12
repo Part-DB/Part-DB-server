@@ -401,12 +401,6 @@
         <target>Сборка не должна ссылаться на подсборку внутри своей собственной иерархии в записях спецификации (BOM).</target>
       </segment>
     </unit>
-    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
-      <segment>
-        <source>assembly.bom_entry.project_already_in_bom</source>
-        <target>Этот проект уже находится в группе!</target>
-      </segment>
-    </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>

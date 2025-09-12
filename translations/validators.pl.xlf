@@ -401,12 +401,6 @@
         <target>Zespół nie może odwoływać się do podzespołu w swojej własnej hierarchii w wpisach BOM.</target>
       </segment>
     </unit>
-    <unit id="6bkQ3bo" name="assembly.bom_entry.project_already_in_bom">
-      <segment>
-        <source>assembly.bom_entry.project_already_in_bom</source>
-        <target>Ten projekt już znajduje się w grupie!</target>
-      </segment>
-    </unit>
     <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
       <segment>
         <source>assembly.bom_entry.name_already_in_bom</source>

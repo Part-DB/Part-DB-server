@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\ImportExportSystem;
 
 use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -35,6 +36,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
+use App\Helpers\Assemblies\AssemblyPartAggregator;
 use App\Helpers\FilenameSanatizer;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -59,8 +61,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
  */
 class EntityExporter
 {
-    public function __construct(protected SerializerInterface $serializer)
-    {
+    public function __construct(
+        protected SerializerInterface    $serializer,
+        protected AssemblyPartAggregator $partAggregator, private readonly AssemblyPartAggregator $assemblyPartAggregator,
+    ) {
     }
 
     protected function configureOptions(OptionsResolver $resolver): void
@@ -356,8 +360,9 @@ class EntityExporter
             ],
             Project::class => [
                 'header' => [
-                    'Id', 'ParentId', 'Type', 'ProjectNameHierarchical', 'ProjectName', 'ProjectFullName',
-                    'BomQuantity', 'BomPartId', 'BomPartIpn', 'BomPartName', 'BomName', 'BomPartDescription', 'BomMountNames'
+                    'Id', 'ParentId', 'Type', 'ProjectNameHierarchical', 'ProjectName', 'ProjectFullName', 'BomQuantity',
+                    'BomPartId', 'BomPartIpn', 'BomPartMpnr', 'BomPartName', 'BomDesignator', 'BomPartDescription',
+                    'BomMountNames'
                 ],
                 'processEntity' => fn($entity, $depth) => [
                     'ProjectId' => $entity->getId(),
@@ -369,12 +374,13 @@ class EntityExporter
                     'BomQuantity' => '-',
                     'BomPartId' => '-',
                     'BomPartIpn' => '-',
+                    'BomPartMpnr' => '-',
                     'BomPartName' => '-',
-                    'BomName' => '-',
+                    'BomDesignator' => '-',
                     'BomPartDescription' => '-',
                     'BomMountNames' => '-',
                 ],
-                'processBomEntries' => fn($entity, $depth) => array_map(fn($bomEntry) => [
+                'processBomEntries' => fn($entity, $depth) => array_map(fn(AssemblyBOMEntry $bomEntry) => [
                     'Id' => $entity->getId(),
                     'ParentId' => '',
                     'Type' => 'project_bom_entry',
@@ -384,8 +390,9 @@ class EntityExporter
                     'BomQuantity' => $bomEntry->getQuantity() ?? '',
                     'BomPartId' => $bomEntry->getPart()?->getId() ?? '',
                     'BomPartIpn' => $bomEntry->getPart()?->getIpn() ?? '',
+                    'BomPartMpnr' => $bomEntry->getPart()?->getManufacturerProductNumber() ?? '',
                     'BomPartName' => $bomEntry->getPart()?->getName() ?? '',
-                    'BomName' => $bomEntry->getName() ?? '',
+                    'BomDesignator' => $bomEntry->getName() ?? '',
                     'BomPartDescription' => $bomEntry->getPart()?->getDescription() ?? '',
                     'BomMountNames' => $bomEntry->getMountNames(),
                 ], $entity->getBomEntries()->toArray()),
@@ -393,8 +400,9 @@ class EntityExporter
             Assembly::class => [
                 'header' => [
                     'Id', 'ParentId', 'Type', 'AssemblyIpn', 'AssemblyNameHierarchical', 'AssemblyName',
-                    'AssemblyFullName', 'BomQuantity', 'BomPartId', 'BomPartIpn', 'BomPartName', 'BomName', 'BomPartDescription',
-                    'BomMountNames', 'BomReferencedAssemblyId', 'BomReferencedAssemblyIpn', 'BomReferencedAssemblyFullName'
+                    'AssemblyFullName', 'BomQuantity', 'BomMultiplier', 'BomPartId', 'BomPartIpn', 'BomPartMpnr',
+                    'BomPartName', 'BomDesignator', 'BomPartDescription', 'BomMountNames', 'BomReferencedAssemblyId',
+                    'BomReferencedAssemblyIpn', 'BomReferencedAssemblyFullName'
                 ],
                 'processEntity' => fn($entity, $depth) => [
                     'Id' => $entity->getId(),
@@ -405,35 +413,19 @@ class EntityExporter
                     'AssemblyName' => $entity->getName(),
                     'AssemblyFullName' => $this->getFullName($entity),
                     'BomQuantity' => '-',
+                    'BomMultiplier' => '-',
                     'BomPartId' => '-',
                     'BomPartIpn' => '-',
+                    'BomPartMpnr' => '-',
                     'BomPartName' => '-',
-                    'BomName' => '-',
+                    'BomDesignator' => '-',
                     'BomPartDescription' => '-',
                     'BomMountNames' => '-',
                     'BomReferencedAssemblyId' => '-',
                     'BomReferencedAssemblyIpn' => '-',
                     'BomReferencedAssemblyFullName' => '-',
                 ],
-                'processBomEntries' => fn($entity, $depth) => array_map(fn($bomEntry) => [
-                    'Id' => $entity->getId(),
-                    'ParentId' => '',
-                    'Type' => 'assembly_bom_entry',
-                    'AssemblyIpn' => $entity->getIpn(),
-                    'AssemblyNameHierarchical' => str_repeat('--', $depth) . '> ' . $entity->getName(),
-                    'AssemblyName' => $entity->getName(),
-                    'AssemblyFullName' => $this->getFullName($entity),
-                    'BomQuantity' => $bomEntry->getQuantity() ?? '',
-                    'BomPartId' => $bomEntry->getPart()?->getId() ?? '',
-                    'BomPartIpn' => $bomEntry->getPart()?->getIpn() ?? '',
-                    'BomPartName' => $bomEntry->getPart()?->getName() ?? '',
-                    'BomName' => $bomEntry->getName() ?? '',
-                    'BomPartDescription' => $bomEntry->getPart()?->getDescription() ?? '',
-                    'BomMountNames' => $bomEntry->getMountNames(),
-                    'BomReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '',
-                    'BomReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '',
-                    'BomReferencedAssemblyFullName' => $this->getFullName($bomEntry->getReferencedAssembly() ?? null),
-                ], $entity->getBomEntries()->toArray()),
+                'processBomEntries' => fn($entity, $depth) => $this->processBomEntriesWithAggregatedParts($entity, $depth),
             ],
             Supplier::class => [
                 'header' => ['Id', 'ParentId', 'NameHierarchical', 'Name', 'FullName'],
@@ -531,6 +523,79 @@ class EntityExporter
         }
 
         return $output;
+    }
+
+    /**
+     * Process BOM entries and include aggregated parts as "complete_part_list".
+     *
+     * @param Assembly $assembly The assembly being processed.
+     * @param int $depth The current depth in the hierarchy.
+     * @return array Processed BOM entries and aggregated parts rows.
+     */
+    private function processBomEntriesWithAggregatedParts(Assembly $assembly, int $depth): array
+    {
+        $rows = [];
+
+        foreach ($assembly->getBomEntries() as $bomEntry) {
+            // Add the BOM entry itself
+            $rows[] = [
+                'Id' => $assembly->getId(),
+                'ParentId' => '',
+                'Type' => 'assembly_bom_entry',
+                'AssemblyIpn' => $assembly->getIpn(),
+                'AssemblyNameHierarchical' => str_repeat('--', $depth) . '> ' . $assembly->getName(),
+                'AssemblyName' => $assembly->getName(),
+                'AssemblyFullName' => $this->getFullName($assembly),
+                'BomQuantity' => $bomEntry->getQuantity() ?? '',
+                'BomMultiplier' => '',
+                'BomPartId' => $bomEntry->getPart()?->getId() ?? '-',
+                'BomPartIpn' => $bomEntry->getPart()?->getIpn() ?? '-',
+                'BomPartMpnr' => $bomEntry->getPart()?->getManufacturerProductNumber() ?? '-',
+                'BomPartName' => $bomEntry->getPart()?->getName() ?? '-',
+                'BomDesignator' => $bomEntry->getName() ?? '-',
+                'BomPartDescription' => $bomEntry->getPart()?->getDescription() ?? '-',
+                'BomMountNames' => $bomEntry->getMountNames(),
+                'BomReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '-',
+                'BomReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '-',
+                'BomReferencedAssemblyFullName' => $this->getFullName($bomEntry->getReferencedAssembly() ?? null),
+            ];
+
+            // If a referenced assembly exists, add aggregated parts
+            if ($bomEntry->getReferencedAssembly() instanceof Assembly) {
+                $referencedAssembly = $bomEntry->getReferencedAssembly();
+
+                // Get aggregated parts for the referenced assembly
+                $aggregatedParts = $this->assemblyPartAggregator->getAggregatedParts($referencedAssembly, $bomEntry->getQuantity());;
+
+                foreach ($aggregatedParts as $partData) {
+                    $partAssembly = $partData['assembly'] ?? null;
+
+                    $rows[] = [
+                        'Id' => $assembly->getId(),
+                        'ParentId' => '',
+                        'Type' => 'subassembly_part_list',
+                        'AssemblyIpn' => $partAssembly ? $partAssembly->getIpn() : '',
+                        'AssemblyNameHierarchical' => '',
+                        'AssemblyName' => $partAssembly ? $partAssembly->getName() : '',
+                        'AssemblyFullName' => $this->getFullName($partAssembly),
+                        'BomQuantity' => $partData['quantity'],
+                        'BomMultiplier' => $partData['multiplier'],
+                        'BomPartId' => $partData['part']?->getId(),
+                        'BomPartIpn' => $partData['part']?->getIpn(),
+                        'BomPartMpnr' => $partData['part']?->getManufacturerProductNumber(),
+                        'BomPartName' => $partData['part']?->getName(),
+                        'BomDesignator' => $partData['part']?->getName(),
+                        'BomPartDescription' => $partData['part']?->getDescription(),
+                        'BomMountNames' => '-',
+                        'BomReferencedAssemblyId' => '-',
+                        'BomReferencedAssemblyIpn' => '-',
+                        'BomReferencedAssemblyFullName' => '-',
+                    ];
+                }
+            }
+        }
+
+        return $rows;
     }
 
     /**
