@@ -253,17 +253,6 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return $this;
     }
 
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Project $project): AssemblyBOMEntry
-    {
-        $this->project = $project;
-        return $this;
-    }
-
     /**
      * Returns the price of this BOM entry, if existing.
      * Prices are only valid on non-Part BOM entries.
@@ -301,6 +290,15 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return $this->part instanceof Part;
     }
 
+    /**
+     * Checks whether this BOM entry is a assembly associated BOM entry or not.
+     * @return bool True if this BOM entry is a assembly associated BOM entry, false otherwise.
+     */
+    public function isAssemblyBomEntry(): bool
+    {
+        return $this->referencedAssembly !== null;
+    }
+
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
@@ -336,7 +334,7 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return [
             'name' => $this->getName(),
             'part' => $this->getPart()?->getID(),
-            'project' => $this->getProject()?->getID(),
+            'referencedAssembly' => $this->getReferencedAssembly()?->getID(),
         ];
     }
 }

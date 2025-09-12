@@ -26,14 +26,12 @@ use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\AssemblyDataTableHelper;
-use App\DataTables\Helpers\ProjectDataTableHelper;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\AssemblySystem\AssemblyBOMEntry;
-use App\Entity\ProjectSystem\Project;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\QueryBuilder;
@@ -49,7 +47,6 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly PartDataTableHelper $partDataTableHelper,
-        private readonly ProjectDataTableHelper $projectDataTableHelper,
         private readonly AssemblyDataTableHelper $assemblyDataTableHelper,
         private readonly AmountFormatter $amountFormatter,
         private readonly ColumnSortHelper $csh,
@@ -90,7 +87,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
                 'render' => function ($value, AssemblyBOMEntry $context) {
-                    if(!$context->getPart() instanceof Part && !$context->getReferencedAssembly() instanceof Assembly && !$context->getProject() instanceof Project) {
+                    if(!$context->getPart() instanceof Part && !$context->getReferencedAssembly() instanceof Assembly) {
                         return htmlspecialchars((string) $context->getName());
                     }
 
@@ -104,13 +101,6 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                     } elseif ($context->getReferencedAssembly() !== null) {
                         $tmp = $this->assemblyDataTableHelper->renderName($context->getReferencedAssembly());
                         $tmp = $this->translator->trans('part.table.name.value.for_assembly', ['%value%' => $tmp]);
-
-                        if($context->getName() !== null && $context->getName() !== '') {
-                            $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';
-                        }
-                    } elseif ($context->getProject() !== null) {
-                        $tmp = $this->projectDataTableHelper->renderName($context->getProject());
-                        $tmp = $this->translator->trans('part.table.name.value.for_project', ['%value%' => $tmp]);
 
                         if($context->getName() !== null && $context->getName() !== '') {
                             $tmp .= '<br><b>'.htmlspecialchars($context->getName()).'</b>';

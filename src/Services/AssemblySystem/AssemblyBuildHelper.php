@@ -27,7 +27,6 @@ use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Services\Parts\PartLotWithdrawAddHelper;
-use App\Services\ProjectSystem\ProjectBuildHelper;
 
 /**
  * @see \App\Tests\Services\AssemblySystem\AssemblyBuildHelperTest
@@ -35,8 +34,7 @@ use App\Services\ProjectSystem\ProjectBuildHelper;
 class AssemblyBuildHelper
 {
     public function __construct(
-        private readonly PartLotWithdrawAddHelper   $withdraw_add_helper,
-        private readonly ProjectBuildHelper         $projectBuildHelper
+        private readonly PartLotWithdrawAddHelper   $withdraw_add_helper
     ) {
     }
 
@@ -70,7 +68,7 @@ class AssemblyBuildHelper
         /** @var AssemblyBOMEntry $bom_entry */
         foreach ($assembly->getBomEntries() as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
-            if (!$bom_entry->isPartBomEntry() && $bom_entry->getProject() === null) {
+            if (!$bom_entry->isPartBomEntry() && !$bom_entry->isAssemblyBomEntry()) {
                 continue;
             }
 
@@ -106,6 +104,7 @@ class AssemblyBuildHelper
 
     /**
      * Returns the assembly BOM entries for which parts are missing in the stock for the given number of builds
+     * Returns the referenced assembly BOM entries for which parts are missing in the stock for the given number of builds
      * @param  Assembly $assembly The assembly for which the BOM entries should be checked
      * @param  int  $number_of_builds How often should the assembly be build?
      * @return AssemblyBOMEntry[]

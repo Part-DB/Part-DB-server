@@ -39,10 +39,6 @@ class AssemblyBOMEntryType extends AbstractType
             ->add('part', PartSelectType::class, [
                 'required' => false,
             ])
-            ->add('project', ProjectSelectType::class, [
-                'label' => 'assembly.bom.project',
-                'required' => false,
-            ])
             ->add('referencedAssembly', AssemblySelectType::class, [
                 'label' => 'assembly.bom.referencedAssembly',
                 'required' => false,
