@@ -155,6 +155,15 @@ final class PartsDataTable implements DataTableTypeInterface
                 'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
                     $context->getPartUnit())),
             ])
+            ->add('orderamount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.orderamount'),
+                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format($value,
+                    $context->getPartUnit())),
+            ])
+            ->add('orderDelivery', LocaleDateTimeColumn::class, [
+                'label' => $this->translator->trans('part.table.orderDelivery'),
+                'timeFormat' => 'none',
+            ])
             ->add('partUnit', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partUnit'),
                 'orderField' => 'NATSORT(_partUnit.name)',
