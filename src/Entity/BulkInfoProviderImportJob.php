@@ -397,6 +397,10 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $completed >= $total;
     }
 
+    /**
+     * @param  array  $searchResults
+     * @return array{part_id: int, search_results: array{dto: array{provider_key: string, provider_id: string, name: string, description: string, manufacturer: string, mpn: string, provider_url: string, preview_image_url: string, _source_field: string|null, _source_keyword: string|null}, localPart: int|null}[], errors: string[]}[]
+     */
     public function serializeSearchResults(array $searchResults): array
     {
         $serialized = [];
@@ -433,6 +437,10 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $serialized;
     }
 
+    /**
+     * @param  EntityManagerInterface|null  $entityManager
+     * @return array{part: Part, search_results: array{dto: SearchResultDTO, localPart: Part|null, source_field: string|null, source_keyword: string|null}[], errors: string[]}[]
+     */
     public function deserializeSearchResults(?EntityManagerInterface $entityManager = null): array
     {
         if (empty($this->searchResults)) {

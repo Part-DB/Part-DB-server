@@ -182,7 +182,7 @@ class BulkInfoProviderImportController extends AbstractController
                 $searchRequest = new BulkSearchRequestDTO(
                     fieldMappings: $fieldMappings,
                     prefetchDetails: $prefetchDetails,
-                    partIds: $partIds
+                    parts: $parts
                 );
 
                 $searchResults = $this->bulkService->performBulkSearch($searchRequest);
@@ -444,7 +444,7 @@ class BulkInfoProviderImportController extends AbstractController
             $searchRequest = new BulkSearchRequestDTO(
                 fieldMappings: $fieldMappings,
                 prefetchDetails: $prefetchDetails,
-                partIds: [$partId]
+                parts: [$part]
             );
 
             try {
@@ -501,14 +501,16 @@ class BulkInfoProviderImportController extends AbstractController
         }
 
         // Get all part IDs that are not completed or skipped
+        $parts = [];
         $partIds = [];
         foreach ($job->getJobParts() as $jobPart) {
             if (!$jobPart->isCompleted() && !$jobPart->isSkipped()) {
-                $partIds[] = $jobPart->getPart()->getId();
+                $parts[] = $jobPart->getPart();
+                $partsIds[] = $jobPart->getPart()->getId();
             }
         }
 
-        if (empty($partIds)) {
+        if (empty($parts)) {
             return $this->json([
                 'success' => true,
                 'message' => 'No parts to research',
@@ -523,13 +525,13 @@ class BulkInfoProviderImportController extends AbstractController
             // Process in batches to reduce memory usage for large operations
             $batchSize = 20; // Configurable batch size for memory management
             $allResults = [];
-            $batches = array_chunk($partIds, $batchSize);
+            $batches = array_chunk($parts, $batchSize);
 
             foreach ($batches as $batch) {
                 $searchRequest = new BulkSearchRequestDTO(
                     fieldMappings: $fieldMappings,
                     prefetchDetails: $prefetchDetails,
-                    partIds: $batch
+                    parts: $batch
                 );
 
                 $batchResults = $this->bulkService->performBulkSearch($searchRequest);
@@ -552,8 +554,8 @@ class BulkInfoProviderImportController extends AbstractController
 
             return $this->json([
                 'success' => true,
-                'researched_count' => count($partIds),
-                'message' => sprintf('Successfully researched %d parts', count($partIds))
+                'researched_count' => count($parts),
+                'message' => sprintf('Successfully researched %d parts', count($parts))
             ]);
 
         } catch (\Exception $e) {
@@ -562,7 +564,7 @@ class BulkInfoProviderImportController extends AbstractController
                 500,
                 [
                     'job_id' => $jobId,
-                    'part_ids' => $partIds,
+                    'part_ids' => $partsIds,
                     'exception' => $e->getMessage()
                 ]
             );

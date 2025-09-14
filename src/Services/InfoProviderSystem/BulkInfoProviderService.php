@@ -27,11 +27,7 @@ final class BulkInfoProviderService
 
     public function performBulkSearch(BulkSearchRequestDTO $request): array
     {
-        // Convert string IDs to integers
-        $partIds = array_map('intval', $request->partIds);
-        
-        $partRepository = $this->entityManager->getRepository(Part::class);
-        $parts = $partRepository->getElementsFromIDArray($partIds);
+        $parts = $request->parts;
 
         if (empty($parts)) {
             throw new \InvalidArgumentException('No valid parts found for bulk import');
@@ -43,7 +39,7 @@ final class BulkInfoProviderService
         // Group providers by batch capability
         $batchProviders = [];
         $regularProviders = [];
-        
+
         foreach ($request->fieldMappings as $mapping) {
             $providers = $mapping['providers'] ?? [];
             foreach ($providers as $providerKey) {
@@ -54,7 +50,7 @@ final class BulkInfoProviderService
                     ]);
                     continue;
                 }
-                
+
                 $provider = $this->providerRegistry->getProviderByKey($providerKey);
                 if ($provider instanceof BatchInfoProviderInterface) {
                     $batchProviders[$providerKey] = $provider;
@@ -66,7 +62,7 @@ final class BulkInfoProviderService
 
         // Process batch providers first (more efficient)
         $batchResults = $this->processBatchProviders($parts, $request->fieldMappings, $batchProviders);
-        
+
         // Process regular providers
         $regularResults = $this->processRegularProviders($parts, $request->fieldMappings, $regularProviders, $batchResults);
 
@@ -102,24 +98,24 @@ final class BulkInfoProviderService
     private function processBatchProviders(array $parts, array $fieldMappings, array $batchProviders): array
     {
         $batchResults = [];
-        
+
         foreach ($batchProviders as $providerKey => $provider) {
             $keywords = $this->collectKeywordsForProvider($parts, $fieldMappings, $providerKey);
-            
+
             if (empty($keywords)) {
                 continue;
             }
 
             try {
                 $providerResults = $provider->searchByKeywordsBatch($keywords);
-                
+
                 // Map results back to parts
                 foreach ($parts as $part) {
                     foreach ($fieldMappings as $mapping) {
                         if (!in_array($providerKey, $mapping['providers'] ?? [], true)) {
                             continue;
                         }
-                        
+
                         $keyword = $this->getKeywordFromField($part, $mapping['field']);
                         if ($keyword && isset($providerResults[$keyword])) {
                             foreach ($providerResults[$keyword] as $dto) {
@@ -145,13 +141,20 @@ final class BulkInfoProviderService
         return $batchResults;
     }
 
+    /**
+     * @param  Part[]  $parts
+     * @param  array $fieldMappings
+     * @param  array  $regularProviders
+     * @param  array  $excludeResults
+     * @return array
+     */
     private function processRegularProviders(array $parts, array $fieldMappings, array $regularProviders, array $excludeResults): array
     {
         $regularResults = [];
-        
+
         foreach ($parts as $part) {
             $regularResults[$part->getId()] = [];
-            
+
             // Skip if we already have batch results for this part
             if (!empty($excludeResults[$part->getId()] ?? [])) {
                 continue;
@@ -160,7 +163,7 @@ final class BulkInfoProviderService
             foreach ($fieldMappings as $mapping) {
                 $field = $mapping['field'];
                 $providers = array_intersect($mapping['providers'] ?? [], array_keys($regularProviders));
-                
+
                 if (empty($providers)) {
                     continue;
                 }
@@ -172,7 +175,7 @@ final class BulkInfoProviderService
 
                 try {
                     $dtos = $this->infoRetriever->searchByKeyword($keyword, $providers);
-                    
+
                     foreach ($dtos as $dto) {
                         $regularResults[$part->getId()][] = new BulkSearchResultDTO(
                             baseDto: $dto,
@@ -198,13 +201,13 @@ final class BulkInfoProviderService
     private function collectKeywordsForProvider(array $parts, array $fieldMappings, string $providerKey): array
     {
         $keywords = [];
-        
+
         foreach ($parts as $part) {
             foreach ($fieldMappings as $mapping) {
                 if (!in_array($providerKey, $mapping['providers'] ?? [], true)) {
                     continue;
                 }
-                
+
                 $keyword = $this->getKeywordFromField($part, $mapping['field']);
                 if ($keyword && !in_array($keyword, $keywords, true)) {
                     $keywords[] = $keyword;
@@ -251,10 +254,10 @@ final class BulkInfoProviderService
     {
         // Sort by priority and remove duplicates
         usort($bulkResults, fn($a, $b) => $a->priority <=> $b->priority);
-        
+
         $uniqueResults = [];
         $seenKeys = [];
-        
+
         foreach ($bulkResults as $result) {
             $key = "{$result->provider_key}|{$result->provider_id}";
             if (!in_array($key, $seenKeys, true)) {

@@ -664,7 +664,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'mpn', 'providers' => ['test'], 'priority' => 2]
             ],
             prefetchDetails: false,
-            partIds: [$part->getId()]
+            parts: [$part->getId()]
         );
 
         // The service may return an empty result or throw when no results are found
@@ -766,7 +766,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
-        // Find job from database to avoid detached entity errors  
+        // Find job from database to avoid detached entity errors
         $jobId = $job->getId();
         $entityManager->clear();
         $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
@@ -799,7 +799,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'test_supplier_spn', 'providers' => ['test'], 'priority' => 2]
             ],
             prefetchDetails: false,
-            partIds: [$part->getId()]
+            parts: [$part->getId()]
         );
 
         // The service should be able to process the request and throw an exception when no results are found
@@ -833,7 +833,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'name', 'providers' => ['lcsc'], 'priority' => 1]
             ],
             prefetchDetails: false,
-            partIds: [$part->getId()]
+            parts: [$part->getId()]
         );
 
         // The service should be able to process the request and throw an exception when no results are found
