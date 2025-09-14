@@ -95,6 +95,12 @@ final class BulkInfoProviderService
         return $searchResults;
     }
 
+    /**
+     * @param  array  $parts
+     * @param  array  $fieldMappings
+     * @param  array<string, BatchInfoProviderInterface>  $batchProviders
+     * @return array
+     */
     private function processBatchProviders(array $parts, array $fieldMappings, array $batchProviders): array
     {
         $batchResults = [];
@@ -198,6 +204,12 @@ final class BulkInfoProviderService
         return $regularResults;
     }
 
+    /**
+     * @param  Part[]  $parts
+     * @param  array  $fieldMappings
+     * @param  string  $providerKey
+     * @return string[]
+     */
     private function collectKeywordsForProvider(array $parts, array $fieldMappings, string $providerKey): array
     {
         $keywords = [];

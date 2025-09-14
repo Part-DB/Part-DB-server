@@ -664,7 +664,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'mpn', 'providers' => ['test'], 'priority' => 2]
             ],
             prefetchDetails: false,
-            parts: [$part->getId()]
+            parts: [$part]
         );
 
         // The service may return an empty result or throw when no results are found
@@ -799,7 +799,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'test_supplier_spn', 'providers' => ['test'], 'priority' => 2]
             ],
             prefetchDetails: false,
-            parts: [$part->getId()]
+            parts: [$part]
         );
 
         // The service should be able to process the request and throw an exception when no results are found
@@ -833,7 +833,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
                 ['field' => 'name', 'providers' => ['lcsc'], 'priority' => 1]
             ],
             prefetchDetails: false,
-            parts: [$part->getId()]
+            parts: [$part]
         );
 
         // The service should be able to process the request and throw an exception when no results are found
