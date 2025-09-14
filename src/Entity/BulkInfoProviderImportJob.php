@@ -32,15 +32,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityManagerInterface;
 
-enum BulkImportJobStatus: string
-{
-    case PENDING = 'pending';
-    case IN_PROGRESS = 'in_progress';
-    case COMPLETED = 'completed';
-    case STOPPED = 'stopped';
-    case FAILED = 'failed';
-}
-
 #[ORM\Entity]
 #[ORM\Table(name: 'bulk_info_provider_import_jobs')]
 class BulkInfoProviderImportJob extends AbstractDBElement
