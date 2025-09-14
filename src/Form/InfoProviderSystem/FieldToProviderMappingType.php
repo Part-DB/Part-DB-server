@@ -59,7 +59,10 @@ class FieldToProviderMappingType extends AbstractType
                 'max' => 10,
                 'class' => 'form-control-sm',
                 'style' => 'width: 80px;'
-            ]
+            ],
+            'constraints' => [
+                new \Symfony\Component\Validator\Constraints\Range(['min' => 1, 'max' => 10]),
+            ],
         ]);
     }
 
