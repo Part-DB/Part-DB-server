@@ -64,6 +64,8 @@ class BulkInfoProviderImportController extends AbstractController
 
     private function validateJobAccess(int $jobId): ?BulkInfoProviderImportJob
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
         $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
 
         if (!$job) {
@@ -228,6 +230,8 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/manage', name: 'bulk_info_provider_manage')]
     public function manageBulkJobs(): Response
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
         // Get all jobs for current user
         $allJobs = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
             ->findBy([], ['createdAt' => 'DESC']);
@@ -273,10 +277,9 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/job/{jobId}/delete', name: 'bulk_info_provider_delete', methods: ['DELETE'])]
     public function deleteJob(int $jobId): Response
     {
-        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
-
-        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
-            return $this->json(['error' => 'Job not found or access denied'], 404);
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
         // Only allow deletion of completed, failed, or stopped jobs
@@ -293,10 +296,9 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/job/{jobId}/stop', name: 'bulk_info_provider_stop', methods: ['POST'])]
     public function stopJob(int $jobId): Response
     {
-        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
-
-        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
-            return $this->json(['error' => 'Job not found or access denied'], 404);
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
         // Only allow stopping of pending or in-progress jobs
@@ -314,6 +316,8 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/step2/{jobId}', name: 'bulk_info_provider_step2')]
     public function step2(int $jobId): Response
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
         $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
 
         if (!$job) {
@@ -342,10 +346,9 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/job/{jobId}/part/{partId}/mark-completed', name: 'bulk_info_provider_mark_completed', methods: ['POST'])]
     public function markPartCompleted(int $jobId, int $partId): Response
     {
-        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
-
-        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
-            return $this->json(['error' => 'Job not found or access denied'], 404);
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
         $job->markPartAsCompleted($partId);
@@ -369,10 +372,9 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/job/{jobId}/part/{partId}/mark-skipped', name: 'bulk_info_provider_mark_skipped', methods: ['POST'])]
     public function markPartSkipped(int $jobId, int $partId, Request $request): Response
     {
-        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
-
-        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
-            return $this->json(['error' => 'Job not found or access denied'], 404);
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
         $reason = $request->request->get('reason', '');
@@ -398,10 +400,9 @@ class BulkInfoProviderImportController extends AbstractController
     #[Route('/job/{jobId}/part/{partId}/mark-pending', name: 'bulk_info_provider_mark_pending', methods: ['POST'])]
     public function markPartPending(int $jobId, int $partId): Response
     {
-        $job = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
-
-        if (!$job || $job->getCreatedBy() !== $this->getUser()) {
-            return $this->json(['error' => 'Job not found or access denied'], 404);
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
         $job->markPartAsPending($partId);
