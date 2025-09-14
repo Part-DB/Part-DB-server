@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
+use A\B;
 use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
@@ -96,10 +97,10 @@ final class BulkInfoProviderService
     }
 
     /**
-     * @param  array  $parts
+     * @param  Part[]  $parts
      * @param  array  $fieldMappings
      * @param  array<string, BatchInfoProviderInterface>  $batchProviders
-     * @return array
+     * @return array<int, BulkSearchResultDTO[]> A list of results indexed by part ID
      */
     private function processBatchProviders(array $parts, array $fieldMappings, array $batchProviders): array
     {
@@ -150,9 +151,9 @@ final class BulkInfoProviderService
     /**
      * @param  Part[]  $parts
      * @param  array $fieldMappings
-     * @param  array  $regularProviders
+     * @param  array<string, InfoProviderInterface>  $regularProviders The info providers that do not support batch searching, indexed by their provider key
      * @param  array  $excludeResults
-     * @return array
+     * @return array <int, BulkSearchResultDTO[]> A list of results indexed by part ID
      */
     private function processRegularProviders(array $parts, array $fieldMappings, array $regularProviders, array $excludeResults): array
     {
