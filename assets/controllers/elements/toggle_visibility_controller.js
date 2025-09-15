@@ -7,30 +7,41 @@ export default class extends Controller {
     };
 
     connect() {
-        this.readableCheckbox = this.element.querySelector("#readable");
+        this.displayCheckbox = this.element.querySelector("#display");
+        this.displaySelect = this.element.querySelector("select#display");
 
-        if (!this.readableCheckbox) {
-            return;
+        if (this.displayCheckbox) {
+            this.toggleContainers(this.displayCheckbox.checked);
+
+            this.displayCheckbox.addEventListener("change", (event) => {
+                this.toggleContainers(event.target.checked);
+            });
         }
 
-        // Apply the initial visibility state based on the checkbox being checked or not
-        this.toggleContainers(this.readableCheckbox.checked);
+        if (this.displaySelect) {
+            this.toggleContainers(this.hasDisplaySelectValue());
 
-        // Add a change event listener to the 'readable' checkbox
-        this.readableCheckbox.addEventListener("change", (event) => {
-            // Toggle container visibility when the checkbox value changes
-            this.toggleContainers(event.target.checked);
-        });
+            this.displaySelect.addEventListener("change", () => {
+                this.toggleContainers(this.hasDisplaySelectValue());
+            });
+        }
+
     }
 
     /**
-     * Toggles the visibility of containers based on the checkbox state.
-     * Hides specified containers if the checkbox is checked and shows them otherwise.
-     *
-     * @param {boolean} isChecked - The current state of the checkbox:
-     *                              true if checked (hide elements), false if unchecked (show them).
+     * Check whether a value was selected in the selectbox
+     * @returns {boolean} True when a value has not been selected that is not empty
      */
-    toggleContainers(isChecked) {
+    hasDisplaySelectValue() {
+        return this.displaySelect && this.displaySelect.value !== "";
+    }
+
+    /**
+     * Hides specified containers if the state is active (checkbox checked or select with value).
+     *
+     * @param {boolean} isActive - True when the checkbox is activated or the selectbox has a value.
+     */
+    toggleContainers(isActive) {
         if (!Array.isArray(this.classesValue) || this.classesValue.length === 0) {
             return;
         }
@@ -42,11 +53,10 @@ export default class extends Controller {
                 return;
             }
 
-            // Update the visibility for each selected element
             elements.forEach((element) => {
-                // If the checkbox is checked, hide the container; otherwise, show it
-                element.style.display = isChecked ? "none" : "";
+                element.style.display = isActive ? "none" : "";
             });
         });
     }
+
 }

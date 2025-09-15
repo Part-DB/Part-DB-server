@@ -35,13 +35,13 @@
     </div>
 
     <div class="row mt-2">
-        <div class="offset-md-3 col-sm">
-            <div class="form-check">
-                <input class="form-check-input form-check-input" name="readable" id="readable" type="checkbox" data-action="change->toggle-visibility#toggle">
-                <label class="form-check-label form-check-label" for="readable">
-                    {% trans %}export.readable{% endtrans %}
-                </label>
-            </div>
+        <label class="col-form-label col-md-3" for="readableSelect" >{% trans %}export.readable.label{% endtrans %}</label>
+        <div class="col-md-9">
+            <select id="display" name="readableSelect" class="form-select" data-action="change->action-handler#handleAction">
+                <option value="" selected></option>
+                <option value="readable">{% trans %}export.readable{% endtrans %}</option>
+                <option value="readable_bom">{% trans %}export.readable_bom{% endtrans %}</option>
+            </select>
         </div>
     </div>
 
