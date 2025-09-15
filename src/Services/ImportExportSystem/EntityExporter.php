@@ -81,8 +81,9 @@ class EntityExporter
         $resolver->setDefault('include_children', false);
         $resolver->setAllowedTypes('include_children', 'bool');
 
-        $resolver->setDefault('readable', false);
-        $resolver->setAllowedTypes('readable', 'bool');
+        $resolver->setDefault('readableSelect', null);
+        $resolver->setAllowedValues('readableSelect', [null, 'readable', 'readable_bom']);
+
     }
 
     /**
@@ -240,7 +241,7 @@ class EntityExporter
             $entities = [$entities];
         }
 
-        if ($request->get('readable', false)) {
+        if ($request->get('readableSelect', false) === 'readable') {
             // Map entity classes to export functions
             $entityExportMap = [
                 AttachmentType::class => fn($entities) => $this->exportReadable($entities, AttachmentType::class),
@@ -273,6 +274,23 @@ class EntityExporter
 
             $options['format'] = 'csv';
             $options['level'] = 'readable';
+        } if ($request->get('readableSelect', false) === 'readable_bom') {
+            $hierarchies = [];
+
+            foreach ($entities as $entity) {
+                if (!$entity instanceof Assembly) {
+                    throw new InvalidArgumentException('Only assemblies can be exported in readable BOM format');
+                }
+
+                $hierarchies[] = $this->assemblyPartAggregator->processAssemblyHierarchyForPdf($entity, 0, 1, 1);
+            }
+
+            $pdfContent = $this->assemblyPartAggregator->exportReadableHierarchyForPdf($hierarchies);
+
+            $response = new Response($pdfContent);
+
+            $options['format'] = 'pdf';
+            $options['level'] = 'readable_bom';
         } else {
             //Do the serialization with the given options
             $serialized_data = $this->exportEntities($entities, $options);
@@ -294,6 +312,7 @@ class EntityExporter
             'json' => 'application/json',
             'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'xls' => 'application/vnd.ms-excel',
+            'pdf' => 'application/pdf',
             default => 'text/plain',
         };
         $response->headers->set('Content-Type', $content_type);

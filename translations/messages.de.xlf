@@ -1004,10 +1004,22 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Unterelemente auch exportieren</target>
       </segment>
     </unit>
+    <unit id="Ujhd6e3" name="export.readable.label">
+      <segment state="translated">
+        <source>export.readable.label</source>
+        <target>Lesbarer Export</target>
+      </segment>
+    </unit>
     <unit id="a5h8ltP" name="export.readable">
       <segment state="translated">
         <source>export.readable</source>
-        <target>Lesbares CSV</target>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="keJnq8f" name="export.readable_bom">
+      <segment state="translated">
+        <source>export.readable_bom</source>
+        <target>PDF</target>
       </segment>
     </unit>
     <unit id="Pdmfku8" name="export.btn">

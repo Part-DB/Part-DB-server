@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assembly Hierarchy</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 10px;}
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .assembly-header { font-size: 14px; font-weight: bold; margin-top: 10px; margin-bottom: 10px; }
+        .toc-table { margin-bottom: 40px; width: auto; font-size: 12px; }
+        .toc-table th, .toc-table td { border: none; padding: 5px; text-align: left; }
+        .referenced-assembly-table { margin-left: 20px; margin-top: 10px; }
+        .page-break { page-break-after: always; }
+        #footer { position: fixed; right: 0px; bottom: 10px; text-align: center; font-size: 10px; }
+        #footer .page:after { content: counter(page, decimal); }
+        @page { margin: 20px 30px 40px 50px; }
+    </style>
+</head>
+<body>
+
+<!-- Inhaltsverzeichnis -->
+<h1>Table of Contents</h1>
+<table class="toc-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Assembly Name</th>
+        <th>IPN</th>
+        <th>Section</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for assembly in assemblies %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>Assembly: {{ assembly.name }}</td>
+            <td>{% if assembly.ipn != '' %}{{ assembly.ipn }}{% else %}-{% endif %}</td>
+            <td>{{ loop.index + 1 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="page-break"></div>
+
+<!-- Assembly Details -->
+{% for assembly in assemblies %}
+    <div class="assembly-header">Assembly: {{ assembly.name }}</div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>IPN</th>
+            <th>Quantity</th>
+            <th>Multiplier</th>
+            <th>Effective Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for part in assembly.parts %}
+            <tr>
+                <td>{{ part.name }}</td>
+                <td>{{ part.ipn }}</td>
+                <td>{{ part.quantity }}</td>
+                <td>{% if assembly.multiplier %}{{ assembly.multiplier }}{% else %}-{% endif %}</td>
+                <td>{{ part.effectiveQuantity }}</td>
+            </tr>
+        {% endfor %}
+        {% for other in assembly.others %}
+            <tr>
+                <td>{{ other.name }}</td>
+                <td>{{ other.ipn }}</td>
+                <td>{{ other.quantity }}</td>
+                <td>{{ other.multiplier }}</td>
+                <td>{{ other.effectiveQuantity }}</td>
+            </tr>
+        {% endfor %}
+        {% for referencedAssembly in assembly.referencedAssemblies %}
+            <tr>
+                <td>{{ referencedAssembly.name }}</td>
+                <td>{{ referencedAssembly.ipn }}</td>
+                <td>{{ referencedAssembly.quantity }}</td>
+                <td></td>
+                <td>{{ referencedAssembly.quantity }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% for refAssembly in assembly.referencedAssemblies %}
+        {% include 'assemblies/export_bom_referenced_assembly_pdf.html.twig' with {'assembly': refAssembly} only %}
+    {% endfor %}
+
+    {% if not loop.last %}
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+
+    <div id="footer">
+        <p class="page">Section </p>
+    </div>
+{% endfor %}
+</body>
+</html>

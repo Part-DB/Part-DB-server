@@ -1,0 +1,55 @@
+<div class="referenced-assembly-table">
+    <div class="assembly-header">Referenced Assembly: {{ assembly.name }} [IPN: {% if assembly.ipn != '' %}{{ assembly.ipn }}{% else %}-{% endif %}, quantity: {{ assembly.quantity }}]</div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>IPN</th>
+            <th>Quantity</th>
+            <th>Multiplier</th>
+            <th>Effective Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for part in assembly.parts %}
+            <tr>
+                <td>Part</td>
+                <td>{{ part.name }}</td>
+                <td>{{ part.ipn }}</td>
+                <td>{{ part.quantity }}</td>
+                <td>{% if assembly.multiplier %}{{ assembly.multiplier }}{% else %}-{% endif %}</td>
+                <td>{{ part.effectiveQuantity }}</td>
+            </tr>
+        {% endfor %}
+
+        {% for other in assembly.others %}
+            <tr>
+                <td>Other</td>
+                <td>{{ other.name }}</td>
+                <td>-</td>
+                <td>{{ other.quantity }}</td>
+                <td>{{ other.multiplier }}</td>
+                <td>-</td>
+            </tr>
+        {% endfor %}
+
+        {% for referencedAssembly in assembly.referencedAssemblies %}
+            <tr>
+                <td>Referenced assembly</td>
+                <td>{{ referencedAssembly.name }}</td>
+                <td>-</td>
+                <td>{{ referencedAssembly.quantity }}</td>
+                <td></td>
+                <td>{{ referencedAssembly.multiplier }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Rekursive Auflistung weiterer Assemblies -->
+    {% for refAssembly in assembly.referencedAssemblies %}
+        {% include 'assemblies/export_bom_referenced_assembly_pdf.html.twig' with {'assembly': refAssembly} only %}
+    {% endfor %}
+</div>
