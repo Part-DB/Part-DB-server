@@ -24,6 +24,16 @@ final class Version20240905085300 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `parts` DROP orderamount, DROP orderDelivery');
     }
 
+    public function postgreSQLUp(Schema $schema): void
+    {
+        $this->addSql('ALTER TABLE parts ADD orderamount DOUBLE PRECISION NOT NULL DEFAULT 0, ADD orderDelivery timestamp');
+    }
+
+    public function postgreSQLDown(Schema $schema): void
+    {
+        $this->addSql('ALTER TABLE parts DROP orderamount, DROP orderDelivery');
+    }
+
     public function sqLiteUp(Schema $schema): void
     {
         $this->addSql('ALTER TABLE parts ADD COLUMN orderamount DOUBLE PRECISION NOT NULL DEFAULT 0');

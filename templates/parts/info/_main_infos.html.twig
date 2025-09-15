@@ -79,10 +79,10 @@
             {% if part.orderAmount > 0 %}
                 (+
                 <span title="{% trans %}orderstock.label{% endtrans %}">{{ part.orderAmount | format_amount(part.partUnit) }}</span>
-                {% if part.orderDate %}
+                {% if part.orderDelivery %}
                     @
-                    <span class="badge bg-info mb-1" title="{% trans %}part.filter.orderDate{% endtrans %}">
-                    <i class="fas fa-calendar-alt fa-fw"></i> {{ part.orderDate | format_date() }}<br>
+                    <span class="badge bg-info mb-1" title="{% trans %}part.filter.orderDelivery{% endtrans %}">
+                    <i class="fas fa-calendar-alt fa-fw"></i> {{ part.orderDelivery | format_date() }}<br>
                     </span>
                 {% endif %}
                 )
