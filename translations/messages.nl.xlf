@@ -351,10 +351,22 @@
         <target>Exporteer alle elementen</target>
       </segment>
     </unit>
+    <unit id="Ujhd6e3" name="export.readable.label">
+      <segment state="translated">
+        <source>export.readable.label</source>
+        <target>Leesbare export</target>
+      </segment>
+    </unit>
     <unit id="a5h8ltP" name="export.readable">
       <segment state="translated">
         <source>export.readable</source>
-        <target>Leesbare CSV</target>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="keJnq8f" name="export.readable_bom">
+      <segment state="translated">
+        <source>export.readable_bom</source>
+        <target>PDF</target>
       </segment>
     </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
