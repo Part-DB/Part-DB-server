@@ -2345,6 +2345,18 @@ Sub elements will be moved upwards.</target>
         <target>Minimum amount</target>
       </segment>
     </unit>
+    <unit id="paZGdmg" name="part.table.orderamount">
+      <segment state="translated">
+        <source>part.table.orderamount</source>
+        <target>Ordered amount</target>
+      </segment>
+    </unit>
+    <unit id="paZGdmh" name="part.table.orderDelivery">
+      <segment state="translated">
+        <source>part.table.orderDelivery</source>
+        <target>Delivery date</target>
+      </segment>
+    </unit>
     <unit id="oO3jvSb" name="part.order.price">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
@@ -5583,6 +5595,18 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>part.edit.mininstock</source>
         <target>Minimum stock</target>
+      </segment>
+    </unit>
+    <unit id="AVZaczj" name="part.edit.orderstock">
+      <segment state="translated">
+        <source>part.edit.orderstock</source>
+        <target>Ordered amount</target>
+      </segment>
+    </unit>
+    <unit id="AVZaczk" name="part.edit.orderDelivery">
+      <segment state="translated">
+        <source>part.edit.orderDelivery</source>
+        <target>Delivery date</target>
       </segment>
     </unit>
     <unit id="EpsnDlo" name="part.edit.category">

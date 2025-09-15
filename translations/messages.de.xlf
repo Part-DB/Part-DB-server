@@ -4820,6 +4820,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Min. Menge</target>
       </segment>
     </unit>
+    <unit id="paZGdmg" name="part.table.orderamount">
+      <segment state="translated">
+        <source>part.table.orderamount</source>
+        <target>Bestellte Menge</target>
+      </segment>
+    </unit>
+    <unit id="paZGdmh" name="part.table.orderDelivery">
+      <segment state="translated">
+        <source>part.table.orderDelivery</source>
+        <target>Lieferdatum</target>
+      </segment>
+    </unit>
     <unit id="F6gnPca" name="part.table.partUnit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:232</note>
@@ -5582,6 +5594,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>part.edit.mininstock</source>
         <target>Mindestbestand</target>
+      </segment>
+    </unit>
+    <unit id="AVZaczj" name="part.edit.orderstock">
+      <segment state="translated">
+        <source>part.edit.orderstock</source>
+        <target>Bestellte Menge</target>
+      </segment>
+    </unit>
+    <unit id="AVZaczk" name="part.edit.orderDelivery">
+      <segment state="translated">
+        <source>part.edit.orderDelivery</source>
+        <target>Lieferdatum</target>
       </segment>
     </unit>
     <unit id="EpsnDlo" name="part.edit.category">
