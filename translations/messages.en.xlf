@@ -12023,6 +12023,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update part from info providers</target>
       </segment>
     </unit>
+    <unit id="Bxk6TEx" name="part.delivered.btn">
+      <segment state="translated">
+        <source>part.delivered.btn</source>
+        <target>Ordered amount has been delivered</target>
+      </segment>
+    </unit>
     <unit id="7pDRUQB" name="info_providers.update_part.title">
       <segment state="translated">
         <source>info_providers.update_part.title</source>

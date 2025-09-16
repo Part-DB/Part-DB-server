@@ -12022,6 +12022,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauteil aus Informationsquelle aktualisieren</target>
       </segment>
     </unit>
+    <unit id="Bxk6TEx" name="part.delivered.btn">
+      <segment state="translated">
+        <source>part.delivered.btn</source>
+        <target>Bestellte Menge wurde geliefert</target>
+      </segment>
+    </unit>
     <unit id="7pDRUQB" name="info_providers.update_part.title">
       <segment state="translated">
         <source>info_providers.update_part.title</source>
