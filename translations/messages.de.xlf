@@ -10295,7 +10295,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Oder Sie könne direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
+        <target>Oder Sie können direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
