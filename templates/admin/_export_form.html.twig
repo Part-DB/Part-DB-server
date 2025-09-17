@@ -34,16 +34,28 @@
         </div>
     </div>
 
-    <div class="row mt-2">
-        <label class="col-form-label col-md-3" for="readableSelect" >{% trans %}export.readable.label{% endtrans %}</label>
-        <div class="col-md-9">
-            <select id="display" name="readableSelect" class="form-select" data-action="change->action-handler#handleAction">
-                <option value="" selected></option>
-                <option value="readable">{% trans %}export.readable{% endtrans %}</option>
-                <option value="readable_bom">{% trans %}export.readable_bom{% endtrans %}</option>
-            </select>
+    {% if path is defined and 'assembly' in path %}
+        <div class="row mt-2">
+            <label class="col-form-label col-md-3" for="readableSelect" >{% trans %}export.readable.label{% endtrans %}</label>
+            <div class="col-md-9">
+                <select id="display" name="readableSelect" class="form-select" data-action="change->action-handler#handleAction">
+                    <option value="" selected></option>
+                    <option value="readable">{% trans %}export.readable{% endtrans %}</option>
+                    <option value="readable_bom">{% trans %}export.readable_bom{% endtrans %}</option>
+                </select>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="row mt-2 align-items-center">
+            <label class="col-form-label col-md-3" for="readableSelect">{% trans %}export.readable.label{% endtrans %}</label>
+            <div class="col-md-9 d-flex align-items-center">
+                <input class="form-check-input me-2" name="readableSelect" value="readable" id="display" type="checkbox" data-action="change->action-handler#handleAction">
+                <label class="form-check-label" for="display">
+                    {% trans %}export.readable{% endtrans %}
+                </label>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="row mt-2">
         <div class="offset-sm-3 col-sm">

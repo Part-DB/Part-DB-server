@@ -274,7 +274,7 @@ class EntityExporter
 
             $options['format'] = 'csv';
             $options['level'] = 'readable';
-        } if ($request->get('readableSelect', false) === 'readable_bom') {
+        } elseif ($request->get('readableSelect', false) === 'readable_bom') {
             $hierarchies = [];
 
             foreach ($entities as $entity) {
