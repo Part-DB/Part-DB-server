@@ -1,4 +1,5 @@
-{% set can_build = buildHelper.projectBuildable(project) %}
+{% set bom_empty = project.bomEntries | length == 0 %}
+{% set can_build = not bom_empty and buildHelper.projectBuildable(project) %}
 
 {% import "components/projects.macro.html.twig" as project_macros %}
 
@@ -9,7 +10,10 @@
 {% endif %}
 
 <div class="alert mt-2 {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
-    {% if not can_build %}
+    {% if bom_empty %}
+        <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.no_bom_entries{% endtrans %}</h5>
+        <span class="text-muted">{% trans %}project.builds.no_bom_entries_hint{% endtrans %}</span>
+    {% elseif not can_build %}
         <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
         <b>{% trans %}project.builds.following_bom_entries_miss_instock{% endtrans %}</b>
         <ul>
@@ -27,7 +31,7 @@
     <div class="row mt-2">
         <div class="col-4">
             <div class="input-group mb-3">
-                <input type="number" min="1" class="form-control" placeholder="{% trans %}project.builds.number_of_builds{% endtrans %}" name="n" required>
+                <input type="number" min="1" class="form-control" placeholder="{% trans %}project.builds.number_of_builds{% endtrans %}" name="n" required value="1">
                 <input type="hidden" name="_redirect" value="{{  uri_without_host(app.request) }}">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">{% trans %}project.build.btn_build{% endtrans %}</button>
             </div>
