@@ -9761,7 +9761,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="wZmvg7i" name="project.bom.quantity">
       <segment state="translated">
         <source>project.bom.quantity</source>
-        <target>BOM Menge</target>
+        <target>BOM-Menge</target>
       </segment>
     </unit>
     <unit id="tLW4nD1" name="project.bom.mountnames">
@@ -10547,7 +10547,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sBVDEyp" name="log.element_edited.changed_fields.auto_product_url">
       <segment state="translated">
         <source>log.element_edited.changed_fields.auto_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="h9kfyaE" name="log.element_edited.changed_fields.is_full">
@@ -10577,7 +10577,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Op5BIZr" name="log.element_edited.changed_fields.footprint_3d">
       <segment state="translated">
         <source>log.element_edited.changed_fields.footprint_3d</source>
-        <target>3D Modell</target>
+        <target>3D-Modell</target>
       </segment>
     </unit>
     <unit id="EjLCiIb" name="log.element_edited.changed_fields.master_picture_attachment">
@@ -10841,7 +10841,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="6LmTC_6" name="user.saml_user.pw_change_hint">
       <segment state="translated">
         <source>user.saml_user.pw_change_hint</source>
-        <target>Sie verwenden Single-Sign-On (SSO) zum Einloggen. Sie können Ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO-Anbieters!</target>
+        <target>Sie verwenden Single Sign-on (SSO) zum Einloggen. Sie können Ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO-Anbieters!</target>
       </segment>
     </unit>
     <unit id="DM_p1JB" name="login.sso_saml_login">
@@ -10853,7 +10853,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="03xCu1l" name="login.local_login_hint">
       <segment state="translated">
         <source>login.local_login_hint</source>
-        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single-Sign-On einloggen wollen, nutzen Sie den obenstehenden Button.</target>
+        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-on einloggen wollen, nutzen Sie den obenstehenden Button.</target>
       </segment>
     </unit>
     <unit id="HG8kB1l" name="part_list.action.action.export">
@@ -11731,7 +11731,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="GHM.X8R" name="perm.api.access_api">
       <segment state="translated">
         <source>perm.api.access_api</source>
-        <target>API Zugriff</target>
+        <target>API-Zugriff</target>
       </segment>
     </unit>
     <unit id="OrJrwBa" name="perm.api.manage_tokens">
@@ -11917,7 +11917,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>Wenn dieser Bestand bereits ein Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch scannen des Barcodes finden.</target>
+        <target>Wenn dieser Bestand bereits einen Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch Scannen des Barcodes finden.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
@@ -12043,7 +12043,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="duBTELg" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Lösche diesen Bestand, wenn er durch Operation leer wird</target>
+        <target>Lösche diesen Bestand, wenn er durch die Operation leer wird</target>
       </segment>
     </unit>
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
@@ -12067,7 +12067,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="Ta9otKz" name="eda_info.kicad_section.title">
       <segment state="translated">
         <source>eda_info.kicad_section.title</source>
-        <target>KiCad spezifische Einstellungen</target>
+        <target>KiCad-spezifische Einstellungen</target>
       </segment>
     </unit>
     <unit id="zjeDW4V" name="eda_info.value">
@@ -12193,7 +12193,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="VZuIXC1" name="info_providers.search.no_results">
       <segment state="translated">
         <source>info_providers.search.no_results</source>
-        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
+        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie Ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
       </segment>
     </unit>
     <unit id="It1umoK" name="tfa.check.code.confirmation">
@@ -12223,7 +12223,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
       <segment state="translated">
         <source>info_providers.search.existing_part_found</source>
-        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es das gleiche ist und ob Sie dies erneut erstellen möchten!</target>
+        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es dasselbe ist und ob Sie dies erneut erstellen möchten!</target>
       </segment>
     </unit>
     <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
@@ -12259,7 +12259,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
-        <target>Info Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
+        <target>Info-Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
       </segment>
     </unit>
     <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
@@ -12385,7 +12385,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
       <segment state="translated">
         <source>settings.ips.mouser.apiKey</source>
-        <target>API Key</target>
+        <target>API-Key</target>
       </segment>
     </unit>
     <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
@@ -12686,7 +12686,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
-        <target>KiCAD Integration</target>
+        <target>KiCAD-Integration</target>
       </segment>
     </unit>
     <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
@@ -13046,7 +13046,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
       <segment state="translated">
         <source>project.bom_import.map_fields.help</source>
-        <target>Wählen Sie aus, wie CSV Spalten auf BOM Felder gemappt werden</target>
+        <target>Wählen Sie aus, wie CSV Spalten auf BOM-Felder gemappt werden</target>
       </segment>
     </unit>
     <unit id="nh7uLPe" name="project.bom_import.delimiter">
@@ -13082,7 +13082,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
       <segment state="translated">
         <source>project.bom_import.field_mapping.csv_field</source>
-        <target>CSV Spalte</target>
+        <target>CSV-Spalte</target>
       </segment>
     </unit>
     <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
@@ -13448,7 +13448,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
       <segment state="translated">
         <source>settings.behavior.part_info.extract_params_from_notes</source>
-        <target>Parameter aus der Bauteilenotiz extrahieren</target>
+        <target>Parameter aus der Bauteil-Notiz extrahieren</target>
       </segment>
     </unit>
     <unit id="nCH2MW6" name="settings.ips.default_providers">
