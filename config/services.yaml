@@ -17,6 +17,8 @@ services:
             bool $gdpr_compliance: '%partdb.gdpr_compliance%'
             bool $kernel_debug_enabled: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
+            int $bulkImportBatchSize: '%partdb.bulk_import.batch_size%'
+            int $bulkImportMaxParts: '%partdb.bulk_import.max_parts_per_operation%'
 
     _instanceof:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:

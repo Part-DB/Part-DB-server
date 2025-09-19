@@ -29,7 +29,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
-use App\Services\InfoProviderSystem\DTOs\BulkSearchRequestDTO;
+use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,8 +45,25 @@ class BulkInfoProviderImportController extends AbstractController
     public function __construct(
         private readonly BulkInfoProviderService $bulkService,
         private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly int $bulkImportBatchSize,
+        private readonly int $bulkImportMaxParts
     ) {
+    }
+
+    /**
+     * Convert field mappings from array format to FieldMappingDTO[].
+     *
+     * @param array $fieldMappings Array of field mapping arrays
+     * @return FieldMappingDTO[] Array of FieldMappingDTO objects
+     */
+    private function convertFieldMappingsToDto(array $fieldMappings): array
+    {
+        $dtos = [];
+        foreach ($fieldMappings as $mapping) {
+            $dtos[] = FieldMappingDTO::fromArray($mapping);
+        }
+        return $dtos;
     }
 
     private function createErrorResponse(string $message, int $statusCode = 400, array $context = []): JsonResponse
@@ -122,7 +139,17 @@ class BulkInfoProviderImportController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        if (count($parts) > 50) {
+        // Validate against configured maximum
+        if (count($parts) > $this->bulkImportMaxParts) {
+            $this->addFlash('error', sprintf(
+                'Too many parts selected (%d). Maximum allowed is %d parts per operation.',
+                count($parts),
+                $this->bulkImportMaxParts
+            ));
+            return $this->redirectToRoute('homepage');
+        }
+
+        if (count($parts) > ($this->bulkImportMaxParts / 2)) {
             $this->addFlash('warning', 'Processing ' . count($parts) . ' parts may take several minutes and could timeout. Consider processing smaller batches.');
         }
 
@@ -164,6 +191,13 @@ class BulkInfoProviderImportController extends AbstractController
                 throw new \RuntimeException('User must be authenticated and of type User');
             }
 
+            // Validate part count against configuration limit
+            if (count($parts) > $this->bulkImportMaxParts) {
+                $this->addFlash('error', "Too many parts selected. Maximum allowed: {$this->bulkImportMaxParts}");
+                $partIds = array_map(fn($part) => $part->getId(), $parts);
+                return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
+            }
+
             // Create and save the job
             $job = new BulkInfoProviderImportJob();
             $job->setFieldMappings($fieldMappings);
@@ -179,13 +213,11 @@ class BulkInfoProviderImportController extends AbstractController
             $this->entityManager->flush();
 
             try {
-                $searchRequest = new BulkSearchRequestDTO(
-                    fieldMappings: $fieldMappings,
-                    prefetchDetails: $prefetchDetails,
-                    parts: $parts
-                );
+                $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
+                $searchResultsDto = $this->bulkService->performBulkSearch($parts, $fieldMappingDtos, $prefetchDetails);
 
-                $searchResults = $this->bulkService->performBulkSearch($searchRequest);
+                // Convert DTO back to array format for legacy compatibility
+                $searchResults = $searchResultsDto->toArray();
 
                 // Save search results to job
                 $job->setSearchResults($job->serializeSearchResults($searchResults));
@@ -210,6 +242,7 @@ class BulkInfoProviderImportController extends AbstractController
                 $this->entityManager->flush();
 
                 $this->addFlash('error', 'Search failed due to an error: ' . $e->getMessage());
+                $partIds = array_map(fn($part) => $part->getId(), $parts);
                 return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
             }
         }
@@ -441,14 +474,11 @@ class BulkInfoProviderImportController extends AbstractController
             $fieldMappings = $job->getFieldMappings();
             $prefetchDetails = $job->isPrefetchDetails();
 
-            $searchRequest = new BulkSearchRequestDTO(
-                fieldMappings: $fieldMappings,
-                prefetchDetails: $prefetchDetails,
-                parts: [$part]
-            );
+            $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
 
             try {
-                $searchResults = $this->bulkService->performBulkSearch($searchRequest);
+                $searchResultsDto = $this->bulkService->performBulkSearch([$part], $fieldMappingDtos, $prefetchDetails);
+                $searchResults = $searchResultsDto->toArray();
             } catch (\Exception $searchException) {
                 // Handle "no search results found" as a normal case, not an error
                 if (str_contains($searchException->getMessage(), 'No search results found')) {
@@ -500,13 +530,11 @@ class BulkInfoProviderImportController extends AbstractController
             return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
-        // Get all part IDs that are not completed or skipped
+        // Get all parts that are not completed or skipped
         $parts = [];
-        $partIds = [];
         foreach ($job->getJobParts() as $jobPart) {
             if (!$jobPart->isCompleted() && !$jobPart->isSkipped()) {
                 $parts[] = $jobPart->getPart();
-                $partsIds[] = $jobPart->getPart()->getId();
             }
         }
 
@@ -520,26 +548,22 @@ class BulkInfoProviderImportController extends AbstractController
 
         try {
             $fieldMappings = $job->getFieldMappings();
+            $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
             $prefetchDetails = $job->isPrefetchDetails();
 
             // Process in batches to reduce memory usage for large operations
-            $batchSize = 20; // Configurable batch size for memory management
             $allResults = [];
-            $batches = array_chunk($parts, $batchSize);
+            $batches = array_chunk($parts, $this->bulkImportBatchSize);
 
             foreach ($batches as $batch) {
-                $searchRequest = new BulkSearchRequestDTO(
-                    fieldMappings: $fieldMappings,
-                    prefetchDetails: $prefetchDetails,
-                    parts: $batch
-                );
-
-                $batchResults = $this->bulkService->performBulkSearch($searchRequest);
+                $batchResultsDto = $this->bulkService->performBulkSearch($batch, $fieldMappingDtos, $prefetchDetails);
+                $batchResults = $batchResultsDto->toArray();
                 $allResults = array_merge($allResults, $batchResults);
 
-                // Clear entity manager periodically to prevent memory issues
+                // Properly manage entity manager memory without losing state
+                $jobId = $job->getId();
                 $this->entityManager->clear();
-                $job = $this->entityManager->find(BulkInfoProviderImportJob::class, $job->getId());
+                $job = $this->entityManager->find(BulkInfoProviderImportJob::class, $jobId);
             }
 
             // Update the job's search results
@@ -564,7 +588,7 @@ class BulkInfoProviderImportController extends AbstractController
                 500,
                 [
                     'job_id' => $jobId,
-                    'part_ids' => $partsIds,
+                    'part_count' => count($parts),
                     'exception' => $e->getMessage()
                 ]
             );

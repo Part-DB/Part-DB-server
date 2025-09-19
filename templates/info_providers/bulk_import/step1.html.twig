@@ -140,15 +140,14 @@
          data-controller="field-mapping"
          data-field-mapping-mapping-index-value="{{ form.field_mappings|length }}"
          data-field-mapping-max-mappings-value="{{ fieldChoices|length }}"
-         data-field-mapping-prototype-value="{{ form_widget(form.field_mappings.vars.prototype)|e('js') }}"
+         data-field-mapping-prototype-value="{{ form_widget(form.field_mappings.vars.prototype)|e('html_attr') }}"
          data-field-mapping-max-mappings-reached-message-value="{{ 'info_providers.bulk_import.max_mappings_reached'|trans|e('js') }}">
         <div class="card-header">
             <h5 class="mb-0">{% trans %}info_providers.bulk_import.field_mappings{% endtrans %}</h5>
             <small class="text-muted">{% trans %}info_providers.bulk_import.field_mappings_help{% endtrans %}</small>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped">
+            <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>{% trans %}info_providers.bulk_search.search_field{% endtrans %}</th>
@@ -171,11 +170,12 @@
                             </tr>
                         {% endfor %}
                     </tbody>
-                </table>
-                <button type="button" class="btn btn-success btn-sm" id="addMappingBtn" data-field-mapping-target="addButton">
-                    <i class="fas fa-plus"></i> {% trans %}info_providers.bulk_import.add_mapping{% endtrans %}
-                </button>
-            </div>
+            </table>
+            <button type="button" class="btn btn-success btn-sm" id="addMappingBtn"
+                    data-field-mapping-target="addButton"
+                    data-action="click->field-mapping#addMapping">
+                <i class="fas fa-plus"></i> {% trans %}info_providers.bulk_import.add_mapping{% endtrans %}
+            </button>
         </div>
     </div>
 

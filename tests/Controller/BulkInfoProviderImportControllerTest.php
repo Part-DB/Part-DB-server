@@ -657,20 +657,16 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         // Test that the service can extract keywords from parts
         $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
 
-        // Create a test request to verify the service works
-        $request = new \App\Services\InfoProviderSystem\DTOs\BulkSearchRequestDTO(
-            fieldMappings: [
-                ['field' => 'name', 'providers' => ['test'], 'priority' => 1],
-                ['field' => 'mpn', 'providers' => ['test'], 'priority' => 2]
-            ],
-            prefetchDetails: false,
-            parts: [$part]
-        );
+        // Create field mappings to verify the service works
+        $fieldMappings = [
+            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('name', ['test'], 1),
+            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('mpn', ['test'], 2)
+        ];
 
         // The service may return an empty result or throw when no results are found
         try {
-            $result = $bulkService->performBulkSearch($request);
-            $this->assertIsArray($result);
+            $result = $bulkService->performBulkSearch([$part], $fieldMappings, false);
+            $this->assertInstanceOf(\App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO::class, $result);
         } catch (\RuntimeException $e) {
             $this->assertStringContainsString('No search results found', $e->getMessage());
         }
@@ -792,19 +788,15 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         // Test that the service can handle supplier part number fields
         $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
 
-        // Create a test request with supplier SPN field mapping
-        $request = new \App\Services\InfoProviderSystem\DTOs\BulkSearchRequestDTO(
-            fieldMappings: [
-                ['field' => 'invalid_field', 'providers' => ['test'], 'priority' => 1],
-                ['field' => 'test_supplier_spn', 'providers' => ['test'], 'priority' => 2]
-            ],
-            prefetchDetails: false,
-            parts: [$part]
-        );
+        // Create field mappings with supplier SPN field mapping
+        $fieldMappings = [
+            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('invalid_field', ['test'], 1),
+            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('test_supplier_spn', ['test'], 2)
+        ];
 
         // The service should be able to process the request and throw an exception when no results are found
         try {
-            $bulkService->performBulkSearch($request);
+            $bulkService->performBulkSearch([$part], $fieldMappings, false);
             $this->fail('Expected RuntimeException to be thrown when no search results are found');
         } catch (\RuntimeException $e) {
             $this->assertStringContainsString('No search results found', $e->getMessage());
@@ -827,18 +819,14 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         // Test that the service can handle batch processing
         $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
 
-        // Create a test request with multiple keywords
-        $request = new \App\Services\InfoProviderSystem\DTOs\BulkSearchRequestDTO(
-            fieldMappings: [
-                ['field' => 'name', 'providers' => ['lcsc'], 'priority' => 1]
-            ],
-            prefetchDetails: false,
-            parts: [$part]
-        );
+        // Create field mappings with multiple keywords
+        $fieldMappings = [
+            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('name', ['lcsc'], 1)
+        ];
 
         // The service should be able to process the request and throw an exception when no results are found
         try {
-            $bulkService->performBulkSearch($request);
+            $bulkService->performBulkSearch([$part], $fieldMappings, false);
             $this->fail('Expected RuntimeException to be thrown when no search results are found');
         } catch (\RuntimeException $e) {
             $this->assertStringContainsString('No search results found', $e->getMessage());

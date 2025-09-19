@@ -22,10 +22,8 @@ export default class extends Controller {
             select.addEventListener('change', this.updateFieldOptions.bind(this))
         })
 
-        // Add click listener to add button
-        if (this.hasAddButtonTarget) {
-            this.addButtonTarget.addEventListener('click', this.addMapping.bind(this))
-        }
+        // Note: Add button click is handled by Stimulus action in template (data-action="click->field-mapping#addMapping")
+        // No manual event listener needed
 
         // Form submit handler
         const form = this.element.querySelector('form')
@@ -36,20 +34,20 @@ export default class extends Controller {
 
     addMapping() {
         const currentMappings = this.tbodyTarget.querySelectorAll('.mapping-row').length
-        
+
         if (currentMappings >= this.maxMappingsValue) {
             alert(this.maxMappingsReachedMessageValue)
             return
         }
-        
+
         const newRowHtml = this.prototypeValue.replace(/__name__/g, this.mappingIndexValue)
         const tempDiv = document.createElement('div')
         tempDiv.innerHTML = newRowHtml
-        
+
         const fieldWidget = tempDiv.querySelector('select[name*="[field]"]') || tempDiv.children[0]
         const providerWidget = tempDiv.querySelector('select[name*="[providers]"]') || tempDiv.children[1]
         const priorityWidget = tempDiv.querySelector('input[name*="[priority]"]') || tempDiv.children[2]
-        
+
         const newRow = document.createElement('tr')
         newRow.className = 'mapping-row'
         newRow.innerHTML = `
@@ -62,16 +60,16 @@ export default class extends Controller {
                 </button>
             </td>
         `
-        
+
         this.tbodyTarget.appendChild(newRow)
         this.mappingIndexValue++
-        
+
         const newFieldSelect = newRow.querySelector('select[name*="[field]"]')
         if (newFieldSelect) {
             newFieldSelect.value = ''
             newFieldSelect.addEventListener('change', this.updateFieldOptions.bind(this))
         }
-        
+
         this.updateFieldOptions()
         this.updateAddButtonState()
     }

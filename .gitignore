@@ -48,3 +48,6 @@ yarn-error.log
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
+
+.claude/
+CLAUDE.md
