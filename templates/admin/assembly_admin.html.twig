@@ -32,21 +32,6 @@
     {{ form_row(form.description) }}
     {{ form_row(form.status) }}
     {{ form_row(form.ipn) }}
-    {% if entity.id %}
-        <div class="mb-2 row">
-            <label class="col-form-label col-sm-3">{% trans %}assembly.edit.associated_build_part{% endtrans %}</label>
-            <div class="col-sm-9">
-                {% if entity.buildPart %}
-                    <span class="form-control-static"><a href="{{ entity_url(entity.buildPart) }}">{{ entity.buildPart.name }}</a></span>
-                {% else %}
-                    <a href="{{ path('part_new_build_part_assembly', {"assembly_id": entity.id , "_redirect":  uri_without_host(app.request)}) }}"
-                       class="btn btn-outline-success">{% trans %}assembly.edit.associated_build_part.add{% endtrans %}</a>
-                {% endif %}
-                <p class="text-muted">{% trans %}assembly.edit.associated_build.hint{% endtrans %}</p>
-            </div>
-        </div>
-    {% endif %}
-
 {% endblock %}
 
 {% block additional_panes %}

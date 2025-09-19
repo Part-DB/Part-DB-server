@@ -20,11 +20,6 @@
                     {% endif %}
                 </h3>
                 <h6 class="text-muted w-fit" title="{% trans %}description.label{% endtrans %}"><span>{{ assembly.description|format_markdown(true) }}</span></h6>
-                {% if assembly.buildPart %}
-                    <h6>{% trans %}assembly.edit.associated_build_part{% endtrans %}:</h6>
-                    <a href="{{ entity_url(assembly.buildPart) }}">{{ assembly.buildPart.name }}</a>
-                {% endif %}
-
             </div>
         </div>
     </div>
