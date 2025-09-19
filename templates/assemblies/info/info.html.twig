@@ -78,13 +78,6 @@
                 <span class="badge bg-secondary">{{ assembly.bomEntries | length }}</span>
             </button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="builds-tab" data-bs-toggle="tab" data-bs-target="#builds-tab-pane"
-                    type="button" role="tab" aria-controls="builds-tab-pane" aria-selected="false">
-                <i class="fa-solid fa-bolt fa-fw"></i>
-                {% trans %}assembly.info.builds.label{% endtrans %}
-            </button>
-        </li>
         {% if assembly.attachments is not empty %}
             <li class="nav-item">
                 <a class="nav-link" id="attachments-tab" data-bs-toggle="tab"
@@ -103,9 +96,6 @@
         </div>
         <div class="tab-pane fade" id="part-tab-pane" role="tabpanel" aria-labelledby="part-tab" tabindex="0">
             {% include "assemblies/info/_part.html.twig" %}
-        </div>
-        <div class="tab-pane fade" id="builds-tab-pane" role="tabpanel" aria-labelledby="builds-tab" tabindex="0">
-            {% include "assemblies/info/_builds.html.twig" %}
         </div>
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
             {% include "assemblies/info/_attachments_info.html.twig" with {"assembly": assembly} %}
