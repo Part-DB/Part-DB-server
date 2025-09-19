@@ -114,6 +114,11 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   particularly for securing and protecting various aspects of your application. It's a secret key that is used for
   cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
   value should be handled as confidential data and not shared publicly.
+* `INITIAL_ADMIN_API_KEY` (env only): When set to a 64-character random string (generate with `openssl rand -hex 32`), 
+  Part-DB will automatically create an API token named "Initial Admin Token" for the admin user during database 
+  migrations. This token will have FULL scope and expire after 1 year. This is useful for automated deployments, 
+  CI/CD pipelines, and Docker setups where you need immediate API access without manual token creation. The token 
+  can be used with the format `Bearer tcp_<your-64-char-key>` in the Authorization header.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
 

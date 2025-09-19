@@ -35,6 +35,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
     final public const ADMIN_PW_LENGTH = 10;
     protected string $admin_pw = '';
+    protected string $admin_api_token = '';
 
     /** @noinspection SenselessProxyMethodInspection
      * This method is required to redefine the logger type hint to protected
@@ -108,6 +109,23 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         return password_hash((string) $this->admin_pw, PASSWORD_DEFAULT);
     }
 
+    /**
+     * Returns the initial admin API token if configured via environment variable.
+     * If not configured, returns empty string (no token will be created).
+     */
+    public function getInitialAdminApiToken(): string
+    {
+        if ($this->admin_api_token === '') {
+            $apiKey = getenv('INITIAL_ADMIN_API_KEY');
+            if (!empty($apiKey)) {
+                // Use the provided API key directly (should be generated with openssl rand -hex 32)
+                $this->admin_api_token = $apiKey;
+            }
+        }
+
+        return $this->admin_api_token;
+    }
+
     public function postUp(Schema $schema): void
     {
         parent::postUp($schema);
@@ -115,6 +133,13 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         if ($this->admin_pw !== '') {
             $this->logger->warning('');
             $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: '.$this->admin_pw.'</>');
+            $this->logger->warning('');
+        }
+
+        if ($this->admin_api_token !== '') {
+            $this->logger->warning('');
+            $this->logger->warning('<bg=green;fg=black>Initial admin API token has been created with the provided key</>');
+            $this->logger->warning('<bg=yellow;fg=black>Use this token in Authorization header: Bearer tcp_'.$this->admin_api_token.'</>');
             $this->logger->warning('');
         }
     }
