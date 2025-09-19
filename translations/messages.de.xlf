@@ -242,7 +242,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>Dies ist wie das Bauteil bevor dem %timestamp% aussah. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
+        <target>So sah das Bauteil vor %timestamp% aus. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -1644,7 +1644,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>log.undo.confirm_message</source>
-        <target>Wollen Sie wirklich die gegebene Änderung rückgängig machen / Das Element auf einen alten Versionsstand zurücksetzen?</target>
+        <target>Wollen Sie wirklich die gegebene Änderung rückgängig machen? / Das Element auf einen alten Versionsstand zurücksetzen?</target>
       </segment>
     </unit>
     <unit id="lM5TX19" name="mail.footer.email_sent_by">
@@ -1654,7 +1654,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>mail.footer.email_sent_by</source>
-        <target>Diese Email wurde automatisch erstellt von</target>
+        <target>Diese E-Mail wurde automatisch erstellt von</target>
       </segment>
     </unit>
     <unit id="k9Ef078" name="mail.footer.dont_reply">
@@ -1664,7 +1664,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>mail.footer.dont_reply</source>
-        <target>Antworten Sie nicht auf diese Email.</target>
+        <target>Antworten Sie nicht auf diese E-Mail.</target>
       </segment>
     </unit>
     <unit id="rFVlidi" name="email.hi %name%">
@@ -1684,7 +1684,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.message</source>
-        <target>jemand (hoffentlich Sie) hat ein Reset ihres Passwortes angefordert. Wenn diese Anfrage nicht von Ihnen stammt, ignorieren sie diese Email.</target>
+        <target>jemand (hoffentlich Sie) hat ein Reset ihres Passwortes angefordert. Wenn diese Anfrage nicht von Ihnen stammt, ignorieren Sie diese E-Mail.</target>
       </segment>
     </unit>
     <unit id="P8NjvoC" name="email.pw_reset.button">
@@ -1734,7 +1734,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target>Das Reset Token ist gültig bis &lt;i&gt;%date%&lt;/i&gt;</target>
+        <target>Das Reset-Token ist gültig bis &lt;i&gt;%date%&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="8sBnjRy" name="orderdetail.delete">
@@ -2166,7 +2166,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>user.last_editing_user</source>
-        <target>Nutzer der dieses Bauteil zu Letzt bearbeitete</target>
+        <target>Nutzer der dieses Bauteil zuletzt bearbeitete</target>
       </segment>
     </unit>
     <unit id="R8D9PGv" name="part.isFavorite">
@@ -2983,7 +2983,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.explanation</source>
-        <target>Mithilfe eines U2F/FIDO kompatiblem Sicherheitsschlüssel (z.B. YubiKey oder NitroKey) kann eine benutzerfreundliche und sichere Zwei-Faktor-Authentifizierung ermöglicht. Die Sicherheitsschlüssel können hier registriert werden, und wird eine Zwei-Faktor-Überprüfung benötigt, so muss der Schlüssel nur per USB angesteckt oder per NFC gegen das Gerät getippt werden.</target>
+        <target>Mithilfe eines U2F/FIDO kompatiblen Sicherheitsschlüssel (z.B. YubiKey oder NitroKey) kann eine benutzerfreundliche und sichere Zwei-Faktor-Authentifizierung ermöglicht. Die Sicherheitsschlüssel können hier registriert werden, und wird eine Zwei-Faktor-Überprüfung benötigt, so muss der Schlüssel nur per USB angesteckt oder per NFC gegen das Gerät getippt werden.</target>
       </segment>
     </unit>
     <unit id="bhRAGAm" name="tfa_u2f.add_key.backup_hint">
@@ -2993,7 +2993,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
-        <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicherem Ort zu lagern!</target>
+        <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicheren Ort zu lagern!</target>
       </segment>
     </unit>
     <unit id="IcnYTDa" name="r_u2f_two_factor.name">
@@ -3297,7 +3297,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_backup.codes.explanation</source>
-        <target>Drucken Sie diese Codes aus und bewahren Sie sie an einem sicherem Ort auf!</target>
+        <target>Drucken Sie diese Codes aus und bewahren Sie sie an einem sicheren Ort auf!</target>
       </segment>
     </unit>
     <unit id="MhULnmd" name="tfa_backup.codes.help">
@@ -3406,7 +3406,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>user.email.label</source>
-        <target>Email</target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="DDujIT3" name="user.department.label">
@@ -3710,7 +3710,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_backup.explanation</source>
-        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicherem Ort auf.</target>
+        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicheren Ort auf.</target>
       </segment>
     </unit>
     <unit id="rL_dWDY" name="tfa_backup.reset_codes.confirm_title">
@@ -4379,7 +4379,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.user_or_email</source>
-        <target>Benutzername / Email</target>
+        <target>Benutzername / E-Mail</target>
       </segment>
     </unit>
     <unit id="NY57ee_" name="pw_reset.request.success">
@@ -4389,7 +4389,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.request.success</source>
-        <target>Passwort Anfrage erfolgreich! Überprüfen Sie Ihre Emails für weitere Informationen.</target>
+        <target>Passwort-Anfrage erfolgreich! Überprüfen Sie Ihre E-Mails für weitere Informationen.</target>
       </segment>
     </unit>
     <unit id=".8EBt8k" name="pw_reset.username">
@@ -5131,7 +5131,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>attachment.edit.secure_file.help</source>
-        <target>Auf ein Anhang der als privat gekennzeichnet ist, kann nur durch einen angemeldeten Benutzer zugegriffen werden, der die entsprechende Berechtigung besitzt. Wenn diese Option aktiv ist, werden keine Thumbnails erzeugt, und der Zugriff auf die Datei ist langsamer.</target>
+        <target>Auf einen Anhang, der als privat gekennzeichnet wurde, kann nur durch einen angemeldeten Benutzer zugegriffen werden, der die entsprechende Berechtigung besitzt. Wenn diese Option aktiv ist, werden keine Thumbnails erzeugt, und der Zugriff auf die Datei ist langsamer.</target>
       </segment>
     </unit>
     <unit id="AdYtBQG" name="attachment.edit.url.help">
@@ -5339,7 +5339,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.label</source>
-        <target>Barcodetyp</target>
+        <target>Barcode-Typ</target>
       </segment>
     </unit>
     <unit id="OnaZspp" name="label_profile.lines.label">
@@ -6067,7 +6067,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.email.subject</source>
-        <target>Passwort Reset für Ihren Part-DB Account</target>
+        <target>Passwort-Reset für Ihren Part-DB-Account</target>
       </segment>
     </unit>
     <unit id="fCMgZ9m" name="tree.tools.tools">
@@ -6584,7 +6584,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein!</target>
+        <target>Ein Element kann nicht sein eigenes übergeordnetes Element sein!</target>
       </segment>
     </unit>
     <unit id="W90LyFQ" name="validator.noneofitschild.children">
@@ -6614,7 +6614,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+        <target>Der Lagerort ist voll, daher können keine neuen Teile hinzugefügt werden.</target>
       </segment>
     </unit>
     <unit id="h6qELde" name="validator.part_lot.only_existing">
@@ -6815,7 +6815,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>entity.edit.not_selectable.help</source>
-        <target>Wenn diese Option aktiviert ist, dann kann dieses Element keinem Bauteil als Eigenschaft zugewiesen werden. Hilfreich z.B. wenn dieses Element nur der reinen Sortierung dienen soll.</target>
+        <target>Wenn diese Option aktiviert ist, dann kann dieses Element keinem Bauteil als Eigenschaft zugewiesen werden. Hilfreich z.B., wenn dieses Element nur der reinen Sortierung dienen soll.</target>
       </segment>
     </unit>
     <unit id="poCwov." name="bbcode.hint">
@@ -6865,7 +6865,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints.help</source>
-        <target>Wenn diese Option aktiviert ist, ist die Footprint Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, ist die Footprint-Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
       </segment>
     </unit>
     <unit id="JWHe4Hi" name="category.edit.disable_manufacturers">
@@ -6895,7 +6895,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_autodatasheets</source>
-        <target>Deaktiviere Automatische Datenblatt links</target>
+        <target>Deaktiviere automatische Datenblatt-Links</target>
       </segment>
     </unit>
     <unit id="veb39eK" name="category.edit.disable_autodatasheets.help">
@@ -6905,7 +6905,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_autodatasheets.help</source>
-        <target>Wenn diese Option aktiviert ist, werden für Bauteile mit dieser Kategorie keine automatischen Datenblattlinks erzeugt.</target>
+        <target>Wenn diese Option aktiviert ist, werden für Bauteile mit dieser Kategorie keine automatischen Datenblatt-Links erzeugt.</target>
       </segment>
     </unit>
     <unit id="QzSkLse" name="category.edit.disable_properties">
@@ -6925,7 +6925,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_properties.help</source>
-        <target>Wenn diese Option aktiviert ist, sind die Bauteileeigenschaften für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, sind die Bauteileeigenschaften für alle Bauteile in dieser Kategorie deaktiviert.</target>
       </segment>
     </unit>
     <unit id="ILoRXgM" name="category.edit.partname_hint">
@@ -7294,7 +7294,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.help</source>
-        <target>Wenn diese Option aktiviert ist, kann dieser Lagerort nur ein einzelnes Bauteil aber in beliebiger Menge fassen. Hilfreich für kleine SMD Fächer oder Feeder.</target>
+        <target>Wenn diese Option aktiviert ist, kann dieser Lagerort nur ein einzelnes Bauteil aber in beliebiger Menge fassen. Hilfreich für kleine SMD-Fächer oder -Feeder.</target>
       </segment>
     </unit>
     <unit id="sty2ele" name="storelocation.storage_type.label">
@@ -8855,13 +8855,13 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>perm.labels.use_twig</source>
-        <target>Twig Modus benutzen</target>
+        <target>Twig-Modus benutzen</target>
       </segment>
     </unit>
     <unit id="iXxuTa3" name="label_profile.showInDropdown">
       <segment state="translated">
         <source>label_profile.showInDropdown</source>
-        <target>In Barcode Schnellauswahl anzeigen</target>
+        <target>In Barcode-Schnellauswahl anzeigen</target>
       </segment>
     </unit>
     <unit id="bgHCh2E" name="group.edit.enforce_2fa">
@@ -8951,7 +8951,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sbuGwh6" name="part_list.action.action.group.change_field">
       <segment state="translated">
         <source>part_list.action.action.group.change_field</source>
-        <target>Change field</target>
+        <target>Feld ändern</target>
       </segment>
     </unit>
     <unit id="hk8FMXL" name="part_list.action.action.change_category">
@@ -9011,7 +9011,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="r2diIQ6" name="company.edit.quick.phone">
       <segment state="translated">
         <source>company.edit.quick.phone</source>
-        <target>Call phone</target>
+        <target>Telefonanruf</target>
       </segment>
     </unit>
     <unit id="siE4EDy" name="company.edit.quick.fax">
@@ -9113,7 +9113,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegeben Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
+        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegebenen Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -9131,7 +9131,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Y3Vpp8G" name="user.pw_change_needed.flash">
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
-        <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
+        <target>Passwortänderung nötig! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
     <unit id="x98ftIM" name="tree.root_node.text">
@@ -9239,7 +9239,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="w846rID" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
       <segment state="translated">
         <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
-        <target>Gleich (inklusive Kindelementen)</target>
+        <target>Gleich (inklusive Kindelemente)</target>
       </segment>
     </unit>
     <unit id="LSAhDQ6" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
@@ -9257,7 +9257,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="smzf9vn" name="filter.tags_constraint.operator.ANY">
       <segment state="translated">
         <source>filter.tags_constraint.operator.ANY</source>
-        <target>Irgendeiner der Tags</target>
+        <target>Irgendeines der Tags</target>
       </segment>
     </unit>
     <unit id="eYdPDKM" name="filter.tags_constraint.operator.ALL">
@@ -9491,7 +9491,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="j_bx9XF" name="part.filter.lotDescription">
       <segment state="translated">
         <source>part.filter.lotDescription</source>
-        <target>Beschreibung des Bauteilebestand</target>
+        <target>Beschreibung des Bauteilbestands</target>
       </segment>
     </unit>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
@@ -9761,7 +9761,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="wZmvg7i" name="project.bom.quantity">
       <segment state="translated">
         <source>project.bom.quantity</source>
-        <target>BOM Menge</target>
+        <target>BOM-Menge</target>
       </segment>
     </unit>
     <unit id="tLW4nD1" name="project.bom.mountnames">
@@ -9809,13 +9809,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="uok31Te" name="project.bom.delete.confirm">
       <segment state="translated">
         <source>project.bom.delete.confirm</source>
-        <target>Wollen sie diesen BOM Eintrag wirklich löschen?</target>
+        <target>Wollen sie diesen BOM-Eintrag wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="hpPkHYF" name="project.add_parts_to_project">
       <segment state="translated">
         <source>project.add_parts_to_project</source>
-        <target>Bauteile zur Projekt BOM hinzufügen</target>
+        <target>Bauteile zur Projekt-BOM hinzufügen</target>
       </segment>
     </unit>
     <unit id="mauieYX" name="part.info.add_part_to_project">
@@ -9827,7 +9827,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="5r.n1zf" name="project_bom_entry.label">
       <segment state="translated">
         <source>project_bom_entry.label</source>
-        <target>BOM Eintrag</target>
+        <target>BOM-Eintrag</target>
       </segment>
     </unit>
     <unit id="jVfeA_3" name="project.edit.status">
@@ -9893,7 +9893,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Cke2p4U" name="part.info.projectBuildPart.hint">
       <segment state="translated">
         <source>part.info.projectBuildPart.hint</source>
-        <target>Dieses Bauteil repräsentiert die gebauten Instanzen folgendes Projektes und ist mit diesem verknüpft</target>
+        <target>Dieses Bauteil repräsentiert die gebauten Instanzen des folgenden Projektes und ist mit diesem verknüpft</target>
       </segment>
     </unit>
     <unit id="yCR6rBb" name="part.is_build_part">
@@ -9911,7 +9911,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="LYURecm" name="project.info.bom_entries_count">
       <segment state="translated">
         <source>project.info.bom_entries_count</source>
-        <target>BOM Einträge</target>
+        <target>BOM-Einträge</target>
       </segment>
     </unit>
     <unit id="YQN8E9O" name="project.info.sub_projects_count">
@@ -9923,7 +9923,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="7nV.Cmd" name="project.info.bom_add_parts">
       <segment state="translated">
         <source>project.info.bom_add_parts</source>
-        <target>BOM Einträge hinzufügen</target>
+        <target>BOM-Einträge hinzufügen</target>
       </segment>
     </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
@@ -9947,19 +9947,19 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Bauteile aus Lot entnehmen</target>
+        <target>Bauteile aus Bestand entnehmen</target>
       </segment>
     </unit>
     <unit id="tJ6JCIJ" name="part.info.withdraw_modal.title.add">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.add</source>
-        <target>Bauteile zu Lot hinzufügen</target>
+        <target>Bauteile zu Bestand hinzufügen</target>
       </segment>
     </unit>
     <unit id="7zTowlz" name="part.info.withdraw_modal.title.move">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.move</source>
-        <target>Verschiebe Bauteile in ein anderes Lot</target>
+        <target>Verschiebe Bauteile in anderen Bestand</target>
       </segment>
     </unit>
     <unit id="nCkMC62" name="part.info.withdraw_modal.amount">
@@ -10079,13 +10079,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="eosqE8B" name="tools.builtin_footprints_viewer.title">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.title</source>
-        <target>Mitgelieferte Footprint Bilder</target>
+        <target>Mitgelieferte Footprint-Bilder</target>
       </segment>
     </unit>
     <unit id="WdsaHPv" name="tools.builtin_footprints_viewer.hint">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.hint</source>
-        <target>Diese Galerie listet alle mitgelieferten Footprint Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
+        <target>Diese Galerie listet alle mitgelieferten Footprint-Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
       </segment>
     </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
@@ -10193,7 +10193,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="zgLSR.X" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden BOM Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
+        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden BOM-Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
       </segment>
     </unit>
     <unit id="srYaI3Z" name="project.build.buildsPartLot.new_lot">
@@ -10295,7 +10295,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Oder Sie könne direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
+        <target>Oder Sie können direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10337,7 +10337,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="MEoOVw3" name="log.element_edited.changed_fields.pw_reset_expires">
       <segment state="translated">
         <source>log.element_edited.changed_fields.pw_reset_expires</source>
-        <target>Passwort Reset</target>
+        <target>Passwort-Reset</target>
       </segment>
     </unit>
     <unit id="GwOb2Mv" name="log.element_edited.changed_fields.comment">
@@ -10355,7 +10355,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="z3691pl" name="log.element_edited.changed_fields.supplier_product_url">
       <segment state="translated">
         <source>log.element_edited.changed_fields.supplier_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="CFoU9E3" name="log.element_edited.changed_fields.price">
@@ -10397,7 +10397,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="rGPtQ9t" name="log.element_edited.changed_fields.options.barcode_type">
       <segment state="translated">
         <source>log.element_edited.changed_fields.options.barcode_type</source>
-        <target>Barcodetyp</target>
+        <target>Barcode-Typ</target>
       </segment>
     </unit>
     <unit id="yXXyMR7" name="log.element_edited.changed_fields.status">
@@ -10409,7 +10409,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="KbQOwwT" name="log.element_edited.changed_fields.quantity">
       <segment state="translated">
         <source>log.element_edited.changed_fields.quantity</source>
-        <target>BOM Menge</target>
+        <target>BOM-Menge</target>
       </segment>
     </unit>
     <unit id="nslqnAB" name="log.element_edited.changed_fields.mountnames">
@@ -10463,7 +10463,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="lLXp.Sn" name="log.element_edited.changed_fields.disable_autodatasheets">
       <segment state="translated">
         <source>log.element_edited.changed_fields.disable_autodatasheets</source>
-        <target>Deaktiviere Automatische Datenblatt links</target>
+        <target>Deaktiviere Automatische Datenblatt-Links</target>
       </segment>
     </unit>
     <unit id="fCDSKXJ" name="log.element_edited.changed_fields.disable_properties">
@@ -10547,7 +10547,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sBVDEyp" name="log.element_edited.changed_fields.auto_product_url">
       <segment state="translated">
         <source>log.element_edited.changed_fields.auto_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="h9kfyaE" name="log.element_edited.changed_fields.is_full">
@@ -10577,7 +10577,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Op5BIZr" name="log.element_edited.changed_fields.footprint_3d">
       <segment state="translated">
         <source>log.element_edited.changed_fields.footprint_3d</source>
-        <target>3D Modell</target>
+        <target>3D-Modell</target>
       </segment>
     </unit>
     <unit id="EjLCiIb" name="log.element_edited.changed_fields.master_picture_attachment">
@@ -10613,7 +10613,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="AKoXx51" name="log.element_edited.changed_fields.use_si_prefix">
       <segment state="translated">
         <source>log.element_edited.changed_fields.use_si_prefix</source>
-        <target>Benutze SI Prefixe</target>
+        <target>Benutze SI-Prefixe</target>
       </segment>
     </unit>
     <unit id="6QFoB1D" name="log.element_edited.changed_fields.options.width">
@@ -10841,19 +10841,19 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="6LmTC_6" name="user.saml_user.pw_change_hint">
       <segment state="translated">
         <source>user.saml_user.pw_change_hint</source>
-        <target>Sie verwenden Single Sign-On (SSO) zum Einloggen. Sie können ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO Anbieters!</target>
+        <target>Sie verwenden Single Sign-on (SSO) zum Einloggen. Sie können Ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO-Anbieters!</target>
       </segment>
     </unit>
     <unit id="DM_p1JB" name="login.sso_saml_login">
       <segment state="translated">
         <source>login.sso_saml_login</source>
-        <target>Single Sign-On Login (SSO)</target>
+        <target>Single Sign-on Login (SSO)</target>
       </segment>
     </unit>
     <unit id="03xCu1l" name="login.local_login_hint">
       <segment state="translated">
         <source>login.local_login_hint</source>
-        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-On einloggen wollen, nutzen Sie den obenstehenden Button.</target>
+        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-on einloggen wollen, nutzen Sie den obenstehenden Button.</target>
       </segment>
     </unit>
     <unit id="HG8kB1l" name="part_list.action.action.export">
@@ -11003,7 +11003,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Ie9LLKJ" name="project.bom_import.flash.success">
       <segment state="translated">
         <source>project.bom_import.flash.success</source>
-        <target>%count% BOM Einträge erfolgreich importiert.</target>
+        <target>%count% BOM-Einträge erfolgreich importiert.</target>
       </segment>
     </unit>
     <unit id="KVyS8Kn" name="project.bom_import.type">
@@ -11021,13 +11021,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="AtW_ooO" name="project.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>project.bom_import.clear_existing_bom</source>
-        <target>Lösche existierende BOM Einträge vor dem Import</target>
+        <target>Lösche existierende BOM-Einträge vor dem Import</target>
       </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
         <source>project.bom_import.clear_existing_bom.help</source>
-        <target>Wenn diese Option ausgewählt ist, werden alle bereits im Projekt existierenden BOM Einträge gelöscht und mit den importierten BOM Daten überschrieben.</target>
+        <target>Wenn diese Option ausgewählt ist, werden alle bereits im Projekt existierenden BOM-Einträge gelöscht und mit den importierten BOM-Daten überschrieben.</target>
       </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
@@ -11129,7 +11129,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="KGXzzaq" name="log.cli_user">
       <segment state="translated">
         <source>log.cli_user</source>
-        <target>CLI Benutzer</target>
+        <target>CLI-Benutzer</target>
       </segment>
     </unit>
     <unit id="krpFlYH" name="log.element_edited.changed_fields.part_owner_must_match">
@@ -11171,7 +11171,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGVO Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
+        <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGVO-Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -11521,7 +11521,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="R7y5NfE" name="oauth_client.flash.connection_successful">
       <segment state="translated">
         <source>oauth_client.flash.connection_successful</source>
-        <target>Verbindung zur OAuth Anwendung erfolgreich hergestellt!</target>
+        <target>Verbindung zur OAuth-Anwendung erfolgreich hergestellt!</target>
       </segment>
     </unit>
     <unit id="Pmwz6z4" name="perm.part.info_providers">
@@ -11581,7 +11581,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="3oF2wIn" name="user.settings.api_tokens">
       <segment state="translated">
         <source>user.settings.api_tokens</source>
-        <target>API Token</target>
+        <target>API-Token</target>
       </segment>
     </unit>
     <unit id="NlhkTaQ" name="user.settings.api_tokens.description">
@@ -11641,13 +11641,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="fogYDOT" name="user.settings.show_api_documentation">
       <segment state="translated">
         <source>user.settings.show_api_documentation</source>
-        <target>API Dokumentation anzeigen</target>
+        <target>API-Dokumentation anzeigen</target>
       </segment>
     </unit>
     <unit id="P2IsHB1" name="api_token.create_new">
       <segment state="translated">
         <source>api_token.create_new</source>
-        <target>Neuen API Token erstellen</target>
+        <target>Neuen API-Token erstellen</target>
       </segment>
     </unit>
     <unit id="aASP7Uk" name="api_token.level.read_only">
@@ -11677,7 +11677,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="ocY_B26" name="api_tokens.access_level.help">
       <segment state="translated">
         <source>api_tokens.access_level.help</source>
-        <target>Hiermit lässt sich einschränken, worauf der API Token Zugriff ermöglicht. Der Zugriff ist immer durch die Berechtigungen des Nutzers begrenzt.</target>
+        <target>Hiermit lässt sich einschränken, worauf der API-Token Zugriff ermöglicht. Der Zugriff ist immer durch die Berechtigungen des Nutzers begrenzt.</target>
       </segment>
     </unit>
     <unit id="v5LJEMn" name="api_tokens.expiration_date.help">
@@ -11689,7 +11689,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="URBfOVX" name="api_tokens.your_token_is">
       <segment state="translated">
         <source>api_tokens.your_token_is</source>
-        <target>Ihr API Token ist</target>
+        <target>Ihr API-Token ist</target>
       </segment>
     </unit>
     <unit id="64wAuHa" name="api_tokens.please_save_it">
@@ -11731,13 +11731,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="GHM.X8R" name="perm.api.access_api">
       <segment state="translated">
         <source>perm.api.access_api</source>
-        <target>API Zugriff</target>
+        <target>API-Zugriff</target>
       </segment>
     </unit>
     <unit id="OrJrwBa" name="perm.api.manage_tokens">
       <segment state="translated">
         <source>perm.api.manage_tokens</source>
-        <target>API Token verwalten</target>
+        <target>API-Token verwalten</target>
       </segment>
     </unit>
     <unit id="IG1_0K3" name="user.settings.api_tokens.delete.title">
@@ -11761,13 +11761,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="i623ek8" name="api_tokens.deleted">
       <segment state="translated">
         <source>api_tokens.deleted</source>
-        <target>API Token erfolgreich entfernt!</target>
+        <target>API-Token erfolgreich entfernt!</target>
       </segment>
     </unit>
     <unit id="Ba2OP2S" name="user.settings.api_tokens.no_api_tokens_yet">
       <segment state="translated">
         <source>user.settings.api_tokens.no_api_tokens_yet</source>
-        <target>Bisher wurden keine API Token erstellt.</target>
+        <target>Bisher wurden keine API-Token erstellt.</target>
       </segment>
     </unit>
     <unit id="VHKK3KL" name="api_token.ends_with">
@@ -11797,13 +11797,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="W5qYo4M" name="scan_dialog.mode.ipn">
       <segment state="translated">
         <source>scan_dialog.mode.ipn</source>
-        <target>IPN Barcode</target>
+        <target>IPN-Barcode</target>
       </segment>
     </unit>
     <unit id="dnCyzXq" name="scan_dialog.mode.internal">
       <segment state="translated">
         <source>scan_dialog.mode.internal</source>
-        <target>Part-DB Barcode</target>
+        <target>Part-DB-Barcode</target>
       </segment>
     </unit>
     <unit id="JziKG8u" name="part_association.label">
@@ -11911,19 +11911,19 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="CynMoO5" name="part_lot.edit.vendor_barcode">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode</source>
-        <target>Lieferanten Barcode</target>
+        <target>Lieferanten-Barcode</target>
       </segment>
     </unit>
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>Wenn dieser Bestand bereits ein Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch scannen des Barcodes finden.</target>
+        <target>Wenn dieser Bestand bereits einen Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch Scannen des Barcodes finden.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
       <segment state="translated">
         <source>scan_dialog.mode.vendor</source>
-        <target>Lieferanten Barcode (in Bauteilebestand konfiguriert)</target>
+        <target>Lieferanten-Barcode (in Bauteilebestand konfiguriert)</target>
       </segment>
     </unit>
     <unit id="J8fTjKW" name="project.bom.instockAmount">
@@ -12043,7 +12043,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="duBTELg" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Lösche diesen Bestand, wenn er durch Operation leer wird</target>
+        <target>Lösche diesen Bestand, wenn er durch die Operation leer wird</target>
       </segment>
     </unit>
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
@@ -12067,7 +12067,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="Ta9otKz" name="eda_info.kicad_section.title">
       <segment state="translated">
         <source>eda_info.kicad_section.title</source>
-        <target>KiCad spezifische Einstellungen</target>
+        <target>KiCad-spezifische Einstellungen</target>
       </segment>
     </unit>
     <unit id="zjeDW4V" name="eda_info.value">
@@ -12133,19 +12133,19 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="BufiSOt" name="api.api_endpoints.title">
       <segment state="translated">
         <source>api.api_endpoints.title</source>
-        <target>API Endpunkte</target>
+        <target>API-Endpunkte</target>
       </segment>
     </unit>
     <unit id="4qU.QCJ" name="api.api_endpoints.partdb">
       <segment state="translated">
         <source>api.api_endpoints.partdb</source>
-        <target>Part-DB API</target>
+        <target>Part-DB-API</target>
       </segment>
     </unit>
     <unit id="mKqaVw1" name="api.api_endpoints.kicad_root_url">
       <segment state="translated">
         <source>api.api_endpoints.kicad_root_url</source>
-        <target>KiCad API root URL</target>
+        <target>KiCad-API Root URL</target>
       </segment>
     </unit>
     <unit id="wbdbASc" name="eda_info.visibility">
@@ -12193,7 +12193,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="VZuIXC1" name="info_providers.search.no_results">
       <segment state="translated">
         <source>info_providers.search.no_results</source>
-        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
+        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie Ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
       </segment>
     </unit>
     <unit id="It1umoK" name="tfa.check.code.confirmation">
@@ -12223,7 +12223,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
       <segment state="translated">
         <source>info_providers.search.existing_part_found</source>
-        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es das gleiche ist und ob Sie dies erneut erstellen möchten!</target>
+        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es dasselbe ist und ob Sie dies erneut erstellen möchten!</target>
       </segment>
     </unit>
     <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
@@ -12253,13 +12253,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
       <segment state="translated">
         <source>scan_dialog.mode.eigp</source>
-        <target>EIGP 114 Barcode (z. B. der Datamatrix code auf Digikey und Mouser Bauteilen)</target>
+        <target>EIGP 114 Barcode (z. B. der Datamatrix-Code auf Digikey und Mouser Bauteilen)</target>
       </segment>
     </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
-        <target>Info Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
+        <target>Info-Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
       </segment>
     </unit>
     <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
@@ -12307,7 +12307,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="1N9Wp0_" name="settings.ips.element14.apiKey">
       <segment state="translated">
         <source>settings.ips.element14.apiKey</source>
-        <target>API Key</target>
+        <target>API-Key</target>
       </segment>
     </unit>
     <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
@@ -12337,7 +12337,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="KgK78ks" name="settings.ips.tme.token">
       <segment state="translated">
         <source>settings.ips.tme.token</source>
-        <target>API Token</target>
+        <target>API-Token</target>
       </segment>
     </unit>
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
@@ -12349,7 +12349,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="yswx4bq" name="settings.ips.tme.secret">
       <segment state="translated">
         <source>settings.ips.tme.secret</source>
-        <target>API Secret</target>
+        <target>API-Secret</target>
       </segment>
     </unit>
     <unit id="edYZA5y" name="settings.ips.tme.currency">
@@ -12385,7 +12385,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
       <segment state="translated">
         <source>settings.ips.mouser.apiKey</source>
-        <target>API Key</target>
+        <target>API-Key</target>
       </segment>
     </unit>
     <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
@@ -12686,7 +12686,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
-        <target>KiCAD Integration</target>
+        <target>KiCAD-Integration</target>
       </segment>
     </unit>
     <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
@@ -12968,7 +12968,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
       <segment state="translated">
         <source>settings.misc.exchange_rate.fixer_api_key</source>
-        <target>Fixer.io API Key</target>
+        <target>Fixer.io API-Key</target>
       </segment>
     </unit>
     <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
@@ -13046,7 +13046,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
       <segment state="translated">
         <source>project.bom_import.map_fields.help</source>
-        <target>Wählen Sie aus, wie CSV Spalten auf BOM Felder gemappt werden</target>
+        <target>Wählen Sie aus, wie CSV Spalten auf BOM-Felder gemappt werden</target>
       </segment>
     </unit>
     <unit id="nh7uLPe" name="project.bom_import.delimiter">
@@ -13082,7 +13082,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
       <segment state="translated">
         <source>project.bom_import.field_mapping.csv_field</source>
-        <target>CSV Spalte</target>
+        <target>CSV-Spalte</target>
       </segment>
     </unit>
     <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
@@ -13442,13 +13442,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
       <segment state="translated">
         <source>settings.behavior.part_info.extract_params_from_description</source>
-        <target>Parameter aus der Bauteilebeschreibung extrahieren</target>
+        <target>Parameter aus der Bauteil-Beschreibung extrahieren</target>
       </segment>
     </unit>
     <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
       <segment state="translated">
         <source>settings.behavior.part_info.extract_params_from_notes</source>
-        <target>Parameter aus der Bauteilenotiz extrahieren</target>
+        <target>Parameter aus der Bauteil-Notiz extrahieren</target>
       </segment>
     </unit>
     <unit id="nCH2MW6" name="settings.ips.default_providers">
@@ -13472,13 +13472,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
       <segment state="translated">
         <source>settings.behavior.table.preview_image_max_width</source>
-        <target>Max. Vorschaubilde-Breite (px)</target>
+        <target>Max. Vorschaubild-Breite (px)</target>
       </segment>
     </unit>
     <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
       <segment state="translated">
         <source>settings.behavior.table.preview_image_min_width</source>
-        <target>Min. Vorschaubilde-Breite (px)</target>
+        <target>Min. Vorschaubild-Breite (px)</target>
       </segment>
     </unit>
   </file>
