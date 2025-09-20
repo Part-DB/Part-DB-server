@@ -33,6 +33,7 @@ use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,7 +47,9 @@ class BulkInfoProviderImportController extends AbstractController
         private readonly BulkInfoProviderService $bulkService,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
+        #[Autowire(param: 'partdb.bulk_import.batch_size')]
         private readonly int $bulkImportBatchSize,
+        #[Autowire(param: 'partdb.bulk_import.max_parts_per_operation')]
         private readonly int $bulkImportMaxParts
     ) {
     }
